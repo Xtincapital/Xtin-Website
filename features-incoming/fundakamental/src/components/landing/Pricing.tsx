@@ -1,0 +1,168 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Check, Sparkles } from "lucide-react";
+import { billingFor } from "@/store/usePlanStore";
+import { formatPrice } from "@/lib/currency";
+import { useRegion } from "@/hooks/use-region";
+
+const Pricing = () => {
+  // Single source of truth: the same regional catalogue used at checkout.
+  const { region } = useRegion();
+  const bp = billingFor(region);
+
+  const plans = [
+    {
+      name: "Free",
+      description: "Perfect for getting started",
+      price: formatPrice(0, bp.currency),
+      period: "forever",
+      features: [
+        "5 AI reports per month",
+        "PDF upload support",
+        "Basic financial metrics",
+        "Report history",
+        "Email support",
+      ],
+      cta: "Get Started",
+      popular: false,
+    },
+    {
+      name: "Premium",
+      description: "For serious investors",
+      price: formatPrice(bp.monthly, bp.currency),
+      period: "/month",
+      subprice: `or ${formatPrice(bp.yearly, bp.currency)}/year — save 33%`,
+      features: [
+        "Unlimited AI reports",
+        "PDF, Excel, CSV support",
+        "Advanced ratio analysis",
+        "Interactive Q&A",
+        "Stock screener access",
+        "Unlimited history",
+        "PDF report exports",
+        "Priority support",
+      ],
+      cta: "Start Premium",
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      description: "For teams & institutions",
+      price: "Custom",
+      period: "",
+      features: [
+        "Everything in Premium",
+        "API access",
+        "Team collaboration",
+        "Custom integrations",
+        "Dedicated account manager",
+        "SLA guarantee",
+        "On-premise deployment",
+        "Custom training",
+      ],
+      cta: "Contact Sales",
+      popular: false,
+    },
+  ];
+
+  return (
+    <section id="pricing" className="py-24 md:py-32 bg-white">
+      <div className="container px-4">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <span className="text-primary text-sm font-medium uppercase tracking-wider">
+            Pricing
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-semibold text-foreground mt-3 mb-4">
+            Simple, Transparent
+            <br />
+            <span className="text-primary">Pricing</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Start free and upgrade when you're ready. No hidden fees.
+          </p>
+        </motion.div>
+
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative rounded-2xl p-8 ${
+                plan.popular
+                  ? "bg-white border-2 border-primary shadow-lg"
+                  : "bg-white border border-border rounded-2xl"
+              }`}
+            >
+              {/* Popular Badge */}
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-white text-sm font-medium flex items-center gap-1">
+                  <Sparkles className="w-4 h-4" />
+                  Most Popular
+                </div>
+              )}
+
+              {/* Plan Header */}
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-bold font-semibold text-foreground mb-2">
+                  {plan.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {plan.description}
+                </p>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-4xl font-bold font-semibold text-foreground">
+                    {plan.price}
+                  </span>
+                  <span className="text-muted-foreground">{plan.period}</span>
+                </div>
+                {"subprice" in plan && plan.subprice && (
+                  <p className="text-xs text-primary font-medium mt-2">{plan.subprice}</p>
+                )}
+              </div>
+
+              {/* Features */}
+              <ul className="space-y-3 mb-8">
+                {plan.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-muted-foreground">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <Link to="/register">
+                <Button
+                  className={`w-full rounded-full ${
+                    plan.popular
+                      ? "bg-primary hover:bg-primary/90 text-white"
+                      : "bg-secondary hover:bg-secondary/80"
+                  }`}
+                  size="lg"
+                >
+                  {plan.cta}
+                </Button>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;

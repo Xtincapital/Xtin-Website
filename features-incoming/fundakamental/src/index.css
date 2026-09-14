@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FundaKaMental Design System — Xtin Capital Aligned
+   Aesthetic: Clean, minimal, professional fintech
+   Green-accent on white, spacious, beginner-friendly */
+
+@layer base {
+  :root {
+    /* Background: Clean white */
+    --background: 0 0% 99%;
+    --foreground: 220 20% 12%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+
+    /* Popover/Dropdown */
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+
+    /* Primary: Xtin Capital Green */
+    --primary: 152 69% 31%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Light gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 12%;
+
+    /* Muted */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent: Soft green tint */
+    --accent: 152 40% 95%;
+    --accent-foreground: 152 69% 26%;
+
+    /* Status colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 69% 31%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 20% 12%;
+
+    /* Borders and inputs */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 152 69% 31%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 9% 46%;
+    --sidebar-primary: 152 69% 31%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 152 40% 95%;
+    --sidebar-accent-foreground: 220 20% 12%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 152 69% 31%;
+
+    /* Chart colors for financial data */
+    --chart-positive: 152 69% 31%;
+    --chart-negative: 0 72% 51%;
+    --chart-neutral: 220 9% 46%;
+    --chart-1: 152 69% 31%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 340 82% 52%;
+
+    /* Gradients — Xtin Capital style */
+    --gradient-primary: linear-gradient(135deg, hsl(152, 69%, 31%) 0%, hsl(152, 69%, 38%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(152, 40%, 95%) 0%, hsl(152, 45%, 90%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(152, 30%, 97%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(220, 14%, 98%) 100%);
+
+    /* Shadows — softer for light theme */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 30px rgba(34, 139, 80, 0.12);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Typography — use Plus Jakarta Sans for headings (modern fintech feel) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    @apply tracking-tight font-bold;
+  }
+
+  /* Custom scrollbar — subtle */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+  /* Gradient backgrounds — Xtin Capital style */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  /* Glass morphism effect — lighter */
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Gradient text — green */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gradient border */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Glow effect — green */
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Data card hover effect */
+  .data-card {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .data-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Metric display styles */
+  .metric-positive {
+    @apply text-success;
+  }
+
+  .metric-negative {
+    @apply text-destructive;
+  }
+
+  .metric-neutral {
+    @apply text-muted-foreground;
+  }
+
+  /* Financial data table — clean */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table th {
+    @apply text-left font-semibold text-muted-foreground uppercase text-xs tracking-wider py-3 px-4 border-b border-border;
+  }
+
+  .data-table td {
+    @apply py-3 px-4 border-b border-border/50;
+  }
+
+  .data-table tr:hover {
+    @apply bg-accent/50;
+  }
+
+  /* Chat bubble styles */
+  .chat-bubble-user {
+    @apply bg-primary text-primary-foreground rounded-2xl rounded-br-sm;
+  }
+
+  .chat-bubble-assistant {
+    @apply bg-secondary text-secondary-foreground rounded-2xl rounded-bl-sm;
+  }
+
+  /* Xtin-style card */
+  .xtin-card {
+    @apply bg-white rounded-2xl border border-border p-6 shadow-sm transition-all duration-300;
+  }
+
+  .xtin-card:hover {
+    @apply shadow-md border-primary/20;
+  }
+
+  /* Beginner tooltip badge */
+  .help-badge {
+    @apply inline-flex items-center gap-1 text-xs text-muted-foreground bg-accent px-2 py-0.5 rounded-full cursor-help;
+  }
+
+  /* Status pill */
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .animation-delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+
+  /* Text balance for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+}

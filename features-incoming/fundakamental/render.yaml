@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: fundamental-analysis-api
+    env: python
+    pythonVersion: 3.12.0
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: "cd backend && pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ALPHA_VANTAGE_API_KEY
+        sync: false
+      - key: FMP_API_KEY
+        sync: false
+      - key: POLYGON_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_ID_MONTHLY
+        sync: false
+      - key: STRIPE_PRICE_ID_ANNUAL
+        sync: false
+      - key: BACKEND_URL
+        value: https://fundamental-anslysis-4rwu.onrender.com
+      - key: FRONTEND_URL
+        value: https://fundakamental.vercel.app
+      - key: CORS_ORIGINS
+        value: https://fundakamental.vercel.app,http://localhost:5173
+    healthCheckPath: /health
