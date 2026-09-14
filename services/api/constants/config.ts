@@ -3,7 +3,7 @@ dotenv.config();
 
 export const config = {
   // Application Environment
-  PORT: process.env.PORT || 5000,          
+  PORT: Number(process.env.PORT) || 5000,
 
   // API and Database URLs
   API_URL: process.env.API_URL || 'http://localhost:5000/api',

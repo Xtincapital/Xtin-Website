@@ -24,6 +24,8 @@ import fundakamentalTechnicalsRoutes from "./modules/fundakamental/technicals.ro
 import fundakamentalWatchlistsRoutes from "./modules/fundakamental/watchlists.routes.js";
 import fundakamentalPortfoliosRoutes from "./modules/fundakamental/portfolios.routes.js";
 import fundakamentalAlertsRoutes from "./modules/fundakamental/alerts.routes.js";
+import fundakamentalAnalysisRoutes from "./modules/fundakamental/analysis.routes.js";
+import fundakamentalReportsRoutes from "./modules/fundakamental/reports.routes.js";
 
 const app = express();
 
@@ -122,6 +124,8 @@ app.use("/api", fundakamentalTechnicalsRoutes);
 app.use("/api", fundakamentalWatchlistsRoutes);
 app.use("/api", fundakamentalPortfoliosRoutes);
 app.use("/api", fundakamentalAlertsRoutes);
+app.use("/api", fundakamentalAnalysisRoutes);
+app.use("/api", fundakamentalReportsRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 

@@ -1,0 +1,158 @@
+// PDF Generation Service — Node/TS port of `utils/pdf_generator.py`'s
+// `PDFGenerator` class.
+//
+// The Python original renders Jinja2 templates and converts them to PDF with
+// WeasyPrint (a Python HTML-to-PDF renderer needing native system libraries:
+// pango, cairo, gdk-pixbuf). Node equivalents, per the porting brief:
+//   - Templating: nunjucks (a JS port of Jinja2 — `templates/*.njk` below).
+//   - HTML -> PDF: puppeteer (headless Chromium, `page.pdf()`).
+//
+// `save_file` support from the Python source (writing the PDF to
+// `UPLOAD_DIR/pdfs/`) is intentionally dropped — every route here returns
+// the PDF as a binary HTTP response (`generate_analysis_report(..., save_file=False)`
+// was already the only mode `pdf_export.py`'s endpoints ever used).
+import nunjucks from "nunjucks";
+import puppeteer, { type Browser } from "puppeteer";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const TEMPLATE_DIR = path.join(__dirname, "templates");
+
+const APP_NAME = "FundaKaMental";
+
+/* ==========================================================================
+ * TEMPLATE ENVIRONMENT
+ * ======================================================================== */
+
+const env = nunjucks.configure(TEMPLATE_DIR, {
+    autoescape: true,
+    trimBlocks: true,
+    lstripBlocks: true,
+});
+
+// Jinja2's built-in `format` filter does Python `%`-style string formatting
+// (`"%.2f"|format(x)`), which nunjucks has no equivalent for. `fixed(n)`
+// below covers every use of that pattern across the ported templates.
+env.addFilter("fixed", (value: unknown, digits: number = 2) => {
+    const n = Number(value);
+    return Number.isFinite(n) ? n.toFixed(digits) : (0).toFixed(digits);
+});
+
+// `"%.2fB"|format(x / 1_000_000_000)` pattern — divide by a billion, then fix.
+env.addFilter("billions", (value: unknown, digits: number = 2) => {
+    const n = Number(value);
+    return Number.isFinite(n) ? (n / 1_000_000_000).toFixed(digits) : (0).toFixed(digits);
+});
+
+function renderTemplate(templateName: string, context: Record<string, unknown>): string {
+    const now = new Date();
+    const fullContext = {
+        ...context,
+        generated_at: new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+        }).format(now),
+        app_name: APP_NAME,
+        current_year: now.getFullYear(),
+    };
+    return env.render(templateName, fullContext);
+}
+
+/* ==========================================================================
+ * CORE PDF GENERATION (puppeteer)
+ * ======================================================================== */
+
+let browserPromise: Promise<Browser> | null = null;
+
+function getBrowser(): Promise<Browser> {
+    if (!browserPromise) {
+        browserPromise = puppeteer.launch({
+            headless: true,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        });
+        browserPromise.catch(() => {
+            // Allow a later call to retry launching instead of caching a rejected promise.
+            browserPromise = null;
+        });
+    }
+    return browserPromise;
+}
+
+async function htmlToPdf(html: string): Promise<Buffer> {
+    const browser = await getBrowser();
+    const page = await browser.newPage();
+    try {
+        await page.setContent(html, { waitUntil: "load" });
+        const pdf = await page.pdf({
+            format: "A4",
+            printBackground: true,
+            margin: { top: "20px", bottom: "20px", left: "20px", right: "20px" },
+        });
+        return Buffer.from(pdf);
+    } finally {
+        await page.close();
+    }
+}
+
+/** Closes the shared headless browser. Not called in normal operation — exposed for test/teardown scripts. */
+export async function closePdfBrowser(): Promise<void> {
+    if (browserPromise) {
+        const browser = await browserPromise;
+        await browser.close();
+        browserPromise = null;
+    }
+}
+
+/* ==========================================================================
+ * ANALYSIS REPORT PDF
+ * ======================================================================== */
+// Port of `PDFGenerator.generate_analysis_report`. Context shape matches
+// `funda_reports` / `AnalysisReportResponse` (see reports.controller.ts),
+// NOT the ad hoc `analysis_data` dict the Python source built from the
+// nonexistent `analysis_reports` table — that mismatch was the other half
+// of the bug this port fixes.
+export async function generateAnalysisReportPdf(data: Record<string, unknown>): Promise<Buffer> {
+    const html = renderTemplate("analysisReport.njk", data);
+    return htmlToPdf(html);
+}
+
+/* ==========================================================================
+ * SCREENING RESULTS PDF
+ * ======================================================================== */
+// Port of `PDFGenerator.generate_screening_report`.
+export async function generateScreeningReportPdf(data: Record<string, unknown>): Promise<Buffer> {
+    const html = renderTemplate("screeningReport.njk", data);
+    return htmlToPdf(html);
+}
+
+/* ==========================================================================
+ * TECHNICAL ANALYSIS PDF
+ * ======================================================================== */
+// Port of `PDFGenerator.generate_technical_report`.
+export async function generateTechnicalReportPdf(data: Record<string, unknown>): Promise<Buffer> {
+    const html = renderTemplate("technicalReport.njk", data);
+    return htmlToPdf(html);
+}
+
+/* ==========================================================================
+ * HELPERS
+ * ======================================================================== */
+// Port of `PDFGenerator.get_pdf_size`.
+export function getPdfSize(pdfBytes: Buffer): string {
+    const sizeBytes = pdfBytes.length;
+    if (sizeBytes < 1024) return `${sizeBytes} B`;
+    if (sizeBytes < 1024 * 1024) return `${(sizeBytes / 1024).toFixed(1)} KB`;
+    return `${(sizeBytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+// `PDFGenerator.generate_watchlist_report` / `generate_comparison_report` and
+// `cleanup_old_pdfs` (a disk-file GC job for the now-unused `save_file` path)
+// are intentionally NOT ported — `pdf_export.py`, the only caller in scope
+// for this slice, never invokes them (no `/export/watchlist` or
+// `/export/comparison` routes exist there), and `cleanup_old_pdfs` has
+// nothing to clean since PDFs are never written to disk here.
