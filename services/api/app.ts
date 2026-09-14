@@ -27,6 +27,8 @@ import fundakamentalAlertsRoutes from "./modules/fundakamental/alerts.routes.js"
 import fundakamentalAnalysisRoutes from "./modules/fundakamental/analysis.routes.js";
 import fundakamentalReportsRoutes from "./modules/fundakamental/reports.routes.js";
 import fundakamentalChatRoutes from "./modules/fundakamental/chat.routes.js";
+import fundakamentalRazorpayRoutes from "./modules/fundakamental/razorpay.routes.js";
+import fundakamentalTokensRoutes from "./modules/fundakamental/tokens.routes.js";
 
 const app = express();
 
@@ -128,6 +130,8 @@ app.use("/api", fundakamentalAlertsRoutes);
 app.use("/api", fundakamentalAnalysisRoutes);
 app.use("/api", fundakamentalReportsRoutes);
 app.use("/api", fundakamentalChatRoutes);
+app.use("/api", fundakamentalRazorpayRoutes);
+app.use("/api", fundakamentalTokensRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 

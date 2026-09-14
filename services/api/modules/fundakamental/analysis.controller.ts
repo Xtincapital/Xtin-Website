@@ -19,16 +19,23 @@
 //     then OpenAI, as separate AIAnalyzer instances) collapses into a single
 //     `generateAIText` call, which already implements that same
 //     Claude-primary/fallback selection internally.
-//   - featureGates.ts: the Python source actually gates `/analyze` with an
-//     inline `utils/token_wallet.py` balance check (a later, separate
-//     billing task — intentionally not ported). This port instead enforces
-//     the plan-based `reports_used`/`reports_limit` counters already on
-//     `funda_users` via `checkReportLimit`, which is the closest available
-//     stand-in for "whatever gates report generation" using only what this
-//     slice owns.
-//   - Token metering: `tokens_used`/`tokens_charged`/`token_balance` from the
-//     Python response are omitted — that's the token-wallet billing system,
-//     a later task.
+//   - Token-wallet gating (Phase 8d): the Python source actually gates
+//     `/analyze` with an inline `utils/token_wallet.py` balance check, not
+//     `feature_gates.py` — `MIN_TOKENS_FOR_REPORT = 20_000`, checked against
+//     `get_wallet(...).balance` before the AI call, then `deduct_tokens(...)`
+//     after a successful one. That's what this port now does too, via
+//     `hasTokens`/`deduct` from tokenWallet.ts (see the Phase 8d block
+//     below) — replacing the `checkReportLimit` stand-in this file used to
+//     rely on before the wallet system existed. `checkReportLimit` itself
+//     (featureGates.ts) is unchanged and still gates PDF export usage in
+//     reports.controller.ts.
+//   - Token metering: `generateAIText` doesn't return a usage count, so
+//     `aiAnalyzer.ts`'s `tokens_used` is always null (see its header
+//     comment). `tokens_charged`/`token_balance` are populated using a
+//     length-based estimate instead, in the same style as the Python
+//     source's chat endpoint's `max(500, (len(question)+len(answer))//4)`
+//     fallback (see the Phase 8d block below for the exact formula used
+//     here).
 //
 // Phase 8c addition: `uploadFile` now also chunks + embeds the extracted text
 // and stores it in `funda_document_chunks` (best-effort, see the try/catch
@@ -42,7 +49,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAnalysisRequest } from "./analysis.validator.js";
 import { validateFile, uploadToStorage, processFile, saveDocumentRecord } from "./fileProcessor.js";
 import { analyzeFinancialDocument, isAiAvailable } from "./aiAnalyzer.js";
-import { checkReportLimit } from "./featureGates.js";
+import { hasTokens, deduct } from "./tokenWallet.js";
 import { chunkText } from "./chunking.js";
 import { embedTexts, toPgVector } from "./embeddings.js";
 import { insertDocumentChunks } from "./chat.repository.js";
@@ -56,6 +63,11 @@ import {
     getUserProfile,
     setReportsUsed,
 } from "./analysis.repository.js";
+
+/** Phase 8d: minimum wallet balance required to attempt a report, matching
+ * `analysis.py`'s `MIN_TOKENS_FOR_REPORT = 20_000` (chat.controller.ts's
+ * equivalent gate is 500 — a report is a far larger single generation). */
+const MIN_TOKENS_FOR_REPORT = 20_000;
 
 /** Carries an HTTP status code through the single catch block in `startAnalysis`,
  * mirroring the Python source's `except HTTPException: raise` / generic 500 split. */
@@ -230,13 +242,17 @@ export const startAnalysis = async (req, res) => {
         }
 
         const tier = profile.plan || "free";
-        const limitCheck = checkReportLimit(profile);
-        if (!limitCheck.allowed) {
+        // Phase 8d: real token-wallet gate, replacing the checkReportLimit
+        // stand-in — port of analysis.py's inline balance check (see header
+        // comment). Message copy matches the Python source verbatim.
+        if (!(await hasTokens(userId, tier, MIN_TOKENS_FOR_REPORT))) {
             throw new AnalysisHttpError(
                 402,
-                tier === "free"
-                    ? `You've used all ${limitCheck.limit} reports on the free plan. Upgrade to Pro for a much larger monthly allowance.`
-                    : `You've used all ${limitCheck.limit} reports for this billing period. Upgrade or wait for your plan to renew.`,
+                `You're out of AI tokens. ${
+                    tier === "free"
+                        ? "Upgrade to Pro for a much larger monthly allowance."
+                        : "Top up your tokens to keep analysing."
+                }`,
             );
         }
 
@@ -253,6 +269,25 @@ export const startAnalysis = async (req, res) => {
         if (!analysisResult.success) {
             throw new AnalysisHttpError(502, analysisResult.error || "AI analysis failed");
         }
+
+        // Phase 8d: meter the token cost of this report against the user's
+        // wallet, port of analysis.py's post-success `deduct_tokens` call.
+        // `aiAnalyzer.ts` never returns a real usage count (see its header
+        // comment), so this always falls through to the estimate — a
+        // length-based figure over the document text + the full analysis
+        // payload, floored at MIN_TOKENS_FOR_REPORT so a short document
+        // never undercharges relative to the gate above. Same estimate
+        // *style* as chat.controller.ts's `max(500, (len(q)+len(a))//4)`
+        // port of the Python source, with the higher, report-appropriate
+        // floor in place of chat's 500.
+        const tokensUsed = Number(analysisResult.tokens_used) || 0;
+        const tokensCharged =
+            tokensUsed > 0
+                ? tokensUsed
+                : Math.max(MIN_TOKENS_FOR_REPORT, Math.floor((documentText.length + JSON.stringify(analysisResult).length) / 4));
+        const walletAfter = await deduct(userId, tokensCharged, tier);
+        analysisResult.tokens_charged = tokensCharged;
+        analysisResult.token_balance = walletAfter.balance;
 
         // Deviation: the Python source's `update_data` only ever sets
         // status/analysis_result/company/ticker/exchange/overall_score/summary,

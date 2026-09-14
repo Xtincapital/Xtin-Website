@@ -4,19 +4,42 @@
 // itself.
 //
 // Deviations from the Python source:
-//   - Token-wallet gating (`utils/token_wallet.py`'s balance check before
-//     answering, plus `deduct_tokens` after) is intentionally NOT ported —
-//     it's a separate, later billing sub-phase (8d) not yet built in this
-//     repo. No token/usage gate is substituted here; every authenticated
-//     chat turn is allowed through for now. This mirrors
-//     analysis.controller.ts's equivalent deferred-token-metering comments
-//     elsewhere in this module.
+//   - Token-wallet gating (Phase 8d): `utils/token_wallet.py`'s balance
+//     check before answering, plus `deduct_tokens` after, is now ported —
+//     see the `hasTokens`/`deduct` calls in `sendChatMessage` below. This
+//     was previously deferred (no gate at all) until tokenWallet.ts existed;
+//     that stand-in period is over. Message copy for the 402 matches
+//     `chat.py` verbatim. `ragChat.ts` doesn't return a real usage count
+//     (see its header comment), so the post-answer deduction always uses the
+//     Python source's own fallback estimate,
+//     `max(500, (len(question)+len(answer))//4)`, rather than a real count.
 //   - Report/document ownership check no longer joins `source_documents(*)`
 //     — `funda_reports.source_document_id` is already a direct column (see
 //     chat.repository.ts), so the join the Python source did is redundant.
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { ragChat } from "./ragChat.js";
 import { getReportForChat, getRecentChatHistory, getAllChatMessages, insertChatMessage } from "./chat.repository.js";
+import { hasTokens, deduct } from "./tokenWallet.js";
+import { getUserTier } from "./tokens.repository.js";
+
+/** Phase 8d: minimum wallet balance required for a chat turn, matching
+ * `chat.py`'s inline `< 500` check (analysis.controller.ts's equivalent gate
+ * is 20,000 — a full report is a far larger single generation). */
+const CHAT_MIN_TOKENS = 500;
+
+/** `req.user` has no `plan` field (see tokens.controller.ts's identical
+ * helper) — look the tier up from funda_users, defaulting to "free" on a
+ * missing row or read failure. */
+async function resolveTier(userId: string): Promise<string> {
+    try {
+        const { data, error } = await getUserTier(userId);
+        if (error) throw error;
+        return data?.plan || "free";
+    } catch (err) {
+        console.error("[Fundakamental] chat tier lookup failed:", (err as Error)?.message || err);
+        return "free";
+    }
+}
 
 /* POST /fundakamental/chat/message
  * Body: { report_id: string, message: string } */
@@ -46,9 +69,27 @@ export const sendChatMessage = async (req, res) => {
         if (historyError) throw historyError;
         const conversationHistory = (historyRows || []).map((row) => ({ role: row.role, content: row.content }));
 
-        // No token-wallet gating here — see module header comment.
+        // Phase 8d: real token-wallet gate, port of chat.py's inline balance
+        // check (see module header comment). Message copy matches the
+        // Python source verbatim.
+        const tier = await resolveTier(userId);
+        if (!(await hasTokens(userId, tier, CHAT_MIN_TOKENS))) {
+            return res.status(402).json({
+                error: `You're out of AI tokens. ${
+                    tier === "free" ? "Upgrade to Pro for a much larger allowance." : "Top up your tokens to keep asking."
+                }`,
+            });
+        }
+
         const ragResult = await ragChat(message, sourceDocumentId, conversationHistory, 5);
         const responseContent = ragResult.answer;
+
+        // Phase 8d: meter this turn's token cost, port of chat.py's
+        // post-answer `deduct_tokens` call. `ragChat.ts` never returns a
+        // real usage count (see module header comment), so this always uses
+        // the Python source's own length-based fallback estimate.
+        const chatTokens = Math.max(CHAT_MIN_TOKENS, Math.floor((message.length + responseContent.length) / 4));
+        await deduct(userId, chatTokens, tier);
 
         // Save user message, then assistant response — matches the Python
         // source's ordering (both saved only after the AI call completes).
