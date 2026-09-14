@@ -2,6 +2,7 @@ import express from 'express';
 import { getAIProviderInfo, generateAIText } from './providers.js';
 import { analyzeQueryIntent, buildXtinAISystemPrompt } from './promptBuilder.js';
 import { analyzeTrades, identifyIssues } from './tradeAnalysis.js';
+import { enforceCompliance } from './compliance.js';
 
 const router = express.Router();
 
@@ -58,11 +59,15 @@ router.post('/ai/chat', async (req, res) => {
     }
 
     // Generate response using Claude first, then fallback provider while Claude key is absent.
-    const reply = await generateAIText({
+    const rawReply = await generateAIText({
       messages,
       maxTokens,
       temperature: 0.55,
     });
+
+    // Enforce compliance on the actual output — redact prohibited claims and
+    // force in required disclaimers, independent of whether the model followed the prompt.
+    const { response: reply } = enforceCompliance(rawReply, text);
 
     // Return response in format expected by ChatWidget
     res.json({ response: reply });
@@ -94,7 +99,7 @@ router.post('/ai/gemini', async (req, res) => {
     const isComplexQuery = hasSystemPrompt || (prompt && prompt.length > 2000);
     
     // Use Claude first, then fallback provider while Claude key is absent.
-    const reply = await generateAIText({
+    const rawReply = await generateAIText({
       messages: [{
         role: "user",
         content: hasSystemPrompt ? prompt : `You are Gini, an expert financial advisor AI with comprehensive knowledge of Indian financial markets, investments, and personal finance. Provide helpful, accurate, and personalized financial advice.
@@ -106,6 +111,8 @@ Provide a clear, actionable response:`
       maxTokens: isComplexQuery ? 1200 : 600, // More tokens for complex queries
       temperature: 0.7
     });
+
+    const { response: reply } = enforceCompliance(rawReply, prompt || '');
 
     res.json({ reply });
   } catch (error) {

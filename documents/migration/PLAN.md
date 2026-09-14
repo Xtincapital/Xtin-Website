@@ -433,10 +433,11 @@ verification as Phase 2a before moving to the next.
   table, but no entitlement rows will actually be written until it exists.
 - Advisor role folds into Supabase auth as `role='advisor'` (only if any advisor accounts survive Phase 4; otherwise skip).
 
-### Phase 7 — Fold Python AI into Express  ·  behavior change: YES (endpoint parity required)
-- Port `Client/server/app/*` (compliance engine, user profiler, prompt builder, token optimizer, knowledge base) → `services/api/src/modules/ai/`.
-- `ChatWidget` points at `/api/ai/*`. Remove `VITE_API_BASE_URL`. Delete `services/ai-legacy/`.
-- Parity tests on chat / analyze / health before switch.
+### Phase 7 — Fold Python AI into Express  ·  behavior change: YES (endpoint parity required)  ·  DONE (2026-09-14)
+- [x] Port `Client/server/app/*` (compliance engine, user profiler, prompt builder, token optimizer, knowledge base) → `services/api/src/modules/ai/`.
+- [x] `ChatWidget` points at `/api/ai/*`. Remove `VITE_API_BASE_URL`. Delete `services/ai-legacy/`.
+- [x] Parity tests on chat / analyze / health before switch.
+- Note: `prompt_builder`, `user_profiler` (query-intent classification), and the `compliance_engine`'s prompt-time rules were already re-implemented natively in `modules/ai/promptBuilder.ts` earlier in the migration. What was missing on re-verification was the compliance engine's *post-generation* enforcement (it doesn't just instruct the model — it scans the actual reply, redacts prohibited phrases like "guaranteed returns"/"risk-free", and force-injects SEBI-style disclaimers regardless of what the model wrote). Ported that specifically as `modules/ai/compliance.ts`, wired into both `/api/ai/chat` and `/api/ai/gemini`. `TokenOptimizer`'s spam/rate-limit detection and `KnowledgeBaseManager`'s Pinecone RAG were not ported — the former has no current equivalent (flagged as a follow-up, not a blocker), the latter was dormant/unconfigured even in the retired Python service.
 
 ### Phase 8 — Integrate FundaKaMental  ·  behavior change: YES
 - `git subtree add` FundaKaMental (keeps history) into `features-incoming/fundakamental`.
@@ -657,3 +658,20 @@ verification as Phase 2a before moving to the next.
   `typecheck:api` are now required (no longer `continue-on-error`);
   `lint:web` stays advisory until the pre-existing ~80 errors are
   cleaned up separately.
+- 2026-09-14 — Re-verified Phase 7 before starting Phase 8, per owner
+  request. Found it was NOT actually complete despite `modules/ai/`
+  existing: `services/ai-legacy/` was never deleted, `ChatWidget.tsx`
+  still referenced the retired `VITE_API_BASE_URL` fallback, and —
+  the substantive gap — the Python `ComplianceEngine`'s post-generation
+  enforcement (scanning the model's actual output for prohibited phrases
+  and force-injecting risk disclaimers) had no Node equivalent; the new
+  `/api/ai/*` routes relied on prompt instructions alone, with nothing
+  catching a model that ignored them. Flagged this to the owner as a real
+  compliance-risk gap for a financial-advice-adjacent chatbot; owner chose
+  to port it now rather than defer. Added `modules/ai/compliance.ts`
+  (`enforceCompliance`: prohibited-phrase redaction + risk-based
+  disclaimer injection, ported from `compliance_engine.py`), wired into
+  `/api/ai/chat` and `/api/ai/gemini`. Deleted `services/ai-legacy/`
+  (verified nothing else referenced it outside docs). Removed the
+  `VITE_API_BASE_URL` fallback from `ChatWidget.tsx`. Phase 7 now
+  genuinely done; proceeding to Phase 8.

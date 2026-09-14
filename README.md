@@ -215,9 +215,6 @@ Xtin-capital/
 │   ├── supabase/           # Supabase client
 │   ├── utils/              # Utility functions
 │   └── validators/         # Request validation
-│
-└── services/ai-legacy/          # Python FastAPI AI service — being folded into
-                                  # services/api, see documents/migration/PLAN.md
 ```
 
 This is an **npm workspaces monorepo** — see `documents/migration/PLAN.md` for the

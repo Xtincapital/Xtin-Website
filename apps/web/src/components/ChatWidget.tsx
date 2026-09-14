@@ -4,12 +4,8 @@ import remarkGfm from 'remark-gfm';
 import { useTheme } from '../contexts/ThemeContext';
 
 // Use the app-wide backend URL (VITE_BACKEND_URL) so the chatbot hits the
-// deployed backend in production. Falls back to the legacy VITE_API_BASE_URL,
-// then localhost for dev.
-const API_BASE =
-  import.meta.env.VITE_BACKEND_URL ||
-  import.meta.env.VITE_API_BASE_URL ||
-  'http://127.0.0.1:5002';
+// deployed backend in production, falling back to localhost for dev.
+const API_BASE = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:5002';
 
 /**
  * ChatWidget - Persistent AI chat interface
