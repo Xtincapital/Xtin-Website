@@ -1,0 +1,259 @@
+// Stocks API — Node/TS port of `api/endpoints/stocks.py`.
+//
+// Intentionally NOT ported here: the watchlist endpoints
+// (`/watchlist/add`, `GET /watchlist`, `DELETE /watchlist/{ticker}`) at the
+// bottom of the Python file — a separate task owns watchlists/portfolios
+// and will build on top of this module's exports.
+import { HTTP_STATUS } from "../../constants/constants.js";
+import { validateScreenerRequest, validateSaveScreen } from "./stocks.validator.js";
+import { searchCompanies as searchCompaniesApi, getCompanyOverview } from "./stockDataService.js";
+import { getStockByTicker, upsertStock, searchStocksInDb, getSavedScreens as getSavedScreensRepo, insertSavedScreen } from "./stocks.repository.js";
+import { screenStocks, getScreeningPresets as getPresets } from "./stockScreener.js";
+import { searchDirectory } from "./companyDirectory.js";
+import { refresh as refreshStockPipeline, type Market } from "./stockPipeline.js";
+import { getMarketStreamerStats } from "./marketStream.js";
+
+const STALE_MS = 60 * 60 * 1000; // 1 hour — matches the Python source's staleness window
+
+function formatMarketCap(marketCap: unknown): string {
+    if (marketCap === null || marketCap === undefined || marketCap === "") return "N/A";
+    const mc = Number(marketCap);
+    if (Number.isNaN(mc)) return String(marketCap);
+    if (mc >= 1_000_000_000_000) return `$${(mc / 1_000_000_000_000).toFixed(1)}T`;
+    if (mc >= 1_000_000_000) return `$${(mc / 1_000_000_000).toFixed(1)}B`;
+    if (mc >= 1_000_000) return `$${(mc / 1_000_000).toFixed(1)}M`;
+    return `$${mc.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+}
+
+function directoryFallback(query: string) {
+    return searchDirectory(query).map((c) => ({
+        ticker: c.ticker,
+        name: c.name,
+        sector: c.sector,
+        price: 0,
+        change_percent: 0,
+        pe_ratio: null,
+        revenue_growth: null,
+        profit_margin: null,
+        market_cap: "",
+    }));
+}
+
+/* GET /api/fundakamental/stocks/search?q= */
+export const searchCompanies = async (req, res) => {
+    const q = String(req.query.q || "").trim();
+    if (!q) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Query must be at least 1 character" });
+    }
+
+    try {
+        const apiResults = await searchCompaniesApi(q);
+        const { data: dbResults } = await searchStocksInDb(q, 10);
+
+        const combined = new Map<string, Record<string, unknown>>();
+
+        for (const result of apiResults) {
+            if (result.ticker) {
+                combined.set(result.ticker, {
+                    ticker: result.ticker,
+                    name: result.name || "",
+                    sector: result.sector || "",
+                    price: 0,
+                    change_percent: 0,
+                    pe_ratio: null,
+                    revenue_growth: null,
+                    profit_margin: null,
+                    market_cap: "",
+                });
+            }
+        }
+
+        for (const stock of dbResults || []) {
+            if (stock.ticker) {
+                combined.set(stock.ticker, {
+                    ticker: stock.ticker,
+                    name: stock.name || "",
+                    sector: stock.sector || "",
+                    price: Number(stock.price || 0),
+                    change_percent: Number(stock.change_percent || 0),
+                    pe_ratio: null,
+                    revenue_growth: null,
+                    profit_margin: null,
+                    market_cap: String(stock.market_cap || ""),
+                });
+            }
+        }
+
+        // Offline fallback: when Yahoo returns nothing and the local cache
+        // is empty, match a curated directory so the search box helps
+        // identify a company instead of dead-ending.
+        if (combined.size === 0) {
+            for (const c of directoryFallback(q)) combined.set(c.ticker as string, c);
+        }
+
+        return res.status(HTTP_STATUS.OK).json(Array.from(combined.values()).slice(0, 10));
+    } catch (err) {
+        // Never fail the search UX — fall back to the offline directory.
+        console.error("[Fundakamental] stock search failed:", err);
+        try {
+            return res.status(HTTP_STATUS.OK).json(directoryFallback(q));
+        } catch {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Search failed: ${(err as Error)?.message || err}` });
+        }
+    }
+};
+
+/* POST /api/fundakamental/stocks/screener */
+export const runStockScreener = async (req, res) => {
+    const validation = validateScreenerRequest(req.body);
+    if (validation.errors) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
+    }
+    const { filters, sort_by, sort_order, limit, market } = validation.data;
+
+    try {
+        const results = await screenStocks({
+            filters,
+            sortBy: sort_by,
+            sortOrder: sort_order,
+            limit,
+            market: market || "india",
+        });
+
+        const stockResults = (results.results || []).map((stock: Record<string, unknown>) => ({
+            ticker: stock.ticker || "",
+            company: stock.name || "",
+            sector: stock.sector || "",
+            price: Number(stock.price || 0),
+            market_cap: formatMarketCap(stock.market_cap),
+            pe_ratio: Number(stock.pe_ratio || 0),
+            revenue_growth: Number(stock.revenue_growth || 0),
+            profit_margin: Number(stock.profit_margin || 0),
+            match_score: Math.round(Number(stock.match_score || 0)),
+        }));
+
+        return res.status(HTTP_STATUS.OK).json({
+            total: results.total_count || 0,
+            results: stockResults,
+            filters_applied: filters,
+        });
+    } catch (err) {
+        console.error("[Fundakamental] screener failed:", err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Screening failed: ${(err as Error)?.message || err}` });
+    }
+};
+
+async function refreshStockInBackground(ticker: string) {
+    try {
+        const overview = await getCompanyOverview(ticker);
+        if (overview) {
+            const { error } = await upsertStock(overview as unknown as Record<string, unknown>);
+            if (error) throw error;
+        }
+    } catch (err) {
+        console.error(`[Fundakamental] background refresh failed for ${ticker}:`, err);
+    }
+}
+
+/* GET /api/fundakamental/stocks/details/:ticker */
+export const getStockDetails = async (req, res) => {
+    const ticker = String(req.params.ticker || "").toUpperCase();
+
+    try {
+        const { data: stock } = await getStockByTicker(ticker);
+        if (stock) {
+            const lastUpdated = new Date(stock.last_updated);
+            if (Date.now() - lastUpdated.getTime() > STALE_MS) {
+                // Fire-and-forget refresh, mirroring the Python source's
+                // `background_tasks.add_task(refresh_stock_data, ...)`.
+                void refreshStockInBackground(ticker);
+            }
+            return res.status(HTTP_STATUS.OK).json(stock);
+        }
+    } catch (err) {
+        console.error(`[Fundakamental] db lookup failed for ${ticker}:`, err);
+    }
+
+    try {
+        const overview = await getCompanyOverview(ticker);
+        if (!overview) {
+            return res.status(HTTP_STATUS.NOT_FOUND).json({ error: `Stock ${ticker} not found` });
+        }
+        const { error } = await upsertStock(overview as unknown as Record<string, unknown>);
+        if (error) console.error(`[Fundakamental] failed to cache stock details for ${ticker}:`, error);
+        return res.status(HTTP_STATUS.OK).json(overview);
+    } catch (err) {
+        console.error(`[Fundakamental] failed to fetch stock details for ${ticker}:`, err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to fetch stock details: ${(err as Error)?.message || err}` });
+    }
+};
+
+/* POST /api/fundakamental/stocks/refresh?market=all|india|us */
+export const refreshStockData = async (req, res) => {
+    const marketParam = String(req.query.market || "all");
+    const markets: Market[] = marketParam === "all" || marketParam === "both" ? ["india", "us"] : [marketParam as Market];
+
+    // Fire-and-forget: fetching ~100 tickers takes ~1 minute, matching the
+    // Python source's BackgroundTasks usage.
+    refreshStockPipeline(markets)
+        .then((summary) => console.log("[Fundakamental] stocks refresh done:", summary))
+        .catch((err) => console.error("[Fundakamental] stocks refresh failed:", err));
+
+    return res.status(HTTP_STATUS.OK).json({
+        status: "started",
+        markets,
+        message: "Refreshing stock data in the background.",
+    });
+};
+
+/* GET /api/fundakamental/stocks/screener/presets */
+export const getScreeningPresets = async (_req, res) => {
+    return res.status(HTTP_STATUS.OK).json({ presets: getPresets() });
+};
+
+/* POST /api/fundakamental/stocks/screener/save */
+export const saveCustomScreen = async (req, res) => {
+    const validation = validateSaveScreen(req.body);
+    if (validation.errors) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
+    }
+    const { name, description, filters, is_public } = validation.data;
+
+    try {
+        // funda_saved_screens.user_id references funda_users(id), which is
+        // 1:1 with auth.users.id — i.e. req.user.authId, not req.user.userId.
+        const { data, error } = await insertSavedScreen({
+            user_id: req.user.authId,
+            name,
+            description,
+            filters,
+            is_public,
+        });
+        if (error) throw error;
+        return res.status(HTTP_STATUS.OK).json({
+            success: true,
+            screen_id: data?.id || null,
+            message: "Screen saved successfully",
+        });
+    } catch (err) {
+        console.error("[Fundakamental] save screen failed:", err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to save screen: ${(err as Error)?.message || err}` });
+    }
+};
+
+/* GET /api/fundakamental/stocks/screener/saved */
+export const getSavedScreens = async (req, res) => {
+    try {
+        const { data, error } = await getSavedScreensRepo(req.user.authId);
+        if (error) throw error;
+        return res.status(HTTP_STATUS.OK).json({ saved_screens: data || [] });
+    } catch (err) {
+        console.error("[Fundakamental] fetch saved screens failed:", err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to fetch saved screens: ${(err as Error)?.message || err}` });
+    }
+};
+
+/* GET /api/fundakamental/market-data/status */
+export const getMarketDataStatus = async (_req, res) => {
+    return res.status(HTTP_STATUS.OK).json(getMarketStreamerStats());
+};

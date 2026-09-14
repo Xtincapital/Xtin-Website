@@ -439,12 +439,13 @@ verification as Phase 2a before moving to the next.
 - [x] Parity tests on chat / analyze / health before switch.
 - Note: `prompt_builder`, `user_profiler` (query-intent classification), and the `compliance_engine`'s prompt-time rules were already re-implemented natively in `modules/ai/promptBuilder.ts` earlier in the migration. What was missing on re-verification was the compliance engine's *post-generation* enforcement (it doesn't just instruct the model — it scans the actual reply, redacts prohibited phrases like "guaranteed returns"/"risk-free", and force-injects SEBI-style disclaimers regardless of what the model wrote). Ported that specifically as `modules/ai/compliance.ts`, wired into both `/api/ai/chat` and `/api/ai/gemini`. `TokenOptimizer`'s spam/rate-limit detection and `KnowledgeBaseManager`'s Pinecone RAG were not ported — the former has no current equivalent (flagged as a follow-up, not a blocker), the latter was dormant/unconfigured even in the retired Python service.
 
-### Phase 8 — Integrate FundaKaMental  ·  behavior change: YES
-- `git subtree add` FundaKaMental (keeps history) into `features-incoming/fundakamental`.
-- UI → `apps/web/src/features/fundakamental` (already React+TS+shadcn: adopt its shadcn primitives into `components/ui` or adapt).
-- Backend → `services/api/src/modules/fundakamental` (+ AI parts into `modules/ai`).
-- DB: migrate its tables prefixed (`funda_reports`, `funda_source_documents`, `funda_watchlist`, `funda_chat_messages`); remap `user_id` → shared `users.id`; merge its `users` by email.
-- `/fundakamental` route → real feature (replace marketing stub). Keep `/intro/fundakamental`.
+### Phase 8 — Integrate FundaKaMental  ·  behavior change: YES  ·  IN PROGRESS
+- [x] `git subtree add` FundaKaMental (keeps history) into `features-incoming/fundakamental`.
+- [ ] UI → `apps/web/src/features/fundakamental` (already React+TS+shadcn: adopt its shadcn primitives into `components/ui` or adapt).
+- [x] Backend (sub-phase 8a, core read features) → `services/api/modules/fundakamental`: stock search/screener, technical indicators (SMA/EMA/RSI/MACD/Bollinger/Stochastic/ATR/OBV), live-price WebSocket streaming (`/api/fundakamental/ws/market-data`, 15s polling fan-out via `yahoo-finance2`), watchlists (v2 schema), portfolios, price alerts + notifications. Mounted in `app.ts`/`index.ts`, boot-tested, auth verified (401 without a token on every new route group). Not yet done: AI report generation + PDF export (8b), RAG chat (8c), Razorpay + token wallet (8d) — these still need `+ AI parts into modules/ai` for 8b/8c.
+- [x] DB: migrated its tables prefixed (`funda_reports`, `funda_source_documents`, `funda_watchlists`/`funda_watchlist_items` v2 — not the legacy singular `funda_watchlist`, `funda_chat_messages`, plus ~25 more — see `database/migrations/0001_gini_journal_fundakamental.sql`). Its profile table is `funda_users` (`id` = `auth.users.id` 1:1, not a separate id space — no email-merge needed).
+- [ ] `/fundakamental` route → real feature (replace marketing stub). Keep `/intro/fundakamental`. (Blocked on frontend port, 8e.)
+- Decisions made during 8a: dropped the Python service's unused Stripe billing path entirely (frontend never called it; every other product in this app uses Razorpay only — the parallel Razorpay-based `funda_pro_payments`/`funda_ai_wallets` tables are what's live). Deferred nothing on the WebSocket — ported it now rather than falling back to polling from the client, since Render's web service supports long-lived WS connections without any extra config.
 
 ### Phase 9 — Integrate Journal  ·  behavior change: YES
 - `git subtree add` Journal into `features-incoming/journal`.

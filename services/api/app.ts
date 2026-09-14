@@ -19,6 +19,11 @@ import certificateRoutes from "./modules/certificates/certificate.routes.js";
 import path from "path";
 import fileRoutes from "./modules/files/files.routes.js";
 import subscriptionPlanRoutes from "./modules/billing/subscriptionPlan.routes.js";
+import fundakamentalStocksRoutes from "./modules/fundakamental/stocks.routes.js";
+import fundakamentalTechnicalsRoutes from "./modules/fundakamental/technicals.routes.js";
+import fundakamentalWatchlistsRoutes from "./modules/fundakamental/watchlists.routes.js";
+import fundakamentalPortfoliosRoutes from "./modules/fundakamental/portfolios.routes.js";
+import fundakamentalAlertsRoutes from "./modules/fundakamental/alerts.routes.js";
 
 const app = express();
 
@@ -112,6 +117,11 @@ app.use("/api", helpRoutes);
 app.use("/api", aiRoutes);
 app.use("/api", algorithmRoutes);
 app.use("/api", subscriptionPlanRoutes);
+app.use("/api", fundakamentalStocksRoutes);
+app.use("/api", fundakamentalTechnicalsRoutes);
+app.use("/api", fundakamentalWatchlistsRoutes);
+app.use("/api", fundakamentalPortfoliosRoutes);
+app.use("/api", fundakamentalAlertsRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 
