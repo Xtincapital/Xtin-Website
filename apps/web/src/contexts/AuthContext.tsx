@@ -187,32 +187,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  const login = async (email, password) => {
-    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+  // Phase 6 (auth consolidation, staged): the client now authenticates
+  // directly against Supabase — the same pattern signInWithGoogle already
+  // used — instead of going through the backend's /api/auth/login, which
+  // minted its own JWT. The backend still accepts and mints that JWT for
+  // any other caller (mobile app, etc.); this only changes what the web
+  // client itself uses. auth_token now always holds a real Supabase
+  // session token, which middlewares/auth.ts already accepts as a
+  // fallback (it did before this change too, for OAuth).
+  const login = async (email: string, password: string) => {
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+    if (authError) {
+      throw new Error(authError.message || 'Invalid credentials');
+    }
+    if (!authData.session) {
+      throw new Error('Login failed: no session returned');
     }
 
-    const result = await response.json();
+    const syncResult = await syncUser(authData.session.access_token);
+    localStorage.setItem('auth_token', authData.session.access_token);
 
-    // Store the token in localStorage
-    localStorage.setItem('auth_token', result.data.token);
-
-    // Set user data directly (don't rely on Supabase auth state)
     const userData = {
-      id: result.data.userId,
-      email: result.data.email,
-      first_name: result.data.first_name,
-      last_name: result.data.last_name,
-      phone_number: result.data.phone_number,
+      id: syncResult.data.id,
+      email: syncResult.data.email,
+      first_name: syncResult.data.first_name,
+      last_name: syncResult.data.last_name,
+      phone_number: syncResult.data.phone_number,
     };
 
     setUser(userData);
@@ -224,7 +228,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       // The redirect will be handled by the component that opened the modal
     }
 
-    return result.data;
+    return userData;
   };
 
   const signup = async (
@@ -232,29 +236,45 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     password: string,
     userData: { firstName?: string; lastName?: string; phone?: string } = {}
   ) => {
-    const signupData = {
-      first_name: userData.firstName || '',
-      last_name: userData.lastName || '',
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      phone_number: userData.phone || '',
-    };
-
-    const response = await fetch(`${BACKEND_URL}/api/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+      options: {
+        data: {
+          first_name: userData.firstName || '',
+          last_name: userData.lastName || '',
+          phone_number: userData.phone || '',
+        },
       },
-      body: JSON.stringify(signupData),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Signup failed');
+    if (authError) {
+      throw new Error(authError.message || 'Signup failed');
     }
 
-    const result = await response.json();
-    return result.data;
+    if (!authData.session) {
+      // Email confirmation required — no session yet, nothing to sync.
+      return {
+        email,
+        requires_confirmation: true,
+        message: 'Signup successful! Please check your email and click the confirmation link to complete your registration.',
+      };
+    }
+
+    // Confirmation disabled on this project — session exists immediately.
+    const syncResult = await syncUser(authData.session.access_token);
+    localStorage.setItem('auth_token', authData.session.access_token);
+
+    const profile = {
+      id: syncResult.data.id,
+      email: syncResult.data.email,
+      first_name: syncResult.data.first_name,
+      last_name: syncResult.data.last_name,
+      phone_number: syncResult.data.phone_number,
+    };
+    setUser(profile);
+
+    return { ...profile, requires_confirmation: false, message: 'User created successfully' };
   };
 
   const signInWithGoogle = async () => {

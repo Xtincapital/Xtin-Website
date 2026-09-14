@@ -4,6 +4,7 @@ import { getActiveUserSubscriptions, upsertUserSubscription } from "./subscripti
 import { getActiveAlgorithmSubscriptionsForUser, upsertAlgorithmSubscription } from "../algos/algorithm.repository.js";
 import { getLearnPlansForUser, upsertLearnPlan } from "../academy/learnPlan.repository.js";
 import { getNewsletterPlansForUser, upsertNewsletterPlan } from "../newsletter/newsletterPlan.repository.js";
+import { upsertEntitlement } from "../auth/entitlement.repository.js";
 
 const razorpayConfigured = () =>
     Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);
@@ -302,6 +303,13 @@ async function persistUserSubscription({
     if (error && error.code !== '42P01') {
         console.error("[SubscriptionPlan] Error inserting user_subscription:", error);
     }
+    await upsertEntitlement({
+        userId,
+        authId,
+        product: "bundle",
+        validUntil: payload.valid_until,
+        sourceTable: "user_subscriptions",
+    });
     return data || payload;
 }
 
@@ -341,6 +349,7 @@ async function syncSubProductsToDatabase({
                 status: "active",
                 updated_at: new Date().toISOString(),
             });
+            await upsertEntitlement({ userId, authId, product: "algo", validUntil: validUntil.toISOString(), sourceTable: "algorithm_subscriptions" });
         } catch (e) {
             console.warn("Could not sync algorithm_subscriptions:", e);
         }
@@ -363,6 +372,7 @@ async function syncSubProductsToDatabase({
                 user_email: userEmail,
                 updated_at: new Date().toISOString(),
             });
+            await upsertEntitlement({ userId, authId, product: "learn", validUntil: validUntil.toISOString(), sourceTable: "learn_pro_plans" });
         } catch (e) {
             console.warn("Could not sync learn_pro_plans:", e);
         }
@@ -386,6 +396,7 @@ async function syncSubProductsToDatabase({
                 user_email: userEmail,
                 updated_at: new Date().toISOString(),
             });
+            await upsertEntitlement({ userId, authId, product: "newsletter", validUntil: validUntil.toISOString(), sourceTable: "newsletter_pro_plans" });
         } catch (e) {
             console.warn("Could not sync newsletter_pro_plans:", e);
         }

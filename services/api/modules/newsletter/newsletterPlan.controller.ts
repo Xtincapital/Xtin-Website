@@ -21,6 +21,7 @@ import {
     updateNewsletterPlanMarkets,
     upsertNewsletterPlan,
 } from "./newsletterPlan.repository.js";
+import { upsertEntitlement } from "../auth/entitlement.repository.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/newsletterPlan.js NEWSLETTER_PRICING.
@@ -279,6 +280,13 @@ async function persistNewsletterPlan({ req, plan, planId, paymentId, orderId, cu
     if (error) {
         console.error("[NewsletterPlan] persist failed:", error.message);
     }
+    await upsertEntitlement({
+        userId: record.user_id,
+        authId: record.auth_id,
+        product: "newsletter",
+        validUntil: record.valid_until,
+        sourceTable: "newsletter_pro_plans",
+    });
 
     // Make sure the subscriber list reflects their paid market choices so the
     // very next edition reaches them. Best-effort — never fail the response.

@@ -12,6 +12,7 @@ import crypto from "node:crypto";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAlgoOrder, validateAlgoVerify } from "./algorithm.validator.js";
 import { getAlgorithmSubscriptionsByUserId, upsertAlgorithmSubscription } from "./algorithm.repository.js";
+import { upsertEntitlement } from "../auth/entitlement.repository.js";
 
 // Server-authoritative pricing catalogue
 const ALGO_PLANS = {
@@ -273,5 +274,12 @@ async function persistAlgoSubscription({ req, plan, algo_name, plan_type, paymen
         // the client keeps its verified state and support can reconcile.
         console.error("[AlgoSub] persist failed:", error.message);
     }
+    await upsertEntitlement({
+        userId: record.user_id,
+        authId: record.auth_id,
+        product: "algo",
+        validUntil: record.valid_until,
+        sourceTable: "algorithm_subscriptions",
+    });
     return record;
 }

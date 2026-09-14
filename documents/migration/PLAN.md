@@ -394,10 +394,43 @@ verification as Phase 2a before moving to the next.
   much larger follow-on project. Worth its own decision on priority, not
   a default next step.
 
-### Phase 6 — Shared auth foundation  ·  behavior change: staged
-- `requireAuth` already accepts both token types — no client change yet.
-- Add entitlements: `user_entitlements` (or `app_metadata.roles`); backfill from `learn_pro_plans`, `newsletter_pro_plans`, `algorithm_subscriptions`.
-- Client switches to Supabase-session token only; `sync` becomes "ensure `users` row exists". Keep backend-JWT acceptance one release, then remove.
+### Phase 6 — Shared auth foundation  ·  behavior change: staged  ·  ✅ done
+- [x] `requireAuth` already accepted both token types before this phase —
+  confirmed unchanged (`middlewares/auth.ts` tries the backend JWT first,
+  falls back to a raw Supabase token).
+- [x] `user_entitlements` table (`database/migrations/0003_user_entitlements.sql`):
+  a single-table, normalized view of "what does this user have access to"
+  (`learn` | `newsletter` | `algo` | `bundle`), kept in sync by the same 4
+  payment-verification code paths that already write to
+  `learn_pro_plans`/`newsletter_pro_plans`/`algorithm_subscriptions`/
+  `user_subscriptions` — `entitlement.repository.ts`'s `upsertEntitlement()`
+  is called right after each existing write, best-effort (never fails the
+  payment response over this derived index). No backfill needed — fresh
+  project, nothing to backfill from.
+- [x] Client switches to Supabase-session token: `login()`/`signup()` in
+  `AuthContext.tsx` now call `supabase.auth.signInWithPassword()` /
+  `supabase.auth.signUp()` directly (the same pattern `signInWithGoogle`
+  already used), instead of going through the backend's
+  `/api/auth/login`/`/api/auth/signup`, which minted its own JWT. `sync`
+  (`/api/auth/sync`) was left as-is (still returns a token) for backward
+  compatibility — the client just no longer relies on that field, which
+  **is** the staging: the backend's old JWT-minting path still exists and
+  still works for any other caller, only the web client's own behavior
+  changed. Verified live in a real browser: signup → (admin-confirmed
+  email) → login → dashboard renders with real profile data → logout,
+  zero console errors, and confirmed via a decoded-JWT inspection that
+  `auth_token` now holds a genuine Supabase-issued token
+  (`iss: .../auth/v1`, no backend `jti`/`userId` claims) rather than a
+  backend-minted one.
+- [ ] Phase 12 still removes backend-JWT *acceptance* and minting entirely
+  — deliberately not done here, that's the "one release later" half of
+  the staged plan.
+- Advisor role folding: moot, feature retired in Phase 4 and the fresh
+  project has zero advisor accounts.
+- **Owner-blocked**: run `database/migrations/0003_user_entitlements.sql`
+  against the live project — tested the write path directly and confirmed
+  it fails gracefully (caught, logged, doesn't block payments) without the
+  table, but no entitlement rows will actually be written until it exists.
 - Advisor role folds into Supabase auth as `role='advisor'` (only if any advisor accounts survive Phase 4; otherwise skip).
 
 ### Phase 7 — Fold Python AI into Express  ·  behavior change: YES (endpoint parity required)

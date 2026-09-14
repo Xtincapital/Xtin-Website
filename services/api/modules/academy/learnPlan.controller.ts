@@ -10,6 +10,7 @@
 import crypto from "node:crypto";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
+import { upsertEntitlement } from "../auth/entitlement.repository.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/learnPlan.js LEARN_PRICING.
@@ -218,5 +219,12 @@ async function persistLearnPlan({ req, plan, planId, paymentId, orderId, currenc
         // the client keeps its verified state and support can reconcile.
         console.error("[LearnPlan] persist failed:", error.message);
     }
+    await upsertEntitlement({
+        userId: record.user_id,
+        authId: record.auth_id,
+        product: "learn",
+        validUntil: record.valid_until,
+        sourceTable: "learn_pro_plans",
+    });
     return record;
 }
