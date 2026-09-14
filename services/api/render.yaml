@@ -26,12 +26,31 @@ services:
       # - CRON_SECRET_TOKEN (for cron-job.org authentication)
       #
       # NEW: The backend now runs an in-process scheduler (node-cron) that fires
-      # the newsletter at 8:00 AM and 5:00 PM IST on its own (services/scheduler.mjs).
-      # This works only while the service is awake. On Render FREE the service
-      # sleeps after ~15 min idle, so KEEP the external cron-job.org jobs below
-      # (they wake the service AND act as a backup trigger). On a PAID always-on
-      # plan, the in-process scheduler alone is sufficient.
+      # the newsletter at 8:00 AM and 5:00 PM IST on its own
+      # (modules/newsletter/scheduler.ts). This works only while the service is
+      # awake. On Render FREE the service sleeps after ~15 min idle, so KEEP the
+      # external cron-job.org jobs below (they wake the service AND act as a
+      # backup trigger). On a PAID always-on plan, the in-process scheduler
+      # alone is sufficient.
       # Set DISABLE_NEWSLETTER_CRON=true to turn the in-process scheduler off.
+
+  # ------------------------------------------------------------------------
+  # OPTIONAL: dedicated worker for the newsletter cron (Phase 3's "move cron
+  # out of the web process" item). Uncomment and deploy as a Render
+  # Background Worker once you're ready — safe to run alongside the web
+  # service's own scheduler and the cron-job.org HTTP trigger, since all
+  # three now share the newsletter_runs DB lock (see
+  # database/migrations/0002_newsletter_runs.sql and
+  # modules/newsletter/newsletterRunner.ts). Needs the exact same env vars
+  # as the web service above (Supabase + AI + email keys).
+  # ------------------------------------------------------------------------
+  # - type: worker
+  #   name: xtincapital-newsletter-worker
+  #   env: node
+  #   region: singapore
+  #   rootDir: services/api
+  #   buildCommand: npm install
+  #   startCommand: npx tsx worker.ts
 
 # ============================================================
 # NEWSLETTER CRON JOBS - UPDATED CONFIGURATION

@@ -100,16 +100,16 @@ app.use((req, res, next) => {
 app.use("/api", authRoutes);
 app.use("/api", certificateRoutes);
 app.use("/api", courseRoutes);
-app.use("/api/progress", progressRoutes);
-app.use("/api/learn", learnRoutes);
-app.use("/api/newsletter", newsletterPlanRoutes);
+app.use("/api", progressRoutes);
+app.use("/api", learnRoutes);
+app.use("/api", newsletterPlanRoutes);
 app.use("/api", metricRoutes);
 app.use("/api", subscriptionRoutes);
 app.use("/api", newsletterRoutes);
 app.use("/api", substackRoutes);
 app.use("/api", fileRoutes);
-app.use("/api/help", helpRoutes);
-app.use("/api/ai", aiRoutes);
+app.use("/api", helpRoutes);
+app.use("/api", aiRoutes);
 app.use("/api", algorithmRoutes);
 app.use("/api", subscriptionPlanRoutes);
 

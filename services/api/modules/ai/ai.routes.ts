@@ -6,7 +6,7 @@ import { analyzeTrades, identifyIssues } from './tradeAnalysis.js';
 const router = express.Router();
 
 // Unified AI Chat endpoint for all bots
-router.post('/chat', async (req, res) => {
+router.post('/ai/chat', async (req, res) => {
   try {
     // Support both formats: {text, context, systemPrompt} and ChatWidget format {message, user_metadata, etc.}
     const text = req.body.text || req.body.message;
@@ -76,7 +76,7 @@ router.post('/chat', async (req, res) => {
 });
 
 // Legacy endpoint for Gini bot compatibility - Enhanced for v2 AI Engine
-router.post('/gemini', async (req, res) => {
+router.post('/ai/gemini', async (req, res) => {
   try {
     const { text, messages } = req.body;
 
@@ -124,7 +124,7 @@ Provide a clear, actionable response:`
 });
 
 // Advanced analysis endpoint for AI Coach
-router.post('/analyze', async (req, res) => {
+router.post('/ai/analyze', async (req, res) => {
   try {
     const { trades } = req.body;
 
@@ -180,7 +180,7 @@ Return only the JSON, no markdown or explanations.`;
 });
 
 // Health check for AI service
-router.get('/health', async (req, res) => {
+router.get('/ai/health', async (req, res) => {
   try {
     // Test AI API
     await generateAIText({

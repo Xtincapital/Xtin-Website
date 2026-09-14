@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "dev": "tsx watch index.ts",
     "start": "tsx index.ts",
+    "worker": "tsx worker.ts",
     "check-auth": "tsx check-auth-config.ts",
     "debug-cron": "tsx debug-cron.ts",
     "cron:morning": "tsx run-newsletter-cron.ts morning",

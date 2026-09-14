@@ -316,17 +316,29 @@ verification as Phase 2a before moving to the next.
   (login/signup/profile), billing (user-active-plans), and certificate
   (verify/list) endpoints — every auth guard and validation path still
   fires correctly.
-- [ ] Normalize inconsistent route mount paths. Deferred and flagged as
-  riskier than it sounds: unlike the module reorg (pure file layout,
-  invisible to clients), mount paths are the actual URLs the frontend
-  calls — changing them means updating both sides in lockstep, which cuts
-  against Phase 3's "no behavior change" framing. Worth a explicit decision
-  before touching it, not a default next step.
-- [ ] Move cron out of the web process into a Render worker; add a
-  `newsletter_runs` dedupe table. Partially owner-blocked: creating the
-  actual Render worker service is a dashboard action, and the DB migration
-  needs the Phase 0 baseline capture to land first so it's not the first
-  schema change made against an unknown live schema.
+- [x] Normalize inconsistent route mount paths. Re-examined once actually
+  looked at closely: the "inconsistency" was purely about *which file*
+  declared each domain's URL prefix (some in `app.ts`'s mount call, some
+  inside the router itself) — the final external URLs were already
+  consistent (`/api/progress/user`, `/api/learn/plan`, etc.) either way, so
+  the originally-feared "client-visible URL change" risk didn't actually
+  apply. Normalized 5 routers (progress, learn, newsletterPlan, help, ai)
+  to declare their own prefix internally, matching the majority pattern;
+  every mount in `app.ts` is now uniformly `app.use("/api", ...)`.
+  Verified: `tsc --noEmit` clean, live server + curl confirming all 5
+  domains respond identically at their unchanged URLs.
+- [x] `newsletter_runs` DB-backed dedupe table + `newsletterRunner.ts`
+  refactored to use it instead of in-memory state — the actual blocker
+  (needing the Phase 0 baseline before touching an unknown live schema) is
+  moot now that the whole database was rebuilt from scratch on the new
+  Supabase project (see the repo/DB migration note below); there's no more
+  "unknown schema" to be careful around. Added a `worker.ts` standalone
+  entry point (no HTTP server, just the scheduler) and a commented-out
+  Render Background Worker block in `render.yaml`, ready to enable.
+  **Still owner-blocked**: running `database/migrations/0002_newsletter_runs.sql`
+  against the live project (SQL Editor), and actually creating the Render
+  worker service on the dashboard whenever ready — the code and schema no
+  longer block on anything.
 
 ### Phase 4 — Delete retired stack  ·  behavior change: YES  ·  code deleted, DB deletion still pending (`chore/phase-4-delete-retired-stack`)
 - [x] Deleted `services/api/modules/{advisor,chat,video-call}/` wholesale (17
@@ -346,14 +358,17 @@ verification as Phase 2a before moving to the next.
   server + curl confirming all 5 removed backend route groups now 404 and
   everything else untouched, live browser confirming the `/advisor/login`
   redirect still works.
-- [ ] **DB deletion — deliberately not done.** Dropping `advisors`,
-  `join_as_advisory_forms`, `chat_conversations`, `chat_messages`,
-  `video_call_sessions` needs a real backup and the Phase 0 DB baseline
-  capture (still outstanding) first, and is not something to run without
-  an explicit, specific go-ahead at the time — the original "delete
-  entirely" decision was about overall strategy, not standing
-  authorization for destructive SQL. Owner: confirm when the baseline is
-  captured and you want this scheduled.
+- [x] **DB deletion — resolved by the repo/DB migration, not by running SQL.**
+  The old Supabase project (leaked keys, see the secret-rotation incident)
+  was abandoned entirely rather than patched in place. The fresh schema on
+  the new project (`database/migrations/0000_baseline.sql`) was built from
+  scratch from what the live code actually queries — `advisors`,
+  `join_as_advisory_forms`, `chat_conversations`, `chat_messages`, and
+  `video_call_sessions` were simply never created there, since nothing
+  references them anymore. No destructive SQL was ever run; there was
+  nothing to drop on the table that matters going forward. (The old
+  project, if anyone still has access to it, still physically has these
+  tables — but it's no longer the project this app points at.)
 - [x] `database/quick-advisor-setup.mjs` itself deleted in Phase 4. **But
   the risk it created is not resolved by deleting the file:** it used a
   hardcoded default password (`XtinCapital2026!`) to create real Supabase

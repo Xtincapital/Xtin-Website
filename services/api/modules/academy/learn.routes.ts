@@ -10,10 +10,10 @@ import {
 const router = express.Router();
 
 /* 🎓 LEARN PRO PLAN ROUTES (all authenticated) */
-router.get("/plan", authenticate, getLearnPlan);
-router.post("/order", authenticate, createLearnOrder);
-router.post("/verify", authenticate, verifyLearnPayment);
+router.get("/learn/plan", authenticate, getLearnPlan);
+router.post("/learn/order", authenticate, createLearnOrder);
+router.post("/learn/verify", authenticate, verifyLearnPayment);
 // Local development only — controller refuses in production / when Razorpay is configured.
-router.post("/dev-activate", authenticate, devActivateLearnPlan);
+router.post("/learn/dev-activate", authenticate, devActivateLearnPlan);
 
 export default router;

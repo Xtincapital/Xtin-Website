@@ -6,6 +6,6 @@ const router = express.Router();
 /* 🆘 HELP CENTER ROUTES */
 
 // Public route for contact form submission
-router.post("/contact", submitContactForm);
+router.post("/help/contact", submitContactForm);
 
 export default router;

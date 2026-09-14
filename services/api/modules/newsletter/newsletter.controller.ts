@@ -410,7 +410,7 @@ const sendNewsletterToAllSubscribers = async (req, res) => {
 
 const getCronStatus = async (req, res) => {
 	try {
-		const execState = getExecutionState();
+		const execState = await getExecutionState();
 		const status = {
 			provider: 'in-process node-cron (+ optional external HTTP trigger)',
 			inProcessCronEnabled: process.env.DISABLE_NEWSLETTER_CRON !== 'true',

@@ -17,7 +17,7 @@
     UNAUTHORIZED: "You are not authorized to perform this action.",
     FORBIDDEN: "Access denied.",
     INVALID_INPUT: "Invalid input provided.",
-    SERVER_ERROR: "Database error saving new user",
+    SERVER_ERROR: "Internal server error, please try again later.",
     USER_ALREADY_EXISTS: "User already exists.",
   };
   
