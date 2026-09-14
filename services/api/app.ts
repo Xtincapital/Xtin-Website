@@ -53,7 +53,7 @@ const allowedOrigins = [
 	'http://127.0.0.1:5174',
 	'https://xtincapital.com',
 	'https://www.xtincapital.com',
-	'https://xtin-capital-frontend.vercel.app'
+	'https://xtin-website-web.vercel.app'
 ];
 
 app.use(cors({

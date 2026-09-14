@@ -12,7 +12,7 @@ import https from 'https';
 import http from 'http';
 
 // Get the backend URL from environment or use default
-const BACKEND_URL = process.env.BACKEND_URL || process.env.API_URL || 'https://xtin-capital-backend.onrender.com';
+const BACKEND_URL = process.env.BACKEND_URL || process.env.API_URL || 'https://xtincapital-backend-6pf2.onrender.com';
 const HEALTH_ENDPOINT = `${BACKEND_URL}/health`;
 
 console.log(`[Keep-Alive] Pinging: ${HEALTH_ENDPOINT}`);

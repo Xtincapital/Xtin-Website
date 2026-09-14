@@ -21,7 +21,7 @@ Complete guide to deploy the Xtin Capital application on **Vercel** (Frontend) a
 1. Log in to [Render Dashboard](https://dashboard.render.com)
 2. Click **"New +"** → **"Web Service"**
 3. Connect your GitHub repository
-4. Select the `XtinCapital` repository
+4. Select the `Xtincapital/Xtin-Website` repository (repo moved here as part of the Supabase/secret-rotation migration — see `documents/migration/PLAN.md`)
 
 ### Step 2: Configure Web Service
 
@@ -54,10 +54,10 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 # JWT Secret - generate with: openssl rand -base64 48
 JWT_SECRET=your-strong-random-secret
 
-# CORS Configuration - Update with your Vercel URL after frontend deployment
-FRONTEND_URL=https://xtincapital.com
-FRONTEND_URL_ALT=https://www.xtincapital.com
-ALLOWED_ORIGINS=https://xtincapital.com,https://www.xtincapital.com,https://your-vercel-app.vercel.app
+# NOTE: FRONTEND_URL / FRONTEND_URL_ALT / ALLOWED_ORIGINS do nothing — CORS is
+# a hardcoded array (`allowedOrigins`) in services/api/app.ts, not env-driven.
+# If your deployed frontend URL isn't in that array, add it there and redeploy
+# instead of setting these vars.
 
 # AI APIs
 GROQ_API_KEY=your-groq-api-key
@@ -85,13 +85,13 @@ CRON_SECRET_TOKEN=generate-a-random-token
 
 1. Click **"Create Web Service"**
 2. Wait for the build to complete (5-10 minutes)
-3. Once deployed, copy your backend URL: `https://xtin-capital-backend.onrender.com`
+3. Once deployed, copy your backend URL: `https://xtincapital-backend-6pf2.onrender.com`
 
 ### Step 5: Verify Backend
 
 Test the backend by visiting:
 ```
-https://xtin-capital-backend.onrender.com/health
+https://xtincapital-backend-6pf2.onrender.com/health
 ```
 
 You should see a JSON response with `status: "healthy"`.
@@ -124,7 +124,7 @@ Click **"Environment Variables"** and add:
 
 ```bash
 # Backend API URL - Use your Render backend URL
-VITE_BACKEND_URL=https://xtin-capital-backend.onrender.com
+VITE_BACKEND_URL=https://xtincapital-backend-6pf2.onrender.com
 
 # Supabase Configuration (anon/public key — safe to expose in the browser bundle)
 VITE_SUPABASE_URL=https://your-project-ref.supabase.co
@@ -139,15 +139,9 @@ VITE_SUPABASE_ANON_KEY=your-anon-public-key
 
 ### Step 5: Update Backend CORS
 
-Now that you have your Vercel URL, **go back to Render**:
-
-1. Open your backend service
-2. Go to **Environment** tab
-3. Update `ALLOWED_ORIGINS` to include your Vercel URL:
-   ```bash
-   ALLOWED_ORIGINS=https://xtincapital.com,https://www.xtincapital.com,https://your-app.vercel.app
-   ```
-4. Click **"Save Changes"** - This will redeploy the backend
+Now that you have your Vercel URL, add it to the hardcoded `allowedOrigins`
+array in `services/api/app.ts` (there is no env var for this — see the note
+in Step 3) and redeploy the backend.
 
 ---
 
@@ -170,19 +164,19 @@ Now that you have your Vercel URL, **go back to Render**:
 Since Render's free plan doesn't include cron jobs, use [cron-job.org](https://cron-job.org) (free):
 
 **Morning Newsletter (8:00 AM IST):**
-- URL: `https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=YOUR_CRON_SECRET_TOKEN`
+- URL: `https://xtincapital-backend-6pf2.onrender.com/api/trigger-newsletter?token=YOUR_CRON_SECRET_TOKEN`
 - Schedule: `30 2 * * *` (2:30 AM UTC = 8:00 AM IST)
 - Method: POST
 - Timeout: 300 seconds
 
 **Evening Newsletter (5:00 PM IST):**
-- URL: `https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=YOUR_CRON_SECRET_TOKEN`
+- URL: `https://xtincapital-backend-6pf2.onrender.com/api/trigger-newsletter?token=YOUR_CRON_SECRET_TOKEN`
 - Schedule: `30 11 * * *` (11:30 AM UTC = 5:00 PM IST)
 - Method: POST
 - Timeout: 300 seconds
 
 **Keep-Alive Ping (every 14 minutes):**
-- URL: `https://xtin-capital-backend.onrender.com/health`
+- URL: `https://xtincapital-backend-6pf2.onrender.com/health`
 - Schedule: `*/14 * * * *`
 - Method: GET
 - Timeout: 30 seconds
@@ -201,21 +195,19 @@ After deployment, verify these features:
 
 ### Backend:
 - [ ] `/health` endpoint returns healthy status
-- [ ] `/api/courses` returns course data
-- [ ] `/api/advisors` returns advisor list
+- [ ] `/api/courses/available` returns course data
 - [ ] Authentication works (login/signup)
-- [ ] Advisor dashboard authentication works
-- [ ] Chat system works (send/receive messages)
+- [ ] Certificate verification works
 
 ### Frontend:
 - [ ] Homepage loads correctly
 - [ ] Navigation works on all pages
 - [ ] User authentication (login/signup)
-- [ ] Advisor login at `/advisor/login`
-- [ ] Advisor dashboard at `/advisor/dashboard`
-- [ ] Chat widget on advisory page
 - [ ] Course enrollment and progress tracking
 - [ ] Newsletter subscription
+
+(Advisor pages, advisor dashboard, and the in-app chat widget were retired
+in Phase 4 of the migration — don't expect them to exist anymore.)
 
 ### Integration:
 - [ ] Frontend can call backend APIs
@@ -289,8 +281,9 @@ After deployment, verify these features:
 
 4. **Database:**
    - Supabase handles all data storage
-   - No migrations needed for deployment
-   - Ensure RLS is disabled on chat tables (already done)
+   - Schema lives in `database/migrations/*.sql` — run each file once, in
+     order, in the Supabase SQL Editor before the first deploy against a
+     new project
 
 ---
 
@@ -298,7 +291,7 @@ After deployment, verify these features:
 
 Your application is now live! Share your URLs:
 - **Frontend:** `https://your-app.vercel.app`
-- **Backend:** `https://xtin-capital-backend.onrender.com`
+- **Backend:** `https://xtincapital-backend-6pf2.onrender.com`
 
 For ongoing maintenance:
 - Monitor logs in respective dashboards

@@ -10,7 +10,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: BACKEND_URL
-        value: https://xtincapital-backend.onrender.com
+        value: https://xtincapital-backend-6pf2.onrender.com
       # Note: Add these environment variables in Render dashboard:
       # - JWT_SECRET (required - use a strong 32+ character secret)
       # - SUPABASE_URL (required)
@@ -41,7 +41,7 @@ services:
 # ⚠️ IMPORTANT: To fix 429 errors, configure cron-job.org as follows:
 #
 # 1. Morning Newsletter (8:00 AM IST):
-#    URL: https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
+#    URL: https://xtincapital-backend-6pf2.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
 #    Schedule: 30 2 * * * (2:30 AM UTC = 8:00 AM IST)
 #    Method: POST
 #    Timeout: 300 seconds (5 minutes)
@@ -49,7 +49,7 @@ services:
 #    Allow concurrent executions: NO
 #
 # 2. Evening Newsletter (5:00 PM IST):
-#    URL: https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
+#    URL: https://xtincapital-backend-6pf2.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
 #    Schedule: 30 11 * * * (11:30 AM UTC = 5:00 PM IST)
 #    Method: POST
 #    Timeout: 300 seconds (5 minutes)
@@ -57,7 +57,7 @@ services:
 #    Allow concurrent executions: NO
 #
 # 3. Keep-Alive Ping (every 14 minutes - NOT 10!):
-#    URL: https://xtin-capital-backend.onrender.com/health
+#    URL: https://xtincapital-backend-6pf2.onrender.com/health
 #    Schedule: */14 * * * *
 #    Method: GET
 #    Timeout: 30 seconds
