@@ -1281,7 +1281,7 @@ begin
   values (new.id, 'My Watchlist', 'Default watchlist for tracking stocks', true, '#3b82f6');
   return new;
 end;
-$$ language plpgsql;
+$$ language plpgsql security definer;
 
 drop trigger if exists create_default_watchlist_on_funda_user_creation on auth.users;
 create trigger create_default_watchlist_on_funda_user_creation
