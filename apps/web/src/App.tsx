@@ -13,7 +13,12 @@ const ResetPasswordPage = lazy(() => import('./features/auth/pages/ResetPassword
 const Newsletter = lazy(() => import('./features/newsletter/pages/Newsletter'));
 const NewsletterDisplay = lazy(() => import('./features/newsletter/pages/NewsletterDisplay'));
 const SubstackArticle = lazy(() => import('./features/newsletter/pages/SubstackArticle'));
-const FundakamentalHome = lazy(() => import('./features/fundakamental/pages/xtin-capital-home'));
+// `xtin-capital-home.tsx` (FundaKaMental's old marketing-stub page) is no
+// longer imported here — its route below was replaced with the real
+// protected app. The file itself is left in place, unrouted, per this
+// migration's plan (see FundakamentalApp.tsx's header comment / the Phase
+// 8e task report for the full rationale) rather than deleted.
+const FundakamentalApp = lazy(() => import('./features/fundakamental/FundakamentalApp'));
 
 const AboutPage = lazy(() => import('./features/marketing/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./features/marketing/pages/ProductsPage'));
@@ -601,7 +606,7 @@ function App() {
         <Route path="/intro/journal" element={<JournalIntro />} />
         <Route path="/gini" element={<ProtectedPageRoute><GiniLanding /></ProtectedPageRoute>} />
         <Route path="/intro/gini" element={<GiniIntro />} />
-        <Route path="/fundakamental" element={<FundakamentalHome />} />
+        <Route path="/fundakamental/*" element={<ProtectedPageRoute><FundakamentalApp /></ProtectedPageRoute>} />
         <Route path="/intro/fundakamental" element={<FundakamentalIntro />} />
 
         <Route path="/newsletter" element={<ProtectedPageRoute><Newsletter /></ProtectedPageRoute>} />
