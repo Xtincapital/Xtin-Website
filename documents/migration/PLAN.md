@@ -1,0 +1,611 @@
+# XTIN Ecosystem Consolidation — Migration Plan
+
+Living document. Source audit: [`documents/AUDIT.md`](../AUDIT.md).
+
+## Goal
+
+One `xtin-capital` repo containing XTIN Capital + Gini + Journal + FundaKaMental,
+sharing one Supabase/PostgreSQL database and one Supabase-Auth identity, with a
+`features/` layer so a new product can be added without restructuring.
+
+Objective: **Consolidate + Organize + Make Maintainable + Preserve Functionality.**
+Not a rebuild.
+
+## Locked decisions (2026-09-08)
+
+| Topic | Decision |
+|---|---|
+| Retired features (advisor/advisory, in-app chat, video calls, mutual funds) | Delete entirely — code + DB tables (after backup) |
+| Secrets in committed-location `.env` files | Rotate all — owner executes, Claude prepared the checklist |
+| TypeScript | Full conversion up front (Client + API) before feature integration |
+| Python AI services | Fold into the Express API — one Node backend, no Python |
+| Sub-app integration order | FundaKaMental → Journal → Gini |
+| Workspace tool | **npm workspaces** (add Turborepo later only if build caching hurts) |
+| Chart library | **recharts** only — drop `chart.js` + `react-chartjs-2` in Phase 2 |
+
+No open decisions. Phase 1 is unblocked once the owner completes the Phase 0
+homework: secret rotation + DB baseline capture (see the two `PHASE-0-*.md` files).
+
+## Working model
+
+- One branch + PR per phase (sub-phases for the big ones). Each PR builds and is deployable.
+- `main` stays releasable throughout. Tag before each destructive phase.
+- No behavior change unless a phase's row says "Yes".
+- Rollback anchor: git tag `pre-consolidation` (start of `main` before Phase 0).
+
+## Phases
+
+### Phase 0 — Safety net  ·  branch `chore/phase-0-safety-net`  ·  behavior change: no
+- [x] Tag `pre-consolidation` on `main`; create Phase 0 branch.
+- [x] Fix prod bug: `Footer.jsx` + `HelpCenter.jsx` hardcoded `http://localhost:5002/api/help/contact` → env-based URL.
+- [x] Fix `Client/vite.config.js` dev proxy `:5000` → `VITE_BACKEND_URL || :5002`.
+- [x] `.gitignore`: root gains `/Featues/`; new `backend/.gitignore`.
+- [x] `Client/.env.example` (VITE-only) + root `.env.example`.
+- [x] `documents/AUDIT.md`, this plan.
+- [x] `documents/migration/PHASE-0-secret-rotation.md` (owner to execute).
+- [x] `documents/migration/PHASE-0-db-baseline.md` (owner to execute → `database/migrations/0000_baseline.sql`).
+- [ ] **Owner — URGENT, see below:** rotate secrets; confirm all services healthy.
+- [ ] **Owner:** capture live DB schema.
+- [ ] **Owner:** slim the real `apps/web/.env` to VITE-only; delete root `.env` if no root-run script needs it; set `VITE_AUTH_BYPASS=false` everywhere non-local.
+
+> 🚨 **Escalation found during Phase 1 (2026-09-13):** `DEPLOYMENT_GUIDE.md` had
+> real production secrets (Supabase service-role key, JWT secret, Groq/OpenAI
+> keys, Gmail app password, cron secret) committed in plaintext since 2026-03-09,
+> and the repo has a real GitHub remote. Redacted in the Phase 1 commit, but that
+> doesn't undo the exposure — **rotate everything today**, don't wait for the
+> rest of Phase 0/1 to wrap up. Full detail and an added history-scrub section:
+> `documents/migration/PHASE-0-secret-rotation.md`.
+
+### Phase 1 — Workspace + TS scaffolding  ·  behavior change: no  ·  ✅ done (`chore/phase-1-workspaces`)
+- [x] Root `package.json` → npm workspaces (`apps/web`, `services/api`).
+- [x] `Client/` → `apps/web/`; `backend/` → `services/api/`; `Client/server/` → `services/ai-legacy/` (marked in its README as scheduled for removal in Phase 7).
+- [x] Fixed path refs: `app.mjs` sitemap/robots/gini/journal static-file paths; README.md, DEPLOYMENT_GUIDE.md, deployment.md `cd`/Root-Directory references.
+- [x] `tsconfig.base.json` + per-workspace `tsconfig.json` (`allowJs: true`, `checkJs: false`) — `tsc --noEmit` passes on both workspaces.
+- [x] `.prettierrc.json` / `.prettierignore` / `.editorconfig` (config only — no repo-wide reformat; 483 files not yet Prettier-clean, tracked as Phase 2/3 work).
+- [x] `services/api/eslint.config.js` (backend had no lint before) — fixed the 2 real errors it surfaced (empty catch blocks, useless regex escape), left pre-existing warnings.
+- [x] `.github/workflows/ci.yml` — build is a required gate; lint/typecheck/format are advisory (`continue-on-error`) until Phase 2/3 cleanup and Phase 5 land, then flip to required.
+- [x] Consolidated to one root `package-lock.json`; dropped the unused root `axios` dependency; renamed packages to `@xtin-capital/web` / `@xtin-capital/api`.
+- [x] Verified: clean `npm install`, `npm run build:web` (Vite build succeeds), `node --check` on the API entry files, both linters, both typechecks.
+- [ ] **Owner:** Vercel Root Directory `Client`→`apps/web`, Render Root Directory `backend`→`services/api` — dashboards only, can't be done from files. See `documents/migration/PHASE-1-deploy-config.md`.
+- [ ] **Owner:** live smoke test after redeploying with the new root directories — auth (email + OAuth), one Razorpay test purchase, newsletter trigger, ~10 key routes.
+- [ ] Render worker service for `services/scheduler.mjs` — deferred to Phase 3 (cron still runs in the web process for now, unchanged from before).
+
+### Phase 2a — Client cleanup  ·  behavior change: no  ·  ✅ done (`chore/phase-2-client-cleanup`)
+Split from the original Phase 2 scope: everything low-risk and independently
+verifiable landed now; the `features/*` reorg and CSS consolidation (higher
+risk, touches ~330 files at once) moved to Phase 2b below so they get their
+own dedicated, carefully-verified pass instead of being rushed alongside this.
+
+- [x] Deleted dead code (confirmed zero references first): `src/future_plans/`
+  (Advisor* pages + advisorService.js + a duplicate MutualFunds page),
+  `src/pages/MutualFunds/` (byte-identical dup, also unreferenced),
+  `src/pages/Newsletter.jsx.bak`.
+- [x] Removed unused deps: `@daily-co/daily-js`, `@daily-co/daily-react`
+  (VideoCall uses a Daily.co iframe embed, not the SDK), `@emailjs/browser`,
+  `chart.js`, `react-chartjs-2` (recharts is the only chart lib in use).
+  Fixed `vite.config.js` manualChunks accordingly.
+- [x] New `src/config/env.js` (`BACKEND_URL`, `SUPABASE_URL`,
+  `SUPABASE_ANON_KEY`, `AUTH_BYPASS`) — every value defaults to what was
+  previously hardcoded/inlined, so no behavior change. `src/supabase/index.js`
+  now reads from it instead of a hardcoded URL + anon key.
+- [x] Codemodded all 16 files that inlined
+  `import.meta.env.VITE_BACKEND_URL || 'http://localhost:5002'` to import
+  `BACKEND_URL` — including fixing 4 files where the naive find-replace would
+  have produced a `const BACKEND_URL = BACKEND_URL` TDZ bug (caught and fixed
+  before it shipped).
+- [x] `App.jsx`: converted 271 default imports to `React.lazy()` + wrapped
+  `<Routes>` in `<Suspense>`. Main JS chunk **11.5 MB → 954 KB**. Deleted 18
+  orphaned `*Page` Placeholder consts never referenced by any `<Route>` (only
+  `ToolsIndex`/`SsyPage` are real, both left exactly as-is). Route count
+  verified identical (285) before/after; live browser smoke test (landing,
+  a calculator, a deep lesson route, the still-stubbed `/tools/ssy`) — clean
+  console, no visual regressions.
+- [x] `useRegion.js` simplified to one source (`CurrencyContext`, which wraps
+  the whole app) — removed the dead "standalone fallback" branch, which also
+  quietly violated rules-of-hooks.
+- [x] Renamed the 16 space-containing `pages/learn/*` folders (e.g.
+  `"Estate Planning"` → `EstatePlanning`) and updated App.jsx's import paths.
+  Left the pre-existing "Algorithemic" typo alone — unrelated to this fix.
+- Net lint effect on `apps/web`: 129 → 94 problems (from the deletions), zero
+  new issues introduced.
+- Deferred `lib/api-client.ts` (a real fetch-wrapper adopted everywhere): the
+  ~40 call sites have subtly different auth/retry conventions per file;
+  forcing them onto one wrapper now risked silently changing auth behavior.
+  `config/env.js` captured the safe, mechanical part (the base URL). Revisit
+  when Phase 2b touches these files anyway.
+
+### Phase 2b — Feature folders + design consolidation  ·  behavior change: no  ·  ✅ feature-folder migration done (`chore/phase-2b-feature-folders`)
+Being done one feature domain at a time rather than all ~330 files in one
+pass — each domain gets the same build+lint+route-count+browser-smoke
+verification as Phase 2a before moving to the next.
+
+- [x] **Academy domain done.** Merged `components/learn|learn-page|learning`
+  (8 surviving files) + `pages/learn/` (245 files, 20 lesson modules) into
+  `features/academy/{components,pages}/`. Relative imports recomputed:
+  pages/learn/** got a scripted uniform "+1 `../`" (verified safe — every
+  escaping import already named its target folder explicitly); the
+  components/learn* files needed 5 hand-fixed imports instead (some relied
+  on being one level inside `src/components/`, which doesn't shift
+  uniformly). Fixed the one external call site (`ProtectedModuleRoute.jsx`).
+  Found and deleted 3 files that were never imported by anything and would
+  have broken the build the moment they were wired up (`CoursePlayerPage`,
+  `VideoPlayer` — depends on the undeclared `@vidstack/react` package —
+  and `CourseSidebar`), plus their orphaned asset. Also closed a Phase 2a
+  gap: `CourseDetail`/`PurchasePage` used double-quoted imports that the
+  earlier lazy-conversion regex (single-quote only) missed — converted
+  now. Verified: build, lint (94→92), route count (285 unchanged), live
+  browser smoke test of `/learn`, a lesson deep link, and `/courses/:id`.
+- [x] **CSS "consolidation"** turned out to be dead-file deletion: `App.css`
+  (unused Vite-scaffold leftover, never imported) and `styles/globals.css`
+  (empty, never imported) were both dead — deleted both. `index.css` was
+  already the single real stylesheet and already has a token layer
+  (`--theme-*` custom properties); nothing left to consolidate.
+- [x] **Tools domain done.** Moved `components/calculators/` (20 files) →
+  `features/tools/components/`, `pages/{tools.jsx,ToolsIntro.jsx}` →
+  `features/tools/pages/`. Two different depth shifts in the same pass
+  (calculators +1 for explicit-path imports / full rewrite for bare-sibling
+  imports; the two page files +2, since they moved from depth 1 to depth 3)
+  — computed and applied correctly, verified by build, lint (92, unchanged),
+  route count (285, unchanged), and a live smoke test of `/tools`,
+  `/tools/sip`, `/tools/real-estate-investment`.
+- [x] **Certificates domain done.** Moved `components/certificates/` (4
+  files), `pages/{VerifyCertificate,AdminCertificates}.jsx`,
+  `services/certificateService.js`, and `utils/certificatePdf.js` into
+  `features/certificates/{components,pages,services,utils}/` — first domain
+  where the service/util layer moved too (confirmed both were
+  certificate-only first). Imports fixed per actual relationship (some
+  collapsed a path segment once sibling files moved together, not just a
+  uniform depth bump). Verified: build, lint (92, unchanged), route count
+  (285, unchanged), live smoke test of `/verify/:id` and
+  `/admin/certificates` (both rendered correct non-happy-path states with
+  the dev server backend-less; only expected network/auth console errors,
+  stack traces pointing at the new paths).
+- [x] **Newsletter domain done.** Moved `components/newsletter/` (3 files),
+  `pages/{Newsletter,NewsletterDisplay,NewsletterIntro,SubstackArticle}.jsx`,
+  `services/newsletterPlanService.js`, and `lib/newsletterPlan.js` into
+  `features/newsletter/{components,pages,services,lib}/`. First domain
+  where "move the service too" did NOT apply uniformly:
+  `newsletterService.js` is used by the shared `Footer.jsx` (footer
+  subscribe form), so it stayed at the top level — only
+  `newsletterPlanService.js` (confirmed newsletter-only) moved. Deleted
+  `pages/NewsletterDetail.jsx` (dead, never imported — same pattern as
+  prior passes). Caught and fixed a cross-reference in `pages/Dashboard.jsx`
+  (not yet migrated) that imported from the old `lib/newsletterPlan`
+  location — missing it would have broken the build outright, not just
+  silently regressed at runtime. Verified: build, lint (92, unchanged),
+  route count (285, unchanged), live smoke test of `/newsletter`,
+  `/intro/newsletter`, `/dashboard`.
+- [x] **Algos domain done.** Moved
+  `pages/{AlgosPage,AlgorithmsIntro,AlgoTerms,BacktestLanding}.jsx` and
+  `services/algorithmService.js` into `features/algos/{pages,services}/`.
+  Same cross-reference pattern as newsletter: `algorithmService.js` is used
+  by `pages/Dashboard.jsx` (not yet migrated) too — moved the service with
+  algos anyway (nothing else in the app depends on it, unlike
+  `newsletterService.js`) and fixed Dashboard's import path. Checking for
+  cross-references before moving is now a standard step. Verified: build,
+  lint (92, unchanged), route count (285, unchanged), live smoke test of
+  `/algos`, `/backtest`, `/dashboard`.
+- [x] **Auth domain done — pages only, by design.** Moved
+  `pages/{LoginPage,SignupPage,ForgotPasswordPage,ResetPasswordPage}.jsx`
+  into `features/auth/pages/`. `AuthContext.jsx` (19 consumers),
+  `authService.js` (9 consumers), and `SignInModal.jsx` (6 consumers across
+  algos/academy/marketing/route-guards) all stay shared at the top level —
+  clearly cross-cutting infrastructure, not auth-page-exclusive.
+  `utils/auth.js`'s only consumer is `pages/Dashboard.jsx` (saved for last
+  per owner request), not any of the 4 auth pages — left in place rather
+  than colocating it with a domain that doesn't use it; revisit when
+  Dashboard moves. Also deleted `utils/googleAuth.js` — a second, unused
+  Google sign-in path flagged as suspicious in the original audit, confirmed
+  zero imports. Verified: build, lint (92, unchanged), route count (285,
+  unchanged), live smoke test of `/login` and `/forgot-password`.
+- [x] **Marketing + gini/journal/fundakamental domains done.** Moved
+  `LandingPages/AboutPage/ProductsPage/HelpCenter/NotFound/Privacy/
+  PublisherTerms/RevenueShareAgreement/Terms` + `Hero/GuestHomeHero/
+  ToolsSection` into `features/marketing/`. Gini/Journal/FundaKaMental
+  landing+intro pages got their **own** feature folders
+  (`features/{gini,journal,fundakamental}/pages/`) rather than folding into
+  marketing, since Phases 8-10 will drop the real implementations into
+  these exact slots later. Also fixed a gap left by the academy pass —
+  `components/icons/LearningIcons.jsx` was academy-exclusive (27 consumers,
+  confirmed) but got left behind at the shared level; moved it into
+  `features/academy/components/` and fixed all 27 imports. Deleted 4
+  confirmed-dead components (`CTASection`, `StatsBanner`, `ReturnCard`,
+  `ToolCard` — zero importers) and one orphaned CSS file. **Found but did
+  not delete:** `PublisherTerms.jsx` and `RevenueShareAgreement.jsx` are
+  also unrouted (same dead-code signature) — moved them rather than
+  removing them, since legal/contract content deserves a human call on
+  whether the route is missing or the content is genuinely retired. Ask the
+  owner. Verified: build, lint (92, unchanged), route count (285,
+  unchanged), live smoke test of `/`, `/learn/estate-planning` (exercises
+  the LearningIcons fix), `/gini`, `/fundakamental`, `/terms`.
+- [x] **Dashboard domain done — Phase 2b feature-folder work complete.**
+  Moved `pages/{Dashboard,DashboardIntro}.jsx`, `utils/auth.js`, and
+  `services/bundleSubscriptionService.js` into `features/dashboard/`
+  (the latter two confirmed Dashboard-exclusive, resolving the deferred
+  question from the auth pass). A build failure caught a real bug:
+  `utils/auth.js` has a dynamic `await import('../supabase')` that the
+  static `grep "^import"` check used throughout this migration doesn't
+  match — fixed before it shipped. Final sweep of the shared top level
+  turned up two more academy gaps (`pages/LearnIntro.jsx`,
+  `services/learnPlanService.js` — both academy-exclusive, unlike
+  `lib/learnPlan.js`/`utils/lessonProgress.js` which stay shared because
+  `ProtectedModuleRoute.jsx` also depends on them) and one more dead file
+  (`services/metricService.js`, zero references). **`src/pages/` no longer
+  exists** — every page in the app now lives under `features/*/pages/`.
+  Verified: build (after the dynamic-import fix), lint (92, unchanged),
+  route count (285, unchanged), live smoke test of `/dashboard` (1614
+  lines, the messiest file in the whole migration), `/intro/dashboard`,
+  `/intro/learn`, `/learn`.
+- [ ] Split `App.jsx`'s route table into `app/routes.jsx` (+
+  `app/providers.jsx`), now that every domain has its own `features/*/pages/`
+  to draw a route array from — no longer premature, ready whenever this is
+  picked up next. `App.jsx` itself hasn't been touched structurally beyond
+  import-path fixes throughout Phase 2b; it's still one 600+ line file.
+- [ ] Adopt `lib/api-client.ts` across the ~40 deferred call sites — every
+  domain's services got touched for their move without this happening
+  organically (moves were pure path fixes, not behavior changes), so this
+  is still a distinct, not-yet-started task.
+
+### Phase 3 — API cleanup  ·  behavior change: no  ·  core reorg done, 3 sub-items left (`chore/phase-3-api-cleanup`)
+- [x] Removed `GET /api/test-table` entirely — it inserted+deleted a real row
+  in the live `users` table on every unauthenticated call. Gated
+  `/api/auth/debug-token` and `/api/auth/debug-config` to 404 outside
+  development (debug-token echoes full JWT payload contents — email, name,
+  phone — with no auth check). Verified against a live server in both dev
+  and `NODE_ENV=production` modes.
+- [x] One shared Supabase client factory: `supabase/index.mjs` (the
+  existing, already-widely-used service-role client — kept its location
+  rather than introducing a new `lib/supabase.mjs` and rewriting 23 import
+  sites for no benefit) now also exports `userClientFromToken(token)`,
+  replacing 3 duplicated inline `createClient` calls in
+  `middlewares/auth.mjs`, `controllers/user.controller.mjs` (logout), and
+  `check-auth-config.mjs`. Verified end-to-end against the real Supabase
+  API with a live server.
+- [x] Extracted `routes/ai.routes.mjs` (723 lines, everything mixed
+  together) into `modules/ai/{knowledge,providers,promptBuilder,
+  tradeAnalysis,ai.routes}.mjs`, split by concern, bodies byte-identical.
+  Verified against a live server — full call chain executes correctly
+  through to the external AI provider call, which fails on an unrelated,
+  pre-existing invalid API key (not a regression).
+- [x] **Reorganized `routes/controllers/repository/validators` →
+  `modules/<domain>/`.** Owner chose to do this now, including the retired
+  advisor/chat/video-call/forms stack (rather than waiting for Phase 4) —
+  Phase 4 now deletes whole module directories instead of scattered files.
+  12 domains: `auth`, `academy` (course+learn+progress), `certificates`,
+  `algos`, `billing` (subscriptionPlan), `metrics`, `help`, `files`,
+  `newsletter` (newsletter+newsletterPlan+substack+subscription+the cron
+  runner/scheduler), `advisor` (advisor+advisorAuth+forms+its mail
+  service), `chat`, `video-call`. `routes/`, `controllers/`, `repository/`,
+  `validators/` no longer exist. `services/mail.service.mjs` stayed shared
+  (used by both newsletter and advisor). Every import fixed based on where
+  its target actually landed — sibling-collapsed within a module, kept
+  cross-module where genuinely needed (`advisorAuth.routes.mjs` still calls
+  `chat.controller.mjs`), +1 depth for everything shared. A full-repo sweep
+  for stale references (not just inside `modules/`) caught 3 more real,
+  unrelated bugs: `utils/newsletterGeneratorSimple.mjs` and
+  `test-advisor-application-email.mjs` pointed at old file locations, and
+  `insert_demo_indian_finance_newsletter.js` had a `./backend/supabase/...`
+  typo predating this repo's Phase 1 rename entirely. Verified
+  exhaustively: `node --check` on every `.mjs`/`.js` file (all pass), lint
+  clean, and a full server boot with a live endpoint hit per domain module
+  (13 endpoints across all 12 domains, including one specifically targeting
+  the advisor→chat cross-module import) — every module reachable, every
+  auth guard still enforced, zero import errors.
+- [x] Add missing repository layers where controllers still query Supabase
+  directly (per `documents/AUDIT.md` D5.37). Done for all 8 controllers
+  that actually had direct queries: help, learnPlan, algorithm,
+  newsletterPlan, progress, subscriptionPlan, certificate, and auth/user
+  (auth.signUp/signInWithPassword/getUser plus the `users` table
+  read/update, not just table queries). `videoCall` was deleted wholesale
+  in Phase 4 (retired) so needs nothing; `substack` was checked and has no
+  direct Supabase usage at all. Each extraction moved the exact Supabase
+  query chain into a named repository function with no change to shape,
+  error handling, or business logic — kept `{data, error}` destructuring
+  identical, preserved intentional error-swallowing (e.g. "payment already
+  succeeded, never fail the response over storage"), and reused existing
+  domain repositories for the billing aggregation reads
+  (`getActiveAlgorithmSubscriptionsForUser`, `getLearnPlansForUser`,
+  `getNewsletterPlansForUser`) instead of duplicating query logic in a
+  billing-specific one. Along the way, fixed a real regression the
+  mutual-funds deletion had introduced: `CERTIFICATE_MODULES` in
+  `progress.controller.mjs` still listed a 7-lesson `mutual-funds` entry
+  whose content no longer exists, which would have made that certificate
+  permanently unearnable. Verified: `node --check` on every `.mjs` file
+  (all pass), `npm run lint:api` clean (0 errors, only pre-existing
+  warnings), full server boot, and live curl tests against auth
+  (login/signup/profile), billing (user-active-plans), and certificate
+  (verify/list) endpoints — every auth guard and validation path still
+  fires correctly.
+- [ ] Normalize inconsistent route mount paths. Deferred and flagged as
+  riskier than it sounds: unlike the module reorg (pure file layout,
+  invisible to clients), mount paths are the actual URLs the frontend
+  calls — changing them means updating both sides in lockstep, which cuts
+  against Phase 3's "no behavior change" framing. Worth a explicit decision
+  before touching it, not a default next step.
+- [ ] Move cron out of the web process into a Render worker; add a
+  `newsletter_runs` dedupe table. Partially owner-blocked: creating the
+  actual Render worker service is a dashboard action, and the DB migration
+  needs the Phase 0 baseline capture to land first so it's not the first
+  schema change made against an unknown live schema.
+
+### Phase 4 — Delete retired stack  ·  behavior change: YES  ·  code deleted, DB deletion still pending (`chore/phase-4-delete-retired-stack`)
+- [x] Deleted `services/api/modules/{advisor,chat,video-call}/` wholesale (17
+  files: advisor+advisorAuth+forms/join-as-advisory+its mail service, chat,
+  video-call), `middlewares/{advisorAuth,upload}.mjs` (both exclusively used
+  by the deleted modules), and the orphaned root-level
+  `test-advisor-application-email.mjs`. Removed the 5 corresponding
+  imports + `app.use()` mounts from `app.mjs`.
+- [x] Deleted Client `services/{advisorAuthService,videoCallService,
+  chatService}.js` and `components/{chat,video}/` — confirmed zero
+  remaining importers first. Kept the 5 existing `Navigate`-to-`/`
+  redirects in `App.jsx` for now, per this plan's own caution about
+  external links.
+- [x] Verified: every `services/api` file syntax-checks, lint clean on
+  both sides (down from before — deleted files carried their own
+  pre-existing issues, zero new ones), `apps/web` build unchanged, live
+  server + curl confirming all 5 removed backend route groups now 404 and
+  everything else untouched, live browser confirming the `/advisor/login`
+  redirect still works.
+- [ ] **DB deletion — deliberately not done.** Dropping `advisors`,
+  `join_as_advisory_forms`, `chat_conversations`, `chat_messages`,
+  `video_call_sessions` needs a real backup and the Phase 0 DB baseline
+  capture (still outstanding) first, and is not something to run without
+  an explicit, specific go-ahead at the time — the original "delete
+  entirely" decision was about overall strategy, not standing
+  authorization for destructive SQL. Owner: confirm when the baseline is
+  captured and you want this scheduled.
+- [x] `database/quick-advisor-setup.mjs` itself deleted in Phase 4. **But
+  the risk it created is not resolved by deleting the file:** it used a
+  hardcoded default password (`XtinCapital2026!`) to create real Supabase
+  Auth accounts for advisors — if any of those accounts still exist and
+  still have that password, deleting the script doesn't change that.
+  **Owner:** check the Supabase Auth users table for advisor accounts
+  created with this script and rotate/reset their passwords; do this
+  alongside Phase 0's secret rotation, not the eventual table drop.
+- [x] `features/academy/pages/mutualfunds/` — owner confirmed retired;
+  deleted in the Phase 3/4 close-out pass (2026-09-13).
+
+### Phase 5 — Full TypeScript conversion  ·  behavior change: no (types only)
+- [x] Convert `apps/web` (`.jsx`→`.tsx`, 345 files) and `services/api`
+  (`.mjs`→`.ts`, 76 files, `tsx` runtime — no build step). `tsc --noEmit`
+  clean on both, CI now requires it. See progress log for detail,
+  including the real bugs the conversion caught.
+- [ ] **Owner-blocked:** generate `packages/types` from the live schema
+  (`supabase gen types typescript`) — needs a Supabase access token or a
+  direct Postgres connection string; neither exists in this environment.
+- [ ] Flip `tsconfig.base.json` to `strict: true`. Tested and reverted:
+  ~2,000 errors (1,474 web + 545 api), overwhelmingly null-safety and
+  implicit-`any` issues spread across the whole codebase — a distinct,
+  much larger follow-on project. Worth its own decision on priority, not
+  a default next step.
+
+### Phase 6 — Shared auth foundation  ·  behavior change: staged
+- `requireAuth` already accepts both token types — no client change yet.
+- Add entitlements: `user_entitlements` (or `app_metadata.roles`); backfill from `learn_pro_plans`, `newsletter_pro_plans`, `algorithm_subscriptions`.
+- Client switches to Supabase-session token only; `sync` becomes "ensure `users` row exists". Keep backend-JWT acceptance one release, then remove.
+- Advisor role folds into Supabase auth as `role='advisor'` (only if any advisor accounts survive Phase 4; otherwise skip).
+
+### Phase 7 — Fold Python AI into Express  ·  behavior change: YES (endpoint parity required)
+- Port `Client/server/app/*` (compliance engine, user profiler, prompt builder, token optimizer, knowledge base) → `services/api/src/modules/ai/`.
+- `ChatWidget` points at `/api/ai/*`. Remove `VITE_API_BASE_URL`. Delete `services/ai-legacy/`.
+- Parity tests on chat / analyze / health before switch.
+
+### Phase 8 — Integrate FundaKaMental  ·  behavior change: YES
+- `git subtree add` FundaKaMental (keeps history) into `features-incoming/fundakamental`.
+- UI → `apps/web/src/features/fundakamental` (already React+TS+shadcn: adopt its shadcn primitives into `components/ui` or adapt).
+- Backend → `services/api/src/modules/fundakamental` (+ AI parts into `modules/ai`).
+- DB: migrate its tables prefixed (`funda_reports`, `funda_source_documents`, `funda_watchlist`, `funda_chat_messages`); remap `user_id` → shared `users.id`; merge its `users` by email.
+- `/fundakamental` route → real feature (replace marketing stub). Keep `/intro/fundakamental`.
+
+### Phase 9 — Integrate Journal  ·  behavior change: YES
+- `git subtree add` Journal into `features-incoming/journal`.
+- Rebuild UI as `features/journal` React components from its logic (`app.js`, `ai-coach.js`) — do not paste the 240 KB files.
+- Backend → `modules/journal` (+ AI into `modules/ai`).
+- DB: create/migrate `journal_strategies`, `journal_goals`, `journal_trades` on shared `users`.
+- `/journal` → real feature; retire `xtinjournal.website` (redirect to `xtincapital.com/journal`).
+
+### Phase 10 — Integrate Gini  ·  behavior change: YES
+- `git subtree add` Gini into `features-incoming/gini`.
+- Rebuild UI as `features/gini` React (from `app.js` 354 KB + `gini-premium.js`); port `gini-ai-engine.js` → `modules/ai`; Razorpay → existing `modules/subscriptions`.
+- DB: migrate `gini_family_members`, `gini_assets`, `gini_liabilities`, `gini_goals`, `gini_elder_care`, `gini_education_plans`, `gini_tax_optimization` onto shared `users`.
+- `/gini` → real feature; retire `xtingini.in` (redirect).
+
+### Phase 11 — DB consolidation & hardening  ·  behavior change: YES (DB, tested)
+- Normalize table names; enforce FK/`user_id` consistency; enable + test RLS table-by-table on staging.
+- Everything as `database/migrations/*`. Regenerate `packages/types`. Delete `backend/database/*.sql` ad-hoc scripts and the AI-written `DATABASE_SCHEMA_README.md` (replace with generated `database/SCHEMA.md`).
+
+### Phase 12 — Auth consolidation finish  ·  behavior change: YES (staged, fallback release)
+- Remove backend-minted JWT path, `advisor_token`, `utils/auth.js` vs `authService` duplication, `utils/googleAuth.js`.
+- One `apiClient`, one `useAuth`, one route guard. Supabase session revocation replaces in-memory blacklist; delete `backend/data/`.
+
+### Phase 13 — Testing, docs, deploy  ·  behavior change: no
+- Tests: auth middleware, Razorpay verify, newsletter generation, entitlement checks, region math. Playwright smoke: `/`, `/login`, `/dashboard`, `/gini`, `/journal`, `/fundakamental`, one purchase, one lesson.
+- CI gates on. ADRs: single Supabase project; Supabase-only auth; workspace layout; `features/` pattern; Python→Node AI. Retire old deploy targets + stale `.md` guides.
+
+## Progress log
+
+- 2026-09-08 — Audit delivered. Decisions locked (retired=delete, secrets=rotate,
+  TS=full, AI=fold into Express, order=Funda→Journal→Gini, workspaces=npm,
+  charts=recharts). Phase 0 committed on `chore/phase-0-safety-net`
+  (2 prod bug fixes + gitignore + `.env.example`s + audit/plan docs).
+  Awaiting owner: secret rotation + DB baseline capture before Phase 1.
+- 2026-09-13 — Phase 1 done on `chore/phase-1-workspaces` (branched from Phase 0):
+  npm workspaces, `Client`→`apps/web`, `backend`→`services/api`,
+  `Client/server`→`services/ai-legacy`, TS/Prettier/ESLint/CI scaffolding,
+  single root lockfile. Verified with install + build + lint + typecheck.
+  **Found a live secret leak** in `DEPLOYMENT_GUIDE.md` (real Supabase
+  service-role key, JWT secret, AI keys, Gmail app password, cron secret,
+  committed since 2026-03-09) — redacted on this branch; escalated in
+  `PHASE-0-secret-rotation.md` as an urgent, do-today item, independent of
+  phase sequencing. Owner still owes: rotate those secrets, the two dashboard
+  Root Directory changes (`PHASE-1-deploy-config.md`), a live smoke test, and
+  the DB baseline capture.
+- 2026-09-13 — Owner deferred secret rotation, asked to proceed. Phase 2a done
+  on `chore/phase-2-client-cleanup` (branched from Phase 1): dead-code +
+  unused-dep removal, `config/env.js` + BACKEND_URL codemod (caught and fixed
+  a self-reference bug the codemod would've otherwise introduced in 4 files),
+  `App.jsx` React.lazy conversion (main chunk 11.5 MB → 954 KB, route count
+  verified unchanged, live browser smoke test clean), `useRegion.js` single-
+  source simplification, 16 space-containing lesson folders renamed. Split
+  the rest of the original Phase 2 scope (features/* reorg, CSS
+  consolidation) into Phase 2b — deliberately deferred as its own pass since
+  it's the highest-risk step so far (touches ~330 files' import paths).
+  Secret rotation, DB baseline capture, and the two Phase 1 dashboard changes
+  are all still outstanding.
+- 2026-09-13 — Phase 2b started on `chore/phase-2b-feature-folders` (branched
+  from Phase 2a). Academy domain migrated (245+8 files into
+  `features/academy/`) and the CSS "consolidation" turned out to be deleting
+  2 dead files. Found and removed 3 more dead files with a latent missing-
+  dependency bug along the way. Tools domain migrated next (20 calculators +
+  2 pages into `features/tools/`), then certificates (4 components + 2 pages
+  + a service + a util into `features/certificates/`), then newsletter (3
+  components + 4 pages + 1 service + 1 lib file — first domain where a
+  service, newsletterService.js, stayed shared instead of moving, since
+  Footer.jsx also depends on it), then algos (4 pages + 1 service, with a
+  Dashboard.jsx cross-reference fix same as newsletter's), then auth (4
+  pages only — AuthContext/authService/SignInModal confirmed too widely
+  shared to move; deleted the dead utils/googleAuth.js along the way), then
+  marketing + gini/journal/fundakamental (9 marketing pages + 3 marketing-
+  only components, plus dedicated feature folders for the 3 sub-app landing
+  pages ahead of Phases 8-10; fixed a gap from the academy pass
+  — LearningIcons.jsx — and deleted 5 more confirmed-dead files, flagging 2
+  more unrouted legal pages for the owner instead of guessing), then
+  dashboard last as requested (1614-line Dashboard.jsx, cross-references to
+  algos/newsletter/academy, utils/auth.js + bundleSubscriptionService.js
+  moved with it as confirmed Dashboard-exclusive). A build failure caught a
+  dynamic `await import()` in utils/auth.js that the static-import-only
+  grep check used all migration missed — fixed before it shipped. Final
+  sweep found 2 more academy gaps (LearnIntro.jsx, learnPlanService.js) and
+  1 more dead file (metricService.js). **Phase 2b's feature-folder
+  migration is now complete — `src/pages/` no longer exists, every page
+  lives under `features/*/pages/`.** Remaining Phase 2b items (splitting
+  App.jsx's route table, adopting lib/api-client.ts) are now unblocked but
+  not started.
+- 2026-09-13 — Phase 3 started on `chore/phase-3-api-cleanup` (branched from
+  Phase 2b). Three slices done, each verified against a live running
+  server with real credentials: removed the test-table data-mutation
+  endpoint and gated the debug routes to non-prod; replaced 3 duplicated
+  inline Supabase `createClient` calls with one shared factory
+  (`userClientFromToken`) on the existing `supabase/index.mjs`; extracted
+  the 723-line `ai.routes.mjs` into 5 focused files under `modules/ai/`.
+  Recommended (not yet actioned) doing Phase 4's retired-stack deletion
+  before the big `routes/controllers/repository` → `modules/<domain>/`
+  reorg, so that reorg effort isn't spent on code Phase 4 is about to
+  delete anyway. Cron-to-worker move is partially owner-blocked (needs a
+  Render dashboard action and the Phase 0 DB baseline).
+- 2026-09-13 — Owner chose to do the full `modules/<domain>/` reorg now,
+  including the retired advisor/chat/video-call/forms stack, rather than
+  waiting for Phase 4. Executed: 12 domain modules, ~60 files moved,
+  every import re-resolved based on actual new location (not a blind
+  depth rule), one genuine cross-module reference kept explicit
+  (advisorAuth → chat). `routes/`, `controllers/`, `repository/`,
+  `validators/` no longer exist. A full-repo sweep for stale references
+  caught 3 more real bugs unrelated to the reorg itself, including a
+  `./backend/supabase/...` typo that predates this repo's Phase 1 rename.
+  Verified exhaustively — every file syntax-checked, lint clean, full
+  server boot with a live endpoint hit per domain (13 endpoints, 12
+  domains). Updated Phase 4's description to match: the retired stack is
+  now 3 clean module directories instead of scattered files, so that
+  phase is easier than originally scoped. Three Phase 3 sub-items remain,
+  each flagged as its own decision rather than a default next step: adding
+  missing repository layers, normalizing route mount paths (client-visible,
+  cuts against "no behavior change"), and the cron-to-worker move
+  (owner-blocked on a Render action + the Phase 0 DB baseline).
+- 2026-09-13 — Phase 4 started on `chore/phase-4-delete-retired-stack`
+  (branched from the renamed Phase 3 branch, `Redesign`). Deleted the code
+  side of the retired advisor/chat/video-call stack on both sides
+  (backend: 3 module directories + 2 middlewares + an orphaned test
+  script; frontend: 3 services + 2 component directories), verified with
+  syntax checks, lint, a build, and live server + browser testing. Did
+  NOT touch the database — dropping the 5 retired tables needs a real
+  backup and the still-outstanding Phase 0 baseline first, and destructive
+  SQL against production isn't run on a standing "delete entirely"
+  decision without a specific go-ahead at the time. Also surfaced two
+  things found along the way rather than acting on them unilaterally: a
+  hardcoded default password in a leftover advisor DB-setup script, and
+  an unrouted academy mutual-funds lesson folder with unclear intent.
+- 2026-09-13 — Closed out the remaining Phase 3/4 items owner explicitly
+  authorized: deleted the unrouted mutual-funds academy content (owner
+  confirmed retired), and added the missing repository layer to all 8
+  controllers that still queried Supabase directly (help, learnPlan,
+  algorithm, newsletterPlan, progress, subscriptionPlan, certificate,
+  auth/user) — each extraction kept the exact query shape and error
+  handling, no logic changes. Found and fixed a real regression along the
+  way: `progress.controller.mjs`'s `CERTIFICATE_MODULES` list still
+  required the deleted mutual-funds lesson content, which would have made
+  that certificate permanently unearnable. Explicitly declined to drop
+  the 5 retired DB tables without a fresh confirmation (destructive,
+  production, still no DB baseline) — remains the one open Phase 4 item.
+- 2026-09-13 — Phase 5 (full TypeScript conversion) done on
+  `chore/phase-5-typescript-conversion`. Backend: renamed all 76 `.mjs`
+  files to `.ts` (git mv, history preserved), switched every relative
+  import from `.mjs` to `.js` per NodeNext convention, and moved the
+  runtime from `node index.mjs` to `tsx index.ts` — no build step, closest
+  match to the existing dev experience (`package.json` scripts,
+  `render.yaml`, and the stray `vercel.json` all updated; `nodemon`
+  removed as redundant). Frontend: renamed all 345 `.jsx`/`.js` files
+  under `apps/web/src` to `.tsx`/`.ts`, added a `vite-env.d.ts` (Vite
+  client types + a `window.Razorpay` ambient declaration), and added
+  `typescript-eslint` to both workspaces' ESLint configs (the old
+  plain-JS config couldn't parse type syntax at all). `no-explicit-any`
+  is off in both — several fetch/`Response.json()` call sites and a few
+  pragmatic casts needed it, and being dogmatic about zero `any` mid-
+  migration isn't this phase's goal.
+  Fixing the ~330 real compile errors this surfaced (311 on the frontend,
+  ~20 on the backend) was almost entirely mechanical — untyped
+  destructured params defaulting to `{}` instead of the intended shape,
+  `useState(...)` calls whose later `setX(string)` call didn't match the
+  inferred type, `Object.entries`/`new Set()` losing their generic,
+  fetch's `Response.json()` returning `unknown` under Node's types
+  instead of DOM's `any` — but it also caught several genuine
+  pre-existing bugs no amount of manual review had surfaced:
+  - Two dynamic `import('../utils/newsletterGeneratorSimple.js')` calls
+    in `modules/newsletter/{newsletter.controller,newsletterRunner}.ts`
+    were missing a `../` since the Phase 3 reorg — silently pointing at a
+    path that doesn't exist, meaning the newsletter generation fallback
+    has been broken since that reorg landed.
+  - `JournalLanding.tsx` passed `onSignInSuccess` to `<SignInModal>`,
+    which actually reads `onSuccess` — the real prop was silently
+    dropped, and `SignInModal` calls `onSuccess()` unconditionally on
+    login, so a real sign-in from the Journal landing page's modal would
+    have thrown after every successful login.
+  - Three lesson pages (`PCLesson6/8/9.tsx`) referenced icon-object keys
+    (`Icons.BarChart`, `Icons.Target`, `Icons.Activity`) that were never
+    declared, which crashes React outright ("element type is invalid")
+    the moment that section scrolls into view.
+  - `NotFound.tsx` passed `noindex` to `<SEO>`, which reads `noIndex` —
+    the 404 page's noindex meta tag has never actually been applied.
+  - `user.validator.mjs` had a dead `validateMongoObjectID` export
+    referencing a `REGEX.MONGO_ID_2` constant that doesn't exist in a
+    Postgres/Supabase app with no MongoDB anywhere — deleted (zero
+    consumers, confirmed).
+  - `course.validator.ts`'s zod schema used the v3 `errorMap` option
+    under a `zod/v4` import; v4 silently ignores it, so a custom
+    validation message was never actually shown. Fixed to v4's `error`.
+  Also fixed a stale `index.html` (`/src/main.jsx`, no longer exists —
+  Vite was silently resolving it in dev) and a stale `services/api/
+  vercel.json` (`index.mjs`, an alternate/unused deploy config next to
+  the real Render one).
+  **Explicitly not done, and why:** flipping `strict: true` in
+  `tsconfig.base.json` was tested and reverted — it surfaces ~2,000
+  further errors (1,474 web + 545 api), overwhelmingly null-safety and
+  implicit-`any` issues spread across the whole codebase. That is a
+  distinct, much larger follow-on project, not a default extension of
+  this pass, and forcing it through here would trade real diligence for
+  volume. `packages/types` generation (`supabase gen types typescript`)
+  needs either a Supabase access token or a direct Postgres connection
+  string, neither of which exists in this environment — owner-blocked,
+  same as the Phase 0 DB baseline capture.
+  Verified: `tsc --noEmit` clean on both workspaces (0 errors), `eslint`
+  clean on the API (0 errors) and net-improved on the frontend (80 errors
+  vs. 88 pre-conversion, all pre-existing unused-var/prefer-const style
+  issues — same class the CI comment already calls out as "Phase 2/3
+  cleanup" scope, not this phase's), a full production `vite build`
+  (main chunk still 903 KB, unchanged from Phase 2b), a live `tsx`-hosted
+  server boot with curl tests across auth/billing/certificate/cron
+  endpoints, and a live browser session across the landing, learn,
+  tools/EPF calculator (ran an actual calculation), login, dashboard, and
+  journal-landing pages — zero console errors. CI's `typecheck:web` and
+  `typecheck:api` are now required (no longer `continue-on-error`);
+  `lint:web` stays advisory until the pre-existing ~80 errors are
+  cleaned up separately.

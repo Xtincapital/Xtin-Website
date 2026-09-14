@@ -1,0 +1,72 @@
+services:
+  - type: web
+    name: xtin-capital-backend
+    env: node
+    region: singapore
+    rootDir: services/api
+    buildCommand: npm install
+    startCommand: npx tsx index.ts
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BACKEND_URL
+        value: https://xtincapital-backend.onrender.com
+      # Note: Add these environment variables in Render dashboard:
+      # - JWT_SECRET (required - use a strong 32+ character secret)
+      # - SUPABASE_URL (required)
+      # - SUPABASE_ANON_KEY (required)
+      # - SUPABASE_SERVICE_ROLE_KEY (required)
+      # - RAZORPAY_KEY_ID (required for payments - Academy Pro & Market Brief Pro)
+      # - RAZORPAY_KEY_SECRET (required for payments - Academy Pro & Market Brief Pro)
+      # - ANTHROPIC_API_KEY (required for AI newsletter generation)
+      # - ANTHROPIC_MODEL  (e.g. claude-sonnet-4-6; defaults to that if unset)
+      # - GROQ_API_KEY (optional fallback AI provider)
+      # - EMAIL_USER (for newsletters)
+      # - EMAIL_PASS (for newsletters)
+      # - CRON_SECRET_TOKEN (for cron-job.org authentication)
+      #
+      # NEW: The backend now runs an in-process scheduler (node-cron) that fires
+      # the newsletter at 8:00 AM and 5:00 PM IST on its own (services/scheduler.mjs).
+      # This works only while the service is awake. On Render FREE the service
+      # sleeps after ~15 min idle, so KEEP the external cron-job.org jobs below
+      # (they wake the service AND act as a backup trigger). On a PAID always-on
+      # plan, the in-process scheduler alone is sufficient.
+      # Set DISABLE_NEWSLETTER_CRON=true to turn the in-process scheduler off.
+
+# ============================================================
+# NEWSLETTER CRON JOBS - UPDATED CONFIGURATION
+# Using external cron service (cron-job.org) instead of Render cron
+# This is FREE and more reliable than Render's paid cron jobs
+#
+# ⚠️ IMPORTANT: To fix 429 errors, configure cron-job.org as follows:
+#
+# 1. Morning Newsletter (8:00 AM IST):
+#    URL: https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
+#    Schedule: 30 2 * * * (2:30 AM UTC = 8:00 AM IST)
+#    Method: POST
+#    Timeout: 300 seconds (5 minutes)
+#    Retry on failure: NO (disable to prevent 429 errors)
+#    Allow concurrent executions: NO
+#
+# 2. Evening Newsletter (5:00 PM IST):
+#    URL: https://xtin-capital-backend.onrender.com/api/trigger-newsletter?token=CRON_SECRET_TOKEN
+#    Schedule: 30 11 * * * (11:30 AM UTC = 5:00 PM IST)
+#    Method: POST
+#    Timeout: 300 seconds (5 minutes)
+#    Retry on failure: NO (disable to prevent 429 errors)
+#    Allow concurrent executions: NO
+#
+# 3. Keep-Alive Ping (every 14 minutes - NOT 10!):
+#    URL: https://xtin-capital-backend.onrender.com/health
+#    Schedule: */14 * * * *
+#    Method: GET
+#    Timeout: 30 seconds
+#    Retry on failure: NO
+#
+# 🔧 429 ERROR FIXES:
+# - The backend now has built-in rate limiting (15 min minimum between sends)
+# - Duplicate requests return 200 OK with "skipped: true" instead of 429
+# - GROQ API calls have automatic retry with exponential backoff
+# - Disable "Retry on failure" in cron-job.org to prevent duplicate attempts
+# - Increase keep-alive interval to 14 minutes (Render spins down after 15 min)
+# ============================================================

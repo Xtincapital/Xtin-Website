@@ -1,0 +1,63 @@
+# Robots.txt for Xtin Capital
+# https://www.xtincapital.com
+
+# Allow all crawlers
+User-agent: *
+
+# Allow crawling of main content
+Allow: /
+Allow: /tools/
+Allow: /learn/
+Allow: /newsletter
+Allow: /journal
+Allow: /gini
+Allow: /algos
+Allow: /advisory
+Allow: /about
+Allow: /help
+
+# Disallow sensitive areas
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+Disallow: /api/
+Disallow: /admin/
+Disallow: /advisory/submissions
+
+# Block dev paths
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /advisor/dashboard
+
+# Sitemap location
+Sitemap: https://www.xtincapital.com/sitemap.xml
+
+# Google specific
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+
+# Bing specific
+User-agent: Bingbot
+Allow: /
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+
+# Explicitly allow brand assets for search snippets
+Allow: /favicon.png
+
+# Block AI crawlers if desired (uncomment if needed)
+# User-agent: GPTBot
+# Disallow: /
+
+# User-agent: ChatGPT-User
+# Disallow: /
+
+# User-agent: CCBot
+# Disallow: /
+
+# User-agent: anthropic-ai
+# Disallow: /

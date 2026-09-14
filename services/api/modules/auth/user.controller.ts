@@ -1,0 +1,483 @@
+// controllers/user.controllers.js
+import jwt from "jsonwebtoken";
+import { userClientFromToken } from "../../supabase/index.js";
+import {
+	validateUserSignup,
+	validateUserLogin,
+} from "./user.validator.js";
+import { AUTH, HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
+import {
+	checkUserExists,
+	saveUser,
+	getUserByEmail,
+	getUserByAuthId,
+	signUpWithSupabaseAuth,
+	signInWithSupabaseAuth,
+	getSupabaseAuthUser,
+	getUserProfileById,
+	updateUserProfileById,
+} from "./user.repository.js";
+import { config } from "../../constants/config.js";
+import { blacklistToken } from "../../utils/tokenBlacklist.js";
+
+// Signup controller - uses Supabase Auth
+const signup = async (req, res) => {
+	const validationResult = validateUserSignup(req.body);
+	if (validationResult.errors) {
+		return res.status(400).json({
+			errors: validationResult.errors,
+			message: validationResult.message,
+		});
+	}
+	const { first_name, last_name, email, phone_number, password } =
+		validationResult.data;
+	try {
+		// Check if a user with this email already exists in our users table
+		const existingUser = await checkUserExists(email);
+		if (existingUser) {
+			return res
+				.status(400)
+				.json({
+					status: HTTP_STATUS.BAD_REQUEST,
+					message: MESSAGES.USER_ALREADY_EXISTS,
+					data: null,
+				});
+		}
+
+		// Create user in Supabase Auth
+		const { data: authData, error: authError } = await signUpWithSupabaseAuth({
+			email,
+			password,
+			first_name,
+			last_name,
+			phone_number,
+		});
+
+		if (authError) {
+			console.error('Supabase auth error:', authError);
+			return res.status(400).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: authError.message,
+				data: null,
+			});
+		}
+
+		console.log('Supabase auth successful:', authData);
+
+		// Check if email confirmation is required
+		if (!authData.session) {
+			// Email confirmation required
+			return res.status(200).json({
+				status: HTTP_STATUS.OK,
+				message: "Signup successful! Please check your email and click the confirmation link to complete your registration.",
+				data: {
+					email: email,
+					requires_confirmation: true,
+				},
+			});
+		}
+
+		// Save additional user data to our users table
+		console.log('Auth data:', JSON.stringify(authData, null, 2));
+		let newUser = null;
+		if (authData.user) {
+			console.log('Saving user data:', { auth_id: authData.user.id, first_name, last_name, email, phone_number });
+			try {
+				newUser = await saveUser({
+					auth_id: authData.user.id,
+					first_name,
+					last_name,
+					email,
+					phone_number,
+				});
+				console.log('User saved successfully:', newUser);
+			} catch (saveError) {
+				console.error('Failed to save user to custom table:', saveError);
+				console.error('Error details:', JSON.stringify(saveError, null, 2));
+				// Continue anyway, the trigger should have created the profile
+			}
+		} else {
+			console.log('No user in auth data, email confirmation might be required');
+		}
+
+		res.status(201).json({
+			status: HTTP_STATUS.CREATED,
+			message: "User created successfully",
+			data: {
+				id: newUser?.id || authData.user?.id,
+				first_name: newUser?.first_name || first_name,
+				last_name: newUser?.last_name || last_name,
+				email: newUser?.email || email,
+				phone_number: newUser?.phone_number || phone_number,
+				token: authData.session?.access_token, // Include token if session exists
+			},
+		});
+	} catch (error) {
+		console.error('Signup error:', error);
+		console.error('Error stack:', error.stack);
+
+		// Handle specific database errors
+		if (error.code === '23505') { // Unique violation
+			if (error.message.includes('email')) {
+				return res.status(400).json({
+					status: HTTP_STATUS.BAD_REQUEST,
+					message: "An account with this email already exists",
+					data: null,
+				});
+			}
+			if (error.message.includes('phone_number')) {
+				return res.status(400).json({
+					status: HTTP_STATUS.BAD_REQUEST,
+					message: "An account with this phone number already exists",
+					data: null,
+				});
+			}
+		}
+
+		// Generic server error
+		res.status(500).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: "Database error saving new user",
+		});
+	}
+};
+
+// Login controller
+const login = async (req, res) => {
+	const validationResult = validateUserLogin(req.body);
+
+	if (validationResult.errors) {
+		return res.status(400).json({
+			errors: validationResult.errors,
+			message: validationResult.message,
+		});
+	}
+	const { email, password } = validationResult.data;
+
+	try {
+		// Sign in with Supabase Auth
+		const { data: authData, error: authError } = await signInWithSupabaseAuth({
+			email,
+			password,
+		});
+
+		if (authError) {
+			return res.status(400).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: "Invalid credentials",
+				data: null,
+			});
+		}
+		
+
+		// Get user data from our users table
+		const user = await getUserByAuthId(authData.user.id);
+		if (!user) {
+			return res.status(400).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: "User data not found",
+				data: null,
+			});
+		}
+
+
+		// Generate JWT token (for backend API authentication)
+		if (!config.JWT_SECRET) {
+			console.error('JWT_SECRET not configured');
+			return res.status(500).json({
+				status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+				message: "Authentication configuration error",
+				data: null,
+			});
+		}
+		
+		const token = jwt.sign(
+			{
+				jti: `${user.id}_${Date.now()}`, // Unique token ID for blacklisting
+				userId: user.id,
+				authId: user.auth_id,
+				email: user.email,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				phone_number: user.phone_number,
+				iat: Math.floor(Date.now() / 1000), // issued at
+			},
+			config.JWT_SECRET,
+			{ 
+				expiresIn: AUTH.ACCESS_TOKEN_EXPIRY,
+				algorithm: 'HS256',
+				issuer: 'xtin-capital-backend',
+				audience: 'xtin-capital-client'
+			}
+		);
+
+		return res.status(HTTP_STATUS.OK).json({
+			status: HTTP_STATUS.OK,
+			message: "Login successful",
+			data: {
+				token,
+				userId: user.id,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				email: user.email,
+				phone_number: user.phone_number,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: MESSAGES.SERVER_ERROR,
+		});
+	}
+};
+
+// Sync user data after OAuth login
+const syncUser = async (req, res) => {
+	try {
+		// Get the authenticated user from Supabase using the token
+		const token = req.headers.authorization?.split(" ")[1];
+		if (!token) {
+			return res.status(401).json({ error: "No token provided" });
+		}
+
+		const { data: { user }, error: authError } = await getSupabaseAuthUser(token);
+		if (authError || !user) {
+			return res.status(401).json({ error: "Invalid token" });
+		}
+
+		// Check if custom user exists
+		let customUser = await getUserByAuthId(user.id);
+		if (!customUser) {
+			// Create custom user from OAuth data
+			// Handle Google OAuth metadata structure
+			let first_name = user.user_metadata?.first_name || user.user_metadata?.given_name || '';
+			let last_name = user.user_metadata?.last_name || user.user_metadata?.family_name || '';
+
+			// If first_name/last_name not provided, try parsing full name
+			if (!first_name && !last_name) {
+				const fullName = user.user_metadata?.name || user.user_metadata?.full_name || '';
+				if (fullName) {
+					const nameParts = fullName.trim().split(' ');
+					first_name = nameParts[0] || '';
+					last_name = nameParts.slice(1).join(' ') || '';
+				}
+			}
+
+			const userData = {
+				auth_id: user.id,
+				email: user.email,
+				first_name,
+				last_name,
+				phone_number: user.user_metadata?.phone_number || null,
+			};
+
+			try {
+				customUser = await saveUser(userData);
+			} catch (saveError) {
+				console.error('Failed to save user, but continuing with OAuth user data:', saveError);
+				// Create a temporary user object from OAuth data
+				customUser = {
+					id: user.id, // Use auth_id as temporary id
+					auth_id: user.id,
+					email: user.email,
+					first_name: userData.first_name,
+					last_name: userData.last_name,
+					phone_number: userData.phone_number,
+				};
+			}
+		}
+
+		// Generate JWT token for API access
+		const jwtToken = jwt.sign(
+			{
+				jti: `${customUser.id}_${Date.now()}`, // Unique token ID for blacklisting
+				userId: customUser.id,
+				authId: customUser.auth_id,
+				email: customUser.email,
+				first_name: customUser.first_name,
+				last_name: customUser.last_name,
+				phone_number: customUser.phone_number,
+			},
+			config.JWT_SECRET,
+			{ expiresIn: AUTH.ACCESS_TOKEN_EXPIRY }
+		);
+
+		res.status(200).json({
+			status: HTTP_STATUS.OK,
+			message: "User synced successfully",
+			data: {
+				token: jwtToken,
+				id: customUser.id,
+				first_name: customUser.first_name,
+				last_name: customUser.last_name,
+				email: customUser.email,
+				phone_number: customUser.phone_number,
+			},
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: MESSAGES.SERVER_ERROR,
+		});
+	}
+};
+
+// Get user profile endpoint
+const getUserProfile = async (req, res) => {
+	try {
+		// Get user from JWT token
+		const userId = req.user?.userId;
+
+		if (!userId) {
+			return res.status(401).json({
+				status: HTTP_STATUS.UNAUTHORIZED,
+				message: "User not authenticated",
+			});
+		}
+
+		// Fetch user data from database
+		const { data: user, error } = await getUserProfileById(userId);
+
+		if (error || !user) {
+			console.error('Error fetching user profile:', error);
+			return res.status(404).json({
+				status: HTTP_STATUS.NOT_FOUND,
+				message: "User profile not found",
+			});
+		}
+
+		res.status(HTTP_STATUS.OK).json({
+			status: HTTP_STATUS.OK,
+			message: "User profile retrieved successfully",
+			data: {
+				id: user.id,
+				email: user.email,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				phone_number: user.phone_number,
+				created_at: user.created_at,
+			},
+		});
+	} catch (error) {
+		console.error('Get user profile error:', error);
+		res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: MESSAGES.SERVER_ERROR,
+		});
+	}
+};
+
+// Update user profile
+const updateUserProfile = async (req, res) => {
+	try {
+		const userId = req.user.userId || req.user.id; // Use userId from custom users table
+		const authId = req.user.authId; // Get the auth ID from the authenticated user
+		const { first_name, last_name, phone_number } = req.body;
+
+		console.log('Update profile request:', { userId, authId, first_name, last_name, phone_number });
+
+		// Validate that at least first_name and last_name are provided
+		if (!first_name || !last_name) {
+			return res.status(400).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: "First name and last name are required",
+			});
+		}
+
+		// Build update object
+		const updateData: { first_name: string; last_name: string; phone_number?: string } = {
+			first_name: first_name.trim(),
+			last_name: last_name.trim(),
+		};
+
+		// Add phone_number if provided
+		if (phone_number && phone_number.trim()) {
+			updateData.phone_number = phone_number.trim();
+		}
+
+		// Update user in Supabase users table
+		const { data: user, error: updateError } = await updateUserProfileById(userId, updateData);
+
+		if (updateError || !user) {
+			console.error('Error updating user profile in table:', updateError);
+			return res.status(400).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: "Failed to update user profile",
+				error: updateError?.message,
+			});
+		}
+
+		console.log('User profile updated successfully in table:', user);
+
+		res.status(HTTP_STATUS.OK).json({
+			status: HTTP_STATUS.OK,
+			message: "User profile updated successfully",
+			data: {
+				id: user.id,
+				email: user.email,
+				first_name: user.first_name,
+				last_name: user.last_name,
+				phone_number: user.phone_number,
+			},
+		});
+	} catch (error) {
+		console.error('Update user profile error:', error);
+		res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: MESSAGES.SERVER_ERROR,
+			error: error.message,
+		});
+	}
+};
+
+/**
+ * Logout controller - Blacklists the current JWT token
+ */
+const logout = async (req, res) => {
+    try {
+        // Get the token from the auth header
+        const token = req.headers.authorization?.split(" ")[1];
+        
+        if (!token) {
+            return res.status(400).json({
+                status: HTTP_STATUS.BAD_REQUEST,
+                message: "No token provided",
+            });
+        }
+
+        // Decode the token to get its jti (without verifying expiry)
+        const decoded = jwt.decode(token);
+        
+        if (decoded && decoded.jti) {
+            // Get token expiry duration for blacklist TTL
+            const expiresIn = decoded.exp ? decoded.exp - Math.floor(Date.now() / 1000) : 3600;
+            if (expiresIn > 0) {
+                blacklistToken(decoded.jti, expiresIn);
+            }
+        }
+
+        // Also attempt to sign out from Supabase (in case the token came from OAuth)
+        try {
+            const userSupabase = userClientFromToken(token);
+            await userSupabase.auth.signOut();
+        } catch (supabaseError) {
+            // Supabase sign-out is best-effort; ignore if it fails
+            console.warn('[Logout] Supabase signOut (optional) failed:', supabaseError.message);
+        }
+
+        return res.status(HTTP_STATUS.OK).json({
+            status: HTTP_STATUS.OK,
+            message: "Logged out successfully",
+        });
+    } catch (error) {
+        console.error('[Logout] Error:', error);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+            status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+            message: MESSAGES.SERVER_ERROR,
+        });
+    }
+};
+
+export { signup, login, logout, syncUser, getUserProfile, updateUserProfile };

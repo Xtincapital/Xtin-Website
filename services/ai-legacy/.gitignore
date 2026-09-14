@@ -1,0 +1,11 @@
+# Ignore env and local stuff
+.env
+.env.*
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+Scripts/
+Lib/

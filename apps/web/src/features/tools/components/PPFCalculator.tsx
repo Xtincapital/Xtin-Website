@@ -1,0 +1,185 @@
+import React, { useState } from "react";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const PPFCalculator = () => {
+  const [yearlyInvestment, setYearlyInvestment] = useState("100000");
+  const [annualRate, setAnnualRate] = useState("7.1");
+  const [years, setYears] = useState("15"); // Default PPF tenure
+  const [futureValue, setFutureValue] = useState(null);
+  const [chartData, setChartData] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
+  const [maturityYear, setMaturityYear] = useState(null);
+
+  const formatNumber = (num) => {
+    if (num === null || isNaN(num)) return "0";
+    return new Intl.NumberFormat("en-IN", {
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    const value = e.target.value.replace(/,/g, "");
+    setter(value);
+  };
+
+  const calculatePPF = () => {
+    const P = parseFloat(yearlyInvestment);
+    const annualRateValue = parseFloat(annualRate) / 100;
+    const yearsValue = parseFloat(years);
+
+    if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
+      let M = 0;
+      const data = [];
+      let balance = 0;
+      for (let i = 1; i <= yearsValue; i++) {
+        balance = (balance + P) * (1 + annualRateValue);
+        data.push({ year: i, value: balance.toFixed(2) });
+      }
+      M = balance;
+      setFutureValue(M.toFixed(2));
+      setChartData(data);
+
+      const currentYear = new Date().getFullYear();
+      setMaturityYear(currentYear + yearsValue);
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      <Navbar />
+      <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+            PPF Calculator
+          </h1>
+          <div className="text-center mb-12">
+            <button
+              onClick={() => setShowInfo(!showInfo)}
+              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+            >
+               What is a Public Provident Fund (PPF)?
+            </button>
+            {showInfo && (
+              <div className="mt-6 p-6 bg-white shadow rounded-lg text-gray-700 max-w-2xl mx-auto">
+                The Public Provident Fund (PPF) is a long-term investment scheme popular in India that offers tax benefits. It has a lock-in period of 15 years, and the interest earned is compounded annually and is tax-free.
+              </div>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Yearly Investment
+                </label>
+                <input
+                  type="text"
+                  value={formatNumber(yearlyInvestment)}
+                  onChange={handleInputChange(setYearlyInvestment)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Annual Interest Rate (%)
+                </label>
+                <input
+                  type="number"
+                  value={annualRate}
+                  onChange={handleInputChange(setAnnualRate)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Investment Period (Years)
+                </label>
+                <input
+                  type="number"
+                  value={years}
+                  onChange={handleInputChange(setYears)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <button
+                onClick={calculatePPF}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition mt-4"
+              >
+                Calculate PPF Maturity
+              </button>
+
+              {futureValue && (
+                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                  <p className="text-lg font-medium text-gray-800">
+                    Maturity Value:{" "}
+                    <span className="text-green-700 font-bold">
+                      ₹{new Intl.NumberFormat('en-IN').format(futureValue)}
+                    </span>
+                  </p>
+                  <p className="mt-4 text-sm text-gray-600">
+                    Investments of{" "}
+                    <span className="font-semibold">
+                      ₹{new Intl.NumberFormat('en-IN').format(Number(yearlyInvestment))}
+                    </span>{" "}
+                    each year for{" "}
+                    <span className="font-semibold">{years}</span> years at{" "}
+                    <span className="font-semibold">{annualRate}%</span> p.a.
+                  </p>
+                  {maturityYear && (
+                    <p className="mt-2 text-sm text-gray-600">
+                      Maturity year:{" "}
+                      <span className="font-semibold">{maturityYear}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <h2 className="text-2xl font-semibold mb-6">Growth Over Time</h2>
+              {chartData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={320}>
+                  <LineChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="year"
+                      label={{ value: "Years", position: "insideBottom", dy: 10 }}
+                    />
+                    <YAxis
+                    width={100}
+                      label={{ value: "", angle: -90, position: "insideLeft" }}
+                    />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="value"
+                      stroke="#16a34a"
+                      strokeWidth={3}
+                      dot
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              ) : (
+                <p className="text-gray-500">
+                  Enter details and calculate to see the graph.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default PPFCalculator;

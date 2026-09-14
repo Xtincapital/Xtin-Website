@@ -1,0 +1,27 @@
+{
+  "name": "xtin-capital",
+  "private": true,
+  "version": "0.0.0",
+  "description": "XTIN Capital — consolidated monorepo (web app + API). See documents/migration/PLAN.md.",
+  "workspaces": [
+    "apps/web",
+    "services/api"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace apps/web",
+    "dev:api": "npm run dev --workspace services/api",
+    "build:web": "npm run build --workspace apps/web",
+    "lint:web": "npm run lint --workspace apps/web",
+    "lint:api": "npm run lint --workspace services/api",
+    "lint": "npm run lint:web && npm run lint:api",
+    "typecheck:web": "npm run typecheck --workspace apps/web",
+    "typecheck:api": "npm run typecheck --workspace services/api",
+    "typecheck": "npm run typecheck:web && npm run typecheck:api",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build": "npm run build:web"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
+}

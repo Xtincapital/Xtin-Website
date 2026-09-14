@@ -1,0 +1,239 @@
+import React, { useState } from "react";
+import useRegion from "../../../hooks/useRegion";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
+
+const SimpleInterestCalculator = () => {
+  const { symbol: sym } = useRegion();
+  const [principal, setPrincipal] = useState("10000");
+  const [annualRate, setAnnualRate] = useState("10");
+  const [years, setYears] = useState("5");
+  const [futureValue, setFutureValue] = useState<string | null>(null);
+  const [chartData, setChartData] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
+  const [isPieChart, setIsPieChart] = useState(false);
+
+  const formatNumber = (num) => {
+    if (num === null || isNaN(num)) return "0";
+    return new Intl.NumberFormat("en-IN", {
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    const value = e.target.value.replace(/,/g, "");
+    setter(value);
+  };
+
+  const calculateSimpleInterest = () => {
+    const P = parseFloat(principal);
+    const annualRateValue = parseFloat(annualRate) / 100;
+    const yearsValue = parseFloat(years);
+
+    if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
+      let A;
+      A = P * (1 + annualRateValue * yearsValue);
+      setFutureValue(A.toFixed(2));
+
+      const data = [];
+      for (let i = 0; i <= yearsValue; i++) {
+        let value;
+        value = P * (1 + annualRateValue * i);
+        data.push({ year: i, value: value.toFixed(2) });
+      }
+      setChartData(data);
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-gray-50">
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Main Content */}
+      <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+            Simple Interest Calculator
+          </h1>
+
+          {/* Info Badge */}
+          <div className="text-center mb-12">
+            <button
+              onClick={() => setShowInfo(!showInfo)}
+              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+            >
+               What is Simple Interest?
+            </button>
+            {showInfo && (
+              <div className="mt-6 p-6 bg-white shadow rounded-lg text-gray-700 max-w-2xl mx-auto">
+                Simple interest is a quick and easy method of calculating the interest charge on a loan. Simple interest is determined by multiplying the daily interest rate by the principal by the number of days that elapse between payments.
+              </div>
+            )}
+          </div>
+
+          {/* Calculator + Graph Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            {/* Calculator Section */}
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Principal Amount
+                </label>
+                <input
+                  type="text"
+                  value={formatNumber(principal)}
+                  onChange={handleInputChange(setPrincipal)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Annual Interest Rate (%)
+                </label>
+                <input
+                  type="number"
+                  value={annualRate}
+                  onChange={handleInputChange(setAnnualRate)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Time Period (Years)
+                </label>
+                <input
+                  type="number"
+                  value={years}
+                  onChange={handleInputChange(setYears)}
+                  className="w-full p-3 border rounded-lg"
+                />
+              </div>
+              <button
+                onClick={calculateSimpleInterest}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+              >
+                Calculate Simple Interest
+              </button>
+
+              {futureValue && (
+                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                  <p className="text-lg font-medium">
+                     Future Value: <span className="text-green-700">{sym}{formatNumber(futureValue)}</span>
+                  </p>
+                  <p className="mt-3 text-sm text-gray-600">
+                    Principal Amount:{" "}
+                    <span className="font-semibold">{sym}{formatNumber(principal)}</span>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Total Interest:{" "}
+                    <span className="font-semibold">{sym}{formatNumber((Number(futureValue) - Number(principal)).toFixed(2))}</span>
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Graph Section */}
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold">Growth Over Time</h2>
+                <button
+                  onClick={() => setIsPieChart(!isPieChart)}
+                  className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                >
+                  {isPieChart ? "Show Line Chart" : "Show Pie Chart"}
+                </button>
+              </div>
+              {chartData.length > 0 ? (
+                isPieChart ? (
+                  <ResponsiveContainer width="100%" height={320}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          {
+                            name: "Principal Amount",
+                            value: parseFloat(principal),
+                          },
+                          {
+                            name: "Total Interest",
+                            value: parseFloat(
+                              (Number(futureValue) - Number(principal)).toFixed(2)
+                            ),
+                          },
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={100}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label
+                      >
+                        <Cell key="cell-0" fill="#16a34a" />
+                        <Cell key="cell-1" fill="#f97316" />
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <ResponsiveContainer width="100%" height={320}>
+                    <LineChart data={chartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="year"
+                        label={{
+                          value: "Years",
+                          position: "insideBottom",
+                          dy: 10,
+                        }}
+                      />
+                      <YAxis
+                        width={100}
+                        label={{
+                          value: "",
+                          angle: -90,
+                          position: "insideLeft",
+                        }}
+                      />
+                      <Tooltip />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#16a34a"
+                        strokeWidth={3}
+                        dot
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )
+              ) : (
+                <p className="text-gray-500">
+                  Enter details and calculate to see the graph.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+};
+
+export default SimpleInterestCalculator;

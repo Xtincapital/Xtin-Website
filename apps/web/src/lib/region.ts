@@ -1,0 +1,216 @@
+/**
+ * Region service — makes the Xtin Capital site region-aware.
+ *
+ * Resolves the visitor's region (localStorage override → IP → timezone/locale
+ * heuristic → US) and exposes currency + symbol, money formatting, financial
+ * jargon (so "SIP" becomes "recurring investing" outside India), live FX and
+ * region-natural showcase numbers. Changing the region persists and fires
+ * `xtin:region-changed` so subscribers re-render.
+ */
+
+const STORAGE_KEY = 'xtin_region_v1';
+const IP_CACHE_KEY = 'xtin_ip_region';
+const FX_CACHE_KEY = 'xtin_fx_rates';
+const TOAST_KEY = 'xtin_region_toast_v1';
+
+export const REGIONS = {
+  IN: {
+    code: 'IN', name: 'India', flag: '🇮🇳', currency: 'INR', symbol: '₹',
+    locale: 'en-IN', timezone: 'Asia/Kolkata', numberSystem: 'lakh',
+    jargon: { sip: 'SIP Calculator', swp: 'SWP Calculator', stepUp: 'Step-up SIP', dca: 'SIP' },
+    defaults: { inflation: 6, equityReturn: 12, retirementAge: 60 },
+  },
+  US: {
+    code: 'US', name: 'United States', flag: '🇺🇸', currency: 'USD', symbol: '$',
+    locale: 'en-US', timezone: 'America/New_York', numberSystem: 'western',
+    jargon: { sip: 'Recurring Investment (DCA) Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'recurring investing' },
+    defaults: { inflation: 2.5, equityReturn: 8, retirementAge: 65 },
+  },
+  GB: {
+    code: 'GB', name: 'United Kingdom', flag: '🇬🇧', currency: 'GBP', symbol: '£',
+    locale: 'en-GB', timezone: 'Europe/London', numberSystem: 'western',
+    jargon: { sip: 'Regular Investment Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'regular investing' },
+    defaults: { inflation: 2.5, equityReturn: 7, retirementAge: 66 },
+  },
+  EU: {
+    code: 'EU', name: 'Europe', flag: '🇪🇺', currency: 'EUR', symbol: '€',
+    locale: 'de-DE', timezone: 'Europe/Berlin', numberSystem: 'western',
+    jargon: { sip: 'Savings Plan Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'savings plan' },
+    defaults: { inflation: 2, equityReturn: 7, retirementAge: 65 },
+  },
+  AE: {
+    code: 'AE', name: 'United Arab Emirates', flag: '🇦🇪', currency: 'AED', symbol: 'AED ',
+    locale: 'en-AE', timezone: 'Asia/Dubai', numberSystem: 'western',
+    jargon: { sip: 'Recurring Investment Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'recurring investing' },
+    defaults: { inflation: 2.5, equityReturn: 7, retirementAge: 60 },
+  },
+  SG: {
+    code: 'SG', name: 'Singapore', flag: '🇸🇬', currency: 'SGD', symbol: 'S$',
+    locale: 'en-SG', timezone: 'Asia/Singapore', numberSystem: 'western',
+    jargon: { sip: 'Recurring Investment (RSP) Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'recurring investing' },
+    defaults: { inflation: 2, equityReturn: 7, retirementAge: 63 },
+  },
+  GLOBAL: {
+    code: 'GLOBAL', name: 'Global', flag: '🌍', currency: 'USD', symbol: '$',
+    locale: 'en-US', timezone: 'UTC', numberSystem: 'western',
+    jargon: { sip: 'Recurring Investment (DCA) Calculator', swp: 'Retirement Drawdown Calculator', stepUp: 'Step-up Investing', dca: 'recurring investing' },
+    defaults: { inflation: 3, equityReturn: 8, retirementAge: 65 },
+  },
+};
+
+export const REGION_ORDER = ['IN', 'US', 'GB', 'EU', 'AE', 'SG', 'GLOBAL'];
+
+const FALLBACK_RATES = { USD: 1, INR: 83, EUR: 0.92, GBP: 0.79, AED: 3.67, SGD: 1.35 };
+
+let _region = 'US';
+let _rates = { ...FALLBACK_RATES };
+const subscribers = new Set<(region: string) => void>();
+
+function countryToRegion(country) {
+  const c = (country || '').toUpperCase();
+  if (c === 'IN') return 'IN';
+  if (c === 'US') return 'US';
+  if (c === 'GB' || c === 'UK') return 'GB';
+  if (c === 'AE') return 'AE';
+  if (c === 'SG') return 'SG';
+  const EUROZONE = ['DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'IE', 'PT', 'FI', 'GR', 'SK', 'SI', 'LU', 'LV', 'LT', 'EE', 'CY', 'MT'];
+  if (EUROZONE.includes(c)) return 'EU';
+  return 'GLOBAL';
+}
+
+function readSaved() {
+  try {
+    const v = localStorage.getItem(STORAGE_KEY);
+    if (v && REGIONS[v]) return v;
+  } catch { /* ignore */ }
+  return null;
+}
+
+function heuristicRegion() {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const locale = (navigator.language || '').toLowerCase();
+    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta' || locale.endsWith('-in')) return 'IN';
+    if (tz === 'Europe/London' || locale.endsWith('-gb')) return 'GB';
+    if (tz === 'Asia/Dubai') return 'AE';
+    if (tz === 'Asia/Singapore') return 'SG';
+    if (tz.startsWith('Europe/')) return 'EU';
+    if (tz.startsWith('America/')) return 'US';
+  } catch { /* ignore */ }
+  return 'US';
+}
+
+async function ipRegion() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(IP_CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.at < 24 * 3600 * 1000 && cached.region) return cached.region;
+  } catch { /* ignore */ }
+
+  const endpoints = [
+    { url: 'https://ipapi.co/json/', pick: (d) => d.country_code || d.country },
+    { url: 'https://ipwho.is/', pick: (d) => d.country_code },
+  ];
+  for (const ep of endpoints) {
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 2000);
+      const res = await fetch(ep.url, { signal: ctrl.signal });
+      clearTimeout(t);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const country = ep.pick(data);
+      if (country) {
+        const region = countryToRegion(country);
+        try { localStorage.setItem(IP_CACHE_KEY, JSON.stringify({ region, at: Date.now() })); } catch { /* ignore */ }
+        return region;
+      }
+    } catch { /* try next */ }
+  }
+  return null;
+}
+
+function notify() {
+  subscribers.forEach((cb) => { try { cb(_region); } catch { /* ignore */ } });
+  try { window.dispatchEvent(new CustomEvent('xtin:region-changed', { detail: _region })); } catch { /* ignore */ }
+}
+
+export async function detectRegion() {
+  const saved = readSaved();
+  if (saved) { _region = saved; return saved; }
+  _region = heuristicRegion();
+  const ip = await ipRegion();
+  if (ip) _region = ip;
+  notify();
+  try {
+    if (!localStorage.getItem(TOAST_KEY)) {
+      window.dispatchEvent(new CustomEvent('xtin:region-detected', { detail: _region }));
+    }
+  } catch { /* ignore */ }
+  return _region;
+}
+
+export function ackRegionToast() {
+  try { localStorage.setItem(TOAST_KEY, '1'); } catch { /* ignore */ }
+}
+
+export function getRegion() { return _region; }
+export function getRegionConfig(code) { return REGIONS[code || _region]; }
+export function isIndia() { return _region === 'IN'; }
+
+export function setRegion(code) {
+  if (!REGIONS[code]) return;
+  _region = code;
+  try { localStorage.setItem(STORAGE_KEY, code); } catch { /* ignore */ }
+  notify();
+}
+
+export function subscribeRegion(cb) {
+  subscribers.add(cb);
+  return () => subscribers.delete(cb);
+}
+
+export function currencySymbol(code) { return REGIONS[code || _region].symbol; }
+
+export async function getRates() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.at < 12 * 3600 * 1000 && cached.rates) {
+      _rates = { USD: 1, ...cached.rates };
+      return _rates;
+    }
+  } catch { /* ignore */ }
+  try {
+    const res = await fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=INR,EUR,GBP,AED,SGD');
+    if (res.ok) {
+      const data = await res.json();
+      _rates = { USD: 1, ...data.rates };
+      try { localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rates: data.rates, at: Date.now() })); } catch { /* ignore */ }
+    }
+  } catch { /* keep fallback */ }
+  return _rates;
+}
+
+export function convert(amount, from, to) {
+  const rFrom = _rates[from] ?? FALLBACK_RATES[from] ?? 1;
+  const rTo = _rates[to] ?? FALLBACK_RATES[to] ?? 1;
+  if (!rFrom) return amount;
+  return (amount / rFrom) * rTo;
+}
+
+export function formatMoney(amount, opts: { region?: string; compact?: boolean } = {}) {
+  const cfg = REGIONS[opts.region || _region];
+  const sym = cfg.symbol;
+  const n = Number(amount) || 0;
+  if (opts.compact) {
+    const abs = Math.abs(n);
+    if (cfg.numberSystem === 'lakh') {
+      if (abs >= 1e7) return `${sym}${(n / 1e7).toFixed(2).replace(/\.00$/, '')}Cr`;
+      if (abs >= 1e5) return `${sym}${(n / 1e5).toFixed(2).replace(/\.00$/, '')}L`;
+    } else {
+      if (abs >= 1e9) return `${sym}${(n / 1e9).toFixed(2).replace(/\.00$/, '')}B`;
+      if (abs >= 1e6) return `${sym}${(n / 1e6).toFixed(2).replace(/\.00$/, '')}M`;
+      if (abs >= 1e3) return `${sym}${(n / 1e3).toFixed(1).replace(/\.0$/, '')}K`;
+    }
+  }
+  return `${sym}${Math.round(n).toLocaleString(cfg.locale)}`;
+}

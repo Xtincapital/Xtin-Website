@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  web:
+    name: apps/web (lint + typecheck + build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Advisory only: ~330 files predate any lint enforcement (see documents/AUDIT.md
+      # D4). Phase 2/3 cleanup zeroes this out, then it becomes a required check.
+      - run: npm run lint:web
+        continue-on-error: true
+      # Required: Phase 5's full TypeScript conversion is done and green.
+      - run: npm run typecheck:web
+      - run: npm run build:web
+
+  api:
+    name: services/api (lint + typecheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run lint:api
+      # Required: Phase 5's full TypeScript conversion is done and green.
+      - run: npm run typecheck:api
+      # No build step: services/api ships TypeScript run directly via tsx.
+
+  format:
+    name: format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+        continue-on-error: true

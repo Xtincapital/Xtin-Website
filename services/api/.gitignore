@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Env / secrets — never commit real values (use sample.env as the template)
+.env
+.env.*
+!sample.env
+
+# Runtime data (token blacklist persistence, etc.)
+data/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
