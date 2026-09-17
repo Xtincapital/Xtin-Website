@@ -20,7 +20,7 @@
     "test-newsletter": "tsx -e 'import(\"./utils/newsletterGeneratorSimple.ts\").then(({generateAndSendNewsletter}) => generateAndSendNewsletter()).then(r => console.log(\"Result:\", JSON.stringify(r, null, 2))).catch(console.error)'",
     "generate-newsletter": "tsx -e 'import(\"./utils/newsletterGeneratorSimple.ts\").then(({generateNewsletter}) => generateNewsletter()).then(r => console.log(\"Generated:\", r.title)).catch(console.error)'",
     "send-newsletter": "tsx send-newsletter-smtp.ts",
-    "postinstall": "echo 'Backend dependencies installed successfully'"
+    "postinstall": "npx puppeteer browsers install chrome && echo 'Backend dependencies installed successfully'"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
@@ -38,7 +38,7 @@
     "nunjucks": "^3.2.4",
     "openai": "^6.15.0",
     "pdf-parse": "^1.1.4",
-    "puppeteer": "^25.10.0",
+    "puppeteer": "^25.11.0",
     "qrcode": "^1.5.4",
     "tsx": "^4.23.13",
     "ws": "^8.21.3",
