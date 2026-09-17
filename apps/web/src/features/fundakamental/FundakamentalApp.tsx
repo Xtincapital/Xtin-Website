@@ -27,11 +27,21 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
+import UpgradeModal from "./components/UpgradeModal";
+import BuyTokensModal from "./components/BuyTokensModal";
+import ProCelebration from "./components/ProCelebration";
 import "./fundakamental.css";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Settings = lazy(() => import("./pages/Settings"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const NewAnalysis = lazy(() => import("./pages/NewAnalysis"));
+const AnalysisReport = lazy(() => import("./pages/AnalysisReport"));
+const StockScanner = lazy(() => import("./pages/StockScanner"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Watchlist = lazy(() => import("./pages/Watchlist"));
+const History = lazy(() => import("./pages/History"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 
 // A query client scoped to FundaKaMental, separate from any query client the
 // host app's other features might use — matches the original App.tsx's own
@@ -58,50 +68,26 @@ const FundakamentalApp = () => (
             <Routes>
               <Route index element={<Dashboard />} />
               <Route path="settings" element={<Settings />} />
-
-              {/* TODO: mount NewAnalysis page here once ported — source:
-                  features-incoming/fundakamental/src/pages/NewAnalysis.tsx
-              <Route path="analyze" element={<NewAnalysis />} /> */}
-
-              {/* TODO: mount AnalysisReport page here once ported — source:
-                  features-incoming/fundakamental/src/pages/AnalysisReport.tsx
-              <Route path="report/:id" element={<AnalysisReport />} /> */}
-
-              {/* TODO: mount StockScanner page here once ported — source:
-                  features-incoming/fundakamental/src/pages/StockScanner.tsx
-              <Route path="scanner" element={<StockScanner />} /> */}
-
-              {/* TODO: mount Portfolio page here once ported — source:
-                  features-incoming/fundakamental/src/pages/Portfolio.tsx
-              <Route path="portfolio" element={<Portfolio />} /> */}
-
-              {/* TODO: mount Watchlist page here once ported — source:
-                  features-incoming/fundakamental/src/pages/Watchlist.tsx
-              <Route path="watchlist" element={<Watchlist />} /> */}
-
-              {/* TODO: mount History page here once ported — source:
-                  features-incoming/fundakamental/src/pages/History.tsx
-              <Route path="history" element={<History />} /> */}
-
-              {/* TODO: mount Pricing page here once ported — source:
-                  features-incoming/fundakamental/src/pages/Pricing.tsx
-              <Route path="pricing" element={<Pricing />} /> */}
-
+              <Route path="analyze" element={<NewAnalysis />} />
+              <Route path="report/:id" element={<AnalysisReport />} />
+              <Route path="scanner" element={<StockScanner />} />
+              <Route path="portfolio" element={<Portfolio />} />
+              <Route path="watchlist" element={<Watchlist />} />
+              <Route path="history" element={<History />} />
+              <Route path="pricing" element={<Pricing />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
 
-          {/* TODO: mount these once ported — they read usePlanStore's
-              upgradeOpen/buyTokensOpen/celebrating state, which is already
-              wired up in store/usePlanStore.ts:
-                - UpgradeModal   (features-incoming/fundakamental/src/components/UpgradeModal.tsx)
-                - BuyTokensModal (features-incoming/fundakamental/src/components/BuyTokensModal.tsx)
-                - ProCelebration (features-incoming/fundakamental/src/components/ProCelebration.tsx)
-              RegionToast (features-incoming/fundakamental/src/components/RegionToast.tsx)
-              is NOT re-added here — the host app's own region-detection
-              toast (if any) already covers this app-wide via the shared
-              CurrencyProvider; a second one scoped to this subtree would be
-              redundant. */}
+          {/* Read usePlanStore's upgradeOpen/buyTokensOpen/celebrating state
+              directly (already wired up in store/usePlanStore.ts).
+              RegionToast is deliberately NOT re-added here — the host app's
+              own region-detection toast already covers this app-wide via the
+              shared CurrencyProvider; a second one scoped to this subtree
+              would be redundant. */}
+          <UpgradeModal />
+          <BuyTokensModal />
+          <ProCelebration />
         </div>
       </TooltipProvider>
     </QueryClientProvider>
