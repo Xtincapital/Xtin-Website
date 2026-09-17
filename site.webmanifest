@@ -1,0 +1,35 @@
+{
+  "name": "Xtin Journal",
+  "short_name": "Xtin Journal",
+  "description": "AI-powered trading journal for trade logging, analytics, goals, and behavioral coaching.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#111625",
+  "icons": [
+    {
+      "src": "/assets/favicons/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/favicons/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/xtin-logo.svg",
+      "sizes": "160x160",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

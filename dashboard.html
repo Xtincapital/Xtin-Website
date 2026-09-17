@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="supabase-url" content="https://cmxznikrbxmsdsmawahr.supabase.co">
+  <meta name="supabase-anon-key"
+    content="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNteHpuaWtyYnhtc2RzbWF3YWhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1ODU3NDAsImV4cCI6MjA5NTE2MTc0MH0.Sq2QbsX721JBSc8-sWlwy0k1pQGEHs5kFvD2Cmj72lM">
+  <title>Xtin Journal Dashboard</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="ai-coach.css">
+  <style>
+    :root {
+      --green: #00aa5b;
+      --green-dark: #007a46;
+      --ink: #111625;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn.primary {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .profile-main {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+      font-size: 26px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 22px;
+    }
+
+    .connection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .connection-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.18s ease;
+      min-height: 130px;
+    }
+
+    .connection-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+      box-shadow: 0 12px 26px rgba(17, 22, 37, 0.08);
+    }
+
+    .connection-card.selected {
+      background: #f0fdf4;
+      border-color: var(--green);
+    }
+
+    .connection-card i {
+      color: var(--green);
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      background: #e1f7ec;
+      color: var(--green-dark);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .form input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .message {
+      min-height: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pricing {
+      margin-top: 22px;
+      background: linear-gradient(135deg, #111625, #0f2a13);
+      color: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .pricing .btn {
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    @media (max-width: 860px) {
+
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar,
+      .pricing {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <img src="assets/xtin-logo.svg" alt="Xtin">
+        <span>Xtin Journal Dashboard</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn" href="index.html"><i class="fa-solid fa-arrow-left"></i> Journal</a>
+        <a class="btn" href="pricing.html"><i class="fa-solid fa-bolt"></i> Pricing</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="panel profile-main">
+        <div class="avatar" id="avatarInitials">TR</div>
+        <div>
+          <h1 id="displayName">Trader Dashboard</h1>
+          <p class="muted" id="displayEmail">Sign in to manage your profile and sync settings.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Account Actions</h3>
+        <div class="nav-actions" style="margin-top: 14px;">
+          <button class="btn primary" id="signInToggle">Sign In</button>
+          <button class="btn" id="signOutBtn">Sign Out</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Saved Trades</span><strong id="tradeCount">0</strong></div>
+      <div class="stat"><span>Selected Platforms</span><strong id="platformCount">0</strong></div>
+      <div class="stat"><span>Currency</span><strong id="currencyValue">INR</strong></div>
+      <div class="stat"><span>Sync Mode</span><strong id="syncMode">Local</strong></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Add Trading Platforms</h2>
+        <p class="muted">Choose your region and we'll show the platforms traders there actually use. These are
+          placeholders for the next broker API setup.</p>
+        <div style="margin: 4px 0 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <label for="regionSelect" style="font-weight: 600; font-size: 0.9rem; color: #475569;">Your region:</label>
+          <select id="regionSelect" onchange="changeRegion(this.value)"
+            style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; font-weight: 600; color: #0E1B2E; background: #fff; cursor: pointer;">
+          </select>
+          <span class="muted" style="font-size: 0.8rem;">Change anytime — your selections are kept per platform.</span>
+        </div>
+        <div class="connection-grid" id="connectionGrid"></div>
+        <div class="pills" id="selectedConnections"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Personal Information</h2>
+        <form class="form" id="profileForm">
+          <input id="nameInput" type="text" placeholder="Full name">
+          <input id="ageInput" type="number" min="13" max="120" placeholder="Age">
+          <button class="btn primary" type="submit">Save Profile</button>
+          <div class="message" id="profileMessage"></div>
+        </form>
+
+        <form class="form" id="authForm">
+          <input id="emailInput" type="email" placeholder="Email">
+          <input id="passwordInput" type="password" placeholder="Password">
+          <div class="nav-actions">
+            <button class="btn primary" type="submit">Sign In</button>
+            <button class="btn" type="button" id="createAccountBtn">Create Account</button>
+          </div>
+          <div class="message" id="authMessage"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="pricing">
+      <div>
+        <h2>AI Coach Pricing</h2>
+        <p style="margin: 8px 0 0; opacity: 0.82;">Recharge AI tokens for Claude-powered coaching, weekly reviews, and
+          trade-context chat.</p>
+      </div>
+      <a class="btn primary" href="pricing.html">Open Pricing Page</a>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-journal.js"></script>
+  <script src="region.js"></script>
+  <script>
+    // Region-aware platform catalogue: traders see the brokers people in
+    // their market actually use. Selections persist per platform name, so
+    // switching regions never loses a connection choice.
+    const REGION_PLATFORMS = {
+      india: {
+        label: 'India',
+        platforms: [
+          ['Zerodha Kite', 'Indian broker', 'fa-chart-line'],
+          ['Upstox', 'Indian broker', 'fa-arrow-trend-up'],
+          ['Angel One', 'Indian broker', 'fa-building-columns'],
+          ['Dhan', 'Indian broker', 'fa-wallet'],
+          ['Groww', 'Indian broker', 'fa-seedling'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Binance', 'Crypto exchange', 'fa-coins']
+        ]
+      },
+      usa: {
+        label: 'United States',
+        platforms: [
+          ['Interactive Brokers', 'Global broker', 'fa-globe'],
+          ['Charles Schwab', 'US broker', 'fa-building-columns'],
+          ['Robinhood', 'US broker', 'fa-feather'],
+          ['Webull', 'US broker', 'fa-chart-line'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Coinbase', 'Crypto exchange', 'fa-coins']
+        ]
+      },
+      europe: {
+        label: 'Europe & UK',
+        platforms: [
+          ['Interactive Brokers', 'Global broker', 'fa-globe'],
+          ['IG', 'UK/EU broker', 'fa-chart-line'],
+          ['Saxo Bank', 'EU broker', 'fa-building-columns'],
+          ['Trading 212', 'UK/EU broker', 'fa-arrow-trend-up'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Binance', 'Crypto exchange', 'fa-coins']
+        ]
+      },
+      mena: {
+        label: 'Middle East',
+        platforms: [
+          ['Interactive Brokers', 'Global broker', 'fa-globe'],
+          ['eToro', 'Multi-asset broker', 'fa-users'],
+          ['Sarwa Trade', 'UAE broker', 'fa-building-columns'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Binance', 'Crypto exchange', 'fa-coins']
+        ]
+      },
+      sea: {
+        label: 'Southeast Asia',
+        platforms: [
+          ['Tiger Brokers', 'SEA broker', 'fa-chart-line'],
+          ['moomoo', 'SEA broker', 'fa-arrow-trend-up'],
+          ['Interactive Brokers', 'Global broker', 'fa-globe'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Binance', 'Crypto exchange', 'fa-coins']
+        ]
+      },
+      global: {
+        label: 'Global / Crypto',
+        platforms: [
+          ['Interactive Brokers', 'Global broker', 'fa-globe'],
+          ['eToro', 'Multi-asset broker', 'fa-users'],
+          ['TradingView', 'Charting alerts', 'fa-chart-simple'],
+          ['Binance', 'Crypto exchange', 'fa-coins'],
+          ['Coinbase', 'Crypto exchange', 'fa-wallet'],
+          ['Kraken', 'Crypto exchange', 'fa-water']
+        ]
+      }
+    };
+    const REGION_KEY = 'xtin_trading_region';
+    const CONNECTION_KEY = 'xtin_broker_connections';
+    const TRADE_KEY = 'trading_journal_data';
+
+    function currentRegion() {
+      const saved = localStorage.getItem(REGION_KEY);
+      if (REGION_PLATFORMS[saved]) return saved;
+      // No explicit broker-region yet → default from the region service so a
+      // US visitor lands on US brokers instead of Indian ones.
+      const fromRegion = window.XtinRegion && XtinRegion.getRegionConfig()
+        ? XtinRegion.getRegionConfig().broker : null;
+      return REGION_PLATFORMS[fromRegion] ? fromRegion : 'india';
+    }
+
+    window.changeRegion = function (region) {
+      if (!REGION_PLATFORMS[region]) return;
+      localStorage.setItem(REGION_KEY, region);
+      render();
+    };
+
+    function renderRegionSelect() {
+      const select = document.getElementById('regionSelect');
+      if (!select) return;
+      const region = currentRegion();
+      select.innerHTML = Object.entries(REGION_PLATFORMS)
+        .map(([id, cfg]) => `<option value="${id}" ${id === region ? 'selected' : ''}>${cfg.label}</option>`)
+        .join('');
+    }
+
+    function readJSON(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key) || 'null') ?? fallback; } catch { return fallback; }
+    }
+    function writeJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+    function initials(name) {
+      return (name || 'Trader').split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase() || 'TR';
+    }
+    function currentUser() {
+      return window.journalSupabase?.getUser?.() || null;
+    }
+    function render() {
+      const user = currentUser();
+      const name = window.journalSupabase?.getDisplayName?.() || user?.email?.split('@')[0] || 'Trader';
+      const connections = readJSON(CONNECTION_KEY, {});
+      const selected = Object.keys(connections).filter(name => connections[name]);
+      const trades = readJSON(TRADE_KEY, []);
+
+      document.getElementById('displayName').textContent = name;
+      document.getElementById('displayEmail').textContent = user?.email || 'Sign in to sync your dashboard with Supabase.';
+      document.getElementById('avatarInitials').textContent = initials(name);
+      document.getElementById('tradeCount').textContent = Array.isArray(trades) ? trades.length : 0;
+      document.getElementById('platformCount').textContent = selected.length;
+      document.getElementById('currencyValue').textContent = localStorage.getItem('selectedCurrency') || 'INR';
+      document.getElementById('syncMode').textContent = user ? 'Cloud' : 'Local';
+      document.getElementById('signOutBtn').style.display = user ? 'inline-flex' : 'none';
+      document.getElementById('signInToggle').style.display = user ? 'none' : 'inline-flex';
+      document.getElementById('authForm').style.display = user ? 'none' : 'grid';
+      document.getElementById('nameInput').value = user?.user_metadata?.full_name || '';
+      document.getElementById('ageInput').value = user?.user_metadata?.age || '';
+
+      renderRegionSelect();
+      const regionPlatforms = REGION_PLATFORMS[currentRegion()].platforms;
+      document.getElementById('connectionGrid').innerHTML = regionPlatforms.map(([platform, type, icon]) => `
+        <button class="connection-card ${connections[platform] ? 'selected' : ''}" type="button" onclick="togglePlatform('${platform}')">
+          <i class="fa-solid ${icon}"></i>
+          <h3>${platform}</h3>
+          <p class="muted">${type}</p>
+        </button>
+      `).join('');
+      document.getElementById('selectedConnections').innerHTML = selected.length
+        ? selected.map(name => `<span class="pill">${name}</span>`).join('')
+        : '<span class="muted">No platform selected yet.</span>';
+    }
+    window.togglePlatform = function (platform) {
+      const connections = readJSON(CONNECTION_KEY, {});
+      connections[platform] = !connections[platform];
+      writeJSON(CONNECTION_KEY, connections);
+      render();
+    };
+    document.getElementById('authForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value;
+      const msg = document.getElementById('authMessage');
+      try {
+        await window.journalSupabase.signIn(email, password);
+        msg.textContent = 'Signed in.';
+        render();
+      } catch (error) {
+        const raw = error?.message || '';
+        msg.textContent = /failed to fetch|network|fetch/i.test(raw)
+          ? 'Could not reach the sign-in service. Check your connection — if it persists, the authentication service is being reconfigured. Your journal keeps working locally.'
+          : (raw || 'Could not sign in.');
+      }
+    });
+    document.getElementById('createAccountBtn').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value;
+      const name = document.getElementById('nameInput').value.trim();
+      const age = parseInt(document.getElementById('ageInput').value, 10) || null;
+      const msg = document.getElementById('authMessage');
+      try {
+        await window.journalSupabase.signUp(email, password, { full_name: name, age });
+        msg.textContent = 'Account created. Verify your email if required, then sign in.';
+      } catch (error) {
+        const raw = error?.message || '';
+        msg.textContent = /failed to fetch|network|fetch/i.test(raw)
+          ? 'Could not reach the sign-up service. Check your connection — if it persists, the authentication service is being reconfigured. Your journal keeps working locally.'
+          : (raw || 'Could not create account.');
+      }
+    });
+    document.getElementById('profileForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const user = currentUser();
+      const msg = document.getElementById('profileMessage');
+      if (!user) {
+        msg.textContent = 'Sign in first to save profile details.';
+        return;
+      }
+      const full_name = document.getElementById('nameInput').value.trim();
+      const age = parseInt(document.getElementById('ageInput').value, 10) || null;
+      try {
+        await window.journalSupabase.updateProfile({ ...user.user_metadata, full_name, age });
+        msg.textContent = 'Profile updated.';
+        render();
+      } catch (error) {
+        msg.textContent = error.message || 'Could not update profile.';
+      }
+    });
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      await window.journalSupabase?.signOut?.();
+      render();
+    });
+    document.getElementById('signInToggle').addEventListener('click', () => {
+      document.getElementById('emailInput').focus();
+    });
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await window.journalSupabase?.init?.();
+      render();
+      // Resolve region (IP refine) so the broker default matches the visitor's
+      // country when they haven't picked a broker-region yet.
+      if (window.XtinRegion) {
+        XtinRegion.detectRegion().then(() => {
+          if (!localStorage.getItem(REGION_KEY)) render();
+        });
+      }
+    });
+  </script>
+  <script src="ai-coach.js?v=20260525-ai-coach"></script>
+</body>
+
+</html>
