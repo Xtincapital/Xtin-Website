@@ -32,6 +32,8 @@ import fundakamentalTokensRoutes from "./modules/fundakamental/tokens.routes.js"
 import journalTradesRoutes from "./modules/journal/trades.routes.js";
 import journalGoalsRoutes from "./modules/journal/goals.routes.js";
 import journalStrategiesRoutes from "./modules/journal/strategies.routes.js";
+import journalAiCoachRoutes from "./modules/journal/aiCoach.routes.js";
+import journalImportRoutes from "./modules/journal/import.routes.js";
 
 const app = express();
 
@@ -138,6 +140,8 @@ app.use("/api", fundakamentalTokensRoutes);
 app.use("/api", journalTradesRoutes);
 app.use("/api", journalGoalsRoutes);
 app.use("/api", journalStrategiesRoutes);
+app.use("/api", journalAiCoachRoutes);
+app.use("/api", journalImportRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 

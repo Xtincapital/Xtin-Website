@@ -79,3 +79,87 @@ export async function generateAIText({ messages, maxTokens = 400, temperature = 
 
   return response.choices[0].message.content.trim();
 }
+
+export interface AIUsage {
+  inputTokens: number;
+  outputTokens: number;
+}
+
+interface GenerateAIWithUsageParams {
+  system?: string;
+  messages: { role: 'user' | 'assistant'; content: string }[];
+  maxTokens?: number;
+  temperature?: number;
+  /** Overrides the default Claude model (CLAUDE_MODEL) for this call. */
+  model?: string;
+}
+
+interface GenerateAIWithUsageResult {
+  text: string;
+  usage: AIUsage;
+}
+
+/**
+ * Claude-only text generation that returns the REAL token usage from
+ * Anthropic's own API response (`usage.input_tokens` + `usage.output_tokens`),
+ * for callers that need exact accounting instead of `generateAIText`'s
+ * length-based estimate (used e.g. by Journal's AI wallet, which must deduct
+ * the precise cost of every coaching message — see
+ * modules/journal/aiWallet.repository.ts).
+ *
+ * Deliberately has no OpenAI/Groq fallback: unlike `generateAIText`
+ * (which FundaKaMental needs a fallback for), the callers of this function
+ * only ever call Claude — mirroring their own Python source
+ * (features-incoming/journal/main.py's `call_claude`), which never had a
+ * fallback provider either. Throws if ANTHROPIC_API_KEY isn't configured,
+ * same as that source.
+ */
+export async function generateAIWithUsage({
+  system,
+  messages,
+  maxTokens = 400,
+  temperature = 0.7,
+  model = CLAUDE_MODEL,
+}: GenerateAIWithUsageParams): Promise<GenerateAIWithUsageResult> {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('ANTHROPIC_API_KEY is not configured');
+  }
+
+  const response = await fetch(ANTHROPIC_API_URL, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': process.env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: maxTokens,
+      temperature,
+      ...(system ? { system } : {}),
+      messages,
+    }),
+  });
+
+  const data: any = await response.json();
+
+  if (!response.ok) {
+    const message = data?.error?.message || `Claude API request failed with status ${response.status}`;
+    throw new Error(message);
+  }
+
+  const text = data.content
+    .filter((block: any) => block.type === 'text')
+    .map((block: any) => block.text)
+    .join('\n')
+    .trim();
+
+  const usage = data.usage || {};
+  return {
+    text,
+    usage: {
+      inputTokens: Number(usage.input_tokens || 0),
+      outputTokens: Number(usage.output_tokens || 0),
+    },
+  };
+}
