@@ -452,12 +452,13 @@ verification as Phase 2a before moving to the next.
 - Decisions made during 8a: dropped the Python service's unused Stripe billing path entirely (frontend never called it; every other product in this app uses Razorpay only — the parallel Razorpay-based `funda_pro_payments`/`funda_ai_wallets` tables are what's live). Deferred nothing on the WebSocket — ported it now rather than falling back to polling from the client, since Render's web service supports long-lived WS connections without any extra config.
 - Incidental fix during 8b: `constants/config.ts`'s `PORT` was typed `string | number` (`process.env.PORT || 5000`); a transitive `@types/node` patch bump (pulled in by 8b's new dependencies) tightened `http.Server.listen`'s overload resolution and turned this into a real type error. Fixed to `Number(process.env.PORT) || 5000` — pre-existing latent bug, unrelated to FundaKaMental itself, just surfaced by it.
 
-### Phase 9 — Integrate Journal  ·  behavior change: YES
-- `git subtree add` Journal into `features-incoming/journal`.
-- Rebuild UI as `features/journal` React components from its logic (`app.js`, `ai-coach.js`) — do not paste the 240 KB files.
-- Backend → `modules/journal` (+ AI into `modules/ai`).
-- DB: create/migrate `journal_strategies`, `journal_goals`, `journal_trades` on shared `users`.
-- `/journal` → real feature; retire `xtinjournal.website` (redirect to `xtincapital.com/journal`).
+### Phase 9 — Integrate Journal  ·  behavior change: YES  ·  IN PROGRESS
+- [x] `git subtree add` Journal into `features-incoming/journal`.
+- [ ] Rebuild UI as `features/journal` React components from its logic (`app.js`, `ai-coach.js`) — do not paste the 240 KB files. (Not yet started — later sub-phase.)
+- [~] Backend → `modules/journal` (+ AI into `modules/ai`), sub-phase 9a done: full CRUD for trades/goals/strategies. Explicit architecture decision (owner confirmed): normalize into real relational tables rather than preserving the original app's client-direct-to-Supabase JSON-blob pattern (`journal_user_state`), matching FundaKaMental's "backend owns all business data" architecture. `journal_trades` (paginated list/get/create/patch/delete + bulk clear), `journal_goals`, `journal_strategies` (get-or-create-by-name, matching `app.js`'s `rememberCustomStrategy` auto-add-on-save behavior) all live at `/api/journal/{trades,goals,strategies}`, `req.user.authId` throughout (no separate Journal profile table — `journal_*.user_id` references `auth.users(id)` directly, same as the original's own design). Verified live: server boots clean, all three route groups return 401 without a token. Two of the original's endpoints deliberately NOT ported: `main.py`'s own code comments call `/api/v2/subscription`/`/api/v2/invoices` "legacy mock" — backed by in-process Python dicts that reset on every restart and accept a fake "subscription" with zero payment verification; the real payment paths (`/plan/razorpay/*`, `/ai/razorpay/*`) are a later sub-phase.
+- [ ] Not yet done: AI-coach endpoints (analyze/chat/weekly-review/pre-trade-check/behavioral-alerts) + bulk trade import (9b), Razorpay Pro plan + AI wallet (9c), frontend (9d-9f).
+- [x] DB: `database/migrations/0005_journal_normalized_schema.sql` — `journal_trades`, `journal_goals`, `journal_strategies`, plus `journal_ai_wallets`/`journal_ai_wallet_purchases` (mirroring `funda_ai_wallets`/`funda_token_pack_purchases` from Phase 8d) for the not-yet-built AI-wallet sub-phase. `journal_user_state`/`journal_pro_plans` (already live from 0001) are untouched — still used for genuinely UI-only state (tab selection, drafts, settings) and the existing Pro-plan billing table respectively.
+- [ ] `/journal` → real feature; retire `xtinjournal.website` (redirect to `xtincapital.com/journal`). (Blocked on frontend sub-phases.)
 
 ### Phase 10 — Integrate Gini  ·  behavior change: YES
 - `git subtree add` Gini into `features-incoming/gini`.
