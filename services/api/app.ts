@@ -34,6 +34,8 @@ import journalGoalsRoutes from "./modules/journal/goals.routes.js";
 import journalStrategiesRoutes from "./modules/journal/strategies.routes.js";
 import journalAiCoachRoutes from "./modules/journal/aiCoach.routes.js";
 import journalImportRoutes from "./modules/journal/import.routes.js";
+import journalAiWalletRoutes from "./modules/journal/aiWallet.routes.js";
+import journalProPlanRoutes from "./modules/journal/proPlan.routes.js";
 
 const app = express();
 
@@ -142,6 +144,8 @@ app.use("/api", journalGoalsRoutes);
 app.use("/api", journalStrategiesRoutes);
 app.use("/api", journalAiCoachRoutes);
 app.use("/api", journalImportRoutes);
+app.use("/api", journalAiWalletRoutes);
+app.use("/api", journalProPlanRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 
