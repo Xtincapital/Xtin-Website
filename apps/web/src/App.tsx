@@ -28,6 +28,11 @@ const LearnIntro = lazy(() => import('./features/academy/pages/LearnIntro'));
 const NewsletterIntro = lazy(() => import('./features/newsletter/pages/NewsletterIntro'));
 const ToolsIntro = lazy(() => import('./features/tools/pages/ToolsIntro'));
 const JournalIntro = lazy(() => import('./features/journal/pages/JournalIntro'));
+// `JournalLanding.tsx` (the old marketing-stub page) is no longer imported
+// here — its route below was replaced with the real protected app. The file
+// itself is left in place, unrouted, matching how FundakamentalHome/
+// xtin-capital-home.tsx was handled in Phase 8e.
+const JournalApp = lazy(() => import('./features/journal/JournalApp'));
 const GiniIntro = lazy(() => import('./features/gini/pages/GiniIntro'));
 const FundakamentalIntro = lazy(() => import('./features/fundakamental/pages/FundakamentalIntro'));
 const Terms = lazy(() => import('./features/marketing/pages/Terms'));
@@ -77,7 +82,6 @@ import ProtectedPageRoute from './components/ProtectedPageRoute';
 import LessonProgressTracker from './features/academy/components/LessonProgressTracker';
 import CertificateManager from './features/certificates/components/CertificateManager';
 const GiniLanding = lazy(() => import('./features/gini/pages/GiniLanding'));
-const JournalLanding = lazy(() => import('./features/journal/pages/JournalLanding'));
 const BacktestLanding = lazy(() => import('./features/algos/pages/BacktestLanding'));
 const PersonalFinanceLesson1 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson1'));
 const PersonalFinanceLesson2 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson2'));
@@ -602,7 +606,7 @@ function App() {
         <Route path="/intro/mutalfunds" element={<Navigate to="/" replace />} />
 
         {/* Product routes & Intros */}
-        <Route path="/journal" element={<ProtectedPageRoute><JournalLanding /></ProtectedPageRoute>} />
+        <Route path="/journal/*" element={<ProtectedPageRoute><JournalApp /></ProtectedPageRoute>} />
         <Route path="/intro/journal" element={<JournalIntro />} />
         <Route path="/gini" element={<ProtectedPageRoute><GiniLanding /></ProtectedPageRoute>} />
         <Route path="/intro/gini" element={<GiniIntro />} />

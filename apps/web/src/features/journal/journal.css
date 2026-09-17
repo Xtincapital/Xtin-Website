@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Journal Design System — Xtin Capital Aligned
+   Aesthetic: Clean, minimal, professional fintech (same language as
+   FundaKaMental, since both are Xtin Capital products)
+
+   NOTE: These rules are scoped under .journal-scope (instead of :root / body
+   / global element selectors) so that they only style Journal's own part of
+   the page and never leak into the rest of the site — the exact same
+   mechanism apps/web/src/features/fundakamental/fundakamental.css uses for
+   `.fundakamental-scope` (see that file's header comment for the full
+   rationale: a global scope would have silently restyled every other page
+   on the site). Wrap Journal's top-level app container in a `journal-scope`
+   class for these to take effect (done in JournalApp.tsx).
+
+   Colors are close to, but not a pixel-match of, the original standalone
+   app's hand-written CSS (features-incoming/journal/dashboard.html's inline
+   <style>, journal-premium.css) — that hand-written CSS was not ported (see
+   this task's brief); instead these tokens reuse FundaKaMental's own
+   green-accented palette almost exactly, since Journal's original brand
+   green (#00aa5b) is already close to FundaKaMental's (152 69% 31% HSL). */
+
+@layer base {
+  .journal-scope {
+    /* Background: Clean white */
+    --background: 0 0% 99%;
+    --foreground: 220 20% 12%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+
+    /* Popover/Dropdown */
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+
+    /* Primary: Xtin Capital Green (Journal's original brand green, #00aa5b,
+       is close to this — see header comment) */
+    --primary: 153 100% 21%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Light gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 12%;
+
+    /* Muted */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent: Soft green tint */
+    --accent: 152 40% 95%;
+    --accent-foreground: 153 100% 17%;
+
+    /* Status colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 153 100% 21%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 20% 12%;
+
+    /* Borders and inputs */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 153 100% 21%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 9% 46%;
+    --sidebar-primary: 153 100% 21%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 152 40% 95%;
+    --sidebar-accent-foreground: 220 20% 12%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 153 100% 21%;
+
+    /* Chart colors for trading data (P&L up/down) */
+    --chart-positive: 153 100% 21%;
+    --chart-negative: 0 72% 51%;
+    --chart-neutral: 220 9% 46%;
+    --chart-1: 153 100% 21%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 340 82% 52%;
+
+    /* Gradients — Xtin Capital style */
+    --gradient-primary: linear-gradient(135deg, hsl(153, 100%, 21%) 0%, hsl(153, 90%, 28%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(152, 40%, 95%) 0%, hsl(152, 45%, 90%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(152, 30%, 97%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(220, 14%, 98%) 100%);
+
+    /* Shadows — softer for light theme */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 30px rgba(0, 106, 57, 0.12);
+  }
+}
+
+@layer base {
+  .journal-scope,
+  .journal-scope * {
+    @apply border-border;
+  }
+
+  .journal-scope {
+    scroll-behavior: smooth;
+  }
+
+  .journal-scope {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Typography — use Plus Jakarta Sans for headings (modern fintech feel) */
+  .journal-scope h1,
+  .journal-scope h2,
+  .journal-scope h3,
+  .journal-scope h4,
+  .journal-scope h5,
+  .journal-scope h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    @apply tracking-tight font-bold;
+  }
+
+  /* Custom scrollbar — subtle */
+  .journal-scope ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .journal-scope ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .journal-scope ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  .journal-scope ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+  /* Gradient backgrounds — Xtin Capital style */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  /* Glass morphism effect — lighter */
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Gradient text — green */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effect — green */
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Metric display styles (Dashboard.tsx's P&L cards) */
+  .metric-positive {
+    @apply text-success;
+  }
+
+  .metric-negative {
+    @apply text-destructive;
+  }
+
+  .metric-neutral {
+    @apply text-muted-foreground;
+  }
+
+  /* Trading data table — clean */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table th {
+    @apply text-left font-semibold text-muted-foreground uppercase text-xs tracking-wider py-3 px-4 border-b border-border;
+  }
+
+  .data-table td {
+    @apply py-3 px-4 border-b border-border/50;
+  }
+
+  .data-table tr:hover {
+    @apply bg-accent/50;
+  }
+
+  /* Xtin-style card */
+  .xtin-card {
+    @apply bg-white rounded-2xl border border-border p-6 shadow-sm transition-all duration-300;
+  }
+
+  .xtin-card:hover {
+    @apply shadow-md border-primary/20;
+  }
+
+  /* Status pill (goal status, trade win/loss, etc.) */
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  /* Text balance for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
