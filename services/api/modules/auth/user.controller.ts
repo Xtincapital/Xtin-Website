@@ -1,11 +1,10 @@
 // controllers/user.controllers.js
-import jwt from "jsonwebtoken";
-import { userClientFromToken } from "../../supabase/index.js";
+import supabase from "../../supabase/index.js";
 import {
 	validateUserSignup,
 	validateUserLogin,
 } from "./user.validator.js";
-import { AUTH, HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
+import { HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
 import {
 	checkUserExists,
 	saveUser,
@@ -17,8 +16,6 @@ import {
 	getUserProfileById,
 	updateUserProfileById,
 } from "./user.repository.js";
-import { config } from "../../constants/config.js";
-import { blacklistToken } from "../../utils/tokenBlacklist.js";
 
 // Signup controller - uses Supabase Auth
 const signup = async (req, res) => {
@@ -180,42 +177,16 @@ const login = async (req, res) => {
 			});
 		}
 
-
-		// Generate JWT token (for backend API authentication)
-		if (!config.JWT_SECRET) {
-			console.error('JWT_SECRET not configured');
-			return res.status(500).json({
-				status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-				message: "Authentication configuration error",
-				data: null,
-			});
-		}
-		
-		const token = jwt.sign(
-			{
-				jti: `${user.id}_${Date.now()}`, // Unique token ID for blacklisting
-				userId: user.id,
-				authId: user.auth_id,
-				email: user.email,
-				first_name: user.first_name,
-				last_name: user.last_name,
-				phone_number: user.phone_number,
-				iat: Math.floor(Date.now() / 1000), // issued at
-			},
-			config.JWT_SECRET,
-			{ 
-				expiresIn: AUTH.ACCESS_TOKEN_EXPIRY,
-				algorithm: 'HS256',
-				issuer: 'xtin-capital-backend',
-				audience: 'xtin-capital-client'
-			}
-		);
-
+		// No backend-minted JWT — the real credential is the Supabase session
+		// token from signInWithSupabaseAuth above (same pattern signup() below
+		// already used). The live frontend calls supabase.auth.signInWithPassword
+		// directly and never hits this route, but it's kept functional (for any
+		// caller that does use it) without reintroducing a second token type.
 		return res.status(HTTP_STATUS.OK).json({
 			status: HTTP_STATUS.OK,
 			message: "Login successful",
 			data: {
-				token,
+				token: authData.session?.access_token,
 				userId: user.id,
 				first_name: user.first_name,
 				last_name: user.last_name,
@@ -288,26 +259,15 @@ const syncUser = async (req, res) => {
 			}
 		}
 
-		// Generate JWT token for API access
-		const jwtToken = jwt.sign(
-			{
-				jti: `${customUser.id}_${Date.now()}`, // Unique token ID for blacklisting
-				userId: customUser.id,
-				authId: customUser.auth_id,
-				email: customUser.email,
-				first_name: customUser.first_name,
-				last_name: customUser.last_name,
-				phone_number: customUser.phone_number,
-			},
-			config.JWT_SECRET,
-			{ expiresIn: AUTH.ACCESS_TOKEN_EXPIRY }
-		);
-
+		// No backend-minted JWT — the caller already holds a real Supabase
+		// session token (that's what authenticated this request); this route's
+		// job is purely to ensure a public.users row exists for it, matching
+		// the live frontend's actual use (AuthContext.tsx calls this on every
+		// login/signup, but has never read `data.token` from the response).
 		res.status(200).json({
 			status: HTTP_STATUS.OK,
 			message: "User synced successfully",
 			data: {
-				token: jwtToken,
 				id: customUser.id,
 				first_name: customUser.first_name,
 				last_name: customUser.last_name,
@@ -433,13 +393,26 @@ const updateUserProfile = async (req, res) => {
 };
 
 /**
- * Logout controller - Blacklists the current JWT token
+ * Logout controller — real, server-side Supabase session revocation.
+ *
+ * Phase 12: replaces the old in-memory/disk token-blacklist (which only
+ * ever mattered for backend-minted JWTs, now removed entirely) and fixes a
+ * real bug found while auditing this path: the previous implementation
+ * called `userClientFromToken(token).auth.signOut()`, but that client is
+ * built with `persistSession: false` and never has `setSession()` called
+ * on it, so Supabase's own `signOut()` resolves an empty internal session
+ * and never actually reaches the revocation endpoint — it was a silent
+ * no-op. This calls `admin.signOut(token, 'global')` on the service-role
+ * client instead, which takes the token directly (no session-object
+ * requirement) and genuinely revokes it — and every other session the
+ * user has open, matching `AuthContext.tsx`'s own client-side signOut
+ * call, which already worked correctly for the same reason (real
+ * persisted browser session, not a headless one).
  */
 const logout = async (req, res) => {
     try {
-        // Get the token from the auth header
         const token = req.headers.authorization?.split(" ")[1];
-        
+
         if (!token) {
             return res.status(400).json({
                 status: HTTP_STATUS.BAD_REQUEST,
@@ -447,24 +420,13 @@ const logout = async (req, res) => {
             });
         }
 
-        // Decode the token to get its jti (without verifying expiry)
-        const decoded = jwt.decode(token);
-        
-        if (decoded && decoded.jti) {
-            // Get token expiry duration for blacklist TTL
-            const expiresIn = decoded.exp ? decoded.exp - Math.floor(Date.now() / 1000) : 3600;
-            if (expiresIn > 0) {
-                blacklistToken(decoded.jti, expiresIn);
-            }
-        }
-
-        // Also attempt to sign out from Supabase (in case the token came from OAuth)
-        try {
-            const userSupabase = userClientFromToken(token);
-            await userSupabase.auth.signOut();
-        } catch (supabaseError) {
-            // Supabase sign-out is best-effort; ignore if it fails
-            console.warn('[Logout] Supabase signOut (optional) failed:', supabaseError.message);
+        const { error } = await supabase.auth.admin.signOut(token, "global");
+        if (error) {
+            // Best-effort: the client already clears its own local session
+            // regardless of this call's outcome (AuthContext.logout()), so a
+            // failure here just means the server-side revocation didn't take
+            // — log it, don't fail the logout response over it.
+            console.warn('[Logout] Supabase admin signOut failed:', error.message);
         }
 
         return res.status(HTTP_STATUS.OK).json({

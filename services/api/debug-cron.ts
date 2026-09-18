@@ -14,8 +14,7 @@ console.log('');
 console.log('📋 Environment Variables Check:');
 const requiredVars = [
   'NODE_ENV',
-  'JWT_SECRET',
-  'SUPABASE_URL', 
+  'SUPABASE_URL',
   'SUPABASE_ANON_KEY',
   'SUPABASE_SERVICE_ROLE_KEY',
   'ANTHROPIC_API_KEY',

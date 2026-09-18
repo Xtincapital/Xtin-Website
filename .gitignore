@@ -73,8 +73,6 @@ temp/
 # Vercel
 .vercel
 
-# Token blacklist persist (generated at runtime)
-backend/data/
 
 # OS generated files
 Thumbs.db

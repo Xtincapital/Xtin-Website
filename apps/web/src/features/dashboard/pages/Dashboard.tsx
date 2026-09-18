@@ -11,7 +11,7 @@ import {
   Shield, Check, User, ArrowRight, Tag, Gift, Layers, Sliders,
   Plus, Sparkle, Sun, Moon, CheckCircle
 } from "lucide-react";
-import { makeAuthenticatedRequest } from "../utils/auth";
+import authService from "../../../services/authService";
 import algorithmService from "../../../features/algos/services/algorithmService";
 import { BACKEND_URL } from "../../../config/env";
 import bundleSubscriptionService from "../services/bundleSubscriptionService";
@@ -439,7 +439,7 @@ const Dashboard = () => {
     setUpdateMessage('');
 
     try {
-      const response = await makeAuthenticatedRequest(
+      const response = await authService.makeAuthenticatedRequest(
         `${BACKEND_URL}/api/auth/profile`,
         {
           method: 'PUT',

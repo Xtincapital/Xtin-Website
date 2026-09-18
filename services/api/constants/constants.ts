@@ -21,11 +21,6 @@
     USER_ALREADY_EXISTS: "User already exists.",
   };
   
-  const AUTH = {
-    ACCESS_TOKEN_EXPIRY: "7d",
-    REFRESH_TOKEN_EXPIRY: "30d",
-  };
-  
   const PAGINATION = {
     DEFAULT_PAGE: 1,
     DEFAULT_LIMIT: 10,
@@ -56,7 +51,6 @@
   export {
     HTTP_STATUS,
     MESSAGES,
-    AUTH,
     PAGINATION,
     UPLOADS,
     ENV,
