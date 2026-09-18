@@ -46,11 +46,14 @@
 //   /gini/reports                          → Reports (client-side PDF export)
 //   /gini/pricing                           → Pricing (Pro plan + AI wallet)
 //
-// Only `/gini`, `/gini/family`, `/gini/networth`, `/gini/goals` have real
-// page components so far — every other path above falls through to the
-// inline `ComingSoon` placeholder below rather than a hard 404, since these
-// routes are reserved/expected to fill in over upcoming sub-phases (not
-// literal dead links). The original's floating AI chat widget
+// `/gini`, `/gini/family`, `/gini/networth`, `/gini/goals` (Phase 10d) and
+// `/gini/portfolio`, `/gini/planner`, `/gini/required-return`,
+// `/gini/monte-carlo`, `/gini/retirement`, `/gini/calculators` (Phase 10e)
+// have real page components — `family-planning`/`family-advanced`/
+// `reports`/`pricing` still fall through to the inline `ComingSoon`
+// placeholder below rather than a hard 404, since these routes are
+// reserved/expected to fill in over upcoming sub-phases (not literal dead
+// links). The original's floating AI chat widget
 // (`#chatbotToggle`/`#chatbotWindow`) is deliberately NOT one of these
 // routes — see GiniLayout.tsx's header comment.
 // ─────────────────────────────────────────────────────────────────────────
@@ -68,6 +71,12 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Family = lazy(() => import("./pages/Family"));
 const NetWorth = lazy(() => import("./pages/NetWorth"));
 const Goals = lazy(() => import("./pages/Goals"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Planner = lazy(() => import("./pages/Planner"));
+const RequiredReturn = lazy(() => import("./pages/RequiredReturn"));
+const MonteCarlo = lazy(() => import("./pages/MonteCarlo"));
+const Retirement = lazy(() => import("./pages/Retirement"));
+const Calculators = lazy(() => import("./pages/Calculators"));
 
 // A query client scoped to Gini, separate from any query client the host
 // app's other features might use — matches Journal/FundaKaMental's own app
@@ -110,12 +119,12 @@ const GiniApp = () => (
               <Route path="family" element={<Family />} />
               <Route path="networth" element={<NetWorth />} />
               <Route path="goals" element={<Goals />} />
-              <Route path="portfolio" element={<ComingSoon />} />
-              <Route path="planner" element={<ComingSoon />} />
-              <Route path="required-return" element={<ComingSoon />} />
-              <Route path="monte-carlo" element={<ComingSoon />} />
-              <Route path="retirement" element={<ComingSoon />} />
-              <Route path="calculators" element={<ComingSoon />} />
+              <Route path="portfolio" element={<Portfolio />} />
+              <Route path="planner" element={<Planner />} />
+              <Route path="required-return" element={<RequiredReturn />} />
+              <Route path="monte-carlo" element={<MonteCarlo />} />
+              <Route path="retirement" element={<Retirement />} />
+              <Route path="calculators" element={<Calculators />} />
               <Route path="family-planning" element={<ComingSoon />} />
               <Route path="family-advanced" element={<ComingSoon />} />
               <Route path="reports" element={<ComingSoon />} />
