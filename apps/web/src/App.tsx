@@ -34,6 +34,13 @@ const JournalIntro = lazy(() => import('./features/journal/pages/JournalIntro'))
 // xtin-capital-home.tsx was handled in Phase 8e.
 const JournalApp = lazy(() => import('./features/journal/JournalApp'));
 const GiniIntro = lazy(() => import('./features/gini/pages/GiniIntro'));
+// `GiniLanding.tsx` (the old marketing-stub page) is no longer imported
+// here — its route below was replaced with the real protected app. The file
+// itself is left in place, unrouted, matching how JournalLanding was
+// handled above. Only 4 of Gini's 13 tabs are built so far (Phase 10d);
+// the rest fall through to GiniApp's own `ComingSoon` placeholder until
+// Phase 10e/10f land.
+const GiniApp = lazy(() => import('./features/gini/GiniApp'));
 const FundakamentalIntro = lazy(() => import('./features/fundakamental/pages/FundakamentalIntro'));
 const Terms = lazy(() => import('./features/marketing/pages/Terms'));
 
@@ -81,7 +88,6 @@ import ProtectedModuleRoute from './components/ProtectedModuleRoute';
 import ProtectedPageRoute from './components/ProtectedPageRoute';
 import LessonProgressTracker from './features/academy/components/LessonProgressTracker';
 import CertificateManager from './features/certificates/components/CertificateManager';
-const GiniLanding = lazy(() => import('./features/gini/pages/GiniLanding'));
 const BacktestLanding = lazy(() => import('./features/algos/pages/BacktestLanding'));
 const PersonalFinanceLesson1 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson1'));
 const PersonalFinanceLesson2 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson2'));
@@ -608,7 +614,7 @@ function App() {
         {/* Product routes & Intros */}
         <Route path="/journal/*" element={<ProtectedPageRoute><JournalApp /></ProtectedPageRoute>} />
         <Route path="/intro/journal" element={<JournalIntro />} />
-        <Route path="/gini" element={<ProtectedPageRoute><GiniLanding /></ProtectedPageRoute>} />
+        <Route path="/gini/*" element={<ProtectedPageRoute><GiniApp /></ProtectedPageRoute>} />
         <Route path="/intro/gini" element={<GiniIntro />} />
         <Route path="/fundakamental/*" element={<ProtectedPageRoute><FundakamentalApp /></ProtectedPageRoute>} />
         <Route path="/intro/fundakamental" element={<FundakamentalIntro />} />

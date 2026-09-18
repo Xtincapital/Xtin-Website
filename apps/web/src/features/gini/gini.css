@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gini Design System — Xtin Capital Aligned
+   Aesthetic: Clean, minimal, professional fintech (same language as
+   FundaKaMental/Journal, since all three are Xtin Capital products)
+
+   NOTE: These rules are scoped under .gini-scope (instead of :root / body /
+   global element selectors) so that they only style Gini's own part of the
+   page and never leak into the rest of the site — the exact same mechanism
+   apps/web/src/features/journal/journal.css uses for `.journal-scope` (see
+   that file's header comment for the full rationale). Wrap Gini's top-level
+   app container in a `gini-scope` class for these to take effect (done in
+   GiniApp.tsx).
+
+   Colors reuse the original standalone app's own palette
+   (features-incoming/gini/style.css's `--c-navy-*`/`--c-green-*` custom
+   properties) rather than FundaKaMental/Journal's green-primary palette —
+   Gini's original brand is navy-primary with green reserved for
+   positive/success deltas (--c-navy-900 #0E1B2E, --c-green-600 #16A34A),
+   distinct enough from its two sibling products to keep visually. */
+
+@layer base {
+  .gini-scope {
+    /* Background: Clean off-white (style.css's --c-grey-100 #F7F9FC) */
+    --background: 218 33% 98%;
+    --foreground: 213 47% 11%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 213 47% 11%;
+
+    /* Popover/Dropdown */
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 47% 11%;
+
+    /* Primary: Gini's original brand navy (--c-navy-900 #0E1B2E) */
+    --primary: 213 53% 12%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Light grey (--c-grey-200) */
+    --secondary: 213 33% 95%;
+    --secondary-foreground: 213 47% 11%;
+
+    /* Muted */
+    --muted: 213 33% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent: Soft navy tint */
+    --accent: 213 40% 94%;
+    --accent-foreground: 213 53% 15%;
+
+    /* Status colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success/positive delta — Gini's original --c-green-600 #16A34A */
+    --success: 142 71% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 213 47% 11%;
+
+    /* Borders and inputs */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 213 53% 12%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar — --c-navy-700 #13294B for the active-item bg, matching the
+       original's own "Active nav bg" comment on that token */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 16% 47%;
+    --sidebar-primary: 213 53% 12%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 40% 94%;
+    --sidebar-accent-foreground: 213 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 213 53% 12%;
+
+    /* Chart colors */
+    --chart-positive: 142 71% 36%;
+    --chart-negative: 0 72% 51%;
+    --chart-neutral: 215 16% 47%;
+    --chart-1: 213 53% 12%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 340 82% 52%;
+
+    /* Gradients — Xtin Capital style, navy-primary */
+    --gradient-primary: linear-gradient(135deg, hsl(213, 53%, 12%) 0%, hsl(213, 46%, 20%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(213, 40%, 94%) 0%, hsl(213, 45%, 90%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(213, 30%, 97%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(214, 32%, 98%) 100%);
+
+    /* Shadows — softer for light theme */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 30px rgba(14, 27, 46, 0.14);
+  }
+}
+
+@layer base {
+  .gini-scope,
+  .gini-scope * {
+    @apply border-border;
+  }
+
+  .gini-scope {
+    scroll-behavior: smooth;
+  }
+
+  .gini-scope {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Typography — use Plus Jakarta Sans for headings (modern fintech feel) */
+  .gini-scope h1,
+  .gini-scope h2,
+  .gini-scope h3,
+  .gini-scope h4,
+  .gini-scope h5,
+  .gini-scope h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    @apply tracking-tight font-bold;
+  }
+
+  /* Custom scrollbar — subtle */
+  .gini-scope ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .gini-scope ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .gini-scope ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  .gini-scope ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+  /* Gradient backgrounds — Xtin Capital style */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  /* Glass morphism effect — lighter */
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Gradient text — navy */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effect */
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Metric display styles (net worth deltas, goal progress, etc.) */
+  .metric-positive {
+    @apply text-success;
+  }
+
+  .metric-negative {
+    @apply text-destructive;
+  }
+
+  .metric-neutral {
+    @apply text-muted-foreground;
+  }
+
+  /* Financial data table — clean */
+  .data-table {
+    @apply w-full text-sm;
+  }
+
+  .data-table th {
+    @apply text-left font-semibold text-muted-foreground uppercase text-xs tracking-wider py-3 px-4 border-b border-border;
+  }
+
+  .data-table td {
+    @apply py-3 px-4 border-b border-border/50;
+  }
+
+  .data-table tr:hover {
+    @apply bg-accent/50;
+  }
+
+  /* Xtin-style card */
+  .xtin-card {
+    @apply bg-white rounded-2xl border border-border p-6 shadow-sm transition-all duration-300;
+  }
+
+  .xtin-card:hover {
+    @apply shadow-md border-primary/20;
+  }
+
+  /* Status pill (goal status, Pro badge, etc.) */
+  .status-pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  /* Text balance for better typography */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
