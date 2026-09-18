@@ -43,6 +43,7 @@ import giniGoalsRoutes from "./modules/gini/goals.routes.js";
 import giniElderCareRoutes from "./modules/gini/elderCare.routes.js";
 import giniEducationPlansRoutes from "./modules/gini/educationPlans.routes.js";
 import giniTaxOptimizationRoutes from "./modules/gini/taxOptimization.routes.js";
+import giniChatRoutes from "./modules/gini/chat.routes.js";
 
 const app = express();
 
@@ -160,6 +161,7 @@ app.use("/api", giniGoalsRoutes);
 app.use("/api", giniElderCareRoutes);
 app.use("/api", giniEducationPlansRoutes);
 app.use("/api", giniTaxOptimizationRoutes);
+app.use("/api", giniChatRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 
