@@ -65,6 +65,9 @@ const Hourly = lazy(() => import("./pages/Hourly"));
 const Summary = lazy(() => import("./pages/Summary"));
 const Monthly = lazy(() => import("./pages/Monthly"));
 const Daily = lazy(() => import("./pages/Daily"));
+const Coach = lazy(() => import("./pages/Coach"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 
 // A query client scoped to Journal, separate from any query client the host
 // app's other features might use — matches FundaKaMental's own
@@ -114,9 +117,9 @@ const JournalApp = () => (
               <Route path="summary" element={<Summary />} />
               <Route path="monthly" element={<Monthly />} />
               <Route path="daily" element={<Daily />} />
-              <Route path="coach" element={<ComingSoon />} />
-              <Route path="settings" element={<ComingSoon />} />
-              <Route path="pricing" element={<ComingSoon />} />
+              <Route path="coach" element={<Coach />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="pricing" element={<Pricing />} />
               <Route path="*" element={<ComingSoon />} />
             </Routes>
           </Suspense>
