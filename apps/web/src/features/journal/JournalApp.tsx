@@ -57,6 +57,14 @@ import "./journal.css";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Trades = lazy(() => import("./pages/Trades"));
 const Goals = lazy(() => import("./pages/Goals"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const Calendar = lazy(() => import("./pages/Calendar"));
+const Heatmaps = lazy(() => import("./pages/Heatmaps"));
+const Psychology = lazy(() => import("./pages/Psychology"));
+const Hourly = lazy(() => import("./pages/Hourly"));
+const Summary = lazy(() => import("./pages/Summary"));
+const Monthly = lazy(() => import("./pages/Monthly"));
+const Daily = lazy(() => import("./pages/Daily"));
 
 // A query client scoped to Journal, separate from any query client the host
 // app's other features might use — matches FundaKaMental's own
@@ -98,14 +106,14 @@ const JournalApp = () => (
               <Route index element={<Dashboard />} />
               <Route path="trades" element={<Trades />} />
               <Route path="goals" element={<Goals />} />
-              <Route path="analytics" element={<ComingSoon />} />
-              <Route path="calendar" element={<ComingSoon />} />
-              <Route path="heatmaps" element={<ComingSoon />} />
-              <Route path="psychology" element={<ComingSoon />} />
-              <Route path="hourly" element={<ComingSoon />} />
-              <Route path="summary" element={<ComingSoon />} />
-              <Route path="monthly" element={<ComingSoon />} />
-              <Route path="daily" element={<ComingSoon />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="calendar" element={<Calendar />} />
+              <Route path="heatmaps" element={<Heatmaps />} />
+              <Route path="psychology" element={<Psychology />} />
+              <Route path="hourly" element={<Hourly />} />
+              <Route path="summary" element={<Summary />} />
+              <Route path="monthly" element={<Monthly />} />
+              <Route path="daily" element={<Daily />} />
               <Route path="coach" element={<ComingSoon />} />
               <Route path="settings" element={<ComingSoon />} />
               <Route path="pricing" element={<ComingSoon />} />
