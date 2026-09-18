@@ -225,18 +225,149 @@ export const goals = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────
-// Reserved for later sub-phases — DO NOT stub these out yet:
-//   - `elderCare`       → elderCare.routes.ts        (/gini/elder-care)
-//   - `educationPlans`  → educationPlans.routes.ts    (/gini/education-plans)
-//   - `taxOptimization` → taxOptimization.routes.ts   (/gini/tax-optimization,
-//                          get-or-create GET/PUT pair, not list CRUD)
-//   - `chat`            → chat.routes.ts              (POST /gini/chat)
-//   - `aiWallet`        → aiWallet.routes.ts           (/gini/ai/plans,
-//                          /gini/ai/wallet, /gini/ai/razorpay/order,
-//                          /gini/ai/razorpay/verify)
-//   - `proPlan`         → proPlan.routes.ts            (/gini/plan/razorpay/order,
-//                          /gini/plan/razorpay/verify, /gini/plan)
-// Each should follow the same `request()`-based pattern above.
+// Elder care plans (elderCare.routes.ts). `member_id` is a required FK to
+// `gini_family_members.id`, ownership-validated server-side. `years_remaining`
+// is a computed, non-persisted field the backend adds on every read/write
+// (see elderCare.controller.ts's `shapeElderCarePlan` — never sent by the
+// client, always present in responses).
+// ─────────────────────────────────────────────────────────────────────────
+export interface ElderCarePlan {
+  id: string;
+  user_id: string;
+  member_id: string;
+  monthly_support: number | null;
+  medical_reserve: number | null;
+  life_expectancy: number | null;
+  years_remaining: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ElderCarePlanInput = Partial<Omit<ElderCarePlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>> &
+  Pick<ElderCarePlan, 'member_id'>;
+export type ElderCarePlanUpdateInput = Partial<Omit<ElderCarePlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>>;
+
+export const elderCare = {
+  createPlan: async (data: ElderCarePlanInput): Promise<ElderCarePlan> => {
+    return await request('/elder-care', { method: 'POST', body: JSON.stringify(data) });
+  },
+  getPlans: async (): Promise<ElderCarePlan[]> => {
+    return await request('/elder-care');
+  },
+  getPlan: async (planId: string): Promise<ElderCarePlan> => {
+    return await request(`/elder-care/${planId}`);
+  },
+  updatePlan: async (planId: string, data: ElderCarePlanUpdateInput): Promise<ElderCarePlan> => {
+    return await request(`/elder-care/${planId}`, { method: 'PATCH', body: JSON.stringify(data) });
+  },
+  deletePlan: async (planId: string): Promise<{ success: boolean; message: string }> => {
+    return await request(`/elder-care/${planId}`, { method: 'DELETE' });
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// Education plans (educationPlans.routes.ts). `child_id` is a required FK to
+// `gini_family_members.id`, ownership-validated server-side. `years_remaining`
+// is computed server-side from `target_year` (see educationPlans.controller.ts's
+// `shapeEducationPlan`).
+// ─────────────────────────────────────────────────────────────────────────
+export interface EducationPlan {
+  id: string;
+  user_id: string;
+  child_id: string;
+  milestone: string | null;
+  target_year: number | null;
+  cost: number | null;
+  saved: number | null;
+  ppf_account: string | null;
+  years_remaining: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type EducationPlanInput = Partial<Omit<EducationPlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>> &
+  Pick<EducationPlan, 'child_id'>;
+export type EducationPlanUpdateInput = Partial<Omit<EducationPlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>>;
+
+export const educationPlans = {
+  createPlan: async (data: EducationPlanInput): Promise<EducationPlan> => {
+    return await request('/education-plans', { method: 'POST', body: JSON.stringify(data) });
+  },
+  getPlans: async (): Promise<EducationPlan[]> => {
+    return await request('/education-plans');
+  },
+  getPlan: async (planId: string): Promise<EducationPlan> => {
+    return await request(`/education-plans/${planId}`);
+  },
+  updatePlan: async (planId: string, data: EducationPlanUpdateInput): Promise<EducationPlan> => {
+    return await request(`/education-plans/${planId}`, { method: 'PATCH', body: JSON.stringify(data) });
+  },
+  deletePlan: async (planId: string): Promise<{ success: boolean; message: string }> => {
+    return await request(`/education-plans/${planId}`, { method: 'DELETE' });
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// Tax optimization (taxOptimization.routes.ts) — get-or-create GET/PUT pair,
+// exactly one row per user (`user_id` is the primary key), not list CRUD.
+// The three deduction fields are jsonb with a flexible shape server-side
+// (see taxOptimization.validator.ts's header comment) — typed loosely here
+// to match.
+// ─────────────────────────────────────────────────────────────────────────
+export interface TaxOptimization {
+  user_id: string;
+  deductions_80c: Record<string, number> | null;
+  deductions_80d: Record<string, number> | null;
+  deductions_80e: Record<string, number> | null;
+  huf_benefits: boolean | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type TaxOptimizationInput = Partial<Omit<TaxOptimization, 'user_id' | 'created_at' | 'updated_at'>>;
+
+export const taxOptimization = {
+  get: async (): Promise<TaxOptimization> => {
+    return await request('/tax-optimization');
+  },
+  update: async (data: TaxOptimizationInput): Promise<TaxOptimization> => {
+    return await request('/tax-optimization', { method: 'PUT', body: JSON.stringify(data) });
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// AI chat (chat.routes.ts) — POST /gini/chat only. Real server-side auth +
+// wallet gating (see services/api/modules/gini/chat.controller.ts's header
+// comment); the request body carries only `message`/`history` — no
+// financial data, no client-reported token balance. A 402 response means
+// insufficient wallet balance; callers should catch that status and point
+// the user at `/gini/pricing` (see ../store/useGiniPlanStore.ts for the
+// wallet/Pro-plan purchase flow that page uses).
+// ─────────────────────────────────────────────────────────────────────────
+export interface ChatHistoryEntry {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ChatResponse {
+  reply: string;
+  tokens_used: number;
+  token_balance: number;
+}
+
+export const chat = {
+  send: async (message: string, history: ChatHistoryEntry[] = []): Promise<ChatResponse> => {
+    return await request('/chat', { method: 'POST', body: JSON.stringify({ message, history }) });
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// `aiWallet`/`proPlan` (aiWallet.routes.ts / proPlan.routes.ts) are
+// deliberately NOT re-exposed here — ../store/useGiniPlanStore.ts already
+// owns the full wallet-fetch + Razorpay-checkout flow against those exact
+// routes (built directly against the live controllers, not through this
+// client), matching Journal's own `lib/api.ts`/`useJournalPlanStore.ts`
+// split. Import that store for plan tier, wallet balance, and checkout.
 // ─────────────────────────────────────────────────────────────────────────
 
 // Export all implemented APIs
@@ -245,4 +376,8 @@ export const api = {
   assets,
   liabilities,
   goals,
+  elderCare,
+  educationPlans,
+  taxOptimization,
+  chat,
 };

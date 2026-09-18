@@ -43,6 +43,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import ChatWidget from "./ChatWidget";
 
 interface GiniLayoutProps {
   children: React.ReactNode;
@@ -220,6 +221,11 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
       >
         {children}
       </main>
+
+      {/* Floating AI chat widget — see GiniApp.tsx's header comment: not a
+          route, mounted directly here as a sibling of the sidebar/main
+          content so it floats over every Gini page (Phase 10f). */}
+      <ChatWidget />
     </div>
   );
 };

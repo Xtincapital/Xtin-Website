@@ -46,16 +46,17 @@
 //   /gini/reports                          → Reports (client-side PDF export)
 //   /gini/pricing                           → Pricing (Pro plan + AI wallet)
 //
-// `/gini`, `/gini/family`, `/gini/networth`, `/gini/goals` (Phase 10d) and
-// `/gini/portfolio`, `/gini/planner`, `/gini/required-return`,
-// `/gini/monte-carlo`, `/gini/retirement`, `/gini/calculators` (Phase 10e)
-// have real page components — `family-planning`/`family-advanced`/
-// `reports`/`pricing` still fall through to the inline `ComingSoon`
-// placeholder below rather than a hard 404, since these routes are
-// reserved/expected to fill in over upcoming sub-phases (not literal dead
-// links). The original's floating AI chat widget
+// Every route above now has a real page component: `/gini`, `/gini/family`,
+// `/gini/networth`, `/gini/goals` (Phase 10d); `/gini/portfolio`,
+// `/gini/planner`, `/gini/required-return`, `/gini/monte-carlo`,
+// `/gini/retirement`, `/gini/calculators` (Phase 10e); `/gini/family-planning`,
+// `/gini/family-advanced`, `/gini/reports`, `/gini/pricing` (Phase 10f). The
+// `ComingSoon` placeholder below now only covers unknown/typo'd paths (the
+// `path="*"` fallback). The original's floating AI chat widget
 // (`#chatbotToggle`/`#chatbotWindow`) is deliberately NOT one of these
-// routes — see GiniLayout.tsx's header comment.
+// routes — it's mounted directly in GiniLayout.tsx instead (Phase 10f),
+// matching the original's actual floating-widget UX rather than turning it
+// into a page.
 // ─────────────────────────────────────────────────────────────────────────
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -77,6 +78,10 @@ const RequiredReturn = lazy(() => import("./pages/RequiredReturn"));
 const MonteCarlo = lazy(() => import("./pages/MonteCarlo"));
 const Retirement = lazy(() => import("./pages/Retirement"));
 const Calculators = lazy(() => import("./pages/Calculators"));
+const FamilyPlanning = lazy(() => import("./pages/FamilyPlanning"));
+const FamilyAdvanced = lazy(() => import("./pages/FamilyAdvanced"));
+const Reports = lazy(() => import("./pages/Reports"));
+const Pricing = lazy(() => import("./pages/Pricing"));
 
 // A query client scoped to Gini, separate from any query client the host
 // app's other features might use — matches Journal/FundaKaMental's own app
@@ -125,10 +130,10 @@ const GiniApp = () => (
               <Route path="monte-carlo" element={<MonteCarlo />} />
               <Route path="retirement" element={<Retirement />} />
               <Route path="calculators" element={<Calculators />} />
-              <Route path="family-planning" element={<ComingSoon />} />
-              <Route path="family-advanced" element={<ComingSoon />} />
-              <Route path="reports" element={<ComingSoon />} />
-              <Route path="pricing" element={<ComingSoon />} />
+              <Route path="family-planning" element={<FamilyPlanning />} />
+              <Route path="family-advanced" element={<FamilyAdvanced />} />
+              <Route path="reports" element={<Reports />} />
+              <Route path="pricing" element={<Pricing />} />
               <Route path="*" element={<ComingSoon />} />
             </Routes>
           </Suspense>
