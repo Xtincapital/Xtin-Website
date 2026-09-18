@@ -1,0 +1,7 @@
+.vercel
+node_modules/
+package-lock.json
+server.js
+.env
+.DS_Store
+/.claude
