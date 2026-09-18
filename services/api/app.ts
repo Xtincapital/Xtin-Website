@@ -36,6 +36,13 @@ import journalAiCoachRoutes from "./modules/journal/aiCoach.routes.js";
 import journalImportRoutes from "./modules/journal/import.routes.js";
 import journalAiWalletRoutes from "./modules/journal/aiWallet.routes.js";
 import journalProPlanRoutes from "./modules/journal/proPlan.routes.js";
+import giniFamilyMembersRoutes from "./modules/gini/familyMembers.routes.js";
+import giniAssetsRoutes from "./modules/gini/assets.routes.js";
+import giniLiabilitiesRoutes from "./modules/gini/liabilities.routes.js";
+import giniGoalsRoutes from "./modules/gini/goals.routes.js";
+import giniElderCareRoutes from "./modules/gini/elderCare.routes.js";
+import giniEducationPlansRoutes from "./modules/gini/educationPlans.routes.js";
+import giniTaxOptimizationRoutes from "./modules/gini/taxOptimization.routes.js";
 
 const app = express();
 
@@ -146,6 +153,13 @@ app.use("/api", journalAiCoachRoutes);
 app.use("/api", journalImportRoutes);
 app.use("/api", journalAiWalletRoutes);
 app.use("/api", journalProPlanRoutes);
+app.use("/api", giniFamilyMembersRoutes);
+app.use("/api", giniAssetsRoutes);
+app.use("/api", giniLiabilitiesRoutes);
+app.use("/api", giniGoalsRoutes);
+app.use("/api", giniElderCareRoutes);
+app.use("/api", giniEducationPlansRoutes);
+app.use("/api", giniTaxOptimizationRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 
