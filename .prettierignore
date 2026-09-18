@@ -4,3 +4,8 @@ build
 coverage
 package-lock.json
 Featues
+# Puppeteer's downloaded Chrome binary + bundled browser extension resources
+# (services/api/.puppeteerrc.cjs) — not our source, re-downloaded on every
+# npm install via postinstall, never committed.
+.cache
+features-incoming

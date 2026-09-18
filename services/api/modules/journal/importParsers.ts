@@ -57,7 +57,7 @@ export interface ParsedImportTrade {
  * column header, lowercases, collapses whitespace. */
 export function normalizeImportHeader(header: unknown): string {
     let value = String(header ?? "")
-        .replace(/﻿/g, "")
+        .replace(/\uFEFF/g, "")
         .toLowerCase();
     value = value.replace(/&/g, " and ");
     value = value.replace(/[%₹$€£¥]/g, " ");
