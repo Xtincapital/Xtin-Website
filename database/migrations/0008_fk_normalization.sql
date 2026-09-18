@@ -32,34 +32,61 @@
 -- before this) — left alone rather than growing new schema surface as
 -- part of a hardening pass; its RLS policy (0007) already correctly scopes
 -- through `public.users` by join instead.
+--
+-- ═══════════════════════════════════════════════════════════════════════
+-- FIX (2026-09-19): the first version of this file failed on a live run
+-- with `cannot alter type of a column used in a policy definition` —
+-- Postgres won't let you ALTER COLUMN TYPE on a column an existing RLS
+-- policy's USING clause references, even implicitly via a cast
+-- (`auth_id = auth.uid()::text`, created by 0007). Fixed by dropping each
+-- affected policy first, doing the type change + FK add, then recreating
+-- the policy — now comparing `auth_id` directly against `auth.uid()`
+-- (both real uuid, no `::text` cast needed anymore, which is itself a
+-- small correctness improvement over 0007's text-comparison version).
+-- 0007 itself needs no changes and does not need to be re-run — this file
+-- fully supersedes what it created for these 3 policies.
 -- ═══════════════════════════════════════════════════════════════════════
 
 begin;
 
 -- user_subscriptions.auth_id: text -> uuid + FK. Safe cast: every write
 -- site sets this to either `String(authId)` (a real Supabase uid) or null.
+-- Drop the policy that depends on this column's current type first.
+drop policy if exists "Users can view own subscriptions" on public.user_subscriptions;
 alter table public.user_subscriptions
     alter column auth_id type uuid using auth_id::uuid;
 alter table public.user_subscriptions
     add constraint user_subscriptions_auth_id_fkey
     foreign key (auth_id) references auth.users(id) on delete set null;
+create policy "Users can view own subscriptions"
+    on public.user_subscriptions for select
+    using (auth_id = auth.uid());
 
 -- algorithm_subscriptions.auth_id: same.
+drop policy if exists "Users can read own algorithm subscriptions" on public.algorithm_subscriptions;
 alter table public.algorithm_subscriptions
     alter column auth_id type uuid using auth_id::uuid;
 alter table public.algorithm_subscriptions
     add constraint algorithm_subscriptions_auth_id_fkey
     foreign key (auth_id) references auth.users(id) on delete set null;
+create policy "Users can read own algorithm subscriptions"
+    on public.algorithm_subscriptions for select
+    using (auth_id = auth.uid());
 
 -- user_entitlements.auth_id: same.
+drop policy if exists "Users can view own entitlements" on public.user_entitlements;
 alter table public.user_entitlements
     alter column auth_id type uuid using auth_id::uuid;
 alter table public.user_entitlements
     add constraint user_entitlements_auth_id_fkey
     foreign key (auth_id) references auth.users(id) on delete set null;
+create policy "Users can view own entitlements"
+    on public.user_entitlements for select
+    using (auth_id = auth.uid());
 
 -- learn_pro_plans.auth_id / newsletter_pro_plans.auth_id are already
 -- `uuid` typed (see 0000_baseline.sql) — just missing the FK constraint.
+-- No type change, so no policy-drop needed here.
 alter table public.learn_pro_plans
     add constraint learn_pro_plans_auth_id_fkey
     foreign key (auth_id) references auth.users(id) on delete set null;
