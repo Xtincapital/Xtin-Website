@@ -1,0 +1,950 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   GINI PREMIUM UX LAYER
+   Family form UX · Confirm dialogs · Guided tour · Free/Pro plans
+   Uses the design tokens defined in style.css (:root).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────
+   1. FAMILY FORM UX
+   ───────────────────────────────────────────── */
+.form-smart-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 16px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, rgba(22, 163, 74, 0.08), rgba(22, 163, 74, 0.02));
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  border-radius: var(--radius-md, 8px);
+  color: var(--c-green-700, #138A3D);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+.form-smart-note::before {
+  content: '✨';
+  font-size: 1rem;
+}
+
+.required-mark {
+  color: var(--c-red-500, #EF4444);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.form-hint {
+  margin-top: 4px;
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--color-text-muted, #94A3B8);
+  line-height: 1.4;
+}
+
+.form-group--error .form-control {
+  border-color: var(--c-red-500, #EF4444) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  animation: gini-shake 0.3s ease;
+}
+
+.form-error-msg {
+  margin-top: 5px;
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--c-red-600, #DC2626);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.form-error-msg::before {
+  content: '⚠';
+  font-size: 0.8rem;
+}
+
+@keyframes gini-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Smooth open animation for toggleable form containers.
+   Keyframe-based on purpose: containers that never receive the
+   --visible class must render exactly as before (fully visible). */
+.form-container--visible {
+  animation: gini-form-in 0.28s ease;
+}
+
+@keyframes gini-form-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Newly added member card highlight */
+.family-card--new {
+  animation: gini-card-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), gini-card-glow 2.2s ease 0.45s;
+}
+
+@keyframes gini-card-pop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gini-card-glow {
+  0% { box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.45); }
+  100% { box-shadow: 0 0 0 3px rgba(22, 163, 74, 0); }
+}
+
+/* Friendlier empty state */
+.empty-state-card--action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 24px;
+  text-align: center;
+  border: 1.5px dashed var(--c-grey-300, #E2E8F0);
+  border-radius: var(--radius-lg, 12px);
+  background: var(--c-grey-50, #F9FAFB);
+}
+
+.empty-state-icon {
+  color: var(--c-green-600, #16A34A);
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.empty-state-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text, #0E1B2E);
+  margin: 0;
+}
+
+.empty-state-sub {
+  color: var(--color-text-secondary, #64748B);
+  font-size: var(--font-size-sm, 0.875rem);
+  max-width: 340px;
+  margin: 0 0 10px;
+}
+
+/* ─────────────────────────────────────────────
+   2. PREMIUM CONFIRM DIALOG (GiniUX.confirm)
+   ───────────────────────────────────────────── */
+.gini-confirm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(14, 27, 46, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.gini-confirm-backdrop.is-open { opacity: 1; }
+
+.gini-confirm-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.35);
+  padding: 26px 26px 22px;
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.24s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.gini-confirm-backdrop.is-open .gini-confirm-card {
+  transform: translateY(0) scale(1);
+}
+
+.gini-confirm-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--c-green-600, #16A34A);
+}
+
+.gini-confirm-card--danger .gini-confirm-icon {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--c-red-600, #DC2626);
+}
+
+.gini-confirm-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text, #0E1B2E);
+  margin: 0 0 6px;
+}
+
+.gini-confirm-message {
+  color: var(--color-text-secondary, #64748B);
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+
+.gini-confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.gini-confirm-btn {
+  padding: 9px 18px;
+  border-radius: var(--radius-md, 8px);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-semibold, 600);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  font-family: var(--font-body);
+}
+
+.gini-confirm-btn--cancel {
+  background: #fff;
+  border-color: var(--c-grey-300, #E2E8F0);
+  color: var(--c-grey-700, #475569);
+}
+
+.gini-confirm-btn--cancel:hover { background: var(--c-grey-100, #F7F9FC); }
+
+.gini-confirm-btn--ok {
+  background: var(--c-green-600, #16A34A);
+  color: #fff;
+}
+
+.gini-confirm-btn--ok:hover { background: var(--c-green-700, #138A3D); }
+
+.gini-confirm-card--danger .gini-confirm-btn--ok {
+  background: var(--c-red-600, #DC2626);
+}
+
+.gini-confirm-card--danger .gini-confirm-btn--ok:hover { background: #B91C1C; }
+
+/* ─────────────────────────────────────────────
+   3. GUIDED TOUR (GiniTour)
+   Premium dark-navy spotlight experience
+   ───────────────────────────────────────────── */
+.gini-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10080;
+  pointer-events: none;
+}
+
+/* Spotlight "hole": transparent box with a huge shadow around it */
+.gini-tour-spotlight {
+  position: absolute;
+  border-radius: 14px;
+  box-shadow: 0 0 0 9999px rgba(8, 16, 28, 0.78);
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.gini-tour-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid rgba(74, 222, 128, 0.85);
+  border-radius: 16px;
+  animation: gini-tour-pulse 2s ease-in-out infinite;
+}
+
+/* Full-dim variant for centred (no-target) steps */
+.gini-tour-spotlight--none {
+  box-shadow: 0 0 0 9999px rgba(8, 16, 28, 0.82);
+  width: 0 !important;
+  height: 0 !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+
+.gini-tour-spotlight--none::after { display: none; }
+
+@keyframes gini-tour-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.45); }
+  50% { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0); }
+}
+
+/* Tooltip card */
+.gini-tour-card {
+  position: absolute;
+  width: min(400px, calc(100vw - 32px));
+  background: linear-gradient(150deg, #102342 0%, #0E1B2E 100%);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  padding: 24px 24px 20px;
+  color: #fff;
+  pointer-events: auto;
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-body);
+}
+
+.gini-tour-card--center {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  width: min(460px, calc(100vw - 32px));
+}
+
+.gini-tour-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #4ADE80;
+  margin-bottom: 10px;
+}
+
+.gini-tour-eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ADE80;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
+}
+
+.gini-tour-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.gini-tour-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.85);
+  margin: 0 0 18px;
+}
+
+.gini-tour-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gini-tour-progress-track {
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.gini-tour-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #16A34A, #4ADE80);
+  transition: width 0.4s ease;
+}
+
+.gini-tour-progress-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.7);
+  white-space: nowrap;
+}
+
+.gini-tour-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gini-tour-skip {
+  margin-right: auto;
+  background: none;
+  border: none;
+  color: rgba(226, 232, 240, 0.55);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 4px;
+  font-family: var(--font-body);
+  transition: color 0.15s ease;
+}
+
+.gini-tour-skip:hover { color: rgba(226, 232, 240, 0.9); }
+
+.gini-tour-btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.gini-tour-btn--back {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #E2E8F0;
+}
+
+.gini-tour-btn--back:hover { background: rgba(255, 255, 255, 0.15); }
+
+.gini-tour-btn--next {
+  background: linear-gradient(135deg, #16A34A, #138A3D);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.4);
+}
+
+.gini-tour-btn--next:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(22, 163, 74, 0.5);
+}
+
+/* Welcome step flourish */
+.gini-tour-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.25), rgba(74, 222, 128, 0.1));
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+/* Tour launcher button (sidebar) */
+.gini-tour-launcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────
+   4. FREE / PRO PLANS
+   ───────────────────────────────────────────── */
+
+/* Plan chip in sidebar */
+.gini-plan-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 10px 14px 4px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--c-grey-100, #F7F9FC);
+  border: 1px solid var(--c-grey-300, #E2E8F0);
+}
+
+.gini-plan-chip__label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--c-grey-600, #64748B);
+}
+
+.gini-plan-chip__upgrade {
+  background: linear-gradient(135deg, #16A34A, #138A3D);
+  color: #fff;
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.gini-plan-chip__upgrade:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(22,163,74,0.35); }
+
+.gini-plan-chip--pro {
+  background: linear-gradient(135deg, #102342, #0E1B2E);
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.gini-plan-chip--pro .gini-plan-chip__label {
+  color: #F59E0B;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* PRO badge on locked nav items */
+.nav-pro-badge {
+  margin-left: auto;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 2.5px 7px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.nav-item--locked .nav-text { opacity: 0.75; }
+
+/* Pricing / upgrade modal */
+.gini-pricing-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(14, 27, 46, 0.6);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  overflow-y: auto;
+}
+
+.gini-pricing-backdrop.is-open { opacity: 1; }
+
+.gini-pricing-modal {
+  width: 100%;
+  max-width: 760px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 32px 90px rgba(2, 6, 23, 0.4);
+  padding: 34px 34px 30px;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  position: relative;
+}
+
+.gini-pricing-backdrop.is-open .gini-pricing-modal {
+  transform: translateY(0) scale(1);
+}
+
+.gini-pricing-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: var(--c-grey-100, #F7F9FC);
+  border: 1px solid var(--c-grey-300, #E2E8F0);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--c-grey-600, #64748B);
+  transition: all 0.15s ease;
+}
+
+.gini-pricing-close:hover { background: var(--c-grey-200, #EDF2F7); color: var(--c-grey-900, #1E293B); }
+
+.gini-pricing-head {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.gini-pricing-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-green-600, #16A34A);
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  padding: 5px 14px;
+  border-radius: 99px;
+  margin-bottom: 12px;
+}
+
+.gini-pricing-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--c-navy-900, #0E1B2E);
+  margin: 0 0 6px;
+}
+
+.gini-pricing-sub {
+  color: var(--c-grey-600, #64748B);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.gini-pricing-reason {
+  margin: 14px auto 0;
+  max-width: 460px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.09);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--c-amber-600, #D97706);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Billing toggle */
+.gini-billing-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 20px 0 24px;
+}
+
+.gini-billing-toggle button {
+  padding: 8px 22px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--c-grey-300, #E2E8F0);
+  background: #fff;
+  color: var(--c-grey-600, #64748B);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.gini-billing-toggle button:first-child { border-radius: 10px 0 0 10px; }
+.gini-billing-toggle button:last-child { border-radius: 0 10px 10px 0; border-left: none; }
+
+.gini-billing-toggle button.is-active {
+  background: var(--c-navy-900, #0E1B2E);
+  border-color: var(--c-navy-900, #0E1B2E);
+  color: #fff;
+}
+
+.gini-billing-save {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--c-green-600, #16A34A);
+  border-radius: 99px;
+  padding: 2px 8px;
+  margin-left: 7px;
+}
+
+.gini-billing-toggle button.is-active .gini-billing-save { background: #4ADE80; color: #0E1B2E; }
+
+/* Plan cards */
+.gini-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .gini-plans-grid { grid-template-columns: 1fr; }
+}
+
+.gini-plan-card {
+  border: 1.5px solid var(--c-grey-300, #E2E8F0);
+  border-radius: 16px;
+  padding: 24px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.gini-plan-card--pro {
+  border-color: rgba(22, 163, 74, 0.5);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(22, 163, 74, 0.07), transparent 55%),
+    #fff;
+  box-shadow: 0 12px 40px rgba(22, 163, 74, 0.12);
+}
+
+.gini-plan-card__ribbon {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #16A34A, #138A3D);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.4);
+}
+
+.gini-plan-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--c-navy-900, #0E1B2E);
+  margin: 0 0 2px;
+}
+
+.gini-plan-card__tag {
+  font-size: 0.8rem;
+  color: var(--c-grey-600, #64748B);
+  margin: 0 0 14px;
+}
+
+.gini-plan-card__price {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c-navy-900, #0E1B2E);
+  line-height: 1.1;
+}
+
+.gini-plan-card__price small {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--c-grey-500, #94A3B8);
+}
+
+.gini-plan-card__strike {
+  font-size: 0.85rem;
+  color: var(--c-grey-500, #94A3B8);
+  text-decoration: line-through;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.gini-plan-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.gini-plan-card__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.85rem;
+  color: var(--c-grey-700, #475569);
+  line-height: 1.45;
+}
+
+.gini-plan-card__features li::before {
+  content: '✓';
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: rgba(22, 163, 74, 0.12);
+  color: var(--c-green-700, #138A3D);
+  font-size: 0.68rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5px;
+}
+
+.gini-plan-card__features li.is-muted { color: var(--c-grey-400, #CBD5E0); }
+.gini-plan-card__features li.is-muted::before {
+  content: '—';
+  background: var(--c-grey-200, #EDF2F7);
+  color: var(--c-grey-400, #CBD5E0);
+}
+
+.gini-plan-card__cta {
+  width: 100%;
+  padding: 12px;
+  border-radius: 11px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  transition: all 0.18s ease;
+}
+
+.gini-plan-card__cta--current {
+  background: var(--c-grey-100, #F7F9FC);
+  border-color: var(--c-grey-300, #E2E8F0);
+  color: var(--c-grey-500, #94A3B8);
+  cursor: default;
+}
+
+.gini-plan-card__cta--upgrade {
+  background: linear-gradient(135deg, #16A34A, #138A3D);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
+}
+
+.gini-plan-card__cta--upgrade:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(22, 163, 74, 0.45);
+}
+
+.gini-plan-card__cta--upgrade:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+}
+
+.gini-pricing-foot {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 0.75rem;
+  color: var(--c-grey-500, #94A3B8);
+}
+
+/* Per-day price reframing + advisor anchor */
+.gini-plan-card__perday {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--c-grey-600, #64748B);
+  margin-top: 6px;
+}
+
+.gini-plan-card__perday strong { color: var(--c-green-700, #138A3D); }
+
+.gini-pricing-anchor {
+  text-align: center;
+  margin: 18px auto 0;
+  max-width: 540px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--c-grey-600, #64748B);
+  padding: 10px 16px;
+  background: var(--c-grey-50, #F9FAFB);
+  border-radius: 10px;
+  border: 1px dashed var(--c-grey-300, #E2E8F0);
+}
+
+/* Full-screen Pro welcome moment */
+.gini-pro-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 10090;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(80% 80% at 50% 45%, rgba(16, 35, 66, 0.96), rgba(8, 16, 28, 0.98));
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.gini-pro-celebration.is-open { opacity: 1; }
+
+.gini-pro-celebration__inner {
+  text-align: center;
+  color: #fff;
+  transform: translateY(12px) scale(0.96);
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.gini-pro-celebration.is-open .gini-pro-celebration__inner {
+  transform: translateY(0) scale(1);
+}
+
+.gini-pro-celebration__badge {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  color: #F59E0B;
+  box-shadow: 0 0 60px rgba(245, 158, 11, 0.35);
+  animation: gini-celebrate-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes gini-celebrate-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+}
+
+.gini-pro-celebration h3 {
+  font-family: var(--font-heading);
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.gini-pro-celebration p {
+  color: rgba(226, 232, 240, 0.75);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* PRO active state celebration */
+.gini-pro-active-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(74, 222, 128, 0.05));
+  border: 1px solid rgba(22, 163, 74, 0.3);
+  color: var(--c-green-700, #138A3D);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* Score improvement tips in the report */
+.report-score-tips {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(22, 163, 74, 0.06);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  border-radius: var(--radius-md, 8px);
+}
+
+.report-score-tips__label {
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--c-green-700, #138A3D);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.report-score-tips ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.report-score-tips li {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--c-grey-700, #475569);
+  margin-bottom: 3px;
+}
+
+/* Locked feature overlay hint (used on gated tab click) */
+@keyframes gini-locked-nudge {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(-3px); }
+  60% { transform: translateX(3px); }
+}
+
+.nav-item--nudge { animation: gini-locked-nudge 0.35s ease; }

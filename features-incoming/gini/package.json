@@ -1,0 +1,21 @@
+{
+  "name": "xtin-gini",
+  "version": "1.0.0",
+  "description": "Advanced Financial Planning Calculator with AI Advisor",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "dev": "node server.js",
+    "static": "python -m http.server 8080"
+  },
+  "keywords": [
+    "financial planning",
+    "wealth management",
+    "investment calculator"
+  ],
+  "author": "Xtin Capital",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
