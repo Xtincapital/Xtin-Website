@@ -44,7 +44,7 @@ try {
 	// Fetch all subscribers
 	console.log('Fetching subscribers...');
 	const { data: subscribers, error: subError } = await supabase
-		.from('subscriptions')
+		.from('newsletter_subscribers')
 		.select('*');
 
 	if (subError) {

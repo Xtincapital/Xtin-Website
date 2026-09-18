@@ -3,7 +3,7 @@ import supabase from "../../supabase/index.js";
 const readSubscribers = async () => {
 	try {
 		const { data, error } = await supabase
-			.from('subscriptions')
+			.from('newsletter_subscribers')
 			.select('*');
 
 		if (error) throw error;
@@ -17,7 +17,7 @@ const readSubscribers = async () => {
 const createSubscriber = async (subscriber) => {
 	try {
 		let { data, error } = await supabase
-			.from('subscriptions')
+			.from('newsletter_subscribers')
 			.insert([subscriber])
 			.select()
 			.single();
@@ -27,7 +27,7 @@ const createSubscriber = async (subscriber) => {
 		if (error && /column|schema/i.test(error.message || '') && subscriber.markets) {
 			const { markets, ...rest } = subscriber;
 			({ data, error } = await supabase
-				.from('subscriptions')
+				.from('newsletter_subscribers')
 				.insert([rest])
 				.select()
 				.single());
@@ -43,7 +43,7 @@ const createSubscriber = async (subscriber) => {
 
 const updateSubscriberMarkets = async (email, markets) => {
 	const { data, error } = await supabase
-		.from('subscriptions')
+		.from('newsletter_subscribers')
 		.update({ markets })
 		.eq('email', email)
 		.select()
@@ -54,7 +54,7 @@ const updateSubscriberMarkets = async (email, markets) => {
 
 const getSubscriberByEmail = async (email) => {
 	const { data, error } = await supabase
-		.from('subscriptions')
+		.from('newsletter_subscribers')
 		.select('*')
 		.eq('email', email)
 		.maybeSingle();
@@ -65,7 +65,7 @@ const getSubscriberByEmail = async (email) => {
 const deleteSubscriber = async (email) => {
 	try {
 		const { data, error } = await supabase
-			.from('subscriptions')
+			.from('newsletter_subscribers')
 			.delete()
 			.eq('email', email)
 			.select()

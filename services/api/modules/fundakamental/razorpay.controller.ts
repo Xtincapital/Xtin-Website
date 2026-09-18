@@ -8,7 +8,7 @@
 //   3. POST /fundakamental/razorpay/verify -> verify signature, then
 //      (server-side, using the Supabase service-role client) upgrade
 //      funda_users.plan = 'premium' and record the payment in
-//      funda_pro_payments. The client is NEVER trusted to grant Pro.
+//      funda_pro_plans. The client is NEVER trusted to grant Pro.
 //   4. GET  /fundakamental/razorpay/plan   -> authoritative current plan for
 //      the user, with expiry auto-downgrade back to free.
 //
