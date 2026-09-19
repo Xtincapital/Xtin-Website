@@ -9,7 +9,7 @@
 // basic-auth + `fetch` to `https://api.razorpay.com/v1/orders`), reusing the
 // existing `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET` env vars — same as
 // razorpay.controller.ts.
-import crypto from "node:crypto";
+import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getWallet, addTopup, TOKEN_PACKS, MONTHLY_GRANT } from "./tokenWallet.js";
 import { insertTokenPackPurchase, getUserTier } from "./tokens.repository.js";
@@ -126,11 +126,7 @@ export const verifyPackPurchase = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Missing payment fields" });
         }
 
-        const expected = crypto
-            .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-            .update(`${orderId}|${paymentId}`)
-            .digest("hex");
-        if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(String(signature)))) {
+        if (!verifyRazorpaySignature(orderId, paymentId, signature)) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Payment signature verification failed" });
         }
 

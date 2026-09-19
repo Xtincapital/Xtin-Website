@@ -66,7 +66,7 @@ let _region = 'US';
 let _rates = { ...FALLBACK_RATES };
 const subscribers = new Set<(region: string) => void>();
 
-function countryToRegion(country) {
+export function countryToRegion(country) {
   const c = (country || '').toUpperCase();
   if (c === 'IN') return 'IN';
   if (c === 'US') return 'US';
@@ -86,7 +86,7 @@ function readSaved() {
   return null;
 }
 
-function heuristicRegion() {
+export function heuristicRegion() {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
     const locale = (navigator.language || '').toLowerCase();
@@ -154,7 +154,7 @@ export function ackRegionToast() {
 }
 
 export function getRegion() { return _region; }
-export function getRegionConfig(code) { return REGIONS[code || _region]; }
+export function getRegionConfig(code?: string) { return REGIONS[code || _region]; }
 export function isIndia() { return _region === 'IN'; }
 
 export function setRegion(code) {
@@ -169,7 +169,7 @@ export function subscribeRegion(cb) {
   return () => subscribers.delete(cb);
 }
 
-export function currencySymbol(code) { return REGIONS[code || _region].symbol; }
+export function currencySymbol(code?: string) { return REGIONS[code || _region].symbol; }
 
 export async function getRates() {
   try {

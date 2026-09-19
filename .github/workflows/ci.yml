@@ -22,6 +22,8 @@ jobs:
         continue-on-error: true
       # Required: Phase 5's full TypeScript conversion is done and green.
       - run: npm run typecheck:web
+      # Required: Phase 13 added a real Vitest suite (region math etc.).
+      - run: npm run test:web
       - run: npm run build:web
 
   api:
@@ -37,6 +39,9 @@ jobs:
       - run: npm run lint:api
       # Required: Phase 5's full TypeScript conversion is done and green.
       - run: npm run typecheck:api
+      # Required: Phase 13 added a real Vitest suite (auth middleware,
+      # Razorpay signature verification, entitlements, newsletter generation).
+      - run: npm run test:api
       # No build step: services/api ships TypeScript run directly via tsx.
 
   format:
@@ -50,4 +55,24 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run format:check
+        continue-on-error: true
+
+  e2e:
+    name: apps/web (Playwright smoke)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+        working-directory: apps/web
+      # Advisory for now: this suite was added in Phase 13 and has no real
+      # CI track record yet (see documents/migration/PLAN.md's Phase 13
+      # entry — a full sequential local run showed environment-driven
+      # slowness/timeouts that individual-test reruns didn't reproduce).
+      # Promote to required once it's proven stable across a few real runs.
+      - run: npm run e2e
         continue-on-error: true

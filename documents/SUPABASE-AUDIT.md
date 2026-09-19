@@ -1,3 +1,11 @@
+> **⚠️ Historical document — this was the starting point for building the
+> new project's schema, written before the Phase 0 DB baseline and before
+> Phase 11's RLS hardening/FK normalization/cleanup pass.** Kept as a
+> record of the pre-migration audit, not current schema. For the current,
+> verified schema, see `database/SCHEMA.md` (which explicitly documents
+> its own staleness contract — regenerate it from the migrations, don't
+> hand-edit it out of sync).
+
 # XTIN Capital — Supabase Footprint Audit
 
 Read-only audit of everything this repo does with Supabase today. No data was

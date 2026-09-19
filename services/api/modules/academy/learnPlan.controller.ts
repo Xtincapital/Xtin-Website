@@ -7,7 +7,7 @@
 //     clients can only SELECT their own row (see database/learn_pro_plans.sql).
 //   • Amounts come from THIS server-side catalogue — the client never sends a
 //     price, only a plan id + currency.
-import crypto from "node:crypto";
+import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
@@ -146,11 +146,7 @@ export const verifyLearnPayment = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Missing payment fields" });
         }
 
-        const expected = crypto
-            .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-            .update(`${orderId}|${paymentId}`)
-            .digest("hex");
-        if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(String(signature)))) {
+        if (!verifyRazorpaySignature(orderId, paymentId, signature)) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({
                 error: "Payment signature verification failed",
             });

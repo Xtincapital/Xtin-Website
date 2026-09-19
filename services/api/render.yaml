@@ -12,13 +12,16 @@ services:
       - key: BACKEND_URL
         value: https://xtincapital-backend-6pf2.onrender.com
       # Note: Add these environment variables in Render dashboard:
-      # - JWT_SECRET (required - use a strong 32+ character secret)
       # - SUPABASE_URL (required)
       # - SUPABASE_ANON_KEY (required)
       # - SUPABASE_SERVICE_ROLE_KEY (required)
-      # - RAZORPAY_KEY_ID (required for payments - Academy Pro & Market Brief Pro)
-      # - RAZORPAY_KEY_SECRET (required for payments - Academy Pro & Market Brief Pro)
-      # - ANTHROPIC_API_KEY (required for AI newsletter generation)
+      # - RAZORPAY_KEY_ID (required for payments — every paid checkout across
+      #   the app: Academy Learn Pro, Algo subscriptions, Newsletter Pro,
+      #   cross-product bundles, and each of FundaKaMental/Journal/Gini's own
+      #   Pro plan + AI token wallet)
+      # - RAZORPAY_KEY_SECRET (required, see above)
+      # - ANTHROPIC_API_KEY (required — primary AI provider for every
+      #   product's chat/report/coach features, plus newsletter generation)
       # - ANTHROPIC_MODEL  (e.g. claude-sonnet-4-6; defaults to that if unset)
       # - GROQ_API_KEY (optional fallback AI provider)
       # - EMAIL_USER (for newsletters)

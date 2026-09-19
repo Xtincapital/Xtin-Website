@@ -51,17 +51,27 @@ SUPABASE_URL=https://your-project-ref.supabase.co
 SUPABASE_ANON_KEY=your-anon-public-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# JWT Secret - generate with: openssl rand -base64 48
-JWT_SECRET=your-strong-random-secret
-
 # NOTE: FRONTEND_URL / FRONTEND_URL_ALT / ALLOWED_ORIGINS do nothing — CORS is
 # a hardcoded array (`allowedOrigins`) in services/api/app.ts, not env-driven.
 # If your deployed frontend URL isn't in that array, add it there and redeploy
 # instead of setting these vars.
 
-# AI APIs
+# AI APIs — Claude (Anthropic) is the primary provider used across every
+# product's AI features (chat, reports, newsletter generation); Groq/OpenAI
+# are optional fallbacks used only when ANTHROPIC_API_KEY is empty.
+ANTHROPIC_API_KEY=your-anthropic-api-key
+ANTHROPIC_MODEL=claude-sonnet-4-6
 GROQ_API_KEY=your-groq-api-key
 OPENAI_API_KEY=your-openai-api-key
+
+# Razorpay — powers every paid checkout across the app (Academy Learn Pro,
+# Algo subscriptions, Newsletter Pro, cross-product bundles, and each of
+# FundaKaMental/Journal/Gini's own Pro plan + AI token wallet). Get keys
+# from https://dashboard.razorpay.com > Settings > API Keys. A plan/wallet
+# is only ever granted server-side, after HMAC signature verification
+# (services/api/utils/razorpay.ts) — never trust a client-reported success.
+RAZORPAY_KEY_ID=your-razorpay-key-id
+RAZORPAY_KEY_SECRET=your-razorpay-key-secret
 
 # Email Configuration (Gmail App Password, not your normal password)
 EMAIL_HOST=smtp.gmail.com

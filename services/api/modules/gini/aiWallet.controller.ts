@@ -21,7 +21,7 @@
 // `findPurchaseByPaymentId` (gini_ai_wallet_purchases) before crediting, so
 // a duplicate verify call (retry, webhook replay) is a no-op instead of a
 // double-credit.
-import crypto from "node:crypto";
+import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAiOrderRequest, validateAiVerifyRequest } from "./aiWallet.validator.js";
 import { getOrCreateWallet, addTokens } from "./aiWallet.repository.js";
@@ -123,11 +123,7 @@ export const verifyAiPurchase = async (req, res) => {
             return res.status(500).json({ error: "Payment service not configured" });
         }
 
-        const expected = crypto
-            .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-            .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-            .digest("hex");
-        if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(String(razorpay_signature)))) {
+        if (!verifyRazorpaySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature)) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Payment signature verification failed" });
         }
 

@@ -1,3 +1,10 @@
+> **⚠️ Historical document — predates the Phase 8-10 product consolidation
+> (FundaKaMental, Journal, and Gini were integrated after this was
+> written) and Phase 4's advisor-feature retirement.** Kept as a record of
+> the original product thinking, not current architecture. For current
+> state, see `documents/adr/`, `database/SCHEMA.md`, and
+> `documents/migration/PLAN.md`.
+
 # Document 01 - PRD
 
 ## App Name

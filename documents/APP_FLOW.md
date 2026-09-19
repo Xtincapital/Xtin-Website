@@ -1,3 +1,12 @@
+> **⚠️ Historical document — predates the Phase 8-10 product consolidation
+> and Phase 4's advisor-feature retirement.** The advisor pages listed
+> below (`/advisor/login`, `/advisor/dashboard`, `/advisory/submissions`,
+> `/intro/advisory`) were removed in Phase 4 and now redirect to `/`; the
+> full FundaKaMental/Journal/Gini page trees added in Phases 8-10 aren't
+> reflected here at all. Kept as a record of the original page-flow
+> thinking, not a current sitemap. For current routes, read
+> `apps/web/src/App.tsx` directly.
+
 # Document 03 - App Flow
 
 ## Pages List

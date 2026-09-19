@@ -1,3 +1,14 @@
+> **⚠️ Historical document — written before this migration.** Several
+> items below are now stale: `chart.js`/`react-chartjs-2` were dropped in
+> favor of `recharts` only, Daily.co video calling was retired in Phase 4,
+> `jsonwebtoken` was removed entirely in Phase 12 (Supabase session tokens
+> are now the only auth credential — see `documents/adr/
+> 0002-supabase-only-auth.md`), and the `Client/`/`backend/` folder names
+> and `.mjs` file convention were renamed/converted in Phases 1 and 5. Kept
+> as a record of the original technical thinking, not current
+> architecture. For current state, see `documents/adr/`, `README.md`'s
+> Tech Stack section, and `database/SCHEMA.md`.
+
 # Document 02 - TRD
 
 ## Frontend

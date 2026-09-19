@@ -1,13 +1,10 @@
 // Subscription & Bundle Plans — Server-authoritative Razorpay payment flow & database storage
-import crypto from "node:crypto";
 import { getActiveUserSubscriptions, upsertUserSubscription } from "./subscriptionPlan.repository.js";
 import { getActiveAlgorithmSubscriptionsForUser, upsertAlgorithmSubscription } from "../algos/algorithm.repository.js";
 import { getLearnPlansForUser, upsertLearnPlan } from "../academy/learnPlan.repository.js";
 import { getNewsletterPlansForUser, upsertNewsletterPlan } from "../newsletter/newsletterPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
-
-const razorpayConfigured = () =>
-    Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);
+import { razorpayConfigured, requireValidRazorpaySignature, RazorpaySignatureError } from "../../utils/razorpay.js";
 
 /**
  * POST /api/subscriptions/order
@@ -117,16 +114,26 @@ export const verifySubscriptionPayment = async (req, res) => {
             return res.status(400).json({ error: "Missing required plan_id" });
         }
 
-        // Verify Razorpay HMAC Signature if configured and signature provided
-        if (razorpayConfigured() && signature) {
-            const expectedSig = crypto
-                .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-                .update(`${orderId}|${paymentId}`)
-                .digest("hex");
-
-            if (expectedSig !== signature) {
+        // Verify Razorpay HMAC signature. SECURITY (Phase 13): this used to be
+        // `if (razorpayConfigured() && signature)` — an authenticated caller
+        // could omit `razorpay_signature` from the request body entirely and
+        // skip verification outright, since a falsy `signature` short-circuited
+        // the whole check, landing straight at an unconditional grant of an
+        // active subscription (propagated to every product via
+        // syncSubProductsToDatabase below, including full "bundle" access via
+        // isBundleActive's products.length >= 5 check). Whenever Razorpay is
+        // actually configured, verification is now mandatory — a missing or
+        // wrong signature always rejects. `devActivateSubscription` below is
+        // the only legitimate way to grant a subscription without a real
+        // signature, and it's already correctly gated to non-production
+        // environments with no Razorpay keys configured.
+        try {
+            requireValidRazorpaySignature(orderId, paymentId, signature);
+        } catch (err) {
+            if (err instanceof RazorpaySignatureError) {
                 return res.status(400).json({ error: "Invalid Razorpay payment signature" });
             }
+            throw err;
         }
 
         const effectivePaymentId = paymentId || `pay_dev_${Date.now()}`;

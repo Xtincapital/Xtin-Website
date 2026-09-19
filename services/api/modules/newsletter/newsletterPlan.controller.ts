@@ -9,7 +9,7 @@
 //
 // Activating Pro also upgrades the subscriber's market preferences so the
 // twice-daily generator immediately sends them the editions they paid for.
-import crypto from "node:crypto";
+import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import {
     updateSubscriberMarkets,
@@ -166,11 +166,7 @@ export const verifyNewsletterPayment = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Missing payment fields" });
         }
 
-        const expected = crypto
-            .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-            .update(`${orderId}|${paymentId}`)
-            .digest("hex");
-        if (!crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(String(signature)))) {
+        if (!verifyRazorpaySignature(orderId, paymentId, signature)) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({
                 error: "Payment signature verification failed",
             });

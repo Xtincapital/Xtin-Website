@@ -17,6 +17,10 @@
     "typecheck:web": "npm run typecheck --workspace apps/web",
     "typecheck:api": "npm run typecheck --workspace services/api",
     "typecheck": "npm run typecheck:web && npm run typecheck:api",
+    "test:web": "npm run test --workspace apps/web",
+    "test:api": "npm run test --workspace services/api",
+    "test": "npm run test:web && npm run test:api",
+    "e2e": "npm run e2e --workspace apps/web",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build": "npm run build:web"

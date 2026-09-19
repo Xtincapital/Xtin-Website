@@ -3,13 +3,13 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-6.0+-47A248?logo=mongodb)](https://www.mongodb.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?logo=supabase)](https://supabase.com/)
 
 Xtin Capital is a modern web application built with React and Node.js, designed to provide a robust platform for financial management and investment tracking. The application follows a clean architecture pattern with separate frontend and backend services.
 
 ## ✨ Features
 
-- **User Authentication**: Secure login and registration system with JWT
+- **User Authentication**: Secure login and registration via Supabase Auth
 - **Dashboard**: Interactive financial dashboard with data visualization
 - **Investment Tracking**: Monitor and manage investment portfolios
 - **Responsive Design**: Fully responsive UI that works on all devices
@@ -101,7 +101,7 @@ import Price from '../components/Price';
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth + custom JWT
+- **Authentication**: Supabase Auth (session tokens only — no backend-minted JWT, see `documents/adr/0002-supabase-only-auth.md`)
 - **Validation**: Zod
 - **AI Integration**: Claude (Anthropic), Groq (Llama), OpenAI
 
@@ -179,6 +179,17 @@ npm run dev:web                   # start the frontend (apps/web), in another te
    ```
    The frontend will be available at `http://localhost:5173` by default.
 
+## ✅ Testing
+
+```bash
+npm run test          # unit tests for both workspaces (Vitest)
+npm run test:web      # apps/web only
+npm run test:api      # services/api only
+npm run e2e           # Playwright smoke tests (apps/web, spins up its own dev server)
+```
+
+CI runs `test:web`/`test:api` as required checks on every PR — see `.github/workflows/ci.yml`.
+
 ## 📁 Project Structure
 
 ```
@@ -205,16 +216,22 @@ Xtin-capital/
 │       ├── features/       # Feature-folder pages, components & services
 │       └── utils/          # Utility functions
 │
-├── services/api/                # Backend Node.js application
+├── services/api/                # Backend Node.js (TypeScript) application
 │   ├── constants/          # Config, constants
-│   ├── controllers/        # Request handlers
-│   ├── middlewares/        # Express middlewares (auth, advisorAuth)
-│   ├── repository/         # Database access layer
-│   ├── routes/             # API routes
-│   ├── services/           # Business services
-│   ├── supabase/           # Supabase client
-│   ├── utils/              # Utility functions
-│   └── validators/         # Request validation
+│   ├── middlewares/        # Express middlewares (auth.ts — Supabase-only, see ADR 0002)
+│   ├── modules/            # One folder per product/domain, each with its own
+│   │   │                   #   *.routes.ts / *.controller.ts / *.repository.ts / *.validator.ts
+│   │   ├── auth/                # Login, signup, profile, entitlements
+│   │   ├── academy/             # Learn courses, lessons, progress
+│   │   ├── billing/             # Cross-product bundle subscriptions
+│   │   ├── algos/                # Algo trading subscriptions
+│   │   ├── newsletter/           # Newsletter generation + subscriptions
+│   │   ├── ai/                    # Shared Claude/OpenAI providers, compliance engine
+│   │   ├── fundakamental/          # FundaKaMental (stocks, portfolios, AI reports)
+│   │   ├── journal/                 # Trading journal
+│   │   └── gini/                     # Family financial planning
+│   ├── supabase/            # Supabase client (service-role)
+│   └── utils/               # Shared utilities (Razorpay verification, etc.)
 ```
 
 This is an **npm workspaces monorepo** — see `documents/migration/PLAN.md` for the
