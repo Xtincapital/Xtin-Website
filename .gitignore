@@ -106,3 +106,9 @@ coverage/
 # their nested .git dirs and node_modules don't pollute this repo.
 /Featues/
 /features-incoming/
+
+# Explainer video subproject (Remotion) + its script/assets — a standalone
+# tool, not part of the website. Includes node_modules, rendered mp4s in out/,
+# and generated voiceover audio. Delete these lines if you want to version it.
+/xtin-explainer/
+/documents/video/
