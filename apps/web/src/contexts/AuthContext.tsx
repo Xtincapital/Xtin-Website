@@ -243,7 +243,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         data: {
           first_name: userData.firstName || '',
           last_name: userData.lastName || '',
-          phone_number: userData.phone || '',
+          // null, not '': public.users.phone_number is UNIQUE, and a blank
+          // string collides with every other blank-phone signup.
+          phone_number: userData.phone?.trim() || null,
         },
       },
     });

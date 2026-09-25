@@ -155,7 +155,7 @@ const Navbar = () => {
       {!isHome && (
         <button
           onClick={() => navigate(-1)}
-          className="fixed top-[112px] left-6 md:left-12 lg:left-24 z-40 flex items-center gap-1.5 text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-green-400 transition text-sm font-semibold bg-white dark:bg-slate-900 px-3.5 py-2 rounded-full shadow-md border border-gray-200 dark:border-slate-700"
+          className="fixed top-[112px] left-6 md:left-12 lg:left-24 z-40 hidden md:flex items-center gap-1.5 text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-green-400 transition text-sm font-semibold bg-white dark:bg-slate-900 px-3.5 py-2 rounded-full shadow-md border border-gray-200 dark:border-slate-700"
           aria-label="Go back"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -81,15 +81,18 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      // The fallbacks are Tailwind's defaults: these vars are only defined
+      // inside the scoped features, so without them rounded-*/shadow-* resolve
+      // to nothing (square corners, no shadow) everywhere else on the site.
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius, 0.5rem)",
+        md: "calc(var(--radius, 0.5rem) - 2px)",
+        sm: "calc(var(--radius, 0.375rem) - 4px)",
       },
       boxShadow: {
-        'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
+        'sm': 'var(--shadow-sm, 0 1px 2px 0 rgb(0 0 0 / 0.05))',
+        'md': 'var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1))',
+        'lg': 'var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1))',
         'glow': 'var(--shadow-glow)',
       },
       backgroundImage: {

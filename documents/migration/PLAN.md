@@ -509,6 +509,11 @@ verification as Phase 2a before moving to the next.
 - Verified: `tsc --noEmit` clean on both workspaces, `npm run test` (64 tests total: 40 backend + 24 frontend) all passing, CI workflow YAML validated, live curl/boot checks re-confirming every Phase 11/12 auth/RLS behavior still holds after the Razorpay refactor touched 10 payment-adjacent files.
 - **Owner-blocked, unchanged from every earlier phase's audit**: `packages/types` still doesn't exist and generating it needs a live Supabase project ref/access token this environment doesn't have.
 
+### Post-launch fixes
+
+- **2026-09-26 — Signup failing with "Database error saving new user"** (`0010_fix_signup_trigger_phone.sql` + `apps/web/src/contexts/AuthContext.tsx`). The signup form's phone field is optional; the frontend sent a blank phone as `''`, and the `handle_new_user` trigger on `auth.users` (carried over in `0000_baseline.sql`) copied it into `public.users.phone_number`, which is `unique`. The first no-phone signup stored `''`, and every later no-phone signup hit a unique violation inside the trigger, which makes Supabase Auth roll back the whole signup. Fixed in the trigger (blank phone → `NULL`; a genuinely duplicate phone now creates the profile without it instead of blocking signup) and at the source (frontend sends `null`). Not caused by Phase 11 — none of the three `auth.users` triggers reference anything 0009 dropped (checked).
+- **2026-09-26 — Live domain still on the old stack.** `www.xtincapital.com` serves the pre-migration frontend (old Supabase project `znnhguxndectmnhgadga`, old backend `xtincapital-backend.onrender.com`); the migrated app is live at `xtin-website-web.vercel.app` (Supabase `vjkvilysjhoivgudvayh`, backend `xtincapital-backend-6pf2.onrender.com`). Root cause: the Phase 1 owner step (Vercel Root Directory `Client` → `apps/web`, `PHASE-1-deploy-config.md`) was never applied to the project holding the custom domain, so every build since has failed and Vercel keeps serving its last good pre-migration build. Owner-side fix: move the domains to the `xtin-website-web` Vercel project, then set the new Supabase project's Site URL/redirects, enable Google (currently off) or hide its button, and configure auth SMTP (email confirmation is on).
+
 ## Progress log
 
 - 2026-09-08 — Audit delivered. Decisions locked (retired=delete, secrets=rotate,
