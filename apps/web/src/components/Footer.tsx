@@ -242,7 +242,7 @@ const Footer = () => {
         {/* Featured Platforms - Left */}
         <div>
           <h3 className="text-sm font-bold text-gray-900 dark:text-slate-100 mb-3 text-center lg:text-left">Our Startup Was Featured On These Platforms</h3>
-          <div className="flex flex-nowrap justify-center lg:justify-start items-center gap-4 overflow-x-auto">
+          <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4">
             {featuredPlatforms.map((platform, index) => (
               <div key={index} className="flex items-center justify-center h-14 flex-shrink-0">
                 <img

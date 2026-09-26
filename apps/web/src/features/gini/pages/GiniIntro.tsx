@@ -100,7 +100,7 @@ export default function GiniIntro() {
       <Navbar />
 
       {/* Hero Section */}
-      <AnimatedSection className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <AnimatedSection className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <DotGridBg />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>

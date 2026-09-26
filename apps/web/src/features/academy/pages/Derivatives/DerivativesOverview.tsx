@@ -424,7 +424,7 @@ const DerivativesOverview = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-orange-50  ">
       <Navbar />
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8">
         {/* Back Navigation */}
         <Link 
           to="/learn" 

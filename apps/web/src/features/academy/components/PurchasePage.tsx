@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import axios from "axios";
@@ -8,12 +8,16 @@ const PurchasePage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
+  const [loadFailed, setLoadFailed] = useState(false);
 
   useEffect(() => {
     axios
       .get(`/api/courses/${courseId}`)
       .then((res) => setCourse(res.data.data))
-      .catch((err) => console.error("Error fetching course:", err));
+      .catch((err) => {
+        console.error("Error fetching course:", err);
+        setLoadFailed(true);
+      });
   }, [courseId]);
 
   const handlePurchase = async () => {
@@ -37,7 +41,27 @@ const PurchasePage = () => {
     }
   };
 
-  if (!course) return <p>Loading course...</p>;
+  if (!course) {
+    return (
+      <div className="bg-white text-gray-900 min-h-screen flex flex-col">
+        <Navbar />
+        <section className="flex-1 flex flex-col items-center justify-center text-center px-6 pt-28 pb-20">
+          {loadFailed ? (
+            <>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">We couldn't load this course</h1>
+              <p className="text-gray-600 mb-6">Please check the link or try again in a moment.</p>
+              <Link to="/learn" className="bg-green-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-green-700 transition">
+                Browse courses
+              </Link>
+            </>
+          ) : (
+            <p className="text-gray-600">Loading course...</p>
+          )}
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white text-gray-900 min-h-screen flex flex-col">

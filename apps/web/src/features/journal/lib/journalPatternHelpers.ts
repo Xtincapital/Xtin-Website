@@ -94,11 +94,13 @@ export function interpolateColor(
  *  magnitude relative to `maxAbs`) for positive/negative values
  *  respectively. */
 export function getHeatmapColor(value: number, maxAbs: number): string {
+  // Solid equivalents of the original translucent fills (as they render on
+  // white), so the cells' dark labels stay readable on a dark-mode background.
   if (!maxAbs || maxAbs === 0) {
-    return 'rgba(148, 163, 184, 0.2)';
+    return 'rgb(234, 237, 241)';
   }
   if (value === 0) {
-    return 'rgba(251, 191, 36, 0.3)';
+    return 'rgb(254, 236, 188)';
   }
   const ratio = Math.min(Math.abs(value) / maxAbs, 1);
   if (value > 0) {

@@ -42,6 +42,7 @@ import {
   Sparkles,
   HelpCircle,
   Coins,
+  Menu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -66,10 +67,17 @@ const navItems = [
 ];
 
 const DashboardLayout = ({ children }: SidebarProps) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [sidebarCollapsed, setCollapsed] = useState(false);
+  // Below lg the sidebar is an off-canvas drawer; it always shows full width there.
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
   const isPro = usePlanStore((s) => s.isPro)();
   const wallet = usePlanStore((s) => s.wallet);
   const fetchWallet = usePlanStore((s) => s.fetchWallet);
@@ -92,7 +100,10 @@ const DashboardLayout = ({ children }: SidebarProps) => {
         initial={false}
         animate={{ width: collapsed ? 76 : 260 }}
         transition={{ duration: 0.2 }}
-        className="fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-40"
+        className={cn(
+          "fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-50 transition-transform duration-200 lg:translate-x-0",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
       >
         {/* Logo */}
         <div className="h-16 flex items-center px-4 border-b border-border">
@@ -203,7 +214,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
         {/* Collapse Button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
+          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
         >
           {collapsed ? (
             <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
@@ -213,13 +224,34 @@ const DashboardLayout = ({ children }: SidebarProps) => {
         </button>
       </motion.aside>
 
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Main Content */}
       <main
         className={cn(
-          "flex-1 transition-all duration-200 min-h-screen",
-          collapsed ? "ml-[76px]" : "ml-[260px]"
+          "flex-1 min-w-0 transition-all duration-200 min-h-screen",
+          collapsed ? "lg:ml-[76px]" : "lg:ml-[260px]"
         )}
       >
+        {/* Mobile top bar — opens the sidebar drawer */}
+        <div className="lg:hidden sticky top-0 z-30 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <Link to="/fundakamental" className="flex items-center">
+            <Logo size="md" />
+          </Link>
+        </div>
         {children}
       </main>
 

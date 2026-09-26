@@ -740,7 +740,7 @@ const RealEstateCalculator = () => {
                     <th className="px-4 py-3 text-left rounded-tl-lg">Filter</th>
                     <th className="px-4 py-3 text-center">Criteria</th>
                     <th className="px-4 py-3 text-center bg-green-600">Good / Pass</th>
-                    <th className="px-4 py-3 text-center bg-yellow-500">Caution</th>
+                    <th className="px-4 py-3 text-center bg-yellow-400 text-[#111827]">Caution</th>
                     <th className="px-4 py-3 text-center bg-red-500 rounded-tr-lg">Avoid</th>
                   </tr>
                 </thead>

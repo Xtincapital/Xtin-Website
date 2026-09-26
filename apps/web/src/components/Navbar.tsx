@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
@@ -16,6 +16,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
+  // The signed-in link row (9 links + controls) only fits on wide screens;
+  // below xl it collapses into the menu. The signed-out row is short enough for md.
+  const desktopRow = user ? 'hidden xl:flex' : 'hidden md:flex';
+  const mobileOnly = user ? 'xl:hidden' : 'md:hidden';
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -79,7 +87,22 @@ const Navbar = () => {
         </a>
 
         <div className="max-w-7xl mx-auto flex items-center justify-between w-full">
-          <div className="flex items-center gap-3 shrink-0 mr-6 lg:mr-10">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 mr-4 2xl:mr-10">
+            {/* Lives in the bar rather than floating over the page, where it
+                collided with page headings and each page's own back links. */}
+            {!isHome && (
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-gray-600 hover:text-green-600 hover:bg-gray-100 transition"
+                aria-label="Go back"
+                title="Go back"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
             <Link
               to="/"
               className="text-2xl font-bold text-gray-900 whitespace-nowrap"
@@ -89,8 +112,8 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 lg:gap-8 ml-auto">
-            <ul className="flex items-center gap-6 md:gap-7 lg:gap-9 text-sm lg:text-base text-gray-700 font-medium whitespace-nowrap">
+          <div className={`${desktopRow} items-center gap-4 2xl:gap-8 ml-auto`}>
+            <ul className="flex items-center gap-5 2xl:gap-9 text-sm 2xl:text-base text-gray-700 font-medium whitespace-nowrap">
               {user ? postLoginDesktopLinks : preLoginDesktopLinks}
             </ul>
             <div className="flex items-center gap-3">
@@ -101,7 +124,7 @@ const Navbar = () => {
                   <button
                     type="button"
                     onClick={() => navigate('/dashboard')}
-                    className="text-gray-700 hover:text-green-600 transition font-medium px-4 py-2 rounded-lg hover:bg-gray-100"
+                    className="text-gray-700 hover:text-green-600 transition font-medium px-4 py-2 rounded-lg hover:bg-gray-100 max-w-[10rem] 2xl:max-w-[14rem] truncate"
                     title="View your dashboard"
                   >
                     Hello, {displayName}!
@@ -119,20 +142,10 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden flex items-center gap-4 ml-auto">
-            <RegionSwitcher />
+          <div className={`${mobileOnly} flex items-center gap-3 ml-auto`}>
             <ThemeToggle />
-            {user && (
-              <button
-                type="button"
-                onClick={() => navigate('/dashboard')}
-                className="text-gray-700 hover:text-green-600 transition font-medium px-3 py-2 rounded-lg hover:bg-gray-100 text-sm"
-              >
-                {displayName}
-              </button>
-            )}
             <button
-              className="text-gray-700 text-2xl hover:text-green-600 transition"
+              className="w-11 h-11 flex items-center justify-center rounded-lg text-gray-700 text-2xl hover:text-green-600 hover:bg-gray-100 transition"
               onClick={toggleMenu}
               aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMenuOpen}
@@ -144,26 +157,34 @@ const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <nav id="mobile-menu" className="md:hidden bg-white border-t border-gray-200" aria-label="Mobile navigation">
+          <nav id="mobile-menu" className={`${mobileOnly} bg-white border-t border-gray-200 mt-4 -mx-4 md:-mx-8 lg:-mx-12 max-h-[calc(100vh-5rem)] overflow-y-auto`} aria-label="Mobile navigation">
             <ul className="px-6 py-4 space-y-4 text-gray-700" role="menu">
               {user ? postLoginMobileLinks : preLoginMobileLinks}
             </ul>
+            <div className="px-6 pb-5 pt-4 border-t border-gray-200 flex flex-wrap items-center gap-3">
+              <RegionSwitcher />
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => navigate('/dashboard')}
+                  className="min-w-0 max-w-full truncate text-gray-700 hover:text-green-600 transition font-medium px-3 py-2 rounded-lg hover:bg-gray-100 text-sm"
+                >
+                  Hello, {displayName}!
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => navigate('/login')}
+                  className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm"
+                >
+                  Get Started
+                </button>
+              )}
+            </div>
           </nav>
         )}
       </nav>
 
-      {!isHome && (
-        <button
-          onClick={() => navigate(-1)}
-          className="fixed top-[112px] left-6 md:left-12 lg:left-24 z-40 hidden md:flex items-center gap-1.5 text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-green-400 transition text-sm font-semibold bg-white dark:bg-slate-900 px-3.5 py-2 rounded-full shadow-md border border-gray-200 dark:border-slate-700"
-          aria-label="Go back"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </button>
-      )}
     </>
   );
 };

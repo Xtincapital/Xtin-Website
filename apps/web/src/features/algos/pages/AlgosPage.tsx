@@ -1083,16 +1083,16 @@ const AlgosPage = () => {
                 </div>
 
                 {/* Right Side - Newsletter Signup */}
-                <div className="bg-gray-800 rounded-xl p-8">
+                <div className="bg-gray-800 rounded-xl p-5 sm:p-8">
                   <h4 className="text-xl font-bold text-white mb-4">Stay Updated</h4>
                   <p className="text-gray-300 mb-6">
                     Be the first to know about new XTIN Exclusive Algorithms
                   </p>
-                  <div className="flex gap-3">
+                  <div className="flex flex-col sm:flex-row gap-3">
                     <input 
                       type="email" 
                       placeholder="Enter your email address" 
-                      className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="flex-1 min-w-0 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     />
                     <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition whitespace-nowrap">
                       Notify Me

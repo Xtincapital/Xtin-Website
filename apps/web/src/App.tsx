@@ -308,11 +308,6 @@ const EstatePlanningLesson10 = lazy(() => import('./features/academy/pages/Estat
 const EstatePlanningLesson11 = lazy(() => import('./features/academy/pages/EstatePlanning/EstatePlanningLesson11'));
 const EstatePlanningLesson12 = lazy(() => import('./features/academy/pages/EstatePlanning/EstatePlanningLesson12'));
 import { ThemeProvider } from './contexts/ThemeContext';
-// Minimal placeholder pages for calculators
-const Placeholder = ({ title }) => <div style={{ marginTop: 64, padding: 24 }}> {title} </div>;
-const ToolsIndex = () => <Placeholder title="Tools Index" />;
-
-const SsyPage = () => <Placeholder title="SSY" />;
 
 // Fallback shown while a lazy-loaded route chunk is fetched.
 const RouteLoadingFallback = () => (
@@ -345,7 +340,7 @@ function App() {
             <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/tools" element={<ProtectedPageRoute><ToolsPage /></ProtectedPageRoute>} />
-        <Route path="/tools/index" element={<ProtectedPageRoute><ToolsIndex /></ProtectedPageRoute>} />
+        <Route path="/tools/index" element={<Navigate to="/tools" replace />} />
         <Route path="/tools/cagr" element={<ProtectedPageRoute><CAGRCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/compound-interest" element={<ProtectedPageRoute><CompoundInterestCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/elss" element={<ProtectedPageRoute><ELSSCalculator /></ProtectedPageRoute>} />
@@ -362,7 +357,7 @@ function App() {
         <Route path="/tools/retirement" element={<ProtectedPageRoute><RetirementCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/simple-interest" element={<ProtectedPageRoute><SimpleInterestCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/sip" element={<ProtectedPageRoute><SIPCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/ssy" element={<ProtectedPageRoute><SsyPage /></ProtectedPageRoute>} />
+        <Route path="/tools/ssy" element={<Navigate to="/tools/ssy-calculator" replace />} />
         <Route path="/tools/ssy-calculator" element={<ProtectedPageRoute><SSYCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/step-up-sip" element={<ProtectedPageRoute><StepUpSIPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/swp" element={<ProtectedPageRoute><SWPCalculator /></ProtectedPageRoute>} />

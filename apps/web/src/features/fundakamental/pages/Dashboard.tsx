@@ -344,7 +344,7 @@ const Dashboard = () => {
               )}
               <Input
                 type="text"
-                placeholder="Search by company name or ticker..."
+                placeholder="Company name or ticker..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -650,7 +650,7 @@ const Dashboard = () => {
               </div>
             )}
 
-            <div className="rounded-2xl bg-white border border-border overflow-hidden shadow-sm">
+            <div className="rounded-2xl bg-white border border-border overflow-x-auto shadow-sm">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">

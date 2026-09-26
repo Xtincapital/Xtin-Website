@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import newsletterService from '../../../services/newsletterService';
 
 // Import fonts from fontshare
@@ -47,8 +47,18 @@ const NewsletterDisplay = () => {
 
   if (!newsletter) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <div>Newsletter not found</div>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '24px', textAlign: 'center', backgroundColor: '#f9fafb', color: '#111827' }}>
+        {loading ? (
+          <p style={{ color: '#6b7280' }}>Loading newsletter...</p>
+        ) : (
+          <>
+            <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Newsletter not found</h1>
+            <p style={{ color: '#6b7280', marginBottom: '24px' }}>This edition may have been moved or the link is incorrect.</p>
+            <Link to="/newsletter" style={{ backgroundColor: '#16a34a', color: '#ffffff', fontWeight: 600, padding: '10px 20px', borderRadius: '8px' }}>
+              Back to Newsletter
+            </Link>
+          </>
+        )}
       </div>
     );
   }
@@ -116,7 +126,7 @@ const NewsletterDisplay = () => {
         maxWidth: '800px',
         margin: '0 auto',
         backgroundColor: '#ffffff',
-        padding: '40px',
+        padding: 'clamp(20px, 5vw, 40px)',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         borderRadius: '8px'
       }}>

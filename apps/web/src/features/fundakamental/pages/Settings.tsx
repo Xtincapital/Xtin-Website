@@ -275,7 +275,7 @@ const Settings = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <Tabs defaultValue="profile" className="space-y-6">
-            <TabsList className="bg-secondary/50 p-1 rounded-xl">
+            <TabsList className="bg-secondary/50 p-1 rounded-xl max-w-full justify-start overflow-x-auto">
               <TabsTrigger value="profile" className="gap-2">
                 <User className="w-4 h-4" />
                 Profile

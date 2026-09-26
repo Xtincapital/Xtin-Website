@@ -508,7 +508,7 @@ const StockScanner = () => {
             <h1 className="text-3xl font-bold text-foreground">
               Stock Scanner
             </h1>
-            <span className="px-2 py-1 rounded bg-warning/10 text-warning text-xs font-medium flex items-center gap-1">
+            <span className="px-2 py-1 rounded bg-warning/10 text-amber-700 text-xs font-medium flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
               Premium
             </span>
@@ -604,7 +604,7 @@ const StockScanner = () => {
             {filters.map((filter) => (
               <div
                 key={filter.id}
-                className="flex items-center gap-3 p-3 rounded-lg bg-secondary/50"
+                className="flex flex-wrap items-center gap-2 sm:gap-3 p-3 rounded-lg bg-secondary/50"
               >
                 <Select
                   value={filter.field}
@@ -673,7 +673,7 @@ const StockScanner = () => {
                       onChange={(e) =>
                         updateFilter(filter.id, "value", e.target.value)
                       }
-                      className="w-32 bg-background"
+                      className="w-32 flex-1 min-w-[8rem] sm:flex-none bg-background"
                     />
                   </>
                 )}

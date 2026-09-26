@@ -692,10 +692,10 @@ const LearnPage = () => {
 
           {/* Difficulty Level Switcher */}
           <div className="flex justify-center mb-12">
-            <div data-learn-tour="difficulty-switcher" className="inline-flex bg-white dark:bg-slate-800 rounded-2xl p-1.5 shadow-lg shadow-gray-200/50 dark:shadow-black/30 border border-gray-100 dark:border-slate-700">
+            <div data-learn-tour="difficulty-switcher" className="inline-flex max-w-full bg-white dark:bg-slate-800 rounded-2xl p-1.5 shadow-lg shadow-gray-200/50 dark:shadow-black/30 border border-gray-100 dark:border-slate-700">
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.BEGINNER)}
-                className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER
+                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER
                   ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-md shadow-green-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-emerald-300 hover:bg-green-50 dark:hover:bg-emerald-900/30'
                   }`}
@@ -708,7 +708,7 @@ const LearnPage = () => {
               </button>
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.INTERMEDIATE)}
-                className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.INTERMEDIATE
+                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.INTERMEDIATE
                   ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md shadow-blue-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30'
                   }`}
@@ -720,7 +720,7 @@ const LearnPage = () => {
               </button>
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.ADVANCED)}
-                className={`px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.ADVANCED
+                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.ADVANCED
                   ? 'bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-md shadow-purple-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30'
                   }`}

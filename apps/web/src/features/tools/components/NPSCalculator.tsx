@@ -72,7 +72,7 @@ const NPSCalculator = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
-      <main className="py-20 px-4 sm:px-6 lg:px-8">
+      <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold text-center text-green-800 mb-4">
             NPS Calculator

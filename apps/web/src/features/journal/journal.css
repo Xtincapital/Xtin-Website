@@ -238,3 +238,55 @@
     text-wrap: balance;
   }
 }
+
+/* Dark mode — the site toggles `html.dark`, and index.css then forces bg-white /
+   text-gray-* to dark values with !important. Without a matching dark palette
+   here the tokens stayed light, leaving dark text on dark cards. */
+@layer base {
+  html.dark .journal-scope {
+    color-scheme: dark;
+    --background: 222 47% 8%;
+    --foreground: 220 14% 91%;
+    --card: 221 39% 11%;
+    --card-foreground: 220 14% 91%;
+    --popover: 221 39% 11%;
+    --popover-foreground: 220 14% 91%;
+    --primary: 153 80% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 220 14% 91%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 218 11% 65%;
+    --accent: 152 45% 15%;
+    --accent-foreground: 152 60% 72%;
+    --destructive: 0 72% 58%;
+    --success: 152 62% 45%;
+    --warning-foreground: 222 47% 8%;
+    --border: 217 19% 24%;
+    --input: 217 19% 24%;
+    --ring: 153 80% 42%;
+    --sidebar-background: 221 39% 11%;
+    --sidebar-foreground: 218 11% 65%;
+    --sidebar-primary: 153 80% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 152 45% 15%;
+    --sidebar-accent-foreground: 220 14% 91%;
+    --sidebar-border: 217 19% 24%;
+    --sidebar-ring: 153 80% 42%;
+    --chart-positive: 152 62% 45%;
+    --chart-negative: 0 72% 58%;
+    --chart-neutral: 218 11% 65%;
+    --chart-1: 153 80% 36%;
+    --gradient-accent: linear-gradient(135deg, hsl(152, 45%, 15%) 0%, hsl(221, 39%, 13%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(221, 39%, 11%) 0%, hsl(222, 47%, 8%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(221, 39%, 12%) 0%, hsl(221, 39%, 10%) 100%);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.45);
+    --shadow-glow: 0 0 30px rgba(52, 211, 153, 0.15);
+  }
+
+  html.dark .journal-scope .glass {
+    background-color: hsl(221 39% 11% / 0.8);
+  }
+}

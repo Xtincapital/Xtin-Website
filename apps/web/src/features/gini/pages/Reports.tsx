@@ -227,10 +227,10 @@ export default function Reports() {
             {isLoading ? (
               <Skeleton className="h-96 w-full" />
             ) : (
-              <div ref={previewRef} className="rounded-lg border bg-white p-8 text-[#0E1B2E]">
+              <div ref={previewRef} className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-4 sm:p-8 text-[#0E1B2E]">
                 <div className="mb-6 border-b pb-4">
                   <h2 className="text-xl font-bold">Financial Planning Report</h2>
-                  <p className="text-sm text-gray-500">Generated on {new Date().toLocaleDateString()}</p>
+                  <p className="text-sm text-[#6b7280]">Generated on {new Date().toLocaleDateString()}</p>
                 </div>
 
                 {includeNetWorth && (
@@ -238,22 +238,22 @@ export default function Reports() {
                     <h3 className="mb-3 text-lg font-semibold">Net Worth Statement</h3>
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-500">Total Assets</p>
+                        <p className="text-[#6b7280]">Total Assets</p>
                         <p className="text-base font-bold">{formatCurrency(summary.totalAssets)}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Total Liabilities</p>
+                        <p className="text-[#6b7280]">Total Liabilities</p>
                         <p className="text-base font-bold">{formatCurrency(summary.totalLiabilities)}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Net Worth</p>
+                        <p className="text-[#6b7280]">Net Worth</p>
                         <p className="text-base font-bold">{formatCurrency(summary.netWorth)}</p>
                       </div>
                     </div>
 
-                    <h4 className="mb-2 mt-5 text-sm font-semibold uppercase tracking-wide text-gray-500">Asset Allocation</h4>
+                    <h4 className="mb-2 mt-5 text-sm font-semibold uppercase tracking-wide text-[#6b7280]">Asset Allocation</h4>
                     {summary.allocation.length === 0 ? (
-                      <p className="text-sm text-gray-500">No assets recorded yet.</p>
+                      <p className="text-sm text-[#6b7280]">No assets recorded yet.</p>
                     ) : (
                       <ul className="space-y-1 text-sm">
                         {summary.allocation.map((row) => (
@@ -273,7 +273,7 @@ export default function Reports() {
                   <section className="mb-8">
                     <h3 className="mb-3 text-lg font-semibold">Goals Progress</h3>
                     {summary.goalRows.length === 0 ? (
-                      <p className="text-sm text-gray-500">No goals recorded yet.</p>
+                      <p className="text-sm text-[#6b7280]">No goals recorded yet.</p>
                     ) : (
                       <ul className="space-y-2 text-sm">
                         {summary.goalRows.map((goal) => (
@@ -284,7 +284,7 @@ export default function Reports() {
                               </span>
                               <span>{goal.progressPct.toFixed(0)}% funded</span>
                             </div>
-                            <p className="text-gray-500">
+                            <p className="text-[#6b7280]">
                               Target Year: {goal.target_year ?? "-"} · Future Value: {formatCurrency(goal.futureValue)} · Priority:{" "}
                               {goal.priority || "-"} · Already Saved: {formatCurrency(goal.saved || 0)}
                             </p>
@@ -302,22 +302,22 @@ export default function Reports() {
                       <strong>Total Portfolio Value:</strong> {formatCurrency(summary.totalAssets)}
                     </p>
 
-                    <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-500">Cash Flow &amp; Risk Profile</h4>
+                    <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#6b7280]">Cash Flow &amp; Risk Profile</h4>
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-500">Household Monthly Income</p>
+                        <p className="text-[#6b7280]">Household Monthly Income</p>
                         <p className="font-bold">{formatCurrency(summary.monthlyIncome)}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Monthly EMI Outflow</p>
+                        <p className="text-[#6b7280]">Monthly EMI Outflow</p>
                         <p className="font-bold">{formatCurrency(summary.monthlyEmi)}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Net Monthly Cash Flow</p>
+                        <p className="text-[#6b7280]">Net Monthly Cash Flow</p>
                         <p className="font-bold">{formatCurrency(summary.monthlyCashFlow)}</p>
                       </div>
                     </div>
-                    <p className="mt-3 text-sm text-gray-500">
+                    <p className="mt-3 text-sm text-[#6b7280]">
                       Risk profile (approximate, based on growth vs. stable asset mix): <strong>{summary.riskLabel}</strong> (
                       {summary.growthPct.toFixed(0)}% growth-oriented assets)
                     </p>

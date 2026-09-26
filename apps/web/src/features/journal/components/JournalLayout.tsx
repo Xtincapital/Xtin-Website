@@ -17,7 +17,7 @@
 // for logout — no Journal-specific auth (the original's
 // `supabase-journal.js` login flow) is reproduced here, matching
 // FundaKaMental's own DashboardLayout.
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -39,6 +39,7 @@ import {
   ChevronLeft,
   ChevronRight,
   TrendingUp,
+  Menu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
@@ -108,10 +109,17 @@ const isActivePath = (pathname: string, item: NavItem) =>
   item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
 const JournalLayout = ({ children }: JournalLayoutProps) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [sidebarCollapsed, setCollapsed] = useState(false);
+  // Below lg the sidebar is an off-canvas drawer; it always shows full width there.
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = async () => {
     await logout();
@@ -126,7 +134,10 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
         initial={false}
         animate={{ width: collapsed ? 76 : 260 }}
         transition={{ duration: 0.2 }}
-        className="fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-40"
+        className={cn(
+          "fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-50 transition-transform duration-200 lg:translate-x-0",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
       >
         {/* Logo */}
         <div className="h-16 flex items-center px-4 border-b border-border shrink-0">
@@ -190,7 +201,7 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
         {/* Collapse Button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
+          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? (
@@ -201,13 +212,36 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
         </button>
       </motion.aside>
 
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Main Content */}
       <main
         className={cn(
-          "flex-1 transition-all duration-200 min-h-screen",
-          collapsed ? "ml-[76px]" : "ml-[260px]"
+          "flex-1 min-w-0 transition-all duration-200 min-h-screen",
+          collapsed ? "lg:ml-[76px]" : "lg:ml-[260px]"
         )}
       >
+        {/* Mobile top bar — opens the sidebar drawer */}
+        <div className="lg:hidden sticky top-0 z-30 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <Link to="/journal" className="flex items-center">
+            <span className="font-bold tracking-tight text-lg leading-none text-foreground whitespace-nowrap">
+              Trading <span className="text-primary">Journal</span>
+            </span>
+          </Link>
+        </div>
         {children}
       </main>
     </div>
