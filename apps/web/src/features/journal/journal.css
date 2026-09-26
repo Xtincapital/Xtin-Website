@@ -1,108 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Journal Design System — Xtin Capital Aligned
-   Aesthetic: Clean, minimal, professional fintech (same language as
-   FundaKaMental, since both are Xtin Capital products)
+/* Journal Design System — the ORIGINAL standalone Journal app's look.
 
-   NOTE: These rules are scoped under .journal-scope (instead of :root / body
-   / global element selectors) so that they only style Journal's own part of
-   the page and never leak into the rest of the site — the exact same
-   mechanism apps/web/src/features/fundakamental/fundakamental.css uses for
-   `.fundakamental-scope` (see that file's header comment for the full
-   rationale: a global scope would have silently restyled every other page
-   on the site). Wrap Journal's top-level app container in a `journal-scope`
-   class for these to take effect (done in JournalApp.tsx).
+   Restored from features-incoming/journal/index.html's inline <style> (the
+   `:root` palette, `.app-header`, `.tabs-container`, `.tab-button`,
+   `.tab-content`, `.section-header`, `.metric-card`, `.chart-card`,
+   `.data-table`, `.btn` rules). The Phase 9d port had swapped this for
+   FundaKaMental's palette plus Inter / Plus Jakarta Sans; this file puts the
+   original back: system font stack, brand green #00aa5b (hover #007a46),
+   slate text (#111625 / #4b5563), #f8fafc page background, #e2e8f0 borders,
+   12px cards and 8px buttons.
 
-   Colors are close to, but not a pixel-match of, the original standalone
-   app's hand-written CSS (features-incoming/journal/dashboard.html's inline
-   <style>, journal-premium.css) — that hand-written CSS was not ported (see
-   this task's brief); instead these tokens reuse FundaKaMental's own
-   green-accented palette almost exactly, since Journal's original brand
-   green (#00aa5b) is already close to FundaKaMental's (152 69% 31% HSL). */
+   SCOPING: everything here is scoped under `.journal-scope` (tokens) and
+   `.journal-classic` (the restored chrome + page-body rules). Both classes
+   sit on the wrapper JournalLayout.tsx renders *between* the shared site
+   Navbar and Footer, so none of these rules reach the site chrome, and none
+   of the site's own global styles are changed by this file. */
 
 @layer base {
   .journal-scope {
-    /* Background: Clean white */
-    --background: 0 0% 99%;
-    --foreground: 220 20% 12%;
+    /* Page background #f8fafc, surfaces white */
+    --background: 210 40% 98%;
+    --foreground: 225 37% 11%;
 
-    /* Card surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 12%;
+    --card-foreground: 225 37% 11%;
 
-    /* Popover/Dropdown */
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 12%;
+    --popover-foreground: 225 37% 11%;
 
-    /* Primary: Xtin Capital Green (Journal's original brand green, #00aa5b,
-       is close to this — see header comment) */
-    --primary: 153 100% 21%;
+    /* Primary: the original brand green #00aa5b */
+    --primary: 152 100% 33%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Light gray */
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 20% 12%;
+    /* Secondary / muted: rgba(17,22,37,0.06) on white */
+    --secondary: 220 14% 95%;
+    --secondary-foreground: 225 37% 11%;
 
-    /* Muted */
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 220 14% 95%;
+    --muted-foreground: 215 14% 34%;
 
-    /* Accent: Soft green tint */
-    --accent: 152 40% 95%;
-    --accent-foreground: 153 100% 17%;
+    /* Accent: #e1f7ec tint with #007a46 text */
+    --accent: 150 58% 93%;
+    --accent-foreground: 154 100% 24%;
 
-    /* Status colors */
+    /* Status colors — positive #007a46, negative #dc2626, warning #a84b2f */
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 153 100% 21%;
+    --success: 154 100% 24%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 220 20% 12%;
+    --warning: 14 56% 42%;
+    --warning-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 153 100% 21%;
+    /* Borders and inputs: #e2e8f0 */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 152 100% 33%;
 
     --radius: 0.75rem;
 
-    /* Sidebar */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 9% 46%;
-    --sidebar-primary: 153 100% 21%;
+    --sidebar-foreground: 215 14% 34%;
+    --sidebar-primary: 152 100% 33%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 152 40% 95%;
-    --sidebar-accent-foreground: 220 20% 12%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 153 100% 21%;
+    --sidebar-accent: 150 58% 93%;
+    --sidebar-accent-foreground: 225 37% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 152 100% 33%;
 
     /* Chart colors for trading data (P&L up/down) */
-    --chart-positive: 153 100% 21%;
+    --chart-positive: 152 100% 33%;
     --chart-negative: 0 72% 51%;
-    --chart-neutral: 220 9% 46%;
-    --chart-1: 153 100% 21%;
+    --chart-neutral: 215 14% 34%;
+    --chart-1: 152 100% 33%;
     --chart-2: 199 89% 48%;
     --chart-3: 262 83% 58%;
     --chart-4: 38 92% 50%;
     --chart-5: 340 82% 52%;
 
-    /* Gradients — Xtin Capital style */
-    --gradient-primary: linear-gradient(135deg, hsl(153, 100%, 21%) 0%, hsl(153, 90%, 28%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(152, 40%, 95%) 0%, hsl(152, 45%, 90%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(152, 30%, 97%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(220, 14%, 98%) 100%);
+    --gradient-primary: linear-gradient(135deg, #00aa5b 0%, #007a46 100%);
+    --gradient-accent: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    --gradient-hero: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 
-    /* Shadows — softer for light theme */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.06), 0 4px 10px rgba(0, 0, 0, 0.04);
-    --shadow-glow: 0 0 30px rgba(0, 106, 57, 0.12);
+    /* The original's card shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 0 30px rgba(0, 170, 91, 0.12);
+
+    /* Raw values the chrome/body rules below use */
+    --jr-surface: #ffffff;
+    --jr-page: #f8fafc;
+    --jr-border: #e2e8f0;
+    --jr-heading: #111625;
+    --jr-subheading: #1f2937;
+    --jr-text: #4b5563;
+    --jr-brand: #00aa5b;
+    --jr-brand-hover: #007a46;
+    --jr-brand-tint: #e1f7ec;
+    --jr-divider: #cbd5e1;
   }
 }
 
@@ -113,26 +114,22 @@
   }
 
   .journal-scope {
-    scroll-behavior: smooth;
+    background-color: var(--jr-page);
+    color: var(--jr-text);
+    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .journal-scope {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-
-  /* Typography — use Plus Jakarta Sans for headings (modern fintech feel) */
   .journal-scope h1,
   .journal-scope h2,
   .journal-scope h3,
   .journal-scope h4,
   .journal-scope h5,
   .journal-scope h6 {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-    @apply tracking-tight font-bold;
+    color: var(--jr-heading);
   }
 
-  /* Custom scrollbar — subtle */
   .journal-scope ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -145,103 +142,368 @@
   .journal-scope ::-webkit-scrollbar-thumb {
     @apply bg-border rounded-full;
   }
+}
 
-  .journal-scope ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/30;
+/* ── Restored chrome: header + tab bar + tab content ───────────────────── */
+
+.journal-classic {
+  /* Clears the site's fixed Navbar */
+  padding-top: 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.journal-classic .app-header {
+  background: var(--jr-surface);
+  color: var(--jr-heading);
+  padding: 18px 32px;
+  border-bottom: 1px solid var(--jr-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.journal-classic .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.journal-classic .header-left p {
+  font-size: 13px;
+  margin: 0;
+  color: var(--jr-text);
+  font-weight: 400;
+}
+
+.journal-classic .brand-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.journal-classic .brand-name-main,
+.journal-classic .brand-name-accent {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.journal-classic .brand-name-main {
+  color: var(--jr-heading);
+}
+
+.journal-classic .brand-name-accent {
+  color: var(--jr-brand);
+}
+
+.journal-classic .header-right {
+  font-size: 13px;
+  color: var(--jr-text);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.journal-classic .btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.journal-classic .btn:active {
+  transform: scale(0.98);
+}
+
+.journal-classic .btn-secondary {
+  background: var(--jr-brand);
+  color: #ffffff;
+  border-color: var(--jr-brand);
+}
+
+.journal-classic .btn-secondary:hover {
+  background: var(--jr-brand-hover);
+  border-color: var(--jr-brand-hover);
+}
+
+.journal-classic .tabs-container {
+  background-color: var(--jr-surface);
+  border-bottom: 1px solid var(--jr-border);
+  padding: 0 32px;
+  display: flex;
+  /* The original's 12px gap fit its 11 tabs; 4px lets the port's 14 fit
+     on a laptop-width screen. Narrower screens scroll the bar sideways. */
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--jr-border) transparent;
+}
+
+.journal-classic .tab-button {
+  flex: 0 0 auto;
+  padding: 12px 16px;
+  background: transparent;
+  color: var(--jr-text);
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.journal-classic .tab-button:hover {
+  color: var(--jr-heading);
+}
+
+.journal-classic .tab-button.active {
+  color: var(--jr-brand);
+  border-bottom-color: var(--jr-brand);
+  font-weight: 600;
+}
+
+.journal-classic .tab-content {
+  flex: 1;
+  padding: 32px;
+  max-width: 100%;
+  background-color: var(--jr-page);
+  animation: journalTabFadeIn 0.24s ease;
+}
+
+@keyframes journalTabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Page body: map the React pages' markup onto the original's type/card/
+   table/button styles. Selectors are two classes deep so they beat the
+   single-class Tailwind utilities on the page elements. ──────────────── */
+
+/* Each page's outer wrapper — `.tab-content` already provides the original's
+   32px padding, and the original tab panels ran full width. */
+.journal-classic .journal-content > div {
+  padding: 0;
+}
+
+.journal-classic .journal-content > .max-w-7xl {
+  max-width: none;
+}
+
+/* Page titles → `.section-header h2` */
+.journal-classic .journal-content h1 {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: var(--jr-subheading);
+}
+
+/* Section and card titles → `.chart-card h3` */
+.journal-classic .journal-content h2,
+.journal-classic .journal-content h3 {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: var(--jr-subheading);
+}
+
+/* The original never went heavier than 600 */
+.journal-classic .journal-content .font-bold,
+.journal-classic .journal-content .font-extrabold {
+  font-weight: 600;
+}
+
+/* Metric values → `.metric-card .value` */
+.journal-classic .journal-content .text-3xl {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+/* Cards → `.metric-card` / `.chart-card` (12px radius) */
+.journal-classic .journal-content .rounded-2xl,
+.journal-classic .journal-content .rounded-3xl {
+  border-radius: 12px;
+}
+
+/* Buttons and inputs → `.btn` / `.form-group input` (8px radius) */
+.journal-classic .journal-content button.rounded-xl,
+.journal-classic .journal-content a.rounded-xl,
+.journal-classic .journal-content button.rounded-md,
+.journal-classic .journal-content input.rounded-md,
+.journal-classic .journal-content textarea.rounded-md,
+.journal-classic .journal-content select.rounded-md {
+  border-radius: 8px;
+}
+
+.journal-classic .journal-content .bg-primary:hover {
+  background-color: var(--jr-brand-hover);
+}
+
+/* Tables → `.data-table` */
+.journal-classic .journal-content table thead {
+  background: var(--jr-page);
+  border-bottom: 2px solid var(--jr-border);
+}
+
+.journal-classic .journal-content table th {
+  padding: 10px 16px;
+  height: auto;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--jr-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.journal-classic .journal-content table td {
+  padding: 12px 16px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--jr-border);
+}
+
+.journal-classic .journal-content table tbody tr:hover {
+  background-color: rgba(17, 22, 37, 0.06);
+}
+
+@media (max-width: 900px) {
+  .journal-classic .tab-button {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .journal-classic .app-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .journal-classic .header-left {
+    align-items: center;
+  }
+
+  .journal-classic .header-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .journal-classic .tabs-container {
+    padding: 0 16px;
+  }
+
+  .journal-classic .tab-content {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .journal-classic .brand-name-main,
+  .journal-classic .brand-name-accent {
+    font-size: 18px;
   }
 }
 
 @layer components {
-  /* Gradient backgrounds — Xtin Capital style */
-  .bg-gradient-primary {
+  /* Helper classes the Journal pages use — scoped so they cannot restyle
+     same-named classes elsewhere on the site once this chunk has loaded. */
+  .journal-scope .bg-gradient-primary {
     background: var(--gradient-primary);
   }
 
-  .bg-gradient-accent {
+  .journal-scope .bg-gradient-accent {
     background: var(--gradient-accent);
   }
 
-  .bg-gradient-hero {
+  .journal-scope .bg-gradient-hero {
     background: var(--gradient-hero);
   }
 
-  .bg-gradient-card {
+  .journal-scope .bg-gradient-card {
     background: var(--gradient-card);
   }
 
-  /* Glass morphism effect — lighter */
-  .glass {
+  .journal-scope .glass {
     @apply bg-white/80 backdrop-blur-xl border border-border/50;
   }
 
-  /* Gradient text — green */
-  .gradient-text {
+  .journal-scope .gradient-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Glow effect — green */
-  .glow {
+  .journal-scope .glow {
     box-shadow: var(--shadow-glow);
   }
 
-  /* Metric display styles (Dashboard.tsx's P&L cards) */
-  .metric-positive {
+  .journal-scope .metric-positive {
     @apply text-success;
   }
 
-  .metric-negative {
+  .journal-scope .metric-negative {
     @apply text-destructive;
   }
 
-  .metric-neutral {
+  .journal-scope .metric-neutral {
     @apply text-muted-foreground;
   }
 
-  /* Trading data table — clean */
-  .data-table {
+  .journal-scope .data-table {
     @apply w-full text-sm;
   }
 
-  .data-table th {
-    @apply text-left font-semibold text-muted-foreground uppercase text-xs tracking-wider py-3 px-4 border-b border-border;
+  .journal-scope .xtin-card {
+    @apply bg-white border border-border p-6 shadow-sm transition-all duration-300;
+    border-radius: 12px;
   }
 
-  .data-table td {
-    @apply py-3 px-4 border-b border-border/50;
+  .journal-scope .xtin-card:hover {
+    @apply shadow-md;
   }
 
-  .data-table tr:hover {
-    @apply bg-accent/50;
-  }
-
-  /* Xtin-style card */
-  .xtin-card {
-    @apply bg-white rounded-2xl border border-border p-6 shadow-sm transition-all duration-300;
-  }
-
-  .xtin-card:hover {
-    @apply shadow-md border-primary/20;
-  }
-
-  /* Status pill (goal status, trade win/loss, etc.) */
-  .status-pill {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  .journal-scope .status-pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold;
   }
 }
 
 @layer utilities {
-  /* Text balance for better typography */
-  .text-balance {
+  .journal-scope .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Dark mode — the site toggles `html.dark`, and index.css then forces bg-white /
-   text-gray-* to dark values with !important. Without a matching dark palette
-   here the tokens stayed light, leaving dark text on dark cards. */
+/* Dark mode — the original app had none, but the site's Navbar toggle sets
+   `html.dark`, and index.css then forces bg-white / text-gray-* dark with
+   !important. Without a matching dark palette the page body would render
+   dark text on dark cards, so the same design is mirrored in dark here. */
 @layer base {
   html.dark .journal-scope {
     color-scheme: dark;
@@ -251,7 +513,7 @@
     --card-foreground: 220 14% 91%;
     --popover: 221 39% 11%;
     --popover-foreground: 220 14% 91%;
-    --primary: 153 80% 36%;
+    --primary: 152 100% 36%;
     --primary-foreground: 0 0% 100%;
     --secondary: 217 33% 17%;
     --secondary-foreground: 220 14% 91%;
@@ -261,22 +523,22 @@
     --accent-foreground: 152 60% 72%;
     --destructive: 0 72% 58%;
     --success: 152 62% 45%;
-    --warning-foreground: 222 47% 8%;
+    --warning: 25 80% 60%;
     --border: 217 19% 24%;
     --input: 217 19% 24%;
-    --ring: 153 80% 42%;
+    --ring: 152 100% 40%;
     --sidebar-background: 221 39% 11%;
     --sidebar-foreground: 218 11% 65%;
-    --sidebar-primary: 153 80% 36%;
+    --sidebar-primary: 152 100% 36%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 152 45% 15%;
     --sidebar-accent-foreground: 220 14% 91%;
     --sidebar-border: 217 19% 24%;
-    --sidebar-ring: 153 80% 42%;
+    --sidebar-ring: 152 100% 40%;
     --chart-positive: 152 62% 45%;
     --chart-negative: 0 72% 58%;
     --chart-neutral: 218 11% 65%;
-    --chart-1: 153 80% 36%;
+    --chart-1: 152 100% 36%;
     --gradient-accent: linear-gradient(135deg, hsl(152, 45%, 15%) 0%, hsl(221, 39%, 13%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(221, 39%, 11%) 0%, hsl(222, 47%, 8%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(221, 39%, 12%) 0%, hsl(221, 39%, 10%) 100%);
@@ -284,9 +546,24 @@
     --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.45);
     --shadow-glow: 0 0 30px rgba(52, 211, 153, 0.15);
+
+    --jr-surface: #111827;
+    --jr-page: #0b1220;
+    --jr-border: #374151;
+    --jr-heading: #f3f4f6;
+    --jr-subheading: #e5e7eb;
+    --jr-text: #9ca3af;
+    --jr-brand: #10b981;
+    --jr-brand-hover: #059669;
+    --jr-brand-tint: rgba(16, 185, 129, 0.12);
+    --jr-divider: #4b5563;
   }
 
   html.dark .journal-scope .glass {
     background-color: hsl(221 39% 11% / 0.8);
+  }
+
+  html.dark .journal-classic .journal-content table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04);
   }
 }

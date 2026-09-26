@@ -227,7 +227,7 @@ export default function Reports() {
             {isLoading ? (
               <Skeleton className="h-96 w-full" />
             ) : (
-              <div ref={previewRef} className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-4 sm:p-8 text-[#0E1B2E]">
+              <div ref={previewRef} className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-4 sm:p-8 text-[#111827]">
                 <div className="mb-6 border-b pb-4">
                   <h2 className="text-xl font-bold">Financial Planning Report</h2>
                   <p className="text-sm text-[#6b7280]">Generated on {new Date().toLocaleDateString()}</p>

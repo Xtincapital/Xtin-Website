@@ -18,6 +18,12 @@
 // for logout — no Gini-specific auth (the original had none of its own
 // either; it relied on the same Supabase session) is reproduced here,
 // matching Journal/FundaKaMental's own layouts.
+//
+// Site integration: wrapped in the shared site Navbar + Footer like every
+// other Xtin page. The sidebar sits under the fixed Navbar (sticky on
+// desktop, an off-canvas drawer below lg) and carries no Gini logo of its own
+// — the Navbar's Xtin wordmark is the only logo. Design tokens come from the
+// shared site block in apps/web/src/index.css.
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -39,11 +45,12 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Scale,
   Menu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
 
 interface GiniLayoutProps {
@@ -138,129 +145,113 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary/30 flex">
-      {/* Sidebar — Clean white, Xtin-aligned (same treatment as
-          Journal/FundaKaMental's layouts) */}
-      <motion.aside
-        initial={false}
-        animate={{ width: collapsed ? 76 : 260 }}
-        transition={{ duration: 0.2 }}
-        className={cn(
-          "fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-50 transition-transform duration-200 lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        {/* Logo */}
-        <div className="h-16 flex items-center px-4 border-b border-border shrink-0">
-          <Link to="/gini" className="flex items-center gap-2.5 overflow-hidden">
-            <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <Scale className="w-5 h-5 text-primary-foreground" />
-            </span>
-            {!collapsed && (
-              <span className="font-bold tracking-tight text-xl leading-none text-foreground whitespace-nowrap">
-                Gini
-              </span>
-            )}
-          </Link>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 py-4 px-3 space-y-4 overflow-y-auto">
-          {navSections.map((section) => (
-            <div key={section.label}>
-              {!collapsed && (
-                <div className="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
-                  {section.label}
-                </div>
-              )}
-              <div className="space-y-0.5">
-                {section.items.map((item) => {
-                  const isActive = isActivePath(location.pathname, item);
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group",
-                        isActive
-                          ? "bg-accent text-primary font-semibold"
-                          : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                      )}
-                      title={collapsed ? item.name : undefined}
-                    >
-                      <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
-                      {!collapsed && <span className="text-sm">{item.name}</span>}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </nav>
-
-        {/* Bottom actions */}
-        <div className="p-3 border-t border-border space-y-0.5 shrink-0">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
-          >
-            <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
-            {!collapsed && <span className="text-sm font-medium">Log Out</span>}
-          </button>
-        </div>
-
-        {/* Collapse Button */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {collapsed ? (
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
-          ) : (
-            <ChevronLeft className="w-3.5 h-3.5 text-muted-foreground" />
+    <>
+      <Navbar />
+      {/* pt-20 clears the fixed site Navbar */}
+      <div className="gini-scope pt-20 min-h-screen bg-background flex">
+        {/* Sidebar — sticky under the Navbar on desktop, a drawer below lg */}
+        <motion.aside
+          initial={false}
+          animate={{ width: collapsed ? 76 : 260 }}
+          transition={{ duration: 0.2 }}
+          className={cn(
+            "fixed left-0 top-20 bottom-0 z-40 shrink-0 bg-white border-r border-border flex flex-col transition-transform duration-200",
+            "lg:sticky lg:top-20 lg:bottom-auto lg:h-[calc(100vh-5rem)] lg:self-start lg:z-10 lg:translate-x-0",
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
-        </button>
-      </motion.aside>
+        >
+          {/* Navigation */}
+          <nav className="flex-1 min-h-0 py-4 px-3 space-y-4 overflow-y-auto">
+            {navSections.map((section) => (
+              <div key={section.label}>
+                {!collapsed && (
+                  <div className="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
+                    {section.label}
+                  </div>
+                )}
+                <div className="space-y-0.5">
+                  {section.items.map((item) => {
+                    const isActive = isActivePath(location.pathname, item);
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group",
+                          isActive
+                            ? "bg-accent text-primary font-semibold"
+                            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                        )}
+                        title={collapsed ? item.name : undefined}
+                      >
+                        <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
+                        {!collapsed && <span className="text-sm">{item.name}</span>}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
 
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+          {/* Bottom actions */}
+          <div className="p-3 border-t border-border space-y-0.5 shrink-0">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
+            >
+              <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
+              {!collapsed && <span className="text-sm font-medium">Log Out</span>}
+            </button>
+          </div>
 
-      {/* Main Content */}
-      <main
-        className={cn(
-          "flex-1 min-w-0 transition-all duration-200 min-h-screen",
-          collapsed ? "lg:ml-[76px]" : "lg:ml-[260px]"
-        )}
-      >
-        {/* Mobile top bar — opens the sidebar drawer */}
-        <div className="lg:hidden sticky top-0 z-30 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
+          {/* Collapse Button */}
           <button
-            onClick={() => setMobileOpen(true)}
-            className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
-            aria-label="Open menu"
+            onClick={() => setCollapsed(!collapsed)}
+            className="absolute -right-3 top-6 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <Menu className="w-5 h-5" />
+            {collapsed ? (
+              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+            ) : (
+              <ChevronLeft className="w-3.5 h-3.5 text-muted-foreground" />
+            )}
           </button>
-          <Link to="/gini" className="flex items-center">
-            <span className="font-bold tracking-tight text-lg leading-none text-foreground whitespace-nowrap">
-              Gini
-            </span>
-          </Link>
-        </div>
-        {children}
-      </main>
+        </motion.aside>
 
-      {/* Floating AI chat widget — see GiniApp.tsx's header comment: not a
-          route, mounted directly here as a sibling of the sidebar/main
-          content so it floats over every Gini page (Phase 10f). */}
-      <ChatWidget />
-    </div>
+        {mobileOpen && (
+          <div
+            className="fixed inset-x-0 top-20 bottom-0 z-30 bg-black/40 lg:hidden"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Main Content */}
+        <main className="flex-1 min-w-0">
+          {/* Mobile bar — opens the sidebar drawer */}
+          <div className="lg:hidden sticky top-20 z-20 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
+              aria-label="Open Gini menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <Link to="/gini" className="text-base font-semibold text-gray-900">
+              Gini
+            </Link>
+          </div>
+          {children}
+        </main>
+
+        {/* Floating AI chat widget — see GiniApp.tsx's header comment: not a
+            route, mounted directly here as a sibling of the sidebar/main
+            content so it floats over every Gini page (Phase 10f). */}
+        <ChatWidget />
+      </div>
+      <Footer />
+    </>
   );
 };
 

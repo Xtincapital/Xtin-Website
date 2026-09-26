@@ -99,31 +99,33 @@ const JournalApp = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* Scopes Journal's shadcn design tokens (journal.css) to this
-            subtree only — see that file's header comment. */}
+        {/* Journal's design tokens (journal.css) are scoped by the
+            `journal-scope` wrapper inside JournalLayout, so they apply to the
+            page body only and never to the shared site Navbar/Footer that
+            JournalLayout renders around it. The toasters get their own. */}
         <div className="journal-scope">
           <Toaster />
           <Sonner />
-          <Suspense fallback={null}>
-            <Routes>
-              <Route index element={<Dashboard />} />
-              <Route path="trades" element={<Trades />} />
-              <Route path="goals" element={<Goals />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="calendar" element={<Calendar />} />
-              <Route path="heatmaps" element={<Heatmaps />} />
-              <Route path="psychology" element={<Psychology />} />
-              <Route path="hourly" element={<Hourly />} />
-              <Route path="summary" element={<Summary />} />
-              <Route path="monthly" element={<Monthly />} />
-              <Route path="daily" element={<Daily />} />
-              <Route path="coach" element={<Coach />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="*" element={<ComingSoon />} />
-            </Routes>
-          </Suspense>
         </div>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="trades" element={<Trades />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="heatmaps" element={<Heatmaps />} />
+            <Route path="psychology" element={<Psychology />} />
+            <Route path="hourly" element={<Hourly />} />
+            <Route path="summary" element={<Summary />} />
+            <Route path="monthly" element={<Monthly />} />
+            <Route path="daily" element={<Daily />} />
+            <Route path="coach" element={<Coach />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="*" element={<ComingSoon />} />
+          </Routes>
+        </Suspense>
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>

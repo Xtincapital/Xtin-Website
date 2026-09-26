@@ -33,7 +33,7 @@ export default function BuyTokensModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[10060] flex items-center justify-center p-4 bg-[#0E1B2E]/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[10060] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto"
       onClick={closeBuyTokens}
     >
       <div

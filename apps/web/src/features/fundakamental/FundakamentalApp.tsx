@@ -59,25 +59,28 @@ const FundakamentalApp = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* Scopes FundaKaMental's shadcn design tokens (fundakamental.css) to
-            this subtree only — see that file's header comment. */}
+        {/* The page body's `fundakamental-scope` wrapper (design tokens, see
+            apps/web/src/index.css) lives in DashboardLayout, between the
+            shared site Navbar and Footer, so it never wraps the site chrome.
+            The toasters and the app-wide modals get their own. */}
+        <Suspense fallback={null}>
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="analyze" element={<NewAnalysis />} />
+            <Route path="report/:id" element={<AnalysisReport />} />
+            <Route path="scanner" element={<StockScanner />} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="watchlist" element={<Watchlist />} />
+            <Route path="history" element={<History />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+
         <div className="fundakamental-scope">
           <Toaster />
           <Sonner />
-          <Suspense fallback={null}>
-            <Routes>
-              <Route index element={<Dashboard />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="analyze" element={<NewAnalysis />} />
-              <Route path="report/:id" element={<AnalysisReport />} />
-              <Route path="scanner" element={<StockScanner />} />
-              <Route path="portfolio" element={<Portfolio />} />
-              <Route path="watchlist" element={<Watchlist />} />
-              <Route path="history" element={<History />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
 
           {/* Read usePlanStore's upgradeOpen/buyTokensOpen/celebrating state
               directly (already wired up in store/usePlanStore.ts).

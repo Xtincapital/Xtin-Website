@@ -231,7 +231,7 @@ const AnalysisReport = () => {
   if (isLoadingReport) {
     return (
       <DashboardLayout>
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-2rem)] gap-3 text-muted-foreground">
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-7rem)] gap-3 text-muted-foreground">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
           <p>Loading report…</p>
         </div>
@@ -242,7 +242,7 @@ const AnalysisReport = () => {
   if (reportError || !report) {
     return (
       <DashboardLayout>
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-2rem)] gap-4 text-center px-6">
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-7rem)] gap-4 text-center px-6">
           <AlertTriangle className="w-10 h-10 text-warning" />
           <div>
             <h2 className="text-lg font-semibold text-foreground mb-1">
@@ -265,7 +265,7 @@ const AnalysisReport = () => {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col lg:flex-row h-[calc(100vh-2rem)] m-4 gap-4">
+      <div className="flex flex-col lg:flex-row h-[calc(100vh-7rem)] m-4 gap-4">
         {/* Report Content */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -113,31 +113,33 @@ const GiniApp = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {/* Scopes Gini's shadcn design tokens (gini.css) to this subtree
-            only — see that file's header comment. */}
+        {/* The page body's `gini-scope` wrapper (design tokens, see
+            apps/web/src/index.css) lives in GiniLayout, between the shared
+            site Navbar and Footer, so it never wraps the site chrome. The
+            toasters get their own. */}
         <div className="gini-scope">
           <Toaster />
           <Sonner />
-          <Suspense fallback={null}>
-            <Routes>
-              <Route index element={<Dashboard />} />
-              <Route path="family" element={<Family />} />
-              <Route path="networth" element={<NetWorth />} />
-              <Route path="goals" element={<Goals />} />
-              <Route path="portfolio" element={<Portfolio />} />
-              <Route path="planner" element={<Planner />} />
-              <Route path="required-return" element={<RequiredReturn />} />
-              <Route path="monte-carlo" element={<MonteCarlo />} />
-              <Route path="retirement" element={<Retirement />} />
-              <Route path="calculators" element={<Calculators />} />
-              <Route path="family-planning" element={<FamilyPlanning />} />
-              <Route path="family-advanced" element={<FamilyAdvanced />} />
-              <Route path="reports" element={<Reports />} />
-              <Route path="pricing" element={<Pricing />} />
-              <Route path="*" element={<ComingSoon />} />
-            </Routes>
-          </Suspense>
         </div>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route index element={<Dashboard />} />
+            <Route path="family" element={<Family />} />
+            <Route path="networth" element={<NetWorth />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="planner" element={<Planner />} />
+            <Route path="required-return" element={<RequiredReturn />} />
+            <Route path="monte-carlo" element={<MonteCarlo />} />
+            <Route path="retirement" element={<Retirement />} />
+            <Route path="calculators" element={<Calculators />} />
+            <Route path="family-planning" element={<FamilyPlanning />} />
+            <Route path="family-advanced" element={<FamilyAdvanced />} />
+            <Route path="reports" element={<Reports />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="*" element={<ComingSoon />} />
+          </Routes>
+        </Suspense>
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>

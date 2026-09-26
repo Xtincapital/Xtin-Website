@@ -429,3 +429,103 @@ html.dark .via-rose-50 { --tw-gradient-stops: var(--tw-gradient-from), rgba(244,
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* Site design tokens for the embedded product apps (FundaKaMental, Gini).
+   Their pages are built on shadcn utilities (bg-primary, text-foreground,
+   border-border, ...) that read these custom properties, so this block maps
+   them onto the same Tailwind palette the rest of the site uses directly:
+   green-600 accent, gray-900 / gray-500 text, gray-200 borders, the
+   --theme-bg page background and Tailwind's default radius and shadows.
+   Scoped to the apps' wrapper classes (set in their layout components),
+   which sit between the shared Navbar and Footer, so nothing else changes.
+   Journal deliberately keeps its own original design (journal.css). */
+.fundakamental-scope,
+.gini-scope {
+  --background: 210 40% 98%;
+  --foreground: 221 39% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 221 39% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 221 39% 11%;
+  --primary: 142 76% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 221 39% 11%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 138 76% 97%;
+  --accent-foreground: 142 72% 29%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 221 39% 11%;
+  --border: 220 13% 91%;
+  --input: 216 12% 84%;
+  --ring: 142 71% 45%;
+  --radius: 0.5rem;
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 215 14% 34%;
+  --sidebar-primary: 142 76% 36%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 138 76% 97%;
+  --sidebar-accent-foreground: 142 72% 29%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 142 71% 45%;
+  --chart-positive: 142 76% 36%;
+  --chart-negative: 0 72% 51%;
+  --chart-neutral: 220 9% 46%;
+  --chart-1: 142 76% 36%;
+  --chart-2: 217 91% 60%;
+  --chart-3: 262 83% 58%;
+  --chart-4: 38 92% 50%;
+  --chart-5: 330 81% 60%;
+  --gradient-primary: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  --gradient-accent: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  --gradient-hero: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  --gradient-card: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 30px rgba(22, 163, 74, 0.15);
+}
+
+html.dark .fundakamental-scope,
+html.dark .gini-scope {
+  color-scheme: dark;
+  --background: 222 47% 8%;
+  --foreground: 220 14% 91%;
+  --card: 221 39% 11%;
+  --card-foreground: 220 14% 91%;
+  --popover: 221 39% 11%;
+  --popover-foreground: 220 14% 91%;
+  --primary: 142 71% 45%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 220 14% 91%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 218 11% 65%;
+  --accent: 152 45% 15%;
+  --accent-foreground: 142 69% 72%;
+  --destructive: 0 72% 58%;
+  --success: 142 69% 58%;
+  --border: 217 19% 24%;
+  --input: 217 19% 27%;
+  --ring: 142 71% 45%;
+  --sidebar-background: 221 39% 11%;
+  --sidebar-foreground: 218 11% 65%;
+  --sidebar-primary: 142 71% 45%;
+  --sidebar-accent: 152 45% 15%;
+  --sidebar-accent-foreground: 220 14% 91%;
+  --sidebar-border: 217 19% 24%;
+  --chart-positive: 142 69% 58%;
+  --chart-negative: 0 72% 58%;
+  --chart-neutral: 218 11% 65%;
+  --chart-1: 142 71% 45%;
+  --gradient-accent: linear-gradient(135deg, hsl(152, 45%, 15%) 0%, hsl(221, 39%, 13%) 100%);
+  --gradient-hero: linear-gradient(180deg, hsl(221, 39%, 11%) 0%, hsl(222, 47%, 8%) 100%);
+  --gradient-card: linear-gradient(135deg, hsl(221, 39%, 12%) 0%, hsl(221, 39%, 10%) 100%);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 30px rgba(52, 211, 153, 0.15);
+}

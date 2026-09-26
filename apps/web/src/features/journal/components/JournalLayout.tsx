@@ -1,125 +1,79 @@
-// Journal's navigation shell — the sidebar/header every Journal page wraps
-// its content in. Modeled on
-// apps/web/src/features/fundakamental/components/dashboard/DashboardLayout.tsx
-// (read as this task's template), but built fresh rather than ported: the
-// original standalone app (features-incoming/journal/app.js) had no
-// component-based nav at all — it was a single-page app with a
-// `switchTab()` function toggling `.tab-content`/`.tab-button` DOM classes
-// (see that function for the full list of tabs this nav reproduces as real
-// routes instead).
+// Journal's navigation shell — the header/tab bar every Journal page wraps
+// its content in.
 //
-// Route paths chosen here MUST match ../JournalApp.tsx's route list exactly
-// (see that file's header comment) — the parallel Trades/Goals task and
-// later AI-coach/import/wallet/plan sub-phases build pages against these
-// same hrefs.
+// Design: restores the ORIGINAL standalone Journal app's look
+// (features-incoming/journal/index.html — `.app-header`, `.tabs-container`,
+// `.tab-button`, `.tab-content`), which the Phase 9d port had replaced with a
+// FundaKaMental-style sidebar. The original was a single-page app whose
+// `switchTab()` toggled `.tab-content` divs; here each tab is a real route.
+// The matching styles live in ../journal.css under `.journal-classic`.
+//
+// The only departures from the original chrome: the shared site Navbar and
+// Footer wrap the page (so the single main Xtin wordmark in the Navbar is the
+// only logo — the original header's own logo image and "Xtin Capital" link are
+// dropped), and the region/currency/time-zone selectors are dropped because
+// the Navbar's RegionSwitcher already covers region/currency app-wide.
+//
+// Route paths here MUST match ../JournalApp.tsx's route list exactly (see that
+// file's header comment).
 //
 // Auth: uses the shared `useAuth()` (apps/web/src/contexts/AuthContext.tsx)
-// for logout — no Journal-specific auth (the original's
-// `supabase-journal.js` login flow) is reproduced here, matching
-// FundaKaMental's own DashboardLayout.
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import {
-  LayoutDashboard,
-  Receipt,
-  Target,
-  CalendarDays,
-  BarChart3,
-  Flame,
-  Brain,
-  Clock,
-  FileText,
-  CalendarRange,
-  CalendarClock,
-  Sparkles,
-  Settings,
-  CreditCard,
-  LogOut,
-  ChevronLeft,
-  ChevronRight,
-  TrendingUp,
-  Menu,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+// for logout.
+import { useEffect, useRef } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface JournalLayoutProps {
   children: React.ReactNode;
 }
 
-interface NavItem {
+interface TabItem {
   name: string;
-  icon: typeof LayoutDashboard;
   href: string;
-  /** Dashboard is the index route (`/journal`) — needs an exact match
-   *  instead of the `startsWith` used for every other (nested) route, or it
-   *  would stay highlighted on every Journal page. */
-  exact?: boolean;
+  /** Dashboard is the index route (`/journal`) — needs an exact match or it
+   *  would stay active on every Journal page. */
+  end?: boolean;
 }
 
-interface NavSection {
-  label: string;
-  items: NavItem[];
-}
-
-// Full route list, matching every tab app.js's switchTab() had (dashboard,
-// trades, psychology, hourly, calendar, summary, monthly, daily, analytics,
-// subscription→pricing, heatmaps) plus goals + AI coach as new sections —
-// see JournalApp.tsx's header comment for the canonical path list.
-const navSections: NavSection[] = [
-  {
-    label: "Overview",
-    items: [{ name: "Dashboard", icon: LayoutDashboard, href: "/journal", exact: true }],
-  },
-  {
-    label: "Trading",
-    items: [
-      { name: "Trades", icon: Receipt, href: "/journal/trades" },
-      { name: "Goals", icon: Target, href: "/journal/goals" },
-      { name: "Calendar", icon: CalendarDays, href: "/journal/calendar" },
-      { name: "Analytics", icon: BarChart3, href: "/journal/analytics" },
-      { name: "Heatmaps", icon: Flame, href: "/journal/heatmaps" },
-    ],
-  },
-  {
-    label: "Insights",
-    items: [
-      { name: "Psychology", icon: Brain, href: "/journal/psychology" },
-      { name: "Hourly", icon: Clock, href: "/journal/hourly" },
-      { name: "Summary", icon: FileText, href: "/journal/summary" },
-      { name: "Monthly", icon: CalendarRange, href: "/journal/monthly" },
-      { name: "Daily", icon: CalendarClock, href: "/journal/daily" },
-    ],
-  },
-  {
-    label: "AI Coach",
-    items: [{ name: "Coach", icon: Sparkles, href: "/journal/coach" }],
-  },
-  {
-    label: "Account",
-    items: [
-      { name: "Settings", icon: Settings, href: "/journal/settings" },
-      { name: "Pricing", icon: CreditCard, href: "/journal/pricing" },
-    ],
-  },
+// The original's tab order (dashboard, trades, psychology, hourly, calendar,
+// summary, monthly, daily, analytics, heatmaps), followed by the sections the
+// port added (goals, AI coach, pricing — was "subscription" — and settings).
+const tabs: TabItem[] = [
+  { name: "Dashboard", href: "/journal", end: true },
+  { name: "Trades", href: "/journal/trades" },
+  { name: "Psychology", href: "/journal/psychology" },
+  { name: "Hourly Analysis", href: "/journal/hourly" },
+  { name: "Calendar", href: "/journal/calendar" },
+  { name: "Metrics", href: "/journal/summary" },
+  { name: "Monthly", href: "/journal/monthly" },
+  { name: "Daily", href: "/journal/daily" },
+  { name: "Analytics", href: "/journal/analytics" },
+  { name: "Heatmaps", href: "/journal/heatmaps" },
+  { name: "Goals", href: "/journal/goals" },
+  { name: "AI Coach", href: "/journal/coach" },
+  { name: "Pricing", href: "/journal/pricing" },
+  { name: "Settings", href: "/journal/settings" },
 ];
 
-const isActivePath = (pathname: string, item: NavItem) =>
-  item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
-
 const JournalLayout = ({ children }: JournalLayoutProps) => {
-  const [sidebarCollapsed, setCollapsed] = useState(false);
-  // Below lg the sidebar is an off-canvas drawer; it always shows full width there.
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const collapsed = sidebarCollapsed && !mobileOpen;
-  const location = useLocation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { logout } = useAuth();
+  const tabsRef = useRef<HTMLElement>(null);
 
+  // On narrow screens the tab bar scrolls sideways; keep the active tab visible.
   useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
+    const bar = tabsRef.current;
+    const active = bar?.querySelector<HTMLElement>(".tab-button.active");
+    if (bar && active) {
+      const barBox = bar.getBoundingClientRect();
+      const tabBox = active.getBoundingClientRect();
+      bar.scrollLeft += tabBox.left - barBox.left - (barBox.width - tabBox.width) / 2;
+    }
+  }, [pathname]);
 
   const handleLogout = async () => {
     await logout();
@@ -127,124 +81,44 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary/30 flex">
-      {/* Sidebar — Clean white, Xtin-aligned (same treatment as
-          FundaKaMental's DashboardLayout) */}
-      <motion.aside
-        initial={false}
-        animate={{ width: collapsed ? 76 : 260 }}
-        transition={{ duration: 0.2 }}
-        className={cn(
-          "fixed left-0 top-0 h-full bg-white border-r border-border flex flex-col z-50 transition-transform duration-200 lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        {/* Logo */}
-        <div className="h-16 flex items-center px-4 border-b border-border shrink-0">
-          <Link to="/journal" className="flex items-center gap-2.5 overflow-hidden">
-            <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-primary-foreground" />
-            </span>
-            {!collapsed && (
-              <span className="font-bold tracking-tight text-xl leading-none text-foreground whitespace-nowrap">
-                Trading <span className="text-primary">Journal</span>
-              </span>
-            )}
-          </Link>
-        </div>
+    <>
+      <Navbar />
+      <div className="journal-scope journal-classic">
+        <header className="app-header">
+          <div className="header-left">
+            <NavLink to="/journal" end className="brand-link">
+              <span className="brand-name-main">Xtin</span>
+              <span className="brand-name-accent">Journal</span>
+            </NavLink>
+            <p>Trading Journal</p>
+          </div>
+          <div className="header-right">
+            <button type="button" onClick={handleLogout} className="btn btn-secondary">
+              <LogOut className="w-4 h-4" />
+              Log Out
+            </button>
+          </div>
+        </header>
 
-        {/* Navigation */}
-        <nav className="flex-1 py-4 px-3 space-y-4 overflow-y-auto">
-          {navSections.map((section) => (
-            <div key={section.label}>
-              {!collapsed && (
-                <div className="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
-                  {section.label}
-                </div>
-              )}
-              <div className="space-y-0.5">
-                {section.items.map((item) => {
-                  const isActive = isActivePath(location.pathname, item);
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group",
-                        isActive
-                          ? "bg-accent text-primary font-semibold"
-                          : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
-                      )}
-                      title={collapsed ? item.name : undefined}
-                    >
-                      <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
-                      {!collapsed && <span className="text-sm">{item.name}</span>}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+        <nav ref={tabsRef} className="tabs-container" aria-label="Trading journal sections">
+          {tabs.map((tab) => (
+            <NavLink
+              key={tab.href}
+              to={tab.href}
+              end={tab.end}
+              className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
+            >
+              {tab.name}
+            </NavLink>
           ))}
         </nav>
 
-        {/* Bottom actions */}
-        <div className="p-3 border-t border-border space-y-0.5 shrink-0">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
-          >
-            <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
-            {!collapsed && <span className="text-sm font-medium">Log Out</span>}
-          </button>
-        </div>
-
-        {/* Collapse Button */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {collapsed ? (
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
-          ) : (
-            <ChevronLeft className="w-3.5 h-3.5 text-muted-foreground" />
-          )}
-        </button>
-      </motion.aside>
-
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Main Content */}
-      <main
-        className={cn(
-          "flex-1 min-w-0 transition-all duration-200 min-h-screen",
-          collapsed ? "lg:ml-[76px]" : "lg:ml-[260px]"
-        )}
-      >
-        {/* Mobile top bar — opens the sidebar drawer */}
-        <div className="lg:hidden sticky top-0 z-30 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-          <Link to="/journal" className="flex items-center">
-            <span className="font-bold tracking-tight text-lg leading-none text-foreground whitespace-nowrap">
-              Trading <span className="text-primary">Journal</span>
-            </span>
-          </Link>
-        </div>
-        {children}
-      </main>
-    </div>
+        <main id="main-content" className="tab-content journal-content">
+          {children}
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 };
 
