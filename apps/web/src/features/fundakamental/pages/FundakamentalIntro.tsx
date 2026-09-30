@@ -54,15 +54,13 @@ const FundakamentalIntro = () => {
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://www.fundakamental.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/fundakamental"
                   className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-green-600/25 flex items-center justify-center gap-2"
                 >
                   <span>Open Fundakamental</span>
                   <ArrowRight className="h-5 w-5" />
-                </a>
+                </Link>
                 <Link
                   to="/products"
                   className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 hover:border-green-300 dark:hover:border-emerald-500 text-slate-700 dark:text-slate-200 font-semibold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2"

@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { GINI_URL } from '../../../constants/externalApps';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -370,13 +369,13 @@ const ToolsIntro = () => {
                   <h3 className="text-xl font-bold mb-2">Xtin Gini — AI Financial Planner</h3>
                   <p className="text-green-100 text-sm max-w-md">Get personalized financial advice from our AI-powered expert. Tax planning, investment strategy & goal-based recommendations.</p>
                 </div>
-                <a
-                  href={GINI_URL}
+                <Link
+                  to="/gini"
                   className="inline-flex items-center justify-center gap-2 bg-white text-green-700 font-bold px-8 py-3.5 rounded-xl hover:bg-green-50 transition-all duration-200 shadow-lg hover:-translate-y-0.5 flex-shrink-0"
                 >
                   Try Xtin Gini
                   {Icons.arrowRight}
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>
