@@ -52,6 +52,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
+import GiniSampleBar from "./GiniSampleBar";
 
 interface GiniLayoutProps {
   children: React.ReactNode;
@@ -242,6 +243,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
               Gini
             </Link>
           </div>
+          <GiniSampleBar />
           {children}
         </main>
 

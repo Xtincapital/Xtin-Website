@@ -25,6 +25,7 @@ import { LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JournalSampleBar from "./JournalSampleBar";
 
 interface JournalLayoutProps {
   children: React.ReactNode;
@@ -112,6 +113,8 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
             </NavLink>
           ))}
         </nav>
+
+        <JournalSampleBar />
 
         <main id="main-content" className="tab-content journal-content">
           {children}

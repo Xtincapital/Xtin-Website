@@ -51,6 +51,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
+import { journalSampleMode } from "./lib/sampleData";
 import JournalLayout from "./components/JournalLayout";
 import "./journal.css";
 
@@ -81,6 +82,12 @@ const queryClient = new QueryClient({
   },
 });
 
+// Entering/exiting sample mode swaps where every API call reads from, so drop
+// all cached queries. Subscribed here at module load — ahead of any
+// component's subscription — so the cache is empty before the routes
+// re-render (see the `key` on <Routes> below).
+journalSampleMode.subscribe(() => queryClient.clear());
+
 /** Placeholder for a reserved route (see the path list above) whose page
  *  hasn't been built yet. Keeps the nav fully wired now without importing
  *  components that don't exist. */
@@ -95,7 +102,11 @@ const ComingSoon = () => (
   </JournalLayout>
 );
 
-const JournalApp = () => (
+const JournalApp = () => {
+  // Remount every page when sample mode flips so each one refetches.
+  const { version } = journalSampleMode.useState();
+
+  return (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -108,7 +119,7 @@ const JournalApp = () => (
           <Sonner />
         </div>
         <Suspense fallback={null}>
-          <Routes>
+          <Routes key={version}>
             <Route index element={<Dashboard />} />
             <Route path="trades" element={<Trades />} />
             <Route path="goals" element={<Goals />} />
@@ -129,6 +140,7 @@ const JournalApp = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
-);
+  );
+};
 
 export default JournalApp;

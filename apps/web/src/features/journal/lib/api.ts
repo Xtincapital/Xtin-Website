@@ -25,6 +25,8 @@
 // file, in the reserved section below, once their pages are built.
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
+import { withSampleMode } from '../../../lib/sampleMode';
+import { journalSampleMode, sampleGoals, sampleStrategies, sampleTrades } from './sampleData';
 
 const API_PREFIX = '/api/journal';
 
@@ -142,7 +144,7 @@ export interface Strategy {
 // comment) — matching its assumption here avoids a second rename on their
 // side.
 // ─────────────────────────────────────────────────────────────────────────
-export const trades = {
+const realTrades = {
   createTrade: async (data: TradeCreateInput): Promise<Trade> => {
     return await request('/trades', {
       method: 'POST',
@@ -183,12 +185,14 @@ export const trades = {
     return await request('/trades', { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const trades = withSampleMode(journalSampleMode, realTrades, sampleTrades);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Goals (goals.routes.ts) — same verbose naming convention as `trades` above,
 // for the Goals page the parallel task builds next to match.
 // ─────────────────────────────────────────────────────────────────────────
-export const goals = {
+const realGoals = {
   createGoal: async (data: GoalInput): Promise<Goal> => {
     return await request('/goals', {
       method: 'POST',
@@ -215,13 +219,15 @@ export const goals = {
     return await request(`/goals/${goalId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const goals = withSampleMode(journalSampleMode, realGoals, sampleGoals);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Strategies (strategies.routes.ts) — naming matches pages/Trades.tsx's
 // already-written `api.strategies.getStrategies()` / `.createStrategy()`
 // calls (see the `trades` block's naming note above).
 // ─────────────────────────────────────────────────────────────────────────
-export const strategies = {
+const realStrategies = {
   getStrategies: async (): Promise<Strategy[]> => {
     return await request('/strategies');
   },
@@ -241,6 +247,8 @@ export const strategies = {
     return await request(`/strategies/${strategyId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const strategies = withSampleMode(journalSampleMode, realStrategies, sampleStrategies);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Reserved for later sub-phases — DO NOT stub these out yet:

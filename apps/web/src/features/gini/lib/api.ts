@@ -26,6 +26,17 @@
 // reserved section below, once their pages are built.
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
+import { withSampleMode } from '../../../lib/sampleMode';
+import {
+  giniSampleMode,
+  sampleAssets,
+  sampleEducationPlans,
+  sampleElderCare,
+  sampleFamilyMembers,
+  sampleGoals,
+  sampleLiabilities,
+  sampleTaxOptimization,
+} from './sampleData';
 
 const API_PREFIX = '/api/gini';
 
@@ -143,7 +154,7 @@ export type GoalUpdateInput = Partial<Omit<Goal, 'id' | 'user_id' | 'created_at'
 // ─────────────────────────────────────────────────────────────────────────
 // Family members (familyMembers.routes.ts)
 // ─────────────────────────────────────────────────────────────────────────
-export const familyMembers = {
+const realFamilyMembers = {
   createFamilyMember: async (data: FamilyMemberInput): Promise<FamilyMember> => {
     return await request('/family-members', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -160,11 +171,13 @@ export const familyMembers = {
     return await request(`/family-members/${memberId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const familyMembers = withSampleMode(giniSampleMode, realFamilyMembers, sampleFamilyMembers);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Assets (assets.routes.ts)
 // ─────────────────────────────────────────────────────────────────────────
-export const assets = {
+const realAssets = {
   createAsset: async (data: AssetInput): Promise<Asset> => {
     return await request('/assets', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -181,11 +194,13 @@ export const assets = {
     return await request(`/assets/${assetId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const assets = withSampleMode(giniSampleMode, realAssets, sampleAssets);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Liabilities (liabilities.routes.ts)
 // ─────────────────────────────────────────────────────────────────────────
-export const liabilities = {
+const realLiabilities = {
   createLiability: async (data: LiabilityInput): Promise<Liability> => {
     return await request('/liabilities', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -202,11 +217,13 @@ export const liabilities = {
     return await request(`/liabilities/${liabilityId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const liabilities = withSampleMode(giniSampleMode, realLiabilities, sampleLiabilities);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Goals (goals.routes.ts)
 // ─────────────────────────────────────────────────────────────────────────
-export const goals = {
+const realGoals = {
   createGoal: async (data: GoalInput): Promise<Goal> => {
     return await request('/goals', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -223,6 +240,8 @@ export const goals = {
     return await request(`/goals/${goalId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const goals = withSampleMode(giniSampleMode, realGoals, sampleGoals);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Elder care plans (elderCare.routes.ts). `member_id` is a required FK to
@@ -247,7 +266,7 @@ export type ElderCarePlanInput = Partial<Omit<ElderCarePlan, 'id' | 'user_id' | 
   Pick<ElderCarePlan, 'member_id'>;
 export type ElderCarePlanUpdateInput = Partial<Omit<ElderCarePlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>>;
 
-export const elderCare = {
+const realElderCare = {
   createPlan: async (data: ElderCarePlanInput): Promise<ElderCarePlan> => {
     return await request('/elder-care', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -264,6 +283,8 @@ export const elderCare = {
     return await request(`/elder-care/${planId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const elderCare = withSampleMode(giniSampleMode, realElderCare, sampleElderCare);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Education plans (educationPlans.routes.ts). `child_id` is a required FK to
@@ -289,7 +310,7 @@ export type EducationPlanInput = Partial<Omit<EducationPlan, 'id' | 'user_id' | 
   Pick<EducationPlan, 'child_id'>;
 export type EducationPlanUpdateInput = Partial<Omit<EducationPlan, 'id' | 'user_id' | 'years_remaining' | 'created_at' | 'updated_at'>>;
 
-export const educationPlans = {
+const realEducationPlans = {
   createPlan: async (data: EducationPlanInput): Promise<EducationPlan> => {
     return await request('/education-plans', { method: 'POST', body: JSON.stringify(data) });
   },
@@ -306,6 +327,8 @@ export const educationPlans = {
     return await request(`/education-plans/${planId}`, { method: 'DELETE' });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const educationPlans = withSampleMode(giniSampleMode, realEducationPlans, sampleEducationPlans);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Tax optimization (taxOptimization.routes.ts) — get-or-create GET/PUT pair,
@@ -326,7 +349,7 @@ export interface TaxOptimization {
 
 export type TaxOptimizationInput = Partial<Omit<TaxOptimization, 'user_id' | 'created_at' | 'updated_at'>>;
 
-export const taxOptimization = {
+const realTaxOptimization = {
   get: async (): Promise<TaxOptimization> => {
     return await request('/tax-optimization');
   },
@@ -334,6 +357,8 @@ export const taxOptimization = {
     return await request('/tax-optimization', { method: 'PUT', body: JSON.stringify(data) });
   },
 };
+// While sample mode is on (see ./sampleData.ts), served from memory instead.
+export const taxOptimization = withSampleMode(giniSampleMode, realTaxOptimization, sampleTaxOptimization);
 
 // ─────────────────────────────────────────────────────────────────────────
 // AI chat (chat.routes.ts) — POST /gini/chat only. Real server-side auth +
