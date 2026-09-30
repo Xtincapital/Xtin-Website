@@ -29,14 +29,13 @@ const RDCalculator = () => {
     const yearsValue = parseFloat(years);
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
-      let M;
       let r;
       let n;
 
       // Use proper compounding conversion for monthly rate
       r = Math.pow(1 + annualRateValue, 1/12) - 1;
       n = yearsValue * 12;
-      M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+      const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
 
       setFutureValue(
         M.toLocaleString("en-IN", {
@@ -47,10 +46,9 @@ const RDCalculator = () => {
 
       const data = [];
       for (let i = 1; i <= yearsValue; i++) {
-        let value;
         r = Math.pow(1 + annualRateValue, 1/12) - 1;
         n = i * 12;
-        value = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        const value = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
         data.push({ year: i, value: value.toFixed(2) });
       }
       setChartData(data);

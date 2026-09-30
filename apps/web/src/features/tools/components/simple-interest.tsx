@@ -44,14 +44,12 @@ const SimpleInterestCalculator = () => {
     const yearsValue = parseFloat(years);
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
-      let A;
-      A = P * (1 + annualRateValue * yearsValue);
+      const A = P * (1 + annualRateValue * yearsValue);
       setFutureValue(A.toFixed(2));
 
       const data = [];
       for (let i = 0; i <= yearsValue; i++) {
-        let value;
-        value = P * (1 + annualRateValue * i);
+        const value = P * (1 + annualRateValue * i);
         data.push({ year: i, value: value.toFixed(2) });
       }
       setChartData(data);

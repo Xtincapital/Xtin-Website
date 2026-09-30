@@ -38,13 +38,13 @@ const SWPCalculator = () => {
     const rateValue = parseFloat(annualRate);
     const tenureValue = parseFloat(tenure);
 
-    let balances = [];
+    const balances = [];
     let summaryText = "";
 
     if (swpMode === "duration") {
       let months = 0;
       let balance = corpusValue;
-      let monthlyRate = Math.pow(1 + rateValue / 100, 1 / 12) - 1;
+      const monthlyRate = Math.pow(1 + rateValue / 100, 1 / 12) - 1;
       balances.push({ month: 0, balance: balance });
 
       while (balance > 0 && months < 600 && withdrawalValue > 0) {
@@ -79,9 +79,9 @@ const SWPCalculator = () => {
             withdrawalValue
           )}</b> each month.`;
     } else {
-      let months = tenureValue * 12;
+      const months = tenureValue * 12;
       let balance = corpusValue;
-      let monthlyRate = Math.pow(1 + rateValue / 100, 1 / 12) - 1;
+      const monthlyRate = Math.pow(1 + rateValue / 100, 1 / 12) - 1;
       balances.push({ month: 0, balance: balance });
 
       for (let i = 1; i <= months; i++) {

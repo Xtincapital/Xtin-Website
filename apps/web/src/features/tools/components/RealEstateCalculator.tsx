@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
@@ -35,7 +35,6 @@ const RealEstateCalculator = () => {
   // Calculated Results
   const [results, setResults] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
-  const [activeTab, setActiveTab] = useState("calculator");
   const [chartType, setChartType] = useState("radar");
   
   // Filter Pass States

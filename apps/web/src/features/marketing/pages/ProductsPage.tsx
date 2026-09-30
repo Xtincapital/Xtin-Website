@@ -7,6 +7,7 @@ import {
   BookOpen,
   Calculator,
   FileSearch,
+  FlaskConical,
   Handshake,
   Newspaper,
   NotebookPen,
@@ -23,6 +24,13 @@ const ProductsPage = () => {
       path: '/algos',
       Icon: BarChart3,
       accent: 'text-emerald-600 bg-emerald-50 border-emerald-100',
+    },
+    {
+      title: 'Backtest',
+      description: 'Backtest any strategy by chatting with AI — no code, real data.',
+      path: '/backtest',
+      Icon: FlaskConical,
+      accent: 'text-teal-600 bg-teal-50 border-teal-100',
     },
     {
       title: 'Tools',

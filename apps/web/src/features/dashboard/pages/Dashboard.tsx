@@ -12,11 +12,10 @@ import {
   Plus, Sparkle, Sun, Moon, CheckCircle
 } from "lucide-react";
 import authService from "../../../services/authService";
-import algorithmService from "../../../features/algos/services/algorithmService";
 import { BACKEND_URL } from "../../../config/env";
 import bundleSubscriptionService from "../services/bundleSubscriptionService";
-import { setLearnPlanFromServer } from "../../../lib/learnPlan";
-import { setNewsletterPlanFromServer } from "../../../features/newsletter/lib/newsletterPlan";
+import learnPlanService from "../../academy/services/learnPlanService";
+import newsletterPlanService from "../../newsletter/services/newsletterPlanService";
 
 /* ═══════════════════════════════════════════════════════════
    1. Preset Combination Bundles
@@ -158,8 +157,6 @@ const PRODUCT_PLAN_DETAILS = {
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
   
   // Profile Update State
   const [showNameModal, setShowNameModal] = useState(false);
@@ -186,6 +183,8 @@ const Dashboard = () => {
   const [selectedCustomProducts, setSelectedCustomProducts] = useState(['algos', 'gini']);
 
   // Real-Time Product Subscription Statuses
+  // Bumped after a purchase to re-read access from the server.
+  const [accessRefreshKey, setAccessRefreshKey] = useState(0);
   const [userSubscriptions, setUserSubscriptions] = useState({
     algos: false,
     gini: false,
@@ -229,71 +228,11 @@ const Dashboard = () => {
   };
 
   const applySubscriptionSuccess = (verifiedData) => {
-    const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-    if (checkoutItem?.id === 'ultimate-pass' || checkoutItem?.isBundle) {
-      localStorage.setItem('ultimate_bundle_active', 'true');
-      localStorage.setItem('gini_pro_access', 'true');
-      localStorage.setItem('fundakamental_pro', 'true');
-      localStorage.setItem('journal_pro', 'true');
-      localStorage.setItem('learn_pro', 'true');
-      localStorage.setItem('newsletter_subscribed', 'true');
-      storedSubs.bundle = true;
-      storedSubs.algos = true;
-      storedSubs.gini = true;
-      storedSubs.fundakamental = true;
-      storedSubs.journal = true;
-      storedSubs.learn = true;
-      storedSubs.newsletter = true;
-    } else if (checkoutItem?.products) {
-      checkoutItem.products.forEach(pName => {
-        if (pName.includes('Algo')) storedSubs.algos = true;
-        if (pName.includes('Gini')) { storedSubs.gini = true; localStorage.setItem('gini_pro_access', 'true'); }
-        if (pName.includes('Funda')) { storedSubs.fundakamental = true; localStorage.setItem('fundakamental_pro', 'true'); }
-        if (pName.includes('Journal')) { storedSubs.journal = true; localStorage.setItem('journal_pro', 'true'); }
-        if (pName.includes('Learn')) { storedSubs.learn = true; localStorage.setItem('learn_pro', 'true'); }
-        if (pName.includes('Newsletter')) { storedSubs.newsletter = true; localStorage.setItem('newsletter_subscribed', 'true'); }
-      });
-    } else if (checkoutItem?.isCustom) {
-      checkoutItem.selectedIds.forEach(id => {
-        storedSubs[id] = true;
-        if (id === 'gini') localStorage.setItem('gini_pro_access', 'true');
-        if (id === 'fundakamental') localStorage.setItem('fundakamental_pro', 'true');
-        if (id === 'journal') localStorage.setItem('journal_pro', 'true');
-        if (id === 'learn') localStorage.setItem('learn_pro', 'true');
-        if (id === 'newsletter') localStorage.setItem('newsletter_subscribed', 'true');
-      });
-    } else if (checkoutItem?.id) {
-      storedSubs[checkoutItem.id] = true;
-      if (checkoutItem.id === 'gini') localStorage.setItem('gini_pro_access', 'true');
-      if (checkoutItem.id === 'fundakamental') localStorage.setItem('fundakamental_pro', 'true');
-      if (checkoutItem.id === 'journal') localStorage.setItem('journal_pro', 'true');
-      if (checkoutItem.id === 'learn') localStorage.setItem('learn_pro', 'true');
-      if (checkoutItem.id === 'newsletter') localStorage.setItem('newsletter_subscribed', 'true');
-    }
-
-    localStorage.setItem('xtin_user_subscriptions', JSON.stringify(storedSubs));
-
-    if (storedSubs.learn || storedSubs.bundle) {
-      setLearnPlanFromServer({ plan_id: 'learn_pro', billing: billingCycle, valid_until: '2030-01-01' });
-    }
-    if (storedSubs.newsletter || storedSubs.bundle) {
-      setNewsletterPlanFromServer({ plan_id: 'newsletter_pro', billing: billingCycle, valid_until: '2030-01-01' });
-    }
-
-    window.dispatchEvent(new Event('storage'));
+    // The backend has recorded the purchase (including each bundled
+    // product's own plan) — re-read access from the server rather than
+    // granting it locally.
+    setAccessRefreshKey((k) => k + 1);
     window.dispatchEvent(new Event('xtin_subscription_updated'));
-    window.dispatchEvent(new CustomEvent('xtin:learn-plan-changed'));
-    window.dispatchEvent(new CustomEvent('xtin:newsletter-plan-changed'));
-
-    setUserSubscriptions({
-      algos: storedSubs.algos || storedSubs.bundle || false,
-      gini: storedSubs.gini || storedSubs.bundle || false,
-      fundakamental: storedSubs.fundakamental || storedSubs.bundle || false,
-      journal: storedSubs.journal || storedSubs.bundle || false,
-      newsletter: storedSubs.newsletter || storedSubs.bundle || false,
-      learn: storedSubs.learn || storedSubs.bundle || false,
-      bundle: storedSubs.bundle || false,
-    });
 
     const expDate = verifiedData?.valid_until ? new Date(verifiedData.valid_until).toISOString().split('T')[0] : "2026-12-31";
     setActivePlans((prev) => [
@@ -456,7 +395,6 @@ const Dashboard = () => {
 
       if (response.ok) {
         setUpdateMessage('Profile updated successfully!');
-        setProfileData(result.data);
         if (user) {
           user.first_name = firstName.trim();
           user.last_name = lastName.trim();
@@ -480,28 +418,20 @@ const Dashboard = () => {
         const token = localStorage.getItem('auth_token');
         const backendUrl = BACKEND_URL;
 
-        if (!token) {
-          setLoading(false);
-          return;
-        }
+        if (!token) return;
 
-        // Profile, active plans and algo subscriptions are independent —
-        // fetch them together rather than one after another (each is a
-        // round trip to the backend, which is slow when it's waking up).
+        // Active plans and algo subscriptions are independent — fetch them
+        // together rather than one after another (each is a round trip to
+        // the backend, which is slow when it's waking up). The profile shown
+        // here comes from AuthContext, which already fetched it.
         const authed = (path) => authService.makeAuthenticatedRequest(`${backendUrl}${path}`);
-        const [profileRes, dbActivePlans, algoRes] = await Promise.all([
-          authed('/api/auth/profile').catch(() => null),
+        const [dbActivePlans, algoRes] = await Promise.all([
           bundleSubscriptionService.getUserActivePlans(),
           authed('/api/algorithm/subscriptions').catch((e) => {
             console.warn("Could not fetch algo subscriptions:", e);
             return null;
           }),
         ]);
-
-        if (profileRes?.ok) {
-          const result = await profileRes.json();
-          setProfileData(result.data);
-        }
 
         const dbSubs = dbActivePlans?.userSubscriptions || {};
 
@@ -513,35 +443,25 @@ const Dashboard = () => {
           }
         }
 
-        // Local storage / flags check
-        const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-        const isBundleActive = dbSubs.bundle || localStorage.getItem('ultimate_bundle_active') === 'true' || storedSubs.bundle || false;
-        const isNewsletterSubscribed = dbSubs.newsletter || localStorage.getItem('newsletter_subscribed') === 'true' || storedSubs.newsletter || isBundleActive;
-        const isGiniPro = dbSubs.gini || localStorage.getItem('gini_pro_access') === 'true' || storedSubs.gini || isBundleActive;
-        const isFundakamentalPro = dbSubs.fundakamental || localStorage.getItem('fundakamental_pro') === 'true' || storedSubs.fundakamental || isBundleActive;
-        const isJournalPro = dbSubs.journal || localStorage.getItem('journal_pro') === 'true' || storedSubs.journal || isBundleActive;
-        const isLearnPro = dbSubs.learn || localStorage.getItem('learn_pro') === 'true' || storedSubs.learn || isBundleActive;
-        const isAlgoPro = hasAlgoSub || storedSubs.algos || isBundleActive || false;
-
+        // Pro access comes only from the server (bundles write each product's
+        // own plan record server-side). Browser-stored flags are not trusted:
+        // anyone could set them by hand.
+        const isBundleActive = Boolean(dbSubs.bundle);
         const realtimeSubs = {
-          algos: isAlgoPro,
-          gini: isGiniPro,
-          fundakamental: isFundakamentalPro,
-          journal: isJournalPro,
-          newsletter: isNewsletterSubscribed,
-          learn: isLearnPro,
+          algos: hasAlgoSub || isBundleActive,
+          gini: Boolean(dbSubs.gini) || isBundleActive,
+          fundakamental: Boolean(dbSubs.fundakamental) || isBundleActive,
+          journal: Boolean(dbSubs.journal) || isBundleActive,
+          newsletter: Boolean(dbSubs.newsletter) || isBundleActive,
+          learn: Boolean(dbSubs.learn) || isBundleActive,
           bundle: isBundleActive,
         };
 
         setUserSubscriptions(realtimeSubs);
 
-        // Sync local storage so all sub-pages update access instantly
-        if (isGiniPro) localStorage.setItem('gini_pro_access', 'true');
-        if (isFundakamentalPro) localStorage.setItem('fundakamental_pro', 'true');
-        if (isJournalPro) localStorage.setItem('journal_pro', 'true');
-        if (isLearnPro) localStorage.setItem('learn_pro', 'true');
-        if (isNewsletterSubscribed) localStorage.setItem('newsletter_subscribed', 'true');
-        if (isBundleActive) localStorage.setItem('ultimate_bundle_active', 'true');
+        // Refresh the Learn / Newsletter plan caches their pages gate on.
+        learnPlanService.syncPlan();
+        newsletterPlanService.syncPlan();
 
         // Build Active Plans List
         const plans = [];
@@ -568,13 +488,11 @@ const Dashboard = () => {
 
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchDashboardData();
-  }, []);
+  }, [accessRefreshKey]);
 
   const getInitials = () => {
     const first = user?.first_name?.[0] || 'U';

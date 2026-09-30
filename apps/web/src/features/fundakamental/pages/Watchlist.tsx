@@ -22,8 +22,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarChart3 } from 'lucide-react';
+import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarChart3, Pencil } from 'lucide-react';
 import { api } from '../lib/api';
 import DashboardLayout from '../components/dashboard/DashboardLayout';
 
@@ -75,6 +85,13 @@ export default function Watchlist() {
   const [newWatchlistDescription, setNewWatchlistDescription] = useState('');
   const [newWatchlistColor, setNewWatchlistColor] = useState('#3b82f6');
 
+  // Edit / delete the selected watchlist
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editDescription, setEditDescription] = useState('');
+  const [editColor, setEditColor] = useState('#3b82f6');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
   // Add item dialog
   const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
   const [newItemTicker, setNewItemTicker] = useState('');
@@ -86,7 +103,7 @@ export default function Watchlist() {
   // Load watchlists on mount
   useEffect(() => {
     loadWatchlists();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   // Load items when watchlist selected
@@ -95,18 +112,21 @@ export default function Watchlist() {
       loadWatchlistItems(selectedWatchlist);
       loadWatchlistSummary(selectedWatchlist);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [selectedWatchlist]);
 
-  const loadWatchlists = async () => {
+  const loadWatchlists = async (keepSelected?: string) => {
     try {
       const data = await api.watchlists.getWatchlists();
       setWatchlists(data);
 
-      // Select default or first watchlist
+      // Keep the requested watchlist selected, else the default or first one
       if (data.length > 0) {
+        const keep = keepSelected && data.find((w: Watchlist) => w.id === keepSelected);
         const defaultWatchlist = data.find((w: Watchlist) => w.is_default);
-        setSelectedWatchlist(defaultWatchlist?.id || data[0].id);
+        setSelectedWatchlist(keep ? keep.id : defaultWatchlist?.id || data[0].id);
+      } else {
+        setSelectedWatchlist(null);
       }
     } catch (error) {
       toast.error('Failed to load watchlists');
@@ -158,6 +178,51 @@ export default function Watchlist() {
       await loadWatchlists();
     } catch (error) {
       toast.error('Failed to create watchlist');
+      console.error(error);
+    }
+  };
+
+  const openEditDialog = () => {
+    const current = watchlists.find((w) => w.id === selectedWatchlist);
+    if (!current) return;
+    setEditName(current.name);
+    setEditDescription(current.description || '');
+    setEditColor(current.color || '#3b82f6');
+    setEditDialogOpen(true);
+  };
+
+  const handleUpdateWatchlist = async () => {
+    if (!selectedWatchlist) return;
+    if (!editName.trim()) {
+      toast.error('Please enter a watchlist name');
+      return;
+    }
+
+    try {
+      await api.watchlists.updateWatchlist(selectedWatchlist, {
+        name: editName.trim(),
+        description: editDescription.trim() || null,
+        color: editColor,
+      });
+      toast.success('Watchlist updated');
+      setEditDialogOpen(false);
+      await loadWatchlists(selectedWatchlist);
+    } catch (error) {
+      toast.error('Failed to update watchlist');
+      console.error(error);
+    }
+  };
+
+  const handleDeleteWatchlist = async () => {
+    if (!selectedWatchlist) return;
+
+    try {
+      await api.watchlists.deleteWatchlist(selectedWatchlist);
+      toast.success('Watchlist deleted');
+      setDeleteDialogOpen(false);
+      await loadWatchlists();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to delete watchlist');
       console.error(error);
     }
   };
@@ -450,6 +515,79 @@ export default function Watchlist() {
           </TabsList>
         </Tabs>
       )}
+
+      {currentWatchlist && (
+        <div className="flex flex-wrap items-center gap-2 -mt-2">
+          <Button variant="ghost" size="sm" onClick={openEditDialog}>
+            <Pencil className="w-4 h-4 mr-2" />
+            Edit “{currentWatchlist.name}”
+          </Button>
+          {!currentWatchlist.is_default && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-destructive hover:text-destructive"
+              onClick={() => setDeleteDialogOpen(true)}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete
+            </Button>
+          )}
+        </div>
+      )}
+
+      {/* Edit watchlist */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Watchlist</DialogTitle>
+            <DialogDescription>Rename it or change its description and color</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="edit-name">Name</Label>
+              <Input id="edit-name" value={editName} onChange={(e) => setEditName(e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-description">Description (Optional)</Label>
+              <Textarea id="edit-description" value={editDescription} onChange={(e) => setEditDescription(e.target.value)} />
+            </div>
+
+            <div>
+              <Label htmlFor="edit-color">Color</Label>
+              <Input id="edit-color" type="color" value={editColor} onChange={(e) => setEditColor(e.target.value)} />
+            </div>
+
+            <Button onClick={handleUpdateWatchlist} className="w-full">
+              Save Changes
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete watchlist */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete “{currentWatchlist?.name}”?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This removes the watchlist and the {currentWatchlist?.item_count ?? 0} stock
+              {currentWatchlist?.item_count === 1 ? '' : 's'} in it. This can’t be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteWatchlist}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Summary Cards */}
       {summary && (

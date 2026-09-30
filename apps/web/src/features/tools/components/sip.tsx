@@ -38,9 +38,10 @@ const SIPCalculator = () => {
     const yearsValue = parseFloat(years);
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
-      // Convert annual rate to monthly rate using proper compounding
-      // Monthly rate = (1 + annual rate)^(1/12) - 1 (same as Groww)
-      const r = Math.pow(1 + annualRateValue, 1/12) - 1;
+      // Monthly rate = annual rate / 12 — the standard SIP formula used by
+      // Groww, ET Money and AMFI calculators, so results match what users see
+      // elsewhere. FV = P × [((1 + r)^n − 1) / r] × (1 + r).
+      const r = annualRateValue / 12;
       const n = yearsValue * 12;
 
       const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);

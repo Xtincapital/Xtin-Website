@@ -53,10 +53,6 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
         // real backend + Supabase write. Never available in production.
             const finishActivation = (record) => {
               try {
-                const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-                storedSubs.learn = true;
-                localStorage.setItem('xtin_user_subscriptions', JSON.stringify(storedSubs));
-                localStorage.setItem('learn_pro', 'true');
                 window.dispatchEvent(new Event('storage'));
                 window.dispatchEvent(new Event('xtin_subscription_updated'));
               } catch { /* non-blocking */ }
@@ -102,15 +98,11 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
                   region,
                 });
                 try {
-                  const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-                  storedSubs.learn = true;
-                  localStorage.setItem('xtin_user_subscriptions', JSON.stringify(storedSubs));
-                  localStorage.setItem('learn_pro', 'true');
                   window.dispatchEvent(new Event('storage'));
                   window.dispatchEvent(new Event('xtin_subscription_updated'));
                 } catch { /* non-blocking */ }
                 onActivated?.(record);
-          } catch (err) {
+          } catch {
             setError('Payment succeeded but verification failed. Contact support with your payment ID.');
           } finally {
             setBusy(false);

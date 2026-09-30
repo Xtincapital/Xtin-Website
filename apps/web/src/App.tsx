@@ -13,11 +13,6 @@ const ResetPasswordPage = lazy(() => import('./features/auth/pages/ResetPassword
 const Newsletter = lazy(() => import('./features/newsletter/pages/Newsletter'));
 const NewsletterDisplay = lazy(() => import('./features/newsletter/pages/NewsletterDisplay'));
 const SubstackArticle = lazy(() => import('./features/newsletter/pages/SubstackArticle'));
-// `xtin-capital-home.tsx` (FundaKaMental's old marketing-stub page) is no
-// longer imported here — its route below was replaced with the real
-// protected app. The file itself is left in place, unrouted, per this
-// migration's plan (see FundakamentalApp.tsx's header comment / the Phase
-// 8e task report for the full rationale) rather than deleted.
 const FundakamentalApp = lazy(() => import('./features/fundakamental/FundakamentalApp'));
 
 const AboutPage = lazy(() => import('./features/marketing/pages/AboutPage'));
@@ -28,18 +23,8 @@ const LearnIntro = lazy(() => import('./features/academy/pages/LearnIntro'));
 const NewsletterIntro = lazy(() => import('./features/newsletter/pages/NewsletterIntro'));
 const ToolsIntro = lazy(() => import('./features/tools/pages/ToolsIntro'));
 const JournalIntro = lazy(() => import('./features/journal/pages/JournalIntro'));
-// `JournalLanding.tsx` (the old marketing-stub page) is no longer imported
-// here — its route below was replaced with the real protected app. The file
-// itself is left in place, unrouted, matching how FundakamentalHome/
-// xtin-capital-home.tsx was handled in Phase 8e.
 const JournalApp = lazy(() => import('./features/journal/JournalApp'));
 const GiniIntro = lazy(() => import('./features/gini/pages/GiniIntro'));
-// `GiniLanding.tsx` (the old marketing-stub page) is no longer imported
-// here — its route below was replaced with the real protected app. The file
-// itself is left in place, unrouted, matching how JournalLanding was
-// handled above. Only 4 of Gini's 13 tabs are built so far (Phase 10d);
-// the rest fall through to GiniApp's own `ComingSoon` placeholder until
-// Phase 10e/10f land.
 const GiniApp = lazy(() => import('./features/gini/GiniApp'));
 const FundakamentalIntro = lazy(() => import('./features/fundakamental/pages/FundakamentalIntro'));
 const Terms = lazy(() => import('./features/marketing/pages/Terms'));

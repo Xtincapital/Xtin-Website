@@ -60,10 +60,6 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
   const finish = async (record) => {
     try { await newsletterPlanService.updateMarkets(markets); } catch { /* non-blocking */ }
     try {
-      const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-      storedSubs.newsletter = true;
-      localStorage.setItem('xtin_user_subscriptions', JSON.stringify(storedSubs));
-      localStorage.setItem('newsletter_subscribed', 'true');
       window.dispatchEvent(new Event('storage'));
       window.dispatchEvent(new Event('xtin_subscription_updated'));
     } catch { /* non-blocking */ }
@@ -118,7 +114,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               markets: markets.join(','),
             });
             await finish(record);
-          } catch (err) {
+          } catch {
             setError('Payment succeeded but verification failed. Contact support with your payment ID.');
           } finally {
             setBusy(false);

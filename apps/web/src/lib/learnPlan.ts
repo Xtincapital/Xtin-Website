@@ -107,12 +107,8 @@ export function getLearnPlan() {
 }
 
 export function isLearnPro() {
-  try {
-    const storedSubs = JSON.parse(localStorage.getItem('xtin_user_subscriptions') || '{}');
-    if (storedSubs.learn || storedSubs.bundle || localStorage.getItem('learn_pro') === 'true' || localStorage.getItem('ultimate_bundle_active') === 'true') {
-      return true;
-    }
-  } catch { /* ignore */ }
+  // Only the server-verified plan counts (bundles write it too) — never
+  // hand-settable localStorage flags.
   const p = readPlan();
   if (!p || p.tier !== 'pro') return false;
   if (p.validUntil && Date.now() > new Date(p.validUntil).getTime()) {

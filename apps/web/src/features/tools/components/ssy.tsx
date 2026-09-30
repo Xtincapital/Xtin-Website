@@ -42,8 +42,8 @@ const SSYCalculator = () => {
 
     if (P > 0 && girl_age > 0 && start_year > 0) {
       for (let i = 0; i < 21; i++) {
-        let current_year = start_year + i;
-        let current_age = girl_age + i;
+        const current_year = start_year + i;
+        const current_age = girl_age + i;
         if (i < 15) {
           total_value += P;
         }

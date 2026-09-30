@@ -46,7 +46,8 @@
 // ─────────────────────────────────────────────────────────────────────────
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -73,7 +74,21 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 // A query client scoped to Journal, separate from any query client the host
 // app's other features might use — matches FundaKaMental's own
 // `FundakamentalApp.tsx` (same default options).
-const queryClient = new QueryClient({
+//
+// Its query cache tells the user when their journal data couldn't be loaded, instead of the
+// pages quietly rendering as if they had no trades. One toast (fixed id) no
+// matter how many queries failed, with a Retry that refetches them all.
+const queryClient: QueryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => {
+      toast.error("Couldn't load your journal data", {
+        id: "journal-load-error",
+        duration: Infinity, // stays until dismissed or retried
+        description: error instanceof Error ? error.message : "Please check your connection and try again.",
+        action: { label: "Retry", onClick: () => queryClient.refetchQueries({ type: "active" }) },
+      });
+    },
+  }),
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,

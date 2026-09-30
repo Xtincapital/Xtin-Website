@@ -1,10 +1,7 @@
-// Gini routing shell — mounted at `/gini/*` in the main site's router (a
-// future task swaps the current `/gini` marketing-stub route in
-// apps/web/src/App.tsx for
-// `<Route path="/gini/*" element={<ProtectedPageRoute><GiniApp /></ProtectedPageRoute>} />`
-// — NOT done here, see this task's explicit boundaries; the existing
-// `GiniLanding`/`GiniIntro` marketing pages stay live at their current paths
-// until that swap). Modeled on
+// Gini routing shell — mounted at `/gini/*` in the main site's router
+// (`<Route path="/gini/*" element={<ProtectedPageRoute><GiniApp /></ProtectedPageRoute>} />`
+// in apps/web/src/App.tsx); the public marketing page is `/intro/gini`
+// (GiniIntro). Modeled on
 // apps/web/src/features/journal/JournalApp.tsx (read as this task's
 // template), adapted to nest under the host app's own router/providers
 // instead of owning its own top-level ones.

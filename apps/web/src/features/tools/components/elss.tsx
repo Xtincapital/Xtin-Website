@@ -33,8 +33,8 @@ const ELSSCalculator = () => {
     const yearsValue = parseFloat(years);
 
     if (investmentType === "sip") {
-      // Use proper compounding conversion for monthly rate
-      const r = Math.pow(1 + annualRateValue, 1/12) - 1;
+      // Monthly rate = annual rate / 12, the standard SIP convention (matches sip.tsx)
+      const r = annualRateValue / 12;
       const n = yearsValue * 12; // number of months
 
       if (P > 0 && r > 0 && n > 0) {
@@ -58,8 +58,8 @@ const ELSSCalculator = () => {
       // lumpsum
       let r, n;
       if (compoundingFrequency === "monthly") {
-        // Use proper compounding conversion for monthly rate
-        r = Math.pow(1 + annualRateValue, 1/12) - 1;
+        // Monthly compounding of the annual rate
+        r = annualRateValue / 12;
         n = yearsValue * 12;
       } else {
         r = annualRateValue;

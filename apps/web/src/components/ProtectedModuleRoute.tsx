@@ -5,6 +5,7 @@ import SignInModal from './SignInModal';
 import LearnLockScreen from '../features/academy/components/LearnLockScreen';
 import { getLessonInfoFromPath } from '../utils/lessonProgress';
 import { isLessonLocked, getModuleConfig, subscribeLearnPlan } from '../lib/learnPlan';
+import learnPlanService from '../features/academy/services/learnPlanService';
 
 /**
  * ProtectedModuleRoute - Protects learning module routes
@@ -25,6 +26,12 @@ const ProtectedModuleRoute = ({ children }) => {
     const unsub = subscribeLearnPlan(() => setPlanTick((t) => t + 1));
     return () => { unsub(); };
   }, []);
+
+  // Re-read the plan from the server whenever a signed-in user opens a
+  // lesson, so a hand-edited local cache can't unlock Pro lessons for long.
+  useEffect(() => {
+    if (user) learnPlanService.syncPlan();
+  }, [user]);
 
   useEffect(() => {
     // If not loading and no user, show the sign-in modal

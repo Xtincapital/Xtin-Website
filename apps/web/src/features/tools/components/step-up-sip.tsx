@@ -31,8 +31,8 @@ const StepUpSIPCalculator = () => {
     let P = parseFloat(monthlyInvestment.replace(/,/g, ""));
     const annual_increase_percentage = parseFloat(annualIncrease) / 100;
     const annualRateValue = parseFloat(annualRate) / 100;
-    // Convert annual rate to monthly rate using proper compounding
-    const r = Math.pow(1 + annualRateValue, 1/12) - 1;
+    // Monthly rate = annual rate / 12, the standard SIP convention (matches sip.tsx)
+    const r = annualRateValue / 12;
     const t = parseFloat(years);
     let total_value = 0;
     const data = [];

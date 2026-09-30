@@ -56,7 +56,7 @@ export const XTIN_KNOWLEDGE = {
 
     // JOURNAL - Trading Journal
     journal: {
-      whatItIs: "A free trading journal to track, analyze, and improve your trading performance.",
+      whatItIs: "A trading journal to track, analyze, and improve your trading performance. Logging trades and the core analytics are free; Pro adds more.",
       features: [
         "Log trades with entry/exit prices, quantities, and notes",
         "Calculate performance metrics automatically",
@@ -69,7 +69,7 @@ export const XTIN_KNOWLEDGE = {
 
     // LEARN - Financial Education
     learn: {
-      whatItIs: "Structured, free financial education courses designed for real understanding — not information overload.",
+      whatItIs: "Structured financial education courses designed for real understanding — not information overload. Every Beginner course is free in full, and the first lessons of every other course are free; Learn Pro unlocks all of them plus certificates.",
       courses: [
         "Stock Market Basics",
         "Trading Basics",
@@ -99,17 +99,17 @@ export const XTIN_KNOWLEDGE = {
       howItHelps: "Trade with discipline and remove emotional decisions. Let tested systems guide your trades."
     },
 
-    // ADVISORY - SEBI-Registered Advisors
-    advisory: {
-      whatItIs: "Connect with SEBI-registered financial advisors for personalized investment guidance.",
-      services: [
-        "Video consultations",
-        "Audio consultations",
-        "Portfolio reviews",
-        "Wealth management guidance"
+    // FUNDAKAMENTAL - Equity Research
+    fundakamental: {
+      whatItIs: "Fundakamental is Xtin's AI equity-research workspace: upload a company's financial statements or annual report and get a clear, AI-written research report.",
+      features: [
+        "AI research reports from uploaded financial statements and annual reports",
+        "Ask questions about any uploaded filing",
+        "Live prices, watchlists with price targets, and a portfolio tracker",
+        "Stock screener and advanced technical indicators (Pro)"
       ],
-      whyItExists: "Sometimes you need human expertise. We connect you with verified, compliant professionals who understand your unique situation.",
-      howItHelps: "Get personalized advice for complex decisions — retirement planning, large investments, tax optimization, or building a comprehensive wealth strategy."
+      whyItExists: "Reading annual reports takes hours. Fundakamental turns them into clear analysis so anyone can research a company properly.",
+      howItHelps: "Understand a business before you invest in it — without being a finance professional."
     },
 
     // NEWSLETTER - Market Brief
@@ -125,5 +125,14 @@ export const XTIN_KNOWLEDGE = {
       howItHelps: "Stay informed without being overwhelmed. Get the insights that matter, delivered in a way that's easy to understand and act on.",
       tone: "Not daily noise. Clarity — so you can make better decisions."
     }
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // ACCESS (Never contradict this — don't promise things work without an account)
+  // ══════════════════════════════════════════════════════════════════════════
+  access: {
+    account: "A free Xtin Capital account (sign up with email or Google) is needed to use the calculators (Tools), Learn, Journal, Gini, Fundakamental, Algorithms and the newsletter archive. The public pages (home, about, product intros, help) are open to everyone.",
+    pricing: "Every product has a free tier. Optional Pro plans (per product, or bundles) unlock advanced features — point people to the product's Pricing page rather than quoting prices.",
+    notOffered: "Xtin does not currently offer one-to-one advisory or consultations with SEBI-registered advisors. If asked, say so plainly and suggest Gini or the Help Center instead."
   }
 };

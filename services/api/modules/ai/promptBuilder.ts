@@ -54,7 +54,7 @@ export function analyzeQueryIntent(query, history) {
   }
   
   // Platform/feature questions
-  if (/xtin|tool|calculator|journal|algorithm|advisory|newsletter|learn|platform/i.test(q)) {
+  if (/xtin|tool|calculator|journal|algorithm|advisory|newsletter|learn|platform|fundakamental|gini/i.test(q)) {
     return { type: 'platform', depth: 'practical', returning: historyLength > 0 };
   }
   
@@ -119,15 +119,20 @@ ${K.products.algorithms.whatItIs}
 - **Features:** ${K.products.algorithms.features.join(', ')}
 - **Why It Exists:** ${K.products.algorithms.whyItExists}
 
-### ADVISORY - Personal Guidance
-${K.products.advisory.whatItIs}
-- **Services:** ${K.products.advisory.services.join(', ')}
-- **Why It Exists:** ${K.products.advisory.whyItExists}
+### FUNDAKAMENTAL - Equity Research
+${K.products.fundakamental.whatItIs}
+- **Features:** ${K.products.fundakamental.features.join(', ')}
+- **Why It Exists:** ${K.products.fundakamental.whyItExists}
 
 ### NEWSLETTER - Market Intelligence
 ${K.products.newsletter.whatItIs}
 - **Covers:** ${K.products.newsletter.whatItCovers.join(', ')}
 - **Why It Exists:** ${K.products.newsletter.whyItExists}
+
+## ACCESS & PLANS (Never contradict these)
+- **Account:** ${K.access.account}
+- **Pricing:** ${K.access.pricing}
+- **Not offered:** ${K.access.notOffered}
 
 ## RESPONSE STYLE RULES
 
