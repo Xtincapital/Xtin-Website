@@ -420,6 +420,7 @@ function App() {
         <Route path="/learn/financial-planning-lesson-12" element={<ProtectedModuleRoute><FinancialPlanningLesson12 /></ProtectedModuleRoute>} />
         <Route path="/learn/financial-planning-lesson-13" element={<ProtectedModuleRoute><FinancialPlanningLesson13 /></ProtectedModuleRoute>} />
         <Route path="/learn/financial-planning-lesson-14" element={<ProtectedModuleRoute><FinancialPlanningLesson14 /></ProtectedModuleRoute>} />
+        <Route path="/learn/financial-planning-lesson-15" element={<ProtectedModuleRoute><FinancialPlanningLesson15 /></ProtectedModuleRoute>} />
         <Route path="/learn/mutual-funds" element={<Navigate to="/learn" replace />} />
         <Route path="/learn/mutual-funds-lesson-*" element={<Navigate to="/learn" replace />} />
         <Route path="/learn/stock-market" element={<ProtectedModuleRoute><StockMarketOverview /></ProtectedModuleRoute>} />

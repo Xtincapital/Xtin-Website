@@ -259,6 +259,14 @@ const Newsletter = () => {
     fetchSubstackArticles();
   }, []);
 
+  // Don't open on an empty "Xtin Daily" tab: if no editions exist yet but
+  // Substack has articles, show those instead.
+  useEffect(() => {
+    if (!newslettersLoading && !substackLoading && newsletters.length === 0 && substackArticles.length > 0) {
+      setActiveTab('substack');
+    }
+  }, [newslettersLoading, substackLoading, newsletters.length, substackArticles.length]);
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',

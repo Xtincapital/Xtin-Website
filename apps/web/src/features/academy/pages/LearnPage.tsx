@@ -27,13 +27,15 @@ const ROUTE_PREFIX_OVERRIDES = {
   'risk-management': 'risk',
   'long-term-investing': 'lti',
   'portfolio-construction': 'pc',
-  'derivatives': 'deriv',
   'taxes': 'tax',
 };
 
 /** Path of lesson N inside a module ("continue where you left off"). */
 const lessonPath = (moduleSlug, n) => {
   if (moduleSlug === 'personal-finance' && n === 1) return '/learn/personal-finance-basics';
+  // Derivatives' overview links the 12-lesson /learn/derivatives/lesson-N set
+  // (the older /learn/deriv-lesson-N pages stop at 7).
+  if (moduleSlug === 'derivatives') return `/learn/derivatives/lesson-${n}`;
   const prefix = ROUTE_PREFIX_OVERRIDES[moduleSlug] || moduleSlug;
   return `/learn/${prefix}-lesson-${n}`;
 };
