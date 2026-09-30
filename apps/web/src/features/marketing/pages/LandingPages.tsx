@@ -100,14 +100,14 @@ const LandingPage = () => {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    'name': 'Xtin Capital - AI Trading & Financial Advisory',
-    'description': 'AI-powered algo trading, SEBI-registered advisory & advanced portfolio tools for modern investors.',
+    'name': 'Xtin Capital - AI Trading Tools, Research & Financial Education',
+    'description': 'AI-powered algo trading tools, market research, financial calculators & education for modern investors.',
     'url': 'https://www.xtincapital.com/',
     'mainEntity': {
       '@type': 'FinancialService',
       'name': 'Xtin Capital',
-      'description': 'Financial advisory and algorithmic trading platform offering AI-powered solutions, professional tools, and expert guidance.',
-      'serviceType': ['Algorithmic Trading', 'Financial Advisory', 'Portfolio Management', 'Trading Education'],
+      'description': 'Algorithmic trading and financial education platform offering AI-powered tools, market research, and learning resources.',
+      'serviceType': ['Algorithmic Trading Tools', 'Market Research', 'Financial Calculators', 'Trading Education'],
       'areaServed': {
         '@type': 'Country',
         'name': 'India'
@@ -118,9 +118,9 @@ const LandingPage = () => {
   return (
     <div className="bg-white text-gray-900">
       <SEO
-        title="AI Trading & Financial Advisory"
-        description="Xtin Capital: AI-powered algo trading, SEBI-registered advisory & advanced portfolio tools. Professional trading solutions for modern investors."
-        keywords="algorithmic trading, financial advisory, trading platform, stock market, AI trading, portfolio management, investment advisory, SEBI registered, trading algorithms, quantitative research"
+        title="AI Trading Tools, Research & Financial Education"
+        description="Xtin Capital: AI-powered algo trading tools, market research, financial calculators & courses. Smarter investing tools for modern Indian investors."
+        keywords="algorithmic trading, trading platform, stock market, AI trading, financial calculators, trading journal, market newsletter, financial education, trading algorithms, quantitative research"
         canonicalUrl="/"
         structuredData={structuredData}
       />

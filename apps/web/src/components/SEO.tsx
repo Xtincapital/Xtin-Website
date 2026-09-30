@@ -40,7 +40,7 @@ const SEO = ({
   const siteUrl = 'https://www.xtincapital.com';
   const twitterHandle = '@XtinCapital';
   
-  const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | Advanced Algorithmic Trading Platform & Financial Advisory`;
+  const fullTitle = title ? `${title} | ${siteName}` : `${siteName} | AI Trading Tools, Research & Financial Education`;
   const fullUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
 
   useEffect(() => {

@@ -163,7 +163,7 @@ const personas = [
 ];
 
 const trustBadges = [
-  { icon: I.shieldCheck, label: 'SEBI Regulated', sub: 'Fully compliant platform', color: 'text-emerald-600 dark:text-emerald-400' },
+  { icon: I.shieldCheck, label: 'Transparent Logs', sub: 'Every trade recorded', color: 'text-emerald-600 dark:text-emerald-400' },
   { icon: I.globe, label: 'NSE & BSE', sub: 'Both exchanges supported', color: 'text-blue-600 dark:text-blue-400' },
   { icon: I.server, label: '99.9% Uptime', sub: 'Enterprise-grade infrastructure', color: 'text-purple-600 dark:text-purple-400' },
   { icon: I.clock, label: '10+ Years', sub: 'Backtested historical data', color: 'text-amber-500 dark:text-amber-400' },
