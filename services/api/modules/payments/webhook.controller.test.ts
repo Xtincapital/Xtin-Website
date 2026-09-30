@@ -1,14 +1,27 @@
 import { describe, it, expect, vi, beforeEach, afterAll } from "vitest";
 import crypto from "node:crypto";
 
-const fulfill = vi.hoisted(() => vi.fn());
-vi.mock("./fulfillment.js", async (importOriginal) => {
-    const actual = await importOriginal<typeof import("./fulfillment.js")>();
-    return { ...actual, fulfillRazorpayOrder: fulfill };
-});
+const { fulfill, FulfillmentError } = vi.hoisted(() => ({
+    fulfill: vi.fn(),
+    FulfillmentError: class FulfillmentError extends Error {
+        code: string;
+        status: number;
+        retryable: boolean;
+        constructor(message: string, code: string, status = 400, retryable = false) {
+            super(message);
+            this.name = "FulfillmentError";
+            this.code = code;
+            this.status = status;
+            this.retryable = retryable;
+        }
+    },
+}));
+vi.mock("./fulfillment.js", () => ({
+    fulfillRazorpayOrder: fulfill,
+    FulfillmentError,
+}));
 
 import { handleRazorpayWebhook } from "./webhook.controller.js";
-import { FulfillmentError } from "./fulfillment.js";
 
 const SECRET = "whsec_test";
 const originalSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
