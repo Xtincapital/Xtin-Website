@@ -22,6 +22,7 @@ import {
     upsertNewsletterPlan,
 } from "./newsletterPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/newsletterPlan.js NEWSLETTER_PRICING.
@@ -117,6 +118,7 @@ export const createNewsletterOrder = async (req, res) => {
                     region: String(region || "").toUpperCase().slice(0, 10),
                     userId: String(req.user.userId || "").slice(0, 64),
                     userEmail: String(req.user.email || "").slice(0, 254),
+                    ...buyerNotes(req.user),
                 },
             }),
         });
@@ -142,23 +144,43 @@ export const createNewsletterOrder = async (req, res) => {
     }
 };
 
-/* POST /api/newsletter/verify — HMAC-verify, then grant Pro + set markets. */
+/* Grants Market Brief Pro for a paid order. The plan comes from the order's
+ * notes, never from the request body; `markets` is only a delivery
+ * preference, so it may come from the verify body. Called by
+ * modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
+export const fulfillNewsletterPro: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const planId = notes.planId;
+    const plan = NEWSLETTER_PLANS[planId];
+    if (!plan) throw new FulfillmentError(`Unknown Newsletter plan "${planId}"`, "invalid_order");
+    const currency = String(order.currency || "INR").toUpperCase();
+    requireCatalogAmount(order, plan.amounts[currency]);
+
+    return persistNewsletterPlan({
+        user,
+        plan,
+        planId,
+        paymentId: payment.id,
+        orderId: order.id,
+        currency,
+        region: notes.region || extras.region,
+        markets: extras.markets || notes.markets,
+        strict: true,
+    });
+};
+registerFulfiller("xtin_newsletter_pro", fulfillNewsletterPro);
+
+/* POST /api/newsletter/verify — HMAC-verify, then grant Pro + set markets via
+ * the shared fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyNewsletterPayment = async (req, res) => {
     try {
         const {
-            plan_id: planId,
             razorpay_order_id: orderId,
             razorpay_payment_id: paymentId,
             razorpay_signature: signature,
-            currency,
             region,
             markets,
         } = req.body || {};
 
-        const plan = NEWSLETTER_PLANS[planId];
-        if (!plan) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid plan" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(503).json({ error: "Payment service not configured" });
         }
@@ -172,15 +194,21 @@ export const verifyNewsletterPayment = async (req, res) => {
             });
         }
 
-        const record = await persistNewsletterPlan({
-            req, plan, planId, paymentId, orderId, currency, region, markets,
+        const { result } = await fulfillRazorpayOrder({
+            orderId,
+            paymentId,
+            source: "verify",
+            expectedProducts: ["xtin_newsletter_pro"],
+            requestUser: req.user,
+            extras: { region, markets },
         });
         return res.status(HTTP_STATUS.OK).json({
             status: HTTP_STATUS.OK,
             message: "Market Brief Pro activated",
-            data: record,
+            data: result,
         });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "NewsletterPlan")) return;
         console.error("[NewsletterPlan] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }
@@ -236,7 +264,7 @@ export const devActivateNewsletterPlan = async (req, res) => {
         req.body?.plan_id === "newsletter_pro_monthly" ? "newsletter_pro_monthly" : "newsletter_pro_yearly";
     const plan = NEWSLETTER_PLANS[planId];
     const record = await persistNewsletterPlan({
-        req,
+        user: req.user,
         plan,
         planId,
         paymentId: "dev_simulated",
@@ -252,13 +280,24 @@ export const devActivateNewsletterPlan = async (req, res) => {
     });
 };
 
-async function persistNewsletterPlan({ req, plan, planId, paymentId, orderId, currency, region, markets }) {
+async function persistNewsletterPlan({ user, plan, planId, paymentId, orderId, currency, region, markets, strict = false }: {
+    user: { userId: string; authId?: string | null; email?: string };
+    plan: (typeof NEWSLETTER_PLANS)[keyof typeof NEWSLETTER_PLANS];
+    planId: string;
+    paymentId: string;
+    orderId: string;
+    currency?: unknown;
+    region?: unknown;
+    markets?: unknown;
+    /** Throw on a failed write so the webhook retries (real payments); dev activation stays best-effort. */
+    strict?: boolean;
+}) {
     const now = new Date();
     const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
     const marketsCsv = sanitizeMarkets(markets);
     const record = {
-        user_id: String(req.user.userId),
-        auth_id: req.user.authId || null,
+        user_id: String(user.userId),
+        auth_id: user.authId || null,
         plan_id: planId,
         billing: plan.billing,
         currency: String(currency || "INR").toUpperCase(),
@@ -268,11 +307,12 @@ async function persistNewsletterPlan({ req, plan, planId, paymentId, orderId, cu
         valid_until: validUntil.toISOString(),
         payment_id: paymentId,
         order_id: orderId,
-        user_email: String(req.user.email || "").slice(0, 254),
+        user_email: String(user.email || "").slice(0, 254),
         updated_at: now.toISOString(),
     };
 
     const { error } = await upsertNewsletterPlan(record);
+    if (error && strict) throw error;
     if (error) {
         console.error("[NewsletterPlan] persist failed:", error.message);
     }
@@ -286,11 +326,11 @@ async function persistNewsletterPlan({ req, plan, planId, paymentId, orderId, cu
 
     // Make sure the subscriber list reflects their paid market choices so the
     // very next edition reaches them. Best-effort — never fail the response.
-    if (req.user.email) {
+    if (user.email) {
         try {
-            const existing = await getSubscriberByEmail(req.user.email);
-            if (existing) await updateSubscriberMarkets(req.user.email, marketsCsv);
-            else await createSubscriber({ email: req.user.email, markets: marketsCsv });
+            const existing = await getSubscriberByEmail(user.email);
+            if (existing) await updateSubscriberMarkets(user.email, marketsCsv);
+            else await createSubscriber({ email: user.email, markets: marketsCsv });
         } catch (e) {
             console.warn("[NewsletterPlan] subscriber sync skipped:", e.message);
         }

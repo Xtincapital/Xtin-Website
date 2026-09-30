@@ -44,7 +44,7 @@
 // rather than a hard 404, since these routes are reserved/expected to fill
 // in over upcoming sub-phases (not literal dead links).
 // ─────────────────────────────────────────────────────────────────────────
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -120,6 +120,14 @@ const ComingSoon = () => (
 const JournalApp = () => {
   // Remount every page when sample mode flips so each one refetches.
   const { version } = journalSampleMode.useState();
+
+  // Dialogs/selects portal into <body>, outside JournalLayout's
+  // `journal-scope` wrapper — this class gives them Journal's styling too
+  // (see journal.css).
+  useEffect(() => {
+    document.body.classList.add("journal-portals");
+    return () => document.body.classList.remove("journal-portals");
+  }, []);
 
   return (
   <ErrorBoundary>

@@ -40,6 +40,7 @@ import { getProPlanByUser, upsertProPlan } from "./proPlan.repository.js";
 import { addTokens } from "./aiWallet.repository.js";
 import { findPurchaseByPaymentId, insertAiWalletPurchase } from "./aiWalletPurchases.repository.js";
 import { invalidateGiniPlanTierCache } from "./planTier.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Port of features-incoming/gini/api/razorpay-plan-order.js's PRO_PLANS.
 // Amounts are whole units per currency (multiplied by 100 for paise/cents
@@ -103,7 +104,7 @@ export const createPlanOrder = async (req, res) => {
                 amount: Math.round(amountWhole * 100),
                 currency,
                 receipt: `gini_pro_${String(userId || "").slice(-8)}_${Date.now()}`,
-                notes: { product: "gini_pro_plan", plan_id: plan.id, user_id: String(userId || "") },
+                notes: { product: "gini_pro_plan", plan_id: plan.id, user_id: String(userId || ""), ...buyerNotes(req.user) },
             }),
         });
         const order: any = await rpRes.json();
@@ -123,21 +124,78 @@ export const createPlanOrder = async (req, res) => {
     }
 };
 
-/* POST /gini/plan/razorpay/verify — HMAC-verify, persist the plan, grant
- * the AI-token bonus, invalidate the plan-tier cache. Port of
- * razorpay-plan-verify.js. */
+/* Grants Gini Pro for a paid order: persists the plan, grants the AI-token
+ * bonus, invalidates the plan-tier cache. Port of razorpay-plan-verify.js.
+ * Called by modules/payments/fulfillment.ts from both the verify endpoint
+ * below and the Razorpay webhook — the plan comes from the order's notes,
+ * never from the request body. */
+export const fulfillGiniProPlan: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const plan = PRO_PLANS[notes.plan_id];
+    if (!plan) throw new FulfillmentError(`Unknown Gini plan "${notes.plan_id}"`, "invalid_order");
+    const currency = String(order.currency || "INR").toUpperCase();
+    requireCatalogAmount(order, plan.amounts[currency] === undefined ? undefined : Math.round(plan.amounts[currency] * 100));
+
+    const userId = user.authId;
+    if (!userId) throw new FulfillmentError("Buyer has no auth id", "no_buyer");
+
+    const now = new Date();
+    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+
+    // Server-side, service-role write. This is the ONLY place Pro is granted.
+    const { error } = await upsertProPlan({
+        user_id: userId,
+        plan_id: plan.id,
+        billing: plan.billing,
+        currency,
+        region: String(notes.region || extras.region || "").toUpperCase() || null,
+        activated_at: now.toISOString(),
+        valid_until: validUntil.toISOString(),
+        payment_id: payment.id,
+        order_id: order.id,
+        user_email: String(user.email || "").slice(0, 254),
+        updated_at: now.toISOString(),
+    });
+    if (error) throw error;
+
+    // Pro purchase also grants a 100,000 AI-token bonus — a fix over the
+    // original, which only ever applied this client-side against a
+    // localStorage-only wallet (see this file's header comment).
+    try {
+        const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(payment.id);
+        if (lookupError) console.error("[Gini Pro Plan] bonus lookup failed:", lookupError.message);
+        if (!existingBonus) {
+            await addTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, payment.id);
+            const { error: purchaseError } = await insertAiWalletPurchase({
+                user_id: userId,
+                package_id: "pro_included",
+                tokens: PRO_INCLUDED_AI_TOKENS,
+                amount_inr: 0,
+                payment_id: payment.id,
+                order_id: order.id,
+            });
+            if (purchaseError) throw purchaseError;
+        }
+    } catch (err) {
+        console.error("[Gini Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
+    }
+
+    // Fresh tier takes effect immediately for chat depth/response length.
+    invalidateGiniPlanTierCache(userId);
+
+    return { plan, payment_id: payment.id, order_id: order.id, valid_until: validUntil.toISOString(), cloud_saved: true };
+};
+registerFulfiller("gini_pro_plan", fulfillGiniProPlan);
+
+/* POST /gini/plan/razorpay/verify — HMAC-verify, then grant via the shared
+ * fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyPlanPurchase = async (req, res) => {
     try {
         const validation = validateProPlanVerify(req.body);
         if (validation.errors) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
         }
-        const { plan_id, currency: reqCurrency, region, razorpay_order_id, razorpay_payment_id, razorpay_signature } = validation.data;
+        const { region, razorpay_order_id, razorpay_payment_id, razorpay_signature } = validation.data;
 
-        const plan = PRO_PLANS[plan_id];
-        if (!plan) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid plan" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(500).json({ error: "Payment service not configured" });
         }
@@ -146,73 +204,17 @@ export const verifyPlanPurchase = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Payment signature verification failed" });
         }
 
-        const userId = req.user.authId;
-        if (!userId) {
-            return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: "Not authenticated" });
-        }
-
-        let currency = String(reqCurrency || "INR").toUpperCase();
-        if (!SUPPORTED_CURRENCIES.includes(currency)) currency = "INR";
-
-        const now = new Date();
-        const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
-
-        // Server-side, service-role write. This is the ONLY place Pro is granted.
-        let cloudSaved = false;
-        try {
-            const { error } = await upsertProPlan({
-                user_id: userId,
-                plan_id: plan.id,
-                billing: plan.billing,
-                currency,
-                region: String(region || "").toUpperCase() || null,
-                activated_at: now.toISOString(),
-                valid_until: validUntil.toISOString(),
-                payment_id: razorpay_payment_id,
-                order_id: razorpay_order_id,
-                user_email: String(req.user.email || "").slice(0, 254),
-                updated_at: now.toISOString(),
-            });
-            if (error) throw error;
-            cloudSaved = true;
-        } catch (err) {
-            console.error("[Gini Pro Plan] verify write failed:", (err as Error)?.message || err);
-        }
-
-        // Pro purchase also grants a 100,000 AI-token bonus — a fix over the
-        // original, which only ever applied this client-side against a
-        // localStorage-only wallet (see this file's header comment).
-        try {
-            const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(razorpay_payment_id);
-            if (lookupError) console.error("[Gini Pro Plan] bonus lookup failed:", lookupError.message);
-            if (!existingBonus) {
-                await addTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, razorpay_payment_id);
-                const { error: purchaseError } = await insertAiWalletPurchase({
-                    user_id: userId,
-                    package_id: "pro_included",
-                    tokens: PRO_INCLUDED_AI_TOKENS,
-                    amount_inr: 0,
-                    payment_id: razorpay_payment_id,
-                    order_id: razorpay_order_id,
-                });
-                if (purchaseError) throw purchaseError;
-            }
-        } catch (err) {
-            console.error("[Gini Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
-        }
-
-        // Fresh tier takes effect immediately for chat depth/response length.
-        invalidateGiniPlanTierCache(userId);
-
-        return res.status(HTTP_STATUS.OK).json({
-            success: true,
-            plan,
-            payment_id: razorpay_payment_id,
-            order_id: razorpay_order_id,
-            valid_until: validUntil.toISOString(),
-            cloud_saved: cloudSaved,
+        const { result } = await fulfillRazorpayOrder({
+            orderId: razorpay_order_id,
+            paymentId: razorpay_payment_id,
+            source: "verify",
+            expectedProducts: ["gini_pro_plan"],
+            requestUser: req.user,
+            extras: { region },
         });
+        return res.status(HTTP_STATUS.OK).json({ success: true, ...result });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "Gini Pro Plan")) return;
         console.error("[Gini Pro Plan] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }

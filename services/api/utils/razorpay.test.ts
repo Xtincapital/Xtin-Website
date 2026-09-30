@@ -6,7 +6,7 @@
 // important test here is `requireValidRazorpaySignature` rejecting a
 // missing signature — every other case is secondary to that one.
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { verifyRazorpaySignature, requireValidRazorpaySignature, razorpayConfigured, RazorpaySignatureError } from "./razorpay.js";
+import { verifyRazorpaySignature, verifyRazorpayWebhookSignature, requireValidRazorpaySignature, razorpayConfigured, RazorpaySignatureError } from "./razorpay.js";
 import crypto from "node:crypto";
 
 const SECRET = "test_secret_key_for_hmac";
@@ -109,5 +109,31 @@ describe("requireValidRazorpaySignature", () => {
         delete process.env.RAZORPAY_KEY_ID;
         delete process.env.RAZORPAY_KEY_SECRET;
         expect(() => requireValidRazorpaySignature("order_abc123", "pay_xyz789", undefined as any)).not.toThrow();
+    });
+});
+
+describe("verifyRazorpayWebhookSignature", () => {
+    const WEBHOOK_SECRET = "whsec_test";
+    const body = Buffer.from(JSON.stringify({ event: "order.paid", payload: {} }));
+    const sign = (raw: Buffer | string, secret = WEBHOOK_SECRET) => crypto.createHmac("sha256", secret).update(raw).digest("hex");
+
+    it("accepts a signature over the exact raw body", () => {
+        expect(verifyRazorpayWebhookSignature(body, sign(body), WEBHOOK_SECRET)).toBe(true);
+    });
+
+    it("rejects the same payload re-serialized differently (signature is over raw bytes)", () => {
+        const reformatted = Buffer.from(JSON.stringify(JSON.parse(body.toString()), null, 2));
+        expect(verifyRazorpayWebhookSignature(reformatted, sign(body), WEBHOOK_SECRET)).toBe(false);
+    });
+
+    it("rejects a signature made with a different secret (e.g. the API key secret)", () => {
+        expect(verifyRazorpayWebhookSignature(body, sign(body, "other"), WEBHOOK_SECRET)).toBe(false);
+    });
+
+    it("rejects missing body, signature or secret without throwing", () => {
+        expect(verifyRazorpayWebhookSignature(undefined, sign(body), WEBHOOK_SECRET)).toBe(false);
+        expect(verifyRazorpayWebhookSignature(body, undefined, WEBHOOK_SECRET)).toBe(false);
+        expect(verifyRazorpayWebhookSignature(body, sign(body), "")).toBe(false);
+        expect(verifyRazorpayWebhookSignature(body, "short", WEBHOOK_SECRET)).toBe(false);
     });
 });

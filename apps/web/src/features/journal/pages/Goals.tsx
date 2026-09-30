@@ -183,7 +183,7 @@ export default function Goals() {
       setTrades((tradesRes.data || []).map((t) => ({ date: t.date, pnl: t.pnl })));
     } catch (err) {
       console.error(err);
-      toast.error("Failed to load goals");
+      toast.error("Failed to load goals", { id: "journal-goals-load-error" });
     } finally {
       setLoading(false);
     }

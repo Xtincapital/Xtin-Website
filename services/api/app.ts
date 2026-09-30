@@ -46,6 +46,7 @@ import giniTaxOptimizationRoutes from "./modules/gini/taxOptimization.routes.js"
 import giniChatRoutes from "./modules/gini/chat.routes.js";
 import giniAiWalletRoutes from "./modules/gini/aiWallet.routes.js";
 import giniProPlanRoutes from "./modules/gini/proPlan.routes.js";
+import paymentsRoutes from "./modules/payments/payments.routes.js";
 
 const app = express();
 
@@ -63,7 +64,13 @@ app.use((req, res, next) => {
 });
 
 // Parse JSON with higher limit for file uploads
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({
+	limit: '50mb',
+	// Razorpay webhook signatures are an HMAC of the exact raw bytes, so keep them for that one route.
+	verify: (req, _res, buf) => {
+		if (req.url?.startsWith('/api/payments/razorpay/webhook')) (req as express.Request & { rawBody?: Buffer }).rawBody = buf;
+	},
+}));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Note: Static files for gini and journal are served by the frontend
@@ -166,6 +173,7 @@ app.use("/api", giniTaxOptimizationRoutes);
 app.use("/api", giniChatRoutes);
 app.use("/api", giniAiWalletRoutes);
 app.use("/api", giniProPlanRoutes);
+app.use("/api", paymentsRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 

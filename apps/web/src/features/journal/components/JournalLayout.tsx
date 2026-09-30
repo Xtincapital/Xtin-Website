@@ -17,12 +17,10 @@
 // Route paths here MUST match ../JournalApp.tsx's route list exactly (see that
 // file's header comment).
 //
-// Auth: uses the shared `useAuth()` (apps/web/src/contexts/AuthContext.tsx)
-// for logout.
+// No Log Out button here: signing out lives in the site's own account menu
+// (Dashboard), like every other page.
 import { useEffect, useRef } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
+import { NavLink, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JournalSampleBar from "./JournalSampleBar";
@@ -60,9 +58,7 @@ const tabs: TabItem[] = [
 ];
 
 const JournalLayout = ({ children }: JournalLayoutProps) => {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { logout } = useAuth();
   const tabsRef = useRef<HTMLElement>(null);
 
   // On narrow screens the tab bar scrolls sideways; keep the active tab visible.
@@ -76,11 +72,6 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
     }
   }, [pathname]);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
-
   return (
     <>
       <Navbar />
@@ -92,12 +83,6 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
               <span className="brand-name-accent">Journal</span>
             </NavLink>
             <p>Trading Journal</p>
-          </div>
-          <div className="header-right">
-            <button type="button" onClick={handleLogout} className="btn btn-secondary">
-              <LogOut className="w-4 h-4" />
-              Log Out
-            </button>
           </div>
         </header>
 

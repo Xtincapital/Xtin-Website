@@ -11,6 +11,7 @@ import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/learnPlan.js LEARN_PRICING.
@@ -98,6 +99,7 @@ export const createLearnOrder = async (req, res) => {
                     region: String(region || "").toUpperCase().slice(0, 10),
                     userId: String(req.user.userId || "").slice(0, 64),
                     userEmail: String(req.user.email || "").slice(0, 254),
+                    ...buyerNotes(req.user),
                 },
             }),
         });
@@ -123,22 +125,40 @@ export const createLearnOrder = async (req, res) => {
     }
 };
 
-/* POST /api/learn/verify — HMAC-verify the payment, then grant Pro. */
+/* Grants Xtin Academy Pro for a paid order. The plan comes from the order's
+ * notes, never from the request body. Called by modules/payments/fulfillment.ts
+ * from the verify endpoint and the webhook. */
+export const fulfillLearnPro: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const planId = notes.planId;
+    const plan = LEARN_PLANS[planId];
+    if (!plan) throw new FulfillmentError(`Unknown Learn plan "${planId}"`, "invalid_order");
+    const currency = String(order.currency || "INR").toUpperCase();
+    requireCatalogAmount(order, plan.amounts[currency]);
+
+    return persistLearnPlan({
+        user,
+        plan,
+        planId,
+        paymentId: payment.id,
+        orderId: order.id,
+        currency,
+        region: notes.region || extras.region,
+        strict: true,
+    });
+};
+registerFulfiller("xtin_learn_pro", fulfillLearnPro);
+
+/* POST /api/learn/verify — HMAC-verify the payment, then grant Pro via the
+ * shared fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyLearnPayment = async (req, res) => {
     try {
         const {
-            plan_id: planId,
             razorpay_order_id: orderId,
             razorpay_payment_id: paymentId,
             razorpay_signature: signature,
-            currency,
             region,
         } = req.body || {};
 
-        const plan = LEARN_PLANS[planId];
-        if (!plan) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid plan" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(503).json({ error: "Payment service not configured" });
         }
@@ -152,13 +172,21 @@ export const verifyLearnPayment = async (req, res) => {
             });
         }
 
-        const record = await persistLearnPlan({ req, plan, planId, paymentId, orderId, currency, region });
+        const { result } = await fulfillRazorpayOrder({
+            orderId,
+            paymentId,
+            source: "verify",
+            expectedProducts: ["xtin_learn_pro"],
+            requestUser: req.user,
+            extras: { region },
+        });
         return res.status(HTTP_STATUS.OK).json({
             status: HTTP_STATUS.OK,
             message: "Xtin Academy Pro activated",
-            data: record,
+            data: result,
         });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "LearnPlan")) return;
         console.error("[LearnPlan] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }
@@ -176,7 +204,7 @@ export const devActivateLearnPlan = async (req, res) => {
     const planId = req.body?.plan_id === "learn_pro_monthly" ? "learn_pro_monthly" : "learn_pro_yearly";
     const plan = LEARN_PLANS[planId];
     const record = await persistLearnPlan({
-        req,
+        user: req.user,
         plan,
         planId,
         paymentId: "dev_simulated",
@@ -191,12 +219,22 @@ export const devActivateLearnPlan = async (req, res) => {
     });
 };
 
-async function persistLearnPlan({ req, plan, planId, paymentId, orderId, currency, region }) {
+async function persistLearnPlan({ user, plan, planId, paymentId, orderId, currency, region, strict = false }: {
+    user: { userId: string; authId?: string | null; email?: string };
+    plan: (typeof LEARN_PLANS)[keyof typeof LEARN_PLANS];
+    planId: string;
+    paymentId: string;
+    orderId: string;
+    currency?: unknown;
+    region?: unknown;
+    /** Throw on a failed write so the webhook retries (real payments); dev activation stays best-effort. */
+    strict?: boolean;
+}) {
     const now = new Date();
     const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
     const record = {
-        user_id: String(req.user.userId),
-        auth_id: req.user.authId || null,
+        user_id: String(user.userId),
+        auth_id: user.authId || null,
         plan_id: planId,
         billing: plan.billing,
         currency: String(currency || "INR").toUpperCase(),
@@ -205,11 +243,12 @@ async function persistLearnPlan({ req, plan, planId, paymentId, orderId, currenc
         valid_until: validUntil.toISOString(),
         payment_id: paymentId,
         order_id: orderId,
-        user_email: String(req.user.email || "").slice(0, 254),
+        user_email: String(user.email || "").slice(0, 254),
         updated_at: now.toISOString(),
     };
 
     const { error } = await upsertLearnPlan(record);
+    if (error && strict) throw error;
     if (error) {
         // The payment already succeeded — never fail the response over storage;
         // the client keeps its verified state and support can reconcile.

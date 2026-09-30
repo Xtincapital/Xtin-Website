@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
+import { COMPANY } from '../../../constants/company';
 
 const Section = ({ title, children }) => (
   <section className="space-y-4">
@@ -17,7 +18,7 @@ function AlgoTerms() {
       <SEO
         title="Algorithm Trading Terms & Conditions"
         description="Read Xtin Capital's Algorithm Trading Terms and Conditions. Understand risks, disclaimers, and your responsibilities when using our trading algorithms."
-        keywords="algo trading terms, trading conditions, algorithm terms, risk disclosure, trading disclaimer, SEBI compliance"
+        keywords="algo trading terms, trading conditions, algorithm terms, risk disclosure, trading disclaimer"
         canonicalUrl="/algo-terms"
       />
       <Navbar />
@@ -108,7 +109,7 @@ function AlgoTerms() {
             <Section title="4. Subscription Terms">
               <ul className="list-disc ml-6 space-y-2">
                 <li><strong>Pricing:</strong> Algorithm subscriptions are priced at ₹4,999 per month per algorithm unless otherwise specified.</li>
-                <li><strong>Billing:</strong> Subscriptions are billed monthly. Your subscription will auto-renew unless cancelled.</li>
+                <li><strong>Billing:</strong> Subscriptions are one-time payments for one month of access. They do not renew automatically — renew from the Algorithms page to continue.</li>
                 <li><strong>Delivery:</strong> Access to the TradingView indicator will be provided within 24 hours of successful payment.</li>
                 <li><strong>Platform:</strong> Algorithms are delivered as private indicators on TradingView. You must have a TradingView account.</li>
                 <li><strong>Access:</strong> Subscription grants you personal, non-transferable access to the algorithm.</li>
@@ -122,7 +123,8 @@ function AlgoTerms() {
                   <li>• <strong>No refunds</strong> will be provided once the indicator has been added to your TradingView account</li>
                   <li>• <strong>No refunds</strong> for dissatisfaction with algorithm performance or trading losses</li>
                   <li>• Refund may be considered only if we fail to deliver the indicator within 72 hours of payment, subject to verification</li>
-                  <li>• All refund requests must be made in writing to xtinservice@gmail.com within 48 hours of payment</li>
+                  <li>• All refund requests must be made in writing to {COMPANY.supportEmail} within 48 hours of payment</li>
+                  <li>• See also our site-wide <Link to="/refund-policy" className="underline">Refund &amp; Cancellation Policy</Link></li>
                 </ul>
               </div>
             </Section>
@@ -217,11 +219,11 @@ function AlgoTerms() {
                 <div className="text-green-700 space-y-2 text-sm">
                   <p>
                     <strong>Email:</strong>{' '}
-                    <a href="mailto:xtinservice@gmail.com" className="underline">xtinservice@gmail.com</a>
+                    <a href={`mailto:${COMPANY.supportEmail}`} className="underline">{COMPANY.supportEmail}</a>
                   </p>
                   <p>
                     <strong>Phone:</strong>{' '}
-                    <a href="tel:+917016514788" className="underline">+91 70165 14788</a>
+                    <a href={COMPANY.phoneHref} className="underline">{COMPANY.phone}</a>
                   </p>
                   <p className="text-xs text-green-600 mt-2">
                     Response time: Within 24-48 business hours

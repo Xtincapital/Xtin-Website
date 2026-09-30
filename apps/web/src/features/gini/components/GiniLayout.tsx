@@ -14,10 +14,8 @@
 // calculators, family planning, reports, chat, pricing) build against these
 // same hrefs.
 //
-// Auth: uses the shared `useAuth()` (apps/web/src/contexts/AuthContext.tsx)
-// for logout — no Gini-specific auth (the original had none of its own
-// either; it relied on the same Supabase session) is reproduced here,
-// matching Journal/FundaKaMental's own layouts.
+// No Log Out button here: signing out lives in the site's own account menu
+// (Dashboard), like every other page.
 //
 // Site integration: wrapped in the shared site Navbar + Footer like every
 // other Xtin page. The sidebar sits under the fixed Navbar (sticky on
@@ -25,7 +23,7 @@
 // — the Navbar's Xtin wordmark is the only logo. Design tokens come from the
 // shared site block in apps/web/src/index.css.
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
@@ -42,13 +40,11 @@ import {
   ShieldCheck,
   FileBarChart,
   CreditCard,
-  LogOut,
   ChevronLeft,
   ChevronRight,
   Menu,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
@@ -133,17 +129,10 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
-  const navigate = useNavigate();
-  const { logout } = useAuth();
 
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
 
   return (
     <>
@@ -194,17 +183,6 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
               </div>
             ))}
           </nav>
-
-          {/* Bottom actions */}
-          <div className="p-3 border-t border-border space-y-0.5 shrink-0">
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
-            >
-              <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
-              {!collapsed && <span className="text-sm font-medium">Log Out</span>}
-            </button>
-          </div>
 
           {/* Collapse Button */}
           <button

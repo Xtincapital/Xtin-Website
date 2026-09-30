@@ -30,6 +30,7 @@
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getUserPlan, grantPro, downgradeToFree, insertProPayment } from "./razorpay.repository.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Plan catalogue. Amounts in smallest unit: INR paise, USD/GBP/EUR cents.
 const PRO_PLANS: Record<
@@ -86,6 +87,7 @@ export const createOrder = async (req, res) => {
                     plan_id: planId,
                     user_id: String(req.user.authId || ""),
                     user_email: String(req.user.email || "").slice(0, 254),
+                    ...buyerNotes(req.user),
                 },
             }),
         });
@@ -106,22 +108,53 @@ export const createOrder = async (req, res) => {
     }
 };
 
-/* POST /fundakamental/razorpay/verify — HMAC-verify, then grant Pro. */
+/* Grants FundaKaMental Pro for a paid order. The plan comes from the
+ * order's notes, never from the request body. Called by
+ * modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
+export const fulfillFundakamentalPro: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const planId = notes.plan_id;
+    const plan = PRO_PLANS[planId];
+    if (!plan) throw new FulfillmentError(`Unknown FundaKaMental plan "${planId}"`, "invalid_order");
+    const currency = String(order.currency || "INR").toUpperCase();
+    requireCatalogAmount(order, plan.amounts[currency]);
+
+    const userId = user.authId;
+    if (!userId) throw new FulfillmentError("Buyer has no auth id", "no_buyer");
+
+    const now = new Date();
+    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+
+    const { error: userError } = await grantPro(userId, validUntil.toISOString());
+    if (userError) throw userError;
+    const { error: paymentError } = await insertProPayment({
+        user_id: userId,
+        plan_id: planId,
+        billing: plan.billing,
+        currency,
+        region: String(notes.region || extras.region || "").toUpperCase() || null,
+        amount: Number(order.amount) / 100.0,
+        payment_id: payment.id,
+        order_id: order.id,
+        activated_at: now.toISOString(),
+        valid_until: validUntil.toISOString(),
+    });
+    if (paymentError) console.error("[FundaKaMental Razorpay] payment audit insert failed:", paymentError.message);
+
+    return { plan: "premium", valid_until: validUntil.toISOString(), cloud_saved: true };
+};
+registerFulfiller("fundakamental_pro", fulfillFundakamentalPro);
+
+/* POST /fundakamental/razorpay/verify — HMAC-verify, then grant via the
+ * shared fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyPayment = async (req, res) => {
     try {
         const {
-            plan_id: planId,
-            currency: reqCurrency,
             region,
             razorpay_order_id: orderId,
             razorpay_payment_id: paymentId,
             razorpay_signature: signature,
         } = req.body || {};
 
-        const plan = PRO_PLANS[planId];
-        if (!plan) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid plan" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(500).json({ error: "Payment service not configured" });
         }
@@ -133,47 +166,17 @@ export const verifyPayment = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Payment signature verification failed" });
         }
 
-        const userId = req.user.authId;
-        if (!userId) {
-            return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: "Not authenticated" });
-        }
-
-        const now = new Date();
-        const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
-        let currency = String(reqCurrency || "INR").toUpperCase();
-        if (!SUPPORTED_CURRENCIES.includes(currency)) currency = "INR";
-        const amount = plan.amounts[currency] ?? 0;
-
-        // Server-side, service-role write. This is the ONLY place Pro is granted.
-        let cloudSaved = false;
-        try {
-            const { error: userError } = await grantPro(userId, validUntil.toISOString());
-            if (userError) throw userError;
-            const { error: paymentError } = await insertProPayment({
-                user_id: userId,
-                plan_id: planId,
-                billing: plan.billing,
-                currency,
-                region: String(region || "").toUpperCase() || null,
-                amount: amount / 100.0,
-                payment_id: paymentId,
-                order_id: orderId,
-                activated_at: now.toISOString(),
-                valid_until: validUntil.toISOString(),
-            });
-            if (paymentError) throw paymentError;
-            cloudSaved = true;
-        } catch (err) {
-            console.error("[FundaKaMental Razorpay] verify write failed:", (err as Error)?.message || err);
-        }
-
-        return res.status(HTTP_STATUS.OK).json({
-            success: true,
-            plan: "premium",
-            valid_until: validUntil.toISOString(),
-            cloud_saved: cloudSaved,
+        const { result } = await fulfillRazorpayOrder({
+            orderId,
+            paymentId,
+            source: "verify",
+            expectedProducts: ["fundakamental_pro"],
+            requestUser: req.user,
+            extras: { region },
         });
+        return res.status(HTTP_STATUS.OK).json({ success: true, ...result });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "FundaKaMental Razorpay")) return;
         console.error("[FundaKaMental Razorpay] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }

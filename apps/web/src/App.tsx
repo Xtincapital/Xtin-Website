@@ -43,6 +43,9 @@ const AlgoTerms = lazy(() => import('./features/algos/pages/AlgoTerms'));
 const PublisherTerms = lazy(() => import('./features/marketing/pages/PublisherTerms'));
 const RevenueShareAgreement = lazy(() => import('./features/marketing/pages/RevenueShareAgreement'));
 const Privacy = lazy(() => import('./features/marketing/pages/Privacy'));
+const Contact = lazy(() => import('./features/marketing/pages/Contact'));
+const RefundPolicy = lazy(() => import('./features/marketing/pages/RefundPolicy'));
+const ShippingPolicy = lazy(() => import('./features/marketing/pages/ShippingPolicy'));
 const HelpCenter = lazy(() => import('./features/marketing/pages/HelpCenter'));
 const NotFound = lazy(() => import('./features/marketing/pages/NotFound'));
 const VerifyCertificate = lazy(() => import('./features/certificates/pages/VerifyCertificate'));
@@ -619,6 +622,9 @@ function App() {
         <Route path="/publisher-terms" element={<PublisherTerms />} />
         <Route path="/revenue-share" element={<RevenueShareAgreement />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/shipping-policy" element={<ShippingPolicy />} />
         <Route path="/help" element={<HelpCenter />} />
         {/* Certificate Verification Route — Public */}
         <Route path="/verify/:certificateId" element={<VerifyCertificate />} />

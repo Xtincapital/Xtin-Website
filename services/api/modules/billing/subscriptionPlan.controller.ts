@@ -5,20 +5,33 @@ import { getLearnPlansForUser, upsertLearnPlan } from "../academy/learnPlan.repo
 import { getNewsletterPlansForUser, upsertNewsletterPlan } from "../newsletter/newsletterPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { razorpayConfigured, requireValidRazorpaySignature, RazorpaySignatureError } from "../../utils/razorpay.js";
+import { BUNDLE_PRODUCT, buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceBundle, type PricedPlan } from "./bundleCatalog.js";
 
 /**
  * POST /api/subscriptions/order
  * Create a Razorpay order for any bundle or product plan from Dashboard.
+ * The price comes from bundleCatalog.ts; the browser's `amount` is only
+ * checked against it so a stale page gets a clear error instead of a
+ * surprise charge.
  */
 export const createSubscriptionOrder = async (req, res) => {
     try {
-        const { plan_id, plan_name, products = [], billing_cycle = 'monthly', amount } = req.body;
+        const { plan_id, products = [], billing_cycle = 'monthly', amount } = req.body || {};
 
-        if (!plan_id || !amount || amount <= 0) {
-            return res.status(400).json({ error: "Invalid plan or amount specified" });
+        const priced = priceBundle(String(plan_id || ""), String(billing_cycle), Array.isArray(products) ? products : []);
+        if (!priced) {
+            return res.status(400).json({ error: "Invalid plan specified" });
+        }
+        if (amount !== undefined && Number(amount) !== priced.amount) {
+            return res.status(409).json({
+                error: "This price is out of date — please refresh the page and try again",
+                code: "PRICE_CHANGED",
+                amount: priced.amount,
+            });
         }
 
-        const amountPaise = Math.round(Number(amount) * 100);
+        const amountPaise = priced.amount * 100;
 
         if (!razorpayConfigured()) {
             // Development fallback when Razorpay credentials are not yet set
@@ -58,11 +71,15 @@ export const createSubscriptionOrder = async (req, res) => {
                 currency: "INR",
                 receipt: `rcpt_${Date.now()}`,
                 notes: {
-                    plan_id,
-                    plan_name: plan_name || plan_id,
-                    billing_cycle,
+                    product: BUNDLE_PRODUCT,
+                    plan_id: priced.planId,
+                    plan_name: priced.planName.slice(0, 200),
+                    billing_cycle: priced.billingCycle,
+                    products: priced.customProductIds.join(","),
                     user_id: String(req.user?.userId || req.user?.id || ""),
                     user_email: req.user?.email || "",
+                    phone_number: String(req.body?.phone_number || req.user?.phone_number || "").slice(0, 20),
+                    ...buyerNotes(req.user || {}),
                 },
             }),
         });
@@ -88,9 +105,67 @@ export const createSubscriptionOrder = async (req, res) => {
     }
 };
 
+/** Grants a bundle / Dashboard plan. Everything granted comes from `priced`, which the caller derives from the order. */
+async function grantBundle({ priced, user, paymentId, orderId, phoneNumber, strict }: {
+    priced: PricedPlan;
+    user: { userId: string; authId?: string | null; email?: string };
+    paymentId: string;
+    orderId: string;
+    phoneNumber?: unknown;
+    strict: boolean;
+}) {
+    const validUntil = new Date();
+    if (priced.billingCycle === 'annual') {
+        validUntil.setFullYear(validUntil.getFullYear() + 1);
+    } else {
+        validUntil.setMonth(validUntil.getMonth() + 1);
+    }
+
+    const common = {
+        userId: String(user.userId),
+        authId: user.authId || null,
+        planId: priced.planId,
+        products: priced.products,
+        billingCycle: priced.billingCycle,
+        amount: priced.amount,
+        validUntil,
+        paymentId,
+        orderId,
+        userEmail: user.email || "",
+        phoneNumber: String(phoneNumber || "").slice(0, 20),
+    };
+
+    const subRecord = await persistUserSubscription({ ...common, planName: priced.planName, currency: 'INR', strict });
+    await syncSubProductsToDatabase(common);
+    return subRecord;
+}
+
+/* Called by modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
+export const fulfillBundle: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const priced = priceBundle(notes.plan_id, notes.billing_cycle, (notes.products || "").split(",").filter(Boolean));
+    if (!priced) throw new FulfillmentError(`Order ${order.id} is not a known plan (${notes.plan_id})`, "invalid_order");
+    if (order.currency !== "INR") throw new FulfillmentError("Bundles are INR-only", "amount_mismatch");
+    // Also rejects orders created before prices were server-side, if their amount was tampered with.
+    requireCatalogAmount(order, priced.amount * 100);
+
+    return grantBundle({
+        priced,
+        user,
+        paymentId: payment.id,
+        orderId: order.id,
+        phoneNumber: extras.phone_number || notes.phone_number || payment.contact,
+        strict: true,
+    });
+};
+registerFulfiller(BUNDLE_PRODUCT, fulfillBundle);
+
 /**
  * POST /api/subscriptions/verify
- * HMAC SHA256 signature verification & PostgreSQL DB persistence.
+ * HMAC SHA256 signature verification, then grant via the shared fulfilment
+ * path (idempotent with the Razorpay webhook). The plan, products and price
+ * come from the Razorpay order — body fields like plan_id/products/amount
+ * are ignored, since trusting them let a buyer pay for one plan and claim
+ * another.
  */
 export const verifySubscriptionPayment = async (req, res) => {
     try {
@@ -98,35 +173,30 @@ export const verifySubscriptionPayment = async (req, res) => {
             razorpay_order_id: orderId,
             razorpay_payment_id: paymentId,
             razorpay_signature: signature,
-            plan_id: planId,
-            plan_name: planName,
-            products = [],
-            billing_cycle: billingCycle = 'monthly',
-            amount,
             phone_number: phoneNumber,
-        } = req.body;
+        } = req.body || {};
 
-        const userId = String(req.user?.userId || req.user?.id || "");
-        const authId = req.user?.authId || req.user?.auth_id || req.user?.id || null;
-        const userEmail = req.user?.email || "";
-
-        if (!planId) {
-            return res.status(400).json({ error: "Missing required plan_id" });
+        if (!razorpayConfigured()) {
+            // Local development without Razorpay keys: grant straight from the catalogue.
+            const priced = priceBundle(String(req.body?.plan_id || ""), String(req.body?.billing_cycle || "monthly"), req.body?.products || []);
+            if (!priced) return res.status(400).json({ error: "Invalid plan specified" });
+            const subRecord = await grantBundle({
+                priced,
+                user: {
+                    userId: String(req.user?.userId || req.user?.id || ""),
+                    authId: req.user?.authId || null,
+                    email: req.user?.email || "",
+                },
+                paymentId: paymentId || `pay_dev_${Date.now()}`,
+                orderId: orderId || `order_dev_${Date.now()}`,
+                phoneNumber,
+                strict: false,
+            });
+            return res.status(200).json({ message: "Subscription activated & saved successfully", data: subRecord });
         }
 
-        // Verify Razorpay HMAC signature. SECURITY (Phase 13): this used to be
-        // `if (razorpayConfigured() && signature)` — an authenticated caller
-        // could omit `razorpay_signature` from the request body entirely and
-        // skip verification outright, since a falsy `signature` short-circuited
-        // the whole check, landing straight at an unconditional grant of an
-        // active subscription (propagated to every product via
-        // syncSubProductsToDatabase below, including full "bundle" access via
-        // isBundleActive's products.length >= 5 check). Whenever Razorpay is
-        // actually configured, verification is now mandatory — a missing or
-        // wrong signature always rejects. `devActivateSubscription` below is
-        // the only legitimate way to grant a subscription without a real
-        // signature, and it's already correctly gated to non-production
-        // environments with no Razorpay keys configured.
+        // SECURITY (Phase 13): verification is mandatory whenever Razorpay is
+        // configured — a missing or wrong signature always rejects.
         try {
             requireValidRazorpaySignature(orderId, paymentId, signature);
         } catch (err) {
@@ -136,56 +206,23 @@ export const verifySubscriptionPayment = async (req, res) => {
             throw err;
         }
 
-        const effectivePaymentId = paymentId || `pay_dev_${Date.now()}`;
-        const effectiveOrderId = orderId || `order_dev_${Date.now()}`;
-
-        // Calculate expiration date
-        const validUntil = new Date();
-        if (billingCycle === 'annual') {
-            validUntil.setFullYear(validUntil.getFullYear() + 1);
-        } else {
-            validUntil.setMonth(validUntil.getMonth() + 1);
-        }
-
-        // Persist to user_subscriptions table
-        const subRecord = await persistUserSubscription({
-            userId,
-            authId,
-            planId,
-            planName: planName || planId,
-            products,
-            billingCycle,
-            amount: Number(amount || 0),
-            currency: 'INR',
-            validUntil,
-            paymentId: effectivePaymentId,
-            orderId: effectiveOrderId,
-            userEmail,
-            phoneNumber,
-        });
-
-        // Sync with specific product tables where appropriate
-        await syncSubProductsToDatabase({
-            userId,
-            authId,
-            products,
-            planId,
-            billingCycle,
-            amount: Number(amount || 0),
-            validUntil,
-            paymentId: effectivePaymentId,
-            orderId: effectiveOrderId,
-            userEmail,
-            phoneNumber,
+        const { result } = await fulfillRazorpayOrder({
+            orderId,
+            paymentId,
+            source: "verify",
+            expectedProducts: [BUNDLE_PRODUCT],
+            requestUser: req.user,
+            extras: { phone_number: phoneNumber },
         });
 
         return res.status(200).json({
             message: "Subscription activated & saved successfully",
-            data: subRecord,
+            data: result,
         });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "SubscriptionPlan")) return;
         console.error("[SubscriptionPlan] verifyPayment error:", err);
-        return res.status(500).json({ error: err.message || "Failed to verify and activate subscription" });
+        return res.status(500).json({ error: "Failed to verify and activate subscription" });
     }
 };
 
@@ -285,6 +322,22 @@ async function persistUserSubscription({
     orderId,
     userEmail,
     phoneNumber,
+    strict = false,
+}: {
+    userId: string;
+    authId: string | null;
+    planId: string;
+    planName: string;
+    products: string[];
+    billingCycle: string;
+    amount: number;
+    currency: string;
+    validUntil: Date;
+    paymentId: string;
+    orderId: string;
+    userEmail: string;
+    phoneNumber: string;
+    strict?: boolean;
 }) {
     const payload = {
         user_id: userId,
@@ -309,6 +362,7 @@ async function persistUserSubscription({
 
     if (error && error.code !== '42P01') {
         console.error("[SubscriptionPlan] Error inserting user_subscription:", error);
+        if (strict) throw new Error(error.message || "user_subscriptions write failed");
     }
     await upsertEntitlement({
         userId,
@@ -335,7 +389,10 @@ async function syncSubProductsToDatabase({
     phoneNumber,
 }) {
     const productStr = JSON.stringify(products).toLowerCase();
-    const isUltimate = planId === 'ultimate-pass' || productStr.includes('all-access');
+    // Only the real Ultimate pass. This used to also match any product list
+    // containing "all-access" — which "Learn Hub All-Access" does, so buying
+    // Learn alone (₹99) also granted Algo and Newsletter.
+    const isUltimate = planId === 'ultimate-pass';
 
     // 1. Sync Algo Subscriptions if algos is included
     if (isUltimate || productStr.includes('algo')) {

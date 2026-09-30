@@ -46,6 +46,20 @@ export function verifyRazorpaySignature(orderId: string, paymentId: string, sign
     return crypto.timingSafeEqual(expectedBuf, actualBuf);
 }
 
+/**
+ * Verifies the `X-Razorpay-Signature` header of a webhook delivery: an HMAC
+ * of the raw request body (exact bytes, before JSON parsing) keyed with the
+ * webhook secret set in the Razorpay dashboard — not the API key secret.
+ */
+export function verifyRazorpayWebhookSignature(rawBody: Buffer | string | undefined, signature: string | undefined, secret = process.env.RAZORPAY_WEBHOOK_SECRET): boolean {
+    if (!rawBody || !signature || !secret) return false;
+
+    const expectedBuf = Buffer.from(crypto.createHmac("sha256", secret).update(rawBody).digest("hex"));
+    const actualBuf = Buffer.from(String(signature));
+    if (expectedBuf.length !== actualBuf.length) return false;
+    return crypto.timingSafeEqual(expectedBuf, actualBuf);
+}
+
 export class RazorpaySignatureError extends Error {
     constructor(message = "Payment signature verification failed") {
         super(message);

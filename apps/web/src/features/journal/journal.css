@@ -17,10 +17,13 @@
    `.journal-classic` (the restored chrome + page-body rules). Both classes
    sit on the wrapper JournalLayout.tsx renders *between* the shared site
    Navbar and Footer, so none of these rules reach the site chrome, and none
-   of the site's own global styles are changed by this file. */
+   of the site's own global styles are changed by this file. The tokens also
+   apply to `body.journal-portals > :not(#root)` — dialogs and dropdowns,
+   which render outside that wrapper (the class is set by JournalApp). */
 
 @layer base {
-  .journal-scope {
+  .journal-scope,
+  body.journal-portals > :not(#root) {
     /* Page background #f8fafc, surfaces white */
     --background: 210 40% 98%;
     --foreground: 225 37% 11%;
@@ -109,7 +112,9 @@
 
 @layer base {
   .journal-scope,
-  .journal-scope * {
+  .journal-scope *,
+  body.journal-portals > :not(#root),
+  body.journal-portals > :not(#root) * {
     @apply border-border;
   }
 
@@ -126,8 +131,18 @@
   .journal-scope h3,
   .journal-scope h4,
   .journal-scope h5,
-  .journal-scope h6 {
+  .journal-scope h6,
+  body.journal-portals > :not(#root) h2,
+  body.journal-portals > :not(#root) h3 {
     color: var(--jr-heading);
+  }
+
+  /* Dialogs/selects portal into <body> (see JournalApp.tsx's
+     journal-portals class): give them the journal's text colour and font.
+     No background here — the dark dialog overlay is also a body child. */
+  body.journal-portals > :not(#root) {
+    color: var(--jr-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
   .journal-scope ::-webkit-scrollbar {
@@ -505,7 +520,8 @@
    !important. Without a matching dark palette the page body would render
    dark text on dark cards, so the same design is mirrored in dark here. */
 @layer base {
-  html.dark .journal-scope {
+  html.dark .journal-scope,
+  html.dark body.journal-portals > :not(#root) {
     color-scheme: dark;
     --background: 222 47% 8%;
     --foreground: 220 14% 91%;

@@ -26,6 +26,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAiOrderRequest, validateAiVerifyRequest } from "./aiWallet.validator.js";
 import { getOrCreateWallet, addTokens } from "./aiWallet.repository.js";
 import { findPurchaseByPaymentId, insertAiWalletPurchase } from "./aiWalletPurchases.repository.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Port of features-incoming/gini/api/razorpay-order.js's AI_TOKEN_PACKS.
 // Amounts are whole INR rupees (multiplied by 100 for paise only at
@@ -85,6 +86,7 @@ export const createAiOrder = async (req, res) => {
                     package_id: pkg.id,
                     tokens: String(pkg.tokens),
                     user_id: String(userId || ""),
+                    ...buyerNotes(req.user),
                 },
             }),
         });
@@ -105,20 +107,57 @@ export const createAiOrder = async (req, res) => {
     }
 };
 
-/* POST /gini/ai/razorpay/verify — HMAC-verify, then credit tokens
- * (idempotency-guarded via gini_ai_wallet_purchases — see header comment). */
+/* Credits an AI token pack for a paid order. The pack comes from the
+ * order's notes, never from the request body. Idempotency: the shared
+ * payment_fulfillments claim, plus the gini_ai_wallet_purchases check kept
+ * below for orders paid before that table existed. Called by
+ * modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
+export const fulfillGiniAiTokens: Fulfiller = async ({ order, payment, notes, user }) => {
+    const pkg = AI_PACKAGES[notes.package_id];
+    if (!pkg) throw new FulfillmentError(`Unknown AI package "${notes.package_id}"`, "invalid_order");
+    if (order.currency !== "INR") throw new FulfillmentError(`AI packs are INR-only, got ${order.currency}`, "amount_mismatch");
+    requireCatalogAmount(order, pkg.amount_inr * 100);
+
+    const userId = user.authId;
+    if (!userId) throw new FulfillmentError("Buyer has no auth id", "no_buyer");
+
+    const { data: existing, error: lookupError } = await findPurchaseByPaymentId(payment.id);
+    if (lookupError) console.error("[Gini AI Wallet] purchase lookup failed:", lookupError.message);
+
+    let wallet;
+    if (existing) {
+        wallet = await getOrCreateWallet(userId);
+    } else {
+        wallet = await addTokens(userId, pkg.tokens, "razorpay", pkg.amount_inr, payment.id);
+        try {
+            const { error } = await insertAiWalletPurchase({
+                user_id: userId,
+                package_id: pkg.id,
+                tokens: pkg.tokens,
+                amount_inr: pkg.amount_inr,
+                payment_id: payment.id,
+                order_id: order.id,
+            });
+            if (error) throw error;
+        } catch (err) {
+            console.error("[Gini AI Wallet] purchase audit insert failed:", (err as Error)?.message || err);
+        }
+    }
+
+    return { wallet, package: pkg, message: "AI tokens added" };
+};
+registerFulfiller("gini_ai_tokens", fulfillGiniAiTokens);
+
+/* POST /gini/ai/razorpay/verify — HMAC-verify, then credit via the shared
+ * fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyAiPurchase = async (req, res) => {
     try {
         const validation = validateAiVerifyRequest(req.body);
         if (validation.errors) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
         }
-        const { package_id, razorpay_order_id, razorpay_payment_id, razorpay_signature } = validation.data;
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = validation.data;
 
-        const pkg = AI_PACKAGES[package_id];
-        if (!pkg) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid AI package" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(500).json({ error: "Payment service not configured" });
         }
@@ -127,38 +166,18 @@ export const verifyAiPurchase = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Payment signature verification failed" });
         }
 
-        const userId = req.user.authId;
-        if (!userId) {
-            return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: "Not authenticated" });
-        }
-
-        // Idempotency guard: addTokens itself always adds `tokens` with no
-        // dedupe, so check the persistent audit table before crediting.
-        const { data: existing, error: lookupError } = await findPurchaseByPaymentId(razorpay_payment_id);
-        if (lookupError) console.error("[Gini AI Wallet] purchase lookup failed:", lookupError.message);
-
-        let wallet;
-        if (existing) {
-            wallet = await getOrCreateWallet(userId);
-        } else {
-            wallet = await addTokens(userId, pkg.tokens, "razorpay", pkg.amount_inr, razorpay_payment_id);
-            try {
-                const { error } = await insertAiWalletPurchase({
-                    user_id: userId,
-                    package_id: pkg.id,
-                    tokens: pkg.tokens,
-                    amount_inr: pkg.amount_inr,
-                    payment_id: razorpay_payment_id,
-                    order_id: razorpay_order_id,
-                });
-                if (error) throw error;
-            } catch (err) {
-                console.error("[Gini AI Wallet] purchase audit insert failed:", (err as Error)?.message || err);
-            }
-        }
-
-        return res.status(HTTP_STATUS.OK).json({ success: true, wallet, package: pkg, message: "AI tokens added" });
+        const { result, alreadyFulfilled } = await fulfillRazorpayOrder({
+            orderId: razorpay_order_id,
+            paymentId: razorpay_payment_id,
+            source: "verify",
+            expectedProducts: ["gini_ai_tokens"],
+            requestUser: req.user,
+        });
+        // A stored result's wallet snapshot may be stale by now.
+        const wallet = alreadyFulfilled ? await getOrCreateWallet(req.user.authId) : result.wallet;
+        return res.status(HTTP_STATUS.OK).json({ success: true, ...result, wallet });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "Gini AI Wallet")) return;
         console.error("[Gini AI Wallet] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }

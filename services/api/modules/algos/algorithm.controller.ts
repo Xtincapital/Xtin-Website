@@ -13,6 +13,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAlgoOrder, validateAlgoVerify } from "./algorithm.validator.js";
 import { getAlgorithmSubscriptionsByUserId, upsertAlgorithmSubscription } from "./algorithm.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
+import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
 // Server-authoritative pricing catalogue
 const ALGO_PLANS = {
@@ -121,6 +122,9 @@ export const createAlgoOrder = async (req, res) => {
                     plan_type,
                     userId: String(req.user.userId || "").slice(0, 64),
                     userEmail: String(req.user.email || "").slice(0, 254),
+                    tradingview_username: String(tradingview_username || "").slice(0, 100),
+                    phone_number: String(phone_number || "").slice(0, 20),
+                    ...buyerNotes(req.user),
                 },
             }),
         });
@@ -156,7 +160,31 @@ export const createAlgoOrder = async (req, res) => {
     }
 };
 
-/* POST /api/algorithm/verify — HMAC-verify the payment, then grant algorithm access. */
+/* Grants an algorithm subscription for a paid order. The algorithm comes
+ * from the order's notes, never from the request body. Called by
+ * modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
+export const fulfillAlgoSubscription: Fulfiller = async ({ order, payment, notes, user, extras }) => {
+    const plan = ALGO_PLANS[notes.algo_name];
+    if (!plan) throw new FulfillmentError(`Unknown algorithm "${notes.algo_name}"`, "invalid_order");
+    if (order.currency !== plan.currency) throw new FulfillmentError(`Algo plans are ${plan.currency}-only`, "amount_mismatch");
+    requireCatalogAmount(order, plan.amount);
+
+    return persistAlgoSubscription({
+        user,
+        plan,
+        algo_name: plan.name,
+        plan_type: notes.plan_type,
+        paymentId: payment.id,
+        orderId: order.id,
+        tradingview_username: extras.tradingview_username || notes.tradingview_username,
+        phone_number: extras.phone_number || notes.phone_number || payment.contact,
+        strict: true,
+    });
+};
+registerFulfiller("xtin_algo_subscription", fulfillAlgoSubscription);
+
+/* POST /api/algorithm/verify — HMAC-verify the payment, then grant algorithm
+ * access via the shared fulfilment path (idempotent with the Razorpay webhook). */
 export const verifyAlgoPayment = async (req, res) => {
     try {
         const validation = validateAlgoVerify(req.body);
@@ -166,7 +194,6 @@ export const verifyAlgoPayment = async (req, res) => {
 
         const {
             algo_name,
-            plan_type,
             razorpay_order_id: orderId,
             razorpay_payment_id: paymentId,
             razorpay_signature: signature,
@@ -174,10 +201,6 @@ export const verifyAlgoPayment = async (req, res) => {
             phone_number,
         } = validation.data;
 
-        const plan = ALGO_PLANS[algo_name];
-        if (!plan) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid algorithm" });
-        }
         if (!process.env.RAZORPAY_KEY_SECRET) {
             return res.status(503).json({ error: "Payment service not configured" });
         }
@@ -191,23 +214,22 @@ export const verifyAlgoPayment = async (req, res) => {
             });
         }
 
-        const record = await persistAlgoSubscription({
-            req,
-            plan,
-            algo_name,
-            plan_type,
-            paymentId,
+        const { result } = await fulfillRazorpayOrder({
             orderId,
-            tradingview_username,
-            phone_number,
+            paymentId,
+            source: "verify",
+            expectedProducts: ["xtin_algo_subscription"],
+            requestUser: req.user,
+            extras: { tradingview_username, phone_number },
         });
 
         return res.status(HTTP_STATUS.OK).json({
             status: HTTP_STATUS.OK,
-            message: `${algo_name} subscription activated`,
-            data: record,
+            message: `${result.algo_name || algo_name} subscription activated`,
+            data: result,
         });
     } catch (err) {
+        if (sendFulfillmentError(res, err, "AlgoSub")) return;
         console.error("[AlgoSub] verify error:", err);
         return res.status(500).json({ error: "Payment verification failed" });
     }
@@ -226,7 +248,7 @@ export const devActivateAlgoPlan = async (req, res) => {
     }
 
     const record = await persistAlgoSubscription({
-        req,
+        user: req.user,
         plan,
         algo_name: plan.name,
         plan_type: plan_type || "monthly",
@@ -243,12 +265,23 @@ export const devActivateAlgoPlan = async (req, res) => {
     });
 };
 
-async function persistAlgoSubscription({ req, plan, algo_name, plan_type, paymentId, orderId, tradingview_username, phone_number }) {
+async function persistAlgoSubscription({ user, plan, algo_name, plan_type, paymentId, orderId, tradingview_username, phone_number, strict = false }: {
+    user: { userId: string; authId?: string | null; email?: string };
+    plan: (typeof ALGO_PLANS)[keyof typeof ALGO_PLANS];
+    algo_name: string;
+    plan_type?: string;
+    paymentId: string;
+    orderId: string;
+    tradingview_username?: unknown;
+    phone_number?: unknown;
+    /** Throw on a failed write so the webhook retries (real payments); dev activation stays best-effort. */
+    strict?: boolean;
+}) {
     const now = new Date();
     const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
     const record = {
-        user_id: String(req.user.userId),
-        auth_id: req.user.authId || null,
+        user_id: String(user.userId),
+        auth_id: user.authId || null,
         algo_name,
         plan_type: plan_type || "monthly",
         amount: plan.amount,
@@ -257,7 +290,7 @@ async function persistAlgoSubscription({ req, plan, algo_name, plan_type, paymen
         valid_until: validUntil.toISOString(),
         payment_id: paymentId,
         order_id: orderId,
-        user_email: String(req.user.email || "").slice(0, 254),
+        user_email: String(user.email || "").slice(0, 254),
         tradingview_username: String(tradingview_username || "").slice(0, 100),
         phone_number: String(phone_number || "").slice(0, 20),
         status: "active",
@@ -265,6 +298,7 @@ async function persistAlgoSubscription({ req, plan, algo_name, plan_type, paymen
     };
 
     const { error } = await upsertAlgorithmSubscription(record);
+    if (error && strict) throw error;
     if (error) {
         // The payment already succeeded — never fail the response over storage;
         // the client keeps its verified state and support can reconcile.

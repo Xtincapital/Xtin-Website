@@ -236,7 +236,7 @@ export default function Trades() {
       setTotal(res.pagination?.total ?? (res.data || []).length);
     } catch (err) {
       console.error(err);
-      toast.error("Failed to load trades");
+      toast.error("Failed to load trades", { id: "journal-trades-load-error" });
     } finally {
       setLoading(false);
     }

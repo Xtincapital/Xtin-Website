@@ -74,7 +74,7 @@ function RevenueShareAgreement() {
 
             <Section title="9. Contact">
               <p>
-                Questions on payouts? Email <a href="mailto:xtinservice@gmail.com" className="text-green-600 hover:text-green-700 font-medium">xtinservice@gmail.com</a>.
+                Questions on payouts? Email <a href="mailto:support@xtincapital.com" className="text-green-600 hover:text-green-700 font-medium">support@xtincapital.com</a>.
               </p>
             </Section>
           </div>

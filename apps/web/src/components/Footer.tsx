@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import newsletterService from '../services/newsletterService';
 import { BACKEND_URL } from '../config/env';
+import { COMPANY, companyAddress } from '../constants/company';
 
 const Footer = () => {
   const [showHelpCenter, setShowHelpCenter] = useState(false);
@@ -147,7 +148,7 @@ const Footer = () => {
           </a>
           <p className="text-xs text-gray-500 dark:text-slate-400 mb-2">A product of XTIN SERVICES LLP</p>
           <p className="text-sm text-gray-600 dark:text-slate-400 max-w-xs mb-4">
-            Advanced algorithmic trading platform for modern markets.
+            AI trading tools, market research &amp; financial education. Not SEBI-registered; nothing on this site is investment advice.
           </p>
           
           {/* Social Media Icons */}
@@ -228,12 +229,18 @@ const Footer = () => {
               <li><Link to="/about" className="hover:text-green-600 transition">About</Link></li>
               <li><Link to="/terms" className="hover:text-green-600 transition">Terms of Service</Link></li>
               <li><Link to="/privacy" className="hover:text-green-600 transition">Privacy Policy</Link></li>
+              <li><Link to="/refund-policy" className="hover:text-green-600 transition">Refund &amp; Cancellation</Link></li>
+              <li><Link to="/shipping-policy" className="hover:text-green-600 transition">Shipping &amp; Delivery</Link></li>
+              <li><Link to="/algo-terms" className="hover:text-green-600 transition">Algorithm Terms</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold text-gray-900 dark:text-slate-100 mb-2">Support</h4>
             <ul className="space-y-1 text-sm">
+              <li><Link to="/contact" className="hover:text-green-600 transition">Contact Us</Link></li>
               <li><button onClick={() => setShowHelpCenter(true)} className="hover:text-green-600 transition">Help Center</button></li>
+              <li><a href={`mailto:${COMPANY.supportEmail}`} className="hover:text-green-600 transition">{COMPANY.supportEmail}</a></li>
+              <li><a href={COMPANY.phoneHref} className="hover:text-green-600 transition">{COMPANY.phone}</a></li>
             </ul>
           </div>
         </div>
@@ -295,10 +302,10 @@ const Footer = () => {
       <div className="border-t border-gray-200 dark:border-slate-700 mt-8 pt-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500 dark:text-slate-400">
-            © {new Date().getFullYear()} XTIN SERVICES LLP. All rights reserved.
+            © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-400 dark:text-slate-500">
-            LLP ID: ACR-9371 | Surat, Gujarat, India
+          <p className="text-xs text-gray-400 dark:text-slate-500 text-center md:text-right">
+            LLP ID: {COMPANY.llpId} | GSTIN: {COMPANY.gstin} | {companyAddress}
           </p>
         </div>
       </div>
@@ -334,10 +341,10 @@ const Footer = () => {
                     Send us an email and we'll respond within 24 hours
                   </p>
                   <a 
-                    href="mailto:xtinservice@gmail.com"
+                    href={`mailto:${COMPANY.supportEmail}`}
                     className="inline-flex items-center text-green-600 hover:text-green-700 font-semibold"
                   >
-                    xtinservice@gmail.com
+                    {COMPANY.supportEmail}
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -353,14 +360,14 @@ const Footer = () => {
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-2">Call Us</h3>
                   <p className="text-gray-600 dark:text-slate-400 text-sm mb-4">
-                    Speak with our support team Mon-Fri, 9AM-6PM IST
+                    Speak with our support team {COMPANY.supportHours}
                   </p>
                   <div className="flex flex-col gap-2">
                     <a 
-                      href="tel:+917016514788"
+                      href={COMPANY.phoneHref}
                       className="inline-flex items-center text-green-600 hover:text-green-700 font-semibold"
                     >
-                      +91 70165 14788
+                      {COMPANY.phone}
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>

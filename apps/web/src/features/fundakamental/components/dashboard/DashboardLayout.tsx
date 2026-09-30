@@ -6,7 +6,8 @@
 //    ../../FundakamentalApp.tsx's header comment) replaced with the shared
 //    `useAuth()` (apps/web/src/contexts/AuthContext.tsx). No more
 //    `initializeAuth()` call on mount — the host app's `AuthContext` already
-//    initializes auth once at the app root.
+//    initializes auth once at the app root. No Log Out button either:
+//    signing out lives in the site's own account menu (Dashboard).
 //  - The shared `AuthContext` user shape has no `plan`/`reportsUsed`/
 //    `reportsLimit` fields (see ../../pages/Dashboard.tsx and
 //    ../../pages/Settings.tsx's own port notes for why — those lived on
@@ -31,7 +32,7 @@
 //    gone — the Navbar's Xtin wordmark is the only logo. The design tokens
 //    come from the shared site block in apps/web/src/index.css.
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Home,
@@ -41,7 +42,6 @@ import {
   Eye,
   Clock,
   Settings,
-  LogOut,
   ChevronLeft,
   ChevronRight,
   Sparkles,
@@ -51,7 +51,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { usePlanStore, formatTokens } from "../../store/usePlanStore";
@@ -78,8 +77,6 @@ const DashboardLayout = ({ children }: SidebarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
-  const navigate = useNavigate();
-  const { logout } = useAuth();
 
   useEffect(() => {
     setMobileOpen(false);
@@ -88,11 +85,6 @@ const DashboardLayout = ({ children }: SidebarProps) => {
   const wallet = usePlanStore((s) => s.wallet);
   const fetchWallet = usePlanStore((s) => s.fetchWallet);
   const openBuyTokens = usePlanStore((s) => s.openBuyTokens);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
 
   // Refresh the AI token balance when the dashboard mounts.
   useEffect(() => {
@@ -198,17 +190,6 @@ const DashboardLayout = ({ children }: SidebarProps) => {
               </Button>
             </div>
           )}
-
-          {/* Bottom actions */}
-          <div className="p-3 border-t border-border space-y-0.5">
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
-            >
-              <LogOut className="w-[18px] h-[18px] flex-shrink-0" />
-              {!collapsed && <span className="text-sm font-medium">Log Out</span>}
-            </button>
-          </div>
 
           {/* Collapse Button */}
           <button

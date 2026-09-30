@@ -20,6 +20,9 @@ services:
       #   cross-product bundles, and each of FundaKaMental/Journal/Gini's own
       #   Pro plan + AI token wallet)
       # - RAZORPAY_KEY_SECRET (required, see above)
+      # - RAZORPAY_WEBHOOK_SECRET (required — must match the secret on the
+      #   Razorpay Dashboard webhook for /api/payments/razorpay/webhook,
+      #   event order.paid; grants purchases whose browser never returned)
       # - ANTHROPIC_API_KEY (required — primary AI provider for every
       #   product's chat/report/coach features, plus newsletter generation)
       # - ANTHROPIC_MODEL  (e.g. claude-sonnet-4-6; defaults to that if unset)
