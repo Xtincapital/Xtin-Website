@@ -10,6 +10,55 @@ import type { PriceBar } from "./technicalIndicators.js";
 
 const yahooFinance = new YahooFinance();
 
+// --- Rate-limit protection -------------------------------------------------
+// Yahoo returns 429 ("Failed to get crumb") to cloud IPs when hit repeatedly.
+// We (1) cache results per key, (2) share in-flight requests so concurrent
+// callers for the same ticker make one upstream call, and (3) after a 429,
+// skip crumb-requiring endpoints for a cooldown instead of retrying each one.
+const QUOTE_TTL_MS = 60_000;
+const OVERVIEW_TTL_MS = 15 * 60_000;
+const HISTORY_TTL_MS = 10 * 60_000;
+const SEARCH_TTL_MS = 10 * 60_000;
+const FAILURE_TTL_MS = 30_000; // short negative cache so failures aren't retried in a burst
+const RATE_LIMIT_COOLDOWN_MS = 60_000;
+const MAX_CACHE_ENTRIES = 2000;
+
+const cache = new Map<string, { value: unknown; expires: number }>();
+const inflight = new Map<string, Promise<unknown>>();
+let rateLimitedUntil = 0;
+
+function isRateLimitError(err: unknown): boolean {
+    const msg = String((err as Error)?.message ?? err);
+    return msg.includes("429") || /too many requests/i.test(msg);
+}
+
+function noteRateLimit(err: unknown): void {
+    if (!isRateLimitError(err)) return;
+    if (Date.now() >= rateLimitedUntil) {
+        console.warn(`[Fundakamental] Yahoo rate-limited (429); pausing crumb-based calls for ${RATE_LIMIT_COOLDOWN_MS / 1000}s`);
+    }
+    rateLimitedUntil = Date.now() + RATE_LIMIT_COOLDOWN_MS;
+}
+
+const isRateLimited = (): boolean => Date.now() < rateLimitedUntil;
+
+async function cached<T>(key: string, ttlMs: number, fn: () => Promise<T | null>): Promise<T | null> {
+    const hit = cache.get(key);
+    if (hit && hit.expires > Date.now()) return hit.value as T | null;
+
+    const pending = inflight.get(key);
+    if (pending) return pending as Promise<T | null>;
+
+    const p = (async () => {
+        const value = await fn();
+        if (cache.size >= MAX_CACHE_ENTRIES) cache.delete(cache.keys().next().value as string);
+        cache.set(key, { value, expires: Date.now() + (value == null ? FAILURE_TTL_MS : ttlMs) });
+        return value;
+    })().finally(() => inflight.delete(key));
+    inflight.set(key, p);
+    return p;
+}
+
 export interface StockOverview {
     ticker: string;
     name: string | null;
@@ -79,7 +128,12 @@ export interface CompanySearchResult {
  * by 100x, drop the `* 100` in `asPercent` below (there is no live server
  * in this task to verify against).
  */
-export async function getCompanyOverview(ticker: string): Promise<StockOverview | null> {
+export function getCompanyOverview(ticker: string): Promise<StockOverview | null> {
+    return cached(`overview:${ticker}`, OVERVIEW_TTL_MS, () => fetchCompanyOverview(ticker));
+}
+
+async function fetchCompanyOverview(ticker: string): Promise<StockOverview | null> {
+    if (isRateLimited()) return null;
     try {
         const result = await yahooFinance.quoteSummary(ticker, {
             modules: ["assetProfile", "summaryDetail", "defaultKeyStatistics", "financialData", "price"],
@@ -125,7 +179,8 @@ export async function getCompanyOverview(ticker: string): Promise<StockOverview 
             last_updated: new Date().toISOString(),
         };
     } catch (err) {
-        console.error(`[Fundakamental] error fetching Yahoo Finance overview for ${ticker}:`, err);
+        noteRateLimit(err);
+        console.error(`[Fundakamental] error fetching Yahoo Finance overview for ${ticker}:`, (err as Error)?.message || err);
         return null;
     }
 }
@@ -140,6 +195,10 @@ export async function getCompanyOverview(ticker: string): Promise<StockOverview 
  * "quotes/history/fundamentals", so streaming works out of the box.
  */
 export async function getQuote(ticker: string): Promise<QuoteData | null> {
+    return cached(`quote:${ticker}`, QUOTE_TTL_MS, () => fetchQuote(ticker));
+}
+
+async function fetchQuote(ticker: string): Promise<QuoteData | null> {
     // Yahoo's quote API needs a session cookie ("crumb") that it often
     // refuses to cloud servers like Render, so a live price can come back
     // empty there while working fine locally. Fall back to the chart API
@@ -149,6 +208,7 @@ export async function getQuote(ticker: string): Promise<QuoteData | null> {
 }
 
 async function quoteFromQuoteApi(ticker: string): Promise<QuoteData | null> {
+    if (isRateLimited()) return null; // skip straight to chart API / cache
     try {
         const q = await yahooFinance.quote(ticker);
         if (!q?.symbol || q.regularMarketPrice == null) return null;
@@ -164,7 +224,8 @@ async function quoteFromQuoteApi(ticker: string): Promise<QuoteData | null> {
             low: q.regularMarketDayLow ?? null,
         };
     } catch (err) {
-        console.error(`[Fundakamental] quote API failed for ${ticker}, trying chart API:`, (err as Error)?.message || err);
+        noteRateLimit(err);
+        if (!isRateLimitError(err)) console.error(`[Fundakamental] quote API failed for ${ticker}, trying chart API:`, (err as Error)?.message || err);
         return null;
     }
 }
@@ -222,6 +283,12 @@ async function quoteFromCache(ticker: string): Promise<QuoteData | null> {
 
 /** Search for companies by name or ticker symbol via Yahoo Finance. */
 export async function searchCompanies(query: string): Promise<CompanySearchResult[]> {
+    const key = `search:${query.trim().toLowerCase()}`;
+    return (await cached(key, SEARCH_TTL_MS, () => fetchSearch(query))) ?? [];
+}
+
+async function fetchSearch(query: string): Promise<CompanySearchResult[] | null> {
+    if (isRateLimited()) return null;
     try {
         const results = await yahooFinance.search(query, { quotesCount: 10, newsCount: 0 });
         return results.quotes
@@ -234,13 +301,21 @@ export async function searchCompanies(query: string): Promise<CompanySearchResul
                 exchange: q.exchange,
             }));
     } catch (err) {
-        console.error("[Fundakamental] error searching companies:", err);
-        return [];
+        noteRateLimit(err);
+        console.error("[Fundakamental] error searching companies:", (err as Error)?.message || err);
+        return null;
     }
 }
 
 /** Get historical daily OHLCV data for a date range. */
 export async function getHistoricalPrices(ticker: string, startDate: Date, endDate: Date): Promise<PriceBar[]> {
+    // Key on day granularity so "now"-based end dates still hit the cache.
+    const day = (d: Date) => d.toISOString().slice(0, 10);
+    const key = `history:${ticker}:${day(startDate)}:${day(endDate)}`;
+    return (await cached(key, HISTORY_TTL_MS, () => fetchHistoricalPrices(ticker, startDate, endDate))) ?? [];
+}
+
+async function fetchHistoricalPrices(ticker: string, startDate: Date, endDate: Date): Promise<PriceBar[] | null> {
     try {
         const result = await yahooFinance.chart(ticker, {
             period1: startDate,
@@ -261,7 +336,8 @@ export async function getHistoricalPrices(ticker: string, startDate: Date, endDa
                 adjusted_close: q.adjclose ?? q.close,
             }));
     } catch (err) {
-        console.error(`[Fundakamental] error fetching historical prices for ${ticker}:`, err);
-        return [];
+        noteRateLimit(err);
+        console.error(`[Fundakamental] error fetching historical prices for ${ticker}:`, (err as Error)?.message || err);
+        return null;
     }
 }
