@@ -56,16 +56,17 @@ const HelpCenter = () => {
       console.log('Response ok:', response.ok);
 
       if (!response.ok) {
+        // Read the body once — calling .json() then .text() throws "body stream already read"
+        const errorText = await response.text();
+        let errorMessage = 'Failed to submit your message. Please try again.';
         try {
-          const errorData = await response.json();
-          console.error('Response error:', errorData);
-          throw new Error(errorData.message || 'Failed to save to database');
-        } catch (parseError) {
-          // If response is not JSON, fall back to text
-          const errorText = await response.text();
-          console.error('Response error (text):', errorText);
-          throw new Error('Failed to save to database');
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch {
+          // Non-JSON error body; keep the generic message
         }
+        console.error('Response error:', response.status, errorText);
+        throw new Error(errorMessage);
       }
 
       const responseData = await response.json();
