@@ -17,7 +17,9 @@
 
 @layer base {
   .gini-scope,
-  .gini-scope * {
+  .gini-scope *,
+  body.gini-portals > :not(#root),
+  body.gini-portals > :not(#root) * {
     @apply border-border;
   }
 

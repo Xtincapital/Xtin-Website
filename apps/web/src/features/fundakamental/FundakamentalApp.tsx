@@ -20,7 +20,7 @@
 //     in apps/web/src/App.tsx around the whole router) already does this
 //     exactly once, app-wide. Doing it again here would double the IP
 //     lookup + FX fetch every time this subtree mounts.
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -55,7 +55,16 @@ const queryClient = new QueryClient({
   },
 });
 
-const FundakamentalApp = () => (
+const FundakamentalApp = () => {
+  // Dialogs/selects portal into <body>, outside DashboardLayout's
+  // `fundakamental-scope` wrapper — this class gives them FundaKaMental's
+  // design tokens too (see index.css).
+  useEffect(() => {
+    document.body.classList.add("fundakamental-portals");
+    return () => document.body.classList.remove("fundakamental-portals");
+  }, []);
+
+  return (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -95,6 +104,7 @@ const FundakamentalApp = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
-);
+  );
+};
 
 export default FundakamentalApp;

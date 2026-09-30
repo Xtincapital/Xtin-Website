@@ -46,7 +46,6 @@ const Navbar = () => {
       <li><NavLink to="/tools" title="View financial calculators and tools" className={navLinkClass}>Tools</NavLink></li>
       <li><NavLink to="/fundakamental" title="Open fundamental analysis dashboard" className={navLinkClass}>Fundakamental</NavLink></li>
       <li><NavLink to="/algos" title="View trading algorithms" className={navLinkClass}>Algorithms</NavLink></li>
-      <li><NavLink to="/backtest" title="Backtest strategies with AI" className={navLinkClass}>Backtest</NavLink></li>
       <li><NavLink to="/journal" title="Access trading journal" className={navLinkClass}>Journal</NavLink></li>
       <li><NavLink to="/gini" title="Open Gini AI advisor" className={navLinkClass}>GiniAI</NavLink></li>
       <li><NavLink to="/newsletter" title="Subscribe to our financial newsletter" className={navLinkClass}>Newsletter</NavLink></li>
@@ -71,7 +70,6 @@ const Navbar = () => {
       <li role="menuitem"><NavLink to="/newsletter" className={mobileNavLinkClass}>Newsletter</NavLink></li>
       <li role="menuitem"><NavLink to="/journal" className={mobileNavLinkClass}>Journal</NavLink></li>
       <li role="menuitem"><NavLink to="/algos" className={mobileNavLinkClass}>Algorithms</NavLink></li>
-      <li role="menuitem"><NavLink to="/backtest" className={mobileNavLinkClass}>Backtest</NavLink></li>
       <li role="menuitem"><NavLink to="/gini" className={mobileNavLinkClass}>Gini AI</NavLink></li>
     </>
   );

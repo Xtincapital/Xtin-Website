@@ -133,8 +133,8 @@ export default function UpgradeModal() {
               onClick={() => setBilling("monthly")}
               className={`px-3 py-1.5 text-sm font-semibold ${
                 billing === "monthly"
-                  ? "bg-foreground text-white"
-                  : "bg-white text-muted-foreground hover:bg-secondary"
+                  ? "bg-foreground text-background"
+                  : "bg-card text-muted-foreground hover:bg-secondary"
               }`}
             >
               Monthly
@@ -143,8 +143,8 @@ export default function UpgradeModal() {
               onClick={() => setBilling("yearly")}
               className={`px-3 py-1.5 text-sm font-semibold flex items-center gap-1.5 ${
                 billing === "yearly"
-                  ? "bg-foreground text-white"
-                  : "bg-white text-muted-foreground hover:bg-secondary"
+                  ? "bg-foreground text-background"
+                  : "bg-card text-muted-foreground hover:bg-secondary"
               }`}
             >
               Yearly

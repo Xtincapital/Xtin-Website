@@ -17,7 +17,9 @@
 
 @layer base {
   .fundakamental-scope,
-  .fundakamental-scope * {
+  .fundakamental-scope *,
+  body.fundakamental-portals > :not(#root),
+  body.fundakamental-portals > :not(#root) * {
     @apply border-border;
   }
 

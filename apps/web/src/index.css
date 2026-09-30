@@ -437,9 +437,15 @@ html.dark .via-rose-50 { --tw-gradient-stops: var(--tw-gradient-from), rgba(244,
    --theme-bg page background and Tailwind's default radius and shadows.
    Scoped to the apps' wrapper classes (set in their layout components),
    which sit between the shared Navbar and Footer, so nothing else changes.
-   Journal deliberately keeps its own original design (journal.css). */
+   Journal deliberately keeps its own original design (journal.css).
+   `body.fundakamental-portals` / `body.gini-portals` (set by each app shell
+   while it's mounted) extend the same tokens to Radix portals — dialogs,
+   selects, popovers — which render as direct children of <body>, outside
+   the scope wrapper. */
 .fundakamental-scope,
-.gini-scope {
+.gini-scope,
+body.fundakamental-portals > :not(#root),
+body.gini-portals > :not(#root) {
   --background: 210 40% 98%;
   --foreground: 221 39% 11%;
   --card: 0 0% 100%;
@@ -491,7 +497,9 @@ html.dark .via-rose-50 { --tw-gradient-stops: var(--tw-gradient-from), rgba(244,
 }
 
 html.dark .fundakamental-scope,
-html.dark .gini-scope {
+html.dark .gini-scope,
+html.dark body.fundakamental-portals > :not(#root),
+html.dark body.gini-portals > :not(#root) {
   color-scheme: dark;
   --background: 222 47% 8%;
   --foreground: 220 14% 91%;

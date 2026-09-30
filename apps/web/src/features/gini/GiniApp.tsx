@@ -58,7 +58,7 @@
 // matching the original's actual floating-widget UX rather than turning it
 // into a page.
 // ─────────────────────────────────────────────────────────────────────────
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -119,6 +119,13 @@ const ComingSoon = () => (
 const GiniApp = () => {
   // Remount every page when sample mode flips so each one refetches.
   const { version } = giniSampleMode.useState();
+
+  // Dialogs/selects portal into <body>, outside GiniLayout's `gini-scope`
+  // wrapper — this class gives them Gini's design tokens too (see index.css).
+  useEffect(() => {
+    document.body.classList.add("gini-portals");
+    return () => document.body.classList.remove("gini-portals");
+  }, []);
 
   return (
   <ErrorBoundary>
