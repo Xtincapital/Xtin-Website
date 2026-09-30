@@ -27,6 +27,7 @@
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { withSampleMode } from '../../../lib/sampleMode';
+import { uploadForParse } from '../../../lib/uploadFile';
 import {
   giniSampleMode,
   sampleAssets,
@@ -395,8 +396,20 @@ export const chat = {
 // split. Import that store for plan tier, wallet balance, and checkout.
 // ─────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────
+// Document import (import.routes.ts) — stateless: parses an uploaded CSV/Excel
+// sheet into rows shaped like the asset/liability create bodies; the caller
+// previews them and saves the ones it keeps via `assets.createAsset` /
+// `liabilities.createLiability`.
+// ─────────────────────────────────────────────────────────────────────────
+export const importHoldings = {
+  parse: (file: File, fileType: 'csv' | 'excel', kind: 'assets' | 'liabilities') =>
+    uploadForParse<{ rows: any[]; count: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind }),
+};
+
 // Export all implemented APIs
 export const api = {
+  importHoldings,
   familyMembers,
   assets,
   liabilities,

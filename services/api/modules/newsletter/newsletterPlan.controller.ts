@@ -10,6 +10,7 @@
 // Activating Pro also upgrades the subscriber's market preferences so the
 // twice-daily generator immediately sends them the editions they paid for.
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
+import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import {
     updateSubscriberMarkets,
@@ -293,7 +294,8 @@ async function persistNewsletterPlan({ user, plan, planId, paymentId, orderId, c
     strict?: boolean;
 }) {
     const now = new Date();
-    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+    const { data: existingPlan } = await getNewsletterPlanByUserId(user.userId);
+    const validUntil = stackValidUntil({ existingValidUntil: existingPlan?.valid_until, existingPaymentId: existingPlan?.payment_id, paymentId, extend: addDays(plan.durationDays), now });
     const marketsCsv = sanitizeMarkets(markets);
     const record = {
         user_id: String(user.userId),

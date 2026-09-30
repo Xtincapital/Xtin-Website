@@ -9,8 +9,8 @@ class BundleSubscriptionService {
   async createOrder({ item, billingCycle, customProducts = [] }) {
     let amount = 0;
     let products = [];
-    let planId = item.id;
-    let planName = item.name;
+    const planId = item.id;
+    const planName = item.name;
 
     if (item.id === 'ultimate-pass' || item.isBundle) {
       amount = billingCycle === 'annual' ? item.annualPrice : item.monthlyPrice;

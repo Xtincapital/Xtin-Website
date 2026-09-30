@@ -23,7 +23,7 @@ const NewsletterDisplay = () => {
   const { id } = useParams();
   const [newsletter, setNewsletter] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   useEffect(() => {
     const fetchNewsletter = async () => {

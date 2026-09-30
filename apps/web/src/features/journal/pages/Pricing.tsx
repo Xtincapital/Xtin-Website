@@ -37,6 +37,7 @@ const CURRENCY_SYMBOL: Record<string, string> = { INR: "₹", USD: "$", GBP: "£
 
 const FREE_FEATURES = [
   "Unlimited manual trade logging",
+  "CSV/Excel/PDF trade import & CSV export",
   "Dashboard, Calendar & Daily views",
   "Metrics & Monthly summaries",
   "Up to 2 performance goals",
@@ -49,7 +50,6 @@ const PRO_FEATURES = [
   "Hourly Analysis — find your golden hours",
   "Analytics — pro-grade performance review",
   "Heatmaps — see patterns at a glance",
-  "CSV/Excel/PDF import & CSV export",
   "Unlimited performance goals",
   "Priority AI coach access",
 ];

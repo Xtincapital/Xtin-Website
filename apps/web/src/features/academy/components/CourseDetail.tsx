@@ -110,7 +110,7 @@ const CourseDetail = () => {
                   <span className="text-xs text-gray-500">{chapter.videos.length} videos</span>
                 </div>
                 <div className="bg-white">
-                  {chapter.videos.map((video, vIndex) => (
+                  {chapter.videos.map((video, _vIndex) => (
                     <div key={video.id} className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b last:border-0 border-gray-100">
                       {isPurchased ? (
                          <div className="text-green-500"><FaPlayCircle /></div>

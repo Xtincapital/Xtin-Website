@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import SEO, { generateToolData, generateBreadcrumbData } from "../../../components/SEO";
+import SEO from "../../../components/SEO";
 import useRegion from "../../../hooks/useRegion";
 
 // Professional SVG Icons for each calculator
@@ -303,11 +303,6 @@ const ToolsPage = () => {
 	// Check if search is active
 	const isSearchActive = searchQuery.trim().length > 0;
 
-	const breadcrumbData = generateBreadcrumbData([
-		{ name: 'Home', url: '/' },
-		{ name: 'Financial Calculators', url: '/tools' }
-	]);
-
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'CollectionPage',
@@ -562,7 +557,7 @@ const ToolsPage = () => {
 					</div>
 
 					{/* Calculator Sections - Hidden when search is active */}
-					{!isSearchActive && displayedSections.map((section, sectionIdx) => (
+					{!isSearchActive && displayedSections.map((section) => (
 						<div key={section.title}>
 							{/* Section Header */}
 							<div className="mb-10 text-center">

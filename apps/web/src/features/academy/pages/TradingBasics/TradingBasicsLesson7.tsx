@@ -210,7 +210,6 @@ const AlternativeCard = ({ icon: Icon, title, description, returns, risk, effort
 const TradingBasicsLesson7 = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [showResult, setShowResult] = useState(false);
 
   const questions = [
     {

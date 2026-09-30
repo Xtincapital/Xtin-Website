@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
 
 // SVG 1: What Is an Option
@@ -433,7 +433,6 @@ const WarningBannerSVG = () => (
 );
 
 const DerivLesson3 = () => {
-  const navigate = useNavigate();
   const [quizAnswers, setQuizAnswers] = useState({});
   const [showResults, setShowResults] = useState({});
 

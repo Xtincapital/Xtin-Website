@@ -23,10 +23,16 @@ import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Lock } from "lucide-react";
 import JournalSampleBar from "./JournalSampleBar";
+import ProGate from "./ProGate";
+import { useJournalPlanStore } from "../store/useJournalPlanStore";
 
 interface JournalLayoutProps {
   children: React.ReactNode;
+  /** Set on Pro-only pages: shows an upgrade prompt instead of the page
+   *  content unless the user has an active Journal Pro plan. */
+  proFeature?: string;
 }
 
 interface TabItem {
@@ -35,6 +41,8 @@ interface TabItem {
   /** Dashboard is the index route (`/journal`) — needs an exact match or it
    *  would stay active on every Journal page. */
   end?: boolean;
+  /** Pro-only section (matches the Pricing page's Pro feature list). */
+  pro?: boolean;
 }
 
 // The original's tab order (dashboard, trades, psychology, hourly, calendar,
@@ -43,23 +51,31 @@ interface TabItem {
 const tabs: TabItem[] = [
   { name: "Dashboard", href: "/journal", end: true },
   { name: "Trades", href: "/journal/trades" },
-  { name: "Psychology", href: "/journal/psychology" },
-  { name: "Hourly Analysis", href: "/journal/hourly" },
+  { name: "Psychology", href: "/journal/psychology", pro: true },
+  { name: "Hourly Analysis", href: "/journal/hourly", pro: true },
   { name: "Calendar", href: "/journal/calendar" },
   { name: "Metrics", href: "/journal/summary" },
   { name: "Monthly", href: "/journal/monthly" },
   { name: "Daily", href: "/journal/daily" },
-  { name: "Analytics", href: "/journal/analytics" },
-  { name: "Heatmaps", href: "/journal/heatmaps" },
+  { name: "Analytics", href: "/journal/analytics", pro: true },
+  { name: "Heatmaps", href: "/journal/heatmaps", pro: true },
   { name: "Goals", href: "/journal/goals" },
   { name: "AI Coach", href: "/journal/coach" },
   { name: "Pricing", href: "/journal/pricing" },
   { name: "Settings", href: "/journal/settings" },
 ];
 
-const JournalLayout = ({ children }: JournalLayoutProps) => {
+const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
   const { pathname } = useLocation();
   const tabsRef = useRef<HTMLElement>(null);
+  const isPro = useJournalPlanStore((s) => s.isPro)();
+  const planFetched = useJournalPlanStore((s) => s.fetched);
+  const fetchPlan = useJournalPlanStore((s) => s.fetchPlan);
+
+  // Server-backed plan lookup, once per session — fails closed (not Pro) if it errors.
+  useEffect(() => {
+    if (!planFetched) fetchPlan();
+  }, [planFetched, fetchPlan]);
 
   // On narrow screens the tab bar scrolls sideways; keep the active tab visible.
   useEffect(() => {
@@ -76,33 +92,39 @@ const JournalLayout = ({ children }: JournalLayoutProps) => {
     <>
       <Navbar />
       <div className="journal-scope journal-classic">
-        <header className="app-header">
-          <div className="header-left">
-            <NavLink to="/journal" end className="brand-link">
-              <span className="brand-name-main">Xtin</span>
-              <span className="brand-name-accent">Journal</span>
-            </NavLink>
-            <p>Trading Journal</p>
-          </div>
-        </header>
-
-        <nav ref={tabsRef} className="tabs-container" aria-label="Trading journal sections">
-          {tabs.map((tab) => (
-            <NavLink
-              key={tab.href}
-              to={tab.href}
-              end={tab.end}
-              className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
-            >
-              {tab.name}
-            </NavLink>
-          ))}
-        </nav>
+        {/* One bar: the Xtin Journal brand sits in the nav with the tabs. */}
+        <div className="nav-bar">
+          <NavLink to="/journal" end className="brand-link" aria-label="Xtin Journal home">
+            <span className="brand-name-main">Xtin</span>
+            <span className="brand-name-accent">Journal</span>
+          </NavLink>
+          <nav ref={tabsRef} className="tabs-container" aria-label="Trading journal sections">
+            {tabs.map((tab) => (
+              <NavLink
+                key={tab.href}
+                to={tab.href}
+                end={tab.end}
+                className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
+              >
+                {tab.name}
+                {tab.pro && !isPro && planFetched && (
+                  <Lock className="tab-lock" aria-label="Pro feature" />
+                )}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
 
         <JournalSampleBar />
 
         <main id="main-content" className="tab-content journal-content">
-          {children}
+          {proFeature ? (
+            <ProGate feature={proFeature} isPro={isPro} loading={!planFetched}>
+              {children}
+            </ProGate>
+          ) : (
+            children
+          )}
         </main>
       </div>
       <Footer />

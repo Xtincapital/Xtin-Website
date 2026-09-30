@@ -45,7 +45,6 @@ const AlgosPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const razorpayFormRef = useRef(null);
   const razorpayBuildAlgoFormRef = useRef(null);
-  const razorpayAlgoSubscribeRef = useRef(null);
 
   // Load Razorpay script when payment modal opens
   useEffect(() => {
@@ -92,7 +91,7 @@ const AlgosPage = () => {
 
   const [showBuildAlgoModal, setShowBuildAlgoModal] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState(320); // Default width in pixels
+  const [sidebarWidth] = useState(320); // Default width in pixels
   const buildAlgoWebhookUrl = 'https://xtincapital.app.n8n.cloud/webhook-test/algo-form-submission';
 
   const switchTab = (tabName) => {
@@ -179,16 +178,6 @@ const AlgosPage = () => {
     }
   };
 
-  const scheduleConsultation = (algoName) => {
-    setSelectedAlgoName(algoName);
-    // For XTIN GreenZone, show payment modal first
-    if (algoName === 'XTIN GreenZone') {
-      setShowGreenZonePaymentModal(true);
-    } else {
-      setShowConsultationModal(true);
-    }
-  };
-
   const closeGreenZonePaymentModal = () => {
     setShowGreenZonePaymentModal(false);
   };
@@ -217,13 +206,6 @@ const AlgosPage = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleSidebarResize = (e) => {
-    const newWidth = e.clientX;
-    if (newWidth >= 250 && newWidth <= 500) { // Min 250px, Max 500px
-      setSidebarWidth(newWidth);
-    }
-  };
-
   const handleBuildAlgoSubmit = async (e) => {
     e.preventDefault();
     setBuildAlgoSubmitMessage('');
@@ -245,7 +227,7 @@ const AlgosPage = () => {
 
       setBuildAlgoSubmitMessage('Submitted successfully. Please continue and book your call below.');
       e.currentTarget.reset();
-    } catch (error) {
+    } catch {
       setBuildAlgoSubmitMessage('Submission failed. Please try again.');
     } finally {
       setIsBuildAlgoSubmitting(false);

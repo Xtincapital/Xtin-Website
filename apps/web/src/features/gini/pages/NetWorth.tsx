@@ -39,7 +39,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, XAxis, YAxis } from "recharts";
 import { toast } from "sonner";
-import { Landmark, Pencil, Plus, Scale, Trash2, Wallet } from "lucide-react";
+import { Landmark, Pencil, Plus, Scale, Trash2, Upload, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -64,6 +64,7 @@ import { cn } from "@/lib/utils";
 import { api } from "../lib/api";
 import type { Asset, AssetInput, AssetOwnershipType, FamilyMember, Liability, LiabilityInput } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
+import ImportHoldingsDialog from "../components/ImportHoldingsDialog";
 
 // Verbatim from features-incoming/gini/index.html's #assetCategory select
 // (~lines 917-927).
@@ -286,6 +287,7 @@ export default function NetWorth() {
 
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget>(null);
 
+  const [importKind, setImportKind] = useState<"assets" | "liabilities" | null>(null);
   const invalidateAssets = () => queryClient.invalidateQueries({ queryKey: ["gini", "assets"] });
   const invalidateLiabilities = () => queryClient.invalidateQueries({ queryKey: ["gini", "liabilities"] });
 
@@ -484,10 +486,16 @@ export default function NetWorth() {
               <Wallet className="h-5 w-5 text-primary" />
               <CardTitle>Assets</CardTitle>
             </div>
-            <Button size="sm" onClick={openAddAssetDialog}>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Asset
-            </Button>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => setImportKind("assets")}>
+                <Upload className="mr-2 h-4 w-4" />
+                Import
+              </Button>
+              <Button size="sm" onClick={openAddAssetDialog}>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Asset
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {assetsQuery.isLoading ? (
@@ -556,10 +564,16 @@ export default function NetWorth() {
               <Landmark className="h-5 w-5 text-primary" />
               <CardTitle>Liabilities</CardTitle>
             </div>
-            <Button size="sm" onClick={openAddLiabilityDialog}>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Liability
-            </Button>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => setImportKind("liabilities")}>
+                <Upload className="mr-2 h-4 w-4" />
+                Import
+              </Button>
+              <Button size="sm" onClick={openAddLiabilityDialog}>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Liability
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {liabilitiesQuery.isLoading ? (
@@ -698,6 +712,14 @@ export default function NetWorth() {
       </div>
 
       {/* Add / Edit asset dialog */}
+      {importKind && (
+        <ImportHoldingsDialog
+          kind={importKind}
+          open
+          onOpenChange={(o) => !o && setImportKind(null)}
+          onImported={importKind === "assets" ? invalidateAssets : invalidateLiabilities}
+        />
+      )}
       <Dialog open={assetDialogOpen} onOpenChange={setAssetDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>

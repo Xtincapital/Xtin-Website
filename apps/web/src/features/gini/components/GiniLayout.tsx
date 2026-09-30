@@ -43,12 +43,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
 import GiniSampleBar from "./GiniSampleBar";
+import { useGiniPlanStore } from "../store/useGiniPlanStore";
 
 interface GiniLayoutProps {
   children: React.ReactNode;
@@ -62,6 +64,8 @@ interface NavItem {
    *  of the `startsWith` used for every other (nested) route, or it would
    *  stay highlighted on every Gini page. */
   exact?: boolean;
+  /** Pro-only page (matches the Pricing page's Pro feature list). */
+  pro?: boolean;
 }
 
 interface NavSection {
@@ -97,8 +101,8 @@ const navSections: NavSection[] = [
     items: [
       { name: "Portfolio", icon: PieChart, href: "/gini/portfolio" },
       { name: "Planner", icon: TrendingUp, href: "/gini/planner" },
-      { name: "Required Return", icon: Percent, href: "/gini/required-return" },
-      { name: "Monte Carlo", icon: Dices, href: "/gini/monte-carlo" },
+      { name: "Required Return", pro: true, icon: Percent, href: "/gini/required-return" },
+      { name: "Monte Carlo", pro: true, icon: Dices, href: "/gini/monte-carlo" },
     ],
   },
   {
@@ -107,7 +111,7 @@ const navSections: NavSection[] = [
       { name: "Retirement", icon: Landmark, href: "/gini/retirement" },
       { name: "Calculators", icon: Calculator, href: "/gini/calculators" },
       { name: "Family Planning", icon: HeartHandshake, href: "/gini/family-planning" },
-      { name: "Advanced Planning", icon: ShieldCheck, href: "/gini/family-advanced" },
+      { name: "Advanced Planning", pro: true, icon: ShieldCheck, href: "/gini/family-advanced" },
     ],
   },
   {
@@ -129,6 +133,14 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
+  const isPro = useGiniPlanStore((s) => s.isPro)();
+  const planFetched = useGiniPlanStore((s) => s.fetched);
+  const fetchPlan = useGiniPlanStore((s) => s.fetchPlan);
+
+  // Server-backed plan lookup, once per session — fails closed (not Pro) if it errors.
+  useEffect(() => {
+    if (!planFetched) fetchPlan();
+  }, [planFetched, fetchPlan]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -176,6 +188,9 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                       >
                         <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
                         {!collapsed && <span className="text-sm">{item.name}</span>}
+                        {!collapsed && item.pro && !isPro && planFetched && (
+                          <Lock className="w-3 h-3 ml-auto text-muted-foreground/70" aria-label="Pro feature" />
+                        )}
                       </Link>
                     );
                   })}

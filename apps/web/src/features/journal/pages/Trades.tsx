@@ -49,7 +49,9 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download } from "lucide-react";
+import { csvCell, downloadTextFile } from "@/lib/uploadFile";
+import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
 import type { Trade, Strategy } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
@@ -211,7 +213,40 @@ function tradeStatus(pnl: number | null | undefined): { label: string; className
   return { label: "Breakeven", className: "text-muted-foreground" };
 }
 
+const EXPORT_COLUMNS: (keyof Trade)[] = [
+  "date", "exit_date", "entry_time", "exit_time", "asset", "market", "type", "buy_sell", "quantity", "entry_price",
+  "exit_price", "stop_loss", "target_price", "brokerage", "pnl", "currency", "strategy", "emotion", "notes", "tags",
+];
+
 export default function Trades() {
+  const [importOpen, setImportOpen] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  async function exportCsv() {
+    setExporting(true);
+    try {
+      const all: Trade[] = [];
+      for (let off = 0; ; off += 200) {
+        const res = await api.trades.getTrades({ limit: 200, offset: off });
+        all.push(...(res.data || []));
+        if (!res.data?.length || all.length >= (res.pagination?.total ?? 0)) break;
+      }
+      if (!all.length) {
+        toast.error("No trades to export yet");
+        return;
+      }
+      const lines = [EXPORT_COLUMNS.join(",")].concat(
+        all.map((t) => EXPORT_COLUMNS.map((c) => csvCell(Array.isArray(t[c]) ? (t[c] as string[]).join(";") : t[c])).join(","))
+      );
+      downloadTextFile(`journal-trades-${new Date().toISOString().slice(0, 10)}.csv`, lines.join("\n"));
+      toast.success(`Exported ${all.length} trades`);
+    } catch (err: any) {
+      toast.error(err?.message || "Export failed");
+    } finally {
+      setExporting(false);
+    }
+  }
+
   const [trades, setTrades] = useState<Trade[]>([]);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -406,11 +441,22 @@ export default function Trades() {
             <h1 className="text-2xl font-semibold tracking-tight">Trades</h1>
             <p className="text-sm text-muted-foreground">{total} trade{total === 1 ? "" : "s"} logged</p>
           </div>
-          <Button onClick={openAddDialog}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Trade
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" onClick={() => setImportOpen(true)}>
+              <Upload className="mr-2 h-4 w-4" />
+              Import
+            </Button>
+            <Button variant="outline" disabled={exporting} onClick={exportCsv}>
+              <Download className="mr-2 h-4 w-4" />
+              Export CSV
+            </Button>
+            <Button onClick={openAddDialog}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Trade
+            </Button>
+          </div>
         </div>
+        <ImportTradesDialog open={importOpen} onOpenChange={setImportOpen} onImported={() => loadTrades(0)} />
 
         <div className="relative max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

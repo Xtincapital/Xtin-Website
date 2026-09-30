@@ -99,7 +99,7 @@ export default function Dashboard() {
 
   const isLoading = membersLoading || assetsLoading || liabilitiesLoading || goalsLoading;
 
-  const { totalAssets, totalLiabilities, netWorth, healthScore, assetChartData, goalsChartData } = useMemo(() => {
+  const { totalLiabilities, netWorth, healthScore, assetChartData, goalsChartData } = useMemo(() => {
     const totalAssetsValue = assets.reduce((sum, a) => sum + (a.value || 0), 0);
     const totalLiabilitiesValue = liabilities.reduce((sum, l) => sum + (l.amount || 0), 0);
     const netWorthValue = totalAssetsValue - totalLiabilitiesValue;

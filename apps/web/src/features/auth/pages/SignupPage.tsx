@@ -47,7 +47,7 @@ const SignupPage = () => {
 		if (!/[0-9]/.test(password)) {
 			errors.push("a number");
 		}
-		if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+		if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
 			errors.push("a special character");
 		}
 		return errors;

@@ -1,4 +1,3 @@
-import authService from './authService';
 import { BACKEND_URL } from '../config/env';
 
 class NewsletterService {

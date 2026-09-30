@@ -270,7 +270,7 @@ const StockScanner = () => {
     { id: "2", field: "market_cap", operator: "gte", value: "10000000000" },
   ]);
   const [activePreset, setActivePreset] = useState<string | null>(null);
-  const [hasRun, setHasRun] = useState(false);
+  const [, setHasRun] = useState(false);
   // Default the scanning universe to the visitor's region (India users → NSE,
   // everyone else → US); they can still switch markets manually.
   const [market, setMarket] = useState<"india" | "us">(regionToMarket(region));

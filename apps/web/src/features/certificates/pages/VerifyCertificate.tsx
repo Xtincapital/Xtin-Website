@@ -45,7 +45,7 @@ const VerifyCertificate = () => {
           certificate: result.data || null,
           message: result.message || null,
         });
-      } catch (err) {
+      } catch {
         setState({
           loading: false,
           status: 'error',

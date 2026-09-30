@@ -40,6 +40,8 @@ import {
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { Plus, Trash2, Target } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useJournalPlanStore } from "../store/useJournalPlanStore";
 import { api } from "../lib/api";
 import type { Goal, Trade } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
@@ -160,7 +162,13 @@ interface GoalFormState {
 
 const EMPTY_FORM: GoalFormState = { title: "", metric: "total_pnl", timeframe: "this_month", target_value: "" };
 
+// Free plan cap — matches the Pricing page ("Up to 2 performance goals") and
+// the server-side check in services/api/modules/journal/goals.controller.ts.
+const FREE_GOAL_LIMIT = 2;
+
 export default function Goals() {
+  const navigate = useNavigate();
+  const isPro = useJournalPlanStore((s) => s.isPro)();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [trades, setTrades] = useState<TradeForMetrics[]>([]);
   const [loading, setLoading] = useState(true);
@@ -196,6 +204,12 @@ export default function Goals() {
   const metricsByTimeframe = useMemo(() => buildMetricsByTimeframe(trades), [trades]);
 
   function openAddDialog() {
+    if (!isPro && goals.length >= FREE_GOAL_LIMIT) {
+      toast.error(`The free plan allows up to ${FREE_GOAL_LIMIT} goals`, {
+        action: { label: "Upgrade", onClick: () => navigate("/journal/pricing") },
+      });
+      return;
+    }
     setForm(EMPTY_FORM);
     setDialogOpen(true);
   }

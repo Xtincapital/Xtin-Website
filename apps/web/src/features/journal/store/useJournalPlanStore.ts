@@ -206,6 +206,8 @@ interface JournalPlanState {
   planId: string | null;
   validUntil: string | null;
   planLoading: boolean;
+  /** True once the first plan lookup has settled (success or failure). */
+  fetched: boolean;
   isPro: () => boolean;
   fetchPlan: () => Promise<void>;
 
@@ -234,6 +236,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
   planId: null,
   validUntil: null,
   planLoading: false,
+  fetched: false,
 
   wallet: null,
   walletLoading: false,
@@ -261,7 +264,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
     } catch {
       /* offline / not logged in — keep current */
     } finally {
-      set({ planLoading: false });
+      set({ planLoading: false, fetched: true });
     }
   },
 

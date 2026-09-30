@@ -118,13 +118,8 @@ export default function Reports() {
     const monthlyCashFlow = monthlyIncome - monthlyEmi;
 
     let growth = 0;
-    let stable = 0;
-    let other = 0;
     assets.forEach((a) => {
-      const v = a.value || 0;
-      if (GROWTH_CATEGORIES.has(a.category || "")) growth += v;
-      else if (STABLE_CATEGORIES.has(a.category || "")) stable += v;
-      else other += v;
+      if (GROWTH_CATEGORIES.has(a.category || "")) growth += a.value || 0;
     });
     const growthPct = totalAssets > 0 ? (growth / totalAssets) * 100 : 0;
     const riskLabel = totalAssets === 0 ? "Not enough data" : growthPct >= 55 ? "Aggressive" : growthPct >= 25 ? "Moderate" : "Conservative";

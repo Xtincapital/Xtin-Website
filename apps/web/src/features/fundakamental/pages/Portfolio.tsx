@@ -143,7 +143,7 @@ const Portfolio = () => {
   const { region } = useRegion();
   // Default gold tracker by region: India → GOLDBEES (NSE), elsewhere → GLD.
   const goldDefault = region === "IN" ? "GOLDBEES.NS" : "GLD";
-  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [, setPortfolios] = useState<Portfolio[]>([]);
   const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [summary, setSummary] = useState<PortfolioSummary | null>(null);

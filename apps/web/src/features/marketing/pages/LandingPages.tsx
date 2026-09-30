@@ -7,7 +7,7 @@ import GuestHomeHero from '../components/GuestHomeHero';
 import ToolsSection from '../components/ToolsSection';
 import Footer from '../../../components/Footer';
 import ChatWidget from '../../../components/ChatWidget';
-import SEO, { generateBreadcrumbData } from '../../../components/SEO';
+import SEO from '../../../components/SEO';
 import SignInModal from '../../../components/SignInModal';
 import { useAuth } from '../../../contexts/AuthContext';
 

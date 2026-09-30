@@ -48,3 +48,14 @@ export async function getGiniPlanTier(userId: string | null | undefined): Promis
 export function invalidateGiniPlanTierCache(userId: string): void {
     planTierCache.delete(userId);
 }
+
+/** Express guard for Gini Pro-only endpoints (Advanced Family Planning's
+ * elder-care, education-plan and tax-optimization data): 403 +
+ * `code: "PRO_REQUIRED"` unless `gini_pro_plans.valid_until` is in the future. */
+export async function requireGiniPro(req, res, next) {
+    const tier = await getGiniPlanTier(req.user?.authId);
+    if (tier !== "pro") {
+        return res.status(403).json({ error: "This is a Gini Pro feature. Upgrade to Pro to use it.", code: "PRO_REQUIRED" });
+    }
+    next();
+}

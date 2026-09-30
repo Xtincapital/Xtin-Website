@@ -9,6 +9,7 @@
 //   • Only algo_name, tradingview_username, and phone_number come from the client.
 
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
+import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateAlgoOrder, validateAlgoVerify } from "./algorithm.validator.js";
 import { getAlgorithmSubscriptionsByUserId, upsertAlgorithmSubscription } from "./algorithm.repository.js";
@@ -278,7 +279,9 @@ async function persistAlgoSubscription({ user, plan, algo_name, plan_type, payme
     strict?: boolean;
 }) {
     const now = new Date();
-    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+    const { data: existingSubs } = await getAlgorithmSubscriptionsByUserId(user.userId);
+    const existingSub = (existingSubs || []).find((r) => r.algo_name === algo_name);
+    const validUntil = stackValidUntil({ existingValidUntil: existingSub?.valid_until, existingPaymentId: existingSub?.payment_id, paymentId, extend: addDays(plan.durationDays), now });
     const record = {
         user_id: String(user.userId),
         auth_id: user.authId || null,

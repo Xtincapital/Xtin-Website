@@ -95,7 +95,7 @@ const History = () => {
       setTotal(data.total || 0);
       setReports((prev) => (offset === 0 ? incoming : [...prev, ...incoming]));
       setError(null);
-    } catch (e) {
+    } catch {
       if (offset === 0) setError("We couldn't load your reports. Please try again.");
       else toast.error("Failed to load more reports");
     }
@@ -146,7 +146,7 @@ const History = () => {
     try {
       await api.analysis.deleteReport(target.id);
       toast.success("Report deleted");
-    } catch (e) {
+    } catch {
       // Restore on failure.
       setReports((prev) => [target, ...prev]);
       setTotal((t) => t + 1);
@@ -171,7 +171,7 @@ const History = () => {
         investment_assessment: full.investment_assessment,
       });
       if (result === "ok") toast.success("PDF downloaded");
-    } catch (e) {
+    } catch {
       toast.error("Couldn't export this report. Please try again.");
     } finally {
       setExportingId(null);

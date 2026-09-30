@@ -26,6 +26,7 @@
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { withSampleMode } from '../../../lib/sampleMode';
+import { uploadForParse } from '../../../lib/uploadFile';
 import { journalSampleMode, sampleGoals, sampleStrategies, sampleTrades } from './sampleData';
 
 const API_PREFIX = '/api/journal';
@@ -265,9 +266,20 @@ export const strategies = withSampleMode(journalSampleMode, realStrategies, samp
 // header comment) since `request()` sets a JSON Content-Type by default.
 // ─────────────────────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────────────────────
+// Bulk import (import.routes.ts) — Pro-only server-side. Stateless: returns
+// parsed rows shaped like `POST /journal/trades` bodies for preview; the
+// caller saves the ones it keeps via `trades.createTrade`.
+// ─────────────────────────────────────────────────────────────────────────
+export const bulkImport = {
+  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf'): Promise<{ trades: TradeCreateInput[]; count: number; file_type: string }> =>
+    uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType }),
+};
+
 // Export all implemented APIs
 export const api = {
   trades,
   goals,
   strategies,
+  bulkImport,
 };

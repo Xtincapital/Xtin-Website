@@ -14,7 +14,7 @@ const PersonalFinanceLesson2 = () => {
   const [quizAnswers, setQuizAnswers] = useState({});
   const [showResults, setShowResults] = useState({});
 
-  const handleAnswer = (questionId, selectedOption, correctAnswer) => {
+  const handleAnswer = (questionId, selectedOption, _correctAnswer) => {
     setQuizAnswers(prev => ({ ...prev, [questionId]: selectedOption }));
     setShowResults(prev => ({ ...prev, [questionId]: true }));
   };

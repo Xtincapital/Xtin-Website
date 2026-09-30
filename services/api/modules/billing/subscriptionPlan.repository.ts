@@ -14,4 +14,12 @@ const upsertUserSubscription = (payload) =>
 		.select()
 		.single();
 
-export { getActiveUserSubscriptions, upsertUserSubscription };
+const getUserSubscriptionByPlan = (userId, planId) =>
+	supabase
+		.from("user_subscriptions")
+		.select("valid_until, payment_id")
+		.eq("user_id", String(userId))
+		.eq("plan_id", planId)
+		.maybeSingle();
+
+export { getActiveUserSubscriptions, getUserSubscriptionByPlan, upsertUserSubscription };

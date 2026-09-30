@@ -23,7 +23,7 @@ const PurchasePage = () => {
   const handlePurchase = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post(
+      await axios.post(
         `/api/courses/${courseId}/purchase`,
         {
           transactionId: `txn_${Date.now()}`, // dummy value

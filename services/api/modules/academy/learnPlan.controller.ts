@@ -8,6 +8,7 @@
 //   • Amounts come from THIS server-side catalogue — the client never sends a
 //     price, only a plan id + currency.
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
+import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
@@ -231,7 +232,9 @@ async function persistLearnPlan({ user, plan, planId, paymentId, orderId, curren
     strict?: boolean;
 }) {
     const now = new Date();
-    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+    // Renewals stack on the days left.
+    const { data: existingPlan } = await getLearnPlanByUserId(user.userId);
+    const validUntil = stackValidUntil({ existingValidUntil: existingPlan?.valid_until, existingPaymentId: existingPlan?.payment_id, paymentId, extend: addDays(plan.durationDays), now });
     const record = {
         user_id: String(user.userId),
         auth_id: user.authId || null,

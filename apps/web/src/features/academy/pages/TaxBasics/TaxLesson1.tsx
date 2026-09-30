@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb, FaFileInvoiceDollar } from 'react-icons/fa';
 
 // SVG 1: What Are Taxes - Simple Definition
@@ -391,7 +391,6 @@ const DisclaimerBannerSVG = () => (
 );
 
 const TaxLesson1 = () => {
-  const navigate = useNavigate();
   const [quizAnswers, setQuizAnswers] = useState({});
   const [showResults, setShowResults] = useState({});
 

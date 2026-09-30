@@ -129,7 +129,7 @@ const Icons = {
 };
 
 // Quiz Component
-const QuizQuestion = ({ id, question, options, correctAnswer, explanation, onAnswer }: { id: string; question: string; options: string[]; correctAnswer: string; explanation: string; onAnswer?: (correct: boolean) => void }) => {
+const QuizQuestion = ({ question, options, correctAnswer, explanation, onAnswer }: { id: string; question: string; options: string[]; correctAnswer: string; explanation: string; onAnswer?: (correct: boolean) => void }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
 

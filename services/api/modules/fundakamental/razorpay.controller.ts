@@ -28,6 +28,7 @@
 // controller in this module (see analysis.controller.ts's header comment) —
 // the Python source's `current_user["id"]` is the same `auth.users.id`.
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
+import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getUserPlan, grantPro, downgradeToFree, insertProPayment } from "./razorpay.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
@@ -122,7 +123,9 @@ export const fulfillFundakamentalPro: Fulfiller = async ({ order, payment, notes
     if (!userId) throw new FulfillmentError("Buyer has no auth id", "no_buyer");
 
     const now = new Date();
-    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+    // funda_users keeps no payment id, so a retry is guarded by the fulfilment claim instead.
+    const { data: existingPlan } = await getUserPlan(userId);
+    const validUntil = stackValidUntil({ existingValidUntil: existingPlan?.plan_valid_until as string, paymentId: payment.id, extend: addDays(plan.durationDays), now });
 
     const { error: userError } = await grantPro(userId, validUntil.toISOString());
     if (userError) throw userError;

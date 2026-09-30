@@ -57,3 +57,17 @@ export async function getPlanTier(userId: string | null | undefined, clientTier:
 export function invalidatePlanTierCache(userId: string): void {
     planTierCache.delete(userId);
 }
+
+/** Express guard: only lets users with a currently valid Journal Pro plan
+ * through (403 + `code: "PRO_REQUIRED"` otherwise). Always server-authoritative —
+ * no client-reported tier is honored. */
+export async function requireJournalPro(req, res, next) {
+    const tier = await getPlanTier(req.user?.authId, "free");
+    if (tier !== "pro") {
+        return res.status(403).json({ error: "This is a Journal Pro feature. Upgrade to Pro to use it.", code: "PRO_REQUIRED" });
+    }
+    next();
+}
+
+/** Free-plan cap on saved performance goals (matches the Pricing page copy). */
+export const FREE_GOAL_LIMIT = 2;

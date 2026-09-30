@@ -47,7 +47,7 @@
 // target, 20 years), which never reflected the signed-in user's own data.
 //
 // Pro gating: same ProGate/useGiniPlanStore wiring as RequiredReturn.tsx.
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";

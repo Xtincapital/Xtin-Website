@@ -32,7 +32,6 @@
 //  - `RegionSwitcher` and `DashboardLayout` are NOT yet ported — imports
 //    below point at where they will live.
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
@@ -106,8 +105,7 @@ const initials = (name?: string) =>
     .toUpperCase() || "U";
 
 const Settings = () => {
-  const navigate = useNavigate();
-  const { user, updateUser, logout } = useAuth();
+  const { user, updateUser } = useAuth();
   const displayName = [user?.first_name, user?.last_name].filter(Boolean).join(" ").trim();
   const isPro = usePlanStore((s) => s.isPro)();
   const wallet = usePlanStore((s) => s.wallet);

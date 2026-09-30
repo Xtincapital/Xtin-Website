@@ -461,7 +461,7 @@ const PortfolioConstructionOverview = () => {
           {/* Lessons Grid */}
           <h2 className="text-2xl font-bold text-gray-900  mb-6">Course Content</h2>
           <div className="grid gap-4 mb-12">
-            {lessons.map((lesson, index) => {
+            {lessons.map((lesson) => {
               const colors = colorClasses[lesson.color];
               const LessonIcon = lesson.icon;
               return (

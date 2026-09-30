@@ -103,7 +103,7 @@ const CompanySearchResults = ({
   isLoading = false,
   onAnalyze,
 }: CompanySearchResultsProps) => {
-  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [, setSelectedCompany] = useState<Company | null>(null);
 
   // Filter companies based on query
   const filteredCompanies = mockCompanies.filter(

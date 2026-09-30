@@ -26,6 +26,7 @@
 // Also invalidates planTier.ts's 60s cache so the tier upgrade is visible
 // immediately (port of main.py's `PLAN_TIER_CACHE.pop(request.user_id, None)`).
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
+import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateProPlanOrder, validateProPlanVerify } from "./proPlan.validator.js";
 import { getProPlanByUser, upsertProPlan } from "./proPlan.repository.js";
@@ -131,7 +132,8 @@ export const fulfillJournalProPlan: Fulfiller = async ({ order, payment, notes, 
     if (!userId) throw new FulfillmentError("Buyer has no auth id", "no_buyer");
 
     const now = new Date();
-    const validUntil = new Date(now.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
+    const { data: existingPlan } = await getProPlanByUser(userId);
+    const validUntil = stackValidUntil({ existingValidUntil: existingPlan?.valid_until as string, existingPaymentId: existingPlan?.payment_id as string, paymentId: payment.id, extend: addDays(plan.durationDays), now });
 
     // Server-side, service-role write. This is the ONLY place Pro is granted.
     const { error } = await upsertProPlan({

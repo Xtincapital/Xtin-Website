@@ -38,7 +38,7 @@ const PersonalFinanceLesson1 = () => {
     markCompleted();
   }, []);
 
-  const handleAnswer = (questionId, selectedOption, correctAnswer) => {
+  const handleAnswer = (questionId, selectedOption, _correctAnswer) => {
     setQuizAnswers(prev => ({ ...prev, [questionId]: selectedOption }));
     setShowResults(prev => ({ ...prev, [questionId]: true }));
   };

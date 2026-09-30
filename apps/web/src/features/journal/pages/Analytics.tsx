@@ -288,7 +288,7 @@ const Analytics = () => {
   ];
 
   return (
-    <JournalLayout>
+    <JournalLayout proFeature="Analytics">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Analytics</h1>

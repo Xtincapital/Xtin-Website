@@ -254,10 +254,36 @@
   border-color: var(--jr-brand-hover);
 }
 
-.journal-classic .tabs-container {
+/* Brand + tabs share one bar; only the tabs scroll sideways. */
+.journal-classic .nav-bar {
   background-color: var(--jr-surface);
   border-bottom: 1px solid var(--jr-border);
   padding: 0 32px;
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.journal-classic .nav-bar .brand-link {
+  flex: 0 0 auto;
+  padding-right: 20px;
+  border-right: 1px solid var(--jr-border);
+}
+
+.journal-classic .tab-lock {
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: -1px;
+  opacity: 0.6;
+}
+
+.journal-classic .tabs-container {
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: var(--jr-surface);
+  padding: 0;
   display: flex;
   /* The original's 12px gap fit its 11 tabs; 4px lets the port's 14 fit
      on a laptop-width screen. Narrower screens scroll the bar sideways. */
@@ -429,8 +455,13 @@
     gap: 12px;
   }
 
-  .journal-classic .tabs-container {
+  .journal-classic .nav-bar {
     padding: 0 16px;
+    gap: 12px;
+  }
+
+  .journal-classic .nav-bar .brand-link {
+    padding-right: 12px;
   }
 
   .journal-classic .tab-content {

@@ -37,7 +37,7 @@ class AuthService {
     let token = null;
 
     // 1) Try Supabase session first (OAuth login)
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (session?.access_token) {
       token = session.access_token;
     }
@@ -71,7 +71,7 @@ class AuthService {
     if (response.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('auth_token');
-      try { await supabase.auth.signOut(); } catch (_) {}
+      try { await supabase.auth.signOut(); } catch { /* ignore sign-out failure */ }
       throw new Error('Session expired. Please login again.');
     }
 

@@ -165,7 +165,8 @@ const NewAnalysis = () => {
     const plan = usePlanStore.getState();
     const w = plan.wallet;
     if (w && w.balance < 20000) {
-      plan.isPro() ? plan.openBuyTokens() : plan.openUpgrade("reports");
+      if (plan.isPro()) plan.openBuyTokens();
+      else plan.openUpgrade("reports");
       return;
     }
 
@@ -220,7 +221,8 @@ const NewAnalysis = () => {
       // auth errors like "Invalid token" must show as errors.)
       if (/out of AI tokens/i.test(message)) {
         const plan = usePlanStore.getState();
-        plan.isPro() ? plan.openBuyTokens() : plan.openUpgrade("reports");
+        if (plan.isPro()) plan.openBuyTokens();
+      else plan.openUpgrade("reports");
       } else {
         toast({ title: "Analysis failed", description: message, variant: "destructive" });
       }

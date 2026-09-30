@@ -7,6 +7,7 @@
 // references directly.
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateGoalCreate, validateGoalUpdate } from "./goals.validator.js";
+import { getPlanTier, FREE_GOAL_LIMIT } from "./planTier.js";
 import { insertGoal, getGoalsByUser, getGoalById, updateGoal as updateGoalRepo, deleteGoal as deleteGoalRepo } from "./goals.repository.js";
 
 /* POST /journal/goals */
@@ -18,6 +19,17 @@ export const createGoal = async (req, res) => {
     const userId = req.user.authId;
 
     try {
+        // Free plan: capped goals (Pro = unlimited), enforced server-side.
+        if ((await getPlanTier(userId, "free")) !== "pro") {
+            const { data: existing, error: countError } = await getGoalsByUser(userId);
+            if (countError) throw countError;
+            if ((existing?.length ?? 0) >= FREE_GOAL_LIMIT) {
+                return res.status(HTTP_STATUS.FORBIDDEN).json({
+                    error: `The free plan allows up to ${FREE_GOAL_LIMIT} goals. Upgrade to Pro for unlimited goals.`,
+                    code: "PRO_REQUIRED",
+                });
+            }
+        }
         const { data, error } = await insertGoal({ ...validation.data, user_id: userId });
         if (error) throw error;
         if (!data || data.length === 0) {
