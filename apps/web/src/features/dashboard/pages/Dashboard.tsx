@@ -485,33 +485,31 @@ const Dashboard = () => {
           return;
         }
 
-        // 1. Fetch Profile
-        const profileRes = await fetch(`${backendUrl}/api/auth/profile`, {
-          headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        });
-        if (profileRes.ok) {
+        // Profile, active plans and algo subscriptions are independent —
+        // fetch them together rather than one after another (each is a
+        // round trip to the backend, which is slow when it's waking up).
+        const authed = (path) => authService.makeAuthenticatedRequest(`${backendUrl}${path}`);
+        const [profileRes, dbActivePlans, algoRes] = await Promise.all([
+          authed('/api/auth/profile').catch(() => null),
+          bundleSubscriptionService.getUserActivePlans(),
+          authed('/api/algorithm/subscriptions').catch((e) => {
+            console.warn("Could not fetch algo subscriptions:", e);
+            return null;
+          }),
+        ]);
+
+        if (profileRes?.ok) {
           const result = await profileRes.json();
           setProfileData(result.data);
         }
 
-        // 2. Fetch Authoritative User Active Plans from Database
-        const dbActivePlans = await bundleSubscriptionService.getUserActivePlans();
         const dbSubs = dbActivePlans?.userSubscriptions || {};
 
         let hasAlgoSub = Boolean(dbSubs.algos);
-        if (!hasAlgoSub) {
-          try {
-            const algoRes = await fetch(`${backendUrl}/api/algorithm/subscriptions`, {
-              headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-            });
-            if (algoRes.ok) {
-              const algoData = await algoRes.json();
-              if (algoData.data && algoData.data.length > 0) {
-                hasAlgoSub = true;
-              }
-            }
-          } catch (e) {
-            console.warn("Could not fetch algo subscriptions:", e);
+        if (!hasAlgoSub && algoRes?.ok) {
+          const algoData = await algoRes.json().catch(() => ({}));
+          if (algoData.data && algoData.data.length > 0) {
+            hasAlgoSub = true;
           }
         }
 

@@ -89,7 +89,7 @@ const HRACalculator = () => {
                       const value = e.target.value.replace(/,/g, "");
                       if (value === "" || /^[0-9\b]+$/.test(value)) {
                         const num = value === "" ? "" : parseInt(value, 10);
-                        setBasicSalary(num === "" ? "" : num.toLocaleString());
+                        setBasicSalary(num === "" ? "" : num.toLocaleString("en-IN"));
                       }
                     }}
                     className="w-full p-3 border rounded-lg"
@@ -109,7 +109,7 @@ const HRACalculator = () => {
                       if (value === "" || /^[0-9\b]+$/.test(value)) {
                         const num = value === "" ? "" : parseInt(value, 10);
                         setDearnessAllowance(
-                          num === "" ? "" : num.toLocaleString()
+                          num === "" ? "" : num.toLocaleString("en-IN")
                         );
                       }
                     }}
@@ -129,7 +129,7 @@ const HRACalculator = () => {
                       const value = e.target.value.replace(/,/g, "");
                       if (value === "" || /^[0-9\b]+$/.test(value)) {
                         const num = value === "" ? "" : parseInt(value, 10);
-                        setHraReceived(num === "" ? "" : num.toLocaleString());
+                        setHraReceived(num === "" ? "" : num.toLocaleString("en-IN"));
                       }
                     }}
                     className="w-full p-3 border rounded-lg"
@@ -148,7 +148,7 @@ const HRACalculator = () => {
                       const value = e.target.value.replace(/,/g, "");
                       if (value === "" || /^[0-9\b]+$/.test(value)) {
                         const num = value === "" ? "" : parseInt(value, 10);
-                        setRentPaid(num === "" ? "" : num.toLocaleString());
+                        setRentPaid(num === "" ? "" : num.toLocaleString("en-IN"));
                       }
                     }}
                     className="w-full p-3 border rounded-lg"

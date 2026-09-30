@@ -101,7 +101,7 @@ const RDCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString()
+                        num === "" ? "" : num.toLocaleString("en-IN")
                       );
                     }
                   }}
@@ -150,7 +150,7 @@ const RDCalculator = () => {
                         parseFloat(monthlyInvestment.replace(/,/g, "")) *
                         parseFloat(years) *
                         12
-                      ).toLocaleString()}
+                      ).toLocaleString("en-IN")}
                     </span>
                   </p>
                   <p className="text-sm text-gray-600">

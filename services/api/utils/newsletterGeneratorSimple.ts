@@ -739,10 +739,11 @@ function eligibleEmails({ subscribers, proSet, edition, market }) {
 
 /* ---------------- the twice-daily job ---------------- */
 
-export const generateAndSendNewsletter = async () => {
+export const generateAndSendNewsletter = async ({ edition: requested }: { edition?: string } = {}) => {
   try {
-    const edition = editionForISTHour(currentISTHour());
-    console.log(`[Newsletter Cron] Slot resolved to edition: ${edition}`);
+    // An explicit edition (manual admin run) wins; otherwise infer from the IST clock.
+    const edition = EDITION_META[requested] ? requested : editionForISTHour(currentISTHour());
+    console.log(`[Newsletter Cron] Slot resolved to edition: ${edition}${requested ? ' (chosen manually)' : ''}`);
 
     const [subscribers, proSet] = await Promise.all([
       readSubscribers(),

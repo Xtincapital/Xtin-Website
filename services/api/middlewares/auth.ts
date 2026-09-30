@@ -89,3 +89,19 @@ export const authorize = (roles) => (req, res, next) => {
     }
     next();
 };
+
+// Admins are identified by email. ADMIN_EMAILS is a comma-separated list set
+// on the server; xtincapital@gmail.com is always included, matching the
+// frontend's admin pages (AdminCertificates.tsx). Use after `authenticate`.
+const adminEmails = () =>
+    ['xtincapital@gmail.com', ...(process.env.ADMIN_EMAILS || '').split(',')]
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+
+export const requireAdmin = (req, res, next) => {
+    const email = req.user?.email?.toLowerCase();
+    if (!email || !adminEmails().includes(email)) {
+        return res.status(403).json({ error: "Forbidden. Admin access only." });
+    }
+    next();
+};

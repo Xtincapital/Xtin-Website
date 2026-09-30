@@ -4,7 +4,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { getNewsletters, getNewsletterById, createNewsletter, getIndianFinanceNewsletters, getIndianFinanceNewsletterById, createIndianFinanceNewsletter } from "./newsletter.repository.js";
 import { readSubscribers } from "./subscription.repository.js";
 import { sendEmailToAll } from "../../services/mail.service.js";
-import { runNewsletterJob, getExecutionState } from "./newsletterRunner.js";
+import { runNewsletterJob, getExecutionState, startNewsletterJobInBackground } from "./newsletterRunner.js";
 
 // Rate limiting, deduplication, and the generate+send logic now live in
 // modules/newsletter/newsletterRunner.mjs so the in-process scheduler and this HTTP
@@ -492,7 +492,69 @@ const triggerNewsletterGeneration = async (req, res) => {
 	}
 };
 
+const MANUAL_EDITIONS = ["pre_market", "post_market"];
+
+// Admin "send now" — starts one edition in the background and returns at
+// once; the admin page polls adminNewsletterStatus for the outcome. The same
+// lock + 15-minute rate limit as the scheduled runs apply.
+const adminRunNewsletter = async (req, res) => {
+	try {
+		const { edition } = req.body || {};
+		if (!MANUAL_EDITIONS.includes(edition)) {
+			return res.status(HTTP_STATUS.BAD_REQUEST).json({
+				status: HTTP_STATUS.BAD_REQUEST,
+				message: `edition must be one of: ${MANUAL_EDITIONS.join(", ")}`,
+			});
+		}
+
+		const result = await startNewsletterJobInBackground({
+			source: `admin-manual:${edition}:${req.user.email}`,
+			edition,
+		});
+
+		if ("skipped" in result) {
+			return res.status(409).json({
+				status: 409,
+				message: result.reason,
+				retryAfter: result.retryAfter,
+			});
+		}
+
+		return res.status(202).json({
+			status: 202,
+			message: "Newsletter run started",
+			data: result,
+		});
+	} catch (error) {
+		console.error("Error starting manual newsletter run:", error);
+		return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: "Failed to start newsletter run",
+			error: error.message,
+		});
+	}
+};
+
+const adminNewsletterStatus = async (req, res) => {
+	try {
+		const state = await getExecutionState();
+		return res.status(HTTP_STATUS.OK).json({
+			status: HTTP_STATUS.OK,
+			data: { ...state, serverTime: new Date().toISOString() },
+		});
+	} catch (error) {
+		console.error("Error fetching newsletter status:", error);
+		return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+			status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+			message: "Failed to fetch newsletter status",
+			error: error.message,
+		});
+	}
+};
+
 export {
+	adminRunNewsletter,
+	adminNewsletterStatus,
 	getAllNewsletters,
 	getNewsletter,
 	generateNewsletter,

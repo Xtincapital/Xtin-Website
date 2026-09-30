@@ -107,7 +107,7 @@ const StepUpSIPCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString()
+                        num === "" ? "" : num.toLocaleString("en-IN")
                       );
                     }
                   }}

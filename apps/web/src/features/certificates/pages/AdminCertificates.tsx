@@ -3,6 +3,7 @@ import certificateService from '../services/certificateService';
 import { useAuth } from '../../../contexts/AuthContext';
 import CertificateQRModal from '../components/CertificateQRModal';
 import SEO from '../../../components/SEO';
+import { isAdminEmail } from '../../../config/admin';
 
 /**
  * AdminCertificates — Admin panel for managing internship certificates.
@@ -182,12 +183,8 @@ const AdminCertificates = () => {
     }
   };
 
-  // Only allow specific admin emails to access this panel (case-insensitive)
-  const ADMIN_EMAILS = [
-    import.meta.env.VITE_ADMIN_EMAIL,
-    'xtincapital@gmail.com',
-  ].filter(Boolean).map(e => e.toLowerCase());
-  const isAuthorized = user && ADMIN_EMAILS.includes(user.email?.toLowerCase());
+  // Only allow admin emails to access this panel (see config/admin.ts)
+  const isAuthorized = user && isAdminEmail(user.email);
 
   if (!user) {
     return (

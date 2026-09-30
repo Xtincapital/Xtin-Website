@@ -19,7 +19,7 @@ vi.mock("../supabase/index.js", () => ({
     userClientFromToken: mockUserClientFromToken,
 }));
 
-const { authenticate, authorize } = await import("./auth.js");
+const { authenticate, authorize, requireAdmin } = await import("./auth.js");
 
 function makeReq(token?: string) {
     return { headers: { authorization: token ? `Bearer ${token}` : undefined } } as any;
@@ -169,5 +169,45 @@ describe("authorize", () => {
         authorize(["admin"])(req, res, next);
 
         expect(next).toHaveBeenCalledOnce();
+    });
+});
+
+describe("requireAdmin", () => {
+    const originalAdmins = process.env.ADMIN_EMAILS;
+
+    afterAll(() => {
+        process.env.ADMIN_EMAILS = originalAdmins;
+    });
+
+    const run = (email?: string) => {
+        const next = vi.fn();
+        const res = makeRes();
+        requireAdmin({ user: email ? { email } : undefined } as any, res, next);
+        return { next, res };
+    };
+
+    it("lets the built-in admin through, case-insensitively", () => {
+        delete process.env.ADMIN_EMAILS;
+        const { next, res } = run("XtinCapital@Gmail.com");
+        expect(next).toHaveBeenCalled();
+        expect(res.status).not.toHaveBeenCalled();
+    });
+
+    it("lets emails listed in ADMIN_EMAILS through", () => {
+        process.env.ADMIN_EMAILS = "owner@example.com, second@example.com";
+        expect(run("second@example.com").next).toHaveBeenCalled();
+    });
+
+    it("rejects a signed-in user who isn't an admin with 403", () => {
+        process.env.ADMIN_EMAILS = "owner@example.com";
+        const { next, res } = run("someone@example.com");
+        expect(next).not.toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(403);
+    });
+
+    it("rejects a request with no user with 403", () => {
+        const { next, res } = run();
+        expect(next).not.toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(403);
     });
 });

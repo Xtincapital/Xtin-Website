@@ -23,8 +23,11 @@ const SCHEDULES = [
 ];
 
 export function startNewsletterScheduler() {
-	if (process.env.DISABLE_NEWSLETTER_CRON === 'true') {
-		console.log('[Scheduler] In-process newsletter cron disabled via DISABLE_NEWSLETTER_CRON.');
+	// Off by default: newsletters are sent manually from the admin page
+	// (/admin/newsletters), because Render's free tier sleeps and misses the
+	// timers anyway. Set ENABLE_NEWSLETTER_CRON=true to turn the timers back on.
+	if (process.env.ENABLE_NEWSLETTER_CRON !== 'true' || process.env.DISABLE_NEWSLETTER_CRON === 'true') {
+		console.log('[Scheduler] In-process newsletter cron is off (manual sending via /admin/newsletters). Set ENABLE_NEWSLETTER_CRON=true to enable.');
 		return;
 	}
 

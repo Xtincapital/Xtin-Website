@@ -88,7 +88,7 @@ const CAGRCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setInitialValue(num === "" ? "" : num.toLocaleString());
+                      setInitialValue(num === "" ? "" : num.toLocaleString("en-IN"));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -105,7 +105,7 @@ const CAGRCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setFinalValue(num === "" ? "" : num.toLocaleString());
+                      setFinalValue(num === "" ? "" : num.toLocaleString("en-IN"));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"

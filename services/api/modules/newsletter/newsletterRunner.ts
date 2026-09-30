@@ -75,22 +75,45 @@ async function shouldAllowExecution() {
 
 /**
  * Generate + send the newsletter, guarded by the shared lock/rate-limit.
- * @param {{ source?: string }} opts - where the trigger came from (for logs/history)
+ * @param {{ source?: string, edition?: string }} opts - where the trigger came
+ *   from (for logs/history), and optionally which edition to send
+ *   ('pre_market' | 'post_market'); omitted = inferred from the IST clock.
  * @returns {Promise<{skipped?: boolean, success?: boolean, ...}>}
  */
-export async function runNewsletterJob({ source = 'unknown' } = {}) {
-	const check = await shouldAllowExecution();
-	if (!check.allowed) {
-		console.log(`[NewsletterRunner] (${source}) skipped: ${check.reason}`);
-		return {
-			skipped: true,
-			reason: check.reason,
-			retryAfter: check.retryAfter,
-			lastResult: check.lastResult,
-			timestamp: new Date().toISOString(),
-		};
-	}
+export async function runNewsletterJob({ source = 'unknown', edition }: { source?: string; edition?: string } = {}) {
+	const skipped = await checkNotBlocked(source);
+	if (skipped) return skipped;
+	return executeRun({ source, edition });
+}
 
+/**
+ * Same checks as runNewsletterJob, but returns as soon as the run has started
+ * (generation + sending take minutes). For the admin "send now" button, which
+ * polls getExecutionState() for the outcome.
+ */
+export async function startNewsletterJobInBackground({ source, edition }: { source: string; edition?: string }) {
+	const skipped = await checkNotBlocked(source);
+	if (skipped) return skipped;
+	executeRun({ source, edition }).catch((err) =>
+		console.error(`[NewsletterRunner] (${source}) background run crashed:`, err.message)
+	);
+	return { started: true, timestamp: new Date().toISOString() };
+}
+
+async function checkNotBlocked(source) {
+	const check = await shouldAllowExecution();
+	if (check.allowed) return null;
+	console.log(`[NewsletterRunner] (${source}) skipped: ${check.reason}`);
+	return {
+		skipped: true,
+		reason: check.reason,
+		retryAfter: check.retryAfter,
+		lastResult: check.lastResult,
+		timestamp: new Date().toISOString(),
+	};
+}
+
+async function executeRun({ source, edition }: { source: string; edition?: string }) {
 	const { data: run, error: startError } = await startRun(source);
 	if (startError || !run) {
 		// Don't block newsletter delivery over a logging failure — proceed
@@ -107,7 +130,7 @@ export async function runNewsletterJob({ source = 'unknown' } = {}) {
 	try {
 		// Imported lazily so a load error in the generator can't crash boot.
 		const { generateAndSendNewsletter } = await import('../../utils/newsletterGeneratorSimple.js');
-		const result = await generateAndSendNewsletter();
+		const result = await generateAndSendNewsletter({ edition });
 		if (run) await completeRun(run.id, result?.success ? 'success' : 'failed', result);
 		console.log(`[NewsletterRunner] (${source}) completed:`, result?.success ? 'success' : 'failed');
 		return result;
@@ -128,6 +151,12 @@ export async function getExecutionState() {
 		minIntervalMinutes: 15,
 		currentlyRunning: latest?.status === 'running',
 		lastExecution: latest?.started_at ? new Date(latest.started_at).toISOString() : null,
-		executionHistory: (history || []).map((h) => ({ timestamp: h.started_at, result: h.result })),
+		executionHistory: (history || []).map((h) => ({
+			timestamp: h.started_at,
+			completedAt: h.completed_at,
+			source: h.source,
+			status: h.status,
+			result: h.result,
+		})),
 	};
 }

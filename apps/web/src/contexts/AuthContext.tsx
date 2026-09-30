@@ -65,7 +65,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Unified auth restoration on page load / refresh
     const initAuth = async () => {
       try {
-        const token = localStorage.getItem('auth_token');
+        const { data: { session } } = await supabase.auth.getSession();
+        const storedToken = localStorage.getItem('auth_token');
+        // Prefer the live Supabase session token: supabase-js keeps it
+        // refreshed, while the copy in auth_token goes stale after an hour
+        // and would cost a 401 + refresh + retry on every page load.
+        const token = storedToken && session?.access_token ? session.access_token : storedToken;
+        if (token && token !== storedToken) {
+          localStorage.setItem('auth_token', token);
+        }
         if (token) {
           try {
             // Verify token by calling profile endpoint
@@ -119,7 +127,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           }
         } else {
           // If no local token exists, check for existing Supabase session (for OAuth redirects)
-          const { data: { session } } = await supabase.auth.getSession();
           if (session?.user) {
             console.log('Found existing Supabase session, syncing user:', session.user.email);
             try {

@@ -28,15 +28,57 @@ const IncomeTaxCalculator = () => {
         setter(Number(value));
       };
 
-    const calculateTax = () => {
-        const totalIncome = grossSalary + otherIncome;
+    // New-regime rules per financial year: slabs as [upper limit, rate],
+    // standard deduction on salary, and the Section 87A rebate limit (tax is
+    // nil up to this taxable income, with marginal relief just above it).
+    const NEW_REGIME = {
+        '2025-2026': {
+            slabs: [[400000, 0], [800000, 0.05], [1200000, 0.1], [1600000, 0.15], [2000000, 0.2], [2400000, 0.25], [Infinity, 0.3]],
+            standardDeduction: 75000,
+            rebateLimit: 1200000,
+        },
+        '2024-2025': {
+            slabs: [[300000, 0], [700000, 0.05], [1000000, 0.1], [1200000, 0.15], [1500000, 0.2], [Infinity, 0.3]],
+            standardDeduction: 75000,
+            rebateLimit: 700000,
+        },
+        '2023-2024': {
+            slabs: [[300000, 0], [600000, 0.05], [900000, 0.1], [1200000, 0.15], [1500000, 0.2], [Infinity, 0.3]],
+            standardDeduction: 50000,
+            rebateLimit: 700000,
+        },
+    };
+    const OLD_REGIME_STANDARD_DEDUCTION = 50000;
+    const OLD_REGIME_REBATE_LIMIT = 500000;
 
-        // Old Regime Calculation
-        const oldRegimeTaxableIncome = totalIncome - homeLoanInterest - basicDeductions - npsContribution - medicalInsurance - donations - educationLoanInterest;
+    const taxOnSlabs = (income, slabs) => {
+        let tax = 0;
+        let lower = 0;
+        for (const [upper, rate] of slabs) {
+            if (income <= lower) break;
+            tax += (Math.min(income, upper) - lower) * rate;
+            lower = upper;
+        }
+        return tax;
+    };
+
+    const calculateTax = () => {
+        const salaryDeduction = (amount) => Math.min(grossSalary, amount);
+
+        // Old Regime: standard deduction + Chapter VI-A deductions (80C capped
+        // at ₹1.5L, 80CCD(1B) NPS at ₹50k, Sec 24 home-loan interest at ₹2L).
+        const oldRegimeTaxableIncome = grossSalary + otherIncome
+            - salaryDeduction(OLD_REGIME_STANDARD_DEDUCTION)
+            - Math.min(homeLoanInterest, 200000)
+            - Math.min(basicDeductions, 150000)
+            - Math.min(npsContribution, 50000)
+            - medicalInsurance - donations - educationLoanInterest;
         setOldRegimeTax(calculateOldRegimeTax(oldRegimeTaxableIncome));
 
-        // New Regime Calculation
-        setNewRegimeTax(calculateNewRegimeTax(totalIncome));
+        // New Regime: only the standard deduction is allowed.
+        const rules = NEW_REGIME[financialYear] || NEW_REGIME['2025-2026'];
+        const newRegimeTaxableIncome = grossSalary + otherIncome - salaryDeduction(rules.standardDeduction);
+        setNewRegimeTax(calculateNewRegimeTax(newRegimeTaxableIncome, rules));
     };
 
     const calculateOldRegimeTax = (income) => {
@@ -54,25 +96,20 @@ const IncomeTaxCalculator = () => {
         const t2 = Math.max(0, Math.min(income, slab3) - slab2);
         const t3 = Math.max(0, income - slab3);
 
-        const tax = t1 * 0.05 + t2 * 0.2 + t3 * 0.3;
+        const tax = income <= OLD_REGIME_REBATE_LIMIT ? 0 : t1 * 0.05 + t2 * 0.2 + t3 * 0.3;
 
         return tax * 1.04; // 4% cess
     };
 
-    const calculateNewRegimeTax = (income) => {
-        let tax = 0;
-        if (income > 300000) {
-            if (income <= 600000) {
-                tax = (income - 300000) * 0.05;
-            } else if (income <= 900000) {
-                tax = 15000 + (income - 600000) * 0.1;
-            } else if (income <= 1200000) {
-                tax = 45000 + (income - 900000) * 0.15;
-            } else if (income <= 1500000) {
-                tax = 90000 + (income - 1200000) * 0.2;
-            } else {
-                tax = 150000 + (income - 1500000) * 0.3;
-            }
+    const calculateNewRegimeTax = (income, rules) => {
+        if (!income || isNaN(income) || income <= 0) return 0;
+
+        let tax = taxOnSlabs(income, rules.slabs);
+        if (income <= rules.rebateLimit) {
+            tax = 0;
+        } else {
+            // Marginal relief: tax can't exceed the income above the rebate limit.
+            tax = Math.min(tax, income - rules.rebateLimit);
         }
         return tax * 1.04; // Adding 4% cess
     };

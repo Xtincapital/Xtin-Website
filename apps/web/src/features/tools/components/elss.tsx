@@ -148,7 +148,7 @@ const ELSSCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setInvestmentAmount(
-                        num === "" ? "" : num.toLocaleString()
+                        num === "" ? "" : num.toLocaleString("en-IN")
                       );
                     }
                   }}

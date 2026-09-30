@@ -63,13 +63,21 @@ const SWPCalculator = () => {
 
       const years = Math.floor(months / 12);
       const remMonths = months % 12;
-      summaryText = `Your investment of <b>${sym}${formatNumber(
-        corpusValue
-      )}</b> will last for approximately <b>${years} years${
-        remMonths > 0 ? " " + remMonths + " months" : ""
-      }</b> if you plan to withdraw <b>${sym}${formatNumber(
-        withdrawalValue
-      )}</b> each month.`;
+      // The loop stops at 600 months; if money is still left then, returns
+      // cover the withdrawals and the corpus never runs out.
+      summaryText = balance > 0
+        ? `Your investment of <b>${sym}${formatNumber(
+            corpusValue
+          )}</b> will <b>never run out</b> if you withdraw <b>${sym}${formatNumber(
+            withdrawalValue
+          )}</b> each month — your returns cover the withdrawals and the corpus keeps growing.`
+        : `Your investment of <b>${sym}${formatNumber(
+            corpusValue
+          )}</b> will last for approximately <b>${years} years${
+            remMonths > 0 ? " " + remMonths + " months" : ""
+          }</b> if you plan to withdraw <b>${sym}${formatNumber(
+            withdrawalValue
+          )}</b> each month.`;
     } else {
       let months = tenureValue * 12;
       let balance = corpusValue;
@@ -171,7 +179,7 @@ const SWPCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString());
+                      setPrincipal(num === "" ? "" : num.toLocaleString("en-IN"));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -188,7 +196,7 @@ const SWPCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setWithdrawal(num === "" ? "" : num.toLocaleString());
+                      setWithdrawal(num === "" ? "" : num.toLocaleString("en-IN"));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"

@@ -187,14 +187,22 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <div className="text-center select-none">
-          <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 leading-none">
-            Xtin
+        {/* The hub links to the dashboard intro — the one place all the
+            orbiting products come together. */}
+        <Link
+          to="/intro/dashboard"
+          aria-label="Xtin Capital dashboard — everything in one place"
+          className="absolute inset-0 rounded-full flex items-center justify-center text-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+        >
+          <span>
+            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 leading-none">
+              Xtin
+            </span>
+            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-emerald-500 dark:text-emerald-400 leading-none mt-0.5">
+              Capital
+            </span>
           </span>
-          <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-emerald-500 dark:text-emerald-400 leading-none mt-0.5">
-            Capital
-          </span>
-        </div>
+        </Link>
       </motion.div>
     </div>
 

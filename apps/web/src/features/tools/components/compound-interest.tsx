@@ -108,7 +108,7 @@ const CompoundInterestCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString());
+                      setPrincipal(num === "" ? "" : num.toLocaleString("en-IN"));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
