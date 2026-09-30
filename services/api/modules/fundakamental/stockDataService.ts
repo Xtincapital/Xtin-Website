@@ -5,6 +5,7 @@
 // Yahoo Finance path since that's the dependency the task specifies and it
 // needs no API key (works for both US and Indian ".NS"/".BO" tickers).
 import YahooFinance from "yahoo-finance2";
+import { getStockByTicker } from "./stocks.repository.js";
 import type { PriceBar } from "./technicalIndicators.js";
 
 const yahooFinance = new YahooFinance();
@@ -139,9 +140,18 @@ export async function getCompanyOverview(ticker: string): Promise<StockOverview 
  * "quotes/history/fundamentals", so streaming works out of the box.
  */
 export async function getQuote(ticker: string): Promise<QuoteData | null> {
+    // Yahoo's quote API needs a session cookie ("crumb") that it often
+    // refuses to cloud servers like Render, so a live price can come back
+    // empty there while working fine locally. Fall back to the chart API
+    // (no crumb needed), then to the last cached price in funda_stocks, so
+    // portfolios and watchlists still show a value.
+    return (await quoteFromQuoteApi(ticker)) ?? (await quoteFromChartApi(ticker)) ?? (await quoteFromCache(ticker));
+}
+
+async function quoteFromQuoteApi(ticker: string): Promise<QuoteData | null> {
     try {
         const q = await yahooFinance.quote(ticker);
-        if (!q?.symbol) return null;
+        if (!q?.symbol || q.regularMarketPrice == null) return null;
         return {
             ticker: q.symbol,
             price: q.regularMarketPrice ?? null,
@@ -154,7 +164,58 @@ export async function getQuote(ticker: string): Promise<QuoteData | null> {
             low: q.regularMarketDayLow ?? null,
         };
     } catch (err) {
-        console.error(`[Fundakamental] error fetching quote for ${ticker}:`, err);
+        console.error(`[Fundakamental] quote API failed for ${ticker}, trying chart API:`, (err as Error)?.message || err);
+        return null;
+    }
+}
+
+async function quoteFromChartApi(ticker: string): Promise<QuoteData | null> {
+    try {
+        const chart = await yahooFinance.chart(ticker, {
+            period1: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+            interval: "1d",
+        });
+        const meta = chart?.meta;
+        const price = meta?.regularMarketPrice;
+        if (price == null) return null;
+        // Day change is against the previous session's close (the second-last
+        // daily bar) — chartPreviousClose is the close before the whole window.
+        const closes = (chart.quotes || []).map((q) => q.close).filter((c): c is number => c != null);
+        const prev = closes.length >= 2 ? closes[closes.length - 2] : meta.chartPreviousClose ?? null;
+        const change = prev != null ? price - prev : null;
+        return {
+            ticker: meta.symbol || ticker,
+            price,
+            change,
+            change_percent: change != null && prev ? (change / prev) * 100 : null,
+            volume: meta.regularMarketVolume ?? null,
+            previous_close: prev,
+            open: null,
+            high: meta.regularMarketDayHigh ?? null,
+            low: meta.regularMarketDayLow ?? null,
+        };
+    } catch (err) {
+        console.error(`[Fundakamental] chart API failed for ${ticker}, using cached price:`, (err as Error)?.message || err);
+        return null;
+    }
+}
+
+async function quoteFromCache(ticker: string): Promise<QuoteData | null> {
+    try {
+        const { data } = await getStockByTicker(ticker);
+        if (!data || data.price == null) return null;
+        return {
+            ticker: data.ticker,
+            price: Number(data.price),
+            change: data.change ?? null,
+            change_percent: data.change_percent ?? null,
+            volume: data.volume ?? null,
+            previous_close: null,
+            open: null,
+            high: null,
+            low: null,
+        };
+    } catch {
         return null;
     }
 }

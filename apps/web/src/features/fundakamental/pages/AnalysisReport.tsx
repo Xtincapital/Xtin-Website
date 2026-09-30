@@ -104,6 +104,8 @@ const WELCOME_MESSAGE: UIMessage = {
   sources: [],
 };
 
+const hasValue = (v?: string | null) => !!v && !/^n\/?a$/i.test(v.trim());
+
 const AnalysisReport = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
@@ -301,12 +303,17 @@ const AnalysisReport = () => {
                   <h1 className="text-2xl font-bold text-foreground">
                     {report.company}
                   </h1>
-                  <span className="px-2 py-1 rounded bg-primary/10 text-primary text-sm font-medium">
-                    {report.ticker}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {report.exchange}
-                  </span>
+                  {/* Uploads without a chosen company have no ticker/exchange ("N/A") — hide the badges then. */}
+                  {hasValue(report.ticker) && (
+                    <span className="px-2 py-1 rounded bg-primary/10 text-primary text-sm font-medium">
+                      {report.ticker}
+                    </span>
+                  )}
+                  {hasValue(report.exchange) && (
+                    <span className="text-sm text-muted-foreground">
+                      {report.exchange}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Analysis generated on {formattedDate}

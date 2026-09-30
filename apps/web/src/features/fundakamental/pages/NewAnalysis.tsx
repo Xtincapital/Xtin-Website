@@ -77,6 +77,12 @@ const NewAnalysis = () => {
   const [searchQuery, setSearchQuery] = useState(
     () => searchParams.get("name") || searchParams.get("ticker") || ""
   );
+  // The company the report is about: picked in the search results, or passed
+  // in from the dashboard (?ticker=&name=). Falls back to the file name.
+  const [selectedCompany, setSelectedCompany] = useState<{ ticker: string; name: string } | null>(() => {
+    const ticker = searchParams.get("ticker");
+    return ticker ? { ticker, name: searchParams.get("name") || ticker } : null;
+  });
   // Seed from the user's saved defaults (Settings → Preferences), else fall back.
   const [investorStyle, setInvestorStyle] = useState(
     () => localStorage.getItem("fk_pref_style") || "balanced"
@@ -131,6 +137,20 @@ const NewAnalysis = () => {
     );
   };
 
+  /** Poll the report until the background analysis completes or fails. */
+  const waitForReport = async (reportId: string) => {
+    const deadline = Date.now() + 5 * 60 * 1000;
+    while (Date.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 4000));
+      const status = await api.analysis.getAnalysisStatus(reportId);
+      if (status?.status === "completed") return;
+      if (status?.status === "failed") {
+        throw new Error(status.error || "Analysis failed. Please try again.");
+      }
+    }
+    throw new Error("The analysis is taking longer than expected — check History in a minute.");
+  };
+
   const handleAnalyze = async () => {
     if (!selectedFile) {
       toast({
@@ -153,8 +173,10 @@ const NewAnalysis = () => {
     setProgress(0);
     setProcessingSteps(INITIAL_STEPS);
 
-    // Derive a readable company name from the file name (backend also reads document metadata)
-    const companyName = selectedFile.name.replace(/\.[^/.]+$/, "");
+    // Use the company picked in the search (or passed from the dashboard);
+    // otherwise derive a readable name from the file name.
+    const companyName = selectedCompany?.name || selectedFile.name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
+    const companyTicker = selectedCompany?.ticker || "";
 
     try {
       // 1. Upload — the backend extracts text and builds embeddings during this request
@@ -168,18 +190,24 @@ const NewAnalysis = () => {
       // 2. Run the AI analysis (this generates the report)
       markStep(3, "processing");
       markStep(4, "processing");
-      const result = await api.analysis.analyzeFile(upload.file_id, companyName, "", {
+      const result = await api.analysis.analyzeFile(upload.file_id, companyName, companyTicker, {
         investorStyle,
         horizon,
         region,
       });
-      markStep(3, "completed");
-      markStep(4, "completed");
-      setProgress(100);
 
       if (!result.reportId) {
         throw new Error("Analysis did not return a report id.");
       }
+
+      // The server writes the report in the background (it takes a minute or
+      // two) — wait for it to finish before opening it.
+      if (result.status !== "completed") {
+        await waitForReport(result.reportId);
+      }
+      markStep(3, "completed");
+      markStep(4, "completed");
+      setProgress(100);
 
       // Balance changed — refresh the wallet, then open the finished report
       usePlanStore.getState().fetchWallet();
@@ -187,8 +215,10 @@ const NewAnalysis = () => {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Analysis failed. Please try again.";
-      // Out of tokens → route to the right purchase surface instead of a dead error.
-      if (/token/i.test(message)) {
+      // Out of AI tokens → route to the right purchase surface instead of a
+      // dead error. (Match the specific message, not any mention of "token" —
+      // auth errors like "Invalid token" must show as errors.)
+      if (/out of AI tokens/i.test(message)) {
         const plan = usePlanStore.getState();
         plan.isPro() ? plan.openBuyTokens() : plan.openUpgrade("reports");
       } else {
@@ -241,7 +271,7 @@ const NewAnalysis = () => {
             Tailor this analysis to you
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
-            Gini writes every report through your lens — the same filing, read the way <em>you</em> invest.
+            Fundakamental writes every report through your lens — the same filing, read the way <em>you</em> invest.
           </p>
           <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">How do you invest?</Label>
           <div className="flex flex-wrap gap-2 mt-2 mb-4">
@@ -335,10 +365,13 @@ const NewAnalysis = () => {
               <CompanySearchResults
                 query={searchQuery}
                 onAnalyze={(company: any) => {
+                  if (company?.ticker) {
+                    setSelectedCompany({ ticker: company.ticker, name: company.name || company.ticker });
+                  }
                   toast({
                     title: `Ready to analyse ${company?.name || company?.ticker || "this company"}`,
                     description:
-                      "Upload its latest annual/quarterly report in the box below and Gini will do the rest.",
+                      "Upload its latest annual/quarterly report in the box below and Fundakamental will do the rest.",
                   });
                   document
                     .querySelector('[data-tour="upload-report"], #file-upload')

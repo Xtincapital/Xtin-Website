@@ -261,7 +261,8 @@ export const chatApi = {
     });
 
     return {
-      message: data.response,
+      // The backend returns the answer as `content` (chat.controller.ts).
+      message: data.content ?? data.response,
       timestamp: data.timestamp || new Date().toISOString(),
       sources: data.sources || [],
     };

@@ -72,6 +72,11 @@ interface WatchlistSummary {
   targets_near: number;
 }
 
+// Indian listings (NSE .NS / BSE .BO) are priced in rupees; everything else
+// the app tracks is quoted in US dollars.
+const isIndianTicker = (ticker: string) => /\.(NS|BO)$/i.test(ticker || '');
+const currencySymbol = (ticker: string) => (isIndianTicker(ticker) ? '₹' : '$');
+
 export default function Watchlist() {
   const [watchlists, setWatchlists] = useState<Watchlist[]>([]);
   const [selectedWatchlist, setSelectedWatchlist] = useState<string | null>(null);
@@ -272,13 +277,16 @@ export default function Watchlist() {
     }
   };
 
-  const formatPrice = (price: number | null) => {
-    if (price === null) return 'N/A';
-    return `$${price.toFixed(2)}`;
+  const formatPrice = (price: number | null | undefined, ticker: string) => {
+    if (price == null || !Number.isFinite(Number(price))) return 'N/A';
+    return `${currencySymbol(ticker)}${Number(price).toLocaleString(isIndianTicker(ticker) ? 'en-IN' : 'en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   };
 
-  const formatChange = (change: number | null, changePct: number | null) => {
-    if (change === null || changePct === null) return 'N/A';
+  const formatChange = (change: number | null | undefined, changePct: number | null | undefined) => {
+    if (change == null || changePct == null) return 'N/A';
 
     const color = change >= 0 ? 'text-primary' : 'text-destructive';
     const icon = change >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />;
@@ -334,6 +342,12 @@ export default function Watchlist() {
   };
 
   const currentWatchlist = watchlists.find(w => w.id === selectedWatchlist);
+  // Tracked value sums the prices as quoted — only label a currency when every
+  // stock in the list shares it.
+  const trackedValueSymbol =
+    items.length > 0 && items.every((i) => isIndianTicker(i.ticker)) ? '₹'
+    : items.every((i) => !isIndianTicker(i.ticker)) ? '$'
+    : '';
 
   if (loading) {
     return (
@@ -616,7 +630,7 @@ export default function Watchlist() {
                   <TrendingDown className="w-5 h-5 text-destructive" />
                 )}
                 <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-primary' : 'text-destructive'}`}>
-                  {summary.avg_change_pct >= 0 ? '+' : ''}{summary.avg_change_pct.toFixed(2)}%
+                  {(summary.avg_change_pct ?? 0) >= 0 ? '+' : ''}{(summary.avg_change_pct ?? 0).toFixed(2)}%
                 </p>
               </div>
             </CardContent>
@@ -644,7 +658,7 @@ export default function Watchlist() {
             <CardContent>
               <div className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" />
-                <p className="text-2xl font-bold">${summary.tracked_value.toLocaleString()}</p>
+                <p className="text-2xl font-bold">{trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}</p>
               </div>
             </CardContent>
           </Card>
@@ -694,13 +708,13 @@ export default function Watchlist() {
                         <div className="text-xs text-muted-foreground">{item.company_name}</div>
                       )}
                     </TableCell>
-                    <TableCell>{formatPrice(item.added_price)}</TableCell>
-                    <TableCell>{formatPrice(item.current_price)}</TableCell>
+                    <TableCell>{formatPrice(item.added_price, item.ticker)}</TableCell>
+                    <TableCell>{formatPrice(item.current_price, item.ticker)}</TableCell>
                     <TableCell>{formatChange(item.change, item.change_pct)}</TableCell>
                     <TableCell>
                       {item.target_price ? (
                         <div>
-                          <div>{formatPrice(item.target_price)}</div>
+                          <div>{formatPrice(item.target_price, item.ticker)}</div>
                           <Badge variant="outline" className="text-xs">
                             {item.target_price_type}
                           </Badge>
@@ -710,7 +724,7 @@ export default function Watchlist() {
                       )}
                     </TableCell>
                     <TableCell>
-                      {item.target_distance !== null && item.target_distance_pct !== null ? (
+                      {item.target_distance != null && item.target_distance_pct != null ? (
                         <div>
                           <div className={item.target_distance >= 0 ? 'text-primary' : 'text-destructive'}>
                             {item.target_distance >= 0 ? '+' : ''}{item.target_distance.toFixed(2)}

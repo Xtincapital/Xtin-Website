@@ -32,16 +32,16 @@ const STEPS: Step[] = [
   },
   {
     target: "search-company",
-    eyebrow: "Step 1 · Analyse instantly",
+    eyebrow: "Step 1 · Pick a company",
     title: "Search any listed company",
-    desc: "Type a name or ticker — Apple, TCS, NVIDIA — and Gini pulls the fundamentals and writes a full analysis for you in seconds.",
+    desc: "Type a name or ticker — Apple, TCS, NVIDIA — to start a research report on it. You'll add its annual report or financials next.",
     placement: "bottom",
   },
   {
     target: "upload-report",
-    eyebrow: "Step 2 · Or bring your own",
-    title: "Upload a report to go deeper",
-    desc: "Drop in a PDF annual report, 10-K, or an Excel/CSV. The AI reads the actual filing and grounds every insight in your document.",
+    eyebrow: "Step 2 · Add the filing",
+    title: "Upload its annual report",
+    desc: "Drop in a PDF annual report, 10-K, or an Excel/CSV of the financials. The AI reads the actual filing and writes a full report grounded in your document.",
     placement: "bottom",
   },
   {

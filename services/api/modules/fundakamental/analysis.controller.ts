@@ -175,6 +175,7 @@ export const startAnalysis = async (req, res) => {
     const userId = req.user.authId;
     const reportId = crypto.randomUUID();
     let reportInserted = false;
+    let responded = false;
 
     try {
         const reportRecord: Record<string, unknown> = {
@@ -256,6 +257,17 @@ export const startAnalysis = async (req, res) => {
             );
         }
 
+        // Writing the report takes ~1–2 minutes — longer than Cloudflare's
+        // 100-second limit in front of Render, which would cut the request
+        // off. Reply now and finish in the background; the client polls
+        // GET /analysis/status/:reportId until the report is completed/failed.
+        res.status(202).json({
+            report_id: reportId,
+            status: "processing",
+            message: "Analysis started",
+        });
+        responded = true;
+
         const analysisResult = await analyzeFinancialDocument({
             extractedText: documentText,
             companyName,
@@ -320,12 +332,7 @@ export const startAnalysis = async (req, res) => {
         const { error: usageError } = await setReportsUsed(userId, (profile.reports_used ?? 0) + 1);
         if (usageError) console.error("[Fundakamental] failed to update reports_used:", usageError.message);
 
-        return res.status(HTTP_STATUS.OK).json({
-            report_id: reportId,
-            status: "completed",
-            message: "Analysis completed successfully",
-            analysis: analysisResult,
-        });
+        return;
     } catch (err) {
         if (reportInserted) {
             try {
@@ -335,10 +342,13 @@ export const startAnalysis = async (req, res) => {
             }
         }
 
+        console.error("[Fundakamental] analysis failed:", err);
+        // Already replied "processing" — the failure is recorded on the report
+        // (status "failed" + error), which the client picks up when polling.
+        if (responded) return;
         if (err instanceof AnalysisHttpError) {
             return res.status(err.statusCode).json({ error: err.message });
         }
-        console.error("[Fundakamental] analysis failed:", err);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to complete analysis: ${(err as Error)?.message || err}` });
     }
 };
@@ -355,29 +365,13 @@ export const getAnalysisStatus = async (req, res) => {
             return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Report not found" });
         }
 
-        // Mock processing steps (will be real in actual implementation) — ported
-        // as-is from the Python source, including its "analyzing" status check,
-        // which is currently unreachable since this flow never sets that status.
-        const steps = [
-            { name: "Uploading file", status: "completed", progress: 100.0 },
-            { name: "Extracting text from document", status: "completed", progress: 100.0 },
-            {
-                name: "Generating embeddings",
-                status: report.status === "analyzing" ? "analyzing" : "completed",
-                progress: report.status === "analyzing" ? 50.0 : 100.0,
-            },
-            { name: "Analyzing financial data", status: "pending", progress: 0.0 },
-            { name: "Generating report", status: "pending", progress: 0.0 },
-        ];
-
-        const overallProgress = steps.reduce((sum, step) => sum + step.progress, 0) / steps.length;
-
+        const done = report.status === "completed";
         return res.status(HTTP_STATUS.OK).json({
             report_id: reportId,
             status: report.status,
-            overall_progress: overallProgress,
-            steps,
-            estimated_time: report.status !== "completed" ? 30 : null,
+            error: report.status === "failed" ? report.error || "Analysis failed" : undefined,
+            overall_progress: done ? 100 : report.status === "failed" ? 0 : 60,
+            estimated_time: done ? null : 60,
         });
     } catch (err) {
         console.error("[Fundakamental] fetch analysis status failed:", err);

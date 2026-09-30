@@ -332,6 +332,14 @@ export const getWatchlistItems = async (req, res) => {
         if (includePrices && items.length > 0) {
             const prices = await buildPriceMap(items.map((i) => i.ticker));
             for (const item of items) {
+                // Always send these fields (null when there's no quote) so
+                // clients can tell "no price" apart from a missing field.
+                item.current_price = null;
+                item.change = null;
+                item.change_pct = null;
+                item.target_distance = null;
+                item.target_distance_pct = null;
+
                 const priceInfo = prices[item.ticker];
                 if (priceInfo) {
                     const currentPrice = priceInfo.price || 0;

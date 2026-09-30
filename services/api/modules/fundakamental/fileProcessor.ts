@@ -28,7 +28,7 @@ import path from "node:path";
 import supabase from "../../supabase/index.js";
 import { extractTextFromPdf, extractDataFromExcel } from "./documentExtractors.js";
 
-const ALLOWED_EXTENSIONS = new Set([".pdf", ".xlsx", ".xls"]);
+const ALLOWED_EXTENSIONS = new Set([".pdf", ".xlsx", ".xls", ".csv"]);
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 export const STORAGE_BUCKET = "funda-documents";
 
@@ -54,6 +54,7 @@ export function getContentType(fileExt: string): string {
         ".pdf": "application/pdf",
         ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         ".xls": "application/vnd.ms-excel",
+        ".csv": "text/csv",
     };
     return contentTypes[fileExt.toLowerCase()] || "application/octet-stream";
 }
@@ -142,7 +143,8 @@ export async function processFile(fileContent: Buffer, filename: string): Promis
             } else {
                 result.error = extraction.error || "PDF extraction failed";
             }
-        } else if (fileExt === ".xlsx" || fileExt === ".xls") {
+        } else if (fileExt === ".xlsx" || fileExt === ".xls" || fileExt === ".csv") {
+            // SheetJS reads CSV too (as a single sheet), so it shares the Excel path.
             const extraction = extractDataFromExcel(fileContent);
 
             if (extraction.success) {

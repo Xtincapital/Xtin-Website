@@ -69,33 +69,77 @@ function renderTemplate(templateName: string, context: Record<string, unknown>):
 
 let browserPromise: Promise<Browser> | null = null;
 
+// Render (and most containers) give Chrome a tiny /dev/shm and little RAM:
+// without these flags Chrome can hang or crash mid-render, and a PDF request
+// then never returns. `--single-process`/`--no-zygote` keep memory low on the
+// 512 MB free tier.
+const CHROME_ARGS = [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-extensions",
+    "--no-first-run",
+    "--no-zygote",
+    "--single-process",
+];
+const LAUNCH_TIMEOUT_MS = 45_000;
+const RENDER_TIMEOUT_MS = 45_000;
+
 function getBrowser(): Promise<Browser> {
     if (!browserPromise) {
-        browserPromise = puppeteer.launch({
+        const launching = puppeteer.launch({
             headless: true,
-            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+            args: CHROME_ARGS,
+            timeout: LAUNCH_TIMEOUT_MS,
+            protocolTimeout: RENDER_TIMEOUT_MS,
         });
-        browserPromise.catch(() => {
-            // Allow a later call to retry launching instead of caching a rejected promise.
-            browserPromise = null;
-        });
+        browserPromise = launching;
+        launching
+            .then((browser) => {
+                // If Chrome dies (e.g. out of memory), launch a fresh one next
+                // time instead of handing out a dead browser that hangs forever.
+                browser.on("disconnected", () => {
+                    if (browserPromise === launching) browserPromise = null;
+                });
+            })
+            .catch(() => {
+                // Allow a later call to retry launching instead of caching a rejected promise.
+                if (browserPromise === launching) browserPromise = null;
+            });
     }
     return browserPromise;
 }
 
+function withTimeout<T>(promise: Promise<T>, ms: number, what: string): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error(`${what} timed out after ${Math.round(ms / 1000)}s`)), ms);
+        promise.then(
+            (v) => { clearTimeout(timer); resolve(v); },
+            (e) => { clearTimeout(timer); reject(e); },
+        );
+    });
+}
+
 async function htmlToPdf(html: string): Promise<Buffer> {
-    const browser = await getBrowser();
+    const browser = await withTimeout(getBrowser(), LAUNCH_TIMEOUT_MS, "Starting the PDF renderer");
     const page = await browser.newPage();
     try {
-        await page.setContent(html, { waitUntil: "load" });
-        const pdf = await page.pdf({
-            format: "A4",
-            printBackground: true,
-            margin: { top: "20px", bottom: "20px", left: "20px", right: "20px" },
-        });
+        // Templates are self-contained (no external assets), so the DOM being
+        // ready is enough — no need to wait on network idle.
+        await page.setContent(html, { waitUntil: "domcontentloaded", timeout: RENDER_TIMEOUT_MS });
+        const pdf = await withTimeout(
+            page.pdf({
+                format: "A4",
+                printBackground: true,
+                margin: { top: "20px", bottom: "20px", left: "20px", right: "20px" },
+            }),
+            RENDER_TIMEOUT_MS,
+            "Rendering the PDF",
+        );
         return Buffer.from(pdf);
     } finally {
-        await page.close();
+        await page.close().catch(() => {});
     }
 }
 

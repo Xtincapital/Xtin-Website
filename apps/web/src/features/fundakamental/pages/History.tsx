@@ -326,9 +326,11 @@ const History = () => {
                       <div>
                         <h3 className="font-semibold text-foreground mb-1">{report.company}</h3>
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="px-2 py-0.5 rounded-full bg-accent/30 text-xs text-primary font-medium">
-                            {report.ticker}
-                          </span>
+                          {report.ticker && !/^n\/?a$/i.test(report.ticker.trim()) && (
+                            <span className="px-2 py-0.5 rounded-full bg-accent/30 text-xs text-primary font-medium">
+                              {report.ticker}
+                            </span>
+                          )}
                           <span className="text-xs text-muted-foreground flex items-center gap-1">
                             <Clock className="w-3 h-3" />
                             {formatDate(report.created_at)}
@@ -439,7 +441,7 @@ const History = () => {
             <AlertDialogTitle>Delete this report?</AlertDialogTitle>
             <AlertDialogDescription>
               {pendingDelete
-                ? `"${pendingDelete.company}" (${pendingDelete.ticker}) will be permanently removed. This can't be undone.`
+                ? `"${pendingDelete.company}" will be permanently removed. This can't be undone.`
                 : ""}
             </AlertDialogDescription>
           </AlertDialogHeader>

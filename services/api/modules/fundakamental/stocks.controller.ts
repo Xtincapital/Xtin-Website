@@ -39,9 +39,9 @@ function directoryFallback(query: string) {
     }));
 }
 
-/* GET /api/fundakamental/stocks/search?q= */
+/* GET /api/fundakamental/stocks/search?q= (the web client sends ?query=) */
 export const searchCompanies = async (req, res) => {
-    const q = String(req.query.q || "").trim();
+    const q = String(req.query.q || req.query.query || "").trim();
     if (!q) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Query must be at least 1 character" });
     }

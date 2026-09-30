@@ -3,11 +3,18 @@
 import * as z from "zod/v4";
 import { trimStrings } from "../../utils/helper_functions.js";
 
+// Blank strings mean "not provided" — the web client sends company_ticker: ""
+// when the user uploads a file without picking a company first.
+const optionalText = z.preprocess(
+    (v) => (typeof v === "string" && v.trim() === "" ? undefined : v),
+    z.string().min(1).optional().nullable(),
+);
+
 const analysisRequestSchema = z
     .object({
-        file_id: z.string().min(1).optional().nullable(),
-        company_ticker: z.string().min(1).optional().nullable(),
-        company_name: z.string().min(1).optional().nullable(),
+        file_id: optionalText,
+        company_ticker: optionalText,
+        company_name: optionalText,
         // Personalization: how this investor thinks, so the report speaks to them.
         investor_style: z.enum(["beginner", "value", "growth", "income", "trader", "balanced"]).default("balanced"),
         // long_term | medium | short
