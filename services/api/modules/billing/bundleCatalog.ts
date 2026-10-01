@@ -100,3 +100,20 @@ export function priceBundle(planId: string, billingCycle: string, customProductI
 
     return null;
 }
+
+/**
+ * `user_subscriptions.products` is a jsonb list, but older rows were saved as
+ * a JSON *string* (the list passed through JSON.stringify), so it reads back
+ * as text. Accept both so existing customers' bundles keep working.
+ */
+export function normalizeProducts(value: unknown): string[] {
+    let list: unknown = value;
+    if (typeof list === "string") {
+        try {
+            list = JSON.parse(list);
+        } catch {
+            return [];
+        }
+    }
+    return Array.isArray(list) ? list.map(String) : [];
+}

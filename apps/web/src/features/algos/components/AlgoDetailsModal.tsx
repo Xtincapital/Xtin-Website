@@ -9,8 +9,6 @@ interface Props {
   onSubscribe: (algoName: string) => void;
 }
 
-const SUPPORT_EMAIL = 'support@xtincapital.com';
-
 const Check = () => (
   <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -36,7 +34,6 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
 
   if (!detail) return null;
   const bt = detail.backtest;
-  const reportMail = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(`Backtest report request: ${detail.name}`)}`;
 
   return (
     <div
@@ -91,56 +88,71 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
 
           <Section title="Before you buy">
             <ul className="space-y-2 text-sm text-gray-700 list-disc pl-5">
-              <li>You need a TradingView account — we ask for your TradingView username so we can add the indicator to it.</li>
+              <li>You need a TradingView account — we ask for your TradingView username so we can add the algorithm to it.</li>
               <li>TradingView alerts depend on your TradingView plan; the signals themselves show on the chart either way.</li>
-              <li>You place and manage your own trades. The algo gives signals, it does not guarantee profits.</li>
+              <li>The results below are historical backtests, not live trading results. Live results can and will differ.</li>
+              <li>You place and manage your own trades. The strategy gives signals; it does not guarantee profits.</li>
+              <li>Check the maximum drawdown and the losing streaks below and decide whether you can stay with the strategy through them.</li>
             </ul>
           </Section>
 
-          <Section title="How to use it after you subscribe">
+          <Section title="How to start after you subscribe">
             <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
               <li>Subscribe and enter your TradingView username.</li>
-              <li>Our team adds the indicator to your account within 24 hours.</li>
-              <li>Open a chart of your market on the timeframe above and add the indicator from “Invite-only scripts”.</li>
-              <li>Follow the signals and the built-in risk sizing, and set TradingView alerts if your plan supports them.</li>
+              <li>Our team adds the algorithm to your TradingView account within 24 hours.</li>
+              <li>Open a chart of the market shown above and add it from your invite-only scripts.</li>
+              <li>Follow the signals and the strategy’s built-in risk sizing, and set TradingView alerts if your plan supports them.</li>
             </ol>
           </Section>
 
-          <Section title="Backtest report">
-            {bt ? (
-              <>
-                <p className="text-xs text-gray-500 mb-3">
-                  {bt.market} · {bt.period}
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {[
-                    ['Trades', String(bt.trades)],
-                    ['Win rate', bt.winRate],
-                    ['Profit factor', bt.profitFactor],
-                    ['Max drawdown', bt.maxDrawdown],
-                  ].map(([label, value]) => (
-                    <div key={label} className="rounded-xl border border-gray-200 p-3 text-center">
-                      <div className="text-lg font-bold text-gray-900">{value}</div>
-                      <div className="text-xs text-gray-500">{label}</div>
-                    </div>
-                  ))}
+          <Section title="Backtest results">
+            <p className="text-xs text-gray-500 mb-3">
+              {bt.market} · {bt.period}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                ['Total return', bt.cumulativeReturn],
+                ['Yearly return (CAGR)', bt.cagr],
+                ['Max drawdown', bt.maxDrawdown],
+                ['Sharpe ratio', bt.sharpe],
+                ['Profit factor', bt.profitFactor],
+                ['Win rate', bt.winRate],
+                ['Trades', bt.trades],
+                ['Balance drawdown', bt.balanceDrawdown],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-xl border border-gray-200 p-3 text-center">
+                  <div className="text-lg font-bold text-gray-900">{value}</div>
+                  <div className="text-xs text-gray-500">{label}</div>
                 </div>
-                {bt.reportUrl && (
-                  <a href={bt.reportUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 text-sm font-semibold text-green-600 hover:underline">
-                    Download the full backtest report →
-                  </a>
-                )}
-              </>
-            ) : (
-              <div className="rounded-xl border border-dashed border-gray-300 p-4 text-sm text-gray-700">
-                <p>
-                  The full backtest report for {detail.name} is shared on request, so you can review it before you subscribe.
-                </p>
-                <a href={reportMail} className="inline-block mt-3 font-semibold text-green-600 hover:underline">
-                  Request the backtest report →
-                </a>
-              </div>
-            )}
+              ))}
+            </div>
+
+            <div className="mt-4 rounded-xl border border-gray-200 overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 text-gray-600 text-left">
+                    <th className="px-4 py-2 font-semibold">Year</th>
+                    <th className="px-4 py-2 font-semibold text-right">Return</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {bt.yearly.map((y) => (
+                    <tr key={y.label}>
+                      <td className="px-4 py-2 text-gray-700">{y.label}</td>
+                      <td className={`px-4 py-2 text-right font-semibold ${y.value.startsWith('-') ? 'text-red-600' : 'text-green-600'}`}>{y.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <ul className="mt-3 space-y-1.5 text-sm text-gray-700 list-disc pl-5">
+              {bt.notes.map((n) => (
+                <li key={n}>{n}</li>
+              ))}
+              <li>Max drawdown is the larger equity drawdown from the report; balance drawdown counts realised results only.</li>
+            </ul>
+
           </Section>
 
           <p className="text-xs text-gray-500">

@@ -2,12 +2,8 @@ import * as z from "zod/v4";
 import { trimStrings } from "../../utils/helper_functions.js";
 
 const algoOrderSchema = z.object({
-    algo_name: z.enum([
-        "XTIN Alpha 1.0",
-        "XTIN ALPHA V1",
-        "XTIN GammaV1",
-        "XTIN Z1",
-    ], { error: "Invalid algorithm name" }),
+    // Must match the current keys of ALGO_PLANS in algorithm.controller.ts.
+    algo_name: z.enum(["AurumV", "Bird Eye", "Gamma", "Z1"], { error: "Invalid algorithm name" }),
     plan_type: z.enum(["monthly"], { error: "Invalid plan type" }).default("monthly"),
     tradingview_username: z.string().min(1, "TradingView username is required"),
     phone_number: z.string().min(10, "Phone number must be at least 10 digits"),

@@ -6,7 +6,7 @@ import { getNewsletterPlanByUserId, getNewsletterPlansForUser, upsertNewsletterP
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { razorpayConfigured, requireValidRazorpaySignature, RazorpaySignatureError } from "../../utils/razorpay.js";
 import { BUNDLE_PRODUCT, buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
-import { priceBundle, type PricedPlan } from "./bundleCatalog.js";
+import { normalizeProducts, priceBundle, type PricedPlan } from "./bundleCatalog.js";
 import { addCycle, stackValidUntil } from "../../utils/planExpiry.js";
 import { getProPlanByUser as getGiniProPlan, upsertProPlan as upsertGiniProPlan } from "../gini/proPlan.repository.js";
 import { invalidateGiniPlanTierCache } from "../gini/planTier.js";
@@ -268,7 +268,10 @@ export const getUserSubscriptionPlans = async (req, res) => {
 
         // Filter valid non-expired subscriptions
         const now = new Date();
-        const activeBundles = (userSubs || []).filter((s) => new Date(s.valid_until) > now);
+        // products may come back as a JSON string on rows saved before the column was written as a real list.
+        const activeBundles = (userSubs || [])
+            .filter((s) => new Date(s.valid_until) > now)
+            .map((s) => ({ ...s, products: normalizeProducts(s.products) }));
 
         // 2. Fetch from algorithm_subscriptions table
         const { data: algoSubs = [] } = await getActiveAlgorithmSubscriptionsForUser(userId, authId);
@@ -366,7 +369,7 @@ async function persistUserSubscription({
         auth_id: authId,
         plan_id: planId,
         plan_name: planName,
-        products: JSON.stringify(products),
+        products,
         billing_cycle: billingCycle,
         amount,
         currency,

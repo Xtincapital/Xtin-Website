@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AlgoDetailsModal from '../components/AlgoDetailsModal';
+import { ALGO_DETAILS, ALGO_ORDER } from '../components/algoDetails';
 import PublisherApplicationsModal from '../components/PublisherApplicationsModal';
 import { publisherApi } from '../lib/publisherApi';
 import { Link } from 'react-router-dom';
@@ -286,7 +287,7 @@ const AlgosPage = () => {
     <div className="bg-white text-gray-900">
       <SEO
         title="Trading Algorithms - AI-Powered Algorithmic Trading Systems"
-        description="Access professional AI-powered trading algorithms for equity, options, and commodity markets. Explore Xtin Capital's algorithmic strategies with proven backtested results."
+        description="Access professional AI-powered trading algorithms for equity, options, and commodity markets. Explore Xtin Capital's algorithmic strategies with published backtest results."
         keywords="algorithmic trading, trading algorithms, AI trading systems, automated trading, quantitative trading, algo trading India, trading bots, systematic trading"
         canonicalUrl="/algos"
         structuredData={structuredData}
@@ -809,282 +810,88 @@ const AlgosPage = () => {
                 XTIN Exclusive <span className="text-green-600">Algorithms</span>
               </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                Premium trading strategies developed by our expert quantitative team with proven backtested results
+                Premium trading strategies developed by our expert quantitative team with published backtest results
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Alpha 1.0 Algorithm Card */}
-              <div className="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
-                {/* Card Header with Gradient */}
-                <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 p-6 pb-16">
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full px-3 py-1">
-                    XTIN Exclusive
-                  </div>
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">XTIN Alpha 1.0</h3>
-                  <p className="text-green-100 text-sm mt-1">Momentum Signal Generator</p>
-                  
-                  {/* Decorative circles */}
-                  <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
-                </div>
-                
-                {/* Card Body */}
-                <div className="p-6 pt-8 -mt-8 bg-white rounded-t-3xl relative flex-grow flex flex-col">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-gray-100">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Pine Script v6</span>
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">Multi-Indicator</span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Real-time</span>
-                  </div>
-                  
-                  <ul className="text-gray-600 space-y-3 text-sm mb-6 flex-grow">
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Visual momentum-based signal generation</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Built-in position sizing & risk controls</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Execution-ready alerts</span>
-                    </li>
-                  </ul>
-                  
-                  <button
-                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
-                    onClick={() => setDetailsAlgo('XTIN Alpha 1.0')}
-                  >
-                    View details &amp; how it works
-                  </button>
-                  <button
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
-                    onClick={() => subscribeToAlgo('XTIN Alpha 1.0')}
-                  >
-                    <span>Subscribe Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              {ALGO_ORDER.map((key) => {
+                const algo = ALGO_DETAILS[key];
+                const bt = algo.backtest;
+                return (
+                  <div key={algo.name} className="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
+                    {/* Card Header with Gradient */}
+                    <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 p-6 pb-16">
+                      <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full px-3 py-1">
+                        XTIN Exclusive
+                      </div>
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                      </div>
+                      <h3 className="text-2xl font-bold text-white">{algo.name}</h3>
+                      <p className="text-green-100 text-sm mt-1">{algo.tagline}</p>
+                      <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
+                    </div>
 
-              {/* XTIN ALPHA V1 Algorithm Card */}
-              <div className="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
-                {/* Card Header with Gradient */}
-                <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 p-6 pb-16">
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full px-3 py-1">
-                    XTIN Exclusive
-                  </div>
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">XTIN ALPHA V1</h3>
-                  <p className="text-green-100 text-sm mt-1">Intraday Fast Signals</p>
-                  
-                  {/* Decorative circles */}
-                  <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
-                </div>
-                
-                {/* Card Body */}
-                <div className="p-6 pt-8 -mt-8 bg-white rounded-t-3xl relative flex-grow flex flex-col">
-                  {/* Timeframe badges */}
-                  <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-gray-100">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">1m - 1H</span>
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">Momentum</span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Volatility</span>
-                  </div>
-                  
-                  <ul className="text-gray-600 space-y-3 text-sm mb-6 flex-grow">
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Intraday-focused, fast signals</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Risk-aware position sizing</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Custom setup by our team</span>
-                    </li>
-                  </ul>
-                  
-                  <button
-                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
-                    onClick={() => setDetailsAlgo('XTIN ALPHA V1')}
-                  >
-                    View details &amp; how it works
-                  </button>
-                  <button
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
-                    onClick={() => subscribeToAlgo('XTIN ALPHA V1')}
-                  >
-                    <span>Subscribe Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+                    {/* Card Body */}
+                    <div className="p-6 pt-8 -mt-8 bg-white rounded-t-3xl relative flex-grow flex flex-col">
+                      <div className="flex flex-wrap gap-2 mb-5 pb-5 border-b border-gray-100">
+                        {algo.tags.map((t) => (
+                          <span key={t} className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">{t}</span>
+                        ))}
+                      </div>
 
-              {/* GammaV1 Algorithm Card */}
-              <div className="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
-                {/* Card Header with Gradient */}
-                <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 p-6 pb-16">
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full px-3 py-1">
-                    XTIN Exclusive
-                  </div>
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">XTIN GammaV1</h3>
-                  <p className="text-green-100 text-sm mt-1">4H Swing Trading</p>
-                  
-                  {/* Decorative circles */}
-                  <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
-                </div>
-                
-                {/* Card Body */}
-                <div className="p-6 pt-8 -mt-8 bg-white rounded-t-3xl relative flex-grow flex flex-col">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-gray-100">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">4H Timeframe</span>
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">Swing</span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Multi-Exit</span>
-                  </div>
-                  
-                  <ul className="text-gray-600 space-y-3 text-sm mb-6 flex-grow">
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Multi-level exit strategy included</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Optimized risk-reward ratio</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Adaptive market signals</span>
-                    </li>
-                  </ul>
-                  
-                  <button
-                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
-                    onClick={() => setDetailsAlgo('XTIN GammaV1')}
-                  >
-                    View details &amp; how it works
-                  </button>
-                  <button
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
-                    onClick={() => subscribeToAlgo('XTIN GammaV1')}
-                  >
-                    <span>Subscribe Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+                      {/* Headline backtest numbers */}
+                      <div className="grid grid-cols-3 gap-2 mb-2 text-center">
+                        {[
+                          ['Return', bt.cumulativeReturn],
+                          ['Max drawdown', bt.maxDrawdown],
+                          ['Sharpe', bt.sharpe],
+                        ].map(([label, value]) => (
+                          <div key={label} className="rounded-xl border border-gray-200 py-2 px-1">
+                            <div className="text-base font-bold text-gray-900">{value}</div>
+                            <div className="text-[11px] text-gray-500">{label}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-[11px] text-gray-500 mb-5">Backtest, {bt.period}. Not live results.</p>
 
-              {/* XTIN Z1 Algorithm Card */}
-              <div className="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
-                {/* Card Header with Gradient */}
-                <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 p-6 pb-16">
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full px-3 py-1">
-                    XTIN Exclusive
+                      <ul className="text-gray-600 space-y-3 text-sm mb-6 flex-grow">
+                        {[
+                          `${bt.winRate} win rate over ${bt.trades} trades`,
+                          `Profit factor ${bt.profitFactor}`,
+                          algo.timeframes,
+                        ].map((line) => (
+                          <li key={line} className="flex items-start gap-3">
+                            <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                            <span>{line}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <button
+                        className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
+                        onClick={() => setDetailsAlgo(algo.name)}
+                      >
+                        View details &amp; backtest
+                      </button>
+                      <button
+                        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+                        onClick={() => subscribeToAlgo(algo.name)}
+                      >
+                        <span>Subscribe Now</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">XTIN Z1</h3>
-                  <p className="text-green-100 text-sm mt-1">Long-term Investment</p>
-                  
-                  {/* Decorative circles */}
-                  <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
-                </div>
-                
-                {/* Card Body */}
-                <div className="p-6 pt-8 -mt-8 bg-white rounded-t-3xl relative flex-grow flex flex-col">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6 pb-6 border-b border-gray-100">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">1D - 1W</span>
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-full">Investing</span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">Accumulation</span>
-                  </div>
-                  
-                  <ul className="text-gray-600 space-y-3 text-sm mb-6 flex-grow">
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Clear buy entries for accumulation</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Exit signals for large positions</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span>Adaptive to selected markets</span>
-                    </li>
-                  </ul>
-                  
-                  <button
-                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
-                    onClick={() => setDetailsAlgo('XTIN Z1')}
-                  >
-                    View details &amp; how it works
-                  </button>
-                  <button
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
-                    onClick={() => subscribeToAlgo('XTIN Z1')}
-                  >
-                    <span>Subscribe Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+                );
+              })}
 
               {/* Coming Soon Card */}
               <div className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700 overflow-hidden">
@@ -1130,7 +937,7 @@ const AlgosPage = () => {
                     </div>
                   </div>
                   <p className="text-gray-300 text-lg mb-8">
-                    Our team is developing additional premium strategies. Stay tuned for more advanced algorithms with proven backtesting results.
+                    Our team is developing additional premium strategies. Stay tuned for more advanced algorithms with published backtest results.
                   </p>
                 </div>
 
@@ -1989,7 +1796,7 @@ const AlgosPage = () => {
             </div>
             <div className="p-6">
               <p className="text-gray-700">
-                Thanks for your enquiry! One of our Alpha 1.0 algorithm experts will join your scheduled meeting to explain all features and guide implementation.
+                Thanks for your enquiry! One of our algorithm experts will join your scheduled meeting to explain all features and guide implementation.
               </p>
             </div>
           </div>

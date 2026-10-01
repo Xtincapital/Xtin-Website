@@ -352,7 +352,7 @@ const AlgorithmsIntro = () => {
               <h3 className="text-xl font-bold mb-2">XTIN Exclusive Algos</h3>
               <p className="text-sm text-gray-500 dark:text-slate-400 mb-5">Premium strategies built by our quant team with ₹60Cr+ AUM managed</p>
               <ul className="space-y-3 mb-6">
-                {['Alpha 1.0 — Momentum Signals', 'GammaV1 — 4H Swing Trading', 'Z1 — Long-term Investment'].map((f) => (
+                {['AurumV — Systematic Gold Strategy', 'Bird Eye — Multi-Engine Portfolio', 'Gamma — 15-Minute Gold Strategy', 'Z1 — Systematic Investment Strategy'].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300">
                     <span className="text-green-500 mt-0.5 flex-shrink-0">{I.check}</span>
                     {f}

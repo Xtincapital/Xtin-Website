@@ -16,40 +16,29 @@ import { getAlgorithmSubscriptionsByUserId, upsertAlgorithmSubscription } from "
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
 
-// Server-authoritative pricing catalogue
+// Server-authoritative pricing catalogue.
+// Current strategies first; the legacy entries below stay so that subscriptions
+// already sold (and payments still in flight) under the old names keep verifying.
+const monthly = (name: string, label: string) => ({
+    name,
+    label,
+    plan_type: "monthly",
+    amount: 499900, // ₹4,999 in paise
+    currency: "INR",
+    durationDays: 31,
+});
+
 const ALGO_PLANS = {
-    "XTIN Alpha 1.0": {
-        name: "XTIN Alpha 1.0",
-        label: "XTIN Alpha 1.0 — Momentum Signal Generator",
-        plan_type: "monthly",
-        amount: 499900, // ₹4,999 in paise
-        currency: "INR",
-        durationDays: 31,
-    },
-    "XTIN ALPHA V1": {
-        name: "XTIN ALPHA V1",
-        label: "XTIN ALPHA V1 — Intraday Fast Signals",
-        plan_type: "monthly",
-        amount: 499900,
-        currency: "INR",
-        durationDays: 31,
-    },
-    "XTIN GammaV1": {
-        name: "XTIN GammaV1",
-        label: "XTIN GammaV1 — 4H Swing Trading",
-        plan_type: "monthly",
-        amount: 499900,
-        currency: "INR",
-        durationDays: 31,
-    },
-    "XTIN Z1": {
-        name: "XTIN Z1",
-        label: "XTIN Z1 — Long-term Investment",
-        plan_type: "monthly",
-        amount: 499900,
-        currency: "INR",
-        durationDays: 31,
-    },
+    AurumV: monthly("AurumV", "AurumV — Systematic Gold Strategy"),
+    "Bird Eye": monthly("Bird Eye", "Bird Eye — Multi-Engine Portfolio Strategy"),
+    Gamma: monthly("Gamma", "Gamma — 15-Minute Gold Strategy"),
+    Z1: monthly("Z1", "Z1 — Systematic Investment Strategy"),
+
+    // Legacy names (no longer sold — see algorithm.validator.ts).
+    "XTIN Alpha 1.0": monthly("XTIN Alpha 1.0", "XTIN Alpha 1.0 — Momentum Signal Generator"),
+    "XTIN ALPHA V1": monthly("XTIN ALPHA V1", "XTIN ALPHA V1 — Intraday Fast Signals"),
+    "XTIN GammaV1": monthly("XTIN GammaV1", "XTIN GammaV1 — 4H Swing Trading"),
+    "XTIN Z1": monthly("XTIN Z1", "XTIN Z1 — Long-term Investment"),
 };
 
 const razorpayConfigured = () =>

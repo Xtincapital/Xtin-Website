@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { priceBundle, PRESET_BUNDLES, BUNDLE_PRODUCTS } from "./bundleCatalog.js";
+import { priceBundle, normalizeProducts, PRESET_BUNDLES, BUNDLE_PRODUCTS } from "./bundleCatalog.js";
 
 describe("priceBundle", () => {
     it("prices presets and single products from the server catalogue", () => {
@@ -25,5 +25,19 @@ describe("priceBundle", () => {
         expect(priceBundle("free-everything", "monthly")).toBeNull();
         expect(priceBundle("algos", "weekly")).toBeNull();
         expect(priceBundle("", "monthly")).toBeNull();
+    });
+});
+
+describe("normalizeProducts", () => {
+    it("reads a real list", () => {
+        expect(normalizeProducts(["learn", "newsletter"])).toEqual(["learn", "newsletter"]);
+    });
+    it("reads the JSON-string form older rows were saved in", () => {
+        expect(normalizeProducts('["learn","newsletter"]')).toEqual(["learn", "newsletter"]);
+    });
+    it("never throws on junk", () => {
+        expect(normalizeProducts("not json")).toEqual([]);
+        expect(normalizeProducts(null)).toEqual([]);
+        expect(normalizeProducts({})).toEqual([]);
     });
 });
