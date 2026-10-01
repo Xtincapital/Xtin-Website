@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaSeedling, FaCheckCircle, FaClock, FaChartLine, FaLock, FaUserGraduate, FaTimesCircle } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: Time & Wealth Hero
 const TimeWealthHeroSVG = () => (
@@ -405,7 +408,9 @@ const LongTermInvestingOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -425,6 +430,7 @@ const LongTermInvestingOverview = () => {
                 Wealth Building Module
               </span>
             </div>
+            <div className="mb-3"><ModuleBadge moduleId="long-term-investing" /></div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Long-Term Investing</h1>
             <p className="text-xl text-teal-600 font-medium mb-4">Wealth Building Fundamentals</p>
             <p className="text-gray-600 text-lg">
@@ -752,6 +758,8 @@ const LongTermInvestingOverview = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

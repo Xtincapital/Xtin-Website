@@ -18,6 +18,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { emergencyFundLessons } from "./emergencyFundLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [ShieldIcon, LightbulbIcon, TargetIcon, WalletIcon, BankIcon, CoinsIcon, KeyIcon, WarningIcon, PiggyBankIcon];
 const colors = [
@@ -64,6 +65,8 @@ const EmergencyFundOverview = () => {
                 Safety Net
               </span>
             </div>
+
+            <div className="mb-3"><ModuleBadge moduleId="emergency-fund" /></div>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-200 rounded-xl shadow-sm">

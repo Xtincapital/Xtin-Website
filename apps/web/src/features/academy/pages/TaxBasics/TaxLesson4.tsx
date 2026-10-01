@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // ============================================
 // TAX LESSON 4: LONG-TERM VS SHORT-TERM TAXES
@@ -634,7 +636,9 @@ const TaxLesson4 = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 pt-16">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12">
         <div className="max-w-4xl mx-auto px-6">
@@ -872,15 +876,17 @@ const TaxLesson4 = () => {
             <span>Previous: Capital Gains – Simple Idea</span>
           </button>
           <button
-            onClick={() => navigate('/learn/taxes')}
+            onClick={() => navigate('/learn/tax-lesson-5')}
             className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
           >
-            <span>Back to Module</span>
+            <span>Next: Long-Term vs Short-Term Taxes</span>
             <span>→</span>
           </button>
         </section>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

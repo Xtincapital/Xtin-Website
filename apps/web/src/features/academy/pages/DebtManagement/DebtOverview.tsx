@@ -19,6 +19,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { debtLessons } from "./debtLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [CoinsIcon, BalanceScaleIcon, ChartBarIcon, CreditCardIcon, WarningIcon, BankIcon, PercentIcon, TargetIcon];
 const colors = [
@@ -65,6 +66,8 @@ const DebtOverview = () => {
                 Credit Control
               </span>
             </div>
+
+            <div className="mb-3"><ModuleBadge moduleId="debt-management" /></div>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-100 to-cyan-200 rounded-xl shadow-sm">

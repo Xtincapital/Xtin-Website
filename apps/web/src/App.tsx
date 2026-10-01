@@ -80,6 +80,7 @@ import ProtectedPageRoute from './components/ProtectedPageRoute';
 import LessonProgressTracker from './features/academy/components/LessonProgressTracker';
 import CertificateManager from './features/certificates/components/CertificateManager';
 const BacktestLanding = lazy(() => import('./features/algos/pages/BacktestLanding'));
+const BacktestApp = lazy(() => import('./features/backtest/BacktestApp'));
 const PersonalFinanceLesson1 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson1'));
 const PersonalFinanceLesson2 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson2'));
 const PersonalFinanceLesson3 = lazy(() => import('./features/academy/pages/PersonalFinance/PersonalFinanceLesson3'));
@@ -610,6 +611,7 @@ function App() {
         <Route path="/newsletter/article/:slug" element={<ProtectedPageRoute><SubstackArticle /></ProtectedPageRoute>} />
         <Route path="/newsletter/:id" element={<ProtectedPageRoute><NewsletterDisplay /></ProtectedPageRoute>} />
         <Route path="/backtest" element={<ProtectedPageRoute><BacktestLanding /></ProtectedPageRoute>} />
+        <Route path="/backtest/app/*" element={<ProtectedPageRoute><BacktestApp /></ProtectedPageRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/intro/algorithms" element={<AlgorithmsIntro />} />

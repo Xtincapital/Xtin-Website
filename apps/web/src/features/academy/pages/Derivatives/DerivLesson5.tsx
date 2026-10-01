@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // SVG 1: The Statistics Reality
 const StatisticsRealitySVG = () => (
@@ -464,7 +466,9 @@ const DerivLesson5 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -701,7 +705,7 @@ const DerivLesson5 = () => {
         </div>
 
         {/* Reflection */}
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-amber-200" />
             <h3 className="text-xl font-bold">Reflection Question</h3>
@@ -754,16 +758,18 @@ const DerivLesson5 = () => {
             <FaArrowLeft />
             <span>Previous: Risk in Futures & Options</span>
           </Link>
-          <button
-            disabled
-            className="flex items-center gap-2 bg-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold cursor-not-allowed"
+          <Link
+            to="/learn/deriv-lesson-6"
+            className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
-            <span>Next: Time Decay and Expiration</span>
+            <span>Next: When Derivatives Are (and Aren't) Useful</span>
             <FaArrowRight />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

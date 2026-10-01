@@ -19,6 +19,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { financialPlanningLessons } from "./financialPlanningLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [TargetIcon, WalletIcon, BalanceScaleIcon, KeyIcon, ShieldIcon, BankIcon, ClockIcon, PiggyBankIcon, CalculatorIcon];
 const colors = [
@@ -65,6 +66,8 @@ const FinancialPlanningOverview = () => {
                 Roadmap
               </span>
             </div>
+
+            <div className="mb-3"><ModuleBadge moduleId="financial-planning" /></div>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">

@@ -1,0 +1,55 @@
+// Backtest API client. Every call is authenticated with the site's shared
+// session (`authService.makeAuthenticatedRequest`), like the other products.
+import authService from "../../../services/authService";
+import { BACKEND_URL } from "../../../config/env";
+import type { Backtest, BacktestSummary, ChatResponse, PassInfo, PlanStatus, Strategy, StrategyDefinition } from "./types";
+
+const API_PREFIX = "/api/backtest";
+
+export class ApiError extends Error {
+  status: number;
+  code?: string;
+  constructor(status: number, message: string, code?: string) {
+    super(message);
+    this.status = status;
+    this.code = code;
+  }
+}
+
+export async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
+  const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);
+  if (res.status === 204) return undefined as T;
+  const body = await res.json().catch(() => null);
+  if (!res.ok) throw new ApiError(res.status, body?.error || body?.message || `Request failed (${res.status})`, body?.code);
+  return body as T;
+}
+
+const json = (body: unknown): RequestInit => ({ body: JSON.stringify(body) });
+
+export const backtestApi = {
+  chat: (payload: Record<string, unknown>) => request<ChatResponse>("/chat", { method: "POST", ...json(payload) }),
+  plan: () => request<PlanStatus>("/plan"),
+  passes: () => request<{ currency: string; passes: PassInfo[] }>("/passes"),
+
+  listStrategies: () => request<Strategy[]>("/strategies"),
+  getStrategy: (id: string) => request<Strategy>(`/strategies/${id}`),
+  createStrategy: (body: { name: string; definition: StrategyDefinition | unknown; is_public?: boolean }) =>
+    request<Strategy>("/strategies", { method: "POST", ...json(body) }),
+  updateStrategy: (id: string, body: { name?: string; definition?: StrategyDefinition; is_public?: boolean }) =>
+    request<Strategy>(`/strategies/${id}`, { method: "PUT", ...json(body) }),
+  deleteStrategy: (id: string) => request<void>(`/strategies/${id}`, { method: "DELETE" }),
+
+  run: (body: { strategy_id: string; start_date: string; end_date: string; starting_capital: number }) =>
+    request<Backtest>("/runs", { method: "POST", ...json(body) }),
+  listRuns: () => request<BacktestSummary[]>("/runs"),
+  getRun: (id: string) => request<Backtest>(`/runs/${id}`),
+  deleteRun: (id: string) => request<void>(`/runs/${id}`, { method: "DELETE" }),
+
+  createPassOrder: (passId: string) =>
+    request<{ key_id: string; order: { id: string; amount: number; currency: string }; pass: { id: string; label: string; days: number } }>("/razorpay/order", {
+      method: "POST",
+      ...json({ pass_id: passId }),
+    }),
+  verifyPass: (payload: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) =>
+    request<{ success: boolean; valid_until: string }>("/razorpay/verify", { method: "POST", ...json(payload) }),
+};

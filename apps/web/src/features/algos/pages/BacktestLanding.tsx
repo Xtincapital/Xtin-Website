@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useAuth } from '../../../contexts/AuthContext';
 import SignInModal from '../../../components/SignInModal';
-import { BACKTEST_URL } from '../../../constants/externalApps';
 import useRegion from '../../../hooks/useRegion';
 
 // Region-natural showcase figures (not FX-converted — each region gets clean,
@@ -120,11 +120,9 @@ const BacktestLanding = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a
-                  href={BACKTEST_URL}
+                <Link
+                  to="/backtest/app"
                   onClick={handleLaunch}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105"
                 >
                   <span className="relative z-10 flex items-center">
@@ -133,7 +131,7 @@ const BacktestLanding = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </span>
-                </a>
+                </Link>
               </div>
 
               {/* Stats Row */}
@@ -225,18 +223,16 @@ const BacktestLanding = () => {
           <p className="mx-auto mt-3 max-w-xl text-emerald-50">
             Backtest your first idea in under a minute — no signup, no code.
           </p>
-          <a
-            href={BACKTEST_URL}
-            onClick={handleLaunch}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+                  to="/backtest/app"
+                  onClick={handleLaunch}
             className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-7 py-3.5 font-semibold text-emerald-700 hover:bg-emerald-50 transition"
           >
             Open the playground
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
 

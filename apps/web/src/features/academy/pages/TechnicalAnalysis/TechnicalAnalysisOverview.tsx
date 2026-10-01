@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaLock, FaCheckCircle, FaTimesCircle, FaChartLine } from 'react-icons/fa';
 import { moduleLabel, moduleTag } from "../../../../constants/learningModules";
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // SVG 1: What is Technical Analysis - Visual Definition
 const WhatIsTechnicalAnalysisSVG = () => (
@@ -330,7 +332,9 @@ const TechnicalAnalysisOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -644,6 +648,8 @@ const TechnicalAnalysisOverview = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

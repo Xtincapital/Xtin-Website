@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
+import ModuleBadge from "../../components/ModuleBadge";
 
 // Premium SVG Icons
 const Icons = {
@@ -449,6 +450,8 @@ const DerivativesOverview = () => {
                   ADVANCED
                 </span>
               </div>
+              
+              <div className="mb-3"><ModuleBadge moduleId="derivatives" /></div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                 Derivatives: <br className="hidden sm:block" />Futures &amp; Options

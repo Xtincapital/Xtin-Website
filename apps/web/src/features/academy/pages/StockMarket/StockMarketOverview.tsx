@@ -349,7 +349,7 @@ const StockMarketOverview = () => {
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-white/80 rounded-xl p-4 border border-orange-100">
                 <div className="text-2xl font-bold text-indigo-600 mb-1">14 Cr+</div>
-                <p className="text-sm text-gray-600">Indians now invest in the stock market — a 3x increase since 2020!</p>
+                <p className="text-sm text-gray-600">demat accounts in India — over 3x since 2020 (one person can hold more than one).</p>
               </div>
               <div className="bg-white/80 rounded-xl p-4 border border-orange-100">
                 <div className="text-2xl font-bold text-green-600 mb-1">12-15%</div>

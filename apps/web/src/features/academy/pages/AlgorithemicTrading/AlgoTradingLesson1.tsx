@@ -237,7 +237,7 @@ const AlgoTradingLesson1 = () => {
             <div className="flex items-center gap-3 mb-4">
               <ModuleBadge moduleId="algorithmic-trading" />
               <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full text-sm font-bold">
-                Lesson 1 of 7
+                Lesson 1 of 9
               </span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm flex items-center gap-1.5">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaShieldAlt, FaCheckCircle, FaExclamationTriangle, FaChartLine, FaLock } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: Capital Protection Hero
 const CapitalProtectionHeroSVG = () => (
@@ -408,7 +411,9 @@ const RiskManagementOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -428,6 +433,7 @@ const RiskManagementOverview = () => {
                 Capital Protection Module
               </span>
             </div>
+            <div className="mb-3"><ModuleBadge moduleId="risk-management" /></div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Risk Management</h1>
             <p className="text-xl text-emerald-600 font-medium mb-4">Capital Protection Mastery</p>
             <p className="text-gray-600 text-lg">
@@ -658,6 +664,8 @@ const RiskManagementOverview = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

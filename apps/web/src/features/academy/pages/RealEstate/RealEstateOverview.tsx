@@ -18,6 +18,7 @@ import {
   KeyIcon
 } from "../../components/LearningIcons";
 import { realEstateLessons } from "./realEstateLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [
   HomeIcon,
@@ -79,7 +80,8 @@ const RealEstateOverview = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <div className="mb-3"><ModuleBadge moduleId="real-estate" /></div>
+<h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">
                 <HomeIcon className="w-7 h-7 text-indigo-600" />
               </span>

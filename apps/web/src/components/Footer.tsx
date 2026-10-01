@@ -304,7 +304,7 @@ const Footer = () => {
           <p className="text-sm text-gray-500 dark:text-slate-400">
             © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-400 dark:text-slate-500 text-center md:text-right">
+          <p className="text-xs text-gray-600 dark:text-slate-400 text-center md:text-right">
             LLP ID: {COMPANY.llpId} | GSTIN: {COMPANY.gstin} | {companyAddress}
           </p>
         </div>

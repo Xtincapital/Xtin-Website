@@ -113,7 +113,7 @@ const AlgoTradingLesson5 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-full text-sm font-bold">Lesson 5 of 7</span>
+              <span className="px-4 py-1.5 bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-full text-sm font-bold">Lesson 5 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">

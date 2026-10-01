@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb, FaFileInvoiceDollar } from 'react-icons/fa';
 import ModuleBadge from "../../components/ModuleBadge";
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // SVG 1: What Are Taxes - Simple Definition
 const WhatAreTaxesSVG = () => (
@@ -428,7 +430,9 @@ const TaxLesson1 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -705,16 +709,18 @@ const TaxLesson1 = () => {
             <FaArrowLeft />
             <span>Back to Module Overview</span>
           </Link>
-          <button
-            disabled
-            className="flex items-center gap-2 bg-gray-300 text-gray-500 px-6 py-3 rounded-xl font-semibold cursor-not-allowed"
+          <Link
+            to="/learn/tax-lesson-2"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
-            <span>Next: Types of Taxes</span>
+            <span>Next: Taxes on Income vs Investments</span>
             <FaArrowRight />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

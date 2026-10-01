@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb, FaGraduationCap } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // SVG 1: Derivatives Are Optional
 const OptionalNotRequiredSVG = () => (
@@ -468,7 +470,9 @@ const DerivLesson7 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -630,8 +634,9 @@ const DerivLesson7 = () => {
         <div className="bg-amber-50 rounded-2xl p-6 shadow-lg mb-8 border border-amber-200">
           <h3 className="text-lg font-semibold text-amber-800 mb-3">🇮🇳 India-Specific Note</h3>
           <p className="text-amber-900 mb-3">
-            SEBI data shows that 89% of individual F&O traders lost money between 
-            FY22-FY24, with average losses of ₹1.2 lakhs per person. The regulator 
+            SEBI data shows that 89% of individual F&O traders lost money in 
+            FY22-23 (average loss ₹1.1 lakh per person), and a later SEBI study covering 
+            FY22-FY24 found that 93% lost money, with an average loss of about ₹2 lakh. The regulator 
             has explicitly stated that F&O trading is "not suitable for most retail 
             investors."
           </p>
@@ -697,7 +702,7 @@ const DerivLesson7 = () => {
         </div>
 
         {/* Reflection */}
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-amber-200" />
             <h3 className="text-xl font-bold">Final Reflection</h3>
@@ -764,6 +769,8 @@ const DerivLesson7 = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

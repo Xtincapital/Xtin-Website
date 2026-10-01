@@ -687,7 +687,7 @@ const TradingBasicsLesson6 = () => {
                   "95% — almost everyone loses"
                 ]}
                 correctAnswer={2}
-                explanation="SEBI's official study found that 89% of individual F&O traders made losses over a 3-year period. The average loss was Rs. 1.1 lakh per person, totaling Rs. 51,689 crore in losses by retail traders. Only 11% were profitable."
+                explanation="SEBI's study of FY2022-23 found that 89% of individual F&O traders made losses. The average loss was Rs. 1.1 lakh per person, totaling Rs. 51,689 crore in losses by retail traders. Only 11% were profitable. A later SEBI study covering FY2022 to FY2024 found that 93% lost money, with an average loss of about Rs. 2 lakh."
               />
               
               <QuizQuestion

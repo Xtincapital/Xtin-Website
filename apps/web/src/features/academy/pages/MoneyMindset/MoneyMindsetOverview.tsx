@@ -19,6 +19,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { moneyMindsetLessons } from "./moneyMindsetLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [BrainIcon, BalanceScaleIcon, WarningIcon, TargetIcon, HeartIcon, ClockIcon, PiggyBankIcon, ShieldIcon, LightbulbIcon];
 const colors = [
@@ -65,6 +66,8 @@ const MoneyMindsetOverview = () => {
                 Habits
               </span>
             </div>
+
+            <div className="mb-3"><ModuleBadge moduleId="money-mindset" /></div>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">

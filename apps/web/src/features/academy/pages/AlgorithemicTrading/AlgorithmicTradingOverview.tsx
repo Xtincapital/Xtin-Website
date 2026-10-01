@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaLock, FaPlay } from "react-icons/fa";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // Premium SVG Icons for Algorithmic Trading Module
 const Icons = {
@@ -320,6 +321,7 @@ const AlgorithmicTradingOverview = () => {
                 Requires Prerequisites
               </span>
             </div>
+            <div className="mb-3"><ModuleBadge moduleId="algorithmic-trading" /></div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-5 flex items-center gap-4">
               <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl shadow-xl shadow-indigo-500/30">
                 <Icons.Algorithm className="w-9 h-9 text-white" />

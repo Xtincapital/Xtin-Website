@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaSeedling, FaCheckCircle, FaTimesCircle, FaLightbulb, FaClock, FaChartLine } from 'react-icons/fa';
 import ModuleBadge from "../../components/ModuleBadge";
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 // SVG 1: Time Horizon Comparison - Trading vs Long-Term
 const TimeHorizonSVG = () => (
@@ -465,7 +467,9 @@ const LTILesson1 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -868,6 +872,8 @@ const LTILesson1 = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

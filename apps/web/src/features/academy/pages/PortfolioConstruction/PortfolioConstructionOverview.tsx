@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaLock } from "react-icons/fa";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // Custom SVG Icons
 const Icons = {
@@ -269,6 +270,7 @@ const PortfolioConstructionOverview = () => {
                 <Icons.Warning className="w-4 h-4" />Requires Prerequisites
               </span>
             </div>
+            <div className="mb-3"><ModuleBadge moduleId="portfolio-construction" /></div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-5 flex items-center gap-4">
               <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-xl shadow-blue-500/30">
                 <Icons.Portfolio className="w-9 h-9 text-white" />

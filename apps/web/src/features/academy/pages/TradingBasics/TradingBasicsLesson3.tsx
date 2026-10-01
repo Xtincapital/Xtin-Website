@@ -617,9 +617,9 @@ const TradingBasicsLesson3 = () => {
             
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <h4 className="font-bold text-gray-800 mb-2">SEBI's Revenue from Traders</h4>
+                <h4 className="font-bold text-gray-800 mb-2">Who Earns From Traders</h4>
                 <p className="text-sm text-gray-700 mb-2">
-                  In FY 2023-24, the government collected:
+                  Approximate amounts earned from trading activity in FY 2023-24:
                 </p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li className="flex items-center gap-2">

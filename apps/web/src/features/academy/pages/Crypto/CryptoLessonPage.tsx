@@ -80,7 +80,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               {lesson.num === 1 && <ModuleBadge moduleId="crypto" />}
-              <span className="px-4 py-1.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson {lesson.num} of {cryptoLessons.length}
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
@@ -199,7 +199,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-yellow-500 to-amber-600 rounded-2xl p-6 mt-10 text-white">
+          <div className="bg-gradient-to-r from-amber-600 to-amber-700 rounded-2xl p-6 mt-10 text-white">
             <h2 className="font-bold text-xl mb-3 flex items-center gap-2">
               <BookOpenIcon className="w-6 h-6" />
               Key Takeaway
@@ -217,7 +217,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
             </button>
             <button
               onClick={() => navigate(nextPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-600 to-amber-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
             >
               <span>{lesson.num === cryptoLessons.length ? "Finish Module" : `Next: Lesson ${lesson.num + 1}`}</span>
               <FaArrowRight />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
 
 const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -154,7 +156,7 @@ const DrawdownsAreNormalSVG = () => (
       <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#14532d">Yet overall growth</text>
     </g>
     
-    <g transform="translate(270" y="230">
+    <g transform="translate(270, 230)">
       <rect x="0" y="0" width="160" height="35" fill="#dbeafe" rx="6" stroke="#93c5fd" strokeWidth="1"/>
       <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#1e40af">✓ Temporary declines</text>
       <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#1e40af">Part of the journey</text>
@@ -529,7 +531,9 @@ const RiskLesson5 = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -837,6 +841,8 @@ const RiskLesson5 = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 

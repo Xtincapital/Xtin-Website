@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaLock, FaCheckCircle, FaFileInvoiceDollar, FaInfoCircle } from 'react-icons/fa';
+import Navbar from "../../../../components/Navbar";
+import Footer from "../../../../components/Footer";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: What Are Taxes
 const WhatAreTaxesSVG = () => (
@@ -346,7 +349,9 @@ const TaxOverview = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <>
+      <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -366,6 +371,7 @@ const TaxOverview = () => {
                 Awareness Module – No Advice
               </span>
             </div>
+            <div className="mb-3"><ModuleBadge moduleId="taxes" /></div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Tax Basics – Understanding Taxes in Investing</h1>
             <p className="text-gray-600 text-lg">
               Learn how taxes affect your income and investments at a fundamental level.
@@ -555,6 +561,8 @@ const TaxOverview = () => {
         </div>
       </div>
     </div>
+      <Footer />
+    </>
   );
 };
 
