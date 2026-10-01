@@ -3,6 +3,7 @@ import useRegion from "../../../hooks/useRegion";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm } from "../lib/calcForm";
 import SEO, { generateToolData } from "../../../components/SEO";
 import {
   BarChart,
@@ -168,7 +169,12 @@ const RealEstateCalculator = () => {
       fdReturns10Year,
       propertyReturns10Year,
       betterInvestment,
-      appreciationRate
+      appreciationRate,
+      // Inputs used, so the charts do not change until Calculate is pressed again.
+      price,
+      days,
+      infrastructure,
+      location,
     });
   };
 
@@ -209,17 +215,20 @@ const RealEstateCalculator = () => {
   const radarData = results ? [
     { subject: 'Rental Yield', value: Math.min(results.rentalYield * 12.5, 100), fullMark: 100 },
     { subject: 'Price-to-Rent', value: Math.max(100 - (results.priceToRent - 10) * 5, 0), fullMark: 100 },
-    { subject: 'Infrastructure', value: infrastructure === 'metro' || infrastructure === 'airport' ? 100 : infrastructure === 'it-park' || infrastructure === 'hospital' ? 80 : infrastructure === 'road' ? 60 : infrastructure === 'none' ? 20 : 50, fullMark: 100 },
-    { subject: 'Liquidity', value: parseNumber(saleTime) < 60 ? 100 : parseNumber(saleTime) <= 90 ? 60 : 30, fullMark: 100 },
-    { subject: 'Location', value: location === 'metro' ? 100 : location === 'tier2' ? 70 : 40, fullMark: 100 },
+    { subject: 'Infrastructure', value: results.infrastructure === 'metro' || results.infrastructure === 'airport' ? 100 : results.infrastructure === 'it-park' || results.infrastructure === 'hospital' ? 80 : results.infrastructure === 'road' ? 60 : results.infrastructure === 'none' ? 20 : 50, fullMark: 100 },
+    { subject: 'Liquidity', value: results.days < 60 ? 100 : results.days <= 90 ? 60 : 30, fullMark: 100 },
+    { subject: 'Location', value: results.location === 'metro' ? 100 : results.location === 'tier2' ? 70 : 40, fullMark: 100 },
   ] : [];
 
   const pieData = results ? [
-    { name: 'Property Appreciation', value: Math.round(results.projections[9]?.propertyValue - parseNumber(propertyPrice)) },
+    { name: 'Property Appreciation', value: Math.round(results.projections[9]?.propertyValue - results.price) },
     { name: 'Rental Income (10 yrs)', value: Math.round(results.projections[9]?.totalRentalIncome || 0) },
   ] : [];
 
   const COLORS = ['#10B981', '#3B82F6'];
+
+  const formProps = useCalcForm(calculateAll);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -295,7 +304,7 @@ const RealEstateCalculator = () => {
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Input Section */}
             <div className="lg:col-span-1 space-y-4">
-              <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-100">
+              <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-100" {...formProps}>
                 <h2 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2">
                   <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -480,12 +489,12 @@ const RealEstateCalculator = () => {
                     </span>
                   </div>
                   <div className="text-xl font-bold text-gray-900 mb-1">
-                    {infrastructure === 'metro' ? 'Metro / Transit' :
-                     infrastructure === 'airport' ? 'Airport / Highway' :
-                     infrastructure === 'it-park' ? 'IT Park / Business' :
-                     infrastructure === 'hospital' ? 'Hospital / University' :
-                     infrastructure === 'road' ? 'Road Improvement' :
-                     infrastructure === 'none' ? 'No Major Projects' : 'Not Selected'}
+                    {filterResults.infra.value === 'metro' ? 'Metro / Transit' :
+                     filterResults.infra.value === 'airport' ? 'Airport / Highway' :
+                     filterResults.infra.value === 'it-park' ? 'IT Park / Business' :
+                     filterResults.infra.value === 'hospital' ? 'Hospital / University' :
+                     filterResults.infra.value === 'road' ? 'Road Improvement' :
+                     filterResults.infra.value === 'none' ? 'No Major Projects' : 'Not Selected'}
                   </div>
                   <p className="text-sm text-gray-500">
                     {filterResults.infra.status === 'good' ? '15-30% faster appreciation expected' :
@@ -506,7 +515,7 @@ const RealEstateCalculator = () => {
                     </span>
                   </div>
                   <div className="text-3xl font-bold text-gray-900 mb-1">
-                    {parseNumber(saleTime) > 0 ? `${saleTime} days` : '-'}
+                    {filterResults.liquidity.value > 0 ? `${filterResults.liquidity.value} days` : '-'}
                   </div>
                   <p className="text-sm text-gray-500">
                     {filterResults.liquidity.status === 'good' ? 'High demand, easy exit' :

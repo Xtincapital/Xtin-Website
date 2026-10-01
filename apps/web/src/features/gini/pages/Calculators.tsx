@@ -20,13 +20,11 @@
 //     rate/100)^years`; "purchasing power retained" = `amount / futureValue
 //     * 100` (app.js `calculators.calculateInflation`, ~4987-5000).
 //
-// Live-updating results: the task brief calls for "live-updating result[s]"
-// per calculator — this recomputes via `useMemo` on every slider change
-// instead of the original's explicit "Calculate" button + hidden results
-// section (app.js ~4899-5001 / index.html's `.calc-results[style="display:
-// none"]`), a deliberate simplification since there's no async work or
-// validation step involved (unlike Monte Carlo's simulation loop) and the
-// task explicitly asks for live updates here.
+// Results are computed only when the user presses "Calculate" (matching the
+// original's explicit "Calculate" button + hidden results section, app.js
+// ~4899-5001 / index.html's `.calc-results[style="display: none"]`, and the
+// other calculators on the site). The sliders edit a draft; Calculate copies
+// it into `applied`, and the `useMemo` below reads only `applied`.
 //
 // SIP timing: same judgement call as RequiredReturn.tsx/MonteCarlo.tsx — no
 // Gini settings store exists yet for the original's configurable
@@ -42,6 +40,7 @@ import { useMemo, useState } from "react";
 import { Pie, PieChart, Cell } from "recharts";
 import { Banknote, Percent, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
@@ -130,6 +129,14 @@ function SliderField({
   );
 }
 
+function CalculateButton({ onClick }: { onClick: () => void }) {
+  return (
+    <Button type="button" className="w-full" onClick={onClick}>
+      Calculate
+    </Button>
+  );
+}
+
 function ResultTile({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
     <div className="rounded-lg border p-4">
@@ -162,12 +169,15 @@ function EMICalculator() {
   const [rate, setRate] = useState(8.5);
   const [tenure, setTenure] = useState(15);
 
+  const [applied, setApplied] = useState<{ loanAmount: number; rate: number; tenure: number } | null>(null);
+
   const result = useMemo(() => {
-    const emi = calculateEMI(loanAmount, rate, tenure);
-    const totalAmount = emi * tenure * 12;
-    const totalInterest = totalAmount - loanAmount;
-    return { emi, totalAmount, totalInterest };
-  }, [loanAmount, rate, tenure]);
+    if (!applied) return null;
+    const emi = calculateEMI(applied.loanAmount, applied.rate, applied.tenure);
+    const totalAmount = emi * applied.tenure * 12;
+    const totalInterest = totalAmount - applied.loanAmount;
+    return { emi, totalAmount, totalInterest, loanAmount: applied.loanAmount };
+  }, [applied]);
 
   const chartConfig: ChartConfig = {
     Principal: { label: "Principal", color: CHART_PALETTE[0] },
@@ -210,22 +220,30 @@ function EMICalculator() {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-primary" />
-          <ResultTile label="Total Interest" value={formatCurrency(result.totalInterest)} />
-          <ResultTile label="Total Amount" value={formatCurrency(result.totalAmount)} />
-        </div>
+        <CalculateButton onClick={() => setApplied({ loanAmount, rate, tenure })} />
 
-        <div>
-          <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Principal vs Interest</h4>
-          <BreakdownPie
-            config={chartConfig}
-            data={[
-              { name: "Principal", value: loanAmount },
-              { name: "Interest", value: Math.max(result.totalInterest, 0) },
-            ]}
-          />
-        </div>
+        {result ? (
+          <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-primary" />
+              <ResultTile label="Total Interest" value={formatCurrency(result.totalInterest)} />
+              <ResultTile label="Total Amount" value={formatCurrency(result.totalAmount)} />
+            </div>
+
+            <div>
+              <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Principal vs Interest</h4>
+              <BreakdownPie
+                config={chartConfig}
+                data={[
+                  { name: "Principal", value: result.loanAmount },
+                  { name: "Interest", value: Math.max(result.totalInterest, 0) },
+                ]}
+              />
+            </div>
+          </>
+        ) : (
+          <p className="text-sm text-muted-foreground">Set your values and press Calculate to see the result.</p>
+        )}
       </CardContent>
     </Card>
   );
@@ -239,12 +257,15 @@ function SIPCalculator() {
   const [returnRate, setReturnRate] = useState(12);
   const [period, setPeriod] = useState(20);
 
+  const [applied, setApplied] = useState<{ monthly: number; returnRate: number; period: number } | null>(null);
+
   const result = useMemo(() => {
-    const maturityValue = calculateSIP(monthly, returnRate, period, SIP_TIMING);
-    const invested = monthly * 12 * period;
+    if (!applied) return null;
+    const maturityValue = calculateSIP(applied.monthly, applied.returnRate, applied.period, SIP_TIMING);
+    const invested = applied.monthly * 12 * applied.period;
     const returns = maturityValue - invested;
     return { maturityValue, invested, returns };
-  }, [monthly, returnRate, period]);
+  }, [applied]);
 
   const chartConfig: ChartConfig = {
     Invested: { label: "Invested Amount", color: CHART_PALETTE[0] },
@@ -287,22 +308,30 @@ function SIPCalculator() {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <ResultTile label="Total Invested" value={formatCurrency(result.invested)} />
-          <ResultTile label="Expected Returns" value={formatCurrency(result.returns)} className="text-success" />
-          <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-primary" />
-        </div>
+        <CalculateButton onClick={() => setApplied({ monthly, returnRate, period })} />
 
-        <div>
-          <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Investment Growth</h4>
-          <BreakdownPie
-            config={chartConfig}
-            data={[
-              { name: "Invested", value: result.invested },
-              { name: "Returns", value: Math.max(result.returns, 0) },
-            ]}
-          />
-        </div>
+        {result ? (
+          <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <ResultTile label="Total Invested" value={formatCurrency(result.invested)} />
+              <ResultTile label="Expected Returns" value={formatCurrency(result.returns)} className="text-success" />
+              <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-primary" />
+            </div>
+
+            <div>
+              <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Investment Growth</h4>
+              <BreakdownPie
+                config={chartConfig}
+                data={[
+                  { name: "Invested", value: result.invested },
+                  { name: "Returns", value: Math.max(result.returns, 0) },
+                ]}
+              />
+            </div>
+          </>
+        ) : (
+          <p className="text-sm text-muted-foreground">Set your values and press Calculate to see the result.</p>
+        )}
       </CardContent>
     </Card>
   );
@@ -317,12 +346,15 @@ function InflationCalculator() {
   const [years, setYears] = useState(10);
   const [rate, setRate] = useState(7);
 
+  const [applied, setApplied] = useState<{ amount: number; years: number; rate: number } | null>(null);
+
   const result = useMemo(() => {
-    const futureValue = calculateFutureValue(amount, rate, years);
-    const loss = futureValue - amount;
-    const retained = futureValue !== 0 ? (amount / futureValue) * 100 : 0;
+    if (!applied) return null;
+    const futureValue = calculateFutureValue(applied.amount, applied.rate, applied.years);
+    const loss = futureValue - applied.amount;
+    const retained = futureValue !== 0 ? (applied.amount / futureValue) * 100 : 0;
     return { futureValue, loss, retained };
-  }, [amount, years, rate]);
+  }, [applied]);
 
   return (
     <Card>
@@ -360,11 +392,17 @@ function InflationCalculator() {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-primary" />
-          <ResultTile label="Purchasing Power Loss" value={formatCurrency(result.loss)} className="text-destructive" />
-          <ResultTile label="Purchasing Power Retained" value={formatPercent(result.retained)} />
-        </div>
+        <CalculateButton onClick={() => setApplied({ amount, years, rate })} />
+
+        {result ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-primary" />
+            <ResultTile label="Purchasing Power Loss" value={formatCurrency(result.loss)} className="text-destructive" />
+            <ResultTile label="Purchasing Power Retained" value={formatPercent(result.retained)} />
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">Set your values and press Calculate to see the result.</p>
+        )}
       </CardContent>
     </Card>
   );

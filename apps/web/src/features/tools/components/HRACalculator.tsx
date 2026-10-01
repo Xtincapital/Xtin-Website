@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm } from "../lib/calcForm";
 
 const HRACalculator = () => {
   const [basicSalary, setBasicSalary] = useState("480,000");
@@ -65,6 +66,9 @@ const HRACalculator = () => {
     }
   };
 
+  const formProps = useCalcForm(calculateHRA);
+
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
@@ -81,7 +85,7 @@ const HRACalculator = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Left Side: Inputs */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <div className="space-y-6">
                 {/* Basic Salary */}
                 <div className="mb-4">
@@ -170,7 +174,6 @@ const HRACalculator = () => {
                     <button
                       onClick={() => {
                         setCityType("metro");
-                        calculateHRA("metro");
                       }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-l-md ${
                         cityType === "metro"
@@ -183,7 +186,6 @@ const HRACalculator = () => {
                     <button
                       onClick={() => {
                         setCityType("non-metro");
-                        calculateHRA("non-metro");
                       }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-r-md ${
                         cityType === "non-metro"

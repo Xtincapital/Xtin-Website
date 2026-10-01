@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -19,6 +20,10 @@ const InflationCalculator = () => {
   const [years, setYears] = useState("10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ currentAmount: "", years: "" });
   const [showInfo, setShowInfo] = useState(false);
 
   const calculateInflation = () => {
@@ -36,13 +41,17 @@ const InflationCalculator = () => {
       );
 
       const data = [];
-      for (let i = 1; i <= n; i++) {
+      for (let i = 0; i <= n; i++) {
         const value = P * Math.pow(1 + r, i);
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setSnap({ currentAmount, years });
     }
   };
+
+  const formProps = useCalcForm(calculateInflation);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -66,7 +75,7 @@ const InflationCalculator = () => {
             )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -120,7 +129,7 @@ const InflationCalculator = () => {
                      Future Value (with inflation): <span className="text-green-700">{sym}{futureValue}</span>
                   </p>
                    <p className="mt-3 text-sm text-gray-600">
-                    This means that in {years} years, you will need {sym}{futureValue} to buy what {sym}{currentAmount} buys today.
+                    This means that in {snap.years} snap.years, you will need {sym}{futureValue} to buy what {sym}{snap.currentAmount} buys today.
                   </p>
                 </div>
               )}
@@ -129,16 +138,13 @@ const InflationCalculator = () => {
               <h2 className="text-2xl font-semibold mb-6">Value Over Time</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
-                  <LineChart data={chartData}>
+                  <LineChart data={chartData} margin={CHART_MARGIN}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
-                      dataKey="year"
+                      dataKey="year" {...X_AXIS_PROPS}
                       label={{ value: "Years", position: "insideBottom", dy: 10 }}
                     />
-                    <YAxis
-                    width={100}
-                      label={{ value: "", angle: -90, position: "insideLeft" }}
-                    />
+                    <YAxis {...Y_AXIS_PROPS} />
                     <Tooltip />
                     <Line
                       type="monotone"

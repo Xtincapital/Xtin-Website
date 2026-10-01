@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { useCalcForm } from '../lib/calcForm';
 
 const IncomeTaxCalculator = () => {
     const [financialYear, setFinancialYear] = useState('2025-2026');
@@ -25,7 +26,7 @@ const IncomeTaxCalculator = () => {
     
       const handleInputChange = (setter) => (e) => {
         const value = e.target.value.replace(/,/g, "");
-        setter(Number(value));
+        setter(Number(value.replace(/\D/g, "")));
       };
 
     // New-regime rules per financial year: slabs as [upper limit, rate],
@@ -114,6 +115,9 @@ const IncomeTaxCalculator = () => {
         return tax * 1.04; // Adding 4% cess
     };
 
+    const formProps = useCalcForm(calculateTax);
+
+
     return (
         <div className="flex flex-col min-h-screen bg-gray-50">
             <Navbar />
@@ -123,7 +127,7 @@ const IncomeTaxCalculator = () => {
                         Income Tax Calculator
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="bg-white shadow-md rounded-xl p-6">
+                        <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
                             <div className="flex justify-between items-center mb-6">
                                 <select value={financialYear} onChange={(e) => setFinancialYear(e.target.value)} className="p-2 border rounded-lg">
                                     <option>2025-2026</option>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { pieValueLabel, moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -24,6 +25,10 @@ const SimpleInterestCalculator = () => {
   const [years, setYears] = useState("5");
   const [futureValue, setFutureValue] = useState<string | null>(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ principal: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [isPieChart, setIsPieChart] = useState(false);
 
@@ -51,11 +56,15 @@ const SimpleInterestCalculator = () => {
       const data = [];
       for (let i = 0; i <= yearsValue; i++) {
         const value = P * (1 + annualRateValue * i);
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setSnap({ principal });
     }
   };
+
+  const formProps = useCalcForm(calculateSimpleInterest);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -87,7 +96,7 @@ const SimpleInterestCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -136,11 +145,11 @@ const SimpleInterestCalculator = () => {
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Principal Amount:{" "}
-                    <span className="font-semibold">{sym}{formatNumber(principal)}</span>
+                    <span className="font-semibold">{sym}{formatNumber(snap.principal)}</span>
                   </p>
                   <p className="text-sm text-gray-600">
                     Total Interest:{" "}
-                    <span className="font-semibold">{sym}{formatNumber((Number(futureValue) - Number(principal)).toFixed(2))}</span>
+                    <span className="font-semibold">{sym}{formatNumber((Number(futureValue) - Number(snap.principal)).toFixed(2))}</span>
                   </p>
                 </div>
               )}
@@ -165,12 +174,12 @@ const SimpleInterestCalculator = () => {
                         data={[
                           {
                             name: "Principal Amount",
-                            value: parseFloat(principal),
+                            value: parseFloat(snap.principal),
                           },
                           {
                             name: "Total Interest",
                             value: parseFloat(
-                              (Number(futureValue) - Number(principal)).toFixed(2)
+                              (Number(futureValue) - Number(snap.principal)).toFixed(2)
                             ),
                           },
                         ]}
@@ -190,24 +199,17 @@ const SimpleInterestCalculator = () => {
                   </ResponsiveContainer>
                 ) : (
                   <ResponsiveContainer width="100%" height={320}>
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"

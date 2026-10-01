@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -90,11 +91,12 @@ const RetirementCalculator = () => {
         futureValueOfCurrentSavings: futureValueOfCurrentSavings.toFixed(0),
         requiredMonthlyInvestment: requiredMonthlyInvestment.toFixed(0),
         yearsToRetirement,
+        retirementAge,
       });
 
       // Chart data
       const data = [];
-      for (let i = 1; i <= yearsToRetirement; i++) {
+      for (let i = 0; i <= yearsToRetirement; i++) {
         const age = ca + i;
         const n_i = i * 12;
         const futureValueLumpsum = cs * Math.pow(1 + er, i);
@@ -102,7 +104,7 @@ const RetirementCalculator = () => {
           requiredMonthlyInvestment *
           ((Math.pow(1 + monthlyReturnRate, n_i) - 1) / monthlyReturnRate);
         const totalValue = futureValueLumpsum + futureValueSip;
-        data.push({ year: age, value: totalValue.toFixed(0) });
+        data.push({ year: age, value: Number(totalValue.toFixed(0)) });
       }
       setChartData(data);
     }
@@ -112,6 +114,9 @@ const RetirementCalculator = () => {
     if (!num) return "0";
     return new Intl.NumberFormat("en-IN").format(num);
   };
+
+  const formProps = useCalcForm(calculateRetirement);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -138,7 +143,7 @@ const RetirementCalculator = () => {
             )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -237,7 +242,7 @@ const RetirementCalculator = () => {
                   </h2>
                   {chartData.length > 0 ? (
                     <ResponsiveContainer width="100%" height={320}>
-                      <LineChart data={chartData}>
+                      <LineChart data={chartData} margin={CHART_MARGIN}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis
                           dataKey="year"
@@ -247,15 +252,7 @@ const RetirementCalculator = () => {
                             dy: 10,
                           }}
                         />
-                        <YAxis
-                          width={100}
-                          tickFormatter={(tick) => formatNumber(tick)}
-                          label={{
-                            value: "",
-                            angle: -90,
-                            position: "insideLeft",
-                          }}
-                        />
+                        <YAxis {...Y_AXIS_PROPS} />
                         <Tooltip
                           formatter={(value) => `${sym}${formatNumber(value)}`}
                         />
@@ -314,7 +311,7 @@ const RetirementCalculator = () => {
                       <span className="font-bold">
                         {sym}{formatNumber(results.requiredCorpus)}
                       </span>{" "}
-                      at age {retirementAge}. You should invest{" "}
+                      at age {results.retirementAge}. You should invest{" "}
                       <span className="font-bold">
                         {sym}{formatNumber(results.requiredMonthlyInvestment)}
                       </span>{" "}

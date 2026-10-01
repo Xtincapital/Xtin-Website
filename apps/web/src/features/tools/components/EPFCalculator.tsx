@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -23,6 +24,8 @@ const EPFCalculator = () => {
   const [maturityValue, setMaturityValue] = useState<number | string>(0);
   const [maturityYear, setMaturityYear] = useState(0);
   const [chartData, setChartData] = useState([]);
+  // Inputs as they were when Calculate was last pressed (results read from this).
+  const [snap, setSnap] = useState({ basicMonthlySalary: "0", employeeContribution: "0" as number | string, employerContribution: "0" as number | string, numberOfYears: "0" as number | string, epfInterestRate: "0" as number | string });
 
   const calculateEPF = useCallback(() => {
     const monthlySalary = parseFloat(basicMonthlySalary.replace(/,/g, ""));
@@ -36,8 +39,8 @@ const EPFCalculator = () => {
     }
 
     let currentBalance = 0;
-    const data = [];
     const currentYear = new Date().getFullYear();
+    const data: { year: number; value: number }[] = [{ year: currentYear, value: 0 }];
 
     for (let i = 1; i <= years; i++) {
       for (let month = 1; month <= 12; month++) {
@@ -48,7 +51,7 @@ const EPFCalculator = () => {
       }
       data.push({
         year: currentYear + i,
-        value: currentBalance.toFixed(0),
+        value: Number(currentBalance.toFixed(0)),
       });
     }
 
@@ -60,6 +63,7 @@ const EPFCalculator = () => {
     setMaturityValue(currentBalance.toFixed(0));
     setMaturityYear(currentYear + years);
     setChartData(data);
+    setSnap({ basicMonthlySalary, employeeContribution, employerContribution, numberOfYears, epfInterestRate });
   }, [basicMonthlySalary, employeeContribution, employerContribution, numberOfYears, epfInterestRate]);
 
   const formatCurrency = (value) => {
@@ -84,6 +88,9 @@ const EPFCalculator = () => {
     return tickItem;
   };
 
+  const formProps = useCalcForm(calculateEPF);
+
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
@@ -96,7 +103,7 @@ const EPFCalculator = () => {
             The Employees Provident Fund (EPF) is a government-backed retirement savings scheme for salaried employees. Use this calculator to estimate your EPF corpus, total investment, and interest earned.
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            <div className="bg-white shadow-lg rounded-xl p-8">
+            <div className="bg-white shadow-lg rounded-xl p-8" {...formProps}>
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Basic Monthly Salary + DA
@@ -170,10 +177,10 @@ const EPFCalculator = () => {
             </div>
             <div className="bg-white shadow-lg rounded-xl p-9">
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={chartData}>
+                <LineChart data={chartData} margin={CHART_MARGIN}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="year" />
-                  <YAxis tickFormatter={formatYAxis} />
+                  <YAxis {...Y_AXIS_PROPS} />
                   <Tooltip formatter={(value) => formatCurrency(value)} />
                   <Line
                     type="monotone"
@@ -200,7 +207,7 @@ const EPFCalculator = () => {
                 </div>
                 <div className="text-center text-base text-black-800 bg-green-100 p-4 rounded-lg mt-4">
                   <p>
-                    Contributions of {formatCurrency((parseFloat(basicMonthlySalary.replace(/,/g, "")) * Number(employeeContribution)) / 100)} (employee) + {formatCurrency((parseFloat(basicMonthlySalary.replace(/,/g, "")) * Number(employerContribution)) / 100)} (employer) per month for {numberOfYears} years at {epfInterestRate}% p.a.
+                    Contributions of {formatCurrency((parseFloat(snap.basicMonthlySalary.replace(/,/g, "")) * Number(snap.employeeContribution)) / 100)} (employee) + {formatCurrency((parseFloat(snap.basicMonthlySalary.replace(/,/g, "")) * Number(snap.employerContribution)) / 100)} (employer) per month for {snap.numberOfYears} years at {snap.epfInterestRate}% p.a.
                   </p>
                   <p className="font-semibold">Maturity year: {maturityYear}</p>
                 </div>

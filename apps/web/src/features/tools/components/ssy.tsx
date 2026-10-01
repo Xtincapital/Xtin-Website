@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -18,6 +19,10 @@ const SSYCalculator = () => {
   const [startYear, setStartYear] = useState<number | string>(new Date().getFullYear());
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ yearlyInvestment: "", startYear: "" });
   const [showInfo, setShowInfo] = useState(false);
 
   const formatNumber = (num) => {
@@ -48,12 +53,16 @@ const SSYCalculator = () => {
           total_value += P;
         }
         total_value = total_value * (1 + r);
-        data.push({ year: current_year, value: total_value.toFixed(2), age: current_age });
+        data.push({ year: current_year, value: Number(total_value.toFixed(2)), age: current_age });
       }
       setFutureValue(total_value.toFixed(2));
       setChartData(data);
+      setSnap({ yearlyInvestment, startYear });
     }
   };
+
+  const formProps = useCalcForm(calculateSSY);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -85,7 +94,7 @@ const SSYCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -141,10 +150,10 @@ const SSYCalculator = () => {
               {futureValue && (
                 <div className="mt-8 bg-green-50 p-6 rounded-lg text-center">
                   <p className="text-lg font-medium text-gray-800">
-                    Investments of <span className="font-bold text-green-700">₹{formatNumber(yearlyInvestment)}</span> each year should be made for 15 years.
+                    Investments of <span className="font-bold text-green-700">₹{formatNumber(snap.yearlyInvestment)}</span> each year should be made for 15 years.
                   </p>
                   <p className="mt-4 text-xl font-bold text-gray-800">
-                    The maturity amount received at the end of year <span className="text-green-700">{parseInt(String(startYear)) + 21}</span> will be <span className="text-green-700">₹{formatNumber(futureValue)}</span>.
+                    The maturity amount received at the end of year <span className="text-green-700">{parseInt(String(snap.startYear)) + 21}</span> will be <span className="text-green-700">₹{formatNumber(futureValue)}</span>.
                   </p>
                 </div>
               )}
@@ -155,16 +164,13 @@ const SSYCalculator = () => {
               <h2 className="text-2xl font-semibold mb-6">Growth Over Time</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
-                  <LineChart data={chartData}>
+                  <LineChart data={chartData} margin={CHART_MARGIN}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="year"
                       label={{ value: "Year", position: "insideBottom", dy: 10 }}
                     />
-                    <YAxis
-                    width={100}
-                      label={{ value: "", angle: -90, position: "insideLeft" }}
-                    />
+                    <YAxis {...Y_AXIS_PROPS} />
                     <Tooltip />
                     <Line
                       type="monotone"

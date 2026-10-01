@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { pieValueLabel, moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -24,6 +25,10 @@ const CompoundInterestCalculator = () => {
   const [years, setYears] = useState("5");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ principal: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [compoundingFrequency, setCompoundingFrequency] = useState("yearly");
   const [isPieChart, setIsPieChart] = useState(false);
@@ -60,11 +65,15 @@ const CompoundInterestCalculator = () => {
       const data = [];
       for (let i = 0; i <= t; i++) {
         const value = P * Math.pow(1 + r / n, n * i);
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setSnap({ principal });
     }
   };
+
+  const formProps = useCalcForm(calculateCompoundInterest);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -96,7 +105,7 @@ const CompoundInterestCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -166,7 +175,7 @@ const CompoundInterestCalculator = () => {
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Principal Amount:{" "}
-                    <span className="font-semibold">{sym}{principal}</span>
+                    <span className="font-semibold">{sym}{snap.principal}</span>
                   </p>
                   <p className="text-sm text-gray-600">
                     Total Interest:{" "}
@@ -174,7 +183,7 @@ const CompoundInterestCalculator = () => {
                       {sym}
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) -
-                        parseFloat(principal.replace(/,/g, ""))
+                        parseFloat(snap.principal.replace(/,/g, ""))
                       ).toLocaleString("en-IN", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
@@ -204,13 +213,13 @@ const CompoundInterestCalculator = () => {
                         data={[
                           {
                             name: "Principal Amount",
-                            value: parseFloat(principal.replace(/,/g, "")),
+                            value: parseFloat(snap.principal.replace(/,/g, "")),
                           },
                           {
                             name: "Total Interest",
                             value:
                               parseFloat(futureValue.replace(/,/g, "")) -
-                              parseFloat(principal.replace(/,/g, "")),
+                              parseFloat(snap.principal.replace(/,/g, "")),
                           },
                         ]}
                         cx="50%"
@@ -229,26 +238,17 @@ const CompoundInterestCalculator = () => {
                   </ResponsiveContainer>
                 ) : (
                   <ResponsiveContainer width="100%" height={320}>
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                          dx: -5,
-                          dy: -5,
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"

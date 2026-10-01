@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -17,6 +18,10 @@ const PPFCalculator = () => {
   const [years, setYears] = useState("15"); // Default PPF tenure
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ yearlyInvestment: "", annualRate: "", years: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [maturityYear, setMaturityYear] = useState(null);
 
@@ -39,20 +44,24 @@ const PPFCalculator = () => {
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
       let M = 0;
-      const data = [];
+      const data: { year: number; value: number }[] = [{ year: 0, value: 0 }];
       let balance = 0;
       for (let i = 1; i <= yearsValue; i++) {
         balance = (balance + P) * (1 + annualRateValue);
-        data.push({ year: i, value: balance.toFixed(2) });
+        data.push({ year: i, value: Number(balance.toFixed(2)) });
       }
       M = balance;
       setFutureValue(M.toFixed(2));
       setChartData(data);
+      setSnap({ yearlyInvestment, annualRate, years });
 
       const currentYear = new Date().getFullYear();
       setMaturityYear(currentYear + yearsValue);
     }
   };
+
+  const formProps = useCalcForm(calculatePPF);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -76,7 +85,7 @@ const PPFCalculator = () => {
             )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -129,11 +138,11 @@ const PPFCalculator = () => {
                   <p className="mt-4 text-sm text-gray-600">
                     Investments of{" "}
                     <span className="font-semibold">
-                      ₹{new Intl.NumberFormat('en-IN').format(Number(yearlyInvestment))}
+                      ₹{new Intl.NumberFormat('en-IN').format(Number(snap.yearlyInvestment))}
                     </span>{" "}
                     each year for{" "}
-                    <span className="font-semibold">{years}</span> years at{" "}
-                    <span className="font-semibold">{annualRate}%</span> p.a.
+                    <span className="font-semibold">{snap.years}</span> snap.years at{" "}
+                    <span className="font-semibold">{snap.annualRate}%</span> p.a.
                   </p>
                   {maturityYear && (
                     <p className="mt-2 text-sm text-gray-600">
@@ -148,16 +157,13 @@ const PPFCalculator = () => {
               <h2 className="text-2xl font-semibold mb-6">Growth Over Time</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
-                  <LineChart data={chartData}>
+                  <LineChart data={chartData} margin={CHART_MARGIN}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
-                      dataKey="year"
+                      dataKey="year" {...X_AXIS_PROPS}
                       label={{ value: "Years", position: "insideBottom", dy: 10 }}
                     />
-                    <YAxis
-                    width={100}
-                      label={{ value: "", angle: -90, position: "insideLeft" }}
-                    />
+                    <YAxis {...Y_AXIS_PROPS} />
                     <Tooltip />
                     <Line
                       type="monotone"

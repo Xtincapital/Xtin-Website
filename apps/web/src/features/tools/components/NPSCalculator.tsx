@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -53,21 +54,27 @@ const NPSCalculator = () => {
         lumpSumWithdrawal,
         annuityPurchase,
         monthlyPension,
+        // Inputs used, so the summary text does not change until Calculate is pressed again.
+        monthlyInvestment,
+        retirementAge,
+        annuityPercentage,
       });
 
       const data = [];
       const investmentYears = parseFloat(retirementAge) - parseFloat(currentAge);
-      for (let i = 1; i <= investmentYears; i++) {
+      for (let i = 0; i <= investmentYears; i++) {
         const n_i = i * 12;
         const value = P * ((Math.pow(1 + r, n_i) - 1) / r);
         data.push({
           year: parseFloat(currentAge) + i,
-          value: value.toFixed(0),
+          value: Number(value.toFixed(0)),
         });
       }
       setChartData(data);
     }
   };
+
+  const formProps = useCalcForm(calculateNPS);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -93,7 +100,7 @@ const NPSCalculator = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left Side: Input Form */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-white p-8 rounded-2xl shadow-lg" {...formProps}>
               <div className="space-y-6">
                 <div>
                   <label className="block text-md font-medium text-gray-700">Current Age</label>
@@ -135,10 +142,10 @@ const NPSCalculator = () => {
             <div className="space-y-8">
               <div className="bg-white p-8 rounded-2xl shadow-lg">
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
+                  <LineChart data={chartData} margin={CHART_MARGIN}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="year" />
-                    <YAxis tickFormatter={(value) => `₹${(value / 100000).toFixed(0)}L`} />
+                    <YAxis {...Y_AXIS_PROPS} />
                     <Tooltip formatter={(value) => `₹${formatNumber(value)}`} />
                     <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={3} dot={false} />
                   </LineChart>
@@ -152,11 +159,11 @@ const NPSCalculator = () => {
                       <span className="font-bold text-gray-800">₹{formatNumber(results.totalCorpus)}</span>
                     </div>
                     <div className="flex justify-between items-center text-lg">
-                      <span className="text-gray-600">Lump Sum Withdrawal ({100 - parseFloat(annuityPercentage)}%)</span>
+                      <span className="text-gray-600">Lump Sum Withdrawal ({100 - parseFloat(results.annuityPercentage)}%)</span>
                       <span className="font-bold text-gray-800">₹{formatNumber(results.lumpSumWithdrawal)}</span>
                     </div>
                     <div className="flex justify-between items-center text-lg">
-                      <span className="text-gray-600">Annuity Purchase ({annuityPercentage}%)</span>
+                      <span className="text-gray-600">Annuity Purchase ({results.annuityPercentage}%)</span>
                       <span className="font-bold text-gray-800">₹{formatNumber(results.annuityPurchase)}</span>
                     </div>
                     <hr className="my-4" />
@@ -166,7 +173,7 @@ const NPSCalculator = () => {
                     </div>
                   </div>
                   <div className="mt-6 bg-green-50 p-4 rounded-lg text-center font-bold text-gray-800">
-                    Invest ₹{formatNumber(monthlyInvestment)} per month until age {retirementAge}. At retirement, withdraw up to ₹{formatNumber(results.lumpSumWithdrawal)} as lump sum and get a monthly pension of ₹{formatNumber(results.monthlyPension)}.
+                    Invest ₹{formatNumber(results.monthlyInvestment)} per month until age {results.retirementAge}. At retirement, withdraw up to ₹{formatNumber(results.lumpSumWithdrawal)} as lump sum and get a monthly pension of ₹{formatNumber(results.monthlyPension)}.
                   </div>
                 </div>
               )}

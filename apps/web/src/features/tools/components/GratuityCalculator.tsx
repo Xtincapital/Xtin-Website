@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -34,11 +35,14 @@ const GratuityCalculator = () => {
       const data = [];
       for (let i = 0; i <= serviceYears; i++) {
         const value = (salary * 15 * i) / 26;
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
     }
   };
+
+  const formProps = useCalcForm(calculateGratuity);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -66,7 +70,7 @@ const GratuityCalculator = () => {
             )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -120,27 +124,17 @@ const GratuityCalculator = () => {
               </div>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={450}>
-                    <LineChart
-                      data={chartData}
-                      margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
-                    >
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"

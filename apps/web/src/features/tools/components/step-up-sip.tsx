@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -36,7 +37,7 @@ const StepUpSIPCalculator = () => {
     const r = annualRateValue / 12;
     const t = parseFloat(years);
     let total_value = 0;
-    const data = [];
+    const data: { year: number; value: number }[] = [{ year: 0, value: 0 }];
     let investment = 0;
  
      if (P > 0 && annual_increase_percentage >= 0 && r > 0 && t > 0) {
@@ -46,7 +47,7 @@ const StepUpSIPCalculator = () => {
            investment += P;
          }
          P = P * (1 + annual_increase_percentage);
-         data.push({ year: i, value: total_value.toFixed(2) });
+         data.push({ year: i, value: Number(total_value.toFixed(2)) });
        }
        setFutureValue(
          total_value.toLocaleString("en-IN", {
@@ -63,6 +64,9 @@ const StepUpSIPCalculator = () => {
        setChartData(data);
      }
   };
+
+  const formProps = useCalcForm(calculateStepUpSIP);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -94,7 +98,7 @@ const StepUpSIPCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -211,24 +215,17 @@ const StepUpSIPCalculator = () => {
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"

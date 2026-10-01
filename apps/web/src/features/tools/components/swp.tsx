@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -25,6 +26,10 @@ const SWPCalculator = () => {
   const [tenure, setTenure] = useState("10");
   const [summary, setSummary] = useState("");
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ principal: "", withdrawal: "", tenure: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [chartType, setChartType] = useState("line"); // 'line' or 'pie'
 
@@ -104,12 +109,16 @@ const SWPCalculator = () => {
 
     setChartData(
       balances.map((item) => ({
-        year: (item.month / 12).toFixed(1),
+        year: Math.round((item.month / 12) * 10) / 10,
         value: Math.round(item.balance),
       }))
     );
     setSummary(summaryText);
+    setSnap({ principal, withdrawal, tenure });
   };
+
+  const formProps = useCalcForm(calculateSWP);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -141,7 +150,7 @@ const SWPCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-6">
                 <div className="flex justify-center space-x-4">
@@ -273,25 +282,17 @@ const SWPCalculator = () => {
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={400}>
                   {chartType === "line" ? (
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        tickFormatter={(value) => `${sym}${formatNumber(value)}`}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip
                         formatter={(value) => [
                           `${sym}${formatNumber(value)}`,
@@ -312,13 +313,13 @@ const SWPCalculator = () => {
                         data={[
                           {
                             name: "Principal",
-                            value: parseFloat(principal.replace(/,/g, "")),
+                            value: parseFloat(snap.principal.replace(/,/g, "")),
                           },
                           {
                             name: "Total Withdrawal",
                             value:
-                              parseFloat(withdrawal.replace(/,/g, "")) *
-                              parseFloat(tenure) *
+                              parseFloat(snap.withdrawal.replace(/,/g, "")) *
+                              parseFloat(snap.tenure) *
                               12,
                           },
                         ]}

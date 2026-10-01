@@ -3,6 +3,7 @@ import useRegion from "../../../hooks/useRegion";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -24,6 +25,8 @@ const LumpsumCalculator = () => {
   const [years, setYears] = useState("10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  // Principal used for the last calculation (results stay put until Calculate is pressed again).
+  const [invested, setInvested] = useState(0);
   const [period, setPeriod] = useState("yearly");
   const [showInfo, setShowInfo] = useState(false);
   const [chartType, setChartType] = useState("line"); // 'line' or 'pie'
@@ -60,11 +63,14 @@ const LumpsumCalculator = () => {
         } else {
           value = P * Math.pow(1 + annualRateValue, i);
         }
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setInvested(P);
     }
   };
+
+  const formProps = useCalcForm(calculateLumpsum);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -109,7 +115,7 @@ const LumpsumCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -219,15 +225,14 @@ const LumpsumCalculator = () => {
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
-                    <span className="font-semibold">{sym}{principal}</span>
+                    <span className="font-semibold">{sym}{invested.toLocaleString("en-IN")}</span>
                   </p>
                   <p className="text-sm text-gray-600">
                     Total Interest:{" "}
                     <span className="font-semibold">
                       {sym}
                       {(
-                        parseFloat(futureValue.replace(/,/g, "")) -
-                        parseFloat(principal.replace(/,/g, ""))
+                        parseFloat(futureValue.replace(/,/g, "")) - invested
                       ).toLocaleString("en-IN", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
@@ -268,27 +273,17 @@ const LumpsumCalculator = () => {
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={450}>
                   {chartType === "line" ? (
-                    <LineChart
-                      data={chartData}
-                      margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
-                    >
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"
@@ -304,13 +299,12 @@ const LumpsumCalculator = () => {
                         data={[
                           {
                             name: "Total Investment",
-                            value: parseFloat(principal.replace(/,/g, "")),
+                            value: invested,
                           },
                           {
                             name: "Total Interest",
                             value:
-                              parseFloat(futureValue.replace(/,/g, "")) -
-                              parseFloat(principal.replace(/,/g, "")),
+                              parseFloat(futureValue.replace(/,/g, "")) - invested,
                           },
                         ]}
                         cx="50%"

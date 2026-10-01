@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { pieValueLabel, moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -22,6 +23,10 @@ const RDCalculator = () => {
   const [years, setYears] = useState("5");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ monthlyInvestment: "", years: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [isPieChart, setIsPieChart] = useState(false);
   const calculateRD = () => {
@@ -46,15 +51,19 @@ const RDCalculator = () => {
       );
 
       const data = [];
-      for (let i = 1; i <= yearsValue; i++) {
+      for (let i = 0; i <= yearsValue; i++) {
         r = Math.pow(1 + annualRateValue, 1/12) - 1;
         n = i * 12;
         const value = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setSnap({ monthlyInvestment, years });
     }
   };
+
+  const formProps = useCalcForm(calculateRD);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -86,7 +95,7 @@ const RDCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -146,8 +155,8 @@ const RDCalculator = () => {
                     <span className="font-semibold">
                       ₹
                       {(
-                        parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                        parseFloat(years) *
+                        parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
+                        parseFloat(snap.years) *
                         12
                       ).toLocaleString("en-IN")}
                     </span>
@@ -158,8 +167,8 @@ const RDCalculator = () => {
                       ₹
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) -
-                        parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                          parseFloat(years) *
+                        parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
+                          parseFloat(snap.years) *
                           12
                       ).toLocaleString("en-IN", {
                         maximumFractionDigits: 2,
@@ -191,16 +200,16 @@ const RDCalculator = () => {
                           {
                             name: "Total Investment",
                             value:
-                              parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                              parseFloat(years) *
+                              parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
+                              parseFloat(snap.years) *
                               12,
                           },
                           {
                             name: "Total Interest",
                             value:
                               parseFloat(futureValue.replace(/,/g, "")) -
-                              parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                                parseFloat(years) *
+                              parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
+                                parseFloat(snap.years) *
                                 12,
                           },
                         ]}
@@ -220,24 +229,17 @@ const RDCalculator = () => {
                   </ResponsiveContainer>
                 ) : (
                   <ResponsiveContainer width="100%" height={320}>
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"

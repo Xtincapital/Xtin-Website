@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { moneyTooltip } from "../lib/format";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import SEO, { generateToolData } from "../../../components/SEO";
 import useRegion from "../../../hooks/useRegion";
 import {
@@ -25,6 +26,9 @@ const SIPCalculator = () => {
   const [years, setYears] = useState("10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  // Snapshot of the inputs used for the last calculation, so the result panel
+  // and pie do not change until Calculate is pressed again.
+  const [invested, setInvested] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
   const [chartType, setChartType] = useState("line"); // 'line' or 'pie'
 
@@ -53,15 +57,18 @@ const SIPCalculator = () => {
         })
       );
 
-      const data = [];
+      const data = [{ year: 0, value: 0 }];
       for (let i = 1; i <= yearsValue; i++) {
         const n_i = i * 12;
         const value = P * ((Math.pow(1 + r, n_i) - 1) / r) * (1 + r);
-        data.push({ year: i, value: value.toFixed(2) });
+        data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);
+      setInvested(P * yearsValue * 12);
     }
   };
+
+  const formProps = useCalcForm(calculateSIP);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -113,7 +120,7 @@ const SIPCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -195,12 +202,7 @@ const SIPCalculator = () => {
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
                     <span className="font-semibold">
-                      {sym}
-                      {(
-                        parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                        parseFloat(years) *
-                        12
-                      ).toLocaleString("en-IN")}
+                      {sym}{invested.toLocaleString("en-IN")}
                     </span>
                   </p>
                   <p className="text-sm text-gray-600">
@@ -208,10 +210,7 @@ const SIPCalculator = () => {
                     <span className="font-semibold">
                       {sym}
                       {(
-                        parseFloat(futureValue.replace(/,/g, "")) -
-                        parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                          parseFloat(years) *
-                          12
+                        parseFloat(futureValue.replace(/,/g, "")) - invested
                       ).toLocaleString("en-IN", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
@@ -252,25 +251,19 @@ const SIPCalculator = () => {
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
                         dataKey="year"
+                        {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                        }}
-                      />
-                      <Tooltip />
+                      <YAxis {...Y_AXIS_PROPS} />
+                      <Tooltip formatter={moneyTooltip} labelFormatter={(y) => `Year ${y}`} />
                       <Line
                         type="monotone"
                         dataKey="value"
@@ -285,18 +278,11 @@ const SIPCalculator = () => {
                         data={[
                           {
                             name: "Total Investment",
-                            value:
-                              parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                              parseFloat(years) *
-                              12,
+                            value: invested,
                           },
                           {
                             name: "Total Interest",
-                            value:
-                              parseFloat(futureValue.replace(/,/g, "")) -
-                              parseFloat(monthlyInvestment.replace(/,/g, "")) *
-                                parseFloat(years) *
-                                12,
+                            value: parseFloat(futureValue.replace(/,/g, "")) - invested,
                           },
                         ]}
                         cx="50%"

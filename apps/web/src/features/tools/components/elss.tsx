@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -23,6 +24,10 @@ const ELSSCalculator = () => {
   const [compoundingFrequency, setCompoundingFrequency] = useState("yearly");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+
+  // Inputs as they were when Calculate was last pressed. The results read from
+  // this, so editing a field does not change them until Calculate is pressed again.
+  const [snap, setSnap] = useState<Record<string, any>>({ investmentType: "", investmentAmount: "", years: "" });
   const [showInfo, setShowInfo] = useState(false);
   const [taxSlab, setTaxSlab] = useState("30"); // Default to 30%
   const [taxSaved, setTaxSaved] = useState(null);
@@ -48,12 +53,13 @@ const ELSSCalculator = () => {
         );
 
         const data = [];
-        for (let i = 1; i <= yearsValue; i++) {
+        for (let i = 0; i <= yearsValue; i++) {
           const n_i = i * 12;
           const value = P * ((Math.pow(1 + r, n_i) - 1) / r) * (1 + r);
-          data.push({ year: i, value: value.toFixed(2) });
+          data.push({ year: i, value: Number(value.toFixed(2)) });
         }
         setChartData(data);
+        setSnap({ investmentType, investmentAmount, years });
       }
     } else {
       // lumpsum
@@ -77,7 +83,7 @@ const ELSSCalculator = () => {
         );
 
         const data = [];
-        for (let i = 1; i <= yearsValue; i++) {
+        for (let i = 0; i <= yearsValue; i++) {
           let value;
           if (compoundingFrequency === "monthly") {
             const n_i = i * 12;
@@ -85,9 +91,10 @@ const ELSSCalculator = () => {
           } else {
             value = P * Math.pow(1 + r, i);
           }
-          data.push({ year: i, value: value.toFixed(2) });
+          data.push({ year: i, value: Number(value.toFixed(2)) });
         }
         setChartData(data);
+        setSnap({ investmentType, investmentAmount, years });
       }
     }
 
@@ -102,6 +109,9 @@ const ELSSCalculator = () => {
       })
     );
   };
+
+  const formProps = useCalcForm(calculateELSS);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -133,7 +143,7 @@ const ELSSCalculator = () => {
           {/* Calculator + Graph Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
-            <div className="bg-white shadow-md rounded-xl p-6">
+            <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -276,17 +286,17 @@ const ELSSCalculator = () => {
                     Total Investment:{" "}
                     <span className="font-semibold">
                       ₹
-                      {investmentType === "sip"
+                      {snap.investmentType === "sip"
                         ? (
-                            parseFloat(investmentAmount.replace(/,/g, "")) *
-                            parseFloat(years) *
+                            parseFloat(snap.investmentAmount.replace(/,/g, "")) *
+                            parseFloat(snap.years) *
                             12
                           ).toLocaleString("en-IN", {
                             maximumFractionDigits: 2,
                             minimumFractionDigits: 2,
                           })
                         : parseFloat(
-                            investmentAmount.replace(/,/g, "")
+                            snap.investmentAmount.replace(/,/g, "")
                           ).toLocaleString("en-IN", {
                             maximumFractionDigits: 2,
                             minimumFractionDigits: 2,
@@ -299,11 +309,11 @@ const ELSSCalculator = () => {
                       ₹
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) -
-                        (investmentType === "sip"
-                          ? parseFloat(investmentAmount.replace(/,/g, "")) *
-                            parseFloat(years) *
+                        (snap.investmentType === "sip"
+                          ? parseFloat(snap.investmentAmount.replace(/,/g, "")) *
+                            parseFloat(snap.years) *
                             12
-                          : parseFloat(investmentAmount.replace(/,/g, "")))
+                          : parseFloat(snap.investmentAmount.replace(/,/g, "")))
                       ).toLocaleString("en-IN", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
@@ -348,26 +358,17 @@ const ELSSCalculator = () => {
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
-                    <LineChart data={chartData}>
+                    <LineChart data={chartData} margin={CHART_MARGIN}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        dataKey="year"
+                        dataKey="year" {...X_AXIS_PROPS}
                         label={{
                           value: "Years",
                           position: "insideBottom",
                           dy: 10,
                         }}
                       />
-                      <YAxis
-                        width={100}
-                        label={{
-                          value: "",
-                          angle: -90,
-                          position: "insideLeft",
-                          dx: -5,
-                          dy: -5,
-                        }}
-                      />
+                      <YAxis {...Y_AXIS_PROPS} />
                       <Tooltip />
                       <Line
                         type="monotone"
@@ -384,21 +385,21 @@ const ELSSCalculator = () => {
                           {
                             name: "Total Investment",
                             value:
-                              investmentType === "sip"
-                                ? parseFloat(investmentAmount.replace(/,/g, "")) *
-                                  parseFloat(years) *
+                              snap.investmentType === "sip"
+                                ? parseFloat(snap.investmentAmount.replace(/,/g, "")) *
+                                  parseFloat(snap.years) *
                                   12
-                                : parseFloat(investmentAmount.replace(/,/g, "")),
+                                : parseFloat(snap.investmentAmount.replace(/,/g, "")),
                           },
                           {
                             name: "Total Interest",
                             value:
                               parseFloat(futureValue.replace(/,/g, "")) -
-                              (investmentType === "sip"
-                                ? parseFloat(investmentAmount.replace(/,/g, "")) *
-                                  parseFloat(years) *
+                              (snap.investmentType === "sip"
+                                ? parseFloat(snap.investmentAmount.replace(/,/g, "")) *
+                                  parseFloat(snap.years) *
                                   12
-                                : parseFloat(investmentAmount.replace(/,/g, ""))),
+                                : parseFloat(snap.investmentAmount.replace(/,/g, ""))),
                           },
                         ]}
                         cx="50%"
