@@ -25,7 +25,12 @@ export async function request<T = unknown>(path: string, options: RequestInit = 
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);
   if (res.status === 204) return undefined as T;
   const body = await res.json().catch(() => null);
-  if (!res.ok) throw new ApiError(res.status, body?.error || body?.message || `Request failed (${res.status})`, body?.code, body?.feature);
+  if (!res.ok) {
+    // Validation errors carry field-level details ("symbol: Symbol can only contain…"); show those, not "Validation failed".
+    const details = Array.isArray(body?.details) ? body.details.map((d: unknown) => String(d).replace(/^[\w.]+: /, "")).join(" · ") : "";
+    const message = (body?.error === "Validation failed" && details) || body?.error || body?.message || `Request failed (${res.status})`;
+    throw new ApiError(res.status, message, body?.code, body?.feature);
+  }
   return body as T;
 }
 

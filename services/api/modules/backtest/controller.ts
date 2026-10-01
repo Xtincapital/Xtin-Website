@@ -8,7 +8,20 @@
 // Every user-scoped query is filtered by `req.user.authId`; request bodies never
 // carry a user id.
 import { HTTP_STATUS } from "../../constants/constants.js";
-import { allocationFor, applyModification, applyOptionsModification, defaultWindow, namesQuantity, parseOptions, parseStrategy, personalize, positionSize, type AnyDefinition } from "./parser.js";
+import {
+    allocationFor,
+    applyModification,
+    applyOptionsModification,
+    defaultWindow,
+    looksLikeTrading,
+    namesQuantity,
+    parseOptions,
+    parseStrategy,
+    personalize,
+    positionSize,
+    STRATEGY_EXAMPLES,
+    type AnyDefinition,
+} from "./parser.js";
 import { llmParse } from "./llmParse.js";
 import { BacktestInputError, runBacktest } from "./engine.js";
 import { lotsForCapital, runOptionsBacktest } from "./options.js";
@@ -123,7 +136,12 @@ const reportReply = (name: string, r: EngineResult): string => {
     );
 };
 
-export const chatBurstLimit = rateLimit("chat", 12, 60, clientIp);
+// Abuse protection (applies to every plan, Pro included): normal use never
+// gets near these, a script or a stuck button does.
+export const limitChat = rateLimit("chat", [{ limit: 8, seconds: 60 }, { limit: 120, seconds: 3600 }], "running backtests", clientIp);
+export const limitRuns = rateLimit("runs", [{ limit: 8, seconds: 60 }, { limit: 120, seconds: 3600 }], "running backtests", clientIp);
+export const limitWrites = rateLimit("writes", [{ limit: 30, seconds: 60 }], "saving or deleting", clientIp);
+export const limitCheckout = rateLimit("checkout", [{ limit: 6, seconds: 60 }, { limit: 30, seconds: 3600 }], "starting checkouts", clientIp);
 
 /* POST /backtest/chat — optional auth (anon visitors get a small daily allowance). */
 export const chatBacktest = async (req, res) => {
@@ -154,6 +172,28 @@ export const chatBacktest = async (req, res) => {
                 usage,
                 suggestions: [],
                 paywall: true,
+            });
+        }
+
+        // Not a trading rule at all → say so (and spend nothing) instead of
+        // silently backtesting a default strategy.
+        if (!looksLikeTrading(payload.message)) {
+            const quoted = payload.message.length > 60 ? `${payload.message.slice(0, 57)}…` : payload.message;
+            return res.status(HTTP_STATUS.OK).json({
+                reply: `I couldn't find a trading rule in "${quoted}". Tell me **when to buy or sell** — an indicator, a price level or a crossover — plus any stop-loss or target. For example: "${STRATEGY_EXAMPLES[0]}".`,
+                interpretation: "",
+                warnings: [],
+                strategy_name: "",
+                definition: {},
+                start_date: today,
+                end_date: today,
+                result: null,
+                ok: false,
+                error: "not_a_strategy",
+                usage,
+                suggestions: STRATEGY_EXAMPLES,
+                paywall: false,
+                locked: [],
             });
         }
 
@@ -254,9 +294,6 @@ export const chatBacktest = async (req, res) => {
             };
         }
 
-        // Count the allowance now that a real parse happened (Claude cost incurred).
-        usage = await consumeAllowance(userId, ip, usage);
-
         const [defStart, defEnd] = defaultWindow(timeframe);
         let start = payload.start_date || defStart;
         const end = payload.end_date || defEnd;
@@ -295,7 +332,10 @@ export const chatBacktest = async (req, res) => {
             const candles = await getCandles({ symbol, exchange, timeframe, start, end });
             if (candles.length > MAX_CANDLES) throw new BacktestInputError("That window has too many bars — shorten the date range or use a coarser timeframe.");
             const engine = run(candles);
-            return res.status(HTTP_STATUS.OK).json({ ...base, interpretation, ok: true, result: { ...engine, candles }, reply: reportReply(name, engine) });
+            // Only a backtest that actually ran counts against the allowance —
+            // a typo'd symbol or an empty window costs the user nothing.
+            usage = await consumeAllowance(userId, ip, usage);
+            return res.status(HTTP_STATUS.OK).json({ ...base, usage, interpretation, ok: true, result: { ...engine, candles }, reply: reportReply(name, engine) });
         } catch (err) {
             if (err instanceof MarketDataError || err instanceof BacktestInputError) {
                 const msg = (err as Error).message;
@@ -419,12 +459,13 @@ export const createRun = async (req, res) => {
             if (!FREE_TIMEFRAMES.includes(tf)) return proRequired(res, new ProRequiredError("intraday", PRO_MESSAGES.intraday(tf)));
             if (start_date < earliestFreeStart()) return proRequired(res, new ProRequiredError("full_history", PRO_MESSAGES.full_history()));
             if (usage.remaining !== null && usage.remaining <= 0) return proRequired(res, new ProRequiredError("quota", paywallReply(usage)));
-            await consumeAllowance(userId, clientIp(req), usage);
         }
 
         const meta = { user_id: userId, strategy_id: strategy.id, strategy_name: strategy.name, definition: strategy.definition, start_date, end_date, starting_capital };
         try {
             const { result } = await execute(definition, start_date, end_date, starting_capital);
+            // Counted only once the run succeeded (failed runs are free).
+            if (usage.tier !== "pro") await consumeAllowance(userId, clientIp(req), usage);
             const row = await insertRun({ ...meta, status: "completed", error: null, result });
             return res.status(HTTP_STATUS.CREATED).json({ ...summary({ ...row, metrics: result.metrics }), definition: strategy.definition, result });
         } catch (err) {

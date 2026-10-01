@@ -317,6 +317,47 @@ describe("free vs Pro", () => {
         expect(next.body.definition.risk.target_pct).toBe(5);
     });
 
+    it("refuses text that isn't a trading rule, explains why and spends nothing", async () => {
+        for (const message of ["hello there", "asdf qwer", "?!"]) {
+            const res = mockRes();
+            await chatBacktest(mockReq({ message }, free), res);
+            expect(res.statusCode).toBe(200);
+            expect(res.body).toMatchObject({ ok: false, error: "not_a_strategy", paywall: false, result: null });
+            expect(res.body.reply).toMatch(/couldn't find a trading rule/);
+            expect(res.body.suggestions.length).toBeGreaterThan(0);
+        }
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+        expect(llmParse).not.toHaveBeenCalled();
+    });
+
+    it("charges the allowance only for backtests that actually ran", async () => {
+        const bad = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-06", end_date: "2024-01-07" }, free), bad);
+        expect(bad.body.ok).toBe(false);
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+
+        const good = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, free), good);
+        expect(good.body.ok).toBe(true);
+        expect(repo.consumeUsage).toHaveBeenCalledOnce();
+    });
+
+    it("doesn't charge a free re-run that failed", async () => {
+        repo.getStrategy.mockResolvedValue(strategy());
+        repo.insertRun.mockResolvedValue({});
+        const res = mockRes();
+        await createRun(mockReq({ strategy_id: strategy().id, start_date: "2024-01-06", end_date: "2024-01-07" }, free), res);
+        expect(res.statusCode).toBe(422);
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+    });
+
+    it("rejects a malformed symbol with a readable message", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30", symbol: "https://evil.example" }, free), res);
+        expect(res.statusCode).toBe(400);
+        expect(res.body.details.join(" ")).toMatch(/Symbol can only contain letters/);
+    });
+
     it("keeps intraday for Pro", async () => {
         const res = mockRes();
         await chatBacktest(mockReq({ message: "buy when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-01-31" }, asPro()), res);
@@ -338,7 +379,7 @@ describe("free vs Pro", () => {
     });
 
     it("uses the AI parser only for Pro", async () => {
-        await chatBacktest(mockReq({ message: "something creative", start_date: "2024-01-01", end_date: "2024-06-30" }, asPro()), mockRes());
+        await chatBacktest(mockReq({ message: "buy reliance on a creative signal", start_date: "2024-01-01", end_date: "2024-06-30" }, asPro()), mockRes());
         expect(llmParse).toHaveBeenCalledOnce();
     });
 

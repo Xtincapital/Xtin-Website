@@ -5,6 +5,7 @@ import { ArrowLeft, CalendarRange, Database, Play, Wallet } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { showProRequired, useProDialog } from "../lib/proDialog";
 import { earliestStart, usePlan } from "../lib/usePlan";
 import ProBadge from "../components/ProBadge";
 import { strategySentence } from "../lib/analytics";
@@ -50,6 +51,7 @@ export default function RunBacktest() {
     onError: (err) => {
       qc.invalidateQueries({ queryKey: ["bt-runs"] });
       setError({ text: err instanceof ApiError ? err.message : "Backtest failed", pro: isProRequired(err) });
+      showProRequired(err);
     },
   });
 
@@ -79,13 +81,17 @@ export default function RunBacktest() {
                 <button
                   key={p.label}
                   type="button"
-                  disabled={lockedPeriod}
+                  aria-disabled={lockedPeriod}
                   title={lockedPeriod ? "Longer history is a Pro feature" : undefined}
                   onClick={() => {
+                    if (lockedPeriod) {
+                      useProDialog.getState().show("full_history", `A ${p.label} window needs a Pro pass — the free plan tests from ${minStart} onwards.`);
+                      return;
+                    }
                     setStartDate(isoDaysAgo(p.days));
                     setEndDate(isoDaysAgo(0));
                   }}
-                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
+                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold transition aria-disabled:opacity-60 ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
                 >
                   {p.label}
                   {lockedPeriod && <ProBadge />}

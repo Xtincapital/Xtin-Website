@@ -90,7 +90,9 @@ async function fetchYahooCandles(symbol: string, exchange: string, timeframe: st
             strikes += 1;
             throw new MarketDataError("Market data is temporarily rate-limited. Please try again in a minute, or use the offline SAMPLE symbol.");
         }
-        throw new MarketDataError(`Could not fetch data for ${ticker}: ${(err as Error)?.message || err}`);
+        const msg = String((err as Error)?.message ?? err);
+        if (/not found|no data|404|delisted|invalid/i.test(msg)) throw new MarketDataError(unknownSymbol(symbol, exchange));
+        throw new MarketDataError(`The market data provider didn't respond for ${ticker}. Please try again in a moment.`);
     }
 
     const candles: Candle[] = [];
@@ -103,10 +105,17 @@ async function fetchYahooCandles(symbol: string, exchange: string, timeframe: st
         candles.push({ time, open: q.open, high: q.high, low: q.low, close: q.close, volume: q.volume ?? 0 });
     }
     if (!candles.length) {
-        throw new MarketDataError(`No data returned for ${ticker} (${interval}). Try a daily timeframe or a different date range — Yahoo limits intraday history.`);
+        throw new MarketDataError(
+            timeframe === "1d"
+                ? unknownSymbol(symbol, exchange)
+                : `No ${timeframe} candles for ${symbol} in that window — intraday history only goes back about 60 days (1-minute: about 7). Try a shorter window or daily candles.`
+        );
     }
     return candles;
 }
+
+const unknownSymbol = (symbol: string, exchange: string) =>
+    `We couldn't find market data for "${symbol}" on ${exchange}. Check the spelling and use the exchange ticker (e.g. RELIANCE, TCS, HDFCBANK, NIFTY), or try the offline SAMPLE symbol`;
 
 export type CandleRequest = { symbol: string; exchange: string; timeframe: string; start: string; end: string };
 

@@ -2,6 +2,14 @@ import * as z from "zod/v4";
 import { INDICATOR_NAMES } from "./indicators.js";
 import { trimStrings } from "../../utils/helper_functions.js";
 
+// Exchange tickers only — rejects pasted URLs, sentences and injection attempts with a readable message.
+const symbolField = z
+    .string()
+    .trim()
+    .max(20, "Symbol is too long — use the exchange ticker, e.g. RELIANCE")
+    .regex(/^[A-Za-z0-9&.^-]*$/, "Symbol can only contain letters, numbers and & . ^ - (e.g. RELIANCE, M&M, ^NSEI)");
+
+
 const operand = z.union([
     z.object({ kind: z.literal("indicator"), indicator: z.enum(INDICATOR_NAMES), period: z.number().int().min(1).max(1000).nullable().optional() }),
     z.object({ kind: z.literal("field"), field: z.enum(["close", "open", "high", "low", "volume"]) }),
@@ -15,7 +23,7 @@ const pct = z.number().min(0).max(1000).nullable().optional();
 export const strategyDefinitionSchema = z.object({
     instrument: z
         .object({
-            symbol: z.string().trim().min(1).max(20).default("SAMPLE"),
+            symbol: symbolField.pipe(z.string().min(1, "Pick a symbol (or SAMPLE)")).default("SAMPLE"),
             exchange: z.string().trim().min(1).max(10).default("NSE"),
             timeframe: z.enum(["1m", "5m", "15m", "1h", "1d"]).default("1d"),
         })
@@ -59,7 +67,7 @@ const runSchema = z.object({
 const chatSchema = z.object({
     message: z.string().trim().min(1, "message is required").max(1000),
     starting_capital: z.number().gt(0).max(1e10).default(100_000),
-    symbol: z.string().trim().max(20).nullable().optional(),
+    symbol: symbolField.nullable().optional(),
     start_date: day.nullable().optional(),
     end_date: day.nullable().optional(),
     history: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().max(1200) })).max(12).default([]),

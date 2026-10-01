@@ -6,6 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import ProRequiredDialog from "./components/ProRequiredDialog";
 
 const Playground = lazy(() => import("./pages/Playground"));
 const StrategyList = lazy(() => import("./pages/StrategyList"));
@@ -35,6 +36,7 @@ const BacktestApp = () => (
         </Routes>
       </Suspense>
       <Sonner />
+      <ProRequiredDialog />
     </QueryClientProvider>
   </ErrorBoundary>
 );

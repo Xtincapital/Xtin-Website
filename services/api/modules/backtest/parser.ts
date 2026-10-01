@@ -334,6 +334,27 @@ export function applyOptionsModification(prev: AnyDefinition | null | undefined,
     return buildOptions(spec, "Updated your previous options strategy: " + changes.join(", ") + ".");
 }
 
+// ── is this a trading rule at all? ───────────────────────────────────────────
+//
+// Without this, "hello" or "asdf" silently became a default 20/50 EMA strategy
+// and spent one of the user's backtests. Anything that names a market action,
+// an indicator, a risk setting, a known symbol or a tweak passes.
+
+const TRADING_WORDS =
+    /\b(buy|sell|long|short|trade|trading|entry|enter|exit|strategy|trend|momentum|reversion|breakout|break|dip|rally|swing|scalp|intraday|stop|sl|target|tp|trail\w*|rsi|macd|ema|sma|moving average|ma|bollinger|bands?|vwap|supertrend|stoch\w*|atr|crosses?|crossover|golden|death|overbought|oversold|support|resistance|price|close|open|high|low|volume|candles?|daily|hourly|minute|qty|quantity|shares?|lots?|straddle|strangle|condor|options?|calls?|puts?|premium|tighten|widen|re-?run|instead|same but|make it|run it|try it)\b/i;
+
+export function looksLikeTrading(message: string): boolean {
+    const text = message.trim();
+    if (text.replace(/[^a-z0-9]/gi, "").length < 3) return false;
+    return TRADING_WORDS.test(text) || detectSymbol(text)[0] !== "SAMPLE";
+}
+
+export const STRATEGY_EXAMPLES = [
+    "Buy when RSI drops below 30 and sell above 70, 2% stop",
+    "Buy RELIANCE when 20 EMA crosses above 50 EMA",
+    "Buy NIFTY when price breaks above its upper Bollinger band",
+];
+
 // ── conversation memory & personalisation (no API key required) ─────────────
 //
 // applyModification() gives the chat real iteration even fully offline: when a

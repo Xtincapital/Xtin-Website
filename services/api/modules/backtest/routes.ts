@@ -3,7 +3,10 @@ import { Router } from "express";
 import { authenticate } from "../../middlewares/auth.js";
 import {
     chatBacktest,
-    chatBurstLimit,
+    limitChat,
+    limitCheckout,
+    limitRuns,
+    limitWrites,
     createRun,
     createStrategy,
     deleteMyRun,
@@ -23,23 +26,23 @@ const router = Router();
 const optionalAuthenticate = (req, res, next) => (req.headers.authorization ? authenticate(req, res, next) : next());
 
 // Public / optional-auth: the playground and plan summary.
-router.post("/backtest/chat", optionalAuthenticate, chatBurstLimit, chatBacktest);
+router.post("/backtest/chat", optionalAuthenticate, limitChat, chatBacktest);
 router.get("/backtest/plan", optionalAuthenticate, getPlan);
 router.get("/backtest/passes", listPasses);
 
 // Authenticated: saved strategies, run history, pass purchase.
 router.get("/backtest/strategies", authenticate, listMyStrategies);
-router.post("/backtest/strategies", authenticate, createStrategy);
+router.post("/backtest/strategies", authenticate, limitWrites, createStrategy);
 router.get("/backtest/strategies/:id", authenticate, getMyStrategy);
-router.put("/backtest/strategies/:id", authenticate, updateMyStrategy);
-router.delete("/backtest/strategies/:id", authenticate, deleteMyStrategy);
+router.put("/backtest/strategies/:id", authenticate, limitWrites, updateMyStrategy);
+router.delete("/backtest/strategies/:id", authenticate, limitWrites, deleteMyStrategy);
 
-router.post("/backtest/runs", authenticate, createRun);
+router.post("/backtest/runs", authenticate, limitRuns, createRun);
 router.get("/backtest/runs", authenticate, listMyRuns);
 router.get("/backtest/runs/:id", authenticate, getMyRun);
-router.delete("/backtest/runs/:id", authenticate, deleteMyRun);
+router.delete("/backtest/runs/:id", authenticate, limitWrites, deleteMyRun);
 
-router.post("/backtest/razorpay/order", authenticate, createPassOrder);
+router.post("/backtest/razorpay/order", authenticate, limitCheckout, createPassOrder);
 router.post("/backtest/razorpay/verify", authenticate, verifyPassPurchase);
 
 export default router;

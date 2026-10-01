@@ -25,8 +25,9 @@ import {
 import BacktestLayout from "../components/BacktestLayout";
 import Report from "../components/Report";
 import ProBadge from "../components/ProBadge";
-import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { ApiError, backtestApi } from "../lib/api";
 import { usePlan } from "../lib/usePlan";
+import { showProRequired, useProDialog } from "../lib/proDialog";
 import { btnSecondary, card, muted } from "../lib/styles";
 import type { BacktestResult } from "../lib/types";
 
@@ -228,6 +229,14 @@ export default function Playground() {
         ...m,
         { role: "assistant", text: data.reply, interpretation: data.interpretation, warnings: data.warnings, suggestions: data.suggestions, paywall: data.paywall, ok: data.ok },
       ]);
+      if (data.paywall) {
+        // Hard Pro wall (monthly limit or options) — explain it in a popup too.
+        useProDialog.getState().show(data.error === "quota_exceeded" ? "quota" : "options", data.error === "quota_exceeded" ? data.reply : "");
+      } else if (data.ok && data.locked?.length) {
+        // It ran, but on the free version of what was asked — say so up front.
+        const what = data.locked.includes("intraday") ? "Ran on daily candles — intraday candles are a Pro feature." : "Tested the last 2 years — older history is a Pro feature.";
+        toast.warning(what, { action: { label: "See Pro", onClick: () => navigate("/backtest/app/upgrade") } });
+      }
       if (data.ok && data.result) {
         setReport({ result: data.result, name: data.strategy_name, window: `${data.start_date} → ${data.end_date}`, definition: data.definition });
       }
@@ -235,8 +244,10 @@ export default function Playground() {
     } catch (err) {
       const text =
         err instanceof ApiError && err.status === 429
-          ? "You're sending requests a little fast — give it a few seconds and try again."
-          : err instanceof ApiError && err.code === "not_migrated"
+          ? `⏳ ${err.message}`
+          : err instanceof ApiError && err.status === 400
+            ? `That didn't work: ${err.message}`
+            : err instanceof ApiError && err.code === "not_migrated"
             ? "Backtest is being set up on our side — please try again shortly."
             : "Couldn't reach the backtest engine. Please check your connection and try again.";
       setMessages((m) => [...m, { role: "assistant", text }]);
@@ -255,8 +266,7 @@ export default function Playground() {
       void qc.invalidateQueries({ queryKey: ["bt-strategies"] });
       toast.success("Saved to your strategies", { action: { label: "View", onClick: () => (window.location.href = "/backtest/app/strategies") } });
     } catch (err) {
-      if (isProRequired(err)) toast.error(err.message, { action: { label: "Go Pro", onClick: () => navigate("/backtest/app/upgrade") } });
-      else toast.error(err instanceof Error ? err.message : "Couldn't save the strategy");
+      if (!showProRequired(err)) toast.error(err instanceof Error ? err.message : "Couldn't save the strategy");
     } finally {
       setSaving(false);
     }

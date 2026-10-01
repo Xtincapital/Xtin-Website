@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { applyModification, applyOptionsModification, defaultWindow, parseOptions, parseStrategy, personalize } from "./parser.js";
+import { applyModification, applyOptionsModification, defaultWindow, looksLikeTrading, parseOptions, parseStrategy, personalize } from "./parser.js";
 
 describe("parseStrategy", () => {
     it("detects RSI with thresholds and stop", () => {
@@ -201,5 +201,14 @@ describe("defaultWindow", () => {
         expect(defaultWindow("1h", today)).toEqual(["2025-01-01", "2025-06-30"]);
         expect(defaultWindow("5m", today)).toEqual(["2025-05-16", "2025-06-30"]);
         expect(defaultWindow("1m", today)).toEqual(["2025-06-24", "2025-06-30"]); // Yahoo keeps ~7 days of 1m bars
+    });
+});
+
+describe("looksLikeTrading", () => {
+    it.each(["buy when rsi below 30", "golden cross on nifty", "tighten the stop to 1%", "RELIANCE", "short a straddle", "make it short", "sell tcs above 4000"])("accepts %s", (m) => {
+        expect(looksLikeTrading(m)).toBe(true);
+    });
+    it.each(["hello", "asdf qwer", "what is the weather today", "??", "lol"])("rejects %s", (m) => {
+        expect(looksLikeTrading(m)).toBe(false);
     });
 });

@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ProBadge from "../components/ProBadge";
 import { usePlan } from "../lib/usePlan";
+import { showProRequired, useProDialog } from "../lib/proDialog";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowLeft, Crosshair, DoorOpen, LogIn, Save, ShieldCheck, Sparkles } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import ConditionGroupEditor from "../components/ConditionEditor";
-import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { ApiError, backtestApi } from "../lib/api";
 import { strategySentence } from "../lib/analytics";
 import { btnPrimary, btnSecondary, card, input, label, muted } from "../lib/styles";
 import { type StrategyDefinition, emptyDefinition, TIMEFRAMES } from "../lib/types";
@@ -96,8 +97,7 @@ export default function StrategyBuilder() {
     onError: (err) => {
       const msg = err instanceof ApiError ? err.message : "Failed to save";
       setError(msg);
-      if (isProRequired(err)) toast.error(msg, { action: { label: "Go Pro", onClick: () => navigate("/backtest/app/upgrade") } });
-      else toast.error(msg);
+      if (!showProRequired(err)) toast.error(msg);
     },
   });
 
@@ -163,9 +163,12 @@ export default function StrategyBuilder() {
                       <button
                         key={t}
                         type="button"
-                        disabled={lockedTf}
-                        onClick={() => patch({ instrument: { ...def.instrument, timeframe: t }, risk: { ...def.risk, square_off_time: t === "1d" ? null : def.risk.square_off_time ?? "15:15" } })}
-                        className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${def.instrument.timeframe === t ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white" : muted}`}
+                        aria-disabled={lockedTf}
+                        onClick={() =>
+                          lockedTf
+                            ? useProDialog.getState().show("intraday", `${TF_LABEL[t]} candles need a Pro pass — the free plan backtests on daily candles.`)
+                            : patch({ instrument: { ...def.instrument, timeframe: t }, risk: { ...def.risk, square_off_time: t === "1d" ? null : def.risk.square_off_time ?? "15:15" } })}
+                        className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition aria-disabled:opacity-40 ${def.instrument.timeframe === t ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white" : muted}`}
                         title={lockedTf ? `${TF_LABEL[t]} candles are a Pro feature` : TF_LABEL[t]}
                       >
                         {t}

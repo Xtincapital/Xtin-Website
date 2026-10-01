@@ -9,6 +9,7 @@ import EmptyState from "../components/EmptyState";
 import { backtestApi } from "../lib/api";
 import { usePlan } from "../lib/usePlan";
 import ProBadge from "../components/ProBadge";
+import { useProDialog } from "../lib/proDialog";
 import { conditionText } from "../lib/analytics";
 import { btnGhost, btnPrimary, btnSecondary, card, chip, muted } from "../lib/styles";
 import type { Strategy } from "../lib/types";
@@ -67,9 +68,13 @@ export default function StrategyList() {
               <Sparkles className="h-4 w-4" /> Describe one
             </Link>
             {atLimit ? (
-              <Link to="/backtest/app/upgrade" className={btnPrimary} title={`The free plan saves up to ${strategyLimit} strategies`}>
+              <button
+                type="button"
+                className={btnPrimary}
+                onClick={() => useProDialog.getState().show("unlimited_strategies", `The free plan saves up to ${strategyLimit} strategies — delete one to make room, or go Pro for unlimited.`)}
+              >
                 <Plus className="h-4 w-4" /> Build by hand <ProBadge />
-              </Link>
+              </button>
             ) : (
               <Link to="/backtest/app/strategies/new" className={btnPrimary}>
                 <Plus className="h-4 w-4" /> Build by hand
