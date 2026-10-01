@@ -20,24 +20,42 @@ const OVERVIEW_TTL_MS = 15 * 60_000;
 const HISTORY_TTL_MS = 10 * 60_000;
 const SEARCH_TTL_MS = 10 * 60_000;
 const FAILURE_TTL_MS = 30_000; // short negative cache so failures aren't retried in a burst
-const RATE_LIMIT_COOLDOWN_MS = 60_000;
+// Cooldown escalates while Yahoo keeps refusing us (60s -> 2m -> 5m -> 15m)
+// and resets once a call succeeds, so a blocked IP is probed rarely instead
+// of once a minute forever.
+const RATE_LIMIT_BACKOFF_MS = [60_000, 120_000, 300_000, 900_000];
 const MAX_CACHE_ENTRIES = 2000;
 
 const cache = new Map<string, { value: unknown; expires: number }>();
 const inflight = new Map<string, Promise<unknown>>();
 let rateLimitedUntil = 0;
+let rateLimitStrikes = 0;
 
 function isRateLimitError(err: unknown): boolean {
     const msg = String((err as Error)?.message ?? err);
     return msg.includes("429") || /too many requests/i.test(msg);
 }
 
+// Logs once when the limit is first hit and once per escalation; repeats at
+// the same level stay silent so Render's logs aren't flooded.
 function noteRateLimit(err: unknown): void {
     if (!isRateLimitError(err)) return;
-    if (Date.now() >= rateLimitedUntil) {
-        console.warn(`[Fundakamental] Yahoo rate-limited (429); pausing crumb-based calls for ${RATE_LIMIT_COOLDOWN_MS / 1000}s`);
+    if (Date.now() < rateLimitedUntil) return; // already cooling down, nothing new to report
+    const level = Math.min(rateLimitStrikes, RATE_LIMIT_BACKOFF_MS.length - 1);
+    const cooldown = RATE_LIMIT_BACKOFF_MS[level];
+    if (rateLimitStrikes === 0 || level > Math.min(rateLimitStrikes - 1, RATE_LIMIT_BACKOFF_MS.length - 1)) {
+        console.warn(`[Fundakamental] Yahoo rate-limited (429); pausing Yahoo calls for ${cooldown / 1000}s (served from cache/DB meanwhile)`);
     }
-    rateLimitedUntil = Date.now() + RATE_LIMIT_COOLDOWN_MS;
+    rateLimitStrikes += 1;
+    rateLimitedUntil = Date.now() + cooldown;
+}
+
+function noteSuccess(): void {
+    if (rateLimitStrikes > 0) {
+        console.info("[Fundakamental] Yahoo recovered; resuming live calls");
+        rateLimitStrikes = 0;
+        rateLimitedUntil = 0;
+    }
 }
 
 const isRateLimited = (): boolean => Date.now() < rateLimitedUntil;
@@ -139,6 +157,7 @@ async function fetchCompanyOverview(ticker: string): Promise<StockOverview | nul
             modules: ["assetProfile", "summaryDetail", "defaultKeyStatistics", "financialData", "price"],
         });
 
+        noteSuccess();
         const { assetProfile, summaryDetail, defaultKeyStatistics, financialData, price } = result;
         if (!price?.symbol) return null;
 
@@ -180,7 +199,7 @@ async function fetchCompanyOverview(ticker: string): Promise<StockOverview | nul
         };
     } catch (err) {
         noteRateLimit(err);
-        console.error(`[Fundakamental] error fetching Yahoo Finance overview for ${ticker}:`, (err as Error)?.message || err);
+        if (!isRateLimitError(err)) console.error(`[Fundakamental] error fetching Yahoo Finance overview for ${ticker}:`, (err as Error)?.message || err);
         return null;
     }
 }
@@ -211,6 +230,7 @@ async function quoteFromQuoteApi(ticker: string): Promise<QuoteData | null> {
     if (isRateLimited()) return null; // skip straight to chart API / cache
     try {
         const q = await yahooFinance.quote(ticker);
+        noteSuccess();
         if (!q?.symbol || q.regularMarketPrice == null) return null;
         return {
             ticker: q.symbol,
@@ -256,7 +276,8 @@ async function quoteFromChartApi(ticker: string): Promise<QuoteData | null> {
             low: meta.regularMarketDayLow ?? null,
         };
     } catch (err) {
-        console.error(`[Fundakamental] chart API failed for ${ticker}, using cached price:`, (err as Error)?.message || err);
+        noteRateLimit(err);
+        if (!isRateLimitError(err)) console.error(`[Fundakamental] chart API failed for ${ticker}, using cached price:`, (err as Error)?.message || err);
         return null;
     }
 }
@@ -302,7 +323,7 @@ async function fetchSearch(query: string): Promise<CompanySearchResult[] | null>
             }));
     } catch (err) {
         noteRateLimit(err);
-        console.error("[Fundakamental] error searching companies:", (err as Error)?.message || err);
+        if (!isRateLimitError(err)) console.error("[Fundakamental] error searching companies:", (err as Error)?.message || err);
         return null;
     }
 }
@@ -337,7 +358,7 @@ async function fetchHistoricalPrices(ticker: string, startDate: Date, endDate: D
             }));
     } catch (err) {
         noteRateLimit(err);
-        console.error(`[Fundakamental] error fetching historical prices for ${ticker}:`, (err as Error)?.message || err);
+        if (!isRateLimitError(err)) console.error(`[Fundakamental] error fetching historical prices for ${ticker}:`, (err as Error)?.message || err);
         return null;
     }
 }
