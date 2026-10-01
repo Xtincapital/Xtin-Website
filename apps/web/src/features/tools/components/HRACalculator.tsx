@@ -15,10 +15,14 @@ const HRACalculator = () => {
     actualHRA: number | string;
     rentPaidMinus10pSalary: number | string;
     salaryPercentage: number | string;
+    tenPercentOfSalary: number | string;
+    city: string;
   }>({
     actualHRA: "120,000",
     rentPaidMinus10pSalary: "132,000",
     salaryPercentage: "240,000",
+    tenPercentOfSalary: "48,000",
+    city: "metro",
   });
 
   const formatNumber = (num) => {
@@ -28,7 +32,7 @@ const HRACalculator = () => {
     return num.toLocaleString("en-IN");
   };
 
-  const calculateHRA = () => {
+  const calculateHRA = (city: string = cityType) => {
     const salary =
       parseFloat(basicSalary.replace(/,/g, "")) +
       parseFloat(dearnessAllowance.replace(/,/g, ""));
@@ -39,7 +43,7 @@ const HRACalculator = () => {
       const actualHRA = hra;
       const rentPaidMinus10pSalary = rent - 0.1 * salary;
       const salaryPercentage =
-        cityType === "metro" ? 0.5 * salary : 0.4 * salary;
+        city === "metro" ? 0.5 * salary : 0.4 * salary;
 
       const exemption = Math.min(
         actualHRA,
@@ -55,6 +59,8 @@ const HRACalculator = () => {
         actualHRA,
         rentPaidMinus10pSalary,
         salaryPercentage,
+        tenPercentOfSalary: 0.1 * salary,
+        city,
       });
     }
   };
@@ -162,7 +168,10 @@ const HRACalculator = () => {
                   </label>
                   <div className="mt-2 flex rounded-md shadow-sm">
                     <button
-                      onClick={() => setCityType("metro")}
+                      onClick={() => {
+                        setCityType("metro");
+                        calculateHRA("metro");
+                      }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-l-md ${
                         cityType === "metro"
                           ? "bg-green-600 text-white"
@@ -172,7 +181,10 @@ const HRACalculator = () => {
                       Metro
                     </button>
                     <button
-                      onClick={() => setCityType("non-metro")}
+                      onClick={() => {
+                        setCityType("non-metro");
+                        calculateHRA("non-metro");
+                      }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-r-md ${
                         cityType === "non-metro"
                           ? "bg-green-600 text-white"
@@ -185,7 +197,7 @@ const HRACalculator = () => {
                 </div>
               </div>
               <button
-                onClick={calculateHRA}
+                onClick={() => calculateHRA()}
                 className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
               >
                 Calculate
@@ -221,14 +233,22 @@ const HRACalculator = () => {
                     </span>
                   </li>
                   <li className="flex justify-between">
-                    <span>2. Rent paid - 10% of salary:</span>
+                    <span>
+                      2. Rent paid minus 10% of salary
+                      <span className="block text-xs text-gray-500">
+                        (10% of salary = ₹{formatNumber(calculationDetails.tenPercentOfSalary)})
+                      </span>
+                    </span>
                     <span className="font-semibold">
                       ₹{formatNumber(calculationDetails.rentPaidMinus10pSalary)}
                     </span>
                   </li>
                   <li className="flex justify-between">
                     <span>
-                      3. {cityType === "metro" ? "50%" : "40%"} of salary:
+                      3. {calculationDetails.city === "metro" ? "50%" : "40%"} of salary
+                      <span className="block text-xs text-gray-500">
+                        ({calculationDetails.city === "metro" ? "Metro city: Delhi, Mumbai, Kolkata, Chennai" : "Non-metro city"})
+                      </span>
                     </span>
                     <span className="font-semibold">
                       ₹{formatNumber(calculationDetails.salaryPercentage)}

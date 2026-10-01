@@ -9,9 +9,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
 const GratuityCalculator = () => {
@@ -20,7 +17,6 @@ const GratuityCalculator = () => {
   const [gratuity, setGratuity] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [chartData, setChartData] = useState([]);
-  const [chartType, setChartType] = useState("line");
 
   const calculateGratuity = () => {
     const salary = parseFloat(monthlySalary.replace(/,/g, ""));
@@ -121,32 +117,9 @@ const GratuityCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold">Growth Over Time</h2>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setChartType("line")}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg ${
-                      chartType === "line"
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-200 text-gray-700"
-                    }`}
-                  >
-                    Line
-                  </button>
-                  <button
-                    onClick={() => setChartType("pie")}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg ${
-                      chartType === "pie"
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-200 text-gray-700"
-                    }`}
-                  >
-                    Pie
-                  </button>
-                </div>
               </div>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={450}>
-                  {chartType === "line" ? (
                     <LineChart
                       data={chartData}
                       margin={{ top: 5, right: 30, left: 60, bottom: 5 }}
@@ -177,31 +150,6 @@ const GratuityCalculator = () => {
                         dot
                       />
                     </LineChart>
-                  ) : (
-                    <PieChart>
-                      <Pie
-                        data={[
-                          {
-                            name: "Gratuity Amount",
-                            value: parseFloat(gratuity.replace(/,/g, "")),
-                          },
-                        ]}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                        nameKey="name"
-                        label={({ name, percent }) =>
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        <Cell key="cell-0" fill="#16a34a" />
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  )}
                 </ResponsiveContainer>
               ) : (
                 <p className="text-gray-500">

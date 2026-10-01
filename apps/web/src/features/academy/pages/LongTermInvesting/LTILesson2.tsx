@@ -248,7 +248,7 @@ const GrowthOnGrowthSVG = () => (
       {/* Year 5 */}
       <g transform="translate(120, 0)">
         <rect x="0" y="120" width="80" height="40" fill="#3b82f6" rx="4"/>
-        <rect x="0" y="160" width="80" height="20" fill="#22c55e" rx="0 0 4 4"/>
+        <rect x="0" y="160" width="80" height="20" fill="#22c55e" rx="4"/>
         <text x="40" y="145" textAnchor="middle" fontSize="8" fill="white">Original</text>
         <text x="40" y="175" textAnchor="middle" fontSize="7" fill="white">Growth</text>
         <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 5</text>
@@ -258,7 +258,7 @@ const GrowthOnGrowthSVG = () => (
       <g transform="translate(240, 0)">
         <rect x="0" y="90" width="80" height="40" fill="#3b82f6" rx="4"/>
         <rect x="0" y="130" width="80" height="25" fill="#22c55e"/>
-        <rect x="0" y="155" width="80" height="25" fill="#16a34a" rx="0 0 4 4"/>
+        <rect x="0" y="155" width="80" height="25" fill="#16a34a" rx="4"/>
         <text x="40" y="115" textAnchor="middle" fontSize="8" fill="white">Original</text>
         <text x="40" y="145" textAnchor="middle" fontSize="7" fill="white">Growth</text>
         <text x="40" y="170" textAnchor="middle" fontSize="7" fill="white">+ More</text>
@@ -270,7 +270,7 @@ const GrowthOnGrowthSVG = () => (
         <rect x="0" y="50" width="80" height="40" fill="#3b82f6" rx="4"/>
         <rect x="0" y="90" width="80" height="30" fill="#22c55e"/>
         <rect x="0" y="120" width="80" height="30" fill="#16a34a"/>
-        <rect x="0" y="150" width="80" height="30" fill="#15803d" rx="0 0 4 4"/>
+        <rect x="0" y="150" width="80" height="30" fill="#15803d" rx="4"/>
         <text x="40" y="75" textAnchor="middle" fontSize="7" fill="white">Original</text>
         <text x="40" y="108" textAnchor="middle" fontSize="6" fill="white">Growth</text>
         <text x="40" y="138" textAnchor="middle" fontSize="6" fill="white">+ More</text>
@@ -285,7 +285,7 @@ const GrowthOnGrowthSVG = () => (
         <rect x="0" y="73" width="80" height="28" fill="#16a34a"/>
         <rect x="0" y="101" width="80" height="28" fill="#15803d"/>
         <rect x="0" y="129" width="80" height="28" fill="#166534"/>
-        <rect x="0" y="157" width="80" height="23" fill="#14532d" rx="0 0 4 4"/>
+        <rect x="0" y="157" width="80" height="23" fill="#14532d" rx="4"/>
         <text x="40" y="32" textAnchor="middle" fontSize="6" fill="white">Original</text>
         <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 30</text>
       </g>

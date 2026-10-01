@@ -714,7 +714,7 @@ const RealEstateCalculator = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
                 { value: "$952B", label: "Global RE Investment", trend: "+27%" },
-                { value: "{sym}2.91T", label: "India Rental Market", trend: "+7.4%" },
+                { value: `${sym}2.91T`, label: "India Rental Market", trend: "+7.4%" },
                 { value: "6.5%", label: "Price Growth YoY", trend: "↑" },
                 { value: "+53%", label: "Domestic Investment", trend: "H1 2025" },
                 { value: "6.8%", label: "Avg. Mortgage Rate", trend: "30-yr" },

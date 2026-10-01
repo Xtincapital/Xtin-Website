@@ -22,37 +22,56 @@ const SubstackArticle = () => {
   const [subError, setSubError] = useState(false);
   const [subLoading, setSubLoading] = useState(false);
 
-  const handleSubscribe = async () => {
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!email || !emailRegex.test(email)) {
-      setSubMessage('Please enter a valid email address.');
-      setSubError(true);
-      return;
+  // Shared by the subscribe section below the article and by Substack's own
+  // "Type your email…" widget inside the article body.
+  const subscribeEmail = async (address: string): Promise<{ ok: boolean; message: string }> => {
+    if (!address || !/\S+@\S+\.\S+/.test(address)) {
+      return { ok: false, message: 'Please enter a valid email address.' };
     }
-    setSubLoading(true);
-    setSubMessage('');
-    setSubError(false);
     try {
-      await newsletterService.subscribeToNewsletter(email);
-      setEmail('');
-      setSubMessage('Thank you for subscribing!');
-      setSubError(false);
+      await newsletterService.subscribeToNewsletter(address);
+      return { ok: true, message: 'Thank you for subscribing!' };
     } catch (err) {
       const text = (err?.message || '').toLowerCase();
       const alreadyMember =
-        text.includes('already subscribed') ||
-        text.includes('already a member') ||
-        text.includes('duplicate');
-      if (alreadyMember) {
-        setSubMessage('You are already a member of our newsletter.');
-        setSubError(false);
-      } else {
-        setSubMessage('Error: Could not subscribe. Please try again.');
-        setSubError(true);
-      }
-    } finally {
-      setSubLoading(false);
+        text.includes('already subscribed') || text.includes('already a member') || text.includes('duplicate');
+      return alreadyMember
+        ? { ok: true, message: 'You are already a member of our newsletter.' }
+        : { ok: false, message: 'Error: Could not subscribe. Please try again.' };
     }
+  };
+
+  const handleSubscribe = async () => {
+    setSubLoading(true);
+    setSubMessage('');
+    setSubError(false);
+    const res = await subscribeEmail(email);
+    if (res.ok) setEmail('');
+    setSubMessage(res.message);
+    setSubError(!res.ok);
+    setSubLoading(false);
+  };
+
+  // Substack's embedded "Type your email…" widget is inert HTML here — wire its
+  // form to our own subscribe API.
+  const handleWidgetSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
+    const form = (e.target as HTMLElement).closest('form.subscription-widget-subscribe') as HTMLFormElement | null;
+    if (!form) return;
+    e.preventDefault();
+    const input = form.querySelector('input[type="email"]') as HTMLInputElement | null;
+    const button = form.querySelector('input[type="submit"]') as HTMLInputElement | null;
+    let note = form.parentElement?.querySelector('.xtin-widget-note') as HTMLElement | null;
+    if (!note) {
+      note = document.createElement('p');
+      note.className = 'xtin-widget-note';
+      form.after(note);
+    }
+    if (button) button.disabled = true;
+    const res = await subscribeEmail(input?.value.trim() || '');
+    note.textContent = res.message;
+    note.dataset.state = res.ok ? 'ok' : 'error';
+    if (res.ok && input) input.value = '';
+    if (button) button.disabled = false;
   };
 
   useEffect(() => {
@@ -80,7 +99,7 @@ const SubstackArticle = () => {
     return DOMPurify.sanitize(article.bodyHtml, {
       ADD_TAGS: ['iframe'],
       ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'target'],
-    });
+    }).replace(/ tabindex="-1"/g, '');
   }, [article?.bodyHtml]);
 
   const formattedDate = article?.postDate
@@ -159,6 +178,7 @@ const SubstackArticle = () => {
           <>
             <div
               className="substack-content"
+              onSubmit={handleWidgetSubmit}
               dangerouslySetInnerHTML={{ __html: safeHtml }}
             />
             {article.truncated && (
@@ -205,7 +225,9 @@ const SubstackArticle = () => {
       </article>
 
       {/* Subscribe band — saves the email to the subscriptions table */}
-      <section className="bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-950 border-t border-gray-100 dark:border-slate-800">
+      <section
+        className="bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-950 border-t border-gray-100 dark:border-slate-800"
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-2xl text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-slate-100 mb-3">
             Get more from{' '}
@@ -225,7 +247,7 @@ const SubstackArticle = () => {
               className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 border-0 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
             />
             <button
               onClick={handleSubscribe}
@@ -313,8 +335,53 @@ const SubstackArticle = () => {
           margin: 2.5rem 0;
         }
         .dark .substack-content hr { border-top-color: #334155; }
-        .substack-content .button,
+        .substack-content .button:not(.primary),
         .substack-content .subscribe-widget { display: none; }
+        /* Substack's in-article "Type your email…" widget — highlighted so it gets noticed */
+        .substack-content .subscription-widget-wrap-editor { margin: 2.5rem 0; }
+        .substack-content .subscription-widget {
+          padding: 1.5rem;
+          border-radius: 1rem;
+          background: #f0fdf4;
+          border: 2px solid #22c55e;
+          box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18), 0 10px 25px -8px rgba(22, 163, 74, 0.35);
+        }
+        .dark .substack-content .subscription-widget { background: rgba(16, 185, 129, 0.08); border-color: #10b981; }
+        .substack-content .subscription-widget .cta-caption { margin: 0 0 1rem; font-weight: 600; color: #14532d; }
+        .dark .substack-content .subscription-widget .cta-caption { color: #d1fae5; }
+        .substack-content .subscription-widget-subscribe {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin: 0;
+        }
+        .substack-content .subscription-widget .email-input {
+          flex: 1 1 14rem;
+          padding: 0.85rem 1.1rem;
+          font-size: 1rem;
+          border-radius: 0.75rem;
+          border: 1px solid #86efac;
+          background: #ffffff;
+          color: #111827;
+          outline: none;
+        }
+        .substack-content .subscription-widget .email-input:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.35); }
+        .substack-content .subscription-widget .button.primary {
+          display: inline-block;
+          padding: 0.85rem 1.6rem;
+          border: 0;
+          border-radius: 0.75rem;
+          font-weight: 700;
+          font-size: 1rem;
+          color: #ffffff;
+          background: linear-gradient(90deg, #16a34a, #059669);
+          cursor: pointer;
+        }
+        .substack-content .subscription-widget .button.primary:disabled { opacity: 0.6; cursor: wait; }
+        .substack-content .subscription-widget .fake-input-wrapper { display: none; }
+        .substack-content .xtin-widget-note { margin: 0.75rem 0 0; font-size: 0.9rem; font-weight: 600; }
+        .substack-content .xtin-widget-note[data-state="ok"] { color: #15803d; }
+        .substack-content .xtin-widget-note[data-state="error"] { color: #dc2626; }
         .substack-content pre {
           background: #f3f4f6;
           padding: 1rem;

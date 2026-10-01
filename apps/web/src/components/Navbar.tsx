@@ -25,6 +25,18 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  // Back goes to the previous page in this tab's history. If the page was opened
+  // directly (no history to return to), `navigate(-1)` does nothing or leaves the
+  // site, so go up one level instead (/tools/sip → /tools) or home.
+  const goBack = () => {
+    if (typeof window !== 'undefined' && (window.history.state?.idx ?? 0) > 0) {
+      navigate(-1);
+      return;
+    }
+    const parent = location.pathname.replace(/\/[^/]+\/?$/, '');
+    navigate(parent && parent !== location.pathname ? parent : '/');
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -93,7 +105,7 @@ const Navbar = () => {
             {!isHome && (
               <button
                 type="button"
-                onClick={() => navigate(-1)}
+                onClick={goBack}
                 className="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-gray-600 hover:text-green-600 hover:bg-gray-100 transition"
                 aria-label="Go back"
                 title="Go back"

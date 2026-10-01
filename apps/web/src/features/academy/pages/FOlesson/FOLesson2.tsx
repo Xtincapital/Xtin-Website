@@ -93,7 +93,7 @@ const FuturesContractSVG = () => (
       <rect x="0" y="0" width="600" height="280" fill="#1e293b" rx="12" stroke="#475569" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="600" height="50" fill="#334155" rx="12 12 0 0"/>
+      <rect x="0" y="0" width="600" height="50" fill="#334155" rx="12"/>
       <text x="300" y="32" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">FUTURES CONTRACT SPECIFICATION</text>
       
       {/* Contract Elements */}

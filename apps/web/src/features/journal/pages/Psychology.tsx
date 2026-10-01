@@ -156,7 +156,7 @@ const Psychology = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-8"
         >
           {metricCards.map((card) => (
             <Card key={card.label}>
@@ -165,7 +165,7 @@ const Psychology = () => {
                   <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
-                <p className="text-xl font-bold text-foreground truncate">{card.value}</p>
+                <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
               </CardContent>
             </Card>
           ))}

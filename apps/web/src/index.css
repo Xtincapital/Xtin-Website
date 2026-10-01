@@ -172,6 +172,24 @@ html.dark .border-gray-300 {
   border-color: #374151 !important;
 }
 
+/* Light tints with an opacity suffix (bg-green-50/50, bg-gray-50/60 …) are different
+   classes from the plain ones remapped above, so they stayed pale in dark mode. */
+html.dark [class*="bg-gray-50/"],
+html.dark [class*="bg-slate-50/"] { background-color: rgba(148, 163, 184, 0.08) !important; }
+html.dark [class*="bg-green-50/"],
+html.dark [class*="bg-emerald-50/"] { background-color: rgba(16, 185, 129, 0.1) !important; }
+html.dark [class*="bg-green-100/"],
+html.dark [class*="bg-emerald-100/"] { background-color: rgba(16, 185, 129, 0.16) !important; }
+
+/* Table row dividers (`divide-y divide-gray-*`) — otherwise they stay bright white in dark mode */
+html.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-gray-300 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #374151 !important;
+}
+
 html.dark .shadow-md,
 html.dark .shadow-lg,
 html.dark .shadow-xl,

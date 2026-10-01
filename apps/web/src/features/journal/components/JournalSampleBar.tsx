@@ -6,7 +6,7 @@ import { buildJournalSample, JOURNAL_SAMPLE_OPTIONS, journalSampleMode, previewJ
 const formatInr = (value: number) =>
   `${value < 0 ? "-" : "+"}₹${Math.abs(Math.round(value)).toLocaleString("en-IN")}`;
 
-const JournalSampleBar = () => {
+const JournalSampleBar = ({ placement }: { placement?: "bar" | "button" | "banner" }) => {
   const { active, datasetId } = journalSampleMode.useState();
 
   const options = useMemo(
@@ -24,6 +24,7 @@ const JournalSampleBar = () => {
   return (
     <SampleDataBar
       feature="Journal"
+      placement={placement}
       active={active}
       activeName={JOURNAL_SAMPLE_OPTIONS.find((o) => o.id === datasetId)?.name}
       options={options}

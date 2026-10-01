@@ -113,9 +113,12 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
               </NavLink>
             ))}
           </nav>
+          <div className="nav-sample">
+            <JournalSampleBar placement="button" />
+          </div>
         </div>
 
-        <JournalSampleBar />
+        <JournalSampleBar placement="banner" />
 
         <main id="main-content" className="tab-content journal-content">
           {proFeature ? (

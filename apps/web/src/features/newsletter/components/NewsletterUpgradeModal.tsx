@@ -47,6 +47,8 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
   const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const savePct = Math.round((1 - pricing.yearly / (pricing.monthly * 12)) * 100);
 
+  const pickedLabels = MARKETS.filter((m) => markets.includes(m.id)).map((m) => m.label);
+
   const toggleMarket = (id) => {
     setMarkets((prev) => {
       if (prev.includes(id)) {
@@ -208,6 +210,10 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             })}
           </div>
 
+          <p className="-mt-3 mb-6 text-center text-xs font-medium text-green-700 dark:text-emerald-300">
+            {pickedLabels.length} market{pickedLabels.length === 1 ? '' : 's'} selected ({pickedLabels.join(' + ')}). One flat price covers any combination.
+          </p>
+
           {/* Billing toggle */}
           <div className="flex justify-center mb-5">
             <div className="inline-flex bg-gray-100 dark:bg-slate-800 rounded-xl p-1">
@@ -245,6 +251,9 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
                 /{billing === 'yearly' ? 'year' : 'month'}
               </span>
             </div>
+            <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
+              Flat price: same for 1, 2 or all {MARKETS.length} markets
+            </p>
             {billing === 'yearly' ? (
               <p className="text-sm text-green-600 font-semibold mt-1.5">
                 {formatNewsletterPrice(effMonthly, pricing)}/month about {pricing.perDay} a day

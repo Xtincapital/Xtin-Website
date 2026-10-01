@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
   Line,
@@ -335,7 +336,7 @@ const SWPCalculator = () => {
                         <Cell key="cell-0" fill="#16a34a" />
                         <Cell key="cell-1" fill="#f97316" />
                       </Pie>
-                      <Tooltip />
+                      <Tooltip formatter={moneyTooltip} />
                     </PieChart>
                   )}
                 </ResponsiveContainer>

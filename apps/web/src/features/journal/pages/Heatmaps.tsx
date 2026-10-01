@@ -272,7 +272,7 @@ const Heatmaps = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-8"
         >
           {!metrics ? (
             <Card className="col-span-2 lg:col-span-4">
@@ -474,7 +474,7 @@ function MetricCard({
           <p className="text-xs font-medium text-muted-foreground">{label}</p>
           <Icon className="w-3.5 h-3.5 text-muted-foreground" />
         </div>
-        <p className={`text-xl font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+        <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
         <p className="text-xs text-muted-foreground mt-1">{sub}</p>
       </CardContent>
     </Card>

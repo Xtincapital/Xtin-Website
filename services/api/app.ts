@@ -47,6 +47,7 @@ import giniChatRoutes from "./modules/gini/chat.routes.js";
 import giniAiWalletRoutes from "./modules/gini/aiWallet.routes.js";
 import giniProPlanRoutes from "./modules/gini/proPlan.routes.js";
 import giniImportRoutes from "./modules/gini/import.routes.js";
+import algoPublisherApplicationsRoutes from "./modules/algos/publisherApplications.routes.js";
 import paymentsRoutes from "./modules/payments/payments.routes.js";
 
 const app = express();
@@ -175,6 +176,7 @@ app.use("/api", giniChatRoutes);
 app.use("/api", giniAiWalletRoutes);
 app.use("/api", giniProPlanRoutes);
 app.use("/api", giniImportRoutes);
+app.use("/api", algoPublisherApplicationsRoutes);
 app.use("/api", paymentsRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";

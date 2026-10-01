@@ -270,6 +270,15 @@
   border-right: 1px solid var(--jr-border);
 }
 
+/* "Load sample data" lives at the right end of the bar, beside the tabs. */
+.journal-classic .nav-sample {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  border-left: 1px solid var(--jr-border);
+}
+
 .journal-classic .tab-lock {
   width: 12px;
   height: 12px;
@@ -541,6 +550,14 @@
 }
 
 @layer utilities {
+  /* Metric values: never wrap mid-number ("₹84,504.7 / 3"); the font scales with the box. */
+  .journal-scope .stat-value {
+    font-size: clamp(1rem, 0.6rem + 1vw, 1.5rem);
+    line-height: 1.3;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
   .journal-scope .text-balance {
     text-wrap: balance;
   }

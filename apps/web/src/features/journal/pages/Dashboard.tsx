@@ -251,7 +251,7 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8"
+          className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-8"
         >
           {metricCards.map((card) => (
             <Card key={card.label}>
@@ -263,8 +263,8 @@ const Dashboard = () => {
                 <p
                   className={
                     card.positive === undefined
-                      ? "text-xl font-bold text-foreground"
-                      : `text-xl font-bold ${card.positive ? "text-success" : "text-destructive"}`
+                      ? "stat-value font-bold text-foreground"
+                      : `stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`
                   }
                 >
                   {card.value}

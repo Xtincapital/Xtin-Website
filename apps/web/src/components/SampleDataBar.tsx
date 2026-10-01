@@ -24,9 +24,15 @@ interface SampleDataBarProps {
   options: SampleDataOption[];
   onLoad: (optionId: string) => void;
   onExit: () => void;
+  /**
+   * `bar` (default): full-width strip / banner under the header.
+   * `button`: only the compact control, for placing inside a nav bar.
+   * `banner`: only the "viewing sample data" banner (renders nothing when off).
+   */
+  placement?: 'bar' | 'button' | 'banner';
 }
 
-const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit }: SampleDataBarProps) => {
+const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar' }: SampleDataBarProps) => {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -43,6 +49,21 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit }:
       document.removeEventListener('mousedown', onClick);
     };
   }, [open]);
+
+  if (active && placement === 'button') {
+    return (
+      <button
+        type="button"
+        onClick={onExit}
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-sm font-medium whitespace-nowrap hover:bg-amber-100 transition-colors"
+      >
+        <X className="w-3.5 h-3.5" aria-hidden="true" />
+        Exit sample data
+      </button>
+    );
+  }
+
+  if (!active && placement === 'banner') return null;
 
   if (active) {
     return (
@@ -73,14 +94,14 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit }:
   };
 
   return (
-    <div className="flex justify-end px-4 py-2 bg-white border-b border-gray-200">
+    <div className={placement === 'button' ? 'flex items-center' : 'flex justify-end px-4 py-2 bg-white border-b border-gray-200'}>
       <div className="relative" ref={panelRef}>
         <button
           type="button"
           onClick={() => (options.length === 1 ? handlePick(options[0].id) : setOpen((v) => !v))}
           aria-expanded={options.length > 1 ? open : undefined}
           aria-haspopup={options.length > 1 ? 'true' : undefined}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
         >
           <Database className="w-4 h-4" aria-hidden="true" />
           Load sample data

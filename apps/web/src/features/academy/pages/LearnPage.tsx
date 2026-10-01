@@ -772,7 +772,7 @@ const LearnPage = () => {
                 <div
                   key={module.id}
                   onClick={() => module.available && module.path && handleModuleAccess(module.path)}
-                  className={`group bg-white dark:bg-slate-900 rounded-2xl p-6 border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden ${module.available ? `cursor-pointer ${colors.border}` : 'opacity-75 cursor-not-allowed border-gray-100 dark:border-slate-700'
+                  className={`group bg-white dark:bg-slate-900 rounded-2xl p-6 border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col ${module.available ? `cursor-pointer ${colors.border}` : 'opacity-75 cursor-not-allowed border-gray-100 dark:border-slate-700'
                     }`}
                 >
                   {/* Gradient accent */}
@@ -822,9 +822,9 @@ const LearnPage = () => {
                     </div>
                   )}
 
-                  {/* Footer */}
-                  <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-slate-700">
-                    <span className="flex items-center gap-1.5">
+                  {/* Footer — pinned to the bottom so every card lines up */}
+                  <div className="mt-auto flex flex-col gap-3 pt-4 border-t border-gray-100 dark:border-slate-700">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <span className={`text-xs font-medium ${colors.tagBg} px-2 py-1 rounded`}>
                         {module.tag}
                       </span>
@@ -836,15 +836,15 @@ const LearnPage = () => {
                           <FaCrown className="text-[9px]" /> {FREE_PREVIEW_LESSONS} FREE
                         </span>
                       )}
-                    </span>
+                    </div>
                     {module.available ? (
-                      <span className={`text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1 ${colors.hoverText} transition-colors`}>
+                      <span className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-semibold ${colors.badge} transition-all group-hover:shadow-md`}>
                         {finished ? 'Review' : done > 0 ? 'Continue' : 'Start Learning'}
-                        <FaArrowRight className="text-[10px] group-hover:translate-x-1 transition-transform" />
+                        <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
                       </span>
                     ) : (
-                      <span className="text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1">
-                        <FaLock className="text-[10px]" />
+                      <span className="flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500">
+                        <FaLock className="text-xs" />
                         Locked
                       </span>
                     )}

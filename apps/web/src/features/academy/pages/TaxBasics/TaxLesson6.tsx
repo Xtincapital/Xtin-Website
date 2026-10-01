@@ -458,7 +458,7 @@ const IndiaNoteSVG = () => (
     <rect x="0" y="0" width="700" height="140" fill="#fff7ed" rx="16" stroke="#fed7aa" strokeWidth="1"/>
     
     {/* Flag colors accent */}
-    <rect x="0" y="0" width="8" height="140" fill="#f97316" rx="4 0 0 4"/>
+    <rect x="0" y="0" width="8" height="140" fill="#f97316" rx="4"/>
     <rect x="8" y="0" width="4" height="140" fill="white"/>
     <rect x="12" y="0" width="8" height="140" fill="#22c55e"/>
     

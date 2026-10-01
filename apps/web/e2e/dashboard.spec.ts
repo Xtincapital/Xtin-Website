@@ -18,7 +18,9 @@ test.describe('/dashboard (protected)', () => {
     // first/last name, then email, then "Investor"; MOCK_USER has empty
     // first/last name so it resolves to the email, dev@localhost.
     await expect(page.getByRole('heading', { name: /Welcome back/ })).toBeVisible();
-    await expect(page.getByText('Verified Account')).toBeVisible();
+    // Header actions (the old "Verified Account" badge no longer exists).
+    await expect(page.getByRole('button', { name: /Edit profile/ })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Log out/ })).toBeVisible();
 
     expect(getErrors()).toEqual([]);
   });

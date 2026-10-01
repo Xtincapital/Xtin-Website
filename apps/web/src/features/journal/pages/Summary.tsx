@@ -308,7 +308,7 @@ const Summary = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-6"
         >
           {basicCards.map((card) => (
             <Card key={card.label}>
@@ -317,7 +317,7 @@ const Summary = () => {
                   <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
-                <p className={`text-xl font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
               </CardContent>
             </Card>
           ))}
@@ -326,7 +326,7 @@ const Summary = () => {
         {/* Advanced risk metrics */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-8">
           <h2 className="text-base font-bold text-foreground mb-3">Advanced Risk Metrics</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4">
             {riskCards.map((card) => (
               <Card key={card.label} className="border-primary/20">
                 <CardContent className="p-5">
@@ -334,7 +334,7 @@ const Summary = () => {
                     <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
                     <card.icon className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <p className={`text-xl font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1">{card.sub}</p>
                 </CardContent>
               </Card>

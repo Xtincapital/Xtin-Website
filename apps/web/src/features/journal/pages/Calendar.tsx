@@ -155,30 +155,30 @@ const Calendar = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+          className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-6"
         >
           <Card>
             <CardContent className="p-5">
               <p className="text-xs font-medium text-muted-foreground mb-2">Trading Days</p>
-              <p className="text-xl font-bold text-foreground">{tradingDays}</p>
+              <p className="stat-value font-bold text-foreground">{tradingDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
               <p className="text-xs font-medium text-muted-foreground mb-2">Profitable Days</p>
-              <p className="text-xl font-bold text-success">{profitableDays}</p>
+              <p className="stat-value font-bold text-success">{profitableDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
               <p className="text-xs font-medium text-muted-foreground mb-2">Loss Days</p>
-              <p className="text-xl font-bold text-destructive">{lossDays}</p>
+              <p className="stat-value font-bold text-destructive">{lossDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
               <p className="text-xs font-medium text-muted-foreground mb-2">Best Day</p>
-              <p className="text-xl font-bold text-foreground">
+              <p className="stat-value font-bold text-foreground">
                 {bestDay.day != null ? `${bestDay.day} (${formatCurrency(bestDay.pnl)})` : "-"}
               </p>
             </CardContent>

@@ -25,6 +25,7 @@ const RetirementCalculator = () => {
   const [results, setResults] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value.replace(/,/g, "");
@@ -39,6 +40,20 @@ const RetirementCalculator = () => {
     const cs = parseFloat(currentSavings);
     const er = parseFloat(expectedReturn) / 100;
     const ir = parseFloat(inflationRate) / 100;
+
+    // Ages must make sense together: current < retirement < life expectancy.
+    let problem = "";
+    if (!(ca >= 18 && ca <= 100)) problem = "Current age must be between 18 and 100.";
+    else if (!(ra > ca)) problem = "Retirement age must be greater than your current age.";
+    else if (ra > 100) problem = "Retirement age can't be more than 100.";
+    else if (!(le > ra)) problem = "Life expectancy must be greater than your retirement age.";
+    else if (le > 120) problem = "Life expectancy can't be more than 120.";
+    setError(problem);
+    if (problem) {
+      setResults(null);
+      setChartData([]);
+      return;
+    }
 
     if (ca > 0 && ra > 0 && le > 0 && me > 0 && cs > 0 && er > 0 && ir > 0) {
       const yearsToRetirement = ra - ca;
@@ -202,6 +217,11 @@ const RetirementCalculator = () => {
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mt-2 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateRetirement}
                 className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition mt-4"

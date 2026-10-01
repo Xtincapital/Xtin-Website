@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AlgoDetailsModal from '../components/AlgoDetailsModal';
+import PublisherApplicationsModal from '../components/PublisherApplicationsModal';
+import { publisherApi } from '../lib/publisherApi';
 import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -90,12 +93,28 @@ const AlgosPage = () => {
   }, [showGreenZonePaymentModal, showBuildAlgoPaymentModal]);
 
   const [showBuildAlgoModal, setShowBuildAlgoModal] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  // Quick-actions panel: open by default only where there's room for it beside the content.
+  const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+  const [showMyApplications, setShowMyApplications] = useState(false);
+  const [publisherSubmitting, setPublisherSubmitting] = useState(false);
+  const [publisherMessage, setPublisherMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const [detailsAlgo, setDetailsAlgo] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1280);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = () => setIsDesktop(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
   const [sidebarWidth] = useState(320); // Default width in pixels
   const buildAlgoWebhookUrl = 'https://xtincapital.app.n8n.cloud/webhook-test/algo-form-submission';
 
+  // Switching tabs also brings the chosen section into view (the hero fills the first screen).
   const switchTab = (tabName) => {
     setActiveTab(tabName);
+    setTimeout(() => {
+      document.getElementById('algos-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const subscribeToAlgo = async (algoName) => {
@@ -190,7 +209,36 @@ const AlgosPage = () => {
     setShowConsultationModal(false);
   };
 
+  const handlePublisherSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setPublisherSubmitting(true);
+    setPublisherMessage(null);
+    try {
+      await publisherApi.submit({
+        applicant_name: String(fd.get('applicant_name') || ''),
+        applicant_email: String(fd.get('applicant_email') || ''),
+        algo_name: String(fd.get('algo_name') || ''),
+        strategy_type: String(fd.get('strategy_type') || ''),
+        asset_class: String(fd.get('asset_class') || ''),
+        expected_price: Number(fd.get('expected_price')),
+        backtest_summary: String(fd.get('backtest_summary') || ''),
+        description: String(fd.get('description') || ''),
+        experience: String(fd.get('experience') || ''),
+      });
+      form.reset();
+      setShowPublisherModal(false);
+      setShowMyApplications(true);
+    } catch (err) {
+      setPublisherMessage({ ok: false, text: err?.message || 'Could not submit your application.' });
+    } finally {
+      setPublisherSubmitting(false);
+    }
+  };
+
   const openPublisherForm = () => {
+    setPublisherMessage(null);
     setShowPublisherModal(true);
   };
 
@@ -245,31 +293,19 @@ const AlgosPage = () => {
       />
       <Navbar />
       
-      {/* Sidebar Toggle Button - Mobile */}
-      <button
-        onClick={toggleSidebar}
-        className="fixed top-20 right-4 z-50 bg-white border border-gray-300 rounded-lg p-2 shadow-lg hover:bg-gray-50 transition-colors lg:hidden"
-        aria-label="Toggle Sidebar"
-      >
-        <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-
-      {/* Sidebar Toggle Button - Desktop */}
-      <button
-        onClick={toggleSidebar}
-        className="fixed top-20 right-4 z-50 bg-white border border-gray-300 rounded-lg p-2 shadow-lg hover:bg-gray-50 transition-colors hidden lg:block"
-        aria-label="Toggle Sidebar"
-      >
-        <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          {sidebarOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
+      {/* Sidebar toggle — only shown while the panel is closed; when it's open the
+          panel's own header has the close button, so nothing floats over it. */}
+      {!sidebarOpen && (
+        <button
+          onClick={toggleSidebar}
+          className="fixed top-20 right-4 z-50 bg-white border border-gray-300 rounded-lg p-2 shadow-lg hover:bg-gray-50 transition-colors"
+          aria-label="Open quick actions"
+        >
+          <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
+          </svg>
+        </button>
+      )}
 
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
@@ -282,8 +318,7 @@ const AlgosPage = () => {
       {/* Fixed Sidebar */}
       {sidebarOpen && (
         <div
-          className="fixed right-0 top-16 h-screen bg-white border-l border-gray-200 z-40 transition-all duration-300 shadow-xl overflow-hidden flex flex-col"
-          style={{ width: '340px' }}
+          className="fixed right-0 top-16 bottom-0 w-[340px] max-w-full bg-white border-l border-gray-200 z-40 transition-all duration-300 shadow-xl overflow-hidden flex flex-col"
         >
         <div className="p-5 space-y-5 flex-1 overflow-y-auto">
           {/* Header */}
@@ -298,7 +333,7 @@ const AlgosPage = () => {
             </div>
             <button
               onClick={toggleSidebar}
-              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Close Sidebar"
             >
               <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,6 +390,13 @@ const AlgosPage = () => {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
+              </button>
+              <button
+                type="button"
+                className="w-full mt-3 text-sm font-medium text-green-300 hover:text-green-200 underline underline-offset-4"
+                onClick={() => setShowMyApplications(true)}
+              >
+                Check my application status
               </button>
             </div>
           </div>
@@ -527,6 +569,9 @@ const AlgosPage = () => {
                     />
                   </div>
                 </div>
+                {publisherMessage && (
+                  <p role="alert" className="text-sm font-medium text-red-600">{publisherMessage.text}</p>
+                )}
                 <div className="flex gap-4 pt-4">
                   <button 
                     type="button" 
@@ -743,12 +788,13 @@ const AlgosPage = () => {
         </div>
       </section>
 
+      <div id="algos-content" className="scroll-mt-16" />
 
       {/* XTIN Algos Section */}
       {activeTab === 'xtin-algos' && (
         <section 
           className="py-20 px-6 md:px-12 lg:px-24 transition-all duration-300 bg-gradient-to-b from-gray-50 to-white"
-          style={{ marginRight: sidebarOpen ? `${sidebarWidth}px` : '0px' }}
+          style={{ marginRight: sidebarOpen && isDesktop ? `${sidebarWidth}px` : '0px' }}
         >
           <div className="max-w-7xl mx-auto">
 
@@ -819,6 +865,12 @@ const AlgosPage = () => {
                   </ul>
                   
                   <button
+                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
+                    onClick={() => setDetailsAlgo('XTIN Alpha 1.0')}
+                  >
+                    View details &amp; how it works
+                  </button>
+                  <button
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
                     onClick={() => subscribeToAlgo('XTIN Alpha 1.0')}
                   >
@@ -880,6 +932,12 @@ const AlgosPage = () => {
                     </li>
                   </ul>
                   
+                  <button
+                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
+                    onClick={() => setDetailsAlgo('XTIN ALPHA V1')}
+                  >
+                    View details &amp; how it works
+                  </button>
                   <button
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
                     onClick={() => subscribeToAlgo('XTIN ALPHA V1')}
@@ -943,6 +1001,12 @@ const AlgosPage = () => {
                   </ul>
                   
                   <button
+                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
+                    onClick={() => setDetailsAlgo('XTIN GammaV1')}
+                  >
+                    View details &amp; how it works
+                  </button>
+                  <button
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
                     onClick={() => subscribeToAlgo('XTIN GammaV1')}
                   >
@@ -1005,6 +1069,12 @@ const AlgosPage = () => {
                   </ul>
                   
                   <button
+                    className="w-full mb-3 border-2 border-green-600 text-green-700 hover:bg-green-50 font-semibold py-3 px-4 rounded-xl transition-all duration-300"
+                    onClick={() => setDetailsAlgo('XTIN Z1')}
+                  >
+                    View details &amp; how it works
+                  </button>
+                  <button
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
                     onClick={() => subscribeToAlgo('XTIN Z1')}
                   >
@@ -1045,7 +1115,7 @@ const AlgosPage = () => {
       {activeTab === 'xtin-algos' && (
         <footer 
           className="bg-gray-900 text-white transition-all duration-300"
-          style={{ marginRight: sidebarOpen ? `${sidebarWidth}px` : '0px' }}
+          style={{ marginRight: sidebarOpen && isDesktop ? `${sidebarWidth}px` : '0px' }}
         >
           <div className="px-6 md:px-12 lg:px-24 py-16">
             <div className="max-w-7xl mx-auto">
@@ -1094,7 +1164,7 @@ const AlgosPage = () => {
       {activeTab === 'algo-market' && (
         <section 
           className="py-20 px-6 md:px-12 lg:px-24 transition-all duration-300"
-          style={{ marginRight: sidebarOpen ? `${sidebarWidth}px` : '0px' }}
+          style={{ marginRight: sidebarOpen && isDesktop ? `${sidebarWidth}px` : '0px' }}
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
@@ -1129,6 +1199,13 @@ const AlgosPage = () => {
                   onClick={openPublisherForm}
                 >
                   Join Publisher Waitlist
+                </button>
+                <button
+                  type="button"
+                  className="block mx-auto mt-3 text-sm font-medium text-green-600 hover:underline"
+                  onClick={() => setShowMyApplications(true)}
+                >
+                  Check my application status
                 </button>
               </div>
 
@@ -1412,6 +1489,17 @@ const AlgosPage = () => {
       )}
 
       {/* Algo Subscription Modal */}
+      <PublisherApplicationsModal open={showMyApplications} onClose={() => setShowMyApplications(false)} />
+
+      <AlgoDetailsModal
+        algoName={detailsAlgo}
+        onClose={() => setDetailsAlgo(null)}
+        onSubscribe={(name) => {
+          setDetailsAlgo(null);
+          subscribeToAlgo(name);
+        }}
+      />
+
       {showAlgoSubscribeModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
@@ -1747,10 +1835,10 @@ const AlgosPage = () => {
               </button>
             </div>
             <div className="p-6">
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handlePublisherSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
-                  <input 
+                  <input name="applicant_name" 
                     type="text" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1758,7 +1846,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                  <input 
+                  <input name="applicant_email" 
                     type="email" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1766,7 +1854,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Algorithm Name *</label>
-                  <input 
+                  <input name="algo_name" 
                     type="text" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1774,7 +1862,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Strategy Type *</label>
-                  <select 
+                  <select name="strategy_type" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1790,7 +1878,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Asset Class *</label>
-                  <select 
+                  <select name="asset_class" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1804,7 +1892,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Expected Price (INR) *</label>
-                  <input 
+                  <input name="expected_price" 
                     type="number" 
                     min="100" 
                     required 
@@ -1813,7 +1901,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Backtesting Results Summary *</label>
-                  <textarea 
+                  <textarea name="backtest_summary" 
                     rows={4} 
                     required 
                     placeholder="Provide key metrics like returns, win rate, max drawdown, etc."
@@ -1822,7 +1910,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Algorithm Description *</label>
-                  <textarea 
+                  <textarea name="description" 
                     rows={5} 
                     required 
                     placeholder="Describe your algorithm, its logic, and unique features"
@@ -1831,7 +1919,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Trading Experience *</label>
-                  <select 
+                  <select name="experience" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1866,9 +1954,10 @@ const AlgosPage = () => {
                   </button>
                   <button 
                     type="submit" 
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition"
+                    disabled={publisherSubmitting}
+                    className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-3 px-6 rounded-lg transition"
                   >
-                    Submit Application
+                    {publisherSubmitting ? 'Submitting…' : 'Submit Application'}
                   </button>
                 </div>
                 <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
