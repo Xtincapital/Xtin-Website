@@ -79,8 +79,8 @@ const SWPCalculator = () => {
           )}</b> each month — your returns cover the withdrawals and the corpus keeps growing.`
         : `Your investment of <b>${sym}${formatNumber(
             corpusValue
-          )}</b> will last for approximately <b>${years} years${
-            remMonths > 0 ? " " + remMonths + " months" : ""
+          )}</b> will last for approximately <b>${years} ${years === 1 ? "year" : "years"}${
+            remMonths > 0 ? " " + remMonths + (remMonths === 1 ? " month" : " months") : ""
           }</b> if you plan to withdraw <b>${sym}${formatNumber(
             withdrawalValue
           )}</b> each month.`;

@@ -35,13 +35,12 @@ const RDCalculator = () => {
     const yearsValue = parseFloat(years);
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
-      let r;
-      let n;
-
-      // Use proper compounding conversion for monthly rate
-      r = Math.pow(1 + annualRateValue, 1/12) - 1;
-      n = yearsValue * 12;
-      const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+      // Indian banks compound RDs quarterly: maturity of monthly instalments R
+      // over m months = R * ((1 + i)^(m/3) - 1) / (1 - (1 + i)^(-1/3)), i = rate / 4.
+      const q = annualRateValue / 4;
+      const maturity = (months: number) =>
+        (P * (Math.pow(1 + q, months / 3) - 1)) / (1 - Math.pow(1 + q, -1 / 3));
+      const M = maturity(yearsValue * 12);
 
       setFutureValue(
         M.toLocaleString("en-IN", {
@@ -52,9 +51,7 @@ const RDCalculator = () => {
 
       const data = [];
       for (let i = 0; i <= yearsValue; i++) {
-        r = Math.pow(1 + annualRateValue, 1/12) - 1;
-        n = i * 12;
-        const value = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        const value = maturity(i * 12);
         data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);

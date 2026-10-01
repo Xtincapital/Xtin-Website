@@ -738,8 +738,8 @@ const Dashboard = () => {
 
       {/* ═══ Plans modal ═══ */}
       {showBundleModal && (
-        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto" onClick={() => setShowBundleModal(false)}>
-          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full my-8 overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex justify-center z-50 p-4 overflow-y-auto" onClick={() => setShowBundleModal(false)}>
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full my-auto overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
 
             {/* Header */}
             <div className="flex items-start justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-800">

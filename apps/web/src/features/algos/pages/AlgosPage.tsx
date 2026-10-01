@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AlgoDetailsModal from '../components/AlgoDetailsModal';
 import { ALGO_DETAILS, ALGO_ORDER } from '../components/algoDetails';
 import PublisherApplicationsModal from '../components/PublisherApplicationsModal';
-import { publisherApi } from '../lib/publisherApi';
+import { publisherApi, type PublisherApplication } from '../lib/publisherApi';
 import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -97,6 +97,8 @@ const AlgosPage = () => {
   // Quick-actions panel: open by default only where there's room for it beside the content.
   const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
   const [showMyApplications, setShowMyApplications] = useState(false);
+  const [editingApplication, setEditingApplication] = useState<PublisherApplication | null>(null);
+  const [applicationsRefresh, setApplicationsRefresh] = useState(0);
   const [publisherSubmitting, setPublisherSubmitting] = useState(false);
   const [publisherMessage, setPublisherMessage] = useState<{ ok: boolean; text: string } | null>(null);
   const [detailsAlgo, setDetailsAlgo] = useState<string | null>(null);
@@ -217,7 +219,7 @@ const AlgosPage = () => {
     setPublisherSubmitting(true);
     setPublisherMessage(null);
     try {
-      await publisherApi.submit({
+      const payload = {
         applicant_name: String(fd.get('applicant_name') || ''),
         applicant_email: String(fd.get('applicant_email') || ''),
         algo_name: String(fd.get('algo_name') || ''),
@@ -227,9 +229,13 @@ const AlgosPage = () => {
         backtest_summary: String(fd.get('backtest_summary') || ''),
         description: String(fd.get('description') || ''),
         experience: String(fd.get('experience') || ''),
-      });
+      };
+      if (editingApplication) await publisherApi.update(editingApplication.id, payload);
+      else await publisherApi.submit(payload);
       form.reset();
+      setEditingApplication(null);
       setShowPublisherModal(false);
+      setApplicationsRefresh((n) => n + 1);
       setShowMyApplications(true);
     } catch (err) {
       setPublisherMessage({ ok: false, text: err?.message || 'Could not submit your application.' });
@@ -240,11 +246,21 @@ const AlgosPage = () => {
 
   const openPublisherForm = () => {
     setPublisherMessage(null);
+    setEditingApplication(null);
+    setShowPublisherModal(true);
+  };
+
+  // Correct a still-pending application: reopen the form pre-filled with what was submitted.
+  const editApplication = (application: PublisherApplication) => {
+    setPublisherMessage(null);
+    setEditingApplication(application);
+    setShowMyApplications(false);
     setShowPublisherModal(true);
   };
 
   const closePublisherForm = () => {
     setShowPublisherModal(false);
+    setEditingApplication(null);
   };
 
   const closeSuccessModal = () => {
@@ -570,9 +586,6 @@ const AlgosPage = () => {
                     />
                   </div>
                 </div>
-                {publisherMessage && (
-                  <p role="alert" className="text-sm font-medium text-red-600">{publisherMessage.text}</p>
-                )}
                 <div className="flex gap-4 pt-4">
                   <button 
                     type="button" 
@@ -1296,7 +1309,12 @@ const AlgosPage = () => {
       )}
 
       {/* Algo Subscription Modal */}
-      <PublisherApplicationsModal open={showMyApplications} onClose={() => setShowMyApplications(false)} />
+      <PublisherApplicationsModal
+        open={showMyApplications}
+        onClose={() => setShowMyApplications(false)}
+        onEdit={editApplication}
+        refreshKey={applicationsRefresh}
+      />
 
       <AlgoDetailsModal
         algoName={detailsAlgo}
@@ -1630,7 +1648,7 @@ const AlgosPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-900">Apply to Publish Your Algorithm</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{editingApplication ? 'Edit your application' : 'Apply to Publish Your Algorithm'}</h2>
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
                 onClick={closePublisherForm}
@@ -1642,10 +1660,10 @@ const AlgosPage = () => {
               </button>
             </div>
             <div className="p-6">
-              <form className="space-y-4" onSubmit={handlePublisherSubmit}>
+              <form key={editingApplication?.id ?? 'new'} className="space-y-4" onSubmit={handlePublisherSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
-                  <input name="applicant_name" 
+                  <input name="applicant_name" defaultValue={editingApplication?.applicant_name ?? ""} 
                     type="text" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1653,7 +1671,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                  <input name="applicant_email" 
+                  <input name="applicant_email" defaultValue={editingApplication?.applicant_email ?? ""} 
                     type="email" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1661,7 +1679,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Algorithm Name *</label>
-                  <input name="algo_name" 
+                  <input name="algo_name" defaultValue={editingApplication?.algo_name ?? ""} 
                     type="text" 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -1669,7 +1687,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Strategy Type *</label>
-                  <select name="strategy_type" 
+                  <select name="strategy_type" defaultValue={editingApplication?.strategy_type ?? ""} 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1685,7 +1703,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Asset Class *</label>
-                  <select name="asset_class" 
+                  <select name="asset_class" defaultValue={editingApplication?.asset_class ?? ""} 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1699,7 +1717,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Expected Price (INR) *</label>
-                  <input name="expected_price" 
+                  <input name="expected_price" defaultValue={editingApplication?.expected_price ?? ""} 
                     type="number" 
                     min="100" 
                     required 
@@ -1708,7 +1726,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Backtesting Results Summary *</label>
-                  <textarea name="backtest_summary" 
+                  <textarea name="backtest_summary" defaultValue={editingApplication?.backtest_summary ?? ""} 
                     rows={4} 
                     required 
                     placeholder="Provide key metrics like returns, win rate, max drawdown, etc."
@@ -1717,7 +1735,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Algorithm Description *</label>
-                  <textarea name="description" 
+                  <textarea name="description" defaultValue={editingApplication?.description ?? ""} 
                     rows={5} 
                     required 
                     placeholder="Describe your algorithm, its logic, and unique features"
@@ -1726,7 +1744,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Trading Experience *</label>
-                  <select name="experience" 
+                  <select name="experience" defaultValue={editingApplication?.experience ?? ""} 
                     required 
                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
@@ -1741,6 +1759,7 @@ const AlgosPage = () => {
                   <input 
                     type="checkbox" 
                     required 
+                    defaultChecked={!!editingApplication}
                     className="mt-1"
                   />
                   <label className="text-sm text-gray-700">
@@ -1751,6 +1770,9 @@ const AlgosPage = () => {
                     {' '}*
                   </label>
                 </div>
+                {publisherMessage && (
+                  <p role="alert" className="text-sm font-medium text-red-600">{publisherMessage.text}</p>
+                )}
                 <div className="flex gap-4 pt-4">
                   <button 
                     type="button" 
@@ -1764,7 +1786,7 @@ const AlgosPage = () => {
                     disabled={publisherSubmitting}
                     className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-3 px-6 rounded-lg transition"
                   >
-                    {publisherSubmitting ? 'Submitting…' : 'Submit Application'}
+                    {publisherSubmitting ? (editingApplication ? 'Saving…' : 'Submitting…') : editingApplication ? 'Save changes' : 'Submit Application'}
                   </button>
                 </div>
                 <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">

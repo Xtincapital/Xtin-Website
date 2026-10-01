@@ -65,17 +65,20 @@ const RetirementCalculator = () => {
 
       // Required retirement corpus
       const realReturnRate = (1 + er) / (1 + ir) - 1;
+      const annualNeed = inflationAdjustedMonthlyExpenses * 12;
+      // Present value of an annuity of `annualNeed` for the retirement years
+      // (a zero real return degenerates to a plain sum).
       const requiredCorpus =
-        (inflationAdjustedMonthlyExpenses *
-          12 *
-          (1 - Math.pow(1 + realReturnRate, -postRetirementYears))) /
-        realReturnRate;
+        Math.abs(realReturnRate) < 1e-9
+          ? annualNeed * postRetirementYears
+          : (annualNeed * (1 - Math.pow(1 + realReturnRate, -postRetirementYears))) / realReturnRate;
 
       // Future value of current savings
       const futureValueOfCurrentSavings = cs * Math.pow(1 + er, yearsToRetirement);
 
       // Corpus to be accumulated
-      const corpusToBeAccumulated = requiredCorpus - futureValueOfCurrentSavings;
+      // If current savings already cover the need, no further investment is required.
+      const corpusToBeAccumulated = Math.max(0, requiredCorpus - futureValueOfCurrentSavings);
 
       // Required monthly investment (SIP)
       // Use proper compounding conversion for monthly rate

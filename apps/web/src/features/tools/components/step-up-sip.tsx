@@ -43,7 +43,8 @@ const StepUpSIPCalculator = () => {
      if (P > 0 && annual_increase_percentage >= 0 && r > 0 && t > 0) {
        for (let i = 1; i <= t; i++) {
          for (let j = 1; j <= 12; j++) {
-           total_value = total_value * (1 + r) + P;
+           // Instalment at the start of each month (same convention as the SIP calculator).
+           total_value = (total_value + P) * (1 + r);
            investment += P;
          }
          P = P * (1 + annual_increase_percentage);

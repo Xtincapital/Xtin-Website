@@ -13,4 +13,12 @@ const getAllApplications = (status?: string) => {
 const updateApplicationStatus = (id: string, updateData: Record<string, unknown>) =>
     supabase.from("algo_publisher_applications").update(updateData).eq("id", id).select();
 
-export { insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus };
+// Owner edit: only while the application is still pending review (status = 'pending')
+// and only the applicant's own row. Returns no rows if either condition fails.
+const updateOwnPendingApplication = (id: string, userId: string, updateData: Record<string, unknown>) =>
+    supabase.from("algo_publisher_applications").update(updateData).eq("id", id).eq("user_id", userId).eq("status", "pending").select();
+
+const getApplicationById = (id: string, userId: string) =>
+    supabase.from("algo_publisher_applications").select("id,status").eq("id", id).eq("user_id", userId);
+
+export { updateOwnPendingApplication, getApplicationById, insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus };

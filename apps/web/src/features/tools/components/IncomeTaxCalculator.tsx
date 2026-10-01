@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useCalcForm } from '../lib/calcForm';
+import { oldRegimeTax as computeOldRegimeTax, newRegimeTax as computeNewRegimeTax, type AgeGroup } from '../lib/incomeTax';
 
 const IncomeTaxCalculator = () => {
     const [financialYear, setFinancialYear] = useState('2025-2026');
@@ -29,90 +30,13 @@ const IncomeTaxCalculator = () => {
         setter(Number(value.replace(/\D/g, "")));
       };
 
-    // New-regime rules per financial year: slabs as [upper limit, rate],
-    // standard deduction on salary, and the Section 87A rebate limit (tax is
-    // nil up to this taxable income, with marginal relief just above it).
-    const NEW_REGIME = {
-        '2025-2026': {
-            slabs: [[400000, 0], [800000, 0.05], [1200000, 0.1], [1600000, 0.15], [2000000, 0.2], [2400000, 0.25], [Infinity, 0.3]],
-            standardDeduction: 75000,
-            rebateLimit: 1200000,
-        },
-        '2024-2025': {
-            slabs: [[300000, 0], [700000, 0.05], [1000000, 0.1], [1200000, 0.15], [1500000, 0.2], [Infinity, 0.3]],
-            standardDeduction: 75000,
-            rebateLimit: 700000,
-        },
-        '2023-2024': {
-            slabs: [[300000, 0], [600000, 0.05], [900000, 0.1], [1200000, 0.15], [1500000, 0.2], [Infinity, 0.3]],
-            standardDeduction: 50000,
-            rebateLimit: 700000,
-        },
-    };
-    const OLD_REGIME_STANDARD_DEDUCTION = 50000;
-    const OLD_REGIME_REBATE_LIMIT = 500000;
-
-    const taxOnSlabs = (income, slabs) => {
-        let tax = 0;
-        let lower = 0;
-        for (const [upper, rate] of slabs) {
-            if (income <= lower) break;
-            tax += (Math.min(income, upper) - lower) * rate;
-            lower = upper;
-        }
-        return tax;
-    };
-
     const calculateTax = () => {
-        const salaryDeduction = (amount) => Math.min(grossSalary, amount);
-
-        // Old Regime: standard deduction + Chapter VI-A deductions (80C capped
-        // at ₹1.5L, 80CCD(1B) NPS at ₹50k, Sec 24 home-loan interest at ₹2L).
-        const oldRegimeTaxableIncome = grossSalary + otherIncome
-            - salaryDeduction(OLD_REGIME_STANDARD_DEDUCTION)
-            - Math.min(homeLoanInterest, 200000)
-            - Math.min(basicDeductions, 150000)
-            - Math.min(npsContribution, 50000)
-            - medicalInsurance - donations - educationLoanInterest;
-        setOldRegimeTax(calculateOldRegimeTax(oldRegimeTaxableIncome));
-
-        // New Regime: only the standard deduction is allowed.
-        const rules = NEW_REGIME[financialYear] || NEW_REGIME['2025-2026'];
-        const newRegimeTaxableIncome = grossSalary + otherIncome - salaryDeduction(rules.standardDeduction);
-        setNewRegimeTax(calculateNewRegimeTax(newRegimeTaxableIncome, rules));
-    };
-
-    const calculateOldRegimeTax = (income) => {
-        if (!income || isNaN(income) || income <= 0) return 0;
-
-        const slabDefs = {
-            'Below 60': [250000, 500000, 1000000],
-            'Senior (60-80)': [300000, 500000, 1000000],
-            'Super Senior (80+)': [500000, 1000000, Infinity],
-        };
-
-        const [slab1, slab2, slab3] = slabDefs[age] || slabDefs['Below 60'];
-
-        const t1 = Math.max(0, Math.min(income, slab2) - slab1);
-        const t2 = Math.max(0, Math.min(income, slab3) - slab2);
-        const t3 = Math.max(0, income - slab3);
-
-        const tax = income <= OLD_REGIME_REBATE_LIMIT ? 0 : t1 * 0.05 + t2 * 0.2 + t3 * 0.3;
-
-        return tax * 1.04; // 4% cess
-    };
-
-    const calculateNewRegimeTax = (income, rules) => {
-        if (!income || isNaN(income) || income <= 0) return 0;
-
-        let tax = taxOnSlabs(income, rules.slabs);
-        if (income <= rules.rebateLimit) {
-            tax = 0;
-        } else {
-            // Marginal relief: tax can't exceed the income above the rebate limit.
-            tax = Math.min(tax, income - rules.rebateLimit);
-        }
-        return tax * 1.04; // Adding 4% cess
+        setOldRegimeTax(computeOldRegimeTax({
+            grossSalary, otherIncome, homeLoanInterest, basicDeductions,
+            npsContribution, medicalInsurance, donations, educationLoanInterest,
+            age: age as AgeGroup,
+        }));
+        setNewRegimeTax(computeNewRegimeTax(grossSalary, otherIncome, financialYear));
     };
 
     const formProps = useCalcForm(calculateTax);

@@ -39,10 +39,8 @@ const LumpsumCalculator = () => {
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
       let A;
       if (period === "monthly") {
-        // Use proper compounding conversion for monthly rate
-        const monthlyRate = Math.pow(1 + annualRateValue, 1/12) - 1;
-        const n = yearsValue * 12;
-        A = P * Math.pow(1 + monthlyRate, n);
+        // Monthly compounding of the nominal annual rate (r/12 per month)
+        A = P * Math.pow(1 + annualRateValue / 12, yearsValue * 12);
       } else {
         A = P * Math.pow(1 + annualRateValue, yearsValue);
       }
@@ -57,9 +55,7 @@ const LumpsumCalculator = () => {
       for (let i = 0; i <= yearsValue; i++) {
         let value;
         if (period === "monthly") {
-          const monthlyRate = Math.pow(1 + annualRateValue, 1/12) - 1;
-          const n = i * 12;
-          value = P * Math.pow(1 + monthlyRate, n);
+          value = P * Math.pow(1 + annualRateValue / 12, i * 12);
         } else {
           value = P * Math.pow(1 + annualRateValue, i);
         }

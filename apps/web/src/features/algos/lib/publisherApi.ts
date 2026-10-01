@@ -4,17 +4,36 @@ import { BACKEND_URL } from '../../../config/env';
 
 export type ApplicationStatus = 'pending' | 'under_review' | 'approved' | 'rejected';
 
+/** Everything the applicant submitted (as stored), plus where it stands. */
 export interface PublisherApplication {
   id: string;
+  applicant_name: string;
+  applicant_email: string;
   algo_name: string;
   strategy_type: string;
   asset_class: string;
   expected_price: number;
+  backtest_summary: string;
+  description: string;
+  experience: string;
   status: ApplicationStatus;
   review_note: string | null;
   reviewed_at: string | null;
   created_at: string;
+  updated_at: string;
 }
+
+/** The form's option values -> the labels the applicant picked. */
+export const STRATEGY_LABELS: Record<string, string> = {
+  trend: 'Trend Following', 'mean-reversion': 'Mean Reversion', breakout: 'Breakout', scalping: 'Scalping',
+  momentum: 'Momentum', options: 'Options Strategy', other: 'Other',
+};
+export const ASSET_LABELS: Record<string, string> = {
+  stocks: 'Stocks', forex: 'Forex', crypto: 'Cryptocurrency', commodities: 'Commodities', mixed: 'Mixed',
+};
+export const EXPERIENCE_LABELS: Record<string, string> = {
+  '1-2': '1-2 years', '3-5': '3-5 years', '5-10': '5-10 years', '10+': '10+ years',
+};
 
 async function call<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algos/publisher-applications${path}`, options);
@@ -28,5 +47,7 @@ async function call<T>(path: string, options: RequestInit = {}): Promise<T> {
 
 export const publisherApi = {
   submit: (data: Record<string, unknown>) => call<PublisherApplication>('', { method: 'POST', body: JSON.stringify(data) }),
+  /** Correct a submission — only allowed while its status is still "pending". */
+  update: (id: string, data: Record<string, unknown>) => call<PublisherApplication>(`/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   listMine: () => call<PublisherApplication[]>(''),
 };

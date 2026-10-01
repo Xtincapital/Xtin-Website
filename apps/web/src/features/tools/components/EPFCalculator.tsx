@@ -43,12 +43,15 @@ const EPFCalculator = () => {
     const data: { year: number; value: number }[] = [{ year: currentYear, value: 0 }];
 
     for (let i = 1; i <= years; i++) {
+      // EPFO accrues interest every month on the running balance and credits it
+      // once a year, so interest does not compound within the year.
+      let accrued = 0;
       for (let month = 1; month <= 12; month++) {
-        const monthlyInterest = currentBalance * (interestRate / 12);
-        currentBalance += monthlyInterest;
+        accrued += currentBalance * (interestRate / 12);
         currentBalance += monthlySalary * employeeContP;
         currentBalance += monthlySalary * employerContP;
       }
+      currentBalance += accrued;
       data.push({
         year: currentYear + i,
         value: Number(currentBalance.toFixed(0)),
@@ -73,19 +76,6 @@ const EPFCalculator = () => {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(value);
-  };
-
-  const formatYAxis = (tickItem) => {
-    if (tickItem >= 10000000) {
-      return (tickItem / 10000000).toFixed(2) + ' Cr';
-    }
-    if (tickItem >= 100000) {
-      return (tickItem / 100000).toFixed(2) + ' L';
-    }
-    if (tickItem >= 1000) {
-      return (tickItem / 1000).toFixed(2) + ' k';
-    }
-    return tickItem;
   };
 
   const formProps = useCalcForm(calculateEPF);

@@ -99,11 +99,11 @@ export default function UpgradeModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[10060] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[10060] flex justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto"
       onClick={closeUpgrade}
     >
       <div
-        className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-7 my-8"
+        className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-7 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button

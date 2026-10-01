@@ -45,8 +45,10 @@ const NPSCalculator = () => {
 
     if (P > 0 && r > 0 && n > 0) {
       const totalCorpus = P * ((Math.pow(1 + r, n) - 1) / r);
-      const lumpSumWithdrawal = totalCorpus * (1 - parseFloat(annuityPercentage) / 100);
-      const annuityPurchase = totalCorpus * (parseFloat(annuityPercentage) / 100);
+      // At least 40% of the corpus must buy an annuity.
+      const annuityPct = Math.min(100, Math.max(40, parseFloat(annuityPercentage) || 40));
+      const lumpSumWithdrawal = totalCorpus * (1 - annuityPct / 100);
+      const annuityPurchase = totalCorpus * (annuityPct / 100);
       const monthlyPension = (annuityPurchase * (parseFloat(annuityReturn) / 100)) / 12;
 
       setResults({
@@ -57,7 +59,7 @@ const NPSCalculator = () => {
         // Inputs used, so the summary text does not change until Calculate is pressed again.
         monthlyInvestment,
         retirementAge,
-        annuityPercentage,
+        annuityPercentage: annuityPct,
       });
 
       const data = [];

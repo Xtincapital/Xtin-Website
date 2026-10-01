@@ -119,23 +119,26 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full shadow-2xl relative border border-transparent dark:border-slate-700 my-8"
+        className="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full shadow-2xl relative border border-transparent dark:border-slate-700 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative top glow */}
         <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-green-100/60 dark:from-emerald-900/30 to-transparent rounded-t-3xl pointer-events-none" />
 
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors z-10"
-          aria-label="Close"
-        >
-          <FaTimes className="text-sm" />
-        </button>
+        {/* Pinned to the top of the visible card so it stays reachable while scrolling a tall modal on small screens */}
+        <div className="sticky top-0 z-20 h-0">
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-3 w-10 h-10 rounded-full shadow-md rounded-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors z-10"
+            aria-label="Close"
+          >
+            <FaTimes className="text-base" />
+          </button>
+        </div>
 
         <div className="relative p-7">
           {/* Header */}
