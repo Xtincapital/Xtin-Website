@@ -129,10 +129,21 @@ export interface ChatResponse {
   usage?: ChatUsage | null;
   suggestions?: string[];
   paywall?: boolean;
+  /** Pro features this request bumped into ("options", "intraday", "full_history"). */
+  locked?: string[];
 }
+
+export type Feature = "intraday" | "full_history" | "options" | "ai" | "advanced_analytics" | "unlimited_strategies";
 
 export interface PlanStatus {
   tier: "anon" | "free" | "pro";
+  /** Which Pro features this account has (all true on Pro). */
+  features?: Record<Feature, boolean>;
+  /** Timeframes allowed (null = all). */
+  timeframes?: string[] | null;
+  /** How far back the account may test (null = unlimited). */
+  history_days?: number | null;
+  saved_strategies_limit?: number | null;
   trial?: boolean;
   pass_id?: string | null;
   expires_at?: string | null;

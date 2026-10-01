@@ -23,16 +23,18 @@ function loadRazorpay(): Promise<boolean> {
   });
 }
 
-// Keep in step with services/api/modules/backtest/plans.ts — only chat
-// backtests are metered; everything else is the same on both plans.
+// Keep in step with services/api/modules/backtest/plans.ts (free limits are
+// env-configurable there; these are the defaults).
 const COMPARE: [string, string | boolean, string | boolean][] = [
-  ["Chat backtests in the Playground", "25 / month", "Unlimited"],
-  ["Re-running saved strategies", "Unlimited", "Unlimited"],
-  ["Saved strategies & history", true, true],
-  ["NSE, BSE, NASDAQ symbols", true, true],
-  ["Options structures (straddle, strangle, condor)", true, true],
-  ["Monthly heatmap, drawdown & trade log", true, true],
-  ["Iterate in chat without counting runs", false, true],
+  ["Backtests (chat + saved-strategy runs)", "25 / month", "Unlimited"],
+  ["Candles", "Daily", "1m · 5m · 15m · 1h · daily"],
+  ["History you can test", "Last 2 years", "Full history"],
+  ["Saved strategies", "3", "Unlimited"],
+  ["Options: straddle, strangle, iron condor", false, true],
+  ["AI parser for free-form ideas", false, true],
+  ["Drawdown chart, monthly heatmap, trade analytics", false, true],
+  ["Core report: return, Sharpe, drawdown %, equity curve, trade log", true, true],
+  ["NSE, BSE & NASDAQ stocks and indices", true, true],
 ];
 
 const Cell = ({ v }: { v: string | boolean }) =>
@@ -179,7 +181,7 @@ export default function Upgrade() {
             { icon: ShieldCheck, title: "Secure Razorpay checkout", text: "UPI, cards and netbanking. We never see your card details." },
             { icon: RefreshCcw, title: "No auto-renew", text: "Passes simply end. Buy again only if you want more days." },
             { icon: InfinityIcon, title: "Days stack", text: "Renew early and the new days start when the current pass ends." },
-            { icon: Sparkles, title: "New accounts start on Pro", text: `Your first ${p?.trial_hours ?? 24} hours after sign-up are unlimited, free.` },
+            { icon: Sparkles, title: "Pro the moment you pay", text: "Your pass activates instantly — even if your browser closes mid-checkout." },
           ].map(({ icon: Icon, title, text }) => (
             <li key={title} className={`${card} flex gap-3 p-4`}>
               <Icon className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400" />

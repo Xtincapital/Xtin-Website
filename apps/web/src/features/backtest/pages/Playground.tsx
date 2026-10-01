@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
@@ -24,7 +24,9 @@ import {
 } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import Report from "../components/Report";
-import { ApiError, backtestApi } from "../lib/api";
+import ProBadge from "../components/ProBadge";
+import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { usePlan } from "../lib/usePlan";
 import { btnSecondary, card, muted } from "../lib/styles";
 import type { BacktestResult } from "../lib/types";
 
@@ -43,8 +45,8 @@ type Risk = "conservative" | "balanced" | "aggressive";
 const EXAMPLES = [
   { icon: Activity, tag: "Mean reversion", text: "Buy when RSI drops below 30 and sell above 70, 2% stop-loss" },
   { icon: TrendingUp, tag: "Trend", text: "Golden cross: buy when 50 EMA crosses above 200 EMA on NIFTY, daily" },
-  { icon: Shield, tag: "Options income", text: "Short a NIFTY straddle with a 20% stop-loss" },
-  { icon: Layers, tag: "Defined risk", text: "Backtest an iron condor on BANKNIFTY, daily" },
+  { icon: Shield, tag: "Options income", text: "Short a NIFTY straddle with a 20% stop-loss", pro: true },
+  { icon: Layers, tag: "Defined risk", text: "Backtest an iron condor on BANKNIFTY, daily", pro: true },
   { icon: BarChart3, tag: "Volatility", text: "Buy RELIANCE when price closes below the lower Bollinger band" },
   { icon: Zap, tag: "Momentum", text: "Buy TCS when MACD crosses above zero, 3% trailing stop" },
 ];
@@ -162,6 +164,8 @@ function ReportPlaceholder({ loading }: { loading: boolean }) {
 
 export default function Playground() {
   const qc = useQueryClient();
+  const navigate = useNavigate();
+  const { locked, loaded, isPro, historyDays } = usePlan();
   const [searchParams] = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -251,7 +255,8 @@ export default function Playground() {
       void qc.invalidateQueries({ queryKey: ["bt-strategies"] });
       toast.success("Saved to your strategies", { action: { label: "View", onClick: () => (window.location.href = "/backtest/app/strategies") } });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Couldn't save the strategy");
+      if (isProRequired(err)) toast.error(err.message, { action: { label: "Go Pro", onClick: () => navigate("/backtest/app/upgrade") } });
+      else toast.error(err instanceof Error ? err.message : "Couldn't save the strategy");
     } finally {
       setSaving(false);
     }
@@ -379,7 +384,7 @@ export default function Playground() {
               <div className="pt-2">
                 <div className={`mb-2 text-[11px] font-semibold uppercase tracking-wider ${muted}`}>Try an idea</div>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                  {EXAMPLES.map(({ icon: Icon, tag, text }) => (
+                  {EXAMPLES.map(({ icon: Icon, tag, text, pro }) => (
                     <button
                       key={text}
                       onClick={() => void send(text)}
@@ -387,6 +392,7 @@ export default function Playground() {
                     >
                       <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
                         <Icon className="h-3.5 w-3.5" /> {tag}
+                        {pro && locked("options") && <ProBadge className="ml-auto" />}
                       </div>
                       <div className="mt-1 text-xs leading-snug text-slate-600 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-white">{text}</div>
                     </button>
@@ -429,7 +435,18 @@ export default function Playground() {
                 <SendHorizontal className="h-4 w-4" />
               </button>
             </div>
-            <div className={`mt-1.5 px-1 text-[11px] ${muted}`}>Enter to run · Shift+Enter for a new line · Simulated on historical data, not advice</div>
+            <div className={`mt-1.5 px-1 text-[11px] ${muted}`}>
+              {loaded && !isPro ? (
+                <>
+                  Free plan: daily candles · last {historyDays && historyDays % 365 === 0 ? `${historyDays / 365} years` : `${historyDays} days`} · stocks &amp; indices.{" "}
+                  <Link to="/backtest/app/upgrade" className="font-semibold text-amber-600 hover:underline dark:text-amber-400">
+                    Pro unlocks intraday, options &amp; AI
+                  </Link>
+                </>
+              ) : (
+                "Enter to run · Shift+Enter for a new line · Simulated on historical data, not advice"
+              )}
+            </div>
           </form>
         </section>
 

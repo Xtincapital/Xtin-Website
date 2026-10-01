@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ProBadge from "../components/ProBadge";
+import { usePlan } from "../lib/usePlan";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowLeft, Crosshair, DoorOpen, LogIn, Save, ShieldCheck, Sparkles } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import ConditionGroupEditor from "../components/ConditionEditor";
-import { ApiError, backtestApi } from "../lib/api";
+import { ApiError, backtestApi, isProRequired } from "../lib/api";
 import { strategySentence } from "../lib/analytics";
 import { btnPrimary, btnSecondary, card, input, label, muted } from "../lib/styles";
 import { type StrategyDefinition, emptyDefinition, TIMEFRAMES } from "../lib/types";
@@ -58,6 +60,8 @@ export default function StrategyBuilder() {
   const isEdit = id !== undefined;
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const { locked } = usePlan();
+  const intradayLocked = locked("intraday");
 
   const [name, setName] = useState("");
   const [def, setDef] = useState<StrategyDefinition>(emptyDefinition());
@@ -92,7 +96,8 @@ export default function StrategyBuilder() {
     onError: (err) => {
       const msg = err instanceof ApiError ? err.message : "Failed to save";
       setError(msg);
-      toast.error(msg);
+      if (isProRequired(err)) toast.error(msg, { action: { label: "Go Pro", onClick: () => navigate("/backtest/app/upgrade") } });
+      else toast.error(msg);
     },
   });
 
@@ -152,20 +157,33 @@ export default function StrategyBuilder() {
               <div>
                 <span className={label}>Timeframe</span>
                 <div className="flex rounded-xl bg-slate-100 p-1 dark:bg-white/5">
-                  {TIMEFRAMES.map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => patch({ instrument: { ...def.instrument, timeframe: t }, risk: { ...def.risk, square_off_time: t === "1d" ? null : def.risk.square_off_time ?? "15:15" } })}
-                      className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition ${def.instrument.timeframe === t ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white" : muted}`}
-                      title={TF_LABEL[t]}
-                    >
-                      {t}
-                    </button>
-                  ))}
+                  {TIMEFRAMES.map((t) => {
+                    const lockedTf = intradayLocked && t !== "1d";
+                    return (
+                      <button
+                        key={t}
+                        type="button"
+                        disabled={lockedTf}
+                        onClick={() => patch({ instrument: { ...def.instrument, timeframe: t }, risk: { ...def.risk, square_off_time: t === "1d" ? null : def.risk.square_off_time ?? "15:15" } })}
+                        className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${def.instrument.timeframe === t ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white" : muted}`}
+                        title={lockedTf ? `${TF_LABEL[t]} candles are a Pro feature` : TF_LABEL[t]}
+                      >
+                        {t}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
+            {intradayLocked && (
+              <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-amber-700 dark:text-amber-300">
+                <ProBadge /> Intraday candles (1m–1h) are a Pro feature.
+                {def.instrument.timeframe !== "1d" && " This strategy uses one — you can save it, but running it needs Pro."}
+                <Link to="/backtest/app/upgrade" className="font-semibold underline">
+                  See Pro
+                </Link>
+              </p>
+            )}
             <p className={`mt-3 text-xs ${muted}`}>
               Use <b>SAMPLE</b> for instant offline demo data. Real symbols pull live history — intraday data only goes back ~60 days (1-minute: ~7 days).
             </p>

@@ -6,6 +6,9 @@ import { ArrowDownRight, ArrowUpRight, Braces, Lightbulb, ListOrdered } from "lu
 import TimeSeriesChart from "./TimeSeriesChart";
 import CandleChart from "./CandleChart";
 import { ExitMix, MonthlyHeatmap, PnlDistribution } from "./AnalyticsCards";
+import ProLock from "./ProLock";
+import ProBadge from "./ProBadge";
+import { usePlan } from "../lib/usePlan";
 import { drawdownSeries, REASON_LABEL, strategySentence } from "../lib/analytics";
 import { card, chip, muted } from "../lib/styles";
 import { shortTime } from "../lib/time";
@@ -67,7 +70,7 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
         </div>
         {sentence && <p className={`mt-3 text-sm leading-relaxed ${muted}`}>{sentence}</p>}
 
-        <div className="mt-5 grid gap-5 lg:grid-cols-[auto_1fr] lg:items-center">
+        <div className="mt-5 grid gap-5 2xl:grid-cols-[auto_1fr] 2xl:items-center">
           <div className="flex items-center gap-5">
             <div>
               <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${up ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
@@ -82,7 +85,7 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
             </div>
             <WinRing rate={m.win_rate} />
           </div>
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:grid-cols-2 2xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
             <Kpi label="Sharpe" value={m.sharpe.toFixed(2)} sub={sharpeLabel(m.sharpe)} help="Return earned per unit of risk. Above 1 is decent, above 2 is very good." />
             <Kpi label="Max drawdown" value={`−${Math.abs(m.max_drawdown_pct).toFixed(1)}%`} sub="worst dip from a peak" tone="neg" help="The worst peak-to-bottom fall along the way." />
             <Kpi label="Profit factor" value={m.profit_factor.toFixed(2)} sub={m.profit_factor >= 1 ? "wins outweigh losses" : "losses outweigh wins"} help="Money won ÷ money lost." />
@@ -115,7 +118,7 @@ type ChartTab = "equity" | "drawdown" | "price";
 const fmtRupees = (v: number) => `₹${Math.round(v).toLocaleString("en-IN")}`;
 const fmtPct = (v: number) => `${v.toFixed(1)}%`;
 
-function ChartPanel({ result, showTrades }: { result: BacktestResult; showTrades: boolean }) {
+function ChartPanel({ result, showTrades, analyticsLocked }: { result: BacktestResult; showTrades: boolean; analyticsLocked: boolean }) {
   const [tab, setTab] = useState<ChartTab>("equity");
   const dd = useMemo(() => drawdownSeries(result.equity_curve), [result.equity_curve]);
   const tabs: { id: ChartTab; label: string }[] = [
@@ -135,7 +138,10 @@ function ChartPanel({ result, showTrades }: { result: BacktestResult; showTrades
               onClick={() => setTab(t.id)}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${tab === t.id ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-white" : `${muted} hover:text-slate-900 dark:hover:text-white`}`}
             >
-              {t.label}
+              <span className="inline-flex items-center gap-1.5">
+                {t.label}
+                {t.id === "drawdown" && analyticsLocked && <ProBadge />}
+              </span>
             </button>
           ))}
         </div>
@@ -146,7 +152,11 @@ function ChartPanel({ result, showTrades }: { result: BacktestResult; showTrades
         </span>
       </div>
       {tab === "equity" && <TimeSeriesChart data={result.equity_curve} baseline={result.metrics.starting_capital} format={fmtRupees} />}
-      {tab === "drawdown" && <TimeSeriesChart data={dd} tone="rose" format={fmtPct} />}
+      {tab === "drawdown" && (
+        <ProLock locked={analyticsLocked} title="Drawdown chart" text="See exactly how deep and how long every losing stretch was.">
+          <TimeSeriesChart data={dd} tone="rose" format={fmtPct} />
+        </ProLock>
+      )}
       {tab === "price" && <CandleChart candles={result.candles} trades={result.trades} showTrades={showTrades} height={300} />}
     </div>
   );
@@ -222,16 +232,21 @@ export default function Report({
   actions?: React.ReactNode;
 }) {
   const isOptions = (definition as { kind?: string } | undefined)?.kind === "options";
+  const analyticsLocked = usePlan().locked("advanced_analytics");
   return (
     <motion.div key={title + subtitle + result.metrics.final_equity} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="space-y-4">
       <Hero m={result.metrics} title={title} subtitle={subtitle} sentence={definition ? strategySentence(definition) : undefined} actions={actions} />
       <PlainWords m={result.metrics} />
-      <ChartPanel result={result} showTrades={!isOptions} />
-      <MonthlyHeatmap result={result} />
-      <div className="grid gap-4 md:grid-cols-2">
-        <PnlDistribution result={result} />
-        <ExitMix result={result} />
-      </div>
+      <ChartPanel result={result} showTrades={!isOptions} analyticsLocked={analyticsLocked} />
+      <ProLock locked={analyticsLocked} title="Advanced analytics" text="Monthly returns heatmap, trade-outcome spread, exit breakdown and streaks — all in Pro.">
+        <div className="space-y-4">
+          <MonthlyHeatmap result={result} />
+          <div className="grid gap-4 md:grid-cols-2">
+            <PnlDistribution result={result} />
+            <ExitMix result={result} />
+          </div>
+        </div>
+      </ProLock>
       <TradeLog result={result} />
       {definition !== undefined && (
         <details className={`${card} group`}>

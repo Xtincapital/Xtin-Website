@@ -13,7 +13,19 @@ import { llmParse } from "./llmParse.js";
 import { BacktestInputError, runBacktest } from "./engine.js";
 import { lotsForCapital, runOptionsBacktest } from "./options.js";
 import { getCandles, MarketDataError } from "./marketData.js";
-import { consumeAllowance, paywallReply, planStatus, limits, usageFor, type Usage } from "./plans.js";
+import {
+    consumeAllowance,
+    earliestFreeStart,
+    FREE_TIMEFRAMES,
+    getEntitlement,
+    limits,
+    paywallReply,
+    planStatus,
+    PRO_MESSAGES,
+    ProRequiredError,
+    usageFor,
+    type Usage,
+} from "./plans.js";
 import { rateLimit } from "./rateLimit.js";
 import {
     BacktestTablesMissingError,
@@ -50,6 +62,8 @@ export const clientIp = (req): string => {
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const notFound = (res, what: string) => res.status(HTTP_STATUS.NOT_FOUND).json({ error: `${what} not found` });
 
+const proRequired = (res, err: ProRequiredError) => res.status(403).json({ error: err.message, code: "PRO_REQUIRED", feature: err.feature });
+
 const serverError = (res, tag: string, err: unknown) => {
     if (err instanceof BacktestTablesMissingError) {
         console.error(`[Backtest] ${err.message}`);
@@ -85,13 +99,15 @@ async function execute(definition: StrategyDefinition, start: string, end: strin
 
 // ── chat to backtest ────────────────────────────────────────────────────────
 
-const suggestions = (definition: AnyDefinition): string[] => {
+const suggestions = (definition: AnyDefinition, pro: boolean): string[] => {
     if (definition.kind === "options") return ["Add a 30% stop per leg", "Try a strangle instead", "Run it on BANKNIFTY"];
     const inst = definition.instrument ?? {};
     const sl = definition.risk?.stop_loss_pct;
     const out: string[] = [];
     out.push(sl && sl > 1 ? "Tighten the stop to 1%" : "Widen the stop to 3%");
-    out.push(inst.timeframe === "1d" ? "Try it on the 15m timeframe" : "Try it on daily candles");
+    // Don't offer free users a chip that leads to a Pro wall.
+    if (!pro) out.push("Set the target to 5%");
+    else out.push(inst.timeframe === "1d" ? "Try it on the 15m timeframe" : "Try it on daily candles");
     out.push(String(inst.symbol ?? "").toUpperCase() === "SAMPLE" ? "Run it on RELIANCE" : "Make it a short instead");
     return out.slice(0, 3);
 };
@@ -141,6 +157,10 @@ export const chatBacktest = async (req, res) => {
             });
         }
 
+        // Anonymous visitors get the free feature set too.
+        const pro = usage.tier === "pro";
+        const locked: string[] = [];
+
         const override = payload.symbol ? payload.symbol.trim().toUpperCase() : null;
         const history = payload.history;
         const profile = payload.profile ?? null;
@@ -156,6 +176,25 @@ export const chatBacktest = async (req, res) => {
 
         const prev = (payload.prev_definition ?? null) as AnyDefinition | null;
         const options = applyOptionsModification(prev, payload.message, override) ?? parseOptions(payload.message, override);
+        if (options && !pro) {
+            // Pro-only — answered before any quota is spent or data fetched.
+            return res.status(HTTP_STATUS.OK).json({
+                reply: PRO_MESSAGES.options(),
+                interpretation: options.interpretation,
+                warnings: [],
+                strategy_name: options.name,
+                definition: {},
+                start_date: today,
+                end_date: today,
+                result: null,
+                ok: false,
+                error: "pro_required",
+                usage,
+                suggestions: ["Buy NIFTY when RSI drops below 30", "Golden cross on BANKNIFTY, daily"],
+                paywall: true,
+                locked: ["options"],
+            });
+        }
         if (options) {
             const spec = options.spec;
             ({ name, interpretation, warnings } = options);
@@ -182,7 +221,8 @@ export const chatBacktest = async (req, res) => {
             // 1. deterministic tweak of the previous strategy (no API cost, works with no key)
             // 2. Claude for long-tail phrasings, when configured   3. offline rules parser
             const tweak = prev ? applyModification(prev, payload.message) : null;
-            const ai = tweak ? null : await llmParse({ message: payload.message, history, prevDefinition: prev, profile });
+            // Claude (paid tokens) is a Pro feature; free accounts use the offline rules parser.
+            const ai = tweak || !pro ? null : await llmParse({ message: payload.message, history, prevDefinition: prev, profile });
             const parsed = tweak ?? ai ?? parseStrategy(payload.message, override);
             definition = parsed.definition;
             parsed.warnings.push(...personalize(definition, profile));
@@ -192,6 +232,15 @@ export const chatBacktest = async (req, res) => {
             symbol = inst.symbol ?? "SAMPLE";
             exchange = inst.exchange ?? "NSE";
             timeframe = inst.timeframe ?? "1d";
+            if (!pro && !FREE_TIMEFRAMES.includes(timeframe)) {
+                // Free plan: run it on daily candles rather than refuse outright.
+                warnings.push(`${PRO_MESSAGES.intraday(timeframe)} I ran it on daily candles instead.`);
+                name = name.replace(new RegExp(` ${timeframe}$`), " 1d");
+                definition.instrument = { ...inst, timeframe: "1d" };
+                definition.risk = { ...(definition.risk ?? {}), square_off_time: null };
+                timeframe = "1d";
+                locked.push("intraday");
+            }
             // Claude sizes positions itself and a tweak keeps the previous size;
             // the rules parser always says 1, so size that from capital.
             const autoSize = !tweak && !ai && !namesQuantity(payload.message);
@@ -209,8 +258,16 @@ export const chatBacktest = async (req, res) => {
         usage = await consumeAllowance(userId, ip, usage);
 
         const [defStart, defEnd] = defaultWindow(timeframe);
-        const start = payload.start_date || defStart;
+        let start = payload.start_date || defStart;
         const end = payload.end_date || defEnd;
+        if (!pro && start < earliestFreeStart()) {
+            // Default windows are clamped quietly; an explicit older start gets told why.
+            if (payload.start_date) {
+                warnings.push(PRO_MESSAGES.full_history());
+                locked.push("full_history");
+            }
+            start = earliestFreeStart();
+        }
 
         const base = {
             reply: "",
@@ -224,8 +281,9 @@ export const chatBacktest = async (req, res) => {
             ok: false,
             error: null as string | null,
             usage,
-            suggestions: suggestions(definition),
+            suggestions: suggestions(definition, pro),
             paywall: false,
+            locked,
         };
 
         const badWindow = windowError(start, end);
@@ -279,6 +337,9 @@ export const createStrategy = async (req, res) => {
     const validation = validateStrategyCreate(req.body);
     if (validation.errors) return bad(res, validation);
     try {
+        if (!(await getEntitlement(req.user.authId)).pro && (await listStrategies(req.user.authId)).length >= limits().freeStrategies) {
+            return proRequired(res, new ProRequiredError("unlimited_strategies", PRO_MESSAGES.unlimited_strategies()));
+        }
         const row = await insertStrategy({ user_id: req.user.authId, ...validation.data });
         return res.status(HTTP_STATUS.CREATED).json(row);
     } catch (err) {
@@ -350,6 +411,16 @@ export const createRun = async (req, res) => {
         const strategy = await getStrategy(userId, strategy_id);
         if (!strategy) return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Strategy not found" });
         const definition = strategy.definition as StrategyDefinition;
+
+        // Free plan: daily candles, recent history, and the shared monthly allowance.
+        const usage = await usageFor(userId, clientIp(req));
+        if (usage.tier !== "pro") {
+            const tf = definition.instrument?.timeframe ?? "1d";
+            if (!FREE_TIMEFRAMES.includes(tf)) return proRequired(res, new ProRequiredError("intraday", PRO_MESSAGES.intraday(tf)));
+            if (start_date < earliestFreeStart()) return proRequired(res, new ProRequiredError("full_history", PRO_MESSAGES.full_history()));
+            if (usage.remaining !== null && usage.remaining <= 0) return proRequired(res, new ProRequiredError("quota", paywallReply(usage)));
+            await consumeAllowance(userId, clientIp(req), usage);
+        }
 
         const meta = { user_id: userId, strategy_id: strategy.id, strategy_name: strategy.name, definition: strategy.definition, start_date, end_date, starting_capital };
         try {

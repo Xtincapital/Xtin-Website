@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 const repo = vi.hoisted(() => ({
     getAccountCreatedAt: vi.fn(),
@@ -11,12 +11,12 @@ const repo = vi.hoisted(() => ({
     insertRun: vi.fn(),
     listRuns: vi.fn(),
     getRun: vi.fn(),
+    listStrategies: vi.fn(),
+    insertStrategy: vi.fn(),
     BacktestTablesMissingError: class extends Error {},
 }));
 vi.mock("./repository.js", () => ({
     ...repo,
-    listStrategies: vi.fn(),
-    insertStrategy: vi.fn(),
     updateStrategy: vi.fn(),
     deleteStrategy: vi.fn(),
     deleteRun: vi.fn(),
@@ -24,7 +24,7 @@ vi.mock("./repository.js", () => ({
 }));
 vi.mock("./llmParse.js", () => ({ llmParse: vi.fn(async () => null) }));
 
-import { chatBacktest, clientIp, createRun, getMyRun } from "./controller.js";
+import { chatBacktest, clientIp, createRun, createStrategy, getMyRun, getPlan } from "./controller.js";
 import { _resetAnon, invalidateEntitlementCache } from "./plans.js";
 import { llmParse } from "./llmParse.js";
 
@@ -46,7 +46,22 @@ beforeEach(() => {
     repo.getUsage.mockResolvedValue(0);
     repo.consumeUsage.mockResolvedValue(1);
     repo.getCachedCandles.mockResolvedValue(null);
+    repo.listStrategies.mockResolvedValue([]);
+    // Most tests use fixed 2023–2024 windows; don't let the free history limit
+    // (counted back from today) move under them. The limit has its own tests.
+    process.env.BACKTEST_FREE_HISTORY_DAYS = "36500";
 });
+
+afterEach(() => {
+    delete process.env.BACKTEST_FREE_HISTORY_DAYS;
+    vi.useRealTimers();
+});
+
+const asPro = () => {
+    invalidateEntitlementCache("u1"); // a purchase clears the 60s plan cache the same way
+    repo.getProPlan.mockResolvedValue({ user_id: "u1", pass_id: "weekly", valid_until: new Date(Date.now() + 86_400_000).toISOString() });
+    return { user: { authId: "u1" } };
+};
 
 describe("POST /backtest/chat", () => {
     it("rejects an empty message", async () => {
@@ -68,7 +83,8 @@ describe("POST /backtest/chat", () => {
         expect(b.reply).toContain("Done — I backtested");
         expect(b.usage).toMatchObject({ tier: "anon", limit: 5, remaining: 4 });
         expect(b.suggestions).toHaveLength(3);
-        expect(llmParse).toHaveBeenCalledOnce();
+        expect(b.locked).toEqual([]);
+        expect(llmParse).not.toHaveBeenCalled(); // the AI parser is Pro-only
     });
 
     it("sizes the position from capital and risk profile when no quantity is named", async () => {
@@ -90,7 +106,7 @@ describe("POST /backtest/chat", () => {
 
     it("answers an options idea through the options engine", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "short a straddle with a 20% stop", start_date: "2024-01-01", end_date: "2024-06-30" }), res);
+        await chatBacktest(mockReq({ message: "short a straddle with a 20% stop", start_date: "2024-01-01", end_date: "2024-06-30" }, asPro()), res);
         expect(res.body.ok).toBe(true);
         expect(res.body.definition).toMatchObject({ kind: "options", structure: "straddle", side: "SELL", stop_multiple: 0.2 });
         expect(res.body.result.metrics.num_trades).toBe(res.body.result.candles.length);
@@ -104,12 +120,13 @@ describe("POST /backtest/chat", () => {
 
     it("keeps an options strategy when the user taps a follow-up chip", async () => {
         const first = mockRes();
-        await chatBacktest(mockReq({ message: "short a nifty straddle with a 20% stop", start_date: "2024-01-01", end_date: "2024-06-30", symbol: "SAMPLE" }), first);
+        const pro = asPro();
+        await chatBacktest(mockReq({ message: "short a nifty straddle with a 20% stop", start_date: "2024-01-01", end_date: "2024-06-30", symbol: "SAMPLE" }, pro), first);
         expect(first.body.suggestions).toContain("Run it on BANKNIFTY");
 
         const prev = { ...first.body.definition, instrument: { ...first.body.definition.instrument, symbol: "SAMPLE" } };
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "Add a 30% stop per leg", prev_definition: prev, start_date: "2024-01-01", end_date: "2024-06-30" }), res);
+        await chatBacktest(mockReq({ message: "Add a 30% stop per leg", prev_definition: prev, start_date: "2024-01-01", end_date: "2024-06-30" }, pro), res);
         expect(res.body.ok).toBe(true);
         expect(res.body.definition).toMatchObject({ kind: "options", structure: "straddle", stop_multiple: 0.3 });
         expect(res.body.interpretation).toMatch(/Updated your previous options strategy/);
@@ -199,6 +216,7 @@ describe("POST /backtest/runs", () => {
         repo.insertRun.mockImplementation(async (row) => ({ ...row, id: "r1", created_at: "2025-01-01T00:00:00Z" }));
         const res = mockRes();
         await createRun(mockReq({ strategy_id: "11111111-1111-4111-8111-111111111111", start_date: "2023-01-01", end_date: "2024-12-31" }, { user: { authId: "u1" } }), res);
+        expect(repo.consumeUsage).toHaveBeenCalledOnce(); // free re-runs share the monthly allowance
         expect(res.statusCode).toBe(201);
         expect(res.body).toMatchObject({ id: "r1", strategy_name: "My RSI", status: "completed", definition: strategy.definition });
         expect(res.body.metrics.num_trades).toBe(res.body.result.trades.length);
@@ -258,5 +276,126 @@ describe("clientIp", () => {
         expect(clientIp(withHeaders({ "cf-connecting-ip": "1.2.3.4", "x-forwarded-for": "5.6.7.8" }))).toBe("1.2.3.4");
         expect(clientIp(withHeaders({ "x-forwarded-for": "5.6.7.8, 10.0.0.2" }))).toBe("5.6.7.8");
         expect(clientIp(withHeaders({}))).toBe("10.0.0.1");
+    });
+});
+
+describe("free vs Pro", () => {
+    const strategy = (timeframe = "1d") => ({
+        id: "11111111-1111-4111-8111-111111111111",
+        name: "My RSI",
+        definition: { instrument: { symbol: "SAMPLE", exchange: "NSE", timeframe }, entry: { conditions: [{ left: { kind: "indicator", indicator: "RSI", period: 14 }, op: "<", right: { kind: "value", value: 30 } }] }, entry_action: { side: "BUY", qty: 1 }, exit: { conditions: [] }, risk: { stop_loss_pct: 2 } },
+    });
+    const free = { user: { authId: "u1" } };
+
+    it("offers options as Pro-only without spending the allowance or fetching data", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "short a straddle with a 20% stop" }, free), res);
+        expect(res.body).toMatchObject({ ok: false, paywall: true, error: "pro_required", locked: ["options"] });
+        expect(res.body.reply).toMatch(/Pro feature/);
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+    });
+
+    it("runs an intraday idea on daily candles for free users and says why", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
+        expect(res.body.ok).toBe(true);
+        expect(res.body.definition.instrument.timeframe).toBe("1d");
+        expect(res.body.definition.risk.square_off_time).toBeNull();
+        expect(res.body.strategy_name).toMatch(/ 1d$/);
+        expect(res.body.locked).toEqual(["intraday"]);
+        expect(res.body.warnings.join(" ")).toMatch(/Intraday candles \(15m\) are a Pro feature/);
+    });
+
+    it("never suggests a Pro-only follow-up to free users", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
+        expect(res.body.suggestions).toContain("Set the target to 5%");
+        expect(res.body.suggestions.join(" ")).not.toMatch(/15m/);
+
+        const next = mockRes();
+        await chatBacktest(mockReq({ message: "Set the target to 5%", prev_definition: res.body.definition, start_date: "2024-01-01", end_date: "2024-06-30" }, free), next);
+        expect(next.body.definition.risk.target_pct).toBe(5);
+    });
+
+    it("keeps intraday for Pro", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-01-31" }, asPro()), res);
+        expect(res.body.definition.instrument.timeframe).toBe("15m");
+        expect(res.body.locked).toEqual([]);
+    });
+
+    it("limits free history and explains it when an older start was asked for", async () => {
+        process.env.BACKTEST_FREE_HISTORY_DAYS = "730";
+        vi.useFakeTimers({ toFake: ["Date"] });
+        vi.setSystemTime(new Date("2025-06-30T12:00:00Z"));
+        repo.getAccountCreatedAt.mockResolvedValue("2020-01-01T00:00:00Z"); // well past the new-account trial
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2020-01-01", end_date: "2025-06-30" }, free), res);
+        expect(res.body.start_date).toBe("2023-07-01");
+        expect(res.body.locked).toEqual(["full_history"]);
+        expect(res.body.warnings.join(" ")).toMatch(/last 2 years/);
+        expect(res.body.result.candles[0].time >= "2023-07-01").toBe(true);
+    });
+
+    it("uses the AI parser only for Pro", async () => {
+        await chatBacktest(mockReq({ message: "something creative", start_date: "2024-01-01", end_date: "2024-06-30" }, asPro()), mockRes());
+        expect(llmParse).toHaveBeenCalledOnce();
+    });
+
+    it("caps saved strategies on the free plan, not on Pro", async () => {
+        repo.listStrategies.mockResolvedValue([{}, {}, {}]);
+        repo.insertStrategy.mockImplementation(async (row) => ({ id: "x", ...row }));
+        const body = { name: "Fourth", definition: strategy().definition };
+        const a = mockRes();
+        await createStrategy(mockReq(body, free), a);
+        expect(a.statusCode).toBe(403);
+        expect(a.body).toMatchObject({ code: "PRO_REQUIRED", feature: "unlimited_strategies" });
+        expect(repo.insertStrategy).not.toHaveBeenCalled();
+
+        const b = mockRes();
+        await createStrategy(mockReq(body, asPro()), b);
+        expect(b.statusCode).toBe(201);
+    });
+
+    it("refuses intraday re-runs, old windows and an empty allowance on the free plan", async () => {
+        repo.getStrategy.mockResolvedValue(strategy("5m"));
+        const a = mockRes();
+        await createRun(mockReq({ strategy_id: strategy().id, start_date: "2024-01-01", end_date: "2024-01-31" }, free), a);
+        expect(a.body).toMatchObject({ code: "PRO_REQUIRED", feature: "intraday" });
+
+        process.env.BACKTEST_FREE_HISTORY_DAYS = "730";
+        repo.getStrategy.mockResolvedValue(strategy());
+        const b = mockRes();
+        await createRun(mockReq({ strategy_id: strategy().id, start_date: "2001-01-01", end_date: "2002-01-01" }, free), b);
+        expect(b.body).toMatchObject({ code: "PRO_REQUIRED", feature: "full_history" });
+
+        process.env.BACKTEST_FREE_HISTORY_DAYS = "36500";
+        repo.getUsage.mockResolvedValue(25);
+        const c = mockRes();
+        await createRun(mockReq({ strategy_id: strategy().id, start_date: "2024-01-01", end_date: "2024-06-30" }, free), c);
+        expect(c.statusCode).toBe(403);
+        expect(c.body.feature).toBe("quota");
+
+        expect(repo.insertRun).not.toHaveBeenCalled();
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+    });
+
+    it("lets Pro re-run intraday strategies without touching the allowance", async () => {
+        repo.getStrategy.mockResolvedValue(strategy("15m"));
+        repo.insertRun.mockImplementation(async (row) => ({ ...row, id: "r1", created_at: "x" }));
+        const res = mockRes();
+        await createRun(mockReq({ strategy_id: strategy().id, start_date: "2024-01-01", end_date: "2024-01-31" }, asPro()), res);
+        expect(res.statusCode).toBe(201);
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+    });
+
+    it("reports the plan's features and limits", async () => {
+        const a = mockRes();
+        await getPlan(mockReq({}, free), a);
+        expect(a.body).toMatchObject({ tier: "free", backtests_limit: 25, saved_strategies_limit: 3, timeframes: ["1d"], features: { options: false, intraday: false } });
+        invalidateEntitlementCache("u1");
+        const b = mockRes();
+        await getPlan(mockReq({}, asPro()), b);
+        expect(b.body).toMatchObject({ tier: "pro", saved_strategies_limit: null, features: { options: true, intraday: true, ai: true } });
     });
 });

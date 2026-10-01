@@ -9,18 +9,23 @@ const API_PREFIX = "/api/backtest";
 export class ApiError extends Error {
   status: number;
   code?: string;
-  constructor(status: number, message: string, code?: string) {
+  /** For `PRO_REQUIRED`: which Pro feature was needed. */
+  feature?: string;
+  constructor(status: number, message: string, code?: string, feature?: string) {
     super(message);
     this.status = status;
     this.code = code;
+    this.feature = feature;
   }
 }
+
+export const isProRequired = (err: unknown): err is ApiError => err instanceof ApiError && err.code === "PRO_REQUIRED";
 
 export async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);
   if (res.status === 204) return undefined as T;
   const body = await res.json().catch(() => null);
-  if (!res.ok) throw new ApiError(res.status, body?.error || body?.message || `Request failed (${res.status})`, body?.code);
+  if (!res.ok) throw new ApiError(res.status, body?.error || body?.message || `Request failed (${res.status})`, body?.code, body?.feature);
   return body as T;
 }
 

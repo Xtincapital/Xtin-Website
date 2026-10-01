@@ -4,7 +4,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, CalendarRange, Database, Play, Wallet } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
-import { ApiError, backtestApi } from "../lib/api";
+import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { earliestStart, usePlan } from "../lib/usePlan";
+import ProBadge from "../components/ProBadge";
 import { strategySentence } from "../lib/analytics";
 import { btnPrimary, card, chip, input, label, muted } from "../lib/styles";
 import { inr } from "../lib/types";
@@ -33,7 +35,9 @@ export default function RunBacktest() {
   const [startDate, setStartDate] = useState(isoDaysAgo(365));
   const [endDate, setEndDate] = useState(isoDaysAgo(0));
   const [capital, setCapital] = useState(100000);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ text: string; pro: boolean } | null>(null);
+  const { locked, historyDays } = usePlan();
+  const minStart = locked("full_history") ? earliestStart(historyDays) : null;
 
   const strategy = useQuery({ queryKey: ["bt-strategy", id], queryFn: () => backtestApi.getStrategy(id as string) });
 
@@ -45,12 +49,14 @@ export default function RunBacktest() {
     },
     onError: (err) => {
       qc.invalidateQueries({ queryKey: ["bt-runs"] });
-      setError(err instanceof ApiError ? err.message : "Backtest failed");
+      setError({ text: err instanceof ApiError ? err.message : "Backtest failed", pro: isProRequired(err) });
     },
   });
 
   const inst = strategy.data?.definition.instrument;
   const intraday = inst && inst.timeframe !== "1d";
+  const intradayLocked = Boolean(intraday && locked("intraday"));
+  const tooEarly = (date: string) => minStart !== null && date < minStart;
   const activePeriod = endDate === isoDaysAgo(0) ? PERIODS.find((p) => startDate === isoDaysAgo(p.days))?.label : undefined;
 
   return (
@@ -67,24 +73,30 @@ export default function RunBacktest() {
             <CalendarRange className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Test window
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5">
-            {PERIODS.map((p) => (
-              <button
-                key={p.label}
-                type="button"
-                onClick={() => {
-                  setStartDate(isoDaysAgo(p.days));
-                  setEndDate(isoDaysAgo(0));
-                }}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
-              >
-                {p.label}
-              </button>
-            ))}
+            {PERIODS.map((p) => {
+              const lockedPeriod = tooEarly(isoDaysAgo(p.days));
+              return (
+                <button
+                  key={p.label}
+                  type="button"
+                  disabled={lockedPeriod}
+                  title={lockedPeriod ? "Longer history is a Pro feature" : undefined}
+                  onClick={() => {
+                    setStartDate(isoDaysAgo(p.days));
+                    setEndDate(isoDaysAgo(0));
+                  }}
+                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
+                >
+                  {p.label}
+                  {lockedPeriod && <ProBadge />}
+                </button>
+              );
+            })}
           </div>
           <div className="mt-4 grid grid-cols-2 gap-4">
             <label className="block">
               <span className={label}>From</span>
-              <input type="date" className={input} value={startDate} max={endDate} onChange={(e) => setStartDate(e.target.value)} />
+              <input type="date" className={input} value={startDate} min={minStart ?? undefined} max={endDate} onChange={(e) => setStartDate(e.target.value)} />
             </label>
             <label className="block">
               <span className={label}>To</span>
@@ -131,14 +143,39 @@ export default function RunBacktest() {
             </p>
           </div>
 
-          {error && <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">{error}</p>}
+          {intradayLocked && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-400/20 dark:bg-amber-500/10 dark:text-amber-200">
+              <div className="flex items-center gap-2 font-semibold">
+                <ProBadge /> Intraday strategy
+              </div>
+              <p className="mt-1 text-xs">This strategy uses {inst?.timeframe} candles, which need Pro. Switch it to daily in the editor, or upgrade.</p>
+              <Link to="/backtest/app/upgrade" className="mt-2 inline-block text-xs font-semibold underline">
+                See Pro
+              </Link>
+            </div>
+          )}
+          {tooEarly(startDate) && (
+            <p className="rounded-xl bg-amber-50 px-4 py-3 text-xs text-amber-800 dark:bg-amber-500/10 dark:text-amber-200">
+              The free plan tests from {minStart} onwards. <Link to="/backtest/app/upgrade" className="font-semibold underline">Pro unlocks the full history.</Link>
+            </p>
+          )}
+          {error && (
+            <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+              {error.text}{" "}
+              {error.pro && (
+                <Link to="/backtest/app/upgrade" className="font-semibold underline">
+                  Go Pro
+                </Link>
+              )}
+            </p>
+          )}
 
           <button
             onClick={() => {
               setError(null);
               run.mutate();
             }}
-            disabled={run.isPending || !strategy.data || !(capital > 0) || !startDate || !endDate}
+            disabled={run.isPending || !strategy.data || !(capital > 0) || !startDate || !endDate || intradayLocked || tooEarly(startDate)}
             className={`${btnPrimary} w-full !py-3.5 text-base`}
           >
             <Play className="h-5 w-5" />

@@ -29,11 +29,11 @@ afterEach(() => {
 });
 
 describe("limits", () => {
-    it("defaults to 5/day anon, 25/month free, 24h trial and honours env overrides", () => {
-        expect(limits()).toMatchObject({ anonPerDay: 5, freePerMonth: 25, trialHours: 24 });
+    it("defaults to 5/day anon, 25/month free, no trial, and honours env overrides", () => {
+        expect(limits()).toMatchObject({ anonPerDay: 5, freePerMonth: 25, trialHours: 0 });
         process.env.BACKTEST_FREE_PER_MONTH = "40";
-        process.env.BACKTEST_TRIAL_HOURS = "0";
-        expect(limits()).toMatchObject({ freePerMonth: 40, trialHours: 0 });
+        process.env.BACKTEST_TRIAL_HOURS = "24";
+        expect(limits()).toMatchObject({ freePerMonth: 40, trialHours: 24 });
     });
 });
 
@@ -88,7 +88,14 @@ describe("signed-in tiers", () => {
         expect((await usageFor("u1", "ip")).tier).toBe("free");
     });
 
-    it("a brand-new account is Pro for the trial window, then free", async () => {
+    it("a brand-new account is NOT Pro by default (no trial)", async () => {
+        repo.getAccountCreatedAt.mockResolvedValue(hoursAgo(1));
+        expect((await usageFor("u1", "ip")).tier).toBe("free");
+        expect(repo.getAccountCreatedAt).not.toHaveBeenCalled();
+    });
+
+    it("if a trial is switched on, a brand-new account is Pro for the trial window, then free", async () => {
+        process.env.BACKTEST_TRIAL_HOURS = "24";
         repo.getAccountCreatedAt.mockResolvedValue(hoursAgo(2));
         expect((await usageFor("u1", "ip")).tier).toBe("pro");
         expect(await planStatus("u1", "ip")).toMatchObject({ tier: "pro", trial: true });
@@ -106,6 +113,7 @@ describe("signed-in tiers", () => {
     });
 
     it("an unknown account age means no trial rather than a free pass", async () => {
+        process.env.BACKTEST_TRIAL_HOURS = "24";
         repo.getAccountCreatedAt.mockResolvedValue(null);
         expect((await usageFor("u1", "ip")).tier).toBe("free");
     });

@@ -7,6 +7,8 @@ import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import EmptyState from "../components/EmptyState";
 import { backtestApi } from "../lib/api";
+import { usePlan } from "../lib/usePlan";
+import ProBadge from "../components/ProBadge";
 import { conditionText } from "../lib/analytics";
 import { btnGhost, btnPrimary, btnSecondary, card, chip, muted } from "../lib/styles";
 import type { Strategy } from "../lib/types";
@@ -36,6 +38,8 @@ function RuleLine({ label, tone, strategy, group }: { label: string; tone: strin
 export default function StrategyList() {
   const qc = useQueryClient();
   const { data, isLoading, isError } = useQuery({ queryKey: ["bt-strategies"], queryFn: backtestApi.listStrategies });
+  const { strategyLimit, isPro } = usePlan();
+  const atLimit = !isPro && strategyLimit !== null && (data?.length ?? 0) >= strategyLimit;
 
   const del = useMutation({
     mutationFn: (id: string) => backtestApi.deleteStrategy(id),
@@ -54,15 +58,34 @@ export default function StrategyList() {
         description="Every rule you've saved. Re-run any of them over a new window, or fine-tune the conditions by hand."
         actions={
           <>
+            {!isPro && strategyLimit !== null && data && (
+              <span className={`mr-1 text-xs tabular-nums ${muted}`}>
+                {Math.min(data.length, strategyLimit)} / {strategyLimit} saved
+              </span>
+            )}
             <Link to="/backtest/app" className={btnSecondary}>
               <Sparkles className="h-4 w-4" /> Describe one
             </Link>
-            <Link to="/backtest/app/strategies/new" className={btnPrimary}>
-              <Plus className="h-4 w-4" /> Build by hand
-            </Link>
+            {atLimit ? (
+              <Link to="/backtest/app/upgrade" className={btnPrimary} title={`The free plan saves up to ${strategyLimit} strategies`}>
+                <Plus className="h-4 w-4" /> Build by hand <ProBadge />
+              </Link>
+            ) : (
+              <Link to="/backtest/app/strategies/new" className={btnPrimary}>
+                <Plus className="h-4 w-4" /> Build by hand
+              </Link>
+            )}
           </>
         }
       />
+      {atLimit && (
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-400/20 dark:bg-amber-500/10 dark:text-amber-200">
+          <span>You've saved {strategyLimit} strategies — the free plan's limit. Delete one to make room, or go Pro for unlimited.</span>
+          <Link to="/backtest/app/upgrade" className="font-semibold underline">
+            See Pro
+          </Link>
+        </div>
+      )}
 
       {isLoading && (
         <div className="grid gap-4 md:grid-cols-2">
