@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaPlay, FaLock, FaCheckCircle } from "react-icons/fa";
+import { moduleTag } from "../../../../constants/learningModules";
 
 // Custom SVG Icons for Stock Market Module
 const Icons = {
@@ -285,7 +286,7 @@ const StockMarketOverview = () => {
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">
-                  Module 3
+                  {moduleTag("stock-market")}
                 </span>
                 <span className="px-3 py-1 bg-yellow-400/90 text-yellow-900 rounded-full text-sm font-semibold">
                   Beginner

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb, FaFileInvoiceDollar } from 'react-icons/fa';
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: What Are Taxes - Simple Definition
 const WhatAreTaxesSVG = () => (
@@ -443,6 +444,7 @@ const TaxLesson1 = () => {
               <div className="bg-blue-100 p-3 rounded-xl">
                 <FaFileInvoiceDollar className="text-blue-600 text-2xl" />
               </div>
+              <ModuleBadge moduleId="taxes" />
               <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
                 Lesson 1 of 6 – Awareness Only
               </span>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: What Is a Derivative - Core Concept
 const WhatIsDerivativeSVG = () => (
@@ -467,6 +468,7 @@ const DerivLesson1 = () => {
               <div className="bg-amber-100 p-3 rounded-xl">
                 <FaExclamationTriangle className="text-amber-600 text-2xl" />
               </div>
+              <ModuleBadge moduleId="derivatives" />
               <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
                 Lesson 1 of 7 – Awareness Only
               </span>

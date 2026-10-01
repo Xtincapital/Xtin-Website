@@ -19,6 +19,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { debtLessons } from "./debtLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [
   CoinsIcon,
@@ -79,6 +80,7 @@ const DebtLessonPage = ({ lessonNumber }) => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
+              {lesson.num === 1 && <ModuleBadge moduleId="debt-management" />}
               <span className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson {lesson.num} of {debtLessons.length}
               </span>

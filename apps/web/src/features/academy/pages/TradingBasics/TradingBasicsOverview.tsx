@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { moduleLabel, moduleTag } from "../../../../constants/learningModules";
 
 // Custom SVG Icons
 const Icons = {
@@ -285,7 +286,7 @@ const TradingBasicsOverview = () => {
             <div className="relative">
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm font-semibold">
-                  Module 4
+                  {moduleTag("trading-basics")}
                 </span>
                 <span className="px-3 py-1 bg-red-400/30 backdrop-blur rounded-full text-sm font-medium flex items-center gap-1">
                   <Icons.Warning className="w-4 h-4" />
@@ -541,7 +542,7 @@ const TradingBasicsOverview = () => {
                 onClick={() => navigate('/learn/stock-market')}
                 className="px-4 py-2 bg-white border border-amber-300 text-amber-700 rounded-xl hover:bg-amber-100 transition-colors text-sm font-medium"
               >
-                Module 3: Stock Market Basics
+                {moduleLabel("stock-market")}
               </button>
             </div>
           </div>

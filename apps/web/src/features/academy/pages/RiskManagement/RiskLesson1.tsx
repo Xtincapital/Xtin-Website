@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
+import ModuleBadge from "../../components/ModuleBadge";
 
 const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -438,6 +439,7 @@ const RiskLesson1 = () => {
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <ModuleBadge moduleId="risk-management" />
             <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 1 of 7
             </span>

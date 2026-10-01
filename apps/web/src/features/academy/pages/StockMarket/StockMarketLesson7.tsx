@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { getModuleInfo, moduleLabel } from "../../../../constants/learningModules";
 
 // Custom SVG Icons
 const Icons = {
@@ -377,7 +378,7 @@ const StockMarketLesson7 = () => {
               className="flex items-center gap-2 text-gray-500 hover:text-rose-600 transition-colors group"
             >
               <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
-              <span>Module 3: Stock Market Basics</span>
+              <span>{moduleLabel("stock-market")}</span>
             </button>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm font-medium flex items-center gap-1.5">
               <Icons.Clock className="w-4 h-4" />
@@ -679,7 +680,7 @@ const StockMarketLesson7 = () => {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Celebration className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Module 3 Complete!</h2>
+              <h2 className="text-2xl font-bold mb-2">Module {getModuleInfo("stock-market")?.number} Complete!</h2>
               <p className="text-white/90 mb-4">
                 Congratulations! You've completed Stock Market Basics. You now understand how the stock market works, 
                 what shares are, how trading happens, market indices, price movements, investing vs trading, and common mistakes to avoid.
@@ -687,7 +688,7 @@ const StockMarketLesson7 = () => {
               <div className="flex flex-wrap justify-center gap-3 mb-4">
                 <span className="px-3 py-1 bg-white/20 rounded-full text-sm">7 Lessons Completed</span>
                 <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Stock Market Basics Mastered</span>
-                <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Ready for Module 4!</span>
+                <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Ready for Module {getModuleInfo("trading-basics")?.number}!</span>
               </div>
               <button
                 onClick={() => navigate('/learn')}

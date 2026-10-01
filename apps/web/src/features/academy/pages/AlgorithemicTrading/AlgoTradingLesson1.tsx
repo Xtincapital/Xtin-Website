@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // Premium SVG Icons
 const Icons = {
@@ -234,6 +235,7 @@ const AlgoTradingLesson1 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
+              <ModuleBadge moduleId="algorithmic-trading" />
               <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full text-sm font-bold">
                 Lesson 1 of 7
               </span>

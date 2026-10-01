@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaCheckCircle, FaTimesCircle, FaTrophy } from "react-icons/fa";
+import { getModuleInfo, moduleLabel, moduleTag } from "../../../../constants/learningModules";
 
 // Custom SVG Icons
 const Icons = {
@@ -342,7 +343,7 @@ const TradingBasicsLesson7 = () => {
               className="flex items-center gap-2 text-gray-500 hover:text-indigo-600 transition-colors group"
             >
               <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
-              <span>Module 4: Trading Basics</span>
+              <span>{moduleLabel("trading-basics")}</span>
             </button>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium flex items-center gap-1.5">
               <Icons.Clock className="w-4 h-4" />
@@ -739,14 +740,14 @@ const TradingBasicsLesson7 = () => {
                 <FaTrophy className="w-8 h-8 text-yellow-300" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold mb-2">🎉 Module 4 Complete!</h2>
+            <h2 className="text-2xl font-bold mb-2">🎉 Module {getModuleInfo("trading-basics")?.number} Complete!</h2>
             <p className="text-indigo-100 mb-4">
               You've finished Trading Basics. You now understand what trading really involves — 
               the psychology, the risks, the statistics, and most importantly, whether it's right for you.
             </p>
             <div className="bg-white/10 rounded-xl p-4 max-w-lg mx-auto">
               <p className="text-sm text-indigo-100">
-                <strong>Next Steps:</strong> If you're ready to continue, Module 5 covers Technical Analysis — 
+                <strong>Next Steps:</strong> If you're ready to continue, {moduleTag("technical-analysis")} covers Technical Analysis — 
                 the tools traders use to analyze charts and make decisions.
               </p>
             </div>

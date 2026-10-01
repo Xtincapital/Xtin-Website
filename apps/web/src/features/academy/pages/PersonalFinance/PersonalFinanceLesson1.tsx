@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import progressService from "../../../../services/progressService";
 import authService from "../../../../services/authService";
+import ModuleBadge from "../../components/ModuleBadge";
 import {
   LightbulbIcon,
   WalletIcon,
@@ -124,6 +125,7 @@ const PersonalFinanceLesson1 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
+              <ModuleBadge moduleId="personal-finance" />
               <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson 1 of 9
               </span>

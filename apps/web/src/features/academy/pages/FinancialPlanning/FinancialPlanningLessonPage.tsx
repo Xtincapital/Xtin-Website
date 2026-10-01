@@ -21,6 +21,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { financialPlanningLessons } from "./financialPlanningLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [
   TargetIcon,
@@ -81,6 +82,7 @@ const FinancialPlanningLessonPage = ({ lessonNumber }) => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
+              {lesson.num === 1 && <ModuleBadge moduleId="financial-planning" />}
               <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson {lesson.num} of {financialPlanningLessons.length}
               </span>

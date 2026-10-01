@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { ShieldIcon, TargetIcon, CheckCircleIcon, BookOpenIcon, BrainIcon, KeyIcon, WarningIcon, MedicalIcon, HeartIcon, ClipboardIcon, CoinsIcon } from "../../components/LearningIcons";
 import { insuranceLessons } from "./insuranceLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const icons = [ShieldIcon, MedicalIcon, HeartIcon, WarningIcon, ClipboardIcon, CoinsIcon, CheckCircleIcon];
 const styles = {
@@ -33,6 +34,7 @@ const InsuranceLessonPage = ({ lessonNumber }) => {
           </button>
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
+              {lesson.num === 1 && <ModuleBadge moduleId="insurance" />}
               <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-sm font-semibold shadow-sm">Lesson {lesson.num} of {insuranceLessons.length}</span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">{lesson.duration} read</span>
             </div>

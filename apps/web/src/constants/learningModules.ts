@@ -234,3 +234,38 @@ export const MODULES_CONFIG = [
     available: true,
   },
 ];
+
+const DIFFICULTY_TITLES = {
+  [DIFFICULTY_LEVELS.BEGINNER]: 'Beginner',
+  [DIFFICULTY_LEVELS.INTERMEDIATE]: 'Intermediate',
+  [DIFFICULTY_LEVELS.ADVANCED]: 'Advanced',
+};
+
+/**
+ * Module number + level for a module id, numbered exactly as the cards on the
+ * Learn page are: the position within its difficulty tab (Beginner 1–7,
+ * Intermediate 1–8, Advanced 1–4). Keep this the single source for module
+ * numbers so lesson pages and the Learn page never disagree.
+ */
+export function getModuleInfo(moduleId: string) {
+  const mod = MODULES_CONFIG.find((m) => m.id === moduleId);
+  if (!mod) return null;
+  const sameLevel = MODULES_CONFIG.filter((m) => m.difficulty === mod.difficulty);
+  return {
+    number: sameLevel.findIndex((m) => m.id === moduleId) + 1,
+    level: DIFFICULTY_TITLES[mod.difficulty] as string,
+    title: mod.title,
+  };
+}
+
+/** "Module 5: Stock Market Basics" — numbering as on the Learn page. */
+export function moduleLabel(moduleId: string) {
+  const info = getModuleInfo(moduleId);
+  return info ? `Module ${info.number}: ${info.title}` : '';
+}
+
+/** "Beginner · Module 5" — the short tag used on module/lesson headers. */
+export function moduleTag(moduleId: string) {
+  const info = getModuleInfo(moduleId);
+  return info ? `${info.level} · Module ${info.number}` : '';
+}

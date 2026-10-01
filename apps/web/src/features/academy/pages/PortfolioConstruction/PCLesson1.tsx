@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const Icons = {
   ArrowLeft: ({ className = "w-5 h-5" }) => (
@@ -191,6 +192,7 @@ const PCLesson1 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
+              <ModuleBadge moduleId="portfolio-construction" />
               <span className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 1 OF 12</span>
               <span className="px-3 py-1.5 bg-blue-100  text-blue-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read

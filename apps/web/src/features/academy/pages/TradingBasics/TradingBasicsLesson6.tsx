@@ -3,6 +3,7 @@ import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { moduleLabel } from "../../../../constants/learningModules";
 
 // Custom SVG Icons
 const Icons = {
@@ -232,7 +233,7 @@ const TradingBasicsLesson6 = () => {
               className="flex items-center gap-2 text-gray-500 hover:text-rose-600 transition-colors group"
             >
               <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
-              <span>Module 4: Trading Basics</span>
+              <span>{moduleLabel("trading-basics")}</span>
             </button>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm font-medium flex items-center gap-1.5">
               <Icons.Clock className="w-4 h-4" />

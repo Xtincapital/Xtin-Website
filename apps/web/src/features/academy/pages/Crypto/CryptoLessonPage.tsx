@@ -18,6 +18,7 @@ import {
   WarningIcon
 } from "../../components/LearningIcons";
 import { cryptoLessons } from "./cryptoLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [
   ShieldIcon,
@@ -78,6 +79,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
+              {lesson.num === 1 && <ModuleBadge moduleId="crypto" />}
               <span className="px-4 py-1.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson {lesson.num} of {cryptoLessons.length}
               </span>

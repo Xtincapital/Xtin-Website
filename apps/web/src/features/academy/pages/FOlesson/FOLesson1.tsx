@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../../components/Navbar";
 import Footer from "../../../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG Icons
 const Icons = {
@@ -498,6 +499,7 @@ const FOLesson1 = () => {
           </button>
           
           <div className="flex items-center gap-3 mb-4">
+            <ModuleBadge moduleId="derivatives" />
             <span className="px-3 py-1 bg-orange-100  text-orange-700  text-sm font-medium rounded-full">
               Lesson 1 of 12
             </span>

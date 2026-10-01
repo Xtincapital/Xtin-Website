@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { ClockIcon, TargetIcon, CheckCircleIcon, BookOpenIcon, BrainIcon, KeyIcon, WarningIcon, CoinsIcon, PiggyBankIcon, ChartBarIcon, GrowthIcon, PercentIcon, ClipboardIcon } from "../../components/LearningIcons";
 import { retirementLessons } from "./retirementLessonData";
+import ModuleBadge from "../../components/ModuleBadge";
 
 const icons = [ClockIcon, CoinsIcon, PiggyBankIcon, ChartBarIcon, GrowthIcon, PercentIcon, ClipboardIcon];
 const styles = {
@@ -29,7 +30,7 @@ const RetirementLessonPage = ({ lessonNumber }) => {
         <div className="max-w-3xl mx-auto">
           <button onClick={() => navigate("/learn/retirement-planning")} className="flex items-center gap-2 text-gray-500 hover:text-rose-600 transition-colors mb-8 group"><FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" /><span>Back to Module</span></button>
           <div className="mb-10">
-            <div className="flex flex-wrap items-center gap-3 mb-4"><span className="px-4 py-1.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-full text-sm font-semibold shadow-sm">Lesson {lesson.num} of {retirementLessons.length}</span><span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">{lesson.duration} read</span></div>
+            <div className="flex flex-wrap items-center gap-3 mb-4">{lesson.num === 1 && <ModuleBadge moduleId="retirement-planning" />}<span className="px-4 py-1.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-full text-sm font-semibold shadow-sm">Lesson {lesson.num} of {retirementLessons.length}</span><span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">{lesson.duration} read</span></div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm"><LessonIcon className="w-7 h-7 text-rose-600" /></span><span>{lesson.title}</span></h1>
             <p className="text-lg text-gray-500">{lesson.subtitle}</p>
           </div>

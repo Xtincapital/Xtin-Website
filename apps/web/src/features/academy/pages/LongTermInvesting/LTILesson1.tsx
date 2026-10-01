@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaSeedling, FaCheckCircle, FaTimesCircle, FaLightbulb, FaClock, FaChartLine } from 'react-icons/fa';
+import ModuleBadge from "../../components/ModuleBadge";
 
 // SVG 1: Time Horizon Comparison - Trading vs Long-Term
 const TimeHorizonSVG = () => (
@@ -480,6 +481,7 @@ const LTILesson1 = () => {
               <div className="bg-teal-100 p-3 rounded-xl">
                 <FaSeedling className="text-teal-600 text-2xl" />
               </div>
+              <ModuleBadge moduleId="long-term-investing" />
               <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
                 Lesson 1 of 7
               </span>

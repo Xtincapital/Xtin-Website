@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaLock, FaCheckCircle, FaTimesCircle, FaChartLine } from 'react-icons/fa';
+import { moduleLabel, moduleTag } from "../../../../constants/learningModules";
 
 // SVG 1: What is Technical Analysis - Visual Definition
 const WhatIsTechnicalAnalysisSVG = () => (
@@ -343,7 +344,7 @@ const TechnicalAnalysisOverview = () => {
           <div className="bg-white rounded-2xl p-8 shadow-lg">
             <div className="flex items-center gap-3 mb-4">
               <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                Module 5
+                {moduleTag("technical-analysis")}
               </span>
               <span className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                 <FaChartLine className="text-xs" />
@@ -575,11 +576,11 @@ const TechnicalAnalysisOverview = () => {
             </Link>
             <Link to="/learn/stock-market" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800">
               <FaCheckCircle className="text-green-500" />
-              <span>Module 3: Stock Market Basics</span>
+              <span>{moduleLabel("stock-market")}</span>
             </Link>
             <Link to="/learn/trading-basics" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800">
               <FaCheckCircle className="text-green-500" />
-              <span>Module 4: Trading Basics (Required)</span>
+              <span>{moduleLabel("trading-basics")} (Required)</span>
             </Link>
           </div>
         </section>
