@@ -10,6 +10,7 @@
 import { verifyRazorpaySignature } from "../../utils/razorpay.js";
 import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
+import { PREMIUM_VIDEO_IDS } from "../../data/premiumVideoIds.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
@@ -266,3 +267,44 @@ async function persistLearnPlan({ user, plan, planId, paymentId, orderId, curren
     });
     return record;
 }
+
+/* ---------- premium video modules ---------- */
+
+/** GET /api/learn/videos/:slug — public. Which paid lessons have a video yet (numbers only, never IDs). */
+export const getVideoModuleAvailability = (req, res) => {
+    const ids = PREMIUM_VIDEO_IDS[req.params.slug];
+    if (!ids) return res.status(404).json({ error: "Unknown module" });
+    const available = Object.entries(ids)
+        .filter(([, id]) => Boolean(id))
+        .map(([n]) => Number(n))
+        .sort((a, b) => a - b);
+    return res.status(HTTP_STATUS.OK).json({ status: HTTP_STATUS.OK, data: { available } });
+};
+
+/** GET /api/learn/videos/:slug/:lesson — Academy Pro only; returns the YouTube ID. */
+export const getPaidLessonVideo = async (req, res) => {
+    try {
+        const ids = PREMIUM_VIDEO_IDS[req.params.slug];
+        const lesson = Number(req.params.lesson);
+        if (!ids || !Number.isInteger(lesson) || lesson < 2) {
+            return res.status(404).json({ error: "Unknown lesson" });
+        }
+
+        const { data: plan, error } = await getLearnPlanByUserId(req.user.userId);
+        if (error && error.code !== "PGRST116") {
+            console.error("[LearnPlan] video plan read failed:", error.message);
+            return res.status(500).json({ error: "Failed to verify plan" });
+        }
+        const isPro = Boolean(plan) && !(plan.valid_until && new Date(plan.valid_until).getTime() < Date.now());
+        if (!isPro) {
+            return res.status(403).json({ error: "Academy Pro required", code: "PRO_REQUIRED" });
+        }
+
+        const videoId = ids[lesson];
+        if (!videoId) return res.status(404).json({ error: "Video coming soon", code: "NOT_PUBLISHED" });
+        return res.status(HTTP_STATUS.OK).json({ status: HTTP_STATUS.OK, data: { videoId } });
+    } catch (err) {
+        console.error("[LearnPlan] video error:", err);
+        return res.status(500).json({ error: "Failed to load video" });
+    }
+};

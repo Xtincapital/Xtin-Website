@@ -20,6 +20,9 @@ import LearnTour from "../components/LearnTour";
 import LearnUpgradeModal from "../components/LearnUpgradeModal";
 import LearnProCelebration from "../components/LearnProCelebration";
 import useRegion from "../../../hooks/useRegion";
+import { PREMIUM_COURSES, watchPath } from "../data/premiumCourseVideos";
+import newsletterService from "../../../services/newsletterService";
+
 
 // Route prefixes differ from module ids for a few modules (see App.jsx routes).
 const ROUTE_PREFIX_OVERRIDES = {
@@ -874,7 +877,7 @@ const LearnPage = () => {
           </div>
         </div>
       </section>
-      {/* Premium Coming Soon Courses - Fintech Grade UI */}
+      {/* Premium Courses - Fintech Grade UI */}
       <section id="courses" data-learn-tour="premium-section" className="py-16 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -890,17 +893,13 @@ const LearnPage = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 tracking-tight">
                 Premium Courses
               </h2>
-              <span className="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full shadow-md shadow-green-500/30 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                COMING SOON
-              </span>
             </div>
 
             {/* Compact Supporting Copy */}
             <p className="text-gray-500 dark:text-slate-400 text-sm max-w-xl mx-auto">
               Expert-led programs to master money, markets & wealth.{' '}
               <span className="text-gray-700 dark:text-slate-200 font-medium">
-                Included with Academy Pro at launch — no extra cost.
+                Lesson 1 of every module is free — the full programs are included with Academy Pro.
               </span>
             </p>
           </div>
@@ -957,34 +956,30 @@ const LearnPage = () => {
 
             {/* Course 1: Personal Finance Mastery - GREEN */}
             <div className="group relative">
-              {/* Floating Coming Soon Badge */}
-              <div className="absolute -top-3 right-6 z-20">
-                <div className="relative">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                    COMING SOON
-                  </span>
-                </div>
-              </div>
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-green-200/40 dark:hover:shadow-emerald-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 {/* Gradient Header with Glassmorphism Icon Container */}
                 <div className="relative h-52 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://img.youtube.com/vi/${PREMIUM_COURSES[0].freeVideoId}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
                   {/* Subtle noise/glow overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
                   {/* Glassmorphism Icon Container */}
-                  <div className="relative w-24 h-24 bg-white/15 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:scale-105 group-hover:bg-white/20 transition-all duration-500 shadow-lg">
-                    <svg className="w-14 h-14 text-white drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                      <rect x="10" y="18" width="44" height="32" rx="6" className="fill-white/20 stroke-white" strokeWidth="2" />
-                      <path d="M10 28H54" className="stroke-white" strokeWidth="2" />
-                      <circle cx="42" cy="38" r="5" className="fill-white" />
-                      <rect x="14" y="10" width="28" height="8" rx="3" className="fill-white/30 stroke-white" strokeWidth="1.5" />
-                      <text x="32" y="42" textAnchor="middle" className="fill-green-600" fontSize="10" fontWeight="bold">₹</text>
-                    </svg>
-                  </div>
+                  <button
+                    onClick={() => navigate(watchPath('personal-finance'))}
+                    aria-label="Watch module"
+                    className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <FaPlayCircle className="text-green-600 text-3xl" />
+                  </button>
 
                   {/* Course Number */}
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
@@ -1004,12 +999,11 @@ const LearnPage = () => {
                       <span className="font-medium">12 Chapters</span>
                     </div>
                     <button
-                      onClick={() => setShowNotifyModal(true)}
-                      className="group/btn relative text-green-600 font-semibold text-sm hover:text-green-700 transition-colors flex items-center gap-1"
-                      title="Get notified when this program launches"
+                      onClick={() => navigate(watchPath('personal-finance'))}
+                      className="group/btn relative text-green-600 font-semibold text-sm hover:text-green-700 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
-                        Notify Me
+                        Watch Module
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1023,30 +1017,26 @@ const LearnPage = () => {
 
             {/* Course 2: Stock Market Investing - BLUE */}
             <div className="group relative">
-              <div className="absolute -top-3 right-6 z-20">
-                <div className="relative">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                    COMING SOON
-                  </span>
-                </div>
-              </div>
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-blue-200/40 dark:hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 <div className="relative h-52 bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-600 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://img.youtube.com/vi/${PREMIUM_COURSES[1].freeVideoId}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-
-                  <div className="relative w-24 h-24 bg-white/15 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:scale-105 group-hover:bg-white/20 transition-all duration-500 shadow-lg">
-                    <svg className="w-14 h-14 text-white drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                      <rect x="8" y="14" width="48" height="38" rx="4" className="fill-white/20 stroke-white" strokeWidth="2" />
-                      <path d="M16 40L26 26L36 34L46 20" className="stroke-white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                      <circle cx="26" cy="26" r="3" className="fill-white" />
-                      <circle cx="46" cy="20" r="3" className="fill-white" />
-                      <path d="M50 16L54 20L50 24" className="stroke-white/70" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
+                  <button
+                    onClick={() => navigate(watchPath('stock-market-investing'))}
+                    aria-label="Watch module"
+                    className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <FaPlayCircle className="text-green-600 text-3xl" />
+                  </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
                     <span className="text-white font-bold text-sm">02</span>
@@ -1064,12 +1054,11 @@ const LearnPage = () => {
                       <span className="font-medium">15 Chapters</span>
                     </div>
                     <button
-                      onClick={() => setShowNotifyModal(true)}
-                      className="group/btn relative text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors flex items-center gap-1"
-                      title="Get notified when this program launches"
+                      onClick={() => navigate(watchPath('stock-market-investing'))}
+                      className="group/btn relative text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
-                        Notify Me
+                        Watch Module
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1083,31 +1072,26 @@ const LearnPage = () => {
 
             {/* Course 3: Mutual Funds Deep Dive - PURPLE */}
             <div className="group relative">
-              <div className="absolute -top-3 right-6 z-20">
-                <div className="relative">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                    COMING SOON
-                  </span>
-                </div>
-              </div>
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-purple-200/40 dark:hover:shadow-purple-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 <div className="relative h-52 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-600 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://img.youtube.com/vi/${PREMIUM_COURSES[2].freeVideoId}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-
-                  <div className="relative w-24 h-24 bg-white/15 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:scale-105 group-hover:bg-white/20 transition-all duration-500 shadow-lg">
-                    <svg className="w-14 h-14 text-white drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                      <circle cx="32" cy="32" r="22" className="fill-white/20 stroke-white" strokeWidth="2" />
-                      <path d="M32 10 A22 22 0 0 1 54 32 L32 32 Z" className="fill-white/50" />
-                      <path d="M54 32 A22 22 0 0 1 32 54 L32 32 Z" className="fill-white/70" />
-                      <path d="M32 54 A22 22 0 0 1 10 32 L32 32 Z" className="fill-white/35" />
-                      <circle cx="32" cy="32" r="10" className="fill-white" />
-                      <text x="32" y="36" textAnchor="middle" className="fill-purple-600" fontSize="10" fontWeight="bold">MF</text>
-                    </svg>
-                  </div>
+                  <button
+                    onClick={() => navigate(watchPath('mutual-funds'))}
+                    aria-label="Watch module"
+                    className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <FaPlayCircle className="text-green-600 text-3xl" />
+                  </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
                     <span className="text-white font-bold text-sm">03</span>
@@ -1125,12 +1109,11 @@ const LearnPage = () => {
                       <span className="font-medium">10 Chapters</span>
                     </div>
                     <button
-                      onClick={() => setShowNotifyModal(true)}
-                      className="group/btn relative text-purple-600 font-semibold text-sm hover:text-purple-700 transition-colors flex items-center gap-1"
-                      title="Get notified when this program launches"
+                      onClick={() => navigate(watchPath('mutual-funds'))}
+                      className="group/btn relative text-purple-600 font-semibold text-sm hover:text-purple-700 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
-                        Notify Me
+                        Watch Module
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1144,36 +1127,26 @@ const LearnPage = () => {
 
             {/* Course 4: Options & Derivatives - BLUE (consistent palette) */}
             <div className="group relative">
-              <div className="absolute -top-3 right-6 z-20">
-                <div className="relative">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                    COMING SOON
-                  </span>
-                </div>
-              </div>
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-blue-200/40 dark:hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 <div className="relative h-52 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://img.youtube.com/vi/${PREMIUM_COURSES[3].freeVideoId}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-green-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-
-                  <div className="relative w-24 h-24 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:scale-105 group-hover:bg-white/15 transition-all duration-500 shadow-lg">
-                    <svg className="w-14 h-14 text-white drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                      <rect x="8" y="14" width="48" height="38" rx="4" className="fill-white/10 stroke-white/50" strokeWidth="1.5" />
-                      {/* Candlesticks */}
-                      <rect x="16" y="28" width="6" height="14" className="fill-green-400" />
-                      <line x1="19" y1="24" x2="19" y2="28" className="stroke-green-400" strokeWidth="2" />
-                      <line x1="19" y1="42" x2="19" y2="46" className="stroke-green-400" strokeWidth="2" />
-                      <rect x="29" y="20" width="6" height="14" className="fill-red-400" />
-                      <line x1="32" y1="16" x2="32" y2="20" className="stroke-red-400" strokeWidth="2" />
-                      <line x1="32" y1="34" x2="32" y2="42" className="stroke-red-400" strokeWidth="2" />
-                      <rect x="42" y="24" width="6" height="16" className="fill-green-400" />
-                      <line x1="45" y1="20" x2="45" y2="24" className="stroke-green-400" strokeWidth="2" />
-                      <line x1="45" y1="40" x2="45" y2="46" className="stroke-green-400" strokeWidth="2" />
-                    </svg>
-                  </div>
+                  <button
+                    onClick={() => navigate(watchPath('options-derivatives'))}
+                    aria-label="Watch module"
+                    className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <FaPlayCircle className="text-green-600 text-3xl" />
+                  </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
                     <span className="text-white font-bold text-sm">04</span>
@@ -1196,12 +1169,11 @@ const LearnPage = () => {
                       <span className="font-medium">14 Chapters</span>
                     </div>
                     <button
-                      onClick={() => setShowNotifyModal(true)}
-                      className="group/btn relative text-slate-700 font-semibold text-sm hover:text-slate-900 transition-colors flex items-center gap-1"
-                      title="Get notified when this program launches"
+                      onClick={() => navigate(watchPath('options-derivatives'))}
+                      className="group/btn relative text-slate-700 font-semibold text-sm hover:text-slate-900 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
-                        Notify Me
+                        Watch Module
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-slate-700 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1215,29 +1187,26 @@ const LearnPage = () => {
 
             {/* Course 5: Tax Planning & Filing - GREEN */}
             <div className="group relative">
-              <div className="absolute -top-3 right-6 z-20">
-                <div className="relative">
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                    COMING SOON
-                  </span>
-                </div>
-              </div>
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-teal-200/40 dark:hover:shadow-teal-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 <div className="relative h-52 bg-gradient-to-br from-teal-500 via-cyan-500 to-blue-600 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={`https://img.youtube.com/vi/${PREMIUM_COURSES[4].freeVideoId}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-
-                  <div className="relative w-24 h-24 bg-white/15 backdrop-blur-md rounded-2xl border border-white/20 flex items-center justify-center group-hover:scale-105 group-hover:bg-white/20 transition-all duration-500 shadow-lg">
-                    <svg className="w-14 h-14 text-white drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                      <rect x="14" y="10" width="36" height="44" rx="4" className="fill-white/20 stroke-white" strokeWidth="2" />
-                      <path d="M22 22H42M22 30H38M22 38H42M22 46H34" className="stroke-white" strokeWidth="2" strokeLinecap="round" />
-                      <circle cx="44" cy="44" r="12" className="fill-white" />
-                      <text x="44" y="49" textAnchor="middle" className="fill-teal-600" fontSize="12" fontWeight="bold">₹</text>
-                    </svg>
-                  </div>
+                  <button
+                    onClick={() => navigate(watchPath('tax-planning'))}
+                    aria-label="Watch module"
+                    className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <FaPlayCircle className="text-green-600 text-3xl" />
+                  </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
                     <span className="text-white font-bold text-sm">05</span>
@@ -1255,12 +1224,11 @@ const LearnPage = () => {
                       <span className="font-medium">8 Chapters</span>
                     </div>
                     <button
-                      onClick={() => setShowNotifyModal(true)}
-                      className="group/btn relative text-teal-600 font-semibold text-sm hover:text-teal-700 transition-colors flex items-center gap-1"
-                      title="Get notified when this program launches"
+                      onClick={() => navigate(watchPath('tax-planning'))}
+                      className="group/btn relative text-teal-600 font-semibold text-sm hover:text-teal-700 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
-                        Notify Me
+                        Watch Module
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1326,12 +1294,13 @@ const LearnPage = () => {
                   <form onSubmit={(e) => {
                     e.preventDefault();
                     const email = (e.target as any).email.value;
-                    const notifications = JSON.parse(localStorage.getItem('course_notifications') || '[]');
-                    if (!notifications.includes(email)) {
-                      notifications.push(email);
-                      localStorage.setItem('course_notifications', JSON.stringify(notifications));
-                    }
-                    setNotifySaved(true);
+                    // Saved server-side (newsletter list) so the email actually reaches us.
+                    newsletterService.subscribeToNewsletter(email)
+                      .catch((err) => {
+                        if (!/already subscribed/i.test(err?.message || '')) throw err;
+                      })
+                      .then(() => setNotifySaved(true))
+                      .catch(() => alert("Couldn't save your email — please try again."));
                   }}>
                     <input
                       type="email"

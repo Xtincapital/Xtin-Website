@@ -19,6 +19,7 @@ const AboutPage = lazy(() => import('./features/marketing/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./features/marketing/pages/ProductsPage'));
 const AlgorithmsIntro = lazy(() => import('./features/algos/pages/AlgorithmsIntro'));
 const DashboardIntro = lazy(() => import('./features/dashboard/pages/DashboardIntro'));
+const ModuleVideoPage = lazy(() => import('./features/academy/pages/ModuleVideoPage'));
 const LearnIntro = lazy(() => import('./features/academy/pages/LearnIntro'));
 const NewsletterIntro = lazy(() => import('./features/newsletter/pages/NewsletterIntro'));
 const ToolsIntro = lazy(() => import('./features/tools/pages/ToolsIntro'));
@@ -354,6 +355,7 @@ function App() {
         <Route path="/tools/step-up-sip" element={<ProtectedPageRoute><StepUpSIPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/swp" element={<ProtectedPageRoute><SWPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/real-estate-investment" element={<ProtectedPageRoute><RealEstateCalculator /></ProtectedPageRoute>} />
+        <Route path="/learn/watch/:slug" element={<ModuleVideoPage />} />
         <Route path="/learn" element={<ProtectedPageRoute><LearnPage /></ProtectedPageRoute>} />
         <Route path="/learn/personal-finance-basics" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
         <Route path="/learn/personal-finance-lesson-1" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
