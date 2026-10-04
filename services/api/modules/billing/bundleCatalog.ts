@@ -23,8 +23,8 @@ export const PRESET_BUNDLES: Record<string, { name: string; products: string[]; 
     "ultimate-pass": {
         name: "Xtin Ultimate All-Access Pass",
         products: ["Algo Trading Pro", "Gini AI Advisor Pro", "Fundakamental Pro", "Trade Journal Pro", "Learn Hub All-Access", "Market Newsletter Pro"],
-        monthly: 1, // TEMP ₹1 for owner test purchase — restore 4580
-        annual: 1, // TEMP ₹1 — restore 41925
+        monthly: 4580,
+        annual: 41925,
     },
     "quant-pack": {
         name: "Quant Trader Pack",

@@ -32,8 +32,7 @@ export const createSubscriptionOrder = async (req, res) => {
         if (!priced) {
             return res.status(400).json({ error: "Invalid plan specified" });
         }
-        // TEMP: owner ₹1 test purchase — skip the stale-price check for the ultimate pass only. Remove with the ₹1 price.
-        if (amount !== undefined && Number(amount) !== priced.amount && priced.planId !== 'ultimate-pass') {
+        if (amount !== undefined && Number(amount) !== priced.amount) {
             return res.status(409).json({
                 error: "This price is out of date — please refresh the page and try again",
                 code: "PRICE_CHANGED",
