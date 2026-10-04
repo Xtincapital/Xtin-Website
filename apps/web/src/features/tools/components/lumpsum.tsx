@@ -25,6 +25,7 @@ const LumpsumCalculator = () => {
   const [years, setYears] = useState("10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
   // Principal used for the last calculation (results stay put until Calculate is pressed again).
   const [invested, setInvested] = useState(0);
   const [period, setPeriod] = useState("yearly");
@@ -35,6 +36,15 @@ const LumpsumCalculator = () => {
     const P = parseFloat(principal.replace(/,/g, ""));
     const annualRateValue = parseFloat(annualRate) / 100;
     const yearsValue = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = P > 0 && annualRateValue > 0 && yearsValue > 0;
+    setError(valid ? "" : "Amount, rate and period must all be greater than 0.");
+    if (!valid) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
       let A;
@@ -114,10 +124,11 @@ const LumpsumCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="lumpsum-total-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Total Investment
                 </label>
                 <input
+                  id="lumpsum-total-investment"
                   type="text"
                   value={principal}
                   onChange={(e) => {
@@ -131,10 +142,11 @@ const LumpsumCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="lumpsum-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="lumpsum-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -166,10 +178,11 @@ const LumpsumCalculator = () => {
                 </div>
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="lumpsum-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="lumpsum-investment-period"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
@@ -207,6 +220,11 @@ const LumpsumCalculator = () => {
                   </label>
                 </div>
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateLumpsum}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

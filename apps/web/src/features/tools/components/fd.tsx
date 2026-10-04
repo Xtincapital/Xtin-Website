@@ -23,6 +23,7 @@ const FDCalculator = () => {
   const [years, setYears] = useState("5");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   // Inputs as they were when Calculate was last pressed. The results read from
   // this, so editing a field does not change them until Calculate is pressed again.
@@ -35,6 +36,15 @@ const FDCalculator = () => {
     const P = parseFloat(principal.replace(/,/g, ""));
     const r = parseFloat(annualRate) / 100;
     const t = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = P > 0 && r > 0 && t > 0;
+    setError(valid ? "" : "Amount, rate and period must all be greater than 0.");
+    if (!valid) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && r > 0 && t > 0) {
       let n;
@@ -106,10 +116,11 @@ const FDCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fd-total-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Total Investment
                 </label>
                 <input
+                  id="fd-total-investment"
                   type="text"
                   value={principal}
                   onChange={(e) => {
@@ -123,10 +134,11 @@ const FDCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fd-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="fd-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -134,10 +146,11 @@ const FDCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fd-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="fd-investment-period"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
@@ -145,10 +158,11 @@ const FDCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="fd-compounding-frequency" className="block text-sm font-medium text-gray-700 mb-1">
                   Compounding Frequency
                 </label>
                 <select
+                  id="fd-compounding-frequency"
                   value={compoundingFrequency}
                   onChange={(e) => setCompoundingFrequency(e.target.value)}
                   className="w-full p-3 border rounded-lg"
@@ -159,6 +173,11 @@ const FDCalculator = () => {
                   <option value="monthly">Monthly</option>
                 </select>
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateFD}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

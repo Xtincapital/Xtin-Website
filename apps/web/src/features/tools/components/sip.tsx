@@ -30,6 +30,7 @@ const SIPCalculator = () => {
   // and pie do not change until Calculate is pressed again.
   const [invested, setInvested] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
+  const [error, setError] = useState("");
   const [chartType, setChartType] = useState("line"); // 'line' or 'pie'
 
   const structuredData = generateToolData({
@@ -41,6 +42,18 @@ const SIPCalculator = () => {
     const P = parseFloat(monthlyInvestment.replace(/,/g, ""));
     const annualRateValue = parseFloat(annualRate) / 100;
     const yearsValue = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    let problem = "";
+    if (!(P > 0)) problem = "Monthly investment must be greater than 0.";
+    else if (!(annualRateValue > 0)) problem = "Expected return must be greater than 0%.";
+    else if (!(yearsValue > 0)) problem = "Investment period must be greater than 0 years.";
+    setError(problem);
+    if (problem) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
       // Monthly rate = annual rate / 12 — the standard SIP formula used by
@@ -123,10 +136,11 @@ const SIPCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="sip-monthly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Monthly Investment
                 </label>
                 <input
+                  id="sip-monthly-investment"
                   type="text"
                   value={monthlyInvestment}
                   onChange={(e) => {
@@ -142,10 +156,11 @@ const SIPCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="sip-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="sip-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -177,16 +192,22 @@ const SIPCalculator = () => {
                 </div>
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="sip-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="sip-investment-period"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateSIP}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

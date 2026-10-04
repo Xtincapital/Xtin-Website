@@ -26,6 +26,7 @@ const StepUpSIPCalculator = () => {
   const [futureValue, setFutureValue] = useState(null);
   const [totalInvestment, setTotalInvestment] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
   const [showInfo, setShowInfo] = useState(false);
   const [chartType, setChartType] = useState("line"); // 'line' or 'pie'
 
@@ -40,6 +41,16 @@ const StepUpSIPCalculator = () => {
     const data: { year: number; value: number }[] = [{ year: 0, value: 0 }];
     let investment = 0;
  
+     // Clear the old result so it is never shown next to inputs it wasn't computed from.
+     const valid = P > 0 && annual_increase_percentage >= 0 && r > 0 && t > 0;
+     setError(valid ? "" : "Amount, return rate and period must be greater than 0, and the step-up can't be negative.");
+     if (!valid) {
+       setFutureValue(null);
+       setTotalInvestment(null);
+       setChartData([]);
+       return;
+     }
+
      if (P > 0 && annual_increase_percentage >= 0 && r > 0 && t > 0) {
        for (let i = 1; i <= t; i++) {
          for (let j = 1; j <= 12; j++) {
@@ -102,10 +113,11 @@ const StepUpSIPCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="step-up-sip-monthly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Monthly Investment
                 </label>
                 <input
+                  id="step-up-sip-monthly-investment"
                   type="text"
                   value={monthlyInvestment}
                   onChange={(e) => {
@@ -121,10 +133,11 @@ const StepUpSIPCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="step-up-sip-annual-increase" className="block text-sm font-medium text-gray-700 mb-1">
                   Annual Increase (%)
                 </label>
                 <input
+                  id="step-up-sip-annual-increase"
                   type="number"
                   value={annualIncrease}
                   onChange={(e) => setAnnualIncrease(e.target.value)}
@@ -132,10 +145,11 @@ const StepUpSIPCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="step-up-sip-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="step-up-sip-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -143,16 +157,22 @@ const StepUpSIPCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="step-up-sip-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="step-up-sip-investment-period"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateStepUpSIP}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

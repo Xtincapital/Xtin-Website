@@ -314,10 +314,11 @@ const RealEstateCalculator = () => {
 
                 {/* Property Price */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-property-price" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Property Price ({sym})
                   </label>
                   <input
+                    id="realestate-property-price"
                     type="text"
                     value={propertyPrice}
                     onChange={(e) => {
@@ -333,10 +334,11 @@ const RealEstateCalculator = () => {
 
                 {/* Monthly Rent */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-expected-monthly-rent" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Expected Monthly Rent ({sym})
                   </label>
                   <input
+                    id="realestate-expected-monthly-rent"
                     type="text"
                     value={monthlyRent}
                     onChange={(e) => {
@@ -352,10 +354,11 @@ const RealEstateCalculator = () => {
 
                 {/* Property Type */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-property-type" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Property Type
                   </label>
                   <select
+                    id="realestate-property-type"
                     value={propertyType}
                     onChange={(e) => setPropertyType(e.target.value)}
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
@@ -371,10 +374,11 @@ const RealEstateCalculator = () => {
 
                 {/* Location Type */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-location-type" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Location Type
                   </label>
                   <select
+                    id="realestate-location-type"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
@@ -387,10 +391,11 @@ const RealEstateCalculator = () => {
 
                 {/* Infrastructure */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-upcoming-infrastructure" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Upcoming Infrastructure (within 1km)
                   </label>
                   <select
+                    id="realestate-upcoming-infrastructure"
                     value={infrastructure}
                     onChange={(e) => setInfrastructure(e.target.value)}
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
@@ -407,10 +412,11 @@ const RealEstateCalculator = () => {
 
                 {/* Sale Time */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label htmlFor="realestate-avg-sale-time-in-area" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Avg. Sale Time in Area (days)
                   </label>
                   <input
+                    id="realestate-avg-sale-time-in-area"
                     type="number"
                     value={saleTime}
                     onChange={(e) => setSaleTime(e.target.value)}

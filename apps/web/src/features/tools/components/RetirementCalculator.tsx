@@ -149,10 +149,11 @@ const RetirementCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-current-age" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Age
                 </label>
                 <input
+                  id="retirement-current-age"
                   type="number"
                   value={currentAge}
                   onChange={handleInputChange(setCurrentAge)}
@@ -160,10 +161,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-retirement-age" className="block text-sm font-medium text-gray-700 mb-1">
                   Retirement Age
                 </label>
                 <input
+                  id="retirement-retirement-age"
                   type="number"
                   value={retirementAge}
                   onChange={handleInputChange(setRetirementAge)}
@@ -171,10 +173,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-life-expectancy" className="block text-sm font-medium text-gray-700 mb-1">
                   Life Expectancy
                 </label>
                 <input
+                  id="retirement-life-expectancy"
                   type="number"
                   value={lifeExpectancy}
                   onChange={handleInputChange(setLifeExpectancy)}
@@ -182,10 +185,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-current-monthly-expenses" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Monthly Expenses
                 </label>
                 <input
+                  id="retirement-current-monthly-expenses"
                   type="text"
                   value={formatNumber(monthlyExpenses)}
                   onChange={handleInputChange(setMonthlyExpenses)}
@@ -193,10 +197,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-current-retirement-savings" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Retirement Savings
                 </label>
                 <input
+                  id="retirement-current-retirement-savings"
                   type="text"
                   value={formatNumber(currentSavings)}
                   onChange={handleInputChange(setCurrentSavings)}
@@ -204,10 +209,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-expected-return" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Return (p.a.) (%)
                 </label>
                 <input
+                  id="retirement-expected-return"
                   type="number"
                   value={expectedReturn}
                   onChange={handleInputChange(setExpectedReturn)}
@@ -215,10 +221,11 @@ const RetirementCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="retirement-inflation-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Inflation Rate (p.a.) (%)
                 </label>
                 <input
+                  id="retirement-inflation-rate"
                   type="number"
                   value={inflationRate}
                   onChange={handleInputChange(setInflationRate)}

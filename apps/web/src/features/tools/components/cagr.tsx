@@ -24,6 +24,7 @@ const CAGRCalculator = () => {
   const [years, setYears] = useState("5");
   const [cagr, setCagr] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   // Inputs as they were when Calculate was last pressed. The results read from
   // this, so editing a field does not change them until Calculate is pressed again.
@@ -35,6 +36,15 @@ const CAGRCalculator = () => {
     const P = parseFloat(initialValue.replace(/,/g, ""));
     const F = parseFloat(finalValue.replace(/,/g, ""));
     const N = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = P > 0 && F > 0 && N > 0;
+    setError(valid ? "" : "Initial value, final value and years must all be greater than 0.");
+    if (!valid) {
+      setCagr(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && F > 0 && N > 0) {
       const result = (Math.pow(F / P, 1 / N) - 1) * 100;
@@ -88,10 +98,11 @@ const CAGRCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cagr-initial-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Initial Investment
                 </label>
                 <input
+                  id="cagr-initial-investment"
                   type="text"
                   value={initialValue}
                   onChange={(e) => {
@@ -105,10 +116,11 @@ const CAGRCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cagr-final-value" className="block text-sm font-medium text-gray-700 mb-1">
                   Final Value
                 </label>
                 <input
+                  id="cagr-final-value"
                   type="text"
                   value={finalValue}
                   onChange={(e) => {
@@ -122,16 +134,22 @@ const CAGRCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="cagr-years" className="block text-sm font-medium text-gray-700 mb-1">
                   Years
                 </label>
                 <input
+                  id="cagr-years"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateCAGR}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

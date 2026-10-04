@@ -18,6 +18,7 @@ const PPFCalculator = () => {
   const [years, setYears] = useState("15"); // Default PPF tenure
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   // Inputs as they were when Calculate was last pressed. The results read from
   // this, so editing a field does not change them until Calculate is pressed again.
@@ -41,6 +42,15 @@ const PPFCalculator = () => {
     const P = parseFloat(yearlyInvestment);
     const annualRateValue = parseFloat(annualRate) / 100;
     const yearsValue = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = P > 0 && annualRateValue > 0 && yearsValue > 0;
+    setError(valid ? "" : "Amount, rate and period must all be greater than 0.");
+    if (!valid) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
       let M = 0;
@@ -88,10 +98,11 @@ const PPFCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ppf-yearly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Yearly Investment
                 </label>
                 <input
+                  id="ppf-yearly-investment"
                   type="text"
                   value={formatNumber(yearlyInvestment)}
                   onChange={handleInputChange(setYearlyInvestment)}
@@ -99,10 +110,11 @@ const PPFCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ppf-annual-interest-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Annual Interest Rate (%)
                 </label>
                 <input
+                  id="ppf-annual-interest-rate"
                   type="number"
                   value={annualRate}
                   onChange={handleInputChange(setAnnualRate)}
@@ -110,16 +122,22 @@ const PPFCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ppf-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="ppf-investment-period"
                   type="number"
                   value={years}
                   onChange={handleInputChange(setYears)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculatePPF}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition mt-4"

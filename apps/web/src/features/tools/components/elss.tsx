@@ -24,6 +24,7 @@ const ELSSCalculator = () => {
   const [compoundingFrequency, setCompoundingFrequency] = useState("yearly");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   // Inputs as they were when Calculate was last pressed. The results read from
   // this, so editing a field does not change them until Calculate is pressed again.
@@ -37,6 +38,23 @@ const ELSSCalculator = () => {
     const P = parseFloat(investmentAmount.replace(/,/g, ""));
     const annualRateValue = parseFloat(annualRate) / 100;
     const yearsValue = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    // (A lumpsum may use a 0% rate; the SIP formula divides by the rate.)
+    const rateOk = investmentType === "sip" ? annualRateValue > 0 : annualRateValue >= 0;
+    const valid = P > 0 && rateOk && yearsValue > 0;
+    setError(
+      valid
+        ? ""
+        : investmentType === "sip"
+          ? "Amount, return rate and period must all be greater than 0."
+          : "Amount and period must be greater than 0, and the return rate can't be negative."
+    );
+    if (!valid) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (investmentType === "sip") {
       // Monthly rate = annual rate / 12, the standard SIP convention (matches sip.tsx)
@@ -146,12 +164,13 @@ const ELSSCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="elss-investment-amount" className="block text-sm font-medium text-gray-700 mb-1">
                   {investmentType === "sip"
                     ? "Monthly Investment"
                     : "Total Investment"}
                 </label>
                 <input
+                  id="elss-investment-amount"
                   type="text"
                   value={investmentAmount}
                   onChange={(e) => {
@@ -167,10 +186,11 @@ const ELSSCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="elss-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="elss-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -178,10 +198,11 @@ const ELSSCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="elss-investment-period" className="block text-sm font-medium text-gray-700 mb-1">
                   Investment Period (Years)
                 </label>
                 <input
+                  id="elss-investment-period"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
@@ -190,10 +211,11 @@ const ELSSCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="elss-your-income-tax-slab" className="block text-sm font-medium text-gray-700 mb-1">
                   Your Income Tax Slab (%)
                 </label>
                 <select
+                  id="elss-your-income-tax-slab"
                   value={taxSlab}
                   onChange={(e) => setTaxSlab(e.target.value)}
                   className="w-full p-3 border rounded-lg"
@@ -270,6 +292,11 @@ const ELSSCalculator = () => {
                   </label>
                 </div>
               </div>
+              {error && (
+                <p role="alert" className="mt-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateELSS}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

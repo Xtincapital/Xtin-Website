@@ -23,6 +23,7 @@ const NPSCalculator = () => {
   const [results, setResults] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
+  const [error, setError] = useState("");
 
   const formatNumber = (num) => {
     if (num === null || isNaN(num)) return "0";
@@ -37,11 +38,28 @@ const NPSCalculator = () => {
   };
 
   const calculateNPS = () => {
+    const ca = parseFloat(currentAge);
+    const ra = parseFloat(retirementAge);
     const P = parseFloat(monthlyInvestment);
     const annualRateValue = parseFloat(expectedReturn) / 100;
     // Use proper compounding conversion for monthly rate
     const r = Math.pow(1 + annualRateValue, 1/12) - 1;
-    const n = (parseFloat(retirementAge) - parseFloat(currentAge)) * 12;
+    const n = (ra - ca) * 12;
+
+    // NPS is open to ages 18–70 and can be held until 75.
+    let problem = "";
+    if (!(ca >= 18 && ca <= 70)) problem = "Current age must be between 18 and 70.";
+    else if (!(ra > ca)) problem = "Retirement age must be greater than your current age.";
+    else if (ra > 75) problem = "Retirement age can't be more than 75.";
+    else if (!(P > 0)) problem = "Monthly investment must be greater than 0.";
+    else if (!(annualRateValue > 0)) problem = "Expected return must be greater than 0%.";
+    else if (!(parseFloat(annuityReturn) >= 0)) problem = "Annuity return can't be negative.";
+    setError(problem);
+    if (problem) {
+      setResults(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && r > 0 && n > 0) {
       const totalCorpus = P * ((Math.pow(1 + r, n) - 1) / r);
@@ -105,36 +123,41 @@ const NPSCalculator = () => {
             <div className="bg-white p-8 rounded-2xl shadow-lg" {...formProps}>
               <div className="space-y-6">
                 <div>
-                  <label className="block text-md font-medium text-gray-700">Current Age</label>
-                  <input type="number" value={currentAge} onChange={handleInputChange(setCurrentAge)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="nps-current-age" className="block text-md font-medium text-gray-700">Current Age</label>
+                  <input id="nps-current-age" type="number" value={currentAge} onChange={handleInputChange(setCurrentAge)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-md font-medium text-gray-700">Retirement Age</label>
-                  <input type="number" value={retirementAge} onChange={handleInputChange(setRetirementAge)}
+                  <label htmlFor="nps-retirement-age" className="block text-md font-medium text-gray-700">Retirement Age</label>
+                  <input id="nps-retirement-age" type="number" value={retirementAge} onChange={handleInputChange(setRetirementAge)}
                    className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-md font-medium text-gray-700">Monthly Investment</label>
+                  <label htmlFor="nps-monthly-investment" className="block text-md font-medium text-gray-700">Monthly Investment</label>
                   <div className="mt-1 relative rounded-lg shadow-sm border border-gray-300">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <span className="text-gray-500 sm:text-md">₹</span>
                     </div>
-                    <input type="text" value={formatNumber(monthlyInvestment)} onChange={handleInputChange(setMonthlyInvestment)} className="block w-full p-3 pl-7 pr-12 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    <input id="nps-monthly-investment" type="text" value={formatNumber(monthlyInvestment)} onChange={handleInputChange(setMonthlyInvestment)} className="block w-full p-3 pl-7 pr-12 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-md font-medium text-gray-700">Expected Return (p.a.)</label>
-                  <input type="number" value={expectedReturn} onChange={handleInputChange(setExpectedReturn)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="nps-expected-return" className="block text-md font-medium text-gray-700">Expected Return (p.a.)</label>
+                  <input id="nps-expected-return" type="number" value={expectedReturn} onChange={handleInputChange(setExpectedReturn)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-md font-medium text-gray-700">% to Annuity (min 40%)</label>
-                  <input type="number" value={annuityPercentage} onChange={handleInputChange(setAnnuityPercentage)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="nps-to-annuity" className="block text-md font-medium text-gray-700">% to Annuity (min 40%)</label>
+                  <input id="nps-to-annuity" type="number" value={annuityPercentage} onChange={handleInputChange(setAnnuityPercentage)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-md font-medium text-gray-700">Annuity Return (p.a.)</label>
-                  <input type="number" value={annuityReturn} onChange={handleInputChange(setAnnuityReturn)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="nps-annuity-return" className="block text-md font-medium text-gray-700">Annuity Return (p.a.)</label>
+                  <input id="nps-annuity-return" type="number" value={annuityReturn} onChange={handleInputChange(setAnnuityReturn)} className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
                 </div>
               </div>
+              {error && (
+                <p role="alert" className="mt-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button onClick={calculateNPS} className="mt-8 w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors">
                 Calculate
               </button>

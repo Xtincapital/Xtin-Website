@@ -179,10 +179,11 @@ const SWPCalculator = () => {
                 </div>
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="swp-total-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Total Investment
                 </label>
                 <input
+                  id="swp-total-investment"
                   type="text"
                   value={principal}
                   onChange={(e) => {
@@ -196,10 +197,11 @@ const SWPCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="swp-monthly-withdrawal" className="block text-sm font-medium text-gray-700 mb-1">
                   Monthly Withdrawal
                 </label>
                 <input
+                  id="swp-monthly-withdrawal"
                   type="text"
                   value={withdrawal}
                   onChange={(e) => {
@@ -213,10 +215,11 @@ const SWPCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="swp-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Expected Annual Return Rate (%)
                 </label>
                 <input
+                  id="swp-expected-annual-return-rate"
                   type="number"
                   value={annualRate}
                   onChange={(e) => setAnnualRate(e.target.value)}
@@ -225,10 +228,11 @@ const SWPCalculator = () => {
               </div>
               {swpMode === "balance" && (
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="swp-withdrawal-period" className="block text-sm font-medium text-gray-700 mb-1">
                     Withdrawal Period (Years)
                   </label>
                   <input
+                    id="swp-withdrawal-period"
                     type="number"
                     value={tenure}
                     onChange={(e) => setTenure(e.target.value)}

@@ -19,6 +19,7 @@ const SSYCalculator = () => {
   const [startYear, setStartYear] = useState<number | string>(new Date().getFullYear());
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   // Inputs as they were when Calculate was last pressed. The results read from
   // this, so editing a field does not change them until Calculate is pressed again.
@@ -44,6 +45,15 @@ const SSYCalculator = () => {
     const r = parseFloat(interestRate) / 100;
     let total_value = 0;
     const data = [];
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = P > 0 && girl_age > 0 && start_year > 0;
+    setError(valid ? "" : "Yearly investment, girl's age and start year must all be greater than 0.");
+    if (!valid) {
+      setFutureValue(null);
+      setChartData([]);
+      return;
+    }
 
     if (P > 0 && girl_age > 0 && start_year > 0) {
       for (let i = 0; i < 21; i++) {
@@ -97,10 +107,11 @@ const SSYCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ssy-yearly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Yearly Investment
                 </label>
                 <input
+                  id="ssy-yearly-investment"
                   type="text"
                   value={formatNumber(yearlyInvestment)}
                   onChange={handleInputChange(setYearlyInvestment)}
@@ -108,10 +119,11 @@ const SSYCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ssy-girl-s-current-age" className="block text-sm font-medium text-gray-700 mb-1">
                   Girl's Current Age
                 </label>
                 <input
+                  id="ssy-girl-s-current-age"
                   type="number"
                   value={girlAge}
                   onChange={handleInputChange(setGirlAge)}
@@ -119,10 +131,11 @@ const SSYCalculator = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ssy-interest-rate" className="block text-sm font-medium text-gray-700 mb-1">
                   Interest Rate (% p.a.)
                 </label>
                 <input
+                  id="ssy-interest-rate"
                   type="number"
                   value={interestRate}
                   onChange={handleInputChange(setInterestRate)}
@@ -130,16 +143,22 @@ const SSYCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="ssy-starting-year-of-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Starting Year of Investment
                 </label>
                 <input
+                  id="ssy-starting-year-of-investment"
                   type="number"
                   value={startYear}
                   onChange={handleInputChange(setStartYear)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateSSY}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"

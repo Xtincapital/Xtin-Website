@@ -95,10 +95,11 @@ const EPFCalculator = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="bg-white shadow-lg rounded-xl p-8" {...formProps}>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="epf-basic-monthly-salary-da" className="block text-sm font-medium text-gray-700 mb-2">
                   Basic Monthly Salary + DA
                 </label>
                 <input
+                  id="epf-basic-monthly-salary-da"
                   type="text"
                   value={basicMonthlySalary}
                   onChange={(e) => {
@@ -114,10 +115,11 @@ const EPFCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="epf-employee-contribution" className="block text-sm font-medium text-gray-700 mb-2">
                   Employee Contribution (%)
                 </label>
                 <input
+                  id="epf-employee-contribution"
                   type="number"
                   value={employeeContribution}
                   onChange={(e) => setEmployeeContribution(e.target.value)}
@@ -125,10 +127,11 @@ const EPFCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="epf-employer-contribution" className="block text-sm font-medium text-gray-700 mb-2">
                   Employer Contribution (%)
                 </label>
                 <input
+                  id="epf-employer-contribution"
                   type="number"
                   value={employerContribution}
                   onChange={(e) => setEmployerContribution(e.target.value)}
@@ -136,10 +139,11 @@ const EPFCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="epf-number-of-years" className="block text-sm font-medium text-gray-700 mb-2">
                   Number of Years
                 </label>
                 <input
+                  id="epf-number-of-years"
                   type="number"
                   value={numberOfYears}
                   onChange={(e) => setNumberOfYears(e.target.value)}
@@ -147,10 +151,11 @@ const EPFCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="epf-epf-interest-rate" className="block text-sm font-medium text-gray-700 mb-2">
                   EPF Interest Rate (p.a.)
                 </label>
                 <input
+                  id="epf-epf-interest-rate"
                   type="number"
                   step="0.01"
                   value={epfInterestRate}

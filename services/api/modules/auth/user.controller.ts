@@ -3,6 +3,7 @@ import supabase from "../../supabase/index.js";
 import {
 	validateUserSignup,
 	validateUserLogin,
+	type ValidationIssue,
 } from "./user.validator.js";
 import { HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
 import {
@@ -17,17 +18,46 @@ import {
 	updateUserProfileById,
 } from "./user.repository.js";
 
+// Client IP, for log lines only. Render sits behind a proxy and the app
+// doesn't set `trust proxy`, so req.ip would be the proxy's address. Never
+// use this for an access decision: the header can be set by the client.
+const clientIp = (req) =>
+	(req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0]?.trim() || req.ip;
+
+// Structured log line for monitoring. Records which fields failed and why,
+// never the submitted values (no passwords, emails or names in logs).
+const logValidationFailure = (req, route: string, issues: ValidationIssue[]) => {
+	console.warn("[AuthValidation] rejected", JSON.stringify({
+		route,
+		ip: clientIp(req),
+		userAgent: req.headers["user-agent"],
+		issues,
+	}));
+};
+
+const logSanitized = (req, route: string, fields: string[]) => {
+	if (fields.length === 0) return;
+	console.warn("[AuthValidation] sanitized", JSON.stringify({
+		route,
+		ip: clientIp(req),
+		fields,
+	}));
+};
+
 // Signup controller - uses Supabase Auth
 const signup = async (req, res) => {
-	const validationResult = validateUserSignup(req.body);
-	if (validationResult.errors) {
-		return res.status(400).json({
-			errors: validationResult.errors,
-			message: validationResult.message,
+	const validation = validateUserSignup(req.body);
+	if (!validation.ok) {
+		logValidationFailure(req, "signup", validation.issues);
+		return res.status(HTTP_STATUS.BAD_REQUEST).json({
+			status: HTTP_STATUS.BAD_REQUEST,
+			message: validation.message,
+			data: null,
 		});
 	}
+	logSanitized(req, "signup", validation.sanitizedFields);
 	const { first_name, last_name, email, phone_number, password } =
-		validationResult.data;
+		validation.data;
 	try {
 		// Check if a user with this email already exists in our users table
 		const existingUser = await checkUserExists(email);
@@ -59,7 +89,7 @@ const signup = async (req, res) => {
 			});
 		}
 
-		console.log('Supabase auth successful:', authData);
+		console.log('Supabase signup successful:', { userId: authData.user?.id, hasSession: !!authData.session });
 
 		// Check if email confirmation is required
 		if (!authData.session) {
@@ -75,10 +105,9 @@ const signup = async (req, res) => {
 		}
 
 		// Save additional user data to our users table
-		console.log('Auth data:', JSON.stringify(authData, null, 2));
 		let newUser = null;
 		if (authData.user) {
-			console.log('Saving user data:', { auth_id: authData.user.id, first_name, last_name, email, phone_number });
+			console.log('Saving user data:', { auth_id: authData.user.id });
 			try {
 				newUser = await saveUser({
 					auth_id: authData.user.id,
@@ -141,15 +170,16 @@ const signup = async (req, res) => {
 
 // Login controller
 const login = async (req, res) => {
-	const validationResult = validateUserLogin(req.body);
-
-	if (validationResult.errors) {
-		return res.status(400).json({
-			errors: validationResult.errors,
-			message: validationResult.message,
+	const validation = validateUserLogin(req.body);
+	if (!validation.ok) {
+		logValidationFailure(req, "login", validation.issues);
+		return res.status(HTTP_STATUS.BAD_REQUEST).json({
+			status: HTTP_STATUS.BAD_REQUEST,
+			message: validation.message,
+			data: null,
 		});
 	}
-	const { email, password } = validationResult.data;
+	const { email, password } = validation.data;
 
 	try {
 		// Sign in with Supabase Auth

@@ -89,10 +89,11 @@ const HRACalculator = () => {
               <div className="space-y-6">
                 {/* Basic Salary */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="hra-basic-salary" className="block text-sm font-medium text-gray-700 mb-1">
                     Basic Salary (Annual)
                   </label>
                   <input
+                    id="hra-basic-salary"
                     type="text"
                     value={basicSalary}
                     onChange={(e) => {
@@ -108,10 +109,11 @@ const HRACalculator = () => {
 
                 {/* Dearness Allowance */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="hra-dearness-allowance" className="block text-sm font-medium text-gray-700 mb-1">
                     Dearness Allowance (Annual)
                   </label>
                   <input
+                    id="hra-dearness-allowance"
                     type="text"
                     value={dearnessAllowance}
                     onChange={(e) => {
@@ -129,10 +131,11 @@ const HRACalculator = () => {
 
                 {/* HRA Received */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="hra-hra-received" className="block text-sm font-medium text-gray-700 mb-1">
                     HRA Received (Annual)
                   </label>
                   <input
+                    id="hra-hra-received"
                     type="text"
                     value={hraReceived}
                     onChange={(e) => {
@@ -148,10 +151,11 @@ const HRACalculator = () => {
 
                 {/* Rent Paid */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="hra-rent-paid" className="block text-sm font-medium text-gray-700 mb-1">
                     Rent Paid (Annual)
                   </label>
                   <input
+                    id="hra-rent-paid"
                     type="text"
                     value={rentPaid}
                     onChange={(e) => {

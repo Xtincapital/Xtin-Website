@@ -18,10 +18,20 @@ const GratuityCalculator = () => {
   const [gratuity, setGratuity] = useState(null);
   const [showInfo, setShowInfo] = useState(false);
   const [chartData, setChartData] = useState([]);
+  const [error, setError] = useState("");
 
   const calculateGratuity = () => {
     const salary = parseFloat(monthlySalary.replace(/,/g, ""));
     const serviceYears = parseFloat(years);
+
+    // Clear the old result so it is never shown next to inputs it wasn't computed from.
+    const valid = salary > 0 && serviceYears > 0;
+    setError(valid ? "" : "Salary and years of service must be greater than 0.");
+    if (!valid) {
+      setGratuity(null);
+      setChartData([]);
+      return;
+    }
 
     if (salary > 0 && serviceYears > 0) {
       const gratuityAmount = (salary * 15 * serviceYears) / 26;
@@ -73,10 +83,11 @@ const GratuityCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
               <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="gratuity-last-drawn-monthly-salary" className="block text-sm font-medium text-gray-700 mb-1">
                   Last Drawn Monthly Salary (Basic + DA)
                 </label>
                 <input
+                  id="gratuity-last-drawn-monthly-salary"
                   type="text"
                   value={monthlySalary}
                   onChange={(e) => {
@@ -90,16 +101,22 @@ const GratuityCalculator = () => {
                 />
               </div>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="gratuity-years-of-service" className="block text-sm font-medium text-gray-700 mb-1">
                   Years of Service
                 </label>
                 <input
+                  id="gratuity-years-of-service"
                   type="number"
                   value={years}
                   onChange={(e) => setYears(e.target.value)}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
+              {error && (
+                <p role="alert" className="mb-4 text-sm font-medium text-red-600">
+                  {error}
+                </p>
+              )}
               <button
                 onClick={calculateGratuity}
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
