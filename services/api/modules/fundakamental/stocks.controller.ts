@@ -25,8 +25,14 @@ function formatMarketCap(marketCap: unknown): string {
     return `$${mc.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
 }
 
+const SEARCH_LIMIT = 50;
+
+// "TCS.NS" and "TCS" are the same company: Yahoo/directory use the suffix,
+// funda_stocks stores the bare symbol.
+const baseSymbol = (ticker: string) => ticker.toUpperCase().replace(/\.(NS|BO)$/, "");
+
 function directoryFallback(query: string) {
-    return searchDirectory(query).map((c) => ({
+    return searchDirectory(query, SEARCH_LIMIT).map((c) => ({
         ticker: c.ticker,
         name: c.name,
         sector: c.sector,
@@ -51,9 +57,11 @@ export const searchCompanies = async (req, res) => {
         const { data: dbResults } = await searchStocksInDb(q, 10);
 
         const combined = new Map<string, Record<string, unknown>>();
+        const seen = new Set<string>(); // base symbols already listed
 
         for (const result of apiResults) {
             if (result.ticker) {
+                seen.add(baseSymbol(result.ticker));
                 combined.set(result.ticker, {
                     ticker: result.ticker,
                     name: result.name || "",
@@ -70,6 +78,7 @@ export const searchCompanies = async (req, res) => {
 
         for (const stock of dbResults || []) {
             if (stock.ticker) {
+                seen.add(baseSymbol(stock.ticker));
                 combined.set(stock.ticker, {
                     ticker: stock.ticker,
                     name: stock.name || "",
@@ -84,14 +93,18 @@ export const searchCompanies = async (req, res) => {
             }
         }
 
-        // Offline fallback: when Yahoo returns nothing and the local cache
-        // is empty, match a curated directory so the search box helps
-        // identify a company instead of dead-ending.
-        if (combined.size === 0) {
-            for (const c of directoryFallback(q)) combined.set(c.ticker as string, c);
+        // Always add the full offline directory (every NSE + US company). Yahoo
+        // rate-limits Render's IP, so relying on it alone left search nearly
+        // empty. Entries Yahoo/the DB already returned are skipped.
+        for (const c of directoryFallback(q)) {
+            const key = baseSymbol(c.ticker as string);
+            if (!seen.has(key)) {
+                seen.add(key);
+                combined.set(c.ticker as string, c);
+            }
         }
 
-        return res.status(HTTP_STATUS.OK).json(Array.from(combined.values()).slice(0, 10));
+        return res.status(HTTP_STATUS.OK).json(Array.from(combined.values()).slice(0, SEARCH_LIMIT));
     } catch (err) {
         // Never fail the search UX — fall back to the offline directory.
         console.error("[Fundakamental] stock search failed:", err);
