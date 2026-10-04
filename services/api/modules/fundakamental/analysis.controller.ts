@@ -222,6 +222,12 @@ export const startAnalysis = async (req, res) => {
             throw new AnalysisHttpError(HTTP_STATUS.BAD_REQUEST, "Either file_id or company_ticker must be provided");
         }
 
+        // Name the report up front so a failed attempt shows up in History as the
+        // company/file it was for, not "Unknown" (completion overwrites these
+        // with the model's own company name).
+        reportRecord.company = companyName;
+        reportRecord.ticker = ticker;
+
         const { error: insertError } = await insertReport(reportRecord);
         if (insertError) throw insertError;
         reportInserted = true;

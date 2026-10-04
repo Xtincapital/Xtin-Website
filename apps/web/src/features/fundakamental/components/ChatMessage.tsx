@@ -2,6 +2,30 @@
 // No import-path changes needed — only external deps (framer-motion, lucide-react).
 import { motion } from "framer-motion";
 import { FileText } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+// The assistant answers in markdown (headings, tables, bold, lists); without
+// rendering it the chat showed raw `##` and `| a | b |` text.
+const markdownComponents = {
+  h1: (p: any) => <h1 className="text-base font-bold mt-3 mb-1.5" {...p} />,
+  h2: (p: any) => <h2 className="text-[15px] font-semibold mt-3 mb-1.5" {...p} />,
+  h3: (p: any) => <h3 className="text-sm font-semibold mt-2.5 mb-1" {...p} />,
+  p: (p: any) => <p className="my-1.5 leading-relaxed" {...p} />,
+  ul: (p: any) => <ul className="my-1.5 pl-5 list-disc space-y-0.5" {...p} />,
+  ol: (p: any) => <ol className="my-1.5 pl-5 list-decimal space-y-0.5" {...p} />,
+  strong: (p: any) => <strong className="font-semibold" {...p} />,
+  a: (p: any) => <a className="text-primary underline" target="_blank" rel="noreferrer" {...p} />,
+  table: (p: any) => (
+    <div className="my-2 overflow-x-auto rounded-md border border-border">
+      <table className="w-full text-xs border-collapse" {...p} />
+    </div>
+  ),
+  th: (p: any) => <th className="bg-muted/60 px-2 py-1.5 text-left font-semibold border-b border-border whitespace-nowrap" {...p} />,
+  td: (p: any) => <td className="px-2 py-1.5 border-b border-border/60 align-top" {...p} />,
+  code: (p: any) => <code className="px-1 py-0.5 rounded bg-muted text-xs" {...p} />,
+  blockquote: (p: any) => <blockquote className="border-l-4 border-primary/40 pl-3 my-2 text-muted-foreground" {...p} />,
+};
 
 export interface ChatSource {
   document: string;
@@ -49,7 +73,15 @@ const ChatMessage = ({
               </div>
             </div>
           ) : (
-            <p className="text-sm">{content}</p>
+            isUser ? (
+              <p className="text-sm whitespace-pre-wrap">{content}</p>
+            ) : (
+              <div className="text-sm">
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                  {content}
+                </ReactMarkdown>
+              </div>
+            )
           )}
         </div>
 

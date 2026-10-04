@@ -198,63 +198,24 @@ const sectorOptions = [
   "Real Estate",
 ];
 
-const mockResults = [
-  {
-    ticker: "MSFT",
-    company: "Microsoft Corporation",
-    sector: "Technology",
-    price: 415.25,
-    marketCap: "3.1T",
-    peRatio: 28.5,
-    revenueGrowth: 16.2,
-    profitMargin: 35.8,
-    matchScore: 95,
-  },
-  {
-    ticker: "AAPL",
-    company: "Apple Inc.",
-    sector: "Technology",
-    price: 225.50,
-    marketCap: "2.8T",
-    peRatio: 28.5,
-    revenueGrowth: 2.8,
-    profitMargin: 25.5,
-    matchScore: 88,
-  },
-  {
-    ticker: "NVDA",
-    company: "NVIDIA Corporation",
-    sector: "Technology",
-    price: 880.25,
-    marketCap: "2.2T",
-    peRatio: 65.2,
-    revenueGrowth: 126.0,
-    profitMargin: 52.1,
-    matchScore: 85,
-  },
-  {
-    ticker: "META",
-    company: "Meta Platforms Inc.",
-    sector: "Technology",
-    price: 520.80,
-    marketCap: "1.3T",
-    peRatio: 20.1,
-    revenueGrowth: 19.5,
-    profitMargin: 29.0,
-    matchScore: 82,
-  },
-  {
-    ticker: "GOOGL",
-    company: "Alphabet Inc.",
-    sector: "Technology",
-    price: 178.90,
-    marketCap: "2.2T",
-    peRatio: 22.5,
-    revenueGrowth: 11.0,
-    profitMargin: 24.0,
-    matchScore: 78,
-  },
-];
+// Illustrative preview rows for free users (live scans are Pro). One set per
+// market so an India visitor isn't shown US stocks in dollars.
+const SAMPLE_RESULTS = {
+  us: [
+    { ticker: "MSFT", company: "Microsoft Corporation", sector: "Technology", price: 415.25, marketCap: "$3.1T", peRatio: 28.5, revenueGrowth: 16.2, profitMargin: 35.8, matchScore: 95 },
+    { ticker: "AAPL", company: "Apple Inc.", sector: "Technology", price: 225.5, marketCap: "$2.8T", peRatio: 28.5, revenueGrowth: 2.8, profitMargin: 25.5, matchScore: 88 },
+    { ticker: "NVDA", company: "NVIDIA Corporation", sector: "Technology", price: 880.25, marketCap: "$2.2T", peRatio: 65.2, revenueGrowth: 126.0, profitMargin: 52.1, matchScore: 85 },
+    { ticker: "META", company: "Meta Platforms Inc.", sector: "Technology", price: 520.8, marketCap: "$1.3T", peRatio: 20.1, revenueGrowth: 19.5, profitMargin: 29.0, matchScore: 82 },
+    { ticker: "GOOGL", company: "Alphabet Inc.", sector: "Technology", price: 178.9, marketCap: "$2.2T", peRatio: 22.5, revenueGrowth: 11.0, profitMargin: 24.0, matchScore: 78 },
+  ],
+  india: [
+    { ticker: "TCS", company: "Tata Consultancy Services", sector: "Information Technology", price: 2075, marketCap: "₹7.5L Cr", peRatio: 24.0, revenueGrowth: 6.0, profitMargin: 19.0, matchScore: 94 },
+    { ticker: "INFY", company: "Infosys Ltd", sector: "Information Technology", price: 1035, marketCap: "₹4.3L Cr", peRatio: 22.0, revenueGrowth: 5.0, profitMargin: 16.0, matchScore: 89 },
+    { ticker: "HDFCBANK", company: "HDFC Bank Ltd", sector: "Banking", price: 960, marketCap: "₹14.7L Cr", peRatio: 19.0, revenueGrowth: 11.0, profitMargin: 22.0, matchScore: 86 },
+    { ticker: "ITC", company: "ITC Ltd", sector: "FMCG", price: 420, marketCap: "₹5.2L Cr", peRatio: 26.0, revenueGrowth: 8.0, profitMargin: 27.0, matchScore: 83 },
+    { ticker: "ASIANPAINT", company: "Asian Paints Ltd", sector: "Consumer", price: 2400, marketCap: "₹2.3L Cr", peRatio: 55.0, revenueGrowth: 4.0, profitMargin: 14.0, matchScore: 76 },
+  ],
+};
 
 // Which scanner universe fits a region best (India → NSE, everyone else →
 // US). Mirrors the `market` field FundaKaMental's own (dropped) region
@@ -280,11 +241,19 @@ const StockScanner = () => {
   useEffect(() => {
     if (!marketTouched) setMarket(regionToMarket(region));
   }, [region, marketTouched]);
-  const [results, setResults] = useState(mockResults);
+  const [results, setResults] = useState<any[]>(SAMPLE_RESULTS[market]);
   const [sortField, setSortField] = useState("matchScore");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [isExporting, setIsExporting] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
+  const [isSampleUniverse, setIsSampleUniverse] = useState(false);
+
+  // Free users: keep the preview rows in step with the chosen market.
+  useEffect(() => {
+    if (!isPro) setResults(SAMPLE_RESULTS[market]);
+  }, [isPro, market]);
+
+  const priceSymbol = market === "india" ? "₹" : "$";
 
   // Pro users see live data on entry (and when the market changes); free users
   // see the curated sample preview until they upgrade.
@@ -319,6 +288,7 @@ const StockScanner = () => {
       }));
 
       setResults(transformedResults);
+      setIsSampleUniverse(Boolean((response as any).sampleData));
     } catch (error: any) {
       console.error("Failed to load stocks:", error);
       // Keep mock results if API fails
@@ -403,6 +373,7 @@ const StockScanner = () => {
       }));
 
       setResults(transformedResults);
+      setIsSampleUniverse(Boolean((response as any).sampleData));
 
       toast({
         title: "Scan Complete",
@@ -762,6 +733,12 @@ const StockScanner = () => {
             </div>
           )}
 
+          {isPro && isSampleUniverse && (
+            <div className="px-4 py-3 bg-amber-50 border-b border-amber-200 text-sm text-amber-800">
+              Showing a limited set of companies while our live market data refreshes. Results will cover the full
+              market shortly.
+            </div>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -850,13 +827,13 @@ const StockScanner = () => {
                       </span>
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      ${stock.price.toFixed(2)}
+                      {priceSymbol}{stock.price.toFixed(2)}
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      ${stock.marketCap}
+                      {stock.marketCap}
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      {stock.peRatio}x
+                      {stock.peRatio ? `${stock.peRatio}x` : "—"}
                     </td>
                     <td className="py-4 px-4 text-right">
                       <span

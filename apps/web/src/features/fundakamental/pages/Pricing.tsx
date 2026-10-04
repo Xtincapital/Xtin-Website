@@ -50,7 +50,7 @@ export default function Pricing() {
       period: "forever",
       subprice: "",
       features: [
-        "5 AI reports per month",
+        "60K AI tokens per month",
         "PDF upload support",
         "Basic financial metrics",
         "Report history",
@@ -66,7 +66,7 @@ export default function Pricing() {
       period: "/month",
       subprice: `or ${formatPrice(bp.yearly, bp.currency)}/year — save 33%`,
       features: [
-        "Unlimited AI reports",
+        "500K AI tokens per month (top-ups available)",
         "PDF, Excel, CSV support",
         "Advanced ratio analysis",
         "Interactive Q&A",

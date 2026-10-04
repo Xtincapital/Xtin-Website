@@ -24,7 +24,7 @@
 // ticker-suffix fallback), pro-tier vs free-tier JSON schema, and the
 // anti-hallucination rules block. `generate_executive_summary` (an unused
 // helper — never called from `analysis.py`) is intentionally NOT ported.
-import { generateAIText, getAIProviderInfo } from "../ai/providers.js";
+import { generateAITextWithMeta, getAIProviderInfo } from "../ai/providers.js";
 
 export interface AnalyzeFinancialDocumentOptions {
     extractedText: string;
@@ -215,8 +215,88 @@ ${proRules}- Return ONLY valid JSON. No prose before or after.
 `;
 }
 
+/**
+ * Pull a JSON object out of a model reply. Models wrap JSON in ```json fences,
+ * add a sentence before/after it, or (when the reply hits max_tokens) stop
+ * mid-object — the old `JSON.parse` + one fence regex rejected all of those
+ * and failed the whole analysis.
+ */
+export function extractJsonObject(response: string): Record<string, unknown> {
+    const attempts: string[] = [];
+    const trimmed = response.trim();
+    attempts.push(trimmed);
+
+    const fence = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+    if (fence) attempts.push(fence[1].trim());
+
+    const first = trimmed.indexOf("{");
+    const last = trimmed.lastIndexOf("}");
+    if (first !== -1 && last > first) attempts.push(trimmed.slice(first, last + 1));
+
+    for (const candidate of attempts) {
+        try {
+            const value = JSON.parse(candidate);
+            if (value && typeof value === "object" && !Array.isArray(value)) return value as Record<string, unknown>;
+        } catch {
+            // try the next candidate
+        }
+    }
+
+    // Truncated output: close any open string/arrays/objects and try again.
+    if (first !== -1) {
+        const repaired = repairTruncatedJson(trimmed.slice(first).replace(/```\s*$/, ""));
+        if (repaired) return repaired;
+    }
+    throw new Error("Failed to parse AI response as JSON");
+}
+
+/**
+ * Best-effort close of a JSON document that was cut off mid-way: first try
+ * closing it where it stopped, then fall back to the last complete element
+ * (the point just before each top-level-of-its-container comma), newest first.
+ */
+function repairTruncatedJson(text: string): Record<string, unknown> | null {
+    const stack: string[] = [];
+    const cuts: Array<{ index: number; closers: string }> = [];
+    let inString = false;
+    let escaped = false;
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (inString) {
+            if (escaped) escaped = false;
+            else if (ch === "\\") escaped = true;
+            else if (ch === '"') inString = false;
+            continue;
+        }
+        if (ch === '"') inString = true;
+        else if (ch === "{") stack.push("}");
+        else if (ch === "[") stack.push("]");
+        else if (ch === "}" || ch === "]") stack.pop();
+        else if (ch === ",") cuts.push({ index: i, closers: [...stack].reverse().join("") });
+    }
+
+    const tryParse = (candidate: string): Record<string, unknown> | null => {
+        try {
+            const value = JSON.parse(candidate);
+            return value && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : null;
+        } catch {
+            return null;
+        }
+    };
+
+    const closeAtEnd = text.replace(/,\s*$/, "") + (inString ? '"' : "") + [...stack].reverse().join("");
+    const direct = tryParse(closeAtEnd);
+    if (direct) return direct;
+
+    for (let k = cuts.length - 1; k >= 0 && k >= cuts.length - 60; k--) {
+        const repaired = tryParse(text.slice(0, cuts[k].index) + cuts[k].closers);
+        if (repaired) return repaired;
+    }
+    return null;
+}
+
 /** Port of `_parse_analysis_response`. */
-function parseAnalysisResponse(response: string): Record<string, unknown> {
+export function parseAnalysisResponse(response: string): Record<string, unknown> {
     const requiredFields = [
         "company",
         "ticker",
@@ -229,17 +309,7 @@ function parseAnalysisResponse(response: string): Record<string, unknown> {
         "investment_assessment",
     ];
 
-    let data: Record<string, unknown>;
-    try {
-        data = JSON.parse(response);
-    } catch {
-        // If not valid JSON, try to extract JSON from markdown code blocks.
-        const match = response.match(/```json\n([\s\S]*?)\n```/);
-        if (!match) {
-            throw new Error("Failed to parse AI response as JSON");
-        }
-        data = JSON.parse(match[1]);
-    }
+    const data = extractJsonObject(response);
 
     for (const field of requiredFields) {
         if (!(field in data)) {
@@ -273,21 +343,36 @@ export async function analyzeFinancialDocument(opts: AnalyzeFinancialDocumentOpt
         region: opts.region,
     });
 
-    try {
-        const responseText = await generateAIText({
-            messages: [
-                {
-                    role: "system",
-                    content:
-                        "You are an expert financial analyst specializing in fundamental analysis. Provide detailed, data-driven insights in JSON format.",
-                },
-                { role: "user", content: prompt },
-            ],
-            maxTokens: 4000,
-            temperature: 0.3,
-        });
+    // The Pro schema (bull/bear case, watch-list, peer context…) plus a
+    // multi-paragraph assessment overran the old 4000-token cap and came back
+    // cut off, which failed the analysis. One retry covers the odd malformed reply.
+    const messages = [
+        {
+            role: "system",
+            content:
+                "You are an expert financial analyst specializing in fundamental analysis. Provide detailed, data-driven insights in JSON format.",
+        },
+        { role: "user", content: prompt },
+    ];
 
-        const analysis = parseAnalysisResponse(responseText) as AnalysisResult;
+    try {
+        let analysis: AnalysisResult | null = null;
+        let lastError: unknown;
+        for (let attempt = 1; attempt <= 2 && !analysis; attempt++) {
+            try {
+                const { text: responseText, stopReason } = await generateAITextWithMeta({
+                    messages,
+                    maxTokens: 8000,
+                    temperature: 0.3,
+                });
+                if (stopReason === "max_tokens") console.warn("[Fundakamental] analysis reply hit max_tokens; attempting repair");
+                analysis = parseAnalysisResponse(responseText) as AnalysisResult;
+            } catch (err) {
+                lastError = err;
+                console.warn(`[Fundakamental] analysis attempt ${attempt} failed:`, (err as Error)?.message || err);
+            }
+        }
+        if (!analysis) throw lastError;
         analysis.success = true;
         // Real token cost isn't available from generateAIText — token-wallet
         // metering is a later billing task, so this is left unestimated.

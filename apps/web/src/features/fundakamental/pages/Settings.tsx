@@ -363,7 +363,7 @@ const Settings = () => {
                         {isPro ? "Premium ✦" : "Free Plan"}
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        {isPro ? "Unlimited AI reports" : "5 AI reports per month"}
+                        {isPro ? "500K AI tokens per month" : "60K AI tokens per month"}
                       </p>
                     </div>
                     <span className="px-3 py-1 rounded-full bg-secondary text-sm text-muted-foreground">
@@ -385,7 +385,7 @@ const Settings = () => {
                     )
                   ) : (
                     <div className="text-sm text-muted-foreground">
-                      Free plan includes 5 AI reports per month.
+                      Free plan includes 60K AI tokens per month.
                     </div>
                   )}
                 </div>
@@ -443,11 +443,11 @@ const Settings = () => {
                           Upgrade to Premium
                         </h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                          Unlimited reports, stock scanner, Q&amp;A, and more
+                          500K AI tokens, stock scanner, Q&amp;A, and more
                         </p>
                         <ul className="space-y-2 mb-4">
                           {[
-                            "Unlimited analysis reports",
+                            "500K AI tokens every month",
                             "Stock screening engine",
                             "Interactive Q&A",
                             "PDF export",

@@ -139,7 +139,8 @@ const NewAnalysis = () => {
 
   /** Poll the report until the background analysis completes or fails. */
   const waitForReport = async (reportId: string) => {
-    const deadline = Date.now() + 5 * 60 * 1000;
+    // A report takes 1-3 minutes; allow for one server-side retry on top.
+    const deadline = Date.now() + 8 * 60 * 1000;
     while (Date.now() < deadline) {
       await new Promise((r) => setTimeout(r, 4000));
       const status = await api.analysis.getAnalysisStatus(reportId);

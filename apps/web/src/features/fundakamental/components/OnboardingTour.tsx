@@ -62,7 +62,7 @@ const STEPS: Step[] = [
     target: "upgrade-card",
     eyebrow: "Start free, forever",
     title: "You're on the Free plan — genuinely useful",
-    desc: "5 full AI reports every month, your watchlist, and portfolio basics cost nothing. Upgrade only when you want unlimited research and the Pro tools.",
+    desc: "60K free AI tokens every month (a few full reports), your watchlist, and portfolio basics cost nothing. Upgrade only when you want unlimited research and the Pro tools.",
     placement: "right",
     next: "Start researching",
   },

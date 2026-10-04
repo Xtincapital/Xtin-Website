@@ -86,10 +86,15 @@ const DashboardLayout = ({ children }: SidebarProps) => {
   const fetchWallet = usePlanStore((s) => s.fetchWallet);
   const openBuyTokens = usePlanStore((s) => s.openBuyTokens);
 
-  // Refresh the AI token balance when the dashboard mounts.
+  const refreshPlan = usePlanStore((s) => s.refreshPlan);
+
+  // Refresh the plan and AI token balance when the dashboard mounts. The plan
+  // used to be read only after a checkout, so every Pro/bundle customer saw
+  // "Free Plan" and gated tools again after any reload.
   useEffect(() => {
+    refreshPlan();
     fetchWallet();
-  }, [fetchWallet]);
+  }, [refreshPlan, fetchWallet]);
 
   return (
     <>
@@ -179,7 +184,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
                 <span className="text-sm font-semibold text-foreground capitalize">Free Plan</span>
               </div>
               <p className="text-xs text-muted-foreground mb-3">
-                5 AI reports included every month
+                60K AI tokens included every month
               </p>
               <Button
                 size="sm"

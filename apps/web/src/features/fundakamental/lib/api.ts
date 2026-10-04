@@ -189,7 +189,8 @@ export const stockApi = {
       method: 'POST',
       body: JSON.stringify(filters),
     });
-    return data.results || [];
+    // Keep returning the rows (callers rely on that) but carry the sample flag along.
+    return Object.assign(data.results || [], { sampleData: data.sample_data === true });
   },
 
   getTechnicalIndicators: async (ticker: string, period: string = '1y', includeSignals: boolean = false) => {

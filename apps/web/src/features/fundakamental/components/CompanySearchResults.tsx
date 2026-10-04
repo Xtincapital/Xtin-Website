@@ -16,7 +16,7 @@ interface Company {
   pe_ratio: number | null;
   revenue_growth: number | null;
   profit_margin: number | null;
-  market_cap: string;
+  market_cap: string | number;
 }
 
 interface CompanySearchResultsProps {
@@ -27,6 +27,26 @@ interface CompanySearchResultsProps {
 
 const fmt = (v: number | null | undefined, suffix: string) =>
   v === null || v === undefined || Number.isNaN(Number(v)) ? "—" : `${Number(v).toFixed(1)}${suffix}`;
+
+// Indian listings (.NS / .BO) price in rupees; everything else we list is USD.
+const currencySymbol = (ticker: string) => (/\.(NS|BO)$/i.test(ticker) ? "₹" : "$");
+
+// funda_stocks stores market cap as a raw number string; show it compactly.
+function formatMarketCap(value: string | number | null | undefined, symbol: string): string {
+  if (value === null || value === undefined || value === "") return "";
+  const n = Number(value);
+  if (Number.isNaN(n)) return String(value);
+  if (n <= 0) return "";
+  if (symbol === "₹") {
+    if (n >= 1e12) return `₹${(n / 1e12).toFixed(2)}L Cr`;
+    if (n >= 1e7) return `₹${Math.round(n / 1e7).toLocaleString("en-IN")} Cr`;
+    return `₹${n.toLocaleString("en-IN")}`;
+  }
+  if (n >= 1e12) return `$${(n / 1e12).toFixed(2)}T`;
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `$${(n / 1e6).toFixed(0)}M`;
+  return `$${n.toLocaleString("en-US")}`;
+}
 
 const CompanySearchResults = ({
   query,
@@ -97,96 +117,79 @@ const CompanySearchResults = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-3"
+      className="space-y-1.5"
     >
-      <p className="text-sm text-muted-foreground">
-        Found {filteredCompanies.length} results
+      <p className="text-xs text-muted-foreground px-1">
+        {filteredCompanies.length} {filteredCompanies.length === 1 ? "company" : "companies"} found
       </p>
 
-      {filteredCompanies.map((company) => (
-        <motion.div
-          key={company.ticker}
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          whileHover={{ y: -2 }}
-          className="p-4 rounded-lg bg-secondary/50 border border-border hover:border-primary/30 cursor-pointer transition-colors"
-          onClick={() => setSelectedCompany(company)}
-        >
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-medium text-foreground">{company.name}</h3>
-                <span className="px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-semibold">
-                  {company.ticker}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground">{company.sector}</p>
-            </div>
-            <div className="text-right">
-              {company.price > 0 && (
-                <>
-                  <div className="text-lg font-bold text-foreground">
-                    {company.price.toFixed(2)}
-                  </div>
-                  <div
-                    className={`flex items-center justify-end gap-1 text-xs font-medium ${
-                      company.change_percent >= 0 ? "text-success" : "text-destructive"
-                    }`}
-                  >
-                    {company.change_percent >= 0 ? (
-                      <TrendingUp className="w-3 h-3" />
-                    ) : (
-                      <TrendingDown className="w-3 h-3" />
-                    )}
-                    {Math.abs(company.change_percent).toFixed(2)}%
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
+      {filteredCompanies.map((company) => {
+        const symbol = currencySymbol(company.ticker);
+        const marketCap = formatMarketCap(company.market_cap, symbol);
+        const metrics = [
+          company.pe_ratio != null ? `P/E ${fmt(company.pe_ratio, "x")}` : "",
+          company.revenue_growth != null ? `Rev ${fmt(company.revenue_growth, "%")}` : "",
+          company.profit_margin != null ? `Margin ${fmt(company.profit_margin, "%")}` : "",
+          marketCap ? `Mkt cap ${marketCap}` : "",
+        ].filter(Boolean);
 
-          {/* Key Metrics Grid */}
-          <div className="grid grid-cols-4 gap-2 mb-3">
-            <div className="p-2 bg-background/50 rounded">
-              <p className="text-xs text-muted-foreground">P/E</p>
-              <p className="text-sm font-semibold text-foreground">
-                {fmt(company.pe_ratio, "x")}
-              </p>
-            </div>
-            <div className="p-2 bg-background/50 rounded">
-              <p className="text-xs text-muted-foreground">Rev Growth</p>
-              <p className="text-sm font-semibold text-foreground">
-                {fmt(company.revenue_growth, "%")}
-              </p>
-            </div>
-            <div className="p-2 bg-background/50 rounded">
-              <p className="text-xs text-muted-foreground">Margin</p>
-              <p className="text-sm font-semibold text-foreground">
-                {fmt(company.profit_margin, "%")}
-              </p>
-            </div>
-            <div className="p-2 bg-background/50 rounded">
-              <p className="text-xs text-muted-foreground">Market Cap</p>
-              <p className="text-sm font-semibold text-foreground">
-                {company.market_cap || "—"}
-              </p>
-            </div>
-          </div>
-
-          {/* Action Button */}
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
+        return (
+          <motion.div
+            key={company.ticker}
+            whileHover={{ y: -1 }}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary/50 border border-border hover:border-primary/30 cursor-pointer transition-colors"
+            onClick={() => {
+              setSelectedCompany(company);
               onAnalyze(company);
             }}
-            className="w-full bg-primary text-white hover:bg-primary/90 text-xs h-8"
           >
-            Analyze This Company
-          </Button>
-        </motion.div>
-      ))}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-semibold shrink-0">
+                  {company.ticker}
+                </span>
+                <h3 className="font-medium text-sm text-foreground truncate">{company.name}</h3>
+              </div>
+              <p className="text-xs text-muted-foreground truncate mt-0.5">
+                {[company.sector, ...metrics].filter(Boolean).join(" · ") || "Click to analyze"}
+              </p>
+            </div>
+
+            {company.price > 0 && (
+              <div className="text-right shrink-0">
+                <div className="text-sm font-semibold text-foreground">
+                  {symbol}
+                  {company.price.toFixed(2)}
+                </div>
+                <div
+                  className={`flex items-center justify-end gap-0.5 text-[11px] font-medium ${
+                    company.change_percent >= 0 ? "text-success" : "text-destructive"
+                  }`}
+                >
+                  {company.change_percent >= 0 ? (
+                    <TrendingUp className="w-3 h-3" />
+                  ) : (
+                    <TrendingDown className="w-3 h-3" />
+                  )}
+                  {Math.abs(company.change_percent).toFixed(2)}%
+                </div>
+              </div>
+            )}
+
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                onAnalyze(company);
+              }}
+              className="bg-primary text-white hover:bg-primary/90 text-xs h-8 px-3 shrink-0"
+            >
+              Analyze
+            </Button>
+          </motion.div>
+        );
+      })}
     </motion.div>
   );
 };

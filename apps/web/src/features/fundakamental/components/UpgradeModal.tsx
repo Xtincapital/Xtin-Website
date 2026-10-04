@@ -32,7 +32,7 @@ import RegionSwitcher from "./RegionSwitcher";
 const REASON_COPY: Record<UpgradeReason, { title: string; sub: string }> = {
   reports: {
     title: "You've used your free reports this month",
-    sub: "Pro gives you unlimited AI research reports — analyse every company on your watchlist, not just five.",
+    sub: "Pro gives you 500K AI tokens every month — analyse far more companies, and top up any time you need more.",
   },
   screener: {
     title: "Find winners before the crowd",
@@ -60,12 +60,12 @@ const REASON_COPY: Record<UpgradeReason, { title: string; sub: string }> = {
   },
   general: {
     title: "Research like an institution",
-    sub: "Unlimited reports, the full screener, advanced technicals and PDF exports — the complete toolkit.",
+    sub: "500K monthly AI tokens, the full screener, advanced technicals and PDF exports — the complete toolkit.",
   },
 };
 
 const PRO_FEATURES = [
-  "Unlimited AI research reports",
+  "500K AI tokens every month (top-ups available)",
   "Full stock screener (50+ filters)",
   "Advanced technical indicators",
   "Interactive Q&A on any filing",

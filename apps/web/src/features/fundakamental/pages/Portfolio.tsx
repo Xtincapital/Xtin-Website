@@ -62,6 +62,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -146,6 +156,7 @@ const Portfolio = () => {
   const [, setPortfolios] = useState<Portfolio[]>([]);
   const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio | null>(null);
   const [holdings, setHoldings] = useState<Holding[]>([]);
+  const [holdingToRemove, setHoldingToRemove] = useState<Holding | null>(null);
   const [summary, setSummary] = useState<PortfolioSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -387,7 +398,6 @@ const Portfolio = () => {
 
   const handleDeleteHolding = async (holding: Holding) => {
     if (!selectedPortfolio) return;
-    if (!window.confirm(`Remove ${holding.company_name || holding.ticker} from your portfolio?`)) return;
     try {
       await api.portfolio.deleteHolding(selectedPortfolio.id, holding.ticker);
       toast({ title: "Removed", description: `${holding.company_name || holding.ticker} removed.` });
@@ -818,7 +828,7 @@ const Portfolio = () => {
                         </td>
                         <td className="py-4 px-2 text-right">
                           <button
-                            onClick={() => handleDeleteHolding(holding)}
+                            onClick={() => setHoldingToRemove(holding)}
                             className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                             title="Remove holding"
                           >
@@ -834,6 +844,28 @@ const Portfolio = () => {
           )}
         </motion.div>
       </div>
+      <AlertDialog open={!!holdingToRemove} onOpenChange={(open) => !open && setHoldingToRemove(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove from portfolio?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {holdingToRemove?.company_name || holdingToRemove?.ticker} and its transactions will be removed from this portfolio.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                const h = holdingToRemove;
+                setHoldingToRemove(null);
+                if (h) handleDeleteHolding(h);
+              }}
+            >
+              Remove
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </DashboardLayout>
   );
 };

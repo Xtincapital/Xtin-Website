@@ -25,7 +25,23 @@ export function getAIProviderInfo() {
   return { provider: 'OpenAI', model: 'gpt-3.5-turbo' };
 }
 
-export async function generateAIText({ messages, maxTokens = 400, temperature = 0.7 }) {
+export interface AITextResult {
+  text: string;
+  /** Claude's stop_reason ("max_tokens" means the reply was cut off); undefined on Groq/OpenAI. */
+  stopReason?: string;
+}
+
+export async function generateAIText(params: GenerateAITextParams): Promise<string> {
+  return (await generateAITextWithMeta(params)).text;
+}
+
+interface GenerateAITextParams {
+  messages: any[];
+  maxTokens?: number;
+  temperature?: number;
+}
+
+export async function generateAITextWithMeta({ messages, maxTokens = 400, temperature = 0.7 }: GenerateAITextParams): Promise<AITextResult> {
   if (process.env.ANTHROPIC_API_KEY) {
     const systemPrompt = messages
       .filter((message) => message.role === 'system')
@@ -62,11 +78,14 @@ export async function generateAIText({ messages, maxTokens = 400, temperature = 
       throw new Error(message);
     }
 
-    return data.content
-      .filter((block) => block.type === 'text')
-      .map((block) => block.text)
-      .join('\n')
-      .trim();
+    return {
+      text: data.content
+        .filter((block) => block.type === 'text')
+        .map((block) => block.text)
+        .join('\n')
+        .trim(),
+      stopReason: data.stop_reason,
+    };
   }
 
   const providerInfo = getAIProviderInfo();
@@ -77,7 +96,7 @@ export async function generateAIText({ messages, maxTokens = 400, temperature = 
     temperature,
   });
 
-  return response.choices[0].message.content.trim();
+  return { text: response.choices[0].message.content.trim() };
 }
 
 export interface AIUsage {

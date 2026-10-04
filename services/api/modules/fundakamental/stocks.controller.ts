@@ -15,10 +15,16 @@ import { getMarketStreamerStats } from "./marketStream.js";
 
 const STALE_MS = 60 * 60 * 1000; // 1 hour — matches the Python source's staleness window
 
-function formatMarketCap(marketCap: unknown): string {
+function formatMarketCap(marketCap: unknown, market: "india" | "us" = "us"): string {
     if (marketCap === null || marketCap === undefined || marketCap === "") return "N/A";
     const mc = Number(marketCap);
     if (Number.isNaN(mc)) return String(marketCap);
+    if (market === "india") {
+        // Indian convention: crore (1e7) and lakh crore (1e12).
+        if (mc >= 1e12) return `₹${(mc / 1e12).toFixed(2)}L Cr`;
+        if (mc >= 1e7) return `₹${Math.round(mc / 1e7).toLocaleString("en-IN")} Cr`;
+        return `₹${mc.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
+    }
     if (mc >= 1_000_000_000_000) return `$${(mc / 1_000_000_000_000).toFixed(1)}T`;
     if (mc >= 1_000_000_000) return `$${(mc / 1_000_000_000).toFixed(1)}B`;
     if (mc >= 1_000_000) return `$${(mc / 1_000_000).toFixed(1)}M`;
@@ -138,7 +144,7 @@ export const runStockScreener = async (req, res) => {
             company: stock.name || "",
             sector: stock.sector || "",
             price: Number(stock.price || 0),
-            market_cap: formatMarketCap(stock.market_cap),
+            market_cap: formatMarketCap(stock.market_cap, market === "us" ? "us" : "india"),
             pe_ratio: Number(stock.pe_ratio || 0),
             revenue_growth: Number(stock.revenue_growth || 0),
             profit_margin: Number(stock.profit_margin || 0),
@@ -149,6 +155,8 @@ export const runStockScreener = async (req, res) => {
             total: results.total_count || 0,
             results: stockResults,
             filters_applied: filters,
+            // true when funda_stocks is empty and the built-in sample universe answered
+            sample_data: results.sample_data === true,
         });
     } catch (err) {
         console.error("[Fundakamental] screener failed:", err);
