@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -26,8 +26,9 @@ const GratuityCalculator = () => {
 
     // Clear the old result so it is never shown next to inputs it wasn't computed from.
     const valid = salary > 0 && serviceYears > 0;
-    setError(valid ? "" : "Salary and years of service must be greater than 0.");
-    if (!valid) {
+    const problem = valid ? limitProblem({ amount: salary, years: serviceYears }) : "Salary and years of service must be greater than 0.";
+    setError(problem);
+    if (problem) {
       setGratuity(null);
       setChartData([]);
       return;

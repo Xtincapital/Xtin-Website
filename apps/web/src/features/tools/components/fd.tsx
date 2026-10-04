@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { pieValueLabel, moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -39,8 +39,9 @@ const FDCalculator = () => {
 
     // Clear the old result so it is never shown next to inputs it wasn't computed from.
     const valid = P > 0 && r > 0 && t > 0;
-    setError(valid ? "" : "Amount, rate and period must all be greater than 0.");
-    if (!valid) {
+    const problem = valid ? limitProblem({ amount: P, rate: r, years: t }) : "Amount, rate and period must all be greater than 0.";
+    setError(problem);
+    if (problem) {
       setFutureValue(null);
       setChartData([]);
       return;

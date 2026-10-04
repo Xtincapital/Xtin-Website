@@ -3,7 +3,7 @@ import useRegion from "../../../hooks/useRegion";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -20,7 +20,7 @@ import {
 
 const LumpsumCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [principal, setPrincipal] = useState("100,000");
+  const [principal, setPrincipal] = useState("1,00,000");
   const [annualRate, setAnnualRate] = useState("12");
   const [years, setYears] = useState("10");
   const [futureValue, setFutureValue] = useState(null);
@@ -39,8 +39,9 @@ const LumpsumCalculator = () => {
 
     // Clear the old result so it is never shown next to inputs it wasn't computed from.
     const valid = P > 0 && annualRateValue > 0 && yearsValue > 0;
-    setError(valid ? "" : "Amount, rate and period must all be greater than 0.");
-    if (!valid) {
+    const problem = valid ? limitProblem({ amount: P, rate: annualRateValue, years: yearsValue }) : "Amount, rate and period must all be greater than 0.";
+    setError(problem);
+    if (problem) {
       setFutureValue(null);
       setChartData([]);
       return;

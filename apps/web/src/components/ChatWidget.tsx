@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useTheme } from '../contexts/ThemeContext';
+import { useIsMobile } from '../hooks/use-mobile';
 
 // Use the app-wide backend URL (VITE_BACKEND_URL) so the chatbot hits the
 // deployed backend in production, falling back to localhost for dev.
@@ -21,6 +22,9 @@ const API_BASE = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:5002';
  */
 function ChatWidget() {
   const { isDark } = useTheme();
+  // On phones the text pill covers page content, so show a small round icon instead.
+  const isMobile = useIsMobile();
+  const edge = isMobile ? 16 : 24;
   const [open, setOpen] = useState(false);
   
   // Load messages from sessionStorage on mount (persists during tab session, clears on close)
@@ -233,21 +237,36 @@ function ChatWidget() {
       {/* Toggle Button */}
       <button
         onClick={() => setOpen((v) => !v)}
+        aria-label={open ? 'Close XtinAI' : 'Chat with XtinAI'}
+        aria-expanded={open}
         style={{
           position: 'fixed',
-          bottom: 24,
-          right: 24,
+          bottom: edge,
+          right: edge,
           zIndex: 1000,
           background: palette.launcherBg,
           color: palette.launcherText,
           borderRadius: '9999px',
-          padding: '12px 16px',
+          padding: isMobile ? 0 : '12px 16px',
+          width: isMobile ? 48 : undefined,
+          height: isMobile ? 48 : undefined,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
           border: 'none',
           cursor: 'pointer',
         }}
       >
-        {open ? 'Close XtinAI' : 'Chat with XtinAI'}
+        {isMobile ? (
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {open ? (
+              <path d="M18 6 6 18M6 6l12 12" />
+            ) : (
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            )}
+          </svg>
+        ) : open ? 'Close XtinAI' : 'Chat with XtinAI'}
       </button>
 
       {/* Panel */}
@@ -255,8 +274,8 @@ function ChatWidget() {
         <div
           style={{
             position: 'fixed',
-            bottom: 88,
-            right: 24,
+            bottom: edge + 64,
+            right: edge,
             width: 360,
             maxWidth: '90vw',
             height: 520,

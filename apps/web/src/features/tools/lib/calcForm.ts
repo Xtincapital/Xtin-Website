@@ -95,6 +95,22 @@ export function useCalcForm(onCalculate: () => void) {
   return { onKeyDown, onInputCapture };
 }
 
+// ── Input limits ──────────────────────────────────────────────────────────
+
+/** Beyond these, results are 20-digit numbers that mean nothing. */
+export const LIMITS = { amount: 1e10, ratePct: 50, years: 60 };
+
+/**
+ * Message for the first input above LIMITS, or "" if all are within them.
+ * `rate` is an annual rate as a fraction (0.12 for 12%).
+ */
+export function limitProblem({ amount, rate, years }: { amount?: number; rate?: number; years?: number }) {
+  if (amount !== undefined && amount > LIMITS.amount) return "Amount can't be more than 10,00,00,00,000 (1,000 crore).";
+  if (rate !== undefined && rate * 100 > LIMITS.ratePct) return `Rate can't be more than ${LIMITS.ratePct}% a year.`;
+  if (years !== undefined && years > LIMITS.years) return `Period can't be more than ${LIMITS.years} years.`;
+  return "";
+}
+
 // ── Charts ────────────────────────────────────────────────────────────────
 
 /** Compact axis label: 12,500 → 12.5k, 4,50,000 → 4.5L, 2.1Cr. */

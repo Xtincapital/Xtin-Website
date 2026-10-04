@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -43,14 +43,13 @@ const ELSSCalculator = () => {
     // (A lumpsum may use a 0% rate; the SIP formula divides by the rate.)
     const rateOk = investmentType === "sip" ? annualRateValue > 0 : annualRateValue >= 0;
     const valid = P > 0 && rateOk && yearsValue > 0;
-    setError(
-      valid
-        ? ""
-        : investmentType === "sip"
-          ? "Amount, return rate and period must all be greater than 0."
-          : "Amount and period must be greater than 0, and the return rate can't be negative."
-    );
-    if (!valid) {
+    const problem = valid
+      ? limitProblem({ amount: P, rate: annualRateValue, years: yearsValue })
+      : investmentType === "sip"
+        ? "Amount, return rate and period must all be greater than 0."
+        : "Amount and period must be greater than 0, and the return rate can't be negative.";
+    setError(problem);
+    if (problem) {
       setFutureValue(null);
       setChartData([]);
       return;

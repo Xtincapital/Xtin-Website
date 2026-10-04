@@ -20,7 +20,7 @@ import {
 const SWPCalculator = () => {
   const { symbol: sym } = useRegion();
   const [swpMode, setSwpMode] = useState("duration"); // "duration" or "balance"
-  const [principal, setPrincipal] = useState("1,000,000");
+  const [principal, setPrincipal] = useState("10,00,000");
   const [withdrawal, setWithdrawal] = useState("5,000");
   const [annualRate, setAnnualRate] = useState("8");
   const [tenure, setTenure] = useState("10");

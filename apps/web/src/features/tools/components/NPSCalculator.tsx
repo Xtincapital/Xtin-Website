@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,
@@ -54,6 +54,7 @@ const NPSCalculator = () => {
     else if (!(P > 0)) problem = "Monthly investment must be greater than 0.";
     else if (!(annualRateValue > 0)) problem = "Expected return must be greater than 0%.";
     else if (!(parseFloat(annuityReturn) >= 0)) problem = "Annuity return can't be negative.";
+    else problem = limitProblem({ amount: P, rate: Math.max(annualRateValue, parseFloat(annuityReturn) / 100) });
     setError(problem);
     if (problem) {
       setResults(null);

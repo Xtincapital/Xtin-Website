@@ -8,7 +8,7 @@ const NotFound = () => {
   return (
     <div className="bg-white text-gray-800">
       <SEO
-        title="Page Not Found - 404 Error | Xtin Capital"
+        title="Page Not Found - 404 Error"
         description="The page you're looking for doesn't exist. Return to Xtin Capital and explore our financial tools and advisory services."
         canonicalUrl="/404"
         noIndex={true}

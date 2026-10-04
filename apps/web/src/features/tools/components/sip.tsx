@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { moneyTooltip } from "../lib/format";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import SEO, { generateToolData } from "../../../components/SEO";
 import useRegion from "../../../hooks/useRegion";
 import {
@@ -46,8 +46,9 @@ const SIPCalculator = () => {
     // Clear the old result so it is never shown next to inputs it wasn't computed from.
     let problem = "";
     if (!(P > 0)) problem = "Monthly investment must be greater than 0.";
-    else if (!(annualRateValue > 0)) problem = "Expected return must be greater than 0%.";
+    else if (!(annualRateValue >= 0)) problem = "Expected return can't be negative.";
     else if (!(yearsValue > 0)) problem = "Investment period must be greater than 0 years.";
+    else problem = limitProblem({ amount: P, rate: annualRateValue, years: yearsValue });
     setError(problem);
     if (problem) {
       setFutureValue(null);
@@ -55,14 +56,16 @@ const SIPCalculator = () => {
       return;
     }
 
-    if (P > 0 && annualRateValue > 0 && yearsValue > 0) {
+    if (P > 0 && annualRateValue >= 0 && yearsValue > 0) {
       // Monthly rate = annual rate / 12 — the standard SIP formula used by
       // Groww, ET Money and AMFI calculators, so results match what users see
       // elsewhere. FV = P × [((1 + r)^n − 1) / r] × (1 + r).
       const r = annualRateValue / 12;
       const n = yearsValue * 12;
+      // At 0% the formula divides by zero; the value is just what was paid in.
+      const fv = (months: number) => (r === 0 ? P * months : P * ((Math.pow(1 + r, months) - 1) / r) * (1 + r));
 
-      const M = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+      const M = fv(n);
       setFutureValue(
         M.toLocaleString("en-IN", {
           maximumFractionDigits: 2,
@@ -72,8 +75,7 @@ const SIPCalculator = () => {
 
       const data = [{ year: 0, value: 0 }];
       for (let i = 1; i <= yearsValue; i++) {
-        const n_i = i * 12;
-        const value = P * ((Math.pow(1 + r, n_i) - 1) / r) * (1 + r);
+        const value = fv(i * 12);
         data.push({ year: i, value: Number(value.toFixed(2)) });
       }
       setChartData(data);

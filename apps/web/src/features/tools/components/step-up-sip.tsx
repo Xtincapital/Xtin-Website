@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import {
   LineChart,
@@ -43,8 +43,9 @@ const StepUpSIPCalculator = () => {
  
      // Clear the old result so it is never shown next to inputs it wasn't computed from.
      const valid = P > 0 && annual_increase_percentage >= 0 && r > 0 && t > 0;
-     setError(valid ? "" : "Amount, return rate and period must be greater than 0, and the step-up can't be negative.");
-     if (!valid) {
+     const problem = valid ? limitProblem({ amount: P, rate: annualRateValue, years: t }) : "Amount, return rate and period must be greater than 0, and the step-up can't be negative.";
+     setError(problem);
+     if (problem) {
        setFutureValue(null);
        setTotalInvestment(null);
        setChartData([]);

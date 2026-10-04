@@ -4,13 +4,13 @@ import Footer from "../../../components/Footer";
 import { useCalcForm } from "../lib/calcForm";
 
 const HRACalculator = () => {
-  const [basicSalary, setBasicSalary] = useState("480,000");
+  const [basicSalary, setBasicSalary] = useState("4,80,000");
   const [dearnessAllowance, setDearnessAllowance] = useState("0");
-  const [hraReceived, setHraReceived] = useState("120,000");
-  const [rentPaid, setRentPaid] = useState("180,000");
+  const [hraReceived, setHraReceived] = useState("1,20,000");
+  const [rentPaid, setRentPaid] = useState("1,80,000");
   const [cityType, setCityType] = useState("metro");
 
-  const [exemptedHRA, setExemptedHRA] = useState<number | string>("120,000");
+  const [exemptedHRA, setExemptedHRA] = useState<number | string>("1,20,000");
   const [taxableHRA, setTaxableHRA] = useState<number | string>("0");
   const [calculationDetails, setCalculationDetails] = useState<{
     actualHRA: number | string;

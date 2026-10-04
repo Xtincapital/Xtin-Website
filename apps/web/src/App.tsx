@@ -301,6 +301,7 @@ const EstatePlanningLesson10 = lazy(() => import('./features/academy/pages/Estat
 const EstatePlanningLesson11 = lazy(() => import('./features/academy/pages/EstatePlanning/EstatePlanningLesson11'));
 const EstatePlanningLesson12 = lazy(() => import('./features/academy/pages/EstatePlanning/EstatePlanningLesson12'));
 import { ThemeProvider } from './contexts/ThemeContext';
+import { RouteMetaFallback } from './components/SEO';
 
 // Fallback shown while a lazy-loaded route chunk is fetched.
 const RouteLoadingFallback = () => (
@@ -657,6 +658,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>
+          {/* After <Routes> so a page's own <SEO> effect runs first. */}
+          <RouteMetaFallback />
         </Router>
         </CurrencyProvider>
       </ThemeProvider>
