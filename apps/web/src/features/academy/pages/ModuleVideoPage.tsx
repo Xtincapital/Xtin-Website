@@ -168,7 +168,8 @@ const ModuleVideoPage = () => {
   const toggleDone = (n: number) => {
     setProgress((p) => {
       const cur = new Set(p[slug]?.done || []);
-      cur.has(n) ? cur.delete(n) : cur.add(n);
+      if (cur.has(n)) cur.delete(n);
+      else cur.add(n);
       const next = { ...p, [slug]: { ...p[slug], done: [...cur].sort((a, b) => a - b) } };
       writeProgress(next);
       return next;

@@ -6,8 +6,9 @@ node_modules/
 .env.*
 !sample.env
 
-# Runtime data (token blacklist persistence, etc.)
-data/
+# Runtime data (token blacklist persistence, etc.) — but keep source files in data/
+data/*
+!data/premiumVideoIds.ts
 
 # Logs
 *.log

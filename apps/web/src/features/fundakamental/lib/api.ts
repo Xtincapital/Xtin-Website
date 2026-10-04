@@ -171,7 +171,8 @@ export const analysisApi = {
 
   searchCompany: async (query: string) => {
     const data = await request(`/stocks/search?query=${encodeURIComponent(query)}`);
-    return data.results || [];
+    // The backend responds with a bare array (stocks.controller.ts searchCompanies).
+    return Array.isArray(data) ? data : data?.results || [];
   },
 };
 

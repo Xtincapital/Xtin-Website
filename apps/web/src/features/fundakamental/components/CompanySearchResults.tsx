@@ -1,20 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { TrendingUp, TrendingDown, Search } from "lucide-react";
+import { api } from "../lib/api";
 
+// Shape returned by GET /api/fundakamental/stocks/search. Metrics are null
+// (and price 0) for companies that only came from Yahoo's name search.
 interface Company {
-  id: string;
-  name: string;
   ticker: string;
+  name: string;
   sector: string;
   price: number;
-  changePercent: number;
-  peRatio: number;
-  revenueGrowth: number;
-  profitMargin: number;
-  marketCap: string;
+  change_percent: number;
+  pe_ratio: number | null;
+  revenue_growth: number | null;
+  profit_margin: number | null;
+  market_cap: string;
 }
 
 interface CompanySearchResultsProps {
@@ -23,80 +25,8 @@ interface CompanySearchResultsProps {
   onAnalyze: (company: Company) => void;
 }
 
-const mockCompanies: Company[] = [
-  {
-    id: "1",
-    name: "Apple Inc.",
-    ticker: "AAPL",
-    sector: "Technology",
-    price: 225.5,
-    changePercent: 2.5,
-    peRatio: 28.5,
-    revenueGrowth: 2.8,
-    profitMargin: 25.5,
-    marketCap: "$2.8T",
-  },
-  {
-    id: "2",
-    name: "Microsoft Corporation",
-    ticker: "MSFT",
-    sector: "Technology",
-    price: 415.25,
-    changePercent: 1.8,
-    peRatio: 28.5,
-    revenueGrowth: 16.2,
-    profitMargin: 35.8,
-    marketCap: "$3.1T",
-  },
-  {
-    id: "3",
-    name: "NVIDIA Corporation",
-    ticker: "NVDA",
-    sector: "Technology",
-    price: 880.25,
-    changePercent: 3.2,
-    peRatio: 65.2,
-    revenueGrowth: 126.0,
-    profitMargin: 52.1,
-    marketCap: "$2.2T",
-  },
-  {
-    id: "4",
-    name: "Alphabet Inc.",
-    ticker: "GOOGL",
-    sector: "Technology",
-    price: 178.9,
-    changePercent: -0.5,
-    peRatio: 22.5,
-    revenueGrowth: 11.0,
-    profitMargin: 24.0,
-    marketCap: "$2.2T",
-  },
-  {
-    id: "5",
-    name: "Amazon.com Inc.",
-    ticker: "AMZN",
-    sector: "Consumer Discretionary",
-    price: 195.8,
-    changePercent: 2.1,
-    peRatio: 42.3,
-    revenueGrowth: 10.5,
-    profitMargin: 3.2,
-    marketCap: "$2.0T",
-  },
-  {
-    id: "6",
-    name: "Tesla Inc.",
-    ticker: "TSLA",
-    sector: "Industrials",
-    price: 285.2,
-    changePercent: -1.2,
-    peRatio: 35.8,
-    revenueGrowth: 1.8,
-    profitMargin: 10.5,
-    marketCap: "$900B",
-  },
-];
+const fmt = (v: number | null | undefined, suffix: string) =>
+  v === null || v === undefined || Number.isNaN(Number(v)) ? "—" : `${Number(v).toFixed(1)}${suffix}`;
 
 const CompanySearchResults = ({
   query,
@@ -104,15 +34,39 @@ const CompanySearchResults = ({
   onAnalyze,
 }: CompanySearchResultsProps) => {
   const [, setSelectedCompany] = useState<Company | null>(null);
+  const [results, setResults] = useState<Company[]>([]);
+  const [searching, setSearching] = useState(false);
 
-  // Filter companies based on query
-  const filteredCompanies = mockCompanies.filter(
-    (company) =>
-      company.name.toLowerCase().includes(query.toLowerCase()) ||
-      company.ticker.toLowerCase().includes(query.toLowerCase())
-  );
+  // Debounced lookup against the backend; `cancelled` drops stale responses
+  // so a slow earlier query can't overwrite a newer one.
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) {
+      setResults([]);
+      setSearching(false);
+      return;
+    }
+    let cancelled = false;
+    setSearching(true);
+    const timer = setTimeout(async () => {
+      try {
+        const found = await api.analysis.searchCompany(q);
+        if (!cancelled) setResults(found || []);
+      } catch (err) {
+        console.error("Company search failed:", err);
+        if (!cancelled) setResults([]);
+      } finally {
+        if (!cancelled) setSearching(false);
+      }
+    }, 300);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [query]);
 
-  const showLoading = isLoading;
+  const filteredCompanies = results;
+  const showLoading = isLoading || searching;
 
   if (showLoading) {
     return (
@@ -153,7 +107,7 @@ const CompanySearchResults = ({
 
       {filteredCompanies.map((company) => (
         <motion.div
-          key={company.id}
+          key={company.ticker}
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           whileHover={{ y: -2 }}
@@ -171,21 +125,25 @@ const CompanySearchResults = ({
               <p className="text-xs text-muted-foreground">{company.sector}</p>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold text-foreground">
-                ${company.price.toFixed(2)}
-              </div>
-              <div
-                className={`flex items-center justify-end gap-1 text-xs font-medium ${
-                  company.changePercent >= 0 ? "text-success" : "text-destructive"
-                }`}
-              >
-                {company.changePercent >= 0 ? (
-                  <TrendingUp className="w-3 h-3" />
-                ) : (
-                  <TrendingDown className="w-3 h-3" />
-                )}
-                {Math.abs(company.changePercent).toFixed(2)}%
-              </div>
+              {company.price > 0 && (
+                <>
+                  <div className="text-lg font-bold text-foreground">
+                    {company.price.toFixed(2)}
+                  </div>
+                  <div
+                    className={`flex items-center justify-end gap-1 text-xs font-medium ${
+                      company.change_percent >= 0 ? "text-success" : "text-destructive"
+                    }`}
+                  >
+                    {company.change_percent >= 0 ? (
+                      <TrendingUp className="w-3 h-3" />
+                    ) : (
+                      <TrendingDown className="w-3 h-3" />
+                    )}
+                    {Math.abs(company.change_percent).toFixed(2)}%
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -194,25 +152,25 @@ const CompanySearchResults = ({
             <div className="p-2 bg-background/50 rounded">
               <p className="text-xs text-muted-foreground">P/E</p>
               <p className="text-sm font-semibold text-foreground">
-                {company.peRatio.toFixed(1)}x
+                {fmt(company.pe_ratio, "x")}
               </p>
             </div>
             <div className="p-2 bg-background/50 rounded">
               <p className="text-xs text-muted-foreground">Rev Growth</p>
               <p className="text-sm font-semibold text-foreground">
-                {company.revenueGrowth.toFixed(1)}%
+                {fmt(company.revenue_growth, "%")}
               </p>
             </div>
             <div className="p-2 bg-background/50 rounded">
               <p className="text-xs text-muted-foreground">Margin</p>
               <p className="text-sm font-semibold text-foreground">
-                {company.profitMargin.toFixed(1)}%
+                {fmt(company.profit_margin, "%")}
               </p>
             </div>
             <div className="p-2 bg-background/50 rounded">
               <p className="text-xs text-muted-foreground">Market Cap</p>
               <p className="text-sm font-semibold text-foreground">
-                {company.marketCap || "N/A"}
+                {company.market_cap || "—"}
               </p>
             </div>
           </div>

@@ -139,38 +139,43 @@ export function calculateSummary(items: WatchlistItemRow[], currentPrices: Watch
         const targetPrice = item.target_price ? toNumber(item.target_price) : null;
 
         const priceInfo = currentPrices[ticker];
-        if (priceInfo && addedPrice > 0) {
-            const currentPrice = priceInfo.price ?? 0;
+        const currentPrice = priceInfo?.price ?? 0;
 
-            if (currentPrice > 0) {
+        // Tracked value and target proximity only need a live price. Items
+        // added without an entry price (added_price = N/A) used to be skipped
+        // here entirely, so the summary disagreed with the per-row display.
+        if (currentPrice > 0) {
+            trackedValue += currentPrice;
+
+            // % change needs a baseline, so it only counts when we know the entry price.
+            if (addedPrice > 0) {
                 const changePct = ((currentPrice - addedPrice) / addedPrice) * 100;
                 totalChangePct += changePct;
-                trackedValue += currentPrice;
-
                 performers.push({ ticker, change_pct: changePct, current_price: currentPrice });
+            }
 
-                if (targetPrice) {
-                    const targetType = item.target_price_type || "ALERT";
-                    const distancePct = Math.abs((targetPrice - currentPrice) / currentPrice) * 100;
-                    totalTargetDistance += distancePct;
+            if (targetPrice) {
+                const targetType = item.target_price_type || "ALERT";
+                const distancePct = Math.abs((targetPrice - currentPrice) / currentPrice) * 100;
+                totalTargetDistance += distancePct;
 
-                    if (targetType === "BUY") {
-                        if (currentPrice <= targetPrice) targetsHit += 1;
-                        else if (distancePct <= 5) targetsNear += 1;
-                    } else if (targetType === "SELL") {
-                        if (currentPrice >= targetPrice) targetsHit += 1;
-                        else if (distancePct <= 5) targetsNear += 1;
-                    } else {
-                        // ALERT
-                        if (distancePct <= 1) targetsHit += 1;
-                        else if (distancePct <= 5) targetsNear += 1;
-                    }
+                if (targetType === "BUY") {
+                    if (currentPrice <= targetPrice) targetsHit += 1;
+                    else if (distancePct <= 5) targetsNear += 1;
+                } else if (targetType === "SELL") {
+                    if (currentPrice >= targetPrice) targetsHit += 1;
+                    else if (distancePct <= 5) targetsNear += 1;
+                } else {
+                    // ALERT
+                    if (distancePct <= 1) targetsHit += 1;
+                    else if (distancePct <= 5) targetsNear += 1;
                 }
             }
         }
     }
 
-    const avgChangePct = totalItems > 0 ? totalChangePct / totalItems : 0.0;
+    // Average only over items that have a baseline; dividing by every item would drag it toward 0.
+    const avgChangePct = performers.length > 0 ? totalChangePct / performers.length : 0.0;
     const avgTargetDistance = totalItems > 0 ? totalTargetDistance / totalItems : 0.0;
 
     const performersSorted = [...performers].sort((a, b) => b.change_pct - a.change_pct);
