@@ -9,7 +9,7 @@ Xtin Capital is a modern web application built with React and Node.js, designed 
 
 ## ✨ Features
 
-- **User Authentication**: Secure login and registration via Supabase Auth
+- **User Authentication**: Secure login and registration via Supabase Auth a
 - **Dashboard**: Interactive financial dashboard with data visualization
 - **Investment Tracking**: Monitor and manage investment portfolios
 - **Responsive Design**: Fully responsive UI that works on all devices
