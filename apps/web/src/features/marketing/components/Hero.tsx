@@ -101,7 +101,7 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-slate-100 mb-6">
-              World's Most Advanced{' '}
+              World Most Advanced{' '}
               <span className="text-green-600">Finance Ecosystem</span>
             </h1>
             
