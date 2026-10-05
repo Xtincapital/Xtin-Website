@@ -458,7 +458,7 @@ export default function Goals() {
               <div className="space-y-1.5">
                 <Label>Category</Label>
                 <Select value={form.category} onValueChange={(v) => setField("category", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Category">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -498,7 +498,7 @@ export default function Goals() {
               <div className="space-y-1.5">
                 <Label>Priority</Label>
                 <Select value={form.priority} onValueChange={(v) => setField("priority", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Priority">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -549,7 +549,7 @@ export default function Goals() {
               <div className="space-y-1.5 sm:col-span-2">
                 <Label>Assigned To</Label>
                 <Select value={form.assigned_to} onValueChange={(v) => setField("assigned_to", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Assigned To">
                     <SelectValue placeholder="Household" />
                   </SelectTrigger>
                   <SelectContent>

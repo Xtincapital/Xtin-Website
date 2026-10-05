@@ -449,7 +449,7 @@ export default function Family() {
                   }))
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger aria-label="Relationship">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

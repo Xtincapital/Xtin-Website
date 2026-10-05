@@ -574,7 +574,7 @@ export default function FamilyPlanning() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-1.5">
                 <Label>Years Until Birth</Label>
-                <Input
+                <Input aria-label="Years Until Birth"
                   type="number"
                   min={0}
                   max={15}
@@ -584,7 +584,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>One-time Birth Costs</Label>
-                <Input
+                <Input aria-label="One-time Birth Costs"
                   type="number"
                   step={10000}
                   value={childCostForm.birthCosts}
@@ -593,7 +593,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Monthly Childcare Costs</Label>
-                <Input
+                <Input aria-label="Monthly Childcare Costs"
                   type="number"
                   step={1000}
                   value={childCostForm.monthlyCare}
@@ -602,7 +602,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Inflation Rate (%)</Label>
-                <Input
+                <Input aria-label="Inflation Rate (%)"
                   type="number"
                   step={0.5}
                   value={childCostForm.inflation}
@@ -655,7 +655,7 @@ export default function FamilyPlanning() {
                           {EDU_STAGES.map((stage) => (
                             <div key={stage.costKey} className="space-y-1">
                               <Label className="text-xs">{stage.label}</Label>
-                              <Input
+                              <Input aria-label={stage.label}
                                 type="number"
                                 step={10000}
                                 value={costs[stage.costKey]}
@@ -704,7 +704,7 @@ export default function FamilyPlanning() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-1.5">
                 <Label>Number of Weddings to Plan</Label>
-                <Input
+                <Input aria-label="Number of Weddings to Plan"
                   type="number"
                   min={0}
                   max={10}
@@ -714,7 +714,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Average Years Until Wedding</Label>
-                <Input
+                <Input aria-label="Average Years Until Wedding"
                   type="number"
                   min={0}
                   max={40}
@@ -724,7 +724,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Current Wedding Cost</Label>
-                <Input
+                <Input aria-label="Current Wedding Cost"
                   type="number"
                   step={100000}
                   value={weddingForm.weddingCost}
@@ -733,7 +733,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Inflation Rate (%)</Label>
-                <Input
+                <Input aria-label="Inflation Rate (%)"
                   type="number"
                   step={0.5}
                   value={weddingForm.inflation}
@@ -761,7 +761,7 @@ export default function FamilyPlanning() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-1.5">
                 <Label>Current Health Insurance Coverage</Label>
-                <Input
+                <Input aria-label="Current Health Insurance Coverage"
                   type="number"
                   step={100000}
                   value={insuranceForm.healthCurrent}
@@ -770,7 +770,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Recommended Coverage</Label>
-                <Input
+                <Input aria-label="Recommended Coverage"
                   type="number"
                   step={100000}
                   value={insuranceForm.healthRecommended}
@@ -779,7 +779,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Current Life Insurance</Label>
-                <Input
+                <Input aria-label="Current Life Insurance"
                   type="number"
                   step={500000}
                   value={insuranceForm.lifeCurrent}
@@ -788,7 +788,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Annual Income</Label>
-                <Input
+                <Input aria-label="Annual Income"
                   type="number"
                   step={100000}
                   value={insuranceForm.annualIncome}
@@ -819,7 +819,7 @@ export default function FamilyPlanning() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-1.5">
                 <Label>Monthly Family Expenses</Label>
-                <Input
+                <Input aria-label="Monthly Family Expenses"
                   type="number"
                   step={5000}
                   value={emergencyForm.monthlyExpenses}
@@ -832,7 +832,7 @@ export default function FamilyPlanning() {
                   value={emergencyForm.months}
                   onValueChange={(v) => setEmergencyForm((p) => ({ ...p, months: v }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Emergency Fund Months">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -846,7 +846,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Current Emergency Savings</Label>
-                <Input
+                <Input aria-label="Current Emergency Savings"
                   type="number"
                   step={10000}
                   value={emergencyForm.currentSavings}
@@ -855,7 +855,7 @@ export default function FamilyPlanning() {
               </div>
               <div className="space-y-1.5">
                 <Label>Time to Build Fund (months)</Label>
-                <Input
+                <Input aria-label="Time to Build Fund (months)"
                   type="number"
                   min={1}
                   max={60}

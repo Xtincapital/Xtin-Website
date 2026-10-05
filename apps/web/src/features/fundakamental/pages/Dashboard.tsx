@@ -29,6 +29,8 @@ import CompanySearchResults from "../components/CompanySearchResults";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "../lib/api";
+import { uploadProblem } from "../lib/validations";
+import { toast } from "sonner";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/hooks/use-market-data.ts
 // (note for whoever ports it: the WS URL there must be updated to this
@@ -132,8 +134,9 @@ const Dashboard = () => {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      if (file.size > 25 * 1024 * 1024) {
-        alert("File size exceeds 25MB limit.");
+      const problem = uploadProblem(file);
+      if (problem) {
+        toast.error(problem);
         return;
       }
       setSelectedFile(file);
@@ -143,8 +146,9 @@ const Dashboard = () => {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.size > 25 * 1024 * 1024) {
-        alert("File size exceeds 25MB limit.");
+      const problem = uploadProblem(file);
+      if (problem) {
+        toast.error(problem);
         return;
       }
       setSelectedFile(file);

@@ -14,6 +14,9 @@ import { refresh as refreshStockPipeline, type Market } from "./stockPipeline.js
 import { getMarketStreamerStats } from "./marketStream.js";
 
 const STALE_MS = 60 * 60 * 1000; // 1 hour — matches the Python source's staleness window
+// Search shows a saved price only if it is this fresh; an older one disagreed
+// with the live price shown elsewhere (price 0 hides it in the UI).
+const SEARCH_PRICE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 function formatMarketCap(marketCap: unknown, market: "india" | "us" = "us"): string {
     if (marketCap === null || marketCap === undefined || marketCap === "") return "N/A";
@@ -85,12 +88,13 @@ export const searchCompanies = async (req, res) => {
         for (const stock of dbResults || []) {
             if (stock.ticker) {
                 seen.add(baseSymbol(stock.ticker));
+                const fresh = Date.now() - new Date(stock.last_updated).getTime() < SEARCH_PRICE_MAX_AGE_MS;
                 combined.set(stock.ticker, {
                     ticker: stock.ticker,
                     name: stock.name || "",
                     sector: stock.sector || "",
-                    price: Number(stock.price || 0),
-                    change_percent: Number(stock.change_percent || 0),
+                    price: fresh ? Number(stock.price || 0) : 0,
+                    change_percent: fresh ? Number(stock.change_percent || 0) : 0,
                     pe_ratio: null,
                     revenue_growth: null,
                     profit_margin: null,

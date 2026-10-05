@@ -10,6 +10,7 @@
 // columns 1:1 (date, exit_date, entry_price, strike_price, ...).
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateTradeCreate, validateTradeUpdate, validateTradeListQuery } from "./trades.validator.js";
+import { computeTradePnl } from "./importParsers.js";
 import { insertTrade, getTradesByUser, getTradeById, updateTrade as updateTradeRepo, deleteTrade as deleteTradeRepo, deleteAllTrades } from "./trades.repository.js";
 
 /* POST /journal/trades */
@@ -21,7 +22,9 @@ export const createTrade = async (req, res) => {
     const userId = req.user.authId;
 
     try {
-        const { data, error } = await insertTrade({ ...validation.data, user_id: userId });
+        // A blank P&L is worked out from the prices, the same way CSV import does.
+        const trade = { ...validation.data, pnl: validation.data.pnl ?? computeTradePnl(validation.data) };
+        const { data, error } = await insertTrade({ ...trade, user_id: userId });
         if (error) throw error;
         if (!data || data.length === 0) {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Failed to create trade" });
@@ -80,7 +83,12 @@ export const updateTrade = async (req, res) => {
     }
 
     try {
-        const { data, error } = await updateTradeRepo(tradeId, req.user.authId, { ...validation.data, updated_at: new Date().toISOString() });
+        const changes = { ...validation.data };
+        // Only when this update carries all the prices; a partial edit (say, notes) leaves P&L alone.
+        if (changes.pnl == null && changes.quantity != null && changes.entry_price != null && changes.exit_price != null) {
+            changes.pnl = computeTradePnl(changes);
+        }
+        const { data, error } = await updateTradeRepo(tradeId, req.user.authId, { ...changes, updated_at: new Date().toISOString() });
         if (error) throw error;
         if (!data || data.length === 0) {
             return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Trade not found" });

@@ -116,3 +116,18 @@ export const companySearchSchema = z.object({
 });
 
 export type CompanySearchData = z.infer<typeof companySearchSchema>;
+
+// Same file types the server accepts (services/api/modules/fundakamental/fileProcessor.ts).
+// Checked in the browser too because drag-and-drop skips the file picker's `accept` filter.
+export const UPLOAD_EXTENSIONS = ['.pdf', '.xlsx', '.xls', '.csv'];
+const MAX_UPLOAD_MB = 25;
+
+/** Why this file can't be analysed, or null if it can. */
+export function uploadProblem(file: File): string | null {
+  const ext = file.name.includes('.') ? file.name.slice(file.name.lastIndexOf('.')).toLowerCase() : '';
+  if (!UPLOAD_EXTENSIONS.includes(ext)) {
+    return `"${file.name}" isn't supported. Upload a PDF, Excel (.xlsx, .xls) or CSV file.`;
+  }
+  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) return `"${file.name}" is larger than ${MAX_UPLOAD_MB}MB.`;
+  return null;
+}

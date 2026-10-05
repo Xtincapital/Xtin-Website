@@ -740,7 +740,7 @@ export default function NetWorth() {
               <div className="space-y-1.5">
                 <Label>Category</Label>
                 <Select value={assetForm.category} onValueChange={(v) => setAssetField("category", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Category">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -780,7 +780,7 @@ export default function NetWorth() {
               <div className="space-y-1.5">
                 <Label>Ownership Type</Label>
                 <Select value={assetForm.ownership_type} onValueChange={(v) => setAssetField("ownership_type", v as AssetOwnershipType)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Ownership Type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -795,7 +795,7 @@ export default function NetWorth() {
               <div className="space-y-1.5">
                 <Label>Owner</Label>
                 <Select value={assetForm.owner} onValueChange={(v) => setAssetField("owner", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Owner">
                     <SelectValue placeholder="Unassigned" />
                   </SelectTrigger>
                   <SelectContent>
@@ -856,7 +856,7 @@ export default function NetWorth() {
               <div className="space-y-1.5">
                 <Label>Type</Label>
                 <Select value={liabilityForm.type} onValueChange={(v) => setLiabilityField("type", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -922,7 +922,7 @@ export default function NetWorth() {
                   value={liabilityForm.ownership_type}
                   onValueChange={(v) => setLiabilityField("ownership_type", v as AssetOwnershipType)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Ownership Type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -937,7 +937,7 @@ export default function NetWorth() {
               <div className="space-y-1.5">
                 <Label>Primary Borrower</Label>
                 <Select value={liabilityForm.owner} onValueChange={(v) => setLiabilityField("owner", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Primary Borrower">
                     <SelectValue placeholder="Unassigned" />
                   </SelectTrigger>
                   <SelectContent>

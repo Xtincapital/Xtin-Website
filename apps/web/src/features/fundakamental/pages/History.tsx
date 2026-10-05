@@ -379,6 +379,7 @@ const History = () => {
                           disabled={isProcessing || isExporting}
                           onClick={() => handleDownload(report)}
                           title="Download PDF"
+                          aria-label={`Download PDF of ${report.company || "report"}`}
                         >
                           {isExporting ? (
                             <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
@@ -393,6 +394,7 @@ const History = () => {
                         className="h-9 w-9"
                         onClick={() => setPendingDelete(report)}
                         title="Delete report"
+                        aria-label={`Delete report for ${report.company || "this company"}`}
                       >
                         <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive" />
                       </Button>

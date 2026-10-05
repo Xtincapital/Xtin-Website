@@ -24,6 +24,20 @@
 import * as XLSX from "xlsx";
 import pdfParse from "pdf-parse";
 
+/** P&L of a closed trade, net of brokerage; null until quantity, entry and exit are all known.
+ * Used for CSV import and for trades saved without a P&L, so both give the same number. */
+export function computeTradePnl(t: {
+    buy_sell?: string | null;
+    quantity?: number | null;
+    entry_price?: number | null;
+    exit_price?: number | null;
+    brokerage?: number | null;
+}): number | null {
+    if (t.quantity == null || t.entry_price == null || t.exit_price == null) return null;
+    const gross = t.buy_sell === "sell" ? (t.entry_price - t.exit_price) * t.quantity : (t.exit_price - t.entry_price) * t.quantity;
+    return Math.round((gross - (t.brokerage ?? 0)) * 100) / 100;
+}
+
 export interface ParsedImportTrade {
     date: string;
     exit_date: string;
@@ -243,9 +257,7 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
         return null;
     }
 
-    const pnl = buySell === "buy"
-        ? (exitPrice - entryPrice) * quantity - brokerage
-        : (entryPrice - exitPrice) * quantity - brokerage;
+    const pnl = computeTradePnl({ buy_sell: buySell, quantity, entry_price: entryPrice, exit_price: exitPrice, brokerage })!;
 
     const tagsRaw = String(findValue(["tags", "labels"]) || "imported");
     const parsedTags = tagsRaw.split(",").map((t) => t.trim()).filter(Boolean);

@@ -134,7 +134,8 @@ const GiniApp = () => {
             toasters get their own. */}
         <div className="gini-scope">
           <Toaster />
-          <Sonner />
+          {/* Toasts sit above ChatWidget's round button (bottom-6, h-14) so they never cover it. */}
+          <Sonner offset={{ bottom: 96, right: 24 }} mobileOffset={{ bottom: 96 }} />
         </div>
         <Suspense fallback={null}>
           <Routes key={version}>

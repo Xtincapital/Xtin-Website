@@ -151,6 +151,20 @@ const EMPTY_FORM: TradeFormState = {
   emotion: "neutral",
 };
 
+// Same formula as CSV import (services/api/modules/journal/importParsers.ts).
+// Returns "" until quantity, entry and exit price are all filled in.
+function calcPnl(f: Pick<TradeFormState, "quantity" | "entry_price" | "exit_price" | "brokerage" | "buy_sell">): string {
+  const q = parseFloat(f.quantity);
+  const entry = parseFloat(f.entry_price);
+  const exit = parseFloat(f.exit_price);
+  if (!Number.isFinite(q) || !Number.isFinite(entry) || !Number.isFinite(exit)) return "";
+  const fees = parseFloat(f.brokerage) || 0;
+  const gross = f.buy_sell === "sell" ? (entry - exit) * q : (exit - entry) * q;
+  return String(Math.round((gross - fees) * 100) / 100);
+}
+
+const PNL_INPUTS = new Set<keyof TradeFormState>(["quantity", "entry_price", "exit_price", "brokerage", "buy_sell"]);
+
 function tradeToForm(trade: Trade): TradeFormState {
   return {
     date: trade.date || "",
@@ -257,6 +271,7 @@ export default function Trades() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
+  const [pnlManual, setPnlManual] = useState(false);
   const [form, setForm] = useState<TradeFormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
 
@@ -319,17 +334,26 @@ export default function Trades() {
   function openAddDialog() {
     setEditingTrade(null);
     setForm(EMPTY_FORM);
+    setPnlManual(false);
     setDialogOpen(true);
   }
 
   function openEditDialog(trade: Trade) {
+    const next = tradeToForm(trade);
     setEditingTrade(trade);
-    setForm(tradeToForm(trade));
+    // Keep a P&L the user typed by hand; otherwise follow the prices.
+    setPnlManual(next.pnl !== "" && Number(next.pnl) !== Number(calcPnl(next) || NaN));
+    setForm(next);
     setDialogOpen(true);
   }
 
   function setField<K extends keyof TradeFormState>(key: K, value: TradeFormState[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
+    if (key === "pnl") setPnlManual(value !== "");
+    setForm((prev) => {
+      const next = { ...prev, [key]: value };
+      if (PNL_INPUTS.has(key) && !pnlManual) next.pnl = calcPnl(next);
+      return next;
+    });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -341,6 +365,11 @@ export default function Trades() {
     }
     if (form.exit_date && form.exit_date < form.date) {
       toast.error("Exit day cannot be before trade date");
+      return;
+    }
+    const nonNegative = ["quantity", "entry_price", "target_price", "stop_loss", "exit_price", "brokerage", "strike_price"] as const;
+    if (nonNegative.some((k) => (num(form[k]) ?? 0) < 0)) {
+      toast.error("Quantity, prices and brokerage can't be negative");
       return;
     }
 
@@ -616,7 +645,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Time Zone</Label>
                   <Select value={form.time_zone} onValueChange={(v) => setField("time_zone", v)}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Time Zone">
                       <SelectValue placeholder="Select time zone" />
                     </SelectTrigger>
                     <SelectContent>
@@ -631,7 +660,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Trading Type</Label>
                   <Select value={form.type} onValueChange={(v) => setField("type", v)}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Trading Type">
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -646,7 +675,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Trade Market</Label>
                   <Select value={form.market} onValueChange={(v) => setField("market", v)}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Trade Market">
                       <SelectValue placeholder="Select market" />
                     </SelectTrigger>
                     <SelectContent>
@@ -665,7 +694,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Currency</Label>
                   <Select value={form.currency} onValueChange={(v) => setField("currency", v)}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Currency">
                       <SelectValue placeholder="Currency" />
                     </SelectTrigger>
                     <SelectContent>
@@ -683,27 +712,27 @@ export default function Trades() {
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="entry_price">Entry Price</Label>
-                  <Input id="entry_price" type="number" step="0.01" value={form.entry_price} onChange={(e) => setField("entry_price", e.target.value)} />
+                  <Input id="entry_price" type="number" min={0} step="0.01" value={form.entry_price} onChange={(e) => setField("entry_price", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="target_price">Target Price</Label>
-                  <Input id="target_price" type="number" step="0.01" value={form.target_price} onChange={(e) => setField("target_price", e.target.value)} />
+                  <Input id="target_price" type="number" min={0} step="0.01" value={form.target_price} onChange={(e) => setField("target_price", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="stop_loss">Stop Loss</Label>
-                  <Input id="stop_loss" type="number" step="0.01" value={form.stop_loss} onChange={(e) => setField("stop_loss", e.target.value)} />
+                  <Input id="stop_loss" type="number" min={0} step="0.01" value={form.stop_loss} onChange={(e) => setField("stop_loss", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="exit_price">Exit Price</Label>
-                  <Input id="exit_price" type="number" step="0.01" value={form.exit_price} onChange={(e) => setField("exit_price", e.target.value)} />
+                  <Input id="exit_price" type="number" min={0} step="0.01" value={form.exit_price} onChange={(e) => setField("exit_price", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="brokerage">Brokerage</Label>
-                  <Input id="brokerage" type="number" step="0.01" value={form.brokerage} onChange={(e) => setField("brokerage", e.target.value)} />
+                  <Input id="brokerage" type="number" min={0} step="0.01" value={form.brokerage} onChange={(e) => setField("brokerage", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="pnl">Profit / Loss</Label>
-                  <Input id="pnl" type="number" step="0.01" value={form.pnl} onChange={(e) => setField("pnl", e.target.value)} placeholder="Enter manual P&L" />
+                  <Input id="pnl" type="number" step="0.01" value={form.pnl} onChange={(e) => setField("pnl", e.target.value)} placeholder="Calculated from prices, or type your own" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="strategy">Trading Strategy</Label>
@@ -728,7 +757,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Buy / Sell</Label>
                   <Select value={form.buy_sell} onValueChange={(v) => setField("buy_sell", v as "buy" | "sell")}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Buy / Sell">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -762,7 +791,7 @@ export default function Trades() {
                 <div className="space-y-1.5">
                   <Label>Option Type</Label>
                   <Select value={form.option_type || "none"} onValueChange={(v) => setField("option_type", v === "none" ? "" : (v as "call" | "put"))}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Option Type">
                       <SelectValue placeholder="Not an option" />
                     </SelectTrigger>
                     <SelectContent>
@@ -829,7 +858,7 @@ export default function Trades() {
                   <div className="space-y-1.5">
                     <Label>Emotion / Psychology</Label>
                     <Select value={form.emotion} onValueChange={(v) => setField("emotion", v)}>
-                      <SelectTrigger>
+                      <SelectTrigger aria-label="Emotion / Psychology">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>

@@ -52,6 +52,7 @@ import {
 import { AnalysisIllustration } from "../components/brand/Illustrations";
 import { api } from "../lib/api";
 import { useToast } from "@/hooks/use-toast";
+import { uploadProblem } from "../lib/validations";
 
 type StepStatus = "pending" | "processing" | "completed";
 interface ProcessingStep {
@@ -108,19 +109,29 @@ const NewAnalysis = () => {
     }
   }, []);
 
+  function pickFile(file: File) {
+    const problem = uploadProblem(file);
+    if (problem) {
+      toast({ title: "Can't use this file", description: problem, variant: "destructive" });
+      return;
+    }
+    setSelectedFile(file);
+  }
+
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setSelectedFile(e.dataTransfer.files[0]);
+      pickFile(e.dataTransfer.files[0]);
     }
   }, []);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      pickFile(e.target.files[0]);
     }
+    e.target.value = ""; // so picking the same file again still fires onChange
   };
 
   const markStep = (index: number, status: StepStatus) => {
@@ -180,6 +191,7 @@ const NewAnalysis = () => {
     const companyName = selectedCompany?.name || selectedFile.name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
     const companyTicker = selectedCompany?.ticker || "";
 
+    let creep: ReturnType<typeof setInterval> | undefined;
     try {
       // 1. Upload — the backend extracts text and builds embeddings during this request
       markStep(0, "processing");
@@ -188,6 +200,15 @@ const NewAnalysis = () => {
       markStep(1, "completed");
       markStep(2, "completed");
       setProgress(60);
+
+      // Writing the report takes 1-3 minutes with no progress from the server,
+      // so ease the bar from 60% towards 95% instead of leaving it frozen.
+      creep = setInterval(() => {
+        setProgress((p) => (p < 95 ? p + (95 - p) * 0.04 : p));
+        setProcessingSteps((prev) =>
+          prev.map((step) => (step.status === "processing" ? { ...step, progress: Math.min(95, step.progress + (95 - step.progress) * 0.04) } : step))
+        );
+      }, 2000);
 
       // 2. Run the AI analysis (this generates the report)
       markStep(3, "processing");
@@ -207,6 +228,7 @@ const NewAnalysis = () => {
       if (result.status !== "completed") {
         await waitForReport(result.reportId);
       }
+      clearInterval(creep);
       markStep(3, "completed");
       markStep(4, "completed");
       setProgress(100);
@@ -215,6 +237,7 @@ const NewAnalysis = () => {
       usePlanStore.getState().fetchWallet();
       setTimeout(() => navigate(`/fundakamental/report/${result.reportId}`), 400);
     } catch (error) {
+      clearInterval(creep);
       const message =
         error instanceof Error ? error.message : "Analysis failed. Please try again.";
       // Out of AI tokens → route to the right purchase surface instead of a

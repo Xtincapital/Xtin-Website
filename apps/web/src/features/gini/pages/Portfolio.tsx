@@ -287,7 +287,7 @@ export default function Portfolio() {
                 <div className="space-y-1.5">
                   <Label>Risk Tolerance</Label>
                   <Select value={tolerance} onValueChange={(v) => setTolerance(v as RiskTolerance)}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Risk Tolerance">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

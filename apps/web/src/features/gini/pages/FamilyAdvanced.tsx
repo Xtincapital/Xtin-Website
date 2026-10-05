@@ -414,7 +414,7 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
             <div className="space-y-1.5">
               <Label>Family Member</Label>
               <Select value={form.member_id} onValueChange={(v) => setForm((p) => ({ ...p, member_id: v }))}>
-                <SelectTrigger>
+                <SelectTrigger aria-label="Family Member">
                   <SelectValue placeholder="Select a family member" />
                 </SelectTrigger>
                 <SelectContent>
@@ -731,7 +731,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
               <div className="space-y-1.5">
                 <Label>Child</Label>
                 <Select value={form.child_id} onValueChange={(v) => setForm((p) => ({ ...p, child_id: v }))}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Child">
                     <SelectValue placeholder="Select a child" />
                   </SelectTrigger>
                   <SelectContent>
@@ -746,7 +746,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
               <div className="space-y-1.5">
                 <Label>Milestone</Label>
                 <Select value={form.milestone} onValueChange={(v) => setForm((p) => ({ ...p, milestone: v }))}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Milestone">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -1149,7 +1149,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
             <div className="space-y-1.5">
               <Label>Dependent Type</Label>
               <Select value={depType} onValueChange={setDepType}>
-                <SelectTrigger>
+                <SelectTrigger aria-label="Dependent Type">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -1161,12 +1161,12 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
             </div>
             <div className="space-y-1.5">
               <Label>Current Age</Label>
-              <Input type="number" min={0} value={depAge} onChange={(e) => setDepAge(e.target.value)} placeholder="25" />
+              <Input aria-label="Current Age" type="number" min={0} value={depAge} onChange={(e) => setDepAge(e.target.value)} placeholder="25" />
             </div>
             <div className="space-y-1.5">
               <Label>Lifestyle</Label>
               <Select value={depLifestyle} onValueChange={setDepLifestyle}>
-                <SelectTrigger>
+                <SelectTrigger aria-label="Lifestyle">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -1230,7 +1230,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
         <CardContent className="space-y-4">
           <div className="max-w-xs space-y-1.5">
             <Label>Monthly Household Expenses</Label>
-            <Input
+            <Input aria-label="Monthly Household Expenses"
               type="number"
               min={0}
               value={emergencyExpenses}

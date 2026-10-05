@@ -22,7 +22,7 @@ const upsertStock = (record: Record<string, unknown>) => supabase.from("funda_st
 const searchStocksInDb = (query: string, limit = 10) =>
     supabase
         .from("funda_stocks")
-        .select("ticker, name, sector, price, change_percent, market_cap")
+        .select("ticker, name, sector, price, change_percent, market_cap, last_updated")
         .or(`ticker.ilike.%${query}%,name.ilike.%${query}%`)
         .eq("is_active", true)
         .limit(limit);
