@@ -103,7 +103,9 @@ app.use(cors({
 		}
 	},
 	credentials: true,
-	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
+	// PATCH is how every edit/update route is exposed (journal, gini, fundakamental);
+	// leaving it out makes browsers block those calls with "Failed to fetch".
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
 	allowedHeaders: ["Content-Type", "Authorization", "Accept"],
 	maxAge: 3600 // Cache preflight requests for 1 hour
 }));
