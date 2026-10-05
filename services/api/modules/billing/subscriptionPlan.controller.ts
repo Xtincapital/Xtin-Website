@@ -10,8 +10,10 @@ import { normalizeProducts, priceBundle, type PricedPlan } from "./bundleCatalog
 import { addCycle, stackValidUntil } from "../../utils/planExpiry.js";
 import { getProPlanByUser as getGiniProPlan, upsertProPlan as upsertGiniProPlan } from "../gini/proPlan.repository.js";
 import { invalidateGiniPlanTierCache } from "../gini/planTier.js";
+import { grantProIncludedTokens as grantGiniProTokens } from "../gini/proPlan.controller.js";
 import { getProPlanByUser as getJournalProPlan, upsertProPlan as upsertJournalProPlan } from "../journal/proPlan.repository.js";
 import { invalidatePlanTierCache as invalidateJournalPlanTierCache } from "../journal/planTier.js";
+import { grantProIncludedTokens as grantJournalProTokens } from "../journal/proPlan.controller.js";
 import { getUserPlan as getFundakamentalPlan, grantPro as grantFundakamentalPro } from "../fundakamental/razorpay.repository.js";
 
 /** The dev shortcuts below grant without payment, so they exist only outside production. */
@@ -459,6 +461,8 @@ async function syncSubProductsToDatabase({
             const { error } = await upsertGiniProPlan(proRecord(yearly ? 'pro_yearly' : 'pro_monthly', until));
             if (error) throw error;
             invalidateGiniPlanTierCache(authId);
+            // Same 100,000 AI-token bonus as buying Gini Pro on its own.
+            await grantGiniProTokens(authId, paymentId, orderId);
         });
     }
 
@@ -469,6 +473,8 @@ async function syncSubProductsToDatabase({
             const { error } = await upsertJournalProPlan(proRecord(yearly ? 'journal_pro_yearly' : 'journal_pro_monthly', until));
             if (error) throw error;
             invalidateJournalPlanTierCache(authId);
+            // Same 100,000 AI-token bonus as buying Journal Pro on its own.
+            await grantJournalProTokens(authId, paymentId, orderId);
         });
     }
 

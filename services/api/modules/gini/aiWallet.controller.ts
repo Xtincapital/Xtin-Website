@@ -32,9 +32,9 @@ import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, 
 // Amounts are whole INR rupees (multiplied by 100 for paise only at
 // Razorpay order-creation time) — AI packs are INR-only in the source.
 export const AI_PACKAGES: Record<string, { id: string; amount_inr: number; tokens: number; label: string }> = {
-    ai_500: { id: "ai_500", amount_inr: 500, tokens: 100_000, label: "Starter AI Pack" },
-    ai_1000: { id: "ai_1000", amount_inr: 1000, tokens: 300_000, label: "Growth AI Pack" },
-    ai_2000: { id: "ai_2000", amount_inr: 2000, tokens: 500_000, label: "Power AI Pack" },
+    ai_500: { id: "ai_500", amount_inr: 500, tokens: 300_000, label: "Starter AI Pack" },
+    ai_1000: { id: "ai_1000", amount_inr: 1000, tokens: 700_000, label: "Growth AI Pack" },
+    ai_2000: { id: "ai_2000", amount_inr: 2000, tokens: 1_600_000, label: "Power AI Pack" },
 };
 
 const razorpayConfigured = () => Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);

@@ -4,16 +4,10 @@
 // `getOrCreateWallet`/`ensureAiTokens`/`deductAiTokens`/`addAiTokens`
 // against `gini_ai_wallets` instead of `journal_ai_wallets`.
 //
-// Free-token grant sizing: the ORIGINAL Gini app (unlike Journal, which had
-// separate LOCAL_FREE_AI_TOKENS=20,000 / PRODUCTION_FREE_AI_TOKENS=300,000
-// constants) used a single flat constant regardless of environment — see
-// features-incoming/gini/app.js's `CHAT_LIMITS.trialTokens = 5000` (~line 8),
-// the trial balance new wallets are seeded with client-side
-// (`getOrCreateAiWallet`, app.js ~89-123: `tokenBalance: CHAT_LIMITS.trialTokens`
-// for a brand-new local wallet). Ported as `GINI_FREE_AI_TOKENS = 5000` here,
-// with the same `FREE_AI_TOKENS`-style env override journal supports, for
-// ops parity — Gini's original had no such override, but nothing prevents
-// adding one, and it costs nothing to support.
+// Free-token grant sizing matches Journal (journal/aiWallet.repository.ts):
+// 300,000 in production, 20,000 locally. The original Gini app gave a flat
+// 5,000 trial; it was raised on 2026-10-05 so both products give the same.
+// `GINI_FREE_AI_TOKENS` overrides it, like Journal's `FREE_AI_TOKENS`.
 //
 // Scope note (Phase 10b): this file is ONLY the internal gating a Claude
 // call needs (get-or-create wallet with a free grant, balance check, deduct
@@ -26,7 +20,8 @@
 // as `gini_ai_wallets.user_id`.
 import supabase from "../../supabase/index.js";
 
-const GINI_FREE_AI_TOKENS = 5_000;
+const LOCAL_FREE_AI_TOKENS = 20_000;
+const PRODUCTION_FREE_AI_TOKENS = 300_000;
 
 function getFreeAiTokenGrant(): number {
     const override = process.env.GINI_FREE_AI_TOKENS?.trim();
@@ -34,7 +29,7 @@ function getFreeAiTokenGrant(): number {
         const parsed = parseInt(override, 10);
         if (!Number.isNaN(parsed)) return Math.max(0, parsed);
     }
-    return GINI_FREE_AI_TOKENS;
+    return process.env.NODE_ENV === "production" ? PRODUCTION_FREE_AI_TOKENS : LOCAL_FREE_AI_TOKENS;
 }
 
 export interface GiniAiWallet {
@@ -74,23 +69,29 @@ export async function getOrCreateWallet(userId: string): Promise<GiniAiWallet> {
         return inserted as GiniAiWallet;
     }
 
-    if (!row.free_tokens_granted) {
-        const grant = getFreeAiTokenGrant();
-        if (grant > 0) {
-            const { data: updated, error: updateError } = await supabase
-                .from("gini_ai_wallets")
-                .update({
-                    token_balance: Number(row.token_balance || 0) + grant,
-                    free_tokens_granted: grant,
-                    free_tokens_granted_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString(),
-                })
-                .eq("user_id", userId)
-                .select()
-                .single();
-            if (updateError) throw updateError;
-            return updated as GiniAiWallet;
-        }
+    // Tops up wallets that never got the grant, and wallets granted the old,
+    // smaller 5,000 — by the difference, once. The match on the old
+    // free_tokens_granted makes a concurrent second request a no-op.
+    const alreadyGranted = Number(row.free_tokens_granted || 0);
+    const grant = getFreeAiTokenGrant();
+    if (grant > alreadyGranted) {
+        const { data: updated, error: updateError } = await supabase
+            .from("gini_ai_wallets")
+            .update({
+                token_balance: Number(row.token_balance || 0) + (grant - alreadyGranted),
+                free_tokens_granted: grant,
+                free_tokens_granted_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+            })
+            .eq("user_id", userId)
+            .eq("free_tokens_granted", alreadyGranted)
+            .select()
+            .maybeSingle();
+        if (updateError) throw updateError;
+        if (updated) return updated as GiniAiWallet;
+        const { data: fresh, error: refetchError } = await supabase.from("gini_ai_wallets").select("*").eq("user_id", userId).single();
+        if (refetchError) throw refetchError;
+        return fresh as GiniAiWallet;
     }
 
     return row as GiniAiWallet;

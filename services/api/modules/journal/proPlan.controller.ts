@@ -60,6 +60,34 @@ const PRO_PLANS: Record<
 const SUPPORTED_CURRENCIES = ["INR", "USD", "GBP", "EUR"];
 const PRO_INCLUDED_AI_TOKENS = 100_000;
 
+/**
+ * Credits the 100,000 AI-token bonus that comes with Journal Pro (port of
+ * main.py's `add_ai_tokens(user_id, 100_000, "pro_included", ...)`), once per
+ * Razorpay payment (addAiTokens itself doesn't dedupe, so the purchase row is
+ * the guard). Used by the standalone Pro purchase and by bundles that include
+ * Journal. Never throws: a failed bonus must not fail the payment.
+ */
+export async function grantProIncludedTokens(userId: string, paymentId: string, orderId: string): Promise<void> {
+    try {
+        const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(paymentId);
+        if (lookupError) console.error("[Journal Pro Plan] bonus lookup failed:", lookupError.message);
+        if (!existingBonus) {
+            await addAiTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, paymentId);
+            const { error: purchaseError } = await insertAiWalletPurchase({
+                user_id: userId,
+                package_id: "pro_included",
+                tokens: PRO_INCLUDED_AI_TOKENS,
+                amount_inr: 0,
+                payment_id: paymentId,
+                order_id: orderId,
+            });
+            if (purchaseError) throw purchaseError;
+        }
+    } catch (err) {
+        console.error("[Journal Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
+    }
+}
+
 const razorpayConfigured = () => Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);
 
 /* POST /journal/plan/razorpay/order — create a Razorpay order for a Pro plan
@@ -151,29 +179,7 @@ export const fulfillJournalProPlan: Fulfiller = async ({ order, payment, notes, 
     });
     if (error) throw error;
 
-    // Pro purchase also grants a 100,000 AI-token bonus (port of
-    // main.py's `add_ai_tokens(request.user_id, 100_000, "pro_included",
-    // 0, payment_id=request.razorpay_payment_id)`). Guard against replay
-    // the same way aiWallet.controller.ts does, since addAiTokens itself
-    // does not dedupe on payment_id.
-    try {
-        const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(payment.id);
-        if (lookupError) console.error("[Journal Pro Plan] bonus lookup failed:", lookupError.message);
-        if (!existingBonus) {
-            await addAiTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, payment.id);
-            const { error: purchaseError } = await insertAiWalletPurchase({
-                user_id: userId,
-                package_id: "pro_included",
-                tokens: PRO_INCLUDED_AI_TOKENS,
-                amount_inr: 0,
-                payment_id: payment.id,
-                order_id: order.id,
-            });
-            if (purchaseError) throw purchaseError;
-        }
-    } catch (err) {
-        console.error("[Journal Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
-    }
+    await grantProIncludedTokens(userId, payment.id, order.id);
 
     // Fresh tier takes effect immediately for chat depth (port of
     // main.py's `PLAN_TIER_CACHE.pop(request.user_id, None)`).

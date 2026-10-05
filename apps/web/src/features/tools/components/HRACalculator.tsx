@@ -10,8 +10,8 @@ const HRACalculator = () => {
   const [rentPaid, setRentPaid] = useState("1,80,000");
   const [cityType, setCityType] = useState("metro");
 
-  const [exemptedHRA, setExemptedHRA] = useState<number | string>("1,20,000");
-  const [taxableHRA, setTaxableHRA] = useState<number | string>("0");
+  const [exemptedHRA, setExemptedHRA] = useState<number | string>(120000);
+  const [taxableHRA, setTaxableHRA] = useState<number | string>(0);
   const [calculationDetails, setCalculationDetails] = useState<{
     actualHRA: number | string;
     rentPaidMinus10pSalary: number | string;
@@ -19,10 +19,10 @@ const HRACalculator = () => {
     tenPercentOfSalary: number | string;
     city: string;
   }>({
-    actualHRA: "120,000",
-    rentPaidMinus10pSalary: "132,000",
-    salaryPercentage: "240,000",
-    tenPercentOfSalary: "48,000",
+    actualHRA: 120000,
+    rentPaidMinus10pSalary: 132000,
+    salaryPercentage: 240000,
+    tenPercentOfSalary: 48000,
     city: "metro",
   });
 

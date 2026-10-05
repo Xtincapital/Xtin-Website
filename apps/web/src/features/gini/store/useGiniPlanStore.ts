@@ -113,9 +113,9 @@ export interface AiPackage {
  *  isn't blank while `GET /gini/ai/plans` is in flight, never trusted for
  *  the actual charge). */
 export const AI_PACKAGES_FALLBACK: AiPackage[] = [
-  { id: "ai_500", amount_inr: 500, tokens: 100_000, label: "Starter AI Pack" },
-  { id: "ai_1000", amount_inr: 1000, tokens: 300_000, label: "Growth AI Pack" },
-  { id: "ai_2000", amount_inr: 2000, tokens: 500_000, label: "Power AI Pack" },
+  { id: "ai_500", amount_inr: 500, tokens: 300_000, label: "Starter AI Pack" },
+  { id: "ai_1000", amount_inr: 1000, tokens: 700_000, label: "Growth AI Pack" },
+  { id: "ai_2000", amount_inr: 2000, tokens: 1_600_000, label: "Power AI Pack" },
 ];
 
 /** GET /gini/plan's `plan` field — exact shape of proPlan.controller.ts's

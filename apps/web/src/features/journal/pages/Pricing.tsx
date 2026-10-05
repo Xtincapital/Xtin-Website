@@ -56,7 +56,7 @@ const PRO_FEATURES = [
 
 const PACK_FEATURES: Record<AiPackageId, string[]> = {
   ai_500: ["Claude-powered coach replies", "Uses compact trade context", "Stops automatically at zero balance"],
-  ai_1000: ["Weekly reviews and chat coaching", "Personalized from journal data", "40% more tokens than Starter"],
+  ai_1000: ["Weekly reviews and chat coaching", "Personalized from journal data", "More tokens per rupee than Starter"],
   ai_2000: ["High-volume AI coach usage", "Best for daily journaling workflows", "Best per-token value"],
 };
 

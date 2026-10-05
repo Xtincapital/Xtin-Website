@@ -52,7 +52,7 @@ const PRO_FEATURES = [
 
 const PACK_FEATURES: Record<AiPackageId, string[]> = {
   ai_500: ["Claude-powered advisor replies", "Uses your live financial data", "Stops automatically at zero balance"],
-  ai_1000: ["Deeper multi-turn conversations", "Personalized from your Gini profile", "40% more tokens than Starter"],
+  ai_1000: ["Deeper multi-turn conversations", "Personalized from your Gini profile", "More tokens per rupee than Starter"],
   ai_2000: ["High-volume AI advisor usage", "Best for frequent planning sessions", "Best per-token value"],
 };
 

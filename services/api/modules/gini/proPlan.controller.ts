@@ -69,6 +69,33 @@ const PRO_PLANS: Record<
 const SUPPORTED_CURRENCIES = ["INR", "USD", "GBP", "EUR"];
 const PRO_INCLUDED_AI_TOKENS = 100_000;
 
+/**
+ * Credits the 100,000 AI-token bonus that comes with Gini Pro, once per
+ * Razorpay payment (addTokens itself doesn't dedupe, so the purchase row is
+ * the guard). Used by the standalone Pro purchase and by bundles that include
+ * Gini. Never throws: a failed bonus must not fail the payment.
+ */
+export async function grantProIncludedTokens(userId: string, paymentId: string, orderId: string): Promise<void> {
+    try {
+        const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(paymentId);
+        if (lookupError) console.error("[Gini Pro Plan] bonus lookup failed:", lookupError.message);
+        if (!existingBonus) {
+            await addTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, paymentId);
+            const { error: purchaseError } = await insertAiWalletPurchase({
+                user_id: userId,
+                package_id: "pro_included",
+                tokens: PRO_INCLUDED_AI_TOKENS,
+                amount_inr: 0,
+                payment_id: paymentId,
+                order_id: orderId,
+            });
+            if (purchaseError) throw purchaseError;
+        }
+    } catch (err) {
+        console.error("[Gini Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
+    }
+}
+
 const razorpayConfigured = () => Boolean(process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET);
 
 /* POST /gini/plan/razorpay/order — create a Razorpay order for a Pro plan
@@ -159,27 +186,7 @@ export const fulfillGiniProPlan: Fulfiller = async ({ order, payment, notes, use
     });
     if (error) throw error;
 
-    // Pro purchase also grants a 100,000 AI-token bonus — a fix over the
-    // original, which only ever applied this client-side against a
-    // localStorage-only wallet (see this file's header comment).
-    try {
-        const { data: existingBonus, error: lookupError } = await findPurchaseByPaymentId(payment.id);
-        if (lookupError) console.error("[Gini Pro Plan] bonus lookup failed:", lookupError.message);
-        if (!existingBonus) {
-            await addTokens(userId, PRO_INCLUDED_AI_TOKENS, "pro_included", 0, payment.id);
-            const { error: purchaseError } = await insertAiWalletPurchase({
-                user_id: userId,
-                package_id: "pro_included",
-                tokens: PRO_INCLUDED_AI_TOKENS,
-                amount_inr: 0,
-                payment_id: payment.id,
-                order_id: order.id,
-            });
-            if (purchaseError) throw purchaseError;
-        }
-    } catch (err) {
-        console.error("[Gini Pro Plan] AI bonus grant failed:", (err as Error)?.message || err);
-    }
+    await grantProIncludedTokens(userId, payment.id, order.id);
 
     // Fresh tier takes effect immediately for chat depth/response length.
     invalidateGiniPlanTierCache(userId);

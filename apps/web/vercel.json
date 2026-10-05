@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && cp dist/index.html dist/404.html",
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": "vite",
@@ -44,7 +44,11 @@
       "destination": "https://xtincapital-backend-6pf2.onrender.com/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)/:rest*",
       "destination": "/index.html"
     }
   ],
