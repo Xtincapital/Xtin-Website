@@ -5,10 +5,14 @@ dotenv.config();
 
 // Initialize fallback AI client (Groq/OpenAI). XtinAI uses Claude first when
 // ANTHROPIC_API_KEY is configured, then falls back to this client.
-const aiClient = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY,  // Prioritize Groq, fallback to OpenAI
-  baseURL: process.env.GROQ_API_KEY ? 'https://api.groq.com/openai/v1' : undefined  // Use Groq baseURL if Groq key exists
-});
+// Created on first use, not at import: the OpenAI SDK throws when it has no key,
+// which broke every module (and test) that merely imports this file.
+let aiClient: OpenAI | undefined;
+const getAiClient = () =>
+  (aiClient ??= new OpenAI({
+    apiKey: process.env.GROQ_API_KEY || process.env.OPENAI_API_KEY,  // Prioritize Groq, fallback to OpenAI
+    baseURL: process.env.GROQ_API_KEY ? 'https://api.groq.com/openai/v1' : undefined  // Use Groq baseURL if Groq key exists
+  }));
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const CLAUDE_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6';
@@ -89,7 +93,7 @@ export async function generateAITextWithMeta({ messages, maxTokens = 400, temper
   }
 
   const providerInfo = getAIProviderInfo();
-  const response = await aiClient.chat.completions.create({
+  const response = await getAiClient().chat.completions.create({
     model: providerInfo.model,
     messages,
     max_tokens: maxTokens,

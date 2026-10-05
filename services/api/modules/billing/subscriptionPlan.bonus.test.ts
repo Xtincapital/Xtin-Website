@@ -7,6 +7,8 @@ const ok = () => vi.fn(async () => ({ data: null, error: null }));
 const grantGiniProTokens = vi.fn(async () => {});
 const grantJournalProTokens = vi.fn(async () => {});
 
+// Nothing here may touch a real database: CI has no Supabase env vars.
+vi.mock("../../supabase/index.js", () => ({ default: {} }));
 vi.mock("./subscriptionPlan.repository.js", () => ({
     getActiveUserSubscriptions: ok(),
     getUserSubscriptionByPlan: ok(),
