@@ -9,6 +9,7 @@ import {
     saveCustomScreen,
     getSavedScreens,
     getMarketDataStatus,
+    triggerStockRefresh,
 } from "./stocks.controller.js";
 
 const router = Router();
@@ -24,5 +25,7 @@ router.get("/fundakamental/stocks/screener/saved", authenticate, getSavedScreens
 router.get("/fundakamental/stocks/details/:ticker", authenticate, getStockDetails);
 router.post("/fundakamental/stocks/refresh", authenticate, refreshStockData);
 router.get("/fundakamental/market-data/status", authenticate, getMarketDataStatus);
+// Token-protected (CRON_SECRET_TOKEN), not user-authenticated: called by an external scheduler.
+router.post("/trigger-stock-refresh", triggerStockRefresh);
 
 export default router;

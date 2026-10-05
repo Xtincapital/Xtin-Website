@@ -11,6 +11,8 @@ import { getStockByTicker, upsertStock, searchStocksInDb, getSavedScreens as get
 import { screenStocks, getScreeningPresets as getPresets } from "./stockScreener.js";
 import { searchDirectory } from "./companyDirectory.js";
 import { refresh as refreshStockPipeline, type Market } from "./stockPipeline.js";
+import { timingSafeEqual } from "node:crypto";
+import { startPriceRefresh, getPriceRefreshStatus, type RefreshMarket } from "./stockPriceRefresh.js";
 import { getMarketStreamerStats } from "./marketStream.js";
 
 const STALE_MS = 60 * 60 * 1000; // 1 hour — matches the Python source's staleness window
@@ -211,6 +213,35 @@ export const getStockDetails = async (req, res) => {
         console.error(`[Fundakamental] failed to fetch stock details for ${ticker}:`, err);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to fetch stock details: ${(err as Error)?.message || err}` });
     }
+};
+
+const sameToken = (given: unknown, expected: string) => {
+    const a = Buffer.from(String(given ?? ""));
+    const b = Buffer.from(expected);
+    return a.length === b.length && timingSafeEqual(a, b);
+};
+
+/**
+ * POST /api/trigger-stock-refresh?token=CRON_SECRET_TOKEN[&market=india|us|all]
+ * For an external scheduler (cron-job.org). Answers at once and refreshes
+ * prices in the background. Unlike the newsletter trigger, this refuses to run
+ * when CRON_SECRET_TOKEN isn't set rather than letting anyone call it.
+ */
+export const triggerStockRefresh = async (req, res) => {
+    const secret = process.env.CRON_SECRET_TOKEN;
+    if (!secret) return res.status(503).json({ error: "CRON_SECRET_TOKEN is not configured" });
+    if (!sameToken(req.query.token || req.headers["x-cron-token"], secret)) {
+        return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: "Invalid cron token" });
+    }
+    const market = String(req.query.market || "all");
+    if (!["all", "india", "us"].includes(market)) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "market must be india, us or all" });
+    }
+
+    const run = startPriceRefresh({ source: "http-trigger", market: market as RefreshMarket | "all" });
+    // 200 for a skip, like the newsletter trigger: cron-job.org retries on non-2xx.
+    if ("reason" in run) return res.status(HTTP_STATUS.OK).json({ started: false, skipped: true, reason: run.reason, ...getPriceRefreshStatus() });
+    return res.status(202).json({ started: true, market });
 };
 
 /* POST /api/fundakamental/stocks/refresh?market=all|india|us */

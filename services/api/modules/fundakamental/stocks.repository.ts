@@ -19,6 +19,16 @@ const getStockByTicker = (ticker: string) =>
 // insert a new row every time since `ticker` is unique but not the PK.
 const upsertStock = (record: Record<string, unknown>) => supabase.from("funda_stocks").upsert(record, { onConflict: "ticker" });
 
+const listActiveStocks = () =>
+    supabase.from("funda_stocks").select("ticker, market").eq("is_active", true).limit(1000);
+
+// funda_update_stocks_timestamp (migration 0001) stamps last_updated on every update.
+const updateStockPrice = (ticker: string, fields: { price: number; change: number | null; change_percent: number | null; volume?: number }) =>
+    supabase.from("funda_stocks").update(fields).eq("ticker", ticker);
+
+const getNewestStockUpdate = () =>
+    supabase.from("funda_stocks").select("last_updated").eq("is_active", true).order("last_updated", { ascending: false }).limit(1).maybeSingle();
+
 const searchStocksInDb = (query: string, limit = 10) =>
     supabase
         .from("funda_stocks")
@@ -78,6 +88,9 @@ const upsertScreeningCache = (record: Record<string, unknown>) => supabase.from(
 export {
     getStockByTicker,
     upsertStock,
+    listActiveStocks,
+    updateStockPrice,
+    getNewestStockUpdate,
     searchStocksInDb,
     queryStocksForScreener,
     getSavedScreens,

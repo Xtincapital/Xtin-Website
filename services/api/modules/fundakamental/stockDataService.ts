@@ -217,6 +217,15 @@ export async function getQuote(ticker: string): Promise<QuoteData | null> {
     return cached(`quote:${ticker}`, QUOTE_TTL_MS, () => fetchQuote(ticker));
 }
 
+/**
+ * A quote from Yahoo right now: no in-memory cache and no fall-back to the
+ * price already saved in funda_stocks (which getQuote does). For the refresh
+ * job, which must not write a stale price back as if it were fresh.
+ */
+export async function getLiveQuote(ticker: string): Promise<QuoteData | null> {
+    return (await quoteFromQuoteApi(ticker)) ?? (await quoteFromChartApi(ticker));
+}
+
 async function fetchQuote(ticker: string): Promise<QuoteData | null> {
     // Yahoo's quote API needs a session cookie ("crumb") that it often
     // refuses to cloud servers like Render, so a live price can come back
