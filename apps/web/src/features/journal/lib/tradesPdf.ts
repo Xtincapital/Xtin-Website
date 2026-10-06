@@ -64,7 +64,7 @@ export function buildTradesPdf(JsPDFCtor: typeof JsPDF, trades: PdfTrade[], gene
   doc.text(`Generated ${generatedOn.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}`, pageWidth - left, 16, { align: "right" });
   doc.setFontSize(10);
   doc.text(
-    `${s.trades} trades (${s.closed} closed, ${s.open} open)   Wins ${s.wins} / Losses ${s.losses}   Win rate ${s.winRate.toFixed(1)}%   Total P&L ${amount(s.totalPnl)}`,
+    `${s.trades} trade${s.trades === 1 ? "" : "s"} (${s.closed} closed, ${s.open} open)   Wins ${s.wins} / Losses ${s.losses}   Win rate ${s.winRate.toFixed(1)}%   Total P&L ${amount(s.totalPnl)}`,
     left,
     23,
   );

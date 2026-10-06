@@ -24,7 +24,7 @@ describe("parseGiniImport", () => {
     });
 });
 
-import { pdfLineToHolding, pdfLinesToHoldings, parseGiniPdfImport } from "./importParsers.js";
+import { pdfLineToHolding, pdfLinesToHoldings, parseGiniPdfImport, parseGiniRows } from "./importParsers.js";
 
 describe("Gini PDF import", () => {
     it("reads a holding line: name, value, % rate and a category guess", () => {
@@ -78,5 +78,18 @@ describe("Gini PDF table import", () => {
             { name: "Parag Parikh Flexi Cap", category: "Mutual Funds", value: 300000, return_rate: 14 },
             { name: "SBI FD", category: "Fixed Deposits", value: 100000, return_rate: 7 },
         ]);
+    });
+});
+
+describe("Gini statement totals", () => {
+    it("does not import the Total line as a holding, from a sheet or a PDF table", () => {
+        const stats = { skipped: 0 };
+        const rows = parseGiniRows(
+            [["Scheme Name", "Current Value", "Return"], ["Axis Bluechip", "75000", "11"], ["Total", "75000", ""], ["Grand Total", "75000", ""]],
+            "assets",
+            stats,
+        );
+        expect(rows).toEqual([{ name: "Axis Bluechip", category: null, value: 75000, return_rate: 11 }]);
+        expect(stats.skipped).toBe(0);
     });
 });

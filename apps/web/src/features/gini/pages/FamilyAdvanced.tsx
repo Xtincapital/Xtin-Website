@@ -361,7 +361,11 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
             <Skeleton className="h-20 w-full" />
           </div>
         ) : plans.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No elder care plans yet.</p>
+          <p className="text-sm text-muted-foreground">
+            {members.length === 0
+              ? "No elder care plans yet. Add the person on the Family page first, then add their plan here."
+              : "No elder care plans yet."}
+          </p>
         ) : (
           <div className="space-y-3">
             {plans.map((plan) => {
@@ -653,7 +657,11 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
             <Skeleton className="h-24 w-full" />
           </div>
         ) : plans.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No education plans yet.</p>
+          <p className="text-sm text-muted-foreground">
+            {children.length === 0
+              ? 'No education plans yet. Add a child or other dependent on the Family page first.'
+              : "No education plans yet."}
+          </p>
         ) : (
           <div className="space-y-3">
             {plans.map((plan) => {
@@ -1169,7 +1177,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
             </div>
             <div className="space-y-1.5">
               <Label>Current Age</Label>
-              <Input aria-label="Current Age" type="number" min={0} value={depAge} onChange={(e) => setDepAge(e.target.value)} placeholder="25" />
+              <Input aria-label="Current Age" type="number" min={0} max={110} value={depAge} onChange={(e) => setDepAge(e.target.value)} placeholder="25" />
             </div>
             <div className="space-y-1.5">
               <Label>Lifestyle</Label>
@@ -1187,7 +1195,17 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
               </Select>
             </div>
           </div>
-          <Button onClick={() => setDepResults(calculateDependentCost(depType, num(depAge), depLifestyle))}>
+          <Button
+            onClick={() => {
+              // Negative or blank ages used to give confident results (age -5: 23 years, ₹80.9 L).
+              const age = num(depAge, NaN);
+              if (!(age >= 0 && age <= 110)) {
+                toast.error("Enter the dependent's current age (0 to 110).");
+                return;
+              }
+              setDepResults(calculateDependentCost(depType, age, depLifestyle));
+            }}
+          >
             Calculate Cost
           </Button>
           {depResults && (
@@ -1212,6 +1230,9 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
           <Button onClick={calculateFamilyInsurance} disabled={members.length === 0}>
             Calculate Insurance Needs
           </Button>
+          {members.length === 0 && (
+            <p className="text-xs text-muted-foreground">Add your family members on the Family page to calculate this.</p>
+          )}
           {insuranceResults && (
             <>
               <p className="text-xs text-muted-foreground">

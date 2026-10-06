@@ -139,6 +139,8 @@ export function parseGiniRows(rows: unknown[][], kind: ImportKind, stats?: { ski
     for (const row of rows.slice(headerRow + 1)) {
         const name = text(row[idx.name]);
         const amt = num(row[idx[valueField]]);
+        // A statement's "Total" line is a sum of the rows above, not a holding of its own.
+        if (name && TOTAL_ROW.test(name)) continue;
         // Count rows that have something in them but can't be used, so the preview can say so.
         const skip = () => {
             if (stats && row.some((cell) => String(cell ?? "").trim() !== "")) stats.skipped += 1;
@@ -186,6 +188,7 @@ export function parseGiniRows(rows: unknown[][], kind: ImportKind, stats?: { ski
 // rate. Header, total and page lines are skipped.
 
 const NUMERIC_TOKEN = /^[-+(]?(₹|rs\.?|inr)?[\d,]+(\.\d+)?%?\)?$/i;
+const TOTAL_ROW = /^(total|sub ?total|grand total|net total)\b/i;
 const SKIP_LINE = /^(total|sub ?total|grand total|page \d|statement|portfolio summary|as on|date|name\b|scheme name|particulars)/i;
 
 /** Turns one statement line into a holding, or null when it doesn't look like one. Exported for tests. */
@@ -234,7 +237,8 @@ export async function parseGiniPdfImport(content: Buffer, kind: ImportKind, stat
     // spreadsheet; otherwise each line is read on its own.
     try {
         const local = { skipped: 0 };
-        const rows = parseGiniRows(lines.map(pdfLineCells), kind, local);
+        // Footer lines ("Page 1 of 2") have a single cell; they are not table rows.
+        const rows = parseGiniRows(lines.map(pdfLineCells).filter((cells) => cells.length >= 2), kind, local);
         if (rows.length) {
             if (stats) stats.skipped += local.skipped;
             return rows;

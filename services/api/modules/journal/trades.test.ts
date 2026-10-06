@@ -91,6 +91,7 @@ describe("Journal PDF table import", () => {
             stats,
         );
         expect(rows).toHaveLength(2);
+        expect(stats.skipped).toBe(0); // the "Page 1 of 1" footer is not a skipped row
         expect(rows[0]).toMatchObject({ asset: "INFY", buy_sell: "buy", market: "Crypto_Currency", strategy: null, emotion: null, pnl: 100 });
         expect(rows[1]).toMatchObject({ asset: "TCS", buy_sell: "sell", quantity: 5, strategy: "Breakout", pnl: 40 });
     });

@@ -444,7 +444,9 @@ export function pdfTableTrades(lines: string[], stats?: ImportStats): ParsedImpo
         const header = pdfLineCells(lines[i]);
         if (header.length < 4 || /\d/.test(lines[i])) continue;
         const local: ImportStats = { skipped: 0 };
-        const trades = rowsToImportTrades([header, ...lines.slice(i + 1).map(pdfLineCells)], local);
+        // Footer lines ("Page 1 of 2") have a single cell; they are not table rows.
+        const body = lines.slice(i + 1).map(pdfLineCells).filter((cells) => cells.length >= 3);
+        const trades = rowsToImportTrades([header, ...body], local);
         if (trades.length) {
             if (stats) stats.skipped += local.skipped;
             return trades;
