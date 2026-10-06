@@ -55,6 +55,7 @@ import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
 import type { Trade, Strategy } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
+import { marketLabel } from "../lib/journalPatternHelpers";
 
 // Static option lists carried over from app.js (tradingTypes, tradeMarkets,
 // defaultStrategies, the emotion select, timezone select, buy/sell select
@@ -522,7 +523,8 @@ export default function Trades() {
                 <TableHead>Status</TableHead>
                 <TableHead>Emotion</TableHead>
                 <TableHead>Notes</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                {/* Pinned to the right edge so edit/delete stay visible when the wide table scrolls. */}
+                <TableHead className="sticky right-0 z-10 bg-background text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -554,7 +556,7 @@ export default function Trades() {
                       <TableCell>{trade.entry_time || "-"}</TableCell>
                       <TableCell>{trade.exit_time || "-"}</TableCell>
                       <TableCell>{trade.type || "-"}</TableCell>
-                      <TableCell>{trade.market || "-"}</TableCell>
+                      <TableCell>{trade.market ? marketLabel(trade.market) : "-"}</TableCell>
                       <TableCell className="font-medium">{trade.asset}</TableCell>
                       <TableCell>{trade.currency || "INR"}</TableCell>
                       <TableCell className="text-right">{trade.quantity ?? "-"}</TableCell>
@@ -571,7 +573,7 @@ export default function Trades() {
                       <TableCell className="max-w-[160px] truncate" title={trade.notes || ""}>
                         {notesPreview}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]">
                         <div className="flex justify-end gap-1">
                           <Button variant="ghost" size="icon" onClick={() => openEditDialog(trade)} aria-label="Edit trade">
                             <Pencil className="h-4 w-4" />
@@ -681,7 +683,7 @@ export default function Trades() {
                     <SelectContent>
                       {TRADE_MARKETS.map((m) => (
                         <SelectItem key={m} value={m}>
-                          {m}
+                          {marketLabel(m)}
                         </SelectItem>
                       ))}
                     </SelectContent>

@@ -27,7 +27,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { User, SlidersHorizontal, CreditCard, Sparkles, Coins, Loader2 } from "lucide-react";
+import { User, SlidersHorizontal, CreditCard, Sparkles, Coins, Loader2, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -35,6 +45,7 @@ import authService from "../../../services/authService";
 import { BACKEND_URL } from "../../../config/env";
 import JournalLayout from "../components/JournalLayout";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
+import { strategies as strategiesApi, type Strategy } from "../lib/api";
 
 // Same option lists Trades.tsx's trade-entry form uses (duplicated — see
 // header comment).
@@ -212,7 +223,7 @@ export default function Settings() {
                 <div className="space-y-1.5">
                   <Label>Default currency</Label>
                   <Select value={currency} onValueChange={saveCurrency}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Default currency">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -227,7 +238,7 @@ export default function Settings() {
                 <div className="space-y-1.5">
                   <Label>Default time zone</Label>
                   <Select value={timeZone} onValueChange={saveTimeZone}>
-                    <SelectTrigger>
+                    <SelectTrigger aria-label="Default time zone">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -241,6 +252,7 @@ export default function Settings() {
                 </div>
               </CardContent>
             </Card>
+            <StrategiesCard />
           </TabsContent>
 
           {/* Plan */}
@@ -293,5 +305,78 @@ export default function Settings() {
         </Tabs>
       </div>
     </JournalLayout>
+  );
+}
+
+/** The strategy names you've typed on trades, which the trade form suggests. Removing one
+ *  only takes it off that list; trades that already use it keep it. */
+function StrategiesCard() {
+  const [items, setItems] = useState<Strategy[] | null>(null);
+  const [target, setTarget] = useState<Strategy | null>(null);
+  const [removing, setRemoving] = useState(false);
+
+  useEffect(() => {
+    strategiesApi
+      .getStrategies()
+      .then(setItems)
+      .catch(() => setItems([]));
+  }, []);
+
+  async function confirmRemove() {
+    if (!target) return;
+    setRemoving(true);
+    try {
+      await strategiesApi.deleteStrategy(target.id);
+      setItems((prev) => (prev || []).filter((s) => s.id !== target.id));
+      toast.success(`Removed "${target.name}"`);
+      setTarget(null);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't remove the strategy");
+    } finally {
+      setRemoving(false);
+    }
+  }
+
+  return (
+    <Card className="mt-4">
+      <CardHeader>
+        <CardTitle>Your strategies</CardTitle>
+        <CardDescription>
+          Strategy names you've added, suggested when you log a trade. Removing one takes it off the list; trades that use it keep it.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {items === null ? (
+          <p className="text-sm text-muted-foreground">Loading…</p>
+        ) : items.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No custom strategies yet. Type a new name in a trade's Strategy field to add one.</p>
+        ) : (
+          <ul className="divide-y rounded-md border">
+            {items.map((item) => (
+              <li key={item.id} className="flex items-center justify-between gap-3 px-3 py-2 text-sm">
+                <span className="min-w-0 truncate">{item.name}</span>
+                <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" aria-label={`Remove strategy ${item.name}`} onClick={() => setTarget(item)}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </CardContent>
+      <AlertDialog open={!!target} onOpenChange={(open) => !open && setTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove "{target?.name}"?</AlertDialogTitle>
+            <AlertDialogDescription>It will no longer be suggested. Trades that already use it are not changed.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={removing}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmRemove} disabled={removing}>
+              Remove
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Card>
   );
 }

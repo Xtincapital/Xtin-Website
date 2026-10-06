@@ -774,7 +774,7 @@ export default function NetWorth() {
                   step="0.1"
                   value={assetForm.return_rate}
                   onChange={(e) => setAssetField("return_rate", e.target.value)}
-                  placeholder="8"
+                  placeholder="e.g. 8"
                 />
               </div>
               <div className="space-y-1.5">
@@ -890,7 +890,7 @@ export default function NetWorth() {
                   step="0.1"
                   value={liabilityForm.rate}
                   onChange={(e) => setLiabilityField("rate", e.target.value)}
-                  placeholder="8.5"
+                  placeholder="e.g. 8.5"
                 />
               </div>
               <div className="space-y-1.5">
@@ -913,7 +913,7 @@ export default function NetWorth() {
                   step="0.1"
                   value={liabilityForm.tenure}
                   onChange={(e) => setLiabilityField("tenure", e.target.value)}
-                  placeholder="10"
+                  placeholder="e.g. 10"
                 />
               </div>
               <div className="space-y-1.5">

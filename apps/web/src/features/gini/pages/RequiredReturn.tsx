@@ -51,6 +51,7 @@ import { api } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
 import ProGate from "../components/ProGate";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
+import { investableAssets } from "../lib/investable";
 
 // See header comment — no Gini settings store exists yet, so this mirrors
 // app.js's own default (line 1675: `sipTiming: 'due'`).
@@ -214,7 +215,7 @@ export default function RequiredReturn() {
   // first time the assets query resolves — see header comment.
   useEffect(() => {
     if (!seeded && assetsQuery.data) {
-      const total = assetsQuery.data.reduce((sum, a) => sum + (a.value || 0), 0);
+      const total = investableAssets(assetsQuery.data);
       if (total > 0) setCurrentSavings(total);
       setSeeded(true);
     }
@@ -304,6 +305,7 @@ export default function RequiredReturn() {
                       <span>₹0</span>
                       <span>₹5 Cr</span>
                     </div>
+                    <p className="text-xs text-muted-foreground">Starts from your investable assets (property and insurance not included).</p>
                   </div>
 
                   <div className="space-y-2">

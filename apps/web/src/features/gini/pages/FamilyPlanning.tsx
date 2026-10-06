@@ -54,11 +54,10 @@
 //     scraping already-rendered DOM text nodes the way app.js's
 //     `generateRoadmap` did (app.js ~5406-5453) — same numbers, cleaner
 //     mechanism. Its "Financial Readiness" score needs a monthly-savings
-//     figure the original sourced from `appState.userProfile.monthlySavings`
-//     — a settings field with no equivalent store in this React port (see
-//     RequiredReturn.tsx's own header comment on the same missing
-//     `appState.settings` concept) — defaulted to 0 here exactly like that
-//     field's own unset default, rather than fabricating a number.
+//     figure the original took from a profile setting this port doesn't
+//     have. It used to be a fixed 0 (so readiness always read 0%); it is now
+//     the household's monthly surplus: earner income from the Family page,
+//     minus the Emergency Fund card's monthly expenses, minus loan EMIs.
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -403,6 +402,21 @@ export default function FamilyPlanning() {
   );
   const hasSpouse = members.some((m) => m.relationship === "Spouse");
 
+  const assetsQuery = useQuery({ queryKey: ["gini", "assets"], queryFn: api.assets.getAssets });
+  const liabilitiesQuery = useQuery({ queryKey: ["gini", "liabilities"], queryFn: api.liabilities.getLiabilities });
+  const monthlyEMI = useMemo(
+    () => (liabilitiesQuery.data || []).reduce((sum, l) => sum + (l.emi || 0), 0),
+    [liabilitiesQuery.data]
+  );
+  // Cash and fixed deposits are what an emergency fund is usually kept in.
+  const liquidSavings = useMemo(
+    () =>
+      (assetsQuery.data || [])
+        .filter((a) => a.category === "Cash" || a.category === "Fixed Deposits")
+        .reduce((sum, a) => sum + (a.value || 0), 0),
+    [assetsQuery.data]
+  );
+
   // ── Child Cost Projection ────────────────────────────────────────────
   const [childCostForm, setChildCostForm] = useState<ChildCostForm>({
     yearsToBirth: "2",
@@ -469,6 +483,17 @@ export default function FamilyPlanning() {
     timeframe: "12",
   });
   const [emergencyResults, setEmergencyResults] = useState<EmergencyResults | null>(null);
+  const [emergencySeeded, setEmergencySeeded] = useState(false);
+
+  // Pre-fill "Current Emergency Savings" from Net Worth once, like Annual Income above.
+  useEffect(() => {
+    if (!emergencySeeded && assetsQuery.data) {
+      if (liquidSavings > 0) setEmergencyForm((p) => ({ ...p, currentSavings: String(liquidSavings) }));
+      setEmergencySeeded(true);
+    }
+  }, [assetsQuery.data, emergencySeeded, liquidSavings]);
+
+  const monthlySurplus = Math.max(0, householdAnnualIncome / 12 - num(emergencyForm.monthlyExpenses) - monthlyEMI);
 
   // ── Roadmap ───────────────────────────────────────────────────────────
   const [roadmapGenerated, setRoadmapGenerated] = useState(false);
@@ -489,10 +514,8 @@ export default function FamilyPlanning() {
     const totalMonthly = educationSIP + weddingSIP + emergencySIP;
 
     const planningYears = 25;
-    // No settings store carries `userProfile.monthlySavings` in this React
-    // port — defaults to 0, same as that field's own unset default (see
-    // header comment).
-    const currentMonthlySavings = 0;
+    // Monthly surplus: income minus expenses minus EMIs (see header comment).
+    const currentMonthlySavings = monthlySurplus;
     const readiness = totalMonthly > 0 ? Math.min((currentMonthlySavings / totalMonthly) * 100, 100) : 100;
 
     const milestones =
@@ -511,7 +534,7 @@ export default function FamilyPlanning() {
     }));
 
     return { totalCapital, totalMonthly, planningYears, readiness, milestones, accumulationChart };
-  }, [children.length, education, weddingResults, emergencyResults]);
+  }, [children.length, education, weddingResults, emergencyResults, monthlySurplus]);
 
   return (
     <GiniLayout>
@@ -852,6 +875,7 @@ export default function FamilyPlanning() {
                   value={emergencyForm.currentSavings}
                   onChange={(e) => setEmergencyForm((p) => ({ ...p, currentSavings: e.target.value }))}
                 />
+                <p className="text-xs text-muted-foreground">Pre-filled from Cash and Fixed Deposits on your Net Worth page.</p>
               </div>
               <div className="space-y-1.5">
                 <Label>Time to Build Fund (months)</Label>
@@ -897,6 +921,10 @@ export default function FamilyPlanning() {
                     { label: "Financial Readiness", value: `${roadmap.readiness.toFixed(0)}%` },
                   ]}
                 />
+                <p className="text-xs text-muted-foreground">
+                  Readiness compares your monthly surplus of {formatCurrency(monthlySurplus)} (household income minus the monthly
+                  expenses above and {formatCurrency(monthlyEMI)} in loan EMIs) with these monthly commitments.
+                </p>
 
                 <ChartContainer config={ROADMAP_CHART_CONFIG} className="h-80 w-full">
                   <LineChart data={roadmap.accumulationChart}>

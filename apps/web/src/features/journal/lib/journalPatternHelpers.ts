@@ -114,3 +114,9 @@ export function getHeatmapColor(value: number, maxAbs: number): string {
 export function normalizeStrategyName(name: string | null | undefined): string {
   return typeof name === 'string' ? name.trim() : '';
 }
+
+/** How a stored market value is shown: "Crypto_Currency" is kept in the data for
+ *  existing trades but reads "Crypto Currency". */
+export function marketLabel(market: string): string {
+  return market.replace(/_/g, " ");
+}

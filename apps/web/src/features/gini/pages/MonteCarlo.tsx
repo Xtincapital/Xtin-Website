@@ -63,6 +63,7 @@ import { api } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
 import ProGate from "../components/ProGate";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
+import { investableAssets } from "../lib/investable";
 
 // See header comment — mirrors app.js's own default (line 1675).
 const SIP_TIMING: "due" | "ordinary" = "due";
@@ -238,7 +239,7 @@ export default function MonteCarlo() {
   useEffect(() => {
     if (seeded || !assetsQuery.data || !goalsQuery.data) return;
 
-    const totalAssets = assetsQuery.data.reduce((sum, a) => sum + (a.value || 0), 0);
+    const totalAssets = investableAssets(assetsQuery.data);
     if (totalAssets > 0) setInitial(totalAssets);
 
     const currentYear = new Date().getFullYear();
@@ -308,7 +309,7 @@ export default function MonteCarlo() {
                   <Skeleton className="h-8 w-64" />
                 ) : (
                   <p className="text-sm text-muted-foreground">
-                    Initial amount, target and years are seeded from your real assets and goals — adjust freely.
+                    Initial amount, target and years start from your investable assets (property and insurance not included) and goals. Change them freely.
                   </p>
                 )}
 

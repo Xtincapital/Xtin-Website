@@ -81,6 +81,7 @@ import JournalLayout from "../components/JournalLayout";
 import { trades as tradesApi, goals as goalsApi, type Trade } from "../lib/api";
 import { coach, InsufficientTokensError, type ChatHistoryMessage } from "../lib/coachApi";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
+import { marketLabel } from "../lib/journalPatternHelpers";
 
 // Same static lists pages/Trades.tsx's trade form uses — duplicated here
 // (not imported, that page is read-only for this task and doesn't export
@@ -666,7 +667,7 @@ function PreTradeTab({
                   <SelectContent>
                     {TRADE_MARKETS.map((m) => (
                       <SelectItem key={m} value={m}>
-                        {m}
+                        {marketLabel(m)}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -39,7 +39,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Trash2, Target } from "lucide-react";
+import { Plus, Pencil, Trash2, Target } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useJournalPlanStore } from "../store/useJournalPlanStore";
 import { api } from "../lib/api";
@@ -179,6 +179,7 @@ export default function Goals() {
   const [form, setForm] = useState<GoalFormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
 
+  const [editingGoal, setEditingGoal] = useState<Goal | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Goal | null>(null);
   const [deleting, setDeleting] = useState(false);
 
@@ -212,7 +213,19 @@ export default function Goals() {
       });
       return;
     }
+    setEditingGoal(null);
     setForm(EMPTY_FORM);
+    setDialogOpen(true);
+  }
+
+  function openEditDialog(goal: Goal) {
+    setEditingGoal(goal);
+    setForm({
+      title: goal.title,
+      metric: (goal.metric as GoalMetric) in METRIC_CONFIG ? (goal.metric as GoalMetric) : "total_pnl",
+      timeframe: (goal.timeframe as GoalTimeframe) in TIMEFRAME_LABELS ? (goal.timeframe as GoalTimeframe) : "this_month",
+      target_value: String(goal.target_value),
+    });
     setDialogOpen(true);
   }
 
@@ -232,18 +245,19 @@ export default function Goals() {
 
     setSaving(true);
     try {
-      await api.goals.createGoal({
-        title,
-        metric: form.metric,
-        timeframe: form.timeframe,
-        target_value: targetValue,
-      });
-      toast.success("Goal added");
+      const input = { title, metric: form.metric, timeframe: form.timeframe, target_value: targetValue };
+      if (editingGoal) {
+        await api.goals.updateGoal(editingGoal.id, input);
+        toast.success("Goal updated");
+      } else {
+        await api.goals.createGoal(input);
+        toast.success("Goal added");
+      }
       setDialogOpen(false);
       await load();
     } catch (err: any) {
       console.error(err);
-      toast.error(err?.message || "Failed to add goal");
+      toast.error(err?.message || (editingGoal ? "Failed to update goal" : "Failed to add goal"));
     } finally {
       setSaving(false);
     }
@@ -302,9 +316,14 @@ export default function Goals() {
                         {config.label} • {TIMEFRAME_LABELS[goal.timeframe as GoalTimeframe] || goal.timeframe}
                       </p>
                     </div>
-                    <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(goal)} aria-label="Remove goal">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="flex shrink-0 gap-1">
+                      <Button variant="ghost" size="icon" onClick={() => openEditDialog(goal)} aria-label={`Edit goal ${goal.title}`}>
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(goal)} aria-label={`Remove goal ${goal.title}`}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -327,11 +346,11 @@ export default function Goals() {
         )}
       </div>
 
-      {/* Add goal dialog */}
+      {/* Add / edit goal dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Add Goal</DialogTitle>
+            <DialogTitle>{editingGoal ? "Edit Goal" : "Add Goal"}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
@@ -391,7 +410,7 @@ export default function Goals() {
                 Cancel
               </Button>
               <Button type="submit" disabled={saving}>
-                {saving ? "Saving..." : "Add Goal"}
+                {saving ? "Saving..." : editingGoal ? "Save Changes" : "Add Goal"}
               </Button>
             </DialogFooter>
           </form>

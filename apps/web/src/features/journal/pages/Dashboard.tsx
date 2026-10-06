@@ -66,6 +66,7 @@ import { Progress } from "@/components/ui/progress";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { trades as tradesApi, goals as goalsApi, type Trade, type Goal } from "../lib/api";
+import { marketLabel } from "../lib/journalPatternHelpers";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Metrics — port of app.js's calculateMetrics(), trimmed to the subset the
@@ -397,7 +398,7 @@ const Dashboard = () => {
                         <div className="min-w-0">
                           <p className="font-semibold text-foreground text-sm truncate">{trade.asset}</p>
                           <p className="text-xs text-muted-foreground truncate">
-                            {[trade.type, trade.market].filter(Boolean).join(" • ")}
+                            {[trade.type, trade.market && marketLabel(trade.market)].filter(Boolean).join(" • ")}
                             {trade.type || trade.market ? " • " : ""}
                             {new Date(trade.date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
                           </p>

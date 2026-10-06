@@ -80,6 +80,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
+import { investableAssets } from "../lib/investable";
 
 /** SIP future-value annuity factor — verbatim port of `utils.sipFVFactor`.
  *  `timing` is hardcoded to the original's default `'due'` (deposit at the
@@ -127,7 +128,8 @@ export default function Planner() {
   });
 
   const isLoading = assetsLoading || goalsLoading;
-  const totalAssets = useMemo(() => assets.reduce((sum, a) => sum + (a.value || 0), 0), [assets]);
+  // Excludes your home and insurance (see ../lib/investable.ts).
+  const totalAssets = useMemo(() => investableAssets(assets), [assets]);
 
   // Planning inputs — defaults match the original form's hardcoded values
   // (index.html ~lines 1316-1340), except `currentSavings`, which defaults
@@ -252,7 +254,7 @@ export default function Planner() {
                       onChange={(e) => setCurrentSavingsInput(e.target.value)}
                     />
                   )}
-                  <p className="text-xs text-muted-foreground">Defaults to your total assets from Net Worth</p>
+                  <p className="text-xs text-muted-foreground">Defaults to your investable assets from Net Worth (property and insurance not included)</p>
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="planner-monthly-savings">Monthly Savings Amount (₹)</Label>

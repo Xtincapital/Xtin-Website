@@ -50,3 +50,26 @@ describe("AI trade context", () => {
         expect(text).toContain("Trades=4");
     });
 });
+
+import { rowsToImportTrades } from "./importParsers.js";
+
+describe("import with missing columns", () => {
+    it("leaves strategy, times, type, market, margin and emotion blank instead of inventing them", () => {
+        const [trade] = rowsToImportTrades([
+            ["Date", "Asset", "Quantity", "Entry Price", "Exit Price"],
+            ["2026-10-05", "INFY", 10, 100, 110],
+        ]);
+        expect(trade).toMatchObject({
+            strategy: null, entry_time: null, exit_time: null, type: null, market: null,
+            margin: null, emotion: null, target_price: null, stop_loss: null, pnl: 100,
+        });
+    });
+
+    it("still reads those columns when the file has them", () => {
+        const [trade] = rowsToImportTrades([
+            ["Date", "Asset", "Quantity", "Entry Price", "Exit Price", "Strategy", "Entry Time", "Market"],
+            ["2026-10-05", "INFY", 10, 100, 110, " Breakout ", "10:05:00", "Equity"],
+        ]);
+        expect(trade).toMatchObject({ strategy: "Breakout", entry_time: "10:05:00", market: "Equity" });
+    });
+});

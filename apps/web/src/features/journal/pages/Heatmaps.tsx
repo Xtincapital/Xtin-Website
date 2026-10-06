@@ -45,6 +45,7 @@ import {
   getEntryHour,
   getHeatmapColor,
   getSessionLabelForTrade,
+  marketLabel,
 } from "../lib/journalPatternHelpers";
 
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -140,7 +141,7 @@ const Heatmaps = () => {
       bestWeekdayValue: bestWeekday[1],
       bestHourLabel: bestHourEntry ? formatHourDisplay(parseInt(bestHourEntry[0], 10)) : "N/A",
       bestHourValue: bestHourEntry ? bestHourEntry[1] : 0,
-      bestMarketLabel: bestMarketEntry ? bestMarketEntry[0] : "N/A",
+      bestMarketLabel: bestMarketEntry ? marketLabel(bestMarketEntry[0]) : "N/A",
       bestMarketValue: bestMarketEntry ? bestMarketEntry[1] : 0,
     };
   }, [filteredTrades]);
@@ -420,7 +421,7 @@ const Heatmaps = () => {
                     <div />
                     {hourMarketData.markets.map((m) => (
                       <div key={m} className="text-[11px] font-semibold text-muted-foreground text-center px-1 truncate">
-                        {m}
+                        {marketLabel(m)}
                       </div>
                     ))}
                     {hourMarketData.hours.map((hour) => (

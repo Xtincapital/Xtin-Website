@@ -43,13 +43,19 @@ export interface ImportStats {
     skipped: number;
 }
 
+/** Trimmed text, or null when the cell is missing or blank. */
+function textOrNull(value: unknown): string | null {
+    const text = value === null || value === undefined ? "" : String(value).trim();
+    return text ? text : null;
+}
+
 export interface ParsedImportTrade {
     date: string;
     exit_date: string;
-    entry_time: string;
-    exit_time: string;
-    type: string;
-    market: string;
+    entry_time: string | null;
+    exit_time: string | null;
+    type: string | null;
+    market: string | null;
     asset: string;
     currency: string;
     quantity: number;
@@ -58,11 +64,11 @@ export interface ParsedImportTrade {
     stop_loss: number | null;
     exit_price: number;
     brokerage: number;
-    strategy: string;
-    margin: number;
+    strategy: string | null;
+    margin: number | null;
     buy_sell: "buy" | "sell";
     pnl: number;
-    emotion: string;
+    emotion: string | null;
     notes: string;
     tags: string[];
     strike_price: number | null;
@@ -272,10 +278,12 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
     return {
         date: parseImportDate(dateValue),
         exit_date: exitDateValue ? parseImportDate(exitDateValue) : parseImportDate(dateValue),
-        entry_time: String(findValue(["entry time", "entrytime"]) || "09:15:00"),
-        exit_time: String(findValue(["exit time", "exittime"]) || "15:30:00"),
-        type: String(findValue(["trading type", "trade type", "category", "product", "product type"]) || "Intraday"),
-        market: String(findValue(["trade market", "market", "segment"]) || "Equity"),
+        // A column the file doesn't have stays empty; inventing values (09:15 entries, "Breakout",
+        // Intraday/Equity) made them show up in the hourly, strategy and market analytics.
+        entry_time: textOrNull(findValue(["entry time", "entrytime"])),
+        exit_time: textOrNull(findValue(["exit time", "exittime"])),
+        type: textOrNull(findValue(["trading type", "trade type", "category", "product", "product type"])),
+        market: textOrNull(findValue(["trade market", "market", "segment"])),
         asset,
         currency,
         quantity,
@@ -284,11 +292,11 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
         stop_loss: parseImportNumber(findValue(["stop loss", "sl"])),
         exit_price: exitPrice,
         brokerage,
-        strategy: String(findValue(["trading strategy", "strategy", "setup"]) || "Breakout"),
-        margin: parseImportNumber(findValue(["margin", "capital", "required capital", "turnover"])) ?? quantity * entryPrice,
+        strategy: textOrNull(findValue(["trading strategy", "strategy", "setup"])),
+        margin: parseImportNumber(findValue(["margin", "capital", "required capital", "turnover"])),
         buy_sell: buySell,
         pnl,
-        emotion: String(findValue(["emotion", "emotion/psychology", "psychology"]) || "neutral").toLowerCase(),
+        emotion: textOrNull(findValue(["emotion", "emotion/psychology", "psychology"]))?.toLowerCase() ?? null,
         notes: String(findValue(["notes", "trade notes/journal", "journal", "comment", "description"]) || "Imported from file"),
         tags,
         strike_price: parseImportNumber(findValue(["strike price", "strike", "strikeprice", "strike_price"])),
@@ -383,23 +391,23 @@ export function parsePdfLinesToImportTrades(lines: string[]): ParsedImportTrade[
         trades.push({
             date: parseImportDate(dateMatch[1]),
             exit_date: parseImportDate(dateMatch[1]),
-            entry_time: "09:15:00",
-            exit_time: "15:30:00",
-            type: "Intraday",
-            market: "Equity",
+            entry_time: null,
+            exit_time: null,
+            type: null,
+            market: null,
             asset: words.join(" ") || "Unknown",
             currency: "INR",
             quantity,
             entry_price: entryPrice,
-            target_price: 0,
-            stop_loss: 0,
+            target_price: null,
+            stop_loss: null,
             exit_price: exitPrice,
             brokerage: 0,
-            strategy: "Breakout",
-            margin: quantity * entryPrice,
+            strategy: null,
+            margin: null,
             buy_sell: buySell,
             pnl,
-            emotion: "neutral",
+            emotion: null,
             notes: "Imported from PDF statement",
             tags: ["imported", "pdf"],
             strike_price: null,

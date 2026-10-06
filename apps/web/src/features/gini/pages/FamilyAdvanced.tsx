@@ -784,7 +784,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
                   min={0}
                   value={form.cost}
                   onChange={(e) => setForm((p) => ({ ...p, cost: e.target.value }))}
-                  placeholder="1000000"
+                  placeholder="e.g. 1000000"
                 />
               </div>
               <div className="space-y-1.5">

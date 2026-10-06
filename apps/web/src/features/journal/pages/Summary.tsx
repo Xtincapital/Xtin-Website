@@ -63,6 +63,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { trades as tradesApi, type Trade } from "../lib/api";
+import { marketLabel } from "../lib/journalPatternHelpers";
 
 // Same static option lists pages/Trades.tsx uses for the trade form (app.js's
 // `tradingTypes` / `tradeMarkets`).
@@ -209,7 +210,7 @@ const Summary = () => {
     })).filter((d) => d.value > 0);
 
     const marketDistribution = TRADE_MARKETS.map((market) => ({
-      name: market,
+      name: marketLabel(market),
       value: allTrades.filter((t) => t.market === market).length,
     })).filter((d) => d.value > 0);
 
@@ -219,7 +220,7 @@ const Summary = () => {
     }));
 
     const pnlByMarket = TRADE_MARKETS.map((market) => ({
-      market,
+      market: marketLabel(market),
       pnl: allTrades.filter((t) => t.market === market).reduce((s, t) => s + (t.pnl ?? 0), 0),
     }));
 

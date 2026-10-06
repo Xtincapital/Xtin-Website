@@ -51,6 +51,7 @@ import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { trades as tradesApi, type Trade } from "../lib/api";
+import { marketLabel } from "../lib/journalPatternHelpers";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -94,7 +95,7 @@ function distributionOf(list: Trade[], field: "type" | "market"): { name: string
     if (!key) continue;
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
-  return Array.from(counts.entries()).map(([name, value]) => ({ name, value }));
+  return Array.from(counts.entries()).map(([name, value]) => ({ name: field === "market" ? marketLabel(name) : name, value }));
 }
 
 const Monthly = () => {
