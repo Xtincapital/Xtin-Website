@@ -6,6 +6,7 @@ import {
 	type ValidationIssue,
 } from "./user.validator.js";
 import { HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
+import { deleteAccountData } from "./accountDeletion.js";
 import {
 	checkUserExists,
 	saveUser,
@@ -472,4 +473,26 @@ const logout = async (req, res) => {
     }
 };
 
-export { signup, login, logout, syncUser, getUserProfile, updateUserProfile };
+// Permanently delete the signed-in user's account and data.
+// Body must be { confirm: "DELETE" } so a stray request can't do it.
+const deleteAccount = async (req, res) => {
+	if (req.body?.confirm !== "DELETE") {
+		return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: 'Type DELETE to confirm account deletion.' });
+	}
+	try {
+		const result = await deleteAccountData({ authId: req.user.authId, userId: req.user.userId, email: req.user.email });
+		if (!result.ok) {
+			console.error('[DeleteAccount] incomplete', JSON.stringify({ authId: req.user.authId, failures: result.failures }));
+			return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+				message: "We couldn't finish deleting your account. You can still sign in — please try again, or contact support@xtincapital.com.",
+			});
+		}
+		console.log('[DeleteAccount] deleted', req.user.authId);
+		return res.status(HTTP_STATUS.OK).json({ message: "Your account and data have been deleted." });
+	} catch (error) {
+		console.error('[DeleteAccount] Error:', error);
+		return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: MESSAGES.SERVER_ERROR });
+	}
+};
+
+export { signup, login, logout, syncUser, getUserProfile, updateUserProfile, deleteAccount };

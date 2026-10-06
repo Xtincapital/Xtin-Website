@@ -32,7 +32,7 @@
 //    gone — the Navbar's Xtin wordmark is the only logo. The design tokens
 //    come from the shared site block in apps/web/src/index.css.
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Home,
@@ -48,6 +48,8 @@ import {
   HelpCircle,
   Coins,
   Menu,
+  Bell,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -56,6 +58,7 @@ import Footer from "@/components/Footer";
 import { usePlanStore, formatTokens } from "../../store/usePlanStore";
 import OnboardingTour, { startTour } from "../OnboardingTour";
 import RegionSwitcher from "../RegionSwitcher";
+import { useAlertsStore } from "../../store/useAlertsStore";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -67,6 +70,8 @@ const navItems = [
   { name: "Stock Scanner", icon: Filter, href: "/fundakamental/scanner", premium: true },
   { name: "Portfolio", icon: Briefcase, href: "/fundakamental/portfolio", premium: false },
   { name: "Watchlist", icon: Eye, href: "/fundakamental/watchlist", premium: false },
+  { name: "Technicals", icon: Activity, href: "/fundakamental/technicals", premium: true },
+  { name: "Alerts", icon: Bell, href: "/fundakamental/alerts", premium: false },
   { name: "History", icon: Clock, href: "/fundakamental/history", premium: false },
   { name: "Settings", icon: Settings, href: "/fundakamental/settings", premium: false },
 ];
@@ -89,6 +94,20 @@ const DashboardLayout = ({ children }: SidebarProps) => {
   const openBuyTokens = usePlanStore((s) => s.openBuyTokens);
 
   const refreshPlan = usePlanStore((s) => s.refreshPlan);
+  const unreadAlerts = useAlertsStore((s) => s.unread);
+  const navigate = useNavigate();
+
+  // Price-target alerts: badge + a pop-up for new ones. Re-checked every
+  // minute while the tab is visible (the server checks targets on each call).
+  useEffect(() => {
+    const refresh = () =>
+      useAlertsStore.getState().refreshUnread({ announce: true, onOpen: () => navigate("/fundakamental/alerts") });
+    refresh();
+    const timer = setInterval(() => {
+      if (document.visibilityState === "visible") refresh();
+    }, 60_000);
+    return () => clearInterval(timer);
+  }, [navigate]);
 
   // Refresh the plan and AI token balance when the dashboard mounts. The plan
   // used to be read only after a checkout, so every Pro/bundle customer saw
@@ -139,12 +158,20 @@ const DashboardLayout = ({ children }: SidebarProps) => {
                   {!collapsed && (
                     <>
                       <span className="text-sm">{item.name}</span>
+                      {item.name === "Alerts" && unreadAlerts > 0 && (
+                        <span className="ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center" aria-label={`${unreadAlerts} unread alerts`}>
+                          {unreadAlerts > 99 ? "99+" : unreadAlerts}
+                        </span>
+                      )}
                       {item.premium && (
                         <span className="ml-auto text-[9px] font-extrabold tracking-wide px-1.5 py-0.5 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">
                           PRO
                         </span>
                       )}
                     </>
+                  )}
+                  {collapsed && item.name === "Alerts" && unreadAlerts > 0 && (
+                    <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
                   )}
                   {collapsed && item.premium && (
                     <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-amber-500" />
@@ -233,6 +260,18 @@ const DashboardLayout = ({ children }: SidebarProps) => {
             </button>
             <Link to="/fundakamental" className="text-base font-semibold text-gray-900">
               FundaKaMental
+            </Link>
+            <Link
+              to="/fundakamental/alerts"
+              className="ml-auto relative p-2 -mr-2 rounded-lg text-foreground hover:bg-accent transition-colors"
+              aria-label={unreadAlerts > 0 ? `Alerts, ${unreadAlerts} unread` : "Alerts"}
+            >
+              <Bell className="w-5 h-5" />
+              {unreadAlerts > 0 && (
+                <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                  {unreadAlerts > 9 ? "9+" : unreadAlerts}
+                </span>
+              )}
             </Link>
           </div>
           {children}

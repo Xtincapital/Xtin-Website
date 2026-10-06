@@ -21,6 +21,9 @@ import {
     deleteNotificationById,
     getUnreadNotificationCount,
 } from "./alerts.repository.js";
+import { checkUserAlertsIfDue } from "./priceAlertChecker.js";
+import { findDirectoryEntry } from "./companyDirectory.js";
+import { getQuote } from "./stockDataService.js";
 
 function isValidUuid(value: string): boolean {
     return REGEX.UUID.test(value);
@@ -44,10 +47,15 @@ export const createPriceAlert = async (req, res) => {
     const tickerUpper = ticker.toUpperCase();
 
     try {
+        // Any NSE/US listing (or anything with a live price), not just the
+        // ~110 stocks the scanner stores.
         const { data: stockRows, error: stockError } = await findStockByTicker(tickerUpper);
         if (stockError) throw stockError;
-        if (!stockRows || stockRows.length === 0) {
-            return res.status(HTTP_STATUS.NOT_FOUND).json({ error: `Stock ${tickerUpper} not found. Please search for it first.` });
+        const known = (stockRows && stockRows.length > 0) || findDirectoryEntry(tickerUpper) || (await getQuote(tickerUpper).catch(() => null));
+        if (!known) {
+            return res.status(HTTP_STATUS.NOT_FOUND).json({
+                error: `We couldn't find "${tickerUpper}". Indian stocks end in .NS (e.g. RELIANCE.NS), US stocks as-is (e.g. AAPL).`,
+            });
         }
 
         const { data, error } = await insertPriceAlert({
@@ -242,6 +250,9 @@ export const deleteNotification = async (req, res) => {
 /* GET /api/fundakamental/notifications/unread-count */
 export const getUnreadCount = async (req, res) => {
     try {
+        // Check this user's price targets first (throttled), so a hit shows up
+        // as soon as they open the dashboard even if the server was asleep.
+        await Promise.race([checkUserAlertsIfDue(req.user.authId), new Promise((r) => setTimeout(r, 4000))]);
         const { count, error } = await getUnreadNotificationCount(req.user.authId);
         if (error) throw error;
         return res.status(HTTP_STATUS.OK).json({ count: count || 0 });

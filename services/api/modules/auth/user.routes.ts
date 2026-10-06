@@ -6,7 +6,8 @@ import {
 	logout,
 	syncUser,
 	getUserProfile,
-	updateUserProfile
+	updateUserProfile,
+	deleteAccount
 } from "./user.controller.js";
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.post("/auth/logout", authenticate, logout);
 router.post("/auth/sync", syncUser);
 router.get("/auth/profile", authenticate, getUserProfile);
 router.put("/auth/profile", authenticate, updateUserProfile);
+router.delete("/auth/account", authenticate, deleteAccount);
 
 export default router;

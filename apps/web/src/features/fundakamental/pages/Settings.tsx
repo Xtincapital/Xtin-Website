@@ -66,6 +66,7 @@ import { formatPrice } from "../lib/currency";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/RegionSwitcher.tsx
 import RegionSwitcher from "../components/RegionSwitcher";
+import DeleteAccountDialog from "@/components/DeleteAccountDialog";
 import { api } from "../lib/api";
 import authService from "../../../services/authService";
 import { BACKEND_URL } from "../../../config/env";
@@ -127,6 +128,7 @@ const Settings = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPw, setChangingPw] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   useEffect(() => {
     setName(displayName || "");
@@ -572,13 +574,17 @@ const Settings = () => {
 
                   <div className="pt-6 border-t border-border">
                     <h3 className="font-medium text-destructive mb-2">Delete Account</h3>
-                    <p className="text-sm text-muted-foreground">
-                      To permanently delete your account and all its data, email{" "}
-                      <a href="mailto:support@xtincapital.com?subject=Delete%20my%20account" className="text-primary font-medium hover:underline">
-                        support@xtincapital.com
-                      </a>{" "}
-                      from the address you sign in with. We'll confirm once it's done.
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Permanently delete your Xtin Capital account and all of its data.
                     </p>
+                    <Button
+                      variant="destructive"
+                      onClick={() => setDeleteOpen(true)}
+                      className="bg-destructive/10 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                    >
+                      Delete Account
+                    </Button>
+                    <DeleteAccountDialog open={deleteOpen} onOpenChange={setDeleteOpen} />
                   </div>
                 </div>
               </div>

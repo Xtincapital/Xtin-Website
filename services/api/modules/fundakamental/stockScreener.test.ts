@@ -58,3 +58,26 @@ describe("stock screener", () => {
         expect(result.results[0].match_score).toBe(100);
     });
 });
+
+describe("match score", () => {
+    it("scores every stock that passes a numeric filter at 100, never negative", async () => {
+        getScreeningCache.mockResolvedValue({ data: null });
+        upsertScreeningCache.mockResolvedValue({ error: null });
+        queryStocksForScreener.mockResolvedValue({
+            data: [
+                { ticker: "BIG", market_cap: 1.6e12, pe_ratio: 12 },
+                { ticker: "SMALL", market_cap: 1.1e10, pe_ratio: 19 },
+            ],
+            error: null,
+        });
+        const result = await screenStocks({
+            filters: [
+                { field: "market_cap", operator: "gte", value: 1e10 },
+                { field: "pe_ratio", operator: "lt", value: 20 },
+            ],
+            sortBy: "match_score",
+            market: "india",
+        });
+        expect(result.results.map((r) => r.match_score)).toEqual([100, 100]);
+    });
+});

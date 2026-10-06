@@ -42,6 +42,8 @@ const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Watchlist = lazy(() => import("./pages/Watchlist"));
 const History = lazy(() => import("./pages/History"));
 const Pricing = lazy(() => import("./pages/Pricing"));
+const Technicals = lazy(() => import("./pages/Technicals"));
+const Alerts = lazy(() => import("./pages/Alerts"));
 
 // A query client scoped to FundaKaMental, separate from any query client the
 // host app's other features might use — matches the original App.tsx's own
@@ -83,6 +85,8 @@ const FundakamentalApp = () => {
             <Route path="watchlist" element={<Watchlist />} />
             <Route path="history" element={<History />} />
             <Route path="pricing" element={<Pricing />} />
+            <Route path="technicals" element={<Technicals />} />
+            <Route path="alerts" element={<Alerts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

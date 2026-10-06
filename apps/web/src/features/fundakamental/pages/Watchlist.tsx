@@ -33,7 +33,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarChart3, Pencil } from 'lucide-react';
+import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarChart3, Pencil, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
 import DashboardLayout from '../components/dashboard/DashboardLayout';
 
@@ -486,7 +487,7 @@ export default function Watchlist() {
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Add Stock to Watchlist</DialogTitle>
-                  <DialogDescription>Add a stock with optional price target</DialogDescription>
+                  <DialogDescription>Add a stock with an optional price target — you'll get an alert on the Alerts page when it's reached.</DialogDescription>
                 </DialogHeader>
 
                 <div className="space-y-4">
@@ -863,6 +864,15 @@ export default function Watchlist() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center">
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link
+                            to={`/fundakamental/technicals?ticker=${encodeURIComponent(item.ticker)}`}
+                            aria-label={`Technical indicators for ${item.ticker}`}
+                            title="Technical indicators"
+                          >
+                            <Activity className="w-4 h-4" />
+                          </Link>
+                        </Button>
                         <Button
                           variant="ghost"
                           size="sm"

@@ -29,7 +29,12 @@ const deletePriceAlertById = (alertId: string) => supabase.from("funda_price_ale
 
 const getPriceAlertStatus = (alertId: string) => supabase.from("funda_price_alerts").select("is_active, user_id").eq("id", alertId);
 
-const setPriceAlertActive = (alertId: string, isActive: boolean) => supabase.from("funda_price_alerts").update({ is_active: isActive }).eq("id", alertId);
+// Turning an alert back on re-arms it (clears the last trigger).
+const setPriceAlertActive = (alertId: string, isActive: boolean) =>
+    supabase
+        .from("funda_price_alerts")
+        .update(isActive ? { is_active: true, triggered_at: null, triggered_price: null } : { is_active: false })
+        .eq("id", alertId);
 
 /* funda_notifications --------------------------------------------------------- */
 

@@ -21,11 +21,19 @@ export const getTechnicalIndicators = async (req, res) => {
         const indicators = calculateAll(priceData);
         const signals = includeSignals ? detectSignals(indicators, priceData) : null;
 
+        // Price + moving-average series for the chart on the Technicals page.
+        let history: Record<string, unknown> | undefined;
+        if (req.query.include_history === "true") {
+            const closes = priceData.map((d) => Number(d.close));
+            history = { dates: priceData.map((d) => d.date), close: closes, sma_20: sma(closes, 20), sma_50: sma(closes, 50) };
+        }
+
         return res.status(HTTP_STATUS.OK).json({
             ticker,
             timestamp: new Date().toISOString(),
             indicators,
             signals,
+            history,
         });
     } catch (err) {
         console.error("[Fundakamental] technicals failed:", err);

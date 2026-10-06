@@ -46,22 +46,18 @@ function scoreFilterMatch(stockValue: unknown, operator: string, targetValue: un
             const targetNum = Number(targetValue);
             if (Number.isNaN(stockNum) || Number.isNaN(targetNum)) return 50.0;
 
-            if (operator === "gt" || operator === "gte") {
-                if (stockNum >= targetNum) {
-                    const excess = (stockNum - targetNum) / Math.max(targetNum, 1);
-                    return Math.min(100.0, 100.0 - excess * 10);
-                }
-                const shortfall = (targetNum - stockNum) / Math.max(targetNum, 1);
-                return Math.max(0.0, 50.0 - shortfall * 100);
-            }
-
-            // lt, lte
-            if (stockNum <= targetNum) {
-                const below = (targetNum - stockNum) / Math.max(targetNum, 1);
-                return Math.min(100.0, 100.0 - below * 10);
-            }
-            const excess = (stockNum - targetNum) / Math.max(targetNum, 1);
-            return Math.max(0.0, 50.0 - excess * 100);
+            // Meeting the threshold is a full match, however far past it the
+            // stock is (the old formula took points off for beating a ">="
+            // limit by a lot, down to -697% for the largest companies).
+            const passes =
+                operator === "gt" ? stockNum > targetNum
+                : operator === "gte" ? stockNum >= targetNum
+                : operator === "lt" ? stockNum < targetNum
+                : stockNum <= targetNum;
+            if (passes) return 100.0;
+            // Near misses score partially, never below 0.
+            const miss = Math.abs(stockNum - targetNum) / Math.max(Math.abs(targetNum), 1);
+            return Math.max(0.0, 50.0 - miss * 100);
         }
 
         if (operator === "contains") {

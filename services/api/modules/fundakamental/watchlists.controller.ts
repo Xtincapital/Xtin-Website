@@ -41,9 +41,7 @@ import {
     upsertWatchlistSnapshot,
     getWatchlistSnapshots as getWatchlistSnapshotsRepo,
     findExactPriceAlert,
-    findActivePriceAlertsForTicker,
     insertPriceAlert,
-    updatePriceAlertById,
     deleteExactPriceAlert,
 } from "./watchlists.repository.js";
 import {
@@ -80,17 +78,20 @@ async function buildPriceMap(tickers: string[]): Promise<WatchlistPriceMap> {
     return map;
 }
 
-function alertConditionForTargetType(targetType: string): "above" | "below" {
+function alertConditionForTargetType(targetType: string, targetPrice?: number, currentPrice?: number | null): "above" | "below" {
     // BUY: alert when price goes BELOW target (buying opportunity).
     // SELL: alert when price goes ABOVE target (selling opportunity).
-    // ALERT: defaults to below, matching the Python source.
-    return targetType === "SELL" ? "above" : "below";
+    // ALERT: when the price reaches the target from wherever it is now
+    // (a fixed "below" fired at once for any target above today's price).
+    if (targetType === "SELL") return "above";
+    if (targetType === "ALERT" && currentPrice && targetPrice && targetPrice > currentPrice) return "above";
+    return "below";
 }
 
 /** Port of `_create_alert_for_target`. Never throws — mirrors the Python source's swallow-and-log behavior. */
-async function createAlertForTarget(userId: string, ticker: string, targetPrice: number, targetType: string): Promise<void> {
+async function createAlertForTarget(userId: string, ticker: string, targetPrice: number, targetType: string, currentPrice?: number | null): Promise<void> {
     try {
-        const condition = alertConditionForTargetType(targetType);
+        const condition = alertConditionForTargetType(targetType, targetPrice, currentPrice ?? (await getQuote(ticker).catch(() => null))?.price);
         const { data: existing } = await findExactPriceAlert(userId, ticker, targetPrice, condition);
         if (!existing || existing.length === 0) {
             await insertPriceAlert({ user_id: userId, ticker, condition, target_price: targetPrice, is_active: true });
@@ -100,26 +101,12 @@ async function createAlertForTarget(userId: string, ticker: string, targetPrice:
     }
 }
 
-/** Port of `_update_alert_for_target`. */
-async function updateAlertForTarget(userId: string, ticker: string, targetPrice: number, targetType: string): Promise<void> {
-    try {
-        const condition = alertConditionForTargetType(targetType);
-        const { data: existing } = await findActivePriceAlertsForTicker(userId, ticker);
-        if (existing && existing.length > 0) {
-            await updatePriceAlertById(existing[0].id, { target_price: targetPrice, condition });
-        } else {
-            await createAlertForTarget(userId, ticker, targetPrice, targetType);
-        }
-    } catch (err) {
-        console.warn(`[Fundakamental] Failed to update alert for ${ticker}:`, err);
-    }
-}
-
 /** Port of `_remove_alert_for_ticker`. */
 async function removeAlertForTicker(userId: string, ticker: string, targetPrice: number, targetType: string): Promise<void> {
     try {
-        const condition = alertConditionForTargetType(targetType);
-        await deleteExactPriceAlert(userId, ticker, targetPrice, condition);
+        // An ALERT target can point either way, so clear both directions.
+        const conditions = targetType === "ALERT" ? (["above", "below"] as const) : [alertConditionForTargetType(targetType)];
+        for (const condition of conditions) await deleteExactPriceAlert(userId, ticker, targetPrice, condition);
     } catch (err) {
         console.warn(`[Fundakamental] Failed to remove alert for ${ticker}:`, err);
     }
@@ -317,7 +304,7 @@ export const addItemToWatchlist = async (req, res) => {
         }
 
         if (target_price && target_price_type) {
-            await createAlertForTarget(userId, tickerUpper, target_price, target_price_type);
+            await createAlertForTarget(userId, tickerUpper, target_price, target_price_type, addedPrice);
         }
 
         return res.status(HTTP_STATUS.CREATED).json(data[0]);
@@ -438,6 +425,9 @@ export const updateWatchlistItem = async (req, res) => {
             return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Watchlist not found" });
         }
 
+        const { data: before } = await getWatchlistItemById(watchlistId, itemId);
+        const previous = before && before.length > 0 ? before[0] : null;
+
         const updateData: Record<string, unknown> = {};
         if (target_price !== undefined) updateData.target_price = target_price;
         if (target_price_type !== undefined) updateData.target_price_type = target_price_type;
@@ -455,8 +445,16 @@ export const updateWatchlistItem = async (req, res) => {
         }
 
         const itemData = data[0];
+        // Replace the old target's alert (also when the target was cleared).
+        const targetChanged =
+            previous?.target_price &&
+            target_price !== undefined &&
+            (Number(previous.target_price) !== Number(target_price) || (target_price_type !== undefined && previous.target_price_type !== target_price_type));
+        if (targetChanged) {
+            await removeAlertForTicker(userId, itemData.ticker, Number(previous.target_price), previous.target_price_type || "ALERT");
+        }
         if (target_price !== undefined && target_price !== null && target_price_type !== undefined && target_price_type !== null) {
-            await updateAlertForTarget(userId, itemData.ticker, target_price, target_price_type);
+            if (targetChanged || !previous?.target_price) await createAlertForTarget(userId, itemData.ticker, target_price, target_price_type);
         }
 
         return res.status(HTTP_STATUS.OK).json(itemData);

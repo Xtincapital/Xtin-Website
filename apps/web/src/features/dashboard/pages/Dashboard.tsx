@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import DeleteAccountDialog from "@/components/DeleteAccountDialog";
 import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
@@ -158,6 +159,8 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false);
+
   // Profile Update State
   const [showNameModal, setShowNameModal] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -731,7 +734,20 @@ const Dashboard = () => {
               <InfoRow label="Email" value={user?.email || "—"} />
               <InfoRow label="Phone" value={user?.phone_number || user?.user_metadata?.phone_number || "—"} />
             </div>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20 px-5 py-4">
+              <div>
+                <p className="text-sm font-medium text-slate-900 dark:text-white">Delete account</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Permanently remove your account and all of its data.</p>
+              </div>
+              <button
+                onClick={() => setShowDeleteAccount(true)}
+                className="px-3.5 py-2 rounded-lg border border-rose-300 dark:border-rose-800 text-sm font-medium text-rose-600 hover:bg-rose-600 hover:text-white transition"
+              >
+                Delete account
+              </button>
+            </div>
           </section>
+          <DeleteAccountDialog open={showDeleteAccount} onOpenChange={setShowDeleteAccount} />
 
         </div>
       </main>

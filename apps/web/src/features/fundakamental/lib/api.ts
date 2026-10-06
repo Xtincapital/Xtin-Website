@@ -193,8 +193,10 @@ export const stockApi = {
     return Object.assign(data.results || [], { sampleData: data.sample_data === true });
   },
 
-  getTechnicalIndicators: async (ticker: string, period: string = '1y', includeSignals: boolean = false) => {
-    return await request(`/stocks/${ticker}/technicals?period=${period}&include_signals=${includeSignals}`);
+  getTechnicalIndicators: async (ticker: string, period: string = '1y', includeSignals: boolean = false, includeHistory: boolean = false) => {
+    return await request(
+      `/stocks/${encodeURIComponent(ticker)}/technicals?period=${period}&include_signals=${includeSignals}&include_history=${includeHistory}`
+    );
   },
 
   getTradingSignals: async (ticker: string) => {
@@ -691,8 +693,12 @@ export const alertsApi = {
     return await request(`/alerts/${alertId}/toggle`, { method: 'PATCH' });
   },
 
-  getNotifications: async () => {
-    return await request('/notifications');
+  getNotifications: async (opts?: { unreadOnly?: boolean; limit?: number }) => {
+    const params = new URLSearchParams();
+    if (opts?.unreadOnly) params.append('unread_only', 'true');
+    if (opts?.limit) params.append('limit', String(opts.limit));
+    const qs = params.toString();
+    return await request(`/notifications${qs ? `?${qs}` : ''}`);
   },
 
   getUnreadCount: async () => {
