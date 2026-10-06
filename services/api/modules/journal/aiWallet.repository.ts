@@ -20,7 +20,9 @@ import supabase from "../../supabase/index.js";
 
 // Port of main.py's LOCAL_FREE_AI_TOKENS / PRODUCTION_FREE_AI_TOKENS.
 const LOCAL_FREE_AI_TOKENS = 20_000;
-const PRODUCTION_FREE_AI_TOKENS = 300_000;
+// Lowered from 300,000 on 2026-10-06 to cut AI cost per free sign-up; wallets already
+// granted the larger amount keep it.
+const PRODUCTION_FREE_AI_TOKENS = 30_000;
 
 /** Port of main.py's `is_local_runtime` (`PORT == 8001 and RENDER != "true"`),
  * adapted to this app's own local/prod convention — see e.g.

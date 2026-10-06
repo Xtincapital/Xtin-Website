@@ -5,8 +5,9 @@
 // against `gini_ai_wallets` instead of `journal_ai_wallets`.
 //
 // Free-token grant sizing matches Journal (journal/aiWallet.repository.ts):
-// 300,000 in production, 20,000 locally. The original Gini app gave a flat
-// 5,000 trial; it was raised on 2026-10-05 so both products give the same.
+// 30,000 in production, 20,000 locally. The original Gini app gave a flat
+// 5,000 trial; raised to 300,000 on 2026-10-05, then lowered to 30,000 on 2026-10-06
+// to cut AI cost per free sign-up (wallets already granted more keep it).
 // `GINI_FREE_AI_TOKENS` overrides it, like Journal's `FREE_AI_TOKENS`.
 //
 // Scope note (Phase 10b): this file is ONLY the internal gating a Claude
@@ -21,7 +22,7 @@
 import supabase from "../../supabase/index.js";
 
 const LOCAL_FREE_AI_TOKENS = 20_000;
-const PRODUCTION_FREE_AI_TOKENS = 300_000;
+const PRODUCTION_FREE_AI_TOKENS = 30_000;
 
 function getFreeAiTokenGrant(): number {
     const override = process.env.GINI_FREE_AI_TOKENS?.trim();

@@ -1,5 +1,5 @@
 // Coverage for the free-token grant in getOrCreateWallet, raised from 5,000
-// to Journal's 300,000 on 2026-10-05: wallets granted the old amount are
+// to Journal's amount (now 30,000): wallets granted the old 5,000 are
 // topped up by the difference exactly once.
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
@@ -47,31 +47,48 @@ describe("getOrCreateWallet free-token grant", () => {
     });
     afterEach(() => vi.unstubAllEnvs());
 
-    it("gives a new wallet 300,000 tokens", async () => {
-        results.push({ data: null, error: null }, { data: wallet({ token_balance: 300_000, free_tokens_granted: 300_000 }), error: null });
+    it("gives a new wallet 30,000 tokens", async () => {
+        results.push({ data: null, error: null }, { data: wallet({ token_balance: 30_000, free_tokens_granted: 30_000 }), error: null });
         await getOrCreateWallet("u1");
         const inserted = calls.find(([m]) => m === "insert")?.[1][0] as Record<string, unknown>;
-        expect(inserted).toMatchObject({ token_balance: 300_000, free_tokens_granted: 300_000 });
+        expect(inserted).toMatchObject({ token_balance: 30_000, free_tokens_granted: 30_000 });
     });
 
     it("tops up a wallet granted the old 5,000 by the difference, guarded on the old grant", async () => {
-        const topped = wallet({ token_balance: 298_000, free_tokens_granted: 300_000 });
+        const topped = wallet({ token_balance: 28_000, free_tokens_granted: 30_000 });
         results.push({ data: wallet({}), error: null }, { data: topped, error: null });
         expect(await getOrCreateWallet("u1")).toEqual(topped);
-        expect(updateArgs()).toMatchObject({ token_balance: 298_000, free_tokens_granted: 300_000 });
+        expect(updateArgs()).toMatchObject({ token_balance: 28_000, free_tokens_granted: 30_000 });
         expect(calls).toContainEqual(["eq", ["free_tokens_granted", 5_000]]);
     });
 
     it("does not top up again once the full grant is recorded", async () => {
-        const current = wallet({ token_balance: 120_000, free_tokens_granted: 300_000 });
+        const current = wallet({ token_balance: 120_000, free_tokens_granted: 30_000 });
         results.push({ data: current, error: null });
         expect(await getOrCreateWallet("u1")).toEqual(current);
         expect(updateArgs()).toBeUndefined();
     });
 
     it("returns the fresh row when a concurrent request already topped up", async () => {
-        const fresh = wallet({ token_balance: 298_000, free_tokens_granted: 300_000 });
+        const fresh = wallet({ token_balance: 28_000, free_tokens_granted: 30_000 });
         results.push({ data: wallet({}), error: null }, { data: null, error: null }, { data: fresh, error: null });
         expect(await getOrCreateWallet("u1")).toEqual(fresh);
+    });
+});
+
+describe("lowering the free grant", () => {
+    beforeEach(() => {
+        calls.length = 0;
+        results.length = 0;
+        vi.stubEnv("NODE_ENV", "production");
+        vi.stubEnv("GINI_FREE_AI_TOKENS", "");
+    });
+    afterEach(() => vi.unstubAllEnvs());
+
+    it("never takes tokens back from a wallet granted the old 300,000", async () => {
+        const current = wallet({ token_balance: 250_000, free_tokens_granted: 300_000 });
+        results.push({ data: current, error: null });
+        expect(await getOrCreateWallet("u1")).toEqual(current);
+        expect(updateArgs()).toBeUndefined();
     });
 });
