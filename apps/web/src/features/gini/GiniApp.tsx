@@ -134,8 +134,8 @@ const GiniApp = () => {
             toasters get their own. */}
         <div className="gini-scope">
           <Toaster />
-          {/* Toasts sit above ChatWidget's round button (bottom-6, h-14) so they never cover it. */}
-          <Sonner offset={{ bottom: 96, right: 24 }} mobileOffset={{ bottom: 96 }} />
+          {/* Top-right, under the site navbar: the bottom-right corner belongs to the chat button and, when open, its panel (input row included). */}
+          <Sonner position="top-right" offset={{ top: 72, right: 24 }} mobileOffset={{ top: 72 }} />
         </div>
         <Suspense fallback={null}>
           <Routes key={version}>

@@ -88,11 +88,13 @@ function computeMetrics(trades: TradeForMetrics[]): TimeframeMetrics {
   const totalTrades = trades.length;
   const totalPnL = trades.reduce((sum, t) => sum + (t.pnl || 0), 0);
   const wins = trades.filter((t) => (t.pnl || 0) > 0).length;
+  // Open trades (no P&L yet) are neither wins nor losses.
+  const closed = trades.filter((t) => t.pnl != null).length;
   return {
     totalPnL,
     totalTrades,
-    winRate: totalTrades > 0 ? (wins / totalTrades) * 100 : 0,
-    avgPnL: totalTrades > 0 ? totalPnL / totalTrades : 0,
+    winRate: closed > 0 ? (wins / closed) * 100 : 0,
+    avgPnL: closed > 0 ? totalPnL / closed : 0,
   };
 }
 

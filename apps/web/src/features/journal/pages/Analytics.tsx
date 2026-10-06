@@ -154,9 +154,12 @@ const Analytics = () => {
     const avgLoss = losses.length > 0 ? losses.reduce((s, t) => s + (t.pnl ?? 0), 0) / losses.length : 0;
     const riskRewardRatio = avgLoss !== 0 ? avgWin / Math.abs(avgLoss) : 0;
 
-    const totalPnL = allTrades.reduce((s, t) => s + (t.pnl ?? 0), 0);
-    const totalMargin = allTrades.reduce((s, t) => s + (t.margin ?? 0), 0);
-    const totalROI = totalMargin > 0 ? (totalPnL / totalMargin) * 100 : 0;
+    // ROI is P&L over margin deployed, so use only trades that recorded a margin;
+    // counting P&L from trades with no margin inflated it (₹178 over a ₹200 margin read as 89%).
+    const withMargin = allTrades.filter((t) => (t.margin ?? 0) > 0);
+    const marginPnL = withMargin.reduce((s, t) => s + (t.pnl ?? 0), 0);
+    const totalMargin = withMargin.reduce((s, t) => s + (t.margin ?? 0), 0);
+    const totalROI = totalMargin > 0 ? (marginPnL / totalMargin) * 100 : 0;
 
     // Per-strategy stats table — profit factor + consistency score exactly
     // as renderAnalytics() computes them.
@@ -164,18 +167,19 @@ const Analytics = () => {
     for (const name of names) {
       const stratTrades = allTrades.filter((t) => strategyMatches(t.strategy, name));
       if (stratTrades.length === 0) continue;
+      const stratClosed = stratTrades.filter((t) => t.pnl != null);
       const stratWins = stratTrades.filter((t) => (t.pnl ?? 0) > 0);
       const stratLosses = stratTrades.filter((t) => (t.pnl ?? 0) < 0);
       const stratTotalPnL = stratTrades.reduce((s, t) => s + (t.pnl ?? 0), 0);
-      const avgPnL = stratTotalPnL / stratTrades.length;
-      const winRate = (stratWins.length / stratTrades.length) * 100;
+      const avgPnL = stratClosed.length > 0 ? stratTotalPnL / stratClosed.length : 0;
+      const winRate = stratClosed.length > 0 ? (stratWins.length / stratClosed.length) * 100 : 0;
       const grossProfit = stratWins.reduce((s, t) => s + (t.pnl ?? 0), 0);
       const grossLoss = Math.abs(stratLosses.reduce((s, t) => s + (t.pnl ?? 0), 0));
       const profitFactor = grossLoss > 0 ? grossProfit / grossLoss : grossProfit > 0 ? Infinity : 0;
 
-      const returns = stratTrades.map((t) => t.pnl ?? 0);
+      const returns = stratClosed.map((t) => t.pnl as number);
       const mean = avgPnL;
-      const variance = returns.reduce((s, r) => s + Math.pow(r - mean, 2), 0) / returns.length;
+      const variance = returns.length > 0 ? returns.reduce((s, r) => s + Math.pow(r - mean, 2), 0) / returns.length : 0;
       const stdDev = Math.sqrt(variance);
       const coefficientOfVariation = mean !== 0 ? stdDev / Math.abs(mean) : 0;
       const consistencyScore = Math.max(0, 100 - coefficientOfVariation * 20);

@@ -20,8 +20,9 @@ export const importHoldings = async (req, res) => {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported file type — upload a CSV or Excel file" });
     }
     try {
-        const rows = parseGiniImport(file.buffer, fileType, kind as ImportKind);
-        return res.status(HTTP_STATUS.OK).json({ rows, count: rows.length, kind });
+        const stats = { skipped: 0 };
+        const rows = parseGiniImport(file.buffer, fileType, kind as ImportKind, stats);
+        return res.status(HTTP_STATUS.OK).json({ rows, count: rows.length, skipped: stats.skipped, kind });
     } catch (err) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Could not parse file: ${(err as Error)?.message || err}` });
     }

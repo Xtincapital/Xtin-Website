@@ -42,6 +42,7 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
   const [rows, setRows] = useState<any[]>([]);
+  const [skipped, setSkipped] = useState(0);
   const [parsing, setParsing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -49,6 +50,7 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
   function reset() {
     setFileName("");
     setRows([]);
+    setSkipped(0);
     setProgress(0);
     if (inputRef.current) inputRef.current.value = "";
   }
@@ -66,6 +68,7 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
     try {
       const res = await api.importHoldings.parse(file, type, kind);
       setRows(res.rows || []);
+      setSkipped(res.skipped ?? 0);
       if (!res.rows?.length) toast.error("No rows found in that file");
     } catch (err: any) {
       toast.error(err?.message || "Could not read that file");
@@ -144,6 +147,12 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
               <p className="text-sm text-muted-foreground">
                 Found <strong>{rows.length}</strong> row{rows.length === 1 ? "" : "s"}
                 {rows.length > 10 ? " — showing the first 10" : ""}.
+                {skipped > 0 && (
+                  <span className="text-amber-600 dark:text-amber-400">
+                    {" "}
+                    {skipped} row{skipped === 1 ? " was" : "s were"} skipped (missing a name or a valid amount).
+                  </span>
+                )}
               </p>
               <div className="rounded-md border overflow-x-auto max-h-72 overflow-y-auto">
                 <Table>
@@ -178,7 +187,7 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
             Cancel
           </Button>
           <Button disabled={!rows.length || saving} onClick={handleSave}>
-            {saving ? `Saving ${progress}/${rows.length}…` : `Import ${rows.length || ""} ${label}`}
+            {saving ? `Saving ${progress}/${rows.length}…` : `Import ${rows.length || ""} ${rows.length === 1 ? label.replace(/ies$/, "y").replace(/s$/, "") : label}`}
           </Button>
         </DialogFooter>
       </DialogContent>

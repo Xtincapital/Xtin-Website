@@ -38,6 +38,11 @@ export function computeTradePnl(t: {
     return Math.round((gross - (t.brokerage ?? 0)) * 100) / 100;
 }
 
+/** Filled in by the parsers: how many non-blank rows could not be turned into a trade. */
+export interface ImportStats {
+    skipped: number;
+}
+
 export interface ParsedImportTrade {
     date: string;
     exit_date: string;
@@ -49,8 +54,8 @@ export interface ParsedImportTrade {
     currency: string;
     quantity: number;
     entry_price: number;
-    target_price: number;
-    stop_loss: number;
+    target_price: number | null;
+    stop_loss: number | null;
     exit_price: number;
     brokerage: number;
     strategy: string;
@@ -275,8 +280,8 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
         currency,
         quantity,
         entry_price: entryPrice,
-        target_price: parseImportNumber(findValue(["target price", "target"])) ?? 0,
-        stop_loss: parseImportNumber(findValue(["stop loss", "sl"])) ?? 0,
+        target_price: parseImportNumber(findValue(["target price", "target"])),
+        stop_loss: parseImportNumber(findValue(["stop loss", "sl"])),
         exit_price: exitPrice,
         brokerage,
         strategy: String(findValue(["trading strategy", "strategy", "setup"]) || "Breakout"),
@@ -296,7 +301,7 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
 
 /** Port of `rows_to_import_trades`: turns a 2D array of spreadsheet rows (first row =
  * headers) into trade dicts, skipping blank rows. */
-export function rowsToImportTrades(rows: unknown[][]): ParsedImportTrade[] {
+export function rowsToImportTrades(rows: unknown[][], stats?: ImportStats): ParsedImportTrade[] {
     if (rows.length < 2) return [];
     const headers = (rows[0] || []).map((cell) => normalizeImportHeader(cell));
     const trades: ParsedImportTrade[] = [];
@@ -308,6 +313,7 @@ export function rowsToImportTrades(rows: unknown[][]): ParsedImportTrade[] {
         });
         const trade = mapImportRowToTrade(rowData);
         if (trade) trades.push(trade);
+        else if (stats) stats.skipped += 1;
     }
     return trades;
 }
@@ -316,13 +322,13 @@ export function rowsToImportTrades(rows: unknown[][]): ParsedImportTrade[] {
  * through rowsToImportTrades. Uses the already-installed `xlsx` package to parse the
  * CSV text (SheetJS treats a plain string `read()` input as CSV) rather than hand-rolling
  * a quoted-field CSV tokenizer. */
-export function parseCsvImport(content: Buffer): ParsedImportTrade[] {
+export function parseCsvImport(content: Buffer, stats?: ImportStats): ParsedImportTrade[] {
     let text = content.toString("utf8");
     if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
     const workbook = XLSX.read(text, { type: "string", raw: true });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
-    return rowsToImportTrades(rows);
+    return rowsToImportTrades(rows, stats);
 }
 
 /** Port of `parse_excel_import`. The Python original branches on `.xls` (xlrd) vs
@@ -330,11 +336,11 @@ export function parseCsvImport(content: Buffer): ParsedImportTrade[] {
  * code path covers both here. `cellDates: true` makes date cells come through as JS
  * `Date` objects, mirroring the Python source's `xlrd.xldate_as_tuple`/openpyxl
  * `datetime` cells (parseImportDate's `instanceof Date` branch handles them). */
-export function parseExcelImport(content: Buffer): ParsedImportTrade[] {
+export function parseExcelImport(content: Buffer, stats?: ImportStats): ParsedImportTrade[] {
     const workbook = XLSX.read(content, { type: "buffer", cellDates: true });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
-    return rowsToImportTrades(rows);
+    return rowsToImportTrades(rows, stats);
 }
 
 const PDF_DATE_REGEX = /\b(\d{4}[-/.]\d{2}[-/.]\d{2}|\d{1,2}[-/.]\d{1,2}[-/.]\d{4}|\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})\b/;

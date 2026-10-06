@@ -176,6 +176,7 @@ const Heatmaps = () => {
       const date = new Date(trade.date);
       if (!isValidDate(date)) return;
       const dayLabel = DAY_MAP[date.getDay()];
+      if (getEntryHour(trade.entry_time) === null) return; // no time, no session
       const session = getSessionLabelForTrade(trade);
       if (matrix[dayLabel]?.[session]) {
         matrix[dayLabel][session].pnl += trade.pnl ?? 0;

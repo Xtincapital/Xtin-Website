@@ -27,6 +27,11 @@ export interface JournalTradeLike {
     [key: string]: unknown;
 }
 
+/** True once a trade has a P&L; open trades have none and are neither wins nor losses. */
+export function hasPnl(trade: JournalTradeLike): boolean {
+    return (trade.pnl ?? trade.profit_loss) != null;
+}
+
 export function pnlOf(trade: JournalTradeLike): number {
     const value = trade.pnl ?? trade.profit_loss ?? 0;
     const n = Number(value);
@@ -57,7 +62,8 @@ export function compactTradeContext(trades: JournalTradeLike[] | null | undefine
     const totalPnl = rows.reduce((sum, t) => sum + pnlOf(t), 0);
     const wins = rows.filter((t) => pnlOf(t) > 0).length;
     const losses = rows.filter((t) => pnlOf(t) < 0).length;
-    const winRate = total ? (wins / total) * 100 : 0;
+    const closed = rows.filter(hasPnl).length;
+    const winRate = closed ? (wins / closed) * 100 : 0;
 
     const strategies = new Map<string, { count: number; pnl: number }>();
     const markets = new Map<string, number>();

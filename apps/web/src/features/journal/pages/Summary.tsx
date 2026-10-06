@@ -85,13 +85,16 @@ const PIE_COLORS = [
  *  reproduced here rather than imported (Dashboard.tsx is read-only). */
 function calculateMetrics(list: Trade[]) {
   const totalTrades = list.length;
-  const pnls = list.map((t) => t.pnl ?? 0);
+  // Trades without a P&L (still open) are not wins or losses, so they stay out of every rate and average.
+  const closed = list.filter((t) => t.pnl != null);
+  const pnls = closed.map((t) => t.pnl as number);
   const totalPnL = pnls.reduce((s, p) => s + p, 0);
-  const wins = list.filter((t) => (t.pnl ?? 0) > 0);
-  const losses = list.filter((t) => (t.pnl ?? 0) < 0);
+  const wins = closed.filter((t) => (t.pnl ?? 0) > 0);
+  const losses = closed.filter((t) => (t.pnl ?? 0) < 0);
 
-  const winRate = totalTrades > 0 ? (wins.length / totalTrades) * 100 : 0;
-  const avgPnL = totalTrades > 0 ? totalPnL / totalTrades : 0;
+  const winRate = closed.length > 0 ? (wins.length / closed.length) * 100 : 0;
+  const lossRate = closed.length > 0 ? (losses.length / closed.length) * 100 : 0;
+  const avgPnL = closed.length > 0 ? totalPnL / closed.length : 0;
   const largestWin = wins.length > 0 ? Math.max(...wins.map((t) => t.pnl ?? 0)) : 0;
   const largestLoss = losses.length > 0 ? Math.min(...losses.map((t) => t.pnl ?? 0)) : 0;
   const avgWin = wins.length > 0 ? wins.reduce((s, t) => s + (t.pnl ?? 0), 0) / wins.length : 0;
@@ -127,11 +130,11 @@ function calculateMetrics(list: Trade[]) {
   const profitFactor = grossLoss > 0 ? grossProfit / grossLoss : grossProfit > 0 ? Infinity : 0;
 
   // Expectancy
-  const expectancy = (winRate / 100) * avgWin - ((100 - winRate) / 100) * Math.abs(avgLoss);
+  const expectancy = (winRate / 100) * avgWin - (lossRate / 100) * Math.abs(avgLoss);
 
   // Kelly % (simplified)
   const winProb = winRate / 100;
-  const lossProb = 1 - winProb;
+  const lossProb = lossRate / 100;
   const avgWinLossRatio = avgLoss !== 0 ? avgWin / Math.abs(avgLoss) : 0;
   const kellyPercent = avgWinLossRatio !== 0 ? winProb - lossProb / avgWinLossRatio : 0;
 

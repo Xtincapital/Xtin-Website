@@ -378,14 +378,16 @@ export default function Family() {
                         <p className="text-xs text-muted-foreground">{member.relationship || "—"}</p>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditDialog(member)}>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Edit ${member.name}`} onClick={() => openEditDialog(member)}>
                           <Pencil className="h-3.5 w-3.5" />
                         </Button>
-                        {member.relationship !== "Self" && (
+                        {/* The primary user can only be removed when they are the sole member, so projections never lose their anchor. */}
+                        {(member.relationship !== "Self" || members.length === 1) && (
                           <Button
                             variant="ghost"
                             size="icon"
                             className="h-7 w-7 text-destructive hover:text-destructive"
+                            aria-label={`Remove ${member.name}`}
                             onClick={() => setDeleteTarget(member)}
                           >
                             <Trash2 className="h-3.5 w-3.5" />

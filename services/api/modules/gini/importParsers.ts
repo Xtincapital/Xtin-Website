@@ -120,7 +120,7 @@ function readRows(content: Buffer, fileType: string): unknown[][] {
     return XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
 }
 
-export function parseGiniImport(content: Buffer, fileType: string, kind: ImportKind): (ParsedAsset | ParsedLiability)[] {
+export function parseGiniImport(content: Buffer, fileType: string, kind: ImportKind, stats?: { skipped: number }): (ParsedAsset | ParsedLiability)[] {
     const rows = readRows(content, fileType);
     const valueField = kind === "assets" ? "value" : "amount";
     const fields = kind === "assets" ? ["name", "category", valueField, "rate"] : ["name", "type", valueField, "rate", "emi", "tenure"];
@@ -134,16 +134,29 @@ export function parseGiniImport(content: Buffer, fileType: string, kind: ImportK
     for (const row of rows.slice(headerRow + 1)) {
         const name = text(row[idx.name]);
         const amt = num(row[idx[valueField]]);
-        if (!name || amt === null) continue;
+        // Count rows that have something in them but can't be used, so the preview can say so.
+        const skip = () => {
+            if (stats && row.some((cell) => String(cell ?? "").trim() !== "")) stats.skipped += 1;
+        };
+        if (!name || amt === null) {
+            skip();
+            continue;
+        }
         const rate = idx.rate !== undefined ? num(row[idx.rate]) : null;
         const safeRate = rate !== null && rate >= 0 && rate <= (kind === "assets" ? 100 : 50) ? rate : null;
 
         if (kind === "assets") {
-            if (amt < 0) continue;
+            if (amt < 0) {
+                skip();
+                continue;
+            }
             const rawCat = idx.category !== undefined ? text(row[idx.category]) : null;
             out.push({ name, category: mapCategory(rawCat, name), value: amt, return_rate: safeRate });
         } else {
-            if (amt <= 0) continue;
+            if (amt <= 0) {
+                skip();
+                continue;
+            }
             const rawType = idx.type !== undefined ? text(row[idx.type]) : null;
             const emi = idx.emi !== undefined ? num(row[idx.emi]) : null;
             const tenure = idx.tenure !== undefined ? num(row[idx.tenure]) : null;

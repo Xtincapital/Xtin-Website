@@ -645,7 +645,7 @@ function PreTradeTab({
               <div className="space-y-1.5">
                 <Label>Trade Type</Label>
                 <Select value={form.trade_type} onValueChange={(v) => setField("trade_type", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Trade Type">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -660,7 +660,7 @@ function PreTradeTab({
               <div className="space-y-1.5">
                 <Label>Market</Label>
                 <Select value={form.market} onValueChange={(v) => setField("market", v)}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Market">
                     <SelectValue placeholder="Select market" />
                   </SelectTrigger>
                   <SelectContent>

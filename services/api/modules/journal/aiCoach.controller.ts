@@ -22,7 +22,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { generateAIWithUsage } from "../ai/providers.js";
 import { ensureAiTokens, deductAiTokens, InsufficientAiTokensError, type JournalAiWallet } from "./aiWallet.repository.js";
 import { getPlanTier } from "./planTier.js";
-import { compactTradeContext, pnlOf, symbolOf, fmt, type JournalTradeLike } from "./tradeContext.js";
+import { compactTradeContext, hasPnl, pnlOf, symbolOf, fmt, type JournalTradeLike } from "./tradeContext.js";
 import { validateAnalyzeRequest, validatePreTradeCheck, validateWeeklyReview, validateChatRequest } from "./aiCoach.validator.js";
 
 // Journal's original design (main.py) always used Claude Haiku — cheap and
@@ -99,14 +99,16 @@ export const analyzeTrades = async (req, res) => {
         });
     }
 
-    const totalTrades = trades.length;
-    const wins = trades.filter((t) => pnlOf(t) > 0).length;
+    // Open trades (no P&L yet) are not losses, so they stay out of every rate and average here.
+    const closedTrades = trades.filter(hasPnl);
+    const totalTrades = closedTrades.length;
+    const wins = closedTrades.filter((t) => pnlOf(t) > 0).length;
     const losses = totalTrades - wins;
     const winRate = totalTrades > 0 ? wins / totalTrades : 0;
 
-    const totalProfit = trades.reduce((sum, t) => sum + pnlOf(t), 0);
-    const winningPnls = trades.filter((t) => pnlOf(t) > 0).map(pnlOf);
-    const nonWinningPnls = trades.filter((t) => pnlOf(t) <= 0).map(pnlOf); // includes break-even, matches source
+    const totalProfit = closedTrades.reduce((sum, t) => sum + pnlOf(t), 0);
+    const winningPnls = closedTrades.filter((t) => pnlOf(t) > 0).map(pnlOf);
+    const nonWinningPnls = closedTrades.filter((t) => pnlOf(t) <= 0).map(pnlOf); // includes break-even, matches source
     const avgWin = wins > 0 ? winningPnls.reduce((a, b) => a + b, 0) / wins : 0;
     const avgLoss = losses > 0 ? nonWinningPnls.reduce((a, b) => a + b, 0) / losses : 0;
 
@@ -309,13 +311,15 @@ export const weeklyReview = async (req, res) => {
         });
     }
 
-    const totalTrades = tradesList.length;
-    const wins = tradesList.filter((t) => pnlOf(t) > 0).length;
-    const losses = totalTrades - wins;
+    // Open trades (no P&L yet) are not losses: counting them made "avg loser" ₹33 when the only loss was ₹100.
+    const closedList = tradesList.filter(hasPnl);
+    const totalTrades = closedList.length;
+    const wins = closedList.filter((t) => pnlOf(t) > 0).length;
+    const winningPnls = closedList.filter((t) => pnlOf(t) > 0).map(pnlOf);
+    const losingPnls = closedList.filter((t) => pnlOf(t) < 0).map(pnlOf);
+    const losses = losingPnls.length;
     const winRate = totalTrades > 0 ? (wins / totalTrades) * 100 : 0;
-    const totalProfit = tradesList.reduce((sum, t) => sum + pnlOf(t), 0);
-    const winningPnls = tradesList.filter((t) => pnlOf(t) > 0).map(pnlOf);
-    const losingPnls = tradesList.filter((t) => pnlOf(t) < 0).map(pnlOf);
+    const totalProfit = closedList.reduce((sum, t) => sum + pnlOf(t), 0);
     const avgWin = wins > 0 ? winningPnls.reduce((a, b) => a + b, 0) / wins : 0;
     const avgLoss = losses > 0 ? Math.abs(losingPnls.reduce((a, b) => a + b, 0) / losses) : 0;
     const grossWins = winningPnls.reduce((a, b) => a + b, 0);

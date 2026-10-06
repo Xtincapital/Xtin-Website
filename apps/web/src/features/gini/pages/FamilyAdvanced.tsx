@@ -385,13 +385,14 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
                       </p>
                     </div>
                     <div className="flex shrink-0 gap-1">
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(plan)}>
+                      <Button variant="ghost" size="icon" className="h-7 w-7" aria-label="Edit elder care plan" onClick={() => openEdit(plan)}>
                         <Pencil className="h-3.5 w-3.5" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         className="h-7 w-7 text-destructive hover:text-destructive"
+                        aria-label="Remove elder care plan"
                         onClick={() => setDeleteTarget(plan)}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -418,7 +419,8 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
                   <SelectValue placeholder="Select a family member" />
                 </SelectTrigger>
                 <SelectContent>
-                  {members.map((m) => (
+                  {/* Elder care is for parents and other relatives; the child's education has its own tab. */}
+                  {members.filter((m) => m.relationship !== "Child").map((m) => (
                     <SelectItem key={m.id} value={m.id}>
                       {memberLabel(m)}
                     </SelectItem>
@@ -601,6 +603,11 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
       toast.error("Please choose a child.");
       return;
     }
+    // The grey "1000000" in the field is only a hint; an empty cost used to save a ₹0 plan.
+    if (!(num(form.cost) > 0)) {
+      toast.error("Enter the estimated cost (more than 0).");
+      return;
+    }
     const input = educationFormToInput(form);
     if (editingId) updateMutation.mutate({ id: editingId, data: input });
     else createMutation.mutate(input);
@@ -668,13 +675,14 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
                       </p>
                     </div>
                     <div className="flex shrink-0 gap-1">
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(plan)}>
+                      <Button variant="ghost" size="icon" className="h-7 w-7" aria-label="Edit education plan" onClick={() => openEdit(plan)}>
                         <Pencil className="h-3.5 w-3.5" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         className="h-7 w-7 text-destructive hover:text-destructive"
+                        aria-label="Remove education plan"
                         onClick={() => setDeleteTarget(plan)}
                       >
                         <Trash2 className="h-3.5 w-3.5" />

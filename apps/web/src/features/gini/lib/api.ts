@@ -404,7 +404,7 @@ export const chat = {
 // ─────────────────────────────────────────────────────────────────────────
 export const importHoldings = {
   parse: (file: File, fileType: 'csv' | 'excel', kind: 'assets' | 'liabilities') =>
-    uploadForParse<{ rows: any[]; count: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind }),
+    uploadForParse<{ rows: any[]; count: number; skipped?: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind }),
 };
 
 // Export all implemented APIs

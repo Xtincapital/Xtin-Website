@@ -29,10 +29,11 @@ export const importTrades = async (req, res) => {
 
     try {
         let trades;
+        const stats = { skipped: 0 };
         if (rawType === "csv") {
-            trades = parseCsvImport(file.buffer);
+            trades = parseCsvImport(file.buffer, stats);
         } else if (rawType === "excel" || rawType === "xls" || rawType === "xlsx") {
-            trades = parseExcelImport(file.buffer);
+            trades = parseExcelImport(file.buffer, stats);
             normalizedType = "excel";
         } else if (rawType === "pdf") {
             trades = await parsePdfImport(file.buffer);
@@ -40,7 +41,7 @@ export const importTrades = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported import type" });
         }
 
-        return res.status(HTTP_STATUS.OK).json({ trades, count: trades.length, file_type: normalizedType });
+        return res.status(HTTP_STATUS.OK).json({ trades, count: trades.length, skipped: stats.skipped, file_type: normalizedType });
     } catch (err) {
         console.error("[Journal] import trades failed:", err);
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Could not parse file: ${(err as Error)?.message || err}` });

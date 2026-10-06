@@ -92,8 +92,11 @@ const Hourly = () => {
         if (pnl > 0) bucket.wins++;
         else if (pnl < 0) bucket.losses++;
       }
-      const sessionLabel = getSessionLabelForTrade(trade);
-      if (sessionMap[sessionLabel]) sessionMap[sessionLabel].push(trade);
+      // A trade with no entry time has no session; filing it under the first one skewed "Active Session".
+      if (entryHour !== null) {
+        const sessionLabel = getSessionLabelForTrade(trade);
+        if (sessionMap[sessionLabel]) sessionMap[sessionLabel].push(trade);
+      }
     });
 
     return { hourBuckets: buckets, sessions: sessionMap };
@@ -102,12 +105,13 @@ const Hourly = () => {
   // Best hour, active (most-traded) session, avg duration, peak time.
   const summary = useMemo(() => {
     const bestBucket = hourBuckets.reduce<HourBucket | null>((best, current) => {
+      if (current.trades.length === 0) return best; // an empty hour can't be the best hour
       if (!best) return current;
       return current.totalPnL > best.totalPnL ? current : best;
     }, null);
 
-    let activeSession = GLOBAL_SESSIONS[0]?.label ?? "Global Session";
-    let maxTrades = -1;
+    let activeSession = "--";
+    let maxTrades = 0;
     Object.entries(sessions).forEach(([session, sessionTrades]) => {
       if (sessionTrades.length > maxTrades) {
         maxTrades = sessionTrades.length;

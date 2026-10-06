@@ -75,10 +75,12 @@ interface Metrics {
 
 function calculateMetrics(list: Trade[]): Metrics {
   const totalTrades = list.length;
+  // Trades without a P&L (still open) are not wins or losses, so they stay out of every rate and average.
+  const closed = list.filter((t) => t.pnl != null);
   const totalPnL = list.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
-  const wins = list.filter((t) => (t.pnl ?? 0) > 0);
-  const losses = list.filter((t) => (t.pnl ?? 0) < 0);
-  const winRate = totalTrades > 0 ? (wins.length / totalTrades) * 100 : 0;
+  const wins = closed.filter((t) => (t.pnl ?? 0) > 0);
+  const losses = closed.filter((t) => (t.pnl ?? 0) < 0);
+  const winRate = closed.length > 0 ? (wins.length / closed.length) * 100 : 0;
   return { totalTrades, totalPnL, winRate, wins: wins.length, losses: losses.length };
 }
 

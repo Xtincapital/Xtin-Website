@@ -35,3 +35,18 @@ describe("trade validation", () => {
         expect(validateTradeCreate({ ...base, pnl: -500 }).errors).toBeUndefined();
     });
 });
+
+import { compactTradeContext } from "./tradeContext.js";
+
+describe("AI trade context", () => {
+    it("leaves open trades (no P&L) out of the win rate", () => {
+        const text = compactTradeContext([
+            { asset: "A", date: "2026-10-05", pnl: 200 },
+            { asset: "B", date: "2026-10-05", pnl: -100 },
+            { asset: "C", date: "2026-10-04", pnl: null }, // still open
+            { asset: "D", date: "2026-10-04" },
+        ] as any);
+        expect(text).toContain("WinRate=50.0%"); // 1 win of 2 closed trades, not 1 of 4
+        expect(text).toContain("Trades=4");
+    });
+});

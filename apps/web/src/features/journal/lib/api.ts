@@ -272,7 +272,7 @@ export const strategies = withSampleMode(journalSampleMode, realStrategies, samp
 // caller saves the ones it keeps via `trades.createTrade`.
 // ─────────────────────────────────────────────────────────────────────────
 export const bulkImport = {
-  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf'): Promise<{ trades: TradeCreateInput[]; count: number; file_type: string }> =>
+  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf'): Promise<{ trades: TradeCreateInput[]; count: number; skipped?: number; file_type: string }> =>
     uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType }),
 };
 

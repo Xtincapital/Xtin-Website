@@ -29,6 +29,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
   const [rows, setRows] = useState<TradeCreateInput[]>([]);
+  const [skipped, setSkipped] = useState(0);
   const [parsing, setParsing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -36,6 +37,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
   function reset() {
     setFileName("");
     setRows([]);
+    setSkipped(0);
     setProgress(0);
     if (inputRef.current) inputRef.current.value = "";
   }
@@ -53,6 +55,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     try {
       const res = await api.bulkImport.parse(file, type);
       setRows(res.trades || []);
+      setSkipped(res.skipped ?? 0);
       if (!res.trades?.length) {
         toast.error("No trades found. Make sure the file has Date, Asset, Quantity and Entry/Exit price columns.");
       }
@@ -135,6 +138,12 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
               <p className="text-sm text-muted-foreground">
                 Found <strong>{rows.length}</strong> trade{rows.length === 1 ? "" : "s"}
                 {rows.length > 8 ? " — showing the first 8" : ""}.
+                {skipped > 0 && (
+                  <span className="text-amber-600 dark:text-amber-400">
+                    {" "}
+                    {skipped} row{skipped === 1 ? " was" : "s were"} skipped (missing a date, asset, quantity or price).
+                  </span>
+                )}
               </p>
               <div className="rounded-md border overflow-x-auto max-h-72 overflow-y-auto">
                 <Table>
