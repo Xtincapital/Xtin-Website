@@ -4,6 +4,7 @@
 // liabilities.validator.ts), so the frontend can preview them and then save
 // each row straight through. Stateless: nothing is written here.
 import * as XLSX from "xlsx";
+import { pdfLineCells, pdfTextLines } from "../../utils/pdfText.js";
 
 export type ImportKind = "assets" | "liabilities";
 
@@ -46,7 +47,7 @@ const text = (v: unknown): string | null => {
 };
 
 const ALIASES: Record<string, string[]> = {
-    name: ["name", "asset", "asset name", "liability", "liability name", "description", "particulars", "holding", "scheme", "instrument", "loan", "loan name"],
+    name: ["name", "asset", "asset name", "liability", "liability name", "description", "particulars", "holding", "holding name", "scheme", "scheme name", "fund", "fund name", "instrument", "instrument name", "security", "security name", "stock", "stock name", "company", "loan", "loan name"],
     category: ["category", "asset class", "class", "asset type", "type of asset"],
     type: ["type", "loan type", "liability type", "category"],
     value: ["value", "current value", "market value", "amount", "balance", "worth", "current market value"],
@@ -121,7 +122,11 @@ function readRows(content: Buffer, fileType: string): unknown[][] {
 }
 
 export function parseGiniImport(content: Buffer, fileType: string, kind: ImportKind, stats?: { skipped: number }): (ParsedAsset | ParsedLiability)[] {
-    const rows = readRows(content, fileType);
+    return parseGiniRows(readRows(content, fileType), kind, stats);
+}
+
+/** Holdings from spreadsheet-style rows; throws when no Name and Value/Amount header is found. */
+export function parseGiniRows(rows: unknown[][], kind: ImportKind, stats?: { skipped: number }): (ParsedAsset | ParsedLiability)[] {
     const valueField = kind === "assets" ? "value" : "amount";
     const fields = kind === "assets" ? ["name", "category", valueField, "rate"] : ["name", "type", valueField, "rate", "emi", "tenure"];
     const found = locate(rows, fields);
@@ -171,4 +176,71 @@ export function parseGiniImport(content: Buffer, fileType: string, kind: ImportK
         }
     }
     return out;
+}
+
+// ── PDF statements ────────────────────────────────────────────────────────
+// A PDF has no columns to read, only text lines. Like Journal's PDF import, each
+// line is read on its own: a holding line is a name followed by its amounts,
+// e.g. "HDFC Flexi Cap Fund  ₹2,50,000  12%". The name is the text before the
+// trailing numbers, the value is the largest of them, and a "%" number is the
+// rate. Header, total and page lines are skipped.
+
+const NUMERIC_TOKEN = /^[-+(]?(₹|rs\.?|inr)?[\d,]+(\.\d+)?%?\)?$/i;
+const SKIP_LINE = /^(total|sub ?total|grand total|page \d|statement|portfolio summary|as on|date|name\b|scheme name|particulars)/i;
+
+/** Turns one statement line into a holding, or null when it doesn't look like one. Exported for tests. */
+export function pdfLineToHolding(line: string, kind: ImportKind): ParsedAsset | ParsedLiability | null {
+    const clean = line.replace(/\s+/g, " ").trim();
+    if (!clean || SKIP_LINE.test(clean)) return null;
+    const tokens = clean.split(" ");
+    const amounts: number[] = [];
+    let rate: number | null = null;
+    while (tokens.length && NUMERIC_TOKEN.test(tokens[tokens.length - 1])) {
+        const token = tokens.pop() as string;
+        const n = num(token);
+        if (n === null) continue;
+        if (token.endsWith("%")) rate = rate ?? n;
+        else amounts.push(Math.abs(n));
+    }
+    const name = tokens.join(" ").replace(/[:\-–|]+$/, "").trim();
+    if (!/[a-z]{2,}/i.test(name) || amounts.length === 0) return null;
+    const amount = Math.max(...amounts);
+    if (!(amount > 0)) return null;
+
+    if (kind === "assets") {
+        const safeRate = rate !== null && rate >= 0 && rate <= 100 ? rate : null;
+        return { name: name.slice(0, 200), category: mapCategory(null, name), value: amount, return_rate: safeRate };
+    }
+    // For a loan, a second, smaller amount is read as the EMI.
+    const rest = amounts.filter((a) => a !== amount).sort((a, b) => b - a);
+    const safeRate = rate !== null && rate >= 0 && rate <= 50 ? rate : null;
+    return { name: name.slice(0, 200), type: mapLiabilityType(null, name), amount, rate: safeRate, emi: rest[0] ?? null, tenure: null };
+}
+
+export function pdfLinesToHoldings(lines: string[], kind: ImportKind, stats?: { skipped: number }): (ParsedAsset | ParsedLiability)[] {
+    const out: (ParsedAsset | ParsedLiability)[] = [];
+    for (const line of lines) {
+        const holding = pdfLineToHolding(line, kind);
+        if (holding) out.push(holding);
+        // Only count lines that had an amount but no usable name; prose lines are not "skipped rows".
+        else if (stats && /\d{3,}/.test(line) && !SKIP_LINE.test(line.trim())) stats.skipped += 1;
+    }
+    return out;
+}
+
+export async function parseGiniPdfImport(content: Buffer, kind: ImportKind, stats?: { skipped: number }) {
+    const lines = await pdfTextLines(content);
+    // A statement with a header row (Name, Value, ...) is read column by column like a
+    // spreadsheet; otherwise each line is read on its own.
+    try {
+        const local = { skipped: 0 };
+        const rows = parseGiniRows(lines.map(pdfLineCells), kind, local);
+        if (rows.length) {
+            if (stats) stats.skipped += local.skipped;
+            return rows;
+        }
+    } catch {
+        // no header row: fall through
+    }
+    return pdfLinesToHoldings(lines, kind, stats);
 }

@@ -403,7 +403,7 @@ export const chat = {
 // `liabilities.createLiability`.
 // ─────────────────────────────────────────────────────────────────────────
 export const importHoldings = {
-  parse: (file: File, fileType: 'csv' | 'excel', kind: 'assets' | 'liabilities') =>
+  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf', kind: 'assets' | 'liabilities') =>
     uploadForParse<{ rows: any[]; count: number; skipped?: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind }),
 };
 

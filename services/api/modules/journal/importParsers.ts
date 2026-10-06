@@ -22,7 +22,7 @@
 // Every other field mapping, alias list, and parsing heuristic below is a
 // faithful line-for-line port.
 import * as XLSX from "xlsx";
-import pdfParse from "pdf-parse";
+import { pdfLineCells, pdfTextLines } from "../../utils/pdfText.js";
 
 /** P&L of a closed trade, net of brokerage; null until quantity, entry and exit are all known.
  * Used for CSV import and for trades saved without a P&L, so both give the same number. */
@@ -46,7 +46,14 @@ export interface ImportStats {
 /** Trimmed text, or null when the cell is missing or blank. */
 function textOrNull(value: unknown): string | null {
     const text = value === null || value === undefined ? "" : String(value).trim();
-    return text ? text : null;
+    // "-" is how exports (ours included) show an empty cell.
+    return text && !/^[-–—]+$/.test(text) ? text : null;
+}
+
+/** Market as stored: our screens show "Crypto Currency" but the saved value is "Crypto_Currency". */
+function marketOrNull(value: unknown): string | null {
+    const text = textOrNull(value);
+    return text && /^crypto[\s_-]*currency$/i.test(text) ? "Crypto_Currency" : text;
 }
 
 export interface ParsedImportTrade {
@@ -253,7 +260,7 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
     const quantity = parseImportNumber(findValue(["quantity", "qty", "qty.", "volume", "size", "shares", "lots", "lot size", "filled qty", "executed quantity"]));
     const entryPrice = parseImportNumber(findValue(["entry price", "entry", "buy price", "price", "entryprice", "entry avg price", "average buy price", "avg buy price", "buy avg", "buy average"]));
     let exitPrice = parseImportNumber(findValue(["exit price", "exit", "sell price", "exitprice", "exit avg price", "average sell price", "avg sell price", "sell avg", "sell average"]));
-    const buySellRaw = String(findValue(["buysell", "buy/sell", "action", "type", "direction", "b/s"]) || "").toLowerCase();
+    const buySellRaw = String(findValue(["buysell", "buy/sell", "side", "trade side", "action", "type", "direction", "b/s"]) || "").toLowerCase();
     const buySell: "buy" | "sell" = buySellRaw.startsWith("s") || buySellRaw.includes("short") ? "sell" : "buy";
     const brokerage = parseImportNumber(findValue(["brokerage", "fee", "fees", "charges", "total charges"])) ?? 0;
     const importedPnl = parseImportNumber(findValue(["p&l", "pnl", "p/l", "profit loss", "profit/loss", "net pnl", "net p&l", "realized pnl", "realised pnl"]));
@@ -283,7 +290,7 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
         entry_time: textOrNull(findValue(["entry time", "entrytime"])),
         exit_time: textOrNull(findValue(["exit time", "exittime"])),
         type: textOrNull(findValue(["trading type", "trade type", "category", "product", "product type"])),
-        market: textOrNull(findValue(["trade market", "market", "segment"])),
+        market: marketOrNull(findValue(["trade market", "market", "segment"])),
         asset,
         currency,
         quantity,
@@ -420,17 +427,28 @@ export function parsePdfLinesToImportTrades(lines: string[]): ParsedImportTrade[
     return trades;
 }
 
-/** Port of `parse_pdf_import`: extracts text from a PDF (page by page, split into
- * lines) via `pdf-parse`, then feeds it through parsePdfLinesToImportTrades. Unlike
- * fundakamental/documentExtractors.ts's `extractTextFromPdf` (which joins each page's
- * text items with plain spaces for embedding), this needs real line breaks preserved
- * so each statement row stays on its own line — so it uses pdf-parse's default
- * renderer instead of that file's custom `pagerender`. */
-export async function parsePdfImport(content: Buffer): Promise<ParsedImportTrade[]> {
-    const data = await pdfParse(content);
-    const lines = String(data.text || "")
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter(Boolean);
-    return parsePdfLinesToImportTrades(lines);
+/** Port of `parse_pdf_import`: reads the PDF's text lines (utils/pdfText.ts keeps each
+ * row on its own line and table cells apart), then parses them as a table when there
+ * is a header row, or line by line otherwise. */
+export async function parsePdfImport(content: Buffer, stats?: ImportStats): Promise<ParsedImportTrade[]> {
+    const lines = await pdfTextLines(content);
+    // A statement laid out as a table (including our own Export PDF) is read by its
+    // column headers, exactly like a CSV. Otherwise fall back to reading each line.
+    const table = pdfTableTrades(lines, stats);
+    return table.length ? table : parsePdfLinesToImportTrades(lines);
+}
+
+/** Finds the first line that works as a header row and reads the lines below it as cells. */
+export function pdfTableTrades(lines: string[], stats?: ImportStats): ParsedImportTrade[] {
+    for (let i = 0; i < Math.min(lines.length, 40); i++) {
+        const header = pdfLineCells(lines[i]);
+        if (header.length < 4 || /\d/.test(lines[i])) continue;
+        const local: ImportStats = { skipped: 0 };
+        const trades = rowsToImportTrades([header, ...lines.slice(i + 1).map(pdfLineCells)], local);
+        if (trades.length) {
+            if (stats) stats.skipped += local.skipped;
+            return trades;
+        }
+    }
+    return [];
 }

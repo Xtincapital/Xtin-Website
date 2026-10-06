@@ -27,6 +27,7 @@ import {
 import { formatPrice } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
 import RegionSwitcher from "./RegionSwitcher";
+import { useEscapeClose } from "../hooks/use-escape-close";
 
 // Benefit-led, loss-framed copy per locked context.
 const REASON_COPY: Record<UpgradeReason, { title: string; sub: string }> = {
@@ -87,6 +88,8 @@ export default function UpgradeModal() {
   } = usePlanStore();
   const { region } = useRegion();
 
+  useEscapeClose(upgradeOpen, closeUpgrade);
+
   if (!upgradeOpen) return null;
 
   const copy = REASON_COPY[upgradeReason] || REASON_COPY.general;
@@ -104,6 +107,8 @@ export default function UpgradeModal() {
     >
       <div
         className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-7 my-auto"
+        role="dialog"
+        aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
         <button

@@ -13,6 +13,7 @@ import {
 import { formatPrice } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
 import RegionSwitcher from "./RegionSwitcher";
+import { useEscapeClose } from "../hooks/use-escape-close";
 
 /**
  * Top-up pack purchase modal. Shown to Pro users who exhaust their monthly
@@ -29,6 +30,8 @@ export default function BuyTokensModal() {
   const { region } = useRegion();
   const bp = billingFor(region as any);
 
+  useEscapeClose(buyTokensOpen, closeBuyTokens);
+
   if (!buyTokensOpen) return null;
 
   return (
@@ -38,6 +41,8 @@ export default function BuyTokensModal() {
     >
       <div
         className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-7 my-auto"
+        role="dialog"
+        aria-modal="true"
         onClick={(e) => e.stopPropagation()}
       >
         <button

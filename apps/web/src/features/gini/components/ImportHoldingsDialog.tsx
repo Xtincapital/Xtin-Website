@@ -1,4 +1,4 @@
-// Upload a CSV / Excel sheet of assets or liabilities (a broker holdings
+// Upload a CSV / Excel sheet or a PDF statement of assets or liabilities (a broker holdings
 // export, a bank/loan statement sheet, or your own spreadsheet), preview what
 // was read, then save. Parsing is stateless server-side
 // (POST /gini/import-holdings); saving reuses the normal create endpoints so
@@ -58,8 +58,8 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
   async function handleFile(file: File | undefined) {
     if (!file) return;
     const type = importFileType(file);
-    if (type !== "csv" && type !== "excel") {
-      toast.error("Upload a CSV or Excel (.xlsx/.xls) file");
+    if (!type) {
+      toast.error("Upload a CSV, Excel (.xlsx/.xls) or PDF file");
       return;
     }
     setParsing(true);
@@ -118,14 +118,14 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
         <DialogHeader>
           <DialogTitle>Import {label} from a file</DialogTitle>
           <DialogDescription>
-            Upload a CSV or Excel sheet. We read the values out of it and show a preview before anything is saved. You can
+            Upload a CSV, Excel or PDF statement. We read the values out of it and show a preview before anything is saved. You can
             fine-tune ownership afterwards.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <input ref={inputRef} type="file" accept=".csv,.xlsx,.xls" className="hidden" onChange={(e) => handleFile(e.target.files?.[0])} />
+            <input ref={inputRef} type="file" accept=".csv,.xlsx,.xls,.pdf" className="hidden" onChange={(e) => handleFile(e.target.files?.[0])} />
             <Button type="button" variant="outline" disabled={parsing || saving} onClick={() => inputRef.current?.click()}>
               {parsing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
               {fileName ? "Choose another file" : "Choose file"}

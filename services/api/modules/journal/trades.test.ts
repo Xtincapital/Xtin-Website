@@ -73,3 +73,33 @@ describe("import with missing columns", () => {
         expect(trade).toMatchObject({ strategy: "Breakout", entry_time: "10:05:00", market: "Equity" });
     });
 });
+
+import { pdfTableTrades } from "./importParsers.js";
+
+describe("Journal PDF table import", () => {
+    it("reads our own Export PDF layout by its headers", () => {
+        const stats = { skipped: 0 };
+        const rows = pdfTableTrades(
+            [
+                "Xtin Journal - Trades   Generated 6 Oct 2026",
+                "2 trades (2 closed, 0 open)   Wins 1 / Losses 1",
+                "Date   Asset   Side   Market   Qty   Entry   Exit   Brokerage   P&L   Ccy   Strategy   Emotion",
+                "2026-10-06   INFY   BUY   Crypto Currency   10   100.00   110.00   0.00   100.00   INR   -   -",
+                "2026-10-06   TCS   SELL   Equity   5   200.00   190.00   10.00   40.00   INR   Breakout   calm",
+                "Page 1 of 1",
+            ],
+            stats,
+        );
+        expect(rows).toHaveLength(2);
+        expect(rows[0]).toMatchObject({ asset: "INFY", buy_sell: "buy", market: "Crypto_Currency", strategy: null, emotion: null, pnl: 100 });
+        expect(rows[1]).toMatchObject({ asset: "TCS", buy_sell: "sell", quantity: 5, strategy: "Breakout", pnl: 40 });
+    });
+
+    it("re-imports the Export CSV file unchanged", () => {
+        const rows = rowsToImportTrades([
+            ["date", "exit_date", "entry_time", "exit_time", "asset", "market", "type", "buy_sell", "quantity", "entry_price", "exit_price", "stop_loss", "target_price", "brokerage", "pnl", "currency", "strategy", "emotion", "notes", "tags"],
+            ["2026-10-06", "", "", "", "FREE-TEST", "", "", "buy", 10, 100, 115, "", "", 0, 150, "INR", "", "neutral", "", ""],
+        ]);
+        expect(rows[0]).toMatchObject({ asset: "FREE-TEST", quantity: 10, entry_price: 100, exit_price: 115, pnl: 150, buy_sell: "buy" });
+    });
+});

@@ -3,7 +3,7 @@
 // nothing is persisted here; the frontend saves the rows it keeps through the
 // normal asset/liability create endpoints.
 import { HTTP_STATUS } from "../../constants/constants.js";
-import { parseGiniImport, type ImportKind } from "./importParsers.js";
+import { parseGiniImport, parseGiniPdfImport, type ImportKind } from "./importParsers.js";
 
 export const importHoldings = async (req, res) => {
     const file = req.file;
@@ -15,13 +15,16 @@ export const importHoldings = async (req, res) => {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: 'kind must be "assets" or "liabilities"' });
     }
     const rawType = String(req.body?.file_type || "").trim().toLowerCase();
-    const fileType = rawType === "csv" ? "csv" : ["excel", "xls", "xlsx"].includes(rawType) ? "excel" : null;
+    const fileType = rawType === "csv" ? "csv" : ["excel", "xls", "xlsx"].includes(rawType) ? "excel" : rawType === "pdf" ? "pdf" : null;
     if (!fileType) {
-        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported file type — upload a CSV or Excel file" });
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported file type — upload a CSV, Excel or PDF file" });
     }
     try {
         const stats = { skipped: 0 };
-        const rows = parseGiniImport(file.buffer, fileType, kind as ImportKind, stats);
+        const rows =
+            fileType === "pdf"
+                ? await parseGiniPdfImport(file.buffer, kind as ImportKind, stats)
+                : parseGiniImport(file.buffer, fileType, kind as ImportKind, stats);
         return res.status(HTTP_STATUS.OK).json({ rows, count: rows.length, skipped: stats.skipped, kind });
     } catch (err) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Could not parse file: ${(err as Error)?.message || err}` });

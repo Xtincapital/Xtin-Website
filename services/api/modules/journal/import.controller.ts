@@ -36,7 +36,7 @@ export const importTrades = async (req, res) => {
             trades = parseExcelImport(file.buffer, stats);
             normalizedType = "excel";
         } else if (rawType === "pdf") {
-            trades = await parsePdfImport(file.buffer);
+            trades = await parsePdfImport(file.buffer, stats);
         } else {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported import type" });
         }

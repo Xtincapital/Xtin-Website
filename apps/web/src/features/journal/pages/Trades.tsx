@@ -49,7 +49,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
@@ -237,15 +237,38 @@ export default function Trades() {
   const [importOpen, setImportOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
 
+  async function fetchAllTrades(): Promise<Trade[]> {
+    const all: Trade[] = [];
+    for (let off = 0; ; off += 200) {
+      const res = await api.trades.getTrades({ limit: 200, offset: off });
+      all.push(...(res.data || []));
+      if (!res.data?.length || all.length >= (res.pagination?.total ?? 0)) break;
+    }
+    return all;
+  }
+
+  async function exportPdf() {
+    setExporting(true);
+    try {
+      const all = await fetchAllTrades();
+      if (!all.length) {
+        toast.error("No trades to export yet");
+        return;
+      }
+      const [{ jsPDF }, { buildTradesPdf }] = await Promise.all([import("jspdf"), import("../lib/tradesPdf")]);
+      buildTradesPdf(jsPDF, all).save(`journal-trades-${new Date().toISOString().slice(0, 10)}.pdf`);
+      toast.success(`Exported ${all.length} trade${all.length === 1 ? "" : "s"} to PDF`);
+    } catch (err: any) {
+      toast.error(err?.message || "Export failed");
+    } finally {
+      setExporting(false);
+    }
+  }
+
   async function exportCsv() {
     setExporting(true);
     try {
-      const all: Trade[] = [];
-      for (let off = 0; ; off += 200) {
-        const res = await api.trades.getTrades({ limit: 200, offset: off });
-        all.push(...(res.data || []));
-        if (!res.data?.length || all.length >= (res.pagination?.total ?? 0)) break;
-      }
+      const all = await fetchAllTrades();
       if (!all.length) {
         toast.error("No trades to export yet");
         return;
@@ -254,7 +277,7 @@ export default function Trades() {
         all.map((t) => EXPORT_COLUMNS.map((c) => csvCell(Array.isArray(t[c]) ? (t[c] as string[]).join(";") : t[c])).join(","))
       );
       downloadTextFile(`journal-trades-${new Date().toISOString().slice(0, 10)}.csv`, lines.join("\n"));
-      toast.success(`Exported ${all.length} trades`);
+      toast.success(`Exported ${all.length} trade${all.length === 1 ? "" : "s"}`);
     } catch (err: any) {
       toast.error(err?.message || "Export failed");
     } finally {
@@ -479,6 +502,10 @@ export default function Trades() {
             <Button variant="outline" disabled={exporting} onClick={exportCsv}>
               <Download className="mr-2 h-4 w-4" />
               Export CSV
+            </Button>
+            <Button variant="outline" disabled={exporting} onClick={exportPdf}>
+              <FileText className="mr-2 h-4 w-4" />
+              Export PDF
             </Button>
             <Button onClick={openAddDialog}>
               <Plus className="mr-2 h-4 w-4" />

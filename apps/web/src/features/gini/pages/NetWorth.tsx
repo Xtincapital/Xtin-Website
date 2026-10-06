@@ -39,7 +39,8 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, XAxis, YAxis } from "recharts";
 import { toast } from "sonner";
-import { Landmark, Pencil, Plus, Scale, Trash2, Upload, Wallet } from "lucide-react";
+import { Download, Landmark, Pencil, Plus, Scale, Trash2, Upload, Wallet } from "lucide-react";
+import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -288,6 +289,23 @@ export default function NetWorth() {
   const [deleteTarget, setDeleteTarget] = useState<DeleteTarget>(null);
 
   const [importKind, setImportKind] = useState<"assets" | "liabilities" | null>(null);
+
+  // Same columns as the import template, so an exported file can be imported back.
+  function exportCsv(kind: "assets" | "liabilities") {
+    const rows: unknown[][] =
+      kind === "assets"
+        ? [["Name", "Category", "Value", "Return Rate", "Ownership"], ...assets.map((a) => [a.name, a.category, a.value, a.return_rate, a.ownership_type])]
+        : [
+            ["Name", "Type", "Amount", "Interest Rate", "EMI", "Tenure", "Ownership"],
+            ...liabilities.map((l) => [l.name, l.type, l.amount, l.rate, l.emi, l.tenure, l.ownership_type]),
+          ];
+    if (rows.length === 1) {
+      toast.error(`No ${kind} to export yet`);
+      return;
+    }
+    downloadTextFile(`gini-${kind}-${new Date().toISOString().slice(0, 10)}.csv`, rows.map((r) => r.map(csvCell).join(",")).join("\n"));
+    toast.success(`Exported ${rows.length - 1} ${rows.length === 2 ? kind.replace(/ies$/, "y").replace(/s$/, "") : kind}`);
+  }
   const invalidateAssets = () => queryClient.invalidateQueries({ queryKey: ["gini", "assets"] });
   const invalidateLiabilities = () => queryClient.invalidateQueries({ queryKey: ["gini", "liabilities"] });
 
@@ -486,10 +504,14 @@ export default function NetWorth() {
               <Wallet className="h-5 w-5 text-primary" />
               <CardTitle>Assets</CardTitle>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button size="sm" variant="outline" onClick={() => setImportKind("assets")}>
                 <Upload className="mr-2 h-4 w-4" />
                 Import
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => exportCsv("assets")}>
+                <Download className="mr-2 h-4 w-4" />
+                Export CSV
               </Button>
               <Button size="sm" onClick={openAddAssetDialog}>
                 <Plus className="mr-2 h-4 w-4" />
@@ -564,10 +586,14 @@ export default function NetWorth() {
               <Landmark className="h-5 w-5 text-primary" />
               <CardTitle>Liabilities</CardTitle>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button size="sm" variant="outline" onClick={() => setImportKind("liabilities")}>
                 <Upload className="mr-2 h-4 w-4" />
                 Import
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => exportCsv("liabilities")}>
+                <Download className="mr-2 h-4 w-4" />
+                Export CSV
               </Button>
               <Button size="sm" onClick={openAddLiabilityDialog}>
                 <Plus className="mr-2 h-4 w-4" />

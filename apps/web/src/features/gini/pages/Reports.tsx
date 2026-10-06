@@ -52,6 +52,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
+import { csvCell, downloadTextFile } from "@/lib/uploadFile";
+import { toast } from "sonner";
 
 function futureValue(currentCost: number, inflationPct: number | null, years: number) {
   const rate = (inflationPct ?? 0) / 100;
@@ -146,21 +148,54 @@ export default function Reports() {
     };
   }, [assets, liabilities, goals, members]);
 
+  // The same sections as the PDF (whichever are ticked), as one spreadsheet-friendly file.
+  function handleDownloadCsv() {
+    const rows: unknown[][] = [["Section", "Name", "Category / Type", "Amount", "Rate %", "Details"]];
+    if (includeNetWorth || includePortfolio) {
+      for (const a of assets) rows.push(["Asset", a.name, a.category, a.value, a.return_rate, a.ownership_type]);
+      for (const l of liabilities) rows.push(["Liability", l.name, l.type, l.amount, l.rate, l.emi != null ? `EMI ${l.emi}` : ""]);
+      rows.push(["Summary", "Net worth", "", summary.netWorth, "", ""]);
+    }
+    if (includeGoals) {
+      for (const g of goals) rows.push(["Goal", g.name, g.category, g.current_cost, "", [g.target_year && `Target ${g.target_year}`, g.saved && `Saved ${g.saved}`].filter(Boolean).join("; ")]);
+    }
+    if (rows.length === 1) {
+      toast.error("Nothing to export yet");
+      return;
+    }
+    downloadTextFile(`Xtin-Gini-Report-${new Date().toISOString().split("T")[0]}.csv`, rows.map((r) => r.map(csvCell).join(",")).join("\n"));
+  }
+
   async function handleDownloadPdf() {
     const el = previewRef.current;
     if (!el) return;
     setGenerating(true);
     try {
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
-      // Sizing math ported verbatim from the original's
-      // pdfExport.generateGeneralReportPDF (see header comment).
-      const canvas = await html2canvas(el, { backgroundColor: "#ffffff" });
-      const imgData = canvas.toDataURL("image/png");
+      // Page sizing follows the original's pdfExport.generateGeneralReportPDF (see header comment).
+      const canvas = await html2canvas(el, { backgroundColor: "#ffffff", scale: 2 });
       const pdf = new jsPDF("p", "mm", "a4");
-      const pageWidth = 190; // A4 width minus margins
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfHeight = (imgProps.height * pageWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 10, 10, pageWidth, pdfHeight);
+      const margin = 10;
+      const pageWidth = 210 - margin * 2;
+      const pageHeight = 297 - margin * 2;
+      // The report is one tall image. Cut it into A4-height slices so a long report
+      // continues onto further pages instead of running off the first one, and store
+      // each slice as JPEG: the PNG the original used was stored uncompressed, which
+      // made even a near-empty one-page report about 14 MB.
+      const sliceHeightPx = Math.floor((pageHeight / pageWidth) * canvas.width);
+      for (let top = 0, page = 0; top < canvas.height; top += sliceHeightPx, page++) {
+        const height = Math.min(sliceHeightPx, canvas.height - top);
+        const slice = document.createElement("canvas");
+        slice.width = canvas.width;
+        slice.height = height;
+        const ctx = slice.getContext("2d");
+        if (!ctx) break;
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, slice.width, slice.height);
+        ctx.drawImage(canvas, 0, top, canvas.width, height, 0, 0, canvas.width, height);
+        if (page > 0) pdf.addPage();
+        pdf.addImage(slice.toDataURL("image/jpeg", 0.9), "JPEG", margin, margin, pageWidth, (height * pageWidth) / canvas.width);
+      }
       pdf.save(`Xtin-Gini-General-Report-${new Date().toISOString().split("T")[0]}.pdf`);
     } finally {
       setGenerating(false);
@@ -204,7 +239,11 @@ export default function Reports() {
                 </Label>
               </div>
             </div>
-            <div className="mt-6 flex justify-end">
+            <div className="mt-6 flex flex-wrap justify-end gap-2">
+              <Button variant="outline" onClick={handleDownloadCsv} disabled={isLoading} className="gap-2">
+                <Download className="h-4 w-4" />
+                Download CSV
+              </Button>
               <Button onClick={handleDownloadPdf} disabled={isLoading || generating} className="gap-2">
                 {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
                 {generating ? "Generating PDF…" : "Download PDF"}

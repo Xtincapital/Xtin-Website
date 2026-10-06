@@ -1,6 +1,7 @@
 import React from "react";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "./button";
+import { isStaleChunkError, reloadForNewVersion } from "@/lib/staleChunk";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -26,6 +27,8 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // A page file from before the latest deploy: reload to get the new version.
+    if (isStaleChunkError(error) && reloadForNewVersion()) return;
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
