@@ -5,7 +5,6 @@ import {
   newsletterPricing,
   formatNewsletterPrice,
   MARKETS,
-  getMarketPref,
 } from '../lib/newsletterPlan';
 import newsletterPlanService from '../services/newsletterPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -17,8 +16,7 @@ import { useAuth } from '../../../contexts/AuthContext';
  *  • Reciprocity — reminds them the free evening wrap stays free.
  *  • Anchoring — "research subs cost ₹12,000–50,000/yr" before our price.
  *  • Per-day trivialisation — "₹2.7 a day".
- *  • Endowment + choice — they pick their markets IN THE MODAL, so by the time
- *    they pay they've already assembled "their" product.
+ *  • Clarity — Pro is every market, both editions; nothing to configure.
  *  • Loss framing via `reason` — names the exact edition/market they wanted.
  *  • Yearly pre-selected with SAVE badge.
  */
@@ -28,14 +26,14 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
   const pricing = newsletterPricing();
 
   const [billing, setBilling] = useState('yearly');
-  const [markets, setMarkets] = useState(() => getMarketPref());
+  // Pro covers every market — there is no per-market choice.
+  const markets = MARKETS.map((m) => m.id);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (open) {
       setError(null);
-      setMarkets(getMarketPref());
     }
   }, [open]);
 
@@ -46,18 +44,6 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
   const planId = billing === 'yearly' ? 'newsletter_pro_yearly' : 'newsletter_pro_monthly';
   const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const savePct = Math.round((1 - pricing.yearly / (pricing.monthly * 12)) * 100);
-
-  const pickedLabels = MARKETS.filter((m) => markets.includes(m.id)).map((m) => m.label);
-
-  const toggleMarket = (id) => {
-    setMarkets((prev) => {
-      if (prev.includes(id)) {
-        const next = prev.filter((m) => m !== id);
-        return next.length ? next : prev; // keep at least one
-      }
-      return [...prev, id];
-    });
-  };
 
   const finish = async (record) => {
     try { await newsletterPlanService.updateMarkets(markets); } catch { /* non-blocking */ }
@@ -160,11 +146,11 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               <FaCrown /> Market Brief Pro
             </div>
             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-slate-100 mb-2">
-              Build your own market brief
+              Every market, twice a day
             </h2>
             <p className="text-sm text-gray-500 dark:text-slate-400">
               The evening India wrap stays <span className="font-semibold text-green-600">free forever</span>.
-              Pro adds the morning brief and lets you choose exactly which markets you follow.
+              Pro adds the morning brief and every market: India, US and Global.
             </p>
           </div>
 
@@ -189,33 +175,22 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             </div>
           </div>
 
-          {/* Market picker — the endowment moment */}
+          {/* Markets included in Pro */}
           <p className="text-xs font-bold uppercase tracking-wide text-gray-400 dark:text-slate-500 mb-2">
-            Your markets
+            Included markets
           </p>
           <div className="grid grid-cols-3 gap-2 mb-6">
-            {MARKETS.map((m) => {
-              const active = markets.includes(m.id);
-              return (
-                <button
-                  key={m.id}
-                  onClick={() => toggleMarket(m.id)}
-                  className={`p-3 rounded-xl border text-center transition-all ${active
-                    ? 'border-green-500 bg-green-50 dark:bg-emerald-900/30 ring-1 ring-green-500'
-                    : 'border-gray-200 dark:border-slate-700 hover:border-green-300'
-                    }`}
-                >
-                  <div className="text-xl mb-0.5">{m.flag}</div>
-                  <div className="text-xs font-bold text-gray-900 dark:text-slate-100">{m.label}</div>
-                  {active && <FaCheck className="mx-auto text-green-600 text-[10px] mt-1" />}
-                </button>
-              );
-            })}
+            {MARKETS.map((m) => (
+              <div
+                key={m.id}
+                className="p-3 rounded-xl border text-center border-green-500 bg-green-50 dark:bg-emerald-900/30 ring-1 ring-green-500"
+              >
+                <div className="text-xl mb-0.5">{m.flag}</div>
+                <div className="text-xs font-bold text-gray-900 dark:text-slate-100">{m.label}</div>
+                <FaCheck className="mx-auto text-green-600 text-[10px] mt-1" />
+              </div>
+            ))}
           </div>
-
-          <p className="-mt-3 mb-6 text-center text-xs font-medium text-green-700 dark:text-emerald-300">
-            {pickedLabels.length} market{pickedLabels.length === 1 ? '' : 's'} selected ({pickedLabels.join(' + ')}). One flat price covers any combination.
-          </p>
 
           {/* Billing toggle */}
           <div className="flex justify-center mb-5">
@@ -255,7 +230,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               </span>
             </div>
             <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
-              Flat price: same for 1, 2 or all {MARKETS.length} markets
+              One flat price covers all {MARKETS.length} markets
             </p>
             {billing === 'yearly' ? (
               <p className="text-sm text-green-600 font-semibold mt-1.5">

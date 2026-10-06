@@ -8,7 +8,7 @@
  *
  * PRO:
  *   • BOTH editions — Pre-Market Brief (8 AM) + Post-Market Wrap (5 PM).
- *   • Choose your markets — India, US, Global (any combination).
+ *   • Every market — India, US and Global (no per-market choice).
  *   • The full searchable archive.
  *
  * The SERVER record (newsletter_pro_plans, written only after Razorpay

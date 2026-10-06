@@ -7,8 +7,8 @@
 //   • markets: IN (India) | US (United States) | GLOBAL (World)
 //
 // Free subscribers  → India Post-Market Wrap only.
-// Pro subscribers   → both editions, in the markets they chose
-//                     (subscriptions.markets, csv like "IN,US").
+// Pro subscribers   → both editions, in every market (India, US, Global) —
+//                     no per-market choice; subscriptions.markets is ignored.
 // Pro status comes from newsletter_pro_plans (written server-side only
 // after Razorpay verification — see controllers/newsletterPlan.controller.mjs).
 //
@@ -690,14 +690,6 @@ export const generateNewsletterHTML = (newsletter) => {
 
 /* ---------------- subscriber targeting ---------------- */
 
-function parseMarketsPref(raw) {
-  const parts = String(raw || 'IN')
-    .split(',')
-    .map((p) => p.trim().toUpperCase())
-    .filter((p) => MARKETS.includes(p));
-  return parts.length ? parts : ['IN'];
-}
-
 async function readProEmailSet() {
   try {
     const { data, error } = await supabase
@@ -720,7 +712,7 @@ async function readProEmailSet() {
 /**
  * Who receives a given (edition, market) newsletter:
  *  • Free  → IN post_market only (the free daily wrap).
- *  • Pro   → both editions of every market in their preference list.
+ *  • Pro   → both editions of every market. There is no per-market choice.
  */
 function eligibleEmails({ subscribers, proSet, edition, market }) {
   const emails = [];
@@ -729,7 +721,7 @@ function eligibleEmails({ subscribers, proSet, edition, market }) {
     if (!email) continue;
     const isPro = proSet.has(email.toLowerCase());
     if (isPro) {
-      if (parseMarketsPref(s.markets).includes(market)) emails.push(email);
+      emails.push(email);
     } else if (edition === 'post_market' && market === 'IN') {
       emails.push(email);
     }

@@ -15,8 +15,6 @@ import {
   MARKETS,
   EDITIONS,
   FREE_ARCHIVE_LIMIT,
-  getMarketPref,
-  saveMarketPref,
   visibleArchiveCount,
 } from '../lib/newsletterPlan';
 import NewsletterTour from '../components/NewsletterTour';
@@ -186,7 +184,6 @@ const Newsletter = () => {
   // Free/Pro + market selection
   const pricing = newsletterPricing();
   const pro = isNewsletterPro();
-  const [selectedMarkets, setSelectedMarkets] = useState(() => getMarketPref());
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [upgradeReason, setUpgradeReason] = useState(null);
   const [celebrating, setCelebrating] = useState(false);
@@ -195,7 +192,6 @@ const Newsletter = () => {
   useEffect(() => {
     const unsub = subscribeNewsletterPlan(() => {
       setPlanTick((t) => t + 1);
-      setSelectedMarkets(getMarketPref());
     });
     return () => { unsub(); };
   }, []);
@@ -213,21 +209,6 @@ const Newsletter = () => {
   const handleProActivated = () => {
     setShowUpgrade(false);
     setCelebrating(true);
-  };
-
-  const toggleMarket = (id) => {
-    setSelectedMarkets((prev) => {
-      const next = prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id];
-      const final = next.length ? next : ['IN'];
-      saveMarketPref(final);
-      // Non-India markets are a Pro entitlement — nudge, but keep the choice.
-      if (!pro && final.some((m) => m !== 'IN')) {
-        openUpgrade('US and Global editions are part of Pro — pick them here and unlock them in one step.');
-      }
-      // Persist server-side for signed-in users (best-effort).
-      if (user) newsletterPlanService.updateMarkets(final).catch(() => { });
-      return final;
-    });
   };
 
   useEffect(() => {
@@ -297,7 +278,7 @@ const Newsletter = () => {
     setMessage('');
     setIsError(false);
     try {
-      await newsletterService.subscribeToNewsletter(email, selectedMarkets);
+      await newsletterService.subscribeToNewsletter(email, ['IN']);
       setEmail('');
       setMessage("You're in! Tonight's India wrap is on its way — check your inbox at 5 PM.");
       setIsError(false);
@@ -476,10 +457,10 @@ const Newsletter = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-3">
-              Two briefs a day. Your markets.
+              Two briefs a day. Every market.
             </h2>
             <p className="text-gray-600 dark:text-slate-300 max-w-xl mx-auto">
-              Free readers get the evening India wrap. Pro readers get both editions, in every market they choose.
+              Free readers get the evening India wrap. Pro readers get both editions in India, the US and Global.
             </p>
           </div>
 
@@ -520,13 +501,15 @@ const Newsletter = () => {
             </div>
           </div>
 
-          {/* Market picker */}
+          {/* What each plan includes — Pro gets every market, free gets the India evening wrap */}
           <div data-nl-tour="markets" className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50/60 dark:bg-slate-900/60 p-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">Choose your markets</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">Markets you get</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">
-                  India stays free. US &amp; Global are part of Pro.
+                  {pro
+                    ? 'Pro includes India, US and Global — morning and evening. Nothing to pick.'
+                    : 'Free is the India evening wrap. Pro adds US and Global, plus the morning brief.'}
                 </p>
               </div>
               {!pro && (
@@ -537,35 +520,36 @@ const Newsletter = () => {
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
               {MARKETS.map((m) => {
-                const active = selectedMarkets.includes(m.id);
-                const locked = !pro && m.id !== 'IN';
+                const included = pro || m.id === 'IN';
                 return (
-                  <button
+                  <div
                     key={m.id}
-                    onClick={() => toggleMarket(m.id)}
-                    className={`relative p-4 rounded-xl border text-left transition-all ${active
+                    onClick={included ? undefined : () => openUpgrade('US and Global editions are part of Pro.')}
+                    className={`relative p-4 rounded-xl border text-left transition-all ${included
                       ? 'border-green-500 bg-green-50 dark:bg-emerald-900/30 ring-1 ring-green-500'
-                      : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-green-300'
+                      : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 cursor-pointer'
                       }`}
                   >
-                    {locked && (
-                      <FaLock className="absolute top-3 right-3 text-gray-300 dark:text-slate-600 text-xs" />
-                    )}
-                    {active && (
+                    {included ? (
                       <span className="absolute top-3 right-3 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
                         <FaCheck className="text-white text-[9px]" />
                       </span>
+                    ) : (
+                      <FaLock className="absolute top-3 right-3 text-gray-300 dark:text-slate-600 text-xs" />
                     )}
                     <div className="text-2xl mb-1">{m.flag}</div>
                     <div className="font-bold text-gray-900 dark:text-slate-100">{m.label}</div>
                     <div className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">{m.blurb}</div>
-                  </button>
+                    <div className="text-xs font-semibold mt-2 text-green-700 dark:text-emerald-300">
+                      {pro ? 'Morning + evening' : m.id === 'IN' ? 'Evening wrap' : 'Pro only'}
+                    </div>
+                  </div>
                 );
               })}
             </div>
             {pro ? (
               <p className="mt-4 text-sm text-green-600 font-medium flex items-center gap-1.5">
-                <FaCrown /> You're Pro — your selections are saved and sent automatically.
+                <FaCrown /> You're Pro — every market, both editions, sent automatically.
               </p>
             ) : (
               <button
