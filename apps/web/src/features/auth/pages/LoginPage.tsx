@@ -61,7 +61,7 @@ const LoginPage = () => {
 		}
 
 		try {
-			await login(formData.email, formData.password);
+			await login(formData.email, formData.password, formData.rememberMe);
 
 			// Login successful
 			// Redirect to the original destination or dashboard

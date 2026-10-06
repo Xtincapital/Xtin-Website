@@ -20,7 +20,7 @@ interface AuthUser {
 
 interface AuthContextValue {
   user: AuthUser | null;
-  login: (email: string, password: string) => Promise<any>;
+  login: (email: string, password: string, rememberMe?: boolean) => Promise<any>;
   signup: (
     email: string,
     password: string,
@@ -41,6 +41,27 @@ const MOCK_USER: AuthUser = {
   first_name: 'Dev',
   last_name: 'User',
   phone_number: '',
+};
+
+// "Remember me": Supabase persists the session in localStorage, which outlives
+// the browser. When the box is unticked we flag the login as session-only and
+// drop a cookie with no expiry (it dies when the browser closes). On the next
+// load, a flag without its cookie means the browser was closed -> sign out.
+const NO_REMEMBER_KEY = 'xtin_no_remember';
+const ALIVE_COOKIE = 'xtin_session_alive';
+const hasAliveCookie = () => document.cookie.split('; ').some((c) => c.startsWith(`${ALIVE_COOKIE}=`));
+const setRememberPreference = (remember: boolean) => {
+  try {
+    if (remember) {
+      localStorage.removeItem(NO_REMEMBER_KEY);
+      document.cookie = `${ALIVE_COOKIE}=; path=/; max-age=0`;
+    } else {
+      localStorage.setItem(NO_REMEMBER_KEY, '1');
+      document.cookie = `${ALIVE_COOKIE}=1; path=/; SameSite=Lax`;
+    }
+  } catch {
+    /* storage blocked — fall back to default persistent session */
+  }
 };
 
 export const useAuth = () => {
@@ -65,6 +86,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Unified auth restoration on page load / refresh
     const initAuth = async () => {
       try {
+        // Previous login was "don't remember me" and the browser has since
+        // been closed: end that session before restoring anything.
+        if (localStorage.getItem(NO_REMEMBER_KEY) === '1' && !hasAliveCookie()) {
+          await supabase.auth.signOut({ scope: 'local' });
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem(NO_REMEMBER_KEY);
+        }
         const { data: { session } } = await supabase.auth.getSession();
         const storedToken = localStorage.getItem('auth_token');
         // Prefer the live Supabase session token: supabase-js keeps it
@@ -202,7 +230,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // client itself uses. auth_token now always holds a real Supabase
   // session token, which middlewares/auth.ts already accepts as a
   // fallback (it did before this change too, for OAuth).
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, rememberMe: boolean = true) => {
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -215,6 +243,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       throw new Error('Login failed: no session returned');
     }
 
+    setRememberPreference(rememberMe);
     const syncResult = await syncUser(authData.session.access_token);
     localStorage.setItem('auth_token', authData.session.access_token);
 
@@ -271,6 +300,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     // Confirmation disabled on this project — session exists immediately.
+    setRememberPreference(true);
     const syncResult = await syncUser(authData.session.access_token);
     localStorage.setItem('auth_token', authData.session.access_token);
 
@@ -287,6 +317,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signInWithGoogle = async () => {
+    setRememberPreference(true);
     // Check if there's a returnUrl stored (from SignInModal)
     const returnUrl = sessionStorage.getItem('returnUrl');
     const redirectPath = returnUrl || '/dashboard';

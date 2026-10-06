@@ -1,47 +1,15 @@
 // Gini Reports page — client-side PDF report generator. Free (no ProGate):
-// reports are NOT in the original's Pro-module list (features-incoming/gini/
-// index.html's `reports-tab`, ~line 2331, and app.js's `reports` module carry
-// no plan check), so this page is reachable by every logged-in user.
+// reports are not in the original's Pro-module list, so every logged-in user
+// can use it.
 //
-// Rewrite (not a port) of two things the original standalone app split
-// across:
-//   - index.html's `reports-tab` (~lines 2331-2360) — the report-options
-//     gate (`#includeNetWorth`/`#includeGoals`/`#includePortfolio` checkbox
-//     ids reused verbatim below) that fed `reports.generateReportWithOptions`.
-//   - app.js's `reports.generateReportWithOptions` (~line 5026) — the actual
-//     section content (Net Worth Statement, Goals, Portfolio Summary) — and
-//     `pdfExport.generateGeneralReportPDF` (~line 6538) — the
-//     html2canvas→jsPDF pipeline, whose exact sizing math is ported below
-//     unchanged:
-//       const canvas = await html2canvas(el, { backgroundColor: '#ffffff' });
-//       const imgData = canvas.toDataURL('image/png');
-//       const pdf = new jsPDF('p', 'mm', 'a4');
-//       const pageWidth = 190;                          // A4 width minus 2×10mm margins
-//       const pdfHeight = (imgProps.height * pageWidth) / imgProps.width; // preserve aspect ratio
-//       pdf.addImage(imgData, 'PNG', 10, 10, pageWidth, pdfHeight);       // 10mm margins
-//   `pdf.getImageProperties(imgData)` (jsPDF's own helper) replaces manually
-//   reading `canvas.width`/`canvas.height`, same ratio either way.
-//
-// Data: read-only, via TanStack Query against `api.assets`/`api.liabilities`/
-// `api.goals` (same query keys `["gini","assets"|"liabilities"|"goals"]`
-// NetWorth.tsx/Dashboard.tsx already use, so this page shares their cache —
-// no new fetches on a warm cache). No mutations, nothing written back.
-//
-// Judgement calls (see this task's final report for the full list):
-//   - The task brief asks for Net Worth Statement / Asset Allocation / Cash
-//     Flow / Risk Profile / Goals Progress sections, but the original's own
-//     `generateReportWithOptions` only ever gated three (Net Worth, Goals,
-//     Portfolio) — Asset Allocation and Cash Flow/Risk Profile were never
-//     original report sections with a dedicated formula anywhere in app.js.
-//     Rather than invent a new analysis engine, Asset Allocation is folded
-//     into the Net Worth section (it's the category breakdown NetWorth.tsx
-//     already renders), and a lightweight, clearly-labeled "Cash Flow &
-//     Risk Profile" section is added under the existing `includePortfolio`
-//     flag (household monthly cash flow = earner income − liability EMIs;
-//     risk profile = a simple growth-vs-stable asset-mix label) — a faithful
-//     summary, not a new engine, and it doesn't introduce a fourth checkbox
-//     the original never had.
-import { useMemo, useRef, useState } from "react";
+// Data is read-only via TanStack Query (same keys NetWorth/Dashboard use, so a
+// warm cache means no extra fetches). The document itself lives in
+// ../components/ReportDocument.tsx; ../lib/reportMeta.ts gives it a report
+// number and an integrity fingerprint. The PDF is made by capturing each
+// `[data-block]` of that document with html2canvas and packing the blocks onto
+// A4 pages (so tables and goals are never cut mid-row), then stamping a header
+// and "Page x of y" footer carrying the report number on every page.
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FileBarChart, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -54,6 +22,10 @@ import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import ReportDocument, { REPORT_WIDTH, type ReportData } from "../components/ReportDocument";
+import { buildReportMeta, type ReportMeta } from "@/lib/reportMeta";
+import { giniSampleMode } from "../lib/sampleData";
 
 function futureValue(currentCost: number, inflationPct: number | null, years: number) {
   const rate = (inflationPct ?? 0) / 100;
@@ -68,6 +40,8 @@ const STABLE_CATEGORIES = new Set(["Fixed Deposits", "Gold", "Cash", "PPF", "Ins
 
 export default function Reports() {
   const { formatCurrency } = useCurrency();
+  const { user } = useAuth();
+  const sample = giniSampleMode.useState().active;
 
   const { data: assets = [], isLoading: assetsLoading } = useQuery({
     queryKey: ["gini", "assets"],
@@ -96,6 +70,10 @@ export default function Reports() {
 
   const [generating, setGenerating] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [docH, setDocH] = useState(0);
+  const [meta, setMeta] = useState<ReportMeta | null>(null);
 
   const summary = useMemo(() => {
     const totalAssets = assets.reduce((sum, a) => sum + (a.value || 0), 0);
@@ -166,37 +144,145 @@ export default function Reports() {
     downloadTextFile(`Xtin-Gini-Report-${new Date().toISOString().split("T")[0]}.csv`, rows.map((r) => r.map(csvCell).join(",")).join("\n"));
   }
 
-  async function handleDownloadPdf() {
-    const el = previewRef.current;
+  const clientName = user ? `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.email : "Valued Client";
+
+  const reportData: ReportData = useMemo(
+    () => ({
+      clientName: sample ? "Sample Household" : clientName,
+      clientEmail: sample ? "sample@example.com" : user?.email || "",
+      preparedFor: members.map((m) => m.name),
+      currency: (n) => formatCurrency(n),
+      totalAssets: summary.totalAssets,
+      totalLiabilities: summary.totalLiabilities,
+      netWorth: summary.netWorth,
+      assets: assets.map((a) => ({ name: a.name, category: a.category || "Uncategorized", value: a.value || 0, returnRate: a.return_rate, owner: members.find((m) => m.id === a.owner)?.name || (a.ownership_type || "—") })),
+      allocation: summary.allocation,
+      liabilities: liabilities.map((l) => ({ name: l.name, type: l.type || "—", amount: l.amount || 0, rate: l.rate, emi: l.emi })),
+      goals: summary.goalRows.map((g) => ({ name: g.name, category: g.category || "General", targetYear: g.target_year, priority: g.priority || "—", futureValue: g.futureValue, saved: g.saved || 0, progressPct: g.progressPct })),
+      members: members.map((m) => ({ name: m.name, relationship: m.relationship || "—", age: m.age, income: m.income, earner: !!m.is_earner })),
+      monthlyIncome: summary.monthlyIncome,
+      monthlyEmi: summary.monthlyEmi,
+      monthlyCashFlow: summary.monthlyCashFlow,
+      growthPct: summary.growthPct,
+      riskLabel: summary.riskLabel,
+      include: { netWorth: includeNetWorth, goals: includeGoals, portfolio: includePortfolio },
+      isSample: sample,
+    }),
+    [assets, liabilities, members, summary, clientName, user?.email, sample, formatCurrency, includeNetWorth, includeGoals, includePortfolio],
+  );
+
+  // Fingerprint the figures (not the layout options): same data -> same fingerprint.
+  useEffect(() => {
+    if (isLoading) return;
+    let live = true;
+    buildReportMeta(user?.id || "anon", { a: assets.map((x) => [x.name, x.value]), l: liabilities.map((x) => [x.name, x.amount, x.emi]), g: goals.map((x) => [x.name, x.current_cost, x.saved]), m: members.map((x) => [x.name, x.income]) }).then((m) => live && setMeta(m));
+    return () => {
+      live = false;
+    };
+  }, [isLoading, user?.id, assets, liabilities, goals, members]);
+
+  // Fit the fixed-width A4 document into the card on narrow screens.
+  useEffect(() => {
+    const el = frameRef.current;
     if (!el) return;
+    const fit = () => {
+      setScale(Math.min(1, el.clientWidth / REPORT_WIDTH));
+      setDocH(previewRef.current?.offsetHeight || 0);
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    if (previewRef.current) ro.observe(previewRef.current);
+    return () => ro.disconnect();
+  }, [isLoading, meta]);
+
+  async function handleDownloadPdf() {
+    const root = previewRef.current;
+    if (!root || !meta) return;
     setGenerating(true);
     try {
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
-      // Page sizing follows the original's pdfExport.generateGeneralReportPDF (see header comment).
-      const canvas = await html2canvas(el, { backgroundColor: "#ffffff", scale: 2 });
       const pdf = new jsPDF("p", "mm", "a4");
-      const margin = 10;
-      const pageWidth = 210 - margin * 2;
-      const pageHeight = 297 - margin * 2;
-      // The report is one tall image. Cut it into A4-height slices so a long report
-      // continues onto further pages instead of running off the first one, and store
-      // each slice as JPEG: the PNG the original used was stored uncompressed, which
-      // made even a near-empty one-page report about 14 MB.
-      const sliceHeightPx = Math.floor((pageHeight / pageWidth) * canvas.width);
-      for (let top = 0, page = 0; top < canvas.height; top += sliceHeightPx, page++) {
-        const height = Math.min(sliceHeightPx, canvas.height - top);
-        const slice = document.createElement("canvas");
-        slice.width = canvas.width;
-        slice.height = height;
-        const ctx = slice.getContext("2d");
-        if (!ctx) break;
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, slice.width, slice.height);
-        ctx.drawImage(canvas, 0, top, canvas.width, height, 0, 0, canvas.width, height);
-        if (page > 0) pdf.addPage();
-        pdf.addImage(slice.toDataURL("image/jpeg", 0.9), "JPEG", margin, margin, pageWidth, (height * pageWidth) / canvas.width);
+      const PW = 210, PH = 297, top0 = 14, bottom = 16; // mm: room for header/footer stamps
+      const usable = PH - top0 - bottom;
+      const mmPerPx = PW / REPORT_WIDTH;
+      let y = 0; // mm used on the current page
+      let first = true;
+      const blocks = Array.from(root.querySelectorAll<HTMLElement>("[data-block]"));
+      for (const block of blocks) {
+        const canvas = await html2canvas(block, {
+          backgroundColor: "#ffffff",
+          scale: 2,
+          width: REPORT_WIDTH,
+          windowWidth: REPORT_WIDTH,
+          // The preview is CSS-scaled to fit small screens; capture at 1:1.
+          onclone: (doc) => {
+            const wrap = doc.getElementById("report-scale-wrap");
+            if (wrap) wrap.style.transform = "none";
+          },
+        });
+        const h = canvas.height * (PW / canvas.width);
+        const isCover = first;
+        first = false;
+        // The cover band bleeds to the page edges; everything else sits below the header strip.
+        if (isCover) {
+          pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, PW, h);
+          y = h + 4 - top0;
+          continue;
+        }
+        if (h > usable) {
+          // Oversize block: slice it across pages.
+          const slicePx = Math.floor((usable / h) * canvas.height);
+          for (let t = 0; t < canvas.height; t += slicePx) {
+            const sh = Math.min(slicePx, canvas.height - t);
+            const part = document.createElement("canvas");
+            part.width = canvas.width;
+            part.height = sh;
+            const ctx = part.getContext("2d");
+            if (!ctx) break;
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, part.width, sh);
+            ctx.drawImage(canvas, 0, t, canvas.width, sh, 0, 0, canvas.width, sh);
+            if (y > 0) { pdf.addPage(); y = 0; }
+            const ph = sh * (PW / canvas.width);
+            pdf.addImage(part.toDataURL("image/jpeg", 0.92), "JPEG", 0, top0, PW, ph);
+            y = ph;
+          }
+          continue;
+        }
+        if (y + h > usable) { pdf.addPage(); y = 0; }
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, top0 + y, PW, h);
+        y += h;
       }
-      pdf.save(`Xtin-Gini-General-Report-${new Date().toISOString().split("T")[0]}.pdf`);
+      void mmPerPx;
+
+      // Stamp every page: confidential header + report no. / page count footer.
+      const total = pdf.getNumberOfPages();
+      for (let p = 1; p <= total; p++) {
+        pdf.setPage(p);
+        if (p > 1) {
+          pdf.setFont("times", "bold").setFontSize(8).setTextColor(11, 31, 58);
+          pdf.text("XTIN CAPITAL  ·  GINI FINANCIAL PLANNING REPORT", 14, 9);
+          pdf.setFont("helvetica", "normal").setTextColor(107, 114, 128);
+          pdf.text(`Prepared for ${reportData.clientName}`, PW - 14, 9, { align: "right" });
+          pdf.setDrawColor(184, 137, 43).setLineWidth(0.4).line(14, 11, PW - 14, 11);
+        }
+        pdf.setDrawColor(229, 231, 235).setLineWidth(0.2).line(14, PH - 12, PW - 14, PH - 12);
+        pdf.setFont("helvetica", "normal").setFontSize(7.5).setTextColor(107, 114, 128);
+        pdf.text(`Report No. ${meta.reportNo}  ·  Fingerprint ${meta.fingerprint.slice(0, 19)}…`, 14, PH - 8);
+        pdf.text(`Page ${p} of ${total}`, PW - 14, PH - 8, { align: "right" });
+      }
+      pdf.setProperties({
+        title: `Financial Planning Report — ${reportData.clientName}`,
+        subject: `Report ${meta.reportNo}`,
+        author: "Xtin Capital · Gini Planning Engine",
+        keywords: meta.fingerprint,
+        creator: "Xtin Capital",
+      });
+      pdf.save(`Xtin-Gini-Report-${meta.reportNo}.pdf`);
+    } catch (e) {
+      console.error("[Gini] report PDF failed:", e);
+      toast.error("Could not generate the PDF. Please try again.");
     } finally {
       setGenerating(false);
     }
@@ -244,7 +330,7 @@ export default function Reports() {
                 <Download className="h-4 w-4" />
                 Download CSV
               </Button>
-              <Button onClick={handleDownloadPdf} disabled={isLoading || generating} className="gap-2">
+              <Button onClick={handleDownloadPdf} disabled={isLoading || generating || !meta} className="gap-2">
                 {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
                 {generating ? "Generating PDF…" : "Download PDF"}
               </Button>
@@ -258,105 +344,17 @@ export default function Reports() {
             <CardTitle>Preview</CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
+            {isLoading || !meta ? (
               <Skeleton className="h-96 w-full" />
             ) : (
-              <div ref={previewRef} className="rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-4 sm:p-8 text-[#111827]">
-                <div className="mb-6 border-b pb-4">
-                  <h2 className="text-xl font-bold">Financial Planning Report</h2>
-                  <p className="text-sm text-[#6b7280]">Generated on {new Date().toLocaleDateString()}</p>
+              <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#e5e7eb] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
+                <div style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
+                  <div id="report-scale-wrap" style={{ width: REPORT_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
+                    <div ref={previewRef}>
+                      <ReportDocument d={reportData} meta={meta} />
+                    </div>
+                  </div>
                 </div>
-
-                {includeNetWorth && (
-                  <section className="mb-8">
-                    <h3 className="mb-3 text-lg font-semibold">Net Worth Statement</h3>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <p className="text-[#6b7280]">Total Assets</p>
-                        <p className="text-base font-bold">{formatCurrency(summary.totalAssets)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#6b7280]">Total Liabilities</p>
-                        <p className="text-base font-bold">{formatCurrency(summary.totalLiabilities)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#6b7280]">Net Worth</p>
-                        <p className="text-base font-bold">{formatCurrency(summary.netWorth)}</p>
-                      </div>
-                    </div>
-
-                    <h4 className="mb-2 mt-5 text-sm font-semibold uppercase tracking-wide text-[#6b7280]">Asset Allocation</h4>
-                    {summary.allocation.length === 0 ? (
-                      <p className="text-sm text-[#6b7280]">No assets recorded yet.</p>
-                    ) : (
-                      <ul className="space-y-1 text-sm">
-                        {summary.allocation.map((row) => (
-                          <li key={row.category} className="flex justify-between border-b border-dashed py-1">
-                            <span>{row.category}</span>
-                            <span>
-                              {formatCurrency(row.value)} ({row.pct.toFixed(0)}%)
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </section>
-                )}
-
-                {includeGoals && (
-                  <section className="mb-8">
-                    <h3 className="mb-3 text-lg font-semibold">Goals Progress</h3>
-                    {summary.goalRows.length === 0 ? (
-                      <p className="text-sm text-[#6b7280]">No goals recorded yet.</p>
-                    ) : (
-                      <ul className="space-y-2 text-sm">
-                        {summary.goalRows.map((goal) => (
-                          <li key={goal.id} className="border-b border-dashed pb-2">
-                            <div className="flex justify-between font-medium">
-                              <span>
-                                {goal.name} ({goal.category || "General"})
-                              </span>
-                              <span>{goal.progressPct.toFixed(0)}% funded</span>
-                            </div>
-                            <p className="text-[#6b7280]">
-                              Target Year: {goal.target_year ?? "-"} · Future Value: {formatCurrency(goal.futureValue)} · Priority:{" "}
-                              {goal.priority || "-"} · Already Saved: {formatCurrency(goal.saved || 0)}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </section>
-                )}
-
-                {includePortfolio && (
-                  <section className="mb-2">
-                    <h3 className="mb-3 text-lg font-semibold">Portfolio Summary</h3>
-                    <p className="mb-4 text-sm">
-                      <strong>Total Portfolio Value:</strong> {formatCurrency(summary.totalAssets)}
-                    </p>
-
-                    <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[#6b7280]">Cash Flow &amp; Risk Profile</h4>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <p className="text-[#6b7280]">Household Monthly Income</p>
-                        <p className="font-bold">{formatCurrency(summary.monthlyIncome)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#6b7280]">Monthly EMI Outflow</p>
-                        <p className="font-bold">{formatCurrency(summary.monthlyEmi)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#6b7280]">Net Monthly Cash Flow</p>
-                        <p className="font-bold">{formatCurrency(summary.monthlyCashFlow)}</p>
-                      </div>
-                    </div>
-                    <p className="mt-3 text-sm text-[#6b7280]">
-                      Risk profile (approximate, based on growth vs. stable asset mix): <strong>{summary.riskLabel}</strong> (
-                      {summary.growthPct.toFixed(0)}% growth-oriented assets)
-                    </p>
-                  </section>
-                )}
               </div>
             )}
           </CardContent>

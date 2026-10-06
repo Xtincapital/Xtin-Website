@@ -44,12 +44,12 @@ import { toast } from "sonner";
 import { AlertTriangle, CheckCircle2, Percent, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { api } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
 import ProGate from "../components/ProGate";
+import SliderNumberField from "../components/SliderNumberField";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
 import { investableAssets } from "../lib/investable";
 
@@ -65,12 +65,6 @@ function formatCurrency(value: number) {
   } catch {
     return `₹${Math.round(value).toLocaleString("en-IN")}`;
   }
-}
-
-// Verbatim from app.js's `requiredReturn.formatSliderValue` (~4271-4275)
-// for the two rupee sliders (percent slider uses `formatPercent` below).
-function formatCompact(value: number) {
-  return value >= 1e7 ? `₹${(value / 1e7).toFixed(2)} Cr` : `₹${(value / 1e5).toFixed(2)} L`;
 }
 
 function formatPercent(value: number, decimals = 2) {
@@ -289,60 +283,41 @@ export default function RequiredReturn() {
                 )}
 
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Current Total Savings</span>
-                      <span className="text-sm font-semibold text-primary">{formatCompact(currentSavings)}</span>
-                    </div>
-                    <Slider
-                      value={[currentSavings]}
-                      min={0}
-                      max={50000000}
-                      step={100000}
-                      onValueChange={(v) => setCurrentSavings(v[0])}
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>₹0</span>
-                      <span>₹5 Cr</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">Starts from your investable assets (property and insurance not included).</p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Monthly Contribution</span>
-                      <span className="text-sm font-semibold text-primary">{formatCurrency(monthlyContribution)}</span>
-                    </div>
-                    <Slider
-                      value={[monthlyContribution]}
-                      min={0}
-                      max={1000000}
-                      step={5000}
-                      onValueChange={(v) => setMonthlyContribution(v[0])}
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>₹0</span>
-                      <span>₹10 L</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Expected Annual Return</span>
-                      <span className="text-sm font-semibold text-primary">{formatPercent(expectedReturn, 1)}</span>
-                    </div>
-                    <Slider
-                      value={[expectedReturn]}
-                      min={0}
-                      max={30}
-                      step={0.5}
-                      onValueChange={(v) => setExpectedReturn(v[0])}
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>0%</span>
-                      <span>30%</span>
-                    </div>
-                  </div>
+                  <SliderNumberField
+                    label="Current Total Savings"
+                    value={currentSavings}
+                    onChange={setCurrentSavings}
+                    min={0}
+                    max={50000000}
+                    step={100000}
+                    prefix="₹"
+                    minLabel="₹0"
+                    maxLabel="₹5 Cr"
+                    hint="Starts from your investable assets (property and insurance not included)."
+                  />
+                  <SliderNumberField
+                    label="Monthly Contribution"
+                    value={monthlyContribution}
+                    onChange={setMonthlyContribution}
+                    min={0}
+                    max={1000000}
+                    step={5000}
+                    prefix="₹"
+                    minLabel="₹0"
+                    maxLabel="₹10 L"
+                  />
+                  <SliderNumberField
+                    label="Expected Annual Return"
+                    value={expectedReturn}
+                    onChange={setExpectedReturn}
+                    min={0}
+                    max={30}
+                    step={0.5}
+                    suffix="%"
+                    decimals={1}
+                    minLabel="0%"
+                    maxLabel="30%"
+                  />
                 </div>
 
                 <Button onClick={handleCalculate} disabled={goalsQuery.isLoading}>

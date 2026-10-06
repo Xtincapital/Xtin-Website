@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useCalcForm } from "../lib/calcForm";
+import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import SEO, { generateToolData } from "../../../components/SEO";
 import {
   BarChart,
@@ -21,6 +22,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
+  Legend,
 } from "recharts";
 
 const RealEstateCalculator = () => {
@@ -118,7 +120,7 @@ const RealEstateCalculator = () => {
       },
       infra: {
         value: infrastructure,
-        status: infrastructure === '' ? null : infrastructure === 'none' ? 'avoid' : 'good'
+        status: infrastructure === '' ? null : infrastructure === 'none' ? 'avoid' : infrastructure === 'road' ? 'neutral' : 'good'
       },
       liquidity: {
         value: days,
@@ -285,7 +287,7 @@ const RealEstateCalculator = () => {
                   <div className="p-4 bg-purple-50 rounded-xl">
                     <h4 className="font-semibold text-purple-800 mb-2">🚇 Filter 3: Infrastructure</h4>
                     <p className="text-sm text-gray-700">5-Year Development Pipeline</p>
-                    <p className="text-xs text-gray-500 mt-1">Metro/Airport = 15-30% faster appreciation</p>
+                    <p className="text-xs text-gray-500 mt-1">Metro/Airport/IT park add 3-4% a year to the appreciation estimate; road works add 2%</p>
                   </div>
                   <div className="p-4 bg-orange-50 rounded-xl">
                     <h4 className="font-semibold text-orange-800 mb-2">🔄 Filter 4: Liquidity</h4>
@@ -489,6 +491,7 @@ const RealEstateCalculator = () => {
                     <h3 className="font-semibold text-gray-900">Filter 3: Infrastructure</h3>
                     <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
                       filterResults.infra.status === 'good' ? 'bg-green-500 text-white' :
+                      filterResults.infra.status === 'neutral' ? 'bg-yellow-500 text-white' :
                       filterResults.infra.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
                     }`}>
                       {getStatusIcon(filterResults.infra.status)}
@@ -503,8 +506,9 @@ const RealEstateCalculator = () => {
                      filterResults.infra.value === 'none' ? 'No Major Projects' : 'Not Selected'}
                   </div>
                   <p className="text-sm text-gray-500">
-                    {filterResults.infra.status === 'good' ? '15-30% faster appreciation expected' :
-                     filterResults.infra.status === 'avoid' ? 'Limited growth potential' : 'Select infrastructure type'}
+                    {filterResults.infra.status === 'good' ? 'Major project nearby: +3 to +4% a year added to appreciation' :
+                     filterResults.infra.status === 'neutral' ? 'Minor project nearby: +2% a year added to appreciation' :
+                     filterResults.infra.status === 'avoid' ? 'No projects nearby: -1% a year from appreciation' : 'Select infrastructure type and press Calculate'}
                   </p>
                 </div>
 
@@ -604,6 +608,8 @@ const RealEstateCalculator = () => {
                     ) : chartType === "pie" ? (
                       <PieChart>
                         <Pie
+                          isAnimationActive={false}
+                          label={piePercentLabel}
                           data={pieData}
                           cx="50%"
                           cy="50%"
@@ -611,12 +617,12 @@ const RealEstateCalculator = () => {
                           outerRadius={100}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                         >
                           {pieData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
+                        <Legend content={pieLegend} />
                         <Tooltip formatter={(value) => formatCurrency(value)} />
                       </PieChart>
                     ) : (
@@ -635,30 +641,30 @@ const RealEstateCalculator = () => {
 
               {/* FD Comparison */}
               {results && (
-                <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-6 text-white">
-                  <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                     Property vs Fixed Deposit (10 Year Comparison)
                   </h3>
                   <div className="grid sm:grid-cols-3 gap-4">
-                    <div className="bg-white/10 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Property Returns</p>
-                      <p className="text-2xl font-bold text-green-400">{formatCurrency(results.propertyReturns10Year)}</p>
-                      <p className="text-xs text-gray-400 mt-1">{results.appreciationRate}% appreciation + rent</p>
+                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                      <p className="text-gray-500 text-sm mb-1">Property Returns</p>
+                      <p className="text-2xl font-bold text-green-600">{formatCurrency(results.propertyReturns10Year)}</p>
+                      <p className="text-xs text-gray-500 mt-1">{results.appreciationRate}% appreciation + rent</p>
                     </div>
-                    <div className="bg-white/10 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">FD Returns (7%)</p>
-                      <p className="text-2xl font-bold text-blue-400">{formatCurrency(results.fdReturns10Year)}</p>
-                      <p className="text-xs text-gray-400 mt-1">Risk-free, guaranteed</p>
+                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                      <p className="text-gray-500 text-sm mb-1">FD Returns (7%)</p>
+                      <p className="text-2xl font-bold text-blue-600">{formatCurrency(results.fdReturns10Year)}</p>
+                      <p className="text-xs text-gray-500 mt-1">Risk-free, guaranteed</p>
                     </div>
-                    <div className="bg-white/10 rounded-xl p-4">
-                      <p className="text-gray-400 text-sm mb-1">Better Option</p>
-                      <p className={`text-2xl font-bold ${results.betterInvestment === 'property' ? 'text-green-400' : 'text-blue-400'}`}>
+                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                      <p className="text-gray-500 text-sm mb-1">Better Option</p>
+                      <p className={`text-2xl font-bold ${results.betterInvestment === 'property' ? 'text-green-600' : 'text-blue-600'}`}>
                         {results.betterInvestment === 'property' ? 'Property' : 'Fixed Deposit'}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-gray-500 mt-1">
                         {results.betterInvestment === 'property' 
                           ? `+${formatCurrency(results.propertyReturns10Year - results.fdReturns10Year)} extra` 
                           : `${formatCurrency(results.fdReturns10Year - results.propertyReturns10Year)} safer`}

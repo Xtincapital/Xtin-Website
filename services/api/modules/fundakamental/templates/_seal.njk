@@ -1,0 +1,15 @@
+<div class="seal">
+    <div class="logo"><img src="{{ logo_data_uri }}" alt=""></div>
+    <div>
+        <h4>Report authenticity</h4>
+        <p>
+            Issued{% if prepared_for %} to <strong>{{ prepared_for }}</strong>{% endif %} on {{ generated_at }} by the Fundakamental Engine, Xtin Capital.
+            The fingerprint is computed from the data in this report; if any figure is altered it will no longer match the original.
+        </p>
+        <div class="ids">Report No. <b>{{ report_no }}</b> &nbsp;&nbsp; Fingerprint <b>{{ fingerprint }}</b></div>
+    </div>
+</div>
+<p class="notice">
+    <strong>Important notice.</strong> This report is automatically generated from public financial data and AI analysis for research and education only. It is not investment, tax or legal advice,
+    and Xtin Capital is not a SEBI-registered investment adviser. Data may be delayed or incomplete, and AI output can be wrong. Do your own research and consult a qualified professional before investing.
+</p>

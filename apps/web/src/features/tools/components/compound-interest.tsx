@@ -3,7 +3,8 @@ import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
-import { pieValueLabel, moneyTooltip } from "../lib/format";
+import { moneyTooltip } from "../lib/format";
+import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import {
   LineChart,
   Line,
@@ -230,6 +231,9 @@ const CompoundInterestCalculator = () => {
                   <ResponsiveContainer width="100%" height={320}>
                     <PieChart>
                       <Pie
+                        isAnimationActive={false}
+                        label={piePercentLabel}
+                        labelLine={false}
                         data={[
                           {
                             name: "Principal Amount",
@@ -247,13 +251,12 @@ const CompoundInterestCalculator = () => {
                         outerRadius={100}
                         fill="#8884d8"
                         dataKey="value"
-                        label={pieValueLabel}
                       >
                         <Cell key="cell-0" fill="#16a34a" />
                         <Cell key="cell-1" fill="#f97316" />
                       </Pie>
+                      <Legend content={pieLegend} />
                       <Tooltip formatter={moneyTooltip} />
-                      <Legend />
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (

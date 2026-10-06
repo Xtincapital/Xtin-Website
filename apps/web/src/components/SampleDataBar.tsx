@@ -50,18 +50,9 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
     };
   }, [open]);
 
-  if (active && placement === 'button') {
-    return (
-      <button
-        type="button"
-        onClick={onExit}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-sm font-medium whitespace-nowrap hover:bg-amber-100 transition-colors"
-      >
-        <X className="w-3.5 h-3.5" aria-hidden="true" />
-        Exit sample data
-      </button>
-    );
-  }
+  // While sample data is on, the banner is the one place to exit. Showing an
+  // "Exit" button in the nav as well made the control appear twice.
+  if (active && placement === 'button') return null;
 
   if (!active && placement === 'banner') return null;
 

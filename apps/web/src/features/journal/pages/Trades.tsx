@@ -56,6 +56,18 @@ import { api } from "../lib/api";
 import type { Trade, Strategy } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
 import { marketLabel } from "../lib/journalPatternHelpers";
+import { useAuth } from "@/contexts/AuthContext";
+import { buildReportMeta } from "@/lib/reportMeta";
+
+const blobToDataUrl = async (res: Response) => {
+  const blob = await res.blob();
+  return new Promise<string>((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+};
 
 // Static option lists carried over from app.js (tradingTypes, tradeMarkets,
 // defaultStrategies, the emotion select, timezone select, buy/sell select
@@ -236,6 +248,7 @@ const EXPORT_COLUMNS: (keyof Trade)[] = [
 export default function Trades() {
   const [importOpen, setImportOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const { user } = useAuth();
 
   async function fetchAllTrades(): Promise<Trade[]> {
     const all: Trade[] = [];
@@ -256,7 +269,11 @@ export default function Trades() {
         return;
       }
       const [{ jsPDF }, { buildTradesPdf }] = await Promise.all([import("jspdf"), import("../lib/tradesPdf")]);
-      buildTradesPdf(jsPDF, all).save(`journal-trades-${new Date().toISOString().slice(0, 10)}.pdf`);
+      const now = new Date();
+      const meta = await buildReportMeta(user?.id || "anon", all.map((t) => [t.date, t.asset, t.quantity, t.entry_price, t.exit_price, t.pnl]), now, "XC-JN");
+      const logo = await fetch("/favicon.png").then(blobToDataUrl).catch(() => undefined);
+      const preparedFor = user ? `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.email : undefined;
+      buildTradesPdf(jsPDF, all, now, { preparedFor, email: user?.email, meta, logo }).save(`Xtin-Journal-Report-${meta.reportNo}.pdf`);
       toast.success(`Exported ${all.length} trade${all.length === 1 ? "" : "s"} to PDF`);
     } catch (err: any) {
       toast.error(err?.message || "Export failed");

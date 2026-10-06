@@ -51,6 +51,7 @@ const HelpCenter = lazy(() => import('./features/marketing/pages/HelpCenter'));
 const NotFound = lazy(() => import('./features/marketing/pages/NotFound'));
 const VerifyCertificate = lazy(() => import('./features/certificates/pages/VerifyCertificate'));
 const AdminCertificates = lazy(() => import('./features/certificates/pages/AdminCertificates'));
+const AdminAlgoApplications = lazy(() => import('./features/algos/pages/AdminAlgoApplications'));
 const AdminNewsletters = lazy(() => import('./features/newsletter/pages/AdminNewsletters'));
 const StepUpSIPCalculator = lazy(() => import('./features/tools/components/step-up-sip'));
 const ELSSCalculator = lazy(() => import('./features/tools/components/elss'));
@@ -638,7 +639,7 @@ function App() {
         <Route
           path="/admin/certificates"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <AdminCertificates />
             </ProtectedRoute>
           }
@@ -648,8 +649,18 @@ function App() {
         <Route
           path="/admin/newsletters"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <AdminNewsletters />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin: review algo publisher applications */}
+        <Route
+          path="/admin/algo-applications"
+          element={
+            <ProtectedRoute adminOnly>
+              <AdminAlgoApplications />
             </ProtectedRoute>
           }
         />

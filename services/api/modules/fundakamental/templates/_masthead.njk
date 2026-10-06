@@ -1,0 +1,17 @@
+<div class="mast">
+    <div class="row">
+        <div class="logo"><img src="{{ logo_data_uri }}" alt=""></div>
+        <div>
+            <div class="brand">XTIN CAPITAL</div>
+            <div class="sub">FUNDAKAMENTAL &middot; RESEARCH</div>
+        </div>
+        <div class="rno">Report No.<b>{{ report_no }}</b></div>
+    </div>
+    <h1>{{ report_title }}</h1>
+    <div class="tag">{{ report_tagline }}</div>
+    <div class="facts">
+        {% if prepared_for %}<div><span>PREPARED FOR</span><strong>{{ prepared_for }}</strong></div>{% endif %}
+        <div><span>DATE ISSUED</span><strong>{{ generated_at }}</strong></div>
+        <div><span>PREPARED BY</span><strong>Fundakamental Engine</strong></div>
+    </div>
+</div>

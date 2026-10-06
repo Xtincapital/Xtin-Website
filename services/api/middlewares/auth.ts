@@ -93,7 +93,7 @@ export const authorize = (roles) => (req, res, next) => {
 // Admins are identified by email. ADMIN_EMAILS is a comma-separated list set
 // on the server; xtincapital@gmail.com is always included, matching the
 // frontend's admin pages (AdminCertificates.tsx). Use after `authenticate`.
-const adminEmails = () =>
+export const adminEmails = () =>
     ['xtincapital@gmail.com', ...(process.env.ADMIN_EMAILS || '').split(',')]
         .map((e) => e.trim().toLowerCase())
         .filter(Boolean);

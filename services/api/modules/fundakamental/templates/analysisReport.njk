@@ -272,30 +272,40 @@
             font-size: 9pt;
             color: #991b1b;
         }
+        {% include "_brand.njk" %}
+        .score-wrap { display:flex; gap:18px; align-items:stretch; margin-bottom:26px; }
+        .score-wrap .co { flex:1; border:1px solid #e5e7eb; border-left:4px solid #0b1f3a; border-radius:6px; padding:14px 16px; }
+        .score-wrap .co .t { font-family: Georgia, serif; font-size: 18pt; font-weight:700; color:#0b1f3a; }
+        .score-wrap .co .c { color:#6b7280; font-size:10.5pt; }
+        .score-wrap .co .p { margin-top:8px; font-size:10pt; color:#374151; }
+        .score-box { background:#0b1f3a !important; border-bottom:4px solid #b8892b; width:190px; margin-bottom:0 !important; display:flex; flex-direction:column; justify-content:center; }
+        .score-box .value { color:#d9b66a; margin-bottom:2px !important; }
+        .score-box .bar { height:6px; background:#16335c; border-radius:3px; margin-top:8px; }
+        .score-box .bar i { display:block; height:6px; background:#d9b66a; border-radius:3px; }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <h1>Fundamental Analysis Report</h1>
-        <div class="ticker">{{ ticker }}{% if ticker and exchange %} &middot; {% endif %}{{ exchange }}</div>
-        <div class="company-name">{{ company }}</div>
-        <div class="meta">Report date: {{ date }} &nbsp;|&nbsp; Generated on {{ generated_at }}</div>
-    </div>
+    {% set report_title = "Fundamental Analysis Report" %}
+    {% set report_tagline = "Financial health, valuation context and risks for " + (company or ticker) %}
+    {% include "_masthead.njk" %}
 
-    <!-- Overall Score -->
-    <div class="score-box">
-        <div class="label">OVERALL SCORE</div>
-        <div class="value">{{ overall_score | fixed(1) }} / 10</div>
-        {% if plain_english %}
-        <div class="rating">{{ plain_english }}</div>
-        {% endif %}
+    <div class="score-wrap">
+        <div class="co">
+            <div class="t">{{ company }}</div>
+            <div class="c">{{ ticker }}{% if ticker and exchange %} &middot; {% endif %}{{ exchange }} &nbsp;|&nbsp; Analysis dated {{ date }}</div>
+            {% if plain_english %}<div class="p">{{ plain_english }}</div>{% endif %}
+        </div>
+        <div class="score-box">
+            <div class="label">OVERALL SCORE</div>
+            <div class="value">{{ overall_score | fixed(1) }}<span style="font-size:12pt"> / 10</span></div>
+            <div class="bar"><i style="width: {{ ((overall_score or 0) * 10) | round }}%"></i></div>
+        </div>
     </div>
 
     <!-- Summary -->
     {% if summary %}
     <div class="section">
-        <h2 class="section-title">Executive Summary</h2>
+        <h2 class="section-title" data-n="01">Executive Summary</h2>
         <p>{{ summary }}</p>
     </div>
     {% endif %}
@@ -303,7 +313,7 @@
     <!-- Financial Health Metrics -->
     {% if metrics %}
     <div class="section">
-        <h2 class="section-title">Financial Health Metrics</h2>
+        <h2 class="section-title" data-n="02">Financial Health Metrics</h2>
         <div class="metrics-grid">
             {% if metrics.profitability %}
             <div class="metric-card">
@@ -343,7 +353,7 @@
     <!-- Key Ratios -->
     {% if key_ratios and key_ratios.length %}
     <div class="section">
-        <h2 class="section-title">Key Ratios</h2>
+        <h2 class="section-title" data-n="03">Key Ratios</h2>
         <table>
             <thead>
                 <tr>
@@ -367,7 +377,7 @@
 
     <!-- Strengths & Red Flags -->
     <div class="section">
-        <h2 class="section-title">Analysis Summary</h2>
+        <h2 class="section-title" data-n="04">Analysis Summary</h2>
         <div class="list-section">
             <div class="list-box strengths">
                 <h3>Strengths</h3>
@@ -398,7 +408,7 @@
     <!-- Investment Assessment -->
     {% if investment_assessment %}
     <div class="section">
-        <h2 class="section-title">Investment Assessment</h2>
+        <h2 class="section-title" data-n="05">Investment Assessment</h2>
         <p>{{ investment_assessment }}</p>
     </div>
     {% endif %}
@@ -416,7 +426,7 @@
     <!-- Bull / Bear Case (Pro) -->
     {% if (bull_case and bull_case.length) or (bear_case and bear_case.length) %}
     <div class="section">
-        <h2 class="section-title">Bull Case vs. Bear Case</h2>
+        <h2 class="section-title" data-n="06">Bull Case vs. Bear Case</h2>
         <div class="list-section">
             <div class="list-box bull">
                 <h3>Bull Case</h3>
@@ -447,7 +457,7 @@
     <!-- What to Watch (Pro) -->
     {% if what_to_watch and what_to_watch.length %}
     <div class="section">
-        <h2 class="section-title">What to Watch</h2>
+        <h2 class="section-title" data-n="07">What to Watch</h2>
         <div class="watch-list">
             <ul>
                 {% for item in what_to_watch %}
@@ -461,7 +471,7 @@
     <!-- Peer Context (Pro) -->
     {% if peer_context %}
     <div class="section">
-        <h2 class="section-title">Peer Context</h2>
+        <h2 class="section-title" data-n="08">Peer Context</h2>
         <p>{{ peer_context }}</p>
     </div>
     {% endif %}
@@ -469,7 +479,7 @@
     <!-- Data Confidence (Pro) -->
     {% if data_confidence %}
     <div class="section">
-        <h2 class="section-title">Data Confidence</h2>
+        <h2 class="section-title" data-n="09">Data Confidence</h2>
         <table>
             <tbody>
                 {% for key, value in data_confidence %}
@@ -483,17 +493,6 @@
     </div>
     {% endif %}
 
-    <!-- Disclaimer -->
-    <div class="disclaimer">
-        <strong>Disclaimer:</strong> This report is for informational purposes only and does not constitute financial advice.
-        Always conduct your own research and consult with a qualified financial advisor before making investment decisions.
-        Past performance does not guarantee future results.
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <div>Generated by {{ app_name }}</div>
-        <div>&copy; {{ current_year }} All rights reserved</div>
-    </div>
+    {% include "_seal.njk" %}
 </body>
 </html>

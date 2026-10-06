@@ -10,6 +10,8 @@ const repo = vi.hoisted(() => ({
 }));
 vi.mock("./publisherApplications.repository.js", () => repo);
 
+vi.mock("../../services/adminNotify.service.js", () => ({ notifyAdminsNewApplication: vi.fn() }));
+
 import { updateMyApplication } from "./publisherApplications.controller.js";
 
 const body = {

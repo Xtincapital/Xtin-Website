@@ -4,6 +4,7 @@
 // set the status.
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateApplicationCreate, validateApplicationReview } from "./publisherApplications.validator.js";
+import { notifyAdminsNewApplication } from "../../services/adminNotify.service.js";
 import { insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus, updateOwnPendingApplication, getApplicationById } from "./publisherApplications.repository.js";
 
 /* POST /algos/publisher-applications */
@@ -15,6 +16,7 @@ export const createApplication = async (req, res) => {
     try {
         const { data, error } = await insertApplication({ ...validation.data, user_id: req.user.authId });
         if (error) throw error;
+        if (data?.[0]) notifyAdminsNewApplication(data[0]);
         return res.status(HTTP_STATUS.CREATED).json(data?.[0]);
     } catch (err) {
         console.error("[Algos] create publisher application failed:", err);

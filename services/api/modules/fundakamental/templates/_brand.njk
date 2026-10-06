@@ -1,0 +1,32 @@
+{# Shared look for every Fundakamental PDF: navy/gold masthead, section
+   headings, authenticity seal. Included at the END of each template's <style>
+   so it overrides the older per-template colours. #}
+@page { size: A4; }
+body { padding: 0 !important; color: #111827; }
+.mast { background: #0b1f3a; color: #fff; padding: 26px 34px 24px; margin: -20px -20px 26px; border-bottom: 5px solid #b8892b; }
+.mast .row { display: flex; align-items: center; }
+.mast .logo { width: 48px; height: 48px; background: #fff; border-radius: 9px; padding: 3px; margin-right: 14px; }
+.mast .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.mast .brand { font-family: Georgia, 'Times New Roman', serif; font-size: 17pt; font-weight: 700; letter-spacing: 3px; }
+.mast .sub { font-size: 7.5pt; letter-spacing: 2px; color: #d9b66a; margin-top: 2px; }
+.mast .rno { margin-left: auto; text-align: right; font-size: 7.5pt; color: #c7d2e3; line-height: 1.5; }
+.mast .rno b { display: block; color: #fff; font-size: 10pt; letter-spacing: 1px; }
+.mast h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 26pt; font-weight: 700; margin: 26px 0 2px; color: #fff; line-height: 1.15; }
+.mast .tag { font-size: 10pt; color: #c7d2e3; }
+.mast .facts { display: flex; gap: 34px; margin-top: 20px; }
+.mast .facts div { font-size: 8.5pt; color: #c7d2e3; }
+.mast .facts span { display: block; font-size: 7pt; letter-spacing: 1.2px; color: #d9b66a; margin-bottom: 2px; }
+.mast .facts strong { font-family: Georgia, serif; font-size: 12pt; color: #fff; font-weight: 400; }
+.section-title { font-family: Georgia, 'Times New Roman', serif !important; color: #0b1f3a !important; border-bottom: 2px solid #0b1f3a !important; font-size: 14pt !important; }
+.section-title:before { content: attr(data-n); color: #b8892b; font-size: 10pt; margin-right: 10px; letter-spacing: 1px; }
+th { background: #0b1f3a !important; color: #fff !important; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .6px; border-bottom: none !important; }
+tr { page-break-inside: avoid; }
+.metric-card { border-left-color: #b8892b !important; }
+.seal { display: flex; gap: 14px; border: 1px solid #b8892b; background: #f6edd8; border-radius: 8px; padding: 12px 14px; margin-top: 26px; page-break-inside: avoid; }
+.seal .logo { width: 42px; height: 42px; background: #fff; border-radius: 8px; padding: 3px; flex-shrink: 0; }
+.seal .logo img { width: 100%; height: 100%; object-fit: contain; }
+.seal h4 { font-family: Georgia, serif; color: #0b1f3a; font-size: 11pt; margin-bottom: 3px; }
+.seal p { font-size: 8.5pt; color: #374151; line-height: 1.5; }
+.seal .ids { margin-top: 6px; font-size: 7.5pt; color: #6b7280; }
+.seal .ids b { color: #0b1f3a; font-family: Menlo, Consolas, monospace; letter-spacing: .4px; }
+.notice { font-size: 7.5pt; color: #6b7280; line-height: 1.55; margin-top: 12px; }

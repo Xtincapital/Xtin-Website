@@ -350,7 +350,7 @@ export default function Planner() {
                           fill="url(#plannerCorpusFill)"
                           strokeWidth={2}
                         />
-                        {goalMarkers.map((g) => (
+                        {goalMarkers.map((g, i) => (
                           <ReferenceDot
                             key={g.name}
                             x={g.year}
@@ -359,11 +359,25 @@ export default function Planner() {
                             fill="hsl(var(--chart-positive))"
                             stroke="hsl(var(--background))"
                             strokeWidth={2}
+                            // Name each dot; alternate above/below so neighbouring goals don't overlap.
+                            label={{
+                              value: g.name,
+                              position: i % 2 === 0 ? "top" : "bottom",
+                              fontSize: 11,
+                              fontWeight: 600,
+                              fill: "hsl(var(--foreground))",
+                            }}
                           />
                         ))}
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
+                  {goalMarkers.length > 0 && (
+                    <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <span className="inline-block h-2.5 w-2.5 rounded-full bg-[hsl(var(--chart-positive))]" />
+                      Each dot marks a goal's target amount in its target year.
+                    </p>
+                  )}
                 </div>
 
                 {goalMarkers.length > 0 && (

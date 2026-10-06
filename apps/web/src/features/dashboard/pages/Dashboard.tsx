@@ -734,21 +734,7 @@ const Dashboard = () => {
               <InfoRow label="Email" value={user?.email || "—"} />
               <InfoRow label="Phone" value={user?.phone_number || user?.user_metadata?.phone_number || "—"} />
             </div>
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20 px-5 py-4">
-              <div>
-                <p className="text-sm font-medium text-slate-900 dark:text-white">Delete account</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Permanently remove your account and all of its data.</p>
-              </div>
-              <button
-                onClick={() => setShowDeleteAccount(true)}
-                className="px-3.5 py-2 rounded-lg border border-rose-300 dark:border-rose-800 text-sm font-medium text-rose-600 hover:bg-rose-600 hover:text-white transition"
-              >
-                Delete account
-              </button>
-            </div>
           </section>
-          <DeleteAccountDialog open={showDeleteAccount} onOpenChange={setShowDeleteAccount} />
-
         </div>
       </main>
 
@@ -1030,10 +1016,25 @@ const Dashboard = () => {
                 <button onClick={() => setShowNameModal(false)} disabled={updating} className="flex-1 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition disabled:opacity-50">Cancel</button>
                 <button onClick={handleUpdateName} disabled={updating} className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition disabled:opacity-50">{updating ? 'Saving…' : 'Save changes'}</button>
               </div>
+              <div className="mt-2 pt-5 border-t border-rose-200 dark:border-rose-900/60 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white">Delete account</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Permanently remove your account and all of its data.</p>
+                </div>
+                <button
+                  onClick={() => { setShowNameModal(false); setShowDeleteAccount(true); }}
+                  disabled={updating}
+                  className="px-3.5 py-2 rounded-lg border border-rose-300 dark:border-rose-800 text-sm font-medium text-rose-600 hover:bg-rose-600 hover:text-white transition disabled:opacity-50"
+                >
+                  Delete account
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
+
+      <DeleteAccountDialog open={showDeleteAccount} onOpenChange={setShowDeleteAccount} />
 
       <Footer />
     </div>

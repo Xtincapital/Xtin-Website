@@ -5,6 +5,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
+import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import {
   LineChart,
   Line,
@@ -16,6 +17,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  Legend,
 } from "recharts";
 
 const LumpsumCalculator = () => {
@@ -91,12 +93,14 @@ const LumpsumCalculator = () => {
             <div className="flex items-center justify-center space-x-4">
               <Link
                 to="/tools/sip"
+                replace
                 className="px-6 py-2 text-lg font-semibold text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300"
               >
                 SIP
               </Link>
               <Link
                 to="/tools/lumpsum"
+                replace
                 className="px-6 py-2 text-lg font-semibold text-white bg-green-700 rounded-full shadow-md"
               >
                 Lumpsum
@@ -311,6 +315,8 @@ const LumpsumCalculator = () => {
                   ) : (
                     <PieChart>
                       <Pie
+                        isAnimationActive={false}
+                        label={piePercentLabel}
                         data={[
                           {
                             name: "Total Investment",
@@ -329,13 +335,11 @@ const LumpsumCalculator = () => {
                         fill="#8884d8"
                         dataKey="value"
                         nameKey="name"
-                        label={({ name, percent }) =>
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
                       >
                         <Cell key="cell-0" fill="#16a34a" />
                         <Cell key="cell-1" fill="#f97316" />
                       </Pie>
+                      <Legend content={pieLegend} />
                       <Tooltip formatter={moneyTooltip} />
                     </PieChart>
                   )}

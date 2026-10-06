@@ -14,6 +14,8 @@
 import nunjucks from "nunjucks";
 import puppeteer, { type Browser } from "puppeteer";
 import path from "node:path";
+import crypto from "node:crypto";
+import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,10 +47,40 @@ env.addFilter("billions", (value: unknown, digits: number = 2) => {
     return Number.isFinite(n) ? (n / 1_000_000_000).toFixed(digits) : (0).toFixed(digits);
 });
 
-function renderTemplate(templateName: string, context: Record<string, unknown>): string {
+// Xtin favicon, inlined so the PDF is self-contained (the renderer loads the page from a string).
+let logoDataUri = "";
+try {
+    logoDataUri = `data:image/png;base64,${fs.readFileSync(path.join(TEMPLATE_DIR, "assets", "logo.png")).toString("base64")}`;
+} catch {
+    console.warn("[Fundakamental] templates/assets/logo.png missing; PDFs will have no logo");
+}
+
+/** Who a report was issued to (shown on the cover and the authenticity seal). */
+export interface PreparedFor {
+    name?: string;
+    email?: string;
+}
+
+const preparedForLabel = (p?: PreparedFor) => (p?.name?.trim() || p?.email || "");
+
+/** Report number + fingerprint: a SHA-256 of the report's data, so a copy can be matched to what was issued. */
+function reportIdentity(templateName: string, context: Record<string, unknown>, now: Date) {
+    const digest = crypto.createHash("sha256").update(JSON.stringify(context)).digest("hex").toUpperCase();
+    const kind = templateName.startsWith("analysis") ? "AN" : templateName.startsWith("screening") ? "SC" : "TA";
+    const ymd = now.toISOString().slice(0, 10).replace(/-/g, "");
+    return {
+        report_no: `XC-FK-${kind}-${ymd}-${digest.slice(0, 4)}`,
+        fingerprint: (digest.slice(0, 32).match(/.{4}/g) || []).join("-"),
+    };
+}
+
+function renderTemplate(templateName: string, context: Record<string, unknown>, preparedFor?: PreparedFor): string {
     const now = new Date();
     const fullContext = {
         ...context,
+        ...reportIdentity(templateName, context, now),
+        logo_data_uri: logoDataUri,
+        prepared_for: preparedForLabel(preparedFor),
         generated_at: new Intl.DateTimeFormat("en-US", {
             year: "numeric",
             month: "long",
@@ -123,7 +155,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number, what: string): Promise<
     });
 }
 
-async function htmlToPdf(html: string): Promise<Buffer> {
+async function htmlToPdf(html: string, footerLabel = ""): Promise<Buffer> {
     const browser = await withTimeout(getBrowser(), LAUNCH_TIMEOUT_MS, "Starting the PDF renderer");
     const page = await browser.newPage();
     try {
@@ -134,7 +166,10 @@ async function htmlToPdf(html: string): Promise<Buffer> {
             page.pdf({
                 format: "A4",
                 printBackground: true,
-                margin: { top: "20px", bottom: "20px", left: "20px", right: "20px" },
+                margin: { top: "20px", bottom: "34px", left: "20px", right: "20px" },
+                displayHeaderFooter: true,
+                headerTemplate: "<span></span>",
+                footerTemplate: `<div style="width:100%;padding:0 22px;font-size:7px;color:#6b7280;font-family:Arial,sans-serif;display:flex;justify-content:space-between;border-top:1px solid #e5e7eb;padding-top:5px"><span>XTIN CAPITAL &middot; ${footerLabel.replace(/[<>&]/g, "")}</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`,
             }),
             RENDER_TIMEOUT_MS,
             "Rendering the PDF",
@@ -164,7 +199,7 @@ export async function closePdfBrowser(): Promise<void> {
 // of the bug this port fixes.
 const isBlank = (v: unknown) => v === null || v === undefined || /^\s*(n\/?a)?\s*$/i.test(String(v));
 
-export async function generateAnalysisReportPdf(data: Record<string, unknown>): Promise<Buffer> {
+export async function generateAnalysisReportPdf(data: Record<string, unknown>, preparedFor?: PreparedFor): Promise<Buffer> {
     // Uploads without a chosen company have ticker/exchange "N/A"; leave them
     // out of the header, and print the report date as a date, not a timestamp.
     const date = data.date ? new Date(String(data.date)) : null;
@@ -175,26 +210,26 @@ export async function generateAnalysisReportPdf(data: Record<string, unknown>): 
         date: date && !Number.isNaN(date.getTime())
             ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(date)
             : data.date ?? "",
-    });
-    return htmlToPdf(html);
+    }, preparedFor);
+    return htmlToPdf(html, "FUNDAMENTAL ANALYSIS REPORT");
 }
 
 /* ==========================================================================
  * SCREENING RESULTS PDF
  * ======================================================================== */
 // Port of `PDFGenerator.generate_screening_report`.
-export async function generateScreeningReportPdf(data: Record<string, unknown>): Promise<Buffer> {
-    const html = renderTemplate("screeningReport.njk", data);
-    return htmlToPdf(html);
+export async function generateScreeningReportPdf(data: Record<string, unknown>, preparedFor?: PreparedFor): Promise<Buffer> {
+    const html = renderTemplate("screeningReport.njk", data, preparedFor);
+    return htmlToPdf(html, "STOCK SCREENING REPORT");
 }
 
 /* ==========================================================================
  * TECHNICAL ANALYSIS PDF
  * ======================================================================== */
 // Port of `PDFGenerator.generate_technical_report`.
-export async function generateTechnicalReportPdf(data: Record<string, unknown>): Promise<Buffer> {
-    const html = renderTemplate("technicalReport.njk", data);
-    return htmlToPdf(html);
+export async function generateTechnicalReportPdf(data: Record<string, unknown>, preparedFor?: PreparedFor): Promise<Buffer> {
+    const html = renderTemplate("technicalReport.njk", data, preparedFor);
+    return htmlToPdf(html, "TECHNICAL ANALYSIS REPORT");
 }
 
 /* ==========================================================================

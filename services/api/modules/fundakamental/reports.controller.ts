@@ -126,6 +126,9 @@ async function loadUserProfile(userId: string): Promise<FundaUserProfile | null>
     return data as FundaUserProfile;
 }
 
+/** The signed-in user, as printed on the report cover. */
+const who = (req) => ({ name: [req.user?.first_name, req.user?.last_name].filter(Boolean).join(" "), email: req.user?.email });
+
 function pdfResponse(res, buffer: Buffer, filename: string) {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
@@ -260,7 +263,7 @@ export const exportReportPdf = async (req, res) => {
         }
 
         const analysisData = buildAnalysisReportResponse(report);
-        const pdfBytes = await generateAnalysisReportPdf(analysisData);
+        const pdfBytes = await generateAnalysisReportPdf(analysisData, who(req));
 
         const filename = `analysis_${analysisData.ticker}_${String(userId).slice(0, 8)}.pdf`;
         return pdfResponse(res, pdfBytes, filename);
@@ -303,7 +306,7 @@ export const exportReportPdfByTicker = async (req, res) => {
         }
 
         const analysisData = buildAnalysisReportResponse(report);
-        const pdfBytes = await generateAnalysisReportPdf(analysisData);
+        const pdfBytes = await generateAnalysisReportPdf(analysisData, who(req));
 
         const filename = `analysis_${ticker}_${String(userId).slice(0, 8)}.pdf`;
         return pdfResponse(res, pdfBytes, filename);
@@ -339,7 +342,7 @@ export const exportAnalysisPdfFromBody = async (req, res) => {
                 .json({ error: `Daily limit reached. You've used ${usage.used} out of ${usage.limit} allowed today. Upgrade to Premium for unlimited access.` });
         }
 
-        const pdfBytes = await generateAnalysisReportPdf(analysis_data);
+        const pdfBytes = await generateAnalysisReportPdf(analysis_data, who(req));
         const filename = `analysis_${ticker}_${String(userId).slice(0, 8)}.pdf`;
         return pdfResponse(res, pdfBytes, filename);
     } catch (err) {
@@ -381,7 +384,7 @@ export const exportScreeningPdf = async (req, res) => {
             top_sectors: top_sectors || [],
         };
 
-        const pdfBytes = await generateScreeningReportPdf(screeningData);
+        const pdfBytes = await generateScreeningReportPdf(screeningData, who(req));
         const filename = `screening_${preset_name.replace(/\s+/g, "_")}_${String(userId).slice(0, 8)}.pdf`;
         return pdfResponse(res, pdfBytes, filename);
     } catch (err) {
@@ -413,7 +416,7 @@ export const exportTechnicalPdf = async (req, res) => {
                 .json({ error: `Daily limit reached. You've used ${usage.used} out of ${usage.limit} allowed today. Upgrade to Premium for unlimited access.` });
         }
 
-        const pdfBytes = await generateTechnicalReportPdf({ ...technical_data, ticker });
+        const pdfBytes = await generateTechnicalReportPdf({ ...technical_data, ticker }, who(req));
         const filename = `technical_${ticker}_${String(userId).slice(0, 8)}.pdf`;
         return pdfResponse(res, pdfBytes, filename);
     } catch (err) {
