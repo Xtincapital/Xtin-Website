@@ -24,7 +24,7 @@ import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 import ReportDocument, { REPORT_WIDTH, type ReportData } from "../components/ReportDocument";
-import { buildReportMeta, type ReportMeta } from "@/lib/reportMeta";
+import { buildReportMeta, registerReport, verifyQr, type ReportMeta } from "@/lib/reportMeta";
 import { giniSampleMode } from "../lib/sampleData";
 
 function futureValue(currentCost: number, inflationPct: number | null, years: number) {
@@ -74,6 +74,7 @@ export default function Reports() {
   const [scale, setScale] = useState(1);
   const [docH, setDocH] = useState(0);
   const [meta, setMeta] = useState<ReportMeta | null>(null);
+  const [qr, setQr] = useState<string>();
 
   const summary = useMemo(() => {
     const totalAssets = assets.reduce((sum, a) => sum + (a.value || 0), 0);
@@ -175,7 +176,13 @@ export default function Reports() {
   useEffect(() => {
     if (isLoading) return;
     let live = true;
-    buildReportMeta(user?.id || "anon", { a: assets.map((x) => [x.name, x.value]), l: liabilities.map((x) => [x.name, x.amount, x.emi]), g: goals.map((x) => [x.name, x.current_cost, x.saved]), m: members.map((x) => [x.name, x.income]) }).then((m) => live && setMeta(m));
+    buildReportMeta(user?.id || "anon", { a: assets.map((x) => [x.name, x.value]), l: liabilities.map((x) => [x.name, x.amount, x.emi]), g: goals.map((x) => [x.name, x.current_cost, x.saved]), m: members.map((x) => [x.name, x.income]) }).then(async (m) => {
+      const code = await verifyQr(m);
+      if (live) {
+        setMeta(m);
+        setQr(code);
+      }
+    });
     return () => {
       live = false;
     };
@@ -201,6 +208,8 @@ export default function Reports() {
     if (!root || !meta) return;
     setGenerating(true);
     try {
+      // Record it first so /verify finds this copy. Sample-data reports are not registered.
+      if (!sample && !(await registerReport(meta))) toast.warning("Report saved, but it could not be registered for online verification.");
       const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
       const pdf = new jsPDF("p", "mm", "a4");
       const PW = 210, PH = 297, top0 = 14, bottom = 16; // mm: room for header/footer stamps
@@ -351,7 +360,7 @@ export default function Reports() {
                 <div style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
                   <div id="report-scale-wrap" style={{ width: REPORT_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
                     <div ref={previewRef}>
-                      <ReportDocument d={reportData} meta={meta} />
+                      <ReportDocument d={reportData} meta={meta} qr={qr} />
                     </div>
                   </div>
                 </div>

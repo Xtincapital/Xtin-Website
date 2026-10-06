@@ -93,7 +93,7 @@ function chunk<T>(rows: T[], size: number): T[][] {
   return out;
 }
 
-export default function ReportDocument({ d, meta }: { d: ReportData; meta: ReportMeta }) {
+export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: ReportMeta; qr?: string }) {
   const m = d.currency;
   const dt = meta.generatedAt;
   const dateStr = dt.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
@@ -296,7 +296,9 @@ export default function ReportDocument({ d, meta }: { d: ReportData; meta: Repor
               <span>Report No. <strong style={{ color: C.navy, letterSpacing: 0.5 }}>{meta.reportNo}</strong></span>
               <span>Integrity fingerprint <strong style={{ color: C.navy, fontFamily: "Menlo, Consolas, monospace", letterSpacing: 0.5 }}>{meta.fingerprint}</strong></span>
             </div>
+            <div style={{ fontSize: 10, color: C.mute, marginTop: 5 }}>Verify this copy: scan the code, or visit <strong style={{ color: C.navy }}>{window.location.host}/verify</strong> and enter the report number.</div>
           </div>
+          {qr && <img src={qr} alt="Verification QR code" style={{ width: 78, height: 78, background: "#ffffff", padding: 3, borderRadius: 6, flexShrink: 0 }} />}
         </div>
         <p style={{ fontSize: 9.5, color: C.mute, lineHeight: 1.6, marginTop: 14 }}>
           <strong>Important notice.</strong> This report is generated from the information you entered in Gini and is for personal planning and education only. It is not investment, tax or legal advice,

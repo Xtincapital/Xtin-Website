@@ -16,6 +16,8 @@ import puppeteer, { type Browser } from "puppeteer";
 import path from "node:path";
 import crypto from "node:crypto";
 import fs from "node:fs";
+import QRCode from "qrcode";
+import { registerIssuedReport, holderLabel } from "../reports/issuedReports.js";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -59,6 +61,7 @@ try {
 export interface PreparedFor {
     name?: string;
     email?: string;
+    userId?: string;
 }
 
 const preparedForLabel = (p?: PreparedFor) => (p?.name?.trim() || p?.email || "");
@@ -69,16 +72,28 @@ function reportIdentity(templateName: string, context: Record<string, unknown>, 
     const kind = templateName.startsWith("analysis") ? "AN" : templateName.startsWith("screening") ? "SC" : "TA";
     const ymd = now.toISOString().slice(0, 10).replace(/-/g, "");
     return {
-        report_no: `XC-FK-${kind}-${ymd}-${digest.slice(0, 4)}`,
+        report_no: `XC-FK-${kind}-${ymd}-${digest.slice(0, 8)}`,
         fingerprint: (digest.slice(0, 32).match(/.{4}/g) || []).join("-"),
     };
 }
 
-function renderTemplate(templateName: string, context: Record<string, unknown>, preparedFor?: PreparedFor): string {
+const verifyBase = () => (process.env.FRONTEND_URL || "https://www.xtincapital.com").replace(/\/$/, "");
+
+async function renderTemplate(templateName: string, context: Record<string, unknown>, preparedFor?: PreparedFor): Promise<string> {
     const now = new Date();
+    const identity = reportIdentity(templateName, context, now);
+    const verify_url = `${verifyBase()}/verify?r=${identity.report_no}&f=${identity.fingerprint}`;
+    // Record the report so /verify can find it. A registry hiccup must not block the user's download.
+    if (preparedFor?.userId) {
+        await registerIssuedReport({ report_no: identity.report_no, fingerprint: identity.fingerprint, user_id: preparedFor.userId, holder_name: holderLabel(preparedFor.name, preparedFor.email) })
+            .catch((err) => console.error("[Fundakamental] could not register report:", err?.message || err));
+    }
     const fullContext = {
         ...context,
-        ...reportIdentity(templateName, context, now),
+        ...identity,
+        verify_url,
+        verify_page: `${verifyBase().replace(/^https?:\/\//, "")}/verify`,
+        qr_data_uri: await QRCode.toDataURL(verify_url, { margin: 1, width: 220, errorCorrectionLevel: "M" }),
         logo_data_uri: logoDataUri,
         prepared_for: preparedForLabel(preparedFor),
         generated_at: new Intl.DateTimeFormat("en-US", {
@@ -203,7 +218,7 @@ export async function generateAnalysisReportPdf(data: Record<string, unknown>, p
     // Uploads without a chosen company have ticker/exchange "N/A"; leave them
     // out of the header, and print the report date as a date, not a timestamp.
     const date = data.date ? new Date(String(data.date)) : null;
-    const html = renderTemplate("analysisReport.njk", {
+    const html = await renderTemplate("analysisReport.njk", {
         ...data,
         ticker: isBlank(data.ticker) ? "" : data.ticker,
         exchange: isBlank(data.exchange) ? "" : data.exchange,
@@ -219,7 +234,7 @@ export async function generateAnalysisReportPdf(data: Record<string, unknown>, p
  * ======================================================================== */
 // Port of `PDFGenerator.generate_screening_report`.
 export async function generateScreeningReportPdf(data: Record<string, unknown>, preparedFor?: PreparedFor): Promise<Buffer> {
-    const html = renderTemplate("screeningReport.njk", data, preparedFor);
+    const html = await renderTemplate("screeningReport.njk", data, preparedFor);
     return htmlToPdf(html, "STOCK SCREENING REPORT");
 }
 
@@ -228,7 +243,7 @@ export async function generateScreeningReportPdf(data: Record<string, unknown>, 
  * ======================================================================== */
 // Port of `PDFGenerator.generate_technical_report`.
 export async function generateTechnicalReportPdf(data: Record<string, unknown>, preparedFor?: PreparedFor): Promise<Buffer> {
-    const html = renderTemplate("technicalReport.njk", data, preparedFor);
+    const html = await renderTemplate("technicalReport.njk", data, preparedFor);
     return htmlToPdf(html, "TECHNICAL ANALYSIS REPORT");
 }
 

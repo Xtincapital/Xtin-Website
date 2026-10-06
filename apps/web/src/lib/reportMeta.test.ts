@@ -10,7 +10,7 @@ describe("buildReportMeta", () => {
     const c = await buildReportMeta("u1", { v: [1, 3] }, at);
     expect(a.fingerprint).toBe(b.fingerprint);
     expect(a.fingerprint).not.toBe(c.fingerprint);
-    expect(a.reportNo).toMatch(/^XC-GN-20261006-[0-9A-F]{4}$/);
+    expect(a.reportNo).toMatch(/^XC-GN-20261006-[0-9A-F]{8}$/);
     expect(a.fingerprint).toMatch(/^([0-9A-F]{4}-){7}[0-9A-F]{4}$/);
   });
 });

@@ -47,6 +47,7 @@ import giniChatRoutes from "./modules/gini/chat.routes.js";
 import giniAiWalletRoutes from "./modules/gini/aiWallet.routes.js";
 import giniProPlanRoutes from "./modules/gini/proPlan.routes.js";
 import giniImportRoutes from "./modules/gini/import.routes.js";
+import issuedReportsRoutes from "./modules/reports/issuedReports.js";
 import algoPublisherApplicationsRoutes from "./modules/algos/publisherApplications.routes.js";
 import paymentsRoutes from "./modules/payments/payments.routes.js";
 import backtestRoutes from "./modules/backtest/routes.js";
@@ -180,6 +181,7 @@ app.use("/api", giniAiWalletRoutes);
 app.use("/api", giniProPlanRoutes);
 app.use("/api", giniImportRoutes);
 app.use("/api", algoPublisherApplicationsRoutes);
+app.use("/api", issuedReportsRoutes);
 app.use("/api", paymentsRoutes);
 app.use("/api", backtestRoutes);
 

@@ -1,13 +1,15 @@
 <div class="seal">
     <div class="logo"><img src="{{ logo_data_uri }}" alt=""></div>
-    <div>
+    <div style="flex:1">
         <h4>Report authenticity</h4>
         <p>
             Issued{% if prepared_for %} to <strong>{{ prepared_for }}</strong>{% endif %} on {{ generated_at }} by the Fundakamental Engine, Xtin Capital.
             The fingerprint is computed from the data in this report; if any figure is altered it will no longer match the original.
         </p>
         <div class="ids">Report No. <b>{{ report_no }}</b> &nbsp;&nbsp; Fingerprint <b>{{ fingerprint }}</b></div>
+        <div class="ids">Verify this copy: scan the code or visit <b>{{ verify_page }}</b> and enter the report number</div>
     </div>
+    <div class="qr"><img src="{{ qr_data_uri }}" alt="Verification QR code"></div>
 </div>
 <p class="notice">
     <strong>Important notice.</strong> This report is automatically generated from public financial data and AI analysis for research and education only. It is not investment, tax or legal advice,

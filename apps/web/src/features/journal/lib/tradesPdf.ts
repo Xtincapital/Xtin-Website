@@ -55,6 +55,8 @@ export interface TradesPdfOptions {
   meta?: ReportMeta;
   /** data: URL of the Xtin favicon; the cover just skips it if absent. */
   logo?: string;
+  /** data: URL of the verification QR code. */
+  qr?: string;
 }
 
 const NAVY: [number, number, number] = [11, 31, 58];
@@ -174,18 +176,20 @@ export function buildTradesPdf(JsPDFCtor: typeof JsPDF, trades: PdfTrade[], gene
     });
     if (!rows.length) doc.setTextColor(...MUTE).text("No closed trades yet", x + 2, 138);
   });
-  doc.setTextColor(...MUTE).setFontSize(7.5).text("Closed trades only. Amounts are in each trade's own currency; they are not converted.", left, 177);
+  doc.setTextColor(...MUTE).setFontSize(7.5).text("Closed trades only. Amounts are in each trade's own currency; they are not converted.", left, 175);
 
   // ── Authenticity seal ──
-  doc.setFillColor(246, 237, 216).setDrawColor(...GOLD).setLineWidth(0.3).roundedRect(left, 182, W - left * 2, 16, 1.5, 1.5, "FD");
-  doc.setFont("times", "bold").setFontSize(9).setTextColor(...NAVY).text("Report authenticity", left + 4, 188);
+  doc.setFillColor(246, 237, 216).setDrawColor(...GOLD).setLineWidth(0.3).roundedRect(left, 179, W - left * 2, 19.5, 1.5, 1.5, "FD");
+  doc.setFont("times", "bold").setFontSize(9).setTextColor(...NAVY).text("Report authenticity", left + 4, 185);
   doc.setFont("helvetica", "normal").setFontSize(7).setTextColor(55, 65, 81);
   doc.text(
     `Issued to ${who} on ${issued} by the Xtin Journal Engine, Xtin Capital.${opts.meta ? ` Report No. ${opts.meta.reportNo}   Fingerprint ${opts.meta.fingerprint}` : ""}`,
     left + 4,
-    193,
+    189.5,
   );
-  doc.text("Personal record generated from the trades you logged. Not investment advice; Xtin Capital is not a SEBI-registered adviser. Figures are only as accurate as the data entered.", left + 4, 196.5);
+  if (opts.qr) { try { doc.addImage(opts.qr, "PNG", W - left - 17, 181.5, 15, 15); } catch { /* optional */ } }
+  doc.text("Personal record generated from the trades you logged. Not investment advice; Xtin Capital is not a SEBI-registered adviser. Figures are only as accurate as the data entered.", left + 4, 193.5);
+  doc.text("Verify this copy: scan the QR code, or open the /verify page on this site and enter the report number.", left + 4, 197);
 
   // ── Trade log ──
   const drawHeader = (y: number) => {

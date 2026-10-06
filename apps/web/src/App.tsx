@@ -40,6 +40,7 @@ const ExternalRedirect = ({ url }) => {
     </div>
   );
 };
+const VerifyReport = lazy(() => import('./features/reports/pages/VerifyReport'));
 const AlgoTerms = lazy(() => import('./features/algos/pages/AlgoTerms'));
 const PublisherTerms = lazy(() => import('./features/marketing/pages/PublisherTerms'));
 const RevenueShareAgreement = lazy(() => import('./features/marketing/pages/RevenueShareAgreement'));
@@ -625,6 +626,7 @@ function App() {
         <Route path="/intro/tools" element={<ToolsIntro />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/algo-terms" element={<AlgoTerms />} />
+        <Route path="/verify" element={<VerifyReport />} />
         <Route path="/publisher-terms" element={<PublisherTerms />} />
         <Route path="/revenue-share" element={<RevenueShareAgreement />} />
         <Route path="/privacy" element={<Privacy />} />

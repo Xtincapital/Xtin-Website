@@ -127,7 +127,7 @@ async function loadUserProfile(userId: string): Promise<FundaUserProfile | null>
 }
 
 /** The signed-in user, as printed on the report cover. */
-const who = (req) => ({ name: [req.user?.first_name, req.user?.last_name].filter(Boolean).join(" "), email: req.user?.email });
+const who = (req) => ({ userId: req.user?.authId, name: [req.user?.first_name, req.user?.last_name].filter(Boolean).join(" "), email: req.user?.email });
 
 function pdfResponse(res, buffer: Buffer, filename: string) {
     res.setHeader("Content-Type", "application/pdf");
