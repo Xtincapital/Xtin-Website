@@ -29,17 +29,53 @@ const updateStockPrice = (ticker: string, fields: { price: number; change: numbe
 const getNewestStockUpdate = () =>
     supabase.from("funda_stocks").select("last_updated").eq("is_active", true).order("last_updated", { ascending: false }).limit(1).maybeSingle();
 
-const searchStocksInDb = (query: string, limit = 10) =>
-    supabase
+// Characters that would change the meaning of a PostgREST `or=(...)` filter.
+const searchSafe = (query: string) => query.replace(/[,()%*\\:"]/g, " ").trim();
+
+const searchStocksInDb = (query: string, limit = 10) => {
+    const q = searchSafe(query);
+    return supabase
         .from("funda_stocks")
         .select("ticker, name, sector, price, change_percent, market_cap, last_updated")
-        .or(`ticker.ilike.%${query}%,name.ilike.%${query}%`)
+        .or(`ticker.ilike.%${q}%,name.ilike.%${q}%`)
         .eq("is_active", true)
         .limit(limit);
+};
+
+// Columns the screener may filter or sort on. Anything else is ignored rather
+// than sent to PostgREST (an unknown column errors the whole query).
+export const SCREENER_COLUMNS = new Set([
+    "sector", "market_cap", "price", "pe_ratio", "peg_ratio", "pb_ratio", "eps", "dividend_yield",
+    "profit_margin", "operating_margin", "roe", "roa", "revenue_growth", "earnings_growth",
+    "debt_to_equity", "current_ratio", "quick_ratio", "beta", "change_percent", "volume",
+]);
+
+// The scanner offers GICS sector names; Yahoo (which fills funda_stocks)
+// uses its own names for four of them. Match either.
+const SECTOR_ALIASES: Record<string, string[]> = {
+    financials: ["Financials", "Financial Services"],
+    "financial services": ["Financials", "Financial Services"],
+    "consumer discretionary": ["Consumer Discretionary", "Consumer Cyclical"],
+    "consumer cyclical": ["Consumer Discretionary", "Consumer Cyclical"],
+    "consumer staples": ["Consumer Staples", "Consumer Defensive"],
+    "consumer defensive": ["Consumer Staples", "Consumer Defensive"],
+    materials: ["Materials", "Basic Materials"],
+    "basic materials": ["Materials", "Basic Materials"],
+    "information technology": ["Technology", "Information Technology"],
+    technology: ["Technology", "Information Technology"],
+    "health care": ["Healthcare", "Health Care"],
+    healthcare: ["Healthcare", "Health Care"],
+};
+
+export const sectorNames = (value: unknown): string[] => SECTOR_ALIASES[String(value).trim().toLowerCase()] || [String(value)];
 
 function applyFilter(query: any, filter: ScreenFilter) {
     const { field, operator, value } = filter;
-    if (!field || !operator) return query;
+    if (!field || !operator || !SCREENER_COLUMNS.has(field)) return query;
+    if (field === "sector" && (operator === "eq" || operator === "neq")) {
+        const names = sectorNames(value);
+        return operator === "eq" ? query.in("sector", names) : query.not("sector", "in", `(${names.map((n) => `"${n}"`).join(",")})`);
+    }
     switch (operator) {
         case "eq":
             return query.eq(field, value);
@@ -66,8 +102,16 @@ const queryStocksForScreener = (filters: ScreenFilter[], sortBy: string, sortOrd
     let query = supabase.from("funda_stocks").select("*").eq("is_active", true);
     if (market) query = query.eq("market", market);
     for (const filter of filters || []) query = applyFilter(query, filter);
-    query = query.order(sortBy, { ascending: sortOrder !== "desc" });
+    // match_score is computed after the query; fetch by market cap then.
+    const column = SCREENER_COLUMNS.has(sortBy) ? sortBy : "market_cap";
+    query = query.order(column, { ascending: sortOrder !== "desc", nullsFirst: false });
     query = query.limit(limit);
+    return query;
+};
+
+const countActiveStocks = (market?: string | null) => {
+    let query = supabase.from("funda_stocks").select("id", { count: "exact", head: true }).eq("is_active", true);
+    if (market) query = query.eq("market", market);
     return query;
 };
 
@@ -93,6 +137,7 @@ export {
     getNewestStockUpdate,
     searchStocksInDb,
     queryStocksForScreener,
+    countActiveStocks,
     getSavedScreens,
     insertSavedScreen,
     getScreeningCache,

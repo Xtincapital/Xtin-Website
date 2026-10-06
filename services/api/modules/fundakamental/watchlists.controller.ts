@@ -11,6 +11,7 @@
 // from `./stockDataService.js` (already ported, backed by `yahoo-finance2`).
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getQuote } from "./stockDataService.js";
+import { findDirectoryEntry } from "./companyDirectory.js";
 import {
     validateWatchlistCreate,
     validateWatchlistUpdate,
@@ -243,10 +244,19 @@ export const deleteWatchlist = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Cannot delete default watchlist" });
         }
 
+        // Items cascade with the watchlist; their price-target alerts don't.
+        const { data: itemRows } = await getWatchlistItemsRepo(watchlistId);
+
         const { data, error } = await deleteWatchlistRepo(watchlistId, userId);
         if (error) throw error;
         if (!data || data.length === 0) {
             return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Watchlist not found" });
+        }
+
+        for (const item of itemRows || []) {
+            if (item.target_price) {
+                await removeAlertForTicker(userId, item.ticker, Number(item.target_price), item.target_price_type || "ALERT");
+            }
         }
 
         return res.status(HTTP_STATUS.OK).json({ success: true, message: "Watchlist deleted successfully" });
@@ -281,11 +291,19 @@ export const addItemToWatchlist = async (req, res) => {
         const tickerUpper = ticker.toUpperCase();
         const quote = await getQuote(tickerUpper).catch(() => null);
         const addedPrice = quote?.price ?? null;
+        const listed = findDirectoryEntry(tickerUpper);
+        // No live price and not a known NSE/US listing: almost always a typo
+        // (e.g. "RELIANCE" without ".NS"), which would sit there with no price.
+        if (!quote && !listed) {
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({
+                error: `We couldn't find "${tickerUpper}". Use the exchange ticker — Indian stocks end in .NS (e.g. RELIANCE.NS), US stocks as-is (e.g. AAPL).`,
+            });
+        }
 
         const { data, error } = await insertWatchlistItem({
             watchlist_id: watchlistId,
             ticker: tickerUpper,
-            company_name: company_name ?? null,
+            company_name: company_name ?? listed?.name ?? null,
             added_price: addedPrice,
             target_price: target_price ?? null,
             target_price_type: target_price_type ?? null,

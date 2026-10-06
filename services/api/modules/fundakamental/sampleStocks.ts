@@ -6,6 +6,8 @@
 // this curated set so the screener still demonstrates value instead of
 // returning nothing. Figures are illustrative (ported verbatim from the
 // Python source).
+import { sectorNames } from "./stocks.repository.js";
+
 export interface SampleStock {
     ticker: string;
     company: string;
@@ -73,6 +75,10 @@ const OPS: Record<string, (a: unknown, b: unknown) => boolean> = {
 function passes(stock: Record<string, unknown>, f: ScreenFilter): boolean {
     const { field, operator, value } = f;
     if (!(field in stock) || !(operator in OPS)) return true;
+    if (field === "sector" && (operator === "eq" || operator === "neq")) {
+        const hit = sectorNames(value).some((n) => n.toLowerCase() === String(stock.sector).toLowerCase());
+        return operator === "eq" ? hit : !hit;
+    }
     try {
         return OPS[operator](stock[field], value);
     } catch {

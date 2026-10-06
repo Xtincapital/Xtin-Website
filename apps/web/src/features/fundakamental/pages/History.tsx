@@ -160,16 +160,7 @@ const History = () => {
   const handleDownload = async (report: ReportItem) => {
     setExportingId(report.id);
     try {
-      const full = await api.analysis.getReport(report.id);
-      const result = await exportReportPdf({
-        ticker: full.ticker ?? report.ticker,
-        company: full.company ?? report.company,
-        overall_score: full.overall_score ?? report.overall_score,
-        summary: full.summary,
-        strengths: full.strengths,
-        red_flags: full.red_flags,
-        investment_assessment: full.investment_assessment,
-      });
+      const result = await exportReportPdf({ id: report.id, ticker: report.ticker, company: report.company });
       if (result === "ok") toast.success("PDF downloaded");
     } catch {
       toast.error("Couldn't export this report. Please try again.");

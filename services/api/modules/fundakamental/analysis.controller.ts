@@ -62,6 +62,9 @@ import {
     getReportById,
     getUserProfile,
     setReportsUsed,
+    isStaleAnalysis,
+    failStaleAnalysis,
+    STALE_ANALYSIS_ERROR,
 } from "./analysis.repository.js";
 
 /** Phase 8d: minimum wallet balance required to attempt a report, matching
@@ -369,6 +372,12 @@ export const getAnalysisStatus = async (req, res) => {
         if (error) throw error;
         if (!report) {
             return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "Report not found" });
+        }
+
+        if (isStaleAnalysis(report)) {
+            await failStaleAnalysis(reportId);
+            report.status = "failed";
+            report.error = STALE_ANALYSIS_ERROR;
         }
 
         const done = report.status === "completed";

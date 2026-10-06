@@ -68,3 +68,11 @@ export function searchDirectory(query: string, limit = 50): DirectoryEntry[] {
     hits.sort((a, b) => a.s - b.s || a.i - b.i);
     return hits.slice(0, limit).map((h) => h.e);
 }
+
+/** Exact ticker lookup ("TCS.NS", "AAPL"; a BSE ".BO" ticker matches its NSE listing). */
+export function findDirectoryEntry(ticker: string): DirectoryEntry | null {
+    const t = (ticker || "").trim().toUpperCase();
+    if (!t) return null;
+    const nse = t.replace(/\.BO$/, ".NS");
+    return load().find((c) => c.entry.ticker.toUpperCase() === t || c.entry.ticker.toUpperCase() === nse)?.entry ?? null;
+}

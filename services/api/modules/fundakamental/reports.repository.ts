@@ -11,13 +11,14 @@
 // migration (see the migration file's header comment). The real table is
 // `funda_reports` — every query below uses it instead.
 import supabase from "../../supabase/index.js";
+import { STORAGE_BUCKET } from "./fileProcessor.js";
 
 /* funda_reports --------------------------------------------------------- */
 
 const listReportsForUser = (userId: string, limit: number, offset: number) =>
     supabase
         .from("funda_reports")
-        .select("id, company, ticker, overall_score, created_at, status")
+        .select("id, company, ticker, overall_score, created_at, status, summary")
         .eq("user_id", userId)
         .order("created_at", { ascending: false })
         .range(offset, offset + limit - 1);
@@ -40,6 +41,29 @@ const getLatestReportByTickerForUser = (ticker: string, userId: string) =>
 const deleteReportByIdForUser = (reportId: string, userId: string) =>
     supabase.from("funda_reports").delete().eq("id", reportId).eq("user_id", userId);
 
+/* funda_source_documents -------------------------------------------------- */
+
+/**
+ * Delete an uploaded document (file in Storage + its row; its chat chunks
+ * cascade) once no report of this user still uses it.
+ */
+const deleteSourceDocumentIfUnused = async (sourceDocumentId: string, userId: string) => {
+    const { count, error: countError } = await supabase
+        .from("funda_reports")
+        .select("id", { count: "exact", head: true })
+        .eq("source_document_id", sourceDocumentId);
+    if (countError || (count ?? 0) > 0) return;
+    const { data: doc } = await supabase
+        .from("funda_source_documents")
+        .select("id, storage_path")
+        .eq("id", sourceDocumentId)
+        .eq("user_id", userId)
+        .maybeSingle();
+    if (!doc) return;
+    if (doc.storage_path) await supabase.storage.from(STORAGE_BUCKET).remove([doc.storage_path]);
+    await supabase.from("funda_source_documents").delete().eq("id", doc.id).eq("user_id", userId);
+};
+
 /* funda_chat_messages ----------------------------------------------------- */
 
 const deleteChatMessagesByReportId = (reportId: string) => supabase.from("funda_chat_messages").delete().eq("report_id", reportId);
@@ -57,5 +81,6 @@ export {
     getLatestReportByTickerForUser,
     deleteReportByIdForUser,
     deleteChatMessagesByReportId,
+    deleteSourceDocumentIfUnused,
     getFundaUserProfile,
 };

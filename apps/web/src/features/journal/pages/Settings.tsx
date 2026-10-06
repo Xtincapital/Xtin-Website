@@ -79,7 +79,9 @@ export default function Settings() {
   const { user, updateUser } = useAuth();
   const displayName = [user?.first_name, user?.last_name].filter(Boolean).join(" ").trim();
 
-  const isPro = useJournalPlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = useJournalPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
   const validUntil = useJournalPlanStore((s) => s.validUntil);
   const wallet = useJournalPlanStore((s) => s.wallet);
   const fetchPlan = useJournalPlanStore((s) => s.fetchPlan);

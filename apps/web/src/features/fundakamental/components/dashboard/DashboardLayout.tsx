@@ -81,7 +81,9 @@ const DashboardLayout = ({ children }: SidebarProps) => {
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
-  const isPro = usePlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = usePlanStore((s) => s.plan === "premium" || s.plan === "enterprise");
   const wallet = usePlanStore((s) => s.wallet);
   const fetchWallet = usePlanStore((s) => s.fetchWallet);
   const openBuyTokens = usePlanStore((s) => s.openBuyTokens);

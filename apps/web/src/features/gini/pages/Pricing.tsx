@@ -68,7 +68,9 @@ export default function Pricing() {
   const currency = currencyForRegion(region as string | undefined);
   const symbol = CURRENCY_SYMBOL[currency] || "₹";
 
-  const isPro = useGiniPlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = useGiniPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
   const validUntil = useGiniPlanStore((s) => s.validUntil);
   const wallet = useGiniPlanStore((s) => s.wallet);
   const aiPackages = useGiniPlanStore((s) => s.aiPackages);

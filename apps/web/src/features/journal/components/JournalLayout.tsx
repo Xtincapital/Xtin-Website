@@ -68,7 +68,9 @@ const tabs: TabItem[] = [
 const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
   const { pathname } = useLocation();
   const tabsRef = useRef<HTMLElement>(null);
-  const isPro = useJournalPlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = useJournalPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
   const planFetched = useJournalPlanStore((s) => s.fetched);
   const fetchPlan = useJournalPlanStore((s) => s.fetchPlan);
 

@@ -244,8 +244,15 @@ export const triggerStockRefresh = async (req, res) => {
     return res.status(202).json({ started: true, market });
 };
 
-/* POST /api/fundakamental/stocks/refresh?market=all|india|us */
+/* POST /api/fundakamental/stocks/refresh?market=all|india|us&token=CRON_SECRET_TOKEN
+ * Re-fetches full fundamentals for ~110 stocks from Yahoo. Admin/scheduler
+ * only: any signed-in user could previously start it over and over. */
 export const refreshStockData = async (req, res) => {
+    const secret = process.env.CRON_SECRET_TOKEN;
+    if (!secret) return res.status(503).json({ error: "CRON_SECRET_TOKEN is not configured" });
+    if (!sameToken(req.query.token || req.headers["x-cron-token"], secret)) {
+        return res.status(HTTP_STATUS.FORBIDDEN).json({ error: "Not allowed" });
+    }
     const marketParam = String(req.query.market || "all");
     const markets: Market[] = marketParam === "all" || marketParam === "both" ? ["india", "us"] : [marketParam as Market];
 

@@ -100,6 +100,7 @@ export interface StockOverview {
     earnings_growth: number | null;
     current_ratio: number | null;
     debt_to_equity: number | null;
+    quick_ratio: number | null;
     beta: number | null;
     week_52_high: number | null;
     week_52_low: number | null;
@@ -185,7 +186,10 @@ async function fetchCompanyOverview(ticker: string): Promise<StockOverview | nul
             revenue_growth: asPercent(financialData?.revenueGrowth ?? null),
             earnings_growth: asPercent(financialData?.earningsGrowth ?? null),
             current_ratio: financialData?.currentRatio ?? null,
-            debt_to_equity: financialData?.debtToEquity ?? null,
+            quick_ratio: financialData?.quickRatio ?? null,
+            // Yahoo quotes debt/equity as a percentage (150 = 1.5x); the screener
+            // and its presets use the plain ratio.
+            debt_to_equity: financialData?.debtToEquity == null ? null : financialData.debtToEquity / 100,
             beta: summaryDetail?.beta ?? defaultKeyStatistics?.beta ?? null,
             week_52_high: summaryDetail?.fiftyTwoWeekHigh ?? null,
             week_52_low: summaryDetail?.fiftyTwoWeekLow ?? null,

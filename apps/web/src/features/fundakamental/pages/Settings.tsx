@@ -48,16 +48,6 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import {
   User,
   CreditCard,
   SlidersHorizontal,
@@ -107,7 +97,9 @@ const initials = (name?: string) =>
 const Settings = () => {
   const { user, updateUser } = useAuth();
   const displayName = [user?.first_name, user?.last_name].filter(Boolean).join(" ").trim();
-  const isPro = usePlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = usePlanStore((s) => s.plan === "premium" || s.plan === "enterprise");
   const wallet = usePlanStore((s) => s.wallet);
   const fetchWallet = usePlanStore((s) => s.fetchWallet);
   const openBuyTokens = usePlanStore((s) => s.openBuyTokens);
@@ -136,11 +128,6 @@ const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPw, setChangingPw] = useState(false);
 
-  // Security — delete account
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState("");
-  const [deleting, setDeleting] = useState(false);
-
   useEffect(() => {
     setName(displayName || "");
   }, [displayName]);
@@ -154,15 +141,17 @@ const Settings = () => {
   }, [fetchWallet]);
 
   const nameChanged = name.trim() !== displayName.trim();
-  const nameValid = name.trim().length >= 1 && name.trim().length <= 80;
+  // The account needs a first and a last name (a single word used to be
+  // saved as "Suraj Suraj").
+  const nameParts = name.trim().split(/\s+/).filter(Boolean);
+  const nameValid = nameParts.length >= 2 && name.trim().length <= 80;
 
   const handleSaveProfile = async () => {
     if (!nameChanged || !nameValid) return;
     setSavingProfile(true);
     try {
-      const parts = name.trim().split(/\s+/);
-      const first_name = parts[0];
-      const last_name = parts.slice(1).join(" ") || parts[0];
+      const first_name = nameParts[0];
+      const last_name = nameParts.slice(1).join(" ");
 
       const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/auth/profile`, {
         method: "PUT",
@@ -230,22 +219,6 @@ const Settings = () => {
       toast.success("Password updated");
     } finally {
       setChangingPw(false);
-    }
-  };
-
-  const handleDeleteAccount = async () => {
-    setDeleting(true);
-    try {
-      // TODO: this app's shared backend has no account-deletion endpoint yet
-      // (services/api/modules/auth/user.routes.ts — checked directly, only
-      // login/signup/logout/sync/profile exist). The original
-      // `authApi.deleteAccount()` called FundaKaMental's own now-dropped
-      // FastAPI backend, so there's nothing safe to call here. Surface that
-      // clearly instead of pretending it worked.
-      toast.error("Account deletion isn't available yet. Contact support to delete your account.");
-    } finally {
-      setDeleting(false);
-      setDeleteOpen(false);
     }
   };
 
@@ -323,6 +296,9 @@ const Settings = () => {
                         maxLength={80}
                         className="bg-secondary border-border"
                       />
+                      {nameChanged && !nameValid && (
+                        <p className="text-xs text-destructive">Enter your first and last name.</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
@@ -596,19 +572,13 @@ const Settings = () => {
 
                   <div className="pt-6 border-t border-border">
                     <h3 className="font-medium text-destructive mb-2">Delete Account</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Permanently delete your account and all data
+                    <p className="text-sm text-muted-foreground">
+                      To permanently delete your account and all its data, email{" "}
+                      <a href="mailto:support@xtincapital.com?subject=Delete%20my%20account" className="text-primary font-medium hover:underline">
+                        support@xtincapital.com
+                      </a>{" "}
+                      from the address you sign in with. We'll confirm once it's done.
                     </p>
-                    <Button
-                      variant="destructive"
-                      onClick={() => {
-                        setDeleteConfirm("");
-                        setDeleteOpen(true);
-                      }}
-                      className="bg-destructive/10 text-destructive hover:bg-destructive hover:text-destructive-foreground"
-                    >
-                      Delete Account
-                    </Button>
                   </div>
                 </div>
               </div>
@@ -617,40 +587,6 @@ const Settings = () => {
         </motion.div>
       </div>
 
-      {/* Delete account confirmation */}
-      <AlertDialog
-        open={deleteOpen}
-        onOpenChange={(open) => !open && !deleting && setDeleteOpen(false)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete your account?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This permanently deletes your account, reports, portfolios, watchlists and
-              wallet. This cannot be undone. Type <strong>DELETE</strong> to confirm.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <Input
-            value={deleteConfirm}
-            onChange={(e) => setDeleteConfirm(e.target.value)}
-            placeholder="DELETE"
-            className="bg-secondary border-border"
-          />
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={(e) => {
-                e.preventDefault();
-                handleDeleteAccount();
-              }}
-              disabled={deleteConfirm !== "DELETE" || deleting}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              {deleting ? "Deleting…" : "Delete account"}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </DashboardLayout>
   );
 };

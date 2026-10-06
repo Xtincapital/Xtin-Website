@@ -278,7 +278,7 @@
     <!-- Header -->
     <div class="header">
         <h1>Fundamental Analysis Report</h1>
-        <div class="ticker">{{ ticker }}{% if exchange %} &middot; {{ exchange }}{% endif %}</div>
+        <div class="ticker">{{ ticker }}{% if ticker and exchange %} &middot; {% endif %}{{ exchange }}</div>
         <div class="company-name">{{ company }}</div>
         <div class="meta">Report date: {{ date }} &nbsp;|&nbsp; Generated on {{ generated_at }}</div>
     </div>

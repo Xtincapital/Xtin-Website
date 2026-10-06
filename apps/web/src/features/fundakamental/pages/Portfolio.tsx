@@ -105,6 +105,8 @@ interface Holding {
   gain_loss?: number;
   gain_loss_pct?: number;
   currency?: string;
+  live_ticker?: string | null;
+  manual_price?: number | null;
 }
 
 interface PortfolioSummary {
@@ -134,6 +136,22 @@ const GOLD_TRACKERS = [
   { value: "GLD", label: "Gold ETF — US (GLD, ≈1/10 oz)" },
   { value: "manual", label: "I'll enter the price myself (per gram/unit)" },
 ];
+
+// Holdings are keyed by ticker (max 20 chars in the database). Cash/other
+// names get a short slug plus a hash so long or similar names neither fail
+// to save nor overwrite each other.
+const labelTicker = (prefix: string, label: string) => {
+  const clean = label.trim().toUpperCase();
+  let h = 0;
+  for (let i = 0; i < clean.length; i++) h = (h * 31 + clean.charCodeAt(i)) >>> 0;
+  const slug = clean.replace(/[^A-Z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 9) || "X";
+  return `${prefix}-${slug}-${h.toString(36).slice(-4).toUpperCase()}`.slice(0, 20);
+};
+
+// The currency a live price comes back in.
+const tickerCurrency = (ticker: string): Currency => (/\.(NS|BO)$/i.test(ticker) ? "INR" : "USD");
+
+const KNOWN_CURRENCIES = ["INR", "USD", "GBP", "EUR", "AED", "SGD"];
 
 const EMPTY_FORM = {
   asset_type: "stock" as AssetType,
@@ -168,7 +186,9 @@ const Portfolio = () => {
     gold_tracker: region === "IN" ? "GOLDBEES.NS" : "GLD",
   }));
 
-  const currency = selectedPortfolio?.currency === "USD" ? "USD" : "INR";
+  const currency = selectedPortfolio
+    ? (selectedPortfolio.currency === "USD" ? "USD" : "INR")
+    : (region === "IN" ? "INR" : "USD");
   const displayCurrency = currency as Currency;
 
   // Warm live FX rates once so mixed-currency holdings convert into the
@@ -178,14 +198,16 @@ const Portfolio = () => {
     getRates().then(() => setFxTick((t) => t + 1));
   }, []);
 
-  const KNOWN_CURRENCIES = ["INR", "USD", "GBP", "EUR", "AED", "SGD"];
-
   // A holding's native currency (falls back to the portfolio currency).
   const holdingCurrency = useCallback(
     (h: Holding): Currency => {
+      // Live-priced holdings are in their market's currency, whatever was
+      // saved (older rows stored the portfolio's ₹ for US stocks too).
+      const atype = h.asset_type || "stock";
+      const live = (atype === "stock" || atype === "gold") && (h.manual_price === null || h.manual_price === undefined);
+      if (live && (h.live_ticker || atype === "stock")) return tickerCurrency(h.live_ticker || h.ticker);
       const c = (h.currency || displayCurrency).toUpperCase();
       return (KNOWN_CURRENCIES.includes(c) ? c : displayCurrency) as Currency;
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [displayCurrency]
   );
@@ -233,7 +255,19 @@ const Portfolio = () => {
     }
     const gain = value - cost;
     const pct = cost > 0 ? (gain / cost) * 100 : 0;
-    return { value, cost, gain, pct, mixed };
+    // Allocation in one currency (the server adds ₹ and $ together as-is).
+    const byType: Record<string, number> = {};
+    for (const h of holdings) {
+      const from = holdingCurrency(h);
+      const c = Number(h.total_cost || 0);
+      const v = h.current_value !== undefined && h.current_value !== null ? Number(h.current_value) : c;
+      const t = h.asset_type || "stock";
+      byType[t] = (byType[t] || 0) + toDisplay(v, from);
+    }
+    const allocation = Object.entries(byType)
+      .sort((a, b) => b[1] - a[1])
+      .map(([asset_type, v]) => ({ asset_type, pct: value > 0 ? Math.round((v / value) * 1000) / 10 : 0 }));
+    return { value, cost, gain, pct, mixed, allocation };
     // fxTick forces recompute once live rates land.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [holdings, displayCurrency, holdingCurrency, toDisplay, fxTick]);
@@ -317,6 +351,16 @@ const Portfolio = () => {
     }
   };
 
+  // The holding this form would replace (holdings are one row per ticker).
+  const formTicker = (() => {
+    const t = form.asset_type;
+    if (t === "stock") return form.ticker.trim().toUpperCase();
+    if (t === "gold") return `GOLD-${form.gold_tracker === "manual" ? "MANUAL" : form.gold_tracker}`.toUpperCase().slice(0, 20);
+    if (!form.cash_label.trim()) return "";
+    return labelTicker(t === "cash" ? "CASH" : "OTHER", form.cash_label);
+  })();
+  const existingHolding = formTicker ? holdings.find((h) => h.ticker.toUpperCase() === formTicker) : undefined;
+
   const handleAddHolding = async () => {
     if (!selectedPortfolio) return;
     const t = form.asset_type;
@@ -344,6 +388,14 @@ const Portfolio = () => {
       toast({ title: "Buy price required", description: "What did you pay per unit?", variant: "destructive" });
       return;
     }
+    if (form.manual_price && !(parseFloat(form.manual_price) > 0)) {
+      toast({ title: "Check the current price", description: "It must be more than 0.", variant: "destructive" });
+      return;
+    }
+    if (t !== "cash" && form.purchase_date && new Date(form.purchase_date) > new Date()) {
+      toast({ title: "Check the buy date", description: "It can't be in the future.", variant: "destructive" });
+      return;
+    }
 
     // Build the payload per asset type
     const payload: any = {
@@ -354,34 +406,45 @@ const Portfolio = () => {
       currency,
       notes: form.notes || undefined,
     };
+    payload.ticker = formTicker;
     if (t === "stock") {
-      payload.ticker = form.ticker.trim().toUpperCase();
-      payload.company_name = form.company_name || form.ticker.trim().toUpperCase();
-      payload.live_ticker = form.ticker.trim().toUpperCase();
+      payload.company_name = form.company_name || formTicker;
+      payload.live_ticker = formTicker;
+      // A live price comes back in the stock's own currency (AAPL in $).
+      payload.currency = tickerCurrency(formTicker);
     } else if (t === "gold") {
-      payload.ticker = "GOLD";
-      payload.company_name = "Gold";
+      payload.company_name = form.gold_tracker === "manual" ? "Gold" : `Gold (${form.gold_tracker.replace(/\.NS$/, "")})`;
       if (form.gold_tracker === "manual") {
         payload.manual_price = parseFloat(form.manual_price) || buyPrice;
       } else {
         payload.live_ticker = form.gold_tracker;
+        payload.currency = tickerCurrency(form.gold_tracker);
       }
     } else if (t === "cash") {
-      payload.ticker = `CASH-${form.cash_label.trim().toUpperCase().replace(/\s+/g, "-").slice(0, 24)}`;
       payload.company_name = form.cash_label.trim();
     } else {
-      payload.ticker = `OTHER-${form.cash_label.trim().toUpperCase().replace(/\s+/g, "-").slice(0, 24)}`;
       payload.company_name = form.cash_label.trim();
       payload.manual_price = parseFloat(form.manual_price) || buyPrice;
     }
 
     setSaving(true);
     try {
-      await api.portfolio.addHolding(selectedPortfolio.id, payload);
-      toast({
-        title: "Added to your portfolio",
-        description: `${payload.company_name} is now being tracked.`,
-      });
+      const saved: any = await api.portfolio.addHolding(selectedPortfolio.id, payload);
+      const livePriced = t === "stock" || (t === "gold" && form.gold_tracker !== "manual");
+      if (livePriced && (saved?.current_price === null || saved?.current_price === undefined)) {
+        toast({
+          title: `Saved, but no live price for ${payload.live_ticker}`,
+          description: "Check the ticker — Indian stocks need .NS (e.g. RELIANCE.NS). Until a price is found it is valued at what you paid.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: existingHolding ? "Holding updated" : "Added to your portfolio",
+          description: existingHolding
+            ? `${payload.company_name} now reflects the numbers you just entered.`
+            : `${payload.company_name} is now being tracked.`,
+        });
+      }
       setForm({ ...EMPTY_FORM, gold_tracker: goldDefault });
       setShowAddDialog(false);
       loadPortfolioData(selectedPortfolio.id);
@@ -406,6 +469,13 @@ const Portfolio = () => {
       toast({ title: "Error", description: error.message || "Failed to remove holding", variant: "destructive" });
     }
   };
+
+  // CAGR on the currency-converted totals, over the server's holding period.
+  const years = summary?.holding_period_years ?? null;
+  const cagr =
+    years !== null && years >= 0.08 && computed.cost > 0 && computed.value > 0
+      ? (Math.pow(computed.value / computed.cost, 1 / years) - 1) * 100
+      : null;
 
   if (loading) {
     return (
@@ -540,12 +610,12 @@ const Portfolio = () => {
                   {form.asset_type === "gold" && (
                     <>
                       <div>
-                        <Label>How do you hold it?</Label>
+                        <Label htmlFor="gold-tracker">How do you hold it?</Label>
                         <Select
                           value={form.gold_tracker}
                           onValueChange={(v) => setForm({ ...form, gold_tracker: v })}
                         >
-                          <SelectTrigger><SelectValue /></SelectTrigger>
+                          <SelectTrigger id="gold-tracker"><SelectValue /></SelectTrigger>
                           <SelectContent>
                             {GOLD_TRACKERS.map((g) => (
                               <SelectItem key={g.value} value={g.value}>{g.label}</SelectItem>
@@ -640,8 +710,14 @@ const Portfolio = () => {
                     </div>
                   )}
 
+                  {existingHolding && (
+                    <p className="text-xs rounded-lg bg-amber-50 border border-amber-200 text-amber-800 p-2">
+                      You already hold {existingHolding.company_name || existingHolding.ticker}. Saving replaces its quantity and
+                      buy price with these numbers (it doesn't add to them) — enter your new total holding and average price.
+                    </p>
+                  )}
                   <Button onClick={handleAddHolding} disabled={saving} className="w-full bg-primary text-white hover:bg-primary/90">
-                    {saving ? "Adding..." : "Add to Portfolio"}
+                    {saving ? "Saving..." : existingHolding ? "Update Holding" : "Add to Portfolio"}
                   </Button>
                 </div>
               </DialogContent>
@@ -690,10 +766,10 @@ const Portfolio = () => {
                   <span className="text-sm text-muted-foreground">CAGR</span>
                   <Activity className="w-4 h-4 text-primary" />
                 </div>
-                {summary.cagr !== null && summary.cagr !== undefined ? (
+                {cagr !== null ? (
                   <>
-                    <div className={`text-2xl font-bold ${summary.cagr >= 0 ? "text-success" : "text-destructive"}`}>
-                      {formatPercent(summary.cagr)}
+                    <div className={`text-2xl font-bold ${cagr >= 0 ? "text-success" : "text-destructive"}`}>
+                      {formatPercent(cagr)}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
                       per year over {summary.holding_period_years?.toFixed(1)} yrs
@@ -716,9 +792,9 @@ const Portfolio = () => {
                   <span className="text-sm text-muted-foreground">Allocation</span>
                   <PieChart className="w-4 h-4 text-primary" />
                 </div>
-                {summary.allocation && summary.allocation.length > 0 ? (
+                {computed.allocation.length > 0 ? (
                   <div className="space-y-1.5">
-                    {summary.allocation.slice(0, 4).map((a) => (
+                    {computed.allocation.slice(0, 4).map((a) => (
                       <div key={a.asset_type} className="flex items-center justify-between text-sm">
                         <span className="text-foreground capitalize">
                           {ASSET_META[a.asset_type as AssetType]?.emoji} {a.asset_type}
@@ -787,8 +863,8 @@ const Portfolio = () => {
                       <tr key={holding.id} className="border-b border-border/50 last:border-0 hover:bg-secondary/50 transition-colors">
                         <td className="py-4 px-4">
                           <p className="font-semibold text-foreground">{holding.company_name || holding.ticker}</p>
-                          {atype === "stock" && (
-                            <p className="text-xs text-muted-foreground">{holding.ticker}</p>
+                          {(atype === "stock" || (atype === "gold" && holding.live_ticker)) && (
+                            <p className="text-xs text-muted-foreground">{atype === "stock" ? holding.ticker : holding.live_ticker}</p>
                           )}
                         </td>
                         <td className="py-4 px-4">
@@ -829,6 +905,7 @@ const Portfolio = () => {
                         <td className="py-4 px-2 text-right">
                           <button
                             onClick={() => setHoldingToRemove(holding)}
+                            aria-label={`Remove ${holding.company_name || holding.ticker}`}
                             className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                             title="Remove holding"
                           >

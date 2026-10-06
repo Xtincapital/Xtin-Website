@@ -207,6 +207,7 @@ CRITICAL RULES — CREDIBILITY DEPENDS ON THESE:
 - Use ONLY numbers that appear in, or can be directly computed from, the source document.
 - If a ratio or figure is NOT available in the document, set its value to "N/A" and say so — NEVER invent or estimate a number.
 - Do not carry over any example values; every figure must trace back to this specific document.
+- Arithmetic must be exact: recompute every ratio and growth rate a second time from the raw figures before answering, and when you show a formula, the result must match it (e.g. 1,610 / 8,250 = 19.5%, not 18.1%).
 - Score each metric 0-10 (labels: 9-10 Excellent, 7-8 Strong, 5-6 Good, 3-4 Fair, 0-2 Poor).
 - overall_score = weighted average of the four category scores.
 - Speak directly and specifically to the reader described above; tailor emphasis and language to their style.

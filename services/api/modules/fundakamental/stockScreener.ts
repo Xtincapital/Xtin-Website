@@ -2,7 +2,7 @@
 // StockScreener class (kept as plain functions rather than a class,
 // matching this codebase's module style).
 import crypto from "node:crypto";
-import { getScreeningCache, upsertScreeningCache, queryStocksForScreener, type ScreenFilter } from "./stocks.repository.js";
+import { getScreeningCache, upsertScreeningCache, queryStocksForScreener, countActiveStocks, sectorNames, type ScreenFilter } from "./stocks.repository.js";
 import { screenSample } from "./sampleStocks.js";
 
 const CACHE_DURATION_MINUTES = 30;
@@ -26,16 +26,19 @@ export interface ScreenStocksResult {
     error?: string;
 }
 
-function getFilterHash(filters: ScreenFilter[], sortBy: string, sortOrder: string): string {
+// The market and limit are part of the key: without them an India scan's
+// cached rows were served for the same screen on the US market.
+function getFilterHash(filters: ScreenFilter[], sortBy: string, sortOrder: string, market: string | null | undefined, limit: number): string {
     const sorted = [...(filters || [])].sort((a, b) => (a.field || "").localeCompare(b.field || ""));
-    const payload = JSON.stringify({ filters: sorted, sort_by: sortBy, sort_order: sortOrder });
+    const payload = JSON.stringify({ filters: sorted, sort_by: sortBy, sort_order: sortOrder, market: market || "", limit });
     return crypto.createHash("md5").update(payload).digest("hex");
 }
 
 function scoreFilterMatch(stockValue: unknown, operator: string, targetValue: unknown): number {
     try {
         if (operator === "eq") {
-            return stockValue === targetValue ? 100.0 : 0.0;
+            const wanted = sectorNames(targetValue).map((v) => v.toLowerCase());
+            return wanted.includes(String(stockValue).toLowerCase()) || Number(stockValue) === Number(targetValue) ? 100.0 : 0.0;
         }
 
         if (operator === "gt" || operator === "gte" || operator === "lt" || operator === "lte") {
@@ -85,8 +88,8 @@ function calculateMatchScore(stock: Record<string, unknown>, filters: ScreenFilt
     return scoredFilters > 0 ? totalScore / scoredFilters : 50.0;
 }
 
-async function getCachedResults(filters: ScreenFilter[], sortBy: string, sortOrder: string): Promise<ScreenStocksResult | null> {
-    const filterHash = getFilterHash(filters, sortBy, sortOrder);
+async function getCachedResults(filters: ScreenFilter[], sortBy: string, sortOrder: string, market: string | null | undefined, limit: number): Promise<ScreenStocksResult | null> {
+    const filterHash = getFilterHash(filters, sortBy, sortOrder, market, limit);
     try {
         const { data } = await getScreeningCache(filterHash);
         if (data?.results) {
@@ -98,8 +101,8 @@ async function getCachedResults(filters: ScreenFilter[], sortBy: string, sortOrd
     return null;
 }
 
-async function cacheResults(filters: ScreenFilter[], sortBy: string, sortOrder: string, results: ScreenStocksResult): Promise<void> {
-    const filterHash = getFilterHash(filters, sortBy, sortOrder);
+async function cacheResults(filters: ScreenFilter[], sortBy: string, sortOrder: string, market: string | null | undefined, limit: number, results: ScreenStocksResult): Promise<void> {
+    const filterHash = getFilterHash(filters, sortBy, sortOrder, market, limit);
     const expiresAt = new Date(Date.now() + CACHE_DURATION_MINUTES * 60 * 1000).toISOString();
     try {
         const { error } = await upsertScreeningCache({
@@ -124,7 +127,7 @@ export async function screenStocks(options: ScreenStocksOptions): Promise<Screen
     const { filters, sortBy = "market_cap", sortOrder = "desc", limit = 100, useCache = true, market = "india" } = options;
 
     if (useCache) {
-        const cached = await getCachedResults(filters, sortBy, sortOrder);
+        const cached = await getCachedResults(filters, sortBy, sortOrder, market, limit);
         if (cached) return cached;
     }
 
@@ -133,9 +136,15 @@ export async function screenStocks(options: ScreenStocksOptions): Promise<Screen
         if (error) throw error;
         let stocks: Array<Record<string, unknown>> = data || [];
 
-        // Fallback: if `funda_stocks` isn't populated yet, screen the curated
-        // sample universe so the scanner still returns real, useful results.
+        // Fallback: only when `funda_stocks` has no stocks for this market at
+        // all. A screen that simply matches nothing must say so, not show
+        // made-up sample rows as if they matched.
+        let universeEmpty = false;
         if (!stocks.length) {
+            const { count } = await countActiveStocks(market);
+            universeEmpty = !count;
+        }
+        if (universeEmpty) {
             const sample = screenSample(filters, sortBy, sortOrder, limit, market);
             return {
                 results: sample,
@@ -148,8 +157,9 @@ export async function screenStocks(options: ScreenStocksOptions): Promise<Screen
         }
 
         stocks = stocks.map((stock) => ({ ...stock, match_score: calculateMatchScore(stock, filters) }));
-        if (filters.length > 1) {
-            stocks = [...stocks].sort((a, b) => Number(b.match_score) - Number(a.match_score));
+        if (sortBy === "match_score" || sortBy === "matchScore") {
+            const dir = sortOrder === "asc" ? 1 : -1;
+            stocks = [...stocks].sort((a, b) => dir * (Number(a.match_score) - Number(b.match_score)));
         }
 
         const response: ScreenStocksResult = {
@@ -160,7 +170,7 @@ export async function screenStocks(options: ScreenStocksOptions): Promise<Screen
             last_updated: new Date().toISOString(),
         };
 
-        if (useCache) await cacheResults(filters, sortBy, sortOrder, response);
+        if (useCache) await cacheResults(filters, sortBy, sortOrder, market, limit, response);
 
         return response;
     } catch (err) {

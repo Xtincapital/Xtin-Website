@@ -105,6 +105,16 @@ export default function Watchlist() {
   const [newItemNotes, setNewItemNotes] = useState('');
   const [newItemTags, setNewItemTags] = useState('');
 
+  // Edit an item's target / notes / tags
+  const [editItem, setEditItem] = useState<WatchlistItem | null>(null);
+  const [editTargetPrice, setEditTargetPrice] = useState('');
+  const [editTargetType, setEditTargetType] = useState<'BUY' | 'SELL' | 'ALERT'>('BUY');
+  const [editNotes, setEditNotes] = useState('');
+  const [editTags, setEditTags] = useState('');
+  const [savingItem, setSavingItem] = useState(false);
+
+  const parseTags = (raw: string) => raw.split(',').map((t) => t.trim()).filter(Boolean);
+
   // Load watchlists on mount
   useEffect(() => {
     loadWatchlists();
@@ -237,17 +247,22 @@ export default function Watchlist() {
       toast.error('Please enter a ticker symbol');
       return;
     }
+    const target = newItemTargetPrice ? parseFloat(newItemTargetPrice) : null;
+    if (target !== null && !(target > 0)) {
+      toast.error('Target price must be greater than 0');
+      return;
+    }
 
     try {
       await api.watchlists.addItemToWatchlist(selectedWatchlist, {
-        ticker: newItemTicker.toUpperCase(),
-        target_price: newItemTargetPrice ? parseFloat(newItemTargetPrice) : null,
-        target_price_type: newItemTargetPrice ? newItemTargetType : null,
+        ticker: newItemTicker.trim().toUpperCase(),
+        target_price: target,
+        target_price_type: target ? newItemTargetType : null,
         notes: newItemNotes || null,
-        tags: newItemTags ? newItemTags.split(',').map(t => t.trim()) : [],
+        tags: parseTags(newItemTags),
       });
 
-      toast.success(`${newItemTicker.toUpperCase()} added to watchlist`);
+      toast.success(`${newItemTicker.trim().toUpperCase()} added to watchlist`);
       setAddItemDialogOpen(false);
       setNewItemTicker('');
       setNewItemTargetPrice('');
@@ -256,6 +271,7 @@ export default function Watchlist() {
 
       await loadWatchlistItems(selectedWatchlist);
       await loadWatchlistSummary(selectedWatchlist);
+      await loadWatchlists(selectedWatchlist); // refresh the count on the tab
     } catch (error: any) {
       toast.error(error.response?.data?.detail || error?.message || 'Failed to add item');
       console.error(error);
@@ -271,9 +287,44 @@ export default function Watchlist() {
 
       await loadWatchlistItems(selectedWatchlist);
       await loadWatchlistSummary(selectedWatchlist);
+      await loadWatchlists(selectedWatchlist);
     } catch (error) {
       toast.error('Failed to remove item');
       console.error(error);
+    }
+  };
+
+  const openEditItem = (item: WatchlistItem) => {
+    setEditItem(item);
+    setEditTargetPrice(item.target_price ? String(item.target_price) : '');
+    setEditTargetType(item.target_price_type || 'BUY');
+    setEditNotes(item.notes || '');
+    setEditTags((item.tags || []).join(', '));
+  };
+
+  const handleUpdateItem = async () => {
+    if (!editItem || !selectedWatchlist) return;
+    const target = editTargetPrice ? parseFloat(editTargetPrice) : null;
+    if (target !== null && !(target > 0)) {
+      toast.error('Target price must be greater than 0');
+      return;
+    }
+    setSavingItem(true);
+    try {
+      await api.watchlists.updateWatchlistItem(selectedWatchlist, editItem.id, {
+        target_price: target,
+        target_price_type: target ? editTargetType : null,
+        notes: editNotes.trim() || null,
+        tags: parseTags(editTags),
+      });
+      toast.success(`${editItem.ticker} updated`);
+      setEditItem(null);
+      await loadWatchlistItems(selectedWatchlist);
+      await loadWatchlistSummary(selectedWatchlist);
+    } catch (error: any) {
+      toast.error(error?.message || 'Failed to update item');
+    } finally {
+      setSavingItem(false);
     }
   };
 
@@ -466,7 +517,7 @@ export default function Watchlist() {
                     <div>
                       <Label htmlFor="targetType">Target Type</Label>
                       <Select value={newItemTargetType} onValueChange={(v: any) => setNewItemTargetType(v)}>
-                        <SelectTrigger>
+                        <SelectTrigger id="targetType">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -603,6 +654,48 @@ export default function Watchlist() {
         </AlertDialogContent>
       </AlertDialog>
 
+      {/* Edit an item */}
+      <Dialog open={!!editItem} onOpenChange={(open) => !open && setEditItem(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit {editItem?.ticker}</DialogTitle>
+            <DialogDescription>Change the price target, notes or tags. Leave the target empty to remove it.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="edit-target">Target Price</Label>
+              <Input id="edit-target" type="number" step="0.01" min="0" value={editTargetPrice} onChange={(e) => setEditTargetPrice(e.target.value)} />
+            </div>
+            {editTargetPrice && (
+              <div>
+                <Label htmlFor="edit-target-type">Target Type</Label>
+                <Select value={editTargetType} onValueChange={(v: any) => setEditTargetType(v)}>
+                  <SelectTrigger id="edit-target-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="BUY">Buy Target</SelectItem>
+                    <SelectItem value="SELL">Sell Target</SelectItem>
+                    <SelectItem value="ALERT">Alert Only</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            <div>
+              <Label htmlFor="edit-notes">Notes</Label>
+              <Textarea id="edit-notes" value={editNotes} onChange={(e) => setEditNotes(e.target.value)} />
+            </div>
+            <div>
+              <Label htmlFor="edit-tags">Tags (comma-separated)</Label>
+              <Input id="edit-tags" value={editTags} onChange={(e) => setEditTags(e.target.value)} />
+            </div>
+            <Button onClick={handleUpdateItem} disabled={savingItem} className="w-full">
+              {savingItem ? 'Saving…' : 'Save Changes'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Summary Cards */}
       {summary && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -620,9 +713,13 @@ export default function Watchlist() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Avg Performance</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Avg Change Since Added</CardTitle>
             </CardHeader>
             <CardContent>
+              {/* Needs at least one stock with a recorded add price; 0.00% there was misleading. */}
+              {!summary.best_performer ? (
+                <p className="text-2xl font-bold text-muted-foreground" title="No add price was recorded for these stocks">—</p>
+              ) : (
               <div className="flex items-center gap-2">
                 {summary.avg_change_pct >= 0 ? (
                   <TrendingUp className="w-5 h-5 text-primary" />
@@ -633,6 +730,7 @@ export default function Watchlist() {
                   {(summary.avg_change_pct ?? 0) >= 0 ? '+' : ''}{(summary.avg_change_pct ?? 0).toFixed(2)}%
                 </p>
               </div>
+              )}
             </CardContent>
           </Card>
 
@@ -679,11 +777,23 @@ export default function Watchlist() {
           {items.length === 0 ? (
             <div className="text-center py-12">
               <AlertCircle className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
-              <p className="text-muted-foreground mb-4">No stocks in this watchlist</p>
-              <Button onClick={() => setAddItemDialogOpen(true)}>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Your First Stock
-              </Button>
+              {selectedWatchlist ? (
+                <>
+                  <p className="text-muted-foreground mb-4">No stocks in this watchlist</p>
+                  <Button onClick={() => setAddItemDialogOpen(true)}>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Your First Stock
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <p className="text-muted-foreground mb-4">You don't have a watchlist yet</p>
+                  <Button onClick={() => setCreateDialogOpen(true)}>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Your First Watchlist
+                  </Button>
+                </>
+              )}
             </div>
           ) : (
             <Table>
@@ -752,13 +862,26 @@ export default function Watchlist() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemoveItem(item.id, item.ticker)}
-                      >
-                        <Trash2 className="w-4 h-4 text-destructive" />
-                      </Button>
+                      <div className="flex items-center">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => openEditItem(item)}
+                          aria-label={`Edit ${item.ticker}`}
+                          title="Edit target, notes and tags"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveItem(item.id, item.ticker)}
+                          aria-label={`Remove ${item.ticker}`}
+                          title="Remove from watchlist"
+                        >
+                          <Trash2 className="w-4 h-4 text-destructive" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

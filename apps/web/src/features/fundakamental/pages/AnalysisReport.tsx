@@ -113,7 +113,9 @@ const AnalysisReport = () => {
   const [report, setReport] = useState<Report | null>(null);
   const [isLoadingReport, setIsLoadingReport] = useState(true);
   const [reportError, setReportError] = useState<string | null>(null);
-  const isPro = usePlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = usePlanStore((s) => s.plan === "premium" || s.plan === "enterprise");
 
   const [messages, setMessages] = useState<UIMessage[]>([WELCOME_MESSAGE]);
   const [inputValue, setInputValue] = useState("");
@@ -603,6 +605,7 @@ const AnalysisReport = () => {
           <div className="p-4 border-t border-border">
             <div className="flex gap-2">
               <Input
+                aria-label="Ask a question about this report"
                 placeholder="Ask about the analysis..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -613,7 +616,8 @@ const AnalysisReport = () => {
               <Button
                 size="icon"
                 onClick={handleSendMessage}
-                disabled={isSending}
+                disabled={isSending || !inputValue.trim()}
+                aria-label="Send question"
                 className="bg-primary text-white hover:bg-primary/90"
               >
                 <Send className="w-4 h-4" />

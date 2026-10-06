@@ -69,6 +69,9 @@ const INITIAL_STEPS: ProcessingStep[] = [
   { name: "Generating report", status: "pending", progress: 0 },
 ];
 
+const formatSize = (bytes: number) =>
+  bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+
 const NewAnalysis = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -177,7 +180,7 @@ const NewAnalysis = () => {
     const plan = usePlanStore.getState();
     const w = plan.wallet;
     if (w && w.balance < 20000) {
-      if (plan.isPro()) plan.openBuyTokens();
+      if (await plan.ensurePro()) plan.openBuyTokens();
       else plan.openUpgrade("reports");
       return;
     }
@@ -245,7 +248,7 @@ const NewAnalysis = () => {
       // auth errors like "Invalid token" must show as errors.)
       if (/out of AI tokens/i.test(message)) {
         const plan = usePlanStore.getState();
-        if (plan.isPro()) plan.openBuyTokens();
+        if (await plan.ensurePro()) plan.openBuyTokens();
       else plan.openUpgrade("reports");
       } else {
         toast({ title: "Analysis failed", description: message, variant: "destructive" });
@@ -485,6 +488,7 @@ const NewAnalysis = () => {
                     {!isProcessing && (
                       <button
                         onClick={() => setSelectedFile(null)}
+                        aria-label="Remove selected file"
                         className="p-1 hover:bg-destructive/10 rounded text-muted-foreground hover:text-destructive"
                       >
                         <X className="w-4 h-4" />
@@ -492,7 +496,20 @@ const NewAnalysis = () => {
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                    {formatSize(selectedFile.size)}
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {selectedCompany ? (
+                      <>
+                        Report will be for <span className="font-semibold text-foreground">{selectedCompany.name}</span>
+                        {selectedCompany.ticker ? ` (${selectedCompany.ticker})` : ""}.{" "}
+                        <button onClick={() => setSelectedCompany(null)} className="text-primary font-medium hover:underline">
+                          Wrong company?
+                        </button>
+                      </>
+                    ) : (
+                      "The company name will be taken from the document. Pick the company above to add its ticker."
+                    )}
                   </p>
 
                   <Button

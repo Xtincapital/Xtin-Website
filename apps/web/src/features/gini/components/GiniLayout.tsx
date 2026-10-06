@@ -133,7 +133,9 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const collapsed = sidebarCollapsed && !mobileOpen;
   const location = useLocation();
-  const isPro = useGiniPlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = useGiniPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
   const planFetched = useGiniPlanStore((s) => s.fetched);
   const fetchPlan = useGiniPlanStore((s) => s.fetchPlan);
 

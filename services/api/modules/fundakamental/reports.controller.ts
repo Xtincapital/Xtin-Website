@@ -33,8 +33,10 @@ import {
     getLatestReportByTickerForUser,
     deleteReportByIdForUser,
     deleteChatMessagesByReportId,
+    deleteSourceDocumentIfUnused,
     getFundaUserProfile,
 } from "./reports.repository.js";
+import { isStaleAnalysis, failStaleAnalysis } from "./analysis.repository.js";
 import { requirePdfExport, checkReportLimit, isPremiumPlan, type FundaUserProfile } from "./featureGates.js";
 import { generateAnalysisReportPdf, generateScreeningReportPdf, generateTechnicalReportPdf, getPdfSize } from "./pdfGenerator.js";
 import {
@@ -153,14 +155,20 @@ export const getReportsList = async (req, res) => {
         if (reportsError) throw reportsError;
         if (countError) throw countError;
 
-        const reports = (reportsData || []).map((report) => ({
-            id: report.id,
-            company: report.company || "Unknown",
-            ticker: report.ticker || "N/A",
-            overall_score: report.overall_score ?? 0.0,
-            created_at: report.created_at,
-            status: report.status || "pending",
-        }));
+        const reports = (reportsData || []).map((report) => {
+            const stale = isStaleAnalysis(report);
+            // Supabase queries only run once awaited/then-ed.
+            if (stale) failStaleAnalysis(report.id).then(() => {}, () => {});
+            return {
+                id: report.id,
+                company: report.company || "Unknown",
+                ticker: report.ticker || "N/A",
+                overall_score: report.overall_score ?? 0.0,
+                created_at: report.created_at,
+                status: stale ? "failed" : report.status || "pending",
+                summary: report.summary || null,
+            };
+        });
 
         return res.status(HTTP_STATUS.OK).json({ total: count || 0, reports });
     } catch (err) {
@@ -206,6 +214,14 @@ export const deleteReport = async (req, res) => {
         if (deleteError) throw deleteError;
 
         await deleteChatMessagesByReportId(reportId);
+        // The uploaded file is part of "permanently removed" too.
+        if (report.source_document_id) {
+            try {
+                await deleteSourceDocumentIfUnused(report.source_document_id, userId);
+            } catch (cleanupErr) {
+                console.error("[Fundakamental] source document cleanup failed:", cleanupErr);
+            }
+        }
 
         return res.status(HTTP_STATUS.OK).json({ message: "Report deleted successfully" });
     } catch (err) {

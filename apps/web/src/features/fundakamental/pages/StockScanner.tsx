@@ -20,7 +20,8 @@
 //    ever existed to drive this page's scanner-universe default. Reproduced
 //    locally as `regionToMarket()` below instead of adding a
 //    screener-specific field to the shared region service.
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
@@ -33,6 +34,13 @@ import { api, downloadBlob } from "../lib/api";
 import { usePlanStore } from "../store/usePlanStore";
 import useRegion from "@/hooks/useRegion";
 import { Lock } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -185,11 +193,14 @@ const PRESETS: Preset[] = [
   },
 ];
 
+// The backend also matches Yahoo's names for these (Financial Services,
+// Consumer Cyclical/Defensive, Basic Materials).
 const sectorOptions = [
   "Technology",
   "Healthcare",
   "Financials",
   "Consumer Discretionary",
+  "Consumer Staples",
   "Communication Services",
   "Industrials",
   "Energy",
@@ -197,6 +208,31 @@ const sectorOptions = [
   "Utilities",
   "Real Estate",
 ];
+
+// Results-table column -> screener API field.
+const SORT_FIELDS: Record<string, string> = {
+  matchScore: "match_score",
+  price: "price",
+  marketCap: "market_cap",
+  peRatio: "pe_ratio",
+  revenueGrowth: "revenue_growth",
+  profitMargin: "profit_margin",
+};
+
+// "₹16.06L Cr" / "$3.1T" back to a number so the column sorts by size.
+const marketCapValue = (v: unknown): number => {
+  if (typeof v === "number") return v;
+  const m = String(v ?? "").replace(/[₹$,\s]/g, "").match(/^([\d.]+)(LCr|Cr|T|B|M)?$/i);
+  if (!m) return 0;
+  const mult: Record<string, number> = { lcr: 1e12, cr: 1e7, t: 1e12, b: 1e9, m: 1e6 };
+  return parseFloat(m[1]) * (m[2] ? mult[m[2].toLowerCase()] : 1);
+};
+
+interface SavedScreen {
+  id: string;
+  name: string;
+  filters: { field: string; operator: string; value: string }[];
+}
 
 // Illustrative preview rows for free users (live scans are Pro). One set per
 // market so an India visitor isn't shown US stocks in dollars.
@@ -224,7 +260,10 @@ const regionToMarket = (region?: string): "india" | "us" => (region === "IN" ? "
 
 const StockScanner = () => {
   const { toast } = useToast();
-  const isPro = usePlanStore((s) => s.isPro)();
+  const navigate = useNavigate();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = usePlanStore((s) => s.plan === "premium" || s.plan === "enterprise");
   const { region } = useRegion();
   const [filters, setFilters] = useState<FilterItem[]>([
     { id: "1", field: "sector", operator: "eq", value: "Technology" },
@@ -247,6 +286,64 @@ const StockScanner = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const [isSampleUniverse, setIsSampleUniverse] = useState(false);
+  const [saveOpen, setSaveOpen] = useState(false);
+  const [saveName, setSaveName] = useState("");
+  const [savingScreen, setSavingScreen] = useState(false);
+  const [savedScreens, setSavedScreens] = useState<SavedScreen[]>([]);
+
+  // Sort the rows on screen; clicking a column used to change nothing.
+  const sortedResults = useMemo(() => {
+    const key = sortField;
+    const val = (r: any) => (key === "marketCap" ? marketCapValue(r.marketCap) : Number(r[key]) || 0);
+    return [...results].sort((a, b) => (sortOrder === "asc" ? val(a) - val(b) : val(b) - val(a)));
+  }, [results, sortField, sortOrder]);
+
+  useEffect(() => {
+    if (!isPro) return;
+    api.stocks
+      .getSavedScreens()
+      .then((res: any) => setSavedScreens(res?.saved_screens || []))
+      .catch(() => {});
+  }, [isPro]);
+
+  const openSaveDialog = async () => {
+    if (!(await usePlanStore.getState().ensurePro())) {
+      usePlanStore.getState().openUpgrade("screener");
+      return;
+    }
+    if (!filters.some((f) => f.value !== "")) {
+      toast({ title: "Nothing to save", description: "Add at least one filter with a value first.", variant: "destructive" });
+      return;
+    }
+    setSaveName(PRESETS.find((p) => p.id === activePreset)?.name || "");
+    setSaveOpen(true);
+  };
+
+  const handleSaveScreen = async () => {
+    const name = saveName.trim();
+    if (!name) {
+      toast({ title: "Name required", description: "Give this screen a name.", variant: "destructive" });
+      return;
+    }
+    setSavingScreen(true);
+    try {
+      const screenFilters = filters.filter((f) => f.value !== "").map(({ field, operator, value }) => ({ field, operator, value }));
+      await api.stocks.saveCustomScreen({ name, filters: screenFilters, description: `${market === "india" ? "India" : "US"} market` });
+      const res: any = await api.stocks.getSavedScreens();
+      setSavedScreens(res?.saved_screens || []);
+      setSaveOpen(false);
+      toast({ title: "Screen saved", description: `"${name}" is in your saved screens.` });
+    } catch (error: any) {
+      toast({ title: "Couldn't save", description: error.message || "Please try again.", variant: "destructive" });
+    } finally {
+      setSavingScreen(false);
+    }
+  };
+
+  const loadSavedScreen = (screen: SavedScreen) => {
+    setActivePreset(null);
+    setFilters((screen.filters || []).map((f, i) => ({ id: `${screen.id}-${i}`, field: f.field, operator: f.operator, value: String(f.value) })));
+  };
 
   // Free users: keep the preview rows in step with the chosen market.
   useEffect(() => {
@@ -334,7 +431,7 @@ const StockScanner = () => {
   const runScan = async () => {
     // Enter-free / run-Pro: anyone can build a screen and see the sample
     // preview, but running it against live data is the paid moment.
-    if (!isPro) {
+    if (!(await usePlanStore.getState().ensurePro())) {
       usePlanStore.getState().openUpgrade("screener");
       return;
     }
@@ -353,7 +450,7 @@ const StockScanner = () => {
       // Call the real API
       const response = await api.stocks.screenStocks({
         filters: backendFilters,
-        sort_by: sortField === "matchScore" ? "match_score" : sortField === "peRatio" ? "pe_ratio" : sortField === "marketCap" ? "market_cap" : sortField,
+        sort_by: SORT_FIELDS[sortField] || "match_score",
         sort_order: sortOrder,
         limit: 100,
         market,
@@ -651,6 +748,7 @@ const StockScanner = () => {
 
                 <button
                   onClick={() => removeFilter(filter.id)}
+                  aria-label="Remove filter"
                   className="ml-auto p-2 hover:bg-destructive/10 rounded-lg text-muted-foreground hover:text-destructive transition-colors"
                 >
                   <X className="w-4 h-4" />
@@ -669,7 +767,7 @@ const StockScanner = () => {
                 PRO
               </span>
             )}
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={openSaveDialog}>
               <Save className="w-4 h-4" />
               Save Screener
             </Button>
@@ -681,6 +779,20 @@ const StockScanner = () => {
               Clear All
             </Button>
           </div>
+          {isPro && savedScreens.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              <span className="text-xs font-semibold text-muted-foreground">Your saved screens:</span>
+              {savedScreens.map((screen) => (
+                <button
+                  key={screen.id}
+                  onClick={() => loadSavedScreen(screen)}
+                  className="px-3 py-1 rounded-full bg-secondary text-xs font-medium text-foreground hover:bg-primary/10"
+                >
+                  {screen.name}
+                </button>
+              ))}
+            </div>
+          )}
           {!isPro && (
             <p className="text-xs text-muted-foreground mt-3">
               Build and preview any screen for free. <span className="font-semibold text-foreground">Pro</span> runs it live against the full market and shows every match.
@@ -710,7 +822,7 @@ const StockScanner = () => {
               variant="outline"
               size="sm"
               className="gap-2"
-              onClick={() => (isPro ? handleExportPDF() : usePlanStore.getState().openUpgrade("export"))}
+              onClick={async () => ((await usePlanStore.getState().ensurePro()) ? handleExportPDF() : usePlanStore.getState().openUpgrade("export"))}
               disabled={isExporting || results.length === 0}
             >
               <Download className="w-4 h-4" />
@@ -806,9 +918,18 @@ const StockScanner = () => {
                 </tr>
               </thead>
               <tbody>
-                {results.map((stock) => (
+                {sortedResults.length === 0 && (
+                  <tr>
+                    <td colSpan={8} className="py-10 text-center text-sm text-muted-foreground">
+                      {isScanning ? "Scanning…" : "No companies match these filters. Loosen a filter and run the scan again."}
+                    </td>
+                  </tr>
+                )}
+                {sortedResults.map((stock) => (
                   <tr
                     key={stock.ticker}
+                    onClick={() => navigate(`/fundakamental/analyze?ticker=${encodeURIComponent(stock.ticker)}&name=${encodeURIComponent(stock.company || stock.ticker)}`)}
+                    title={`Analyse ${stock.company || stock.ticker}`}
                     className="border-b border-border/50 last:border-0 hover:bg-secondary/50 transition-colors cursor-pointer"
                   >
                     <td className="py-4 px-4">
@@ -827,13 +948,13 @@ const StockScanner = () => {
                       </span>
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      {priceSymbol}{stock.price.toFixed(2)}
+                      {Number(stock.price) > 0 ? `${priceSymbol}${Number(stock.price).toFixed(2)}` : "—"}
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
                       {stock.marketCap}
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      {stock.peRatio ? `${stock.peRatio}x` : "—"}
+                      {stock.peRatio ? `${Number(stock.peRatio).toFixed(1)}x` : "—"}
                     </td>
                     <td className="py-4 px-4 text-right">
                       <span
@@ -848,11 +969,11 @@ const StockScanner = () => {
                         ) : (
                           <TrendingDown className="w-3 h-3" />
                         )}
-                        {stock.revenueGrowth}%
+                        {Number(stock.revenueGrowth).toFixed(1)}%
                       </span>
                     </td>
                     <td className="py-4 px-4 text-right text-foreground">
-                      {stock.profitMargin}%
+                      {Number(stock.profitMargin).toFixed(1)}%
                     </td>
                     <td className="py-4 px-4 text-right">
                       <div className="flex items-center justify-end gap-3">
@@ -897,6 +1018,29 @@ const StockScanner = () => {
           </div>
         </motion.div>
       </div>
+
+      <Dialog open={saveOpen} onOpenChange={setSaveOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Save this screen</DialogTitle>
+            <DialogDescription>Saved screens appear above the results so you can re-run them in one click.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-2">
+            <Label htmlFor="screen-name">Name</Label>
+            <Input
+              id="screen-name"
+              value={saveName}
+              maxLength={80}
+              onChange={(e) => setSaveName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSaveScreen()}
+              placeholder="Cheap quality banks"
+            />
+          </div>
+          <Button onClick={handleSaveScreen} disabled={savingScreen} className="w-full bg-primary text-white hover:bg-primary/90">
+            {savingScreen ? "Saving…" : "Save screen"}
+          </Button>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 };

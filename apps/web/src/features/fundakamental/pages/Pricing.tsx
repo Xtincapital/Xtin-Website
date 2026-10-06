@@ -38,7 +38,9 @@ import useRegion from "@/hooks/useRegion";
 export default function Pricing() {
   const navigate = useNavigate();
   const openUpgrade = usePlanStore((s) => s.openUpgrade);
-  const isPro = usePlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = usePlanStore((s) => s.plan === "premium" || s.plan === "enterprise");
   const { region } = useRegion();
   const bp = billingFor(region as any);
 
@@ -110,7 +112,7 @@ export default function Pricing() {
       }
     } else {
       // Enterprise — route to contact / mailto
-      window.location.href = "mailto:sales@fundakamental.in?subject=Enterprise%20plan%20enquiry";
+      window.location.href = "mailto:support@xtincapital.com?subject=Fundakamental%20Enterprise%20plan%20enquiry";
     }
   };
 

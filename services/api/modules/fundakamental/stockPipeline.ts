@@ -12,12 +12,12 @@ import { getCompanyOverview } from "./stockDataService.js";
 import { upsertStock } from "./stocks.repository.js";
 
 export const INDIA_TICKERS: string[] = [
-    "TCS.NS", "INFY.NS", "WIPRO.NS", "HCLTECH.NS", "TECHM.NS", "LTIM.NS", "PERSISTENT.NS",
+    "TCS.NS", "INFY.NS", "WIPRO.NS", "HCLTECH.NS", "TECHM.NS", "PERSISTENT.NS",
     "HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "KOTAKBANK.NS", "AXISBANK.NS", "BAJFINANCE.NS",
     "RELIANCE.NS", "ONGC.NS", "NTPC.NS", "POWERGRID.NS", "TATAPOWER.NS", "COALINDIA.NS",
     "HINDUNILVR.NS", "ITC.NS", "NESTLEIND.NS", "BRITANNIA.NS", "DABUR.NS", "MARICO.NS", "TATACONSUM.NS",
     "SUNPHARMA.NS", "DRREDDY.NS", "CIPLA.NS", "DIVISLAB.NS", "APOLLOHOSP.NS",
-    "MARUTI.NS", "TATAMOTORS.NS", "M&M.NS", "BAJAJ-AUTO.NS", "EICHERMOT.NS", "HEROMOTOCO.NS",
+    "MARUTI.NS", "TMPV.NS", "TMCV.NS", "M&M.NS", "BAJAJ-AUTO.NS", "EICHERMOT.NS", "HEROMOTOCO.NS",
     "TATASTEEL.NS", "JSWSTEEL.NS", "HINDALCO.NS", "VEDL.NS",
     "LT.NS", "ULTRACEMCO.NS", "GRASIM.NS", "ADANIPORTS.NS", "DLF.NS",
     "BHARTIARTL.NS", "ADANIENT.NS", "HAVELLS.NS", "PIDILITIND.NS", "ASIANPAINT.NS", "TITAN.NS",
@@ -34,11 +34,12 @@ export const US_TICKERS: string[] = [
 
 export type Market = "india" | "us";
 
+// Indian tickers keep their ".NS" suffix: that is what Yahoo, the price
+// refresh job, search, quick access and the ₹/$ symbol logic all key on.
 function normalise(overview: Record<string, unknown>, rawTicker: string, market: Market): Record<string, unknown> {
-    const display = rawTicker.toUpperCase().endsWith(".NS") ? rawTicker.slice(0, -3) : rawTicker;
     return {
         ...overview,
-        ticker: display,
+        ticker: rawTicker.toUpperCase(),
         market,
         currency: overview.currency ?? (market === "india" ? "INR" : "USD"),
         is_active: true,

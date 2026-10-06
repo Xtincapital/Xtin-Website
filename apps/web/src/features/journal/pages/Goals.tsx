@@ -170,7 +170,9 @@ const FREE_GOAL_LIMIT = 2;
 
 export default function Goals() {
   const navigate = useNavigate();
-  const isPro = useJournalPlanStore((s) => s.isPro)();
+  // Subscribe to the plan itself: selecting the isPro function never re-rendered
+  // once the plan loaded, so paying users kept seeing Free gates.
+  const isPro = useJournalPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
   const [goals, setGoals] = useState<Goal[]>([]);
   const [trades, setTrades] = useState<TradeForMetrics[]>([]);
   const [loading, setLoading] = useState(true);

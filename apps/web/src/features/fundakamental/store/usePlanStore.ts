@@ -115,6 +115,9 @@ interface PlanState {
   plan: Plan;
   planValidUntil: string | null;
   isPro: () => boolean;
+  /** isPro(), re-checking the server first when the plan still says free —
+   *  use before showing any paywall so a paying user is never upsold. */
+  ensurePro: () => Promise<boolean>;
   /** Free users get a monthly report quota; Pro is unlimited. Quota is
    *  enforced server-side — this is intentionally permissive client-side. */
   canUseReport: () => boolean;
@@ -203,6 +206,12 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   isPro: () => {
     const plan = get().plan;
     return plan === "premium" || plan === "enterprise";
+  },
+
+  ensurePro: async () => {
+    if (get().isPro()) return true;
+    await get().refreshPlan();
+    return get().isPro();
   },
 
   canUseReport: () => true,

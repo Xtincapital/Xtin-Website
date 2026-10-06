@@ -33,3 +33,12 @@ describe("searchDirectory", () => {
         expect(searchDirectory("zzzzqqqq")).toEqual([]);
     });
 });
+
+describe("findDirectoryEntry", () => {
+    it("finds exact tickers and maps BSE to the NSE listing", async () => {
+        const { findDirectoryEntry } = await import("./companyDirectory.js");
+        expect(findDirectoryEntry("tcs.ns")?.ticker).toBe("TCS.NS");
+        expect(findDirectoryEntry("TCS.BO")?.ticker).toBe("TCS.NS");
+        expect(findDirectoryEntry("NOTAREALTICKERX")).toBeNull();
+    });
+});

@@ -56,7 +56,9 @@ function renderTemplate(templateName: string, context: Record<string, unknown>):
             hour: "numeric",
             minute: "2-digit",
             hour12: true,
-        }).format(now),
+            // Render runs in UTC; label the time instead of printing UTC as if local.
+            timeZone: "Asia/Kolkata",
+        }).format(now) + " IST",
         app_name: APP_NAME,
         current_year: now.getFullYear(),
     };
@@ -160,8 +162,20 @@ export async function closePdfBrowser(): Promise<void> {
 // NOT the ad hoc `analysis_data` dict the Python source built from the
 // nonexistent `analysis_reports` table — that mismatch was the other half
 // of the bug this port fixes.
+const isBlank = (v: unknown) => v === null || v === undefined || /^\s*(n\/?a)?\s*$/i.test(String(v));
+
 export async function generateAnalysisReportPdf(data: Record<string, unknown>): Promise<Buffer> {
-    const html = renderTemplate("analysisReport.njk", data);
+    // Uploads without a chosen company have ticker/exchange "N/A"; leave them
+    // out of the header, and print the report date as a date, not a timestamp.
+    const date = data.date ? new Date(String(data.date)) : null;
+    const html = renderTemplate("analysisReport.njk", {
+        ...data,
+        ticker: isBlank(data.ticker) ? "" : data.ticker,
+        exchange: isBlank(data.exchange) ? "" : data.exchange,
+        date: date && !Number.isNaN(date.getTime())
+            ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(date)
+            : data.date ?? "",
+    });
     return htmlToPdf(html);
 }
 

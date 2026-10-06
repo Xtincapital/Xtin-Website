@@ -172,18 +172,11 @@ export const copyToClipboard = async (text: string): Promise<boolean> => {
   }
 };
 
-/**
- * A report with the fields needed to render a PDF (superset of the list item;
- * the full report from `getReport` supplies the analysis text).
- */
+/** The report fields the PDF export needs. */
 export interface ExportableReport {
-  ticker: string;
-  company: string;
-  overall_score: number;
-  summary?: string;
-  strengths?: string[];
-  red_flags?: string[];
-  investment_assessment?: string;
+  id: string;
+  ticker?: string | null;
+  company?: string | null;
 }
 
 /**
@@ -191,6 +184,10 @@ export interface ExportableReport {
  * Pro-gated (free users get the upgrade modal). Returns 'gated' if the
  * upgrade modal was shown, 'ok' if a PDF was downloaded. Throws on API error
  * so callers can surface a toast.
+ *
+ * The server builds the PDF from the saved report. (The client used to post
+ * its own summary with different field names, so the PDF came out with no
+ * company name, a 0.0 score and no summary, ratios or red flags.)
  */
 export const exportReportPdf = async (
   report: ExportableReport
@@ -199,25 +196,15 @@ export const exportReportPdf = async (
   const { usePlanStore } = await import('../store/usePlanStore');
   const { api, downloadBlob } = await import('./api');
 
-  if (!usePlanStore.getState().isPro()) {
+  if (!(await usePlanStore.getState().ensurePro())) {
     usePlanStore.getState().openUpgrade('export');
     return 'gated';
   }
 
-  const analysisData = {
-    ticker: report.ticker,
-    company_name: report.company,
-    recommendation:
-      report.overall_score >= 8 ? 'BUY' : report.overall_score >= 6 ? 'HOLD' : 'SELL',
-    score: report.overall_score * 10,
-    strengths: report.strengths,
-    weaknesses: report.red_flags,
-    ai_summary: report.summary,
-    ai_recommendation: report.investment_assessment,
-  };
-
-  const blob = await api.pdf.exportAnalysis(report.ticker, analysisData);
-  downloadBlob(blob, `analysis_${report.ticker}.pdf`);
+  const blob = await api.pdf.exportReportPdf(report.id);
+  const ticker = report.ticker && !/^n\/?a$/i.test(report.ticker.trim()) ? report.ticker : '';
+  const base = (ticker || report.company || 'report').replace(/[^A-Za-z0-9._-]+/g, '_').slice(0, 60);
+  downloadBlob(blob, `analysis_${base}.pdf`);
   return 'ok';
 };
 

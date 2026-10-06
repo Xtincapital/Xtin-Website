@@ -53,6 +53,35 @@ import {
   Loader2,
 } from "lucide-react";
 
+const DEFAULT_QUICK_ACCESS = [
+  { ticker: "RELIANCE.NS", name: "Reliance Industries" },
+  { ticker: "TCS.NS", name: "Tata Consultancy Services" },
+  { ticker: "INFY.NS", name: "Infosys" },
+  { ticker: "AAPL", name: "Apple" },
+  { ticker: "MSFT", name: "Microsoft" },
+];
+
+const isIndian = (ticker: string) => /\.(NS|BO)$/i.test(ticker || "");
+const hasTicker = (t?: string | null) => !!t && !/^n\/?a$/i.test(t.trim());
+
+/** Latest saved price for one stock (null when the server has none). */
+async function fetchQuickPrice(stock: any) {
+  try {
+    const data = await api.stocks.getStockData(stock.ticker);
+    if (data) {
+      return {
+        ...stock,
+        name: data.name || stock.name,
+        price: data.price ?? stock.price ?? null,
+        change: data.change_percent ?? stock.change ?? null,
+      };
+    }
+  } catch (err) {
+    console.warn(`Failed to fetch cached price for ${stock.ticker}:`, err);
+  }
+  return stock;
+}
+
 const Dashboard = () => {
   const { user } = useAuth();
   const displayName = [user?.first_name, user?.last_name].filter(Boolean).join(" ").trim() || "User";
@@ -65,53 +94,30 @@ const Dashboard = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const [quickAccessList, setQuickAccessList] = useState<any[]>(() => {
-    const cached = localStorage.getItem(userKey);
+  // Seeded once per user; after that the list is exactly what they kept,
+  // even if it ends up empty or US-only (it used to reset to the defaults
+  // whenever no Indian stock was left in it). Prices start empty and are
+  // filled from the server, never shown as made-up numbers.
+  const loadQuickAccess = (key: string) => {
+    const cached = localStorage.getItem(key);
     if (cached) {
       try {
         const parsed = JSON.parse(cached);
-        const hasIndian = parsed.some((item: any) => item.ticker.toUpperCase().endsWith(".NS") || item.ticker.toUpperCase().endsWith(".BO"));
-        if (hasIndian) {
-          return parsed;
-        }
+        if (Array.isArray(parsed)) return parsed;
       } catch (e) {
         console.error("Failed to parse cached quick access list:", e);
       }
     }
-    const defaultList = [
-      { ticker: "RELIANCE.NS", name: "Reliance Industries", price: 2450.00, change: 1.25 },
-      { ticker: "TCS.NS", name: "Tata Consultancy Services", price: 3820.00, change: -0.45 },
-      { ticker: "INFY.NS", name: "Infosys", price: 1480.00, change: 2.10 },
-      { ticker: "AAPL", name: "Apple", price: 225.50, change: 2.35 },
-      { ticker: "MSFT", name: "Microsoft", price: 415.25, change: 1.82 },
-    ];
-    localStorage.setItem(userKey, JSON.stringify(defaultList));
+    const defaultList = DEFAULT_QUICK_ACCESS.map((s) => ({ ...s, price: null, change: null }));
+    localStorage.setItem(key, JSON.stringify(defaultList));
     return defaultList;
-  });
+  };
+
+  const [quickAccessList, setQuickAccessList] = useState<any[]>(() => loadQuickAccess(userKey));
 
   useEffect(() => {
-    const cached = localStorage.getItem(userKey);
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        const hasIndian = parsed.some((item: any) => item.ticker.toUpperCase().endsWith(".NS") || item.ticker.toUpperCase().endsWith(".BO"));
-        if (hasIndian) {
-          setQuickAccessList(parsed);
-          return;
-        }
-      } catch (e) {
-        console.error("Failed to parse cached quick access list:", e);
-      }
-    }
-    const defaultList = [
-      { ticker: "RELIANCE.NS", name: "Reliance Industries", price: 2450.00, change: 1.25 },
-      { ticker: "TCS.NS", name: "Tata Consultancy Services", price: 3820.00, change: -0.45 },
-      { ticker: "INFY.NS", name: "Infosys", price: 1480.00, change: 2.10 },
-      { ticker: "AAPL", name: "Apple", price: 225.50, change: 2.35 },
-      { ticker: "MSFT", name: "Microsoft", price: 415.25, change: 1.82 },
-    ];
-    localStorage.setItem(userKey, JSON.stringify(defaultList));
-    setQuickAccessList(defaultList);
+    setQuickAccessList(loadQuickAccess(userKey));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -201,48 +207,18 @@ const Dashboard = () => {
     const fetchInitialPrices = async () => {
       if (quickAccessList.length === 0) return;
       try {
-        const updatedList = await Promise.all(
-          quickAccessList.map(async (stock) => {
-            try {
-              const data = await api.stocks.getStockData(stock.ticker);
-              if (data) {
-                return {
-                  ...stock,
-                  name: data.name || stock.name,
-                  price: data.price !== undefined && data.price !== null ? data.price : stock.price,
-                  change: data.change_percent !== undefined && data.change_percent !== null ? data.change_percent : stock.change,
-                };
-              }
-            } catch (err) {
-              console.warn(`Failed to fetch cached price for ${stock.ticker}:`, err);
-            }
-            return stock;
-          })
-        );
-
-        // Check if anything actually changed to avoid unnecessary re-renders
-        let hasChanges = false;
-        for (let i = 0; i < updatedList.length; i++) {
-          if (
-            updatedList[i].price !== quickAccessList[i].price ||
-            updatedList[i].change !== quickAccessList[i].change ||
-            updatedList[i].name !== quickAccessList[i].name
-          ) {
-            hasChanges = true;
-            break;
-          }
-        }
-
-        if (hasChanges) {
-          setQuickAccessList(updatedList);
-          localStorage.setItem(userKey, JSON.stringify(updatedList));
-        }
+        const updatedList = [];
+        // One at a time: a burst of parallel calls trips the API's rate limit.
+        for (const stock of quickAccessList) updatedList.push(await fetchQuickPrice(stock));
+        setQuickAccessList(updatedList);
+        localStorage.setItem(userKey, JSON.stringify(updatedList));
       } catch (error) {
         console.error("Failed to fetch initial quick access prices:", error);
       }
     };
 
     fetchInitialPrices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRemoveCompany = (ticker: string) => {
@@ -274,10 +250,12 @@ const Dashboard = () => {
             id: r.id,
             company: r.company,
             ticker: r.ticker,
+            status: r.status,
             date: new Date(r.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }),
-            score: r.overall_score,
+            score: Number(r.overall_score) || 0,
             summary: r.summary || "Fundamental analysis report.",
-            trend: r.overall_score >= 7.5 ? "up" : "down"
+            // Same bands as History: 7+ is good, under 5 is weak.
+            trend: r.overall_score >= 7 ? "up" : r.overall_score >= 5 ? "flat" : "down"
           }));
           setReports(formatted);
         }
@@ -435,6 +413,7 @@ const Dashboard = () => {
                       </p>
                       <button
                         onClick={() => setSelectedFile(null)}
+                        aria-label="Remove selected file"
                         className="p-1 hover:bg-destructive/10 rounded text-muted-foreground hover:text-destructive shrink-0"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -494,7 +473,10 @@ const Dashboard = () => {
                   </Link>
                 </div>
               ) : (
-                reports.map((report, index) => (
+                reports.map((report, index) => {
+                  const done = report.status === "completed";
+                  const failed = report.status === "failed";
+                  return (
                   <motion.div
                     key={report.id}
                     initial={{ opacity: 0, x: -20 }}
@@ -502,7 +484,7 @@ const Dashboard = () => {
                     transition={{ duration: 0.3, delay: 0.05 * index }}
                   >
                     <Link
-                      to={`/fundakamental/report/${report.id}`}
+                      to={done ? `/fundakamental/report/${report.id}` : "/fundakamental/history"}
                       className="block p-5 rounded-2xl bg-white border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300"
                     >
                       <div className="flex items-start justify-between mb-2">
@@ -511,36 +493,51 @@ const Dashboard = () => {
                             <h3 className="font-bold text-foreground text-sm">
                               {report.company}
                             </h3>
-                            <span className="px-2 py-0.5 rounded-full bg-secondary text-xs text-muted-foreground font-medium">
-                              {report.ticker}
-                            </span>
+                            {hasTicker(report.ticker) && (
+                              <span className="px-2 py-0.5 rounded-full bg-secondary text-xs text-muted-foreground font-medium">
+                                {report.ticker}
+                              </span>
+                            )}
                           </div>
                           <p className="text-xs text-muted-foreground flex items-center gap-1">
                             <Clock className="w-3 h-3" />
                             {report.date}
                           </p>
                         </div>
+                        {!done ? (
+                          <span
+                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                              failed ? "bg-destructive/10 text-destructive" : "bg-amber-100 text-amber-700 animate-pulse"
+                            }`}
+                          >
+                            {failed ? "Failed" : "Processing…"}
+                          </span>
+                        ) : (
                         <div
                           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
                             report.trend === "up"
                               ? "bg-primary/10 text-primary"
+                              : report.trend === "flat"
+                              ? "bg-amber-100 text-amber-700"
                               : "bg-destructive/10 text-destructive"
                           }`}
                         >
                           {report.trend === "up" ? (
                             <TrendingUp className="w-3.5 h-3.5" />
-                          ) : (
+                          ) : report.trend === "down" ? (
                             <TrendingDown className="w-3.5 h-3.5" />
-                          )}
-                          {report.score}/10
+                          ) : null}
+                          {report.score.toFixed(1)}/10
                         </div>
+                        )}
                       </div>
                       <p className="text-sm text-muted-foreground line-clamp-2">
-                        {report.summary}
+                        {done ? report.summary : failed ? "This analysis didn't complete. Run it again from New Analysis." : "Your report is being written…"}
                       </p>
                     </Link>
                   </motion.div>
-                ))
+                  );
+                })
               )}
             </div>
           </motion.div>
@@ -563,6 +560,7 @@ const Dashboard = () => {
                 }}
                 variant="ghost"
                 size="sm"
+                aria-label="Add a stock to Quick Access"
                 className="text-primary hover:text-primary/80 h-8 w-8 p-0 rounded-full"
               >
                 <Plus className="w-4 h-4" />
@@ -605,7 +603,7 @@ const Dashboard = () => {
                     ) : (
                       <div className="space-y-1">
                         {quickAccessSearchResults.map((company) => {
-                          const isINR = company.ticker.endsWith(".NS") || company.ticker.endsWith(".BO");
+                          const isINR = isIndian(company.ticker);
                           const currency = isINR ? "₹" : "$";
                           const price = company.price || 0;
 
@@ -622,9 +620,21 @@ const Dashboard = () => {
 
                                 // Prevent duplicates
                                 if (!quickAccessList.some(item => item.ticker.toUpperCase() === company.ticker.toUpperCase())) {
-                                  const updated = [...quickAccessList, newStock];
+                                  const updated = [...quickAccessList, { ...newStock, price: price > 0 ? price : null }];
                                   setQuickAccessList(updated);
                                   localStorage.setItem(userKey, JSON.stringify(updated));
+                                  // Search results often carry no price; look it up.
+                                  if (!(price > 0)) {
+                                    fetchQuickPrice(newStock).then((priced) => {
+                                      setQuickAccessList((prev) => {
+                                        const next = prev.map((s) => (s.ticker === priced.ticker ? { ...priced, price: priced.price > 0 ? priced.price : null } : s));
+                                        localStorage.setItem(userKey, JSON.stringify(next));
+                                        return next;
+                                      });
+                                    });
+                                  }
+                                } else {
+                                  toast.info(`${company.ticker} is already in Quick Access`);
                                 }
                                 setIsAddingCompany(false);
                                 setCompanySearchQuery("");
@@ -682,7 +692,7 @@ const Dashboard = () => {
                       const live = prices.get(stock.ticker.toUpperCase());
                       const currentPrice = live ? live.price : stock.price;
                       const currentChange = live ? live.change_percent : stock.change;
-                      const isINR = stock.ticker.endsWith(".NS") || stock.ticker.endsWith(".BO");
+                      const isINR = isIndian(stock.ticker);
                       const currency = isINR ? "₹" : "$";
 
                       const isRowAnalyzing = analyzingTicker === stock.ticker;
@@ -713,15 +723,18 @@ const Dashboard = () => {
                             </div>
                           </td>
                           <td className="py-3 px-4 text-right text-sm font-medium text-foreground">
-                            {currency}{currentPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            {currentPrice != null && Number(currentPrice) > 0
+                              ? `${currency}${Number(currentPrice).toLocaleString(isINR ? "en-IN" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                              : "—"}
                           </td>
                           <td
                             className={`py-3 px-4 text-right text-sm font-semibold ${
-                              currentChange >= 0 ? "text-primary" : "text-destructive"
+                              Number(currentChange) >= 0 ? "text-primary" : "text-destructive"
                             }`}
                           >
-                            {currentChange >= 0 ? "+" : ""}
-                            {currentChange.toFixed(2)}%
+                            {currentChange == null || !(Number(currentPrice) > 0)
+                              ? "—"
+                              : `${Number(currentChange) >= 0 ? "+" : ""}${Number(currentChange).toFixed(2)}%`}
                           </td>
                           <td className="py-3 pr-4 pl-1 text-right">
                             <button
@@ -729,6 +742,7 @@ const Dashboard = () => {
                                 e.stopPropagation();
                                 handleRemoveCompany(stock.ticker);
                               }}
+                              aria-label={`Remove ${stock.ticker} from Quick Access`}
                               className="p-1 hover:bg-destructive/10 rounded text-muted-foreground hover:text-destructive transition-colors"
                             >
                               <X className="w-3.5 h-3.5" />

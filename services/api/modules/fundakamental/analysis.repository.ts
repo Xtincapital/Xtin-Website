@@ -54,3 +54,19 @@ export {
     getUserProfile,
     setReportsUsed,
 };
+
+/** A report still "pending"/"processing" this long after it was created was
+ * cut off (e.g. the server restarted mid-analysis) and will never finish. */
+export const STALE_ANALYSIS_MS = 15 * 60 * 1000;
+export const STALE_ANALYSIS_ERROR = "The analysis was interrupted before it finished. No tokens were charged — please run it again.";
+
+export function isStaleAnalysis(report: { status?: string | null; created_at?: string | null }): boolean {
+    if (report.status !== "pending" && report.status !== "processing") return false;
+    const created = new Date(report.created_at || 0).getTime();
+    return Number.isFinite(created) && Date.now() - created > STALE_ANALYSIS_MS;
+}
+
+/** Mark a cut-off analysis as failed so History and polling stop waiting on it. */
+export const failStaleAnalysis = (reportId: string) =>
+    supabase.from("funda_reports").update({ status: "failed", error: STALE_ANALYSIS_ERROR }).eq("id", reportId).in("status", ["pending", "processing"]);
+
