@@ -90,3 +90,17 @@ describe("price alert checker", () => {
         expect(notifications.map((n) => n.user_id)).toEqual(["u2"]);
     });
 });
+
+describe("forgetUserCheck", () => {
+    it("lets a new alert be checked right away", async () => {
+        const { forgetUserCheck } = await import("./priceAlertChecker.js");
+        resetPriceAlertState();
+        getQuote.mockResolvedValue({ price: 1 });
+        alerts = [];
+        await checkUserAlertsIfDue("u9");
+        alerts = [{ id: "n1", user_id: "u9", ticker: "TCS.NS", condition: "below", target_price: "3000" }];
+        forgetUserCheck("u9");
+        await checkUserAlertsIfDue("u9");
+        expect(notifications.some((n) => n.user_id === "u9")).toBe(true);
+    });
+});

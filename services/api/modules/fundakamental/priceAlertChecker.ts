@@ -119,6 +119,11 @@ export function startPriceAlertScheduler() {
     console.log("[PriceAlerts] Checking price alerts every 15 minutes");
 }
 
+/** Let the next unread-count call re-check this user (after they add or change an alert). */
+export function forgetUserCheck(userId: string) {
+    lastUserCheck.delete(userId);
+}
+
 /** Test hook. */
 export function resetPriceAlertState() {
     lastUserCheck.clear();

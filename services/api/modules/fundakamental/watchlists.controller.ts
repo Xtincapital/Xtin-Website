@@ -12,6 +12,7 @@
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getQuote } from "./stockDataService.js";
 import { findDirectoryEntry } from "./companyDirectory.js";
+import { forgetUserCheck } from "./priceAlertChecker.js";
 import {
     validateWatchlistCreate,
     validateWatchlistUpdate,
@@ -96,6 +97,7 @@ async function createAlertForTarget(userId: string, ticker: string, targetPrice:
         if (!existing || existing.length === 0) {
             await insertPriceAlert({ user_id: userId, ticker, condition, target_price: targetPrice, is_active: true });
         }
+        forgetUserCheck(userId); // check the new target on the next dashboard poll
     } catch (err) {
         console.warn(`[Fundakamental] Failed to create alert for ${ticker}:`, err);
     }

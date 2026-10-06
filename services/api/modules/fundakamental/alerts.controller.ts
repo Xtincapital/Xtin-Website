@@ -21,7 +21,7 @@ import {
     deleteNotificationById,
     getUnreadNotificationCount,
 } from "./alerts.repository.js";
-import { checkUserAlertsIfDue } from "./priceAlertChecker.js";
+import { checkUserAlertsIfDue, forgetUserCheck } from "./priceAlertChecker.js";
 import { findDirectoryEntry } from "./companyDirectory.js";
 import { getQuote } from "./stockDataService.js";
 
@@ -71,6 +71,7 @@ export const createPriceAlert = async (req, res) => {
             return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: "Failed to create alert" });
         }
 
+        forgetUserCheck(req.user.authId);
         return res.status(HTTP_STATUS.CREATED).json(data[0]);
     } catch (err) {
         const message = (err as Error)?.message || String(err);
@@ -159,6 +160,7 @@ export const toggleAlert = async (req, res) => {
         const { error: updateError } = await setPriceAlertActive(alertId, newStatus);
         if (updateError) throw updateError;
 
+        if (newStatus) forgetUserCheck(req.user.authId);
         return res.status(HTTP_STATUS.OK).json({ is_active: newStatus });
     } catch (err) {
         console.error("[Fundakamental] toggle price alert failed:", err);
