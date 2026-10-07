@@ -6,6 +6,7 @@ vi.mock("../payments/fulfillment.repository.js", () => {
     class FulfillmentTableMissingError extends Error {}
     return { claimFulfillment: vi.fn(), completeFulfillment: vi.fn(), releaseFulfillment: vi.fn(), getFulfillment: vi.fn(), findUserByAuthId: vi.fn(), findUserById: vi.fn(), FulfillmentTableMissingError };
 });
+vi.mock("../payments/receipts.js", () => ({ issueReceipt: vi.fn() }));
 
 import { fulfillBacktestPass, BACKTEST_PRODUCT } from "./passes.controller.js";
 import { PASSES } from "./plans.js";
