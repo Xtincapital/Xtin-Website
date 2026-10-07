@@ -21,4 +21,10 @@ const updateOwnPendingApplication = (id: string, userId: string, updateData: Rec
 const getApplicationById = (id: string, userId: string) =>
     supabase.from("algo_publisher_applications").select("id,status").eq("id", id).eq("user_id", userId);
 
-export { updateOwnPendingApplication, getApplicationById, insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus };
+// AlgoMarket: approved applications, public columns only (never the
+// applicant's email or user id).
+export const MARKET_COLUMNS = "id, applicant_name, algo_name, strategy_type, asset_class, expected_price, backtest_summary, description, experience, reviewed_at";
+const getApprovedListings = () =>
+    supabase.from("algo_publisher_applications").select(MARKET_COLUMNS).eq("status", "approved").order("reviewed_at", { ascending: false });
+
+export { getApprovedListings, updateOwnPendingApplication, getApplicationById, insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus };

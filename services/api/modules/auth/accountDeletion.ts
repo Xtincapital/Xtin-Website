@@ -54,6 +54,8 @@ const USER_ID_TABLES = [
     "gini_ai_wallet_purchases",
     "gini_ai_wallets",
     "gini_pro_plans",
+    // Gini / Journal saved AI chats (messages cascade)
+    "ai_conversations",
     // Backtest, algos, learning
     "backtest_runs",
     "backtest_strategies",

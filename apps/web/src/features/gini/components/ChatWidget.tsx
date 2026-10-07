@@ -32,13 +32,13 @@
 // `.status === 402` check — a deliberate judgement call given the API
 // surface actually available here (see this task's final report).
 //
-// Chat history: local component state only, cleared on unmount/reload — the
-// backend already persists a durable AI profile per user
-// (chat.controller.ts step 3/11, `gini_user_data.ai_profile`), so this
-// widget doesn't need its own persistence layer (see task brief).
+// Chat history: the open conversation lives in component state. Pro users'
+// conversations are also saved server-side (services/api/modules/ai/chatHistory.ts)
+// and listed under the History button; free users see the Pro upsell there.
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MessageCircle, X, Send, Loader2, Coins, HeartPulse, Target, ArrowRight, PieChart, Trash2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Coins, HeartPulse, Target, ArrowRight, PieChart, History, MessageSquarePlus } from "lucide-react";
+import SavedChatsList from "@/components/ai/SavedChatsList";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -87,6 +87,8 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [blocked, setBlocked] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [view, setView] = useState<"chat" | "history">("chat");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const wallet = useGiniPlanStore((s) => s.wallet);
@@ -124,7 +126,8 @@ export default function ChatWidget() {
     setSending(true);
 
     try {
-      const res = await api.chat.send(trimmed, history);
+      const res = await api.chat.send(trimmed, history, conversationId);
+      if (res.conversation_id) setConversationId(res.conversation_id);
       setMessages((prev) => prev.map((m) => (m.id === pendingId ? { id: pendingId, role: "assistant", content: res.reply } : m)));
       fetchWallet();
     } catch (err) {
@@ -161,9 +164,18 @@ export default function ChatWidget() {
     sendMessage(input);
   }
 
-  function handleClear() {
+  function handleNewChat() {
     setMessages([WELCOME_MESSAGE]);
     setBlocked(false);
+    setConversationId(null);
+    setView("chat");
+  }
+
+  function openSaved(id: string, saved: { role: "user" | "assistant"; content: string }[]) {
+    setMessages(saved.map((m) => ({ id: nextId(), role: m.role, content: m.content })));
+    setConversationId(id);
+    setBlocked(false);
+    setView("chat");
   }
 
   return (
@@ -195,12 +207,25 @@ export default function ChatWidget() {
             <div className="flex shrink-0 items-center gap-1">
               <button
                 type="button"
-                onClick={handleClear}
-                title="Clear chat"
-                aria-label="Clear chat history"
+                onClick={() => setView((v) => (v === "history" ? "chat" : "history"))}
+                title="Saved chats"
+                aria-label="Saved chats"
+                aria-pressed={view === "history"}
+                className={cn(
+                  "rounded-md p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground",
+                  view === "history" && "bg-white/15 text-primary-foreground"
+                )}
+              >
+                <History className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNewChat}
+                title="New chat"
+                aria-label="Start a new chat"
                 className="rounded-md p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
               >
-                <Trash2 className="h-4 w-4" />
+                <MessageSquarePlus className="h-4 w-4" />
               </button>
               <button
                 type="button"
@@ -214,6 +239,13 @@ export default function ChatWidget() {
             </div>
           </div>
 
+          {view === "history" ? (
+            <div className="flex-1 overflow-y-auto">
+              <p className="border-b border-border px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Saved chats</p>
+              <SavedChatsList app="gini" activeId={conversationId} onOpen={openSaved} onDeletedActive={handleNewChat} upgradeHref="/gini/pricing" />
+            </div>
+          ) : (
+          <>
           {/* Quick actions */}
           <div className="flex flex-wrap gap-1.5 border-b border-border px-3 py-2">
             {QUICK_ACTIONS.map((qa) => (
@@ -290,6 +322,8 @@ export default function ChatWidget() {
               {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
+          </>
+          )}
         </div>
       )}
     </>

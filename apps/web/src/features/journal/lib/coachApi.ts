@@ -93,6 +93,8 @@ export interface ChatRequest {
   goals?: ChatGoalInput[];
   client_tier?: 'free' | 'pro';
   currency?: string;
+  /** Pro: the saved conversation this message continues. */
+  conversation_id?: string | null;
 }
 
 export interface ChatResponse {
@@ -100,6 +102,8 @@ export interface ChatResponse {
   tokens_used: number;
   token_balance: number;
   tier: 'free' | 'pro';
+  /** Pro: the saved conversation this exchange went into (null for free users). */
+  conversation_id?: string | null;
 }
 
 export interface WeeklyReviewRequest {

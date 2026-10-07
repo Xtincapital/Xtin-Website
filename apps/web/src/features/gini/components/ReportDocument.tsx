@@ -37,7 +37,6 @@ export interface ReportData {
   monthlyCashFlow: number;
   growthPct: number;
   riskLabel: string;
-  include: { netWorth: boolean; goals: boolean; portfolio: boolean };
   isSample: boolean;
 }
 
@@ -107,7 +106,6 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
     { name: "Growth-asset share", value: `${d.growthPct.toFixed(0)}%`, bench: "Balanced: 25–70%", r: ratioRating("growth", d.growthPct), show: d.totalAssets > 0 },
     { name: "Average goal funding", value: `${goalsFunded.toFixed(0)}%`, bench: "On track: 60%+", r: ratioRating("goals", goalsFunded), show: d.goals.length > 0 },
   ].filter((h) => h.show);
-  const showAssets = d.include.netWorth || d.include.portfolio;
 
   return (
     <div id="report-doc" style={{ width: REPORT_WIDTH, background: "#ffffff", color: C.ink, fontFamily: sans, position: "relative" }}>
@@ -184,34 +182,32 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
       )}
 
       {/* 03 Net worth & allocation */}
-      {showAssets && (
-        <Block>
-          <Heading no="03" title="Net Worth & Asset Allocation" />
-          {d.allocation.length === 0 ? (
-            <p style={{ fontSize: 12, color: C.mute }}>No assets recorded yet.</p>
-          ) : (
-            <>
-              <div style={{ display: "flex", height: 16, borderRadius: 8, overflow: "hidden", marginBottom: 12 }}>
-                {d.allocation.map((a, i) => <div key={a.category} style={{ width: `${a.pct}%`, background: BAR_COLORS[i % BAR_COLORS.length] }} />)}
-              </div>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <tbody>
-                  {d.allocation.map((a, i) => (
-                    <tr key={a.category}>
-                      <td style={td}><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: BAR_COLORS[i % BAR_COLORS.length], marginRight: 8 }} />{a.category}</td>
-                      <td style={{ ...td, ...num }}>{m(a.value)}</td>
-                      <td style={{ ...td, ...num, width: 60, fontWeight: 700 }}>{a.pct.toFixed(1)}%</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
-        </Block>
-      )}
+      <Block>
+        <Heading no="03" title="Net Worth & Asset Allocation" />
+        {d.allocation.length === 0 ? (
+          <p style={{ fontSize: 12, color: C.mute }}>No assets recorded yet.</p>
+        ) : (
+          <>
+            <div style={{ display: "flex", height: 16, borderRadius: 8, overflow: "hidden", marginBottom: 12 }}>
+              {d.allocation.map((a, i) => <div key={a.category} style={{ width: `${a.pct}%`, background: BAR_COLORS[i % BAR_COLORS.length] }} />)}
+            </div>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <tbody>
+                {d.allocation.map((a, i) => (
+                  <tr key={a.category}>
+                    <td style={td}><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: BAR_COLORS[i % BAR_COLORS.length], marginRight: 8 }} />{a.category}</td>
+                    <td style={{ ...td, ...num }}>{m(a.value)}</td>
+                    <td style={{ ...td, ...num, width: 60, fontWeight: 700 }}>{a.pct.toFixed(1)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+      </Block>
 
       {/* Holdings + liabilities tables */}
-      {showAssets && d.assets.length > 0 && chunk(d.assets, 14).map((rows, i) => (
+      {d.assets.length > 0 && chunk(d.assets, 14).map((rows, i) => (
         <Block key={`a${i}`} style={{ marginTop: 14 }}>
           {i === 0 && <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 6 }}>Holdings Register</div>}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -224,7 +220,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           </table>
         </Block>
       ))}
-      {showAssets && d.liabilities.length > 0 && chunk(d.liabilities, 12).map((rows, i) => (
+      {d.liabilities.length > 0 && chunk(d.liabilities, 12).map((rows, i) => (
         <Block key={`l${i}`} style={{ marginTop: 14 }}>
           {i === 0 && <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 6 }}>Liabilities Register</div>}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -239,36 +235,32 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
       ))}
 
       {/* 04 Goals */}
-      {d.include.goals && (
-        <>
-          <Block><Heading no="04" title="Goals Analysis" sub="Future value uses each goal's inflation rate" /></Block>
-          {d.goals.length === 0 ? (
-            <Block><p style={{ fontSize: 12, color: C.mute }}>No goals recorded yet.</p></Block>
-          ) : d.goals.map((g, i) => {
-            const color = g.progressPct >= 60 ? C.good : g.progressPct >= 30 ? C.warn : C.bad;
-            return (
-              <Block key={i} style={{ marginBottom: 10 }}>
-                <div style={{ border: `1px solid ${C.line}`, borderLeft: `4px solid ${color}`, borderRadius: 6, padding: "10px 14px" }}>
-                  <div style={{ display: "flex", alignItems: "baseline" }}>
-                    <span style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy }}>{g.name}</span>
-                    <span style={{ marginLeft: 8, fontSize: 10, color: C.mute }}>{g.category} · {g.priority} priority</span>
-                    <span style={{ marginLeft: "auto", fontWeight: 700, color }}>{g.progressPct.toFixed(0)}% funded</span>
-                  </div>
-                  <div style={{ height: 7, background: C.line, borderRadius: 4, margin: "8px 0" }}><div style={{ width: `${Math.min(100, g.progressPct)}%`, height: 7, background: color, borderRadius: 4 }} /></div>
-                  <div style={{ display: "flex", fontSize: 11, color: "#374151", gap: 24 }}>
-                    <span>Target year: <strong>{g.targetYear ?? "—"}</strong></span>
-                    <span>Inflation-adjusted cost: <strong>{m(g.futureValue)}</strong></span>
-                    <span>Saved so far: <strong>{m(g.saved)}</strong></span>
-                  </div>
-                </div>
-              </Block>
-            );
-          })}
-        </>
-      )}
+      <Block><Heading no="04" title="Goals Analysis" sub="Future value uses each goal's inflation rate" /></Block>
+      {d.goals.length === 0 ? (
+        <Block><p style={{ fontSize: 12, color: C.mute }}>No goals recorded yet.</p></Block>
+      ) : d.goals.map((g, i) => {
+        const color = g.progressPct >= 60 ? C.good : g.progressPct >= 30 ? C.warn : C.bad;
+        return (
+          <Block key={i} style={{ marginBottom: 10 }}>
+            <div style={{ border: `1px solid ${C.line}`, borderLeft: `4px solid ${color}`, borderRadius: 6, padding: "10px 14px" }}>
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <span style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy }}>{g.name}</span>
+                <span style={{ marginLeft: 8, fontSize: 10, color: C.mute }}>{g.category} · {g.priority} priority</span>
+                <span style={{ marginLeft: "auto", fontWeight: 700, color }}>{g.progressPct.toFixed(0)}% funded</span>
+              </div>
+              <div style={{ height: 7, background: C.line, borderRadius: 4, margin: "8px 0" }}><div style={{ width: `${Math.min(100, g.progressPct)}%`, height: 7, background: color, borderRadius: 4 }} /></div>
+              <div style={{ display: "flex", fontSize: 11, color: "#374151", gap: 24 }}>
+                <span>Target year: <strong>{g.targetYear ?? "—"}</strong></span>
+                <span>Inflation-adjusted cost: <strong>{m(g.futureValue)}</strong></span>
+                <span>Saved so far: <strong>{m(g.saved)}</strong></span>
+              </div>
+            </div>
+          </Block>
+        );
+      })}
 
       {/* 05 Household */}
-      {d.include.portfolio && d.members.length > 0 && (
+      {d.members.length > 0 && (
         <Block>
           <Heading no="05" title="Household & Cash Flow" />
           <table style={{ width: "100%", borderCollapse: "collapse" }}>

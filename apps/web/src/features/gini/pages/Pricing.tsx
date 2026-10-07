@@ -48,6 +48,7 @@ const PRO_FEATURES = [
   "Monte Carlo retirement simulations",
   "Advanced family planning tools",
   "100,000 bonus AI tokens on purchase",
+  "Saved Gini chats — reopen and continue any conversation",
   "Priority AI advisor access",
 ];
 

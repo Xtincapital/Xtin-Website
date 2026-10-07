@@ -4,6 +4,8 @@
 import { Router } from "express";
 import { authenticate } from "../../middlewares/auth.js";
 import { analyzeTrades, getBehavioralAlerts, chatCoach, weeklyReview, preTradeCheck } from "./aiCoach.controller.js";
+import { chatHistoryRouter } from "../ai/chatHistory.js";
+import { getPlanTier } from "./planTier.js";
 
 const router = Router();
 
@@ -13,5 +15,7 @@ router.get("/journal/behavioral-alerts", authenticate, getBehavioralAlerts);
 router.post("/journal/chat", authenticate, chatCoach);
 router.post("/journal/weekly-review", authenticate, weeklyReview);
 router.post("/journal/pre-trade-check", authenticate, preTradeCheck);
+// Saved coach chats — a Journal Pro perk (server-side tier only, never the client's).
+router.use(chatHistoryRouter("journal", async (authId) => (await getPlanTier(authId)) === "pro"));
 
 export default router;

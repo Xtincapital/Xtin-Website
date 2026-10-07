@@ -5,7 +5,7 @@
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateApplicationCreate, validateApplicationReview } from "./publisherApplications.validator.js";
 import { notifyAdminsNewApplication } from "../../services/adminNotify.service.js";
-import { insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus, updateOwnPendingApplication, getApplicationById } from "./publisherApplications.repository.js";
+import { getApprovedListings, insertApplication, getApplicationsByUser, getAllApplications, updateApplicationStatus, updateOwnPendingApplication, getApplicationById } from "./publisherApplications.repository.js";
 
 /* POST /algos/publisher-applications */
 export const createApplication = async (req, res) => {
@@ -21,6 +21,19 @@ export const createApplication = async (req, res) => {
     } catch (err) {
         console.error("[Algos] create publisher application failed:", err);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: "Could not submit your application. Please try again." });
+    }
+};
+
+/* GET /algos/market — approved algorithms shown in AlgoMarket. Public: no sign-in needed. */
+export const listMarketAlgos = async (_req, res) => {
+    try {
+        const { data, error } = await getApprovedListings();
+        if (error) throw error;
+        res.set("Cache-Control", "public, max-age=60");
+        return res.status(HTTP_STATUS.OK).json(data || []);
+    } catch (err) {
+        console.error("[Algos] list AlgoMarket algorithms failed:", err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: "Could not load AlgoMarket." });
     }
 };
 

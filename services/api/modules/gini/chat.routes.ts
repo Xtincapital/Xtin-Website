@@ -5,9 +5,13 @@
 import { Router } from "express";
 import { authenticate } from "../../middlewares/auth.js";
 import { chatWithGini } from "./chat.controller.js";
+import { chatHistoryRouter } from "../ai/chatHistory.js";
+import { getGiniPlanTier } from "./planTier.js";
 
 const router = Router();
 
 router.post("/gini/chat", authenticate, chatWithGini);
+// Saved chats — a Gini Pro perk.
+router.use(chatHistoryRouter("gini", async (authId) => (await getGiniPlanTier(authId)) === "pro"));
 
 export default router;

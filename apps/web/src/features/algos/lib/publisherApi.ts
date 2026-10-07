@@ -45,7 +45,20 @@ async function call<T>(path: string, options: RequestInit = {}): Promise<T> {
   return body as T;
 }
 
+/** An approved algorithm as AlgoMarket shows it (public fields only). */
+export type MarketAlgo = Pick<
+  PublisherApplication,
+  'id' | 'applicant_name' | 'algo_name' | 'strategy_type' | 'asset_class' | 'expected_price' | 'backtest_summary' | 'description' | 'experience' | 'reviewed_at'
+>;
+
 export const publisherApi = {
+  /** Approved algorithms for AlgoMarket. Public: no sign-in needed. */
+  listMarket: async (): Promise<MarketAlgo[]> => {
+    const res = await fetch(`${BACKEND_URL}/api/algos/market`);
+    const body = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(body?.error || 'Could not load AlgoMarket');
+    return Array.isArray(body) ? body : [];
+  },
   submit: (data: Record<string, unknown>) => call<PublisherApplication>('', { method: 'POST', body: JSON.stringify(data) }),
   /** Correct a submission — only allowed while its status is still "pending". */
   update: (id: string, data: Record<string, unknown>) => call<PublisherApplication>(`/${id}`, { method: 'PUT', body: JSON.stringify(data) }),

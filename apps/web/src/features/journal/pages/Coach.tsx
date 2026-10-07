@@ -30,16 +30,11 @@
 //         an empty array — see aiCoach.controller.ts's own comment — so this
 //         is deliberately just an empty-state card, not elaborate UI)
 //
-// Chat history: the original's `this.chatHistory` was in-memory only (never
-// persisted to Supabase either), and aiCoach.routes.ts has no
-// `GET .../history` endpoint for Journal chat (unlike FundaKaMental's
-// `funda_chat_messages` table + endpoint) — confirmed by reading
-// aiCoach.controller.ts/routes.ts directly, not assumed. So this page's
-// conversation lives in local component state only and resets on refresh /
-// navigating away, exactly matching the backend's actual capability (no
-// invented persistence layer). The last `history` messages ARE still sent
-// with every chat request (like the original's `chatHistory` array) so
-// Claude has short-term memory *within* a browser session.
+// Chat history: the open conversation lives in component state, and the last
+// `history` messages are sent with every chat request so Claude remembers the
+// thread. For Pro users the server also saves each exchange
+// (services/api/modules/ai/chatHistory.ts); "Saved chats" lists them and
+// reopening one continues it. Free users see the Pro upsell there.
 //
 // Wallet: ../store/useJournalPlanStore.ts (the parallel task, landed by the
 // time this was written — its real shape was read directly, not guessed).
@@ -67,7 +62,10 @@ import {
   TrendingDown,
   AlertTriangle,
   CircleCheck,
+  History,
+  MessageSquarePlus,
 } from "lucide-react";
+import SavedChatsList from "@/components/ai/SavedChatsList";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -359,16 +357,30 @@ function ChatTab({
   onInsufficientTokens: (err: InsufficientTokensError) => void;
   onWalletChange: () => void;
 }) {
-  const [messages, setMessages] = useState<ChatBubble[]>([
-    {
-      id: nextMessageId(),
-      role: "assistant",
-      content:
-        "Hey! I'm Xtin Journal AI, your personal trading coach. I look at your actual trade history to give specific, honest feedback — ask me anything about your performance, a strategy, or how your emotions are affecting your P&L.",
-    },
-  ]);
+  const welcome = (): ChatBubble => ({
+    id: nextMessageId(),
+    role: "assistant",
+    content:
+      "Hey! I'm Xtin Journal AI, your personal trading coach. I look at your actual trade history to give specific, honest feedback — ask me anything about your performance, a strategy, or how your emotions are affecting your P&L.",
+  });
+  const [messages, setMessages] = useState<ChatBubble[]>(() => [welcome()]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  // Pro: the saved conversation being continued, and whether the saved-chats list is showing.
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
+
+  function newChat() {
+    setMessages([welcome()]);
+    setConversationId(null);
+    setShowHistory(false);
+  }
+
+  function openSaved(id: string, saved: { role: "user" | "assistant"; content: string }[]) {
+    setMessages(saved.map((m) => ({ id: nextMessageId(), role: m.role, content: m.content })));
+    setConversationId(id);
+    setShowHistory(false);
+  }
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -400,7 +412,9 @@ function ChatTab({
         goals: goals.map((g) => ({ title: g.title, target: g.target_value, metric: g.metric, timeframe: g.timeframe })),
         client_tier: clientTier,
         currency,
+        conversation_id: conversationId,
       });
+      if (res.conversation_id) setConversationId(res.conversation_id);
       setMessages((prev) => [...prev, { id: nextMessageId(), role: "assistant", content: res.reply }]);
       onWalletChange();
     } catch (err) {
@@ -423,6 +437,24 @@ function ChatTab({
   return (
     <Card>
       <CardContent className="p-0">
+        <div className="flex items-center justify-end gap-1 border-b px-3 py-2">
+          <Button type="button" variant={showHistory ? "secondary" : "ghost"} size="sm" className="gap-1.5" onClick={() => setShowHistory((v) => !v)} aria-pressed={showHistory}>
+            <History className="h-4 w-4" /> Saved chats
+          </Button>
+          <Button type="button" variant="ghost" size="sm" className="gap-1.5" onClick={newChat}>
+            <MessageSquarePlus className="h-4 w-4" /> New chat
+          </Button>
+        </div>
+        {showHistory ? (
+          <SavedChatsList
+            app="journal"
+            activeId={conversationId}
+            onOpen={openSaved}
+            onDeletedActive={newChat}
+            upgradeHref="/journal/pricing"
+            className="max-h-[55vh] min-h-[320px] overflow-y-auto"
+          />
+        ) : (
         <div ref={scrollRef} className="max-h-[55vh] min-h-[320px] space-y-4 overflow-y-auto p-4 sm:p-6">
           {tradesLoading && (
             <p className="text-center text-xs text-muted-foreground">Loading your trade history for context...</p>
@@ -461,6 +493,7 @@ function ChatTab({
             </div>
           )}
         </div>
+        )}
 
         <form onSubmit={handleSend} className="flex items-center gap-2 border-t p-3 sm:p-4">
           <Input

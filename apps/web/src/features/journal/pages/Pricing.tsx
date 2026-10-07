@@ -52,6 +52,7 @@ const PRO_FEATURES = [
   "Analytics — pro-grade performance review",
   "Heatmaps — see patterns at a glance",
   "Unlimited performance goals",
+  "Saved AI coach chats — reopen and continue any conversation",
   "Priority AI coach access",
 ];
 

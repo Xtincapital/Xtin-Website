@@ -17,6 +17,8 @@ const historyEntrySchema = z.object({
 const chatSchema = z.object({
     message: z.string().min(1, "Message is required").max(4000, "Message must be at most 4000 characters"),
     history: z.array(historyEntrySchema).optional().default([]),
+    /** Pro: the saved conversation this message continues (modules/ai/chatHistory.ts). */
+    conversation_id: z.string().uuid().optional().nullable(),
 });
 
 export const validateChatRequest = (input: unknown) => {

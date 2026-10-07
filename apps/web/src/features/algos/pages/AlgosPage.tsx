@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AlgoDetailsModal from '../components/AlgoDetailsModal';
 import { ALGO_DETAILS, ALGO_ORDER } from '../components/algoDetails';
 import PublisherApplicationsModal from '../components/PublisherApplicationsModal';
+import AlgoMarketListings from '../components/AlgoMarketListings';
 import { publisherApi, type PublisherApplication } from '../lib/publisherApi';
 import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
@@ -1010,40 +1011,61 @@ const AlgosPage = () => {
               </p>
             </div>
 
-            <div className="flex justify-center">
-              {/* Community Algorithms Coming Soon */}
-              <div className="bg-gradient-to-br from-gray-50 to-white shadow-lg rounded-xl p-8 border border-gray-200 text-center max-w-2xl w-full">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
-                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+            <AlgoMarketListings
+              empty={
+                <div className="flex justify-center">
+                  {/* Community Algorithms Coming Soon */}
+                  <div className="bg-gradient-to-br from-gray-50 to-white shadow-lg rounded-xl p-8 border border-gray-200 text-center max-w-2xl w-full">
+                    <div className="flex justify-center mb-4">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
+                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Algorithms Coming Soon</h3>
+                    <p className="text-gray-700 mb-6">
+                      We're building our community marketplace where verified traders can publish their strategies. Be among the first to access community-driven algorithms.
+                    </p>
+                    <div className="text-left mb-6">
+                      <p className="text-gray-700 mb-2"><strong>Expected Launch:</strong> Q3 2026</p>
+                      <p className="text-gray-700"><strong>Features:</strong> Verified publishers, performance tracking, ratings & reviews</p>
+                    </div>
+                    <button 
+                      className="bg-green-100 hover:bg-green-200 text-green-600 font-semibold px-6 py-3 rounded-lg transition"
+                      onClick={openPublisherForm}
+                    >
+                      Join Publisher Waitlist
+                    </button>
+                    <button
+                      type="button"
+                      className="block mx-auto mt-3 text-sm font-medium text-green-600 hover:underline"
+                      onClick={() => setShowMyApplications(true)}
+                    >
+                      Check my application status
+                    </button>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Algorithms Coming Soon</h3>
-                <p className="text-gray-700 mb-6">
-                  We're building our community marketplace where verified traders can publish their strategies. Be among the first to access community-driven algorithms.
-                </p>
-                <div className="text-left mb-6">
-                  <p className="text-gray-700 mb-2"><strong>Expected Launch:</strong> Q3 2026</p>
-                  <p className="text-gray-700"><strong>Features:</strong> Verified publishers, performance tracking, ratings & reviews</p>
+              }
+              footer={
+                <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
+                  <span className="text-gray-700">Have a strategy of your own?</span>
+                  <button
+                    className="bg-green-100 hover:bg-green-200 text-green-700 font-semibold px-5 py-2.5 rounded-lg transition"
+                    onClick={openPublisherForm}
+                  >
+                    Apply to publish your algorithm
+                  </button>
+                  <button
+                    type="button"
+                    className="text-sm font-medium text-green-600 hover:underline"
+                    onClick={() => setShowMyApplications(true)}
+                  >
+                    Check my application status
+                  </button>
                 </div>
-                <button 
-                  className="bg-green-100 hover:bg-green-200 text-green-600 font-semibold px-6 py-3 rounded-lg transition"
-                  onClick={openPublisherForm}
-                >
-                  Join Publisher Waitlist
-                </button>
-                <button
-                  type="button"
-                  className="block mx-auto mt-3 text-sm font-medium text-green-600 hover:underline"
-                  onClick={() => setShowMyApplications(true)}
-                >
-                  Check my application status
-                </button>
-              </div>
-
-            </div>
+              }
+            />
           </div>
         </section>
       )}

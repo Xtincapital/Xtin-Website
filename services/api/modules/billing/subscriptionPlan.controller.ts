@@ -16,6 +16,7 @@ import { invalidatePlanTierCache as invalidateJournalPlanTierCache } from "../jo
 import { grantProIncludedTokens as grantJournalProTokens } from "../journal/proPlan.controller.js";
 import { getUserPlan as getFundakamentalPlan, grantPro as grantFundakamentalPro } from "../fundakamental/razorpay.repository.js";
 import { priceOrderOrRespond } from "../coupons/coupons.service.js";
+import { getProPlan as getBacktestProPlan } from "../backtest/repository.js";
 
 /** The dev shortcuts below grant without payment, so they exist only outside production. */
 const paymentsUnavailableInProduction = () => process.env.NODE_ENV === "production" && !razorpayConfigured();
@@ -296,12 +297,17 @@ export const getUserSubscriptionPlans = async (req, res) => {
         const { data: newsSubs = [] } = await getNewsletterPlansForUser(userId, authId);
         const activeNews = (newsSubs || []).filter((s) => new Date(s.valid_until) > now);
 
+        // 5. Product Pro plans bought on the product's own pricing page or
+        //    granted by a coupon: each lives in its own table, keyed by auth id.
+        const activeProductPlans = await getActiveProductPlans(authId, now);
+        const hasProduct = (key: string) => activeProductPlans.some((p) => p.product === key);
+
         // Compute aggregate subscription flags
         const isBundleActive = activeBundles.some(b => b.plan_id === 'ultimate-pass');
         const hasAlgo = isBundleActive || activeAlgos.length > 0 || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('algo')));
-        const hasGini = isBundleActive || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('gini')));
-        const hasFunda = isBundleActive || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('funda')));
-        const hasJournal = isBundleActive || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('journal')));
+        const hasGini = isBundleActive || hasProduct("gini") || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('gini')));
+        const hasFunda = isBundleActive || hasProduct("fundakamental") || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('funda')));
+        const hasJournal = isBundleActive || hasProduct("journal") || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('journal')));
         const hasLearn = isBundleActive || activeLearn.length > 0 || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('learn')));
         const hasNews = isBundleActive || activeNews.length > 0 || activeBundles.some(b => b.products?.some(p => String(p).toLowerCase().includes('news')));
 
@@ -323,6 +329,7 @@ export const getUserSubscriptionPlans = async (req, res) => {
                 activeAlgos,
                 activeLearn,
                 activeNews,
+                activeProductPlans,
             },
         });
     } catch (err) {
@@ -330,6 +337,36 @@ export const getUserSubscriptionPlans = async (req, res) => {
         return res.status(500).json({ error: "Failed to fetch user subscriptions" });
     }
 };
+
+type ProductPlan = { product: "gini" | "journal" | "fundakamental" | "backtest"; plan_name: string; plan_id: string | null; valid_until: string };
+
+/** Active Gini / Journal / FundaKaMental / Backtest Pro plans. A table that can't be read is left out rather than failing the dashboard. */
+export async function getActiveProductPlans(authId: string | null, now = new Date()): Promise<ProductPlan[]> {
+    if (!authId) return [];
+    const yearly = (planId?: string | null) => (String(planId || "").includes("year") ? " (yearly)" : "");
+    const read = async <T>(label: string, load: () => Promise<T>): Promise<T | null> => {
+        try {
+            return await load();
+        } catch (e) {
+            console.warn(`[SubscriptionPlan] could not read ${label} plan:`, e);
+            return null;
+        }
+    };
+    const [gini, journal, funda, backtest] = await Promise.all([
+        read("Gini", async () => (await getGiniProPlan(authId)).data),
+        read("Journal", async () => (await getJournalProPlan(authId)).data),
+        read("FundaKaMental", async () => (await getFundakamentalPlan(authId)).data),
+        read("Backtest", () => getBacktestProPlan(authId)),
+    ]);
+    const plans: ProductPlan[] = [];
+    if (gini?.valid_until) plans.push({ product: "gini", plan_name: `Gini Pro${yearly(gini.plan_id)}`, plan_id: gini.plan_id ?? null, valid_until: gini.valid_until });
+    if (journal?.valid_until)
+        plans.push({ product: "journal", plan_name: `Xtin Journal Pro${yearly(journal.plan_id)}`, plan_id: journal.plan_id ?? null, valid_until: journal.valid_until });
+    if (funda?.plan_valid_until && funda.plan !== "free")
+        plans.push({ product: "fundakamental", plan_name: "FundaKaMental Pro", plan_id: funda.plan ?? null, valid_until: funda.plan_valid_until });
+    if (backtest?.valid_until) plans.push({ product: "backtest", plan_name: "Backtest Pro", plan_id: backtest.pass_id ?? null, valid_until: backtest.valid_until });
+    return plans.filter((p) => new Date(p.valid_until) > now);
+}
 
 /**
  * POST /api/subscriptions/dev-activate

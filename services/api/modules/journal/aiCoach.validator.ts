@@ -54,6 +54,8 @@ const chatSchema = z.object({
     history: z.array(tradeLikeSchema).optional().default([]),
     goals: z.array(tradeLikeSchema).optional().default([]),
     client_tier: z.enum(["free", "pro"]).optional().default("free"),
+    /** Pro: the saved conversation this message continues (modules/ai/chatHistory.ts). */
+    conversation_id: z.string().uuid().optional().nullable(),
     currency: z.string().trim().optional().default("INR"),
 });
 

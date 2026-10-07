@@ -49,6 +49,7 @@ import { generateInsights } from "./insightsEngine.js";
 import { buildLeanSystemPrompt, formatResponse, addStructure } from "./chatPrompt.js";
 import { ensureTokens, deductTokens, InsufficientAiTokensError } from "./aiWallet.repository.js";
 import { getGiniPlanTier } from "./planTier.js";
+import { saveExchange } from "../ai/chatHistory.js";
 
 // Response budgets by plan tier — port of app.js's `CHAT_LIMITS.freeMaxOutputTokens`
 // (180) / `proMaxOutputTokens` (420), which `getChatMaxOutputTokens()` fed
@@ -81,7 +82,7 @@ export const chatWithGini = async (req, res) => {
     if (validation.errors) {
         return res.status(400).json({ error: validation.message, details: validation.errors });
     }
-    const { message, history } = validation.data;
+    const { message, history, conversation_id } = validation.data;
     const userId = req.user.authId;
 
     try {
@@ -141,10 +142,14 @@ export const chatWithGini = async (req, res) => {
         // Deduct REAL usage from the wallet only after a successful call.
         const wallet = await deductTokens(userId, tokensUsed);
 
+        // Pro perk: keep the conversation (never blocks the reply).
+        const conversationId = isPro ? await saveExchange({ app: "gini", userId, conversationId: conversation_id, question: message, reply: structured }) : null;
+
         return res.status(200).json({
             reply: structured,
             tokens_used: tokensUsed,
             token_balance: wallet.token_balance,
+            conversation_id: conversationId,
         });
     } catch (err) {
         if (err instanceof InsufficientAiTokensError) {

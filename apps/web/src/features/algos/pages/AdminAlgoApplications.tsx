@@ -123,6 +123,11 @@ function ApplicationCard({ app, onSaved }: { app: PublisherApplication; onSaved:
             </button>
             {app.reviewed_at && <span className="text-xs text-gray-500 dark:text-slate-400">Last decision {when(app.reviewed_at)}</span>}
           </div>
+          <p className="text-xs text-gray-500 dark:text-slate-400">
+            {app.status === 'approved'
+              ? 'Listed publicly in AlgoMarket (name, algorithm, price, description and backtest; never the email). Change the status to remove it.'
+              : 'Approving lists this algorithm publicly in AlgoMarket with the applicant\'s name, price, description and backtest (not their email).'}
+          </p>
           {error && <p role="alert" className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         </div>
       )}

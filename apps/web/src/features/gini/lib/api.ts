@@ -379,11 +379,13 @@ export interface ChatResponse {
   reply: string;
   tokens_used: number;
   token_balance: number;
+  /** Pro: the saved conversation this exchange went into (null for free users). */
+  conversation_id?: string | null;
 }
 
 export const chat = {
-  send: async (message: string, history: ChatHistoryEntry[] = []): Promise<ChatResponse> => {
-    return await request('/chat', { method: 'POST', body: JSON.stringify({ message, history }) });
+  send: async (message: string, history: ChatHistoryEntry[] = [], conversationId: string | null = null): Promise<ChatResponse> => {
+    return await request('/chat', { method: 'POST', body: JSON.stringify({ message, history, conversation_id: conversationId || undefined }) });
   },
 };
 

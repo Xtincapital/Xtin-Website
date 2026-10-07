@@ -7,12 +7,15 @@ const repo = vi.hoisted(() => ({
     updateApplicationStatus: vi.fn(),
     updateOwnPendingApplication: vi.fn(),
     getApplicationById: vi.fn(),
+    getApprovedListings: vi.fn(),
 }));
 vi.mock("./publisherApplications.repository.js", () => repo);
+// CI has no Supabase env vars; the column-list test imports the real repository.
+vi.mock("../../supabase/index.js", () => ({ default: {} }));
 
 vi.mock("../../services/adminNotify.service.js", () => ({ notifyAdminsNewApplication: vi.fn() }));
 
-import { updateMyApplication } from "./publisherApplications.controller.js";
+import { listMarketAlgos, updateMyApplication } from "./publisherApplications.controller.js";
 
 const body = {
     applicant_name: "Asha",
@@ -65,5 +68,31 @@ describe("updateMyApplication", () => {
         const res = await run({ ...body, expected_price: 5 });
         expect(res.statusCode).toBe(400);
         expect(repo.getApplicationById).not.toHaveBeenCalled();
+    });
+});
+
+describe("listMarketAlgos (AlgoMarket)", () => {
+    const res = () => ({ statusCode: 0, body: null as any, headers: {} as Record<string, string>, set(k: string, v: string) { this.headers[k] = v; return this; }, status(c: number) { this.statusCode = c; return this; }, json(b: unknown) { this.body = b; return this; } });
+
+    it("returns the approved algorithms", async () => {
+        repo.getApprovedListings.mockResolvedValue({ data: [{ id: "a", algo_name: "Gold Breakout" }], error: null });
+        const r = res();
+        await listMarketAlgos({}, r);
+        expect(r.statusCode).toBe(200);
+        expect(r.body).toEqual([{ id: "a", algo_name: "Gold Breakout" }]);
+    });
+
+    it("500s when the table can't be read", async () => {
+        repo.getApprovedListings.mockResolvedValue({ data: null, error: new Error("down") });
+        const r = res();
+        await listMarketAlgos({}, r);
+        expect(r.statusCode).toBe(500);
+    });
+
+    it("never selects the applicant's email or user id", async () => {
+        const actual = await vi.importActual<typeof import("./publisherApplications.repository.js")>("./publisherApplications.repository.js").catch(() => null);
+        const cols = actual?.MARKET_COLUMNS ?? "";
+        expect(cols).toContain("algo_name");
+        expect(cols).not.toMatch(/email|user_id/);
     });
 });

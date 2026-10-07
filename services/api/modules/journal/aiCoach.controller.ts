@@ -24,6 +24,7 @@ import { ensureAiTokens, deductAiTokens, InsufficientAiTokensError, type Journal
 import { getPlanTier } from "./planTier.js";
 import { compactTradeContext, hasPnl, pnlOf, symbolOf, fmt, type JournalTradeLike } from "./tradeContext.js";
 import { validateAnalyzeRequest, validatePreTradeCheck, validateWeeklyReview, validateChatRequest } from "./aiCoach.validator.js";
+import { saveExchange } from "../ai/chatHistory.js";
 
 // Journal's original design (main.py) always used Claude Haiku — cheap and
 // fast, appropriate for these short (100-550 word), high-frequency coaching
@@ -425,7 +426,7 @@ export const chatCoach = async (req, res) => {
     if (validation.errors) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
     }
-    const { message, trades, display_name, history, goals, client_tier, currency } = validation.data;
+    const { message, trades, display_name, history, goals, client_tier, currency, conversation_id } = validation.data;
     const userId = req.user.authId;
     const cur = (currency || "INR").toUpperCase();
     const sym = CURRENCY_SYMBOLS[cur] || "₹";
@@ -578,11 +579,14 @@ RULES:
 
     try {
         const { text, tokensUsed, wallet } = await callClaudeCoach(userId, claudePrompt, tradesList, maxTokens);
+        // Pro perk: keep the conversation (never blocks the reply).
+        const conversationId = tier === "pro" ? await saveExchange({ app: "journal", userId, conversationId: conversation_id, question: message, reply: text }) : null;
         return res.status(HTTP_STATUS.OK).json({
             reply: text,
             tokens_used: tokensUsed,
             token_balance: wallet.token_balance,
             tier,
+            conversation_id: conversationId,
         });
     } catch (err) {
         if (err instanceof InsufficientAiTokensError) {

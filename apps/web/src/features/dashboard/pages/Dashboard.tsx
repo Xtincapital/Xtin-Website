@@ -111,7 +111,7 @@ const PRODUCT_PLAN_DETAILS = {
       'Instant breakdown of quarterly financial results & balance sheets',
       'Real-time market sentiment & technical indicator summaries',
       'Custom strategy recommendations & portfolio rebalancing advice',
-      'Unlimited conversation history & context memory',
+      'Saved chat history — reopen and continue any conversation',
     ],
   },
   fundakamental: {
@@ -132,6 +132,7 @@ const PRODUCT_PLAN_DETAILS = {
       'Psychology & Emotion tracking (Identify FOMO & Revenge Trading patterns)',
       'Equity curve visualization, drawdown analysis & daily PnL calendar',
       'Exportable tax-ready trading journals & performance reports',
+      'Saved AI coach chats — reopen and continue any conversation',
     ],
   },
   learn: {
@@ -512,6 +513,15 @@ const Dashboard = () => {
           if (!list.length || [...covered].some((c) => c.includes(needle as string))) return;
           const latest = list.reduce((a, b) => (new Date(b.valid_until) > new Date(a.valid_until) ? b : a));
           plans.push({ id: `db-${needle}`, planName: name, products: [], isBundle: false, status: "Active", expiryDate: toDate(latest.valid_until) });
+        });
+        // Gini / Journal / FundaKaMental / Backtest Pro bought on the product's
+        // own page or granted by a coupon (a bundle also writes these, so skip
+        // the ones a listed bundle already covers).
+        const needles = { gini: 'gini', journal: 'journal', fundakamental: 'funda', backtest: 'backtest' };
+        (dbActivePlans?.activeProductPlans || []).forEach((p) => {
+          const needle = needles[p.product] || p.product;
+          if (dbSubs.bundle || [...covered].some((c) => c.includes(needle))) return;
+          plans.push({ id: `db-${p.product}`, planName: p.plan_name, products: [], isBundle: false, status: "Active", expiryDate: toDate(p.valid_until) });
         });
 
         setActivePlans(plans);
