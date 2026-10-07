@@ -42,6 +42,7 @@ import { addTokens } from "./aiWallet.repository.js";
 import { findPurchaseByPaymentId, insertAiWalletPurchase } from "./aiWalletPurchases.repository.js";
 import { invalidateGiniPlanTierCache } from "./planTier.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Port of features-incoming/gini/api/razorpay-plan-order.js's PRO_PLANS.
 // Amounts are whole units per currency (multiplied by 100 for paise/cents
@@ -125,14 +126,21 @@ export const createPlanOrder = async (req, res) => {
         const userId = req.user.authId;
         const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
 
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "gini_pro_plan",
+            amount: Math.round(amountWhole * 100),
+            currency,
+            notes: { product: "gini_pro_plan", plan_id: plan.id, user_id: String(userId || ""), ...buyerNotes(req.user) },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
         const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
             method: "POST",
             headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-                amount: Math.round(amountWhole * 100),
+                amount: priced.amount,
                 currency,
                 receipt: `gini_pro_${String(userId || "").slice(-8)}_${Date.now()}`,
-                notes: { product: "gini_pro_plan", plan_id: plan.id, user_id: String(userId || ""), ...buyerNotes(req.user) },
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

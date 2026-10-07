@@ -225,6 +225,9 @@ interface JournalPlanState {
   // Checkout
   checkoutBusy: boolean;
   celebrating: boolean;
+  /** Coupon applied on the pricing page; sent with the next order (the server re-checks it). */
+  couponCode: string | null;
+  setCouponCode: (code: string | null) => void;
   startProCheckout: (planId: ProPlanId, currency: JournalCurrency) => Promise<void>;
   startAiPackCheckout: (packageId: AiPackageId) => Promise<void>;
 
@@ -246,6 +249,8 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
   aiPackagesLoading: false,
 
   checkoutBusy: false,
+  couponCode: null,
+  setCouponCode: (couponCode) => set({ couponCode }),
   celebrating: false,
 
   isPro: () => {
@@ -313,8 +318,16 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
     try {
       const orderRes: any = await request("/plan/razorpay/order", {
         method: "POST",
-        body: JSON.stringify({ plan_id: planId, currency }),
+        body: JSON.stringify({ plan_id: planId, currency, coupon_code: get().couponCode || undefined }),
       });
+      if (orderRes?.free) {
+        // A coupon covered the whole price: already granted, no payment step.
+        showPurchaseReceipt(orderRes.order_id);
+        set({ couponCode: null });
+        await get().refreshAll();
+        set({ checkoutBusy: false });
+        return;
+      }
       const ok = await loadRazorpayScript();
       if (!ok || !(window as any).Razorpay) {
         throw new Error("Could not load the secure checkout. Check your connection.");
@@ -343,6 +356,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
             });
             if (!verify?.success) throw new Error("Verification failed");
             showPurchaseReceipt(response.razorpay_order_id);
+            set({ couponCode: null });
             set({ celebrating: true });
             setTimeout(() => set({ celebrating: false }), 2600);
             // A Pro purchase also grants a 100,000 AI-token bonus
@@ -375,8 +389,16 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
     try {
       const orderRes: any = await request("/ai/razorpay/order", {
         method: "POST",
-        body: JSON.stringify({ package_id: packageId }),
+        body: JSON.stringify({ package_id: packageId, coupon_code: get().couponCode || undefined }),
       });
+      if (orderRes?.free) {
+        // A coupon covered the whole price: already granted, no payment step.
+        showPurchaseReceipt(orderRes.order_id);
+        set({ couponCode: null });
+        await get().refreshAll();
+        set({ checkoutBusy: false });
+        return;
+      }
       const ok = await loadRazorpayScript();
       if (!ok || !(window as any).Razorpay) {
         throw new Error("Could not load the secure checkout. Check your connection.");
@@ -404,6 +426,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
             });
             if (!verify?.success) throw new Error("Verification failed");
             showPurchaseReceipt(response.razorpay_order_id);
+            set({ couponCode: null });
             await get().fetchWallet();
           } catch {
             alert("Payment succeeded but we couldn't confirm it. Contact support with your payment ID.");

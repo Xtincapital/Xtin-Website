@@ -28,6 +28,7 @@ import { formatPrice } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
 import RegionSwitcher from "./RegionSwitcher";
 import { useEscapeClose } from "../hooks/use-escape-close";
+import CouponField from "@/features/coupons/components/CouponField";
 
 // Benefit-led, loss-framed copy per locked context.
 const REASON_COPY: Record<UpgradeReason, { title: string; sub: string }> = {
@@ -85,6 +86,9 @@ export default function UpgradeModal() {
     setBilling,
     checkoutBusy,
     startCheckout,
+    couponCode,
+    setCouponCode,
+    refreshPlan,
   } = usePlanStore();
   const { region } = useRegion();
 
@@ -199,6 +203,19 @@ export default function UpgradeModal() {
             </li>
           ))}
         </ul>
+
+        <CouponField
+          className="mb-4"
+          product="fundakamental_pro"
+          amount={Math.round(price * 100)}
+          currency={bp.currency}
+          value={couponCode}
+          onChange={setCouponCode}
+          onRedeemed={() => {
+            closeUpgrade();
+            void refreshPlan();
+          }}
+        />
 
         {/* CTA */}
         <button

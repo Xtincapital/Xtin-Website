@@ -6,7 +6,8 @@ import { BACKEND_URL } from '../../../config/env';
  */
 class BundleSubscriptionService {
   /** Create a server-signed Razorpay order for any plan or bundle */
-  async createOrder({ item, billingCycle, customProducts = [] }) {
+  /** Resolves to the order — or to { free: true, order_id, record } when a coupon made it free (already activated). */
+  async createOrder({ item, billingCycle, customProducts = [], couponCode = null }) {
     let amount = 0;
     let products = [];
     const planId = item.id;
@@ -36,6 +37,7 @@ class BundleSubscriptionService {
         products,
         billing_cycle: billingCycle,
         amount,
+        coupon_code: couponCode || undefined,
       }),
     });
 
@@ -45,6 +47,8 @@ class BundleSubscriptionService {
       (err as any).code = data.code;
       throw err;
     }
+
+    if (data.free) return { free: true, order_id: data.order_id, record: data.data };
 
     return {
       ...data.data,

@@ -55,10 +55,11 @@ export const backtestApi = {
   getRun: (id: string) => request<Backtest>(`/runs/${id}`),
   deleteRun: (id: string) => request<void>(`/runs/${id}`, { method: "DELETE" }),
 
-  createPassOrder: (passId: string) =>
-    request<{ key_id: string; order: { id: string; amount: number; currency: string }; pass: { id: string; label: string; days: number } }>("/razorpay/order", {
+  /** A coupon that covers the whole price answers { free: true, order_id } — the pass is already active. */
+  createPassOrder: (passId: string, couponCode?: string | null) =>
+    request<{ free?: boolean; order_id?: string; key_id: string; order: { id: string; amount: number; currency: string }; pass: { id: string; label: string; days: number } }>("/razorpay/order", {
       method: "POST",
-      ...json({ pass_id: passId }),
+      ...json({ pass_id: passId, coupon_code: couponCode || undefined }),
     }),
   verifyPass: (payload: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) =>
     request<{ success: boolean; valid_until: string }>("/razorpay/verify", { method: "POST", ...json(payload) }),

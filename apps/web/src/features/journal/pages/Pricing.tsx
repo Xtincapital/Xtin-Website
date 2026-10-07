@@ -32,6 +32,7 @@ import {
   type ProPlanId,
   type AiPackageId,
 } from "../store/useJournalPlanStore";
+import CouponField from "@/features/coupons/components/CouponField";
 
 const CURRENCY_SYMBOL: Record<string, string> = { INR: "₹", USD: "$", GBP: "£", EUR: "€" };
 
@@ -110,6 +111,8 @@ export default function Pricing() {
   const fetchAiPackages = useJournalPlanStore((s) => s.fetchAiPackages);
   const startProCheckout = useJournalPlanStore((s) => s.startProCheckout);
   const startAiPackCheckout = useJournalPlanStore((s) => s.startAiPackCheckout);
+  const couponCode = useJournalPlanStore((s) => s.couponCode);
+  const setCouponCode = useJournalPlanStore((s) => s.setCouponCode);
 
   useEffect(() => {
     fetchPlan();
@@ -170,6 +173,10 @@ export default function Pricing() {
             </div>
           </CardContent>
         </Card>
+
+        <div className="mx-auto flex max-w-md justify-center">
+          <CouponField product={["journal_pro_plan", "journal_ai_tokens"]} value={couponCode} onChange={setCouponCode} onRedeemed={fetchPlan} />
+        </div>
 
         {/* Pro plan section */}
         <section className="space-y-4">

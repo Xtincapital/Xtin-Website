@@ -24,6 +24,7 @@ import {
 } from "./newsletterPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/newsletterPlan.js NEWSLETTER_PRICING.
@@ -106,14 +107,11 @@ export const createNewsletterOrder = async (req, res) => {
             `${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`
         ).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt: `nl_${planId}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "xtin_newsletter_pro",
+            amount: amount,
+            currency,
+            notes: {
                     product: "xtin_newsletter_pro",
                     planId,
                     region: String(region || "").toUpperCase().slice(0, 10),
@@ -121,6 +119,16 @@ export const createNewsletterOrder = async (req, res) => {
                     userEmail: String(req.user.email || "").slice(0, 254),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency,
+                receipt: `nl_${planId}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

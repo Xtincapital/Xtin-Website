@@ -69,6 +69,15 @@ const tokensLabel = (raw = "") => {
 
 const joinParts = (...parts: string[]) => parts.filter(Boolean).join(" — ");
 
+/** "Gini Pro — Monthly (coupon XTIN10, saved INR 15.00)" — the line item plus any coupon taken off it. */
+export const receiptLine = (product: string, notes: Record<string, string>, paidAmount: number, currency: string) => {
+    const line = describePurchase(product, notes);
+    if (!notes.coupon_code) return line;
+    const saved = Number(notes.coupon_list_amount) - paidAmount;
+    const savedText = Number.isFinite(saved) && saved > 0 ? `, saved ${currency} ${(saved / 100).toFixed(2)}` : "";
+    return `${line} (coupon ${notes.coupon_code}${savedText})`;
+};
+
 /** The line item printed on the receipt, built from the order's own notes. */
 export const describePurchase = (product: string, notes: Record<string, string>): string => {
     const label = PRODUCT_LABELS[product] || titleCase(product || "Xtin Capital purchase");
@@ -114,7 +123,7 @@ export async function issueReceipt(input: IssueReceiptInput): Promise<ReceiptRow
             p_order_id: order.id,
             p_payment_id: payment.id,
             p_product: product,
-            p_description: describePurchase(product, notes),
+            p_description: receiptLine(product, notes, Number(order.amount), order.currency),
             p_user_id: user.userId || null,
             p_auth_id: user.authId || null,
             p_buyer_email: user.email || null,
@@ -184,7 +193,7 @@ export const getMyReceiptByOrder = async (req, res) => {
     const orderId = String(req.params.orderId || "");
     const filter = ownerFilter(req.user || {});
     if (!filter) return res.status(401).json({ error: "Not signed in" });
-    if (!/^order_[A-Za-z0-9]{6,40}$/.test(orderId)) return res.status(400).json({ error: "Invalid order id" });
+    if (!/^(order|coupon)_[A-Za-z0-9]{6,40}$/.test(orderId)) return res.status(400).json({ error: "Invalid order id" });
     const { data, error } = await supabase
         .from("payment_receipts")
         .select(PUBLIC_COLUMNS)

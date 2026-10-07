@@ -15,6 +15,7 @@ import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, 
 import { invalidateEntitlementCache, PASSES } from "./plans.js";
 import { getProPlan, upsertProPlan } from "./repository.js";
 import { validatePassOrder, validatePassVerify } from "./validator.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 export const BACKTEST_PRODUCT = "backtest_pro_pass";
 
@@ -36,14 +37,21 @@ export const createPassOrder = async (req, res) => {
 
         const userId = req.user.authId;
         const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
+        const priced = await priceOrderOrRespond(req, res, {
+            product: BACKTEST_PRODUCT,
+            amount: pass.amountPaise,
+            currency: "INR",
+            notes: { product: BACKTEST_PRODUCT, pass_id: pass.id, user_id: String(userId || ""), ...buyerNotes(req.user) },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
         const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
             method: "POST",
             headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-                amount: pass.amountPaise,
+                amount: priced.amount,
                 currency: "INR",
                 receipt: `bt_${pass.id}_${String(userId || "").slice(-8)}_${Date.now()}`.slice(0, 40),
-                notes: { product: BACKTEST_PRODUCT, pass_id: pass.id, user_id: String(userId || ""), ...buyerNotes(req.user) },
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

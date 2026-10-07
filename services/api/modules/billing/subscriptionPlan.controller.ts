@@ -15,6 +15,7 @@ import { getProPlanByUser as getJournalProPlan, upsertProPlan as upsertJournalPr
 import { invalidatePlanTierCache as invalidateJournalPlanTierCache } from "../journal/planTier.js";
 import { grantProIncludedTokens as grantJournalProTokens } from "../journal/proPlan.controller.js";
 import { getUserPlan as getFundakamentalPlan, grantPro as grantFundakamentalPro } from "../fundakamental/razorpay.repository.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 /** The dev shortcuts below grant without payment, so they exist only outside production. */
 const paymentsUnavailableInProduction = () => process.env.NODE_ENV === "production" && !razorpayConfigured();
@@ -76,6 +77,24 @@ export const createSubscriptionOrder = async (req, res) => {
             `${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`
         ).toString("base64");
 
+        const withCoupon = await priceOrderOrRespond(req, res, {
+            product: BUNDLE_PRODUCT,
+            amount: amountPaise,
+            currency: "INR",
+            notes: {
+                product: BUNDLE_PRODUCT,
+                plan_id: priced.planId,
+                plan_name: priced.planName.slice(0, 200),
+                billing_cycle: priced.billingCycle,
+                products: priced.customProductIds.join(","),
+                user_id: String(req.user?.userId || req.user?.id || ""),
+                user_email: req.user?.email || "",
+                phone_number: String(req.body?.phone_number || req.user?.phone_number || "").slice(0, 20),
+                ...buyerNotes(req.user || {}),
+            },
+        });
+        if (!withCoupon) return; // invalid code (400 sent) or made free and already granted
+
         const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
             method: "POST",
             headers: {
@@ -83,20 +102,10 @@ export const createSubscriptionOrder = async (req, res) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                amount: amountPaise,
+                amount: withCoupon.amount,
                 currency: "INR",
                 receipt: `rcpt_${Date.now()}`,
-                notes: {
-                    product: BUNDLE_PRODUCT,
-                    plan_id: priced.planId,
-                    plan_name: priced.planName.slice(0, 200),
-                    billing_cycle: priced.billingCycle,
-                    products: priced.customProductIds.join(","),
-                    user_id: String(req.user?.userId || req.user?.id || ""),
-                    user_email: req.user?.email || "",
-                    phone_number: String(req.body?.phone_number || req.user?.phone_number || "").slice(0, 20),
-                    ...buyerNotes(req.user || {}),
-                },
+                notes: withCoupon.notes,
             }),
         });
 

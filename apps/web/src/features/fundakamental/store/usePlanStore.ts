@@ -108,6 +108,9 @@ interface PlanState {
   upgradeReason: UpgradeReason;
   checkoutBusy: boolean;
   celebrating: boolean;
+  /** Coupon applied on the pricing page; sent with the next order (the server re-checks it). */
+  couponCode: string | null;
+  setCouponCode: (code: string | null) => void;
   setBilling: (b: BillingCycle) => void;
   openUpgrade: (reason?: UpgradeReason) => void;
   closeUpgrade: () => void;
@@ -193,6 +196,8 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   upgradeOpen: false,
   upgradeReason: "general",
   checkoutBusy: false,
+  couponCode: null,
+  setCouponCode: (couponCode) => set({ couponCode }),
   celebrating: false,
   wallet: null,
   buyTokensOpen: false,
@@ -250,7 +255,16 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     }
     set({ checkoutBusy: true });
     try {
-      const orderRes: any = await api.tokens.createOrder(packId, currency, region);
+      const orderRes: any = await api.tokens.createOrder(packId, currency, region, get().couponCode);
+      if (orderRes?.free) {
+        // A coupon covered the whole price: already granted, no payment step.
+        showPurchaseReceipt(orderRes.order_id);
+        set({ couponCode: null });
+        await Promise.all([get().refreshPlan(), get().fetchWallet()]);
+        set({ upgradeOpen: false, buyTokensOpen: false });
+        set({ checkoutBusy: false });
+        return;
+      }
       const ok = await loadRazorpayScript();
       if (!ok || !(window as any).Razorpay) throw new Error("Could not load secure checkout.");
       const rzp = new (window as any).Razorpay({
@@ -274,6 +288,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
             });
             if (!verify?.success) throw new Error("Verification failed");
             showPurchaseReceipt(response.razorpay_order_id);
+            set({ couponCode: null });
             await get().fetchWallet();
             set({ buyTokensOpen: false });
           } catch {
@@ -305,7 +320,16 @@ export const usePlanStore = create<PlanState>((set, get) => ({
 
     set({ checkoutBusy: true });
     try {
-      const orderRes: any = await api.razorpay.createOrder(planId, currency, region);
+      const orderRes: any = await api.razorpay.createOrder(planId, currency, region, get().couponCode);
+      if (orderRes?.free) {
+        // A coupon covered the whole price: already granted, no payment step.
+        showPurchaseReceipt(orderRes.order_id);
+        set({ couponCode: null });
+        await Promise.all([get().refreshPlan(), get().fetchWallet()]);
+        set({ upgradeOpen: false, buyTokensOpen: false });
+        set({ checkoutBusy: false });
+        return;
+      }
       const ok = await loadRazorpayScript();
       if (!ok || !(window as any).Razorpay) {
         throw new Error("Could not load the secure checkout. Check your connection.");
@@ -332,6 +356,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
             });
             if (!verify?.success) throw new Error("Verification failed");
             showPurchaseReceipt(response.razorpay_order_id);
+            set({ couponCode: null });
             set({
               plan: "premium",
               planValidUntil: verify?.valid_until ?? null,

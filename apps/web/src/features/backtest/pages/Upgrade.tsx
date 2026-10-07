@@ -9,6 +9,7 @@ import { backtestApi } from "../lib/api";
 import { btnPrimary, btnSecondary, card, muted } from "../lib/styles";
 import { inr } from "../lib/types";
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
+import CouponField from "@/features/coupons/components/CouponField";
 
 type RazorpayCtor = new (options: Record<string, unknown>) => { open: () => void };
 const razorpay = (): RazorpayCtor | undefined => (window as any).Razorpay;
@@ -46,11 +47,19 @@ export default function Upgrade() {
   const passes = useQuery({ queryKey: ["bt-passes"], queryFn: backtestApi.passes });
   const plan = useQuery({ queryKey: ["bt-plan"], queryFn: backtestApi.plan });
   const [busy, setBusy] = useState<string | null>(null);
+  const [coupon, setCoupon] = useState<string | null>(null);
 
   async function buy(passId: string) {
     setBusy(passId);
     try {
-      const order = await backtestApi.createPassOrder(passId);
+      const order = await backtestApi.createPassOrder(passId, coupon);
+      if (order.free) {
+        // The coupon covered it all: the pass is already active, no payment step.
+        showPurchaseReceipt(order.order_id);
+        setBusy(null);
+        await qc.invalidateQueries({ queryKey: ["bt-plan"] });
+        return;
+      }
       const Razorpay = (await loadRazorpay()) ? razorpay() : undefined;
       if (!Razorpay) throw new Error("Could not load the secure checkout. Check your connection.");
 
@@ -151,6 +160,10 @@ export default function Upgrade() {
             </motion.div>
           );
         })}
+      </div>
+
+      <div className="mt-6 max-w-md">
+        <CouponField product="backtest_pro_pass" value={coupon} onChange={setCoupon} onRedeemed={() => void qc.invalidateQueries({ queryKey: ["bt-plan"] })} />
       </div>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">

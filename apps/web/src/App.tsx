@@ -55,6 +55,8 @@ const VerifyCertificate = lazy(() => import('./features/certificates/pages/Verif
 const AdminCertificates = lazy(() => import('./features/certificates/pages/AdminCertificates'));
 const AdminAlgoApplications = lazy(() => import('./features/algos/pages/AdminAlgoApplications'));
 const AdminNewsletters = lazy(() => import('./features/newsletter/pages/AdminNewsletters'));
+const AdminHome = lazy(() => import('./features/admin/pages/AdminHome'));
+const AdminCoupons = lazy(() => import('./features/admin/pages/AdminCoupons'));
 const StepUpSIPCalculator = lazy(() => import('./features/tools/components/step-up-sip'));
 const ELSSCalculator = lazy(() => import('./features/tools/components/elss'));
 const LumpsumCalculator = lazy(() => import('./features/tools/components/lumpsum'));
@@ -644,6 +646,9 @@ function App() {
         {/* Certificate Verification Route — Public */}
         <Route path="/verify/:certificateId" element={<VerifyCertificate />} />
 
+        {/* Admin hub: links every admin page */}
+        <Route path="/admin" element={<ProtectedRoute adminOnly><AdminHome /></ProtectedRoute>} />
+        <Route path="/admin/coupons" element={<ProtectedRoute adminOnly><AdminCoupons /></ProtectedRoute>} />
         {/* Admin Certificate Management */}
         <Route
           path="/admin/certificates"

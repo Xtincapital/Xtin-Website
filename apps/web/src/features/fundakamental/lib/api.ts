@@ -611,10 +611,10 @@ export const tokenApi = {
   getPacks: async () => {
     return await publicRequest('/tokens/packs');
   },
-  createOrder: async (packId: string, currency: string, region?: string) => {
+  createOrder: async (packId: string, currency: string, region?: string, couponCode?: string | null) => {
     return await request('/tokens/order', {
       method: 'POST',
-      body: JSON.stringify({ pack_id: packId, currency, region }),
+      body: JSON.stringify({ pack_id: packId, currency, region, coupon_code: couponCode || undefined }),
     });
   },
   verify: async (payload: {
@@ -636,10 +636,10 @@ export const tokenApi = {
 // Razorpay Pro subscription (razorpay.routes.ts)
 // ─────────────────────────────────────────────────────────────────────────
 export const razorpayApi = {
-  createOrder: async (planId: string, currency: string, region?: string) => {
+  createOrder: async (planId: string, currency: string, region?: string, couponCode?: string | null) => {
     return await request('/razorpay/order', {
       method: 'POST',
-      body: JSON.stringify({ plan_id: planId, currency, region }),
+      body: JSON.stringify({ plan_id: planId, currency, region, coupon_code: couponCode || undefined }),
     });
   },
   verify: async (payload: {

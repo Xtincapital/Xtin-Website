@@ -31,6 +31,7 @@ import {
   currencyForRegion,
   type AiPackageId,
 } from "../store/useGiniPlanStore";
+import CouponField from "@/features/coupons/components/CouponField";
 
 const CURRENCY_SYMBOL: Record<string, string> = { INR: "₹", USD: "$", GBP: "£", EUR: "€" };
 
@@ -80,6 +81,8 @@ export default function Pricing() {
   const fetchAiPackages = useGiniPlanStore((s) => s.fetchAiPackages);
   const startProCheckout = useGiniPlanStore((s) => s.startProCheckout);
   const startAiPackCheckout = useGiniPlanStore((s) => s.startAiPackCheckout);
+  const couponCode = useGiniPlanStore((s) => s.couponCode);
+  const setCouponCode = useGiniPlanStore((s) => s.setCouponCode);
 
   useEffect(() => {
     refreshAll();
@@ -135,6 +138,10 @@ export default function Pricing() {
             </div>
           </CardContent>
         </Card>
+
+        <div className="mx-auto flex max-w-md justify-center">
+          <CouponField product={["gini_pro_plan", "gini_ai_tokens"]} value={couponCode} onChange={setCouponCode} onRedeemed={refreshAll} />
+        </div>
 
         {/* Pro plan section */}
         <section className="space-y-4">

@@ -3,7 +3,7 @@
 // constants/company.ts so they always match the site footer and Razorpay KYC.
 import { jsPDF } from "jspdf";
 import { COMPANY } from "@/constants/company";
-import type { Receipt } from "./api";
+import { isFreeGrant, type Receipt } from "./api";
 import { formatMoneyPlain, formatReceiptDate } from "./format";
 
 const INK: [number, number, number] = [15, 23, 42];
@@ -56,9 +56,9 @@ export function buildReceiptPdf(receipt: Receipt): jsPDF {
   const meta: Array<[string, string]> = [
     ["Receipt no.", receipt.receipt_no],
     ["Date", formatReceiptDate(receipt.paid_at, true)],
-    ["Payment ID", receipt.payment_id],
+    [isFreeGrant(receipt) ? "Reference" : "Payment ID", receipt.payment_id],
     ["Order ID", receipt.order_id],
-    ["Payment method", "Razorpay"],
+    ["Payment method", isFreeGrant(receipt) ? "Coupon (no payment)" : "Razorpay"],
   ];
   let my = 136;
   for (const [label, value] of meta) {

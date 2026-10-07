@@ -18,6 +18,9 @@ import bundleSubscriptionService from "../services/bundleSubscriptionService";
 import learnPlanService from "../../academy/services/learnPlanService";
 import newsletterPlanService from "../../newsletter/services/newsletterPlanService";
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
+import { isAdminEmail } from "@/config/admin";
+import CouponField from "@/features/coupons/components/CouponField";
+import { isFreeOrder } from "@/features/coupons/lib/api";
 
 /* ═══════════════════════════════════════════════════════════
    1. Preset Combination Bundles
@@ -180,6 +183,12 @@ const Dashboard = () => {
   // Checkout Modal State (FIX 404 ON PURCHASE CLICK)
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [checkoutItem, setCheckoutItem] = useState(null);
+  const [checkoutCoupon, setCheckoutCoupon] = useState(null);
+  const [checkoutCouponPrice, setCheckoutCouponPrice] = useState(null);
+  useEffect(() => {
+    setCheckoutCoupon(null);
+    setCheckoutCouponPrice(null);
+  }, [checkoutItem]);
   const [processingPayment, setProcessingPayment] = useState(false);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
@@ -261,7 +270,15 @@ const Dashboard = () => {
         item: checkoutItem,
         billingCycle,
         customProducts: selectedCustomProducts,
+        couponCode: checkoutCoupon,
       });
+
+      if (isFreeOrder(orderData)) {
+        // The coupon covered it all: already activated, no payment step.
+        showPurchaseReceipt(orderData.order_id);
+        applySubscriptionSuccess(orderData.record);
+        return;
+      }
 
       // 2. Load Razorpay JS SDK
       const scriptLoaded = await bundleSubscriptionService.loadRazorpayScript();
@@ -622,6 +639,11 @@ const Dashboard = () => {
               <Link to="/billing" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
                 <FileText size={14} /> Billing
               </Link>
+              {isAdminEmail(user?.email) && (
+                <Link to="/admin" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
+                  <Shield size={14} /> Admin
+                </Link>
+              )}
               <button onClick={handleLogout} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-rose-600 hover:border-rose-300 transition">
                 <LogOut size={14} /> Log out
               </button>
@@ -973,13 +995,23 @@ const Dashboard = () => {
                       </div>
                       <div className="text-2xl font-semibold tracking-tight">₹{total.toLocaleString()}</div>
                     </div>
+                    <CouponField
+                      className="mt-5"
+                      product="xtin_bundle"
+                      amount={total * 100}
+                      currency="INR"
+                      value={checkoutCoupon}
+                      onChange={setCheckoutCoupon}
+                      onPriceChange={setCheckoutCouponPrice}
+                      onRedeemed={() => setShowCheckoutModal(false)}
+                    />
                     <div className="mt-5 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                       <Lock size={13} /> Secure payment via Razorpay · UPI, cards, netbanking
                     </div>
                     <div className="mt-6 flex gap-3">
                       <button onClick={() => setShowCheckoutModal(false)} className="flex-1 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition">Cancel</button>
                       <button onClick={handleConfirmPayment} disabled={processingPayment} className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition disabled:opacity-50">
-                        {processingPayment ? 'Processing…' : `Pay ₹${total.toLocaleString()}`}
+                        {processingPayment ? 'Processing…' : `Pay ₹${(checkoutCouponPrice !== null ? checkoutCouponPrice / 100 : total).toLocaleString('en-IN')}`}
                       </button>
                     </div>
                   </>

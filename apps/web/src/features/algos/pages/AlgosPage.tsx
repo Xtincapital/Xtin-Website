@@ -9,6 +9,8 @@ import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
 import algorithmService from '../services/algorithmService';
 import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
+import CouponField from '@/features/coupons/components/CouponField';
+import { isFreeOrder } from '@/features/coupons/lib/api';
 
 const AlgosPage = () => {
   const structuredData = {
@@ -45,6 +47,7 @@ const AlgosPage = () => {
   const [tradingViewUsername, setTradingViewUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [algoCoupon, setAlgoCoupon] = useState(null);
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -160,8 +163,17 @@ const AlgosPage = () => {
       const orderData = await algorithmService.createOrder(
         selectedAlgoName,
         tradingViewUsername.trim(),
-        phoneNumber.trim()
+        phoneNumber.trim(),
+        algoCoupon
       );
+
+      if (isFreeOrder(orderData)) {
+        // The coupon covered it all: already activated, no payment step.
+        showPurchaseReceipt(orderData.order_id);
+        setShowAlgoSubscribeModal(false);
+        setShowAlgoSuccessModal(true);
+        return;
+      }
 
       // Open Razorpay checkout
       algorithmService.openRazorpayCheckout({
@@ -1466,6 +1478,15 @@ const AlgosPage = () => {
                 </label>
               </div>
               
+              <CouponField
+                className="mb-4"
+                product="xtin_algo_subscription"
+                amount={499900}
+                currency="INR"
+                value={algoCoupon}
+                onChange={setAlgoCoupon}
+              />
+
               {/* Payment Error */}
               {paymentError && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">

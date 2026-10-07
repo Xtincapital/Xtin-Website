@@ -7,6 +7,7 @@ vi.mock("../payments/fulfillment.repository.js", () => {
     return { claimFulfillment: vi.fn(), completeFulfillment: vi.fn(), releaseFulfillment: vi.fn(), getFulfillment: vi.fn(), findUserByAuthId: vi.fn(), findUserById: vi.fn(), FulfillmentTableMissingError };
 });
 vi.mock("../payments/receipts.js", () => ({ issueReceipt: vi.fn() }));
+vi.mock("../coupons/coupons.repository.js", () => ({ recordRedemption: vi.fn() }));
 
 import { fulfillBacktestPass, BACKTEST_PRODUCT } from "./passes.controller.js";
 import { PASSES } from "./plans.js";

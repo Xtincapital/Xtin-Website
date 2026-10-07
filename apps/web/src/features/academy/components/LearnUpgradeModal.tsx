@@ -9,6 +9,8 @@ import {
 import learnPlanService from '../services/learnPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
 import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
+import CouponField from '@/features/coupons/components/CouponField';
+import { isFreeOrder } from '@/features/coupons/lib/api';
 
 /**
  * Xtin Academy Pro upgrade modal.
@@ -30,6 +32,8 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
   const [billing, setBilling] = useState('yearly');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [coupon, setCoupon] = useState(null);
+  const [couponPrice, setCouponPrice] = useState(null);
 
   useEffect(() => {
     if (open) setError(null);
@@ -48,7 +52,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
     try {
       let orderData;
       try {
-        orderData = await learnPlanService.createOrder(planId);
+        orderData = await learnPlanService.createOrder(planId, coupon);
       } catch (err) {
         // Dev convenience: no Razorpay keys locally → simulate through the
         // real backend + Supabase write. Never available in production.
@@ -72,6 +76,18 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
               return;
             }
             throw err;
+          }
+
+          if (isFreeOrder(orderData)) {
+            // The coupon covered it all: already activated, no payment step.
+            showPurchaseReceipt(orderData.order_id);
+            try {
+              window.dispatchEvent(new Event('storage'));
+              window.dispatchEvent(new Event('xtin_subscription_updated'));
+            } catch { /* non-blocking */ }
+            onActivated?.(orderData.record);
+            setBusy(false);
+            return;
           }
 
           const scriptOk = await learnPlanService.loadRazorpayScript();
@@ -240,6 +256,17 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
             </span>
           </p>
 
+          <CouponField
+            className="mb-4"
+            product="xtin_learn_pro"
+            amount={Math.round(price * 100)}
+            currency={pricing.currency}
+            value={coupon}
+            onChange={setCoupon}
+            onPriceChange={setCouponPrice}
+            onRedeemed={onClose}
+          />
+
           {error && (
             <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/40 text-red-700 dark:text-red-300 text-sm mb-4">
               {error}
@@ -260,7 +287,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
             ) : (
               <>
                 <FaBolt className="text-sm" />
-                Unlock everything {formatLearnPrice(price, pricing)}
+                Unlock everything {formatLearnPrice(couponPrice !== null ? couponPrice / 100 : price, pricing)}
               </>
             )}
           </button>

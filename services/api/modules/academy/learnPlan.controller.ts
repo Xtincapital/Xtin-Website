@@ -14,6 +14,7 @@ import { PREMIUM_VIDEO_IDS } from "../../data/premiumVideoIds.js";
 import { getLearnPlanByUserId, upsertLearnPlan } from "./learnPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Regional charm price points in the smallest unit (paise / cents).
 // Kept in sync with Client/src/lib/learnPlan.js LEARN_PRICING.
@@ -88,14 +89,11 @@ export const createLearnOrder = async (req, res) => {
             `${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`
         ).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt: `learn_${planId}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "xtin_learn_pro",
+            amount: amount,
+            currency,
+            notes: {
                     product: "xtin_learn_pro",
                     planId,
                     region: String(region || "").toUpperCase().slice(0, 10),
@@ -103,6 +101,16 @@ export const createLearnOrder = async (req, res) => {
                     userEmail: String(req.user.email || "").slice(0, 254),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency,
+                receipt: `learn_${planId}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

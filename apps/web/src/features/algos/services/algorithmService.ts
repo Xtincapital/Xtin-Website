@@ -22,7 +22,8 @@ class AlgorithmService {
   }
 
   /** Create a Razorpay order for an algorithm subscription */
-  async createOrder(algoName, tradingviewUsername, phoneNumber) {
+  /** Resolves to the order — or to { free: true, order_id, record } when a coupon made it free (already activated). */
+  async createOrder(algoName, tradingviewUsername, phoneNumber, couponCode = null) {
     const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algorithm/order`, {
       method: 'POST',
       body: JSON.stringify({
@@ -30,6 +31,7 @@ class AlgorithmService {
         plan_type: 'monthly',
         tradingview_username: tradingviewUsername,
         phone_number: phoneNumber,
+        coupon_code: couponCode || undefined,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -38,6 +40,7 @@ class AlgorithmService {
       (err as any).code = data.code;
       throw err;
     }
+    if (data.free) return { free: true, order_id: data.order_id, record: data.data };
     return data.data;
   }
 

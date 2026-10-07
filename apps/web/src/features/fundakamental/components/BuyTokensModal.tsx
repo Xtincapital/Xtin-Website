@@ -14,6 +14,7 @@ import { formatPrice } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
 import RegionSwitcher from "./RegionSwitcher";
 import { useEscapeClose } from "../hooks/use-escape-close";
+import CouponField from "@/features/coupons/components/CouponField";
 
 /**
  * Top-up pack purchase modal. Shown to Pro users who exhaust their monthly
@@ -26,6 +27,9 @@ export default function BuyTokensModal() {
     checkoutBusy,
     buyTokenPack,
     wallet,
+    couponCode,
+    setCouponCode,
+    fetchWallet,
   } = usePlanStore();
   const { region } = useRegion();
   const bp = billingFor(region as any);
@@ -103,6 +107,17 @@ export default function BuyTokensModal() {
             </button>
           ))}
         </div>
+
+        <CouponField
+          className="mt-4"
+          product="fundakamental_tokens"
+          value={couponCode}
+          onChange={setCouponCode}
+          onRedeemed={() => {
+            closeBuyTokens();
+            void fetchWallet();
+          }}
+        />
 
         <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground mt-5">
           <Check className="w-3.5 h-3.5 text-primary" />

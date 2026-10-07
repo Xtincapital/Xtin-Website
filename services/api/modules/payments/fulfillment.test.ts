@@ -11,13 +11,15 @@ const repo = vi.hoisted(() => ({
 
 const issueReceipt = vi.hoisted(() => vi.fn(async (_input: unknown) => null));
 vi.mock("./receipts.js", () => ({ issueReceipt }));
+const recordRedemption = vi.hoisted(() => vi.fn(async (_row: unknown) => undefined));
+vi.mock("../coupons/coupons.repository.js", () => ({ recordRedemption }));
 
 vi.mock("./fulfillment.repository.js", async () => {
     class FulfillmentTableMissingError extends Error {}
     return { ...repo, FulfillmentTableMissingError };
 });
 
-import { fulfillRazorpayOrder, registerFulfiller, FulfillmentError, productOf, normalizeNotes } from "./fulfillment.js";
+import { fulfillRazorpayOrder, registerFulfiller, FulfillmentError, productOf, normalizeNotes, requireCatalogAmount, grantWithoutPayment } from "./fulfillment.js";
 import { FulfillmentTableMissingError } from "./fulfillment.repository.js";
 
 const order = (notes: Record<string, string>, amount = 29900) => ({ id: "order_1", amount, currency: "INR", status: "paid", notes });
@@ -160,3 +162,49 @@ describe("notes helpers", () => {
         expect(new FulfillmentError("x", "y")).toMatchObject({ status: 400, retryable: false });
     });
 });
+
+describe("coupons", () => {
+    const couponNotes = { coupon_code: "XTIN10", coupon_id: "c-1", coupon_list_amount: "29900" };
+
+    it("accepts a coupon order only if it was discounted from today's catalogue price", () => {
+        const discounted = { id: "order_9", amount: 26910, currency: "INR", status: "paid", notes: couponNotes };
+        expect(() => requireCatalogAmount(discounted, 29900)).not.toThrow();
+        // Catalogue price changed since the order was made, or the "discount" raised the price.
+        expect(() => requireCatalogAmount(discounted, 39900)).toThrow(FulfillmentError);
+        expect(() => requireCatalogAmount({ ...discounted, amount: 30000 }, 29900)).toThrow(FulfillmentError);
+        // A zero amount is only ever a server-made free grant.
+        expect(() => requireCatalogAmount({ ...discounted, amount: 0 }, 29900)).toThrow(FulfillmentError);
+        expect(() => requireCatalogAmount({ ...discounted, id: "coupon_abc", amount: 0 }, 29900)).not.toThrow();
+        // No coupon: still exact.
+        expect(() => requireCatalogAmount({ id: "order_9", amount: 26910, currency: "INR", status: "paid", notes: {} }, 29900)).toThrow(FulfillmentError);
+    });
+
+    it("records the redemption when a coupon order is paid", async () => {
+        await fulfillRazorpayOrder({
+            orderId: "order_1",
+            paymentId: "pay_1",
+            order: order({ product: "test_cheap", ...buyer, ...couponNotes }, 26910),
+            payment: payment({ amount: 26910 }),
+            source: "webhook",
+        });
+        expect(recordRedemption).toHaveBeenCalledWith(
+            expect.objectContaining({ coupon_id: "c-1", code: "XTIN10", order_id: "order_1", list_amount: 29900, paid_amount: 26910, user_id: "user-1" })
+        );
+    });
+
+    it("grants without payment through the same claim, receipt and redemption path", async () => {
+        const res = await grantWithoutPayment({ product: "test_cheap", notes: { coupon_code: "FREE", coupon_id: "c-2" }, user: { userId: "user-1", authId: "auth-1", email: "a@b.c" } });
+        expect(res.orderId).toMatch(/^coupon_[0-9a-f]{24}$/);
+        expect(repo.claimFulfillment).toHaveBeenCalledWith(expect.objectContaining({ order_id: res.orderId, amount: 0, source: "coupon" }));
+        expect(cheapGrant).toHaveBeenCalledWith(expect.objectContaining({ order: expect.objectContaining({ id: res.orderId, amount: 0 }) }));
+        expect(repo.completeFulfillment).toHaveBeenCalledWith(res.orderId, { granted: "cheap" });
+        expect(issueReceipt).toHaveBeenCalled();
+        expect(recordRedemption).toHaveBeenCalledWith(expect.objectContaining({ order_id: res.orderId, paid_amount: 0 }));
+    });
+
+    it("refuses a free grant with no coupon behind it", async () => {
+        await expect(grantWithoutPayment({ product: "test_cheap", notes: {}, user: { userId: "user-1" } })).rejects.toMatchObject({ code: "no_coupon" });
+        expect(cheapGrant).not.toHaveBeenCalled();
+    });
+});
+

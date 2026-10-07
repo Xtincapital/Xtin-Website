@@ -14,6 +14,7 @@ import { HTTP_STATUS } from "../../constants/constants.js";
 import { getWallet, addTopup, TOKEN_PACKS, MONTHLY_GRANT } from "./tokenWallet.js";
 import { insertTokenPackPurchase, getUserTier } from "./tokens.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 const SUPPORTED_CURRENCIES = ["INR", "USD", "GBP", "EUR"];
 
@@ -72,20 +73,27 @@ export const createPackOrder = async (req, res) => {
 
         const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt: `fk_tok_${packId}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "fundakamental_tokens",
+            amount: amount,
+            currency,
+            notes: {
                     product: "fundakamental_tokens",
                     pack_id: packId,
                     tokens: String(pack.tokens),
                     user_id: String(req.user.authId || ""),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency,
+                receipt: `fk_tok_${packId}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

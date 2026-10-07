@@ -13,6 +13,7 @@ import { BACKEND_URL } from '../../../config/env';
 import { isAdminEmail } from '../../../config/admin';
 import SEO from '../../../components/SEO';
 import { ASSET_LABELS, EXPERIENCE_LABELS, STRATEGY_LABELS, type ApplicationStatus, type PublisherApplication } from '../lib/publisherApi';
+import AdminHeader from '@/features/admin/components/AdminHeader';
 
 const STATUSES: { id: ApplicationStatus; label: string; badge: string }[] = [
   { id: 'pending', label: 'Pending', badge: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300' },
@@ -170,7 +171,8 @@ const AdminAlgoApplications = () => {
   return (
     <>
       <SEO title="Algo Applications – Admin" description="Review algo publisher applications." />
-      <div className="min-h-screen bg-gray-50 px-4 py-24 dark:bg-slate-900">
+      <AdminHeader />
+      <div className="min-h-screen bg-gray-50 px-4 py-10 dark:bg-slate-900">
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>

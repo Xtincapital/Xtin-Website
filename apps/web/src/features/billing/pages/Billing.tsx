@@ -8,6 +8,7 @@ import SEO from "@/components/SEO";
 import { COMPANY } from "@/constants/company";
 import { fetchReceipts, type Receipt } from "../lib/api";
 import { formatMoney, formatReceiptDate } from "../lib/format";
+import RedeemCodeCard from "@/features/coupons/components/RedeemCodeCard";
 
 function StatusBadge({ status }: { status: Receipt["status"] }) {
   return status === "refunded" ? (
@@ -73,6 +74,8 @@ export default function Billing() {
             <h1 className="text-2xl font-bold tracking-tight">Billing &amp; receipts</h1>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Every purchase you make on Xtin Capital, with a downloadable receipt.</p>
           </div>
+
+          <RedeemCodeCard onRedeemed={() => setTimeout(load, 1500)} />
 
           {error ? (
             <div className="flex flex-col items-start gap-3 rounded-xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200 sm:flex-row sm:items-center sm:justify-between">

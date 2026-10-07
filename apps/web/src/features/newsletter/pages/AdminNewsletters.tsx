@@ -13,6 +13,7 @@ import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { isAdminEmail } from '../../../config/admin';
 import SEO from '../../../components/SEO';
+import AdminHeader from '@/features/admin/components/AdminHeader';
 
 type Edition = 'pre_market' | 'post_market';
 
@@ -144,6 +145,7 @@ const AdminNewsletters = () => {
   return (
     <>
       <SEO title="Admin — Newsletters — Xtin Capital" />
+      <AdminHeader />
       <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">

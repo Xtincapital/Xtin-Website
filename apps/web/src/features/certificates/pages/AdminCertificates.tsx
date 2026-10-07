@@ -4,6 +4,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import CertificateQRModal from '../components/CertificateQRModal';
 import SEO from '../../../components/SEO';
 import { isAdminEmail } from '../../../config/admin';
+import AdminHeader from '@/features/admin/components/AdminHeader';
 
 /**
  * AdminCertificates — Admin panel for managing internship certificates.
@@ -218,6 +219,7 @@ const AdminCertificates = () => {
   return (
     <>
       <SEO title="Admin — Certificate Management — Xtin Capital" />
+      <AdminHeader />
 
       <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

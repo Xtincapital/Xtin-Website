@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Download, ReceiptText, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { COMPANY } from "@/constants/company";
-import { fetchReceiptByOrder, type Receipt } from "../lib/api";
+import { fetchReceiptByOrder, isFreeGrant, type Receipt } from "../lib/api";
 import { formatMoney, formatReceiptDate } from "../lib/format";
 import { RECEIPT_PRINT_DURATION_MS, ReceiptPrinter, type ReceiptPrinterStage } from "./ReceiptPrinter";
 
@@ -63,8 +63,8 @@ function ReceiptSlip({ receipt }: { receipt: Receipt | null }) {
           </div>
           <div className="text-right text-[10px] opacity-60">Incl. of applicable taxes</div>
           <Divider />
-          <Row label="Payment" value={receipt.payment_id} />
-          <Row label="Paid via" value="Razorpay" />
+          <Row label={isFreeGrant(receipt) ? "Ref" : "Payment"} value={receipt.payment_id} />
+          <Row label="Paid via" value={isFreeGrant(receipt) ? "Coupon" : "Razorpay"} />
         </>
       ) : (
         <div className="py-6 text-center">

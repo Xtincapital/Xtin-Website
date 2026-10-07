@@ -17,6 +17,7 @@
 //
 // Idempotency: payment_fulfillments is claimed per order before anything is
 // granted, so verify + webhook (or any replay of either) grant exactly once.
+import { randomUUID } from "node:crypto";
 import {
     claimFulfillment,
     completeFulfillment,
@@ -27,6 +28,7 @@ import {
     FulfillmentTableMissingError,
 } from "./fulfillment.repository.js";
 import { issueReceipt } from "./receipts.js";
+import { recordRedemption } from "../coupons/coupons.repository.js";
 
 export type RazorpayOrder = {
     id: string;
@@ -113,9 +115,24 @@ export const buyerNotes = (user: { userId?: string; authId?: string; email?: str
     email: String(user.email || "").slice(0, 254),
 });
 
-/** Throws unless the paid order amount is exactly the catalogue price (smallest currency unit). */
+/** Order ids of free-access grants (coupons); Razorpay's own ids always start with "order_". */
+export const FREE_ORDER_PREFIX = "coupon_";
+
+/**
+ * Throws unless the paid order amount is exactly the catalogue price (smallest
+ * currency unit) — or, for an order the server created with a coupon, the
+ * coupon was taken off that same catalogue price. Coupon notes can be trusted
+ * like every other note: only this server, with the Razorpay secret, creates
+ * orders, and free-access orders never leave the server at all.
+ */
 export const requireCatalogAmount = (order: RazorpayOrder, expectedAmount: number | undefined) => {
-    if (!Number.isFinite(expectedAmount) || Number(order.amount) !== expectedAmount) {
+    const notes = normalizeNotes(order.notes);
+    const paid = Number(order.amount);
+    if (notes.coupon_code && Number.isFinite(expectedAmount)) {
+        if (String(order.id).startsWith(FREE_ORDER_PREFIX) && paid === 0) return;
+        if (Number(notes.coupon_list_amount) === expectedAmount && paid > 0 && paid <= (expectedAmount as number)) return;
+    }
+    if (!Number.isFinite(expectedAmount) || paid !== expectedAmount) {
         throw new FulfillmentError(
             `Order ${order.id} amount ${order.amount} ${order.currency} does not match the catalogue price ${expectedAmount}`,
             "amount_mismatch"
@@ -236,7 +253,7 @@ export async function fulfillRazorpayOrder(opts: FulfillOptions): Promise<{ resu
             }
             if (existing?.status === "fulfilled") {
                 // Idempotent — heals a receipt that failed to issue the first time.
-                await issueReceipt({ order, payment, product, notes, user });
+                await afterFulfilled({ order, product, notes, user, payment });
                 return { result: existing.result || {}, alreadyFulfilled: true, product };
             }
             throw new FulfillmentError("Payment is still being processed — please refresh in a minute", "in_progress", 503, true);
@@ -254,12 +271,68 @@ export async function fulfillRazorpayOrder(opts: FulfillOptions): Promise<{ resu
         const result = await fulfiller({ order, payment, notes, user, extras: opts.extras || {} });
         if (claimed) await completeFulfillment(order.id, result);
         console.log(`[Payments] ${product} fulfilled for order ${order.id} via ${source}`);
-        await issueReceipt({ order, payment, product, notes, user });
+        await afterFulfilled({ order, product, notes, user, payment });
         return { result, alreadyFulfilled: false, product };
     } catch (err) {
         if (claimed) await releaseFulfillment(order.id);
         if (err instanceof FulfillmentError) throw err;
         throw new FulfillmentError(`Granting ${product} failed: ${(err as Error)?.message || err}`, "grant_failed", 500, true);
+    }
+}
+
+/** Receipt + coupon bookkeeping for a granted order. Both are idempotent per order and never throw. */
+async function afterFulfilled({ order, payment, product, notes, user }: { order: RazorpayOrder; payment: RazorpayPayment; product: string; notes: Record<string, string>; user: PaymentUser }) {
+    await issueReceipt({ order, payment, product, notes, user });
+    if (notes.coupon_code && notes.coupon_id) {
+        await recordRedemption({
+            coupon_id: notes.coupon_id,
+            code: notes.coupon_code,
+            order_id: order.id,
+            user_id: user.userId || null,
+            auth_id: user.authId || null,
+            buyer_email: user.email || null,
+            product,
+            list_amount: Number(notes.coupon_list_amount) || null,
+            paid_amount: Number(order.amount),
+            currency: order.currency,
+        });
+    }
+}
+
+/**
+ * Grants a product with no payment — a free-access coupon, or a discount
+ * coupon that took the price to zero. Runs the product's own fulfiller with a
+ * server-made order (id "coupon_…", amount 0), through the same
+ * payment_fulfillments claim, receipt and coupon bookkeeping as a paid order.
+ */
+export async function grantWithoutPayment(opts: {
+    product: string;
+    notes: Record<string, string>;
+    user: { userId?: string; authId?: string; email?: string };
+    currency?: string;
+}): Promise<{ orderId: string; result: Record<string, unknown> }> {
+    const fulfiller = fulfillers.get(opts.product);
+    if (!fulfiller) throw new FulfillmentError(`No fulfiller for product "${opts.product}"`, "unknown_product");
+    if (!opts.notes.coupon_code) throw new FulfillmentError("Free grants need a coupon", "no_coupon");
+
+    const orderId = `${FREE_ORDER_PREFIX}${randomUUID().replace(/-/g, "").slice(0, 24)}`;
+    const notes: Record<string, string> = { ...opts.notes, product: opts.product };
+    const order: RazorpayOrder = { id: orderId, amount: 0, currency: opts.currency || "INR", status: "paid", notes };
+    const payment: RazorpayPayment = { id: orderId, order_id: orderId, amount: 0, currency: order.currency, status: "captured", created_at: Math.floor(Date.now() / 1000) };
+    const user: PaymentUser = { userId: String(opts.user.userId || opts.user.authId || ""), authId: opts.user.authId || null, email: String(opts.user.email || "") };
+    if (!user.userId) throw new FulfillmentError("Sign in to redeem a code", "no_buyer", 401);
+
+    await claimFulfillment({ order_id: orderId, payment_id: orderId, product: opts.product, user_id: user.userId, amount: 0, currency: order.currency, source: "coupon" });
+    try {
+        const result = await fulfiller({ order, payment, notes, user, extras: {} });
+        await completeFulfillment(orderId, result);
+        console.log(`[Payments] ${opts.product} granted free with coupon ${notes.coupon_code} (${orderId})`);
+        await afterFulfilled({ order, payment, product: opts.product, notes, user });
+        return { orderId, result };
+    } catch (err) {
+        await releaseFulfillment(orderId);
+        if (err instanceof FulfillmentError) throw err;
+        throw new FulfillmentError(`Granting ${opts.product} failed: ${(err as Error)?.message || err}`, "grant_failed", 500, true);
     }
 }
 

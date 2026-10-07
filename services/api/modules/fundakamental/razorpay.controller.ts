@@ -32,6 +32,7 @@ import { addDays, stackValidUntil } from "../../utils/planExpiry.js";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { getUserPlan, grantPro, downgradeToFree, insertProPayment } from "./razorpay.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Plan catalogue. Amounts in smallest unit: INR paise, USD/GBP/EUR cents.
 const PRO_PLANS: Record<
@@ -76,20 +77,27 @@ export const createOrder = async (req, res) => {
 
         const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt: `fk_${planId}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "fundakamental_pro",
+            amount: amount,
+            currency,
+            notes: {
                     product: "fundakamental_pro",
                     plan_id: planId,
                     user_id: String(req.user.authId || ""),
                     user_email: String(req.user.email || "").slice(0, 254),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency,
+                receipt: `fk_${planId}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

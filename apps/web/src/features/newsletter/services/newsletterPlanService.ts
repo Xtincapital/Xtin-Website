@@ -23,13 +23,15 @@ class NewsletterPlanService {
     }
   }
 
-  async createOrder(planId) {
+  /** Resolves to the order, or to { free: true, order_id, record } when a coupon made it free (already activated). */
+  async createOrder(planId, couponCode = null) {
     const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/newsletter/order`, {
       method: 'POST',
       body: JSON.stringify({
         plan_id: planId,
         currency: newsletterPricing().currency,
         region: getRegion() || 'IN',
+        coupon_code: couponCode || undefined,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -38,6 +40,7 @@ class NewsletterPlanService {
       (err as any).code = data.code;
       throw err;
     }
+    if (data.free) return { free: true, order_id: data.order_id, record: data.data };
     return data.data;
   }
 

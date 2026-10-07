@@ -27,6 +27,7 @@ import { validateAiOrderRequest, validateAiVerifyRequest } from "./aiWallet.vali
 import { getOrCreateWallet, addTokens } from "./aiWallet.repository.js";
 import { findPurchaseByPaymentId, insertAiWalletPurchase } from "./aiWalletPurchases.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Port of features-incoming/gini/api/razorpay-order.js's AI_TOKEN_PACKS.
 // Amounts are whole INR rupees (multiplied by 100 for paise only at
@@ -74,20 +75,27 @@ export const createAiOrder = async (req, res) => {
         const userId = req.user.authId;
         const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount: pkg.amount_inr * 100,
-                currency: "INR",
-                receipt: `gini_ai_${String(userId || "").slice(-8)}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "gini_ai_tokens",
+            amount: pkg.amount_inr * 100,
+            currency: "INR",
+            notes: {
                     product: "gini_ai_tokens",
                     package_id: pkg.id,
                     tokens: String(pkg.tokens),
                     user_id: String(userId || ""),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency: "INR",
+                receipt: `gini_ai_${String(userId || "").slice(-8)}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

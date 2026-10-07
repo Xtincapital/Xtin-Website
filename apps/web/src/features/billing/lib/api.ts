@@ -15,6 +15,9 @@ export type Receipt = {
   paid_at: string;
 };
 
+/** Free grants (coupons) have server-made ids instead of Razorpay's. */
+export const isFreeGrant = (receipt: Pick<Receipt, "order_id">) => receipt.order_id.startsWith("coupon_");
+
 const errorFrom = async (res: Response, fallback: string) => {
   const body = await res.json().catch(() => ({}));
   return new Error(body?.error || fallback);

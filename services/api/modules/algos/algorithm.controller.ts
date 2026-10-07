@@ -15,6 +15,7 @@ import { validateAlgoOrder, validateAlgoVerify } from "./algorithm.validator.js"
 import { getAlgorithmSubscriptionsByUserId, upsertAlgorithmSubscription } from "./algorithm.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { priceOrderOrRespond } from "../coupons/coupons.service.js";
 
 // Server-authoritative pricing catalogue.
 // Current strategies first; the legacy entries below stay so that subscriptions
@@ -99,14 +100,11 @@ export const createAlgoOrder = async (req, res) => {
             `${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`
         ).toString("base64");
 
-        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
-            method: "POST",
-            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount,
-                currency,
-                receipt: `algo_${algo_name.replace(/[^a-zA-Z0-9]/g, "_")}_${Date.now()}`,
-                notes: {
+        const priced = await priceOrderOrRespond(req, res, {
+            product: "xtin_algo_subscription",
+            amount: amount,
+            currency,
+            notes: {
                     product: "xtin_algo_subscription",
                     algo_name,
                     plan_type,
@@ -116,6 +114,16 @@ export const createAlgoOrder = async (req, res) => {
                     phone_number: String(phone_number || "").slice(0, 20),
                     ...buyerNotes(req.user),
                 },
+        });
+        if (!priced) return; // invalid code (400 sent) or made free and already granted
+        const rpRes = await fetch("https://api.razorpay.com/v1/orders", {
+            method: "POST",
+            headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: priced.amount,
+                currency,
+                receipt: `algo_${algo_name.replace(/[^a-zA-Z0-9]/g, "_")}_${Date.now()}`,
+                notes: priced.notes,
             }),
         });
         const order: any = await rpRes.json();

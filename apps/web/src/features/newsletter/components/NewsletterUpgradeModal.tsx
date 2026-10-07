@@ -9,6 +9,8 @@ import {
 import newsletterPlanService from '../services/newsletterPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
 import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
+import CouponField from '@/features/coupons/components/CouponField';
+import { isFreeOrder } from '@/features/coupons/lib/api';
 
 /**
  * Market Brief Pro upgrade modal.
@@ -31,6 +33,8 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
   const markets = MARKETS.map((m) => m.id);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [coupon, setCoupon] = useState(null);
+  const [couponPrice, setCouponPrice] = useState(null);
 
   useEffect(() => {
     if (open) {
@@ -61,7 +65,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
     try {
       let orderData;
       try {
-        orderData = await newsletterPlanService.createOrder(planId);
+        orderData = await newsletterPlanService.createOrder(planId, coupon);
       } catch (err) {
         if (isLocalDev && err.code === 'NOT_CONFIGURED') {
           const ok = window.confirm(
@@ -75,6 +79,14 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
           return;
         }
         throw err;
+      }
+
+      if (isFreeOrder(orderData)) {
+        // The coupon covered it all: already activated, no payment step.
+        showPurchaseReceipt(orderData.order_id);
+        await finish(orderData.record);
+        setBusy(false);
+        return;
       }
 
       const scriptOk = await newsletterPlanService.loadRazorpayScript();
@@ -270,6 +282,17 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             </span>
           </p>
 
+          <CouponField
+            className="mb-4"
+            product="xtin_newsletter_pro"
+            amount={Math.round(price * 100)}
+            currency={pricing.currency}
+            value={coupon}
+            onChange={setCoupon}
+            onPriceChange={setCouponPrice}
+            onRedeemed={onClose}
+          />
+
           {error && (
             <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/40 text-red-700 dark:text-red-300 text-sm mb-4">
               {error}
@@ -289,7 +312,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             ) : (
               <>
                 <FaBolt className="text-sm" />
-                Get Pro {formatNewsletterPrice(price, pricing)}
+                Get Pro {formatNewsletterPrice(couponPrice !== null ? couponPrice / 100 : price, pricing)}
               </>
             )}
           </button>
