@@ -7,8 +7,8 @@ export const COMPANY = {
   entityType: 'Limited Liability Partnership',
   llpId: 'ACR-9371',
   gstin: '24AAAFX5182E1Z5',
-  /** Full registered office address, as on the GST certificate. Empty until provided — only the city is shown meanwhile. */
-  registeredAddress: '',
+  /** Full registered office address, as on the GST certificate. */
+  registeredAddress: 'Fl No 705, Building B, Shilp Residency, Surat, Gujarat, India - 395007',
   city: 'Surat, Gujarat, India',
   supportEmail: 'support@xtincapital.com',
   phone: '+91 87092 84477',

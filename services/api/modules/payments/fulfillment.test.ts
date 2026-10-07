@@ -9,6 +9,9 @@ const repo = vi.hoisted(() => ({
     findUserById: vi.fn(),
 }));
 
+const issueReceipt = vi.hoisted(() => vi.fn(async (_input: unknown) => null));
+vi.mock("./receipts.js", () => ({ issueReceipt }));
+
 vi.mock("./fulfillment.repository.js", async () => {
     class FulfillmentTableMissingError extends Error {}
     return { ...repo, FulfillmentTableMissingError };
@@ -45,6 +48,9 @@ describe("fulfillRazorpayOrder", () => {
         expect(res.result).toEqual({ granted: "cheap" });
         expect(priceyGrant).not.toHaveBeenCalled();
         expect(repo.completeFulfillment).toHaveBeenCalledWith("order_1", { granted: "cheap" });
+        expect(issueReceipt).toHaveBeenCalledWith(
+            expect.objectContaining({ product: "test_cheap", user: expect.objectContaining({ userId: "user-1", authId: "auth-1" }) })
+        );
     });
 
     it("rejects a verify call made against another product's checkout", async () => {
@@ -102,6 +108,7 @@ describe("fulfillRazorpayOrder", () => {
         ).rejects.toMatchObject({ code: "grant_failed", retryable: true });
         expect(repo.releaseFulfillment).toHaveBeenCalledWith("order_1");
         expect(repo.completeFulfillment).not.toHaveBeenCalled();
+        expect(issueReceipt).not.toHaveBeenCalled();
     });
 
     it("rejects payments that are not paid, belong to another order, or paid a different amount", async () => {

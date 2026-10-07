@@ -40,6 +40,7 @@ import authService from "../../../services/authService";
 import { BACKEND_URL } from "../../../config/env";
 import { getRegion } from "@/lib/region";
 import supabase from "../../../supabase";
+import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
 const API_PREFIX = "/api/gini";
 
@@ -330,6 +331,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
               }),
             });
             if (!verify?.success) throw new Error("Verification failed");
+            showPurchaseReceipt(response.razorpay_order_id);
             set({ celebrating: true });
             setTimeout(() => set({ celebrating: false }), 2600);
             // A Pro purchase also grants a 100,000 AI-token bonus
@@ -390,6 +392,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
               }),
             });
             if (!verify?.success) throw new Error("Verification failed");
+            showPurchaseReceipt(response.razorpay_order_id);
             await get().fetchWallet();
           } catch {
             alert("Payment succeeded but we couldn't confirm it. Contact support with your payment ID.");

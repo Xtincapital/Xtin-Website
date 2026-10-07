@@ -3,11 +3,13 @@
 //
 // Kept on purpose: `payment_fulfillments` (order id, payment id, product,
 // amount — the internal payment ledger, no contact details) so refunds,
-// disputes and tax records can still be reconciled with Razorpay.
+// disputes and tax records can still be reconciled with Razorpay — and
+// `payment_receipts`, unlinked from the account (user_id / auth_id cleared).
 //
 // Data goes first and the auth user last: if anything fails part-way the
 // account still exists, so the user (or support) can simply retry.
 import supabase from "../../supabase/index.js";
+import { unlinkReceipts } from "../payments/receipts.js";
 
 const FUNDA_BUCKET = "funda-documents";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -118,6 +120,9 @@ export async function deleteAccountData(user: { authId: string; userId?: string 
             if (error && !missingTable(error.message)) failures.push(`${table}: ${error.message}`);
         }
     }
+
+    const unlinkError = await unlinkReceipts(user.authId, ids);
+    if (unlinkError) failures.push(`payment_receipts: ${unlinkError}`);
 
     if (failures.length) return { ok: false, failures };
 

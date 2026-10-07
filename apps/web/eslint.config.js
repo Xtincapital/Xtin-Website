@@ -57,8 +57,9 @@ export default defineConfig([
   },
   {
     // shadcn/ui primitives and context providers export helpers/hooks next to
-    // components by design; Fast Refresh just falls back to a full reload there.
-    files: ['src/components/ui/**/*.{ts,tsx}', 'src/contexts/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', 'src/components/SEO.tsx', 'src/features/academy/components/LearningIcons.tsx', 'src/features/fundakamental/components/OnboardingTour.tsx'],
+    // components by design (as does the ReceiptPrinter.* compound component);
+    // Fast Refresh just falls back to a full reload there.
+    files: ['src/components/ui/**/*.{ts,tsx}', 'src/contexts/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', 'src/components/SEO.tsx', 'src/features/academy/components/LearningIcons.tsx', 'src/features/fundakamental/components/OnboardingTour.tsx', 'src/features/billing/components/ReceiptPrinter.tsx'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {

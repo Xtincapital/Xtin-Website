@@ -19,6 +19,12 @@ export default {
       // change the whole site's default font) — FundaKaMental's fonts are
       // applied only within its own scope, in fundakamental.css.
       colors: {
+        // Receipt printer (features/billing): a 12-step neutral scale that
+        // inverts in dark mode (1 = background end, 12 = ink end). Channels
+        // live in index.css as --gs-1 … --gs-12.
+        grayscale: Object.fromEntries(
+          Array.from({ length: 12 }, (_, i) => [i + 1, `rgb(var(--gs-${i + 1}) / <alpha-value>)`]),
+        ),
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

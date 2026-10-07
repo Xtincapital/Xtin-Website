@@ -8,6 +8,7 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
 import algorithmService from '../services/algorithmService';
+import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 
 const AlgosPage = () => {
   const structuredData = {
@@ -186,6 +187,7 @@ const AlgosPage = () => {
             });
 
             // Success
+            showPurchaseReceipt(response.razorpay_order_id);
             setShowAlgoSubscribeModal(false);
             setShowAlgoSuccessModal(true);
           } catch (verifyErr) {

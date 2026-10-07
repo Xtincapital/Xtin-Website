@@ -8,6 +8,7 @@ import PageHeader from "../components/PageHeader";
 import { backtestApi } from "../lib/api";
 import { btnPrimary, btnSecondary, card, muted } from "../lib/styles";
 import { inr } from "../lib/types";
+import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
 type RazorpayCtor = new (options: Record<string, unknown>) => { open: () => void };
 const razorpay = (): RazorpayCtor | undefined => (window as any).Razorpay;
@@ -69,6 +70,7 @@ export default function Upgrade() {
               razorpay_signature: response.razorpay_signature,
             });
             if (!res.success) throw new Error("Verification failed");
+            showPurchaseReceipt(response.razorpay_order_id);
             toast.success("You're Pro! Unlimited backtests unlocked.");
             await qc.invalidateQueries({ queryKey: ["bt-plan"] });
           } catch {

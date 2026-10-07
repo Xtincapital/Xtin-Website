@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterAll } from "vitest";
 import crypto from "node:crypto";
 
-const { fulfill, FulfillmentError } = vi.hoisted(() => ({
+const { fulfill, markRefunded, FulfillmentError } = vi.hoisted(() => ({
     fulfill: vi.fn(),
+    markRefunded: vi.fn(),
     FulfillmentError: class FulfillmentError extends Error {
         code: string;
         status: number;
@@ -20,6 +21,8 @@ vi.mock("./fulfillment.js", () => ({
     fulfillRazorpayOrder: fulfill,
     FulfillmentError,
 }));
+
+vi.mock("./receipts.js", () => ({ markReceiptRefunded: markRefunded }));
 
 import { handleRazorpayWebhook } from "./webhook.controller.js";
 
@@ -45,6 +48,7 @@ const paid = {
 beforeEach(() => {
     process.env.RAZORPAY_WEBHOOK_SECRET = SECRET;
     fulfill.mockReset();
+    markRefunded.mockReset();
 });
 afterAll(() => {
     process.env.RAZORPAY_WEBHOOK_SECRET = originalSecret;
@@ -78,6 +82,23 @@ describe("handleRazorpayWebhook", () => {
         const res = response();
         await handleRazorpayWebhook(delivery({ event: "payment.failed", payload: {} }), res);
         expect(res.statusCode).toBe(200);
+        expect(fulfill).not.toHaveBeenCalled();
+    });
+
+    it("marks the receipt refunded only when the whole payment was refunded", async () => {
+        const refund = (amountRefunded: number) => ({
+            event: "refund.processed",
+            payload: { payment: { entity: { id: "pay_1", amount: 29900, amount_refunded: amountRefunded } } },
+        });
+        let res = response();
+        await handleRazorpayWebhook(delivery(refund(10000)), res);
+        expect(res.statusCode).toBe(200);
+        expect(markRefunded).not.toHaveBeenCalled();
+
+        res = response();
+        await handleRazorpayWebhook(delivery(refund(29900)), res);
+        expect(res.statusCode).toBe(200);
+        expect(markRefunded).toHaveBeenCalledWith("pay_1");
         expect(fulfill).not.toHaveBeenCalled();
     });
 

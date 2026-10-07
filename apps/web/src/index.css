@@ -10,6 +10,62 @@
   --theme-border: #e5e7eb;
 }
 
+/* Receipt printer neutral scale (tailwind `grayscale-*`). Spelled out in both
+   blocks so color-mix() users get the dark values too. */
+:root {
+  --gs-1: 252 252 252;
+  --gs-2: 249 249 249;
+  --gs-3: 240 240 240;
+  --gs-4: 232 232 232;
+  --gs-5: 224 224 224;
+  --gs-6: 217 217 217;
+  --gs-7: 206 206 206;
+  --gs-8: 187 187 187;
+  --gs-9: 141 141 141;
+  --gs-10: 131 131 131;
+  --gs-11: 100 100 100;
+  --gs-12: 32 32 32;
+  --color-grayscale-1: rgb(252 252 252);
+  --color-grayscale-2: rgb(249 249 249);
+  --color-grayscale-3: rgb(240 240 240);
+  --color-grayscale-4: rgb(232 232 232);
+  --color-grayscale-5: rgb(224 224 224);
+  --color-grayscale-6: rgb(217 217 217);
+  --color-grayscale-7: rgb(206 206 206);
+  --color-grayscale-8: rgb(187 187 187);
+  --color-grayscale-9: rgb(141 141 141);
+  --color-grayscale-10: rgb(131 131 131);
+  --color-grayscale-11: rgb(100 100 100);
+  --color-grayscale-12: rgb(32 32 32);
+}
+
+html.dark {
+  --gs-1: 17 17 17;
+  --gs-2: 25 25 25;
+  --gs-3: 34 34 34;
+  --gs-4: 42 42 42;
+  --gs-5: 49 49 49;
+  --gs-6: 58 58 58;
+  --gs-7: 72 72 72;
+  --gs-8: 96 96 96;
+  --gs-9: 110 110 110;
+  --gs-10: 123 123 123;
+  --gs-11: 180 180 180;
+  --gs-12: 238 238 238;
+  --color-grayscale-1: rgb(17 17 17);
+  --color-grayscale-2: rgb(25 25 25);
+  --color-grayscale-3: rgb(34 34 34);
+  --color-grayscale-4: rgb(42 42 42);
+  --color-grayscale-5: rgb(49 49 49);
+  --color-grayscale-6: rgb(58 58 58);
+  --color-grayscale-7: rgb(72 72 72);
+  --color-grayscale-8: rgb(96 96 96);
+  --color-grayscale-9: rgb(110 110 110);
+  --color-grayscale-10: rgb(123 123 123);
+  --color-grayscale-11: rgb(180 180 180);
+  --color-grayscale-12: rgb(238 238 238);
+}
+
 html.dark {
   --theme-bg: #0b1220;
   --theme-surface: #111827;

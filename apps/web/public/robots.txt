@@ -6,6 +6,7 @@ Allow: /
 
 # App areas behind login (nothing useful for crawlers)
 Disallow: /dashboard
+Disallow: /billing
 Disallow: /login
 Disallow: /signup
 Disallow: /forgot-password

@@ -2,6 +2,7 @@ import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CurrencyProvider } from './contexts/CurrencyContext';
+import PurchaseReceiptHost from './features/billing/components/PurchaseReceiptHost';
 const LandingPage = lazy(() => import('./features/marketing/pages/LandingPages'));
 const AlgosPage = lazy(() => import('./features/algos/pages/AlgosPage'));
 const ToolsPage = lazy(() => import('./features/tools/pages/tools'));
@@ -60,6 +61,7 @@ const LumpsumCalculator = lazy(() => import('./features/tools/components/lumpsum
 const SWPCalculator = lazy(() => import('./features/tools/components/swp'));
 const SIPCalculator = lazy(() => import('./features/tools/components/sip'));
 const Dashboard = lazy(() => import('./features/dashboard/pages/Dashboard'));
+const Billing = lazy(() => import('./features/billing/pages/Billing'));
 const CAGRCalculator = lazy(() => import('./features/tools/components/cagr'));
 const FDCalculator = lazy(() => import('./features/tools/components/fd'));
 const RDCalculator = lazy(() => import('./features/tools/components/rd'));
@@ -592,6 +594,11 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
+        <Route path="/billing" element={
+          <ProtectedRoute>
+            <Billing />
+          </ProtectedRoute>
+        } />
         <Route path="/algos" element={<ProtectedPageRoute><AlgosPage /></ProtectedPageRoute>} />
         {/* Retired feature routes -> redirect home */}
         <Route path="/advisory" element={<Navigate to="/" replace />} />
@@ -671,6 +678,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>
+          {/* Post-checkout receipt-printer animation, triggered by showPurchaseReceipt(). */}
+          <PurchaseReceiptHost />
           {/* After <Routes> so a page's own <SEO> effect runs first. */}
           <RouteMetaFallback />
         </Router>

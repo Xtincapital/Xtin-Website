@@ -13,6 +13,10 @@ function builder(table: string) {
             calls.push({ table, op: "delete" });
             return b;
         },
+        update: (val: unknown) => {
+            calls.push({ table, op: "update", val });
+            return b;
+        },
         eq: (col: string, val: unknown) => {
             calls.push({ table, op: "eq", col, val });
             return b;
@@ -57,6 +61,10 @@ describe("deleteAccountData", () => {
         // "_" is escaped so it can't wildcard-match another address.
         expect(calls.find((c) => c.table === "newsletter_subscribers" && c.op === "ilike")?.val).toBe("some\\_one@example.com");
         expect(calls.some((c) => c.table === "payment_fulfillments")).toBe(false);
+        // Receipts are kept for tax records, only unlinked from the account.
+        expect(calls.some((c) => c.table === "payment_receipts" && c.op === "delete")).toBe(false);
+        expect(calls.find((c) => c.table === "payment_receipts" && c.op === "update")?.val).toEqual({ user_id: null, auth_id: null });
+        expect(calls.find((c) => c.table === "payment_receipts" && c.op === "in")?.val).toEqual([AUTH, "legacy-1"]);
         expect(deleteUser).toHaveBeenCalledWith(AUTH);
     });
 

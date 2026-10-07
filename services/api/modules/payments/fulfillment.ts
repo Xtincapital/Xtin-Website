@@ -26,6 +26,7 @@ import {
     findUserById,
     FulfillmentTableMissingError,
 } from "./fulfillment.repository.js";
+import { issueReceipt } from "./receipts.js";
 
 export type RazorpayOrder = {
     id: string;
@@ -43,6 +44,8 @@ export type RazorpayPayment = {
     status: string;
     email?: string;
     contact?: string;
+    /** Unix seconds. */
+    created_at?: number;
 };
 
 export type PaymentUser = { userId: string; authId: string | null; email: string };
@@ -232,6 +235,8 @@ export async function fulfillRazorpayOrder(opts: FulfillOptions): Promise<{ resu
                 existing = (await getFulfillment(order.id)) || existing;
             }
             if (existing?.status === "fulfilled") {
+                // Idempotent — heals a receipt that failed to issue the first time.
+                await issueReceipt({ order, payment, product, notes, user });
                 return { result: existing.result || {}, alreadyFulfilled: true, product };
             }
             throw new FulfillmentError("Payment is still being processed — please refresh in a minute", "in_progress", 503, true);
@@ -249,6 +254,7 @@ export async function fulfillRazorpayOrder(opts: FulfillOptions): Promise<{ resu
         const result = await fulfiller({ order, payment, notes, user, extras: opts.extras || {} });
         if (claimed) await completeFulfillment(order.id, result);
         console.log(`[Payments] ${product} fulfilled for order ${order.id} via ${source}`);
+        await issueReceipt({ order, payment, product, notes, user });
         return { result, alreadyFulfilled: false, product };
     } catch (err) {
         if (claimed) await releaseFulfillment(order.id);

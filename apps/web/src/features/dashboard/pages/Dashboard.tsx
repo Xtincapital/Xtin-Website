@@ -17,6 +17,7 @@ import { BACKEND_URL } from "../../../config/env";
 import bundleSubscriptionService from "../services/bundleSubscriptionService";
 import learnPlanService from "../../academy/services/learnPlanService";
 import newsletterPlanService from "../../newsletter/services/newsletterPlanService";
+import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
 /* ═══════════════════════════════════════════════════════════
    1. Preset Combination Bundles
@@ -315,6 +316,7 @@ const Dashboard = () => {
               phone_number: user?.phone_number || '',
             });
 
+            showPurchaseReceipt(response.razorpay_order_id);
             applySubscriptionSuccess(verifiedData);
           } catch (verErr) {
             console.error("Verification error:", verErr);
@@ -617,6 +619,9 @@ const Dashboard = () => {
               <button onClick={handleOpenNameModal} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
                 <Edit2 size={14} /> Edit profile
               </button>
+              <Link to="/billing" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
+                <FileText size={14} /> Billing
+              </Link>
               <button onClick={handleLogout} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-rose-600 hover:border-rose-300 transition">
                 <LogOut size={14} /> Log out
               </button>

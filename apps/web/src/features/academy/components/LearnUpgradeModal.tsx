@@ -8,6 +8,7 @@ import {
 } from '../../../lib/learnPlan';
 import learnPlanService from '../services/learnPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
+import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 
 /**
  * Xtin Academy Pro upgrade modal.
@@ -97,6 +98,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
                   currency: pricing.currency,
                   region,
                 });
+                showPurchaseReceipt(response.razorpay_order_id);
                 try {
                   window.dispatchEvent(new Event('storage'));
                   window.dispatchEvent(new Event('xtin_subscription_updated'));

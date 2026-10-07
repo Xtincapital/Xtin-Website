@@ -44,17 +44,26 @@
       "destination": "https://xtincapital-backend-6pf2.onrender.com/api/$1"
     },
     {
-      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)",
+      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|billing|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)",
       "destination": "/index.html"
     },
     {
-      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)/:rest*",
+      "source": "/:section(about|admin|advisor|advisory|algo-terms|algos|backtest|billing|contact|courses|dashboard|forgot-password|fundakamental|gini|help|intro|journal|learn|login|mutalfunds|mutualfunds|newsletter|privacy|products|publisher-terms|refund-policy|reset-password|revenue-share|shipping-policy|signup|terms|tools|verify)/:rest*",
       "destination": "/index.html"
     }
   ],
   "headers": [
     {
       "source": "/dashboard",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/billing",
       "headers": [
         {
           "key": "X-Robots-Tag",

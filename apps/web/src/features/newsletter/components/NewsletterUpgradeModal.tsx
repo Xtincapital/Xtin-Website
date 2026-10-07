@@ -8,6 +8,7 @@ import {
 } from '../lib/newsletterPlan';
 import newsletterPlanService from '../services/newsletterPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
+import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 
 /**
  * Market Brief Pro upgrade modal.
@@ -101,6 +102,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               region,
               markets: markets.join(','),
             });
+            showPurchaseReceipt(response.razorpay_order_id);
             await finish(record);
           } catch {
             setError('Payment succeeded but verification failed. Contact support with your payment ID.');

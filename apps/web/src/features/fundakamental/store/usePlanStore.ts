@@ -3,6 +3,7 @@ import { api } from "../lib/api";
 import { getRegion } from "@/lib/region";
 import supabase from "../../../supabase";
 import type { Currency, RegionCode } from "../lib/currency";
+import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
 /**
  * Pro plan state for FundaKaMental.
@@ -272,6 +273,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
               razorpay_signature: response.razorpay_signature,
             });
             if (!verify?.success) throw new Error("Verification failed");
+            showPurchaseReceipt(response.razorpay_order_id);
             await get().fetchWallet();
             set({ buyTokensOpen: false });
           } catch {
@@ -329,6 +331,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
               razorpay_signature: response.razorpay_signature,
             });
             if (!verify?.success) throw new Error("Verification failed");
+            showPurchaseReceipt(response.razorpay_order_id);
             set({
               plan: "premium",
               planValidUntil: verify?.valid_until ?? null,

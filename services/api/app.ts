@@ -50,6 +50,7 @@ import giniImportRoutes from "./modules/gini/import.routes.js";
 import issuedReportsRoutes from "./modules/reports/issuedReports.js";
 import algoPublisherApplicationsRoutes from "./modules/algos/publisherApplications.routes.js";
 import paymentsRoutes from "./modules/payments/payments.routes.js";
+import receiptsRoutes from "./modules/payments/receipts.js";
 import backtestRoutes from "./modules/backtest/routes.js";
 
 const app = express();
@@ -183,6 +184,7 @@ app.use("/api", giniImportRoutes);
 app.use("/api", algoPublisherApplicationsRoutes);
 app.use("/api", issuedReportsRoutes);
 app.use("/api", paymentsRoutes);
+app.use("/api", receiptsRoutes);
 app.use("/api", backtestRoutes);
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
