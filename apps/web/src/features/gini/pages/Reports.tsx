@@ -358,7 +358,7 @@ export default function Reports() {
             </CardContent>
           </Card>
         ) : (
-          <div ref={resultsRef} className="scroll-mt-24 space-y-6">
+          <div ref={resultsRef} className="scroll-mt-32 space-y-6">
             <Card>
               <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3 space-y-0">
                 <CardTitle>Your portfolio analysis</CardTitle>
@@ -377,7 +377,7 @@ export default function Reports() {
                           <Info className="h-4 w-4" />
                         </button>
                       </PopoverTrigger>
-                      <PopoverContent align="end" className="w-72 text-sm">
+                      <PopoverContent align="end" className="w-72 border-border bg-card text-sm text-card-foreground shadow-lg">
                         <p className="font-semibold">Reuse this data in Gini</p>
                         <p className="mt-1 text-muted-foreground">
                           The CSV holds your Gini data — family, assets, loans and goals — in Gini's own format. Upload it any time from the Gini
@@ -425,7 +425,7 @@ export default function Reports() {
                   <Skeleton className="h-96 w-full" />
                 ) : (
                   <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#e5e7eb] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
-                    <div style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
+                    <div className="mx-auto" style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
                       <div id="report-scale-wrap" style={{ width: REPORT_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
                         <div ref={previewRef}>
                           <ReportDocument d={reportData} meta={meta} qr={qr} />
