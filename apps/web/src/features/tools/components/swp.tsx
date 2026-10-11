@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -21,11 +22,12 @@ import {
 
 const SWPCalculator = () => {
   const { symbol: sym } = useRegion();
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
   const [swpMode, setSwpMode] = useState("duration"); // "duration" or "balance"
-  const [principal, setPrincipal] = useState("10,00,000");
-  const [withdrawal, setWithdrawal] = useState("5,000");
-  const [annualRate, setAnnualRate] = useState("8");
-  const [tenure, setTenure] = useState("10");
+  const [principal, setPrincipal] = useMoneyState("swp.principal", "10,00,000");
+  const [withdrawal, setWithdrawal] = useMoneyState("swp.withdrawal", "5,000");
+  const [annualRate, setAnnualRate] = usePersistedState("swp.rate", "8");
+  const [tenure, setTenure] = usePersistedState("swp.tenure", "10");
   const [summary, setSummary] = useState("");
   const [chartData, setChartData] = useState([]);
 
@@ -37,7 +39,7 @@ const SWPCalculator = () => {
 
   const formatNumber = (value) => {
     const num = parseInt(value, 10);
-    return isNaN(num) ? "0" : num.toLocaleString("en-IN");
+    return isNaN(num) ? "0" : num.toLocaleString(numLocale);
   };
 
   const calculateSWP = () => {
@@ -119,6 +121,8 @@ const SWPCalculator = () => {
     setSnap({ principal, withdrawal, tenure });
   };
 
+  useCalcSession("swp", calculateSWP, chartData.length > 0);
+
   const formProps = useCalcForm(calculateSWP);
 
 
@@ -192,7 +196,7 @@ const SWPCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setPrincipal(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -210,7 +214,7 @@ const SWPCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setWithdrawal(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setWithdrawal(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -19,9 +21,11 @@ import {
 } from "recharts";
 
 const RDCalculator = () => {
-  const [monthlyInvestment, setMonthlyInvestment] = useState("2,000");
-  const [annualRate, setAnnualRate] = useState("6");
-  const [years, setYears] = useState("5");
+  const { symbol: sym } = useRegion();
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [monthlyInvestment, setMonthlyInvestment] = useMoneyState("rd.monthly", "2,000");
+  const [annualRate, setAnnualRate] = usePersistedState("rd.rate", "6");
+  const [years, setYears] = usePersistedState("rd.years", "5");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -55,7 +59,7 @@ const RDCalculator = () => {
       const M = maturity(yearsValue * 12);
 
       setFutureValue(
-        M.toLocaleString("en-IN", {
+        M.toLocaleString(numLocale, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         })
@@ -70,6 +74,8 @@ const RDCalculator = () => {
       setSnap({ monthlyInvestment, years });
     }
   };
+
+  useCalcSession("rd", calculateRD, !!futureValue);
 
   const formProps = useCalcForm(calculateRD);
 
@@ -119,7 +125,7 @@ const RDCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString("en-IN")
+                        num === "" ? "" : num.toLocaleString(numLocale)
                       );
                     }
                   }}
@@ -165,29 +171,29 @@ const RDCalculator = () => {
               {futureValue && (
                 <div className="mt-8 bg-green-50 p-6 rounded-lg">
                   <p className="text-lg font-medium">
-                     Future Value: <span className="text-green-700">₹{futureValue}</span>
+                     Future Value: <span className="text-green-700">{sym}{futureValue}</span>
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
                     <span className="font-semibold">
-                      ₹
+                      {sym}
                       {(
                         parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
                         parseFloat(snap.years) *
                         12
-                      ).toLocaleString("en-IN")}
+                      ).toLocaleString(numLocale)}
                     </span>
                   </p>
                   <p className="text-sm text-gray-600">
                     Total Interest:{" "}
                     <span className="font-semibold">
-                      ₹
+                      {sym}
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) -
                         parseFloat(snap.monthlyInvestment.replace(/,/g, "")) *
                           parseFloat(snap.years) *
                           12
-                      ).toLocaleString("en-IN", {
+                      ).toLocaleString(numLocale, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

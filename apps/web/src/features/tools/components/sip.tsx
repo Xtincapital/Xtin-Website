@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import SEO, { generateToolData } from "../../../components/SEO";
 import useRegion from "../../../hooks/useRegion";
@@ -23,9 +24,10 @@ import {
 
 const SIPCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [monthlyInvestment, setMonthlyInvestment] = useState("5,000");
-  const [annualRate, setAnnualRate] = useState("12");
-  const [years, setYears] = useState("10");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [monthlyInvestment, setMonthlyInvestment] = useMoneyState("sip.monthly", "5,000");
+  const [annualRate, setAnnualRate] = usePersistedState("invest.rate", "12");
+  const [years, setYears] = usePersistedState("invest.years", "10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
   // Snapshot of the inputs used for the last calculation, so the result panel
@@ -69,7 +71,7 @@ const SIPCalculator = () => {
 
       const M = fv(n);
       setFutureValue(
-        M.toLocaleString("en-IN", {
+        M.toLocaleString(numLocale, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         })
@@ -84,6 +86,8 @@ const SIPCalculator = () => {
       setInvested(P * yearsValue * 12);
     }
   };
+
+  useCalcSession("sip", calculateSIP, !!futureValue);
 
   const formProps = useCalcForm(calculateSIP);
 
@@ -154,7 +158,7 @@ const SIPCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString("en-IN")
+                        num === "" ? "" : num.toLocaleString(numLocale)
                       );
                     }
                   }}
@@ -229,7 +233,7 @@ const SIPCalculator = () => {
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
                     <span className="font-semibold">
-                      {sym}{invested.toLocaleString("en-IN")}
+                      {sym}{invested.toLocaleString(numLocale)}
                     </span>
                   </p>
                   <p className="text-sm text-gray-600">
@@ -238,7 +242,7 @@ const SIPCalculator = () => {
                       {sym}
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) - invested
-                      ).toLocaleString("en-IN", {
+                      ).toLocaleString(numLocale, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

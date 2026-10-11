@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
@@ -15,9 +16,10 @@ import {
 
 const InflationCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [currentAmount, setCurrentAmount] = useState("1,00,000");
-  const [inflationRate, setInflationRate] = useState("6");
-  const [years, setYears] = useState("10");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [currentAmount, setCurrentAmount] = useMoneyState("inflation.amount", "1,00,000");
+  const [inflationRate, setInflationRate] = usePersistedState("inflation.rate", "6");
+  const [years, setYears] = usePersistedState("inflation.years", "10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -45,7 +47,7 @@ const InflationCalculator = () => {
     if (P > 0 && r > 0 && n > 0) {
       const M = P * Math.pow(1 + r, n);
       setFutureValue(
-        M.toLocaleString("en-IN", {
+        M.toLocaleString(numLocale, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         })
@@ -60,6 +62,8 @@ const InflationCalculator = () => {
       setSnap({ currentAmount, years });
     }
   };
+
+  useCalcSession("inflation", calculateInflation, !!futureValue);
 
   const formProps = useCalcForm(calculateInflation);
 
@@ -100,7 +104,7 @@ const InflationCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setCurrentAmount(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setCurrentAmount(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -21,9 +22,10 @@ import {
 
 const CompoundInterestCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [principal, setPrincipal] = useState("10,000");
-  const [annualRate, setAnnualRate] = useState("10");
-  const [years, setYears] = useState("5");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [principal, setPrincipal] = useMoneyState("compound.principal", "10,000");
+  const [annualRate, setAnnualRate] = usePersistedState("compound.rate", "10");
+  const [years, setYears] = usePersistedState("compound.years", "5");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -68,7 +70,7 @@ const CompoundInterestCalculator = () => {
 
       const A = P * Math.pow(1 + r / n, n * t);
       setFutureValue(
-        A.toLocaleString("en-IN", {
+        A.toLocaleString(numLocale, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         })
@@ -83,6 +85,8 @@ const CompoundInterestCalculator = () => {
       setSnap({ principal });
     }
   };
+
+  useCalcSession("compound", calculateCompoundInterest, !!futureValue);
 
   const formProps = useCalcForm(calculateCompoundInterest);
 
@@ -131,7 +135,7 @@ const CompoundInterestCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setPrincipal(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -205,7 +209,7 @@ const CompoundInterestCalculator = () => {
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) -
                         parseFloat(snap.principal.replace(/,/g, ""))
-                      ).toLocaleString("en-IN", {
+                      ).toLocaleString(numLocale, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
-import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { useCalcForm } from "../lib/calcForm";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
+import {
+  analyse,
+  BENCHMARKS,
+  DEFAULT_ASSUMPTIONS,
+  INFRA_GROWTH_ADJ,
+  LTCG_RATE_PCT,
+  NET_YIELD_FACTOR,
+  SCENARIO_SPREAD,
+  type Analysis,
+  type LocationType,
+  type Status,
+} from "../lib/realEstate";
 import SEO, { generateToolData } from "../../../components/SEO";
 import {
   BarChart,
@@ -25,32 +37,56 @@ import {
   Legend,
 } from "recharts";
 
+const INFRA_LABELS: Record<string, string> = {
+  metro: "Metro / Transit",
+  airport: "Airport / Highway",
+  "it-park": "IT Park / Business",
+  hospital: "Hospital / University",
+  road: "Road Improvement",
+  none: "No Major Projects",
+};
+
+interface Snapshot {
+  analysis: Analysis;
+  price: number;
+  location: LocationType;
+  infrastructure: string;
+}
+
 const RealEstateCalculator = () => {
   const { symbol: sym } = useRegion();
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
   // Input States
-  const [propertyPrice, setPropertyPrice] = useState("1,00,00,000");
-  const [monthlyRent, setMonthlyRent] = useState("35,000");
-  const [saleTime, setSaleTime] = useState("45");
+  const [propertyPrice, setPropertyPrice] = useMoneyState("realestate.price", "1,00,00,000");
+  const [monthlyRent, setMonthlyRent] = useMoneyState("realestate.rent", "25,000");
+  const [saleTime, setSaleTime] = useState("");
   const [infrastructure, setInfrastructure] = useState("");
-  const [location, setLocation] = useState("metro");
+  const [location, setLocation] = useState<LocationType>("metro");
   const [propertyType, setPropertyType] = useState("2bhk");
-  
-  // Calculated Results
-  const [results, setResults] = useState(null);
+
+  // Advanced assumptions (kept as strings so fields can be cleared while typing).
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [adv, setAdv] = useState({
+    years: String(DEFAULT_ASSUMPTIONS.years),
+    growth: "", // blank = location benchmark + infrastructure
+    rentIncrease: String(DEFAULT_ASSUMPTIONS.rentIncreasePct),
+    vacancy: String(DEFAULT_ASSUMPTIONS.vacancyMonths),
+    holding: String(DEFAULT_ASSUMPTIONS.holdingCostPct),
+    buyCost: String(DEFAULT_ASSUMPTIONS.buyCostPct),
+    sellCost: String(DEFAULT_ASSUMPTIONS.sellCostPct),
+    fdRate: String(DEFAULT_ASSUMPTIONS.fdRatePct),
+    taxSlab: String(DEFAULT_ASSUMPTIONS.taxSlabPct),
+  });
+  const setAdvField = (key: keyof typeof adv) => (e) => setAdv((prev) => ({ ...prev, [key]: e.target.value }));
+
+  // Calculated Results — a snapshot, so charts do not change until Calculate is pressed again.
+  const [results, setResults] = useState<Snapshot | null>(null);
   const [showInfo, setShowInfo] = useState(false);
   const [chartType, setChartType] = useState("radar");
-  
-  // Filter Pass States
-  const [filterResults, setFilterResults] = useState({
-    yield: { status: null, value: 0 },
-    ratio: { status: null, value: 0 },
-    infra: { status: null, value: "" },
-    liquidity: { status: null, value: 0 }
-  });
 
   const structuredData = generateToolData({
     name: 'Real Estate Investment Calculator',
-    description: 'Analyze property investments with the 4-Filter Framework. Calculate rental yield, price-to-rent ratio, and evaluate infrastructure & liquidity factors for smart property decisions.'
+    description: 'Analyze property investments with the 4-Filter Framework. Calculate net rental yield, price-to-rent ratio, and evaluate infrastructure & liquidity against your location, then compare with a fixed deposit after costs and tax.'
   });
 
   // Parse number from formatted string
@@ -58,145 +94,57 @@ const RealEstateCalculator = () => {
     if (!str) return 0;
     return parseFloat(str.toString().replace(/,/g, "")) || 0;
   };
+  // Blank/invalid -> fallback (so clearing an advanced field uses its default).
+  const numOr = (str: string, fallback: number) => {
+    const n = parseFloat(String(str).replace(/,/g, ""));
+    return Number.isFinite(n) ? n : fallback;
+  };
 
   // Format number with Indian locale
   const formatNumber = (num) => {
-    return num.toLocaleString("en-IN");
+    return num.toLocaleString(numLocale);
   };
 
   // Format currency
   const formatCurrency = (num) => {
-    if (num >= 10000000) {
-      return `${sym}${(num / 10000000).toFixed(2)} Cr`;
-    } else if (num >= 100000) {
-      return `${sym}${(num / 100000).toFixed(2)} L`;
+    const sign = num < 0 ? "-" : "";
+    const n = Math.abs(num);
+    if (sym === "₹") {
+      if (n >= 10000000) return `${sign}${sym}${(n / 10000000).toFixed(2)} Cr`;
+      if (n >= 100000) return `${sign}${sym}${(n / 100000).toFixed(2)} L`;
+    } else {
+      if (n >= 1000000000) return `${sign}${sym}${(n / 1000000000).toFixed(2)}B`;
+      if (n >= 1000000) return `${sign}${sym}${(n / 1000000).toFixed(2)}M`;
     }
-    return `${sym}${formatNumber(num)}`;
+    return `${sign}${sym}${formatNumber(Math.round(n))}`;
   };
 
   const calculateAll = () => {
     const price = parseNumber(propertyPrice);
     const rent = parseNumber(monthlyRent);
-    const annualRent = rent * 12;
-    const days = parseNumber(saleTime);
 
-    if (price <= 0 || rent <= 0) {
-      setResults(null);
-      return;
-    }
-
-    // Calculate Rental Yield
-    const rentalYield = (annualRent / price) * 100;
-    
-    // Calculate Price-to-Rent Ratio
-    const priceToRent = price / annualRent;
-
-    // Calculate 10-year projections
-    const appreciationRate = getAppreciationRate();
-    const projections = [];
-    let currentValue = price;
-    let totalRentalIncome = 0;
-    
-    for (let year = 1; year <= 10; year++) {
-      currentValue = currentValue * (1 + appreciationRate / 100);
-      totalRentalIncome += annualRent * Math.pow(1.05, year - 1); // 5% annual rent increase
-      projections.push({
-        year: `Year ${year}`,
-        propertyValue: Math.round(currentValue),
-        totalRentalIncome: Math.round(totalRentalIncome),
-        totalReturns: Math.round(currentValue - price + totalRentalIncome)
-      });
-    }
-
-    // Determine filter statuses
-    const newFilterResults = {
-      yield: {
-        value: rentalYield,
-        status: rentalYield > 4 ? 'good' : rentalYield >= 3 ? 'neutral' : 'avoid'
-      },
-      ratio: {
-        value: priceToRent,
-        status: priceToRent < 15 ? 'good' : priceToRent <= 20 ? 'neutral' : 'avoid'
-      },
-      infra: {
-        value: infrastructure,
-        status: infrastructure === '' ? null : infrastructure === 'none' ? 'avoid' : infrastructure === 'road' ? 'neutral' : 'good'
-      },
-      liquidity: {
-        value: days,
-        status: days <= 0 ? null : days < 60 ? 'good' : days <= 90 ? 'neutral' : 'avoid'
-      }
-    };
-
-    setFilterResults(newFilterResults);
-
-    // Count passed filters
-    const passedFilters = Object.values(newFilterResults).filter(f => f.status === 'good').length;
-    const analyzedFilters = Object.values(newFilterResults).filter(f => f.status !== null).length;
-
-    // Overall recommendation
-    let recommendation = '';
-    let recommendationClass = '';
-    if (analyzedFilters >= 3) {
-      if (passedFilters >= 3) {
-        recommendation = 'Excellent Investment Opportunity';
-        recommendationClass = 'good';
-      } else if (passedFilters === 2) {
-        recommendation = 'Moderate - Requires Further Analysis';
-        recommendationClass = 'neutral';
-      } else {
-        recommendation = 'High Risk - Consider Alternatives';
-        recommendationClass = 'avoid';
-      }
-    } else {
-      recommendation = 'Complete all filters for assessment';
-      recommendationClass = '';
-    }
-
-    // Compare with FD
-    const fdRate = 7;
-    const fdReturns10Year = price * Math.pow(1 + fdRate / 100, 10) - price;
-    const propertyReturns10Year = projections[9]?.totalReturns || 0;
-    const betterInvestment = propertyReturns10Year > fdReturns10Year ? 'property' : 'fd';
-
-    setResults({
-      rentalYield,
-      priceToRent,
-      annualRent,
-      passedFilters,
-      analyzedFilters,
-      recommendation,
-      recommendationClass,
-      projections,
-      fdReturns10Year,
-      propertyReturns10Year,
-      betterInvestment,
-      appreciationRate,
-      // Inputs used, so the charts do not change until Calculate is pressed again.
+    const analysis = analyse({
       price,
-      days,
-      infrastructure,
+      monthlyRent: rent,
       location,
+      infrastructure,
+      saleDays: parseNumber(saleTime),
+      assumptions: {
+        years: numOr(adv.years, DEFAULT_ASSUMPTIONS.years),
+        growthOverride: adv.growth.trim() === "" ? null : numOr(adv.growth, DEFAULT_ASSUMPTIONS.growthOverride as any),
+        rentIncreasePct: numOr(adv.rentIncrease, DEFAULT_ASSUMPTIONS.rentIncreasePct),
+        vacancyMonths: numOr(adv.vacancy, DEFAULT_ASSUMPTIONS.vacancyMonths),
+        holdingCostPct: numOr(adv.holding, DEFAULT_ASSUMPTIONS.holdingCostPct),
+        buyCostPct: numOr(adv.buyCost, DEFAULT_ASSUMPTIONS.buyCostPct),
+        sellCostPct: numOr(adv.sellCost, DEFAULT_ASSUMPTIONS.sellCostPct),
+        fdRatePct: numOr(adv.fdRate, DEFAULT_ASSUMPTIONS.fdRatePct),
+        taxSlabPct: numOr(adv.taxSlab, DEFAULT_ASSUMPTIONS.taxSlabPct),
+      },
     });
+    setResults(analysis ? { analysis, price, location, infrastructure } : null);
   };
 
-  const getAppreciationRate = () => {
-    let baseRate = 6; // Base appreciation
-    
-    // Infrastructure bonus
-    if (infrastructure === 'metro' || infrastructure === 'airport') baseRate += 4;
-    else if (infrastructure === 'it-park' || infrastructure === 'hospital') baseRate += 3;
-    else if (infrastructure === 'road') baseRate += 2;
-    else if (infrastructure === 'none') baseRate -= 1;
-    
-    // Location bonus
-    if (location === 'metro') baseRate += 2;
-    else if (location === 'tier2') baseRate += 1;
-    
-    return baseRate;
-  };
-
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: Status) => {
     switch (status) {
       case 'good': return 'text-green-600 bg-green-50 border-green-200';
       case 'neutral': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
@@ -205,7 +153,7 @@ const RealEstateCalculator = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: Status) => {
     switch (status) {
       case 'good': return '✓';
       case 'neutral': return '⚠';
@@ -214,29 +162,84 @@ const RealEstateCalculator = () => {
     }
   };
 
-  const radarData = results ? [
-    { subject: 'Rental Yield', value: Math.min(results.rentalYield * 12.5, 100), fullMark: 100 },
-    { subject: 'Price-to-Rent', value: Math.max(100 - (results.priceToRent - 10) * 5, 0), fullMark: 100 },
-    { subject: 'Infrastructure', value: results.infrastructure === 'metro' || results.infrastructure === 'airport' ? 100 : results.infrastructure === 'it-park' || results.infrastructure === 'hospital' ? 80 : results.infrastructure === 'road' ? 60 : results.infrastructure === 'none' ? 20 : 50, fullMark: 100 },
-    { subject: 'Liquidity', value: results.days < 60 ? 100 : results.days <= 90 ? 60 : 30, fullMark: 100 },
-    { subject: 'Location', value: results.location === 'metro' ? 100 : results.location === 'tier2' ? 70 : 40, fullMark: 100 },
-  ] : [];
+  const clampScore = (n: number) => Math.round(Math.max(0, Math.min(100, n)));
 
-  const pieData = results ? [
-    { name: 'Property Appreciation', value: Math.round(results.projections[9]?.propertyValue - results.price) },
-    { name: 'Rental Income (10 yrs)', value: Math.round(results.projections[9]?.totalRentalIncome || 0) },
+  // Radar scores are relative to the location's benchmark: 75 = "typical for this
+  // location", 100 = clearly better.
+  const radarData = results ? (() => {
+    const a = results.analysis;
+    const bm = a.benchmark;
+    return [
+      { subject: 'Net Yield', value: clampScore((a.netYield / (bm.yieldGood * NET_YIELD_FACTOR)) * 75), fullMark: 100 },
+      { subject: 'Price-to-Rent', value: clampScore((bm.ptrGood / a.priceToRent) * 75), fullMark: 100 },
+      { subject: 'Infrastructure', value: results.infrastructure === 'metro' || results.infrastructure === 'airport' ? 100 : results.infrastructure === 'it-park' || results.infrastructure === 'hospital' ? 80 : results.infrastructure === 'road' ? 60 : results.infrastructure === 'none' ? 20 : 50, fullMark: 100 },
+      { subject: 'Liquidity', value: clampScore((bm.daysGood / a.days) * 75), fullMark: 100 },
+      { subject: 'Growth Outlook', value: clampScore((a.growthBasePct / 8) * 100), fullMark: 100 },
+    ];
+  })() : [];
+
+  const finalRow = results ? results.analysis.projections[results.analysis.projections.length - 1] : null;
+  const pieData = results && finalRow ? [
+    { name: 'Price Gain', value: Math.max(0, Math.round(finalRow.propertyValue - results.price)) },
+    { name: 'Net Rent (after costs & tax)', value: Math.max(0, Math.round(finalRow.totalRentalIncome)) },
   ] : [];
 
   const COLORS = ['#10B981', '#3B82F6'];
 
+  useCalcSession("realestate", calculateAll, !!results);
+
   const formProps = useCalcForm(calculateAll);
 
+  const filterCards = results ? (() => {
+    const a = results.analysis;
+    const bm = a.benchmark;
+    const f = a.filters;
+    return [
+      {
+        title: 'Filter 1: Net Rental Yield',
+        status: f.yield.status,
+        value: `${f.yield.value.toFixed(2)}%`,
+        note: `Gross ${a.grossYield.toFixed(2)}%. Typical for a ${bm.label.toLowerCase()}: ${bm.yieldGood.toFixed(1)}%+ gross.`,
+        verdict: f.yield.status === 'good' ? 'Healthy income for this location' :
+          f.yield.status === 'neutral' ? 'Average for this location' : 'Low income for this location',
+      },
+      {
+        title: 'Filter 2: Price-to-Rent',
+        status: f.ratio.status,
+        value: `${a.priceToRent.toFixed(1)}x`,
+        note: `${bm.label} range: up to ${bm.ptrGood}x is good, above ${bm.ptrAvoid}x is expensive.`,
+        verdict: f.ratio.status === 'good' ? 'Fairly priced against rent' :
+          f.ratio.status === 'neutral' ? 'Priced above rent; growth must make up the gap' : 'Expensive for the rent it earns',
+      },
+      {
+        title: 'Filter 3: Infrastructure',
+        status: f.infra.status,
+        value: INFRA_LABELS[results.infrastructure] || 'Not Selected',
+        note: results.infrastructure
+          ? `Adds ${INFRA_GROWTH_ADJ[results.infrastructure] ?? 0}% a year to the growth estimate (an assumption).`
+          : 'Select a project type and press Calculate.',
+        verdict: f.infra.status === 'good' ? 'Major project nearby' :
+          f.infra.status === 'neutral' ? 'Minor project nearby' : f.infra.status === 'avoid' ? 'No projects nearby' : '',
+        small: true,
+      },
+      {
+        title: 'Filter 4: Liquidity',
+        status: f.liquidity.status,
+        value: `${a.days} days`,
+        note: `${a.daysAssumed ? 'Assumed typical for this location. ' : ''}${bm.label}: under ${bm.daysGood} days is good, over ${bm.daysAvoid} is slow.`,
+        verdict: f.liquidity.status === 'good' ? 'Should be easy to sell' :
+          f.liquidity.status === 'neutral' ? 'Moderate demand' : 'May take long to sell',
+      },
+    ];
+  })() : [];
+
+  const years = results?.analysis.assumptions.years ?? 10;
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <SEO
         title="Real Estate Investment Calculator - 4-Filter Property Analysis"
-        description="Analyze property investments with our advanced 4-Filter Framework. Calculate rental yield, price-to-rent ratio, evaluate infrastructure development and liquidity factors for smart real estate decisions in India."
+        description="Analyze property investments with our 4-Filter Framework. Calculate net rental yield and price-to-rent against your location, evaluate infrastructure and liquidity, and compare with a fixed deposit after costs and tax in India."
         keywords="real estate calculator, property investment India, rental yield calculator, price to rent ratio, property ROI calculator, real estate investment analysis, 4 filter framework, property evaluation tool"
         canonicalUrl="/tools/real-estate-investment"
         structuredData={structuredData}
@@ -258,7 +261,7 @@ const RealEstateCalculator = () => {
               <span className="text-green-600">Calculator</span>
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Make data-driven property decisions. Our 4-filter framework separates wealth-building assets from overpriced investments.
+              Make data-driven property decisions. Our 4-filter framework judges a property against its own location, then compares it with a fixed deposit after costs and tax.
             </p>
           </div>
 
@@ -272,31 +275,32 @@ const RealEstateCalculator = () => {
             </button>
             {showInfo && (
               <div className="mt-6 p-6 bg-white shadow-lg rounded-2xl text-left max-w-4xl mx-auto border border-gray-100">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">The 4-Filter Property Investment Framework</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">The 4-Filter Property Investment Framework</h3>
+                <p className="text-sm text-gray-500 mb-4">Each filter is judged against typical values for the location type you choose (see the benchmark table below).</p>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="p-4 bg-green-50 rounded-xl">
-                    <h4 className="font-semibold text-green-800 mb-2">🏠 Filter 1: Rental Yield</h4>
-                    <p className="text-sm text-gray-700">Annual Rent ÷ Property Price × 100</p>
-                    <p className="text-xs text-gray-500 mt-1">&gt;4% Good | 3-4% Neutral | &lt;3% Avoid</p>
+                    <h4 className="font-semibold text-green-800 mb-2">🏠 Filter 1: Net Rental Yield</h4>
+                    <p className="text-sm text-gray-700">(Rent after vacancy and upkeep) ÷ (Price + buying costs)</p>
+                    <p className="text-xs text-gray-500 mt-1">How much income the money you put in actually earns.</p>
                   </div>
                   <div className="p-4 bg-blue-50 rounded-xl">
                     <h4 className="font-semibold text-blue-800 mb-2">📊 Filter 2: Price-to-Rent Ratio</h4>
                     <p className="text-sm text-gray-700">Property Price ÷ Annual Rent</p>
-                    <p className="text-xs text-gray-500 mt-1">&lt;15 Buy | 15-20 Neutral | &gt;20 Rent</p>
+                    <p className="text-xs text-gray-500 mt-1">Years of rent it takes to equal the price. Lower means better value.</p>
                   </div>
                   <div className="p-4 bg-purple-50 rounded-xl">
                     <h4 className="font-semibold text-purple-800 mb-2">🚇 Filter 3: Infrastructure</h4>
-                    <p className="text-sm text-gray-700">5-Year Development Pipeline</p>
-                    <p className="text-xs text-gray-500 mt-1">Metro/Airport/IT park add 3-4% a year to the appreciation estimate; road works add 2%</p>
+                    <p className="text-sm text-gray-700">Upcoming projects within 1 km</p>
+                    <p className="text-xs text-gray-500 mt-1">Adds 0.5 to 2% a year to the growth estimate. This is a judgement, not data, so change the growth in advanced assumptions if you disagree.</p>
                   </div>
                   <div className="p-4 bg-orange-50 rounded-xl">
                     <h4 className="font-semibold text-orange-800 mb-2">🔄 Filter 4: Liquidity</h4>
-                    <p className="text-sm text-gray-700">Average Sale Time in Area</p>
-                    <p className="text-xs text-gray-500 mt-1">&lt;60 days Good | 60-90 Moderate | &gt;90 Avoid</p>
+                    <p className="text-sm text-gray-700">Average days to sell in the area</p>
+                    <p className="text-xs text-gray-500 mt-1">If left blank, a typical value for your location is used.</p>
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-gray-100 rounded-lg">
-                  <p className="text-sm text-gray-700 font-medium">💡 Golden Rule: Properties passing 3+ filters typically deliver resilient returns across market cycles.</p>
+                  <p className="text-sm text-gray-700 font-medium">💡 Note: Filters 1 and 2 are two views of the same rent, so they usually agree. Filter 1 also counts costs, which is why it can be stricter.</p>
                 </div>
               </div>
             )}
@@ -326,7 +330,7 @@ const RealEstateCalculator = () => {
                     onChange={(e) => {
                       const value = e.target.value.replace(/,/g, "");
                       if (value === "" || /^[0-9]+$/.test(value)) {
-                        setPropertyPrice(value === "" ? "" : parseInt(value).toLocaleString("en-IN"));
+                        setPropertyPrice(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
                       }
                     }}
                     placeholder="1,00,00,000"
@@ -346,10 +350,10 @@ const RealEstateCalculator = () => {
                     onChange={(e) => {
                       const value = e.target.value.replace(/,/g, "");
                       if (value === "" || /^[0-9]+$/.test(value)) {
-                        setMonthlyRent(value === "" ? "" : parseInt(value).toLocaleString("en-IN"));
+                        setMonthlyRent(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
                       }
                     }}
-                    placeholder="35,000"
+                    placeholder="25,000"
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                   />
                 </div>
@@ -382,7 +386,7 @@ const RealEstateCalculator = () => {
                   <select
                     id="realestate-location-type"
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={(e) => setLocation(e.target.value as LocationType)}
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
                   >
                     <option value="metro">Metro City (Mumbai, Delhi, Bangalore...)</option>
@@ -422,10 +426,52 @@ const RealEstateCalculator = () => {
                     type="number"
                     value={saleTime}
                     onChange={(e) => setSaleTime(e.target.value)}
-                    placeholder="45"
+                    placeholder={`${BENCHMARKS[location].daysDefault} (typical)`}
                     className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Check local property portals for avg. listing duration</p>
+                  <p className="text-xs text-gray-500 mt-1">Leave blank to use the typical value for your location. Local property portals show real listing durations.</p>
+                </div>
+
+                {/* Advanced assumptions */}
+                <div className="mb-4 rounded-xl border border-gray-200">
+                  <button
+                    type="button"
+                    onClick={() => setShowAdvanced((v) => !v)}
+                    aria-expanded={showAdvanced}
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-700"
+                  >
+                    Advanced assumptions
+                    <span className="text-gray-400">{showAdvanced ? "−" : "+"}</span>
+                  </button>
+                  {showAdvanced && (
+                    <div className="px-4 pb-4 grid grid-cols-2 gap-3">
+                      {[
+                        ['years', 'Holding period (years)', '1-30'],
+                        ['growth', 'Price growth (% / yr)', `auto: ${BENCHMARKS[location].growth}% + project`],
+                        ['rentIncrease', 'Rent increase (% / yr)', ''],
+                        ['vacancy', 'Vacant months / yr', ''],
+                        ['holding', 'Upkeep + prop. tax (% of price / yr)', ''],
+                        ['buyCost', 'Buying costs (%)', 'stamp duty + brokerage'],
+                        ['sellCost', 'Selling costs (%)', ''],
+                        ['fdRate', 'FD rate (%)', ''],
+                        ['taxSlab', 'Your tax slab (%)', ''],
+                      ].map(([key, label, hint]) => (
+                        <div key={key} className={key === 'growth' ? 'col-span-2' : ''}>
+                          <label htmlFor={`realestate-adv-${key}`} className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
+                          <input
+                            id={`realestate-adv-${key}`}
+                            type="number"
+                            step="any"
+                            value={adv[key]}
+                            onChange={setAdvField(key as keyof typeof adv)}
+                            placeholder={hint}
+                            className="w-full p-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                          />
+                        </div>
+                      ))}
+                      <p className="col-span-2 text-xs text-gray-500">Defaults are typical Indian figures. Edit any of them to match your case.</p>
+                    </div>
+                  )}
                 </div>
 
                 <button
@@ -441,121 +487,52 @@ const RealEstateCalculator = () => {
             <div className="lg:col-span-2 space-y-4">
               {/* 4 Filter Cards */}
               <div className="grid sm:grid-cols-2 gap-4">
-                {/* Rental Yield Filter */}
-                <div className={`bg-white rounded-2xl p-5 border-2 transition-all ${getStatusColor(filterResults.yield.status)}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">Filter 1: Rental Yield</h3>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
-                      filterResults.yield.status === 'good' ? 'bg-green-500 text-white' :
-                      filterResults.yield.status === 'neutral' ? 'bg-yellow-500 text-white' :
-                      filterResults.yield.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {getStatusIcon(filterResults.yield.status)}
-                    </span>
+                {(filterCards.length ? filterCards : [
+                  { title: 'Filter 1: Net Rental Yield', status: null, value: '-', note: '', verdict: 'Enter details to calculate' },
+                  { title: 'Filter 2: Price-to-Rent', status: null, value: '-', note: '', verdict: 'Enter details to calculate' },
+                  { title: 'Filter 3: Infrastructure', status: null, value: 'Not Selected', note: '', verdict: 'Enter details to calculate' },
+                  { title: 'Filter 4: Liquidity', status: null, value: '-', note: '', verdict: 'Enter details to calculate' },
+                ] as any[]).map((card) => (
+                  <div key={card.title} className={`bg-white rounded-2xl p-5 border-2 transition-all ${getStatusColor(card.status)}`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-gray-900">{card.title}</h3>
+                      <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
+                        card.status === 'good' ? 'bg-green-500 text-white' :
+                        card.status === 'neutral' ? 'bg-yellow-500 text-white' :
+                        card.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
+                      }`}>
+                        {getStatusIcon(card.status)}
+                      </span>
+                    </div>
+                    <div className={`${card.small ? 'text-xl' : 'text-3xl'} font-bold text-gray-900 mb-1`}>{card.value}</div>
+                    <p className="text-sm font-medium text-gray-700">{card.verdict}</p>
+                    {card.note && <p className="text-xs text-gray-500 mt-1">{card.note}</p>}
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
-                    {filterResults.yield.value > 0 ? `${filterResults.yield.value.toFixed(2)}%` : '-'}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {filterResults.yield.status === 'good' ? 'Good value, worth exploring' :
-                     filterResults.yield.status === 'neutral' ? 'Neutral zone, analyze carefully' :
-                     filterResults.yield.status === 'avoid' ? 'Low yield, consider renting instead' : 'Enter details to calculate'}
-                  </p>
-                </div>
-
-                {/* Price-to-Rent Filter */}
-                <div className={`bg-white rounded-2xl p-5 border-2 transition-all ${getStatusColor(filterResults.ratio.status)}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">Filter 2: Price-to-Rent</h3>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
-                      filterResults.ratio.status === 'good' ? 'bg-green-500 text-white' :
-                      filterResults.ratio.status === 'neutral' ? 'bg-yellow-500 text-white' :
-                      filterResults.ratio.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {getStatusIcon(filterResults.ratio.status)}
-                    </span>
-                  </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
-                    {filterResults.ratio.value > 0 ? filterResults.ratio.value.toFixed(1) : '-'}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {filterResults.ratio.status === 'good' ? 'Cheaper to buy than rent' :
-                     filterResults.ratio.status === 'neutral' ? 'Compare financing options' :
-                     filterResults.ratio.status === 'avoid' ? 'Cheaper to rent in this area' : 'Enter details to calculate'}
-                  </p>
-                </div>
-
-                {/* Infrastructure Filter */}
-                <div className={`bg-white rounded-2xl p-5 border-2 transition-all ${getStatusColor(filterResults.infra.status)}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">Filter 3: Infrastructure</h3>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
-                      filterResults.infra.status === 'good' ? 'bg-green-500 text-white' :
-                      filterResults.infra.status === 'neutral' ? 'bg-yellow-500 text-white' :
-                      filterResults.infra.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {getStatusIcon(filterResults.infra.status)}
-                    </span>
-                  </div>
-                  <div className="text-xl font-bold text-gray-900 mb-1">
-                    {filterResults.infra.value === 'metro' ? 'Metro / Transit' :
-                     filterResults.infra.value === 'airport' ? 'Airport / Highway' :
-                     filterResults.infra.value === 'it-park' ? 'IT Park / Business' :
-                     filterResults.infra.value === 'hospital' ? 'Hospital / University' :
-                     filterResults.infra.value === 'road' ? 'Road Improvement' :
-                     filterResults.infra.value === 'none' ? 'No Major Projects' : 'Not Selected'}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {filterResults.infra.status === 'good' ? 'Major project nearby: +3 to +4% a year added to appreciation' :
-                     filterResults.infra.status === 'neutral' ? 'Minor project nearby: +2% a year added to appreciation' :
-                     filterResults.infra.status === 'avoid' ? 'No projects nearby: -1% a year from appreciation' : 'Select infrastructure type and press Calculate'}
-                  </p>
-                </div>
-
-                {/* Liquidity Filter */}
-                <div className={`bg-white rounded-2xl p-5 border-2 transition-all ${getStatusColor(filterResults.liquidity.status)}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">Filter 4: Liquidity</h3>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
-                      filterResults.liquidity.status === 'good' ? 'bg-green-500 text-white' :
-                      filterResults.liquidity.status === 'neutral' ? 'bg-yellow-500 text-white' :
-                      filterResults.liquidity.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
-                    }`}>
-                      {getStatusIcon(filterResults.liquidity.status)}
-                    </span>
-                  </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
-                    {filterResults.liquidity.value > 0 ? `${filterResults.liquidity.value} days` : '-'}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {filterResults.liquidity.status === 'good' ? 'High demand, easy exit' :
-                     filterResults.liquidity.status === 'neutral' ? 'Moderate demand' :
-                     filterResults.liquidity.status === 'avoid' ? 'Low demand, hard to sell' : 'Enter average sale time'}
-                  </p>
-                </div>
+                ))}
               </div>
 
               {/* Overall Assessment */}
               {results && (
                 <div className={`rounded-2xl p-6 border-2 ${
-                  results.recommendationClass === 'good' ? 'bg-green-50 border-green-300' :
-                  results.recommendationClass === 'neutral' ? 'bg-yellow-50 border-yellow-300' :
-                  results.recommendationClass === 'avoid' ? 'bg-red-50 border-red-300' : 'bg-gray-50 border-gray-200'
+                  results.analysis.recommendationClass === 'good' ? 'bg-green-50 border-green-300' :
+                  results.analysis.recommendationClass === 'neutral' ? 'bg-yellow-50 border-yellow-300' :
+                  results.analysis.recommendationClass === 'avoid' ? 'bg-red-50 border-red-300' : 'bg-gray-50 border-gray-200'
                 }`}>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                       <h3 className="text-lg font-bold text-gray-900 mb-1">Overall Assessment</h3>
                       <p className={`text-2xl font-bold ${
-                        results.recommendationClass === 'good' ? 'text-green-700' :
-                        results.recommendationClass === 'neutral' ? 'text-yellow-700' :
-                        results.recommendationClass === 'avoid' ? 'text-red-700' : 'text-gray-600'
+                        results.analysis.recommendationClass === 'good' ? 'text-green-700' :
+                        results.analysis.recommendationClass === 'neutral' ? 'text-yellow-700' :
+                        results.analysis.recommendationClass === 'avoid' ? 'text-red-700' : 'text-gray-600'
                       }`}>
-                        {results.recommendation}
+                        {results.analysis.recommendation}
                       </p>
+                      <p className="text-xs text-gray-500 mt-1">Judged against typical values for a {results.analysis.benchmark.label.toLowerCase()}.</p>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="text-center px-4 py-2 bg-white rounded-xl shadow-sm">
-                        <div className="text-2xl font-bold text-gray-900">{results.passedFilters}/{results.analyzedFilters}</div>
+                        <div className="text-2xl font-bold text-gray-900">{results.analysis.passedFilters}/{results.analysis.analyzedFilters}</div>
                         <div className="text-xs text-gray-500">Filters Passed</div>
                       </div>
                     </div>
@@ -569,30 +546,17 @@ const RealEstateCalculator = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                     <h3 className="text-xl font-bold text-gray-900">Investment Analysis</h3>
                     <div className="flex gap-2">
-                      <button
-                        onClick={() => setChartType("radar")}
-                        className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
-                          chartType === "radar" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Score
-                      </button>
-                      <button
-                        onClick={() => setChartType("pie")}
-                        className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
-                          chartType === "pie" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Returns
-                      </button>
-                      <button
-                        onClick={() => setChartType("bar")}
-                        className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
-                          chartType === "bar" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        Projection
-                      </button>
+                      {[['radar', 'Score'], ['pie', 'Returns'], ['bar', 'Projection']].map(([id, label]) => (
+                        <button
+                          key={id}
+                          onClick={() => setChartType(id)}
+                          className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
+                            chartType === id ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -610,10 +574,10 @@ const RealEstateCalculator = () => {
                         <Pie
                           isAnimationActive={false}
                           label={piePercentLabel}
+                          labelLine={false}
                           data={pieData}
                           cx="50%"
                           cy="50%"
-                          labelLine={false}
                           outerRadius={100}
                           fill="#8884d8"
                           dataKey="value"
@@ -626,103 +590,115 @@ const RealEstateCalculator = () => {
                         <Tooltip formatter={(value) => formatCurrency(value)} />
                       </PieChart>
                     ) : (
-                      <BarChart data={results.projections.filter((_, i) => i % 2 === 0 || i === 9)}>
+                      <BarChart data={results.analysis.projections.filter((_, i, arr) => i % 2 === 0 || i === arr.length - 1)}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="year" tick={{ fontSize: 11 }} />
-                        <YAxis tickFormatter={(value) => `${sym}${(value / 100000).toFixed(0)}L`} />
+                        <YAxis tickFormatter={(value) => formatCurrency(value)} width={80} tick={{ fontSize: 11 }} />
                         <Tooltip formatter={(value) => formatCurrency(value)} />
                         <Bar dataKey="propertyValue" name="Property Value" fill="#10B981" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="totalRentalIncome" name="Total Rent Earned" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="totalRentalIncome" name="Net Rent Earned (after costs & tax)" fill="#3B82F6" radius={[4, 4, 0, 0]} />
                       </BarChart>
                     )}
                   </ResponsiveContainer>
+                  <p className="text-xs text-gray-500 mt-3">
+                    Score chart: 75 means typical for the location, 100 means clearly better. Returns and Projection use the base-case growth of {results.analysis.growthBasePct.toFixed(1)}% a year.
+                  </p>
                 </div>
               )}
 
               {/* FD Comparison */}
-              {results && (
-                <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Property vs Fixed Deposit (10 Year Comparison)
-                  </h3>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                      <p className="text-gray-500 text-sm mb-1">Property Returns</p>
-                      <p className="text-2xl font-bold text-green-600">{formatCurrency(results.propertyReturns10Year)}</p>
-                      <p className="text-xs text-gray-500 mt-1">{results.appreciationRate}% appreciation + rent</p>
+              {results && (() => {
+                const a = results.analysis;
+                const b = a.base;
+                const better = a.betterInvestment === 'property';
+                return (
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <h3 className="text-lg font-bold text-gray-900 mb-1 flex items-center gap-2">
+                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      Property vs Fixed Deposit ({years} Year Comparison)
+                    </h3>
+                    <p className="text-xs text-gray-500 mb-4">
+                      Same money in both: {formatCurrency(a.outlay)} (price + buying costs). Rent is reinvested at the FD rate, and both sides are after tax and costs.
+                    </p>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                        <p className="text-gray-500 text-sm mb-1">Property (base case)</p>
+                        <p className="text-2xl font-bold text-green-600">{formatCurrency(b.profit)}</p>
+                        <p className="text-xs text-gray-500 mt-1">profit, about {b.cagrPct.toFixed(1)}% a year at {b.growthPct.toFixed(1)}% price growth</p>
+                      </div>
+                      <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                        <p className="text-gray-500 text-sm mb-1">FD ({a.assumptions.fdRatePct}%, after tax)</p>
+                        <p className="text-2xl font-bold text-blue-600">{formatCurrency(a.fdProfit)}</p>
+                        <p className="text-xs text-gray-500 mt-1">profit, about {a.fdCagrPct.toFixed(1)}% a year, low risk</p>
+                      </div>
+                      <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                        <p className="text-gray-500 text-sm mb-1">Higher Return</p>
+                        <p className={`text-2xl font-bold ${better ? 'text-green-600' : 'text-blue-600'}`}>
+                          {better ? 'Property' : 'Fixed Deposit'}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {better
+                            ? `${formatCurrency(b.finalWealth - a.fdFinal)} more than the FD (base case)`
+                            : `${formatCurrency(a.fdFinal - b.finalWealth)} less than the FD (base case)`}
+                        </p>
+                      </div>
                     </div>
-                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                      <p className="text-gray-500 text-sm mb-1">FD Returns (7%)</p>
-                      <p className="text-2xl font-bold text-blue-600">{formatCurrency(results.fdReturns10Year)}</p>
-                      <p className="text-xs text-gray-500 mt-1">Risk-free, guaranteed</p>
+
+                    <h4 className="text-sm font-semibold text-gray-700 mt-6 mb-2">If prices grow faster or slower</h4>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="text-left text-xs text-gray-500">
+                            <th className="py-2 pr-3 font-medium">Scenario</th>
+                            <th className="py-2 pr-3 font-medium">Price growth</th>
+                            <th className="py-2 pr-3 font-medium">Profit</th>
+                            <th className="py-2 pr-3 font-medium">Per year</th>
+                            <th className="py-2 font-medium">vs FD</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {a.scenarios.map((sc) => (
+                            <tr key={sc.key} className={sc.key === 'base' ? 'bg-green-50/50 font-medium' : ''}>
+                              <td className="py-2 pr-3">{sc.label}</td>
+                              <td className="py-2 pr-3">{sc.growthPct.toFixed(1)}%</td>
+                              <td className="py-2 pr-3">{formatCurrency(sc.profit)}</td>
+                              <td className="py-2 pr-3">{sc.cagrPct.toFixed(1)}%</td>
+                              <td className={`py-2 ${sc.beatsFd ? 'text-green-600' : 'text-red-600'}`}>{sc.beatsFd ? 'Beats FD' : 'Behind FD'}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
-                    <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                      <p className="text-gray-500 text-sm mb-1">Better Option</p>
-                      <p className={`text-2xl font-bold ${results.betterInvestment === 'property' ? 'text-green-600' : 'text-blue-600'}`}>
-                        {results.betterInvestment === 'property' ? 'Property' : 'Fixed Deposit'}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {results.betterInvestment === 'property' 
-                          ? `+${formatCurrency(results.propertyReturns10Year - results.fdReturns10Year)} extra` 
-                          : `${formatCurrency(results.fdReturns10Year - results.propertyReturns10Year)} safer`}
-                      </p>
-                    </div>
+                    <p className="text-xs text-gray-500 mt-3">
+                      Capital gains tax on the sale: {formatCurrency(a.capitalGainsTax)} ({years >= 2 ? `${LTCG_RATE_PCT}% long-term` : 'at your slab, held under 2 years'}). Conservative and optimistic move growth by {SCENARIO_SPREAD} points either way. Not modelled: home-loan interest, GST, cess and one-off repairs.
+                    </p>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               {/* Key Insights */}
               {results && (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                   <h3 className="text-lg font-bold text-gray-900 mb-4">Key Insights</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    {[
+                      { label: 'Annual Rent (gross)', value: formatCurrency(results.analysis.grossAnnualRent), cls: 'text-green-600', bg: 'bg-green-100' },
+                      { label: 'Price Growth Estimate', value: `${results.analysis.growthBasePct.toFixed(1)}% per year${results.analysis.infraAdjPct ? ` (incl. +${results.analysis.infraAdjPct}% for projects)` : ''}`, cls: 'text-blue-600', bg: 'bg-blue-100' },
+                      { label: `${years}-Year Property Value`, value: formatCurrency(finalRow?.propertyValue || 0), cls: 'text-purple-600', bg: 'bg-purple-100' },
+                      { label: 'Total Cost to Buy', value: formatCurrency(results.analysis.outlay), cls: 'text-orange-600', bg: 'bg-orange-100' },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-start gap-3">
+                        <div className={`w-10 h-10 ${item.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                          <span className={`text-lg font-bold ${item.cls}`}>•</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold text-gray-900">{item.label}</p>
+                          <p className={`${item.cls} font-bold`}>{item.value}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">Annual Rental Income</p>
-                        <p className="text-green-600 font-bold">{formatCurrency(results.annualRent)}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">Est. Appreciation Rate</p>
-                        <p className="text-blue-600 font-bold">{results.appreciationRate}% per year</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">10-Year Property Value</p>
-                        <p className="text-purple-600 font-bold">{formatCurrency(results.projections[9]?.propertyValue || 0)}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">Total 10-Year Returns</p>
-                        <p className="text-orange-600 font-bold">{formatCurrency(results.propertyReturns10Year)}</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -750,69 +726,42 @@ const RealEstateCalculator = () => {
             </div>
           </div>
 
-          {/* Decision Matrix */}
+          {/* Benchmarks used */}
           <div className="mt-12 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Decision Matrix</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">Benchmarks Used</h2>
+            <p className="text-center text-gray-500 text-sm mb-6">
+              Rough Indian-market ballparks, not live data. Good means at or better than the first value, avoid means beyond the second. Check local listings for your exact area.
+            </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-gray-900 text-white">
-                    <th className="px-4 py-3 text-left rounded-tl-lg">Filter</th>
-                    <th className="px-4 py-3 text-center">Criteria</th>
-                    <th className="px-4 py-3 text-center bg-green-600">Good / Pass</th>
-                    <th className="px-4 py-3 text-center bg-yellow-400 text-[#111827]">Caution</th>
-                    <th className="px-4 py-3 text-center bg-red-500 rounded-tr-lg">Avoid</th>
+                    <th className="px-4 py-3 text-left rounded-tl-lg">Measure</th>
+                    {(Object.keys(BENCHMARKS) as LocationType[]).map((k, i, arr) => (
+                      <th key={k} className={`px-4 py-3 text-center ${i === arr.length - 1 ? 'rounded-tr-lg' : ''}`}>{BENCHMARKS[k].label}</th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  <tr>
-                    <td className="px-4 py-3 font-medium">Rental Yield</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Annual Rent ÷ Price</td>
-                    <td className="px-4 py-3 text-center text-green-600 font-medium">&gt;4%</td>
-                    <td className="px-4 py-3 text-center text-yellow-600 font-medium">3-4%</td>
-                    <td className="px-4 py-3 text-center text-red-600 font-medium">&lt;3%</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="px-4 py-3 font-medium">Price-to-Rent</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Price ÷ Annual Rent</td>
-                    <td className="px-4 py-3 text-center text-green-600 font-medium">&lt;15</td>
-                    <td className="px-4 py-3 text-center text-yellow-600 font-medium">15-20</td>
-                    <td className="px-4 py-3 text-center text-red-600 font-medium">&gt;20</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 font-medium">Infrastructure</td>
-                    <td className="px-4 py-3 text-center text-gray-500">5-Year Pipeline</td>
-                    <td className="px-4 py-3 text-center text-green-600 font-medium">Metro/Airport</td>
-                    <td className="px-4 py-3 text-center text-yellow-600 font-medium">Road Work</td>
-                    <td className="px-4 py-3 text-center text-red-600 font-medium">None</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="px-4 py-3 font-medium">Liquidity</td>
-                    <td className="px-4 py-3 text-center text-gray-500">Avg. Sale Time</td>
-                    <td className="px-4 py-3 text-center text-green-600 font-medium">&lt;60 days</td>
-                    <td className="px-4 py-3 text-center text-yellow-600 font-medium">60-90 days</td>
-                    <td className="px-4 py-3 text-center text-red-600 font-medium">&gt;90 days</td>
-                  </tr>
+                  {[
+                    ['Gross rental yield (good / avoid)', (b) => `${b.yieldGood}%+ / <${b.yieldAvoid}%`],
+                    ['Price-to-rent (good / avoid)', (b) => `≤${b.ptrGood} / >${b.ptrAvoid}`],
+                    ['Typical price growth', (b) => `${b.growth}% a year`],
+                    ['Days to sell (good / avoid)', (b) => `<${b.daysGood} / >${b.daysAvoid}`],
+                  ].map(([label, fmt], idx) => (
+                    <tr key={label as string} className={idx % 2 ? 'bg-gray-50' : ''}>
+                      <td className="px-4 py-3 font-medium">{label as string}</td>
+                      {(Object.keys(BENCHMARKS) as LocationType[]).map((k) => (
+                        <td key={k} className="px-4 py-3 text-center text-gray-700">{(fmt as any)(BENCHMARKS[k])}</td>
+                      ))}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
-            <p className="text-center text-gray-500 text-sm mt-4">
-              💡 <strong>Tip:</strong> Properties passing 3+ filters typically deliver resilient returns across market cycles.
+            <p className="text-center text-gray-500 text-xs mt-4">
+              Net yield is judged against {NET_YIELD_FACTOR * 100}% of the gross yield bar, to allow for vacancy, upkeep and buying costs. Infrastructure adds 0.5 to 2 points of yearly growth.
             </p>
-          </div>
-
-          {/* CTA Section */}
-          <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-4">Need personalized advice for your property investment?</p>
-            <Link
-              to="/advisory"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-xl transition"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-              Talk to a Financial Advisor
-            </Link>
           </div>
         </div>
       </main>

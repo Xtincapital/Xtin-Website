@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
@@ -15,13 +16,14 @@ import {
 
 const RetirementCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [currentAge, setCurrentAge] = useState("30");
-  const [retirementAge, setRetirementAge] = useState("60");
-  const [lifeExpectancy, setLifeExpectancy] = useState("80");
-  const [monthlyExpenses, setMonthlyExpenses] = useState("50000");
-  const [currentSavings, setCurrentSavings] = useState("500000");
-  const [expectedReturn, setExpectedReturn] = useState("10");
-  const [inflationRate, setInflationRate] = useState("6");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [currentAge, setCurrentAge] = usePersistedState("retirement.age", "30");
+  const [retirementAge, setRetirementAge] = usePersistedState("retirement.retAge", "60");
+  const [lifeExpectancy, setLifeExpectancy] = usePersistedState("retirement.life", "80");
+  const [monthlyExpenses, setMonthlyExpenses] = useMoneyState("retirement.expenses", "50000");
+  const [currentSavings, setCurrentSavings] = useMoneyState("retirement.savings", "500000");
+  const [expectedReturn, setExpectedReturn] = usePersistedState("retirement.return", "10");
+  const [inflationRate, setInflationRate] = usePersistedState("retirement.inflation", "6");
 
   const [results, setResults] = useState(null);
   const [chartData, setChartData] = useState([]);
@@ -115,8 +117,10 @@ const RetirementCalculator = () => {
 
   const formatNumber = (num) => {
     if (!num) return "0";
-    return new Intl.NumberFormat("en-IN").format(num);
+    return new Intl.NumberFormat(numLocale).format(num);
   };
+
+  useCalcSession("retirement", calculateRetirement, !!results);
 
   const formProps = useCalcForm(calculateRetirement);
 

@@ -6,6 +6,7 @@
 //   - Inputs that re-format as you type ("1,24,400") keep the caret where the
 //     user is editing instead of jumping to the end.
 import { useCallback, useRef } from "react";
+import { getRegionConfig } from "../../../lib/region";
 import type { KeyboardEvent, FormEvent } from "react";
 
 const FIELD_SELECTOR =
@@ -113,16 +114,27 @@ export function limitProblem({ amount, rate, years }: { amount?: number; rate?: 
 
 // ── Charts ────────────────────────────────────────────────────────────────
 
-/** Compact axis label: 12,500 → 12.5k, 4,50,000 → 4.5L, 2.1Cr. */
-export const compactMoney = (v: number | string) => {
+/** Compact axis label: 12,500 → 12.5k, then 4.5L / 2.1Cr in India or 4.5M / 2.1B elsewhere. */
+const formatCompact = (v: number | string, forceInr: boolean) => {
   const n = Number(v);
   const abs = Math.abs(n);
   const trim = (x: number) => String(parseFloat(x.toFixed(2)));
-  if (abs >= 1e7) return `${trim(n / 1e7)}Cr`;
-  if (abs >= 1e5) return `${trim(n / 1e5)}L`;
+  if (forceInr || getRegionConfig().currency === "INR") {
+    if (abs >= 1e7) return `${trim(n / 1e7)}Cr`;
+    if (abs >= 1e5) return `${trim(n / 1e5)}L`;
+  } else {
+    if (abs >= 1e9) return `${trim(n / 1e9)}B`;
+    if (abs >= 1e6) return `${trim(n / 1e6)}M`;
+  }
   if (abs >= 1e3) return `${trim(n / 1e3)}k`;
   return trim(n);
 };
+
+/** Compact axis label in the active region's style. */
+export const compactMoney = (v: number | string) => formatCompact(v, false);
+
+/** Compact axis label that is always rupees (L / Cr), for India-only calculators (PPF, EPF, NPS, SSY, ELSS, gratuity). */
+export const compactMoneyInr = (v: number | string) => formatCompact(v, true);
 
 /** Margin so axis labels/dots stay inside the card. */
 export const CHART_MARGIN = { top: 10, right: 24, left: 4, bottom: 16 };
@@ -133,6 +145,9 @@ export const Y_AXIS_PROPS = {
   width: 64,
   tickFormatter: compactMoney,
 };
+
+/** Y_AXIS_PROPS for India-only calculators: rupee labels whatever the region. */
+export const Y_AXIS_PROPS_INR = { ...Y_AXIS_PROPS, tickFormatter: compactMoneyInr };
 
 /** Spread on <XAxis> for numeric year axes: always starts at 0. */
 export const X_AXIS_PROPS = {

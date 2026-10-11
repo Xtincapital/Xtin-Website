@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -21,10 +22,11 @@ import {
 
 const StepUpSIPCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [monthlyInvestment, setMonthlyInvestment] = useState("5,000");
-  const [annualIncrease, setAnnualIncrease] = useState("10");
-  const [annualRate, setAnnualRate] = useState("12");
-  const [years, setYears] = useState("10");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [monthlyInvestment, setMonthlyInvestment] = useMoneyState("stepup.monthly", "5,000");
+  const [annualIncrease, setAnnualIncrease] = usePersistedState("stepup.increase", "10");
+  const [annualRate, setAnnualRate] = usePersistedState("stepup.rate", "12");
+  const [years, setYears] = usePersistedState("stepup.years", "10");
   const [futureValue, setFutureValue] = useState(null);
   const [totalInvestment, setTotalInvestment] = useState(null);
   const [chartData, setChartData] = useState([]);
@@ -65,13 +67,13 @@ const StepUpSIPCalculator = () => {
          data.push({ year: i, value: Number(total_value.toFixed(2)) });
        }
        setFutureValue(
-         total_value.toLocaleString("en-IN", {
+         total_value.toLocaleString(numLocale, {
            maximumFractionDigits: 2,
            minimumFractionDigits: 2,
          })
        );
        setTotalInvestment(
-         investment.toLocaleString("en-IN", {
+         investment.toLocaleString(numLocale, {
            maximumFractionDigits: 2,
            minimumFractionDigits: 2,
          })
@@ -79,6 +81,8 @@ const StepUpSIPCalculator = () => {
        setChartData(data);
      }
   };
+
+  useCalcSession("stepup", calculateStepUpSIP, !!futureValue);
 
   const formProps = useCalcForm(calculateStepUpSIP);
 
@@ -128,7 +132,7 @@ const StepUpSIPCalculator = () => {
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
                       setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString("en-IN")
+                        num === "" ? "" : num.toLocaleString(numLocale)
                       );
                     }
                   }}
@@ -199,7 +203,7 @@ const StepUpSIPCalculator = () => {
                      {(
                        parseFloat(futureValue.replace(/,/g, "")) -
                        parseFloat(totalInvestment.replace(/,/g, ""))
-                     ).toLocaleString("en-IN", {
+                     ).toLocaleString(numLocale, {
                        maximumFractionDigits: 2,
                        minimumFractionDigits: 2,
                      })}

@@ -3,6 +3,7 @@ import useRegion from "../../../hooks/useRegion";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -22,9 +23,10 @@ import {
 
 const LumpsumCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [principal, setPrincipal] = useState("1,00,000");
-  const [annualRate, setAnnualRate] = useState("12");
-  const [years, setYears] = useState("10");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [principal, setPrincipal] = useMoneyState("lumpsum.principal", "1,00,000");
+  const [annualRate, setAnnualRate] = usePersistedState("invest.rate", "12");
+  const [years, setYears] = usePersistedState("invest.years", "10");
   const [futureValue, setFutureValue] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -58,7 +60,7 @@ const LumpsumCalculator = () => {
         A = P * Math.pow(1 + annualRateValue, yearsValue);
       }
       setFutureValue(
-        A.toLocaleString("en-IN", {
+        A.toLocaleString(numLocale, {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         })
@@ -78,6 +80,8 @@ const LumpsumCalculator = () => {
       setInvested(P);
     }
   };
+
+  useCalcSession("lumpsum", calculateLumpsum, !!futureValue);
 
   const formProps = useCalcForm(calculateLumpsum);
 
@@ -140,7 +144,7 @@ const LumpsumCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setPrincipal(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -244,7 +248,7 @@ const LumpsumCalculator = () => {
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
-                    <span className="font-semibold">{sym}{invested.toLocaleString("en-IN")}</span>
+                    <span className="font-semibold">{sym}{invested.toLocaleString(numLocale)}</span>
                   </p>
                   <p className="text-sm text-gray-600">
                     Total Interest:{" "}
@@ -252,7 +256,7 @@ const LumpsumCalculator = () => {
                       {sym}
                       {(
                         parseFloat(futureValue.replace(/,/g, "")) - invested
-                      ).toLocaleString("en-IN", {
+                      ).toLocaleString(numLocale, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

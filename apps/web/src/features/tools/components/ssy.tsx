@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
+import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS_INR as Y_AXIS_PROPS } from "../lib/calcForm";
 import {
   LineChart,
   Line,

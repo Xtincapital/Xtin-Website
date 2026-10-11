@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -21,9 +22,10 @@ import {
 
 const CAGRCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [initialValue, setInitialValue] = useState("10,000");
-  const [finalValue, setFinalValue] = useState("20,000");
-  const [years, setYears] = useState("5");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [initialValue, setInitialValue] = useMoneyState("cagr.initial", "10,000");
+  const [finalValue, setFinalValue] = useMoneyState("cagr.final", "20,000");
+  const [years, setYears] = usePersistedState("cagr.years", "5");
   const [cagr, setCagr] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -62,6 +64,8 @@ const CAGRCalculator = () => {
       setSnap({ initialValue, finalValue });
     }
   };
+
+  useCalcSession("cagr", calculateCAGR, cagr !== null);
 
   const formProps = useCalcForm(calculateCAGR);
 
@@ -112,7 +116,7 @@ const CAGRCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setInitialValue(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setInitialValue(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"
@@ -130,7 +134,7 @@ const CAGRCalculator = () => {
                     const value = e.target.value.replace(/,/g, "");
                     if (value === "" || /^[0-9\b]+$/.test(value)) {
                       const num = value === "" ? "" : parseInt(value, 10);
-                      setFinalValue(num === "" ? "" : num.toLocaleString("en-IN"));
+                      setFinalValue(num === "" ? "" : num.toLocaleString(numLocale));
                     }
                   }}
                   className="w-full p-3 border rounded-lg"

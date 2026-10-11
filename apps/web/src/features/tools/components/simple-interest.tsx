@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
@@ -21,9 +22,10 @@ import {
 
 const SimpleInterestCalculator = () => {
   const { symbol: sym } = useRegion();
-  const [principal, setPrincipal] = useState("10000");
-  const [annualRate, setAnnualRate] = useState("10");
-  const [years, setYears] = useState("5");
+  const numLocale = sym === "₹" ? "en-IN" : "en-US";
+  const [principal, setPrincipal] = useMoneyState("simple.principal", "10000");
+  const [annualRate, setAnnualRate] = usePersistedState("simple.rate", "10");
+  const [years, setYears] = usePersistedState("simple.years", "5");
   const [futureValue, setFutureValue] = useState<string | null>(null);
   const [chartData, setChartData] = useState([]);
   const [error, setError] = useState("");
@@ -36,7 +38,7 @@ const SimpleInterestCalculator = () => {
 
   const formatNumber = (num) => {
     if (num === null || isNaN(num)) return "0";
-    return new Intl.NumberFormat("en-IN", {
+    return new Intl.NumberFormat(numLocale, {
       maximumFractionDigits: 0,
     }).format(num);
   };
@@ -74,6 +76,8 @@ const SimpleInterestCalculator = () => {
       setSnap({ principal });
     }
   };
+
+  useCalcSession("simple", calculateSimpleInterest, chartData.length > 0);
 
   const formProps = useCalcForm(calculateSimpleInterest);
 
