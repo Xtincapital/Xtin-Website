@@ -190,7 +190,7 @@ export default function Goals() {
     try {
       const [goalsRes, tradesRes] = await Promise.all([
         api.goals.getGoals(),
-        api.trades.getTrades({ limit: 200, offset: 0 }),
+        api.getAllTrades(),
       ]);
       setGoals(goalsRes || []);
       setTrades((tradesRes.data || []).map((t) => ({ date: t.date, pnl: t.pnl })));

@@ -95,7 +95,10 @@ export interface Trade {
  *  (`date` and `asset` are the only required fields; everything else is
  *  optional/nullable). Used for updates too (all-partial, see `TradeUpdateInput`). */
 export type TradeCreateInput = Partial<Omit<Trade, 'id' | 'user_id' | 'created_at' | 'updated_at'>> &
-  Pick<Trade, 'date' | 'asset'>;
+  Pick<Trade, 'date' | 'asset'> & {
+    /** Save even if the same trade is already in the journal (otherwise the server answers 409). */
+    allow_duplicate?: boolean;
+  };
 export type TradeUpdateInput = Partial<Omit<Trade, 'id' | 'user_id' | 'created_at' | 'updated_at'>>;
 
 export interface TradeListResponse {
@@ -162,10 +165,9 @@ const realTrades = {
     });
   },
 
-  /** GET /journal/trades?limit=&offset= — paginated (default 50, max 200
-   *  server-side per `validateTradeListQuery`). Callers that need the full
-   *  trade history for client-side aggregation (e.g. Dashboard.tsx's
-   *  metrics) should pass a large `limit` explicitly. */
+  /** GET /journal/trades?limit=&offset= — one page (default 50, max 1000
+   *  server-side per `validateTradeListQuery`). For the full history use
+   *  `getAllTrades()` below. */
   getTrades: async (params?: TradeListParams): Promise<TradeListResponse> => {
     const query = new URLSearchParams();
     if (params?.limit !== undefined) query.set('limit', String(params.limit));
@@ -200,6 +202,36 @@ const realTrades = {
 };
 // While sample mode is on (see ./sampleData.ts), served from memory instead.
 export const trades = withSampleMode(journalSampleMode, realTrades, sampleTrades);
+
+/**
+ * Every trade the user has, newest first — for pages that total or chart
+ * the whole history (Dashboard, Analytics, Calendar, ...). The server sends
+ * at most 1000 per request, so this reads page by page. Asking for one page
+ * of 200 used to leave every trade after the 200th out of those pages.
+ */
+export async function getAllTrades(): Promise<TradeListResponse> {
+  let pageSize = 1000;
+  const all: Trade[] = [];
+  let total = 0;
+  for (let offset = 0; ; ) {
+    let res: TradeListResponse;
+    try {
+      res = await trades.getTrades({ limit: pageSize, offset });
+    } catch (err) {
+      // A server from before the 1000 limit refuses limit=1000; use its 200.
+      if (pageSize === 1000 && offset === 0) {
+        pageSize = 200;
+        continue;
+      }
+      throw err;
+    }
+    all.push(...res.data);
+    total = res.pagination?.total ?? all.length;
+    offset += res.data.length;
+    if (!res.data.length || all.length >= total) break;
+  }
+  return { data: all, pagination: { total, limit: all.length, offset: 0 } };
+}
 
 // ─────────────────────────────────────────────────────────────────────────
 // Goals (goals.routes.ts) — same verbose naming convention as `trades` above,
@@ -283,14 +315,21 @@ export const strategies = withSampleMode(journalSampleMode, realStrategies, samp
 // parsed rows shaped like `POST /journal/trades` bodies for preview; the
 // caller saves the ones it keeps via `trades.createTrade`.
 // ─────────────────────────────────────────────────────────────────────────
+/** An uploaded row, flagged when it's already in the journal or repeats an earlier row of the file. */
+export type ImportedTrade = TradeCreateInput & { duplicate?: 'journal' | 'file' };
+
 export const bulkImport = {
-  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf'): Promise<{ trades: TradeCreateInput[]; count: number; skipped?: number; file_type: string }> =>
+  parse: (
+    file: File,
+    fileType: 'csv' | 'excel' | 'pdf',
+  ): Promise<{ trades: ImportedTrade[]; count: number; skipped?: number; duplicates?: { journal: number; file: number }; file_type: string }> =>
     uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType }),
 };
 
 // Export all implemented APIs
 export const api = {
   trades,
+  getAllTrades,
   goals,
   strategies,
   bulkImport,

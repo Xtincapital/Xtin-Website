@@ -50,7 +50,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 const MONTH_NAMES = [
@@ -107,7 +107,7 @@ const Monthly = () => {
   // Same pragmatic largest-page approach as Dashboard.tsx/Calendar.tsx.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "monthly"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const allTrades = tradesData?.data ?? [];

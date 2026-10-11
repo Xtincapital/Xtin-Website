@@ -38,7 +38,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 
 // Same 7-emotion list + emoji pages/Trades.tsx's trade form uses.
 const EMOTIONS: Record<string, { emoji: string; label: string }> = {
@@ -71,7 +71,7 @@ const Psychology = () => {
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "psychology"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const allTrades = tradesData?.data ?? [];

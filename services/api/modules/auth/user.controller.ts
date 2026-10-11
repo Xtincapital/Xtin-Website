@@ -7,6 +7,7 @@ import {
 } from "./user.validator.js";
 import { HTTP_STATUS, MESSAGES } from "../../constants/constants.js";
 import { deleteAccountData } from "./accountDeletion.js";
+import { forgetCachedProfile } from "../../middlewares/auth.js";
 import {
 	checkUserExists,
 	saveUser,
@@ -400,6 +401,7 @@ const updateUserProfile = async (req, res) => {
 			});
 		}
 
+		forgetCachedProfile(authId);
 		console.log('User profile updated successfully in table:', user);
 
 		res.status(HTTP_STATUS.OK).json({
@@ -487,6 +489,7 @@ const deleteAccount = async (req, res) => {
 				message: "We couldn't finish deleting your account. You can still sign in — please try again, or contact support@xtincapital.com.",
 			});
 		}
+		forgetCachedProfile(req.user.authId);
 		console.log('[DeleteAccount] deleted', req.user.authId);
 		return res.status(HTTP_STATUS.OK).json({ message: "Your account and data have been deleted." });
 	} catch (error) {

@@ -5,21 +5,23 @@
 // integration test against a real Supabase project).
 import { describe, it, expect, vi, beforeEach, afterAll } from "vitest";
 
-const mockGetUser = vi.fn();
-const mockUserClientFromToken = vi.fn(() => ({ auth: { getUser: mockGetUser } }));
+const mockGetClaims = vi.fn();
+vi.mock("@supabase/supabase-js", () => ({ createClient: vi.fn(() => ({ auth: { getClaims: mockGetClaims } })) }));
 
-const mockSingle = vi.fn();
-const mockEq = vi.fn(() => ({ single: mockSingle }));
+const mockMaybeSingle = vi.fn();
+const mockEq = vi.fn(() => ({ maybeSingle: mockMaybeSingle }));
 const mockSelect = vi.fn(() => ({ eq: mockEq }));
 const mockFrom = vi.fn(() => ({ select: mockSelect }));
 const mockSupabase = { from: mockFrom };
 
-vi.mock("../supabase/index.js", () => ({
-    default: mockSupabase,
-    userClientFromToken: mockUserClientFromToken,
-}));
+vi.mock("../supabase/index.js", () => ({ default: mockSupabase }));
 
-const { authenticate, authorize, requireAdmin } = await import("./auth.js");
+const claims = (sub: string, email: string, user_metadata: Record<string, unknown> = {}) => ({
+    data: { claims: { sub, email, user_metadata } },
+    error: null,
+});
+
+const { authenticate, authorize, requireAdmin, forgetCachedProfile } = await import("./auth.js");
 
 function makeReq(token?: string) {
     return { headers: { authorization: token ? `Bearer ${token}` : undefined } } as any;
@@ -70,8 +72,8 @@ describe("authenticate", () => {
         expect(next).not.toHaveBeenCalled();
     });
 
-    it("rejects an invalid/expired token (Supabase returns an error)", async () => {
-        mockGetUser.mockResolvedValue({ data: { user: null }, error: { message: "invalid JWT" } });
+    it("rejects an invalid token (signature check fails)", async () => {
+        mockGetClaims.mockResolvedValue({ data: null, error: { message: "Invalid JWT signature" } });
         const req = makeReq("bad-token");
         const res = makeRes();
         const next = vi.fn();
@@ -83,7 +85,7 @@ describe("authenticate", () => {
     });
 
     it("reports token expiry distinctly (code: TOKEN_EXPIRED)", async () => {
-        mockGetUser.mockResolvedValue({ data: { user: null }, error: { message: "JWT expired" } });
+        mockGetClaims.mockResolvedValue({ data: null, error: { message: "JWT has expired" } });
         const req = makeReq("expired-token");
         const res = makeRes();
         const next = vi.fn();
@@ -95,11 +97,8 @@ describe("authenticate", () => {
     });
 
     it("accepts a valid Supabase token and populates req.user with authId = the real Supabase uid", async () => {
-        mockGetUser.mockResolvedValue({
-            data: { user: { id: "auth-uuid-123", email: "person@example.com", user_metadata: {} } },
-            error: null,
-        });
-        mockSingle.mockResolvedValue({
+        mockGetClaims.mockResolvedValue(claims("auth-uuid-123", "person@example.com"));
+        mockMaybeSingle.mockResolvedValue({
             data: { id: "profile-uuid-456", email: "person@example.com", first_name: "A", last_name: "B", phone_number: null },
             error: null,
         });
@@ -119,11 +118,8 @@ describe("authenticate", () => {
     });
 
     it("falls back to the raw Supabase uid for userId when no public.users row exists yet (PGRST116 = no rows found)", async () => {
-        mockGetUser.mockResolvedValue({
-            data: { user: { id: "auth-uuid-789", email: "new@example.com", user_metadata: { first_name: "New" } } },
-            error: null,
-        });
-        mockSingle.mockResolvedValue({ data: null, error: { code: "PGRST116", message: "no rows" } });
+        mockGetClaims.mockResolvedValue(claims("auth-uuid-789", "new@example.com", { first_name: "New" }));
+        mockMaybeSingle.mockResolvedValue({ data: null, error: null });
 
         const req = makeReq("good-token-no-profile");
         const res = makeRes();
@@ -134,10 +130,32 @@ describe("authenticate", () => {
         expect(next).toHaveBeenCalledOnce();
         expect(req.user.userId).toBe("auth-uuid-789"); // falls back to user.id, not left undefined
         expect(req.user.authId).toBe("auth-uuid-789");
+        expect(req.user.first_name).toBe("New");
     });
 
-    it("returns 401 (not a 500 crash) when userClientFromToken/getUser throws", async () => {
-        mockGetUser.mockRejectedValue(new Error("network error"));
+    it("looks the profile row up once, then serves it from cache until it's forgotten", async () => {
+        mockGetClaims.mockResolvedValue(claims("auth-cache-1", "c@example.com"));
+        mockMaybeSingle.mockResolvedValue({ data: { id: "p-1", email: "c@example.com", first_name: "C", last_name: "D", phone_number: null }, error: null });
+
+        for (let i = 0; i < 3; i++) await authenticate(makeReq("t"), makeRes(), vi.fn());
+        expect(mockMaybeSingle).toHaveBeenCalledTimes(1);
+
+        forgetCachedProfile("auth-cache-1");
+        const req = makeReq("t");
+        await authenticate(req, makeRes(), vi.fn());
+        expect(mockMaybeSingle).toHaveBeenCalledTimes(2);
+        expect(req.user.userId).toBe("p-1");
+    });
+
+    it("never calls the Supabase Auth server per request", async () => {
+        mockGetClaims.mockResolvedValue(claims("auth-x", "x@example.com"));
+        mockMaybeSingle.mockResolvedValue({ data: null, error: null });
+        await authenticate(makeReq("t"), makeRes(), vi.fn());
+        expect(mockGetClaims).toHaveBeenCalledWith("t");
+    });
+
+    it("returns 401 (not a 500 crash) when the token check throws", async () => {
+        mockGetClaims.mockRejectedValue(new Error("network error"));
         const req = makeReq("some-token");
         const res = makeRes();
         const next = vi.fn();

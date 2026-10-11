@@ -51,7 +51,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 
 const PIE_COLORS = [
   "hsl(var(--chart-positive))",
@@ -95,7 +95,7 @@ const Daily = () => {
   // Same pragmatic largest-page approach as Dashboard.tsx/Calendar.tsx/Monthly.tsx.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "daily"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const allTrades = tradesData?.data ?? [];

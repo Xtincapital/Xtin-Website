@@ -57,7 +57,8 @@ const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Dates must be YYYY-MM-DD
 
 const tradeListQuerySchema = z
     .object({
-        limit: z.coerce.number().int().positive().max(200).default(50),
+        // 1000 is the most Supabase returns in one request.
+        limit: z.coerce.number().int().positive().max(1000).default(50),
         offset: z.coerce.number().int().min(0).default(0),
         // Matches asset or strategy (case-insensitive, partial).
         search: z.string().trim().max(100).optional(),

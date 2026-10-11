@@ -49,7 +49,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ChevronDown } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
@@ -163,6 +163,86 @@ const EMPTY_FORM: TradeFormState = {
   tags: "",
   emotion: "neutral",
 };
+
+// Quick-add memory: the last market/type/currency/time zone/fees used, and
+// recently traded assets, so a new trade starts mostly filled in.
+const DEFAULTS_KEY = "journal_trade_defaults_v1";
+const RECENT_ASSETS_KEY = "journal_recent_assets_v1";
+type RememberedDefaults = Partial<Pick<TradeFormState, "market" | "type" | "currency" | "time_zone" | "brokerage">>;
+
+function readJson<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(key: string, value: unknown) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // storage full / private mode — just don't remember
+  }
+}
+
+const todayIso = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+/** A blank trade for today, using the last-used market/type/currency/fees. */
+function newTradeForm(): TradeFormState {
+  const remembered = readJson<RememberedDefaults>(DEFAULTS_KEY, {});
+  return { ...EMPTY_FORM, ...remembered, date: todayIso() };
+}
+
+// Fields that live under "More details"; open it automatically when editing a trade that uses them.
+const MORE_FIELDS: (keyof TradeFormState)[] = [
+  "exit_date", "entry_time", "exit_time", "margin", "notes", "tags", "underlying_price", "implied_volatility",
+];
+
+/** Single-tap choice row (replaces a dropdown). */
+function ChoiceChips({
+  label,
+  options,
+  value,
+  onChange,
+  allowClear = false,
+}: {
+  label: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (value: string) => void;
+  allowClear?: boolean;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label>{label}</Label>
+      <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-1.5">
+        {options.map((o) => {
+          const selected = o.value === value;
+          return (
+            <button
+              key={o.value}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              onClick={() => onChange(selected && allowClear ? "" : o.value)}
+              className={cn(
+                "rounded-full border px-3 py-1 text-sm transition-colors",
+                selected ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
+              )}
+            >
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 // Same formula as CSV import (services/api/modules/journal/importParsers.ts).
 // Returns "" until quantity, entry and exit price are all filled in.
@@ -348,6 +428,9 @@ export default function Trades() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
   const [pnlManual, setPnlManual] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [recentAssets, setRecentAssets] = useState<string[]>(() => readJson<string[]>(RECENT_ASSETS_KEY, []));
+  const assetInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<TradeFormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
 
@@ -423,8 +506,9 @@ export default function Trades() {
 
   function openAddDialog() {
     setEditingTrade(null);
-    setForm(EMPTY_FORM);
+    setForm(newTradeForm());
     setPnlManual(false);
+    setShowMore(false);
     setDialogOpen(true);
   }
 
@@ -434,7 +518,45 @@ export default function Trades() {
     // Keep a P&L the user typed by hand; otherwise follow the prices.
     setPnlManual(next.pnl !== "" && Number(next.pnl) !== Number(calcPnl(next) || NaN));
     setForm(next);
+    setShowMore(MORE_FIELDS.some((k) => String(next[k] || "").trim() !== ""));
     setDialogOpen(true);
+  }
+
+  // Start a new trade from an existing one: same asset and setup, today's
+  // date, no exit/result yet.
+  function openDuplicateDialog(trade: Trade) {
+    const base = tradeToForm(trade);
+    setEditingTrade(null);
+    setForm({
+      ...base,
+      date: todayIso(),
+      exit_date: "",
+      entry_time: "",
+      exit_time: "",
+      exit_price: "",
+      pnl: "",
+      notes: "",
+      emotion: "neutral",
+    });
+    setPnlManual(false);
+    setShowMore(false);
+    setDialogOpen(true);
+  }
+
+  function rememberTrade(f: TradeFormState) {
+    writeJson(DEFAULTS_KEY, {
+      market: f.market,
+      type: f.type,
+      currency: f.currency,
+      time_zone: f.time_zone,
+      brokerage: f.brokerage,
+    } satisfies RememberedDefaults);
+    const asset = f.asset.trim();
+    if (asset) {
+      const next = [asset, ...recentAssets.filter((a) => a.toLowerCase() !== asset.toLowerCase())].slice(0, 20);
+      setRecentAssets(next);
+      writeJson(RECENT_ASSETS_KEY, next);
+    }
   }
 
   function setField<K extends keyof TradeFormState>(key: K, value: TradeFormState[K]) {
@@ -448,6 +570,8 @@ export default function Trades() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    // "Save & add another" submits with this button; keep the dialog open then.
+    const addAnother = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === "another";
 
     if (!form.date || !form.asset.trim()) {
       toast.error("Trade date and asset are required");
@@ -519,10 +643,27 @@ export default function Trades() {
         toast.success("Trade updated");
       } else {
         await api.trades.createTrade(payload);
-        toast.success("Trade added");
+        toast.success(`${payload.asset} added`);
       }
+      rememberTrade(form);
 
-      setDialogOpen(false);
+      if (addAnother && !editingTrade) {
+        // Same day, market, type and strategy; fresh asset and prices.
+        setForm((prev) => ({
+          ...newTradeForm(),
+          date: prev.date,
+          market: prev.market,
+          type: prev.type,
+          strategy: prev.strategy,
+          currency: prev.currency,
+          time_zone: prev.time_zone,
+          brokerage: prev.brokerage,
+        }));
+        setPnlManual(false);
+        setTimeout(() => assetInputRef.current?.focus(), 0);
+      } else {
+        setDialogOpen(false);
+      }
       await loadTrades(offset);
       await loadStrategies();
     } catch (err: any) {
@@ -704,8 +845,17 @@ export default function Trades() {
                       </TableCell>
                       <TableCell className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]">
                         <div className="flex justify-end gap-1">
-                          <Button variant="ghost" size="icon" onClick={() => openEditDialog(trade)} aria-label="Edit trade">
+                          <Button variant="ghost" size="icon" onClick={() => openEditDialog(trade)} aria-label="Edit trade" title="Edit">
                             <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => openDuplicateDialog(trade)}
+                            aria-label={`Log another ${trade.asset} trade`}
+                            title="Duplicate (new trade with the same setup)"
+                          >
+                            <Copy className="h-4 w-4" />
                           </Button>
                           <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(trade)} aria-label="Delete trade">
                             <Trash2 className="h-4 w-4" />
@@ -779,264 +929,344 @@ export default function Trades() {
           <DialogHeader>
             <DialogTitle>{editingTrade ? "Edit Trade" : "Add Trade"}</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Core trade details */}
-            <section className="space-y-3">
-              <h3 className="text-sm font-semibold text-muted-foreground">Core Trade Details</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* The essentials — enough to log a trade */}
+            <section className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr_10rem]">
+                <div className="space-y-1.5">
+                  <Label>Side</Label>
+                  <div role="radiogroup" aria-label="Buy or sell" className="inline-flex rounded-lg border p-0.5">
+                    {(["buy", "sell"] as const).map((side) => (
+                      <button
+                        key={side}
+                        type="button"
+                        role="radio"
+                        aria-checked={form.buy_sell === side}
+                        onClick={() => setField("buy_sell", side)}
+                        className={cn(
+                          "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
+                          form.buy_sell === side
+                            ? side === "buy"
+                              ? "bg-emerald-600 text-white"
+                              : "bg-red-600 text-white"
+                            : "text-muted-foreground hover:text-foreground"
+                        )}
+                      >
+                        {side === "buy" ? "Buy / Long" : "Sell / Short"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="asset">Asset / Stock</Label>
+                  <Input
+                    id="asset"
+                    ref={assetInputRef}
+                    list="recent-assets"
+                    autoFocus={!editingTrade}
+                    value={form.asset}
+                    onChange={(e) => setField("asset", e.target.value)}
+                    placeholder="e.g. RELIANCE, NIFTY 24500 CE"
+                    required
+                  />
+                  <datalist id="recent-assets">
+                    {recentAssets.map((a) => (
+                      <option key={a} value={a} />
+                    ))}
+                  </datalist>
+                </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="date">Trade Date</Label>
                   <Input id="date" type="date" value={form.date} onChange={(e) => setField("date", e.target.value)} required />
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="exit_date">Exit Day</Label>
-                  <Input id="exit_date" type="date" value={form.exit_date} onChange={(e) => setField("exit_date", e.target.value)} />
+              </div>
+
+              <ChoiceChips
+                label="Market"
+                options={TRADE_MARKETS.map((m) => ({ value: m, label: marketLabel(m) }))}
+                value={form.market}
+                onChange={(v) => setField("market", v)}
+                allowClear
+              />
+
+              {form.market === "Options" && (
+                <div className="grid grid-cols-1 gap-4 rounded-lg border border-dashed p-3 sm:grid-cols-3">
+                  <ChoiceChips
+                    label="Option Type"
+                    options={[
+                      { value: "call", label: "Call (CE)" },
+                      { value: "put", label: "Put (PE)" },
+                    ]}
+                    value={form.option_type}
+                    onChange={(v) => setField("option_type", v as "call" | "put" | "")}
+                    allowClear
+                  />
+                  <div className="space-y-1.5">
+                    <Label htmlFor="strike_price">Strike Price</Label>
+                    <Input id="strike_price" type="number" min={0} step="0.01" value={form.strike_price} onChange={(e) => setField("strike_price", e.target.value)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="contract">Expiry / Contract</Label>
+                    <Input id="contract" value={form.contract} onChange={(e) => setField("contract", e.target.value)} placeholder="e.g. 30 OCT 2026" />
+                  </div>
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="entry_time">Entry Time</Label>
-                  <Input id="entry_time" type="time" step={1} value={form.entry_time} onChange={(e) => setField("entry_time", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="exit_time">Exit Time</Label>
-                  <Input id="exit_time" type="time" step={1} value={form.exit_time} onChange={(e) => setField("exit_time", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label>Time Zone</Label>
-                  <Select value={form.time_zone} onValueChange={(v) => setField("time_zone", v)}>
-                    <SelectTrigger aria-label="Time Zone">
-                      <SelectValue placeholder="Select time zone" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TIME_ZONES.map((tz) => (
-                        <SelectItem key={tz.value} value={tz.value}>
-                          {tz.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-1.5">
-                  <Label>Trading Type</Label>
-                  <Select value={form.type} onValueChange={(v) => setField("type", v)}>
-                    <SelectTrigger aria-label="Trading Type">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TRADING_TYPES.map((t) => (
-                        <SelectItem key={t} value={t}>
-                          {t}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-1.5">
-                  <Label>Trade Market</Label>
-                  <Select value={form.market} onValueChange={(v) => setField("market", v)}>
-                    <SelectTrigger aria-label="Trade Market">
-                      <SelectValue placeholder="Select market" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TRADE_MARKETS.map((m) => (
-                        <SelectItem key={m} value={m}>
-                          {marketLabel(m)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="asset">Asset / Stock</Label>
-                  <Input id="asset" value={form.asset} onChange={(e) => setField("asset", e.target.value)} placeholder="Enter asset name" required />
-                </div>
-                <div className="space-y-1.5">
-                  <Label>Currency</Label>
-                  <Select value={form.currency} onValueChange={(v) => setField("currency", v)}>
-                    <SelectTrigger aria-label="Currency">
-                      <SelectValue placeholder="Currency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {CURRENCIES.map((c) => (
-                        <SelectItem key={c} value={c}>
-                          {c}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
                 <div className="space-y-1.5">
                   <Label htmlFor="quantity">Quantity</Label>
-                  <Input id="quantity" type="number" min={0} value={form.quantity} onChange={(e) => setField("quantity", e.target.value)} />
+                  <Input id="quantity" type="number" min={0} step="any" inputMode="decimal" value={form.quantity} onChange={(e) => setField("quantity", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="entry_price">Entry Price</Label>
-                  <Input id="entry_price" type="number" min={0} step="0.01" value={form.entry_price} onChange={(e) => setField("entry_price", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="target_price">Target Price</Label>
-                  <Input id="target_price" type="number" min={0} step="0.01" value={form.target_price} onChange={(e) => setField("target_price", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="stop_loss">Stop Loss</Label>
-                  <Input id="stop_loss" type="number" min={0} step="0.01" value={form.stop_loss} onChange={(e) => setField("stop_loss", e.target.value)} />
+                  <Input id="entry_price" type="number" min={0} step="0.01" inputMode="decimal" value={form.entry_price} onChange={(e) => setField("entry_price", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="exit_price">Exit Price</Label>
-                  <Input id="exit_price" type="number" min={0} step="0.01" value={form.exit_price} onChange={(e) => setField("exit_price", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="brokerage">Brokerage</Label>
-                  <Input id="brokerage" type="number" min={0} step="0.01" value={form.brokerage} onChange={(e) => setField("brokerage", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="pnl">Profit / Loss</Label>
-                  <Input id="pnl" type="number" step="0.01" value={form.pnl} onChange={(e) => setField("pnl", e.target.value)} placeholder="Calculated from prices, or type your own" />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="strategy">Trading Strategy</Label>
                   <Input
-                    id="strategy"
-                    list="strategy-options"
-                    value={form.strategy}
-                    onChange={(e) => setField("strategy", e.target.value)}
-                    placeholder="Type or select a strategy"
+                    id="exit_price"
+                    type="number"
+                    min={0}
+                    step="0.01"
+                    inputMode="decimal"
+                    value={form.exit_price}
+                    onChange={(e) => setField("exit_price", e.target.value)}
+                    placeholder="Blank if open"
                   />
-                  <datalist id="strategy-options">
-                    {strategyOptions.map((name) => (
-                      <option key={name} value={name} />
-                    ))}
-                  </datalist>
-                  <p className="text-xs text-muted-foreground">Start typing to add your own strategy — it will be remembered.</p>
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="margin">Margin</Label>
-                  <Input id="margin" type="number" step="0.01" value={form.margin} onChange={(e) => setField("margin", e.target.value)} />
+                  <Label htmlFor="stop_loss">Stop Loss</Label>
+                  <Input id="stop_loss" type="number" min={0} step="0.01" inputMode="decimal" value={form.stop_loss} onChange={(e) => setField("stop_loss", e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label>Buy / Sell</Label>
-                  <Select value={form.buy_sell} onValueChange={(v) => setField("buy_sell", v as "buy" | "sell")}>
-                    <SelectTrigger aria-label="Buy / Sell">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="buy">Buy (Long)</SelectItem>
-                      <SelectItem value="sell">Sell (Short)</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="target_price">Target</Label>
+                  <Input id="target_price" type="number" min={0} step="0.01" inputMode="decimal" value={form.target_price} onChange={(e) => setField("target_price", e.target.value)} />
                 </div>
               </div>
-            </section>
 
-            {/* Advanced / options fields */}
-            <section className="space-y-3">
-              <h3 className="text-sm font-semibold text-muted-foreground">Advanced &amp; Options Fields</h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="contract">Contract</Label>
-                  <Input id="contract" value={form.contract} onChange={(e) => setField("contract", e.target.value)} placeholder="e.g., NOV-2025" />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="strike_price">Strike Price (options only)</Label>
-                  <Input
-                    id="strike_price"
-                    type="number"
-                    step="0.01"
-                    value={form.strike_price}
-                    onChange={(e) => setField("strike_price", e.target.value)}
-                    placeholder="Leave empty for non-options"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label>Option Type</Label>
-                  <Select value={form.option_type || "none"} onValueChange={(v) => setField("option_type", v === "none" ? "" : (v as "call" | "put"))}>
-                    <SelectTrigger aria-label="Option Type">
-                      <SelectValue placeholder="Not an option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">Not an option</SelectItem>
-                      <SelectItem value="call">Call</SelectItem>
-                      <SelectItem value="put">Put</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="underlying_price">Underlying Price</Label>
-                  <Input
-                    id="underlying_price"
-                    type="number"
-                    step="0.01"
-                    value={form.underlying_price}
-                    onChange={(e) => setField("underlying_price", e.target.value)}
-                    placeholder="Current market price"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="implied_volatility">Implied Volatility (%)</Label>
-                  <Input
-                    id="implied_volatility"
-                    type="number"
-                    step="0.01"
-                    value={form.implied_volatility}
-                    onChange={(e) => setField("implied_volatility", e.target.value)}
-                    placeholder="e.g., 18.5"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="days_to_expiry">Days to Expiry</Label>
-                  <Input
-                    id="days_to_expiry"
-                    type="number"
-                    value={form.days_to_expiry}
-                    onChange={(e) => setField("days_to_expiry", e.target.value)}
-                    placeholder="Days until expiration"
-                  />
-                </div>
+              {/* Live result: P&L follows the prices unless typed by hand */}
+              {(() => {
+                const pnlValue = num(form.pnl);
+                const entry = num(form.entry_price);
+                const stop = num(form.stop_loss);
+                const target = num(form.target_price);
+                const qty = num(form.quantity);
+                const risk = entry != null && stop != null && qty ? Math.abs(entry - stop) * qty : null;
+                const reward = entry != null && target != null && qty ? Math.abs(target - entry) * qty : null;
+                return (
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg bg-muted/50 px-4 py-3 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">P&amp;L </span>
+                      {pnlManual ? (
+                        <Input
+                          id="pnl"
+                          aria-label="Profit / Loss"
+                          type="number"
+                          step="0.01"
+                          value={form.pnl}
+                          onChange={(e) => setField("pnl", e.target.value)}
+                          className="inline-block h-8 w-32"
+                        />
+                      ) : (
+                        <span
+                          className={cn(
+                            "font-semibold",
+                            pnlValue == null ? "text-muted-foreground" : pnlValue >= 0 ? "text-emerald-600" : "text-red-600"
+                          )}
+                        >
+                          {pnlValue == null ? "Open — add an exit price" : formatMoney(pnlValue, form.currency)}
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        className="ml-2 text-xs text-primary hover:underline"
+                        onClick={() => {
+                          if (pnlManual) {
+                            setPnlManual(false);
+                            setForm((prev) => ({ ...prev, pnl: calcPnl(prev) }));
+                          } else {
+                            setPnlManual(true);
+                          }
+                        }}
+                      >
+                        {pnlManual ? "Use calculated" : "Type it myself"}
+                      </button>
+                    </div>
+                    {risk != null && (
+                      <div>
+                        <span className="text-muted-foreground">Risk </span>
+                        <span className="font-medium">{formatMoney(risk, form.currency)}</span>
+                      </div>
+                    )}
+                    {risk != null && reward != null && risk > 0 && (
+                      <div>
+                        <span className="text-muted-foreground">Reward : Risk </span>
+                        <span className="font-medium">{(reward / risk).toFixed(1)} : 1</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="brokerage" className="text-muted-foreground font-normal">
+                        Fees
+                      </Label>
+                      <Input
+                        id="brokerage"
+                        type="number"
+                        min={0}
+                        step="0.01"
+                        value={form.brokerage}
+                        onChange={(e) => setField("brokerage", e.target.value)}
+                        className="h-8 w-24"
+                      />
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <ChoiceChips
+                label="Trading Type"
+                options={TRADING_TYPES.map((t) => ({ value: t, label: t }))}
+                value={form.type}
+                onChange={(v) => setField("type", v)}
+                allowClear
+              />
+
+              <div className="space-y-1.5">
+                <ChoiceChips
+                  label="Strategy"
+                  options={strategyOptions.slice(0, 12).map((n) => ({ value: n, label: n }))}
+                  value={form.strategy}
+                  onChange={(v) => setField("strategy", v)}
+                  allowClear
+                />
+                <Input
+                  id="strategy"
+                  aria-label="Strategy (type your own)"
+                  list="strategy-options"
+                  value={form.strategy}
+                  onChange={(e) => setField("strategy", e.target.value)}
+                  placeholder="…or type your own — it will be remembered"
+                  className="max-w-sm"
+                />
+                <datalist id="strategy-options">
+                  {strategyOptions.map((name) => (
+                    <option key={name} value={name} />
+                  ))}
+                </datalist>
               </div>
+
+              <ChoiceChips
+                label="How did you feel?"
+                options={EMOTIONS}
+                value={form.emotion}
+                onChange={(v) => setField("emotion", v || "neutral")}
+              />
             </section>
 
-            {/* Notes / tags / emotion */}
+            {/* Everything else, one click away */}
             <section className="space-y-3">
-              <h3 className="text-sm font-semibold text-muted-foreground">Notes, Tags &amp; Emotion</h3>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="space-y-1.5">
-                  <Label htmlFor="notes">Trade Notes / Journal</Label>
-                  <Textarea
-                    id="notes"
-                    rows={3}
-                    value={form.notes}
-                    onChange={(e) => setField("notes", e.target.value)}
-                    placeholder="Pre-trade plan, setup quality, market conditions, post-trade review..."
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => setShowMore((v) => !v)}
+                aria-expanded={showMore}
+                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              >
+                <ChevronDown className={cn("h-4 w-4 transition-transform", showMore && "rotate-180")} />
+                {showMore ? "Hide details" : "More details — times, notes, tags, currency, margin"}
+              </button>
+              {showMore && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="exit_date">Exit Day</Label>
+                      <Input id="exit_date" type="date" value={form.exit_date} onChange={(e) => setField("exit_date", e.target.value)} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="entry_time">Entry Time</Label>
+                      <Input id="entry_time" type="time" step={1} value={form.entry_time} onChange={(e) => setField("entry_time", e.target.value)} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="exit_time">Exit Time</Label>
+                      <Input id="exit_time" type="time" step={1} value={form.exit_time} onChange={(e) => setField("exit_time", e.target.value)} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Time Zone</Label>
+                      <Select value={form.time_zone} onValueChange={(v) => setField("time_zone", v)}>
+                        <SelectTrigger aria-label="Time Zone">
+                          <SelectValue placeholder="Select time zone" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {TIME_ZONES.map((tz) => (
+                            <SelectItem key={tz.value} value={tz.value}>
+                              {tz.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Currency</Label>
+                      <Select value={form.currency} onValueChange={(v) => setField("currency", v)}>
+                        <SelectTrigger aria-label="Currency">
+                          <SelectValue placeholder="Currency" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {CURRENCIES.map((c) => (
+                            <SelectItem key={c} value={c}>
+                              {c}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="margin">Margin</Label>
+                      <Input id="margin" type="number" step="0.01" value={form.margin} onChange={(e) => setField("margin", e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="notes">Trade Notes / Journal</Label>
+                    <Textarea
+                      id="notes"
+                      rows={3}
+                      value={form.notes}
+                      onChange={(e) => setField("notes", e.target.value)}
+                      placeholder="Pre-trade plan, setup quality, market conditions, post-trade review..."
+                    />
+                  </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="tags">Tags (comma-separated)</Label>
                     <Input id="tags" value={form.tags} onChange={(e) => setField("tags", e.target.value)} placeholder="e.g., breakout, momentum" />
                   </div>
-                  <div className="space-y-1.5">
-                    <Label>Emotion / Psychology</Label>
-                    <Select value={form.emotion} onValueChange={(v) => setField("emotion", v)}>
-                      <SelectTrigger aria-label="Emotion / Psychology">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {EMOTIONS.map((e) => (
-                          <SelectItem key={e.value} value={e.value}>
-                            {e.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  {form.market === "Options" && (
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="underlying_price">Underlying Price</Label>
+                        <Input id="underlying_price" type="number" step="0.01" value={form.underlying_price} onChange={(e) => setField("underlying_price", e.target.value)} />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="implied_volatility">Implied Volatility (%)</Label>
+                        <Input id="implied_volatility" type="number" step="0.01" value={form.implied_volatility} onChange={(e) => setField("implied_volatility", e.target.value)} />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="days_to_expiry">Days to Expiry</Label>
+                        <Input id="days_to_expiry" type="number" value={form.days_to_expiry} onChange={(e) => setField("days_to_expiry", e.target.value)} />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
             </section>
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={saving}>
+              {!editingTrade && (
+                <Button type="submit" value="another" variant="outline" disabled={saving}>
+                  Save &amp; add another
+                </Button>
+              )}
+              <Button type="submit" value="save" disabled={saving}>
                 {saving ? "Saving..." : "Save Trade"}
               </Button>
             </DialogFooter>

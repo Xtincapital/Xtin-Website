@@ -62,7 +62,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 // Same static option lists pages/Trades.tsx uses for the trade form (app.js's
@@ -196,7 +196,7 @@ const Summary = () => {
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "summary"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const allTrades = tradesData?.data ?? [];

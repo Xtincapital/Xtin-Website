@@ -76,7 +76,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, goals as goalsApi, type Trade } from "../lib/api";
+import { getAllTrades, goals as goalsApi, type Trade } from "../lib/api";
 import { coach, InsufficientTokensError, type ChatHistoryMessage } from "../lib/coachApi";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -214,7 +214,7 @@ export default function Coach() {
   // use (GET /journal/trades has no server-side aggregate endpoint).
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "coach"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 

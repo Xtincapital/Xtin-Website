@@ -11,6 +11,7 @@
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateTradeCreate, validateTradeUpdate, validateTradeListQuery } from "./trades.validator.js";
 import { computeTradePnl } from "./importParsers.js";
+import { existingTradeKeys, tradeKey } from "./tradeDuplicates.js";
 import { insertTrade, getTradesByUser, getTradeById, updateTrade as updateTradeRepo, deleteTrade as deleteTradeRepo, deleteAllTrades } from "./trades.repository.js";
 
 /* POST /journal/trades */
@@ -22,6 +23,23 @@ export const createTrade = async (req, res) => {
     const userId = req.user.authId;
 
     try {
+        // Refuse a trade that's already in the journal, unless the user has
+        // confirmed it's a separate trade (`allow_duplicate: true`).
+        if (req.body?.allow_duplicate !== true) {
+            const existing = await existingTradeKeys(userId, [validation.data]);
+            const existingId = existing.get(tradeKey(validation.data));
+            if (existingId) {
+                const t = validation.data;
+                const side = t.buy_sell ? `${t.buy_sell} ` : "";
+                const qty = t.quantity != null ? `${t.quantity} ` : "";
+                return res.status(HTTP_STATUS.CONFLICT).json({
+                    error: `This trade is already in your journal (${side}${qty}${t.asset} on ${t.date} at the same prices${t.entry_time ? " and time" : ""}). If it's a separate trade, add its entry time.`,
+                    code: "DUPLICATE_TRADE",
+                    existing_id: existingId,
+                });
+            }
+        }
+
         // A blank P&L is worked out from the prices, the same way CSV import does.
         const trade = { ...validation.data, pnl: validation.data.pnl ?? computeTradePnl(validation.data) };
         const { data, error } = await insertTrade({ ...trade, user_id: userId });

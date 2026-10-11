@@ -38,7 +38,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 import {
   GLOBAL_SESSIONS,
   formatHourDisplay,
@@ -80,7 +80,7 @@ const Heatmaps = () => {
   // allowed page (200) and computes every heatmap client-side.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "heatmaps"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 

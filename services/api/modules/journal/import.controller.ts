@@ -13,6 +13,7 @@
 // expected body 1:1 (see importParsers.ts's header comment).
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { parseCsvImport, parseExcelImport, parsePdfImport } from "./importParsers.js";
+import { existingTradeKeys, markDuplicates } from "./tradeDuplicates.js";
 
 /* POST /journal/import-trades (multipart/form-data, field "file", field "file_type") */
 export const importTrades = async (req, res) => {
@@ -41,7 +42,15 @@ export const importTrades = async (req, res) => {
             return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Unsupported import type" });
         }
 
-        return res.status(HTTP_STATUS.OK).json({ trades, count: trades.length, skipped: stats.skipped, file_type: normalizedType });
+        // Flag rows already in the journal or repeated in the file, so the
+        // preview can skip them instead of saving the same trade twice.
+        const marked = markDuplicates(trades, await existingTradeKeys(req.user.authId, trades));
+        const duplicates = {
+            journal: marked.filter((t) => t.duplicate === "journal").length,
+            file: marked.filter((t) => t.duplicate === "file").length,
+        };
+
+        return res.status(HTTP_STATUS.OK).json({ trades: marked, count: marked.length, skipped: stats.skipped, duplicates, file_type: normalizedType });
     } catch (err) {
         console.error("[Journal] import trades failed:", err);
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Could not parse file: ${(err as Error)?.message || err}` });

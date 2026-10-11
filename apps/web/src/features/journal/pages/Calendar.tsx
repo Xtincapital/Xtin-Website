@@ -48,7 +48,7 @@ import {
 } from "@/components/ui/dialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -75,7 +75,7 @@ const Calendar = () => {
   // a dedicated aggregate endpoint would be the correct long-term fix.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "calendar"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const allTrades = tradesData?.data ?? [];

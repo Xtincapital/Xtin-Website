@@ -21,6 +21,19 @@ export default defineConfig({
           // Split vendor chunks for better caching
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-charts': ['recharts'],
+          // One file for every icon (and one for the UI primitives) instead
+          // of dozens of tiny per-icon chunks that each lazy page had to
+          // fetch in a chain before it could start loading its data.
+          'vendor-icons': ['lucide-react'],
+          'vendor-ui': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-alert-dialog',
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-label',
+            '@radix-ui/react-slot',
+          ],
         },
       },
     },

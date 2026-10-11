@@ -43,7 +43,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, type Trade } from "../lib/api";
+import { getAllTrades, type Trade } from "../lib/api";
 import {
   GLOBAL_SESSIONS,
   formatHourDisplay,
@@ -70,7 +70,7 @@ const Hourly = () => {
   // dedicated aggregate endpoint exists yet for hourly/session analysis.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "hourly"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 

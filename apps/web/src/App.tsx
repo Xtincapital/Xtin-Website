@@ -14,7 +14,8 @@ const ResetPasswordPage = lazy(() => import('./features/auth/pages/ResetPassword
 const Newsletter = lazy(() => import('./features/newsletter/pages/Newsletter'));
 const NewsletterDisplay = lazy(() => import('./features/newsletter/pages/NewsletterDisplay'));
 const SubstackArticle = lazy(() => import('./features/newsletter/pages/SubstackArticle'));
-const FundakamentalApp = lazy(() => import('./features/fundakamental/FundakamentalApp'));
+const loadFundakamentalApp = () => import('./features/fundakamental/FundakamentalApp');
+const FundakamentalApp = lazy(loadFundakamentalApp);
 
 const AboutPage = lazy(() => import('./features/marketing/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./features/marketing/pages/ProductsPage'));
@@ -25,9 +26,11 @@ const LearnIntro = lazy(() => import('./features/academy/pages/LearnIntro'));
 const NewsletterIntro = lazy(() => import('./features/newsletter/pages/NewsletterIntro'));
 const ToolsIntro = lazy(() => import('./features/tools/pages/ToolsIntro'));
 const JournalIntro = lazy(() => import('./features/journal/pages/JournalIntro'));
-const JournalApp = lazy(() => import('./features/journal/JournalApp'));
+const loadJournalApp = () => import('./features/journal/JournalApp');
+const JournalApp = lazy(loadJournalApp);
 const GiniIntro = lazy(() => import('./features/gini/pages/GiniIntro'));
-const GiniApp = lazy(() => import('./features/gini/GiniApp'));
+const loadGiniApp = () => import('./features/gini/GiniApp');
+const GiniApp = lazy(loadGiniApp);
 const FundakamentalIntro = lazy(() => import('./features/fundakamental/pages/FundakamentalIntro'));
 const Terms = lazy(() => import('./features/marketing/pages/Terms'));
 
@@ -55,6 +58,20 @@ const VerifyCertificate = lazy(() => import('./features/certificates/pages/Verif
 const AdminCertificates = lazy(() => import('./features/certificates/pages/AdminCertificates'));
 const AdminAlgoApplications = lazy(() => import('./features/algos/pages/AdminAlgoApplications'));
 const AdminNewsletters = lazy(() => import('./features/newsletter/pages/AdminNewsletters'));
+
+// These apps sit behind the login check, so React only asks for their code
+// once the profile request returns (~1 s on a cold connection). Start the
+// download for the app the visitor landed on straight away instead.
+const EARLY_LOADERS: Array<[string, () => Promise<unknown>]> = [
+  ['/journal', loadJournalApp],
+  ['/gini', loadGiniApp],
+  ['/fundakamental', loadFundakamentalApp],
+];
+if (typeof window !== 'undefined') {
+  const path = window.location.pathname;
+  const match = EARLY_LOADERS.find(([prefix]) => path === prefix || path.startsWith(`${prefix}/`));
+  match?.[1]().catch(() => {});
+}
 const AdminHome = lazy(() => import('./features/admin/pages/AdminHome'));
 const AdminCoupons = lazy(() => import('./features/admin/pages/AdminCoupons'));
 const StepUpSIPCalculator = lazy(() => import('./features/tools/components/step-up-sip'));

@@ -26,6 +26,31 @@ const getTradesByUser = (userId: string, limit: number, offset: number, filters:
         .range(offset, offset + limit - 1);
 };
 
+// Just the fields that identify a trade (see tradeDuplicates.ts), for every
+// trade dated from..to. Read in pages because Supabase returns at most 1000
+// rows per request.
+const KEY_COLUMNS = "id, date, asset, buy_sell, quantity, entry_price, exit_price, entry_time";
+const KEY_PAGE = 1000;
+const KEY_MAX = 50_000;
+
+export async function getTradeKeysInRange(userId: string, from: string, to: string) {
+    const rows: Array<{ id: string; date: string; asset: string; buy_sell: string | null; quantity: number | null; entry_price: number | null; exit_price: number | null; entry_time: string | null }> = [];
+    for (let offset = 0; offset < KEY_MAX; offset += KEY_PAGE) {
+        const { data, error } = await supabase
+            .from("journal_trades")
+            .select(KEY_COLUMNS)
+            .eq("user_id", userId)
+            .gte("date", from)
+            .lte("date", to)
+            .order("id")
+            .range(offset, offset + KEY_PAGE - 1);
+        if (error) throw error;
+        rows.push(...((data as typeof rows) || []));
+        if (!data || data.length < KEY_PAGE) break;
+    }
+    return rows;
+}
+
 const getTradeById = (tradeId: string, userId: string) => supabase.from("journal_trades").select("*").eq("id", tradeId).eq("user_id", userId);
 
 const updateTrade = (tradeId: string, userId: string, updateData: Record<string, unknown>) =>

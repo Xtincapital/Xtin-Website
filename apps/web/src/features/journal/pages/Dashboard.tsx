@@ -65,7 +65,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { trades as tradesApi, goals as goalsApi, type Trade, type Goal } from "../lib/api";
+import { getAllTrades, goals as goalsApi, type Trade, type Goal } from "../lib/api";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -137,7 +137,7 @@ const Dashboard = () => {
   // least accurate for accounts with up to 200 trades.
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "dashboard"],
-    queryFn: () => tradesApi.getTrades({ limit: 200, offset: 0 }),
+    queryFn: () => getAllTrades(),
   });
 
   const { data: goalsData, isLoading: goalsLoading } = useQuery({

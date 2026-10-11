@@ -3,15 +3,20 @@
 // Parsing is stateless server-side (POST /journal/import-trades, Pro-only);
 // saving goes through the normal `api.trades.createTrade`, so imported trades
 // behave exactly like manually entered ones (and work in sample mode too).
+//
+// The server marks rows already in the journal or repeated in the file; they
+// are shown and skipped unless the user ticks "Import them anyway".
 import { useRef, useState } from "react";
-import { Upload, FileSpreadsheet, Download, Loader2 } from "lucide-react";
+import { Upload, FileSpreadsheet, Download, Loader2, CopyCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { downloadTextFile, importFileType } from "@/lib/uploadFile";
 import { api } from "../lib/api";
-import type { TradeCreateInput } from "../lib/api";
+import type { ImportedTrade } from "../lib/api";
+import { journalSampleMode } from "../lib/sampleData";
 
 const TEMPLATE_CSV = [
   "Date,Asset,Buy/Sell,Quantity,Entry Price,Exit Price,Brokerage,Strategy,Market,Currency,Notes",
@@ -28,7 +33,8 @@ interface Props {
 export default function ImportTradesDialog({ open, onOpenChange, onImported }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
-  const [rows, setRows] = useState<TradeCreateInput[]>([]);
+  const [rows, setRows] = useState<ImportedTrade[]>([]);
+  const [includeDuplicates, setIncludeDuplicates] = useState(false);
   const [skipped, setSkipped] = useState(0);
   const [parsing, setParsing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -39,6 +45,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     setRows([]);
     setSkipped(0);
     setProgress(0);
+    setIncludeDuplicates(false);
     if (inputRef.current) inputRef.current.value = "";
   }
 
@@ -54,7 +61,11 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     setFileName(file.name);
     try {
       const res = await api.bulkImport.parse(file, type);
-      setRows(res.trades || []);
+      // In sample mode the server compared against the real journal, not the
+      // sample trades on screen, so "already in your journal" doesn't apply.
+      const parsed = (res.trades || []).map((t) => (journalSampleMode.isActive() && t.duplicate === "journal" ? { ...t, duplicate: undefined } : t));
+      setRows(parsed);
+      setIncludeDuplicates(false);
       setSkipped(res.skipped ?? 0);
       if (!res.trades?.length) {
         toast.error("No trades found. Make sure the file has Date, Asset, Quantity and Entry/Exit price columns.");
@@ -66,26 +77,37 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     }
   }
 
+  const inJournal = rows.filter((r) => r.duplicate === "journal").length;
+  const inFile = rows.filter((r) => r.duplicate === "file").length;
+  const toSave = includeDuplicates ? rows : rows.filter((r) => !r.duplicate);
+
   async function handleSave() {
     setSaving(true);
     setProgress(0);
     let ok = 0;
     let failed = 0;
-    for (const row of rows) {
+    let alreadyThere = 0;
+    for (const { duplicate, ...row } of toSave) {
       try {
-        await api.trades.createTrade(row);
+        // Rows the user chose to import anyway are saved even though they match.
+        await api.trades.createTrade(includeDuplicates && duplicate ? { ...row, allow_duplicate: true } : row);
         ok++;
-      } catch {
-        failed++;
+      } catch (err: any) {
+        // Added from another tab, or earlier in this same upload.
+        if (/already in your journal/i.test(err?.message || "")) alreadyThere++;
+        else failed++;
       }
-      setProgress(ok + failed);
+      setProgress(ok + failed + alreadyThere);
     }
     setSaving(false);
+    const notes = [alreadyThere && `${alreadyThere} already in your journal`, failed && `${failed} failed`].filter(Boolean).join(", ");
     if (ok) {
-      toast.success(`Imported ${ok} trade${ok === 1 ? "" : "s"}${failed ? ` (${failed} failed)` : ""}`);
+      toast.success(`Imported ${ok} trade${ok === 1 ? "" : "s"}${notes ? ` (${notes})` : ""}`);
       onImported();
       reset();
       onOpenChange(false);
+    } else if (alreadyThere && !failed) {
+      toast.info("These trades are already in your journal. Nothing new to import.");
     } else {
       toast.error("None of the trades could be saved");
     }
@@ -145,6 +167,28 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
                   </span>
                 )}
               </p>
+              {inJournal + inFile > 0 && (
+                <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-200">
+                  <p className="flex items-start gap-2 font-medium">
+                    <CopyCheck className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                    {inJournal === rows.length
+                      ? `All ${rows.length} trade${rows.length === 1 ? " is" : "s are"} already in your journal.`
+                      : [
+                          inJournal > 0 && `${inJournal} trade${inJournal === 1 ? " is" : "s are"} already in your journal`,
+                          inFile > 0 && `${inFile} ${inFile === 1 ? "is a repeat" : "are repeats"} of other rows in this file`,
+                        ]
+                          .filter(Boolean)
+                          .join(" and ") + "."}
+                  </p>
+                  <p className="mt-1 pl-6">
+                    Same date, asset, side, quantity, prices and entry time. {includeDuplicates ? "They will be imported again." : "They will be skipped."}
+                  </p>
+                  <label className="mt-2 flex items-center gap-2 pl-6">
+                    <Checkbox checked={includeDuplicates} onCheckedChange={(v) => setIncludeDuplicates(v === true)} />
+                    Import them anyway (they are separate trades)
+                  </label>
+                </div>
+              )}
               <div className="rounded-md border overflow-x-auto max-h-72 overflow-y-auto">
                 <Table>
                   <TableHeader>
@@ -156,11 +200,12 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
                       <TableHead className="text-right">Entry</TableHead>
                       <TableHead className="text-right">Exit</TableHead>
                       <TableHead className="text-right">P&amp;L</TableHead>
+                      {inJournal + inFile > 0 && <TableHead>Status</TableHead>}
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {rows.slice(0, 8).map((t, i) => (
-                      <TableRow key={i}>
+                      <TableRow key={i} className={t.duplicate && !includeDuplicates ? "text-muted-foreground" : undefined}>
                         <TableCell>{t.date}</TableCell>
                         <TableCell>{t.asset}</TableCell>
                         <TableCell className="capitalize">{t.buy_sell}</TableCell>
@@ -168,6 +213,11 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
                         <TableCell className="text-right">{t.entry_price}</TableCell>
                         <TableCell className="text-right">{t.exit_price}</TableCell>
                         <TableCell className="text-right">{t.pnl != null ? Math.round(t.pnl * 100) / 100 : "-"}</TableCell>
+                        {inJournal + inFile > 0 && (
+                          <TableCell className="whitespace-nowrap text-xs">
+                            {t.duplicate === "journal" ? "Already in journal" : t.duplicate === "file" ? "Repeated in file" : "New"}
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))}
                   </TableBody>
@@ -181,8 +231,12 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
           <Button variant="outline" disabled={saving} onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button disabled={!rows.length || saving} onClick={handleSave}>
-            {saving ? `Saving ${progress}/${rows.length}…` : `Import ${rows.length || ""} trade${rows.length === 1 ? "" : "s"}`}
+          <Button disabled={!toSave.length || saving} onClick={handleSave}>
+            {saving
+              ? `Saving ${progress}/${toSave.length}…`
+              : rows.length && !toSave.length
+                ? "Nothing new to import"
+                : `Import ${toSave.length || ""} trade${toSave.length === 1 ? "" : "s"}`}
           </Button>
         </DialogFooter>
       </DialogContent>
