@@ -39,6 +39,7 @@ import { Users, UserCheck, UserMinus, Wallet, Plus, Pencil, Trash2 } from "lucid
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -141,7 +142,7 @@ function memberToForm(member: FamilyMember): MemberFormState {
 
 export default function Family() {
   const queryClient = useQueryClient();
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   const { data: members = [], isLoading } = useQuery({
     queryKey: FAMILY_MEMBERS_QUERY_KEY,
@@ -491,7 +492,7 @@ export default function Family() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label htmlFor="member-income">Monthly Income</Label>
-                <Input
+                <MoneyInput
                   id="member-income"
                   type="number"
                   min={0}

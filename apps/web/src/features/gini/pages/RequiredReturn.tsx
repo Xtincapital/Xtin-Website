@@ -38,6 +38,8 @@
 // per that store/component's own header comments — the static page
 // title/subtitle render outside the gate, only the slider inputs +
 // calculate button + results render inside it.
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -57,14 +59,9 @@ import { investableAssets } from "../lib/investable";
 // app.js's own default (line 1675: `sipTiming: 'due'`).
 const SIP_TIMING: "due" | "ordinary" = "due";
 
+// Amounts are in rupees and shown in the selected currency.
 function formatCurrency(value: number) {
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
-      value
-    );
-  } catch {
-    return `₹${Math.round(value).toLocaleString("en-IN")}`;
-  }
+  return formatFromInr(value, { maxDecimals: 0 });
 }
 
 function formatPercent(value: number, decimals = 2) {
@@ -190,6 +187,8 @@ const FEASIBILITY_STYLES: Record<Feasibility, { icon: typeof CheckCircle2; class
 };
 
 export default function RequiredReturn() {
+  // Re-render in the new currency when it changes.
+  useCurrency();
   const { isPro, fetched, fetchPlan } = useGiniPlanStore();
   useEffect(() => {
     fetchPlan();
@@ -290,9 +289,9 @@ export default function RequiredReturn() {
                     min={0}
                     max={50000000}
                     step={100000}
-                    prefix="₹"
-                    minLabel="₹0"
-                    maxLabel="₹5 Cr"
+                    money
+                    minLabel={formatFromInr(0)}
+                    maxLabel={formatFromInr(50_000_000, { compact: true })}
                     hint="Starts from your investable assets (property and insurance not included)."
                   />
                   <SliderNumberField
@@ -302,9 +301,9 @@ export default function RequiredReturn() {
                     min={0}
                     max={1000000}
                     step={5000}
-                    prefix="₹"
-                    minLabel="₹0"
-                    maxLabel="₹10 L"
+                    money
+                    minLabel={formatFromInr(0)}
+                    maxLabel={formatFromInr(1_000_000, { compact: true })}
                   />
                   <SliderNumberField
                     label="Expected Annual Return"

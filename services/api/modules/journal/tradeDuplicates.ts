@@ -59,3 +59,31 @@ export function markDuplicates<T extends TradeKeyFields>(rows: T[], existing: Ma
         return { ...row };
     });
 }
+
+/** Ids of trades whose key matches at least one other trade in `rows`. */
+export function duplicateIds(rows: Array<TradeKeyFields & { id: string }>): Set<string> {
+    const byKey = new Map<string, string[]>();
+    for (const row of rows) {
+        const key = tradeKey(row);
+        const list = byKey.get(key);
+        if (list) list.push(row.id);
+        else byKey.set(key, [row.id]);
+    }
+    const ids = new Set<string>();
+    for (const list of byKey.values()) if (list.length > 1) list.forEach((id) => ids.add(id));
+    return ids;
+}
+
+/** Every trade of the user that has an identical twin, across the whole journal. */
+export async function findDuplicateTradeIds(userId: string): Promise<Set<string>> {
+    return duplicateIds(await getTradeKeysInRange(userId, "0001-01-01", "9999-12-31"));
+}
+
+/** Which of `page` (rows of one list page) have a twin anywhere in their date range. */
+export async function flagDuplicates<T extends TradeKeyFields & { id: string }>(userId: string, page: T[]): Promise<Array<T & { is_duplicate: boolean }>> {
+    const dates = page.map((t) => String(t.date ?? "").slice(0, 10)).filter(Boolean).sort();
+    if (!dates.length) return page.map((t) => ({ ...t, is_duplicate: false }));
+    const dupes = duplicateIds(await getTradeKeysInRange(userId, dates[0], dates[dates.length - 1]));
+    return page.map((t) => ({ ...t, is_duplicate: dupes.has(t.id) }));
+}
+

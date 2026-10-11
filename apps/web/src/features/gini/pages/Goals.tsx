@@ -51,6 +51,9 @@ import { Pencil, Plus, Target, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -92,14 +95,8 @@ const GOAL_PRIORITIES = ["High", "Medium", "Low"];
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-function formatCurrency(value: number | null | undefined) {
-  const n = value ?? 0;
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
-  } catch {
-    return `₹${n.toFixed(0)}`;
-  }
-}
+// Values are saved in rupees and shown in the selected currency.
+const formatCurrency = (value: number | null | undefined) => formatFromInr(value ?? 0, { maxDecimals: 0 });
 
 function num(value: string): number | null {
   if (value === "" || value == null) return null;
@@ -270,6 +267,9 @@ function goalFormToPayload(form: GoalFormState, computed: Computed | null, name:
 }
 
 export default function Goals() {
+  // Re-render in the new currency when it changes; `sym` labels the amount boxes.
+  const { symbol } = useCurrency();
+  const sym = symbol.trim();
   const queryClient = useQueryClient();
 
   const goalsQuery = useQuery({ queryKey: ["gini", "goals"], queryFn: api.goals.getGoals });
@@ -561,8 +561,8 @@ export default function Goals() {
             ) : (
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label htmlFor="goal-current-cost">Cost at today's prices (₹)</Label>
-                  <Input
+                  <Label htmlFor="goal-current-cost">Cost at today's prices ({sym})</Label>
+                  <MoneyInput
                     id="goal-current-cost"
                     type="number"
                     min={0}
@@ -604,8 +604,8 @@ export default function Goals() {
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="goal-saved">Amount Already Saved (₹)</Label>
-                <Input
+                <Label htmlFor="goal-saved">Amount Already Saved ({sym})</Label>
+                <MoneyInput
                   id="goal-saved"
                   type="number"
                   min={0}

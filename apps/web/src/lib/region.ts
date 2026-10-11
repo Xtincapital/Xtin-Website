@@ -254,3 +254,75 @@ export function formatMoney(amount, opts: { region?: string; compact?: boolean }
   }
   return `${sym}${Math.round(n).toLocaleString(cfg.locale)}`;
 }
+
+/** The distinct currencies the site offers, in menu order (Global shares USD). */
+export function siteCurrencies(): string[] {
+  return [...new Set(REGION_ORDER.map((code) => REGIONS[code].currency))];
+}
+
+/**
+ * How one currency compares with each of the others, from rates given as
+ * units per 1 USD: "1 INR = 0.01034 USD" and the other way round.
+ */
+export function crossRates(base: string, rates: Record<string, number>) {
+  const baseRate = rates[base];
+  return siteCurrencies()
+    .filter((c) => c !== base)
+    .map((currency) => {
+      const rate = rates[currency];
+      const ok = baseRate > 0 && rate > 0;
+      return { currency, perBase: ok ? rate / baseRate : null, basePer: ok ? baseRate / rate : null };
+    });
+}
+
+/** A rate readable at any size: 96.70, 3.673, 0.01034. */
+export function formatRate(n: number | null): string {
+  if (n == null || !Number.isFinite(n)) return '—';
+  if (n >= 10) return n.toFixed(2);
+  if (n >= 1) return n.toFixed(3);
+  return Number(n.toPrecision(4)).toString();
+}
+
+/**
+ * A rupee amount (how Gini, Journal and site data are saved) shown in the
+ * selected currency: converted at the current rate, then formatted for that
+ * region ("₹51,60,000" / "$53,361" / "53.361 €"). Usable outside React;
+ * components that use it should also call useCurrency() so they re-render
+ * when the currency changes.
+ */
+export function formatFromInr(amountInr: number, opts: { compact?: boolean; minDecimals?: number; maxDecimals?: number } = {}) {
+  const cfg = REGIONS[_region];
+  const raw = Number(amountInr) || 0;
+  const n = cfg.currency === 'INR' ? raw : convert(raw, 'INR', cfg.currency);
+  if (opts.compact) {
+    const abs = Math.abs(n);
+    const sym = cfg.symbol;
+    if (cfg.numberSystem === 'lakh') {
+      if (abs >= 1e7) return `${sym}${(n / 1e7).toFixed(2).replace(/\.00$/, '')}Cr`;
+      if (abs >= 1e5) return `${sym}${(n / 1e5).toFixed(2).replace(/\.00$/, '')}L`;
+    } else {
+      if (abs >= 1e9) return `${sym}${(n / 1e9).toFixed(2).replace(/\.00$/, '')}B`;
+      if (abs >= 1e6) return `${sym}${(n / 1e6).toFixed(2).replace(/\.00$/, '')}M`;
+      if (abs >= 1e3) return `${sym}${(n / 1e3).toFixed(1).replace(/\.0$/, '')}K`;
+    }
+  }
+  // Whole units for normal amounts; cents/paise only for small ones.
+  const maxDecimals = opts.maxDecimals ?? (Math.abs(n) >= 100 ? 0 : 2);
+  try {
+    return new Intl.NumberFormat(cfg.locale, {
+      style: 'currency',
+      currency: cfg.currency,
+      minimumFractionDigits: Math.min(opts.minDecimals ?? 0, maxDecimals),
+      maximumFractionDigits: maxDecimals,
+    }).format(n);
+  } catch {
+    return `${cfg.symbol}${Math.round(n).toLocaleString(cfg.locale)}`;
+  }
+}
+
+/** A rupee amount as a plain number in the selected currency (for inputs, charts and sums). */
+export function fromInr(amountInr: number) {
+  const cfg = REGIONS[_region];
+  const raw = Number(amountInr) || 0;
+  return cfg.currency === 'INR' ? raw : convert(raw, 'INR', cfg.currency);
+}

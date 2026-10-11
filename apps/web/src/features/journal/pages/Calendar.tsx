@@ -48,7 +48,8 @@ import {
 } from "@/components/ui/dialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, type Trade } from "../lib/api";
+import { type Trade } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -63,7 +64,7 @@ interface DayCell {
 }
 
 const Calendar = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
@@ -75,7 +76,7 @@ const Calendar = () => {
   // a dedicated aggregate endpoint would be the correct long-term fix.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "calendar"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
 
   const allTrades = tradesData?.data ?? [];

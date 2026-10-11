@@ -7,6 +7,7 @@
 // and `target_year`. The answers are kept in the goal's `details` column so
 // the form can be reopened with them. "I already know the amount" (manual
 // mode) skips the questions; goals saved before this existed open that way.
+import { formatFromInr } from "@/lib/region";
 import type { FamilyMember } from "./api";
 
 export const GOAL_CATEGORIES = [
@@ -60,7 +61,8 @@ export interface Computed {
   problems: string[];
 }
 
-const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+// Answers are saved in rupees; amounts in the text follow the selected currency.
+const inr = (n: number) => formatFromInr(n, { maxDecimals: 0 });
 
 // The first one is the default. `noun` names the goal: "Aarav's graduation".
 const EDUCATION_LEVELS: Record<string, { startAge: number; years: number; noun: string }> = {

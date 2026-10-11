@@ -76,7 +76,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, goals as goalsApi, type Trade } from "../lib/api";
+import { goals as goalsApi, type Trade } from "../lib/api";
+import { getAllTradesInInr, tradeInCurrency } from "../lib/tradesInInr";
 import { coach, InsufficientTokensError, type ChatHistoryMessage } from "../lib/coachApi";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -214,7 +215,7 @@ export default function Coach() {
   // use (GET /journal/trades has no server-side aggregate endpoint).
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "coach"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 
@@ -406,7 +407,8 @@ function ChatTab({
     try {
       const res = await coach.chat({
         message: text,
-        trades,
+        // Amounts in the currency the coach is told to use.
+        trades: trades.map((t) => tradeInCurrency(t, currency)),
         display_name: displayName,
         history,
         goals: goals.map((g) => ({ title: g.title, target: g.target_value, metric: g.metric, timeframe: g.timeframe })),

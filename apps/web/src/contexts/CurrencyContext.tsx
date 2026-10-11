@@ -7,6 +7,7 @@ import {
   detectRegion,
   getRates,
   convert as convertCurrency,
+  formatFromInr,
 } from '../lib/region';
 
 interface CurrencyFormatOpts {
@@ -28,6 +29,16 @@ interface CurrencyContextValue {
   locale: string;
   rate: number;
   formatCurrency: (amount: number, opts?: CurrencyFormatOpts) => string;
+  /**
+   * For amounts saved in rupees (Gini, Journal, ...): converts to the
+   * selected currency, then formats. `formatInr(5160000)` is "₹51,60,000" in
+   * India and about "$53,361" in the US.
+   */
+  formatInr: (amountInr: number, opts?: Omit<CurrencyFormatOpts, 'convert' | 'currency'>) => string;
+  /** A rupee amount in the selected currency (a number, for inputs and charts). */
+  inrToDisplay: (amountInr: number) => number;
+  /** An amount typed in the selected currency, back in rupees for saving. */
+  displayToInr: (amount: number) => number;
   setRegion: (code: string) => void;
   convert: typeof convertCurrency;
 }
@@ -160,6 +171,25 @@ export const CurrencyProvider = ({ children }: { children: React.ReactNode }) =>
     }
   }, [state.currency, state.locale, state.config]);
 
+  const inrToDisplay = useCallback(
+    (amountInr: number) => (state.currency === 'INR' ? Number(amountInr) || 0 : convertCurrency(Number(amountInr) || 0, 'INR', state.currency)),
+    // `rate` changes when live rates arrive, so conversions re-run with them.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.currency, state.rate],
+  );
+
+  const displayToInr = useCallback(
+    (amount: number) => (state.currency === 'INR' ? Number(amount) || 0 : convertCurrency(Number(amount) || 0, state.currency, 'INR')),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.currency, state.rate],
+  );
+
+  const formatInr = useCallback(
+    (amountInr: number, opts: Omit<CurrencyFormatOpts, 'convert' | 'currency'> = {}) => formatFromInr(amountInr, opts),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.currency, state.rate],
+  );
+
   /**
    * setRegion — change the active region (persisted, triggers re-render).
    */
@@ -172,6 +202,9 @@ export const CurrencyProvider = ({ children }: { children: React.ReactNode }) =>
       value={{
         ...state,
         formatCurrency,
+        formatInr,
+        inrToDisplay,
+        displayToInr,
         setRegion,
         convert: convertCurrency,
       }}

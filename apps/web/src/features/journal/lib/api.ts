@@ -38,10 +38,24 @@ async function readError(res: Response, fallback: string): Promise<string> {
 }
 
 /** Authenticated JSON request — the workhorse behind every API module here. */
+/** An API failure that keeps the HTTP status and the server's error `code` (e.g. DUPLICATE_TRADE). */
+export class JournalApiError extends Error {
+  status: number;
+  code?: string;
+  body?: any;
+  constructor(message: string, status: number, body?: any) {
+    super(message);
+    this.status = status;
+    this.code = body?.code;
+    this.body = body;
+  }
+}
+
 async function request<T = any>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);
   if (!res.ok) {
-    throw new Error(await readError(res, 'Request failed'));
+    const body = await res.clone().json().catch(() => null);
+    throw new JournalApiError(await readError(res, 'Request failed'), res.status, body);
   }
   const text = await res.text();
   return (text ? JSON.parse(text) : undefined) as T;
@@ -58,6 +72,8 @@ async function request<T = any>(path: string, options: RequestInit = {}): Promis
 export interface Trade {
   id: string;
   user_id: string;
+  /** Set by the list endpoint when asked: an identical trade is also in the journal. */
+  is_duplicate?: boolean;
   date: string;
   exit_date: string | null;
   entry_time: string | null;
@@ -155,6 +171,10 @@ export interface TradeListParams {
   search?: string;
   from?: string;
   to?: string;
+  /** Only trades that have an identical twin in the journal. */
+  only_duplicates?: boolean;
+  /** Add `is_duplicate` to each returned trade. */
+  flag_duplicates?: boolean;
 }
 
 const realTrades = {
@@ -175,6 +195,8 @@ const realTrades = {
     if (params?.search?.trim()) query.set('search', params.search.trim());
     if (params?.from) query.set('from', params.from);
     if (params?.to) query.set('to', params.to);
+    if (params?.only_duplicates) query.set('only_duplicates', 'true');
+    if (params?.flag_duplicates) query.set('flag_duplicates', 'true');
     const qs = query.toString();
     return await request(`/trades${qs ? `?${qs}` : ''}`);
   },

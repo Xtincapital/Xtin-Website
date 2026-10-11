@@ -3,6 +3,9 @@
 // Logic lives in ../lib/goalCategories.ts.
 import { Calculator } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { FamilyMember } from "../lib/api";
@@ -14,7 +17,7 @@ function memberLabel(member: FamilyMember) {
   return member.relationship ? `${member.name} (${member.relationship})` : member.name;
 }
 
-const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+const inr = (n: number) => formatFromInr(n, { maxDecimals: 0 });
 
 interface Props {
   category: string;
@@ -27,6 +30,7 @@ interface Props {
 }
 
 export default function GoalCategoryQuestions({ category, answers, onAnswer, members, memberId, onMember, computed }: Props) {
+  const { symbol } = useCurrency();
   const cfg = configFor(category);
   const preferred = cfg.member?.prefer;
   const sortedMembers = preferred ? [...members].sort((a, b) => Number(preferred(b)) - Number(preferred(a))) : members;
@@ -63,7 +67,7 @@ export default function GoalCategoryQuestions({ category, answers, onAnswer, mem
             <div key={q.id} className={q.hint ? "space-y-1.5 sm:col-span-2" : "space-y-1.5"}>
               <Label htmlFor={id}>
                 {q.label}
-                {q.kind === "money" && " (₹)"}
+                {q.kind === "money" && ` (${symbol.trim()})`}
               </Label>
               {q.kind === "select" ? (
                 <Select value={value || q.options?.[0]} onValueChange={(v) => onAnswer(q.id, v)}>
@@ -79,16 +83,21 @@ export default function GoalCategoryQuestions({ category, answers, onAnswer, mem
                   </SelectContent>
                 </Select>
               ) : (
-                <Input
-                  id={id}
-                  type="number"
-                  inputMode="decimal"
-                  min={q.min ?? 0}
-                  max={q.max}
-                  step={q.kind === "money" ? "1" : q.kind === "percent" ? "0.1" : "1"}
-                  value={value}
-                  onChange={(e) => onAnswer(q.id, e.target.value)}
-                />
+                q.kind === "money" ? (
+                  // Saved in rupees, typed in the selected currency.
+                  <MoneyInput id={id} type="number" inputMode="decimal" min={0} value={value} onChange={(e) => onAnswer(q.id, e.target.value)} />
+                ) : (
+                  <Input
+                    id={id}
+                    type="number"
+                    inputMode="decimal"
+                    min={q.min ?? 0}
+                    max={q.max}
+                    step={q.kind === "percent" ? "0.1" : "1"}
+                    value={value}
+                    onChange={(e) => onAnswer(q.id, e.target.value)}
+                  />
+                )
               )}
               {q.hint && <p className="text-xs text-muted-foreground">{q.hint}</p>}
             </div>

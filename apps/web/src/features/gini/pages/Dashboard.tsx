@@ -78,7 +78,7 @@ function futureValue(currentCost: number, inflationPct: number | null, years: nu
 }
 
 export default function Dashboard() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   const { data: members = [], isLoading: membersLoading } = useQuery({
     queryKey: ["gini", "family-members"],

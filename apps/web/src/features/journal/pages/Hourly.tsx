@@ -43,7 +43,8 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, type Trade } from "../lib/api";
+import { type Trade } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import {
   GLOBAL_SESSIONS,
   formatHourDisplay,
@@ -64,13 +65,13 @@ interface HourBucket {
 const SESSION_COLORS = ["rgba(251, 191, 36, 0.8)", "rgba(34, 197, 94, 0.8)", "rgba(59, 130, 246, 0.8)", "rgba(168, 85, 247, 0.8)"];
 
 const Hourly = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   // Same pragmatic full-history fetch as Dashboard.tsx / Heatmaps.tsx — no
   // dedicated aggregate endpoint exists yet for hourly/session analysis.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "hourly"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 

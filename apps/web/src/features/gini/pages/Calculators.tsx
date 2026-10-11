@@ -36,6 +36,8 @@
 // recharts pie charts (matching NetWorth.tsx's established chart style via
 // `@/components/ui/chart`) instead of the original's Chart.js pie/doughnut.
 // Inflation has no chart in the original — none added here either.
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { useMemo, useState } from "react";
 import { Pie, PieChart, Cell } from "recharts";
 import { Banknote, Percent, TrendingUp } from "lucide-react";
@@ -51,14 +53,9 @@ const SIP_TIMING: "due" | "ordinary" = "due";
 
 const CHART_PALETTE = ["hsl(var(--chart-1))", "hsl(var(--chart-3))"];
 
+// Amounts are in rupees and shown in the selected currency.
 function formatCurrency(value: number) {
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
-      value
-    );
-  } catch {
-    return `₹${Math.round(value).toLocaleString("en-IN")}`;
-  }
+  return formatFromInr(value, { maxDecimals: 0 });
 }
 
 // calculators.formatSliderValue's currency branch (app.js ~4879-4884) for
@@ -66,7 +63,7 @@ function formatCurrency(value: number) {
 // "monthly investment" slider uses full currency formatting, matching the
 // original's own branch split.
 function formatCompact(value: number) {
-  return value >= 1e7 ? `₹${(value / 1e7).toFixed(2)} Cr` : `₹${(value / 1e5).toFixed(2)} L`;
+  return formatFromInr(value, { compact: true });
 }
 
 function formatPercent(value: number, decimals = 1) {
@@ -409,6 +406,8 @@ function InflationCalculator() {
 }
 
 export default function Calculators() {
+  // Re-render in the new currency when it changes (the calculators below format with it).
+  useCurrency();
   return (
     <GiniLayout>
       <div className="space-y-6 p-6">

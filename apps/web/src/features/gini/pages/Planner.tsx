@@ -72,6 +72,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -116,7 +117,8 @@ interface BaseProjection {
 }
 
 export default function Planner() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency, symbol } = useCurrency();
+  const sym = symbol.trim();
 
   const { data: assets = [], isLoading: assetsLoading } = useQuery({
     queryKey: ["gini", "assets"],
@@ -243,11 +245,11 @@ export default function Planner() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="planner-savings">Current Total Savings (₹)</Label>
+                  <Label htmlFor="planner-savings">Current Total Savings ({sym})</Label>
                   {isLoading ? (
                     <Skeleton className="h-9 w-full" />
                   ) : (
-                    <Input
+                    <MoneyInput
                       id="planner-savings"
                       type="number"
                       value={currentSavingsInput ?? String(totalAssets)}
@@ -257,8 +259,8 @@ export default function Planner() {
                   <p className="text-xs text-muted-foreground">Defaults to your investable assets from Net Worth (property and insurance not included)</p>
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="planner-monthly-savings">Monthly Savings Amount (₹)</Label>
-                  <Input
+                  <Label htmlFor="planner-monthly-savings">Monthly Savings Amount ({sym})</Label>
+                  <MoneyInput
                     id="planner-monthly-savings"
                     type="number"
                     value={monthlySavings}

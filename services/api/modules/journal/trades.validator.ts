@@ -37,9 +37,19 @@ const tradeCreateSchema = z.object({
     greeks: z.record(z.string(), z.unknown()).optional().nullable(),
 });
 
+// A new trade needs enough to mean something: what, which market, which
+// side, how many and at what price. (Edits of older trades, and CSV imports,
+// don't go through this.)
+const newTradeSchema = tradeCreateSchema.superRefine((t, ctx) => {
+    if (!t.market) ctx.addIssue({ code: "custom", message: "Market is required" });
+    if (!t.buy_sell) ctx.addIssue({ code: "custom", message: "Buy or sell is required" });
+    if (!(t.quantity != null && t.quantity > 0)) ctx.addIssue({ code: "custom", message: "Quantity must be more than 0" });
+    if (!(t.entry_price != null && t.entry_price > 0)) ctx.addIssue({ code: "custom", message: "Entry price must be more than 0" });
+});
+
 export const validateTradeCreate = (input: unknown) => {
     const trimmed = trimStrings((input || {}) as Record<string, unknown>);
-    const result = tradeCreateSchema.safeParse(trimmed);
+    const result = newTradeSchema.safeParse(trimmed);
     if (!result.success) return { errors: result.error.issues.map((i) => i.message), message: "Validation failed" };
     return { data: result.data, message: "Validation successful" };
 };
@@ -65,6 +75,10 @@ const tradeListQuerySchema = z
         // Trade date range, inclusive.
         from: isoDay.optional(),
         to: isoDay.optional(),
+        // Only trades that have an identical twin (see tradeDuplicates.ts).
+        only_duplicates: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
+        // Add `is_duplicate` to each row (the Trades page asks for it; charts don't need it).
+        flag_duplicates: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
     })
     .refine((q) => !q.from || !q.to || q.from <= q.to, { message: "'from' date must be on or before 'to' date" });
 

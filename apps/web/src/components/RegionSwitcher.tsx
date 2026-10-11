@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { REGIONS, REGION_ORDER, getRates, getRatesSnapshot } from '../lib/region';
+import { REGIONS, REGION_ORDER, crossRates, formatRate, getRates, getRatesSnapshot } from '../lib/region';
 import useRegion from '../hooks/useRegion';
 
 /**
  * Compact region + currency switcher. Shows the active region's flag +
  * currency; opens a dropdown of all supported regions. Changing it updates
- * prices, examples and calculators across the site instantly.
+ * prices, examples and calculators across the site instantly. The "i" next
+ * to each currency shows what one unit of it is worth in each of the others.
  */
 export default function RegionSwitcher({ className = '' }) {
   const { region, config, setRegion } = useRegion();
@@ -26,14 +27,6 @@ export default function RegionSwitcher({ className = '' }) {
     ? new Date(snapshot.asOf).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
 
-  const rateLine = (code: string) => {
-    const r = REGIONS[code];
-    const rate = snapshot.rates[r.currency];
-    if (r.currency === 'USD') return '1 USD is the base currency for all rates';
-    if (!rate) return 'Rate unavailable';
-    const value = rate >= 10 ? rate.toFixed(2) : rate.toFixed(4);
-    return `1 USD = ${value} ${r.currency}`;
-  };
 
   useEffect(() => {
     const onClick = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
@@ -55,7 +48,7 @@ export default function RegionSwitcher({ className = '' }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-[10100] py-1">
+        <div className="absolute right-0 mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-[10100] py-1">
           <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-400">Region &amp; currency</div>
           {REGION_ORDER.map((code) => {
             const r = REGIONS[code];
@@ -76,7 +69,7 @@ export default function RegionSwitcher({ className = '' }) {
                   <button
                     type="button"
                     onClick={() => setInfoFor(showInfo ? null : code)}
-                    aria-label={`Daily exchange rate for ${r.currency}`}
+                    aria-label={`${r.currency} against the other currencies`}
                     aria-expanded={showInfo}
                     className="mx-2 w-5 h-5 shrink-0 rounded-full border border-gray-300 dark:border-gray-500 text-[11px] font-serif italic leading-none text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                   >
@@ -84,10 +77,26 @@ export default function RegionSwitcher({ className = '' }) {
                   </button>
                 </div>
                 {showInfo && (
-                  <p className="px-3 pb-2 text-xs text-gray-500 dark:text-gray-400">
-                    {rateLine(code)}
-                    {asOfLabel && snapshot.live ? ` · updated daily, as of ${asOfLabel}` : snapshot.live ? ' · updated daily' : ' · approximate (live rate unavailable)'}
-                  </p>
+                  <div className="mx-3 mb-2 rounded-lg bg-gray-50 dark:bg-gray-900/60 px-2.5 py-2 text-xs text-gray-600 dark:text-gray-300">
+                    <p className="mb-1 font-semibold text-gray-700 dark:text-gray-200">1 {r.currency} equals</p>
+                    <table className="w-full tabular-nums">
+                      <tbody>
+                        {crossRates(r.currency, snapshot.rates).map((x) => (
+                          <tr key={x.currency}>
+                            <td className="py-0.5 pr-2 font-medium text-gray-700 dark:text-gray-200">
+                              {formatRate(x.perBase)} {x.currency}
+                            </td>
+                            <td className="py-0.5 text-right text-gray-400">
+                              1 {x.currency} = {formatRate(x.basePer)} {r.currency}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="mt-1.5 text-[11px] text-gray-400">
+                      {snapshot.live ? (asOfLabel ? `Rates as of ${asOfLabel}` : 'Live rates') : 'Approximate rates (live rates unavailable)'}
+                    </p>
+                  </div>
                 )}
               </div>
             );

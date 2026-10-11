@@ -47,6 +47,8 @@
 // target, 20 years), which never reflected the signed-in user's own data.
 //
 // Pro gating: same ProGate/useGiniPlanStore wiring as RequiredReturn.tsx.
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -55,6 +57,7 @@ import { Dices } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -72,19 +75,14 @@ const SIP_TIMING: "due" | "ordinary" = "due";
 const MAX_SIMULATIONS = 10000;
 const HISTOGRAM_BINS = 20;
 
+// Amounts are in rupees and shown in the selected currency.
 function formatCurrency(value: number) {
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
-      value
-    );
-  } catch {
-    return `₹${Math.round(value).toLocaleString("en-IN")}`;
-  }
+  return formatFromInr(value, { maxDecimals: 0 });
 }
 
 // monteCarlo.fmt (app.js ~4413).
 function formatCompact(value: number) {
-  return value >= 1e7 ? `₹${(value / 1e7).toFixed(2)} Cr` : `₹${(value / 1e5).toFixed(2)} L`;
+  return formatFromInr(value, { compact: true });
 }
 
 // utils.calculateFutureValue (app.js ~2672-2674) — used only for seeding
@@ -213,6 +211,9 @@ const chartConfig: ChartConfig = {
 };
 
 export default function MonteCarlo() {
+  // Re-render in the new currency when it changes.
+  const { symbol } = useCurrency();
+  const sym = symbol.trim();
   const { isPro, fetched, fetchPlan } = useGiniPlanStore();
   useEffect(() => {
     fetchPlan();
@@ -315,8 +316,8 @@ export default function MonteCarlo() {
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <div className="space-y-1.5">
-                    <Label htmlFor="mc-initial">Initial Amount (₹)</Label>
-                    <Input
+                    <Label htmlFor="mc-initial">Initial Amount ({sym})</Label>
+                    <MoneyInput
                       id="mc-initial"
                       type="number"
                       min={0}
@@ -325,8 +326,8 @@ export default function MonteCarlo() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="mc-monthly">Monthly Contribution (₹)</Label>
-                    <Input
+                    <Label htmlFor="mc-monthly">Monthly Contribution ({sym})</Label>
+                    <MoneyInput
                       id="mc-monthly"
                       type="number"
                       min={0}
@@ -366,8 +367,8 @@ export default function MonteCarlo() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="mc-target">Target Goal Amount (₹)</Label>
-                    <Input
+                    <Label htmlFor="mc-target">Target Goal Amount ({sym})</Label>
+                    <MoneyInput
                       id="mc-target"
                       type="number"
                       min={0}

@@ -62,7 +62,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, type Trade } from "../lib/api";
+import { type Trade } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 // Same static option lists pages/Trades.tsx uses for the trade form (app.js's
@@ -191,12 +192,12 @@ function calculateMetrics(list: Trade[]) {
 }
 
 const Summary = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "summary"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
 
   const allTrades = tradesData?.data ?? [];

@@ -60,6 +60,7 @@ import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -158,7 +159,8 @@ function calculateRetirement(input: {
 }
 
 export default function Retirement() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency, symbol } = useCurrency();
+  const sym = symbol.trim();
 
   const { data: familyMembers = [], isLoading: membersLoading } = useQuery({
     queryKey: ["gini", "family-members"],
@@ -284,8 +286,8 @@ export default function Retirement() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="ret-current-expenses">Current Monthly Expenses (₹)</Label>
-                    <Input
+                    <Label htmlFor="ret-current-expenses">Current Monthly Expenses ({sym})</Label>
+                    <MoneyInput
                       id="ret-current-expenses"
                       type="number"
                       value={currentExpenses}
@@ -316,8 +318,8 @@ export default function Retirement() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="ret-existing-corpus">Existing Retirement Corpus (₹)</Label>
-                    <Input
+                    <Label htmlFor="ret-existing-corpus">Existing Retirement Corpus ({sym})</Label>
+                    <MoneyInput
                       id="ret-existing-corpus"
                       type="number"
                       value={existingCorpusValue}
@@ -326,8 +328,8 @@ export default function Retirement() {
                     {!existingCorpusInput && <p className="text-xs text-muted-foreground">Defaults to your net worth</p>}
                   </div>
                   <div className="space-y-1.5">
-                    <Label htmlFor="ret-monthly-contribution">Monthly Contribution (₹)</Label>
-                    <Input
+                    <Label htmlFor="ret-monthly-contribution">Monthly Contribution ({sym})</Label>
+                    <MoneyInput
                       id="ret-monthly-contribution"
                       type="number"
                       value={monthlyContribution}

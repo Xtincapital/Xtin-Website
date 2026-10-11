@@ -3,6 +3,7 @@
 // while the box is focused it holds free text so partial entries ("1", "12.")
 // aren't rewritten under the user's cursor.
 import { useEffect, useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 
@@ -23,6 +24,11 @@ interface Props {
   minLabel?: string;
   maxLabel?: string;
   hint?: string;
+  /**
+   * `value`, `min` and `max` are rupees; the box shows and takes the
+   * selected currency, with its symbol in front.
+   */
+  money?: boolean;
 }
 
 export default function SliderNumberField({
@@ -38,36 +44,43 @@ export default function SliderNumberField({
   minLabel,
   maxLabel,
   hint,
+  money,
 }: Props) {
-  const [text, setText] = useState(String(value));
+  const { symbol, inrToDisplay, displayToInr } = useCurrency();
+  const toShown = (v: number) => (money ? Math.round(inrToDisplay(v) * 100) / 100 : v);
+  const [text, setText] = useState(String(toShown(value)));
   const [focused, setFocused] = useState(false);
 
   // Follow the slider / external changes while the user isn't typing.
   useEffect(() => {
-    if (!focused) setText(String(value));
-  }, [value, focused]);
+    if (!focused) setText(String(toShown(value)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, focused, symbol]);
 
   function commit() {
     setFocused(false);
-    const parsed = parseFloat(text.replace(/,/g, ""));
-    if (!Number.isFinite(parsed)) {
-      setText(String(value));
+    const typed = parseFloat(text.replace(/,/g, ""));
+    if (!Number.isFinite(typed)) {
+      setText(String(toShown(value)));
       return;
     }
+    const parsed = money ? displayToInr(typed) : typed;
     const factor = Math.pow(10, decimals);
     const next = Math.min(max, Math.max(min, Math.round(parsed * factor) / factor));
     onChange(next);
-    setText(String(next));
+    setText(String(toShown(next)));
   }
 
-  const shown = focused ? text : Number(value).toLocaleString("en-IN", { maximumFractionDigits: decimals });
+  const shown = focused
+    ? text
+    : Number(toShown(value)).toLocaleString(money && symbol.trim() !== "₹" ? "en-US" : "en-IN", { maximumFractionDigits: money ? 0 : decimals });
 
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-3">
         <label className="text-sm font-medium">{label}</label>
         <div className="flex items-center gap-1">
-          {prefix && <span className="text-sm text-muted-foreground">{prefix}</span>}
+          {(money || prefix) && <span className="text-sm text-muted-foreground">{money ? symbol.trim() : prefix}</span>}
           <Input
             type="text"
             inputMode="decimal"
@@ -75,7 +88,7 @@ export default function SliderNumberField({
             value={shown}
             onFocus={(e) => {
               setFocused(true);
-              setText(String(value));
+              setText(String(toShown(value)));
               e.currentTarget.select();
             }}
             onChange={(e) => setText(e.target.value)}

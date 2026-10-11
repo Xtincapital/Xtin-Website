@@ -21,13 +21,12 @@
 // assumption — JournalApp.tsx (meant to document the parallel task's chosen
 // route paths) did not exist yet either, so this could not be confirmed.
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import TradeFormDialog, { type TradeDialogRequest } from "../components/TradeFormDialog";
+import { DEFAULT_STRATEGIES, formatMoney } from "../lib/tradeForm";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,7 +48,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ChevronDown } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
@@ -69,242 +68,7 @@ const blobToDataUrl = async (res: Response) => {
   });
 };
 
-// Static option lists carried over from app.js (tradingTypes, tradeMarkets,
-// defaultStrategies, the emotion select, timezone select, buy/sell select
-// and option-type select all come straight from index.html's #tradeModal).
-const TRADING_TYPES = ["Scalping", "Intraday", "Swing Trading", "Positional Trading", "Investing", "Long-Term Investing"];
-const TRADE_MARKETS = ["Equity", "Futures", "Options", "Commodities", "Forex", "Crypto_Currency"];
-const DEFAULT_STRATEGIES = ["Breakout", "Breakdown", "M Pattern", "W Pattern", "Head & shoulder", "Iron Condor", "Hammer Candle", "Shooting Star"];
-const TIME_ZONES = [
-  { value: "Asia/Kolkata", label: "IST - India" },
-  { value: "America/New_York", label: "ET - New York" },
-  { value: "America/Chicago", label: "CT - Chicago" },
-  { value: "America/Los_Angeles", label: "PT - Los Angeles" },
-  { value: "Europe/London", label: "GMT/BST - London" },
-  { value: "Europe/Berlin", label: "CET - Berlin" },
-  { value: "Asia/Dubai", label: "GST - Dubai" },
-  { value: "Asia/Singapore", label: "SGT - Singapore" },
-  { value: "Asia/Tokyo", label: "JST - Tokyo" },
-  { value: "Australia/Sydney", label: "AET - Sydney" },
-];
-const CURRENCIES = ["INR", "USD", "EUR", "GBP", "AED", "SGD", "JPY"];
-const EMOTIONS = [
-  { value: "confident", label: "😊 Confident" },
-  { value: "neutral", label: "😐 Neutral" },
-  { value: "uncertain", label: "😟 Uncertain" },
-  { value: "frustrated", label: "😤 Frustrated" },
-  { value: "excited", label: "🤩 Excited" },
-  { value: "fearful", label: "😨 Fearful" },
-  { value: "greedy", label: "💰 Greedy" },
-];
-
 const PAGE_SIZE = 25;
-
-// Form state uses strings for every input (native form control values),
-// converted to the typed/snake_case payload on submit.
-interface TradeFormState {
-  date: string;
-  exit_date: string;
-  entry_time: string;
-  exit_time: string;
-  time_zone: string;
-  type: string;
-  market: string;
-  asset: string;
-  currency: string;
-  quantity: string;
-  entry_price: string;
-  target_price: string;
-  stop_loss: string;
-  exit_price: string;
-  brokerage: string;
-  pnl: string;
-  strategy: string;
-  margin: string;
-  buy_sell: "buy" | "sell";
-  contract: string;
-  strike_price: string;
-  option_type: "call" | "put" | "";
-  underlying_price: string;
-  implied_volatility: string;
-  days_to_expiry: string;
-  notes: string;
-  tags: string;
-  emotion: string;
-}
-
-const EMPTY_FORM: TradeFormState = {
-  date: "",
-  exit_date: "",
-  entry_time: "",
-  exit_time: "",
-  time_zone: "Asia/Kolkata",
-  type: "",
-  market: "",
-  asset: "",
-  currency: "INR",
-  quantity: "1",
-  entry_price: "",
-  target_price: "",
-  stop_loss: "",
-  exit_price: "",
-  brokerage: "0",
-  pnl: "",
-  strategy: "",
-  margin: "",
-  buy_sell: "buy",
-  contract: "",
-  strike_price: "",
-  option_type: "",
-  underlying_price: "",
-  implied_volatility: "",
-  days_to_expiry: "",
-  notes: "",
-  tags: "",
-  emotion: "neutral",
-};
-
-// Quick-add memory: the last market/type/currency/time zone/fees used, and
-// recently traded assets, so a new trade starts mostly filled in.
-const DEFAULTS_KEY = "journal_trade_defaults_v1";
-const RECENT_ASSETS_KEY = "journal_recent_assets_v1";
-type RememberedDefaults = Partial<Pick<TradeFormState, "market" | "type" | "currency" | "time_zone" | "brokerage">>;
-
-function readJson<T>(key: string, fallback: T): T {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function writeJson(key: string, value: unknown) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch {
-    // storage full / private mode — just don't remember
-  }
-}
-
-const todayIso = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-};
-
-/** A blank trade for today, using the last-used market/type/currency/fees. */
-function newTradeForm(): TradeFormState {
-  const remembered = readJson<RememberedDefaults>(DEFAULTS_KEY, {});
-  return { ...EMPTY_FORM, ...remembered, date: todayIso() };
-}
-
-// Fields that live under "More details"; open it automatically when editing a trade that uses them.
-const MORE_FIELDS: (keyof TradeFormState)[] = [
-  "exit_date", "entry_time", "exit_time", "margin", "notes", "tags", "underlying_price", "implied_volatility",
-];
-
-/** Single-tap choice row (replaces a dropdown). */
-function ChoiceChips({
-  label,
-  options,
-  value,
-  onChange,
-  allowClear = false,
-}: {
-  label: string;
-  options: { value: string; label: string }[];
-  value: string;
-  onChange: (value: string) => void;
-  allowClear?: boolean;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label>{label}</Label>
-      <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-1.5">
-        {options.map((o) => {
-          const selected = o.value === value;
-          return (
-            <button
-              key={o.value}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              onClick={() => onChange(selected && allowClear ? "" : o.value)}
-              className={cn(
-                "rounded-full border px-3 py-1 text-sm transition-colors",
-                selected ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50"
-              )}
-            >
-              {o.label}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// Same formula as CSV import (services/api/modules/journal/importParsers.ts).
-// Returns "" until quantity, entry and exit price are all filled in.
-function calcPnl(f: Pick<TradeFormState, "quantity" | "entry_price" | "exit_price" | "brokerage" | "buy_sell">): string {
-  const q = parseFloat(f.quantity);
-  const entry = parseFloat(f.entry_price);
-  const exit = parseFloat(f.exit_price);
-  if (!Number.isFinite(q) || !Number.isFinite(entry) || !Number.isFinite(exit)) return "";
-  const fees = parseFloat(f.brokerage) || 0;
-  const gross = f.buy_sell === "sell" ? (entry - exit) * q : (exit - entry) * q;
-  return String(Math.round((gross - fees) * 100) / 100);
-}
-
-const PNL_INPUTS = new Set<keyof TradeFormState>(["quantity", "entry_price", "exit_price", "brokerage", "buy_sell"]);
-
-function tradeToForm(trade: Trade): TradeFormState {
-  return {
-    date: trade.date || "",
-    exit_date: trade.exit_date || "",
-    entry_time: trade.entry_time || "",
-    exit_time: trade.exit_time || "",
-    time_zone: trade.time_zone || "Asia/Kolkata",
-    type: trade.type || "",
-    market: trade.market || "",
-    asset: trade.asset || "",
-    currency: trade.currency || "INR",
-    quantity: trade.quantity != null ? String(trade.quantity) : "",
-    entry_price: trade.entry_price != null ? String(trade.entry_price) : "",
-    target_price: trade.target_price != null ? String(trade.target_price) : "",
-    stop_loss: trade.stop_loss != null ? String(trade.stop_loss) : "",
-    exit_price: trade.exit_price != null ? String(trade.exit_price) : "",
-    brokerage: trade.brokerage != null ? String(trade.brokerage) : "0",
-    pnl: trade.pnl != null ? String(trade.pnl) : "",
-    strategy: trade.strategy || "",
-    margin: trade.margin != null ? String(trade.margin) : "",
-    buy_sell: trade.buy_sell || "buy",
-    contract: trade.contract || "",
-    strike_price: trade.strike_price != null ? String(trade.strike_price) : "",
-    option_type: trade.option_type || "",
-    underlying_price: trade.underlying_price != null ? String(trade.underlying_price) : "",
-    implied_volatility: trade.implied_volatility != null ? String(trade.implied_volatility) : "",
-    days_to_expiry: trade.days_to_expiry != null ? String(trade.days_to_expiry) : "",
-    notes: trade.notes || "",
-    tags: (trade.tags || []).join(", "),
-    emotion: trade.emotion || "neutral",
-  };
-}
-
-function num(value: string): number | null {
-  if (value === "" || value == null) return null;
-  const parsed = parseFloat(value);
-  return Number.isFinite(parsed) ? parsed : null;
-}
-
-function formatMoney(value: number | null | undefined, currency: string | null | undefined) {
-  if (value == null || !Number.isFinite(value)) return "-";
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: currency || "INR", maximumFractionDigits: 2 }).format(value);
-  } catch {
-    return value.toFixed(2);
-  }
-}
 
 function formatDate(value: string | null | undefined) {
   if (!value) return "-";
@@ -396,9 +160,10 @@ export default function Trades() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [jumpTo, setJumpTo] = useState("");
+  const [onlyDuplicates, setOnlyDuplicates] = useState(false);
   const latestRequest = useRef(0);
   const datesInvalid = !!fromDate && !!toDate && fromDate > toDate;
-  const filtering = !!(appliedSearch || fromDate || toDate);
+  const filtering = !!(appliedSearch || fromDate || toDate || onlyDuplicates);
 
   // Search as you type, after a short pause; always back to page 1.
   useEffect(() => {
@@ -422,17 +187,14 @@ export default function Trades() {
     setAppliedSearch("");
     setFromDate("");
     setToDate("");
+    setOnlyDuplicates(false);
     setOffset(0);
   }
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
-  const [pnlManual, setPnlManual] = useState(false);
-  const [showMore, setShowMore] = useState(false);
-  const [recentAssets, setRecentAssets] = useState<string[]>(() => readJson<string[]>(RECENT_ASSETS_KEY, []));
-  const assetInputRef = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<TradeFormState>(EMPTY_FORM);
-  const [saving, setSaving] = useState(false);
+  const [dialogRequest, setDialogRequest] = useState<TradeDialogRequest | null>(null);
+  const [clearOpen, setClearOpen] = useState(false);
+  const [clearConfirm, setClearConfirm] = useState("");
+  const [clearing, setClearing] = useState(false);
 
   const [deleteTarget, setDeleteTarget] = useState<Trade | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -450,6 +212,8 @@ export default function Trades() {
           search: appliedSearch || undefined,
           from: fromDate || undefined,
           to: toDate || undefined,
+          flag_duplicates: true,
+          only_duplicates: onlyDuplicates || undefined,
         });
         if (requestId !== latestRequest.current) return;
         setTrades(res.data || []);
@@ -462,7 +226,7 @@ export default function Trades() {
         if (requestId === latestRequest.current) setLoading(false);
       }
     },
-    [appliedSearch, fromDate, toDate, datesInvalid]
+    [appliedSearch, fromDate, toDate, datesInvalid, onlyDuplicates]
   );
 
   const loadStrategies = useCallback(async () => {
@@ -504,173 +268,19 @@ export default function Trades() {
     setJumpTo("");
   }
 
-  function openAddDialog() {
-    setEditingTrade(null);
-    setForm(newTradeForm());
-    setPnlManual(false);
-    setShowMore(false);
-    setDialogOpen(true);
-  }
-
-  function openEditDialog(trade: Trade) {
-    const next = tradeToForm(trade);
-    setEditingTrade(trade);
-    // Keep a P&L the user typed by hand; otherwise follow the prices.
-    setPnlManual(next.pnl !== "" && Number(next.pnl) !== Number(calcPnl(next) || NaN));
-    setForm(next);
-    setShowMore(MORE_FIELDS.some((k) => String(next[k] || "").trim() !== ""));
-    setDialogOpen(true);
-  }
-
-  // Start a new trade from an existing one: same asset and setup, today's
-  // date, no exit/result yet.
-  function openDuplicateDialog(trade: Trade) {
-    const base = tradeToForm(trade);
-    setEditingTrade(null);
-    setForm({
-      ...base,
-      date: todayIso(),
-      exit_date: "",
-      entry_time: "",
-      exit_time: "",
-      exit_price: "",
-      pnl: "",
-      notes: "",
-      emotion: "neutral",
-    });
-    setPnlManual(false);
-    setShowMore(false);
-    setDialogOpen(true);
-  }
-
-  function rememberTrade(f: TradeFormState) {
-    writeJson(DEFAULTS_KEY, {
-      market: f.market,
-      type: f.type,
-      currency: f.currency,
-      time_zone: f.time_zone,
-      brokerage: f.brokerage,
-    } satisfies RememberedDefaults);
-    const asset = f.asset.trim();
-    if (asset) {
-      const next = [asset, ...recentAssets.filter((a) => a.toLowerCase() !== asset.toLowerCase())].slice(0, 20);
-      setRecentAssets(next);
-      writeJson(RECENT_ASSETS_KEY, next);
-    }
-  }
-
-  function setField<K extends keyof TradeFormState>(key: K, value: TradeFormState[K]) {
-    if (key === "pnl") setPnlManual(value !== "");
-    setForm((prev) => {
-      const next = { ...prev, [key]: value };
-      if (PNL_INPUTS.has(key) && !pnlManual) next.pnl = calcPnl(next);
-      return next;
-    });
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // "Save & add another" submits with this button; keep the dialog open then.
-    const addAnother = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === "another";
-
-    if (!form.date || !form.asset.trim()) {
-      toast.error("Trade date and asset are required");
-      return;
-    }
-    if (form.exit_date && form.exit_date < form.date) {
-      toast.error("Exit day cannot be before trade date");
-      return;
-    }
-    const nonNegative = ["quantity", "entry_price", "target_price", "stop_loss", "exit_price", "brokerage", "strike_price"] as const;
-    if (nonNegative.some((k) => (num(form[k]) ?? 0) < 0)) {
-      toast.error("Quantity, prices and brokerage can't be negative");
-      return;
-    }
-
-    const strategyName = form.strategy.trim();
-
-    setSaving(true);
+  async function clearAllTrades() {
+    setClearing(true);
     try {
-      // Mirrors app.js's `rememberCustomStrategy` — get-or-create the
-      // strategy server-side (createStrategy is idempotent by name,
-      // case-insensitive) whenever a strategy name was entered.
-      if (strategyName) {
-        try {
-          await api.strategies.createStrategy(strategyName);
-        } catch (err) {
-          console.error("Failed to remember strategy:", err);
-        }
-      }
-
-      const tags = form.tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean);
-
-      const payload = {
-        date: form.date,
-        exit_date: form.exit_date || null,
-        entry_time: form.entry_time || null,
-        exit_time: form.exit_time || null,
-        time_zone: form.time_zone || null,
-        type: form.type || null,
-        market: form.market || null,
-        asset: form.asset.trim(),
-        currency: form.currency || null,
-        quantity: num(form.quantity),
-        entry_price: num(form.entry_price),
-        target_price: num(form.target_price),
-        stop_loss: num(form.stop_loss),
-        exit_price: num(form.exit_price),
-        brokerage: num(form.brokerage),
-        pnl: num(form.pnl),
-        strategy: strategyName || null,
-        margin: num(form.margin),
-        buy_sell: form.buy_sell,
-        contract: form.contract || null,
-        strike_price: num(form.strike_price),
-        option_type: form.option_type || null,
-        notes: form.notes.trim() || null,
-        tags,
-        emotion: form.emotion || null,
-        underlying_price: num(form.underlying_price),
-        implied_volatility: num(form.implied_volatility),
-        days_to_expiry: num(form.days_to_expiry),
-      };
-
-      if (editingTrade) {
-        await api.trades.updateTrade(editingTrade.id, payload);
-        toast.success("Trade updated");
-      } else {
-        await api.trades.createTrade(payload);
-        toast.success(`${payload.asset} added`);
-      }
-      rememberTrade(form);
-
-      if (addAnother && !editingTrade) {
-        // Same day, market, type and strategy; fresh asset and prices.
-        setForm((prev) => ({
-          ...newTradeForm(),
-          date: prev.date,
-          market: prev.market,
-          type: prev.type,
-          strategy: prev.strategy,
-          currency: prev.currency,
-          time_zone: prev.time_zone,
-          brokerage: prev.brokerage,
-        }));
-        setPnlManual(false);
-        setTimeout(() => assetInputRef.current?.focus(), 0);
-      } else {
-        setDialogOpen(false);
-      }
-      await loadTrades(offset);
-      await loadStrategies();
+      const res = await api.trades.clearTrades();
+      toast.success(`Deleted ${res?.deleted ?? "all"} trade${res?.deleted === 1 ? "" : "s"}`);
+      setClearOpen(false);
+      setClearConfirm("");
+      clearFilters();
+      await loadTrades(0);
     } catch (err: any) {
-      console.error(err);
-      toast.error(err?.message || "Failed to save trade");
+      toast.error(err?.message || "Couldn't clear your trades");
     } finally {
-      setSaving(false);
+      setClearing(false);
     }
   }
 
@@ -716,7 +326,19 @@ export default function Trades() {
               <FileText className="mr-2 h-4 w-4" />
               Export PDF
             </Button>
-            <Button onClick={openAddDialog}>
+            <Button
+              variant="outline"
+              className="text-red-600 hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-950/40"
+              disabled={total === 0 && !filtering}
+              onClick={() => {
+                setClearConfirm("");
+                setClearOpen(true);
+              }}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Clear all
+            </Button>
+            <Button onClick={() => setDialogRequest({ mode: "add" })}>
               <Plus className="mr-2 h-4 w-4" />
               Add Trade
             </Button>
@@ -759,7 +381,21 @@ export default function Trades() {
               />
             </div>
           </div>
-          {(search || fromDate || toDate) && (
+          <Button
+            variant={onlyDuplicates ? "default" : "outline"}
+            size="sm"
+            className="h-10 gap-1.5 self-start sm:self-auto"
+            aria-pressed={onlyDuplicates}
+            onClick={() => {
+              setOnlyDuplicates((v) => !v);
+              setOffset(0);
+            }}
+            title="Trades with the same date, asset, side, quantity, prices and entry time as another trade"
+          >
+            <Copy className="h-4 w-4" />
+            {onlyDuplicates ? "Showing duplicates" : "Show duplicates"}
+          </Button>
+          {(search || fromDate || toDate || onlyDuplicates) && (
             <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 self-start sm:self-auto">
               <X className="h-4 w-4" />
               Clear filters
@@ -827,7 +463,20 @@ export default function Trades() {
                       <TableCell>{trade.exit_time || "-"}</TableCell>
                       <TableCell>{trade.type || "-"}</TableCell>
                       <TableCell>{trade.market ? marketLabel(trade.market) : "-"}</TableCell>
-                      <TableCell className="font-medium">{trade.asset}</TableCell>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center gap-2 whitespace-nowrap">
+                          {trade.asset}
+                          {trade.is_duplicate && (
+                            <span
+                              className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                              title="Same date, asset, side, quantity, prices and entry time as another trade in your journal"
+                            >
+                              <Copy className="h-3 w-3" />
+                              Duplicate
+                            </span>
+                          )}
+                        </div>
+                      </TableCell>
                       <TableCell>{trade.currency || "INR"}</TableCell>
                       <TableCell className="text-right">{trade.quantity ?? "-"}</TableCell>
                       <TableCell className="text-right">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
@@ -845,17 +494,17 @@ export default function Trades() {
                       </TableCell>
                       <TableCell className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]">
                         <div className="flex justify-end gap-1">
-                          <Button variant="ghost" size="icon" onClick={() => openEditDialog(trade)} aria-label="Edit trade" title="Edit">
+                          <Button variant="ghost" size="icon" onClick={() => setDialogRequest({ mode: "edit", trade })} aria-label="Edit trade" title="Edit">
                             <Pencil className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => openDuplicateDialog(trade)}
+                            onClick={() => setDialogRequest({ mode: "copy", trade })}
                             aria-label={`Log another ${trade.asset} trade`}
-                            title="Duplicate (new trade with the same setup)"
+                            title="Log again (new trade with the same setup)"
                           >
-                            <Copy className="h-4 w-4" />
+                            <Plus className="h-4 w-4" />
                           </Button>
                           <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(trade)} aria-label="Delete trade">
                             <Trash2 className="h-4 w-4" />
@@ -923,356 +572,52 @@ export default function Trades() {
         )}
       </div>
 
-      {/* Add / Edit dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>{editingTrade ? "Edit Trade" : "Add Trade"}</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* The essentials — enough to log a trade */}
-            <section className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr_10rem]">
-                <div className="space-y-1.5">
-                  <Label>Side</Label>
-                  <div role="radiogroup" aria-label="Buy or sell" className="inline-flex rounded-lg border p-0.5">
-                    {(["buy", "sell"] as const).map((side) => (
-                      <button
-                        key={side}
-                        type="button"
-                        role="radio"
-                        aria-checked={form.buy_sell === side}
-                        onClick={() => setField("buy_sell", side)}
-                        className={cn(
-                          "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
-                          form.buy_sell === side
-                            ? side === "buy"
-                              ? "bg-emerald-600 text-white"
-                              : "bg-red-600 text-white"
-                            : "text-muted-foreground hover:text-foreground"
-                        )}
-                      >
-                        {side === "buy" ? "Buy / Long" : "Sell / Short"}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="asset">Asset / Stock</Label>
-                  <Input
-                    id="asset"
-                    ref={assetInputRef}
-                    list="recent-assets"
-                    autoFocus={!editingTrade}
-                    value={form.asset}
-                    onChange={(e) => setField("asset", e.target.value)}
-                    placeholder="e.g. RELIANCE, NIFTY 24500 CE"
-                    required
-                  />
-                  <datalist id="recent-assets">
-                    {recentAssets.map((a) => (
-                      <option key={a} value={a} />
-                    ))}
-                  </datalist>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="date">Trade Date</Label>
-                  <Input id="date" type="date" value={form.date} onChange={(e) => setField("date", e.target.value)} required />
-                </div>
+      <TradeFormDialog
+        request={dialogRequest}
+        onClose={() => setDialogRequest(null)}
+        strategyOptions={strategyOptions}
+        onSaved={async () => {
+          await loadTrades(offset);
+          await loadStrategies();
+        }}
+      />
+
+      {/* Clear all trades */}
+      <AlertDialog open={clearOpen} onOpenChange={(open) => !open && !clearing && setClearOpen(false)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete every trade?</AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>This permanently deletes all trades in your journal. Your goals and strategies stay. This can't be undone.</p>
+                <p>
+                  Want a copy first?{" "}
+                  <button type="button" className="font-medium text-primary hover:underline" onClick={exportCsv} disabled={exporting}>
+                    Export CSV
+                  </button>
+                </p>
+                <p>
+                  Type <strong className="text-foreground">DELETE</strong> to confirm.
+                </p>
               </div>
-
-              <ChoiceChips
-                label="Market"
-                options={TRADE_MARKETS.map((m) => ({ value: m, label: marketLabel(m) }))}
-                value={form.market}
-                onChange={(v) => setField("market", v)}
-                allowClear
-              />
-
-              {form.market === "Options" && (
-                <div className="grid grid-cols-1 gap-4 rounded-lg border border-dashed p-3 sm:grid-cols-3">
-                  <ChoiceChips
-                    label="Option Type"
-                    options={[
-                      { value: "call", label: "Call (CE)" },
-                      { value: "put", label: "Put (PE)" },
-                    ]}
-                    value={form.option_type}
-                    onChange={(v) => setField("option_type", v as "call" | "put" | "")}
-                    allowClear
-                  />
-                  <div className="space-y-1.5">
-                    <Label htmlFor="strike_price">Strike Price</Label>
-                    <Input id="strike_price" type="number" min={0} step="0.01" value={form.strike_price} onChange={(e) => setField("strike_price", e.target.value)} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="contract">Expiry / Contract</Label>
-                    <Input id="contract" value={form.contract} onChange={(e) => setField("contract", e.target.value)} placeholder="e.g. 30 OCT 2026" />
-                  </div>
-                </div>
-              )}
-
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-                <div className="space-y-1.5">
-                  <Label htmlFor="quantity">Quantity</Label>
-                  <Input id="quantity" type="number" min={0} step="any" inputMode="decimal" value={form.quantity} onChange={(e) => setField("quantity", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="entry_price">Entry Price</Label>
-                  <Input id="entry_price" type="number" min={0} step="0.01" inputMode="decimal" value={form.entry_price} onChange={(e) => setField("entry_price", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="exit_price">Exit Price</Label>
-                  <Input
-                    id="exit_price"
-                    type="number"
-                    min={0}
-                    step="0.01"
-                    inputMode="decimal"
-                    value={form.exit_price}
-                    onChange={(e) => setField("exit_price", e.target.value)}
-                    placeholder="Blank if open"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="stop_loss">Stop Loss</Label>
-                  <Input id="stop_loss" type="number" min={0} step="0.01" inputMode="decimal" value={form.stop_loss} onChange={(e) => setField("stop_loss", e.target.value)} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="target_price">Target</Label>
-                  <Input id="target_price" type="number" min={0} step="0.01" inputMode="decimal" value={form.target_price} onChange={(e) => setField("target_price", e.target.value)} />
-                </div>
-              </div>
-
-              {/* Live result: P&L follows the prices unless typed by hand */}
-              {(() => {
-                const pnlValue = num(form.pnl);
-                const entry = num(form.entry_price);
-                const stop = num(form.stop_loss);
-                const target = num(form.target_price);
-                const qty = num(form.quantity);
-                const risk = entry != null && stop != null && qty ? Math.abs(entry - stop) * qty : null;
-                const reward = entry != null && target != null && qty ? Math.abs(target - entry) * qty : null;
-                return (
-                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg bg-muted/50 px-4 py-3 text-sm">
-                    <div>
-                      <span className="text-muted-foreground">P&amp;L </span>
-                      {pnlManual ? (
-                        <Input
-                          id="pnl"
-                          aria-label="Profit / Loss"
-                          type="number"
-                          step="0.01"
-                          value={form.pnl}
-                          onChange={(e) => setField("pnl", e.target.value)}
-                          className="inline-block h-8 w-32"
-                        />
-                      ) : (
-                        <span
-                          className={cn(
-                            "font-semibold",
-                            pnlValue == null ? "text-muted-foreground" : pnlValue >= 0 ? "text-emerald-600" : "text-red-600"
-                          )}
-                        >
-                          {pnlValue == null ? "Open — add an exit price" : formatMoney(pnlValue, form.currency)}
-                        </span>
-                      )}
-                      <button
-                        type="button"
-                        className="ml-2 text-xs text-primary hover:underline"
-                        onClick={() => {
-                          if (pnlManual) {
-                            setPnlManual(false);
-                            setForm((prev) => ({ ...prev, pnl: calcPnl(prev) }));
-                          } else {
-                            setPnlManual(true);
-                          }
-                        }}
-                      >
-                        {pnlManual ? "Use calculated" : "Type it myself"}
-                      </button>
-                    </div>
-                    {risk != null && (
-                      <div>
-                        <span className="text-muted-foreground">Risk </span>
-                        <span className="font-medium">{formatMoney(risk, form.currency)}</span>
-                      </div>
-                    )}
-                    {risk != null && reward != null && risk > 0 && (
-                      <div>
-                        <span className="text-muted-foreground">Reward : Risk </span>
-                        <span className="font-medium">{(reward / risk).toFixed(1)} : 1</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2">
-                      <Label htmlFor="brokerage" className="text-muted-foreground font-normal">
-                        Fees
-                      </Label>
-                      <Input
-                        id="brokerage"
-                        type="number"
-                        min={0}
-                        step="0.01"
-                        value={form.brokerage}
-                        onChange={(e) => setField("brokerage", e.target.value)}
-                        className="h-8 w-24"
-                      />
-                    </div>
-                  </div>
-                );
-              })()}
-
-              <ChoiceChips
-                label="Trading Type"
-                options={TRADING_TYPES.map((t) => ({ value: t, label: t }))}
-                value={form.type}
-                onChange={(v) => setField("type", v)}
-                allowClear
-              />
-
-              <div className="space-y-1.5">
-                <ChoiceChips
-                  label="Strategy"
-                  options={strategyOptions.slice(0, 12).map((n) => ({ value: n, label: n }))}
-                  value={form.strategy}
-                  onChange={(v) => setField("strategy", v)}
-                  allowClear
-                />
-                <Input
-                  id="strategy"
-                  aria-label="Strategy (type your own)"
-                  list="strategy-options"
-                  value={form.strategy}
-                  onChange={(e) => setField("strategy", e.target.value)}
-                  placeholder="…or type your own — it will be remembered"
-                  className="max-w-sm"
-                />
-                <datalist id="strategy-options">
-                  {strategyOptions.map((name) => (
-                    <option key={name} value={name} />
-                  ))}
-                </datalist>
-              </div>
-
-              <ChoiceChips
-                label="How did you feel?"
-                options={EMOTIONS}
-                value={form.emotion}
-                onChange={(v) => setField("emotion", v || "neutral")}
-              />
-            </section>
-
-            {/* Everything else, one click away */}
-            <section className="space-y-3">
-              <button
-                type="button"
-                onClick={() => setShowMore((v) => !v)}
-                aria-expanded={showMore}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-              >
-                <ChevronDown className={cn("h-4 w-4 transition-transform", showMore && "rotate-180")} />
-                {showMore ? "Hide details" : "More details — times, notes, tags, currency, margin"}
-              </button>
-              {showMore && (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="exit_date">Exit Day</Label>
-                      <Input id="exit_date" type="date" value={form.exit_date} onChange={(e) => setField("exit_date", e.target.value)} />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="entry_time">Entry Time</Label>
-                      <Input id="entry_time" type="time" step={1} value={form.entry_time} onChange={(e) => setField("entry_time", e.target.value)} />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="exit_time">Exit Time</Label>
-                      <Input id="exit_time" type="time" step={1} value={form.exit_time} onChange={(e) => setField("exit_time", e.target.value)} />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label>Time Zone</Label>
-                      <Select value={form.time_zone} onValueChange={(v) => setField("time_zone", v)}>
-                        <SelectTrigger aria-label="Time Zone">
-                          <SelectValue placeholder="Select time zone" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {TIME_ZONES.map((tz) => (
-                            <SelectItem key={tz.value} value={tz.value}>
-                              {tz.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label>Currency</Label>
-                      <Select value={form.currency} onValueChange={(v) => setField("currency", v)}>
-                        <SelectTrigger aria-label="Currency">
-                          <SelectValue placeholder="Currency" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {CURRENCIES.map((c) => (
-                            <SelectItem key={c} value={c}>
-                              {c}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="margin">Margin</Label>
-                      <Input id="margin" type="number" step="0.01" value={form.margin} onChange={(e) => setField("margin", e.target.value)} />
-                    </div>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="notes">Trade Notes / Journal</Label>
-                    <Textarea
-                      id="notes"
-                      rows={3}
-                      value={form.notes}
-                      onChange={(e) => setField("notes", e.target.value)}
-                      placeholder="Pre-trade plan, setup quality, market conditions, post-trade review..."
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="tags">Tags (comma-separated)</Label>
-                    <Input id="tags" value={form.tags} onChange={(e) => setField("tags", e.target.value)} placeholder="e.g., breakout, momentum" />
-                  </div>
-                  {form.market === "Options" && (
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                      <div className="space-y-1.5">
-                        <Label htmlFor="underlying_price">Underlying Price</Label>
-                        <Input id="underlying_price" type="number" step="0.01" value={form.underlying_price} onChange={(e) => setField("underlying_price", e.target.value)} />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="implied_volatility">Implied Volatility (%)</Label>
-                        <Input id="implied_volatility" type="number" step="0.01" value={form.implied_volatility} onChange={(e) => setField("implied_volatility", e.target.value)} />
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="days_to_expiry">Days to Expiry</Label>
-                        <Input id="days_to_expiry" type="number" value={form.days_to_expiry} onChange={(e) => setField("days_to_expiry", e.target.value)} />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </section>
-
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
-              </Button>
-              {!editingTrade && (
-                <Button type="submit" value="another" variant="outline" disabled={saving}>
-                  Save &amp; add another
-                </Button>
-              )}
-              <Button type="submit" value="save" disabled={saving}>
-                {saving ? "Saving..." : "Save Trade"}
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <Input
+            aria-label="Type DELETE to confirm"
+            value={clearConfirm}
+            onChange={(e) => setClearConfirm(e.target.value)}
+            placeholder="DELETE"
+            autoComplete="off"
+            disabled={clearing}
+          />
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={clearing}>Cancel</AlertDialogCancel>
+            <Button variant="destructive" disabled={clearConfirm !== "DELETE" || clearing} onClick={clearAllTrades}>
+              {clearing ? "Deleting…" : "Delete all trades"}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Delete confirmation */}
       <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>

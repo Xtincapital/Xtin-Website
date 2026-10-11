@@ -91,7 +91,7 @@ function recommendAllocation(horizon: number, tolerance: RiskTolerance) {
 }
 
 export default function Portfolio() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   const { data: assets = [], isLoading } = useQuery({
     queryKey: ["gini", "assets"],

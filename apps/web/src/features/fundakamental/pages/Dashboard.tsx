@@ -39,6 +39,7 @@ import { toast } from "sonner";
 import { useMarketData } from "../hooks/use-market-data";
 import useRegion from "@/hooks/useRegion";
 import { popularTickers } from "../lib/currency";
+import ApproxAmount from "@/components/ApproxAmount";
 import {
   Search,
   Upload,
@@ -726,6 +727,7 @@ const Dashboard = () => {
                             {currentPrice != null && Number(currentPrice) > 0
                               ? `${currency}${Number(currentPrice).toLocaleString(isINR ? "en-IN" : "en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                               : "—"}
+                            {Number(currentPrice) > 0 && <ApproxAmount amount={Number(currentPrice)} from={isINR ? "INR" : "USD"} />}
                           </td>
                           <td
                             className={`py-3 px-4 text-right text-sm font-semibold ${

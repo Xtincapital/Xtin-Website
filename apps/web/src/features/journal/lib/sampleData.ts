@@ -384,9 +384,18 @@ const withPnl = <T extends Partial<Trade>>(input: T): T => {
 
 export const sampleTrades = {
   createTrade: async (data: Partial<Trade>) => tradeRows.create(withPnl(data)),
-  getTrades: async (params?: { limit?: number; offset?: number; search?: string; from?: string; to?: string }) => {
+  getTrades: async (params?: { limit?: number; offset?: number; search?: string; from?: string; to?: string; only_duplicates?: boolean; flag_duplicates?: boolean }) => {
     const term = (params?.search || "").trim().toLowerCase();
-    const all = (await tradeRows.list()).filter(
+    const rows = await tradeRows.list();
+    // Same rule as the server (tradeDuplicates.ts): date, asset, side, qty, prices, entry time.
+    const keyOf = (t: Trade) =>
+      [t.date, t.asset.trim().toLowerCase(), t.buy_sell, t.quantity, t.entry_price, t.exit_price, (t.entry_time || "").slice(0, 5)].join("|");
+    const counts = new Map<string, number>();
+    rows.forEach((t) => counts.set(keyOf(t), (counts.get(keyOf(t)) || 0) + 1));
+    const all = rows
+      .map((t) => ({ ...t, is_duplicate: (counts.get(keyOf(t)) || 0) > 1 }))
+      .filter((t) => !params?.only_duplicates || t.is_duplicate)
+      .filter(
       (t) =>
         (!term || t.asset.toLowerCase().includes(term) || (t.strategy || "").toLowerCase().includes(term)) &&
         (!params?.from || t.date >= params.from) &&

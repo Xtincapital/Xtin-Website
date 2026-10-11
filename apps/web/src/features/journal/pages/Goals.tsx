@@ -24,6 +24,9 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -43,6 +46,7 @@ import { Plus, Pencil, Trash2, Target } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useJournalPlanStore } from "../store/useJournalPlanStore";
 import { api } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import type { Goal, Trade } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
 
@@ -69,12 +73,10 @@ const TIMEFRAME_LABELS: Record<GoalTimeframe, string> = {
   this_year: "This Year",
 };
 
+// P&L targets and progress are in rupees (like the trade totals) and shown
+// in the selected currency.
 function formatMoney(value: number) {
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(value);
-  } catch {
-    return value.toFixed(2);
-  }
+  return formatFromInr(value);
 }
 
 interface TimeframeMetrics {
@@ -168,7 +170,14 @@ const EMPTY_FORM: GoalFormState = { title: "", metric: "total_pnl", timeframe: "
 // the server-side check in services/api/modules/journal/goals.controller.ts.
 const FREE_GOAL_LIMIT = 2;
 
+// A money target is typed in the selected currency and kept in rupees.
+function TargetInput({ money, ...props }: { money: boolean } & React.ComponentProps<typeof MoneyInput>) {
+  return money ? <MoneyInput {...props} /> : <Input {...props} value={props.value ?? ""} />;
+}
+
 export default function Goals() {
+  // Re-render in the new currency when it changes.
+  const { symbol } = useCurrency();
   const navigate = useNavigate();
   // Subscribe to the plan itself: selecting the isPro function never re-rendered
   // once the plan loaded, so paying users kept seeing Free gates.
@@ -190,7 +199,7 @@ export default function Goals() {
     try {
       const [goalsRes, tradesRes] = await Promise.all([
         api.goals.getGoals(),
-        api.getAllTrades(),
+        getAllTradesInInr(),
       ]);
       setGoals(goalsRes || []);
       setTrades((tradesRes.data || []).map((t) => ({ date: t.date, pnl: t.pnl })));
@@ -361,7 +370,7 @@ export default function Goals() {
                 id="goal-title"
                 value={form.title}
                 onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
-                placeholder="e.g., Hit ₹50,000 profit this month"
+                placeholder={`e.g., Hit ${formatFromInr(50_000)} profit this month`}
                 required
               />
             </div>
@@ -396,8 +405,11 @@ export default function Goals() {
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="goal-target">Target Value</Label>
-              <Input
+              <Label htmlFor="goal-target">
+                Target Value{(form.metric === "total_pnl" || form.metric === "avg_pnl") && ` (${symbol.trim()})`}
+              </Label>
+              <TargetInput
+                money={form.metric === "total_pnl" || form.metric === "avg_pnl"}
                 id="goal-target"
                 type="number"
                 step="0.01"

@@ -50,7 +50,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, type Trade } from "../lib/api";
+import { type Trade } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 const MONTH_NAMES = [
@@ -99,7 +100,7 @@ function distributionOf(list: Trade[], field: "type" | "market"): { name: string
 }
 
 const Monthly = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
@@ -107,7 +108,7 @@ const Monthly = () => {
   // Same pragmatic largest-page approach as Dashboard.tsx/Calendar.tsx.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "monthly"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
 
   const allTrades = tradesData?.data ?? [];

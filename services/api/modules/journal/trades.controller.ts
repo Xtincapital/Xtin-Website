@@ -11,7 +11,7 @@
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateTradeCreate, validateTradeUpdate, validateTradeListQuery } from "./trades.validator.js";
 import { computeTradePnl } from "./importParsers.js";
-import { existingTradeKeys, tradeKey } from "./tradeDuplicates.js";
+import { existingTradeKeys, tradeKey, findDuplicateTradeIds, flagDuplicates } from "./tradeDuplicates.js";
 import { insertTrade, getTradesByUser, getTradeById, updateTrade as updateTradeRepo, deleteTrade as deleteTradeRepo, deleteAllTrades } from "./trades.repository.js";
 
 /* POST /journal/trades */
@@ -60,13 +60,20 @@ export const listTrades = async (req, res) => {
     if (validation.errors) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
     }
-    const { limit, offset, search, from, to } = validation.data;
+    const { limit, offset, search, from, to, only_duplicates, flag_duplicates } = validation.data;
     const userId = req.user.authId;
 
     try {
-        const { data, error, count } = await getTradesByUser(userId, limit, offset, { search, from, to });
+        let ids: string[] | undefined;
+        if (only_duplicates) {
+            ids = Array.from(await findDuplicateTradeIds(userId));
+            if (!ids.length) return res.status(HTTP_STATUS.OK).json({ data: [], pagination: { total: 0, limit, offset } });
+        }
+        const { data, error, count } = await getTradesByUser(userId, limit, offset, { search, from, to, ids });
         if (error) throw error;
-        return res.status(HTTP_STATUS.OK).json({ data: data || [], pagination: { total: count || 0, limit, offset } });
+        const rows = data || [];
+        const out = flag_duplicates || only_duplicates ? await flagDuplicates(userId, rows) : rows;
+        return res.status(HTTP_STATUS.OK).json({ data: out, pagination: { total: count || 0, limit, offset } });
     } catch (err) {
         console.error("[Journal] list trades failed:", err);
         return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Error fetching trades: ${(err as Error)?.message || err}` });

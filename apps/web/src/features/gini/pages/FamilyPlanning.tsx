@@ -67,6 +67,7 @@ import { ArrowRight, Baby, GraduationCap, HeartHandshake, PiggyBank, ShieldCheck
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -148,6 +149,7 @@ function NumberField({
   min = 0,
   max,
   hint,
+  money,
 }: {
   label: string;
   value: string;
@@ -156,11 +158,18 @@ function NumberField({
   min?: number;
   max?: number;
   hint?: string;
+  /** A rupee amount: shown and typed in the selected currency. */
+  money?: boolean;
 }) {
+  const { symbol } = useCurrency();
+  const Field = money ? MoneyInput : Input;
   return (
     <div className="space-y-1.5">
-      <Label>{label}</Label>
-      <Input aria-label={label} type="number" min={min} max={max} step={step} value={value} onChange={(e) => onChange(e.target.value)} />
+      <Label>
+        {label}
+        {money && ` (${symbol.trim()})`}
+      </Label>
+      <Field aria-label={label} type="number" min={min} max={max} step={step} value={value} onChange={(e) => onChange(e.target.value)} />
       {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
@@ -171,7 +180,7 @@ const ROADMAP_CHART_CONFIG: ChartConfig = {
 };
 
 export default function FamilyPlanning() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency, currency } = useCurrency();
   const money = (v: number) => formatCurrency(v, { maxDecimals: 0 });
 
   const familyMembersQuery = useQuery({ queryKey: ["gini", "family-members"], queryFn: api.familyMembers.getFamilyMembers });
@@ -369,13 +378,13 @@ export default function FamilyPlanning() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <NumberField label="Years until birth" value={childForm.yearsToBirth} max={15} onChange={(v) => setChildForm((p) => ({ ...p, yearsToBirth: v }))} />
               <NumberField
-                label="One-time birth costs today"
+                label="One-time birth costs today" money
                 step={10000}
                 value={childForm.birthCosts}
                 onChange={(v) => setChildForm((p) => ({ ...p, birthCosts: v }))}
                 hint="Delivery, hospital stay and first purchases."
               />
-              <NumberField label="Monthly childcare costs today" step={1000} value={childForm.monthlyCare} onChange={(v) => setChildForm((p) => ({ ...p, monthlyCare: v }))} />
+              <NumberField label="Monthly childcare costs today" money step={1000} value={childForm.monthlyCare} onChange={(v) => setChildForm((p) => ({ ...p, monthlyCare: v }))} />
               <NumberField label="Inflation rate (%)" step={0.5} value={childForm.inflation} onChange={(v) => setChildForm((p) => ({ ...p, inflation: v }))} />
             </div>
             <ResultGrid
@@ -418,12 +427,12 @@ export default function FamilyPlanning() {
                         <p className="mb-1 text-sm font-semibold text-foreground">
                           {child.name} <span className="font-normal text-muted-foreground">— Age {child.age ?? "not set"}</span>
                         </p>
-                        <p className="mb-3 text-xs text-muted-foreground">Enter what each stage costs at today's prices.</p>
+                        <p className="mb-3 text-xs text-muted-foreground">Enter what each stage costs at today's prices, in {currency}.</p>
                         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
                           {EDU_STAGES.map((stage) => (
                             <div key={stage.costKey} className="space-y-1">
                               <Label className="text-xs">{stage.label}</Label>
-                              <Input
+                              <MoneyInput
                                 aria-label={`${child.name}: ${stage.label}`}
                                 type="number"
                                 min={0}
@@ -518,7 +527,7 @@ export default function FamilyPlanning() {
                 hint={children.length ? "Average for your children, assuming a wedding at about 27." : undefined}
               />
               <NumberField
-                label="Cost of one wedding today"
+                label="Cost of one wedding today" money
                 step={100000}
                 value={weddingForm.weddingCost}
                 onChange={(v) => setWeddingForm((p) => ({ ...p, weddingCost: v }))}
@@ -541,26 +550,26 @@ export default function FamilyPlanning() {
           <CardContent className="space-y-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <NumberField
-                label="Current health cover"
+                label="Current health cover" money
                 step={100000}
                 value={insuranceForm.healthCurrent}
                 onChange={(v) => setInsuranceForm((p) => ({ ...p, healthCurrent: v }))}
               />
               <NumberField
-                label="Health cover you need"
+                label="Health cover you need" money
                 step={100000}
                 value={insuranceForm.healthRecommended}
                 onChange={(v) => setInsuranceForm((p) => ({ ...p, healthRecommended: v }))}
-                hint="₹10–25 lakh family floater is common for metro hospital costs."
+                hint={`${money(1_000_000)}–${money(2_500_000)} family floater is common for metro hospital costs.`}
               />
               <NumberField
-                label="Current life cover"
+                label="Current life cover" money
                 step={500000}
                 value={insuranceForm.lifeCurrent}
                 onChange={(v) => setInsuranceForm((p) => ({ ...p, lifeCurrent: v }))}
               />
               <NumberField
-                label="Annual household income"
+                label="Annual household income" money
                 step={100000}
                 value={insuranceForm.annualIncome}
                 onChange={(v) => (touch("annualIncome"), setInsuranceForm((p) => ({ ...p, annualIncome: v })))}
@@ -584,7 +593,7 @@ export default function FamilyPlanning() {
           <CardContent className="space-y-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <NumberField
-                label="Monthly family expenses"
+                label="Monthly family expenses" money
                 step={5000}
                 value={emergencyForm.monthlyExpenses}
                 onChange={(v) => setEmergencyForm((p) => ({ ...p, monthlyExpenses: v }))}
@@ -605,7 +614,7 @@ export default function FamilyPlanning() {
                 </Select>
               </div>
               <NumberField
-                label="Current emergency savings"
+                label="Current emergency savings" money
                 step={10000}
                 value={emergencyForm.currentSavings}
                 onChange={(v) => (touch("currentSavings"), setEmergencyForm((p) => ({ ...p, currentSavings: v })))}

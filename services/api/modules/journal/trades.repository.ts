@@ -9,6 +9,8 @@ export interface TradeListFilters {
     search?: string;
     from?: string;
     to?: string;
+    /** Only these trade ids (e.g. the duplicates). */
+    ids?: string[];
 }
 
 // Characters that would change the meaning of a PostgREST `or=(...)` filter.
@@ -20,6 +22,7 @@ const getTradesByUser = (userId: string, limit: number, offset: number, filters:
     if (term) query = query.or(`asset.ilike.%${term}%,strategy.ilike.%${term}%`);
     if (filters.from) query = query.gte("date", filters.from);
     if (filters.to) query = query.lte("date", filters.to);
+    if (filters.ids) query = query.in("id", filters.ids);
     return query
         .order("date", { ascending: false })
         .order("created_at", { ascending: false })

@@ -22,7 +22,7 @@ describe("computeTradePnl", () => {
 });
 
 describe("trade validation", () => {
-    const base = { date: "2026-10-01", asset: "INFY" };
+    const base = { date: "2026-10-01", asset: "INFY", market: "Equity", buy_sell: "buy", quantity: 10, entry_price: 100 };
 
     it("rejects negative prices and quantity", () => {
         for (const field of ["quantity", "entry_price", "exit_price", "target_price", "stop_loss", "brokerage", "strike_price"]) {
@@ -104,3 +104,26 @@ describe("Journal PDF table import", () => {
         expect(rows[0]).toMatchObject({ asset: "FREE-TEST", quantity: 10, entry_price: 100, exit_price: 115, pnl: 150, buy_sell: "buy" });
     });
 });
+
+describe("new trade required fields", () => {
+    const ok = { date: "2026-10-01", asset: "INFY", market: "Equity", buy_sell: "buy", quantity: 10, entry_price: 100 };
+
+    it("accepts a trade with the essentials", () => {
+        expect(validateTradeCreate(ok).errors).toBeUndefined();
+    });
+
+    it.each(["market", "buy_sell", "quantity", "entry_price"])("refuses a new trade without %s", (field) => {
+        const { [field]: _omit, ...rest } = ok as Record<string, unknown>;
+        expect(validateTradeCreate(rest).errors).toBeDefined();
+    });
+
+    it("refuses zero quantity or price", () => {
+        expect(validateTradeCreate({ ...ok, quantity: 0 }).errors).toBeDefined();
+        expect(validateTradeCreate({ ...ok, entry_price: 0 }).errors).toBeDefined();
+    });
+
+    it("still lets an older trade be edited without them", () => {
+        expect(validateTradeUpdate({ notes: "fixed a typo" }).errors).toBeUndefined();
+    });
+});
+

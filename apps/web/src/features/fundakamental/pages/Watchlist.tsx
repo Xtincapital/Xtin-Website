@@ -37,6 +37,7 @@ import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarCh
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
 import DashboardLayout from '../components/dashboard/DashboardLayout';
+import ApproxAmount from "@/components/ApproxAmount";
 
 interface Watchlist {
   id: string;
@@ -757,7 +758,10 @@ export default function Watchlist() {
             <CardContent>
               <div className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-primary" />
-                <p className="text-2xl font-bold">{trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}</p>
+                <p className="text-2xl font-bold">
+                  {trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}
+                  {trackedValueSymbol && <ApproxAmount inline amount={summary.tracked_value} from={trackedValueSymbol === '₹' ? 'INR' : 'USD'} className="text-sm" />}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -820,7 +824,10 @@ export default function Watchlist() {
                       )}
                     </TableCell>
                     <TableCell>{formatPrice(item.added_price, item.ticker)}</TableCell>
-                    <TableCell>{formatPrice(item.current_price, item.ticker)}</TableCell>
+                    <TableCell>
+                      {formatPrice(item.current_price, item.ticker)}
+                      <ApproxAmount amount={item.current_price} from={isIndianTicker(item.ticker) ? "INR" : "USD"} />
+                    </TableCell>
                     <TableCell>{formatChange(item.change, item.change_pct)}</TableCell>
                     <TableCell>
                       {item.target_price ? (

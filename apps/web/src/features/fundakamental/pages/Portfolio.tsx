@@ -74,6 +74,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import ApproxAmount from "@/components/ApproxAmount";
 import {
   Select,
   SelectContent,
@@ -734,7 +735,10 @@ const Portfolio = () => {
                   <span className="text-sm text-muted-foreground">Total Value</span>
                   <DollarSign className="w-4 h-4 text-primary" />
                 </div>
-                <div className="text-2xl font-bold text-foreground">{fmt(computed.value)}</div>
+                <div className="text-2xl font-bold text-foreground">
+                  {fmt(computed.value)}
+                  <ApproxAmount amount={computed.value} from={displayCurrency} className="text-xs" />
+                </div>
                 <p className="text-xs text-muted-foreground mt-1">
                   Invested: {fmt(computed.cost)}
                 </p>

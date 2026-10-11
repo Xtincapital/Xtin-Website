@@ -44,6 +44,9 @@ import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatFromInr } from "@/lib/region";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -99,14 +102,8 @@ const CHART_PALETTE = [
   "hsl(var(--chart-5))",
 ];
 
-function formatCurrency(value: number | null | undefined) {
-  const n = value ?? 0;
-  try {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
-  } catch {
-    return `₹${n.toFixed(0)}`;
-  }
-}
+// Values are saved in rupees and shown in the selected currency.
+const formatCurrency = (value: number | null | undefined) => formatFromInr(value ?? 0, { maxDecimals: 0 });
 
 function num(value: string): number | null {
   if (value === "" || value == null) return null;
@@ -265,6 +262,9 @@ function liabilityFormToPayload(form: LiabilityFormState): LiabilityInput {
 type DeleteTarget = { kind: "asset"; item: Asset } | { kind: "liability"; item: Liability } | null;
 
 export default function NetWorth() {
+  // Re-render in the new currency when it changes; `sym` labels the amount boxes.
+  const { symbol, currency, inrToDisplay } = useCurrency();
+  const sym = symbol.trim();
   const queryClient = useQueryClient();
 
   const assetsQuery = useQuery({ queryKey: ["gini", "assets"], queryFn: api.assets.getAssets });
@@ -291,19 +291,22 @@ export default function NetWorth() {
   const [importKind, setImportKind] = useState<"assets" | "liabilities" | null>(null);
 
   // Same columns as the import template, so an exported file can be imported back.
+  // In the selected currency, the same as Import reads it, so a file can go
+  // out and back in unchanged.
   function exportCsv(kind: "assets" | "liabilities") {
+    const cur = (n: number | null) => (n == null ? null : Math.round(inrToDisplay(n) * 100) / 100);
     const rows: unknown[][] =
       kind === "assets"
-        ? [["Name", "Category", "Value", "Return Rate", "Ownership"], ...assets.map((a) => [a.name, a.category, a.value, a.return_rate, a.ownership_type])]
+        ? [["Name", "Category", "Value", "Return Rate", "Ownership"], ...assets.map((a) => [a.name, a.category, cur(a.value), a.return_rate, a.ownership_type])]
         : [
             ["Name", "Type", "Amount", "Interest Rate", "EMI", "Tenure", "Ownership"],
-            ...liabilities.map((l) => [l.name, l.type, l.amount, l.rate, l.emi, l.tenure, l.ownership_type]),
+            ...liabilities.map((l) => [l.name, l.type, cur(l.amount), l.rate, cur(l.emi), l.tenure, l.ownership_type]),
           ];
     if (rows.length === 1) {
       toast.error(`No ${kind} to export yet`);
       return;
     }
-    downloadTextFile(`gini-${kind}-${new Date().toISOString().slice(0, 10)}.csv`, rows.map((r) => r.map(csvCell).join(",")).join("\n"));
+    downloadTextFile(`gini-${kind}-${currency}-${new Date().toISOString().slice(0, 10)}.csv`, rows.map((r) => r.map(csvCell).join(",")).join("\n"));
     toast.success(`Exported ${rows.length - 1} ${rows.length === 2 ? kind.replace(/ies$/, "y").replace(/s$/, "") : kind}`);
   }
   const invalidateAssets = () => queryClient.invalidateQueries({ queryKey: ["gini", "assets"] });
@@ -779,8 +782,8 @@ export default function NetWorth() {
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="asset-value">Current Value (₹)</Label>
-                <Input
+                <Label htmlFor="asset-value">Current Value ({sym})</Label>
+                <MoneyInput
                   id="asset-value"
                   type="number"
                   min={0}
@@ -895,8 +898,8 @@ export default function NetWorth() {
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="liability-amount">Outstanding Amount (₹)</Label>
-                <Input
+                <Label htmlFor="liability-amount">Outstanding Amount ({sym})</Label>
+                <MoneyInput
                   id="liability-amount"
                   type="number"
                   min={0}
@@ -920,8 +923,8 @@ export default function NetWorth() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label htmlFor="liability-emi">Monthly EMI (₹)</Label>
-                <Input
+                <Label htmlFor="liability-emi">Monthly EMI ({sym})</Label>
+                <MoneyInput
                   id="liability-emi"
                   type="number"
                   min={0}

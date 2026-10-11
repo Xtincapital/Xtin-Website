@@ -38,7 +38,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, type Trade } from "../lib/api";
+import { type Trade } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import {
   GLOBAL_SESSIONS,
   formatHourDisplay,
@@ -71,7 +72,7 @@ function isValidDate(d: Date): boolean {
 }
 
 const Heatmaps = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const [range, setRange] = useState("all");
   const [year, setYear] = useState("all");
 
@@ -80,7 +81,7 @@ const Heatmaps = () => {
   // allowed page (200) and computes every heatmap client-side.
   const { data: tradesData, isLoading } = useQuery({
     queryKey: ["journal", "trades", "heatmaps"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
   const allTrades: Trade[] = tradesData?.data ?? [];
 

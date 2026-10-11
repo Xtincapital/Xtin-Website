@@ -19,7 +19,7 @@ vi.mock("./trades.repository.js", () => ({
 const { tradeKey, markDuplicates } = await import("./tradeDuplicates.js");
 const { createTrade } = await import("./trades.controller.js");
 
-const trade = { date: "2026-10-05", asset: "INFY", buy_sell: "buy", quantity: 10, entry_price: 1500, exit_price: 1520, entry_time: "09:30" };
+const trade = { date: "2026-10-05", asset: "INFY", market: "Equity", buy_sell: "buy", quantity: 10, entry_price: 1500, exit_price: 1520, entry_time: "09:30" };
 
 const call = async (body: unknown) => {
     const res: any = { statusCode: 0, body: null, status(c: number) { this.statusCode = c; return this; }, json(b: unknown) { this.body = b; return this; } };

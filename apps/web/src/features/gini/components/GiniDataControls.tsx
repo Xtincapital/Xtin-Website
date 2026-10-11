@@ -49,7 +49,8 @@ export default function GiniDataControls() {
     try {
       const data = await fetchGiniData(await ensurePlan());
       const total = data.family.length + data.assets.length + data.liabilities.length + data.goals.length + data.elderCare.length + data.education.length;
-      downloadTextFile(`gini-data-${new Date().toISOString().slice(0, 10)}.csv`, buildGiniCsv(data));
+      // A backup: amounts stay in rupees (as saved) so it restores exactly, whatever currency is selected.
+      downloadTextFile(`gini-data-INR-${new Date().toISOString().slice(0, 10)}.csv`, buildGiniCsv(data));
       toast.success(total ? "Downloaded all your Gini data" : "Downloaded an empty file with the column headers. Fill it in and upload it.");
     } catch (err: any) {
       toast.error(err?.message || "Could not download your data");
@@ -127,7 +128,7 @@ export default function GiniDataControls() {
             <DialogTitle>Upload your Gini data</DialogTitle>
             <DialogDescription>
               Records that match ones you already have (same name) are updated, new ones are added, and nothing is deleted. Blank cells keep
-              your current values.
+              your current values. Amounts in this file are in rupees (₹), as in "Download my data".
             </DialogDescription>
           </DialogHeader>
 

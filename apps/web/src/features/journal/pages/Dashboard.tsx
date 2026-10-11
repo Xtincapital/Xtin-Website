@@ -65,7 +65,8 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, goals as goalsApi, type Trade, type Goal } from "../lib/api";
+import { goals as goalsApi, type Trade, type Goal } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -127,7 +128,7 @@ function goalCurrentValue(goal: Goal, allTime: Metrics, thisMonth: Metrics): num
 const GAUGE_COLORS = ["hsl(var(--chart-positive))", "hsl(var(--secondary))"];
 
 const Dashboard = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   // Pragmatic choice: GET /journal/trades is paginated (default 50, max 200
   // server-side — see trades.validator.ts). A dedicated stats/aggregate
@@ -137,7 +138,7 @@ const Dashboard = () => {
   // least accurate for accounts with up to 200 trades.
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "dashboard"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
 
   const { data: goalsData, isLoading: goalsLoading } = useQuery({

@@ -155,3 +155,57 @@ describe("region state (getRegion/setRegion/getRegionConfig/currencySymbol/isInd
         expect(currencySymbol("IN")).toBe("₹");
     });
 });
+
+import { crossRates, formatRate, siteCurrencies } from "../lib/region";
+
+describe("cross rates for the navbar currency info", () => {
+    const rates = { USD: 1, INR: 96.7, EUR: 0.89, GBP: 0.76, AED: 3.6725, SGD: 1.28 };
+
+    it("lists every other site currency once (Global and US share USD)", () => {
+        expect(siteCurrencies()).toEqual(["INR", "USD", "GBP", "EUR", "AED", "SGD"]);
+        expect(crossRates("INR", rates).map((r) => r.currency)).toEqual(["USD", "GBP", "EUR", "AED", "SGD"]);
+    });
+
+    it("gives both directions between two non-USD currencies", () => {
+        const gbp = crossRates("INR", rates).find((r) => r.currency === "GBP")!;
+        expect(gbp.perBase).toBeCloseTo(0.76 / 96.7);
+        expect(gbp.basePer).toBeCloseTo(96.7 / 0.76);
+    });
+
+    it("shows a missing rate as unavailable", () => {
+        expect(crossRates("INR", { ...rates, SGD: 0 }).find((r) => r.currency === "SGD")).toMatchObject({ perBase: null, basePer: null });
+        expect(formatRate(null)).toBe("—");
+    });
+
+    it("formats small and large rates readably", () => {
+        expect(formatRate(96.7)).toBe("96.70");
+        expect(formatRate(3.6731)).toBe("3.673");
+        expect(formatRate(0.010341)).toBe("0.01034");
+    });
+});
+
+import { formatFromInr, fromInr } from "../lib/region";
+
+describe("rupee amounts shown in the selected currency", () => {
+    afterEach(() => setRegion("IN"));
+
+    it("leaves rupees as rupees in India, with lakh grouping", () => {
+        setRegion("IN");
+        expect(formatFromInr(5160000)).toBe("₹51,60,000");
+        expect(formatFromInr(5160000, { compact: true })).toBe("₹51.60L");
+        expect(fromInr(5160000)).toBe(5160000);
+    });
+
+    it("converts to dollars instead of just changing the symbol", () => {
+        setRegion("US");
+        const usd = fromInr(5160000);
+        expect(usd).toBeCloseTo(5160000 / 96.7, 0); // fallback rate
+        expect(formatFromInr(5160000)).toBe(`$${Math.round(usd).toLocaleString("en-US")}`);
+        expect(formatFromInr(5160000)).not.toContain("5,160,000");
+    });
+
+    it("keeps cents only for small amounts", () => {
+        setRegion("US");
+        expect(formatFromInr(500)).toMatch(/^\$5\.\d{2}$/);
+    });
+});

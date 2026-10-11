@@ -59,6 +59,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
@@ -153,7 +154,7 @@ function ResultGrid({ items }: { items: { label: string; value: string }[] }) {
 // (~5502-5618), read-only.
 // ─────────────────────────────────────────────────────────────────────────
 function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; isLoading: boolean }) {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   const earners = useMemo(
     () => members.filter((m) => m.is_earner && m.age != null && m.retirement_age != null && m.life_expectancy != null),
@@ -277,7 +278,7 @@ function elderFormToInput(form: ElderCareFormState): ElderCarePlanInput {
 }
 
 function ElderCareTab({ members }: { members: FamilyMember[] }) {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const queryClient = useQueryClient();
   const plansQuery = useQuery({ queryKey: ELDER_CARE_KEY, queryFn: api.elderCare.getPlans });
   const plans = plansQuery.data || [];
@@ -434,7 +435,7 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="elder-monthly">Monthly Support</Label>
-              <Input
+              <MoneyInput
                 id="elder-monthly"
                 type="number"
                 min={0}
@@ -445,7 +446,7 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="elder-medical">Medical Reserve</Label>
-              <Input
+              <MoneyInput
                 id="elder-medical"
                 type="number"
                 min={0}
@@ -547,7 +548,7 @@ function educationFormToInput(form: EducationFormState): EducationPlanInput {
 }
 
 function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const queryClient = useQueryClient();
   const plansQuery = useQuery({ queryKey: EDUCATION_PLANS_KEY, queryFn: api.educationPlans.getPlans });
   const plans = plansQuery.data || [];
@@ -786,18 +787,18 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="edu-cost">Estimated Cost</Label>
-                <Input
+                <MoneyInput
                   id="edu-cost"
                   type="number"
                   min={0}
                   value={form.cost}
                   onChange={(e) => setForm((p) => ({ ...p, cost: e.target.value }))}
-                  placeholder="e.g. 1000000"
+                  placeholder="1000000"
                 />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="edu-saved">Already Saved</Label>
-                <Input
+                <MoneyInput
                   id="edu-saved"
                   type="number"
                   min={0}
@@ -918,7 +919,7 @@ function taxFormToInput(form: TaxFormState): TaxOptimizationInput {
 const SECTION_80C_CAP = 150000;
 
 function TaxOptimizationTab() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const queryClient = useQueryClient();
   const taxQuery = useQuery({ queryKey: TAX_OPTIMIZATION_KEY, queryFn: api.taxOptimization.get });
 
@@ -969,19 +970,19 @@ function TaxOptimizationTab() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-ppf">PPF</Label>
-                  <Input id="tax-ppf" type="number" min={0} value={form.ppf} onChange={(e) => setForm((p) => ({ ...p, ppf: e.target.value }))} />
+                  <MoneyInput id="tax-ppf" type="number" min={0} value={form.ppf} onChange={(e) => setForm((p) => ({ ...p, ppf: e.target.value }))} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-elss">ELSS</Label>
-                  <Input id="tax-elss" type="number" min={0} value={form.elss} onChange={(e) => setForm((p) => ({ ...p, elss: e.target.value }))} />
+                  <MoneyInput id="tax-elss" type="number" min={0} value={form.elss} onChange={(e) => setForm((p) => ({ ...p, elss: e.target.value }))} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-nsc">NSC</Label>
-                  <Input id="tax-nsc" type="number" min={0} value={form.nsc} onChange={(e) => setForm((p) => ({ ...p, nsc: e.target.value }))} />
+                  <MoneyInput id="tax-nsc" type="number" min={0} value={form.nsc} onChange={(e) => setForm((p) => ({ ...p, nsc: e.target.value }))} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-life">Life Insurance Premium</Label>
-                  <Input
+                  <MoneyInput
                     id="tax-life"
                     type="number"
                     min={0}
@@ -991,7 +992,7 @@ function TaxOptimizationTab() {
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-tuition">Tuition Fees</Label>
-                  <Input
+                  <MoneyInput
                     id="tax-tuition"
                     type="number"
                     min={0}
@@ -1007,7 +1008,7 @@ function TaxOptimizationTab() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-self-health">Self &amp; Family Health Insurance</Label>
-                  <Input
+                  <MoneyInput
                     id="tax-self-health"
                     type="number"
                     min={0}
@@ -1017,7 +1018,7 @@ function TaxOptimizationTab() {
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-parent-health">Parents' Health Insurance</Label>
-                  <Input
+                  <MoneyInput
                     id="tax-parent-health"
                     type="number"
                     min={0}
@@ -1033,7 +1034,7 @@ function TaxOptimizationTab() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-edu-loan">Education Loan Interest</Label>
-                  <Input
+                  <MoneyInput
                     id="tax-edu-loan"
                     type="number"
                     min={0}
@@ -1103,7 +1104,7 @@ function calculateDependentCost(type: string, age: number, lifestyle: string) {
 }
 
 function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   // Cost to Support a Dependent
   const [depType, setDepType] = useState("Child");
@@ -1259,7 +1260,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
         <CardContent className="space-y-4">
           <div className="max-w-xs space-y-1.5">
             <Label>Monthly Household Expenses</Label>
-            <Input aria-label="Monthly Household Expenses"
+            <MoneyInput aria-label="Monthly Household Expenses"
               type="number"
               min={0}
               value={emergencyExpenses}

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { TrendingUp, TrendingDown, Search } from "lucide-react";
 import { api } from "../lib/api";
+import ApproxAmount from "@/components/ApproxAmount";
 
 // Shape returned by GET /api/fundakamental/stocks/search. Metrics are null
 // (and price 0) for companies that only came from Yahoo's name search.
@@ -163,6 +164,7 @@ const CompanySearchResults = ({
                   {symbol}
                   {company.price.toFixed(2)}
                 </div>
+                <ApproxAmount amount={company.price} from={symbol === "₹" ? "INR" : "USD"} />
                 <div
                   className={`flex items-center justify-end gap-0.5 text-[11px] font-medium ${
                     company.change_percent >= 0 ? "text-success" : "text-destructive"

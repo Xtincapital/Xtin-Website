@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { downloadTextFile, importFileType } from "@/lib/uploadFile";
 import { api } from "../lib/api";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 type Kind = "assets" | "liabilities";
 
@@ -35,10 +36,15 @@ interface Props {
   onImported: () => void;
 }
 
-const inr = (n: number | null | undefined) => (n == null ? "-" : `₹${Math.round(n).toLocaleString("en-IN")}`);
+// A statement's amounts are taken to be in the selected currency (what the
+// user works in); they're shown as they are and saved in rupees.
+const asTyped = (n: number | null | undefined, symbol: string) => (n == null ? "-" : `${symbol}${Math.round(n).toLocaleString("en-US")}`);
 
 export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImported }: Props) {
   const isAssets = kind === "assets";
+  const { symbol, currency, displayToInr } = useCurrency();
+  const inr = (n: number | null | undefined) => asTyped(n, symbol.trim() === "₹" ? "₹" : symbol);
+  const toRupees = (n: unknown) => (typeof n === "number" ? Math.round(displayToInr(n) * 100) / 100 : n);
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
   const [rows, setRows] = useState<any[]>([]);
@@ -84,8 +90,8 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
     let failed = 0;
     for (const row of rows) {
       try {
-        if (isAssets) await api.assets.createAsset({ ...row, ownership_type: "Individual" });
-        else await api.liabilities.createLiability({ ...row, ownership_type: "Individual" });
+        if (isAssets) await api.assets.createAsset({ ...row, value: toRupees(row.value), ownership_type: "Individual" });
+        else await api.liabilities.createLiability({ ...row, amount: toRupees(row.amount), emi: toRupees(row.emi), ownership_type: "Individual" });
         ok++;
       } catch {
         failed++;
@@ -118,8 +124,8 @@ export default function ImportHoldingsDialog({ kind, open, onOpenChange, onImpor
         <DialogHeader>
           <DialogTitle>Import {label} from a file</DialogTitle>
           <DialogDescription>
-            Upload a CSV, Excel or PDF statement. We read the values out of it and show a preview before anything is saved. You can
-            fine-tune ownership afterwards.
+            Upload a CSV, Excel or PDF statement. We read the values out of it and show a preview before anything is saved. Amounts are
+            read as {currency}. You can fine-tune ownership afterwards.
           </DialogDescription>
         </DialogHeader>
 

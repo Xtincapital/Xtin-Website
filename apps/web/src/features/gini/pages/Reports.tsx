@@ -45,7 +45,7 @@ const ANALYSIS_STEPS = ["Adding up your assets and loans", "Checking your asset 
 const STABLE_CATEGORIES = new Set(["Fixed Deposits", "Gold", "Cash", "PPF", "Insurance"]);
 
 export default function Reports() {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
   const { user } = useAuth();
   const sample = giniSampleMode.useState().active;
 

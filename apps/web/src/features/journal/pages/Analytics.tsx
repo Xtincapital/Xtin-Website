@@ -67,7 +67,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
-import { getAllTrades, strategies as strategiesApi } from "../lib/api";
+import { strategies as strategiesApi } from "../lib/api";
+import { getAllTradesInInr } from "../lib/tradesInInr";
 
 // Same static list pages/Trades.tsx uses for the trade form's strategy
 // datalist (app.js's `defaultStrategies`).
@@ -100,12 +101,12 @@ interface StrategyStats {
 }
 
 const Analytics = () => {
-  const { formatCurrency } = useCurrency();
+  const { formatInr: formatCurrency } = useCurrency();
 
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "analytics"],
-    queryFn: () => getAllTrades(),
+    queryFn: () => getAllTradesInInr(),
   });
 
   const { data: customStrategies } = useQuery({

@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { api } from "../lib/api";
 import { useAlertsStore, type FundaNotification } from "../store/useAlertsStore";
+import ApproxAmount from "@/components/ApproxAmount";
 
 interface PriceAlert {
   id: string;
@@ -256,6 +257,7 @@ export default function Alerts() {
                       <td className="py-3 px-4 font-semibold text-foreground">{a.ticker}</td>
                       <td className="py-3 px-4 text-foreground">
                         {a.condition === "above" ? "At or above" : "At or below"} {money(a.ticker, a.target_price)}
+                        <ApproxAmount inline amount={a.target_price} from={isIndian(a.ticker) ? "INR" : "USD"} />
                       </td>
                       <td className="py-3 px-4">
                         {a.is_active ? (

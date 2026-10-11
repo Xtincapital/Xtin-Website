@@ -1,9 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
+import { setRegion } from "@/lib/region";
 import { answersFromMember, answersToSave, computeGoal, defaultGoalName, detailsSummary, seedAnswers, updateAnswer } from "./goalCategories";
 
 const at = { currentYear: 2026, inflation: 6 };
 const run = (category: string, answers: Record<string, string>, inflation = 6) =>
   computeGoal(category, seedAnswers(category, answers), { ...at, inflation });
+
+// Amounts in the text follow the selected currency; these expectations are in rupees.
+beforeAll(() => setRegion("IN"));
 
 describe("goal category questions", () => {
   it("Education: yearly cost × course length, year from the child's age", () => {

@@ -11,14 +11,26 @@ const getTrades = vi.fn(async () => ({
     {
       id: "t1", date: "2026-10-01", asset: "RELIANCE", market: "Equity", type: "Intraday", buy_sell: "buy",
       quantity: 10, entry_price: 100, exit_price: 110, pnl: 100, strategy: "Breakout", currency: "INR", tags: [],
+      is_duplicate: true,
     },
   ],
   pagination: { total: 1, limit: 25, offset: 0 },
 }));
 
+const clearTrades = vi.fn(async () => ({ success: true, deleted: 1 }));
+
+class JournalApiError extends Error {
+  code?: string;
+  constructor(message: string, code?: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
 vi.mock("../lib/api", () => ({
+  JournalApiError,
   api: {
-    trades: { getTrades, createTrade, updateTrade: vi.fn(), deleteTrade: vi.fn() },
+    trades: { getTrades, createTrade, updateTrade: vi.fn(), deleteTrade: vi.fn(), clearTrades },
     strategies: { getStrategies: vi.fn(async () => []), createStrategy: vi.fn(async () => ({})) },
   },
 }));
@@ -102,3 +114,79 @@ describe("quick add trade", () => {
     expect(byText("Breakout")!.getAttribute("aria-checked")).toBe("true");
   });
 });
+
+describe("required fields, duplicates and clear all", () => {
+  beforeEach(async () => {
+    localStorage.clear();
+    createTrade.mockClear();
+    clearTrades.mockClear();
+    host = document.createElement("div");
+    document.body.appendChild(host);
+    root = createRoot(host);
+    await act(async () => root.render(<Trades />));
+    await flush();
+  });
+
+  afterEach(() => {
+    act(() => root.unmount());
+    host.remove();
+  });
+
+  const saveButton = () => byText("Save trade") as HTMLButtonElement;
+
+  it("keeps Save disabled until asset, market, quantity and entry price are filled", async () => {
+    await act(async () => byText("Add Trade")!.click());
+    expect(saveButton().disabled).toBe(true);
+    expect(document.body.textContent).toContain("Still needed: asset, market, quantity, entry price.");
+
+    await act(async () => {
+      type(input("asset"), "TCS");
+      type(input("quantity"), "5");
+    });
+    expect(saveButton().disabled).toBe(true);
+    expect(document.body.textContent).toContain("Still needed: market, entry price.");
+
+    await act(async () => {
+      type(input("entry_price"), "200");
+      byText("Equity")!.click();
+    });
+    expect(saveButton().disabled).toBe(false);
+    expect(document.body.textContent).toContain("Ready to save.");
+  });
+
+  it("shows a Duplicate badge on a trade that has an identical twin", () => {
+    const badge = Array.from(document.querySelectorAll("span")).find((el) => el.textContent?.trim() === "Duplicate");
+    expect(badge).toBeTruthy();
+  });
+
+  it("asks before saving a trade the server says is already logged", async () => {
+    createTrade.mockRejectedValueOnce(new JournalApiError("This trade is already in your journal.", "DUPLICATE_TRADE"));
+    await act(async () => byText("Add Trade")!.click());
+    await act(async () => {
+      type(input("asset"), "RELIANCE");
+      type(input("quantity"), "10");
+      type(input("entry_price"), "100");
+      byText("Equity")!.click();
+    });
+    await act(async () => saveButton().click());
+    await flush();
+    expect(document.body.textContent).toContain("This trade is already in your journal.");
+
+    await act(async () => byText("Save anyway")!.click());
+    await flush();
+    expect(createTrade).toHaveBeenCalledTimes(2);
+    expect(createTrade.mock.calls[1][0]).toMatchObject({ asset: "RELIANCE", allow_duplicate: true });
+  });
+
+  it("clears all trades only after typing DELETE", async () => {
+    await act(async () => byText("Clear all")!.click());
+    const confirm = () => byText("Delete all trades") as HTMLButtonElement;
+    expect(confirm().disabled).toBe(true);
+    await act(async () => type(document.querySelector<HTMLInputElement>('input[aria-label="Type DELETE to confirm"]')!, "DELETE"));
+    expect(confirm().disabled).toBe(false);
+    await act(async () => confirm().click());
+    await flush();
+    expect(clearTrades).toHaveBeenCalledTimes(1);
+  });
+});
+
