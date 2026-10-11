@@ -28,6 +28,7 @@ import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { withSampleMode } from '../../../lib/sampleMode';
 import { uploadForParse } from '../../../lib/uploadFile';
+import type { GoalDetails } from './goalCategories';
 import {
   giniSampleMode,
   sampleAssets,
@@ -144,6 +145,8 @@ export interface Goal {
   assigned_to: string | null;
   funded_by: string | null;
   funding_split: unknown;
+  /** Answers to the category questions (see ./goalCategories.ts); null on older goals. */
+  details?: GoalDetails | null;
   created_at: string;
   updated_at: string;
 }

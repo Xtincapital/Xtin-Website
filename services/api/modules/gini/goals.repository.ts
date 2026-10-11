@@ -14,15 +14,33 @@ import supabase from "../../supabase/index.js";
 const getFamilyMemberOwnership = (memberId: string, userId: string) =>
     supabase.from("gini_family_members").select("id").eq("id", memberId).eq("user_id", userId);
 
-const insertGoal = (record: Record<string, unknown>) => supabase.from("gini_goals").insert(record).select();
+// `details` arrived in migration 0018. Until that has been run, Supabase
+// rejects the column; save the goal without it rather than failing.
+const isMissingDetailsColumn = (error: { code?: string; message?: string } | null) =>
+    !!error && (error.code === "PGRST204" || error.code === "42703") && /details/.test(error.message || "");
+
+async function withoutDetailsIfMissing<T extends { error: { code?: string; message?: string } | null }>(
+    record: Record<string, unknown>,
+    run: (r: Record<string, unknown>) => PromiseLike<T>,
+): Promise<T> {
+    const result = await run(record);
+    if ("details" in record && isMissingDetailsColumn(result.error)) {
+        console.warn("[Gini] gini_goals.details is missing (run migration 0018); saving the goal without its details");
+        const { details: _details, ...rest } = record;
+        return run(rest);
+    }
+    return result;
+}
+
+const insertGoal = (record: Record<string, unknown>) => withoutDetailsIfMissing(record, (r) => supabase.from("gini_goals").insert(r).select());
 
 const getGoalsByUser = (userId: string) => supabase.from("gini_goals").select("*").eq("user_id", userId).order("created_at", { ascending: true });
 
 const getGoalById = (goalId: string, userId: string) => supabase.from("gini_goals").select("*").eq("id", goalId).eq("user_id", userId);
 
 const updateGoal = (goalId: string, userId: string, updateData: Record<string, unknown>) =>
-    supabase.from("gini_goals").update(updateData).eq("id", goalId).eq("user_id", userId).select();
+    withoutDetailsIfMissing(updateData, (r) => supabase.from("gini_goals").update(r).eq("id", goalId).eq("user_id", userId).select());
 
 const deleteGoal = (goalId: string, userId: string) => supabase.from("gini_goals").delete().eq("id", goalId).eq("user_id", userId).select();
 
-export { getFamilyMemberOwnership, insertGoal, getGoalsByUser, getGoalById, updateGoal, deleteGoal };
+export { isMissingDetailsColumn, getFamilyMemberOwnership, insertGoal, getGoalsByUser, getGoalById, updateGoal, deleteGoal };

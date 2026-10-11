@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import { ASSET_LABELS, EXPERIENCE_LABELS, STRATEGY_LABELS, publisherApi, type MarketAlgo } from '../lib/publisherApi';
+import ApproxPrice from '@/components/ApproxPrice';
 
 const label = (map: Record<string, string>, v: string) => map[v] || v;
 
@@ -44,6 +45,7 @@ function AlgoCard({ algo }: { algo: MarketAlgo }) {
         <div>
           <div className="text-2xl font-bold text-gray-900">₹{Number(algo.expected_price).toLocaleString('en-IN')}</div>
           <div className="text-xs text-gray-500">Publisher's listed price</div>
+          <ApproxPrice inr={Number(algo.expected_price)} className="text-gray-500" />
         </div>
         <Link
           to="/contact"

@@ -89,9 +89,9 @@ describe("convert", () => {
         expect(result).toBeCloseTo(100, 5);
     });
 
-    it("converts using the fallback USD/INR rate (83) when no live rate has been fetched", () => {
+    it("converts using the fallback USD/INR rate (96.7) when no live rate has been fetched", () => {
         const result = convert(1, "USD", "INR");
-        expect(result).toBeCloseTo(83, 0);
+        expect(result).toBeCloseTo(96.7, 0);
     });
 
     it("converts INR back to USD correctly (round-trip)", () => {

@@ -12,6 +12,7 @@ import algorithmService from '../services/algorithmService';
 import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 import CouponField from '@/features/coupons/components/CouponField';
 import { isFreeOrder } from '@/features/coupons/lib/api';
+import ApproxPrice from '@/components/ApproxPrice';
 
 const AlgosPage = () => {
   const structuredData = {
@@ -1102,6 +1103,7 @@ const AlgosPage = () => {
             <div className="p-6">
               <div className="text-center mb-6">
                 <div className="text-4xl font-bold text-gray-900 mb-1">₹1,000</div>
+                <ApproxPrice inr={1000} className="block mb-1 text-gray-500" />
                 <p className="text-gray-500 text-sm">One-time consultation fee</p>
               </div>
               
@@ -1226,6 +1228,7 @@ const AlgosPage = () => {
             <div className="p-6">
               <div className="text-center mb-5">
                 <div className="text-4xl font-bold text-gray-900 mb-1">₹49</div>
+                <ApproxPrice inr={49} className="block mb-1 text-gray-500" />
                 <p className="text-gray-500 text-sm">Consultation booking fee</p>
               </div>
 
@@ -1381,6 +1384,7 @@ const AlgosPage = () => {
                 <div className="flex items-start gap-3">
                   <div className="text-right">
                     <p className="text-3xl font-bold text-white">₹4,999</p>
+                    <ApproxPrice inr={4999} className="block text-green-100" />
                     <p className="text-green-200 text-xs">/month</p>
                   </div>
                   <button 

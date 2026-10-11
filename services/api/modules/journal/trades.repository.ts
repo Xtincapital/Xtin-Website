@@ -5,14 +5,26 @@ import supabase from "../../supabase/index.js";
 
 const insertTrade = (record: Record<string, unknown>) => supabase.from("journal_trades").insert(record).select();
 
-const getTradesByUser = (userId: string, limit: number, offset: number) =>
-    supabase
-        .from("journal_trades")
-        .select("*", { count: "exact" })
-        .eq("user_id", userId)
+export interface TradeListFilters {
+    search?: string;
+    from?: string;
+    to?: string;
+}
+
+// Characters that would change the meaning of a PostgREST `or=(...)` filter.
+const searchSafe = (term: string) => term.replace(/[,()%*\\:"]/g, " ").trim();
+
+const getTradesByUser = (userId: string, limit: number, offset: number, filters: TradeListFilters = {}) => {
+    let query = supabase.from("journal_trades").select("*", { count: "exact" }).eq("user_id", userId);
+    const term = filters.search ? searchSafe(filters.search) : "";
+    if (term) query = query.or(`asset.ilike.%${term}%,strategy.ilike.%${term}%`);
+    if (filters.from) query = query.gte("date", filters.from);
+    if (filters.to) query = query.lte("date", filters.to);
+    return query
         .order("date", { ascending: false })
         .order("created_at", { ascending: false })
         .range(offset, offset + limit - 1);
+};
 
 const getTradeById = (tradeId: string, userId: string) => supabase.from("journal_trades").select("*").eq("id", tradeId).eq("user_id", userId);
 

@@ -53,6 +53,8 @@ import paymentsRoutes from "./modules/payments/payments.routes.js";
 import receiptsRoutes from "./modules/payments/receipts.js";
 import couponsRoutes from "./modules/coupons/coupons.routes.js";
 import backtestRoutes from "./modules/backtest/routes.js";
+import fxRoutes from "./modules/fx/fx.routes.js";
+import { warmFxRates } from "./modules/fx/fx.service.js";
 
 const app = express();
 
@@ -122,7 +124,7 @@ app.use((req, res, next) => {
 			res.set('ETag', `"${Date.now()}"`); // Add ETag for cache validation
 		}
 		// Dynamic user data - no cache
-		else if (req.path.startsWith('/api/')) {
+		else if (req.path.startsWith('/api/') && !req.path.startsWith('/api/fx')) {
 			res.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
 			res.set('Pragma', 'no-cache'); // HTTP/1.0 compatibility
 			res.set('Expires', '0');
@@ -188,6 +190,8 @@ app.use("/api", paymentsRoutes);
 app.use("/api", receiptsRoutes);
 app.use("/api", couponsRoutes);
 app.use("/api", backtestRoutes);
+app.use("/api", fxRoutes);
+if (process.env.NODE_ENV !== 'test') warmFxRates();
 
 import { checkDatabaseHealth, checkStorageHealth } from "./utils/healthCheck.js";
 

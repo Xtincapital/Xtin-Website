@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { REGIONS, REGION_ORDER } from '../lib/region';
+import { REGIONS, REGION_ORDER, getRates, getRatesSnapshot } from '../lib/region';
 import useRegion from '../hooks/useRegion';
 
 /**
@@ -10,7 +10,30 @@ import useRegion from '../hooks/useRegion';
 export default function RegionSwitcher({ className = '' }) {
   const { region, config, setRegion } = useRegion();
   const [open, setOpen] = useState(false);
+  const [infoFor, setInfoFor] = useState<string | null>(null);
+  const [snapshot, setSnapshot] = useState(() => getRatesSnapshot());
   const ref = useRef(null);
+
+  // Load (or refresh from cache) the daily rates whenever the menu opens.
+  useEffect(() => {
+    if (!open) { setInfoFor(null); return; }
+    let cancelled = false;
+    getRates().then(() => { if (!cancelled) setSnapshot(getRatesSnapshot()); });
+    return () => { cancelled = true; };
+  }, [open]);
+
+  const asOfLabel = snapshot.asOf
+    ? new Date(snapshot.asOf).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+    : null;
+
+  const rateLine = (code: string) => {
+    const r = REGIONS[code];
+    const rate = snapshot.rates[r.currency];
+    if (r.currency === 'USD') return '1 USD is the base currency for all rates';
+    if (!rate) return 'Rate unavailable';
+    const value = rate >= 10 ? rate.toFixed(2) : rate.toFixed(4);
+    return `1 USD = ${value} ${r.currency}`;
+  };
 
   useEffect(() => {
     const onClick = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
@@ -36,18 +59,37 @@ export default function RegionSwitcher({ className = '' }) {
           <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-400">Region &amp; currency</div>
           {REGION_ORDER.map((code) => {
             const r = REGIONS[code];
+            const showInfo = infoFor === code;
             return (
-              <button
-                key={code}
-                type="button"
-                onClick={() => { setRegion(code); setOpen(false); }}
-                className="w-full flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
-              >
-                <span className="text-base">{r.flag}</span>
-                <span className="flex-1 text-gray-700 dark:text-gray-200">{r.name}</span>
-                <span className="text-xs text-gray-400">{r.symbol.trim()} {r.currency}</span>
-                {region === code && <span className="text-emerald-500">✓</span>}
-              </button>
+              <div key={code}>
+                <div className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => { setRegion(code); setOpen(false); }}
+                    className="flex-1 flex items-center gap-2.5 pl-3 py-2 text-sm text-left"
+                  >
+                    <span className="text-base">{r.flag}</span>
+                    <span className="flex-1 text-gray-700 dark:text-gray-200">{r.name}</span>
+                    <span className="text-xs text-gray-400">{r.symbol.trim()} {r.currency}</span>
+                    {region === code && <span className="text-emerald-500">✓</span>}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInfoFor(showInfo ? null : code)}
+                    aria-label={`Daily exchange rate for ${r.currency}`}
+                    aria-expanded={showInfo}
+                    className="mx-2 w-5 h-5 shrink-0 rounded-full border border-gray-300 dark:border-gray-500 text-[11px] font-serif italic leading-none text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                  >
+                    i
+                  </button>
+                </div>
+                {showInfo && (
+                  <p className="px-3 pb-2 text-xs text-gray-500 dark:text-gray-400">
+                    {rateLine(code)}
+                    {asOfLabel && snapshot.live ? ` · updated daily, as of ${asOfLabel}` : snapshot.live ? ' · updated daily' : ' · approximate (live rate unavailable)'}
+                  </p>
+                )}
+              </div>
             );
           })}
         </div>

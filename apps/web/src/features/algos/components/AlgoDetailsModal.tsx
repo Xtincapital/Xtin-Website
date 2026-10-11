@@ -2,6 +2,7 @@
 // need before buying, how to use it afterwards, and the backtest report.
 import React, { useEffect } from 'react';
 import { ALGO_DETAILS } from './algoDetails';
+import ApproxPrice from '@/components/ApproxPrice';
 
 interface Props {
   algoName: string | null;
@@ -171,6 +172,7 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
           >
             Subscribe — ₹4,999/month
           </button>
+          <ApproxPrice inr={4999} suffix="/month" className="mt-2 block text-center text-gray-500" />
         </div>
       </div>
     </div>

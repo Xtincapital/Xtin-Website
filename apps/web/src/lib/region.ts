@@ -1,3 +1,5 @@
+import { BACKEND_URL } from '../config/env';
+
 /**
  * Region service — makes the Xtin Capital site region-aware.
  *
@@ -12,6 +14,7 @@ const STORAGE_KEY = 'xtin_region_v1';
 const IP_CACHE_KEY = 'xtin_ip_region';
 const FX_CACHE_KEY = 'xtin_fx_rates';
 const TOAST_KEY = 'xtin_region_toast_v1';
+const FX_CACHE_MS = 6 * 3600 * 1000; // the server refreshes daily; this just avoids refetching on every page load
 
 export const REGIONS = {
   IN: {
@@ -60,10 +63,13 @@ export const REGIONS = {
 
 export const REGION_ORDER = ['IN', 'US', 'GB', 'EU', 'AE', 'SG', 'GLOBAL'];
 
-const FALLBACK_RATES = { USD: 1, INR: 83, EUR: 0.92, GBP: 0.79, AED: 3.67, SGD: 1.35 };
+// Used only until live rates arrive (and if every source is down). Kept near current values.
+const FALLBACK_RATES = { USD: 1, INR: 96.7, EUR: 0.89, GBP: 0.76, AED: 3.6725, SGD: 1.28 };
 
 let _region = 'US';
 let _rates = { ...FALLBACK_RATES };
+// Where the current rates came from; shown in the navbar's rate popover.
+let _ratesMeta: { asOf: string | null; live: boolean } = { asOf: null, live: false };
 const subscribers = new Set<(region: string) => void>();
 
 export function countryToRegion(country) {
@@ -174,20 +180,54 @@ export function currencySymbol(code?: string) { return REGIONS[code || _region].
 export async function getRates() {
   try {
     const cached = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || 'null');
-    if (cached && Date.now() - cached.at < 12 * 3600 * 1000 && cached.rates) {
+    if (cached && Date.now() - cached.at < FX_CACHE_MS && cached.rates) {
       _rates = { USD: 1, ...cached.rates };
+      _ratesMeta = cached.meta ?? { asOf: null, live: true };
       return _rates;
     }
   } catch { /* ignore */ }
+
+  // Our own server first (one shared daily copy), then the public source directly.
+  const sources: Array<() => Promise<{ rates: Record<string, number>; asOf: string | null } | null>> = [
+    async () => {
+      const data = await fetchJson(`${BACKEND_URL}/api/fx/rates`);
+      // The server may be serving its built-in rates (source "fallback") — not worth showing as live.
+      if (!data?.data?.rates || data.data.source === 'fallback') return null;
+      return { rates: data.data.rates, asOf: data.data.asOf ?? null };
+    },
+    async () => {
+      const data = await fetchJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols=INR,EUR,GBP,SGD');
+      return data?.rates ? { rates: data.rates, asOf: data.date ?? null } : null;
+    },
+  ];
+  for (const load of sources) {
+    try {
+      const result = await load();
+      if (result && result.rates.INR > 0) {
+        _rates = { ...FALLBACK_RATES, ...result.rates, USD: 1 };
+        _ratesMeta = { asOf: result.asOf, live: true };
+        try { localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rates: _rates, meta: _ratesMeta, at: Date.now() })); } catch { /* ignore */ }
+        return _rates;
+      }
+    } catch { /* try the next source */ }
+  }
+  return _rates; // keep the fallback
+}
+
+async function fetchJson(url: string) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 4000);
   try {
-    const res = await fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=INR,EUR,GBP,AED,SGD');
-    if (res.ok) {
-      const data = await res.json();
-      _rates = { USD: 1, ...data.rates };
-      try { localStorage.setItem(FX_CACHE_KEY, JSON.stringify({ rates: data.rates, at: Date.now() })); } catch { /* ignore */ }
-    }
-  } catch { /* keep fallback */ }
-  return _rates;
+    const res = await fetch(url, { signal: ctrl.signal });
+    return res.ok ? await res.json() : null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+/** Current rates (units per 1 USD) plus where they came from. Call getRates() first to load them. */
+export function getRatesSnapshot() {
+  return { rates: { ..._rates }, ..._ratesMeta };
 }
 
 export function convert(amount, from, to) {

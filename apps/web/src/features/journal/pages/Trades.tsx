@@ -20,7 +20,7 @@
 // Route path: mounted at `/journal/trades` per the task brief's default
 // assumption — JournalApp.tsx (meant to document the parallel task's chosen
 // route paths) did not exist yet either, so this could not be confirmed.
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -49,7 +49,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import { api } from "../lib/api";
@@ -310,7 +310,40 @@ export default function Trades() {
   const [loading, setLoading] = useState(true);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
 
+  // Filters run on the server, across every trade (not just this page).
   const [search, setSearch] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [jumpTo, setJumpTo] = useState("");
+  const latestRequest = useRef(0);
+  const datesInvalid = !!fromDate && !!toDate && fromDate > toDate;
+  const filtering = !!(appliedSearch || fromDate || toDate);
+
+  // Search as you type, after a short pause; always back to page 1.
+  useEffect(() => {
+    const term = search.trim();
+    if (term === appliedSearch) return;
+    const timer = setTimeout(() => {
+      setAppliedSearch(term);
+      setOffset(0);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search, appliedSearch]);
+
+  function setDateFilter(which: "from" | "to", value: string) {
+    if (which === "from") setFromDate(value);
+    else setToDate(value);
+    setOffset(0);
+  }
+
+  function clearFilters() {
+    setSearch("");
+    setAppliedSearch("");
+    setFromDate("");
+    setToDate("");
+    setOffset(0);
+  }
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
@@ -321,19 +354,33 @@ export default function Trades() {
   const [deleteTarget, setDeleteTarget] = useState<Trade | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  const loadTrades = useCallback(async (nextOffset: number) => {
-    setLoading(true);
-    try {
-      const res = await api.trades.getTrades({ limit: PAGE_SIZE, offset: nextOffset });
-      setTrades(res.data || []);
-      setTotal(res.pagination?.total ?? (res.data || []).length);
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to load trades", { id: "journal-trades-load-error" });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const loadTrades = useCallback(
+    async (nextOffset: number) => {
+      if (datesInvalid) return;
+      // Ignore a slower, older response (e.g. while typing a search).
+      const requestId = ++latestRequest.current;
+      setLoading(true);
+      try {
+        const res = await api.trades.getTrades({
+          limit: PAGE_SIZE,
+          offset: nextOffset,
+          search: appliedSearch || undefined,
+          from: fromDate || undefined,
+          to: toDate || undefined,
+        });
+        if (requestId !== latestRequest.current) return;
+        setTrades(res.data || []);
+        setTotal(res.pagination?.total ?? (res.data || []).length);
+      } catch (err) {
+        if (requestId !== latestRequest.current) return;
+        console.error(err);
+        toast.error("Failed to load trades", { id: "journal-trades-load-error" });
+      } finally {
+        if (requestId === latestRequest.current) setLoading(false);
+      }
+    },
+    [appliedSearch, fromDate, toDate, datesInvalid]
+  );
 
   const loadStrategies = useCallback(async () => {
     try {
@@ -359,20 +406,20 @@ export default function Trades() {
     return Array.from(names).sort((a, b) => a.localeCompare(b));
   }, [strategies]);
 
-  // Client-side filter over the currently-loaded page only — the list
-  // endpoint (trades.validator.ts's tradeListQuerySchema) takes only
-  // limit/offset, no filter params, so real server-side search isn't
-  // available yet.
-  const visibleTrades = useMemo(() => {
-    const term = search.trim().toLowerCase();
-    if (!term) return trades;
-    return trades.filter(
-      (t) => t.asset.toLowerCase().includes(term) || (t.strategy || "").toLowerCase().includes(term)
-    );
-  }, [trades, search]);
+  const visibleTrades = trades;
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const currentPage = Math.floor(offset / PAGE_SIZE) + 1;
+
+  function goToPage(raw: string) {
+    const page = Math.trunc(Number(raw));
+    if (!Number.isFinite(page) || page < 1 || page > totalPages) {
+      toast.error(`Enter a page from 1 to ${totalPages}`, { id: "journal-trades-jump" });
+      return;
+    }
+    setOffset((page - 1) * PAGE_SIZE);
+    setJumpTo("");
+  }
 
   function openAddDialog() {
     setEditingTrade(null);
@@ -511,7 +558,9 @@ export default function Trades() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Trades</h1>
-            <p className="text-sm text-muted-foreground">{total} trade{total === 1 ? "" : "s"} logged</p>
+            <p className="text-sm text-muted-foreground">
+              {filtering ? `${total} matching trade${total === 1 ? "" : "s"}` : `${total} trade${total === 1 ? "" : "s"} logged`}
+            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" onClick={() => setImportOpen(true)}>
@@ -534,15 +583,49 @@ export default function Trades() {
         </div>
         <ImportTradesDialog open={importOpen} onOpenChange={setImportOpen} onImported={() => loadTrades(0)} />
 
-        <div className="relative max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by asset or strategy..."
-            className="pl-8"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+          <div className="relative w-full sm:max-w-sm">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              aria-label="Search by asset or strategy"
+              placeholder="Search by asset or strategy..."
+              className="pl-8"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="flex items-end gap-2">
+            <div className="space-y-1">
+              <Label htmlFor="trades-from" className="text-xs text-muted-foreground">From</Label>
+              <Input
+                id="trades-from"
+                type="date"
+                className="w-[9.5rem]"
+                value={fromDate}
+                max={toDate || undefined}
+                onChange={(e) => setDateFilter("from", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="trades-to" className="text-xs text-muted-foreground">To</Label>
+              <Input
+                id="trades-to"
+                type="date"
+                className="w-[9.5rem]"
+                value={toDate}
+                min={fromDate || undefined}
+                onChange={(e) => setDateFilter("to", e.target.value)}
+              />
+            </div>
+          </div>
+          {(search || fromDate || toDate) && (
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 self-start sm:self-auto">
+              <X className="h-4 w-4" />
+              Clear filters
+            </Button>
+          )}
         </div>
+        {datesInvalid && <p className="text-sm text-destructive">The From date is after the To date.</p>}
 
         <div className="rounded-md border overflow-x-auto">
           <Table>
@@ -583,7 +666,7 @@ export default function Trades() {
               ) : visibleTrades.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={22} className="h-24 text-center text-muted-foreground">
-                    No trades found.
+                    {filtering ? "No trades match these filters." : "No trades found."}
                   </TableCell>
                 </TableRow>
               ) : (
@@ -657,6 +740,33 @@ export default function Trades() {
                   className={cn(currentPage >= totalPages && "pointer-events-none opacity-50")}
                   onClick={() => currentPage < totalPages && setOffset(offset + PAGE_SIZE)}
                 />
+              </PaginationItem>
+              <PaginationItem>
+                <form
+                  className="ml-2 flex items-center gap-2"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    goToPage(jumpTo);
+                  }}
+                >
+                  <Label htmlFor="trades-jump" className="whitespace-nowrap text-sm text-muted-foreground">
+                    Go to page
+                  </Label>
+                  <Input
+                    id="trades-jump"
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={totalPages}
+                    placeholder={String(currentPage)}
+                    value={jumpTo}
+                    onChange={(e) => setJumpTo(e.target.value)}
+                    className="h-9 w-20"
+                  />
+                  <Button type="submit" variant="outline" size="sm" disabled={!jumpTo}>
+                    Go
+                  </Button>
+                </form>
               </PaginationItem>
             </PaginationContent>
           </Pagination>

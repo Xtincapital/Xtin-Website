@@ -41,6 +41,17 @@ const goalCreateSchema = z.object({
     assigned_to: z.string().uuid("assigned_to must be a valid UUID").optional().nullable(),
     funded_by: z.string().optional().nullable(),
     funding_split: jsonValueSchema.optional().nullable(),
+    // Answers to the category-specific questions (see migration 0018).
+    details: z
+        .object({
+            mode: z.enum(["guided", "manual"]),
+            answers: z
+                .record(z.string().max(40), z.string().max(200))
+                .refine((a) => Object.keys(a).length <= 30, { message: "Too many goal details" })
+                .optional(),
+        })
+        .optional()
+        .nullable(),
 });
 
 export const validateGoalCreate = (input: unknown) => {

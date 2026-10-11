@@ -145,6 +145,15 @@ export interface Strategy {
 // comment) — matching its assumption here avoids a second rename on their
 // side.
 // ─────────────────────────────────────────────────────────────────────────
+/** List filters: `search` matches asset or strategy; `from`/`to` are trade dates (YYYY-MM-DD, inclusive). */
+export interface TradeListParams {
+  limit?: number;
+  offset?: number;
+  search?: string;
+  from?: string;
+  to?: string;
+}
+
 const realTrades = {
   createTrade: async (data: TradeCreateInput): Promise<Trade> => {
     return await request('/trades', {
@@ -157,10 +166,13 @@ const realTrades = {
    *  server-side per `validateTradeListQuery`). Callers that need the full
    *  trade history for client-side aggregation (e.g. Dashboard.tsx's
    *  metrics) should pass a large `limit` explicitly. */
-  getTrades: async (params?: { limit?: number; offset?: number }): Promise<TradeListResponse> => {
+  getTrades: async (params?: TradeListParams): Promise<TradeListResponse> => {
     const query = new URLSearchParams();
     if (params?.limit !== undefined) query.set('limit', String(params.limit));
     if (params?.offset !== undefined) query.set('offset', String(params.offset));
+    if (params?.search?.trim()) query.set('search', params.search.trim());
+    if (params?.from) query.set('from', params.from);
+    if (params?.to) query.set('to', params.to);
     const qs = query.toString();
     return await request(`/trades${qs ? `?${qs}` : ''}`);
   },

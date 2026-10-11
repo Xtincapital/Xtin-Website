@@ -384,8 +384,14 @@ const withPnl = <T extends Partial<Trade>>(input: T): T => {
 
 export const sampleTrades = {
   createTrade: async (data: Partial<Trade>) => tradeRows.create(withPnl(data)),
-  getTrades: async (params?: { limit?: number; offset?: number }) => {
-    const all = await tradeRows.list();
+  getTrades: async (params?: { limit?: number; offset?: number; search?: string; from?: string; to?: string }) => {
+    const term = (params?.search || "").trim().toLowerCase();
+    const all = (await tradeRows.list()).filter(
+      (t) =>
+        (!term || t.asset.toLowerCase().includes(term) || (t.strategy || "").toLowerCase().includes(term)) &&
+        (!params?.from || t.date >= params.from) &&
+        (!params?.to || t.date <= params.to)
+    );
     const offset = params?.offset ?? 0;
     const limit = params?.limit ?? 50;
     return { data: all.slice(offset, offset + limit), pagination: { total: all.length, limit, offset } };

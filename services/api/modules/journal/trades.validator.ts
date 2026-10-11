@@ -53,10 +53,19 @@ export const validateTradeUpdate = (input: unknown) => {
     return { data: result.data, message: "Validation successful" };
 };
 
-const tradeListQuerySchema = z.object({
-    limit: z.coerce.number().int().positive().max(200).default(50),
-    offset: z.coerce.number().int().min(0).default(0),
-});
+const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Dates must be YYYY-MM-DD");
+
+const tradeListQuerySchema = z
+    .object({
+        limit: z.coerce.number().int().positive().max(200).default(50),
+        offset: z.coerce.number().int().min(0).default(0),
+        // Matches asset or strategy (case-insensitive, partial).
+        search: z.string().trim().max(100).optional(),
+        // Trade date range, inclusive.
+        from: isoDay.optional(),
+        to: isoDay.optional(),
+    })
+    .refine((q) => !q.from || !q.to || q.from <= q.to, { message: "'from' date must be on or before 'to' date" });
 
 export const validateTradeListQuery = (input: unknown) => {
     const result = tradeListQuerySchema.safeParse(input || {});

@@ -42,11 +42,11 @@ export const listTrades = async (req, res) => {
     if (validation.errors) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
     }
-    const { limit, offset } = validation.data;
+    const { limit, offset, search, from, to } = validation.data;
     const userId = req.user.authId;
 
     try {
-        const { data, error, count } = await getTradesByUser(userId, limit, offset);
+        const { data, error, count } = await getTradesByUser(userId, limit, offset, { search, from, to });
         if (error) throw error;
         return res.status(HTTP_STATUS.OK).json({ data: data || [], pagination: { total: count || 0, limit, offset } });
     } catch (err) {

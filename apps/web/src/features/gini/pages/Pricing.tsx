@@ -32,6 +32,7 @@ import {
   type AiPackageId,
 } from "../store/useGiniPlanStore";
 import CouponField from "@/features/coupons/components/CouponField";
+import ApproxPrice from "@/components/ApproxPrice";
 
 const CURRENCY_SYMBOL: Record<string, string> = { INR: "₹", USD: "$", GBP: "£", EUR: "€" };
 
@@ -255,6 +256,7 @@ export default function Pricing() {
                     ₹{pack.amount_inr}
                     <span className="text-sm font-normal text-muted-foreground"> one time</span>
                   </p>
+                  <ApproxPrice inr={pack.amount_inr} className="block" />
                   <CardDescription>{formatTokens(pack.tokens)} tokens</CardDescription>
                 </CardHeader>
                 <CardContent>
