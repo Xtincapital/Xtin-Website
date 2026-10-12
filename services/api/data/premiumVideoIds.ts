@@ -22,7 +22,12 @@ export const PREMIUM_VIDEO_IDS: Record<string, Record<number, string | null>> = 
         // 2: "xxxxxxxxxxx",
     },
     "options-derivatives": {
-        // 2: "xxxxxxxxxxx",
+        2: "6MvJbLV4Yzc",
+        3: "xg4VYNH_8jQ",
+        4: "CUg7h5Ert3Y",
+        5: "TL7BtLIROxc",
+        6: "pgzknuHVmdU",
+        7: "5ZWmxp9fFDE",
     },
     "tax-planning": {
         // 2: "xxxxxxxxxxx",

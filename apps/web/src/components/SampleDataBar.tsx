@@ -30,9 +30,11 @@ interface SampleDataBarProps {
    * `banner`: only the "viewing sample data" banner (renders nothing when off).
    */
   placement?: 'bar' | 'button' | 'banner';
+  /** Text on the load button (default "Load sample data"). */
+  label?: string;
 }
 
-const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar' }: SampleDataBarProps) => {
+const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data' }: SampleDataBarProps) => {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +97,7 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
         >
           <Database className="w-4 h-4" aria-hidden="true" />
-          Load sample data
+          {label}
         </button>
 
         {open && (

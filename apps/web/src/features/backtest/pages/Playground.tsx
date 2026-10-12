@@ -26,6 +26,7 @@ import BacktestLayout from "../components/BacktestLayout";
 import Report from "../components/Report";
 import ProBadge from "../components/ProBadge";
 import { ApiError, backtestApi } from "../lib/api";
+import MoneyInput from "@/components/MoneyInput";
 import { usePlan } from "../lib/usePlan";
 import { showProRequired, useProDialog } from "../lib/proDialog";
 import { btnSecondary, card, muted } from "../lib/styles";
@@ -219,11 +220,11 @@ export default function Playground() {
       const history = messages.slice(-8).map((m) => ({ role: m.role, content: m.text.slice(0, 1200) }));
       const data = await backtestApi.chat({
         message,
-        starting_capital: capital,
+        starting_capital: capital > 0 ? capital : 100000,
         symbol: symbol.trim() || undefined,
         history,
         prev_definition: (report?.definition as Record<string, unknown> | undefined) ?? undefined,
-        profile: { risk, capital },
+        profile: { risk, capital: capital > 0 ? capital : 100000 },
       });
       setMessages((m) => [
         ...m,
@@ -323,15 +324,17 @@ export default function Playground() {
               />
             </label>
             <label>
-              <span className={`mb-1 block text-[10px] font-semibold uppercase tracking-wider ${muted}`}>Capital ₹</span>
-              <input
-                type="number"
-                value={capital}
-                min={1000}
-                step={10000}
-                onChange={(e) => setCapital(Number(e.target.value) || 100000)}
-                className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold tabular-nums sm:w-24 text-slate-900 outline-none focus:border-emerald-500 dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
-              />
+              <span className={`mb-1 block text-[10px] font-semibold uppercase tracking-wider ${muted}`}>Capital</span>
+              <div className="sm:w-28">
+                <MoneyInput
+                  value={capital}
+                  min={1000}
+                  decimals={0}
+                  aria-label="Starting capital"
+                  onChange={(e) => setCapital(Number(e.target.value) || 0)}
+                  className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold tabular-nums text-slate-900 outline-none focus:border-emerald-500 dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
+                />
+              </div>
             </label>
           </div>
 

@@ -28,7 +28,7 @@
 // Data fetching: same pragmatic single large-page fetch Dashboard.tsx uses
 // (GET /journal/trades has no aggregate endpoint) — limit=200, offset=0,
 // computed client-side.
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
@@ -61,7 +61,10 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
+import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -71,14 +74,7 @@ import { marketLabel } from "../lib/journalPatternHelpers";
 const TRADING_TYPES = ["Scalping", "Intraday", "Swing Trading", "Positional Trading", "Investing", "Long-Term Investing"];
 const TRADE_MARKETS = ["Equity", "Futures", "Options", "Commodities", "Forex", "Crypto_Currency"];
 
-const PIE_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-  "hsl(var(--chart-positive))",
-];
+const PIE_COLORS = CATEGORY_COLORS;
 
 /** Full port of app.js's `calculateMetrics()` — basic stats plus every
  *  "advanced risk metric" (Sharpe/Sortino/drawdown/profit factor/expectancy/
@@ -193,6 +189,7 @@ function calculateMetrics(list: Trade[]) {
 
 const Summary = () => {
   const { formatInr: formatCurrency } = useCurrency();
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
 
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading } = useQuery({
@@ -228,20 +225,37 @@ const Summary = () => {
     return { metrics, typeDistribution, marketDistribution, pnlByType, pnlByMarket };
   }, [allTrades]);
 
-  const basicCards = [
-    { label: "Total Trades", value: metrics.totalTrades.toLocaleString(), icon: Receipt },
-    { label: "Total P&L", value: formatCurrency(metrics.totalPnL), positive: metrics.totalPnL >= 0, icon: Wallet },
-    { label: "Win Rate", value: `${metrics.winRate.toFixed(2)}%`, positive: true, icon: Percent },
-    { label: "Avg P/L Per Trade", value: formatCurrency(metrics.avgPnL), positive: metrics.avgPnL >= 0, icon: TrendingUp },
-    { label: "Largest Win", value: formatCurrency(metrics.largestWin), positive: true, icon: ArrowUpCircle },
-    { label: "Largest Loss", value: formatCurrency(metrics.largestLoss), positive: false, icon: ArrowDownCircle },
-    { label: "Avg Winning Trade", value: formatCurrency(metrics.avgWin), positive: true, icon: TrendingUp },
-    { label: "Avg Losing Trade", value: formatCurrency(metrics.avgLoss), positive: false, icon: TrendingDown },
+  const wins = allTrades.filter((t) => (t.pnl ?? 0) > 0);
+  const lossTrades = allTrades.filter((t) => (t.pnl ?? 0) < 0);
+  const biggestWin = wins.length ? [wins.reduce((a, b) => ((a.pnl ?? 0) >= (b.pnl ?? 0) ? a : b))] : [];
+  const biggestLoss = lossTrades.length ? [lossTrades.reduce((a, b) => ((a.pnl ?? 0) <= (b.pnl ?? 0) ? a : b))] : [];
+  const show = (title: string, subtitle: string, trades: Trade[]) => () => setDrill({ title, subtitle, trades });
+
+  interface Card_ {
+    label: string;
+    info: string;
+    value: string;
+    positive: boolean;
+    sub?: string;
+    icon: typeof Receipt;
+    onClick?: () => void;
+  }
+
+  const basicCards: Card_[] = [
+    { label: "Total Trades", info: "Every trade in your journal.", value: metrics.totalTrades.toLocaleString(), positive: true, icon: Receipt, onClick: allTrades.length ? show("All trades", "Everything in your journal", allTrades) : undefined },
+    { label: "Total P&L", info: "Profit and loss: everything your closed trades made minus what they lost, after fees. Trades in other currencies are converted to your selected currency.", value: formatCurrency(metrics.totalPnL), positive: metrics.totalPnL >= 0, icon: Wallet },
+    { label: "Win Rate", info: "The percentage of your closed trades that made money. A 40% win rate can still be very profitable if your wins are much bigger than your losses.", value: `${metrics.winRate.toFixed(2)}%`, positive: true, icon: Percent, onClick: wins.length ? show("Winning trades", "Trades that made money", wins) : undefined },
+    { label: "Avg P/L Per Trade", info: "Total P&L divided by the number of closed trades: what a typical trade earns or loses.", value: formatCurrency(metrics.avgPnL), positive: metrics.avgPnL >= 0, icon: TrendingUp },
+    { label: "Largest Win", info: "Your single biggest winning trade.", value: formatCurrency(metrics.largestWin), positive: true, icon: ArrowUpCircle, onClick: biggestWin.length ? show("Largest win", "Your best trade", biggestWin) : undefined },
+    { label: "Largest Loss", info: "Your single biggest losing trade. If this is much bigger than your average loss, a risk rule was probably broken.", value: formatCurrency(metrics.largestLoss), positive: false, icon: ArrowDownCircle, onClick: biggestLoss.length ? show("Largest loss", "Your worst trade", biggestLoss) : undefined },
+    { label: "Avg Winning Trade", info: "The average profit of your winning trades.", value: formatCurrency(metrics.avgWin), positive: true, icon: TrendingUp, onClick: wins.length ? show("Winning trades", "Trades that made money", wins) : undefined },
+    { label: "Avg Losing Trade", info: "The average loss of your losing trades. You want this to be smaller than your average win.", value: formatCurrency(metrics.avgLoss), positive: false, icon: TrendingDown, onClick: lossTrades.length ? show("Losing trades", "Trades that lost money", lossTrades) : undefined },
   ];
 
-  const riskCards = [
+  const riskCards: Card_[] = [
     {
       label: "Sharpe Ratio",
+      info: "Return earned for each unit of ups and downs (volatility) in your results. Above 1 is good, above 2 is excellent. Higher means smoother, more reliable profits.",
       value: metrics.sharpeRatio.toFixed(3),
       positive: metrics.sharpeRatio >= 1,
       sub: metrics.sharpeRatio >= 2 ? "Excellent" : metrics.sharpeRatio >= 1 ? "Good" : "Poor",
@@ -249,6 +263,7 @@ const Summary = () => {
     },
     {
       label: "Sortino Ratio",
+      info: "Like the Sharpe ratio, but only counts the bad ups and downs (losses), not the good ones. A higher number means better returns for the downside risk you take.",
       value: metrics.sortinoRatio.toFixed(3),
       positive: metrics.sortinoRatio >= 1,
       sub: metrics.sortinoRatio >= 2 ? "Excellent" : metrics.sortinoRatio >= 1 ? "Good" : "Poor",
@@ -256,6 +271,7 @@ const Summary = () => {
     },
     {
       label: "Max Drawdown",
+      info: "The biggest fall from a peak in your running profit to the next low. It tells you the worst losing stretch you have lived through, and how much pain to expect again.",
       value: formatCurrency(metrics.maxDrawdown),
       positive: false,
       sub: `${metrics.maxDrawdownPercent.toFixed(1)}% of peak`,
@@ -263,6 +279,7 @@ const Summary = () => {
     },
     {
       label: "Profit Factor",
+      info: "Total money won divided by total money lost. Above 1 means you make more than you lose; above 2 is excellent. For example 1.5 means you win 1.50 for every 1 you lose.",
       value: metrics.profitFactor === Infinity ? "∞" : metrics.profitFactor.toFixed(2),
       positive: metrics.profitFactor >= 1,
       sub: metrics.profitFactor >= 2 ? "Excellent" : metrics.profitFactor >= 1 ? "Profitable" : "Unprofitable",
@@ -270,6 +287,7 @@ const Summary = () => {
     },
     {
       label: "Expectancy",
+      info: "What you can expect to make on an average trade, using your win rate and your average win and loss. Positive means your approach has an edge over many trades.",
       value: formatCurrency(metrics.expectancy),
       positive: metrics.expectancy >= 0,
       sub: "Per trade expected",
@@ -277,6 +295,7 @@ const Summary = () => {
     },
     {
       label: "Current Streak",
+      info: "How many wins (or losses) in a row your latest trades have. The Max Win and Max Loss lines show your longest runs ever.",
       value: `${metrics.currentStreak.count} ${metrics.currentStreak.type ?? "None"}${metrics.currentStreak.count > 1 ? "s" : ""}`,
       positive: metrics.currentStreak.type === "win",
       sub: `Max Win: ${metrics.longestWinStreak} | Max Loss: ${metrics.longestLossStreak}`,
@@ -284,6 +303,7 @@ const Summary = () => {
     },
     {
       label: "Kelly %",
+      info: "A formula for the share of your capital to risk on each trade, from your win rate and win/loss sizes. Most traders use only a half or a quarter of it. Negative means your results don't show an edge yet.",
       value: `${(metrics.kellyPercent * 100).toFixed(1)}%`,
       positive: metrics.kellyPercent > 0,
       sub: "Optimal position size",
@@ -291,6 +311,7 @@ const Summary = () => {
     },
     {
       label: "Calmar Ratio",
+      info: "Total profit divided by your max drawdown: how much you earned compared with the worst fall you suffered. Above 3 is excellent.",
       value: metrics.calmarRatio.toFixed(2),
       positive: metrics.calmarRatio >= 3,
       sub: metrics.calmarRatio >= 3 ? "Excellent" : metrics.calmarRatio >= 1 ? "Good" : "Poor",
@@ -298,11 +319,20 @@ const Summary = () => {
     },
   ];
 
+  const tradesOfType = (type: string) => allTrades.filter((t) => t.type === type);
+  const tradesOfMarket = (label: string) => allTrades.filter((t) => t.market && marketLabel(t.market) === label);
+
   return (
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Summary</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            Metrics
+            <InfoTip title="Performance metrics" widthClass="w-80">
+              <p>One page with the numbers professional traders use to judge their results: how often you win, how big wins and losses are, and how risky your equity curve has been.</p>
+              <p>Tap the <strong className="text-foreground">i</strong> next to any metric to see what it means. Click a value, slice or bar to see the trades behind it.</p>
+            </InfoTip>
+          </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your trading history..." : `Full performance summary across ${metrics.totalTrades} trades`}
           </p>
@@ -319,10 +349,22 @@ const Summary = () => {
             <Card key={card.label}>
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
+                  <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                    {card.label}
+                    <InfoTip title={card.label}>
+                      <p>{card.info}</p>
+                      {card.onClick && <p>Click the value to see these trades.</p>}
+                    </InfoTip>
+                  </p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
-                <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                {card.onClick ? (
+                  <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
+                    <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  </button>
+                ) : (
+                  <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -336,7 +378,12 @@ const Summary = () => {
               <Card key={card.label} className="border-primary/20">
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
+                    <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                      {card.label}
+                      <InfoTip title={card.label} widthClass="w-80">
+                        <p>{card.info}</p>
+                      </InfoTip>
+                    </p>
                     <card.icon className="w-3.5 h-3.5 text-primary" />
                   </div>
                   <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
@@ -356,7 +403,12 @@ const Summary = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Trading Type Distribution</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Trading Type Distribution
+                <InfoTip title="Trading Type Distribution">
+                  <p>How your trades split between styles (scalping, intraday, swing, ...). Click a slice to list those trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -365,7 +417,7 @@ const Summary = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none">
+                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Trading type", tradesOfType(String(d.name)))()}>
                         {typeDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
@@ -384,7 +436,12 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Market Distribution</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Market Distribution
+                <InfoTip title="Market Distribution">
+                  <p>How your trades split between markets (equity, options, forex, ...). Click a slice to list those trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -393,7 +450,7 @@ const Summary = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={marketDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none">
+                      <Pie data={marketDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Market", tradesOfMarket(String(d.name)))()}>
                         {marketDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
@@ -412,7 +469,12 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">P&L by Trading Type</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                P&L by Trading Type
+                <InfoTip title="P&L by Trading Type">
+                  <p>Total profit or loss for each trading style. It shows which style pays you. Click a bar to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -422,7 +484,7 @@ const Summary = () => {
                     <XAxis dataKey="type" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
                     <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                     <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]}>
+                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const t = (d as unknown as { payload: { type: string } }).payload.type; show(`${t} trades`, "Trading type", tradesOfType(t))(); }}>
                       {pnlByType.map((entry) => (
                         <Cell key={entry.type} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                       ))}
@@ -435,7 +497,12 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">P&L by Market</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                P&L by Market
+                <InfoTip title="P&L by Market">
+                  <p>Total profit or loss for each market. Click a bar to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -445,7 +512,7 @@ const Summary = () => {
                     <XAxis dataKey="market" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
                     <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                     <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]}>
+                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const m = (d as unknown as { payload: { market: string } }).payload.market; show(`${m} trades`, "Market", tradesOfMarket(m))(); }}>
                       {pnlByMarket.map((entry) => (
                         <Cell key={entry.market} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                       ))}
@@ -457,6 +524,7 @@ const Summary = () => {
           </Card>
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };

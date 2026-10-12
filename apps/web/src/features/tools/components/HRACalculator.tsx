@@ -92,19 +92,22 @@ const HRACalculator = () => {
                   <label htmlFor="hra-basic-salary" className="block text-sm font-medium text-gray-700 mb-1">
                     Basic Salary (Annual)
                   </label>
-                  <input
-                    id="hra-basic-salary"
-                    type="text"
-                    value={basicSalary}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9\b]+$/.test(value)) {
-                        const num = value === "" ? "" : parseInt(value, 10);
-                        setBasicSalary(num === "" ? "" : num.toLocaleString("en-IN"));
-                      }
-                    }}
-                    className="w-full p-3 border rounded-lg"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                    <input
+                      id="hra-basic-salary"
+                      type="text"
+                      value={basicSalary}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9\b]+$/.test(value)) {
+                          const num = value === "" ? "" : parseInt(value, 10);
+                          setBasicSalary(num === "" ? "" : num.toLocaleString("en-IN"));
+                        }
+                      }}
+                      className="w-full p-3 border rounded-lg pl-8"
+                    />
+                  </div>
                 </div>
 
                 {/* Dearness Allowance */}
@@ -112,21 +115,24 @@ const HRACalculator = () => {
                   <label htmlFor="hra-dearness-allowance" className="block text-sm font-medium text-gray-700 mb-1">
                     Dearness Allowance (Annual)
                   </label>
-                  <input
-                    id="hra-dearness-allowance"
-                    type="text"
-                    value={dearnessAllowance}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9\b]+$/.test(value)) {
-                        const num = value === "" ? "" : parseInt(value, 10);
-                        setDearnessAllowance(
-                          num === "" ? "" : num.toLocaleString("en-IN")
-                        );
-                      }
-                    }}
-                    className="w-full p-3 border rounded-lg"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                    <input
+                      id="hra-dearness-allowance"
+                      type="text"
+                      value={dearnessAllowance}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9\b]+$/.test(value)) {
+                          const num = value === "" ? "" : parseInt(value, 10);
+                          setDearnessAllowance(
+                            num === "" ? "" : num.toLocaleString("en-IN")
+                          );
+                        }
+                      }}
+                      className="w-full p-3 border rounded-lg pl-8"
+                    />
+                  </div>
                 </div>
 
                 {/* HRA Received */}
@@ -134,19 +140,22 @@ const HRACalculator = () => {
                   <label htmlFor="hra-hra-received" className="block text-sm font-medium text-gray-700 mb-1">
                     HRA Received (Annual)
                   </label>
-                  <input
-                    id="hra-hra-received"
-                    type="text"
-                    value={hraReceived}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9\b]+$/.test(value)) {
-                        const num = value === "" ? "" : parseInt(value, 10);
-                        setHraReceived(num === "" ? "" : num.toLocaleString("en-IN"));
-                      }
-                    }}
-                    className="w-full p-3 border rounded-lg"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                    <input
+                      id="hra-hra-received"
+                      type="text"
+                      value={hraReceived}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9\b]+$/.test(value)) {
+                          const num = value === "" ? "" : parseInt(value, 10);
+                          setHraReceived(num === "" ? "" : num.toLocaleString("en-IN"));
+                        }
+                      }}
+                      className="w-full p-3 border rounded-lg pl-8"
+                    />
+                  </div>
                 </div>
 
                 {/* Rent Paid */}
@@ -154,19 +163,22 @@ const HRACalculator = () => {
                   <label htmlFor="hra-rent-paid" className="block text-sm font-medium text-gray-700 mb-1">
                     Rent Paid (Annual)
                   </label>
-                  <input
-                    id="hra-rent-paid"
-                    type="text"
-                    value={rentPaid}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9\b]+$/.test(value)) {
-                        const num = value === "" ? "" : parseInt(value, 10);
-                        setRentPaid(num === "" ? "" : num.toLocaleString("en-IN"));
-                      }
-                    }}
-                    className="w-full p-3 border rounded-lg"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                    <input
+                      id="hra-rent-paid"
+                      type="text"
+                      value={rentPaid}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9\b]+$/.test(value)) {
+                          const num = value === "" ? "" : parseInt(value, 10);
+                          setRentPaid(num === "" ? "" : num.toLocaleString("en-IN"));
+                        }
+                      }}
+                      className="w-full p-3 border rounded-lg pl-8"
+                    />
+                  </div>
                 </div>
 
                 {/* City Type */}

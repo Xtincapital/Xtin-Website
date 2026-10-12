@@ -136,19 +136,22 @@ const LumpsumCalculator = () => {
                 <label htmlFor="lumpsum-total-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Total Investment
                 </label>
-                <input
-                  id="lumpsum-total-investment"
-                  type="text"
-                  value={principal}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/,/g, "");
-                    if (value === "" || /^[0-9\b]+$/.test(value)) {
-                      const num = value === "" ? "" : parseInt(value, 10);
-                      setPrincipal(num === "" ? "" : num.toLocaleString(numLocale));
-                    }
-                  }}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                  <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                    id="lumpsum-total-investment"
+                    type="text"
+                    value={principal}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/,/g, "");
+                      if (value === "" || /^[0-9\b]+$/.test(value)) {
+                        const num = value === "" ? "" : parseInt(value, 10);
+                        setPrincipal(num === "" ? "" : num.toLocaleString(numLocale));
+                      }
+                    }}
+                    className="w-full p-3 border rounded-lg"
+                  />
+                </div>
               </div>
               <div className="mb-4">
                 <label htmlFor="lumpsum-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">

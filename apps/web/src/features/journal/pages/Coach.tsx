@@ -70,6 +70,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import AmountInput from "@/components/ui/amount-input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -630,6 +631,7 @@ function PreTradeTab({
   onInsufficientTokens: (err: InsufficientTokensError) => void;
   onWalletChange: () => void;
 }) {
+  const { symbol } = useCurrency();
   const [form, setForm] = useState<PreTradeForm>(EMPTY_PRETRADE_FORM);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ reminder: string; riskReward: number; symbol: string } | null>(null);
@@ -716,10 +718,10 @@ function PreTradeTab({
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <Label htmlFor="pt-risk">Risk Amount</Label>
-                <Input
+                <AmountInput
                   id="pt-risk"
-                  type="number"
-                  step="0.01"
+                  symbol={symbol}
+                  indian={symbol.trim() === "₹"}
                   value={form.risk_amount}
                   onChange={(e) => setField("risk_amount", e.target.value)}
                   placeholder="0"
@@ -727,10 +729,10 @@ function PreTradeTab({
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="pt-profit">Potential Profit</Label>
-                <Input
+                <AmountInput
                   id="pt-profit"
-                  type="number"
-                  step="0.01"
+                  symbol={symbol}
+                  indian={symbol.trim() === "₹"}
                   value={form.potential_profit}
                   onChange={(e) => setField("potential_profit", e.target.value)}
                   placeholder="0"

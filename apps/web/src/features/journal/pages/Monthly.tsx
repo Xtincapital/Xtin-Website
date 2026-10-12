@@ -49,7 +49,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
+import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -59,14 +62,7 @@ const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const PIE_COLORS = [
-  "hsl(var(--chart-positive))",
-  "hsl(var(--primary))",
-  "hsl(var(--secondary))",
-  "hsl(var(--chart-negative))",
-  "hsl(var(--accent))",
-  "hsl(var(--muted-foreground))",
-];
+const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx's own local
 // copy (see that file's header comment for why only this subset is kept).
@@ -104,6 +100,7 @@ const Monthly = () => {
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
 
   // Same pragmatic largest-page approach as Dashboard.tsx/Calendar.tsx.
   const { data: tradesData, isLoading } = useQuery({
@@ -140,25 +137,49 @@ const Monthly = () => {
     setYear(y);
   };
 
-  const metricCards = [
-    { label: "Monthly Trades", value: metrics.totalTrades.toLocaleString() },
+  const monthLabel = `${MONTH_NAMES[month]} ${year}`;
+  const closedWins = monthlyTrades.filter((t) => (t.pnl ?? 0) > 0);
+  const closedLosses = monthlyTrades.filter((t) => (t.pnl ?? 0) < 0);
+  const showMonth = (title: string, trades: Trade[]) => () => trades.length && setDrill({ title, subtitle: monthLabel, trades });
+
+  const metricCards: { label: string; info: string; value: string; className?: string; onClick?: () => void }[] = [
+    { label: "Monthly Trades", info: "How many trades you placed this month.", value: metrics.totalTrades.toLocaleString(), onClick: showMonth("All trades", monthlyTrades) },
     {
       label: "Monthly P&L",
+      info: "Your total profit or loss for the month, after fees.",
       value: formatCurrency(metrics.totalPnL),
       className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      onClick: showMonth("All trades", monthlyTrades),
     },
-    { label: "Wins / Losses", value: `${metrics.wins} / ${metrics.losses}` },
-    { label: "Win Rate", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success" },
+    { label: "Wins / Losses", info: "How many trades made money, and how many lost money, this month. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showMonth("Winning trades", closedWins) },
+    { label: "Win Rate", info: "The percentage of this month's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showMonth("Winning trades", closedWins) },
   ];
+  void closedLosses;
 
-  const renderPie = (data: { name: string; value: number }[], emptyLabel: string) =>
+  const renderPie = (data: { name: string; value: number }[], emptyLabel: string, field: "type" | "market") =>
     data.length === 0 ? (
       <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">{emptyLabel}</div>
     ) : (
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
-            <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none">
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius="80%"
+              stroke="none"
+              cursor="pointer"
+              onClick={(d) =>
+                setDrill({
+                  title: `${d.name} trades`,
+                  subtitle: monthLabel,
+                  trades: monthlyTrades.filter((t) => (field === "market" ? t.market && marketLabel(t.market) === d.name : t.type === d.name)),
+                })
+              }
+            >
               {data.map((entry, index) => (
                 <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
               ))}
@@ -182,7 +203,13 @@ const Monthly = () => {
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Monthly View</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            Monthly View
+            <InfoTip title="Monthly view" widthClass="w-80">
+              <p>A report card for one month. Use the arrows to move between months.</p>
+              <p>Click a number or a pie slice to see the trades behind it, and click a trade to see its full details.</p>
+            </InfoTip>
+          </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your trading activity..." : `${monthlyTrades.length} trades in ${MONTH_NAMES[month]} ${year}`}
           </p>
@@ -217,8 +244,15 @@ const Monthly = () => {
           {metricCards.map((card) => (
             <Card key={card.label}>
               <CardContent className="p-5">
-                <p className="text-xs font-medium text-muted-foreground mb-2">{card.label}</p>
-                <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  {card.label}
+                  <InfoTip title={card.label}>
+                    <p>{card.info}</p>
+                  </InfoTip>
+                </p>
+                <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
+                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                </button>
               </CardContent>
             </Card>
           ))}
@@ -232,18 +266,29 @@ const Monthly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Type Distribution</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Type Distribution
+                <InfoTip title="Type Distribution">
+                  <p>How this month's trades split between trading styles. Click a slice to list those trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
-            <CardContent>{renderPie(typeDistribution, "No trades this month")}</CardContent>
+            <CardContent>{renderPie(typeDistribution, "No trades this month", "type")}</CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Market Distribution</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Market Distribution
+                <InfoTip title="Market Distribution">
+                  <p>How this month's trades split between markets. Click a slice to list those trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
-            <CardContent>{renderPie(marketDistribution, "No trades this month")}</CardContent>
+            <CardContent>{renderPie(marketDistribution, "No trades this month", "market")}</CardContent>
           </Card>
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };

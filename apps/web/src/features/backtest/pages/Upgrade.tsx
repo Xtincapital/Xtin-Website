@@ -7,7 +7,8 @@ import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import { backtestApi } from "../lib/api";
 import { btnPrimary, btnSecondary, card, muted } from "../lib/styles";
-import { inr } from "../lib/types";
+import { inrCharge } from "../lib/types";
+import ApproxPrice from "@/components/ApproxPrice";
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 import CouponField from "@/features/coupons/components/CouponField";
 
@@ -145,9 +146,10 @@ export default function Upgrade() {
                 <span className={`absolute -top-3 left-5 rounded-full px-3 py-0.5 text-[11px] font-bold tracking-wider ${featured ? "bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-900" : "bg-amber-400 text-slate-900"}`}>{x.tag}</span>
               )}
               <div className={`text-sm font-semibold ${featured ? "text-emerald-300" : ""}`}>{x.label}</div>
-              <div className="mt-3 text-3xl font-extrabold tracking-tight tabular-nums">{inr(x.amount_paise / 100)}</div>
+              <div className="mt-3 text-3xl font-extrabold tracking-tight tabular-nums">{inrCharge(x.amount_paise / 100)}</div>
+              <ApproxPrice inr={x.amount_paise / 100} className={`block ${featured ? "text-slate-400" : muted}`} />
               <div className={`mt-1 text-xs ${featured ? "text-slate-400" : muted}`}>
-                {x.days} days · <span className="tabular-nums">{inr(perDay)}</span>/day
+                {x.days} days · <span className="tabular-nums">{inrCharge(perDay)}</span>/day
               </div>
               {x.amount_paise / x.days === cheapestPerDay && <div className="mt-2 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Lowest per-day price</div>}
               <button

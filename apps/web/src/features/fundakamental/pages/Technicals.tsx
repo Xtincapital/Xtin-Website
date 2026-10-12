@@ -103,7 +103,7 @@ export default function Technicals() {
         {checking ? null : !isPro ? (
           <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/5 p-8 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-              <Lock className="w-5 h-5 text-primary" />
+              <Lock className="w-5 h-5 pro-gold-text" />
             </div>
             <h2 className="text-lg font-bold text-foreground mb-1">Technical indicators are part of Pro</h2>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">

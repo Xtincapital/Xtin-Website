@@ -19,7 +19,7 @@ export const PremiumBadge = ({ className, size = "md" }: PremiumBadgeProps) => {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full bg-accent font-medium text-primary",
+        "inline-flex items-center gap-1.5 rounded-full pro-gold-bg font-semibold",
         sizeClasses[size],
         className
       )}

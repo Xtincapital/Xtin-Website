@@ -184,4 +184,10 @@ export function emptyDefinition(): StrategyDefinition {
   };
 }
 
-export const inr = (n: number) => (n < 0 ? "−" : "") + "₹" + Math.abs(Math.round(n)).toLocaleString("en-IN");
+import { formatFromInr } from "@/lib/region";
+
+/** A backtest amount (kept in rupees) shown in the visitor's selected currency. */
+export const inr = (n: number) => (n < 0 ? "−" : "") + formatFromInr(Math.abs(Math.round(n)), { maxDecimals: 0 });
+
+/** A real charge, always in rupees (it is what gets billed). */
+export const inrCharge = (n: number) => (n < 0 ? "−" : "") + "₹" + Math.abs(Math.round(n)).toLocaleString("en-IN");

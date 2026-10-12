@@ -759,7 +759,7 @@ const StockScanner = () => {
 
           <div className="flex items-center gap-3 mt-6 flex-wrap">
             <Button onClick={runScan} className="bg-primary text-white hover:bg-primary/90 gap-2" disabled={isScanning}>
-              {isPro ? <Play className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+              {isPro ? <Play className="w-4 h-4" /> : <Lock className="w-4 h-4 pro-gold-text" />}
               {isScanning ? "Scanning..." : isPro ? "Run Scan" : "Run Scan on Live Data"}
             </Button>
             {!isPro && (

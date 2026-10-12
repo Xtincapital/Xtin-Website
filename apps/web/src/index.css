@@ -747,3 +747,27 @@ html.dark .recharts-wrapper:not([data-chart] *) .recharts-default-tooltip {
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-legend-item-text {
   color: #e5e7eb !important;
 }
+
+/* ── Pro gold ─────────────────────────────────────────────────────────
+   One gold for everything Pro: locks on features you haven't unlocked,
+   crowns once you have. Used by components/ProMark.tsx and the layouts. */
+:root {
+  --pro-gold-light: #f7df8c;
+  --pro-gold: #d4a017;
+  --pro-gold-deep: #a9740b;
+  --pro-gold-ink: #3d2a00;
+}
+
+.pro-gold-bg {
+  background: linear-gradient(135deg, var(--pro-gold-light) 0%, var(--pro-gold) 55%, var(--pro-gold-deep) 100%);
+  color: var(--pro-gold-ink);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 2px 8px rgba(169, 116, 11, 0.28);
+}
+
+.pro-gold-text {
+  color: var(--pro-gold);
+}
+
+.pro-gold-border {
+  border-color: rgba(212, 160, 23, 0.55);
+}

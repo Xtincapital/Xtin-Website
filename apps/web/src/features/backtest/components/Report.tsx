@@ -13,10 +13,12 @@ import { drawdownSeries, REASON_LABEL, strategySentence } from "../lib/analytics
 import { card, chip, muted } from "../lib/styles";
 import { shortTime } from "../lib/time";
 import { inr, type BacktestResult, type Metrics } from "../lib/types";
+import { formatFromInr } from "@/lib/region";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const sharpeLabel = (s: number) => (s < 0 ? "Negative" : s < 1 ? "Weak" : s < 2 ? "Decent" : s < 3 ? "Strong" : "Exceptional");
 const signed = (n: number, digits = 2) => `${n >= 0 ? "+" : ""}${n.toFixed(digits)}`;
-const compactInr = (v: number) => (Math.abs(v) >= 1e7 ? `₹${(v / 1e7).toFixed(2)}Cr` : Math.abs(v) >= 1e5 ? `₹${(v / 1e5).toFixed(2)}L` : `₹${Math.round(v).toLocaleString("en-IN")}`);
+const compactInr = (v: number) => formatFromInr(v, { compact: true });
 
 function WinRing({ rate }: { rate: number }) {
   const r = 34;
@@ -115,7 +117,7 @@ function PlainWords({ m }: { m: Metrics }) {
 type ChartTab = "equity" | "drawdown" | "price";
 
 // Module-level so the charts don't re-create on every parent re-render.
-const fmtRupees = (v: number) => `₹${Math.round(v).toLocaleString("en-IN")}`;
+const fmtRupees = (v: number) => formatFromInr(v, { maxDecimals: 0 });
 const fmtPct = (v: number) => `${v.toFixed(1)}%`;
 
 function ChartPanel({ result, showTrades, analyticsLocked }: { result: BacktestResult; showTrades: boolean; analyticsLocked: boolean }) {
@@ -231,6 +233,7 @@ export default function Report({
   definition?: unknown;
   actions?: React.ReactNode;
 }) {
+  useCurrency(); // re-render when the visitor switches currency (amounts are kept in rupees)
   const isOptions = (definition as { kind?: string } | undefined)?.kind === "options";
   const analyticsLocked = usePlan().locked("advanced_analytics");
   return (

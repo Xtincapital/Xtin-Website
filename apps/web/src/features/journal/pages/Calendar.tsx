@@ -36,16 +36,11 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, TrendingUp, TrendingDown, CalendarDays } from "lucide-react";
+import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown from "../components/TradeDrilldown";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
@@ -137,15 +132,19 @@ const Calendar = () => {
   };
 
   const selectedDayTrades = selectedDay != null ? tradesByDate.get(selectedDay) ?? [] : [];
-  const selectedDayPnL = selectedDayTrades.reduce((sum, t) => sum + (t.pnl ?? 0), 0);
-  const selectedDayWins = selectedDayTrades.filter((t) => (t.pnl ?? 0) > 0).length;
-  const selectedDayLosses = selectedDayTrades.filter((t) => (t.pnl ?? 0) < 0).length;
 
   return (
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Calendar</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            Calendar
+            <InfoTip title="How to read the calendar" widthClass="w-80">
+              <p>Each box is a day. It shows how many trades you took and your total P&L for that day.</p>
+              <p><strong className="text-success">Green</strong> days made money, <strong className="text-destructive">red</strong> days lost money, <strong className="text-amber-500">amber</strong> days broke even, and grey days had no trades.</p>
+              <p><strong className="text-foreground">Click a day</strong> with trades to see every trade from it, and click a trade to see its full details. Use the arrows to move between months.</p>
+            </InfoTip>
+          </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your trading activity..." : "Daily P&L across the month"}
           </p>
@@ -160,25 +159,45 @@ const Calendar = () => {
         >
           <Card>
             <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2">Trading Days</p>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                Trading Days
+                <InfoTip title="Trading Days">
+                  <p>Days this month on which you placed at least one trade.</p>
+                </InfoTip>
+              </p>
               <p className="stat-value font-bold text-foreground">{tradingDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2">Profitable Days</p>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                Profitable Days
+                <InfoTip title="Profitable Days">
+                  <p>Days whose combined P&L across all trades was above zero.</p>
+                </InfoTip>
+              </p>
               <p className="stat-value font-bold text-success">{profitableDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2">Loss Days</p>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                Loss Days
+                <InfoTip title="Loss Days">
+                  <p>Days whose combined P&L across all trades was below zero.</p>
+                </InfoTip>
+              </p>
               <p className="stat-value font-bold text-destructive">{lossDays}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2">Best Day</p>
+              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                Best Day
+                <InfoTip title="Best Day">
+                  <p>Your single most profitable day this month: the date and its total P&L.</p>
+                </InfoTip>
+              </p>
               <p className="stat-value font-bold text-foreground">
                 {bestDay.day != null ? `${bestDay.day} (${formatCurrency(bestDay.pnl)})` : "-"}
               </p>
@@ -253,60 +272,18 @@ const Calendar = () => {
           </Card>
         </motion.div>
 
-        {/* Day details dialog — port of showDayDetails() */}
-        <Dialog open={selectedDay != null} onOpenChange={(open) => !open && setSelectedDay(null)}>
-          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>
-                {selectedDay != null
-                  ? new Date(year, month, selectedDay).toLocaleDateString(undefined, {
-                      weekday: "long",
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })
-                  : ""}
-              </DialogTitle>
-              <DialogDescription>
-                {selectedDayTrades.length} trade{selectedDayTrades.length !== 1 ? "s" : ""} • {selectedDayWins}W {selectedDayLosses}L
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className={`text-2xl font-bold ${selectedDayPnL >= 0 ? "text-success" : "text-destructive"}`}>
-              {formatCurrency(selectedDayPnL)}
-            </div>
-
-            <div className="space-y-3">
-              {selectedDayTrades.length === 0 ? (
-                <p className="text-sm text-muted-foreground text-center py-4">No trades on this day</p>
-              ) : (
-                selectedDayTrades.map((trade) => {
-                  const positive = (trade.pnl ?? 0) >= 0;
-                  return (
-                    <Card key={trade.id} className={`border-l-4 ${positive ? "border-l-success" : "border-l-destructive"}`}>
-                      <CardContent className="p-3 flex items-center justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="font-semibold text-foreground text-sm truncate">
-                            {trade.asset} {trade.strategy ? `• ${trade.strategy}` : ""}
-                          </p>
-                          <p className="text-xs text-muted-foreground truncate">
-                            {[trade.type, trade.buy_sell, [trade.entry_time, trade.exit_time].filter(Boolean).join(" - ")]
-                              .filter(Boolean)
-                              .join(" • ")}
-                          </p>
-                        </div>
-                        <div className={`flex items-center gap-1 shrink-0 font-semibold text-sm ${positive ? "text-success" : "text-destructive"}`}>
-                          {positive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
-                          {formatCurrency(trade.pnl ?? 0)}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })
-              )}
-            </div>
-          </DialogContent>
-        </Dialog>
+        <TradeDrilldown
+          request={
+            selectedDay != null
+              ? {
+                  title: new Date(year, month, selectedDay).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" }),
+                  subtitle: "Trades placed on this day",
+                  trades: selectedDayTrades,
+                }
+              : null
+          }
+          onClose={() => setSelectedDay(null)}
+        />
       </div>
     </JournalLayout>
   );

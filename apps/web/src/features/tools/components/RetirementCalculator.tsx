@@ -192,25 +192,31 @@ const RetirementCalculator = () => {
                 <label htmlFor="retirement-current-monthly-expenses" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Monthly Expenses
                 </label>
-                <input
-                  id="retirement-current-monthly-expenses"
-                  type="text"
-                  value={formatNumber(monthlyExpenses)}
-                  onChange={handleInputChange(setMonthlyExpenses)}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                  <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                    id="retirement-current-monthly-expenses"
+                    type="text"
+                    value={formatNumber(monthlyExpenses)}
+                    onChange={handleInputChange(setMonthlyExpenses)}
+                    className="w-full p-3 border rounded-lg"
+                  />
+                </div>
               </div>
               <div className="mb-4">
                 <label htmlFor="retirement-current-retirement-savings" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Retirement Savings
                 </label>
-                <input
-                  id="retirement-current-retirement-savings"
-                  type="text"
-                  value={formatNumber(currentSavings)}
-                  onChange={handleInputChange(setCurrentSavings)}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                  <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                    id="retirement-current-retirement-savings"
+                    type="text"
+                    value={formatNumber(currentSavings)}
+                    onChange={handleInputChange(setCurrentSavings)}
+                    className="w-full p-3 border rounded-lg"
+                  />
+                </div>
               </div>
               <div className="mb-6">
                 <label htmlFor="retirement-expected-return" className="block text-sm font-medium text-gray-700 mb-1">

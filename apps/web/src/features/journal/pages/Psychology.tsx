@@ -29,7 +29,10 @@
 //
 // Data fetching: same pragmatic single large-page fetch Dashboard.tsx uses
 // (GET /journal/trades has no aggregate endpoint) — limit=200, offset=0.
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recharts";
@@ -37,7 +40,10 @@ import { BookOpen, Tags, Sparkles, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
+import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 
@@ -53,21 +59,13 @@ const EMOTIONS: Record<string, { emoji: string; label: string }> = {
 };
 const emotionInfo = (key: string) => EMOTIONS[key] ?? { emoji: "\u{1F610}", label: key.charAt(0).toUpperCase() + key.slice(1) };
 
-const TAG_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-  "hsl(var(--chart-positive))",
-  "hsl(var(--chart-negative))",
-  "hsl(var(--muted-foreground))",
-  "hsl(var(--secondary))",
-  "hsl(var(--accent-foreground))",
-];
+const TAG_COLORS = CATEGORY_COLORS;
 
 const Psychology = () => {
   const { formatInr: formatCurrency } = useCurrency();
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
+  const [entrySearch, setEntrySearch] = useState("");
+  const [shownEntries, setShownEntries] = useState(5);
 
   // Pragmatic full-history fetch — see header comment (matches Dashboard.tsx).
   const { data: tradesData, isLoading } = useQuery({
@@ -127,18 +125,46 @@ const Psychology = () => {
     };
   }, [allTrades]);
 
-  const metricCards = [
+  const needle = entrySearch.trim().toLowerCase();
+  const matchingEntries = needle
+    ? journalEntries.filter((t) =>
+        [t.asset, t.notes, t.strategy, t.emotion, ...(t.tags ?? [])].some((v) => (v ?? "").toLowerCase().includes(needle)),
+      )
+    : journalEntries;
+  const visibleEntries = matchingEntries.slice(0, shownEntries);
+
+  const emotionTrades = (key: string) => allTrades.filter((t) => (t.emotion || "neutral") === key);
+  const showEmotion = (key: string, subtitle: string) =>
+    setDrill({ title: `${emotionInfo(key).emoji} ${emotionInfo(key).label} trades`, subtitle, trades: emotionTrades(key) });
+
+  const metricCards: { label: string; info: string; value: string; icon: typeof Sparkles; onClick?: () => void }[] = [
     {
       label: "Top Emotion",
+      info: "The emotion you tag most often on your trades. It shows the mindset you trade in most of the time.",
       value: topEmotion ? `${emotionInfo(topEmotion).emoji} ${emotionInfo(topEmotion).label}` : "N/A",
       icon: Sparkles,
+      onClick: topEmotion ? () => showEmotion(topEmotion, "Your most frequent emotion") : undefined,
     },
-    { label: "Journal Entries", value: journalCount.toLocaleString(), icon: BookOpen },
-    { label: "Tagged Trades", value: taggedCount.toLocaleString(), icon: Tags },
+    {
+      label: "Journal Entries",
+      info: "Trades where you wrote a note. Writing why you took a trade and how it went is the habit that improves results most.",
+      value: journalCount.toLocaleString(),
+      icon: BookOpen,
+      onClick: journalCount ? () => setDrill({ title: "Trades with notes", subtitle: "Journal entries", trades: journalEntries }) : undefined,
+    },
+    {
+      label: "Tagged Trades",
+      info: "Trades you labelled with tags (like #breakout or #news) so you can group and compare them later.",
+      value: taggedCount.toLocaleString(),
+      icon: Tags,
+      onClick: taggedCount ? () => setDrill({ title: "Tagged trades", subtitle: "Trades with at least one tag", trades: allTrades.filter((t) => t.tags && t.tags.length > 0) }) : undefined,
+    },
     {
       label: "Best Performing Emotion",
+      info: "The emotion that earned you the most money in total. Compare it with your Top Emotion: are you trading most in the state that pays?",
       value: bestEmotion ? `${emotionInfo(bestEmotion).emoji} ${emotionInfo(bestEmotion).label}` : "N/A",
       icon: Trophy,
+      onClick: bestEmotion ? () => showEmotion(bestEmotion, "Your most profitable emotion") : undefined,
     },
   ];
 
@@ -146,7 +172,14 @@ const Psychology = () => {
     <JournalLayout proFeature="Psychology analysis">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Psychology</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            Psychology
+            <InfoTip title="Trading psychology" widthClass="w-80">
+              <p>Your emotions affect your trades: fear makes you exit early, greed makes you hold too long. This page connects the emotion you tagged on each trade to the money it made or lost.</p>
+              <p>Tag an emotion when you log a trade, then look for the feelings that cost you money.</p>
+              <p><strong className="text-foreground">Click</strong> any card, bar or tag to see the trades behind it.</p>
+            </InfoTip>
+          </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Reading your trading mindset..." : "How your emotions correlate with performance"}
           </p>
@@ -163,10 +196,22 @@ const Psychology = () => {
             <Card key={card.label}>
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
+                  <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                    {card.label}
+                    <InfoTip title={card.label}>
+                      <p>{card.info}</p>
+                      {card.onClick && <p>Click the value to see these trades.</p>}
+                    </InfoTip>
+                  </p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
-                <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
+                {card.onClick ? (
+                  <button type="button" onClick={card.onClick} className="block max-w-full text-left cursor-pointer hover:underline">
+                    <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
+                  </button>
+                ) : (
+                  <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -181,7 +226,13 @@ const Psychology = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">P&L by Emotion</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                P&L by Emotion
+                <InfoTip title="P&L by emotion">
+                  <p>Total profit or loss from trades tagged with each emotion. Green bars made money; red bars lost money.</p>
+                  <p>Click a bar to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -194,7 +245,7 @@ const Psychology = () => {
                       <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
                       <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                      <Bar dataKey="pnl" radius={[4, 4, 0, 0]}>
+                      <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const key = (d as unknown as { payload?: { key?: string } })?.payload?.key; if (key) showEmotion(key, "Trades tagged with this emotion"); }}>
                         {emotionChartData.map((entry) => (
                           <Cell key={entry.key} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                         ))}
@@ -208,7 +259,13 @@ const Psychology = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Top Tags</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Top Tags
+                <InfoTip title="Top tags">
+                  <p>The ten tags you use most. Tags are short labels you add to a trade, like &quot;breakout&quot; or &quot;revenge trade&quot;.</p>
+                  <p>Click a tag below the chart to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -233,9 +290,15 @@ const Psychology = () => {
               {topTags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {topTags.map((t, i) => (
-                    <Badge key={t.tag} variant="outline" className="text-xs" style={{ borderColor: TAG_COLORS[i % TAG_COLORS.length] }}>
-                      {t.tag} · {t.count}
-                    </Badge>
+                    <button
+                      type="button"
+                      key={t.tag}
+                      onClick={() => setDrill({ title: `Tag: ${t.tag}`, subtitle: "Trades with this tag", trades: allTrades.filter((tr) => tr.tags?.includes(t.tag)) })}
+                    >
+                      <Badge variant="outline" className="text-xs cursor-pointer hover:bg-accent" style={{ borderColor: TAG_COLORS[i % TAG_COLORS.length] }}>
+                        {t.tag} · {t.count}
+                      </Badge>
+                    </button>
                   ))}
                 </div>
               )}
@@ -248,7 +311,25 @@ const Psychology = () => {
           <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
             <BookOpen className="w-4 h-4 text-primary" />
             Journal Entries
+            <InfoTip title="Journal entries">
+              <p>Your five most recent trades with a note. Search to find older ones, or tap Load more. Click an entry to see the full trade.</p>
+            </InfoTip>
           </h2>
+          {journalEntries.length > 0 && (
+            <div className="relative mb-4 max-w-sm">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <Input
+                aria-label="Search journal entries"
+                placeholder="Search notes, assets, tags..."
+                className="pl-8"
+                value={entrySearch}
+                onChange={(e) => {
+                  setEntrySearch(e.target.value);
+                  setShownEntries(5);
+                }}
+              />
+            </div>
+          )}
           {isLoading ? (
             <Card>
               <CardContent className="p-8 text-center text-sm text-muted-foreground">Loading journal entries...</CardContent>
@@ -261,12 +342,17 @@ const Psychology = () => {
             </Card>
           ) : (
             <div className="space-y-3">
-              {journalEntries.map((trade) => {
+              {matchingEntries.length === 0 && (
+                <Card>
+                  <CardContent className="p-8 text-center text-sm text-muted-foreground">No entries match &quot;{entrySearch}&quot;.</CardContent>
+                </Card>
+              )}
+              {visibleEntries.map((trade) => {
                 const pnl = trade.pnl ?? 0;
                 const status = pnl > 0 ? "Win" : pnl < 0 ? "Loss" : "Breakeven";
                 const info = emotionInfo(trade.emotion || "neutral");
                 return (
-                  <Card key={trade.id}>
+                  <Card key={trade.id} className="cursor-pointer transition-shadow hover:shadow-md" onClick={() => setDrill({ title: `${trade.asset} trade`, subtitle: new Date(trade.date).toLocaleDateString(), trades: [trade] })}>
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div className="min-w-0">
@@ -299,10 +385,18 @@ const Psychology = () => {
                   </Card>
                 );
               })}
+              {matchingEntries.length > shownEntries && (
+                <div className="flex justify-center pt-1">
+                  <Button variant="outline" onClick={() => setShownEntries((n) => n + 5)}>
+                    Load more ({matchingEntries.length - shownEntries} more)
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };

@@ -57,22 +57,22 @@ afterEach(() => {
 describe("MoneyInput", () => {
   it("shows a rupee amount in the selected currency", () => {
     render("250000");
-    expect(input().value).toBe("2500");
+    expect(input().value).toBe("2,500");
   });
 
   it("saves what the user types back in rupees", () => {
     render("250000");
     type("3000");
     expect(saved).toBe("300000");
-    expect(input().value).toBe("3000"); // not rewritten under the cursor
+    expect(input().value).toBe("3,000"); // grouped, but the typed number is kept
   });
 
   it("never changes an amount the user didn't touch when the currency changes", () => {
     render("123457");
     act(() => setCurrency("INR"));
-    expect(input().value).toBe("123457");
+    expect(input().value).toBe("1,23,457");
     act(() => setCurrency("USD"));
-    expect(input().value).toBe("1234.57");
+    expect(input().value).toBe("1,234.57");
     expect(saved).toBe("123457");
   });
 

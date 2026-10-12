@@ -20,6 +20,7 @@ import newsletterPlanService from "../../newsletter/services/newsletterPlanServi
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 import { isAdminEmail } from "@/config/admin";
 import CouponField from "@/features/coupons/components/CouponField";
+import ApproxPrice from "@/components/ApproxPrice";
 import { isFreeOrder } from "@/features/coupons/lib/api";
 
 /* ═══════════════════════════════════════════════════════════
@@ -850,6 +851,7 @@ const Dashboard = () => {
                         </div>
                         <div className="text-right shrink-0">
                           <div className="text-3xl font-semibold tracking-tight">₹{price.toLocaleString()}<span className="text-sm font-normal text-slate-400">{cycle}</span></div>
+                          <ApproxPrice inr={price} className="block text-slate-400" />
                         </div>
                       </div>
 
@@ -900,6 +902,7 @@ const Dashboard = () => {
                           </div>
                           <div className="text-right shrink-0">
                             <div className="text-2xl font-semibold tracking-tight">₹{price.toLocaleString()}<span className="text-xs font-normal text-slate-400">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span></div>
+                            <ApproxPrice inr={price} className="block text-slate-400" />
                             {billingCycle === 'monthly' && <div className="text-xs text-slate-400 line-through">₹{bundle.regularMonthly.toLocaleString()}</div>}
                           </div>
                         </div>
@@ -954,7 +957,10 @@ const Dashboard = () => {
                       {customBundleCalculations.count < 2 && <div className="text-xs text-slate-500 mt-0.5">Select at least 2 to build a bundle.</div>}
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="text-xl font-semibold tracking-tight">₹{(billingCycle === 'monthly' ? customBundleCalculations.finalMonthly : customBundleCalculations.finalAnnual).toLocaleString()}<span className="text-xs font-normal text-slate-400">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span></div>
+                      <div className="text-right">
+                        <div className="text-xl font-semibold tracking-tight">₹{(billingCycle === 'monthly' ? customBundleCalculations.finalMonthly : customBundleCalculations.finalAnnual).toLocaleString()}<span className="text-xs font-normal text-slate-400">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span></div>
+                        <ApproxPrice inr={billingCycle === 'monthly' ? customBundleCalculations.finalMonthly : customBundleCalculations.finalAnnual} className="block text-slate-400" />
+                      </div>
                       <button
                         onClick={() => handleInitiatePurchase({
                           id: 'custom-bundle',
@@ -1003,7 +1009,10 @@ const Dashboard = () => {
                         <div className="font-medium">{checkoutItem.name}</div>
                         <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 capitalize">{billingCycle} billing</div>
                       </div>
-                      <div className="text-2xl font-semibold tracking-tight">₹{total.toLocaleString()}</div>
+                      <div className="text-right">
+                        <div className="text-2xl font-semibold tracking-tight">₹{total.toLocaleString()}</div>
+                        <ApproxPrice inr={total} className="block text-slate-400" />
+                      </div>
                     </div>
                     <CouponField
                       className="mt-5"

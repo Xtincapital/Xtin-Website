@@ -19,11 +19,13 @@
 //
 // No Log Out button here: signing out lives in the site's own account menu
 // (Dashboard), like every other page.
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Lock } from "lucide-react";
+import { Settings as SettingsIcon } from "lucide-react";
+import { AI_LAUNCHER_CLASS, AiLauncherInner } from "@/components/AiLauncher";
+import { ProIcon } from "@/components/ProMark";
 import JournalSampleBar from "./JournalSampleBar";
 import ProGate from "./ProGate";
 import { useJournalPlanStore } from "../store/useJournalPlanStore";
@@ -47,7 +49,9 @@ interface TabItem {
 
 // The original's tab order (dashboard, trades, psychology, hourly, calendar,
 // summary, monthly, daily, analytics, heatmaps), followed by the sections the
-// port added (goals, AI coach, pricing — was "subscription" — and settings).
+// port added (goals and pricing — was "subscription"). AI Coach is a floating
+// button (bottom-right, like Gini's chat) and Settings is a gear beside
+// "Load sample", so neither crowds the tab bar.
 const tabs: TabItem[] = [
   { name: "Dashboard", href: "/journal", end: true },
   { name: "Trades", href: "/journal/trades" },
@@ -60,14 +64,11 @@ const tabs: TabItem[] = [
   { name: "Analytics", href: "/journal/analytics", pro: true },
   { name: "Heatmaps", href: "/journal/heatmaps", pro: true },
   { name: "Goals", href: "/journal/goals" },
-  { name: "AI Coach", href: "/journal/coach" },
   { name: "Pricing", href: "/journal/pricing" },
-  { name: "Settings", href: "/journal/settings" },
 ];
 
 const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
   const { pathname } = useLocation();
-  const tabsRef = useRef<HTMLElement>(null);
   // Subscribe to the plan itself: selecting the isPro function never re-rendered
   // once the plan loaded, so paying users kept seeing Free gates.
   const isPro = useJournalPlanStore((s) => !!s.validUntil && new Date(s.validUntil).getTime() > Date.now());
@@ -79,28 +80,13 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
     if (!planFetched) fetchPlan();
   }, [planFetched, fetchPlan]);
 
-  // On narrow screens the tab bar scrolls sideways; keep the active tab visible.
-  useEffect(() => {
-    const bar = tabsRef.current;
-    const active = bar?.querySelector<HTMLElement>(".tab-button.active");
-    if (bar && active) {
-      const barBox = bar.getBoundingClientRect();
-      const tabBox = active.getBoundingClientRect();
-      bar.scrollLeft += tabBox.left - barBox.left - (barBox.width - tabBox.width) / 2;
-    }
-  }, [pathname]);
-
   return (
     <>
       <Navbar />
       <div className="journal-scope journal-classic">
-        {/* One bar: the Xtin Journal brand sits in the nav with the tabs. */}
+        {/* One bar: every tab stays visible (wrapping on narrow screens). */}
         <div className="nav-bar">
-          <NavLink to="/journal" end className="brand-link" aria-label="Xtin Journal home">
-            <span className="brand-name-main">Xtin</span>
-            <span className="brand-name-accent">Journal</span>
-          </NavLink>
-          <nav ref={tabsRef} className="tabs-container" aria-label="Trading journal sections">
+          <nav className="tabs-container" aria-label="Trading journal sections">
             {tabs.map((tab) => (
               <NavLink
                 key={tab.href}
@@ -109,14 +95,20 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
                 className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
               >
                 {tab.name}
-                {tab.pro && !isPro && planFetched && (
-                  <Lock className="tab-lock" aria-label="Pro feature" />
-                )}
+                {tab.pro && planFetched && <ProIcon unlocked={isPro} className="tab-lock" />}
               </NavLink>
             ))}
           </nav>
           <div className="nav-sample">
             <JournalSampleBar placement="button" />
+            <NavLink
+              to="/journal/settings"
+              className={({ isActive }) => (isActive ? "nav-settings active" : "nav-settings")}
+              aria-label="Journal settings"
+              title="Settings"
+            >
+              <SettingsIcon className="w-4 h-4" aria-hidden="true" />
+            </NavLink>
           </div>
         </div>
 
@@ -131,6 +123,12 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
             children
           )}
         </main>
+        {/* AI Coach: out of the tab bar, a floating button that expands on hover. */}
+        {pathname !== "/journal/coach" && (
+          <NavLink to="/journal/coach" className={AI_LAUNCHER_CLASS} aria-label="Open AI Coach" title="AI Coach">
+            <AiLauncherInner label="AI Coach" sub="Review your trades" />
+          </NavLink>
+        )}
       </div>
       <Footer />
     </>

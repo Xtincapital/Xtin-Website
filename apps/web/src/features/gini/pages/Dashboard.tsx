@@ -57,6 +57,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import ProductBrand from "@/components/ProductBrand";
 import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
 
@@ -187,6 +188,7 @@ export default function Dashboard() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
+          <ProductBrand to="/gini" name="Gini" className="mb-3" />
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Dashboard</h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your household's financial picture..." : "Your household's financial picture at a glance"}

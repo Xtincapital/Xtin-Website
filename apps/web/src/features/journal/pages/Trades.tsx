@@ -51,10 +51,11 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
+import TradeDetailsDialog from "../components/TradeDetailsDialog";
+import InfoTip from "@/components/ui/info-tip";
 import { api } from "../lib/api";
 import type { Trade, Strategy } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
-import { marketLabel } from "../lib/journalPatternHelpers";
 import { useAuth } from "@/contexts/AuthContext";
 import { buildReportMeta, registerReport, verifyQr } from "@/lib/reportMeta";
 
@@ -196,6 +197,7 @@ export default function Trades() {
   const [clearConfirm, setClearConfirm] = useState("");
   const [clearing, setClearing] = useState(false);
 
+  const [detailsTrade, setDetailsTrade] = useState<Trade | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Trade | null>(null);
   const [deleting, setDeleting] = useState(false);
 
@@ -309,8 +311,13 @@ export default function Trades() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Trades</h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
               {filtering ? `${total} matching trade${total === 1 ? "" : "s"}` : `${total} trade${total === 1 ? "" : "s"} logged`}
+              <InfoTip title="Click a trade for the full picture">
+                <p>The table keeps to what you need to scan and analyse: date, asset, size, entry and exit, P&amp;L and result.</p>
+                <p>Click any row to see everything else: times, stop loss, target, fees, margin, emotion, notes, tags and option details.</p>
+                <p>Each trade is listed in the currency it was logged in. The Dashboard and other pages convert them all into your selected currency.</p>
+              </InfoTip>
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -405,67 +412,59 @@ export default function Trades() {
         {datesInvalid && <p className="text-sm text-destructive">The From date is after the To date.</p>}
 
         <div className="rounded-md border overflow-x-auto">
-          <Table>
+          <Table className="compact-rows">
             <TableHeader>
               <TableRow>
                 <TableHead>Date</TableHead>
-                <TableHead>Exit Date</TableHead>
-                <TableHead>Side</TableHead>
-                <TableHead>Entry Time</TableHead>
-                <TableHead>Exit Time</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Market</TableHead>
                 <TableHead>Asset</TableHead>
-                <TableHead>Currency</TableHead>
                 <TableHead className="text-right">Qty</TableHead>
                 <TableHead className="text-right">Entry</TableHead>
-                <TableHead className="text-right">Target</TableHead>
-                <TableHead className="text-right">Stop</TableHead>
                 <TableHead className="text-right">Exit</TableHead>
-                <TableHead className="text-right">Brokerage</TableHead>
-                <TableHead>Strategy</TableHead>
-                <TableHead className="text-right">Margin</TableHead>
                 <TableHead className="text-right">P&amp;L</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Emotion</TableHead>
-                <TableHead>Notes</TableHead>
-                {/* Pinned to the right edge so edit/delete stay visible when the wide table scrolls. */}
+                <TableHead>Result</TableHead>
+                <TableHead>Strategy</TableHead>
+                {/* Pinned to the right edge so edit/delete stay visible if the table scrolls on a narrow screen. */}
                 <TableHead className="sticky right-0 z-10 bg-background text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={22} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
                     Loading trades...
                   </TableCell>
                 </TableRow>
               ) : visibleTrades.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={22} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
                     {filtering ? "No trades match these filters." : "No trades found."}
                   </TableCell>
                 </TableRow>
               ) : (
                 visibleTrades.map((trade) => {
                   const status = tradeStatus(trade.pnl);
-                  const notesPreview = (trade.notes || "").length > 30 ? `${(trade.notes || "").slice(0, 30)}...` : trade.notes || "-";
                   return (
-                    <TableRow key={trade.id}>
+                    <TableRow
+                      key={trade.id}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`View details of ${trade.asset} trade from ${formatDate(trade.date)}`}
+                      className="cursor-pointer"
+                      onClick={() => setDetailsTrade(trade)}
+                      onKeyDown={(e) => {
+                        if (e.target === e.currentTarget && (e.key === "Enter" || e.key === " ")) {
+                          e.preventDefault();
+                          setDetailsTrade(trade);
+                        }
+                      }}
+                    >
                       <TableCell className="whitespace-nowrap">{formatDate(trade.date)}</TableCell>
-                      <TableCell className="whitespace-nowrap">{formatDate(trade.exit_date || trade.date)}</TableCell>
-                      <TableCell>
-                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="uppercase">
-                          {trade.buy_sell || "buy"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{trade.entry_time || "-"}</TableCell>
-                      <TableCell>{trade.exit_time || "-"}</TableCell>
-                      <TableCell>{trade.type || "-"}</TableCell>
-                      <TableCell>{trade.market ? marketLabel(trade.market) : "-"}</TableCell>
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2 whitespace-nowrap">
                           {trade.asset}
+                          <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-1.5 py-0 text-[10px] uppercase">
+                            {trade.buy_sell || "buy"}
+                          </Badge>
                           {trade.is_duplicate && (
                             <span
                               className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
@@ -477,22 +476,17 @@ export default function Trades() {
                           )}
                         </div>
                       </TableCell>
-                      <TableCell>{trade.currency || "INR"}</TableCell>
-                      <TableCell className="text-right">{trade.quantity ?? "-"}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.target_price, trade.currency)}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.stop_loss, trade.currency)}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.exit_price, trade.currency)}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.brokerage, trade.currency)}</TableCell>
-                      <TableCell>{trade.strategy || "-"}</TableCell>
-                      <TableCell className="text-right">{formatMoney(trade.margin, trade.currency)}</TableCell>
-                      <TableCell className={cn("text-right font-medium", status.className)}>{formatMoney(trade.pnl, trade.currency)}</TableCell>
+                      <TableCell className="text-right tabular-nums">{trade.quantity != null ? trade.quantity.toLocaleString() : "-"}</TableCell>
+                      <TableCell className="text-right tabular-nums">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
+                      <TableCell className="text-right tabular-nums">{formatMoney(trade.exit_price, trade.currency)}</TableCell>
+                      <TableCell className={cn("text-right font-medium tabular-nums", status.className)}>{formatMoney(trade.pnl, trade.currency)}</TableCell>
                       <TableCell className={status.className}>{status.label}</TableCell>
-                      <TableCell className="capitalize">{trade.emotion || "neutral"}</TableCell>
-                      <TableCell className="max-w-[160px] truncate" title={trade.notes || ""}>
-                        {notesPreview}
-                      </TableCell>
-                      <TableCell className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]">
+                      <TableCell>{trade.strategy || "-"}</TableCell>
+                      <TableCell
+                        className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]"
+                        onClick={(e) => e.stopPropagation()}
+                        onKeyDown={(e) => e.stopPropagation()}
+                      >
                         <div className="flex justify-end gap-1">
                           <Button variant="ghost" size="icon" onClick={() => setDialogRequest({ mode: "edit", trade })} aria-label="Edit trade" title="Edit">
                             <Pencil className="h-4 w-4" />
@@ -579,6 +573,19 @@ export default function Trades() {
         onSaved={async () => {
           await loadTrades(offset);
           await loadStrategies();
+        }}
+      />
+
+      <TradeDetailsDialog
+        trade={detailsTrade}
+        onClose={() => setDetailsTrade(null)}
+        onEdit={(trade) => {
+          setDetailsTrade(null);
+          setDialogRequest({ mode: "edit", trade });
+        }}
+        onLogAgain={(trade) => {
+          setDetailsTrade(null);
+          setDialogRequest({ mode: "copy", trade });
         }}
       />
 

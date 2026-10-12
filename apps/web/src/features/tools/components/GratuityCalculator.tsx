@@ -87,19 +87,22 @@ const GratuityCalculator = () => {
                 <label htmlFor="gratuity-last-drawn-monthly-salary" className="block text-sm font-medium text-gray-700 mb-1">
                   Last Drawn Monthly Salary (Basic + DA)
                 </label>
-                <input
-                  id="gratuity-last-drawn-monthly-salary"
-                  type="text"
-                  value={monthlySalary}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/,/g, "");
-                    if (value === "" || /^[0-9\b]+$/.test(value)) {
-                      const num = value === "" ? "" : parseInt(value, 10);
-                      setMonthlySalary(num === "" ? "" : num.toLocaleString("en-IN"));
-                    }
-                  }}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                  <input
+                    id="gratuity-last-drawn-monthly-salary"
+                    type="text"
+                    value={monthlySalary}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/,/g, "");
+                      if (value === "" || /^[0-9\b]+$/.test(value)) {
+                        const num = value === "" ? "" : parseInt(value, 10);
+                        setMonthlySalary(num === "" ? "" : num.toLocaleString("en-IN"));
+                      }
+                    }}
+                    className="w-full p-3 border rounded-lg pl-8"
+                  />
+                </div>
               </div>
               <div className="mb-6">
                 <label htmlFor="gratuity-years-of-service" className="block text-sm font-medium text-gray-700 mb-1">

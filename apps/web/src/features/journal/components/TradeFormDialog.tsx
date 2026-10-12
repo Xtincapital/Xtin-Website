@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, ChevronDown, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AmountInput from "@/components/ui/amount-input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -115,28 +116,12 @@ function ChoiceChips({
   );
 }
 
-/** Number input with the currency symbol inside the box. */
+/** Amount box with the trade's currency symbol inside it and digits grouped (1,000). */
 function MoneyInput({
-  id,
   symbol,
-  invalid,
   ...props
-}: React.ComponentProps<typeof Input> & { symbol: string; invalid?: boolean }) {
-  return (
-    <div className="relative">
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{symbol}</span>
-      <Input
-        id={id}
-        type="number"
-        min={0}
-        step="0.01"
-        inputMode="decimal"
-        aria-invalid={invalid || undefined}
-        className={cn("h-10 tabular-nums", symbol.length > 1 ? "pl-12" : "pl-7", invalid && "border-red-400 focus-visible:ring-red-400")}
-        {...props}
-      />
-    </div>
-  );
+}: Omit<React.ComponentProps<typeof AmountInput>, "symbol" | "indian"> & { symbol: string }) {
+  return <AmountInput symbol={symbol} indian={symbol === "₹"} min={0} className="h-10" {...props} />;
 }
 
 function Stat({ label, children, hint }: { label: string; children: React.ReactNode; hint?: React.ReactNode }) {
@@ -463,17 +448,16 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
                   <FieldLabel htmlFor="quantity" required>
                     Quantity
                   </FieldLabel>
-                  <Input
+                  <AmountInput
                     id="quantity"
-                    type="number"
                     min={0}
-                    step="any"
-                    inputMode="decimal"
+                    decimals={6}
+                    indian={symbol === "₹"}
                     value={form.quantity}
                     onChange={(e) => setField("quantity", e.target.value)}
                     placeholder="e.g. 50"
-                    aria-invalid={showError("quantity") || undefined}
-                    className={cn("h-10 tabular-nums", showError("quantity") && "border-red-400")}
+                    invalid={showError("quantity")}
+                    className="h-10"
                   />
                   <FieldError show={showError("quantity")}>Must be more than 0.</FieldError>
                 </div>

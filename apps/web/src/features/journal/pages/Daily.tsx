@@ -50,18 +50,14 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
+import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 
-const PIE_COLORS = [
-  "hsl(var(--chart-positive))",
-  "hsl(var(--primary))",
-  "hsl(var(--secondary))",
-  "hsl(var(--chart-negative))",
-  "hsl(var(--accent))",
-  "hsl(var(--muted-foreground))",
-];
+const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx/Monthly.tsx's
 // own local copy (see those files' header comments for why only this
@@ -92,6 +88,7 @@ function todayStr(): string {
 const Daily = () => {
   const { formatInr: formatCurrency } = useCurrency();
   const [selectedDate, setSelectedDate] = useState(todayStr());
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
 
   // Same pragmatic largest-page approach as Dashboard.tsx/Calendar.tsx/Monthly.tsx.
   const { data: tradesData, isLoading } = useQuery({
@@ -121,15 +118,20 @@ const Daily = () => {
     return { dailyTrades, metrics: calculateMetrics(dailyTrades), typeDistribution, strategyPnL };
   }, [allTrades, selectedDate]);
 
-  const metricCards = [
-    { label: "Daily Trades", value: metrics.totalTrades.toLocaleString() },
+  const dayWins = dailyTrades.filter((t) => (t.pnl ?? 0) > 0);
+  const showDay = (title: string, trades: Trade[]) => () => trades.length && setDrill({ title, subtitle: selectedDate, trades });
+
+  const metricCards: { label: string; info: string; value: string; className?: string; onClick?: () => void }[] = [
+    { label: "Daily Trades", info: "How many trades you placed on the selected day.", value: metrics.totalTrades.toLocaleString(), onClick: showDay("All trades", dailyTrades) },
     {
       label: "Daily P&L",
+      info: "Your total profit or loss for the day, after fees.",
       value: formatCurrency(metrics.totalPnL),
       className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      onClick: showDay("All trades", dailyTrades),
     },
-    { label: "Wins / Losses", value: `${metrics.wins} / ${metrics.losses}` },
-    { label: "Win Rate", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success" },
+    { label: "Wins / Losses", info: "How many of the day's trades made money, and how many lost money. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showDay("Winning trades", dayWins) },
+    { label: "Win Rate", info: "The percentage of the day's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showDay("Winning trades", dayWins) },
   ];
 
   return (
@@ -142,7 +144,13 @@ const Daily = () => {
           className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
         >
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Daily View</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+              Daily View
+              <InfoTip title="Daily view" widthClass="w-80">
+                <p>Pick a date to review that single trading day: how many trades, how much you made or lost, and which strategies worked.</p>
+                <p>Click a number, slice or bar to see the trades behind it.</p>
+              </InfoTip>
+            </h1>
             <p className="text-muted-foreground">
               {isLoading ? "Loading your trading activity..." : `${dailyTrades.length} trades on ${selectedDate}`}
             </p>
@@ -167,8 +175,15 @@ const Daily = () => {
           {metricCards.map((card) => (
             <Card key={card.label}>
               <CardContent className="p-5">
-                <p className="text-xs font-medium text-muted-foreground mb-2">{card.label}</p>
-                <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                  {card.label}
+                  <InfoTip title={card.label}>
+                    <p>{card.info}</p>
+                  </InfoTip>
+                </p>
+                <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
+                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                </button>
               </CardContent>
             </Card>
           ))}
@@ -182,7 +197,12 @@ const Daily = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Type Distribution</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Type Distribution
+                <InfoTip title="Type distribution">
+                  <p>How the day's trades split between trading styles (scalping, intraday, swing, ...). Click a slice to list those trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {typeDistribution.length === 0 ? (
@@ -191,7 +211,7 @@ const Daily = () => {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none">
+                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => showDay(`${d.name} trades`, dailyTrades.filter((t) => t.type === d.name))()}>
                         {typeDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
@@ -215,7 +235,12 @@ const Daily = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Strategy Performance</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Strategy Performance
+                <InfoTip title="Strategy performance">
+                  <p>Profit or loss per strategy for this day. Trades without a strategy are grouped as &quot;Unspecified&quot;. Click a bar to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {strategyPnL.length === 0 ? (
@@ -249,7 +274,7 @@ const Daily = () => {
                           fontSize: 12,
                         }}
                       />
-                      <Bar dataKey="pnl" radius={[0, 4, 4, 0]}>
+                      <Bar dataKey="pnl" radius={[0, 4, 4, 0]} cursor="pointer" onClick={(d) => { const st = (d as unknown as { payload: { strategy: string } }).payload.strategy; showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))(); }}>
                         {strategyPnL.map((entry) => (
                           <Cell
                             key={entry.strategy}
@@ -265,6 +290,7 @@ const Daily = () => {
           </Card>
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };

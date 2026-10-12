@@ -37,6 +37,8 @@ import { Flame, Sun, CalendarDays as CalendarIcon, Clock, LineChart as MarketIco
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
@@ -75,6 +77,7 @@ const Heatmaps = () => {
   const { formatInr: formatCurrency } = useCurrency();
   const [range, setRange] = useState("all");
   const [year, setYear] = useState("all");
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
 
   // Pragmatic choice matching Dashboard.tsx: no dedicated aggregate
   // endpoint exists for pattern analysis, so this requests the largest
@@ -136,6 +139,9 @@ const Heatmaps = () => {
     const bestMarketEntry = Object.entries(marketTotals).sort((a, b) => b[1] - a[1])[0];
 
     return {
+      seasonIndex: bestMonthIndex,
+      bestHourKey: bestHourEntry ? parseInt(bestHourEntry[0], 10) : null,
+      bestMarketKey: bestMarketEntry ? bestMarketEntry[0] : null,
       seasonMonth: MONTH_NAMES[bestMonthIndex],
       seasonValue: monthTotals[bestMonthIndex],
       bestWeekdayLabel: bestWeekday[0],
@@ -152,12 +158,13 @@ const Heatmaps = () => {
   const monthlyStats = useMemo(() => {
     const dataset =
       year === "all" ? filteredTrades : filteredTrades.filter((t) => new Date(t.date).getFullYear() === parseInt(year, 10));
-    const stats = Array.from({ length: 12 }, () => ({ pnl: 0, trades: 0 }));
+    const stats = Array.from({ length: 12 }, () => ({ pnl: 0, trades: 0, list: [] as Trade[] }));
     dataset.forEach((trade) => {
       const date = new Date(trade.date);
       if (isValidDate(date)) {
         stats[date.getMonth()].pnl += trade.pnl ?? 0;
         stats[date.getMonth()].trades += 1;
+        stats[date.getMonth()].list.push(trade);
       }
     });
     return stats;
@@ -167,11 +174,11 @@ const Heatmaps = () => {
   // Port of renderDayOfWeekHeatmap().
   const sessionLabels = useMemo(() => GLOBAL_SESSIONS.map((s) => s.label), []);
   const weekdayMatrix = useMemo(() => {
-    const matrix: Record<string, Record<string, { pnl: number; trades: number }>> = {};
+    const matrix: Record<string, Record<string, { pnl: number; trades: number; list: Trade[] }>> = {};
     DAY_ORDER.forEach((day) => {
       matrix[day] = {};
       sessionLabels.forEach((s) => {
-        matrix[day][s] = { pnl: 0, trades: 0 };
+        matrix[day][s] = { pnl: 0, trades: 0, list: [] };
       });
     });
     filteredTrades.forEach((trade) => {
@@ -183,6 +190,7 @@ const Heatmaps = () => {
       if (matrix[dayLabel]?.[session]) {
         matrix[dayLabel][session].pnl += trade.pnl ?? 0;
         matrix[dayLabel][session].trades += 1;
+        matrix[dayLabel][session].list.push(trade);
       }
     });
     return matrix;
@@ -210,11 +218,11 @@ const Heatmaps = () => {
     ).sort((a, b) => a - b);
     const hours = uniqueHours.length > 0 ? uniqueHours : [9, 10, 11, 12, 13, 14, 15];
 
-    const matrix: Record<number, Record<string, { pnl: number; trades: number }>> = {};
+    const matrix: Record<number, Record<string, { pnl: number; trades: number; list: Trade[] }>> = {};
     hours.forEach((hour) => {
       matrix[hour] = {};
       markets.forEach((m) => {
-        matrix[hour][m] = { pnl: 0, trades: 0 };
+        matrix[hour][m] = { pnl: 0, trades: 0, list: [] };
       });
     });
     filteredTrades.forEach((trade) => {
@@ -224,6 +232,7 @@ const Heatmaps = () => {
       const targetMarket = markets.includes(market) ? market : "Other";
       matrix[hour][targetMarket].pnl += trade.pnl ?? 0;
       matrix[hour][targetMarket].trades += 1;
+      matrix[hour][targetMarket].list.push(trade);
     });
     return { markets, hours, matrix };
   }, [filteredTrades]);
@@ -243,6 +252,11 @@ const Heatmaps = () => {
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
             <Flame className="w-6 h-6 text-primary" />
             Heatmaps
+            <InfoTip title="What is a heatmap?" widthClass="w-80">
+              <p>A heatmap colours a grid by how much you made or lost in each box: green is profit, red is loss, and the deeper the colour the bigger the amount.</p>
+              <p>Use it to spot patterns, like the months, weekdays or hours when you consistently do well or badly.</p>
+              <p><strong className="text-foreground">Click any box</strong> to see the exact trades behind it, and click a trade to see all its details.</p>
+            </InfoTip>
           </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your trading activity..." : "Spot seasonal, weekday, and time-of-day patterns in your P&L"}
@@ -288,30 +302,68 @@ const Heatmaps = () => {
               <MetricCard
                 icon={Sun}
                 label="Seasonality Champion"
+                info="Your most profitable calendar month, adding up every year in the selected range. Hints at seasonal strengths in your trading."
                 value={metrics.seasonMonth}
                 sub={shortCurrency(metrics.seasonValue)}
                 positive={metrics.seasonValue >= 0}
+                onClick={() =>
+                  setDrill({
+                    title: `${metrics.seasonMonth}: Seasonality Champion`,
+                    subtitle: "All trades placed in this month",
+                    trades: filteredTrades.filter((t) => { const d = new Date(t.date); return isValidDate(d) && d.getMonth() === metrics.seasonIndex; }),
+                  })
+                }
               />
               <MetricCard
                 icon={CalendarIcon}
                 label="Best Weekday"
+                info="The day of the week with the highest total P&L across the selected range."
                 value={metrics.bestWeekdayLabel}
                 sub={shortCurrency(metrics.bestWeekdayValue)}
                 positive={metrics.bestWeekdayValue >= 0}
+                onClick={() =>
+                  setDrill({
+                    title: `${metrics.bestWeekdayLabel}: Best Weekday`,
+                    subtitle: "All trades placed on this weekday",
+                    trades: filteredTrades.filter((t) => { const d = new Date(t.date); return isValidDate(d) && DAY_MAP[d.getDay()] === metrics.bestWeekdayLabel; }),
+                  })
+                }
               />
               <MetricCard
                 icon={Clock}
                 label="Power Hour"
+                info="The hour of the day (by trade entry time) in which you earn the most in total. Only trades with an entry time are counted."
                 value={metrics.bestHourLabel}
                 sub={shortCurrency(metrics.bestHourValue)}
                 positive={metrics.bestHourValue >= 0}
+                onClick={
+                  metrics.bestHourKey == null
+                    ? undefined
+                    : () =>
+                        setDrill({
+                          title: `${metrics.bestHourLabel}: Power Hour`,
+                          subtitle: "All trades entered in this hour",
+                          trades: filteredTrades.filter((t) => getEntryHour(t.entry_time) === metrics.bestHourKey),
+                        })
+                }
               />
               <MetricCard
                 icon={MarketIcon}
                 label="Top Market Edge"
+                info="The market (equity, options, forex, ...) where your trades have made the most money in total."
                 value={metrics.bestMarketLabel}
                 sub={shortCurrency(metrics.bestMarketValue)}
                 positive={metrics.bestMarketValue >= 0}
+                onClick={
+                  metrics.bestMarketKey == null
+                    ? undefined
+                    : () =>
+                        setDrill({
+                          title: `${metrics.bestMarketLabel}: Top Market Edge`,
+                          subtitle: "All trades in this market",
+                          trades: filteredTrades.filter((t) => (t.market || "Other") === metrics.bestMarketKey),
+                        })
+                }
               />
             </>
           )}
@@ -321,7 +373,14 @@ const Heatmaps = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }} className="mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base">Monthly Heatmap</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Monthly Heatmap
+                <InfoTip title="Monthly heatmap" widthClass="w-80">
+                  <p>One box per calendar month showing your total P&L and number of trades. Green months made money, red months lost money.</p>
+                  <p>Pick a year to look at one year only, or &quot;All Years&quot; to combine the same month across years.</p>
+                  <p>Click a month to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
               <Select value={year} onValueChange={setYear}>
                 <SelectTrigger className="w-32 h-8 text-xs">
                   <SelectValue placeholder="Year" />
@@ -339,18 +398,27 @@ const Heatmaps = () => {
             <CardContent>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                 {monthlyStats.map((stat, idx) => (
-                  <div
+                  <button
+                    type="button"
                     key={MONTH_NAMES[idx]}
-                    className="rounded-lg p-3 flex flex-col items-center justify-center text-center min-h-[84px]"
+                    disabled={stat.trades === 0}
+                    onClick={() =>
+                      setDrill({
+                        title: `${MONTH_NAMES[idx]}${year === "all" ? "" : ` ${year}`}`,
+                        subtitle: "Monthly heatmap",
+                        trades: stat.list,
+                      })
+                    }
+                    className="rounded-lg p-3 flex flex-col items-center justify-center text-center min-h-[84px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
                     style={{ backgroundColor: getHeatmapColor(stat.pnl, monthlyMaxAbs) }}
-                    title={`${MONTH_NAMES[idx]} • ${stat.trades} trade${stat.trades === 1 ? "" : "s"}\nP&L: ${shortCurrency(stat.pnl)}`}
+                    title={`${MONTH_NAMES[idx]} • ${stat.trades} trade${stat.trades === 1 ? "" : "s"}\nP&L: ${shortCurrency(stat.pnl)}${stat.trades ? "\nClick to see these trades" : ""}`}
                   >
                     <span className="text-xs font-semibold text-black/70">{MONTH_NAMES[idx]}</span>
                     <strong className="text-sm text-black/90">{shortCurrency(stat.pnl)}</strong>
                     <span className="text-[10px] text-black/60">
                       {stat.trades} trade{stat.trades === 1 ? "" : "s"}
                     </span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </CardContent>
@@ -361,7 +429,14 @@ const Heatmaps = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }} className="mb-8">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Day of Week x Session</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Day of Week x Session
+                <InfoTip title="Day of week × session" widthClass="w-80">
+                  <p>Rows are weekdays; columns are global market sessions (Asia, Europe, Americas, Overnight) based on when you entered the trade.</p>
+                  <p>Each box shows the number of trades, with the total P&L under it. It shows when in the week and day you trade best.</p>
+                  <p>Click a box to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {filteredTrades.length === 0 ? (
@@ -384,15 +459,18 @@ const Heatmaps = () => {
                         {sessionLabels.map((session) => {
                           const stat = weekdayMatrix[day][session];
                           return (
-                            <div
+                            <button
+                              type="button"
                               key={`${day}-${session}`}
-                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px]"
+                              disabled={stat.trades === 0}
+                              onClick={() => setDrill({ title: `${day}, ${session}`, subtitle: "Day of week × session", trades: stat.list })}
+                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
                               style={{ backgroundColor: getHeatmapColor(stat.pnl, weekdayMaxAbs) }}
-                              title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}`}
+                              title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
                               <strong className="text-sm text-black/90">{stat.trades}</strong>
                               <span className="text-[10px] text-black/60">{shortCurrency(stat.pnl)}</span>
-                            </div>
+                            </button>
                           );
                         })}
                       </Fragment>
@@ -408,7 +486,14 @@ const Heatmaps = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Hour x Market</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Hour x Market
+                <InfoTip title="Hour × market" widthClass="w-80">
+                  <p>Rows are the hours of the day you entered trades; columns are the markets you trade most (everything else is grouped as &quot;Other&quot;).</p>
+                  <p>Each box shows the number of trades and the total P&L, so you can see which market works for you at which hour.</p>
+                  <p>Click a box to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {filteredTrades.length === 0 ? (
@@ -433,15 +518,18 @@ const Heatmaps = () => {
                         {hourMarketData.markets.map((market) => {
                           const stat = hourMarketData.matrix[hour][market];
                           return (
-                            <div
+                            <button
+                              type="button"
                               key={`${hour}-${market}`}
-                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px]"
+                              disabled={stat.trades === 0}
+                              onClick={() => setDrill({ title: `${formatHourDisplay(hour)}, ${marketLabel(market)}`, subtitle: "Hour × market", trades: stat.list })}
+                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
                               style={{ backgroundColor: getHeatmapColor(stat.pnl, hourMarketMaxAbs) }}
-                              title={`${formatHourDisplay(hour)} • ${market}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}`}
+                              title={`${formatHourDisplay(hour)} • ${market}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
                               <strong className="text-sm text-black/90">{stat.trades}</strong>
                               <span className="text-[10px] text-black/60">{shortCurrency(stat.pnl)}</span>
-                            </div>
+                            </button>
                           );
                         })}
                       </Fragment>
@@ -453,6 +541,7 @@ const Heatmaps = () => {
           </Card>
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };
@@ -460,25 +549,44 @@ const Heatmaps = () => {
 function MetricCard({
   icon: Icon,
   label,
+  info,
   value,
   sub,
   positive,
+  onClick,
 }: {
   icon: typeof Sun;
   label: string;
+  info: string;
   value: string;
   sub: string;
   positive: boolean;
+  onClick?: () => void;
 }) {
   return (
-    <Card>
+    <Card className={onClick ? "transition-shadow hover:shadow-md" : undefined}>
       <CardContent className="p-5">
         <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-medium text-muted-foreground">{label}</p>
+          <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+            {label}
+            <InfoTip title={label}>
+              <p>{info}</p>
+              {onClick && <p>Click the card to see these trades.</p>}
+            </InfoTip>
+          </p>
           <Icon className="w-3.5 h-3.5 text-muted-foreground" />
         </div>
-        <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
-        <p className="text-xs text-muted-foreground mt-1">{sub}</p>
+        {onClick ? (
+          <button type="button" onClick={onClick} className="block w-full text-left cursor-pointer">
+            <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className="text-xs text-muted-foreground mt-1">{sub} · view trades</p>
+          </button>
+        ) : (
+          <>
+            <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className="text-xs text-muted-foreground mt-1">{sub}</p>
+          </>
+        )}
       </CardContent>
     </Card>
   );

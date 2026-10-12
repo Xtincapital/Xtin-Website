@@ -66,7 +66,9 @@ import { Progress } from "@/components/ui/progress";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { goals as goalsApi, type Trade, type Goal } from "../lib/api";
-import { getAllTradesInInr } from "../lib/tradesInInr";
+import { getAllTrades } from "../lib/api";
+import { tradeInInr } from "../lib/tradesInInr";
+import CurrencyBreakdown from "../components/CurrencyBreakdown";
 import { marketLabel } from "../lib/journalPatternHelpers";
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -138,7 +140,12 @@ const Dashboard = () => {
   // least accurate for accounts with up to 200 trades.
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
     queryKey: ["journal", "trades", "dashboard"],
-    queryFn: () => getAllTradesInInr(),
+    // Keep the trades as recorded (for the per-currency breakdown) next to
+    // the rupee-converted copy every total below is built from.
+    queryFn: async () => {
+      const res = await getAllTrades();
+      return { ...res, raw: res.data, data: res.data.map(tradeInInr) };
+    },
   });
 
   const { data: goalsData, isLoading: goalsLoading } = useQuery({
@@ -147,6 +154,7 @@ const Dashboard = () => {
   });
 
   const allTrades = tradesData?.data ?? [];
+  const rawTrades = tradesData?.raw ?? [];
   const goalsList = goalsData ?? [];
 
   const { metrics, todayMetrics, monthMetrics, monthlyTrend, recentTrades } = useMemo(() => {
@@ -244,9 +252,14 @@ const Dashboard = () => {
           transition={{ duration: 0.4 }}
           className="mb-8"
         >
+          <Link to="/journal" className="brand-link mb-3 inline-flex" aria-label="Xtin Journal home">
+            <span className="brand-name-main">Xtin</span>
+            <span className="brand-name-accent">Journal</span>
+          </Link>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Dashboard</h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground flex items-center gap-1.5">
             {tradesLoading ? "Loading your trading activity..." : `${metrics.totalTrades} trades logged`}
+            {!tradesLoading && <CurrencyBreakdown trades={rawTrades} />}
           </p>
         </motion.div>
 
@@ -261,7 +274,10 @@ const Dashboard = () => {
             <Card key={card.label}>
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
+                  <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                    {card.label}
+                    {card.label === "Total P&L" && <CurrencyBreakdown trades={rawTrades} />}
+                  </p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
                 <p

@@ -244,6 +244,16 @@ export interface RoadmapPoint {
   /** What was paid at this point, for the tooltip. */
   paid?: number;
   paidFor?: string;
+  /** Everything put in so far (monthly savings added up). */
+  saved: number;
+  /** Growth earned so far (what the savings made at the assumed return). */
+  growth: number;
+  /** Everything paid out so far, including at this point. */
+  paidTotal: number;
+  /** Monthly saving going in at this point. */
+  monthly: number;
+  /** The next cost still to be paid after this point. */
+  next?: { label: string; year: number; amount: number };
 }
 
 export interface Roadmap {
@@ -275,11 +285,22 @@ export function simulateRoadmap(input: {
   const emergency = input.emergency && input.emergency.monthly > 0 ? input.emergency : null;
   const lastMonth = Math.max(12, ...plans.map((p) => p.months), emergency ? Math.ceil(emergency.months / 12) * 12 : 0);
 
-  const points: RoadmapPoint[] = [{ t: 0, year: input.currentYear, balance: 0 }];
+  const depositAt = (m: number) => plans.reduce((s, p) => s + (m < p.months ? p.sip : 0), 0) + (emergency && m < emergency.months ? emergency.monthly : 0);
+  const nextAfter = (month: number) => {
+    const upcoming = plans.filter((p) => p.months > month).sort((a, b) => a.months - b.months);
+    if (!upcoming.length) return undefined;
+    const at = upcoming[0].months;
+    const group = upcoming.filter((p) => p.months === at);
+    return { label: group.map((g) => g.label).join(", "), year: input.currentYear + at / 12, amount: group.reduce((s, g) => s + g.amount, 0) };
+  };
+
+  const points: RoadmapPoint[] = [{ t: 0, year: input.currentYear, balance: 0, saved: 0, growth: 0, paidTotal: 0, monthly: depositAt(0), next: nextAfter(0) }];
   let balance = 0;
+  let saved = 0;
+  let paidTotal = 0;
   for (let m = 0; m < lastMonth; m++) {
-    let deposit = plans.reduce((s, p) => s + (m < p.months ? p.sip : 0), 0);
-    if (emergency && m < emergency.months) deposit += emergency.monthly;
+    const deposit = depositAt(m);
+    saved += deposit;
     balance = (balance + deposit) * (1 + rate);
 
     const month = m + 1;
@@ -287,11 +308,13 @@ export function simulateRoadmap(input: {
       const t = month / 12;
       const due = plans.filter((p) => p.months === month);
       const year = input.currentYear + t;
-      points.push({ t, year, balance: Math.max(0, balance) });
+      const base = { t, year, saved, monthly: depositAt(month), next: nextAfter(month) };
+      points.push({ ...base, balance: Math.max(0, balance), growth: Math.max(0, balance + paidTotal - saved), paidTotal });
       if (due.length) {
         const paid = due.reduce((s, p) => s + p.amount, 0);
         balance = Math.max(0, balance - paid);
-        points.push({ t, year, balance, paid, paidFor: due.map((d) => d.label).join(", ") });
+        paidTotal += paid;
+        points.push({ ...base, balance, growth: Math.max(0, balance + paidTotal - saved), paidTotal, paid, paidFor: due.map((d) => d.label).join(", ") });
       }
     }
   }

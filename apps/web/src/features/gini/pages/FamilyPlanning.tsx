@@ -663,7 +663,7 @@ export default function FamilyPlanning() {
                 <div>
                   <h4 className="text-sm font-bold text-foreground">Money set aside for these plans</h4>
                   <p className="mb-2 text-xs text-muted-foreground">
-                    Saving the amounts above each month at {PLAN_RETURN}% a year. The line drops each time fees, a wedding or another cost is paid out.
+                    Saving the amounts above each month at {PLAN_RETURN}% a year. The line drops each time fees, a wedding or another cost is paid out (red dots). Hover or tap any dot for the full detail.
                   </p>
                   <ChartContainer config={ROADMAP_CHART_CONFIG} className="h-80 w-full">
                     <LineChart data={roadmap.points}>
@@ -680,18 +680,57 @@ export default function FamilyPlanning() {
                       />
                       <YAxis tickLine={false} axisLine={false} fontSize={12} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <ChartTooltip
+                        cursor={{ stroke: "hsl(var(--muted-foreground))", strokeDasharray: "3 3" }}
                         content={({ active, payload }: any) => {
                           if (!active || !payload?.length) return null;
                           const p = payload[0].payload as RoadmapPoint;
+                          // Both sides of a payment (just before / just after) share a year: show them together.
+                          const before = roadmap.points.find((x) => x.t === p.t && !x.paid) ?? p;
+                          const after = p.paid ? p : roadmap.points.find((x) => x.t === p.t && x.paid);
                           return (
-                            <div className="rounded-lg border bg-background px-3 py-2 text-xs shadow-md">
-                              <p className="font-medium">{p.year}</p>
-                              <p>
-                                {p.paid ? "After paying" : "Set aside"}: <span className="font-medium">{money(p.balance)}</span>
-                              </p>
-                              {p.paid && (
-                                <p className="text-muted-foreground">
-                                  Paid {money(p.paid)} for {p.paidFor}
+                            <div className="w-64 space-y-1.5 rounded-lg border bg-background px-3 py-2.5 text-xs shadow-md">
+                              <div className="flex items-baseline justify-between gap-2">
+                                <p className="text-sm font-bold">{p.year}</p>
+                                <p className="text-muted-foreground">{p.t === 0 ? "Today" : `${p.t} year${p.t === 1 ? "" : "s"} from now`}</p>
+                              </div>
+                              <div className="flex justify-between gap-2">
+                                <span className="text-muted-foreground">{after ? "Set aside before paying" : "Money set aside"}</span>
+                                <span className="font-medium tabular-nums">{money(before.balance)}</span>
+                              </div>
+                              {after && (
+                                <>
+                                  <div className="flex justify-between gap-2 text-destructive">
+                                    <span>Paid out</span>
+                                    <span className="font-medium tabular-nums">-{money(after.paid || 0)}</span>
+                                  </div>
+                                  <p className="text-muted-foreground">For {after.paidFor}</p>
+                                  <div className="flex justify-between gap-2">
+                                    <span className="text-muted-foreground">Left after paying</span>
+                                    <span className="font-medium tabular-nums">{money(after.balance)}</span>
+                                  </div>
+                                </>
+                              )}
+                              <div className="space-y-1 border-t pt-1.5">
+                                <div className="flex justify-between gap-2">
+                                  <span className="text-muted-foreground">Saved so far</span>
+                                  <span className="tabular-nums">{money(p.saved)}</span>
+                                </div>
+                                <div className="flex justify-between gap-2">
+                                  <span className="text-muted-foreground">Growth earned ({PLAN_RETURN}%/yr)</span>
+                                  <span className="tabular-nums">{money(p.growth)}</span>
+                                </div>
+                                <div className="flex justify-between gap-2">
+                                  <span className="text-muted-foreground">Paid out so far</span>
+                                  <span className="tabular-nums">{money(p.paidTotal)}</span>
+                                </div>
+                                <div className="flex justify-between gap-2">
+                                  <span className="text-muted-foreground">Monthly saving</span>
+                                  <span className="tabular-nums">{money(p.monthly)}</span>
+                                </div>
+                              </div>
+                              {p.next && (
+                                <p className="border-t pt-1.5 text-muted-foreground">
+                                  Next: <span className="font-medium text-foreground">{p.next.label}</span> in {p.next.year}, {money(p.next.amount)}
                                 </p>
                               )}
                             </div>
@@ -704,11 +743,12 @@ export default function FamilyPlanning() {
                         stroke="var(--color-balance)"
                         strokeWidth={2}
                         isAnimationActive={false}
+                        activeDot={{ r: 6, strokeWidth: 2, stroke: "hsl(var(--background))" }}
                         dot={(props: any) =>
                           props.payload?.paid ? (
-                            <circle key={props.key} cx={props.cx} cy={props.cy} r={3} fill="var(--color-balance)" />
+                            <circle key={props.key} cx={props.cx} cy={props.cy} r={4.5} fill="hsl(var(--destructive))" stroke="hsl(var(--background))" strokeWidth={1.5} />
                           ) : (
-                            <g key={props.key} />
+                            <circle key={props.key} cx={props.cx} cy={props.cy} r={3.5} fill="var(--color-balance)" stroke="hsl(var(--background))" strokeWidth={1.5} />
                           )
                         }
                       />

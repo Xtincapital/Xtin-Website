@@ -116,21 +116,24 @@ const RDCalculator = () => {
                 <label htmlFor="rd-monthly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Monthly Investment
                 </label>
-                <input
-                  id="rd-monthly-investment"
-                  type="text"
-                  value={monthlyInvestment}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/,/g, "");
-                    if (value === "" || /^[0-9\b]+$/.test(value)) {
-                      const num = value === "" ? "" : parseInt(value, 10);
-                      setMonthlyInvestment(
-                        num === "" ? "" : num.toLocaleString(numLocale)
-                      );
-                    }
-                  }}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                  <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                    id="rd-monthly-investment"
+                    type="text"
+                    value={monthlyInvestment}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/,/g, "");
+                      if (value === "" || /^[0-9\b]+$/.test(value)) {
+                        const num = value === "" ? "" : parseInt(value, 10);
+                        setMonthlyInvestment(
+                          num === "" ? "" : num.toLocaleString(numLocale)
+                        );
+                      }
+                    }}
+                    className="w-full p-3 border rounded-lg"
+                  />
+                </div>
               </div>
               <div className="mb-4">
                 <label htmlFor="rd-expected-annual-return-rate" className="block text-sm font-medium text-gray-700 mb-1">

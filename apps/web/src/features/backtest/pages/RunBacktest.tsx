@@ -11,6 +11,7 @@ import ProBadge from "../components/ProBadge";
 import { strategySentence } from "../lib/analytics";
 import { btnPrimary, card, chip, input, label, muted } from "../lib/styles";
 import { inr } from "../lib/types";
+import MoneyInput from "@/components/MoneyInput";
 
 const isoDaysAgo = (days: number) => {
   const d = new Date();
@@ -124,7 +125,7 @@ export default function RunBacktest() {
                 {inr(c)}
               </button>
             ))}
-            <input type="number" min={1} className={`${input} !w-36 tabular-nums`} value={capital} aria-label="Starting capital in rupees" onChange={(e) => setCapital(Number(e.target.value))} />
+            <div className="w-44"><MoneyInput min={1} decimals={0} className={`${input} tabular-nums`} value={capital} aria-label="Starting capital" onChange={(e) => setCapital(Number(e.target.value) || 0)} /></div>
           </div>
         </div>
 

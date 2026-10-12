@@ -37,7 +37,8 @@
 // and listed under the History button; free users see the Pro upsell there.
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MessageCircle, X, Send, Loader2, Coins, HeartPulse, Target, ArrowRight, PieChart, History, MessageSquarePlus } from "lucide-react";
+import { X, Send, Loader2, Coins, HeartPulse, Target, ArrowRight, PieChart, History, MessageSquarePlus } from "lucide-react";
+import AiLauncher from "@/components/AiLauncher";
 import SavedChatsList from "@/components/ai/SavedChatsList";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -181,15 +182,18 @@ export default function ChatWidget() {
   return (
     <>
       {/* Toggle button */}
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close Gini AI Chat" : "Open Gini AI Chat"}
-        title="Ask Gini AI"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105"
-      >
-        {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-      </button>
+      {open ? (
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close Gini AI Chat"
+          className="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] shadow-[0_10px_30px_-6px_rgba(2,6,23,0.55)] transition-transform hover:scale-105"
+        >
+          <span className="flex h-full w-full items-center justify-center rounded-full bg-[#0b1220] text-white"><X className="h-6 w-6" /></span>
+        </button>
+      ) : (
+        <AiLauncher label="Ask Gini" sub="Your AI planner" onClick={() => setOpen(true)} />
+      )}
 
       {/* Panel */}
       {open && (

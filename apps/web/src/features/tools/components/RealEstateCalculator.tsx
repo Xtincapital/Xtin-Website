@@ -323,19 +323,22 @@ const RealEstateCalculator = () => {
                   <label htmlFor="realestate-property-price" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Property Price ({sym})
                   </label>
-                  <input
-                    id="realestate-property-price"
-                    type="text"
-                    value={propertyPrice}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9]+$/.test(value)) {
-                        setPropertyPrice(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
-                      }
-                    }}
-                    placeholder="1,00,00,000"
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                    <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                      id="realestate-property-price"
+                      type="text"
+                      value={propertyPrice}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9]+$/.test(value)) {
+                          setPropertyPrice(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
+                        }
+                      }}
+                      placeholder="1,00,00,000"
+                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                    />
+                  </div>
                 </div>
 
                 {/* Monthly Rent */}
@@ -343,19 +346,22 @@ const RealEstateCalculator = () => {
                   <label htmlFor="realestate-expected-monthly-rent" className="block text-sm font-medium text-gray-700 mb-1.5">
                     Expected Monthly Rent ({sym})
                   </label>
-                  <input
-                    id="realestate-expected-monthly-rent"
-                    type="text"
-                    value={monthlyRent}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/,/g, "");
-                      if (value === "" || /^[0-9]+$/.test(value)) {
-                        setMonthlyRent(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
-                      }
-                    }}
-                    placeholder="25,000"
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-                  />
+                  <div className="relative">
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">{sym}</span>
+                    <input style={{ paddingLeft: `calc(${String(sym).trim().length}ch + 1.5rem)` }}
+                      id="realestate-expected-monthly-rent"
+                      type="text"
+                      value={monthlyRent}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/,/g, "");
+                        if (value === "" || /^[0-9]+$/.test(value)) {
+                          setMonthlyRent(value === "" ? "" : parseInt(value).toLocaleString(numLocale));
+                        }
+                      }}
+                      placeholder="25,000"
+                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                    />
+                  </div>
                 </div>
 
                 {/* Property Type */}

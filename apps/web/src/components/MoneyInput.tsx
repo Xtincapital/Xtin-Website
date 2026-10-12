@@ -1,19 +1,17 @@
 // An amount box for money saved in rupees, shown and typed in the visitor's
-// selected currency. A drop-in for <Input>: `value` is the rupee amount the
-// form keeps, and `onChange` receives `{ target: { value } }` with the new
-// rupee amount, so `onChange={(e) => setField("cost", e.target.value)}` keeps
-// working unchanged.
+// selected currency (symbol inside the box, digits grouped: ₹1,00,000 or
+// $1,000). A drop-in for <Input>: `value` is the rupee amount the form keeps,
+// and `onChange` receives `{ target: { value } }` with the new rupee amount, so
+// `onChange={(e) => setField("cost", e.target.value)}` keeps working unchanged.
 //
 // What the user typed is kept as typed; it is only converted to rupees for the
 // form. An amount the user doesn't touch is never re-converted, so switching
 // currencies and saving can't drift the stored rupee value.
 import { forwardRef, useEffect, useRef, useState } from 'react';
-import { Input } from '@/components/ui/input';
+import AmountInput, { type AmountInputProps } from '@/components/ui/amount-input';
 import { useCurrency } from '@/contexts/CurrencyContext';
 
-type InputProps = React.ComponentProps<typeof Input>;
-
-export interface MoneyInputProps extends Omit<InputProps, 'value' | 'onChange' | 'defaultValue'> {
+export interface MoneyInputProps extends Omit<AmountInputProps, 'value' | 'onChange' | 'symbol' | 'indian'> {
   /** The rupee amount (string or number, '' for empty). */
   value: string | number | null | undefined;
   onChange: (e: { target: { value: string } }) => void;
@@ -22,10 +20,10 @@ export interface MoneyInputProps extends Omit<InputProps, 'value' | 'onChange' |
 const toText = (n: number) => (Number.isFinite(n) ? String(Math.round(n * 100) / 100) : '');
 
 const MoneyInput = forwardRef<HTMLInputElement, MoneyInputProps>(function MoneyInput(
-  { value, onChange, placeholder, step, ...rest },
+  { value, onChange, placeholder, ...rest },
   ref,
 ) {
-  const { currency, inrToDisplay, displayToInr } = useCurrency();
+  const { currency, symbol, inrToDisplay, displayToInr } = useCurrency();
   const inr = value == null ? '' : String(value);
   const shown = (v: string) => (v.trim() === '' || !Number.isFinite(Number(v)) ? v : toText(inrToDisplay(Number(v))));
 
@@ -43,11 +41,11 @@ const MoneyInput = forwardRef<HTMLInputElement, MoneyInputProps>(function MoneyI
 
   const rupees = currency === 'INR';
   return (
-    <Input
+    <AmountInput
       ref={ref}
       {...rest}
-      // Converted amounts don't land on rupee step sizes; don't let the browser reject them.
-      step={rupees ? step : 'any'}
+      symbol={symbol}
+      indian={rupees}
       placeholder={placeholder && !rupees && Number.isFinite(Number(placeholder)) ? toText(inrToDisplay(Number(placeholder))) : placeholder}
       value={text}
       onChange={(e) => {

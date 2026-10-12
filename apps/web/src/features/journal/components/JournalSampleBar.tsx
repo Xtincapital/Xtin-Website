@@ -1,13 +1,13 @@
 // Journal's "Load sample data" switch — see ../lib/sampleData.ts.
 import { useMemo } from "react";
 import SampleDataBar from "@/components/SampleDataBar";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { buildJournalSample, JOURNAL_SAMPLE_OPTIONS, journalSampleMode, previewJournalSample } from "../lib/sampleData";
-
-const formatInr = (value: number) =>
-  `${value < 0 ? "-" : "+"}₹${Math.abs(Math.round(value)).toLocaleString("en-IN")}`;
 
 const JournalSampleBar = ({ placement }: { placement?: "bar" | "button" | "banner" }) => {
   const { active, datasetId } = journalSampleMode.useState();
+  // The previews are in rupees; show them in the selected currency.
+  const { formatInr } = useCurrency();
 
   const options = useMemo(
     () =>
@@ -15,16 +15,17 @@ const JournalSampleBar = ({ placement }: { placement?: "bar" | "button" | "banne
         const preview = previewJournalSample(option.id);
         return {
           ...option,
-          meta: `${preview.count} trades · ${preview.winRate.toFixed(0)}% win rate · ${formatInr(preview.pnl)}`,
+          meta: `${preview.count} trades · ${preview.winRate.toFixed(0)}% win rate · ${preview.pnl < 0 ? "-" : "+"}${formatInr(Math.abs(preview.pnl), { maxDecimals: 0 })}`,
         };
       }),
-    []
+    [formatInr]
   );
 
   return (
     <SampleDataBar
       feature="Journal"
       placement={placement}
+      label="Load sample"
       active={active}
       activeName={JOURNAL_SAMPLE_OPTIONS.find((o) => o.id === datasetId)?.name}
       options={options}

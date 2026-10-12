@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
+import ProductBrand from "@/components/ProductBrand";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/CompanySearchResults.tsx
@@ -298,6 +299,7 @@ const Dashboard = () => {
           transition={{ duration: 0.4 }}
           className="mb-8"
         >
+          <ProductBrand to="/fundakamental" name="FundaKaMental" className="mb-3" />
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">
             Welcome back, {displayName}
           </h1>

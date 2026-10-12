@@ -98,21 +98,24 @@ const EPFCalculator = () => {
                 <label htmlFor="epf-basic-monthly-salary-da" className="block text-sm font-medium text-gray-700 mb-2">
                   Basic Monthly Salary + DA
                 </label>
-                <input
-                  id="epf-basic-monthly-salary-da"
-                  type="text"
-                  value={basicMonthlySalary}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/,/g, "");
-                    if (value === "" || /^[0-9\b]+$/.test(value)) {
-                      const num = value === "" ? "" : parseInt(value, 10);
-                      setBasicMonthlySalary(
-                        num === "" ? "" : num.toLocaleString("en-IN")
-                      );
-                    }
-                  }}
-                  className="w-full p-3 border border-gray-300 rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                  <input
+                    id="epf-basic-monthly-salary-da"
+                    type="text"
+                    value={basicMonthlySalary}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/,/g, "");
+                      if (value === "" || /^[0-9\b]+$/.test(value)) {
+                        const num = value === "" ? "" : parseInt(value, 10);
+                        setBasicMonthlySalary(
+                          num === "" ? "" : num.toLocaleString("en-IN")
+                        );
+                      }
+                    }}
+                    className="w-full p-3 border border-gray-300 rounded-lg pl-8"
+                  />
+                </div>
               </div>
               <div className="mb-6">
                 <label htmlFor="epf-employee-contribution" className="block text-sm font-medium text-gray-700 mb-2">

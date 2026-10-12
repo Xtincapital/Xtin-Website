@@ -20,7 +20,7 @@
 // Currency: see ../lib/journalPatternHelpers.ts's header comment — sums raw
 // `trade.pnl` and formats with `useCurrency()`, same departure Dashboard.tsx
 // already documents (no INR-normalization of mixed-currency trades).
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
@@ -42,6 +42,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import InfoTip from "@/components/ui/info-tip";
+import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
@@ -66,6 +68,7 @@ const SESSION_COLORS = ["rgba(251, 191, 36, 0.8)", "rgba(34, 197, 94, 0.8)", "rg
 
 const Hourly = () => {
   const { formatInr: formatCurrency } = useCurrency();
+  const [drill, setDrill] = useState<DrilldownRequest | null>(null);
 
   // Same pragmatic full-history fetch as Dashboard.tsx / Heatmaps.tsx — no
   // dedicated aggregate endpoint exists yet for hourly/session analysis.
@@ -170,18 +173,42 @@ const Hourly = () => {
 
   const shortCurrency = (v: number) => formatCurrency(v, { compact: true });
 
-  const metricCards = [
+  const showHour = (hour: number) => {
+    const bucket = hourBuckets[hour];
+    if (bucket?.trades.length) setDrill({ title: `Trades entered at ${formatHourDisplay(hour)}`, subtitle: "Hourly analysis", trades: bucket.trades });
+  };
+  const showSession = (label: string) => {
+    const list = sessions[label] ?? [];
+    if (list.length) setDrill({ title: `${label} session`, subtitle: "Trades entered during this session", trades: list });
+  };
+
+  const metricCards: { label: string; info: string; value: string; icon: typeof Clock; onClick?: () => void }[] = [
     {
       label: "Best Hour",
+      info: "The hour of the day (by entry time) in which your trades earned the most in total.",
       value: summary.bestHour !== null ? `${formatHourDisplay(summary.bestHour)} (${shortCurrency(summary.bestPnL)})` : "--",
       icon: Clock,
+      onClick: summary.bestHour !== null ? () => showHour(summary.bestHour as number) : undefined,
     },
-    { label: "Active Session", value: summary.activeSession, icon: Activity },
-    { label: "Avg Duration", value: `${summary.avgDuration.toFixed(1)} hrs`, icon: Timer },
+    {
+      label: "Active Session",
+      info: "The market session in which you place the most trades: Asia, Europe, Americas or Overnight, based on your time zone and entry time.",
+      value: summary.activeSession,
+      icon: Activity,
+      onClick: summary.activeSession !== "--" ? () => showSession(summary.activeSession) : undefined,
+    },
+    {
+      label: "Avg Duration",
+      info: "How long a typical trade lasts, from entry time to exit time on the same day. Only trades with both times are counted.",
+      value: `${summary.avgDuration.toFixed(1)} hrs`,
+      icon: Timer,
+    },
     {
       label: "Peak Time",
+      info: "The one-hour window around your Best Hour. This is when you tend to trade best.",
       value: summary.bestHour !== null ? formatHourRange(summary.bestHour) : "--",
       icon: PeakIcon,
+      onClick: summary.bestHour !== null ? () => showHour(summary.bestHour as number) : undefined,
     },
   ];
 
@@ -192,6 +219,11 @@ const Hourly = () => {
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
             <Clock className="w-6 h-6 text-primary" />
             Hourly Analysis
+            <InfoTip title="Hourly analysis" widthClass="w-80">
+              <p>Shows how you do at different times of the day, using the entry time of each trade. Many traders find they make most of their money in one or two hours and give it back at other times.</p>
+              <p>Trades without an entry time are left out.</p>
+              <p><strong className="text-foreground">Click</strong> a card, bar, session or table row to see the trades behind it.</p>
+            </InfoTip>
           </h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your trading activity..." : "Performance broken down by hour of day and trading session"}
@@ -209,10 +241,22 @@ const Hourly = () => {
             <Card key={card.label}>
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
+                  <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                    {card.label}
+                    <InfoTip title={card.label}>
+                      <p>{card.info}</p>
+                      {card.onClick && <p>Click the value to see the trades.</p>}
+                    </InfoTip>
+                  </p>
                   <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
-                <p className="text-lg font-bold text-foreground">{card.value}</p>
+                {card.onClick ? (
+                  <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
+                    <p className="text-lg font-bold text-foreground">{card.value}</p>
+                  </button>
+                ) : (
+                  <p className="text-lg font-bold text-foreground">{card.value}</p>
+                )}
               </CardContent>
             </Card>
           ))}
@@ -227,7 +271,12 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Hourly P&L</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Hourly P&L
+                <InfoTip title="Hourly P&L">
+                  <p>Total profit or loss for trades entered in each hour. Green bars are profitable hours, red bars are losing hours. Click a bar to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -257,7 +306,7 @@ const Hourly = () => {
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="pnl" radius={[3, 3, 0, 0]}>
+                    <Bar dataKey="pnl" radius={[3, 3, 0, 0]} cursor="pointer" onClick={(d) => showHour((d as unknown as { payload: { hour: number } }).payload.hour)}>
                       {hourChartData.map((d) => (
                         <Cell key={d.hour} fill={d.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--destructive))"} />
                       ))}
@@ -270,7 +319,12 @@ const Hourly = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Trade Count by Hour</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Trade Count by Hour
+                <InfoTip title="Trade Count by Hour">
+                  <p>How many trades you entered in each hour. Compare it with Hourly P&L: do you trade the most when you earn the least?</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -324,7 +378,12 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Session Performance</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Session Performance
+                <InfoTip title="Session Performance">
+                  <p>Total P&L per market session (Asia, Europe, Americas, Overnight). Click a session name on the right to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64 flex items-center gap-4">
@@ -357,13 +416,13 @@ const Hourly = () => {
                 </div>
                 <div className="w-1/2 space-y-2">
                   {sessionChartData.map((s, i) => (
-                    <div key={s.label} className="flex items-center gap-2 text-xs">
+                    <button type="button" key={s.label} onClick={() => showSession(s.label)} className="flex w-full items-center gap-2 text-xs text-left cursor-pointer hover:underline" title="Click to see these trades">
                       <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: SESSION_COLORS[i % SESSION_COLORS.length] }} />
                       <span className="text-muted-foreground truncate">{s.label}</span>
                       <span className={`ml-auto font-semibold ${s.pnl >= 0 ? "text-success" : "text-destructive"}`}>
                         {shortCurrency(s.pnl)}
                       </span>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -372,7 +431,12 @@ const Hourly = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Win Rate by Hour</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Win Rate by Hour
+                <InfoTip title="Win Rate by Hour">
+                  <p>The share of winning trades among trades that ended in a win or a loss, for each hour. Above 50% means more winners than losers.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64">
@@ -422,7 +486,12 @@ const Hourly = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Hourly Breakdown</CardTitle>
+              <CardTitle className="text-base flex items-center gap-1.5">
+                Hourly Breakdown
+                <InfoTip title="Hourly Breakdown">
+                  <p>A table of every hour of the day: number of trades, total and average P&L, win rate and your most-used strategy. Click a row to list its trades.</p>
+                </InfoTip>
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <Table>
@@ -457,7 +526,11 @@ const Hourly = () => {
                     const positive = bucket.totalPnL >= 0;
 
                     return (
-                      <TableRow key={bucket.hour}>
+                      <TableRow
+                        key={bucket.hour}
+                        className={bucket.trades.length ? "cursor-pointer" : undefined}
+                        onClick={() => showHour(bucket.hour)}
+                      >
                         <TableCell className="font-medium">{formatHourDisplay(bucket.hour)}</TableCell>
                         <TableCell>{bucket.trades.length}</TableCell>
                         <TableCell className={positive ? "text-success" : "text-destructive"}>{formatCurrency(bucket.totalPnL)}</TableCell>
@@ -476,6 +549,7 @@ const Hourly = () => {
           </Card>
         </motion.div>
       </div>
+      <TradeDrilldown request={drill} onClose={() => setDrill(null)} />
     </JournalLayout>
   );
 };

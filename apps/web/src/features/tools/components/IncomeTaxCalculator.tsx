@@ -71,11 +71,17 @@ const IncomeTaxCalculator = () => {
                                 <div className="space-y-4">
                                     <div>
                                         <label htmlFor="incometax-gross-salary" className="block text-sm font-medium text-gray-700">Gross salary (Basic + DA)</label>
-                                        <input id="incometax-gross-salary" type="text" value={formatNumber(grossSalary)} onChange={handleInputChange(setGrossSalary)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-gross-salary" type="text" value={formatNumber(grossSalary)} onChange={handleInputChange(setGrossSalary)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                     <div>
                                         <label htmlFor="incometax-annual-income-from-other-sources" className="block text-sm font-medium text-gray-700">Annual income from other sources</label>
-                                        <input id="incometax-annual-income-from-other-sources" type="text" value={formatNumber(otherIncome)} onChange={handleInputChange(setOtherIncome)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-annual-income-from-other-sources" type="text" value={formatNumber(otherIncome)} onChange={handleInputChange(setOtherIncome)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +91,10 @@ const IncomeTaxCalculator = () => {
                                 <h3 className="text-xl font-semibold mb-4 text-green-700">Exemptions</h3>
                                 <div>
                                     <label htmlFor="incometax-annual-interest-paid-on-home-loan" className="block text-sm font-medium text-gray-700">Annual interest paid on home loan</label>
-                                    <input id="incometax-annual-interest-paid-on-home-loan" type="text" value={formatNumber(homeLoanInterest)} onChange={handleInputChange(setHomeLoanInterest)} className="w-full p-2 border rounded-lg" />
+                                    <div className="relative">
+                                      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                      <input id="incometax-annual-interest-paid-on-home-loan" type="text" value={formatNumber(homeLoanInterest)} onChange={handleInputChange(setHomeLoanInterest)} className="w-full p-2 border rounded-lg pl-8" />
+                                    </div>
                                 </div>
                             </div>
 
@@ -95,23 +104,38 @@ const IncomeTaxCalculator = () => {
                                 <div className="space-y-4">
                                     <div>
                                         <label htmlFor="incometax-basic-deductions" className="block text-sm font-medium text-gray-700">Basic Deductions (80C)</label>
-                                        <input id="incometax-basic-deductions" type="text" value={formatNumber(basicDeductions)} onChange={handleInputChange(setBasicDeductions)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-basic-deductions" type="text" value={formatNumber(basicDeductions)} onChange={handleInputChange(setBasicDeductions)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                     <div>
                                         <label htmlFor="incometax-contribution-to-nps" className="block text-sm font-medium text-gray-700">Contribution to NPS (80CCD)</label>
-                                        <input id="incometax-contribution-to-nps" type="text" value={formatNumber(npsContribution)} onChange={handleInputChange(setNpsContribution)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-contribution-to-nps" type="text" value={formatNumber(npsContribution)} onChange={handleInputChange(setNpsContribution)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                     <div>
                                         <label htmlFor="incometax-medical-insurance-premium" className="block text-sm font-medium text-gray-700">Medical Insurance Premium (80D)</label>
-                                        <input id="incometax-medical-insurance-premium" type="text" value={formatNumber(medicalInsurance)} onChange={handleInputChange(setMedicalInsurance)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-medical-insurance-premium" type="text" value={formatNumber(medicalInsurance)} onChange={handleInputChange(setMedicalInsurance)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                     <div>
                                         <label htmlFor="incometax-donations-to-charity" className="block text-sm font-medium text-gray-700">Donations to charity (80G)</label>
-                                        <input id="incometax-donations-to-charity" type="text" value={formatNumber(donations)} onChange={handleInputChange(setDonations)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-donations-to-charity" type="text" value={formatNumber(donations)} onChange={handleInputChange(setDonations)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                     <div>
                                         <label htmlFor="incometax-interest-on-educational-loan" className="block text-sm font-medium text-gray-700">Interest on educational loan (80E)</label>
-                                        <input id="incometax-interest-on-educational-loan" type="text" value={formatNumber(educationLoanInterest)} onChange={handleInputChange(setEducationLoanInterest)} className="w-full p-2 border rounded-lg" />
+                                        <div className="relative">
+                                          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                                          <input id="incometax-interest-on-educational-loan" type="text" value={formatNumber(educationLoanInterest)} onChange={handleInputChange(setEducationLoanInterest)} className="w-full p-2 border rounded-lg pl-8" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

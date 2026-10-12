@@ -102,13 +102,16 @@ const PPFCalculator = () => {
                 <label htmlFor="ppf-yearly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Yearly Investment
                 </label>
-                <input
-                  id="ppf-yearly-investment"
-                  type="text"
-                  value={formatNumber(yearlyInvestment)}
-                  onChange={handleInputChange(setYearlyInvestment)}
-                  className="w-full p-3 border rounded-lg"
-                />
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 select-none text-gray-500">₹</span>
+                  <input
+                    id="ppf-yearly-investment"
+                    type="text"
+                    value={formatNumber(yearlyInvestment)}
+                    onChange={handleInputChange(setYearlyInvestment)}
+                    className="w-full p-3 border rounded-lg pl-8"
+                  />
+                </div>
               </div>
               <div className="mb-4">
                 <label htmlFor="ppf-annual-interest-rate" className="block text-sm font-medium text-gray-700 mb-1">

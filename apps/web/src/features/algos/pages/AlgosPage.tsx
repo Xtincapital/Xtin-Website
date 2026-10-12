@@ -13,6 +13,28 @@ import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 import CouponField from '@/features/coupons/components/CouponField';
 import { isFreeOrder } from '@/features/coupons/lib/api';
 import ApproxPrice from '@/components/ApproxPrice';
+import AmountInput from '@/components/ui/amount-input';
+
+// Price box for a listing: rupees (that is what subscribers are charged), grouped as typed.
+// A hidden field carries the plain number, since the form is read with FormData.
+const ExpectedPriceInput = ({ initial }: { initial?: number | string | null }) => {
+  const [value, setValue] = useState(initial == null ? '' : String(initial));
+  return (
+    <>
+      <AmountInput
+        symbol="₹"
+        indian
+        decimals={0}
+        min={100}
+        required
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+      />
+      <input type="hidden" name="expected_price" value={value} />
+    </>
+  );
+};
 
 const AlgosPage = () => {
   const structuredData = {
@@ -434,67 +456,58 @@ const AlgosPage = () => {
             </div>
           </div>
 
-          {/* Make Your Own Algo Card - Premium Design */}
-          <div className="group relative bg-gradient-to-br from-green-50 via-white to-emerald-50 rounded-2xl p-5 border-2 border-green-100 hover:border-green-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/40 dark:border-emerald-900/40 dark:hover:border-emerald-700/60 dark:hover:shadow-emerald-900/20">
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center border border-green-200 dark:from-emerald-900/60 dark:to-emerald-800/60 dark:border-emerald-700/40">
-                <svg className="w-7 h-7 text-green-600 dark:text-emerald-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Make Your Own Algo Card: a custom-build service, shown as the three steps it really is */}
+          <div className="relative rounded-2xl p-5 border-2 border-green-100 bg-gradient-to-br from-green-50 via-white to-emerald-50 hover:border-green-200 hover:shadow-xl transition-all duration-300 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/40 dark:border-emerald-900/40 dark:hover:border-emerald-700/60">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center border border-green-200 flex-shrink-0 dark:from-emerald-900/60 dark:to-emerald-800/60 dark:border-emerald-700/40">
+                <svg className="w-6 h-6 text-green-600 dark:text-emerald-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <div className="flex-1">
-                <span className="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-2 dark:bg-emerald-900/40 dark:text-emerald-200">Build Custom</span>
-                <h4 className="text-lg font-bold text-gray-900 dark:text-slate-100">Make Your Own Algorithm</h4>
+              <div className="flex-1 min-w-0">
+                <span className="inline-block px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-1.5 dark:bg-emerald-900/40 dark:text-emerald-200">Custom build</span>
+                <h4 className="text-lg font-bold text-gray-900 leading-tight dark:text-slate-100">Have a strategy idea? We'll build it.</h4>
               </div>
             </div>
-            
+
             <p className="text-gray-600 text-sm mb-4 leading-relaxed dark:text-slate-300">
-              Build custom trading strategies tailored to your style with our powerful no-code tools.
+              Tell our algo team what you trade. We turn your rules into a tested, automated algorithm.
             </p>
-            
-            {/* Feature list with better icons */}
-            <div className="grid grid-cols-2 gap-3 mb-5">
-              <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-100 dark:bg-slate-900/70 dark:border-slate-700">
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 dark:bg-blue-900/50">
-                  <svg className="w-4 h-4 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-medium text-gray-700 dark:text-slate-200">Visual Builder</span>
+
+            <ol className="space-y-3 mb-4">
+              {[
+                { title: 'Book a strategy call', body: 'Walk our team through your idea on a 1-on-1 call.' },
+                { title: 'Get a feasibility check and quote', body: 'We tell you what is possible, and what building it costs.' },
+                { title: 'We build, backtest and deploy', body: 'Your rules coded, tested on historical data and set up to run.' },
+              ].map((step, i) => (
+                <li key={step.title} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white">{i + 1}</span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900 dark:text-slate-100">{step.title}</p>
+                    <p className="text-xs text-gray-500 leading-snug dark:text-slate-400">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-green-100 bg-white px-3 py-2.5 mb-3 dark:border-slate-700 dark:bg-slate-900/70">
+              <div>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Strategy call booking fee</p>
+                <p className="text-[11px] text-gray-400 dark:text-slate-500">Build cost is quoted on the call</p>
               </div>
-              <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-100 dark:bg-slate-900/70 dark:border-slate-700">
-                <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 dark:bg-purple-900/50">
-                  <svg className="w-4 h-4 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-medium text-gray-700 dark:text-slate-200">Backtesting</span>
-              </div>
-              <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-100 dark:bg-slate-900/70 dark:border-slate-700">
-                <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0 dark:bg-orange-900/50">
-                  <svg className="w-4 h-4 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-medium text-gray-700 dark:text-slate-200">Real-time</span>
-              </div>
-              <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-gray-100 dark:bg-slate-900/70 dark:border-slate-700">
-                <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 dark:bg-rose-900/50">
-                  <svg className="w-4 h-4 text-red-600 dark:text-rose-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-medium text-gray-700 dark:text-slate-200">Risk Mgmt</span>
+              <div className="text-right">
+                <p className="text-lg font-bold text-gray-900 leading-none dark:text-slate-100">₹49</p>
+                <ApproxPrice inr={49} className="block text-[11px] text-gray-500" />
               </div>
             </div>
-            
+
             <button
               className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2"
               onClick={() => setShowBuildAlgoPaymentModal(true)}
             >
-              <span>Start Building</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              <span>Book a strategy call</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
           </div>
@@ -1766,12 +1779,7 @@ const AlgosPage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Expected Price (INR) *</label>
-                  <input name="expected_price" defaultValue={editingApplication?.expected_price ?? ""} 
-                    type="number" 
-                    min="100" 
-                    required 
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
+                  <ExpectedPriceInput initial={editingApplication?.expected_price} />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Backtesting Results Summary *</label>

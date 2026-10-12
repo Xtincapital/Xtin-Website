@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Bell, BellOff, Check, CheckCheck, Plus, Trash2, TrendingDown, TrendingUp } from "lucide-react";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 import { Button } from "@/components/ui/button";
+import AmountInput from "@/components/ui/amount-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -223,7 +224,7 @@ export default function Alerts() {
             </div>
             <div>
               <Label htmlFor="alert-target">Target price</Label>
-              <Input id="alert-target" type="number" min="0" step="any" value={target} onChange={(e) => setTarget(e.target.value)} placeholder="1500" />
+              <AmountInput id="alert-target" min={0} symbol={isIndian(ticker) ? "₹" : "$"} indian={isIndian(ticker)} value={target} onChange={(e) => setTarget(e.target.value)} placeholder="1500" />
             </div>
             <Button onClick={createAlert} disabled={creating} className="bg-primary text-white hover:bg-primary/90">
               {creating ? "Adding…" : "Add alert"}

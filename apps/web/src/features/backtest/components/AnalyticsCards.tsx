@@ -4,6 +4,7 @@ import { CalendarDays, ChartColumn, DoorOpen } from "lucide-react";
 import { exitReasons, monthlyReturns, pnlHistogram, REASON_LABEL, streaks } from "../lib/analytics";
 import { card, muted } from "../lib/styles";
 import { inr, type BacktestResult } from "../lib/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const MONTHS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -85,6 +86,7 @@ export function MonthlyHeatmap({ result }: { result: BacktestResult }) {
 }
 
 export function PnlDistribution({ result }: { result: BacktestResult }) {
+  useCurrency(); // re-render on currency change
   const buckets = pnlHistogram(result.trades, 14);
   const max = Math.max(1, ...buckets.map((b) => b.count));
   const m = result.metrics;

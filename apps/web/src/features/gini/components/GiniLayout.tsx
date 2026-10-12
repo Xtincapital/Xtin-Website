@@ -43,12 +43,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
-  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
+import { ProIcon } from "@/components/ProMark";
 import GiniSampleBar from "./GiniSampleBar";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
 
@@ -190,9 +190,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                       >
                         <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
                         {!collapsed && <span className="text-sm">{item.name}</span>}
-                        {!collapsed && item.pro && !isPro && planFetched && (
-                          <Lock className="w-3 h-3 ml-auto text-muted-foreground/70" aria-label="Pro feature" />
-                        )}
+                        {!collapsed && item.pro && planFetched && <ProIcon unlocked={isPro} className="w-3.5 h-3.5 ml-auto" />}
                       </Link>
                     );
                   })}

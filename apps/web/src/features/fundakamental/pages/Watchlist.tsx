@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import AmountInput from "@/components/ui/amount-input";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -505,10 +506,10 @@ export default function Watchlist() {
 
                   <div>
                     <Label htmlFor="targetPrice">Target Price (Optional)</Label>
-                    <Input
+                    <AmountInput
                       id="targetPrice"
-                      type="number"
-                      step="0.01"
+                      symbol={currencySymbol(newItemTicker)}
+                      indian={isIndianTicker(newItemTicker)}
                       value={newItemTargetPrice}
                       onChange={(e) => setNewItemTargetPrice(e.target.value)}
                       placeholder="150.00"
@@ -666,7 +667,7 @@ export default function Watchlist() {
           <div className="space-y-4">
             <div>
               <Label htmlFor="edit-target">Target Price</Label>
-              <Input id="edit-target" type="number" step="0.01" min="0" value={editTargetPrice} onChange={(e) => setEditTargetPrice(e.target.value)} />
+              <AmountInput id="edit-target" min={0} symbol={currencySymbol(editItem?.ticker || "")} indian={isIndianTicker(editItem?.ticker || "")} value={editTargetPrice} onChange={(e) => setEditTargetPrice(e.target.value)} />
             </div>
             {editTargetPrice && (
               <div>

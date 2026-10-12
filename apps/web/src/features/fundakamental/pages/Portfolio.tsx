@@ -37,7 +37,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 import { getRates, convert } from "@/lib/region";
-import type { Currency } from "../lib/currency";
+import { currencySymbol, type Currency } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -73,6 +73,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
+import AmountInput from "@/components/ui/amount-input";
 import { Label } from "@/components/ui/label";
 import ApproxAmount from "@/components/ApproxAmount";
 import {
@@ -191,6 +192,16 @@ const Portfolio = () => {
     ? (selectedPortfolio.currency === "USD" ? "USD" : "INR")
     : (region === "IN" ? "INR" : "USD");
   const displayCurrency = currency as Currency;
+
+  // The currency a price typed into the add-holding form is in: a live-priced
+  // stock or gold fund in its own market's currency, anything else in the
+  // portfolio's currency. Shown as the symbol inside the price boxes.
+  const formCurrency: Currency =
+    form.asset_type === "stock" ? tickerCurrency(form.ticker || "")
+    : form.asset_type === "gold" && form.gold_tracker !== "manual" ? tickerCurrency(form.gold_tracker)
+    : displayCurrency;
+  const formSym = currencySymbol(formCurrency);
+  const formIndian = formCurrency === "INR";
 
   // Warm live FX rates once so mixed-currency holdings convert into the
   // portfolio's display currency; bump a tick to re-render when they arrive.
@@ -593,13 +604,13 @@ const Portfolio = () => {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="qty">Shares</Label>
-                          <Input id="qty" type="number" step="any" placeholder="10"
+                          <AmountInput id="qty" decimals={6} indian={formIndian} min={0} placeholder="10"
                             value={form.quantity}
                             onChange={(e) => setForm({ ...form, quantity: e.target.value })} />
                         </div>
                         <div>
                           <Label htmlFor="buy">Buy price / share</Label>
-                          <Input id="buy" type="number" step="any" placeholder="2450"
+                          <AmountInput id="buy" symbol={formSym} indian={formIndian} min={0} placeholder="2450"
                             value={form.buy_price}
                             onChange={(e) => setForm({ ...form, buy_price: e.target.value })} />
                         </div>
@@ -627,13 +638,13 @@ const Portfolio = () => {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="gqty">{form.gold_tracker === "manual" ? "Grams / units" : "Units"}</Label>
-                          <Input id="gqty" type="number" step="any" placeholder="10"
+                          <AmountInput id="gqty" decimals={6} indian={formIndian} min={0} placeholder="10"
                             value={form.quantity}
                             onChange={(e) => setForm({ ...form, quantity: e.target.value })} />
                         </div>
                         <div>
                           <Label htmlFor="gbuy">Buy price / unit</Label>
-                          <Input id="gbuy" type="number" step="any" placeholder="6500"
+                          <AmountInput id="gbuy" symbol={formSym} indian={formIndian} min={0} placeholder="6500"
                             value={form.buy_price}
                             onChange={(e) => setForm({ ...form, buy_price: e.target.value })} />
                         </div>
@@ -641,7 +652,7 @@ const Portfolio = () => {
                       {form.gold_tracker === "manual" && (
                         <div>
                           <Label htmlFor="gnow">Current price / unit</Label>
-                          <Input id="gnow" type="number" step="any" placeholder="7200"
+                          <AmountInput id="gnow" symbol={formSym} indian={formIndian} min={0} placeholder="7200"
                             value={form.manual_price}
                             onChange={(e) => setForm({ ...form, manual_price: e.target.value })} />
                           <p className="text-xs text-muted-foreground mt-1">Update anytime by re-adding with the latest price.</p>
@@ -661,7 +672,7 @@ const Portfolio = () => {
                       </div>
                       <div>
                         <Label htmlFor="camt">Amount</Label>
-                        <Input id="camt" type="number" step="any" placeholder="150000"
+                        <AmountInput id="camt" symbol={formSym} indian={formIndian} min={0} placeholder="150000"
                           value={form.quantity}
                           onChange={(e) => setForm({ ...form, quantity: e.target.value })} />
                       </div>
@@ -680,20 +691,20 @@ const Portfolio = () => {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="oqty">Units</Label>
-                          <Input id="oqty" type="number" step="any" placeholder="1"
+                          <AmountInput id="oqty" decimals={6} indian={formIndian} min={0} placeholder="1"
                             value={form.quantity}
                             onChange={(e) => setForm({ ...form, quantity: e.target.value })} />
                         </div>
                         <div>
                           <Label htmlFor="obuy">Buy price / unit</Label>
-                          <Input id="obuy" type="number" step="any" placeholder="500000"
+                          <AmountInput id="obuy" symbol={formSym} indian={formIndian} min={0} placeholder="500000"
                             value={form.buy_price}
                             onChange={(e) => setForm({ ...form, buy_price: e.target.value })} />
                         </div>
                       </div>
                       <div>
                         <Label htmlFor="onow">Current value / unit</Label>
-                        <Input id="onow" type="number" step="any" placeholder="560000"
+                        <AmountInput id="onow" symbol={formSym} indian={formIndian} min={0} placeholder="560000"
                           value={form.manual_price}
                           onChange={(e) => setForm({ ...form, manual_price: e.target.value })} />
                         <p className="text-xs text-muted-foreground mt-1">No live feed for this one — update it whenever you like.</p>
