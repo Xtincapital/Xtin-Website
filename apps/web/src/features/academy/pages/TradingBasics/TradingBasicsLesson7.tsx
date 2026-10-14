@@ -145,7 +145,7 @@ const AssessmentQuestion = ({ number, question, yesText, noText, yesScore, noSco
           <span className="text-indigo-600 font-bold text-sm">{number}</span>
         </div>
         <div className="flex-1">
-          <h4 className="font-medium text-gray-900 mb-3">{question}</h4>
+          <h4 className="font-bold text-gray-900 mb-3">{question}</h4>
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => onAnswer(yesScore)}
@@ -361,7 +361,7 @@ const TradingBasicsLesson7 = () => {
                 Final Assessment
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-200 rounded-xl shadow-sm">
                 <Icons.SelfAssess className="w-7 h-7 text-indigo-600" />
               </span>
@@ -436,7 +436,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* Self Assessment Quiz */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2 tracking-[-0.025em]">
               <Icons.Checklist className="w-6 h-6 text-indigo-600" />
               <span>Self-Assessment: Are You Ready?</span>
             </h2>
@@ -740,7 +740,7 @@ const TradingBasicsLesson7 = () => {
                 <FaTrophy className="w-8 h-8 text-yellow-300" />
               </div>
             </div>
-            <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">🎉 Module {getModuleInfo("trading-basics")?.number} Complete!</h2>
+            <h2 className="text-2xl font-bold mb-2 tracking-[-0.015em]">🎉 Module {getModuleInfo("trading-basics")?.number} Complete!</h2>
             <p className="text-indigo-100 mb-4">
               You've finished Trading Basics. You now understand what trading really involves — 
               the psychology, the risks, the statistics, and most importantly, whether it's right for you.

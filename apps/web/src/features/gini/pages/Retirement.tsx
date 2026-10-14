@@ -242,7 +242,7 @@ export default function Retirement() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
                 <Landmark className="h-4 w-4 text-brand" />
                 Retirement Planning Inputs
               </CardTitle>
@@ -355,7 +355,7 @@ export default function Retirement() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Retirement Analysis</CardTitle>
+                <CardTitle className="text-lg">Retirement Analysis</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

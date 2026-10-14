@@ -376,7 +376,7 @@ const Summary = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Trading Type Distribution
                 <InfoTip title="Trading Type Distribution">
                   <p>How your trades split between styles (scalping, intraday, swing, ...). Click a slice to list those trades.</p>
@@ -402,7 +402,7 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Market Distribution
                 <InfoTip title="Market Distribution">
                   <p>How your trades split between markets (equity, options, forex, ...). Click a slice to list those trades.</p>
@@ -428,7 +428,7 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 P&L by Trading Type
                 <InfoTip title="P&L by Trading Type">
                   <p>Total profit or loss for each trading style. It shows which style pays you. Click a bar to list its trades.</p>
@@ -451,7 +451,7 @@ const Summary = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 P&L by Market
                 <InfoTip title="P&L by Market">
                   <p>Total profit or loss for each market. Click a bar to list its trades.</p>

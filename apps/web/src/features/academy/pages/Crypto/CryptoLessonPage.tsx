@@ -90,7 +90,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
                 Risk Awareness
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-yellow-700" />
               </span>
@@ -117,7 +117,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">
                     {paragraph}

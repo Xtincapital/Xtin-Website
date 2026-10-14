@@ -335,7 +335,7 @@ export function JBarChart({ data, mode = "signed", formatAxis, formatValue, max,
           {reference && (
             <g>
               <line x1={pl} x2={W - pr} y1={y(reference.value)} y2={y(reference.value)} stroke={GOLD} strokeDasharray="5 4" />
-              <text x={W - pr} y={y(reference.value) - 7} textAnchor="end" fontSize={11} fontWeight={600} fill={GOLD}>
+              <text x={W - pr} y={y(reference.value) - 7} textAnchor="end" fontSize={11} fontWeight={700} fill={GOLD}>
                 {reference.label}
               </text>
             </g>
@@ -358,7 +358,7 @@ export function JBarChart({ data, mode = "signed", formatAxis, formatValue, max,
                   y={d.value >= 0 ? y(d.value) - 8 : y(d.value) + 16}
                   textAnchor="middle"
                   fontSize={11}
-                  fontWeight={600}
+                  fontWeight={700}
                   fill={INK}
                   className="tabular-nums"
                   style={{ opacity: on ? 1 : 0, transition: "opacity .2s" }}
@@ -479,7 +479,7 @@ export function JDonut({ data, centerLabel, colors = chartColors.series, legendE
             y={c - 2}
             textAnchor="middle"
             fontSize={centerText.length > 8 ? 17 : centerText.length > 6 ? 21 : 26}
-            fontWeight={600}
+            fontWeight={700}
             fill={INK}
             className="tabular-nums"
             style={{ letterSpacing: "-0.02em" }}

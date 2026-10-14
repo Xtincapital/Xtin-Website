@@ -54,7 +54,7 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
               <FaCrown className="text-white text-2xl" />
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-3 tracking-[-0.025em]">
               {remaining} more lesson{remaining === 1 ? '' : 's'} are waiting in this course
             </h1>
             <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-6">

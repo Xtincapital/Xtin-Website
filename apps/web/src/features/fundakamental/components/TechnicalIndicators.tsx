@@ -175,7 +175,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <h4 className="text-base font-medium text-brand mb-2 flex items-center gap-1">
+            <h4 className="text-base font-bold text-brand mb-2 flex items-center gap-1">
               <TrendingUp className="h-4 w-4" /> Bullish readings ({signals.buy_signals.length})
             </h4>
             <ul className="space-y-1">
@@ -186,7 +186,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
             </ul>
           </div>
           <div>
-            <h4 className="text-base font-medium text-red-600 mb-2 flex items-center gap-1">
+            <h4 className="text-base font-bold text-red-600 mb-2 flex items-center gap-1">
               <TrendingDown className="h-4 w-4" /> Bearish readings ({signals.sell_signals.length})
             </h4>
             <ul className="space-y-1">

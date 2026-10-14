@@ -234,7 +234,7 @@ const Monthly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Type Distribution
                 <InfoTip title="Type Distribution">
                   <p>How this month's trades split between trading styles. Click a slice to list those trades.</p>
@@ -245,7 +245,7 @@ const Monthly = () => {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Market Distribution
                 <InfoTip title="Market Distribution">
                   <p>How this month's trades split between markets. Click a slice to list those trades.</p>

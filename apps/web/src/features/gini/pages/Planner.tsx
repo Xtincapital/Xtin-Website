@@ -225,7 +225,7 @@ export default function Planner() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-brand" />
                 Planning Inputs
               </CardTitle>
@@ -289,7 +289,7 @@ export default function Planner() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle className="text-base">Wealth Projection</CardTitle>
+                <CardTitle className="text-lg">Wealth Projection</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -362,7 +362,7 @@ export default function Planner() {
                               value: g.name,
                               position: i % 2 === 0 ? "top" : "bottom",
                               fontSize: 11,
-                              fontWeight: 600,
+                              fontWeight: 700,
                               fill: "hsl(var(--foreground))",
                             }}
                           />
@@ -428,7 +428,7 @@ export default function Planner() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">What-If Scenarios</CardTitle>
+              <CardTitle className="text-lg">What-If Scenarios</CardTitle>
               <p className="text-sm text-muted-foreground">Adjust the sliders to see how changes impact your projections</p>
             </CardHeader>
             <CardContent className="space-y-6">

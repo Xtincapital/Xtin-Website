@@ -249,7 +249,7 @@ const ModuleVideoPage = () => {
             <span className="inline-block mb-2 px-2.5 py-1 bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-bold rounded-full uppercase tracking-wider">
               Module {course.number} · Lesson 1 free
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">{course.name}</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">{course.name}</h1>
             <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">{course.description}</p>
           </div>
           <div className="flex items-center gap-2">

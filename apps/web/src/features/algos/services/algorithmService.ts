@@ -102,7 +102,7 @@ class AlgorithmService {
         ...prefill,
       },
       theme: {
-        color: '#12805A',
+        color: '#16A34A',
       },
       handler,
       modal: {

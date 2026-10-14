@@ -30,7 +30,7 @@ function WinRing({ rate }: { rate: number }) {
         <circle cx="40" cy="40" r={r} fill="none" strokeWidth="8" strokeLinecap="round" stroke="url(#bt-ring)" strokeDasharray={`${(Math.min(100, rate) / 100) * c} ${c}`} />
         <defs>
           <linearGradient id="bt-ring" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3CCB97" />
+            <stop offset="0%" stopColor="#16A34A" />
             <stop offset="100%" stopColor="#2A8C9A" />
           </linearGradient>
         </defs>

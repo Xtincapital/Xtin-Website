@@ -64,7 +64,7 @@ const WhatIsTechnicalAnalysisSVG = () => (
     <circle cx="390" cy="105" r="4" fill="#5A77AA"/>
     <text x="400" y="108" fontSize="9" fill="#373A41">Past price movements</text>
     
-    <circle cx="390" cy="130" r="4" fill="#12805A"/>
+    <circle cx="390" cy="130" r="4" fill="#16A34A"/>
     <text x="400" y="133" fontSize="9" fill="#373A41">Volume patterns</text>
     
     <circle cx="390" cy="155" r="4" fill="#8F6FC4"/>
@@ -97,23 +97,23 @@ const TACapabilitiesSVG = () => (
     <text x="280" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">What Technical Analysis Can & Cannot Do</text>
     
     {/* Left Panel - What TA Helps With */}
-    <rect x="20" y="50" width="250" height="235" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="145" y="78" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ TA Helps With</text>
+    <rect x="20" y="50" width="250" height="235" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="145" y="78" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ TA Helps With</text>
     
-    <rect x="35" y="95" width="220" height="40" fill="#ffffff" rx="6" stroke="#EEF9F4" strokeWidth="1"/>
-    <text x="145" y="112" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Understanding Market Structure</text>
-    <text x="145" y="126" textAnchor="middle" fontSize="8" fill="#12805A">Is the market trending or ranging?</text>
+    <rect x="35" y="95" width="220" height="40" fill="#ffffff" rx="6" stroke="#F0FDF4" strokeWidth="1"/>
+    <text x="145" y="112" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Understanding Market Structure</text>
+    <text x="145" y="126" textAnchor="middle" fontSize="8" fill="#16A34A">Is the market trending or ranging?</text>
     
-    <rect x="35" y="145" width="220" height="40" fill="#ffffff" rx="6" stroke="#EEF9F4" strokeWidth="1"/>
-    <text x="145" y="162" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Identifying Key Price Levels</text>
-    <text x="145" y="176" textAnchor="middle" fontSize="8" fill="#12805A">Where has price reacted before?</text>
+    <rect x="35" y="145" width="220" height="40" fill="#ffffff" rx="6" stroke="#F0FDF4" strokeWidth="1"/>
+    <text x="145" y="162" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Identifying Key Price Levels</text>
+    <text x="145" y="176" textAnchor="middle" fontSize="8" fill="#16A34A">Where has price reacted before?</text>
     
-    <rect x="35" y="195" width="220" height="40" fill="#ffffff" rx="6" stroke="#EEF9F4" strokeWidth="1"/>
-    <text x="145" y="212" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Providing Context for Decisions</text>
-    <text x="145" y="226" textAnchor="middle" fontSize="8" fill="#12805A">What's the current market environment?</text>
+    <rect x="35" y="195" width="220" height="40" fill="#ffffff" rx="6" stroke="#F0FDF4" strokeWidth="1"/>
+    <text x="145" y="212" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Providing Context for Decisions</text>
+    <text x="145" y="226" textAnchor="middle" fontSize="8" fill="#16A34A">What's the current market environment?</text>
     
-    <rect x="35" y="245" width="220" height="32" fill="#ffffff" rx="6" stroke="#EEF9F4" strokeWidth="1"/>
-    <text x="145" y="265" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Timing Entry & Exit Points</text>
+    <rect x="35" y="245" width="220" height="32" fill="#ffffff" rx="6" stroke="#F0FDF4" strokeWidth="1"/>
+    <text x="145" y="265" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Timing Entry & Exit Points</text>
     
     {/* Right Panel - What TA Cannot Do */}
     <rect x="290" y="50" width="250" height="235" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
@@ -162,16 +162,16 @@ const ChartsAsToolsSVG = () => (
     <text x="280" y="133" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#717680">VS</text>
     
     {/* Right - Right Mindset */}
-    <rect x="295" y="50" width="240" height="155" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="415" y="75" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Right Mindset</text>
+    <rect x="295" y="50" width="240" height="155" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="415" y="75" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">✓ Right Mindset</text>
     
     {/* Tool icon */}
-    <circle cx="415" cy="120" r="30" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+    <circle cx="415" cy="120" r="30" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
     <text x="415" y="125" textAnchor="middle" fontSize="20">🧰</text>
     
-    <text x="415" y="165" textAnchor="middle" fontSize="10" fill="#12805A">"This pattern shows buyers</text>
-    <text x="415" y="180" textAnchor="middle" fontSize="10" fill="#12805A">have been active at this level."</text>
-    <text x="415" y="198" textAnchor="middle" fontSize="9" fill="#12805A" fontStyle="italic">Using charts for context and structure</text>
+    <text x="415" y="165" textAnchor="middle" fontSize="10" fill="#16A34A">"This pattern shows buyers</text>
+    <text x="415" y="180" textAnchor="middle" fontSize="10" fill="#16A34A">have been active at this level."</text>
+    <text x="415" y="198" textAnchor="middle" fontSize="9" fill="#16A34A" fontStyle="italic">Using charts for context and structure</text>
   </svg>
 );
 
@@ -185,37 +185,37 @@ const AudienceSVG = () => (
     <text x="280" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Is This Module Right for You?</text>
     
     {/* Left Panel - Good Fit */}
-    <rect x="20" y="50" width="250" height="215" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="145" y="78" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ This Module Is For You If...</text>
+    <rect x="20" y="50" width="250" height="215" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="145" y="78" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ This Module Is For You If...</text>
     
     <g transform="translate(35, 95)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You've completed Trading Basics</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You've completed Trading Basics</text>
     </g>
     
     <g transform="translate(35, 120)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You learn better with visuals</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You learn better with visuals</text>
     </g>
     
     <g transform="translate(35, 145)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You want to understand charts</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You want to understand charts</text>
     </g>
     
     <g transform="translate(35, 170)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You're curious but cautious</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You're curious but cautious</text>
     </g>
     
     <g transform="translate(35, 195)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You prefer logic over hype</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You prefer logic over hype</text>
     </g>
     
     <g transform="translate(35, 220)">
-      <circle cx="8" cy="8" r="5" fill="#12805A"/>
-      <text x="20" y="12" fontSize="10" fill="#12805A">You value understanding over shortcuts</text>
+      <circle cx="8" cy="8" r="5" fill="#16A34A"/>
+      <text x="20" y="12" fontSize="10" fill="#16A34A">You value understanding over shortcuts</text>
     </g>
     
     {/* Right Panel - Not a Good Fit */}
@@ -267,14 +267,14 @@ const LearningOutcomesSVG = () => (
     <defs>
       <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stopColor="#CDAA5F"/>
-        <stop offset="100%" stopColor="#12805A"/>
+        <stop offset="100%" stopColor="#16A34A"/>
       </linearGradient>
     </defs>
     
     {/* Progress arrow */}
     <rect x="40" y="55" width="480" height="8" fill="url(#progressGradient)" rx="4"/>
-    <polygon points="520,59 535,59 527,50 520,59" fill="#12805A"/>
-    <polygon points="520,59 535,59 527,68 520,59" fill="#12805A"/>
+    <polygon points="520,59 535,59 527,50 520,59" fill="#16A34A"/>
+    <polygon points="520,59 535,59 527,68 520,59" fill="#16A34A"/>
     
     {/* Before state */}
     <rect x="30" y="80" width="160" height="145" fill="#F6ECCE" rx="8" stroke="#CDAA5F" strokeWidth="2"/>
@@ -286,13 +286,13 @@ const LearningOutcomesSVG = () => (
     <text x="110" y="195" textAnchor="middle" fontSize="9" fill="#654B26">"Are indicators magic?"</text>
     
     {/* After state */}
-    <rect x="370" y="80" width="160" height="145" fill="#EEF9F4" rx="8" stroke="#12805A" strokeWidth="2"/>
-    <text x="450" y="105" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">After</text>
+    <rect x="370" y="80" width="160" height="145" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="2"/>
+    <text x="450" y="105" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">After</text>
     <text x="450" y="125" textAnchor="middle" fontSize="24">😌</text>
-    <text x="450" y="150" textAnchor="middle" fontSize="9" fill="#12805A">"I can read basic price action"</text>
-    <text x="450" y="165" textAnchor="middle" fontSize="9" fill="#12805A">"I understand market structure"</text>
-    <text x="450" y="180" textAnchor="middle" fontSize="9" fill="#12805A">"I know what indicators can't do"</text>
-    <text x="450" y="195" textAnchor="middle" fontSize="9" fill="#12805A">"Charts give context, not signals"</text>
+    <text x="450" y="150" textAnchor="middle" fontSize="9" fill="#16A34A">"I can read basic price action"</text>
+    <text x="450" y="165" textAnchor="middle" fontSize="9" fill="#16A34A">"I understand market structure"</text>
+    <text x="450" y="180" textAnchor="middle" fontSize="9" fill="#16A34A">"I know what indicators can't do"</text>
+    <text x="450" y="195" textAnchor="middle" fontSize="9" fill="#16A34A">"Charts give context, not signals"</text>
     
     {/* Center milestone icons */}
     <circle cx="200" cy="130" r="15" fill="#F6ECCE" stroke="#CDAA5F" strokeWidth="2"/>
@@ -301,7 +301,7 @@ const LearningOutcomesSVG = () => (
     <circle cx="280" cy="130" r="15" fill="#E0E7F1" stroke="#7C95C4" strokeWidth="2"/>
     <text x="280" y="135" textAnchor="middle" fontSize="12">📊</text>
     
-    <circle cx="360" cy="130" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="360" cy="130" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
     <text x="360" y="135" textAnchor="middle" fontSize="12">🎯</text>
     
     {/* Labels below icons */}
@@ -355,7 +355,7 @@ const TechnicalAnalysisOverview = () => {
                 Visual Foundations
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-2 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-2 tracking-[-0.025em]">
               Technical Analysis
             </h1>
             <p className="text-xl text-gray-600 mt-2">Visual Foundations for Beginners</p>
@@ -386,7 +386,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Section 1: What is Technical Analysis */}
         <section className="bg-white rounded-2xl p-6 shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">What is Technical Analysis?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">What is Technical Analysis?</h2>
           <div className="prose max-w-none text-gray-700">
             <p className="text-lg leading-relaxed mb-4">
               <strong>Technical Analysis (TA)</strong> is the study of past price movements and trading 
@@ -413,7 +413,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Section 2: What TA Helps With */}
         <section className="bg-white rounded-2xl p-6 shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">What Technical Analysis Helps With</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">What Technical Analysis Helps With</h2>
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
               When used correctly, technical analysis provides <strong>structure and context</strong> 
@@ -458,7 +458,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Section 3: What TA Cannot Guarantee */}
         <section className="bg-white rounded-2xl p-6 shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">What Technical Analysis Cannot Guarantee</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">What Technical Analysis Cannot Guarantee</h2>
           
           <div className="bg-amber-50 rounded-xl p-5 border border-amber-200 mb-6">
             <p className="text-amber-800 font-medium text-lg">
@@ -518,7 +518,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Section 4: Who This Module Is For */}
         <section className="bg-white rounded-2xl p-6 shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">Who This Module Is For (And Who It's Not For)</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">Who This Module Is For (And Who It's Not For)</h2>
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
               This module is designed for learners who have completed the Trading Basics module and 
@@ -540,7 +540,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Section 5: What You'll Understand */}
         <section className="bg-white rounded-2xl p-6 shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">What You'll Understand After This Module</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">What You'll Understand After This Module</h2>
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
               By the end of this module, you won't be a trading expert—but you'll have a solid 
@@ -591,7 +591,7 @@ const TechnicalAnalysisOverview = () => {
 
         {/* Lessons List */}
         <section className="bg-white rounded-2xl p-6 shadow-md">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Lessons</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Lessons</h2>
           <div className="space-y-3">
             {lessons.map((lesson) => (
               lesson.available ? (

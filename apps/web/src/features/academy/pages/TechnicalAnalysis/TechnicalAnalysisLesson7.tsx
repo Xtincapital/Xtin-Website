@@ -77,7 +77,7 @@ const OverloadedVsCleanSVG = () => (
       {/* Chaotic overlapping lines */}
       <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-85 20 L-40 15 L0 5 L40 -5 L85 -15" fill="none" stroke="#5A77AA" strokeWidth="1.5"/>
-      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
+      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#16A34A" strokeWidth="1.5"/>
       <path d="M-85 -20 L-50 -30 L-10 -15 L30 -35 L70 -20 L85 -30" fill="none" stroke="#D2754C" strokeWidth="1.5"/>
       <path d="M-85 -10 L-40 0 L10 -20 L50 -5 L85 -25" fill="none" stroke="#8F6FC4" strokeWidth="1.5"/>
       <path d="M-85 50 L-30 35 L30 50 L85 30" fill="none" stroke="#E04848" strokeWidth="1.5" strokeDasharray="4 2"/>
@@ -93,21 +93,21 @@ const OverloadedVsCleanSVG = () => (
     <text x="167" y="302" textAnchor="middle" fontSize="9" fill="#842428">Overwhelmed and confused</text>
     
     {/* Right - Clean */}
-    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Clean Chart</text>
+    <rect x="335" y="70" width="275" height="240" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Clean Chart</text>
     
     <g transform="translate(472, 185)">
-      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Clean price only */}
       <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#717680" strokeWidth="2.5"/>
       
       {/* One simple moving average */}
-      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#12805A" strokeWidth="2"/>
+      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#16A34A" strokeWidth="2"/>
     </g>
     
-    <text x="472" y="288" textAnchor="middle" fontSize="9" fill="#12805A">"Price is trending up"</text>
-    <text x="472" y="302" textAnchor="middle" fontSize="9" fill="#12805A">Clear and focused</text>
+    <text x="472" y="288" textAnchor="middle" fontSize="9" fill="#16A34A">"Price is trending up"</text>
+    <text x="472" y="302" textAnchor="middle" fontSize="9" fill="#16A34A">Clear and focused</text>
   </svg>
 );
 
@@ -145,11 +145,11 @@ const PredictionVsObservationSVG = () => (
     <text x="167" y="269" textAnchor="middle" fontSize="9" fill="#842428">Overconfident, often wrong</text>
     
     {/* Right - Observation mindset */}
-    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Observation Mindset</text>
+    <rect x="335" y="70" width="275" height="220" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Observation Mindset</text>
     
     <g transform="translate(472, 170)">
-      <rect x="-100" y="-50" width="200" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <rect x="-100" y="-50" width="200" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
       
       {/* Price chart */}
       <path d="M-80 30 L-40 10 L0 20 L40 -10 L70 0" fill="none" stroke="#717680" strokeWidth="2"/>
@@ -158,12 +158,12 @@ const PredictionVsObservationSVG = () => (
       <text x="85" y="5" fontSize="14" fill="#717680">?</text>
       
       {/* Eye icon */}
-      <ellipse cx="-70" cy="-30" rx="14" ry="10" fill="#EEF9F4" stroke="#12805A" strokeWidth="1.5"/>
-      <circle cx="-70" cy="-30" r="4" fill="#12805A"/>
+      <ellipse cx="-70" cy="-30" rx="14" ry="10" fill="#F0FDF4" stroke="#16A34A" strokeWidth="1.5"/>
+      <circle cx="-70" cy="-30" r="4" fill="#16A34A"/>
     </g>
     
-    <text x="472" y="255" textAnchor="middle" fontSize="9" fill="#12805A">"Price is currently rising"</text>
-    <text x="472" y="269" textAnchor="middle" fontSize="9" fill="#12805A">Humble, context-aware</text>
+    <text x="472" y="255" textAnchor="middle" fontSize="9" fill="#16A34A">"Price is currently rising"</text>
+    <text x="472" y="269" textAnchor="middle" fontSize="9" fill="#16A34A">Humble, context-aware</text>
   </svg>
 );
 
@@ -186,17 +186,17 @@ const HigherTimeframeSVG = () => (
       <text x="-90" y="-20" fontSize="7" fill="#C7363B">5-min chart</text>
       
       {/* Short term uptrend */}
-      <path d="M-80 25 L-50 15 L-20 20 L10 5 L40 10 L70 -5 L85 -15" fill="none" stroke="#12805A" strokeWidth="2"/>
-      <text x="0" y="-20" textAnchor="middle" fontSize="8" fill="#12805A">"Strong uptrend!"</text>
+      <path d="M-80 25 L-50 15 L-20 20 L10 5 L40 10 L70 -5 L85 -15" fill="none" stroke="#16A34A" strokeWidth="2"/>
+      <text x="0" y="-20" textAnchor="middle" fontSize="8" fill="#16A34A">"Strong uptrend!"</text>
     </g>
     
     {/* Higher timeframe context - Correct */}
-    <rect x="335" y="70" width="275" height="140" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ With Higher Timeframe Context</text>
+    <rect x="335" y="70" width="275" height="140" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">✓ With Higher Timeframe Context</text>
     
     <g transform="translate(472, 145)">
-      <rect x="-100" y="-35" width="200" height="70" fill="#ffffff" rx="6" stroke="#ABE5CC" strokeWidth="1"/>
-      <text x="-90" y="-20" fontSize="7" fill="#12805A">Daily chart</text>
+      <rect x="-100" y="-35" width="200" height="70" fill="#ffffff" rx="6" stroke="#BBF7D0" strokeWidth="1"/>
+      <text x="-90" y="-20" fontSize="7" fill="#16A34A">Daily chart</text>
       
       {/* Long term downtrend with small bounce */}
       <path d="M-80 -20 L-50 -10 L-20 5 L10 15 L40 25 L70 20 L85 30" fill="none" stroke="#E04848" strokeWidth="2"/>
@@ -217,7 +217,7 @@ const HigherTimeframeSVG = () => (
       <path d="M-160 -5 L-120 5 L-80 15 L-40 10 L0 20 L40 15 L80 25 L120 20 L145 30" fill="none" stroke="#E04848" strokeWidth="2"/>
       
       {/* Small uptick at end */}
-      <path d="M120 20 L145 30 L155 25" fill="none" stroke="#12805A" strokeWidth="2"/>
+      <path d="M120 20 L145 30 L155 25" fill="none" stroke="#16A34A" strokeWidth="2"/>
       
       <text x="0" y="-35" textAnchor="middle" fontSize="9" fill="#717680">Short-term rise within a larger decline</text>
     </g>
@@ -250,7 +250,7 @@ const TooManyLinesSVG = () => (
       <line x1="-90" y1="-50" x2="90" y2="-50" stroke="#E04848" strokeWidth="1"/>
       <line x1="-90" y1="-35" x2="90" y2="-35" stroke="#D2754C" strokeWidth="1"/>
       <line x1="-90" y1="-20" x2="90" y2="-20" stroke="#B8923F" strokeWidth="1"/>
-      <line x1="-90" y1="-5" x2="90" y2="-5" stroke="#12805A" strokeWidth="1"/>
+      <line x1="-90" y1="-5" x2="90" y2="-5" stroke="#16A34A" strokeWidth="1"/>
       <line x1="-90" y1="10" x2="90" y2="10" stroke="#5A77AA" strokeWidth="1"/>
       <line x1="-90" y1="25" x2="90" y2="25" stroke="#8F6FC4" strokeWidth="1"/>
       <line x1="-90" y1="40" x2="90" y2="40" stroke="#8F6FC4" strokeWidth="1"/>
@@ -264,11 +264,11 @@ const TooManyLinesSVG = () => (
     <text x="167" y="282" textAnchor="middle" fontSize="9" fill="#842428">Analysis paralysis</text>
     
     {/* Right - Key levels only */}
-    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Key Levels Only</text>
+    <rect x="335" y="70" width="275" height="220" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Key Levels Only</text>
     
     <g transform="translate(472, 180)">
-      <rect x="-105" y="-65" width="210" height="130" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-105" y="-65" width="210" height="130" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Price */}
       <path d="M-85 20 L-50 0 L-20 15 L10 -10 L40 5 L70 -20 L85 -10" fill="none" stroke="#717680" strokeWidth="2"/>
@@ -277,12 +277,12 @@ const TooManyLinesSVG = () => (
       <line x1="-90" y1="-25" x2="90" y2="-25" stroke="#E04848" strokeWidth="1.5"/>
       <text x="95" y="-22" fontSize="7" fill="#E04848">Resistance</text>
       
-      <line x1="-90" y1="25" x2="90" y2="25" stroke="#12805A" strokeWidth="1.5"/>
-      <text x="95" y="28" fontSize="7" fill="#12805A">Support</text>
+      <line x1="-90" y1="25" x2="90" y2="25" stroke="#16A34A" strokeWidth="1.5"/>
+      <text x="95" y="28" fontSize="7" fill="#16A34A">Support</text>
     </g>
     
-    <text x="472" y="268" textAnchor="middle" fontSize="9" fill="#12805A">"Two key zones to watch"</text>
-    <text x="472" y="282" textAnchor="middle" fontSize="9" fill="#12805A">Focused and actionable</text>
+    <text x="472" y="268" textAnchor="middle" fontSize="9" fill="#16A34A">"Two key zones to watch"</text>
+    <text x="472" y="282" textAnchor="middle" fontSize="9" fill="#16A34A">Focused and actionable</text>
   </svg>
 );
 
@@ -330,34 +330,34 @@ const ChangingToolsSVG = () => (
     <text x="167" y="250" textAnchor="middle" fontSize="9" fill="#842428">"This one doesn't work, try another"</text>
     
     {/* Right - Consistent approach */}
-    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Consistent Approach</text>
+    <rect x="335" y="70" width="275" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Consistent Approach</text>
     
     <g transform="translate(472, 170)">
       {/* Timeline with same tool */}
-      <line x1="-100" y1="0" x2="100" y2="0" stroke="#3CCB97" strokeWidth="2"/>
+      <line x1="-100" y1="0" x2="100" y2="0" stroke="#16A34A" strokeWidth="2"/>
       
       {/* All weeks same tool */}
-      <circle cx="-75" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-      <text x="-75" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <circle cx="-75" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+      <text x="-75" y="4" textAnchor="middle" fontSize="8" fill="#16A34A">MA</text>
       <text x="-75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 1</text>
       
-      <circle cx="-25" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-      <text x="-25" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <circle cx="-25" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+      <text x="-25" y="4" textAnchor="middle" fontSize="8" fill="#16A34A">MA</text>
       <text x="-25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 2</text>
       
-      <circle cx="25" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-      <text x="25" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <circle cx="25" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+      <text x="25" y="4" textAnchor="middle" fontSize="8" fill="#16A34A">MA</text>
       <text x="25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 3</text>
       
-      <circle cx="75" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-      <text x="75" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <circle cx="75" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+      <text x="75" y="4" textAnchor="middle" fontSize="8" fill="#16A34A">MA</text>
       <text x="75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 4</text>
       
-      <text x="0" y="45" textAnchor="middle" fontSize="8" fill="#12805A">→ Develops real understanding</text>
+      <text x="0" y="45" textAnchor="middle" fontSize="8" fill="#16A34A">→ Develops real understanding</text>
     </g>
     
-    <text x="472" y="250" textAnchor="middle" fontSize="9" fill="#12805A">"I'll learn this tool deeply first"</text>
+    <text x="472" y="250" textAnchor="middle" fontSize="9" fill="#16A34A">"I'll learn this tool deeply first"</text>
   </svg>
 );
 
@@ -397,24 +397,24 @@ const ConfusedVsCalmSVG = () => (
     <text x="167" y="245" textAnchor="middle" fontSize="9" fill="#842428">Stressed, reactive, overwhelmed</text>
     
     {/* Right - Calm observer */}
-    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">Calm Observer</text>
+    <rect x="335" y="70" width="275" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">Calm Observer</text>
     
     <g transform="translate(472, 165)">
       {/* Calm figure */}
-      <circle cx="0" cy="-40" r="25" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+      <circle cx="0" cy="-40" r="25" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
       <text x="0" y="-35" textAnchor="middle" fontSize="20">😌</text>
       
       {/* Simple thought */}
-      <ellipse cx="0" cy="-80" rx="50" ry="18" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="0" y="-77" textAnchor="middle" fontSize="8" fill="#12805A">Price is above average</text>
+      <ellipse cx="0" cy="-80" rx="50" ry="18" fill="#F0FDF4" stroke="#16A34A" strokeWidth="1"/>
+      <text x="0" y="-77" textAnchor="middle" fontSize="8" fill="#16A34A">Price is above average</text>
       
       {/* Clean chart icon */}
-      <rect x="-35" y="10" width="70" height="40" fill="#ffffff" rx="6" stroke="#3CCB97" strokeWidth="1"/>
-      <path d="M-25 40 L-10 30 L5 35 L20 20 L30 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
+      <rect x="-35" y="10" width="70" height="40" fill="#ffffff" rx="6" stroke="#16A34A" strokeWidth="1"/>
+      <path d="M-25 40 L-10 30 L5 35 L20 20 L30 25" fill="none" stroke="#16A34A" strokeWidth="1.5"/>
     </g>
     
-    <text x="472" y="245" textAnchor="middle" fontSize="9" fill="#12805A">Patient, observant, clear-headed</text>
+    <text x="472" y="245" textAnchor="middle" fontSize="9" fill="#16A34A">Patient, observant, clear-headed</text>
   </svg>
 );
 
@@ -460,11 +460,11 @@ const SimplicityPrincipleSVG = () => (
     
     {/* End - Simple */}
     <g transform="translate(500, 140)">
-      <rect x="-60" y="-50" width="120" height="100" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <rect x="-60" y="-50" width="120" height="100" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
       <text x="0" y="-25" textAnchor="middle" fontSize="22">🔧</text>
-      <text x="0" y="-5" textAnchor="middle" fontSize="9" fill="#12805A">One tool</text>
-      <text x="0" y="10" textAnchor="middle" fontSize="9" fill="#12805A">Deep understanding</text>
-      <text x="0" y="30" textAnchor="middle" fontSize="8" fill="#12805A">High clarity</text>
+      <text x="0" y="-5" textAnchor="middle" fontSize="9" fill="#16A34A">One tool</text>
+      <text x="0" y="10" textAnchor="middle" fontSize="9" fill="#16A34A">Deep understanding</text>
+      <text x="0" y="30" textAnchor="middle" fontSize="8" fill="#16A34A">High clarity</text>
     </g>
   </svg>
 );
@@ -593,14 +593,14 @@ const TechnicalAnalysisLesson7 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 7 of 7 – Final Lesson
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Common Charting Mistakes Beginners Make</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Common Charting Mistakes Beginners Make</h1>
             <p className="text-gray-600 mt-2">Awareness before action — avoiding the pitfalls</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Charting Mistakes Are Common</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Charting Mistakes Are Common</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -629,7 +629,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Common Mistakes Overview */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Five Common Beginner Mistakes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Five Common Beginner Mistakes</h2>
           
           <div className="space-y-4">
             {commonMistakes.map((mistake, index) => (
@@ -650,7 +650,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Mistake 1: Overloading */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #1: Overloading the Chart</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #1: Overloading the Chart</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -676,7 +676,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Mistake 2: Predicting */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #2: Predicting Instead of Observing</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #2: Predicting Instead of Observing</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -702,7 +702,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Mistake 3: Ignoring Context */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #3: Ignoring the Bigger Picture</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #3: Ignoring the Bigger Picture</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -721,7 +721,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Mistake 4: Too Many Lines */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #4: Drawing Too Many Lines</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #4: Drawing Too Many Lines</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -741,7 +741,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Mistake 5: Changing Tools */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #5: Constantly Changing Tools</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #5: Constantly Changing Tools</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -767,7 +767,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* The Result */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Result: Confusion vs Clarity</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Result: Confusion vs Clarity</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -782,7 +782,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* The Simplicity Principle */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Simplicity Principle</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Simplicity Principle</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -812,7 +812,7 @@ const TechnicalAnalysisLesson7 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

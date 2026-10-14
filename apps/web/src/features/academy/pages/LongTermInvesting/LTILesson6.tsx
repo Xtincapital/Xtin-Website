@@ -18,15 +18,15 @@ const BehaviorGapSVG = () => (
     <g transform="translate(80, 80)">
       {/* Market returns path */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="220" height="140" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-        <text x="110" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">📈 What Markets Offer</text>
+        <rect x="0" y="0" width="220" height="140" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+        <text x="110" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">📈 What Markets Offer</text>
         
         <g transform="translate(30, 50)">
-          <path d="M0 70 Q40 60 80 45 Q120 30 160 10" fill="none" stroke="#12805A" strokeWidth="3"/>
-          <circle cx="160" cy="10" r="5" fill="#12805A"/>
+          <path d="M0 70 Q40 60 80 45 Q120 30 160 10" fill="none" stroke="#16A34A" strokeWidth="3"/>
+          <circle cx="160" cy="10" r="5" fill="#16A34A"/>
         </g>
         
-        <text x="110" y="125" textAnchor="middle" fontSize="9" fill="#12805A">Steady long-term growth potential</text>
+        <text x="110" y="125" textAnchor="middle" fontSize="9" fill="#16A34A">Steady long-term growth potential</text>
       </g>
       
       {/* Investor returns path */}
@@ -154,10 +154,10 @@ const EmotionalCycleSVG = () => (
       {/* Emotional annotations */}
       {/* Optimism - early rise */}
       <g transform="translate(80, 95)">
-        <circle cx="0" cy="0" r="18" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="18" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="12">😊</text>
-        <text x="0" y="40" textAnchor="middle" fontSize="7" fill="#12805A" fontWeight="500">Optimism</text>
-        <text x="0" y="52" textAnchor="middle" fontSize="6" fill="#12805A">"This is going well"</text>
+        <text x="0" y="40" textAnchor="middle" fontSize="7" fill="#16A34A" fontWeight="500">Optimism</text>
+        <text x="0" y="52" textAnchor="middle" fontSize="6" fill="#16A34A">"This is going well"</text>
       </g>
       
       {/* Excitement - approaching peak */}
@@ -202,10 +202,10 @@ const EmotionalCycleSVG = () => (
       
       {/* Hope - early recovery */}
       <g transform="translate(540, 110)">
-        <circle cx="0" cy="0" r="18" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="18" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="12">🙂</text>
-        <text x="0" y="40" textAnchor="middle" fontSize="7" fill="#12805A" fontWeight="500">Hope</text>
-        <text x="0" y="52" textAnchor="middle" fontSize="6" fill="#12805A">"Maybe it's okay"</text>
+        <text x="0" y="40" textAnchor="middle" fontSize="7" fill="#16A34A" fontWeight="500">Hope</text>
+        <text x="0" y="52" textAnchor="middle" fontSize="6" fill="#16A34A">"Maybe it's okay"</text>
       </g>
     </g>
     
@@ -251,20 +251,20 @@ const ReactingVsDisciplinedSVG = () => (
     
     {/* Disciplined investor */}
     <g transform="translate(370, 110)">
-      <rect x="0" y="0" width="280" height="175" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">😌 The Disciplined Investor</text>
+      <rect x="0" y="0" width="280" height="175" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">😌 The Disciplined Investor</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#12805A" fontWeight="500">Measured response:</text>
-        <text x="0" y="18" fontSize="8" fill="#12805A">• Acknowledges the feeling</text>
-        <text x="0" y="33" fontSize="8" fill="#12805A">• Remembers long-term perspective</text>
-        <text x="0" y="48" fontSize="8" fill="#12805A">• Avoids impulsive checking</text>
-        <text x="0" y="63" fontSize="8" fill="#12805A">• Takes no action</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A" fontWeight="500">Measured response:</text>
+        <text x="0" y="18" fontSize="8" fill="#16A34A">• Acknowledges the feeling</text>
+        <text x="0" y="33" fontSize="8" fill="#16A34A">• Remembers long-term perspective</text>
+        <text x="0" y="48" fontSize="8" fill="#16A34A">• Avoids impulsive checking</text>
+        <text x="0" y="63" fontSize="8" fill="#16A34A">• Takes no action</text>
       </g>
       
-      <rect x="20" y="120" width="240" height="40" fill="#EEF9F4" rx="6"/>
-      <text x="140" y="138" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Result:</text>
-      <text x="140" y="152" textAnchor="middle" fontSize="8" fill="#12805A">Stayed invested. Captured recovery. Peace.</text>
+      <rect x="20" y="120" width="240" height="40" fill="#F0FDF4" rx="6"/>
+      <text x="140" y="138" textAnchor="middle" fontSize="8" fontWeight="500" fill="#16A34A">Result:</text>
+      <text x="140" y="152" textAnchor="middle" fontSize="8" fill="#16A34A">Stayed invested. Captured recovery. Peace.</text>
     </g>
     
     {/* Bottom insight */}
@@ -286,40 +286,40 @@ const PatienceSkillSVG = () => (
     {/* Patience building blocks */}
     <g transform="translate(100, 75)">
       {/* Foundation */}
-      <rect x="0" y="130" width="500" height="40" fill="#12805A" rx="8"/>
+      <rect x="0" y="130" width="500" height="40" fill="#16A34A" rx="8"/>
       <text x="250" y="155" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">🧱 PATIENCE: The Foundation of Long-Term Success</text>
       
       {/* Pillars */}
       <g transform="translate(20, 0)">
-        <rect x="0" y="30" width="100" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Accepting</text>
-        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Uncertainty</text>
-        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#12805A">You can't control</text>
-        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#12805A">markets</text>
+        <rect x="0" y="30" width="100" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Accepting</text>
+        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Uncertainty</text>
+        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#16A34A">You can't control</text>
+        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#16A34A">markets</text>
       </g>
       
       <g transform="translate(140, 0)">
-        <rect x="0" y="30" width="100" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Long-Term</text>
-        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Perspective</text>
-        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#12805A">Zooming out from</text>
-        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#12805A">daily noise</text>
+        <rect x="0" y="30" width="100" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Long-Term</text>
+        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Perspective</text>
+        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#16A34A">Zooming out from</text>
+        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#16A34A">daily noise</text>
       </g>
       
       <g transform="translate(260, 0)">
-        <rect x="0" y="30" width="100" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Emotional</text>
-        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Awareness</text>
-        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#12805A">Feeling without</text>
-        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#12805A">acting</text>
+        <rect x="0" y="30" width="100" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Emotional</text>
+        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Awareness</text>
+        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#16A34A">Feeling without</text>
+        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#16A34A">acting</text>
       </g>
       
       <g transform="translate(380, 0)">
-        <rect x="0" y="30" width="100" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Process</text>
-        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Trust</text>
-        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#12805A">Following your plan</text>
-        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#12805A">through ups & downs</text>
+        <rect x="0" y="30" width="100" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Process</text>
+        <text x="50" y="70" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Trust</text>
+        <text x="50" y="95" textAnchor="middle" fontSize="7" fill="#16A34A">Following your plan</text>
+        <text x="50" y="108" textAnchor="middle" fontSize="7" fill="#16A34A">through ups & downs</text>
       </g>
     </g>
     
@@ -368,17 +368,17 @@ const TwoInvestorsTimeSVG = () => (
     
     {/* Patient investor experience */}
     <g transform="translate(370, 195)">
-      <rect x="0" y="0" width="280" height="120" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="140" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">😌 Meera: Patient</text>
+      <rect x="0" y="0" width="280" height="120" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="140" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">😌 Meera: Patient</text>
       
       <g transform="translate(15, 35)">
-        <text x="0" y="0" fontSize="8" fill="#12805A">Year 1-3: "Doing fine" → Stays invested</text>
-        <text x="0" y="16" fontSize="8" fill="#12805A">Year 3-5: "Uncomfortable but expected" → Holds</text>
-        <text x="0" y="32" fontSize="8" fill="#12805A">Year 5-7: "Glad I stayed" → Benefits from recovery</text>
+        <text x="0" y="0" fontSize="8" fill="#16A34A">Year 1-3: "Doing fine" → Stays invested</text>
+        <text x="0" y="16" fontSize="8" fill="#16A34A">Year 3-5: "Uncomfortable but expected" → Holds</text>
+        <text x="0" y="32" fontSize="8" fill="#16A34A">Year 5-7: "Glad I stayed" → Benefits from recovery</text>
       </g>
       
-      <rect x="15" y="85" width="250" height="25" fill="#EEF9F4" rx="4"/>
-      <text x="140" y="102" textAnchor="middle" fontSize="8" fill="#12805A">Journey: Steady, peaceful, rewarded</text>
+      <rect x="15" y="85" width="250" height="25" fill="#F0FDF4" rx="4"/>
+      <text x="140" y="102" textAnchor="middle" fontSize="8" fill="#16A34A">Journey: Steady, peaceful, rewarded</text>
     </g>
   </svg>
 );
@@ -395,16 +395,16 @@ const EmotionsNormalSVG = () => (
     {/* Two-part visual */}
     <g transform="translate(80, 60)">
       {/* Feeling */}
-      <rect x="0" y="0" width="220" height="110" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="110" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Feeling the Emotion</text>
+      <rect x="0" y="0" width="220" height="110" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="110" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">✓ Feeling the Emotion</text>
       
       <g transform="translate(30, 50)">
-        <text x="0" y="0" fontSize="9" fill="#12805A">"I feel worried about my portfolio"</text>
-        <text x="0" y="18" fontSize="9" fill="#12805A">"This news makes me anxious"</text>
-        <text x="0" y="36" fontSize="9" fill="#12805A">"I'm tempted to do something"</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A">"I feel worried about my portfolio"</text>
+        <text x="0" y="18" fontSize="9" fill="#16A34A">"This news makes me anxious"</text>
+        <text x="0" y="36" fontSize="9" fill="#16A34A">"I'm tempted to do something"</text>
       </g>
       
-      <text x="110" y="100" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">This is human and healthy</text>
+      <text x="110" y="100" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">This is human and healthy</text>
     </g>
     
     {/* Arrow */}
@@ -454,15 +454,15 @@ const LongTermPathSVG = () => (
       
       {/* Smooth long-term trend */}
       <path d="M0 105 Q135 90 270 70 Q405 50 540 35" 
-            fill="none" stroke="#12805A" strokeWidth="4"/>
+            fill="none" stroke="#16A34A" strokeWidth="4"/>
       
       {/* Start point */}
-      <circle cx="0" cy="105" r="6" fill="#12805A"/>
-      <text x="0" y="130" textAnchor="middle" fontSize="8" fill="#12805A">Start</text>
+      <circle cx="0" cy="105" r="6" fill="#16A34A"/>
+      <text x="0" y="130" textAnchor="middle" fontSize="8" fill="#16A34A">Start</text>
       
       {/* End point */}
-      <circle cx="540" cy="35" r="8" fill="#12805A"/>
-      <text x="540" y="60" textAnchor="end" fontSize="8" fill="#12805A">Long-term destination</text>
+      <circle cx="540" cy="35" r="8" fill="#16A34A"/>
+      <text x="540" y="60" textAnchor="end" fontSize="8" fill="#16A34A">Long-term destination</text>
       
       {/* Legend */}
       <g transform="translate(180, 145)">
@@ -470,13 +470,13 @@ const LongTermPathSVG = () => (
         <text x="32" y="4" fontSize="8" fill="#717680">Daily/weekly noise</text>
       </g>
       <g transform="translate(330, 145)">
-        <line x1="0" y1="0" x2="25" y2="0" stroke="#12805A" strokeWidth="4"/>
-        <text x="32" y="4" fontSize="8" fill="#12805A">Long-term direction</text>
+        <line x1="0" y1="0" x2="25" y2="0" stroke="#16A34A" strokeWidth="4"/>
+        <text x="32" y="4" fontSize="8" fill="#16A34A">Long-term direction</text>
       </g>
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="225" width="500" height="25" fill="#12805A" rx="6"/>
+    <rect x="100" y="225" width="500" height="25" fill="#16A34A" rx="6"/>
     <text x="350" y="242" textAnchor="middle" fontSize="9" fill="white">Patient investors see through the noise to the underlying trend. That's their advantage.</text>
   </svg>
 );
@@ -489,7 +489,7 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="0%" stopColor="#16A34A"/>
         <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
@@ -497,7 +497,7 @@ const KeyTakeawaySVG = () => (
     <text x="350" y="40" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🌱 Key Takeaway</text>
     <text x="350" y="70" textAnchor="middle" fontSize="12" fill="white">Your behavior matters more than your knowledge or timing.</text>
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="white">Emotions are inevitable. Acting on them is optional.</text>
-    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#ABE5CC">Patience isn't waiting passively — it's choosing not to react when everything urges you to.</text>
+    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#BBF7D0">Patience isn't waiting passively — it's choosing not to react when everything urges you to.</text>
   </svg>
 );
 
@@ -561,7 +561,7 @@ const LTILesson6 = () => {
                 Lesson 6 of 7
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Behavior & Patience in Investing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Behavior & Patience in Investing</h1>
             <p className="text-gray-600 text-lg">
               Why your behavior matters more than your knowledge — and how patience becomes your advantage.
             </p>
@@ -570,7 +570,7 @@ const LTILesson6 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Behavior Beats Intelligence</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Behavior Beats Intelligence</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -594,7 +594,7 @@ const LTILesson6 = () => {
 
         {/* The Behavior Gap */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Behavior Gap</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Behavior Gap</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -614,7 +614,7 @@ const LTILesson6 = () => {
 
         {/* The Four Emotional Challenges */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Four Emotional Challenges</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Four Emotional Challenges</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -637,7 +637,7 @@ const LTILesson6 = () => {
 
         {/* The Emotional Cycle */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Emotional Cycle of Investing</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Emotional Cycle of Investing</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -656,7 +656,7 @@ const LTILesson6 = () => {
 
         {/* Reacting vs Staying Disciplined */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Reacting vs Staying Disciplined</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Reacting vs Staying Disciplined</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -675,7 +675,7 @@ const LTILesson6 = () => {
 
         {/* Emotions Are Normal */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Emotions Are Normal, Reactions Are Optional</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Emotions Are Normal, Reactions Are Optional</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -694,7 +694,7 @@ const LTILesson6 = () => {
 
         {/* Two Investors Over Time */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Different Behaviors, Different Journeys</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Different Behaviors, Different Journeys</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -716,7 +716,7 @@ const LTILesson6 = () => {
 
         {/* Patience as a Skill */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Patience Is a Skill</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Patience Is a Skill</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -736,7 +736,7 @@ const LTILesson6 = () => {
 
         {/* The Long-Term Path */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Seeing Through the Noise</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Seeing Through the Noise</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -777,7 +777,7 @@ const LTILesson6 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of behavior and patience in investing.</p>
           
           <div className="space-y-8">

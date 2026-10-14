@@ -443,7 +443,7 @@ export default function Goals() {
                   <CardHeader className="flex flex-row items-start justify-between space-y-0">
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-1.5">
-                        <CardTitle className="text-base">{goal.name}</CardTitle>
+                        <CardTitle className="text-lg">{goal.name}</CardTitle>
                         {assignedMember && <Badge variant="secondary">For: {assignedMember.name}</Badge>}
                       </div>
                       <p className="text-xs text-muted-foreground">

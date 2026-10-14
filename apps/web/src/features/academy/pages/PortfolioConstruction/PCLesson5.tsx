@@ -69,11 +69,11 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 300" fill="none">
       <defs>
         <linearGradient id="cycleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#12805A" stopOpacity="0.3"/>
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.3"/>
           <stop offset="25%" stopColor="#5A77AA" stopOpacity="0.3"/>
           <stop offset="50%" stopColor="#E04848" stopOpacity="0.3"/>
           <stop offset="75%" stopColor="#B8923F" stopOpacity="0.3"/>
-          <stop offset="100%" stopColor="#12805A" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#16A34A" stopOpacity="0.3"/>
         </linearGradient>
       </defs>
       {/* Sine wave representing market cycle */}
@@ -83,8 +83,8 @@ const Icons = {
       <line x1="40" y1="150" x2="360" y2="150" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5,5" opacity="0.3"/>
       {/* Phase markers */}
       <g transform="translate(70, 70)">
-        <circle r="25" fill="#12805A" opacity="0.2" stroke="#12805A" strokeWidth="2"/>
-        <text y="5" fill="#12805A" fontSize="11" fontWeight="bold" textAnchor="middle">Recovery</text>
+        <circle r="25" fill="#16A34A" opacity="0.2" stroke="#16A34A" strokeWidth="2"/>
+        <text y="5" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">Recovery</text>
       </g>
       <g transform="translate(170, 190)">
         <circle r="25" fill="#E04848" opacity="0.2" stroke="#E04848" strokeWidth="2"/>
@@ -95,7 +95,7 @@ const Icons = {
         <text y="5" fill="#B8923F" fontSize="11" fontWeight="bold" textAnchor="middle">Peak</text>
       </g>
       {/* Strategy arrows */}
-      <text x="70" y="45" fill="#12805A" fontSize="10" fontWeight="bold" textAnchor="middle">↑ Add Risk</text>
+      <text x="70" y="45" fill="#16A34A" fontSize="10" fontWeight="bold" textAnchor="middle">↑ Add Risk</text>
       <text x="270" y="45" fill="#E04848" fontSize="10" fontWeight="bold" textAnchor="middle">↓ Reduce Risk</text>
       {/* Labels */}
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Economic/Market Cycle</text>
@@ -187,7 +187,7 @@ const PCLesson5 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Tactical Asset Allocation</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Tactical Asset Allocation</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Explore the art and science of short-term portfolio adjustments. Learn when tactical moves make sense, the dangers of market timing, and disciplined approaches to dynamic allocation.</p>
           </header>
 
@@ -200,7 +200,7 @@ const PCLesson5 = () => {
                     <Icons.Zap className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Strategic vs. Tactical Allocation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Strategic vs. Tactical Allocation</h2>
                     <p className="text-sm text-gray-500 ">Policy meets opportunity</p>
                   </div>
                 </div>
@@ -249,7 +249,7 @@ const PCLesson5 = () => {
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Market Timing Trap</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Market Timing Trap</h2>
                     <p className="text-sm text-gray-500 ">Why most investors fail at timing</p>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ const PCLesson5 = () => {
                     <Icons.TrendingUp className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Market Cycle Analysis</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Market Cycle Analysis</h2>
                     <p className="text-sm text-gray-500 ">Understanding economic phases</p>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ const PCLesson5 = () => {
                     <Icons.Eye className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">TAA Signals and Indicators</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">TAA Signals and Indicators</h2>
                     <p className="text-sm text-gray-500 ">What professionals monitor</p>
                   </div>
                 </div>
@@ -434,7 +434,7 @@ const PCLesson5 = () => {
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Disciplined TAA Framework</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Disciplined TAA Framework</h2>
                     <p className="text-sm text-gray-500 ">Rules-based tactical adjustments</p>
                   </div>
                 </div>
@@ -489,7 +489,7 @@ const PCLesson5 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">When TAA Might Make Sense</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">When TAA Might Make Sense</h2>
                     <p className="text-sm text-gray-500 ">Appropriate applications</p>
                   </div>
                 </div>
@@ -533,7 +533,7 @@ const PCLesson5 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of tactical allocation</p>
                   </div>
                 </div>

@@ -111,7 +111,7 @@ const PersonalFinanceLesson2 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <BalanceScaleIcon className="w-7 h-7 text-brand" />
               </span>
@@ -149,7 +149,7 @@ const PersonalFinanceLesson2 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">The Simple Truth About Money</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">The Simple Truth About Money</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               Every dollar you spend falls into one of two categories: <strong className="text-gray-900">Needs</strong> or <strong className="text-gray-900">Wants</strong>.
@@ -180,14 +180,14 @@ const PersonalFinanceLesson2 = () => {
                 <circle cx="250" cy="176" r="8" fill="#373A41"/>
                 
                 {/* Left pan - Needs (heavier/lower) */}
-                <ellipse cx="100" cy="200" rx="70" ry="15" fill="#12805A"/>
+                <ellipse cx="100" cy="200" rx="70" ry="15" fill="#16A34A"/>
                 <line x1="100" y1="176" x2="100" y2="185" stroke="#717680" strokeWidth="3"/>
                 
                 {/* Needs items */}
-                <rect x="55" y="130" width="90" height="55" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="100" y="150" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">NEEDS ✓</text>
-                <text x="100" y="168" textAnchor="middle" fill="#12805A" fontSize="9">Rent • Food</text>
-                <text x="100" y="180" textAnchor="middle" fill="#12805A" fontSize="9">Utilities • Health</text>
+                <rect x="55" y="130" width="90" height="55" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="100" y="150" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">NEEDS ✓</text>
+                <text x="100" y="168" textAnchor="middle" fill="#16A34A" fontSize="9">Rent • Food</text>
+                <text x="100" y="180" textAnchor="middle" fill="#16A34A" fontSize="9">Utilities • Health</text>
                 
                 {/* Right pan - Wants (lighter/higher) */}
                 <ellipse cx="400" cy="155" rx="70" ry="15" fill="#8F6FC4"/>
@@ -205,7 +205,7 @@ const PersonalFinanceLesson2 = () => {
                 <text x="180" y="142" textAnchor="middle" fill="#654B26" fontSize="8" fontWeight="bold">FIRST</text>
                 
                 {/* Labels */}
-                <text x="100" y="230" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="bold">Essential</text>
+                <text x="100" y="230" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="bold">Essential</text>
                 <text x="400" y="230" textAnchor="middle" fill="#533F70" fontSize="12" fontWeight="bold">Optional</text>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-6 flex items-center justify-center gap-2">
@@ -277,7 +277,7 @@ const PersonalFinanceLesson2 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

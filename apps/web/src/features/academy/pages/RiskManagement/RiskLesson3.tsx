@@ -126,9 +126,9 @@ const MarketRiskSVG = () => (
       
       {/* Upward arrow */}
       <g transform="translate(180, 90)">
-        <line x1="0" y1="30" x2="0" y2="-10" stroke="#12805A" strokeWidth="3"/>
-        <polygon points="-8,-5 0,-20 8,-5" fill="#12805A"/>
-        <text x="15" y="10" fontSize="8" fill="#12805A">Price rises</text>
+        <line x1="0" y1="30" x2="0" y2="-10" stroke="#16A34A" strokeWidth="3"/>
+        <polygon points="-8,-5 0,-20 8,-5" fill="#16A34A"/>
+        <text x="15" y="10" fontSize="8" fill="#16A34A">Price rises</text>
       </g>
       
       {/* Y-axis label */}
@@ -163,9 +163,9 @@ const SystemRiskSVG = () => (
     {/* Process flow with failure points */}
     <g transform="translate(50, 80)">
       {/* Step 1: Decision */}
-      <rect x="0" y="30" width="100" height="60" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Decision</text>
-      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#12805A">Make a choice</text>
+      <rect x="0" y="30" width="100" height="60" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="2"/>
+      <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">Decision</text>
+      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#16A34A">Make a choice</text>
       
       {/* Arrow 1 */}
       <line x1="105" y1="60" x2="140" y2="60" stroke="#A0A3AA" strokeWidth="2"/>
@@ -257,9 +257,9 @@ const EmotionalRiskSVG = () => (
       </g>
       
       <g transform="translate(60, -30)">
-        <circle cx="0" cy="0" r="25" fill="#ABE5CC" stroke="#12805A" strokeWidth="2"/>
-        <text x="0" y="-5" textAnchor="middle" fontSize="7" fontWeight="600" fill="#12805A">GREED</text>
-        <text x="0" y="8" textAnchor="middle" fontSize="6" fill="#12805A">Over-exposure</text>
+        <circle cx="0" cy="0" r="25" fill="#BBF7D0" stroke="#16A34A" strokeWidth="2"/>
+        <text x="0" y="-5" textAnchor="middle" fontSize="7" fontWeight="600" fill="#16A34A">GREED</text>
+        <text x="0" y="8" textAnchor="middle" fontSize="6" fill="#16A34A">Over-exposure</text>
       </g>
       
       <g transform="translate(-60, 35)">
@@ -514,7 +514,7 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="awarenessGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="0%" stopColor="#16A34A"/>
         <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
@@ -573,14 +573,14 @@ const RiskLesson3 = () => {
             <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 3 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Types of Risk – Market, System & Emotional</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Types of Risk – Market, System & Emotional</h1>
             <p className="text-gray-600 mt-2">Understanding the multiple dimensions of risk</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Identifying Risk Types Matters</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Identifying Risk Types Matters</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -605,7 +605,7 @@ const RiskLesson3 = () => {
 
         {/* Market Risk */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Market Risk: The Visible Layer</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Market Risk: The Visible Layer</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -631,7 +631,7 @@ const RiskLesson3 = () => {
 
         {/* System Risk */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">System Risk: The Hidden Layer</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">System Risk: The Hidden Layer</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -657,7 +657,7 @@ const RiskLesson3 = () => {
 
         {/* Emotional Risk */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Emotional Risk: The Internal Layer</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Emotional Risk: The Internal Layer</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -684,7 +684,7 @@ const RiskLesson3 = () => {
 
         {/* How Risks Interact */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">How Risks Interact and Compound</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">How Risks Interact and Compound</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -710,7 +710,7 @@ const RiskLesson3 = () => {
 
         {/* Visible vs Invisible */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Iceberg: Visible vs Invisible Risk</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Iceberg: Visible vs Invisible Risk</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -736,7 +736,7 @@ const RiskLesson3 = () => {
 
         {/* Practical Scenario */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Real-World Scenario: Multiple Risks at Once</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Real-World Scenario: Multiple Risks at Once</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -794,7 +794,7 @@ const RiskLesson3 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

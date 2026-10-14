@@ -223,7 +223,7 @@ const ToolsIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.05] tracking-[-0.025em] mb-5">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.05] tracking-[-0.025em] mb-5">
               Plan your finances,
               <br />
               <span className="text-brand">with precision</span>
@@ -451,7 +451,7 @@ const ToolsIntro = () => {
                 {Icons.lockOpen}
                 <span>No Hidden Charges</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6">&#8377;0 Forever</h3>
+              <h3 className="text-4xl md:text-5xl font-extrabold mb-6 font-bold">&#8377;0 Forever</h3>
               <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-10">
                 Every calculator is completely free. Create an account to save your calculations and download PDF reports.
               </p>
@@ -487,7 +487,7 @@ const ToolsIntro = () => {
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl text-white mb-4 font-semibold">
+            <h2 className="text-3xl md:text-4xl text-white mb-4 font-bold">
               Start calculating today
             </h2>
             <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">

@@ -202,7 +202,7 @@ const AlgorithmsIntro = () => {
               AI-Powered Trading Systems
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.1] mb-6 tracking-[-0.025em]">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.1] mb-6 tracking-[-0.025em]">
               Invest smarter with{' '}
               <span className="text-brand">algorithms</span>
             </motion.h1>
@@ -427,7 +427,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Built for Trust & Reliability</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Built for Trust & Reliability</h2>
           </motion.div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -464,7 +464,7 @@ const AlgorithmsIntro = () => {
                 {I.search}
                 <span>Browse</span>
               </div>
-              <h3 className="text-3xl font-display font-semibold mb-2 tracking-[-0.025em]">Free</h3>
+              <h3 className="text-3xl font-display font-bold mb-2 tracking-[-0.025em]">Free</h3>
               <p className="text-gray-500 dark:text-slate-400 text-sm mb-5">to browse & view performance</p>
               <ul className="space-y-3">
                 {['Browse all strategy performance', 'View CAGR, drawdown & win rates', 'Read plain-English logic', 'Compare strategies side-by-side'].map((f) => (
@@ -484,7 +484,7 @@ const AlgorithmsIntro = () => {
                   {I.bolt}
                   <span>Subscribe</span>
                 </div>
-                <h3 className="text-3xl font-display font-semibold mb-2 tracking-[-0.025em]">Per-Publisher Pricing</h3>
+                <h3 className="text-3xl font-display font-bold mb-2 tracking-[-0.025em]">Per-Publisher Pricing</h3>
                 <p className="text-white/85 text-sm mb-5">Each publisher sets their strategy fee</p>
                 <ul className="space-y-3">
                   {['Live automated execution', 'Real-time dashboard & alerts', 'Full trade log for every strategy', 'Cancel anytime — no lock-in'].map((f) => (
@@ -515,7 +515,7 @@ const AlgorithmsIntro = () => {
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-4 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 tracking-[-0.025em]">
               Let algorithms trade while you live your life
             </h2>
             <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">

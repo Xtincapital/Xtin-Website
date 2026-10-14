@@ -117,8 +117,8 @@ const SupportZoneSVG = () => (
     <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Support zone - highlighted area */}
-    <rect x="60" y="215" width="480" height="40" fill="#12805A" fillOpacity="0.2" rx="4"/>
-    <text x="530" y="238" textAnchor="end" fontSize="10" fontWeight="500" fill="#12805A">Support Zone</text>
+    <rect x="60" y="215" width="480" height="40" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+    <text x="530" y="238" textAnchor="end" fontSize="10" fontWeight="500" fill="#16A34A">Support Zone</text>
     
     {/* Price movement bouncing off support */}
     <path 
@@ -131,23 +131,23 @@ const SupportZoneSVG = () => (
     />
     
     {/* Bounce points at support */}
-    <circle cx="240" cy="220" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
-    <circle cx="370" cy="225" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
-    <circle cx="520" cy="230" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="240" cy="220" r="7" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
+    <circle cx="370" cy="225" r="7" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
+    <circle cx="520" cy="230" r="7" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
     
     {/* Bounce arrows */}
-    <path d="M240 240 L240 255 M234 249 L240 255 L246 249" stroke="#12805A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 240, 247)"/>
-    <path d="M370 240 L370 255 M364 249 L370 255 L376 249" stroke="#12805A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 370, 247)"/>
-    <path d="M520 240 L520 255 M514 249 L520 255 L526 249" stroke="#12805A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 520, 247)"/>
+    <path d="M240 240 L240 255 M234 249 L240 255 L246 249" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 240, 247)"/>
+    <path d="M370 240 L370 255 M364 249 L370 255 L376 249" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 370, 247)"/>
+    <path d="M520 240 L520 255 M514 249 L520 255 L526 249" stroke="#16A34A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 520, 247)"/>
     
     {/* Labels */}
-    <text x="240" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
-    <text x="370" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
-    <text x="520" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
+    <text x="240" y="270" textAnchor="middle" fontSize="8" fill="#16A34A">Bounce</text>
+    <text x="370" y="270" textAnchor="middle" fontSize="8" fill="#16A34A">Bounce</text>
+    <text x="520" y="270" textAnchor="middle" fontSize="8" fill="#16A34A">Bounce</text>
     
     {/* Explanation box */}
-    <rect x="140" y="285" width="320" height="28" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-    <text x="300" y="300" textAnchor="middle" fontSize="10" fill="#12805A">Price falls into the zone → Buyers step in → Price bounces up</text>
+    <rect x="140" y="285" width="320" height="28" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+    <text x="300" y="300" textAnchor="middle" fontSize="10" fill="#16A34A">Price falls into the zone → Buyers step in → Price bounces up</text>
   </svg>
 );
 
@@ -243,32 +243,32 @@ const ZonesVsLinesSVG = () => (
     <text x="165" y="263" textAnchor="middle" fontSize="9" fill="#842428">Too rigid — leads to confusion</text>
     
     {/* Right - Correct: Zone */}
-    <rect x="340" y="70" width="270" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="475" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Thinking in Zones</text>
+    <rect x="340" y="70" width="270" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="475" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Thinking in Zones</text>
     
     <g transform="translate(475, 175)">
-      <rect x="-100" y="-55" width="200" height="110" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-100" y="-55" width="200" height="110" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Zone area */}
-      <rect x="-80" y="5" width="160" height="35" fill="#12805A" fillOpacity="0.25" rx="4"/>
+      <rect x="-80" y="5" width="160" height="35" fill="#16A34A" fillOpacity="0.25" rx="4"/>
       
       {/* Price reacting within the zone */}
       <path 
         d="M-70 -30 L-40 5 L-20 20 L10 10 L30 25 L50 15 L70 -25" 
         fill="none" 
-        stroke="#12805A" 
+        stroke="#16A34A" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Check marks */}
-      <text x="-20" y="48" fontSize="10" fill="#12805A">✓</text>
-      <text x="30" y="48" fontSize="10" fill="#12805A">✓</text>
+      <text x="-20" y="48" fontSize="10" fill="#16A34A">✓</text>
+      <text x="30" y="48" fontSize="10" fill="#16A34A">✓</text>
     </g>
     
-    <text x="475" y="250" textAnchor="middle" fontSize="9" fill="#12805A">"Price tends to react in this area"</text>
-    <text x="475" y="263" textAnchor="middle" fontSize="9" fill="#12805A">Flexible — matches reality</text>
+    <text x="475" y="250" textAnchor="middle" fontSize="9" fill="#16A34A">"Price tends to react in this area"</text>
+    <text x="475" y="263" textAnchor="middle" fontSize="9" fill="#16A34A">Flexible — matches reality</text>
   </svg>
 );
 
@@ -340,16 +340,16 @@ const BounceVsBreakSVG = () => (
     <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Price can either bounce off or break through</text>
     
     {/* Left - Bounce */}
-    <rect x="30" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="167" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">Bounce (Respect)</text>
-    <text x="167" y="112" textAnchor="middle" fontSize="10" fill="#12805A">Zone holds — price reverses</text>
+    <rect x="30" y="70" width="275" height="240" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="167" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#16A34A">Bounce (Respect)</text>
+    <text x="167" y="112" textAnchor="middle" fontSize="10" fill="#16A34A">Zone holds — price reverses</text>
     
     <g transform="translate(167, 195)">
-      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Support zone */}
-      <rect x="-85" y="25" width="170" height="30" fill="#12805A" fillOpacity="0.25" rx="4"/>
-      <text x="70" y="43" fontSize="8" fill="#12805A">Support</text>
+      <rect x="-85" y="25" width="170" height="30" fill="#16A34A" fillOpacity="0.25" rx="4"/>
+      <text x="70" y="43" fontSize="8" fill="#16A34A">Support</text>
       
       {/* Price approaching and bouncing */}
       <path 
@@ -362,15 +362,15 @@ const BounceVsBreakSVG = () => (
       />
       
       {/* Bounce point */}
-      <circle cx="40" cy="35" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+      <circle cx="40" cy="35" r="7" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Arrow showing reversal */}
-      <path d="M55 50 C70 60, 80 40, 90 -20" fill="none" stroke="#12805A" strokeWidth="1.5" strokeDasharray="4 3"/>
-      <path d="M85 -15 L90 -20 L95 -12" fill="none" stroke="#12805A" strokeWidth="1.5"/>
+      <path d="M55 50 C70 60, 80 40, 90 -20" fill="none" stroke="#16A34A" strokeWidth="1.5" strokeDasharray="4 3"/>
+      <path d="M85 -15 L90 -20 L95 -12" fill="none" stroke="#16A34A" strokeWidth="1.5"/>
     </g>
     
-    <text x="167" y="290" textAnchor="middle" fontSize="9" fill="#12805A">Price touches zone and reverses</text>
-    <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#12805A">Zone remains valid</text>
+    <text x="167" y="290" textAnchor="middle" fontSize="9" fill="#16A34A">Price touches zone and reverses</text>
+    <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#16A34A">Zone remains valid</text>
     
     {/* Right - Break */}
     <rect x="335" y="70" width="275" height="240" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -432,8 +432,8 @@ const SupportExampleSVG = () => (
     <line x1="70" y1="210" x2="530" y2="210" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Support zone */}
-    <rect x="70" y="195" width="460" height="35" fill="#12805A" fillOpacity="0.2" rx="4"/>
-    <text x="520" y="215" textAnchor="end" fontSize="9" fill="#12805A">$40-42 Zone</text>
+    <rect x="70" y="195" width="460" height="35" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+    <text x="520" y="215" textAnchor="end" fontSize="9" fill="#16A34A">$40-42 Zone</text>
     
     {/* Price movement */}
     <path 
@@ -446,12 +446,12 @@ const SupportExampleSVG = () => (
     />
     
     {/* Bounce point */}
-    <circle cx="380" cy="205" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="380" cy="205" r="8" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
     
     {/* Annotation */}
-    <line x1="380" y1="215" x2="380" y2="235" stroke="#12805A" strokeWidth="1.5"/>
-    <text x="380" y="248" textAnchor="middle" fontSize="9" fill="#12805A">Price touches $41</text>
-    <text x="380" y="260" textAnchor="middle" fontSize="9" fill="#12805A">and bounces higher</text>
+    <line x1="380" y1="215" x2="380" y2="235" stroke="#16A34A" strokeWidth="1.5"/>
+    <text x="380" y="248" textAnchor="middle" fontSize="9" fill="#16A34A">Price touches $41</text>
+    <text x="380" y="260" textAnchor="middle" fontSize="9" fill="#16A34A">and bounces higher</text>
     
     {/* Time axis */}
     <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
@@ -459,8 +459,8 @@ const SupportExampleSVG = () => (
     <text x="450" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 3</text>
     
     {/* Info box */}
-    <rect x="150" y="280" width="300" height="16" fill="#EEF9F4" rx="4"/>
-    <text x="300" y="291" textAnchor="middle" fontSize="9" fill="#12805A">Observation: Buyers appeared around $40-42</text>
+    <rect x="150" y="280" width="300" height="16" fill="#F0FDF4" rx="4"/>
+    <text x="300" y="291" textAnchor="middle" fontSize="9" fill="#16A34A">Observation: Buyers appeared around $40-42</text>
   </svg>
 );
 
@@ -507,14 +507,14 @@ const ResistanceBreakExampleSVG = () => (
     <circle cx="350" cy="115" r="6" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
     
     {/* Break point */}
-    <circle cx="420" cy="110" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="420" cy="110" r="8" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
     
     {/* Annotations */}
     <text x="230" y="105" textAnchor="middle" fontSize="8" fill="#C0623B">Rejected</text>
     <text x="350" y="100" textAnchor="middle" fontSize="8" fill="#C0623B">Rejected</text>
     
-    <line x1="420" y1="95" x2="420" y2="75" stroke="#12805A" strokeWidth="1.5"/>
-    <text x="420" y="68" textAnchor="middle" fontSize="9" fill="#12805A">Breakthrough!</text>
+    <line x1="420" y1="95" x2="420" y2="75" stroke="#16A34A" strokeWidth="1.5"/>
+    <text x="420" y="68" textAnchor="middle" fontSize="9" fill="#16A34A">Breakthrough!</text>
     
     {/* Time axis */}
     <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
@@ -573,14 +573,14 @@ const TechnicalAnalysisLesson4 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 4 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Support & Resistance</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Support & Resistance</h1>
             <p className="text-gray-600 mt-2">Understanding price reaction zones in the market</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Prices Pause at Certain Areas</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Prices Pause at Certain Areas</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -612,7 +612,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Support Explained */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What is Support?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What is Support?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -653,7 +653,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Resistance Explained */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What is Resistance?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What is Resistance?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -694,7 +694,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Zones vs Lines */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Zones, Not Exact Lines</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Zones, Not Exact Lines</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -721,7 +721,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Market Memory */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Do These Zones Form?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Do These Zones Form?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -745,7 +745,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Bounce vs Break */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Two Outcomes at a Zone</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Two Outcomes at a Zone</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -775,7 +775,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Practical Examples */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Practical Examples</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Practical Examples</h2>
           
           <div className="rounded-xl p-6 mb-6 border border-brand-line bg-brand-soft">
             <h3 className="text-xl font-semibold text-brand mb-4">📌 Example 1: Price Reacting at Support</h3>
@@ -831,7 +831,7 @@ const TechnicalAnalysisLesson4 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

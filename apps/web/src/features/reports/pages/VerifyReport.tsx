@@ -67,7 +67,7 @@ const VerifyReport = () => {
       <SEO title="Verify a Report" description="Check that an Xtin Capital report is genuine: enter its report number or scan its QR code." canonicalUrl="/verify" />
       <Navbar />
       <main className="mx-auto mt-20 max-w-2xl px-4 py-12">
-        <h1 className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.025em]">Verify a report</h1>
+        <h1 className="text-4xl md:text-5xl font-display font-bold tracking-[-0.025em]">Verify a report</h1>
         <p className="mt-2 text-gray-600">
           Every Xtin Capital report carries a report number and a QR code. Enter the number to confirm the report was really issued by us, to whom, and when.
         </p>

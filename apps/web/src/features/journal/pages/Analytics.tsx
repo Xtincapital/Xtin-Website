@@ -361,7 +361,7 @@ const Analytics = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Performance
                 <InfoTip title="Strategy Performance">
                   <p>Total profit or loss for each strategy. Green made money, red lost money. Click a bar to list the trades.</p>
@@ -381,7 +381,7 @@ const Analytics = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Win Rate by Strategy
                 <InfoTip title="Win Rate by Strategy">
                   <p>How often each strategy wins. A high win rate isn't everything: check it against the average win and loss. Click a bar to list the trades.</p>
@@ -404,7 +404,7 @@ const Analytics = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Monthly P&L Trend
                 <InfoTip title="Monthly P&L Trend">
                   <p>Your total P&L for each of the last 12 months, to see whether you are improving over time.</p>
@@ -423,7 +423,7 @@ const Analytics = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Trade Count by Type
                 <InfoTip title="Trade Count by Type">
                   <p>How many trades you placed in each trading style. Click a bar to list the trades.</p>
@@ -454,7 +454,7 @@ const Analytics = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Breakdown
                 <InfoTip title="Strategy Breakdown">
                   <p>Every strategy side by side: trades, win rate, total and average P&L, profit factor (money won ÷ money lost) and consistency (0 to 100, higher = steadier). Click a row to list its trades.</p>

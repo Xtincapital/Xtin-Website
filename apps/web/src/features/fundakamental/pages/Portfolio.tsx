@@ -506,7 +506,7 @@ const Portfolio = () => {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Briefcase className="w-8 h-8 text-brand" />
           </div>
-          <h2 className="text-2xl font-semibold text-foreground">Your whole net worth, one page</h2>
+          <h2 className="text-2xl font-bold text-foreground">Your whole net worth, one page</h2>
           <p className="text-muted-foreground max-w-md">
             Stocks from any market, gold, cash, FDs — add everything you own and
             watch live value, total return and CAGR in one place.

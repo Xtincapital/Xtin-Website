@@ -104,13 +104,13 @@ const HeroDecorSVG = () => (
     {/* Gradient definitions */}
     <defs>
       <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A" stopOpacity="0.1" />
-        <stop offset="100%" stopColor="#12805A" stopOpacity="0.05" />
+        <stop offset="0%" stopColor="#16A34A" stopOpacity="0.1" />
+        <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
       </linearGradient>
       <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#12805A" stopOpacity="0" />
-        <stop offset="50%" stopColor="#12805A" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#12805A" stopOpacity="0" />
+        <stop offset="0%" stopColor="#16A34A" stopOpacity="0" />
+        <stop offset="50%" stopColor="#16A34A" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
       </linearGradient>
     </defs>
 
@@ -539,7 +539,7 @@ const LearnPage = () => {
                 XTIN ACADEMY
               </div>
 
-              <h1 className="text-4xl md:text-5xl font-display font-semibold leading-tight mb-6 tracking-[-0.025em]">
+              <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-6 tracking-[-0.025em]">
                 Build Your
                 <span className="block text-brand">
                   Financial Future
@@ -671,7 +671,7 @@ const LearnPage = () => {
           <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="moduleGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1" fill="#12805A" opacity="0.3" />
+                <circle cx="10" cy="10" r="1" fill="#16A34A" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#moduleGrid)" />
@@ -687,7 +687,7 @@ const LearnPage = () => {
               </svg>
               THE LIBRARY · {catalogue.freeModules} COURSES FREE FOREVER
             </span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-4 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-4 tracking-[-0.025em]">
               Your Learning Journey
             </h2>
             <p className="text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
@@ -890,7 +890,7 @@ const LearnPage = () => {
           <div className="text-center mb-10">
             {/* Single Line Headline with Badge */}
             <div className="flex items-center justify-center gap-3 mb-3">
-              <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
                 Premium Courses
               </h2>
             </div>
@@ -1270,7 +1270,7 @@ const LearnPage = () => {
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand/30 bg-brand-fill">
                     <FaCheckCircle className="text-white text-2xl" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">You're on the list!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">You're on the list!</h3>
                   <p className="text-gray-500 dark:text-slate-400 mb-6">
                     We'll email you the moment premium courses launch — with your early-bird perks attached.
                   </p>
@@ -1287,7 +1287,7 @@ const LearnPage = () => {
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand/30 bg-brand-fill">
                       <FaBell className="text-white text-2xl" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">Get Early Access</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">Get Early Access</h3>
                     <p className="text-gray-500 dark:text-slate-400">Be the first to know when our premium courses launch. Get exclusive early-bird benefits.</p>
                   </div>
 

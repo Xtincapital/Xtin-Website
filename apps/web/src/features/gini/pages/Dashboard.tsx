@@ -279,7 +279,7 @@ export default function Dashboard() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Asset Allocation</CardTitle>
+              <CardTitle className="text-lg">Asset Allocation</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -330,7 +330,7 @@ export default function Dashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Goals Progress</CardTitle>
+              <CardTitle className="text-lg">Goals Progress</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (

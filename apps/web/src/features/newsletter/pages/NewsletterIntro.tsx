@@ -109,7 +109,7 @@ const NewsletterIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.08] tracking-[-0.025em] mb-5">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.08] tracking-[-0.025em] mb-5">
               Understand Indian markets
               <br />
               <span className="text-brand">in 3 minutes a day</span>
@@ -185,7 +185,7 @@ const NewsletterIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-16">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Recent editions</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">See what you've been missing</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">See what you've been missing</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">A taste of what lands in your inbox every morning</p>
           </motion.div>
 
@@ -226,7 +226,7 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Every edition covers</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Every edition covers</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -252,7 +252,7 @@ const NewsletterIntro = () => {
         <div className="max-w-3xl mx-auto text-center">
           <motion.div variants={fadeUp} className="mb-14">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">How it works</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">AI does the heavy lifting</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">AI does the heavy lifting</h2>
           </motion.div>
 
           <div className="relative">
@@ -301,7 +301,7 @@ const NewsletterIntro = () => {
       {/* ======== FINAL CTA ======== */}
       <AnimatedSection className="py-24 md:py-32 px-6">
         <motion.div variants={fadeUp} className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-display font-semibold mb-4 tracking-[-0.025em]">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-[-0.025em]">
             Start your morning smarter
           </h2>
           <p className="text-gray-500 dark:text-slate-400 text-lg mb-10 max-w-lg mx-auto">

@@ -25,7 +25,7 @@ const FLAT = 0.05; // |return| below this reads as "no change"
 const cellColor = (ret: number, maxAbs: number) => {
   if (!maxAbs || Math.abs(ret) < FLAT) return "rgba(160, 163, 170,0.12)";
   const a = 0.15 + 0.75 * Math.min(1, Math.abs(ret) / maxAbs);
-  return ret > 0 ? `rgba(31, 169, 120,${a})` : `rgba(224, 72, 72,${a})`;
+  return ret > 0 ? `rgba(22, 163, 74,${a})` : `rgba(224, 72, 72,${a})`;
 };
 
 export function MonthlyHeatmap({ result }: { result: BacktestResult }) {

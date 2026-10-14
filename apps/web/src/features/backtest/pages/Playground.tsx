@@ -140,12 +140,12 @@ function ReportPlaceholder({ loading }: { loading: boolean }) {
       <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 w-full opacity-60">
         <defs>
           <linearGradient id="bt-ph" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#12805A" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#12805A" stopOpacity="0" />
+            <stop offset="0%" stopColor="#16A34A" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24 L600 200 L0 200 Z" fill="url(#bt-ph)" />
-        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#12805A" strokeWidth="2" strokeDasharray="6 6" />
+        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#16A34A" strokeWidth="2" strokeDasharray="6 6" />
       </svg>
       <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl ring-1 ring-brand-line dark:ring-brand-line bg-brand-soft">
         <Wand2 className="h-6 w-6 text-brand dark:text-brand" />

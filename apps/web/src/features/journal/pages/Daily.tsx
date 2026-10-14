@@ -184,7 +184,7 @@ const Daily = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Type Distribution
                 <InfoTip title="Type distribution">
                   <p>How the day's trades split between trading styles (scalping, intraday, swing, ...). Click a slice to list those trades.</p>
@@ -210,7 +210,7 @@ const Daily = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Performance
                 <InfoTip title="Strategy performance">
                   <p>Profit or loss per strategy for this day. Trades without a strategy are grouped as &quot;Unspecified&quot;. Click a bar to list its trades.</p>

@@ -136,11 +136,11 @@ const WhatIsMovingAverageSVG = () => (
     <text x="155" y="278" textAnchor="middle" fontSize="9" fill="#26354F">→ Plot that point → Repeat</text>
     
     {/* Right side - result */}
-    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">The Result</text>
+    <rect x="320" y="70" width="250" height="220" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">The Result</text>
     
     <g transform="translate(445, 175)">
-      <rect x="-95" y="-60" width="190" height="120" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-95" y="-60" width="190" height="120" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Noisy price */}
       <path 
@@ -156,7 +156,7 @@ const WhatIsMovingAverageSVG = () => (
       <path 
         d="M-75 20 L-45 12 L-15 0 L15 -8 L45 -15 L75 -18" 
         fill="none" 
-        stroke="#12805A" 
+        stroke="#16A34A" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -167,11 +167,11 @@ const WhatIsMovingAverageSVG = () => (
     <g transform="translate(445, 255)">
       <line x1="-60" y1="0" x2="-40" y2="0" stroke="#A0A3AA" strokeWidth="1.5"/>
       <text x="-35" y="4" fontSize="9" fill="#717680">Raw Price</text>
-      <line x1="15" y1="0" x2="35" y2="0" stroke="#12805A" strokeWidth="2.5"/>
-      <text x="40" y="4" fontSize="9" fill="#12805A">Moving Avg</text>
+      <line x1="15" y1="0" x2="35" y2="0" stroke="#16A34A" strokeWidth="2.5"/>
+      <text x="40" y="4" fontSize="9" fill="#16A34A">Moving Avg</text>
     </g>
     
-    <text x="445" y="280" textAnchor="middle" fontSize="9" fill="#12805A">Smoother line reveals the trend</text>
+    <text x="445" y="280" textAnchor="middle" fontSize="9" fill="#16A34A">Smoother line reveals the trend</text>
   </svg>
 );
 
@@ -212,11 +212,11 @@ const BeforeAfterSVG = () => (
     <text x="167" y="300" textAnchor="middle" fontSize="9" fill="#842428">Every wiggle demands attention</text>
     
     {/* Right - With MA */}
-    <rect x="330" y="70" width="285" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">With Moving Average</text>
+    <rect x="330" y="70" width="285" height="240" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">With Moving Average</text>
     
     <g transform="translate(472, 190)">
-      <rect x="-115" y="-70" width="230" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-115" y="-70" width="230" height="140" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Y axis labels */}
       <text x="-105" y="-50" fontSize="8" fill="#A0A3AA">$60</text>
@@ -237,15 +237,15 @@ const BeforeAfterSVG = () => (
       <path 
         d="M-85 35 L-55 25 L-25 15 L5 5 L35 -5 L65 -12 L95 -18 L105 -22" 
         fill="none" 
-        stroke="#12805A" 
+        stroke="#16A34A" 
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </g>
     
-    <text x="472" y="285" textAnchor="middle" fontSize="9" fill="#12805A">"The green line shows: trending up"</text>
-    <text x="472" y="300" textAnchor="middle" fontSize="9" fill="#12805A">Context emerges through smoothing</text>
+    <text x="472" y="285" textAnchor="middle" fontSize="9" fill="#16A34A">"The green line shows: trending up"</text>
+    <text x="472" y="300" textAnchor="middle" fontSize="9" fill="#16A34A">Context emerges through smoothing</text>
   </svg>
 );
 
@@ -443,7 +443,7 @@ const PriceRelativeToAverageSVG = () => (
     <path 
       d="M70 150 L100 140 L130 130 L160 125 L190 115 L220 120 L250 110 L280 115" 
       fill="none" 
-      stroke="#12805A" 
+      stroke="#16A34A" 
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -460,8 +460,8 @@ const PriceRelativeToAverageSVG = () => (
     />
     
     {/* Labels */}
-    <rect x="80" y="90" width="130" height="24" fill="#EEF9F4" rx="6"/>
-    <text x="145" y="106" textAnchor="middle" fontSize="9" fill="#12805A">Price ABOVE average</text>
+    <rect x="80" y="90" width="130" height="24" fill="#F0FDF4" rx="6"/>
+    <text x="145" y="106" textAnchor="middle" fontSize="9" fill="#16A34A">Price ABOVE average</text>
     
     <rect x="390" y="195" width="130" height="24" fill="#FBE1E1" rx="6"/>
     <text x="455" y="211" textAnchor="middle" fontSize="9" fill="#842428">Price BELOW average</text>
@@ -469,9 +469,9 @@ const PriceRelativeToAverageSVG = () => (
     {/* Legend at bottom */}
     <rect x="100" y="265" width="400" height="60" fill="#EEEEF1" rx="10"/>
     
-    <rect x="120" y="278" width="160" height="35" fill="#EEF9F4" rx="6" stroke="#3CCB97" strokeWidth="1"/>
-    <text x="200" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Above Average</text>
-    <text x="200" y="307" textAnchor="middle" fontSize="8" fill="#12805A">Recently stronger than usual</text>
+    <rect x="120" y="278" width="160" height="35" fill="#F0FDF4" rx="6" stroke="#16A34A" strokeWidth="1"/>
+    <text x="200" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Above Average</text>
+    <text x="200" y="307" textAnchor="middle" fontSize="8" fill="#16A34A">Recently stronger than usual</text>
     
     <rect x="320" y="278" width="160" height="35" fill="#FBE1E1" rx="6" stroke="#F09B9B" strokeWidth="1"/>
     <text x="400" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#842428">Below Average</text>
@@ -507,20 +507,20 @@ const ContextNotSignalsSVG = () => (
     </g>
     
     {/* Right - Correct understanding */}
-    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Correct Understanding</text>
+    <rect x="335" y="70" width="275" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Correct Understanding</text>
     
     <g transform="translate(472, 165)">
-      <rect x="-100" y="-45" width="200" height="90" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-100" y="-45" width="200" height="90" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* MA line */}
       <path d="M-80 20 L0 0 L80 -20" fill="none" stroke="#5A77AA" strokeWidth="2"/>
       
       {/* Correct: showing past trend */}
-      <text x="0" y="-30" textAnchor="middle" fontSize="8" fill="#12805A">Shows recent direction</text>
-      <path d="M-60 15 L60 -15" fill="none" stroke="#12805A" strokeWidth="1" strokeDasharray="3 2"/>
+      <text x="0" y="-30" textAnchor="middle" fontSize="8" fill="#16A34A">Shows recent direction</text>
+      <path d="M-60 15 L60 -15" fill="none" stroke="#16A34A" strokeWidth="1" strokeDasharray="3 2"/>
       
-      <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#12805A">"Price has been trending up recently"</text>
+      <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#16A34A">"Price has been trending up recently"</text>
     </g>
     
     {/* Bottom insight */}
@@ -575,14 +575,14 @@ const TechnicalAnalysisLesson5 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 5 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Moving Averages – Context, Not Signals</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Moving Averages – Context, Not Signals</h1>
             <p className="text-gray-600 mt-2">Understanding how smoothing reveals the bigger picture</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Raw Price Can Look Noisy</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Raw Price Can Look Noisy</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -613,7 +613,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* What is a Moving Average */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What is a Moving Average?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What is a Moving Average?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -644,7 +644,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Before and After Comparison */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Same Data, Different Clarity</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Same Data, Different Clarity</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -670,7 +670,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Fast vs Slow */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Fast vs Slow Moving Averages</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Fast vs Slow Moving Averages</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -692,7 +692,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Fast MA Detail */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Fast Moving Averages</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Fast Moving Averages</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -708,7 +708,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Slow MA Detail */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Slow Moving Averages</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Slow Moving Averages</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -739,7 +739,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Price Relative to Average */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Price Relative to the Average</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Price Relative to the Average</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -761,7 +761,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Context Not Signals */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Context, Not Prediction</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Context, Not Prediction</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -802,7 +802,7 @@ const TechnicalAnalysisLesson5 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

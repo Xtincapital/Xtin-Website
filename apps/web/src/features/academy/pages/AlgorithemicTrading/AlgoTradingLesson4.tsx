@@ -107,7 +107,7 @@ const AlgoTradingLesson4 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 4 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Backtest className="w-8 h-8 text-white"/>
               </span>
@@ -148,7 +148,7 @@ const AlgoTradingLesson4 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">What is Backtesting?</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">What is Backtesting?</h2>
             <p className="text-gray-700  mb-6">
               Backtesting is the process of applying your trading rules to historical market data to see how they would have performed. 
               It's your strategy's "time machine" — testing ideas without risking real money.
@@ -202,11 +202,11 @@ const AlgoTradingLesson4 = () => {
 
                 {/* Step 4: Results */}
                 <g transform="translate(555, 60)">
-                  <rect x="0" y="0" width="120" height="90" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <circle cx="60" cy="25" r="15" fill="#12805A"/>
+                  <rect x="0" y="0" width="120" height="90" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <circle cx="60" cy="25" r="15" fill="#16A34A"/>
                   <text x="60" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">4</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">RESULTS</text>
-                  <text x="60" y="70" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">& METRICS</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">RESULTS</text>
+                  <text x="60" y="70" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">& METRICS</text>
                   <text x="60" y="85" textAnchor="middle" fill="#717680" fontSize="8">Performance data</text>
                 </g>
 
@@ -221,7 +221,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* The Overfitting Problem */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Warning className="w-5 h-5 text-red-600 "/>
               </span>
@@ -245,7 +245,7 @@ const AlgoTradingLesson4 = () => {
                     <text x="110" y="25" textAnchor="middle" className="fill-brand " fontSize="10" fontWeight="600">✓ GOOD FIT</text>
                     
                     {/* Simple trend line */}
-                    <path d="M30 110 Q110 50 190 80" stroke="#12805A" strokeWidth="3" fill="none"/>
+                    <path d="M30 110 Q110 50 190 80" stroke="#16A34A" strokeWidth="3" fill="none"/>
                     
                     {/* Data points */}
                     <circle cx="40" cy="105" r="4" fill="#5A77AA"/><circle cx="70" cy="85" r="4" fill="#5A77AA"/>
@@ -292,7 +292,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* The Solution: Walk-Forward Analysis */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-brand-soft  rounded-xl flex items-center justify-center">
                 <Icons.Chart className="w-5 h-5 text-brand "/>
               </span>
@@ -322,7 +322,7 @@ const AlgoTradingLesson4 = () => {
                 <g transform="translate(50, 120)">
                   <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#12805A"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#16A34A"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
@@ -330,7 +330,7 @@ const AlgoTradingLesson4 = () => {
                 <g transform="translate(130, 160)">
                   <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#12805A"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#16A34A"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
@@ -338,7 +338,7 @@ const AlgoTradingLesson4 = () => {
                 <g transform="translate(210, 200)">
                   <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#12805A"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#16A34A"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
@@ -347,7 +347,7 @@ const AlgoTradingLesson4 = () => {
                   <rect x="0" y="0" width="160" height="80" rx="8" fill="#1F1F1F" stroke="#373A41"/>
                   <rect x="15" y="15" width="20" height="12" rx="2" fill="#5A77AA"/>
                   <text x="45" y="25" fill="#A0A3AA" fontSize="9">Training Period</text>
-                  <rect x="15" y="35" width="20" height="12" rx="2" fill="#12805A"/>
+                  <rect x="15" y="35" width="20" height="12" rx="2" fill="#16A34A"/>
                   <text x="45" y="45" fill="#A0A3AA" fontSize="9">Testing Period</text>
                   <text x="80" y="68" textAnchor="middle" fill="#717680" fontSize="8">Results must be consistent</text>
                 </g>
@@ -355,7 +355,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* Key Metrics */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">Key Performance Metrics</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">Key Performance Metrics</h2>
             <p className="text-gray-700  mb-6">
               Don't just look at total profit. These metrics give you a complete picture of strategy performance:
             </p>
@@ -428,7 +428,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What is overfitting in the context of backtesting?"
               options={["When your strategy is too simple", "When your strategy fits historical data too perfectly and fails on new data", "When you test on too much data", "When transaction costs are too high"]}

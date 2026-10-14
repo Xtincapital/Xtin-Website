@@ -238,7 +238,7 @@ export default function OnboardingTour() {
             width: rect.width,
             height: rect.height,
             boxShadow: "0 0 0 9999px rgba(8,16,28,0.78)",
-            outline: "2px solid rgba(60, 203, 151,0.85)",
+            outline: "2px solid rgba(22, 163, 74,0.85)",
             outlineOffset: 2,
           }}
         />
@@ -252,8 +252,8 @@ export default function OnboardingTour() {
         className="absolute w-[min(380px,calc(100vw-32px))] rounded-2xl p-6 text-white shadow-2xl transition-all duration-300"
         style={
           cardPos.centered
-            ? { top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(60, 203, 151,0.25)" }
-            : { top: cardPos.top, left: cardPos.left, background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(60, 203, 151,0.25)" }
+            ? { top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(22, 163, 74,0.25)" }
+            : { top: cardPos.top, left: cardPos.left, background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(22, 163, 74,0.25)" }
         }
       >
         <button

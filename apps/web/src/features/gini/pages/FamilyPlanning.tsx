@@ -115,7 +115,7 @@ function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; tit
         <Icon className="h-4.5 w-4.5" />
       </span>
       <div>
-        <CardTitle className="text-base">{title}</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
         <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </CardHeader>

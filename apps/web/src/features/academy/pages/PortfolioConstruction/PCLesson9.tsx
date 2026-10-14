@@ -62,7 +62,7 @@ const Icons = {
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">Before</text>
         <rect x="-50" y="0" width="100" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="0" y="25" fill="white" fontSize="14" fontWeight="bold" textAnchor="middle">Stocks 70%</text>
-        <rect x="-50" y="50" width="60" height="40" fill="#12805A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="60" height="40" fill="#16A34A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-20" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds</text>
         <text x="-20" y="88" fill="white" fontSize="11" textAnchor="middle">30%</text>
         <circle cx="0" cy="140" r="8" fill="#E04848" stroke="white" strokeWidth="2"/>
@@ -78,10 +78,10 @@ const Icons = {
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">After</text>
         <rect x="-50" y="0" width="80" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="25" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Stocks 60%</text>
-        <rect x="-50" y="50" width="80" height="40" fill="#12805A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="80" height="40" fill="#16A34A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds 40%</text>
-        <circle cx="0" cy="140" r="8" fill="#12805A" stroke="white" strokeWidth="2"/>
-        <text x="0" y="160" fill="#12805A" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
+        <circle cx="0" cy="140" r="8" fill="#16A34A" stroke="white" strokeWidth="2"/>
+        <text x="0" y="160" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Portfolio Drift & Rebalancing</text>
     </svg>
@@ -173,7 +173,7 @@ const PCLesson9 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Rebalancing</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Rebalancing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn when and how to restore your portfolio to its target allocation. Master the art of disciplined rebalancing while minimizing costs and taxes.</p>
           </header>
 
@@ -186,7 +186,7 @@ const PCLesson9 = () => {
                       <Icons.RefreshCw className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">What is Rebalancing?</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">What is Rebalancing?</h2>
                       <p className="text-sm text-gray-500 ">Maintaining your intended allocation</p>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ const PCLesson9 = () => {
                       <Icons.Scale className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Why Rebalance?</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Why Rebalance?</h2>
                       <p className="text-sm text-gray-500 ">The benefits of discipline</p>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ const PCLesson9 = () => {
                       <Icons.TrendingUp className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Methods</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Methods</h2>
                       <p className="text-sm text-gray-500 ">Different approaches to restore balance</p>
                     </div>
                   </div>
@@ -348,7 +348,7 @@ const PCLesson9 = () => {
                       <Icons.RefreshCw className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing in Practice</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing in Practice</h2>
                       <p className="text-sm text-gray-500 ">Maintaining your target allocation</p>
                     </div>
                   </div>
@@ -421,7 +421,7 @@ const PCLesson9 = () => {
                       <Icons.Calendar className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Timing and Frequency</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Timing and Frequency</h2>
                       <p className="text-sm text-gray-500 ">How often should you rebalance?</p>
                     </div>
                   </div>
@@ -487,7 +487,7 @@ const PCLesson9 = () => {
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Smart Rebalancing</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Smart Rebalancing</h2>
                       <p className="text-sm text-gray-500 ">Minimize the tax impact</p>
                     </div>
                   </div>
@@ -532,7 +532,7 @@ const PCLesson9 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of rebalancing</p>
                     </div>
                   </div>

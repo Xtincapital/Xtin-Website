@@ -22,9 +22,9 @@ export default {
         sans: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
         display: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
       },
-      // One type scale for the whole site: 12 · 14 · 16 · 18 · 24 · 32 · 40 · 48.
+      // One type scale for the whole site: 12 · 14 · 16 · 18 · 24 · 32 · 40 · 48 · 60.
       // Tailwind's in-between steps snap onto it (xl = lg, 6xl/7xl = 5xl), so
-      // every page draws from the same eight sizes.
+      // every page draws from the same nine sizes (60 is for hero headlines).
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1rem" }],
         sm: ["0.875rem", { lineHeight: "1.25rem" }],
@@ -35,13 +35,15 @@ export default {
         "3xl": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
         "4xl": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         "5xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
-        "6xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
+        "6xl": ["3.75rem", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
         "7xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
       },
-      // Three weights only: regular 400, medium 500, semibold 600.
+      // Plus Jakarta Sans at 700 for everything that labels or leads —
+      // headings, card titles, labels, buttons, key figures (semibold and
+      // bold are both 700) — and 400/500 for body text.
       fontWeight: {
         thin: "400", extralight: "400", light: "400", normal: "400",
-        medium: "500", semibold: "600", bold: "600", extrabold: "600", black: "600",
+        medium: "500", semibold: "700", bold: "700", extrabold: "700", black: "700",
       },
       colors: {
         // Every Tailwind hue now resolves to one of 8 palette families

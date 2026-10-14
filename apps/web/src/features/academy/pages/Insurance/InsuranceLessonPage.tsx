@@ -38,7 +38,7 @@ const InsuranceLessonPage = ({ lessonNumber }) => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">Lesson {lesson.num} of {insuranceLessons.length}</span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">{lesson.duration} read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <LessonIcon className="w-7 h-7 text-brand" />
               </span>
@@ -53,7 +53,7 @@ const InsuranceLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">{paragraph}</p>)}
                 {section.bullets && <div className="grid gap-3 my-6">{section.bullets.map((bullet) => <div key={bullet} className="flex items-start gap-3 bg-white rounded-xl p-4 border border-brand-line shadow-sm"><CheckCircleIcon className="w-5 h-5 text-brand mt-0.5 flex-shrink-0" /><span className="text-gray-700">{bullet}</span></div>)}</div>}
                 {section.callout && (() => {

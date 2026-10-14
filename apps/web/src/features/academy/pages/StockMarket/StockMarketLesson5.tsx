@@ -306,7 +306,7 @@ const StockMarketLesson5 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl shadow-sm">
                 <Icons.TrendUp className="w-7 h-7 text-teal-600" />
               </span>
@@ -367,10 +367,10 @@ const StockMarketLesson5 = () => {
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#12805A"/>
+                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#16A34A"/>
                   ))}
                 </g>
 
@@ -385,7 +385,7 @@ const StockMarketLesson5 = () => {
 
                 {/* Result */}
                 <g transform="translate(60, 160)">
-                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#12805A"/>
+                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#16A34A"/>
                   <text x="65" y="17" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">RESULT</text>
                   <text x="65" y="32" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">PRICE GOES UP ↑</text>
                 </g>
@@ -403,10 +403,10 @@ const StockMarketLesson5 = () => {
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1].map((i) => (
-                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#12805A"/>
+                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#16A34A"/>
                   ))}
                 </g>
 
@@ -767,7 +767,7 @@ const StockMarketLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-teal-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

@@ -271,7 +271,7 @@ const PortfolioConstructionOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="portfolio-construction" /></div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-xl shadow-blue-500/30 bg-brand-fill">
                 <Icons.Portfolio className="w-9 h-9 text-white" />
               </span>
@@ -306,7 +306,7 @@ const PortfolioConstructionOverview = () => {
                   <stop offset="0%" stopColor="#8F6FC4"/><stop offset="100%" stopColor="#8F6FC4"/>
                 </linearGradient>
                 <linearGradient id="pcGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#12805A"/><stop offset="100%" stopColor="#12805A"/>
+                  <stop offset="0%" stopColor="#16A34A"/><stop offset="100%" stopColor="#16A34A"/>
                 </linearGradient>
                 <linearGradient id="pcGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#B8923F"/><stop offset="100%" stopColor="#D2754C"/>
@@ -337,8 +337,8 @@ const PortfolioConstructionOverview = () => {
                 <circle cx="160" cy="110" r="8" fill="#5A77AA"><title>Mixed</title></circle>
                 <text x="160" y="130" textAnchor="middle" fill="#5A77AA" fontSize="8">Balanced</text>
                 
-                <circle cx="250" cy="70" r="8" fill="#12805A"><title>Equities</title></circle>
-                <text x="250" y="90" textAnchor="middle" fill="#12805A" fontSize="8">Equities</text>
+                <circle cx="250" cy="70" r="8" fill="#16A34A"><title>Equities</title></circle>
+                <text x="250" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">Equities</text>
 
                 {/* Optimal Portfolio Point */}
                 <circle cx="180" cy="95" r="10" fill="#B8923F" stroke="#CDAA5F" strokeWidth="2"/>
@@ -398,7 +398,7 @@ const PortfolioConstructionOverview = () => {
                   <rect x="0" y="0" width="130" height="75" rx="8" fill="#1F1F1F" stroke="#373A41"/>
                   <text x="65" y="18" textAnchor="middle" fill="#A0A3AA" fontSize="8">PORTFOLIO METRICS</text>
                   <text x="10" y="35" fill="#717680" fontSize="8">Exp. Return:</text>
-                  <text x="120" y="35" textAnchor="end" fill="#12805A" fontSize="9" fontWeight="600">9.2%</text>
+                  <text x="120" y="35" textAnchor="end" fill="#16A34A" fontSize="9" fontWeight="600">9.2%</text>
                   <text x="10" y="50" fill="#717680" fontSize="8">Volatility:</text>
                   <text x="120" y="50" textAnchor="end" fill="#B8923F" fontSize="9" fontWeight="600">12.4%</text>
                   <text x="10" y="65" fill="#717680" fontSize="8">Sharpe:</text>
@@ -415,7 +415,7 @@ const PortfolioConstructionOverview = () => {
 
           {/* What You'll Learn */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50   rounded-2xl p-8 mb-12 border border-blue-200 ">
-            <h2 className="text-2xl font-semibold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 rounded-xl flex items-center justify-center bg-brand-fill">
                 <Icons.Target className="w-5 h-5 text-white"/>
               </span>
@@ -461,7 +461,7 @@ const PortfolioConstructionOverview = () => {
           </div>
 
           {/* Lessons Grid */}
-          <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Course Content</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.015em]">Course Content</h2>
           <div className="grid gap-4 mb-12">
             {lessons.map((lesson) => {
               const colors = colorClasses[lesson.color];

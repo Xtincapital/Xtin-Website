@@ -124,18 +124,18 @@ const Mistake1SVG = () => (
     {/* Visual representation */}
     <g transform="translate(100, 80)">
       {/* Investor thinking only about returns */}
-      <rect x="0" y="0" width="200" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="100" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">What Beginners Think About</text>
+      <rect x="0" y="0" width="200" height="130" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="100" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">What Beginners Think About</text>
       
       <g transform="translate(30, 45)">
-        <circle cx="20" cy="20" r="15" fill="#12805A"/>
+        <circle cx="20" cy="20" r="15" fill="#16A34A"/>
         <text x="20" y="25" textAnchor="middle" fontSize="10" fill="white">📈</text>
-        <text x="55" y="25" fontSize="9" fill="#12805A">Profits going up</text>
+        <text x="55" y="25" fontSize="9" fill="#16A34A">Profits going up</text>
       </g>
       <g transform="translate(30, 80)">
-        <circle cx="20" cy="20" r="15" fill="#12805A"/>
+        <circle cx="20" cy="20" r="15" fill="#16A34A"/>
         <text x="20" y="25" textAnchor="middle" fontSize="10" fill="white">💰</text>
-        <text x="55" y="25" fontSize="9" fill="#12805A">Account balance</text>
+        <text x="55" y="25" fontSize="9" fill="#16A34A">Account balance</text>
       </g>
       
       {/* VS */}
@@ -194,20 +194,20 @@ const Mistake2SVG = () => (
       <text x="140" y="133" textAnchor="middle" fontSize="7" fill="#842428">(short-term holding)</text>
       
       {/* Scenario B: Patient approach */}
-      <rect x="320" y="0" width="280" height="140" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="460" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Considered Decision</text>
+      <rect x="320" y="0" width="280" height="140" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="460" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Considered Decision</text>
       
       {/* Timeline */}
       <line x1="350" y1="70" x2="570" y2="70" stroke="#CFD0D3" strokeWidth="2"/>
       <circle cx="380" cy="70" r="8" fill="#5A77AA"/>
       <text x="380" y="90" textAnchor="middle" fontSize="7" fill="#717680">Buy</text>
       
-      <circle cx="520" cy="70" r="8" fill="#12805A"/>
-      <text x="520" y="55" textAnchor="middle" fontSize="7" fill="#12805A">Sell (13+ months)</text>
-      <text x="520" y="90" textAnchor="middle" fontSize="7" fill="#12805A">Aware of timing</text>
+      <circle cx="520" cy="70" r="8" fill="#16A34A"/>
+      <text x="520" y="55" textAnchor="middle" fontSize="7" fill="#16A34A">Sell (13+ months)</text>
+      <text x="520" y="90" textAnchor="middle" fontSize="7" fill="#16A34A">Aware of timing</text>
       
-      <text x="460" y="120" textAnchor="middle" fontSize="8" fill="#12805A">Result: May qualify for different treatment</text>
-      <text x="460" y="133" textAnchor="middle" fontSize="7" fill="#12805A">(long-term holding)</text>
+      <text x="460" y="120" textAnchor="middle" fontSize="8" fill="#16A34A">Result: May qualify for different treatment</text>
+      <text x="460" y="133" textAnchor="middle" fontSize="7" fill="#16A34A">(long-term holding)</text>
     </g>
     
     {/* Key point */}
@@ -242,7 +242,7 @@ const Mistake3SVG = () => (
       
       <text x="170" y="80" fontSize="9" fill="#2C3F5E">• Paper profit only</text>
       <text x="170" y="95" fontSize="9" fill="#2C3F5E">• Not yet sold</text>
-      <text x="170" y="110" fontSize="9" fill="#12805A" fontWeight="600">• Generally not taxed yet</text>
+      <text x="170" y="110" fontSize="9" fill="#16A34A" fontWeight="600">• Generally not taxed yet</text>
       
       {/* Realized */}
       <rect x="320" y="0" width="280" height="150" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="2"/>
@@ -338,11 +338,11 @@ const GlobalExampleSVG = () => (
     {/* Story timeline */}
     <g transform="translate(160, 70)">
       {/* Step 1 */}
-      <rect x="0" y="0" width="150" height="85" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">January</text>
-      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#12805A">Buys stocks for</text>
-      <text x="75" y="55" textAnchor="middle" fontSize="14" fontWeight="700" fill="#12805A">$5,000</text>
-      <text x="75" y="75" textAnchor="middle" fontSize="7" fill="#12805A">Excited to start investing</text>
+      <rect x="0" y="0" width="150" height="85" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">January</text>
+      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#16A34A">Buys stocks for</text>
+      <text x="75" y="55" textAnchor="middle" fontSize="14" fontWeight="700" fill="#16A34A">$5,000</text>
+      <text x="75" y="75" textAnchor="middle" fontSize="7" fill="#16A34A">Excited to start investing</text>
       
       {/* Arrow */}
       <line x1="160" y1="42" x2="185" y2="42" stroke="#A0A3AA" strokeWidth="2"/>
@@ -422,8 +422,8 @@ const ThreeMistakesSummarySVG = () => (
     </g>
     
     {/* Bottom note */}
-    <rect x="150" y="180" width="400" height="28" fill="#EEF9F4" rx="6"/>
-    <text x="350" y="199" textAnchor="middle" fontSize="9" fill="#12805A">
+    <rect x="150" y="180" width="400" height="28" fill="#F0FDF4" rx="6"/>
+    <text x="350" y="199" textAnchor="middle" fontSize="9" fill="#16A34A">
       ✓ Awareness of these mistakes is the first step to avoiding them.
     </text>
   </svg>
@@ -462,7 +462,7 @@ const IndiaNoteSVG = () => (
     {/* Flag colors accent */}
     <rect x="0" y="0" width="8" height="140" fill="#D2754C" rx="4"/>
     <rect x="8" y="0" width="4" height="140" fill="white"/>
-    <rect x="12" y="0" width="8" height="140" fill="#12805A"/>
+    <rect x="12" y="0" width="8" height="140" fill="#16A34A"/>
     
     {/* Content */}
     <text x="350" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#9C4D2E">🇮🇳 India-Specific Note</text>
@@ -549,14 +549,14 @@ const TaxLesson6 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 6 of 6
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Common Tax Mistakes Beginners Make</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Common Tax Mistakes Beginners Make</h1>
             <p className="text-gray-600 mt-2">Awareness of pitfalls helps you avoid them</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Tax Mistakes Happen</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Tax Mistakes Happen</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -581,7 +581,7 @@ const TaxLesson6 = () => {
 
         {/* Mistake 1 */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #1: Ignoring Taxes Completely</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #1: Ignoring Taxes Completely</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -605,7 +605,7 @@ const TaxLesson6 = () => {
 
         {/* Mistake 2 */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #2: Selling Without Considering Timing</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #2: Selling Without Considering Timing</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -629,7 +629,7 @@ const TaxLesson6 = () => {
 
         {/* Mistake 3 */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #3: Misunderstanding What Gets Taxed</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Mistake #3: Misunderstanding What Gets Taxed</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -653,7 +653,7 @@ const TaxLesson6 = () => {
 
         {/* Small Mistakes Compound */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Small Mistakes Matter Over Time</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Small Mistakes Matter Over Time</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -677,7 +677,7 @@ const TaxLesson6 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Example: Jordan's Tax Surprise</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Example: Jordan's Tax Surprise</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -723,7 +723,7 @@ const TaxLesson6 = () => {
 
         {/* India Note */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">🌍 Global Context with India Note</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">🌍 Global Context with India Note</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -738,7 +738,7 @@ const TaxLesson6 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

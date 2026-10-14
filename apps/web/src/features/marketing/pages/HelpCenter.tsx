@@ -166,7 +166,7 @@ const HelpCenter = () => {
             <div aria-hidden="true" className="pointer-events-none absolute left-1/2 -top-10 h-56 w-[28rem] -translate-x-1/2 rounded-full bg-brand-soft blur-3xl opacity-80" />
             <SupportArt />
             <p className="relative xt-eyebrow mb-3">We're here to help</p>
-            <h1 className="relative text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">Contact Us</h1>
+            <h1 className="relative text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">Contact Us</h1>
             <p className="relative text-lg text-gray-600">
               Send us a message and we'll get back to you soon
             </p>

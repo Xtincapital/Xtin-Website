@@ -65,8 +65,8 @@ const Icons = {
       <text x="210" y="250" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Time →</text>
       <text x="20" y="130" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 130)">Portfolio Value</text>
       {/* Normal growth path */}
-      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
-      <text x="360" y="75" fill="#12805A" fontSize="11">Normal</text>
+      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#16A34A" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
+      <text x="360" y="75" fill="#16A34A" fontSize="11">Normal</text>
       {/* Stress scenario path */}
       <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130" stroke="#E04848" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130 L 350 220 L 50 220 Z" fill="url(#stressGrad)"/>
@@ -172,7 +172,7 @@ const PCLesson11 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Stress Testing</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Stress Testing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn to test your portfolio against extreme scenarios before they happen. Understand scenario analysis, historical stress tests, and Monte Carlo simulation to build resilient portfolios.</p>
           </header>
 
@@ -185,7 +185,7 @@ const PCLesson11 = () => {
                       <Icons.Zap className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Why Stress Test?</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Why Stress Test?</h2>
                       <p className="text-sm text-gray-500 ">Prepare for the unexpected</p>
                     </div>
                   </div>
@@ -224,7 +224,7 @@ const PCLesson11 = () => {
                       <Icons.BarChart className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Scenario Analysis</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Scenario Analysis</h2>
                       <p className="text-sm text-gray-500 ">What-if analysis</p>
                     </div>
                   </div>
@@ -293,7 +293,7 @@ const PCLesson11 = () => {
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Historical Stress Tests</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Historical Stress Tests</h2>
                       <p className="text-sm text-gray-500 ">Learning from past crises</p>
                     </div>
                   </div>
@@ -351,7 +351,7 @@ const PCLesson11 = () => {
                       <Icons.Activity className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Monte Carlo Simulation</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Monte Carlo Simulation</h2>
                       <p className="text-sm text-gray-500 ">Thousands of possible futures</p>
                     </div>
                   </div>
@@ -430,7 +430,7 @@ const PCLesson11 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Taking Action on Results</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Taking Action on Results</h2>
                       <p className="text-sm text-gray-500 ">What to do with stress test findings</p>
                     </div>
                   </div>
@@ -478,7 +478,7 @@ const PCLesson11 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of stress testing</p>
                     </div>
                   </div>

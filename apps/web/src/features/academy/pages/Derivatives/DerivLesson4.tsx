@@ -78,8 +78,8 @@ const LimitedUnlimitedRiskSVG = () => (
     
     {/* Limited Risk - Buying Options */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="210" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LIMITED RISK</text>
+      <rect x="0" y="0" width="280" height="210" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">LIMITED RISK</text>
       <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#717680">Buying options</text>
       
       <g transform="translate(20, 55)">
@@ -91,7 +91,7 @@ const LimitedUnlimitedRiskSVG = () => (
         
         <line x1="20" y1="62" x2="220" y2="62" stroke="#E4E4EA" strokeWidth="1"/>
         
-        <text x="120" y="80" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Maximum loss = Premium paid</text>
+        <text x="120" y="80" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Maximum loss = Premium paid</text>
         <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#373A41">You paid $500 for the option?</text>
         <text x="120" y="108" textAnchor="middle" fontSize="8" fill="#373A41">Worst case: you lose $500.</text>
         <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#717680">The option expires worthless, but</text>
@@ -308,8 +308,8 @@ const GlobalExampleSVG = () => (
     
     {/* His thinking */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="600" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="300" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Tom's Thinking</text>
+      <rect x="0" y="0" width="600" height="50" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="300" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Tom's Thinking</text>
       <text x="300" y="35" textAnchor="middle" fontSize="8" fill="#373A41">"If oil goes up 5%, I make $5,000 on my $10,000 — that's 50% return! Easy money!"</text>
     </g>
     
@@ -513,7 +513,7 @@ const DerivLesson4 = () => {
                 Lesson 4 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Risk in Futures & Options</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Risk in Futures & Options</h1>
             <p className="text-gray-600 text-lg">
               Understanding why derivatives can lead to large losses.
             </p>
@@ -527,7 +527,7 @@ const DerivLesson4 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Are Derivatives Risky?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Are Derivatives Risky?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -551,7 +551,7 @@ const DerivLesson4 = () => {
 
         {/* Limited vs Unlimited Risk */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Limited Risk vs. Unlimited Risk</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Limited Risk vs. Unlimited Risk</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -579,7 +579,7 @@ const DerivLesson4 = () => {
 
         {/* Speed of Losses */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Losses Happen Fast</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Losses Happen Fast</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -598,7 +598,7 @@ const DerivLesson4 = () => {
 
         {/* Margin Calls */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Margin Call</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Margin Call</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -626,7 +626,7 @@ const DerivLesson4 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -648,7 +648,7 @@ const DerivLesson4 = () => {
 
         {/* Common Ways to Lose */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">How Beginners Typically Lose</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">How Beginners Typically Lose</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -682,7 +682,7 @@ const DerivLesson4 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of derivative risks.</p>
           
           <div className="space-y-8">

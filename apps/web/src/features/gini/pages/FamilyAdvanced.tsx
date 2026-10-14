@@ -191,7 +191,7 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Dual Retirement Planning</CardTitle>
+        <CardTitle className="text-lg">Dual Retirement Planning</CardTitle>
         <p className="text-sm text-muted-foreground">Visualize phased retirement for multiple earners in the family</p>
       </CardHeader>
       <CardContent>
@@ -340,7 +340,7 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <div>
-          <CardTitle className="text-base">Elder Care Planning</CardTitle>
+          <CardTitle className="text-lg">Elder Care Planning</CardTitle>
           <p className="text-sm text-muted-foreground">
             Plan for parents or elderly dependents — medical reserves, monthly support, longevity planning
           </p>
@@ -638,7 +638,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <div>
-          <CardTitle className="text-base">Children's Education Timeline</CardTitle>
+          <CardTitle className="text-lg">Children's Education Timeline</CardTitle>
           <p className="text-sm text-muted-foreground">Track education milestones, costs, and funding for each child</p>
         </div>
         <Button onClick={openAdd} disabled={children.length === 0}>
@@ -947,7 +947,7 @@ function TaxOptimizationTab() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Family Tax Optimization</CardTitle>
+        <CardTitle className="text-lg">Family Tax Optimization</CardTitle>
         <p className="text-sm text-muted-foreground">Track deductions across Sections 80C, 80D, and 80E, plus HUF benefits</p>
       </CardHeader>
       <CardContent>
@@ -1154,7 +1154,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Cost to Support a Dependent</CardTitle>
+          <CardTitle className="text-lg">Cost to Support a Dependent</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -1219,7 +1219,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Family Health Insurance Requirement</CardTitle>
+          <CardTitle className="text-lg">Family Health Insurance Requirement</CardTitle>
           <p className="text-sm text-muted-foreground">Based on your family size and composition</p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -1250,7 +1250,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Family Emergency Fund Recommendation</CardTitle>
+          <CardTitle className="text-lg">Family Emergency Fund Recommendation</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="max-w-xs space-y-1.5">

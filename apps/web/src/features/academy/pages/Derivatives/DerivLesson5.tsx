@@ -26,9 +26,9 @@ const StatisticsRealitySVG = () => (
     
     {/* Winning traders */}
     <g transform="translate(470, 80)">
-      <rect x="0" y="0" width="130" height="120" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="65" y="30" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#12805A">10-30%</text>
-      <text x="65" y="55" textAnchor="middle" fontSize="9" fill="#12805A">make money</text>
+      <rect x="0" y="0" width="130" height="120" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="65" y="30" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#16A34A">10-30%</text>
+      <text x="65" y="55" textAnchor="middle" fontSize="9" fill="#16A34A">make money</text>
       <text x="65" y="80" textAnchor="middle" fontSize="7" fill="#717680">Usually professionals</text>
       <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#717680">with years of</text>
       <text x="65" y="108" textAnchor="middle" fontSize="7" fill="#717680">experience</text>
@@ -131,8 +131,8 @@ const OverconfidenceCycleSVG = () => (
     
     {/* Step 1 */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="130" height="100" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="65" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Step 1</text>
+      <rect x="0" y="0" width="130" height="100" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="65" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">Step 1</text>
       <text x="65" y="45" textAnchor="middle" fontSize="18">🎉</text>
       <text x="65" y="65" textAnchor="middle" fontSize="8" fill="#373A41">Early Win</text>
       <text x="65" y="80" textAnchor="middle" fontSize="7" fill="#717680">"I made $500!</text>
@@ -218,9 +218,9 @@ const CompoundingLossesSVG = () => (
       
       {/* Starting point */}
       <g transform="translate(30, 30)">
-        <rect x="0" y="0" width="80" height="50" fill="#EEF9F4" rx="6"/>
-        <text x="40" y="22" textAnchor="middle" fontSize="8" fill="#12805A">Start</text>
-        <text x="40" y="38" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">$10,000</text>
+        <rect x="0" y="0" width="80" height="50" fill="#F0FDF4" rx="6"/>
+        <text x="40" y="22" textAnchor="middle" fontSize="8" fill="#16A34A">Start</text>
+        <text x="40" y="38" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">$10,000</text>
       </g>
       
       {/* After 20% loss */}
@@ -276,18 +276,18 @@ const GlobalExampleSVG = () => (
     
     {/* Month 1 */}
     <g transform="translate(50, 70)">
-      <rect x="0" y="0" width="600" height="55" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="50" y="20" fontSize="9" fontWeight="600" fill="#12805A">Month 1: The Beginning</text>
+      <rect x="0" y="0" width="600" height="55" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="50" y="20" fontSize="9" fontWeight="600" fill="#16A34A">Month 1: The Beginning</text>
       <text x="50" y="35" fontSize="8" fill="#373A41">Lisa starts with $5,000. Buys call options on a popular tech stock.</text>
-      <text x="50" y="48" fontSize="8" fill="#12805A">Stock goes up → She makes $800 (16% return). "This is amazing!"</text>
+      <text x="50" y="48" fontSize="8" fill="#16A34A">Stock goes up → She makes $800 (16% return). "This is amazing!"</text>
     </g>
     
     {/* Month 2 */}
     <g transform="translate(50, 135)">
-      <rect x="0" y="0" width="600" height="55" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="50" y="20" fontSize="9" fontWeight="600" fill="#12805A">Month 2: Building Confidence</text>
+      <rect x="0" y="0" width="600" height="55" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="50" y="20" fontSize="9" fontWeight="600" fill="#16A34A">Month 2: Building Confidence</text>
       <text x="50" y="35" fontSize="8" fill="#373A41">Another win! She makes $600 more. Account now at $6,400.</text>
-      <text x="50" y="48" fontSize="8" fill="#12805A">"I've got the hang of this. I'll increase my position sizes."</text>
+      <text x="50" y="48" fontSize="8" fill="#16A34A">"I've got the hang of this. I'll increase my position sizes."</text>
     </g>
     
     {/* Month 3 */}
@@ -488,7 +488,7 @@ const DerivLesson5 = () => {
                 Lesson 5 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Why Most Beginners Lose in Derivatives</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Why Most Beginners Lose in Derivatives</h1>
             <p className="text-gray-600 text-lg">
               Understanding the patterns that lead to losses.
             </p>
@@ -502,7 +502,7 @@ const DerivLesson5 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">The Numbers Don't Lie</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">The Numbers Don't Lie</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -522,7 +522,7 @@ const DerivLesson5 = () => {
 
         {/* Common Mistakes Overview */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Three Categories of Mistakes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Three Categories of Mistakes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -541,7 +541,7 @@ const DerivLesson5 = () => {
 
         {/* The Overconfidence Cycle */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Dangerous Overconfidence Cycle</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Dangerous Overconfidence Cycle</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -569,7 +569,7 @@ const DerivLesson5 = () => {
 
         {/* Compounding Losses */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Losses Compound So Quickly</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Losses Compound So Quickly</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -588,7 +588,7 @@ const DerivLesson5 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -611,7 +611,7 @@ const DerivLesson5 = () => {
 
         {/* Structural Disadvantages */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Structural Disadvantages</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Structural Disadvantages</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -652,7 +652,7 @@ const DerivLesson5 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of why beginners lose.</p>
           
           <div className="space-y-8">

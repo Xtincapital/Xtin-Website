@@ -118,7 +118,7 @@ const PersonalFinanceLesson8 = () => {
                 6 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <ReceiptIcon className="w-7 h-7 text-brand" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson8 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What are Taxes?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What are Taxes?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Taxes</strong> are payments you make to the government. They're collected from your income, purchases, and other sources. Governments use taxes to pay for public services like roads, schools, hospitals, and safety.
@@ -183,7 +183,7 @@ const PersonalFinanceLesson8 = () => {
             </div>
 
             {/* What Taxes Fund */}
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What Do Taxes Pay For?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What Do Taxes Pay For?</h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="bg-blue-50 rounded-xl p-4 text-center border border-blue-100 hover:shadow-lg transition-shadow">
@@ -261,10 +261,10 @@ const PersonalFinanceLesson8 = () => {
                 
                 {/* Take-home Box */}
                 <g transform="translate(350, 40)">
-                  <rect x="0" y="0" width="110" height="80" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                  <text x="55" y="42" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">TAKE-HOME</text>
-                  <text x="55" y="58" textAnchor="middle" fill="#12805A" fontSize="10">$2,550</text>
-                  <text x="55" y="105" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">Your Money</text>
+                  <rect x="0" y="0" width="110" height="80" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="55" y="42" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">TAKE-HOME</text>
+                  <text x="55" y="58" textAnchor="middle" fill="#16A34A" fontSize="10">$2,550</text>
+                  <text x="55" y="105" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Your Money</text>
                 </g>
                 
                 {/* Formula at bottom */}
@@ -409,7 +409,7 @@ const PersonalFinanceLesson8 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <PencilIcon className="w-6 h-6 text-white" />
               </span>

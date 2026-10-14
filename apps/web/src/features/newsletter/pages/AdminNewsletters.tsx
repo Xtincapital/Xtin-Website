@@ -150,7 +150,7 @@ const AdminNewsletters = () => {
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">Newsletters</h1>
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">Newsletters</h1>
               <p className="mt-2 text-gray-600 dark:text-slate-400">
                 Send each edition yourself. Each run writes India, US and Global versions and emails the subscribers who get them.
               </p>

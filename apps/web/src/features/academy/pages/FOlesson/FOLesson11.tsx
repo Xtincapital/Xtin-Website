@@ -87,14 +87,14 @@ const DeltaHedgingSVG = () => (
     <g transform="translate(50, 80)">
       <rect x="0" y="0" width="280" height="150" fill="#2A2A2C" rx="10"/>
       
-      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">INITIAL POSITION</text>
+      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">INITIAL POSITION</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Short 10 Call Options (Delta 0.50 each)</text>
         <text x="0" y="20" fontSize="10" fill="#A0A3AA">Position Delta: -500 (10 × 100 × -0.50)</text>
         
         <text x="0" y="50" fontSize="10" fill="white">To Hedge:</text>
-        <text x="0" y="70" fontSize="10" fill="#12805A">Buy 500 shares of stock</text>
+        <text x="0" y="70" fontSize="10" fill="#16A34A">Buy 500 shares of stock</text>
         <text x="0" y="90" fontSize="10" fill="#A0A3AA">(Stock delta = +1 per share)</text>
         
         <text x="0" y="115" fontSize="10" fill="white">Net Delta: -500 + 500 = 0</text>
@@ -110,7 +110,7 @@ const DeltaHedgingSVG = () => (
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Stock rises → Call delta increases to 0.60</text>
         <text x="0" y="18" fontSize="9" fill="#A0A3AA">New position delta: -600</text>
-        <text x="0" y="36" fontSize="9" fill="#12805A">Action: Buy 100 more shares</text>
+        <text x="0" y="36" fontSize="9" fill="#16A34A">Action: Buy 100 more shares</text>
         
         <text x="0" y="60" fontSize="10" fill="white">Stock falls → Call delta decreases to 0.40</text>
         <text x="0" y="78" fontSize="9" fill="#A0A3AA">Position delta: -400, stock +500 = +100</text>
@@ -142,9 +142,9 @@ const DeltaHedgingSVG = () => (
         
         <path d="M 385 25 L 415 25" stroke="#555A63" strokeWidth="2"/>
         
-        <rect x="420" y="0" width="100" height="50" fill="#12805A" fillOpacity="0.2" rx="6" stroke="#12805A" strokeWidth="1"/>
-        <text x="470" y="22" textAnchor="middle" fontSize="9" fill="#12805A">Adjust Stock</text>
-        <text x="470" y="36" textAnchor="middle" fontSize="9" fill="#12805A">Position</text>
+        <rect x="420" y="0" width="100" height="50" fill="#16A34A" fillOpacity="0.2" rx="6" stroke="#16A34A" strokeWidth="1"/>
+        <text x="470" y="22" textAnchor="middle" fontSize="9" fill="#16A34A">Adjust Stock</text>
+        <text x="470" y="36" textAnchor="middle" fontSize="9" fill="#16A34A">Position</text>
       </g>
       
       {/* Loop arrow */}
@@ -179,14 +179,14 @@ const CollarStrategySVG = () => (
       
       {/* Strike markers */}
       <circle cx="85" cy="150" r="5" fill="#C7363B"/>
-      <circle cx="205" cy="70" r="5" fill="#12805A"/>
+      <circle cx="205" cy="70" r="5" fill="#16A34A"/>
       
       <text x="85" y="172" textAnchor="middle" fontSize="8" fill="#C7363B">Put Strike</text>
-      <text x="205" y="60" textAnchor="middle" fontSize="8" fill="#12805A">Call Strike</text>
+      <text x="205" y="60" textAnchor="middle" fontSize="8" fill="#16A34A">Call Strike</text>
       
       {/* Labels */}
       <text x="40" y="145" fontSize="7" fill="#C7363B">Max Loss</text>
-      <text x="250" y="65" fontSize="7" fill="#12805A">Max Gain</text>
+      <text x="250" y="65" fontSize="7" fill="#16A34A">Max Gain</text>
     </g>
     
     {/* Strategy Components */}
@@ -201,7 +201,7 @@ const CollarStrategySVG = () => (
         
         <text x="0" y="45" fontSize="10" fill="white">You add:</text>
         <text x="0" y="63" fontSize="9" fill="#C7363B">• Buy 1 OTM put (protection)</text>
-        <text x="0" y="79" fontSize="9" fill="#12805A">• Sell 1 OTM call (finances the put)</text>
+        <text x="0" y="79" fontSize="9" fill="#16A34A">• Sell 1 OTM call (finances the put)</text>
         
         <text x="0" y="105" fontSize="10" fill="white">Result:</text>
         <text x="0" y="123" fontSize="9" fill="#A0A3AA">Floor on losses at put strike</text>
@@ -238,7 +238,7 @@ const PortfolioInsuranceSVG = () => (
         <text x="0" y="0" fontSize="9" fill="white">Buy puts on broad index</text>
         <text x="0" y="16" fontSize="9" fill="#A0A3AA">(SPY, QQQ, etc.)</text>
         
-        <text x="0" y="40" fontSize="8" fill="#12805A">Pros:</text>
+        <text x="0" y="40" fontSize="8" fill="#16A34A">Pros:</text>
         <text x="0" y="54" fontSize="8" fill="#A0A3AA">• Simple, liquid</text>
         <text x="0" y="68" fontSize="8" fill="#A0A3AA">• Broad protection</text>
         
@@ -257,7 +257,7 @@ const PortfolioInsuranceSVG = () => (
         <text x="0" y="0" fontSize="9" fill="white">Buy VIX call options</text>
         <text x="0" y="16" fontSize="9" fill="#A0A3AA">(VIX spikes during crashes)</text>
         
-        <text x="0" y="40" fontSize="8" fill="#12805A">Pros:</text>
+        <text x="0" y="40" fontSize="8" fill="#16A34A">Pros:</text>
         <text x="0" y="54" fontSize="8" fill="#A0A3AA">• Convex payoff</text>
         <text x="0" y="68" fontSize="8" fill="#A0A3AA">• Big gains in crashes</text>
         
@@ -270,13 +270,13 @@ const PortfolioInsuranceSVG = () => (
     <g transform="translate(460, 80)">
       <rect x="0" y="0" width="190" height="150" fill="#2A2A2C" rx="10"/>
       
-      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">PUT SPREADS</text>
+      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">PUT SPREADS</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Bear put spread on index</text>
         <text x="0" y="16" fontSize="9" fill="#A0A3AA">(Buy put, sell lower put)</text>
         
-        <text x="0" y="40" fontSize="8" fill="#12805A">Pros:</text>
+        <text x="0" y="40" fontSize="8" fill="#16A34A">Pros:</text>
         <text x="0" y="54" fontSize="8" fill="#A0A3AA">• Lower cost than puts</text>
         <text x="0" y="68" fontSize="8" fill="#A0A3AA">• Defined cost</text>
         
@@ -314,13 +314,13 @@ const FuturesHedgingSVG = () => (
     <g transform="translate(50, 80)">
       <rect x="0" y="0" width="285" height="140" fill="#2A2A2C" rx="10"/>
       
-      <text x="142" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">LONG HEDGE</text>
+      <text x="142" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">LONG HEDGE</text>
       <text x="142" y="42" textAnchor="middle" fontSize="9" fill="#A0A3AA">(Protecting against price increase)</text>
       
       <g transform="translate(20, 60)">
         <text x="0" y="0" fontSize="9" fill="white">Scenario: Need to buy asset in future</text>
         <text x="0" y="18" fontSize="9" fill="#A0A3AA">Risk: Price rises before purchase</text>
-        <text x="0" y="40" fontSize="9" fill="#12805A">Action: Buy futures contracts now</text>
+        <text x="0" y="40" fontSize="9" fill="#16A34A">Action: Buy futures contracts now</text>
         <text x="0" y="58" fontSize="9" fill="#A0A3AA">If price rises, futures profit offsets higher cost</text>
       </g>
     </g>
@@ -377,7 +377,7 @@ const HedgeEffectivenessSVG = () => (
         <text x="30" y="40" fontSize="9" fill="#A0A3AA">/ Unhedged Portfolio Variance)</text>
         
         <text x="0" y="75" fontSize="10" fill="white">Interpretation:</text>
-        <text x="0" y="93" fontSize="9" fill="#12805A">90%+ = Highly effective hedge</text>
+        <text x="0" y="93" fontSize="9" fill="#16A34A">90%+ = Highly effective hedge</text>
         <text x="0" y="109" fontSize="9" fill="#D2754C">70-90% = Moderately effective</text>
         <text x="0" y="125" fontSize="9" fill="#C7363B">&lt;70% = Consider alternatives</text>
       </g>
@@ -406,8 +406,8 @@ const HedgeEffectivenessSVG = () => (
     
     {/* Best Practices */}
     <g transform="translate(50, 260)">
-      <rect x="0" y="0" width="600" height="65" fill="#12805A" fillOpacity="0.1" rx="8" stroke="#12805A" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">HEDGING BEST PRACTICES</text>
+      <rect x="0" y="0" width="600" height="65" fill="#16A34A" fillOpacity="0.1" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">HEDGING BEST PRACTICES</text>
       <text x="20" y="45" fontSize="9" fill="white">• Define hedge objective (tail risk vs full protection) • Choose liquid instruments • Monitor basis risk</text>
       <text x="20" y="60" fontSize="9" fill="white">• Rebalance as portfolio changes • Calculate cost vs benefit • Document hedge rationale</text>
     </g>
@@ -509,7 +509,7 @@ const FOLesson11 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Hedging Techniques
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -549,7 +549,7 @@ const FOLesson11 = () => {
                   <Icons.RefreshCw className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Delta Hedging</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Delta Hedging</h2>
                   <p className="text-sm text-gray-500 ">Dynamic hedging to maintain delta neutrality</p>
                 </div>
               </div>
@@ -586,7 +586,7 @@ const FOLesson11 = () => {
                   <Icons.Lock className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Collar Strategy</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Collar Strategy</h2>
                   <p className="text-sm text-gray-500 ">Zero or low-cost downside protection</p>
                 </div>
               </div>
@@ -629,7 +629,7 @@ const FOLesson11 = () => {
                   <Icons.Umbrella className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Insurance</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Insurance</h2>
                   <p className="text-sm text-gray-500 ">Protecting diversified portfolios from market crashes</p>
                 </div>
               </div>
@@ -665,7 +665,7 @@ const FOLesson11 = () => {
                   <Icons.Briefcase className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Hedging with Futures</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Hedging with Futures</h2>
                   <p className="text-sm text-gray-500 ">Using futures contracts to offset portfolio risk</p>
                 </div>
               </div>
@@ -687,7 +687,7 @@ const FOLesson11 = () => {
                   <Icons.Target className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Measuring Effectiveness</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Measuring Effectiveness</h2>
                   <p className="text-sm text-gray-500 ">Evaluating and improving your hedges</p>
                 </div>
               </div>
@@ -704,7 +704,7 @@ const FOLesson11 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Delta hedging requires continuous rebalancing as deltas change",
@@ -728,7 +728,7 @@ const FOLesson11 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

@@ -34,20 +34,20 @@ const SingleBasketSVG = () => (
     
     {/* Multiple baskets scenario */}
     <g transform="translate(400, 75)">
-      <rect x="0" y="0" width="200" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="100" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">🧺🧺🧺 Eggs Spread Out</text>
+      <rect x="0" y="0" width="200" height="170" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="100" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">🧺🧺🧺 Eggs Spread Out</text>
       
       {/* Multiple smaller eggs */}
       <g transform="translate(15, 45)">
         <ellipse cx="25" cy="30" rx="18" ry="24" fill="#E0E7F1" stroke="#9FB3D3" strokeWidth="1.5"/>
-        <ellipse cx="65" cy="30" rx="18" ry="24" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="1.5"/>
+        <ellipse cx="65" cy="30" rx="18" ry="24" fill="#F0FDF4" stroke="#16A34A" strokeWidth="1.5"/>
         <ellipse cx="105" cy="30" rx="18" ry="24" fill="#F6ECCE" stroke="#E2C273" strokeWidth="1.5"/>
         <ellipse cx="145" cy="30" rx="18" ry="24" fill="#ECE4F6" stroke="#C0A9E2" strokeWidth="1.5"/>
       </g>
       
       <g transform="translate(20, 130)">
-        <text x="0" y="0" fontSize="8" fill="#12805A">If one struggles → others may hold</text>
-        <text x="0" y="14" fontSize="8" fill="#12805A">Risk is distributed</text>
+        <text x="0" y="0" fontSize="8" fill="#16A34A">If one struggles → others may hold</text>
+        <text x="0" y="14" fontSize="8" fill="#16A34A">Risk is distributed</text>
       </g>
     </g>
     
@@ -68,12 +68,12 @@ const DiversificationExplainedSVG = () => (
     
     {/* Core concept */}
     <g transform="translate(80, 55)">
-      <rect x="0" y="0" width="540" height="80" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <rect x="0" y="0" width="540" height="80" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       <g transform="translate(30, 25)">
-        <text x="0" y="0" fontSize="12" fontWeight="600" fill="#12805A">Spreading Your Investments</text>
-        <text x="0" y="22" fontSize="10" fill="#12805A">Owning different types of assets that don't all move together at the same time.</text>
-        <text x="0" y="40" fontSize="10" fill="#12805A">When one goes down, another might hold steady or go up.</text>
+        <text x="0" y="0" fontSize="12" fontWeight="600" fill="#16A34A">Spreading Your Investments</text>
+        <text x="0" y="22" fontSize="10" fill="#16A34A">Owning different types of assets that don't all move together at the same time.</text>
+        <text x="0" y="40" fontSize="10" fill="#16A34A">When one goes down, another might hold steady or go up.</text>
       </g>
     </g>
     
@@ -86,8 +86,8 @@ const DiversificationExplainedSVG = () => (
     </g>
     
     <g transform="translate(270, 150)">
-      <rect x="0" y="0" width="160" height="80" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="80" y="25" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Asset B</text>
+      <rect x="0" y="0" width="160" height="80" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="80" y="25" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Asset B</text>
       <text x="80" y="45" textAnchor="middle" fontSize="18">📈</text>
       <text x="80" y="68" textAnchor="middle" fontSize="8" fill="#717680">May move differently</text>
     </g>
@@ -133,18 +133,18 @@ const ConcentratedVsDiversifiedSVG = () => (
     
     {/* Diversified portfolio */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Diversified Portfolio</text>
+      <rect x="0" y="0" width="280" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="1"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Diversified Portfolio</text>
       
       {/* Smoother path */}
       <g transform="translate(25, 50)">
         <line x1="0" y1="70" x2="230" y2="70" stroke="#E4E4EA" strokeWidth="1"/>
         
         <path d="M0 75 L30 68 L60 72 L90 60 L120 65 L150 55 L180 58 L210 48 L230 45" 
-              fill="none" stroke="#12805A" strokeWidth="2.5"/>
+              fill="none" stroke="#16A34A" strokeWidth="2.5"/>
         
-        <text x="115" y="130" textAnchor="middle" fontSize="8" fill="#12805A">Steadier progress</text>
-        <text x="115" y="145" textAnchor="middle" fontSize="8" fill="#12805A">Easier to stay invested</text>
+        <text x="115" y="130" textAnchor="middle" fontSize="8" fill="#16A34A">Steadier progress</text>
+        <text x="115" y="145" textAnchor="middle" fontSize="8" fill="#16A34A">Easier to stay invested</text>
       </g>
     </g>
     
@@ -180,20 +180,20 @@ const RiskDistributionSVG = () => (
     
     {/* Diversified risk */}
     <g transform="translate(420, 75)">
-      <text x="100" y="0" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Diversified</text>
+      <text x="100" y="0" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Diversified</text>
       
       <g transform="translate(0, 15)">
         <rect x="0" y="0" width="48" height="25" fill="#5A77AA" rx="4"/>
-        <rect x="52" y="0" width="48" height="25" fill="#12805A" rx="4"/>
+        <rect x="52" y="0" width="48" height="25" fill="#16A34A" rx="4"/>
         <rect x="104" y="0" width="48" height="25" fill="#B8923F" rx="4"/>
         <rect x="156" y="0" width="44" height="25" fill="#8F6FC4" rx="4"/>
       </g>
       <text x="100" y="55" textAnchor="middle" fontSize="8" fill="#717680">Risk spread across many</text>
       
       <g transform="translate(0, 70)">
-        <text x="0" y="0" fontSize="8" fill="#12805A">If one fails:</text>
-        <rect x="0" y="8" width="200" height="20" fill="#EEF9F4" rx="3"/>
-        <text x="100" y="22" textAnchor="middle" fontSize="8" fill="#12805A">✓ Others may compensate</text>
+        <text x="0" y="0" fontSize="8" fill="#16A34A">If one fails:</text>
+        <rect x="0" y="8" width="200" height="20" fill="#F0FDF4" rx="3"/>
+        <text x="100" y="22" textAnchor="middle" fontSize="8" fill="#16A34A">✓ Others may compensate</text>
       </g>
     </g>
     
@@ -209,12 +209,12 @@ const RiskDistributionSVG = () => (
       </g>
       
       <g transform="translate(220, 35)">
-        <rect x="0" y="0" width="80" height="8" fill="#12805A" rx="2"/>
-        <rect x="5" y="8" width="6" height="20" fill="#12805A"/>
-        <rect x="27" y="8" width="6" height="20" fill="#12805A"/>
-        <rect x="49" y="8" width="6" height="20" fill="#12805A"/>
-        <rect x="71" y="8" width="6" height="20" fill="#12805A"/>
-        <text x="40" y="40" textAnchor="middle" fontSize="7" fill="#12805A">Four legs = stable</text>
+        <rect x="0" y="0" width="80" height="8" fill="#16A34A" rx="2"/>
+        <rect x="5" y="8" width="6" height="20" fill="#16A34A"/>
+        <rect x="27" y="8" width="6" height="20" fill="#16A34A"/>
+        <rect x="49" y="8" width="6" height="20" fill="#16A34A"/>
+        <rect x="71" y="8" width="6" height="20" fill="#16A34A"/>
+        <text x="40" y="40" textAnchor="middle" fontSize="7" fill="#16A34A">Four legs = stable</text>
       </g>
     </g>
     
@@ -252,11 +252,11 @@ const SimplicityVsComplexitySVG = () => (
     
     {/* Just right */}
     <g transform="translate(260, 75)">
-      <rect x="0" y="0" width="180" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">✓ Well Diversified</text>
+      <rect x="0" y="0" width="180" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">✓ Well Diversified</text>
       
       <g transform="translate(30, 45)">
-        <circle cx="30" cy="25" r="20" fill="#12805A" opacity="0.8"/>
+        <circle cx="30" cy="25" r="20" fill="#16A34A" opacity="0.8"/>
         <circle cx="70" cy="25" r="20" fill="#5A77AA" opacity="0.8"/>
         <circle cx="110" cy="25" r="20" fill="#B8923F" opacity="0.8"/>
         <circle cx="50" cy="60" r="20" fill="#8F6FC4" opacity="0.8"/>
@@ -264,9 +264,9 @@ const SimplicityVsComplexitySVG = () => (
       </g>
       
       <g transform="translate(20, 135)">
-        <text x="0" y="0" fontSize="8" fill="#12805A">• Balanced risk</text>
-        <text x="0" y="14" fontSize="8" fill="#12805A">• Manageable</text>
-        <text x="0" y="28" fontSize="8" fill="#12805A">• Sustainable</text>
+        <text x="0" y="0" fontSize="8" fill="#16A34A">• Balanced risk</text>
+        <text x="0" y="14" fontSize="8" fill="#16A34A">• Manageable</text>
+        <text x="0" y="28" fontSize="8" fill="#16A34A">• Sustainable</text>
       </g>
     </g>
     
@@ -279,7 +279,7 @@ const SimplicityVsComplexitySVG = () => (
         {/* Many tiny circles */}
         {[...Array(20)].map((_, i) => (
           <circle key={i} cx={15 + (i % 5) * 28} cy={15 + Math.floor(i / 5) * 20} r="8" 
-                  fill={['#E04848', '#12805A', '#5A77AA', '#B8923F', '#8F6FC4'][i % 5]} opacity="0.6"/>
+                  fill={['#E04848', '#16A34A', '#5A77AA', '#B8923F', '#8F6FC4'][i % 5]} opacity="0.6"/>
         ))}
       </g>
       
@@ -291,7 +291,7 @@ const SimplicityVsComplexitySVG = () => (
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="265" width="500" height="25" fill="#12805A" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#16A34A" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="9" fill="white">A few well-chosen, different assets often work better than dozens of similar ones.</text>
   </svg>
 );
@@ -321,7 +321,7 @@ const SmoothingEffectSVG = () => (
       
       {/* Combined portfolio - smooth */}
       <path d="M0 90 L60 78 L120 88 L180 75 L240 82 L300 68 L360 78 L420 72 L480 65 L540 60" 
-            fill="none" stroke="#12805A" strokeWidth="3"/>
+            fill="none" stroke="#16A34A" strokeWidth="3"/>
       
       {/* Legend */}
       <g transform="translate(350, -20)">
@@ -329,8 +329,8 @@ const SmoothingEffectSVG = () => (
         <text x="28" y="4" fontSize="8" fill="#717680">Individual assets (volatile)</text>
       </g>
       <g transform="translate(350, -5)">
-        <line x1="0" y1="0" x2="20" y2="0" stroke="#12805A" strokeWidth="3"/>
-        <text x="28" y="4" fontSize="8" fill="#12805A">Combined portfolio (smoother)</text>
+        <line x1="0" y1="0" x2="20" y2="0" stroke="#16A34A" strokeWidth="3"/>
+        <text x="28" y="4" fontSize="8" fill="#16A34A">Combined portfolio (smoother)</text>
       </g>
       
       {/* Time label */}
@@ -385,29 +385,29 @@ const TwoInvestorsStorySVG = () => (
     
     {/* Investor B: Diversified */}
     <g transform="translate(370, 110)">
-      <rect x="0" y="0" width="280" height="195" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">😌 Ananya: Diversified</text>
+      <rect x="0" y="0" width="280" height="195" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">😌 Ananya: Diversified</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#12805A" fontWeight="500">Portfolio: Spread across sectors</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A" fontWeight="500">Portfolio: Spread across sectors</text>
         
         <g transform="translate(0, 15)">
           <rect x="0" y="0" width="60" height="20" fill="#5A77AA" rx="4"/>
-          <rect x="64" y="0" width="60" height="20" fill="#12805A" rx="4"/>
+          <rect x="64" y="0" width="60" height="20" fill="#16A34A" rx="4"/>
           <rect x="128" y="0" width="60" height="20" fill="#B8923F" rx="4"/>
           <rect x="192" y="0" width="48" height="20" fill="#8F6FC4" rx="4"/>
         </g>
       </g>
       
       <g transform="translate(20, 95)">
-        <text x="0" y="0" fontSize="9" fill="#12805A" fontWeight="500">When difficulty hits:</text>
-        <text x="0" y="18" fontSize="8" fill="#12805A">• Affected sector drops, others stable</text>
-        <text x="0" y="33" fontSize="8" fill="#12805A">• Overall impact is muted</text>
-        <text x="0" y="48" fontSize="8" fill="#12805A">• No panic, stays invested</text>
-        <text x="0" y="63" fontSize="8" fill="#12805A">• Sleeps well</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A" fontWeight="500">When difficulty hits:</text>
+        <text x="0" y="18" fontSize="8" fill="#16A34A">• Affected sector drops, others stable</text>
+        <text x="0" y="33" fontSize="8" fill="#16A34A">• Overall impact is muted</text>
+        <text x="0" y="48" fontSize="8" fill="#16A34A">• No panic, stays invested</text>
+        <text x="0" y="63" fontSize="8" fill="#16A34A">• Sleeps well</text>
       </g>
       
-      <rect x="20" y="165" width="240" height="20" fill="#12805A" rx="4"/>
+      <rect x="20" y="165" width="240" height="20" fill="#16A34A" rx="4"/>
       <text x="140" y="179" textAnchor="middle" fontSize="8" fill="white">Experience: Calm, consistent</text>
     </g>
   </svg>
@@ -439,8 +439,8 @@ const BalancePrincipleSVG = () => (
       
       {/* Right pan - Stability */}
       <g transform="translate(170, 70)">
-        <ellipse cx="50" cy="45" rx="45" ry="15" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
-        <text x="50" y="30" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Stability</text>
+        <ellipse cx="50" cy="45" rx="45" ry="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+        <text x="50" y="30" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Stability</text>
         <line x1="50" y1="45" x2="30" y2="45" stroke="#A0A3AA" strokeWidth="1"/>
       </g>
       
@@ -451,9 +451,9 @@ const BalancePrincipleSVG = () => (
     
     {/* Key message */}
     <g transform="translate(80, 175)">
-      <rect x="0" y="0" width="540" height="35" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="270" y="15" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Good diversification finds balance:</text>
-      <text x="270" y="30" textAnchor="middle" fontSize="9" fill="#12805A">Enough spread for stability, not so much that it becomes unmanageable</text>
+      <rect x="0" y="0" width="540" height="35" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="270" y="15" textAnchor="middle" fontSize="10" fontWeight="500" fill="#16A34A">Good diversification finds balance:</text>
+      <text x="270" y="30" textAnchor="middle" fontSize="9" fill="#16A34A">Enough spread for stability, not so much that it becomes unmanageable</text>
     </g>
   </svg>
 );
@@ -466,7 +466,7 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="0%" stopColor="#16A34A"/>
         <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
@@ -474,7 +474,7 @@ const KeyTakeawaySVG = () => (
     <text x="350" y="40" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🌱 Key Takeaway</text>
     <text x="350" y="70" textAnchor="middle" fontSize="12" fill="white">Diversification reduces risk without necessarily reducing growth.</text>
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="white">Keep it simple: a few different, well-chosen assets beats dozens of similar ones.</text>
-    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#ABE5CC">Spread wisely. Simplify intentionally. Stay balanced.</text>
+    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#BBF7D0">Spread wisely. Simplify intentionally. Stay balanced.</text>
   </svg>
 );
 
@@ -538,7 +538,7 @@ const LTILesson5 = () => {
                 Lesson 5 of 7
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Diversification & Simplicity</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Diversification & Simplicity</h1>
             <p className="text-gray-600 text-lg">
               Why spreading your investments wisely creates stability and peace of mind.
             </p>
@@ -547,7 +547,7 @@ const LTILesson5 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Concentration Increases Risk</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Concentration Increases Risk</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -571,7 +571,7 @@ const LTILesson5 = () => {
 
         {/* Single Basket Problem */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Single Basket Problem</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Single Basket Problem</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -587,7 +587,7 @@ const LTILesson5 = () => {
 
         {/* What Diversification Means */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Diversification Really Means</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Diversification Really Means</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -607,7 +607,7 @@ const LTILesson5 = () => {
 
         {/* How Diversification Smooths Outcomes */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">How Diversification Smooths Your Journey</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">How Diversification Smooths Your Journey</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -627,7 +627,7 @@ const LTILesson5 = () => {
 
         {/* Concentrated vs Diversified */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Concentrated vs Diversified Behavior</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Concentrated vs Diversified Behavior</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -646,7 +646,7 @@ const LTILesson5 = () => {
 
         {/* Risk Distribution */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">How Risk Gets Distributed</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">How Risk Gets Distributed</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -665,7 +665,7 @@ const LTILesson5 = () => {
 
         {/* Simplicity vs Overcomplication */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Simplicity Sweet Spot</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Simplicity Sweet Spot</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -689,7 +689,7 @@ const LTILesson5 = () => {
 
         {/* Two Investors Story */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Tale of Two Approaches</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Tale of Two Approaches</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -712,7 +712,7 @@ const LTILesson5 = () => {
 
         {/* Balance Principle */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Finding Balance</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Finding Balance</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -751,7 +751,7 @@ const LTILesson5 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of diversification and simplicity.</p>
           
           <div className="space-y-8">

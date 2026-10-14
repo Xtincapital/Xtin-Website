@@ -38,7 +38,7 @@ const TimeChangesEverythingSVG = () => (
       <path d="M0,0 L0,-70 A70,70 0 0,1 60.6,-35 Z" fill="#F6C3C3" stroke="#E04848" strokeWidth="2"/>
       
       {/* Long-term zone (green) */}
-      <path d="M0,0 L60.6,-35 A70,70 0 1,1 -0.1,-70 Z" fill="#ABE5CC" stroke="#12805A" strokeWidth="2"/>
+      <path d="M0,0 L60.6,-35 A70,70 0 1,1 -0.1,-70 Z" fill="#BBF7D0" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Center */}
       <circle cx="0" cy="0" r="10" fill="#2C3F5E"/>
@@ -56,9 +56,9 @@ const TimeChangesEverythingSVG = () => (
     </g>
     
     <g transform="translate(500, 100)">
-      <rect x="0" y="0" width="120" height="60" fill="#ABE5CC" rx="8" stroke="#12805A" strokeWidth="2"/>
-      <text x="60" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LONG-TERM</text>
-      <text x="60" y="45" textAnchor="middle" fontSize="9" fill="#12805A">Patient holding</text>
+      <rect x="0" y="0" width="120" height="60" fill="#BBF7D0" rx="8" stroke="#16A34A" strokeWidth="2"/>
+      <text x="60" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">LONG-TERM</text>
+      <text x="60" y="45" textAnchor="middle" fontSize="9" fill="#16A34A">Patient holding</text>
     </g>
     
     {/* Bottom message */}
@@ -139,65 +139,65 @@ const ShortTermExplainedSVG = () => (
 const LongTermExplainedSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#EEF9F4" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F0FDF4" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#12805A">Long-Term: Patient Holding</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#16A34A">Long-Term: Patient Holding</text>
     
     {/* Timeline */}
     <g transform="translate(50, 70)">
       {/* Timeline bar */}
-      <rect x="0" y="50" width="600" height="8" fill="#ABE5CC" rx="4"/>
+      <rect x="0" y="50" width="600" height="8" fill="#BBF7D0" rx="4"/>
       
       {/* Buy point */}
       <g transform="translate(0, 0)">
-        <circle cx="0" cy="54" r="15" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+        <circle cx="0" cy="54" r="15" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="58" textAnchor="middle" fontSize="10" fontWeight="bold" fill="white">BUY</text>
-        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#12805A">January 1, 2023</text>
+        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#16A34A">January 1, 2023</text>
       </g>
       
       {/* Time period indicator */}
       <g transform="translate(150, 20)">
-        <rect x="0" y="0" width="300" height="25" fill="white" rx="6" stroke="#12805A" strokeWidth="1"/>
-        <text x="150" y="17" textAnchor="middle" fontSize="10" fill="#12805A">Exceeds the threshold period (patient waiting)</text>
+        <rect x="0" y="0" width="300" height="25" fill="white" rx="6" stroke="#16A34A" strokeWidth="1"/>
+        <text x="150" y="17" textAnchor="middle" fontSize="10" fill="#16A34A">Exceeds the threshold period (patient waiting)</text>
       </g>
       
       {/* Sell point */}
       <g transform="translate(600, 0)">
-        <circle cx="0" cy="54" r="15" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+        <circle cx="0" cy="54" r="15" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="58" textAnchor="middle" fontSize="10" fontWeight="bold" fill="white">SELL</text>
-        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#12805A">March 15, 2024</text>
-        <text x="0" y="100" textAnchor="middle" fontSize="8" fill="#12805A">(14+ months later)</text>
+        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#16A34A">March 15, 2024</text>
+        <text x="0" y="100" textAnchor="middle" fontSize="8" fill="#16A34A">(14+ months later)</text>
       </g>
       
       {/* Arrow showing long period */}
-      <line x1="20" y1="35" x2="580" y2="35" stroke="#12805A" strokeWidth="2" strokeDasharray="5,3"/>
-      <polygon points="575,30 590,35 575,40" fill="#12805A"/>
+      <line x1="20" y1="35" x2="580" y2="35" stroke="#16A34A" strokeWidth="2" strokeDasharray="5,3"/>
+      <polygon points="575,30 590,35 575,40" fill="#16A34A"/>
     </g>
     
     {/* Characteristics */}
     <g transform="translate(50, 180)">
-      <text x="0" y="0" fontSize="12" fontWeight="600" fill="#12805A">Long-Term Characteristics:</text>
+      <text x="0" y="0" fontSize="12" fontWeight="600" fill="#16A34A">Long-Term Characteristics:</text>
       
       <g transform="translate(0, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">⏳ Patient Holding</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Held for longer than</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">the threshold period</text>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">⏳ Patient Holding</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#16A34A">Held for longer than</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#16A34A">the threshold period</text>
       </g>
       
       <g transform="translate(200, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">💚 Often Taxed Less</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Usually gets favorable</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">tax treatment</text>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">💚 Often Taxed Less</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#16A34A">Usually gets favorable</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#16A34A">tax treatment</text>
       </g>
       
       <g transform="translate(400, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">🌱 Buy & Hold</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Less frequent</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">transactions</text>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">🌱 Buy & Hold</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#16A34A">Less frequent</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#16A34A">transactions</text>
       </g>
     </g>
   </svg>
@@ -325,43 +325,43 @@ const ComparisonSVG = () => (
     
     {/* Long-term side */}
     <g transform="translate(370, 55)">
-      <rect x="0" y="0" width="280" height="270" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="270" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="280" height="45" fill="#12805A" rx="12"/>
-      <rect x="0" y="25" width="280" height="20" fill="#12805A"/>
+      <rect x="0" y="0" width="280" height="45" fill="#16A34A" rx="12"/>
+      <rect x="0" y="25" width="280" height="20" fill="#16A34A"/>
       <text x="140" y="30" textAnchor="middle" fontSize="13" fontWeight="bold" fill="white">🌱 LONG-TERM</text>
       
       {/* Content */}
       <g transform="translate(20, 60)">
         <g transform="translate(0, 0)">
-          <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
+          <circle cx="8" cy="8" r="5" fill="#BBF7D0"/>
           <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Holding:</tspan> Extended period</text>
         </g>
         
         <g transform="translate(0, 30)">
-          <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
+          <circle cx="8" cy="8" r="5" fill="#BBF7D0"/>
           <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Approach:</tspan> Buy and hold</text>
         </g>
         
         <g transform="translate(0, 60)">
-          <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
+          <circle cx="8" cy="8" r="5" fill="#BBF7D0"/>
           <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Tax treatment:</tspan> Usually lower</text>
         </g>
         
         <g transform="translate(0, 90)">
-          <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
+          <circle cx="8" cy="8" r="5" fill="#BBF7D0"/>
           <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Often taxed as:</tspan> Capital gains</text>
         </g>
         
         <g transform="translate(0, 120)">
-          <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
+          <circle cx="8" cy="8" r="5" fill="#BBF7D0"/>
           <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Philosophy:</tspan> Wealth building</text>
         </g>
         
-        <rect x="0" y="155" width="240" height="50" fill="#EEF9F4" rx="6"/>
-        <text x="120" y="175" textAnchor="middle" fontSize="9" fill="#12805A">Example: Buy stock in January 2023,</text>
-        <text x="120" y="190" textAnchor="middle" fontSize="9" fill="#12805A">sell in March 2024 (14+ months)</text>
+        <rect x="0" y="155" width="240" height="50" fill="#F0FDF4" rx="6"/>
+        <text x="120" y="175" textAnchor="middle" fontSize="9" fill="#16A34A">Example: Buy stock in January 2023,</text>
+        <text x="120" y="190" textAnchor="middle" fontSize="9" fill="#16A34A">sell in March 2024 (14+ months)</text>
       </g>
     </g>
   </svg>
@@ -412,7 +412,7 @@ const GlobalExampleSVG = () => (
         <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E4EA" strokeWidth="1"/>
         
         <text x="0" y="110" fontSize="10" fill="#555A63">Profit:</text>
-        <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#12805A">$1,000</text>
+        <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#16A34A">$1,000</text>
         
         <text x="0" y="130" fontSize="10" fill="#555A63">Holding period:</text>
         <text x="120" y="130" fontSize="10" fontWeight="600" fill="#C7363B">~3.5 months</text>
@@ -425,10 +425,10 @@ const GlobalExampleSVG = () => (
     
     {/* Investment 2: Long-term */}
     <g transform="translate(370, 130)">
-      <rect x="0" y="0" width="280" height="250" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="250" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
-      <rect x="0" y="0" width="280" height="40" fill="#12805A" rx="12"/>
-      <rect x="0" y="20" width="280" height="20" fill="#12805A"/>
+      <rect x="0" y="0" width="280" height="40" fill="#16A34A" rx="12"/>
+      <rect x="0" y="20" width="280" height="20" fill="#16A34A"/>
       <text x="140" y="27" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">Stock B: Long-Term</text>
       
       <g transform="translate(20, 55)">
@@ -447,14 +447,14 @@ const GlobalExampleSVG = () => (
         <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E4EA" strokeWidth="1"/>
         
         <text x="0" y="110" fontSize="10" fill="#555A63">Profit:</text>
-        <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#12805A">$1,000</text>
+        <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#16A34A">$1,000</text>
         
         <text x="0" y="130" fontSize="10" fill="#555A63">Holding period:</text>
-        <text x="120" y="130" fontSize="10" fontWeight="600" fill="#12805A">~15 months</text>
+        <text x="120" y="130" fontSize="10" fontWeight="600" fill="#16A34A">~15 months</text>
         
-        <rect x="0" y="150" width="240" height="40" fill="#EEF9F4" rx="6"/>
-        <text x="120" y="168" textAnchor="middle" fontSize="9" fill="#12805A">Long-term gain: May qualify</text>
-        <text x="120" y="182" textAnchor="middle" fontSize="9" fill="#12805A">for lower tax rate</text>
+        <rect x="0" y="150" width="240" height="40" fill="#F0FDF4" rx="6"/>
+        <text x="120" y="168" textAnchor="middle" fontSize="9" fill="#16A34A">Long-term gain: May qualify</text>
+        <text x="120" y="182" textAnchor="middle" fontSize="9" fill="#16A34A">for lower tax rate</text>
       </g>
     </g>
     
@@ -489,8 +489,8 @@ const ThresholdConceptSVG = () => (
       </g>
       
       {/* Long-term zone */}
-      <rect x="280" y="30" width="320" height="50" fill="#ABE5CC" rx="0"/>
-      <text x="440" y="60" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LONG-TERM ZONE</text>
+      <rect x="280" y="30" width="320" height="50" fill="#BBF7D0" rx="0"/>
+      <text x="440" y="60" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">LONG-TERM ZONE</text>
       
       {/* Timeline bar */}
       <rect x="0" y="48" width="600" height="3" fill="#A0A3AA"/>
@@ -657,7 +657,7 @@ const TaxLesson4 = () => {
               Awareness Only
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 tracking-[-0.025em]">Long-Term vs Short-Term Taxes</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-[-0.025em]">Long-Term vs Short-Term Taxes</h1>
           <p className="text-xl text-blue-100">
             Understanding how holding period affects how your gains are taxed
           </p>
@@ -670,7 +670,7 @@ const TaxLesson4 = () => {
         {/* Introduction */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.025em]">Time Changes Everything</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.025em]">Time Changes Everything</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               When you sell an investment for a profit, one of the most important factors in how 
               that profit gets taxed is something simple: <strong>how long did you hold it?</strong>
@@ -686,13 +686,13 @@ const TaxLesson4 = () => {
 
         {/* Time Changes Everything Visual */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">The Role of Time in Taxes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">The Role of Time in Taxes</h2>
           <TimeChangesEverythingSVG />
         </section>
 
         {/* Short-Term Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Short-Term: Quick Buying and Selling</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Short-Term: Quick Buying and Selling</h2>
           <ShortTermExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -711,7 +711,7 @@ const TaxLesson4 = () => {
 
         {/* Long-Term Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Long-Term: Patient Holding</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Long-Term: Patient Holding</h2>
           <LongTermExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -729,19 +729,19 @@ const TaxLesson4 = () => {
 
         {/* Why Time Matters */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Does Holding Period Matter?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Does Holding Period Matter?</h2>
           <WhyTimeMattesSVG />
         </section>
 
         {/* Comparison */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Quick Selling vs Patient Holding</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Quick Selling vs Patient Holding</h2>
           <ComparisonSVG />
         </section>
 
         {/* Threshold Concept */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Threshold Line</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Threshold Line</h2>
           <ThresholdConceptSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -755,7 +755,7 @@ const TaxLesson4 = () => {
 
         {/* Global Example */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Example: Same Profit, Different Treatment</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Example: Same Profit, Different Treatment</h2>
           <GlobalExampleSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -774,14 +774,14 @@ const TaxLesson4 = () => {
 
         {/* India Note */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
           <IndiaNotesSVG />
         </section>
 
         {/* Quiz Section */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
             
             {quizQuestions.map((q, index) => (
               <div key={q.id} className={`${index > 0 ? 'mt-8 pt-8 border-t border-gray-200' : ''}`}>
@@ -851,7 +851,7 @@ const TaxLesson4 = () => {
         {/* Reflection */}
         <section className="mb-12">
           <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
             <p className="text-gray-700 text-lg leading-relaxed">
               Think about your own approach to investing (or how you might approach it in the future). 
               Are you naturally inclined toward quick decisions or patient waiting? How might 

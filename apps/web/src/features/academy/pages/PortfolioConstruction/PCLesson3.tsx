@@ -73,7 +73,7 @@ const Icons = {
   AssetPieChart: ({ className = "w-full h-64" }) => (
     <svg className={className} viewBox="0 0 400 300" fill="none">
       <defs>
-        {['#5A77AA', '#12805A', '#B8923F', '#E04848', '#8F6FC4'].map((color, i) => (
+        {['#5A77AA', '#16A34A', '#B8923F', '#E04848', '#8F6FC4'].map((color, i) => (
           <linearGradient key={`grad-${i}`} id={`pieGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={color} stopOpacity="0.8"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.6"/>
@@ -94,7 +94,7 @@ const Icons = {
       <path d="M 150 150 L 79.29 189.64 A 100 100 0 0 1 150 50 Z" fill="url(#pieGrad4)" stroke="white" strokeWidth="2" opacity="0.5"/>
       {/* Legend */}
       <g transform="translate(280, 80)">
-        {[{c:'#5A77AA',l:'Stocks 40%'},{c:'#12805A',l:'Bonds 30%'},{c:'#B8923F',l:'Real Estate 15%'},{c:'#E04848',l:'Commodities 10%'},{c:'#8F6FC4',l:'Cash 5%'}].map((item, i) => (
+        {[{c:'#5A77AA',l:'Stocks 40%'},{c:'#16A34A',l:'Bonds 30%'},{c:'#B8923F',l:'Real Estate 15%'},{c:'#E04848',l:'Commodities 10%'},{c:'#8F6FC4',l:'Cash 5%'}].map((item, i) => (
           <g key={i} transform={`translate(0, ${i*35})`}>
             <rect width="20" height="20" fill={item.c} rx="3"/>
             <text x="28" y="15" fill="currentColor" fontSize="13">{item.l}</text>
@@ -190,7 +190,7 @@ const PCLesson3 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold mb-5 leading-tight tracking-[-0.025em] text-brand">Asset Class Mastery</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 leading-tight tracking-[-0.025em] text-brand">Asset Class Mastery</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Understand the building blocks of diversified portfolios. Master the characteristics, risks, and roles of equities, fixed income, real assets, and alternatives in portfolio construction.</p>
           </header>
 
@@ -203,7 +203,7 @@ const PCLesson3 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Equities: Ownership Stakes</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Equities: Ownership Stakes</h2>
                     <p className="text-sm text-gray-500 ">The growth engine of portfolios</p>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const PCLesson3 = () => {
                     <Icons.DollarSign className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Fixed Income: Lending Your Money</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Fixed Income: Lending Your Money</h2>
                     <p className="text-sm text-gray-500 ">The stabilizer of portfolios</p>
                   </div>
                 </div>
@@ -360,7 +360,7 @@ const PCLesson3 = () => {
                     <Icons.Building className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Real Assets: Tangible Value</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Real Assets: Tangible Value</h2>
                     <p className="text-sm text-gray-500 ">Physical assets with intrinsic worth</p>
                   </div>
                 </div>
@@ -426,7 +426,7 @@ const PCLesson3 = () => {
                     <Icons.Layers className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Alternative Investments</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Alternative Investments</h2>
                     <p className="text-sm text-gray-500 ">Beyond traditional stocks and bonds</p>
                   </div>
                 </div>
@@ -475,7 +475,7 @@ const PCLesson3 = () => {
                     <Icons.Globe className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Global Diversification</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Global Diversification</h2>
                     <p className="text-sm text-gray-500 ">Expanding beyond domestic markets</p>
                   </div>
                 </div>
@@ -521,7 +521,7 @@ const PCLesson3 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of asset classes</p>
                   </div>
                 </div>

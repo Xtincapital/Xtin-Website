@@ -32,7 +32,7 @@ export default function StatCard({ label, value, icon: Icon, tone, sub, subTone,
     <Card className={cn("jr-stat", className)}>
       <CardContent className="p-5">
         <div className="mb-3 flex items-center justify-between gap-2">
-          <div className="flex min-w-0 items-center gap-1 text-xs font-medium text-muted-foreground">{label}</div>
+          <div className="flex min-w-0 items-center gap-1 text-xs font-bold text-muted-foreground">{label}</div>
           {Icon && <Icon className="h-3.5 w-3.5 shrink-0 text-muted-foreground/70" aria-hidden="true" />}
         </div>
         {(() => {

@@ -269,7 +269,7 @@ const StockMarketLesson4 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Index className="w-7 h-7 text-amber-600" />
               </span>
@@ -350,9 +350,9 @@ const StockMarketLesson4 = () => {
                 </g>
                 
                 <g transform="translate(95, 108)">
-                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#12805A"/>
+                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#16A34A"/>
                   <text x="25" y="25" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">HDFC</text>
-                  <text x="25" y="45" textAnchor="middle" fill="#ABE5CC" fontSize="7">₹1,700</text>
+                  <text x="25" y="45" textAnchor="middle" fill="#BBF7D0" fontSize="7">₹1,700</text>
                 </g>
                 
                 <g transform="translate(130, 112)">
@@ -745,7 +745,7 @@ const StockMarketLesson4 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

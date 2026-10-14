@@ -151,7 +151,7 @@ const CompanySearchResults = ({
                 <span className="px-1.5 py-0.5 rounded bg-primary/10 text-brand text-xs font-semibold shrink-0">
                   {company.ticker}
                 </span>
-                <h3 className="font-medium text-base text-foreground truncate">{company.name}</h3>
+                <h3 className="font-bold text-base text-foreground truncate">{company.name}</h3>
               </div>
               <p className="text-xs text-muted-foreground truncate mt-0.5">
                 {[company.sector, ...metrics].filter(Boolean).join(" · ") || "Click to analyze"}

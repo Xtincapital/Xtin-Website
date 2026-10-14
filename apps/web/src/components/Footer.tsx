@@ -335,7 +335,7 @@ const Footer = () => {
         <div className="fixed inset-0 bg-black/60 dark:bg-slate-950/85 flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-transparent border-t-4 border-t-brand-fill shadow-2xl dark:border-slate-700">
             <div className="p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-slate-100">Help Center</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Help Center</h2>
               <button 
                 className="text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 text-2xl"
                 onClick={() => setShowHelpCenter(false)}

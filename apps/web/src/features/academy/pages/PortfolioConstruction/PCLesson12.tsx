@@ -60,9 +60,9 @@ const Icons = {
       {/* Metric cards */}
       <g>
         {/* Total Return */}
-        <rect x="20" y="40" width="110" height="70" fill="#12805A" opacity="0.2" stroke="#12805A" strokeWidth="2" rx="8"/>
+        <rect x="20" y="40" width="110" height="70" fill="#16A34A" opacity="0.2" stroke="#16A34A" strokeWidth="2" rx="8"/>
         <text x="75" y="60" fill="currentColor" fontSize="11" fontWeight="bold" textAnchor="middle">Total Return</text>
-        <text x="75" y="85" fill="#12805A" fontSize="24" fontWeight="bold" textAnchor="middle">+12.5%</text>
+        <text x="75" y="85" fill="#16A34A" fontSize="24" fontWeight="bold" textAnchor="middle">+12.5%</text>
         <text x="75" y="103" fill="currentColor" fontSize="10" opacity="0.6" textAnchor="middle">YTD</text>
         {/* Sharpe Ratio */}
         <rect x="145" y="40" width="110" height="70" fill="#5A77AA" opacity="0.2" stroke="#5A77AA" strokeWidth="2" rx="8"/>
@@ -80,11 +80,11 @@ const Icons = {
         <rect x="20" y="0" width="360" height="140" fill="#2A2A2C" opacity="0.3" stroke="currentColor" strokeWidth="1" rx="8"/>
         <text x="200" y="20" fill="currentColor" fontSize="12" fontWeight="bold" textAnchor="middle">Portfolio vs Benchmark</text>
         {/* Simple line chart */}
-        <path d="M 40 120 L 80 100 L 120 85 L 160 95 L 200 70 L 240 65 L 280 55 L 320 50 L 360 45" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M 40 120 L 80 100 L 120 85 L 160 95 L 200 70 L 240 65 L 280 55 L 320 50 L 360 45" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
         <path d="M 40 120 L 80 105 L 120 95 L 160 100 L 200 85 L 240 80 L 280 75 L 320 72 L 360 70" stroke="#A0A3AA" strokeWidth="2" fill="none" strokeDasharray="4,4"/>
-        <circle cx="360" cy="45" r="4" fill="#12805A" stroke="white" strokeWidth="2"/>
+        <circle cx="360" cy="45" r="4" fill="#16A34A" stroke="white" strokeWidth="2"/>
         <circle cx="360" cy="70" r="4" fill="#A0A3AA" stroke="white" strokeWidth="2"/>
-        <text x="340" y="40" fill="#12805A" fontSize="10" fontWeight="bold" textAnchor="end">Portfolio</text>
+        <text x="340" y="40" fill="#16A34A" fontSize="10" fontWeight="bold" textAnchor="end">Portfolio</text>
         <text x="340" y="68" fill="#A0A3AA" fontSize="10" textAnchor="end">Benchmark</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Performance Monitoring Dashboard</text>
@@ -178,7 +178,7 @@ const PCLesson12 = () => {
               </span>
               <span className="px-3 py-1.5 bg-brand-soft  text-brand  rounded-full text-xs font-bold">FINAL LESSON</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Monitoring</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Monitoring</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Complete your portfolio management journey by learning how to track performance, benchmark effectively, and conduct meaningful reviews. Build the discipline of long-term stewardship.</p>
           </header>
 
@@ -191,7 +191,7 @@ const PCLesson12 = () => {
                       <Icons.Eye className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Discipline of Monitoring</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Discipline of Monitoring</h2>
                       <p className="text-sm text-gray-500 ">Watchful stewardship, not obsessive checking</p>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ const PCLesson12 = () => {
                       <Icons.TrendingUp className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Performance Tracking</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Performance Tracking</h2>
                       <p className="text-sm text-gray-500 ">Measuring what matters</p>
                     </div>
                   </div>
@@ -286,7 +286,7 @@ const PCLesson12 = () => {
                       <Icons.Award className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Effective Benchmarking</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Effective Benchmarking</h2>
                       <p className="text-sm text-gray-500 ">Comparing apples to apples</p>
                     </div>
                   </div>
@@ -354,7 +354,7 @@ const PCLesson12 = () => {
                       <Icons.FileText className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Reporting and Documentation</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Reporting and Documentation</h2>
                       <p className="text-sm text-gray-500 ">Keeping records that matter</p>
                     </div>
                   </div>
@@ -426,7 +426,7 @@ const PCLesson12 = () => {
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Annual Review Process</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Annual Review Process</h2>
                       <p className="text-sm text-gray-500 ">Your yearly strategy checkup</p>
                     </div>
                   </div>
@@ -502,7 +502,7 @@ const PCLesson12 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Final Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Final Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Complete your Portfolio Construction journey</p>
                     </div>
                   </div>

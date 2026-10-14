@@ -68,7 +68,7 @@ const PurchasePage = () => {
       <Navbar />
       <section className="flex-1 py-20 px-6 md:px-12 lg:px-24 mt-16">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-display font-semibold tracking-[-0.025em]">{course.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold tracking-[-0.025em]">{course.title}</h1>
           <p className="text-gray-600 my-4">{course.description}</p>
           <p className="text-brand font-bold text-xl">₹{course.price}</p>
           <button

@@ -110,7 +110,7 @@ const AlgoTradingLesson6 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 6 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">15 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Zap className="w-8 h-8 text-white"/>
               </span>
@@ -152,7 +152,7 @@ const AlgoTradingLesson6 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">Order Types: Your Execution Toolkit</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">Order Types: Your Execution Toolkit</h2>
             <p className="text-gray-700  mb-6">
               Different order types serve different purposes. Understanding when to use each is crucial for efficient execution.
             </p>
@@ -164,11 +164,11 @@ const AlgoTradingLesson6 = () => {
 
                 {/* Market Order */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#12805A"/>
-                  <rect x="0" y="23" width="300" height="12" fill="#12805A"/>
+                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#16A34A"/>
+                  <rect x="0" y="23" width="300" height="12" fill="#16A34A"/>
                   <text x="150" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">MARKET ORDER</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#3CCB97" fontSize="10">"Execute NOW at best available price"</text>
+                  <text x="150" y="60" textAnchor="middle" fill="#16A34A" fontSize="10">"Execute NOW at best available price"</text>
                   
                   <text x="20" y="85" fill="#A0A3AA" fontSize="9">✓ Guaranteed execution</text>
                   <text x="20" y="100" fill="#A0A3AA" fontSize="9">✓ Instant fill</text>
@@ -221,7 +221,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* When to Use Each */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">When to Use Each Order Type</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">When to Use Each Order Type</h2>
             <div className="grid gap-4 mb-10">
               {[
                 { type: "Market Order", when: "Urgent exits, stop losses, highly liquid stocks", color: "emerald" },
@@ -241,7 +241,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* Slippage */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Warning className="w-5 h-5 text-red-600 "/>
               </span>
@@ -272,7 +272,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* TWAP and VWAP */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Clock className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -306,7 +306,7 @@ const AlgoTradingLesson6 = () => {
                   <text x="155" y="175" textAnchor="middle" fill="#A0A3AA" fontSize="9">📋 How it works:</text>
                   <text x="155" y="195" textAnchor="middle" fill="#A0A3AA" fontSize="8">Split order into equal parts</text>
                   <text x="155" y="210" textAnchor="middle" fill="#A0A3AA" fontSize="8">Execute at regular intervals</text>
-                  <text x="155" y="230" textAnchor="middle" fill="#3CCB97" fontSize="8">✓ Best for: Low-volume stocks</text>
+                  <text x="155" y="230" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Best for: Low-volume stocks</text>
                 </g>
 
                 {/* VWAP */}
@@ -327,13 +327,13 @@ const AlgoTradingLesson6 = () => {
                   <text x="155" y="175" textAnchor="middle" fill="#A0A3AA" fontSize="9">📋 How it works:</text>
                   <text x="155" y="195" textAnchor="middle" fill="#A0A3AA" fontSize="8">Match execution to market volume</text>
                   <text x="155" y="210" textAnchor="middle" fill="#A0A3AA" fontSize="8">More shares when volume is higher</text>
-                  <text x="155" y="230" textAnchor="middle" fill="#3CCB97" fontSize="8">✓ Best for: High-volume stocks</text>
+                  <text x="155" y="230" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Best for: High-volume stocks</text>
                 </g>
               </svg>
             </div>
 
             {/* Market Microstructure */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Layers className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -440,7 +440,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which order type guarantees execution but NOT the price?"
               options={["Limit Order", "Market Order", "Stop-Limit Order", "None of these"]}

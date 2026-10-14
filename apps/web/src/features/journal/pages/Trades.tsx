@@ -47,13 +47,13 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import TradeDetailsDialog from "../components/TradeDetailsDialog";
 import InfoTip from "@/components/ui/info-tip";
 import { api } from "../lib/api";
-import type { Trade, Strategy } from "../lib/api";
+import type { Trade, Strategy, TradeSortColumn } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
 import SlideToConfirm from "@/components/motion/SlideToConfirm";
 import { useAuth } from "@/contexts/AuthContext";
@@ -78,11 +78,58 @@ function formatDate(value: string | null | undefined) {
   return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-/** P&L with its direction spelled out: "+₹1,267.58" / "−₹344.89". */
+// ── Column sort: each header cycles Default → Max → Min → Default ─────────
+type SortKey = TradeSortColumn | "result";
+interface SortState {
+  key: SortKey;
+  dir: "asc" | "desc";
+}
+/** What "max" / "min" mean for each kind of column, for the tooltip. */
+const SORT_WORDS: Record<SortKey, [max: string, min: string]> = {
+  date: ["Newest first", "Oldest first"],
+  asset: ["Z to A", "A to Z"],
+  buy_sell: ["Sell first", "Buy first"],
+  quantity: ["Largest first", "Smallest first"],
+  entry_price: ["Highest first", "Lowest first"],
+  exit_price: ["Highest first", "Lowest first"],
+  pnl: ["Biggest profit first", "Biggest loss first"],
+  result: ["Wins first", "Losses first"],
+  strategy: ["Z to A", "A to Z"],
+};
+const nextSort = (current: SortState | null, key: SortKey): SortState | null => {
+  if (!current || current.key !== key) return { key, dir: "desc" }; // 1st click: max
+  if (current.dir === "desc") return { key, dir: "asc" }; // 2nd click: min
+  return null; // 3rd click: back to default (newest first)
+};
+
+function SortHead({ label, sortKey, sort, onSort, right }: { label: React.ReactNode; sortKey: SortKey; sort: SortState | null; onSort: (k: SortKey) => void; right?: boolean }) {
+  const active = sort?.key === sortKey ? sort.dir : null;
+  const [maxWord, minWord] = SORT_WORDS[sortKey];
+  const state = active === "desc" ? `Max: ${maxWord}` : active === "asc" ? `Min: ${minWord}` : "Default order";
+  const nextHint = active === "desc" ? `Click for min (${minWord})` : active === "asc" ? "Click for the default order" : `Click for max (${maxWord})`;
+  const Icon = active === "desc" ? ArrowDown : active === "asc" ? ArrowUp : ChevronsUpDown;
+  return (
+    <TableHead className={right ? "text-right" : undefined} aria-sort={active === "desc" ? "descending" : active === "asc" ? "ascending" : "none"}>
+      <button
+        type="button"
+        onClick={() => onSort(sortKey)}
+        title={`${state}. ${nextHint}.`}
+        className={cn(
+          "group inline-flex items-center gap-1 rounded-md -mx-1 px-1 py-0.5 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          right && "flex-row-reverse",
+          active ? "text-foreground" : "text-muted-foreground",
+        )}
+      >
+        {label}
+        <Icon className={cn("h-3.5 w-3.5 shrink-0", active ? "text-brand" : "opacity-40 group-hover:opacity-80")} aria-hidden="true" />
+        {active && <span className="sr-only">{state}</span>}
+      </button>
+    </TableHead>
+  );
+}
+
+/** P&L as the site formats money ("₹1,267.58" / "-₹344.89"); colour shows the direction. */
 function signedTradeMoney(pnl: number | null, currency: string): string {
-  if (pnl == null) return formatMoney(pnl, currency);
-  if (pnl > 0) return `+${formatMoney(pnl, currency)}`;
-  if (pnl < 0) return `−${formatMoney(Math.abs(pnl), currency)}`;
   return formatMoney(pnl, currency);
 }
 
@@ -170,6 +217,7 @@ export default function Trades() {
   const [toDate, setToDate] = useState("");
   const [jumpTo, setJumpTo] = useState("");
   const [onlyDuplicates, setOnlyDuplicates] = useState(false);
+  const [sort, setSort] = useState<SortState | null>(null);
   const latestRequest = useRef(0);
   const datesInvalid = !!fromDate && !!toDate && fromDate > toDate;
   const filtering = !!(appliedSearch || fromDate || toDate || onlyDuplicates);
@@ -224,6 +272,9 @@ export default function Trades() {
           to: toDate || undefined,
           flag_duplicates: true,
           only_duplicates: onlyDuplicates || undefined,
+          // Sorted on the server, so max/min cover every trade, not just this page.
+          sort: sort ? (sort.key === "result" ? "pnl" : sort.key) : undefined,
+          dir: sort?.dir,
         });
         if (requestId !== latestRequest.current) return;
         setTrades(res.data || []);
@@ -236,8 +287,13 @@ export default function Trades() {
         if (requestId === latestRequest.current) setLoading(false);
       }
     },
-    [appliedSearch, fromDate, toDate, datesInvalid, onlyDuplicates]
+    [appliedSearch, fromDate, toDate, datesInvalid, onlyDuplicates, sort]
   );
+
+  const changeSort = (key: SortKey) => {
+    setSort((current) => nextSort(current, key));
+    setOffset(0);
+  };
 
   const loadStrategies = useCallback(async () => {
     try {
@@ -425,15 +481,15 @@ export default function Trades() {
           <Table className="compact-rows">
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Asset</TableHead>
-                <TableHead>Side</TableHead>
-                <TableHead className="text-right">Qty</TableHead>
-                <TableHead className="text-right">Entry</TableHead>
-                <TableHead className="text-right">Exit</TableHead>
-                <TableHead className="text-right">P&amp;L</TableHead>
-                <TableHead>Result</TableHead>
-                <TableHead>Strategy</TableHead>
+                <SortHead label="Date" sortKey="date" sort={sort} onSort={changeSort} />
+                <SortHead label="Asset" sortKey="asset" sort={sort} onSort={changeSort} />
+                <SortHead label="Side" sortKey="buy_sell" sort={sort} onSort={changeSort} />
+                <SortHead label="Qty" sortKey="quantity" sort={sort} onSort={changeSort} right />
+                <SortHead label="Entry" sortKey="entry_price" sort={sort} onSort={changeSort} right />
+                <SortHead label="Exit" sortKey="exit_price" sort={sort} onSort={changeSort} right />
+                <SortHead label="P&L" sortKey="pnl" sort={sort} onSort={changeSort} right />
+                <SortHead label="Result" sortKey="result" sort={sort} onSort={changeSort} />
+                <SortHead label="Strategy" sortKey="strategy" sort={sort} onSort={changeSort} />
                 {/* Pinned to the right edge so edit/delete stay visible if the table scrolls on a narrow screen. */}
                 <TableHead className="sticky right-0 z-10 bg-background text-right">Actions</TableHead>
               </TableRow>

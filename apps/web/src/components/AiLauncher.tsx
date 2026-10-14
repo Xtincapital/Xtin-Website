@@ -1,8 +1,10 @@
-// The floating "ask the AI" launcher used by Journal (AI Coach) and Gini.
+// The floating "ask the AI" launcher (Journal's AI Coach).
 //
-// A dark glass pill with a thin emerald-to-gold gradient edge, a chat-bubble
-// mark with a spark inside, and a two-line label ("AI Coach / Ask anything").
-// On phones it collapses to just the round mark.
+// An expanding launcher, as in the Journal concept: a solid brand-green round
+// button with the AI mark and a soft breathing ring. On hover or keyboard
+// focus it slides open into a pill with a two-line label ("AI Coach /
+// Review your trades"). Pressing it squeezes slightly. On touch screens it
+// stays a round button. Motion is switched off for reduced-motion users.
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -22,17 +24,19 @@ export function AiMark({ className }: { className?: string }) {
 }
 
 export const AI_LAUNCHER_CLASS =
-  "group fixed bottom-6 right-5 z-50 inline-flex items-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] no-underline shadow-[0_10px_30px_-6px_rgba(19, 20, 23,0.55)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_38px_-6px_rgba(31, 169, 120,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-line focus-visible:ring-offset-2";
+  "ai-launcher group fixed bottom-6 right-5 z-50 inline-flex h-14 items-center rounded-full bg-brand-fill text-white no-underline shadow-[0_12px_30px_-8px_rgb(var(--brand)/0.6)] transition-[transform,box-shadow,background-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-[0_18px_40px_-10px_rgb(var(--brand)/0.7)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 export const AiLauncherInner = ({ label, sub = "Ask anything" }: { label: string; sub?: string }) => (
-  <span className="flex items-center gap-3 rounded-full bg-[#131417]/95 py-1.5 pl-1.5 pr-1.5 text-white backdrop-blur sm:pr-5 brand-on-dark">
-    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-brand ring-1 ring-inset ring-brand-line bg-brand-fill">
-      <AiMark className="h-6 w-6" />
-      <span className="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#131417] bg-brand-fill" />
+  <span className="flex h-full items-center">
+    <span className="relative grid h-14 w-14 shrink-0 place-items-center">
+      {/* Breathing ring: a gentle hint that the coach is there, not a notification. */}
+      <span className="ai-launcher-ring pointer-events-none absolute inset-0 rounded-full" aria-hidden="true" />
+      <AiMark className="relative h-6 w-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-[-8deg] group-hover:scale-110" />
     </span>
-    <span className="hidden text-left leading-tight sm:block">
-      <span className="block text-sm font-semibold tracking-tight">{label}</span>
-      <span className="block text-xs font-normal text-slate-400">{sub}</span>
+    {/* The label slides out on hover / focus (pointer devices only). */}
+    <span className="grid max-w-0 overflow-hidden whitespace-nowrap text-left leading-tight opacity-0 transition-[max-width,opacity,padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] [@media(hover:hover)]:group-hover:max-w-[12rem] [@media(hover:hover)]:group-hover:pr-5 [@media(hover:hover)]:group-hover:opacity-100 group-focus-visible:max-w-[12rem] group-focus-visible:pr-5 group-focus-visible:opacity-100">
+      <span className="text-sm font-bold tracking-tight">{label}</span>
+      <span className="text-xs font-normal text-white/80">{sub}</span>
     </span>
   </span>
 );

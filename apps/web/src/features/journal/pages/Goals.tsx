@@ -323,7 +323,7 @@ export default function Goals() {
                 <Card key={goal.id}>
                   <CardHeader className="flex flex-row items-start justify-between space-y-0">
                     <div>
-                      <CardTitle className="text-base">{goal.title}</CardTitle>
+                      <CardTitle className="text-lg">{goal.title}</CardTitle>
                       <p className="text-xs text-muted-foreground">
                         {config.label} • {TIMEFRAME_LABELS[goal.timeframe as GoalTimeframe] || goal.timeframe}
                       </p>

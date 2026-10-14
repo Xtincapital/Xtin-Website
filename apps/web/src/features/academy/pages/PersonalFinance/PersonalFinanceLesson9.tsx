@@ -119,7 +119,7 @@ const PersonalFinanceLesson9 = () => {
                 Final Lesson!
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-red-200 rounded-xl shadow-sm">
                 <WarningIcon className="w-7 h-7 text-red-600" />
               </span>
@@ -157,7 +157,7 @@ const PersonalFinanceLesson9 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">Why Money Mistakes Happen</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.025em]">Why Money Mistakes Happen</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Everyone makes money mistakes</strong> — especially when starting out. Nobody teaches us about money in school, so we learn through trial and error. The good news? Recognizing these mistakes early helps you avoid them and build better habits!
@@ -174,7 +174,7 @@ const PersonalFinanceLesson9 = () => {
             </div>
 
             {/* Common Mistakes */}
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">6 Common Beginner Mistakes</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.025em]">6 Common Beginner Mistakes</h2>
             
             <div className="space-y-4 mb-10">
               <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-5 border border-red-200">
@@ -310,40 +310,40 @@ const PersonalFinanceLesson9 = () => {
                 
                 {/* Right Side - Smart Money Loop */}
                 <g transform="translate(330, 20)">
-                  <text x="120" y="15" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="bold">✔ SMART MONEY LOOP</text>
+                  <text x="120" y="15" textAnchor="middle" fill="#16A34A" fontSize="14" fontWeight="bold">✔ SMART MONEY LOOP</text>
                   
                   {/* Circular arrows */}
-                  <circle cx="120" cy="130" r="90" fill="none" stroke="#ABE5CC" strokeWidth="8" strokeDasharray="20 10"/>
+                  <circle cx="120" cy="130" r="90" fill="none" stroke="#BBF7D0" strokeWidth="8" strokeDasharray="20 10"/>
                   
                   {/* Earn */}
                   <g transform="translate(85, 35)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Earn $</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">Earn $</text>
                   </g>
                   
                   {/* Budget */}
                   <g transform="translate(165, 100)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Budget</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">Budget</text>
                   </g>
                   
                   {/* Save */}
                   <g transform="translate(85, 175)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Save</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">Save</text>
                   </g>
                   
                   {/* Grow */}
                   <g transform="translate(5, 100)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Grow</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">Grow</text>
                   </g>
                   
                   {/* Arrows */}
-                  <path d="M155 65 Q190 80 195 100" stroke="#12805A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M195 145 Q190 170 155 190" stroke="#12805A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M85 195 Q50 180 45 145" stroke="#12805A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M45 100 Q50 70 85 55" stroke="#12805A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M155 65 Q190 80 195 100" stroke="#16A34A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M195 145 Q190 170 155 190" stroke="#16A34A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M85 195 Q50 180 45 145" stroke="#16A34A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M45 100 Q50 70 85 55" stroke="#16A34A" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
                 </g>
                 
                 {/* Arrow markers */}
@@ -352,7 +352,7 @@ const PersonalFinanceLesson9 = () => {
                     <polygon points="0 0, 10 3, 0 6" fill="#E04848"/>
                   </marker>
                   <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#12805A"/>
+                    <polygon points="0 0, 10 3, 0 6" fill="#16A34A"/>
                   </marker>
                 </defs>
               </svg>
@@ -419,7 +419,7 @@ const PersonalFinanceLesson9 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <PencilIcon className="w-6 h-6 text-white" />
               </span>
@@ -510,7 +510,7 @@ const PersonalFinanceLesson9 = () => {
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaTrophy className="text-4xl text-yellow-300" />
               </div>
-              <h3 className="font-semibold text-2xl mb-2 flex items-center justify-center gap-2 tracking-[-0.015em]">
+              <h3 className="font-bold text-2xl mb-2 flex items-center justify-center gap-2 tracking-[-0.015em]">
                 <CelebrationIcon className="w-7 h-7 text-yellow-300" />
                 Congratulations!
               </h3>

@@ -21,10 +21,11 @@ export const families = {
     50: '#F5F5F7', 100: '#EEEEF1', 200: '#E4E4EA', 300: '#CFD0D3', 400: '#A0A3AA',
     500: '#717680', 600: '#555A63', 700: '#373A41', 800: '#2A2A2C', 900: '#1F1F1F', 950: '#131417',
   },
-  // Brand / profit. 600 = buttons & light-mode text, 400 = dark-mode text.
+  // Brand / profit: Tailwind's green, centred on green-600 #16A34A — the
+  // live site's "Get Started" green. One green for text, buttons and icons.
   brand: {
-    50: '#EEF9F4', 100: '#D5F2E5', 200: '#ABE5CC', 300: '#77D3AE', 400: '#3CCB97',
-    500: '#1FA978', 600: '#12805A', 700: '#0E6A4A', 800: '#0D543C', 900: '#0B4532', 950: '#052A1E',
+    50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0', 300: '#86EFAC', 400: '#4ADE80',
+    500: '#22C55E', 600: '#16A34A', 700: '#15803D', 800: '#166534', 900: '#14532D', 950: '#052E16',
   },
   // Loss / destructive.
   negative: {

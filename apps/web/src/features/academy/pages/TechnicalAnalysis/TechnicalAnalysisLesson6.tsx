@@ -92,10 +92,10 @@ const WhyIndicatorsExistSVG = () => (
     <path d="M360 130 L400 130" stroke="#717680" strokeWidth="2" markerEnd="url(#arrowhead)"/>
     
     {/* Indicator Output */}
-    <rect x="410" y="90" width="140" height="80" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
-    <text x="480" y="120" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Indicator</text>
-    <text x="480" y="138" textAnchor="middle" fontSize="9" fill="#12805A">A visual representation</text>
-    <text x="480" y="152" textAnchor="middle" fontSize="9" fill="#12805A">of processed data</text>
+    <rect x="410" y="90" width="140" height="80" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="480" y="120" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Indicator</text>
+    <text x="480" y="138" textAnchor="middle" fontSize="9" fill="#16A34A">A visual representation</text>
+    <text x="480" y="152" textAnchor="middle" fontSize="9" fill="#16A34A">of processed data</text>
     
     {/* Bottom note */}
     <rect x="100" y="200" width="400" height="60" fill="#EEEEF1" rx="10"/>
@@ -235,12 +235,12 @@ const ConflictingSignalsSVG = () => (
     />
     
     {/* Indicator A - shows bullish */}
-    <rect x="50" y="180" width="240" height="80" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="60" y="198" fontSize="9" fontWeight="500" fill="#12805A">Indicator A</text>
+    <rect x="50" y="180" width="240" height="80" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="60" y="198" fontSize="9" fontWeight="500" fill="#16A34A">Indicator A</text>
     <g transform="translate(170, 225)">
-      <path d="M-100 20 L-60 10 L-20 -5 L20 -15 L60 -20 L100 -25" fill="none" stroke="#12805A" strokeWidth="2"/>
+      <path d="M-100 20 L-60 10 L-20 -5 L20 -15 L60 -20 L100 -25" fill="none" stroke="#16A34A" strokeWidth="2"/>
     </g>
-    <text x="170" y="270" textAnchor="middle" fontSize="9" fill="#12805A">↑ Suggests strength</text>
+    <text x="170" y="270" textAnchor="middle" fontSize="9" fill="#16A34A">↑ Suggests strength</text>
     
     {/* Indicator B - shows bearish */}
     <rect x="310" y="180" width="240" height="80" fill="#FBE1E1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
@@ -278,7 +278,7 @@ const IndicatorOverloadSVG = () => (
       {/* Messy overlapping indicators */}
       <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-85 20 L-40 15 L0 5 L40 -5 L85 -15" fill="none" stroke="#5A77AA" strokeWidth="1.5"/>
-      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
+      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#16A34A" strokeWidth="1.5"/>
       <path d="M-85 -20 L-50 -30 L-10 -15 L30 -35 L70 -20 L85 -30" fill="none" stroke="#D2754C" strokeWidth="1.5"/>
       <path d="M-85 -10 L-40 0 L10 -20 L50 -5 L85 -25" fill="none" stroke="#8F6FC4" strokeWidth="1.5"/>
       <path d="M-85 50 L-30 35 L30 50 L85 30" fill="none" stroke="#E04848" strokeWidth="1.5" strokeDasharray="4 2"/>
@@ -293,19 +293,19 @@ const IndicatorOverloadSVG = () => (
     <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#842428">Too much noise, no clarity</text>
     
     {/* Right - Clean chart */}
-    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Clean & Focused</text>
+    <rect x="335" y="70" width="275" height="240" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Clean & Focused</text>
     
     <g transform="translate(472, 185)">
-      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Clean price with one simple MA */}
       <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#717680" strokeWidth="2"/>
-      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#12805A" strokeWidth="2.5"/>
+      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#16A34A" strokeWidth="2.5"/>
     </g>
     
-    <text x="472" y="290" textAnchor="middle" fontSize="9" fill="#12805A">"Price is above its average"</text>
-    <text x="472" y="303" textAnchor="middle" fontSize="9" fill="#12805A">Simple context, easy to understand</text>
+    <text x="472" y="290" textAnchor="middle" fontSize="9" fill="#16A34A">"Price is above its average"</text>
+    <text x="472" y="303" textAnchor="middle" fontSize="9" fill="#16A34A">Simple context, easy to understand</text>
   </svg>
 );
 
@@ -337,21 +337,21 @@ const DescribeDontDecideSVG = () => (
     <text x="167" y="238" textAnchor="middle" fontSize="9" fill="#842428">leads to mechanical mistakes</text>
     
     {/* Right approach */}
-    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Correct Understanding</text>
+    <rect x="335" y="70" width="275" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+    <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Correct Understanding</text>
     
     <g transform="translate(472, 160)">
       {/* Indicator providing context */}
-      <rect x="-80" y="-40" width="160" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="0" y="-15" textAnchor="middle" fontSize="10" fill="#12805A">Indicator shows:</text>
-      <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="500" fill="#12805A">"Momentum is rising"</text>
+      <rect x="-80" y="-40" width="160" height="50" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="0" y="-15" textAnchor="middle" fontSize="10" fill="#16A34A">Indicator shows:</text>
+      <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="500" fill="#16A34A">"Momentum is rising"</text>
       
-      <text x="0" y="35" textAnchor="middle" fontSize="9" fill="#12805A">↓</text>
-      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#12805A">Context, not instruction</text>
+      <text x="0" y="35" textAnchor="middle" fontSize="9" fill="#16A34A">↓</text>
+      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#16A34A">Context, not instruction</text>
     </g>
     
-    <text x="472" y="225" textAnchor="middle" fontSize="9" fill="#12805A">Using indicators as one piece</text>
-    <text x="472" y="238" textAnchor="middle" fontSize="9" fill="#12805A">of a larger understanding</text>
+    <text x="472" y="225" textAnchor="middle" fontSize="9" fill="#16A34A">Using indicators as one piece</text>
+    <text x="472" y="238" textAnchor="middle" fontSize="9" fill="#16A34A">of a larger understanding</text>
   </svg>
 );
 
@@ -419,13 +419,13 @@ const ProperRoleSVG = () => (
     <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Proper Role of Indicators</text>
     
     {/* Three pillars */}
-    <rect x="50" y="50" width="150" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="125" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">✓ DO</text>
-    <text x="125" y="100" textAnchor="middle" fontSize="9" fill="#12805A">Provide context</text>
-    <text x="125" y="118" textAnchor="middle" fontSize="9" fill="#12805A">Summarize trends</text>
-    <text x="125" y="136" textAnchor="middle" fontSize="9" fill="#12805A">Highlight conditions</text>
-    <text x="125" y="154" textAnchor="middle" fontSize="9" fill="#12805A">Aid visualization</text>
-    <text x="125" y="172" textAnchor="middle" fontSize="9" fill="#12805A">Simplify complexity</text>
+    <rect x="50" y="50" width="150" height="130" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="125" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">✓ DO</text>
+    <text x="125" y="100" textAnchor="middle" fontSize="9" fill="#16A34A">Provide context</text>
+    <text x="125" y="118" textAnchor="middle" fontSize="9" fill="#16A34A">Summarize trends</text>
+    <text x="125" y="136" textAnchor="middle" fontSize="9" fill="#16A34A">Highlight conditions</text>
+    <text x="125" y="154" textAnchor="middle" fontSize="9" fill="#16A34A">Aid visualization</text>
+    <text x="125" y="172" textAnchor="middle" fontSize="9" fill="#16A34A">Simplify complexity</text>
     
     <rect x="225" y="50" width="150" height="130" fill="#FBE1E1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
     <text x="300" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#842428">✗ DON'T</text>
@@ -496,14 +496,14 @@ const TechnicalAnalysisLesson6 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 6 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Indicators – Purpose & Limitations</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Indicators – Purpose & Limitations</h1>
             <p className="text-gray-600 mt-2">Understanding what indicators can and cannot do</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Indicators Exist</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Indicators Exist</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -537,7 +537,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* What Indicators Are */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Are Indicators?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Are Indicators?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -585,7 +585,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Indicators Lag */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Indicators Lag Behind Price</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Indicators Lag Behind Price</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -616,7 +616,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Conflicting Signals */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Indicators Can Conflict</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Indicators Can Conflict</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -640,7 +640,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Same Price, Different Views */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Same Price, Different Perspectives</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Same Price, Different Perspectives</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -662,7 +662,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Indicator Overload */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Problem with Indicator Overload</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Problem with Indicator Overload</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -685,7 +685,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Describe Don't Decide */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Indicators Describe, They Don't Decide</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Indicators Describe, They Don't Decide</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -704,7 +704,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* The Proper Role */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Proper Role of Indicators</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Proper Role of Indicators</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -731,7 +731,7 @@ const TechnicalAnalysisLesson6 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

@@ -42,14 +42,12 @@
 // plain link to /journal/pricing" rather than a modal/trigger function — so
 // this page does exactly that on a 402 instead of calling any
 // checkout-opening method.
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
 import { toast } from "sonner";
 import {
   Sparkles,
-  Send,
   Loader2,
   Wallet,
   CalendarCheck,
@@ -57,7 +55,6 @@ import {
   BellRing,
   Lightbulb,
   Bot,
-  User as UserIcon,
   TrendingUp,
   TrendingDown,
   AlertTriangle,
@@ -66,6 +63,12 @@ import {
   MessageSquarePlus,
 } from "lucide-react";
 import SavedChatsList from "@/components/ai/SavedChatsList";
+import AIConversation from "@/components/smoothui/ai-conversation";
+import AIMessage from "@/components/smoothui/ai-message";
+import AILoader from "@/components/smoothui/ai-loader";
+import AISuggestions from "@/components/smoothui/ai-suggestions";
+import AIPromptInput from "@/components/smoothui/ai-prompt-input";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -73,7 +76,6 @@ import { Input } from "@/components/ui/input";
 import AmountInput from "@/components/ui/amount-input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
@@ -195,6 +197,15 @@ function severityBadgeVariant(severity: string | undefined): "default" | "destru
   return "default";
 }
 
+type CoachView = "chat" | "weekly" | "pretrade" | "insights" | "alerts";
+
+const TOOLS: { id: Exclude<CoachView, "chat">; label: string; hint: string; icon: typeof Bot }[] = [
+  { id: "weekly", label: "Weekly Review", hint: "A written review of your week", icon: CalendarCheck },
+  { id: "pretrade", label: "Pre-Trade Check", hint: "Sanity-check a trade before you take it", icon: ShieldCheck },
+  { id: "insights", label: "Insights", hint: "Strengths and habits to fix", icon: Lightbulb },
+  { id: "alerts", label: "Alerts", hint: "Behaviour warnings", icon: BellRing },
+];
+
 export default function Coach() {
   const { user } = useAuth();
   const { currency } = useCurrency();
@@ -211,7 +222,7 @@ export default function Coach() {
   const clientTier = isPro() ? "pro" : "free";
   const displayName = (user?.email || "").split("@")[0] || "";
 
-  // Full trade history + goals, reused across every tab — same pragmatic
+  // Full trade history + goals, reused across every tool — same pragmatic
   // single-large-page fetch Dashboard.tsx/Analytics.tsx/Psychology.tsx all
   // use (GET /journal/trades has no server-side aggregate endpoint).
   const { data: tradesData, isLoading: tradesLoading } = useQuery({
@@ -225,7 +236,20 @@ export default function Coach() {
     queryFn: () => goalsApi.getGoals(),
   });
 
-  const [activeTab, setActiveTab] = useState("chat");
+  const [view, setView] = useState<CoachView>("chat");
+  // Bumping this starts a fresh conversation in the chat panel.
+  const [chatSession, setChatSession] = useState(0);
+  const [openChat, setOpenChat] = useState<{ id: string; messages: { role: "user" | "assistant"; content: string }[] } | null>(null);
+  const [activeChatId, setActiveChatId] = useState<string | null>(null);
+  const [panelOpen, setPanelOpen] = useState(false);
+
+  const newChat = () => {
+    setOpenChat(null);
+    setActiveChatId(null);
+    setChatSession((n) => n + 1);
+    setView("chat");
+    setPanelOpen(false);
+  };
 
   /** Shared 402 handler — every AI-calling endpoint here can run short on
    *  wallet tokens. Points at /journal/pricing (the parallel task's page)
@@ -244,65 +268,124 @@ export default function Coach() {
     });
   };
 
+  const tool = TOOLS.find((t) => t.id === view);
+
+  const sidePanel = (
+    <div className="flex h-full min-h-0 flex-col gap-4 p-3">
+      <Button onClick={newChat} className="w-full justify-start gap-2">
+        <MessageSquarePlus className="h-4 w-4" /> New chat
+      </Button>
+
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <p className="xt-label px-2 pb-1.5">Your chats</p>
+        <SavedChatsList
+          app="journal"
+          activeId={activeChatId}
+          onOpen={(id, saved) => {
+            setOpenChat({ id, messages: saved });
+            setActiveChatId(id);
+            setChatSession((n) => n + 1);
+            setView("chat");
+            setPanelOpen(false);
+          }}
+          onDeletedActive={newChat}
+          upgradeHref="/journal/pricing"
+          className="text-sm"
+        />
+
+        <p className="xt-label px-2 pb-1.5 pt-5">Coach tools</p>
+        <ul className="grid gap-0.5">
+          {TOOLS.map((t) => (
+            <li key={t.id}>
+              <button
+                type="button"
+                onClick={() => {
+                  setView(t.id);
+                  setPanelOpen(false);
+                }}
+                className={cn(
+                  "flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
+                  view === t.id ? "bg-brand-soft text-brand" : "text-foreground hover:bg-secondary",
+                )}
+              >
+                <t.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span className="min-w-0">
+                  <span className="block font-medium">{t.label}</span>
+                  <span className="block truncate text-xs text-muted-foreground">{t.hint}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* AI token wallet */}
+      <div className="grid gap-2.5 rounded-xl border bg-secondary/40 p-3">
+        <div className="flex items-center gap-2.5">
+          <Wallet className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+          <div className="min-w-0 flex-1">
+            <p className="text-xs text-muted-foreground">AI tokens</p>
+            <p className="text-sm font-bold tabular-nums text-foreground">
+              {walletLoading && !wallet ? "Loading…" : wallet ? formatTokens(wallet.token_balance) : "—"}
+            </p>
+          </div>
+          <Badge variant={clientTier === "pro" ? "default" : "outline"} className="shrink-0 uppercase">
+            {clientTier}
+          </Badge>
+        </div>
+        <Button asChild size="sm" variant="outline" className="w-full">
+          <Link to="/journal/pricing">Top up tokens</Link>
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
     <JournalLayout>
-      <div className="p-6 md:p-8 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
-        >
-          <div>
-            <h1 className="xt-title mb-2 flex items-center gap-3">
-              <Sparkles className="h-6 w-6 text-brand" />
-              AI Coach
-            </h1>
-            <p className="text-muted-foreground">Chat, weekly reviews, and pre-trade checks powered by your trade history</p>
-          </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="grid h-[calc(100dvh-14rem)] min-h-[34rem] overflow-hidden rounded-2xl border bg-card lg:grid-cols-[17rem_minmax(0,1fr)]">
+          {/* Side panel: fixed on desktop, a slide-over on smaller screens */}
+          <aside className="hidden min-h-0 border-r lg:block">{sidePanel}</aside>
+          {panelOpen && (
+            <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-label="Chats and tools">
+              <button type="button" aria-label="Close" className="absolute inset-0 bg-black/40" onClick={() => setPanelOpen(false)} />
+              <div className="absolute inset-y-0 left-0 w-[min(20rem,85vw)] border-r bg-card shadow-xl">{sidePanel}</div>
+            </div>
+          )}
 
-          {/* Wallet balance badge */}
-          <Card className="w-full sm:w-auto">
-            <CardContent className="flex items-center gap-3 p-3 px-4">
-              <Wallet className="h-4 w-4 text-brand shrink-0" />
+          <section className="flex min-h-0 min-w-0 flex-col">
+            {/* Header */}
+            <div className="flex items-center gap-3 border-b px-4 py-3">
+              <Button type="button" variant="ghost" size="icon" className="lg:hidden" onClick={() => setPanelOpen(true)} aria-label="Chats and tools">
+                <History className="h-4 w-4" />
+              </Button>
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-fill text-white">
+                {tool ? <tool.icon className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
+              </span>
               <div className="min-w-0">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">AI Tokens</p>
-                <p className="text-sm font-bold text-foreground">
-                  {walletLoading && !wallet ? "Loading..." : wallet ? formatTokens(wallet.token_balance) : "—"}
+                {/* role=heading, not <h1>: journal.css sizes every page h1 as a page title. */}
+                <p role="heading" aria-level={1} className="truncate text-base font-bold text-foreground">
+                  {tool ? tool.label : "AI Coach"}
+                </p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {tool
+                    ? tool.hint
+                    : tradesLoading
+                      ? "Reading your trade history…"
+                      : `Knows your ${allTrades.length.toLocaleString("en-IN")} logged trade${allTrades.length === 1 ? "" : "s"}`}
                 </p>
               </div>
-              <Badge variant={clientTier === "pro" ? "default" : "outline"} className="ml-1 shrink-0 uppercase">
-                {clientTier}
-              </Badge>
-              <Button asChild size="sm" variant="outline" className="ml-1 shrink-0">
-                <Link to="/journal/pricing">Top up</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
+              {tool && (
+                <Button type="button" variant="outline" size="sm" className="ml-auto gap-1.5" onClick={() => setView("chat")}>
+                  <Bot className="h-4 w-4" /> Back to chat
+                </Button>
+              )}
+            </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="mb-4 flex w-full flex-wrap h-auto gap-1">
-              <TabsTrigger value="chat" className="gap-1.5">
-                <Bot className="h-3.5 w-3.5" /> Chat
-              </TabsTrigger>
-              <TabsTrigger value="weekly" className="gap-1.5">
-                <CalendarCheck className="h-3.5 w-3.5" /> Weekly Review
-              </TabsTrigger>
-              <TabsTrigger value="pretrade" className="gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" /> Pre-Trade Check
-              </TabsTrigger>
-              <TabsTrigger value="insights" className="gap-1.5">
-                <Lightbulb className="h-3.5 w-3.5" /> Insights
-              </TabsTrigger>
-              <TabsTrigger value="alerts" className="gap-1.5">
-                <BellRing className="h-3.5 w-3.5" /> Alerts
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="chat">
-              <ChatTab
+            {view === "chat" ? (
+              <ChatPanel
+                key={chatSession}
+                initial={openChat}
                 trades={allTrades}
                 tradesLoading={tradesLoading}
                 goals={goalsData ?? []}
@@ -311,36 +394,49 @@ export default function Coach() {
                 currency={currency}
                 onInsufficientTokens={handleInsufficientTokens}
                 onWalletChange={fetchWallet}
+                onConversation={setActiveChatId}
               />
-            </TabsContent>
-
-            <TabsContent value="weekly">
-              <WeeklyReviewTab trades={allTrades} tradesLoading={tradesLoading} onInsufficientTokens={handleInsufficientTokens} onWalletChange={fetchWallet} />
-            </TabsContent>
-
-            <TabsContent value="pretrade">
-              <PreTradeTab onInsufficientTokens={handleInsufficientTokens} onWalletChange={fetchWallet} />
-            </TabsContent>
-
-            <TabsContent value="insights">
-              <InsightsTab trades={allTrades} tradesLoading={tradesLoading} active={activeTab === "insights"} />
-            </TabsContent>
-
-            <TabsContent value="alerts">
-              <AlertsTab active={activeTab === "alerts"} />
-            </TabsContent>
-          </Tabs>
-        </motion.div>
+            ) : (
+              <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
+                {view === "weekly" && <WeeklyReviewTab trades={allTrades} tradesLoading={tradesLoading} onInsufficientTokens={handleInsufficientTokens} onWalletChange={fetchWallet} />}
+                {view === "pretrade" && <PreTradeTab onInsufficientTokens={handleInsufficientTokens} onWalletChange={fetchWallet} />}
+                {view === "insights" && <InsightsTab trades={allTrades} tradesLoading={tradesLoading} active />}
+                {view === "alerts" && <AlertsTab active />}
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </JournalLayout>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Chat tab — port of sendMessage/addMessage/formatMessage. Conversation is
-// local component state only (see file header comment on why).
+// Chat — a full conversation view built on SmoothUI's AI pieces
+// (AIConversation scroll container, AIMessage, AILoader, AISuggestions,
+// AIPromptInput). The open conversation lives in component state; the last
+// messages go with every request so the coach remembers the thread, and Pro
+// users' exchanges are saved server-side (see the file header).
 // ─────────────────────────────────────────────────────────────────────────
-function ChatTab({
+const STARTERS = [
+  "Why am I losing money lately?",
+  "Which strategy should I stop trading?",
+  "How are my emotions affecting my P&L?",
+  "Review my last 10 trades",
+  "What time of day do I trade best?",
+  "Am I sizing my positions sensibly?",
+];
+
+function CoachAvatar() {
+  return (
+    <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-soft text-brand" aria-hidden="true">
+      <Sparkles className="h-4 w-4" />
+    </span>
+  );
+}
+
+function ChatPanel({
+  initial,
   trades,
   tradesLoading,
   goals,
@@ -349,7 +445,9 @@ function ChatTab({
   currency,
   onInsufficientTokens,
   onWalletChange,
+  onConversation,
 }: {
+  initial: { id: string; messages: { role: "user" | "assistant"; content: string }[] } | null;
   trades: Trade[];
   tradesLoading: boolean;
   goals: { title: string; metric: string; timeframe: string; target_value: number }[];
@@ -358,56 +456,28 @@ function ChatTab({
   currency: string;
   onInsufficientTokens: (err: InsufficientTokensError) => void;
   onWalletChange: () => void;
+  onConversation: (id: string | null) => void;
 }) {
-  const welcome = (): ChatBubble => ({
-    id: nextMessageId(),
-    role: "assistant",
-    content:
-      "Hey! I'm Xtin Journal AI, your personal trading coach. I look at your actual trade history to give specific, honest feedback — ask me anything about your performance, a strategy, or how your emotions are affecting your P&L.",
-  });
-  const [messages, setMessages] = useState<ChatBubble[]>(() => [welcome()]);
-  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatBubble[]>(() =>
+    (initial?.messages ?? []).map((m) => ({ id: nextMessageId(), role: m.role, content: m.content })),
+  );
+  const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
-  // Pro: the saved conversation being continued, and whether the saved-chats list is showing.
-  const [conversationId, setConversationId] = useState<string | null>(null);
-  const [showHistory, setShowHistory] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(initial?.id ?? null);
 
-  function newChat() {
-    setMessages([welcome()]);
-    setConversationId(null);
-    setShowHistory(false);
-  }
+  async function send(text: string) {
+    const clean = text.trim();
+    if (!clean || sending) return;
 
-  function openSaved(id: string, saved: { role: "user" | "assistant"; content: string }[]) {
-    setMessages(saved.map((m) => ({ id: nextMessageId(), role: m.role, content: m.content })));
-    setConversationId(id);
-    setShowHistory(false);
-  }
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, sending]);
-
-  async function handleSend(e: FormEvent) {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || sending) return;
-
-    const userMsg: ChatBubble = { id: nextMessageId(), role: "user", content: text };
-    // History sent to the backend excludes the bubble we're about to add —
-    // matches the original's "remembers what was said two questions ago".
-    const history: ChatHistoryMessage[] = messages
-      .filter((m) => !m.isError)
-      .map((m) => ({ role: m.role, content: m.content }));
-
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
+    // History excludes the message being sent (the server appends it).
+    const history: ChatHistoryMessage[] = messages.filter((m) => !m.isError).map((m) => ({ role: m.role, content: m.content }));
+    setMessages((prev) => [...prev.filter((m) => !m.isError), { id: nextMessageId(), role: "user", content: clean }]);
+    setDraft("");
     setSending(true);
 
     try {
       const res = await coach.chat({
-        message: text,
+        message: clean,
         // Amounts in the currency the coach is told to use.
         trades: trades.map((t) => tradeInCurrency(t, currency)),
         display_name: displayName,
@@ -417,19 +487,18 @@ function ChatTab({
         currency,
         conversation_id: conversationId,
       });
-      if (res.conversation_id) setConversationId(res.conversation_id);
+      if (res.conversation_id) {
+        setConversationId(res.conversation_id);
+        onConversation(res.conversation_id);
+      }
       setMessages((prev) => [...prev, { id: nextMessageId(), role: "assistant", content: res.reply }]);
       onWalletChange();
     } catch (err) {
       if (err instanceof InsufficientTokensError) {
         onInsufficientTokens(err);
-        setMessages((prev) => [
-          ...prev,
-          { id: nextMessageId(), role: "assistant", content: "I'm out of AI tokens for your account — top up to keep chatting.", isError: true },
-        ]);
+        setMessages((prev) => [...prev, { id: nextMessageId(), role: "assistant", content: "I'm out of AI tokens for your account — top up to keep chatting.", isError: true }]);
       } else {
         const message = err instanceof Error ? err.message : "Something went wrong talking to the coach.";
-        toast.error(message);
         setMessages((prev) => [...prev, { id: nextMessageId(), role: "assistant", content: message, isError: true }]);
       }
     } finally {
@@ -437,80 +506,81 @@ function ChatTab({
     }
   }
 
-  return (
-    <Card>
-      <CardContent className="p-0">
-        <div className="flex items-center justify-end gap-1 border-b px-3 py-2">
-          <Button type="button" variant={showHistory ? "secondary" : "ghost"} size="sm" className="gap-1.5" onClick={() => setShowHistory((v) => !v)} aria-pressed={showHistory}>
-            <History className="h-4 w-4" /> Saved chats
-          </Button>
-          <Button type="button" variant="ghost" size="sm" className="gap-1.5" onClick={newChat}>
-            <MessageSquarePlus className="h-4 w-4" /> New chat
-          </Button>
-        </div>
-        {showHistory ? (
-          <SavedChatsList
-            app="journal"
-            activeId={conversationId}
-            onOpen={openSaved}
-            onDeletedActive={newChat}
-            upgradeHref="/journal/pricing"
-            className="max-h-[55vh] min-h-[320px] overflow-y-auto"
-          />
-        ) : (
-        <div ref={scrollRef} className="max-h-[55vh] min-h-[320px] space-y-4 overflow-y-auto p-4 sm:p-6">
-          {tradesLoading && (
-            <p className="text-center text-xs text-muted-foreground">Loading your trade history for context...</p>
-          )}
-          {messages.map((m) => (
-            <div key={m.id} className={`flex items-start gap-2.5 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
-              <div
-                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
-                  m.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground"
-                }`}
-              >
-                {m.role === "user" ? <UserIcon className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
-              </div>
-              <div
-                className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${
-                  m.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : m.isError
-                      ? "bg-destructive/10 text-destructive"
-                      : "bg-secondary/60 text-foreground"
-                }`}
-              >
-                {m.role === "user" ? <p className="text-sm leading-relaxed">{m.content}</p> : renderCoachText(m.content)}
-              </div>
-            </div>
-          ))}
-          {sending && (
-            <div className="flex items-start gap-2.5">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary text-foreground">
-                <Bot className="h-3.5 w-3.5" />
-              </div>
-              <div className="flex items-center gap-1.5 rounded-2xl bg-secondary/60 px-4 py-2.5">
-                <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Thinking...</span>
-              </div>
-            </div>
-          )}
-        </div>
-        )}
+  const lastUser = [...messages].reverse().find((m) => m.role === "user");
+  const greeting = displayName ? `Hi ${displayName.charAt(0).toUpperCase()}${displayName.slice(1)}` : "Hi there";
 
-        <form onSubmit={handleSend} className="flex items-center gap-2 border-t p-3 sm:p-4">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about your trades, a strategy, or your discipline..."
+  return (
+    <div className="flex min-h-0 flex-1 flex-col">
+      <AIConversation className="min-h-0 flex-1" contentKey={`${messages.length}-${sending}`}>
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6 sm:px-6">
+          {messages.length === 0 ? (
+            // Empty conversation: a greeting and a few ways to start.
+            <div className="flex flex-col items-center gap-6 py-10 text-center">
+              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-fill text-white shadow-lg shadow-brand/25">
+                <Sparkles className="h-6 w-6" />
+              </span>
+              <div>
+                <p role="heading" aria-level={2} className="text-2xl font-bold tracking-[-0.02em] text-foreground">
+                  {greeting}, what should we work on?
+                </p>
+                <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
+                  I read your actual trade history{trades.length ? ` (${trades.length.toLocaleString("en-IN")} trades)` : ""} and give specific, honest feedback on your performance, strategies and discipline.
+                </p>
+              </div>
+              <AISuggestions
+                suggestions={STARTERS.map((label, i) => ({ id: String(i), label }))}
+                onSelect={(sug) => send(sug.label)}
+                className="justify-center"
+              />
+            </div>
+          ) : (
+            messages.map((m) => (
+              <AIMessage
+                key={m.id}
+                from={m.role}
+                bubble={m.role === "user" || !!m.isError}
+                avatar={m.role === "assistant" ? <CoachAvatar /> : undefined}
+                copyText={m.role === "assistant" && !m.isError ? m.content : undefined}
+                onRetry={m.isError && lastUser ? () => send(lastUser.content) : undefined}
+              >
+                {m.role === "user" ? (
+                  <p className="whitespace-pre-wrap">{m.content}</p>
+                ) : m.isError ? (
+                  <p className="text-destructive">{m.content}</p>
+                ) : (
+                  renderCoachText(m.content)
+                )}
+              </AIMessage>
+            ))
+          )}
+          {sending && (
+            <div className="flex items-center gap-2.5">
+              <CoachAvatar />
+              <AILoader variant="dots" label="Reading your trades…" />
+            </div>
+          )}
+        </div>
+      </AIConversation>
+
+      {/* Composer */}
+      <div className="border-t bg-card px-4 pb-4 pt-3 sm:px-6">
+        <div className="mx-auto w-full max-w-3xl">
+          <AIPromptInput
+            aria-label="Message the AI Coach"
+            value={draft}
+            onValueChange={setDraft}
+            onSubmit={send}
             disabled={sending}
+            state={sending ? "thinking" : "idle"}
+            maxLength={2000}
+            placeholder={tradesLoading ? "Loading your trades…" : "Ask about your trades, a strategy or your discipline…"}
           />
-          <Button type="submit" disabled={sending || !input.trim()} size="icon" aria-label="Send message">
-            {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+          <p className="mt-2 text-center text-xs text-muted-foreground">
+            Enter to send · Shift + Enter for a new line · The coach can make mistakes and isn't investment advice.
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -562,7 +632,7 @@ function WeeklyReviewTab({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <div>
-          <CardTitle className="text-base">Weekly Review</CardTitle>
+          <CardTitle className="text-lg">Weekly Review</CardTitle>
           <p className="mt-1 text-sm text-muted-foreground">
             A structured AI summary of your trading — what worked, what didn't, and what to focus on next.
           </p>
@@ -670,7 +740,7 @@ function PreTradeTab({
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Pre-Trade Check</CardTitle>
+          <CardTitle className="text-lg">Pre-Trade Check</CardTitle>
           <p className="text-sm text-muted-foreground">Get a quick GO / WAIT / DON'T TRADE read before you enter.</p>
         </CardHeader>
         <CardContent>
@@ -754,7 +824,7 @@ function PreTradeTab({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Verdict</CardTitle>
+          <CardTitle className="text-lg">Verdict</CardTitle>
         </CardHeader>
         <CardContent>
           {!result && !loading && (
@@ -897,7 +967,7 @@ function AlertsTab({ active }: { active: boolean }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Behavioral Alerts</CardTitle>
+        <CardTitle className="text-lg">Behavioral Alerts</CardTitle>
         <p className="text-sm text-muted-foreground">Automatic flags for risky patterns as they're detected.</p>
       </CardHeader>
       <CardContent>

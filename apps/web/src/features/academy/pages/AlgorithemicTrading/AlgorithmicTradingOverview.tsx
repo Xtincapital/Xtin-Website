@@ -322,7 +322,7 @@ const AlgorithmicTradingOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="algorithmic-trading" /></div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-xl shadow-indigo-500/30 bg-brand-fill">
                 <Icons.Algorithm className="w-9 h-9 text-white" />
               </span>
@@ -356,8 +356,8 @@ const AlgorithmicTradingOverview = () => {
                   <stop offset="100%" stopColor="#8F6FC4"/>
                 </linearGradient>
                 <linearGradient id="algoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#12805A"/>
-                  <stop offset="100%" stopColor="#12805A"/>
+                  <stop offset="0%" stopColor="#16A34A"/>
+                  <stop offset="100%" stopColor="#16A34A"/>
                 </linearGradient>
                 <linearGradient id="algoGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#B8923F"/>
@@ -447,11 +447,11 @@ const AlgorithmicTradingOverview = () => {
                 <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="11" fontWeight="600">EXECUTION</text>
                 
                 {/* Order Types */}
-                <rect x="15" y="40" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
-                <text x="70" y="58" textAnchor="middle" fill="#3CCB97" fontSize="9">Market Orders</text>
+                <rect x="15" y="40" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#16A34A" strokeWidth="1"/>
+                <text x="70" y="58" textAnchor="middle" fill="#16A34A" fontSize="9">Market Orders</text>
                 
-                <rect x="15" y="75" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
-                <text x="70" y="93" textAnchor="middle" fill="#3CCB97" fontSize="9">Limit Orders</text>
+                <rect x="15" y="75" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#16A34A" strokeWidth="1"/>
+                <text x="70" y="93" textAnchor="middle" fill="#16A34A" fontSize="9">Limit Orders</text>
                 
                 <rect x="15" y="110" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#B8923F" strokeWidth="1"/>
                 <text x="70" y="128" textAnchor="middle" fill="#E2C273" fontSize="9">TWAP / VWAP</text>
@@ -489,7 +489,7 @@ const AlgorithmicTradingOverview = () => {
 
           {/* What You'll Learn Section */}
           <div className="bg-gradient-to-br from-indigo-50 to-violet-50   rounded-3xl p-8 mb-12 border border-indigo-200  shadow-lg">
-            <h2 className="text-2xl font-semibold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl shadow-md bg-brand-fill">
                 <Icons.Target className="w-5 h-5 text-white" />
               </span>
@@ -531,7 +531,7 @@ const AlgorithmicTradingOverview = () => {
           </div>
 
           {/* Lessons Grid */}
-          <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Module Curriculum</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.015em]">Module Curriculum</h2>
           <div className="space-y-4 mb-12">
             {lessons.map((lesson) => {
               const colors = colorClasses[lesson.color];
@@ -598,7 +598,7 @@ const AlgorithmicTradingOverview = () => {
 
           {/* CTA Section */}
           <div className="rounded-3xl p-8 text-center shadow-2xl shadow-indigo-500/20 bg-brand-fill">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-4 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 tracking-[-0.025em]">
               Ready to Think Like an Institution?
             </h2>
             <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">

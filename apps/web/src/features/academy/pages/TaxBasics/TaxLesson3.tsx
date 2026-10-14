@@ -36,12 +36,12 @@ const WhatIsCapitalGainSVG = () => (
       
       {/* Sell box */}
       <g transform="translate(240, 0)">
-        <rect x="0" y="0" width="150" height="120" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+        <rect x="0" y="0" width="150" height="120" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
         <text x="75" y="35" textAnchor="middle" fontSize="24">💰</text>
-        <text x="75" y="60" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">You Sell It</text>
+        <text x="75" y="60" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">You Sell It</text>
         <text x="75" y="80" textAnchor="middle" fontSize="11" fill="#555A63">For more than you paid</text>
-        <rect x="25" y="90" width="100" height="22" fill="#EEF9F4" rx="5"/>
-        <text x="75" y="105" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">$1,500</text>
+        <rect x="25" y="90" width="100" height="22" fill="#F0FDF4" rx="5"/>
+        <text x="75" y="105" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">$1,500</text>
       </g>
       
       {/* Equals */}
@@ -74,10 +74,10 @@ const WhatIsCapitalGainSVG = () => (
 const BuyHoldSellSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#EEF9F4" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F0FDF4" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#12805A">The Three Stages: Buy → Hold → Sell</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#16A34A">The Three Stages: Buy → Hold → Sell</text>
     
     {/* Stage 1: Buy */}
     <g transform="translate(50, 60)">
@@ -137,19 +137,19 @@ const BuyHoldSellSVG = () => (
     
     {/* Stage 3: Sell */}
     <g transform="translate(470, 60)">
-      <rect x="0" y="0" width="180" height="200" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="200" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Number badge */}
-      <circle cx="20" cy="20" r="18" fill="#12805A"/>
+      <circle cx="20" cy="20" r="18" fill="#16A34A"/>
       <text x="20" y="26" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">3</text>
       
       {/* Icon */}
       <g transform="translate(55, 40)">
-        <rect x="0" y="0" width="70" height="50" fill="#EEF9F4" rx="8"/>
+        <rect x="0" y="0" width="70" height="50" fill="#F0FDF4" rx="8"/>
         <text x="35" y="35" textAnchor="middle" fontSize="28">💵</text>
       </g>
       
-      <text x="90" y="115" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#12805A">SELL</text>
+      <text x="90" y="115" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#16A34A">SELL</text>
       <text x="90" y="135" textAnchor="middle" fontSize="10" fill="#555A63">You sell the asset</text>
       <text x="90" y="150" textAnchor="middle" fontSize="10" fill="#555A63">Profit or loss is "realized"</text>
       
@@ -174,16 +174,16 @@ const GainVsLossSVG = () => (
     
     {/* Gain side */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="280" height="200" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="200" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="280" height="40" fill="#12805A" rx="12"/>
-      <rect x="0" y="20" width="280" height="20" fill="#12805A"/>
+      <rect x="0" y="0" width="280" height="40" fill="#16A34A" rx="12"/>
+      <rect x="0" y="20" width="280" height="20" fill="#16A34A"/>
       <text x="140" y="27" textAnchor="middle" fontSize="13" fontWeight="bold" fill="white">📈 Capital GAIN</text>
       
       {/* Content */}
       <g transform="translate(20, 55)">
-        <text x="0" y="15" fontSize="11" fill="#373A41">When you sell for <tspan fontWeight="600" fill="#12805A">MORE</tspan> than you paid</text>
+        <text x="0" y="15" fontSize="11" fill="#373A41">When you sell for <tspan fontWeight="600" fill="#16A34A">MORE</tspan> than you paid</text>
         
         <g transform="translate(0, 35)">
           <rect x="0" y="0" width="110" height="35" fill="#E0E7F1" rx="6"/>
@@ -192,15 +192,15 @@ const GainVsLossSVG = () => (
         </g>
         
         <g transform="translate(130, 35)">
-          <rect x="0" y="0" width="110" height="35" fill="#EEF9F4" rx="6"/>
-          <text x="55" y="15" textAnchor="middle" fontSize="9" fill="#12805A">Sold at</text>
-          <text x="55" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">$1,500</text>
+          <rect x="0" y="0" width="110" height="35" fill="#F0FDF4" rx="6"/>
+          <text x="55" y="15" textAnchor="middle" fontSize="9" fill="#16A34A">Sold at</text>
+          <text x="55" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">$1,500</text>
         </g>
         
         <g transform="translate(40, 85)">
-          <rect x="0" y="0" width="160" height="40" fill="#EEF9F4" rx="8" stroke="#12805A" strokeWidth="2"/>
-          <text x="80" y="17" textAnchor="middle" fontSize="10" fill="#12805A">Capital Gain</text>
-          <text x="80" y="32" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#12805A">+$500 Profit</text>
+          <rect x="0" y="0" width="160" height="40" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="2"/>
+          <text x="80" y="17" textAnchor="middle" fontSize="10" fill="#16A34A">Capital Gain</text>
+          <text x="80" y="32" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#16A34A">+$500 Profit</text>
         </g>
         
         <text x="120" y="145" textAnchor="middle" fontSize="9" fill="#717680" fontStyle="italic">May be taxed</text>
@@ -365,14 +365,14 @@ const GlobalExampleSVG = () => (
       
       {/* Step 3: Sell */}
       <g transform="translate(600, 0)">
-        <circle cx="0" cy="60" r="12" fill="#12805A"/>
+        <circle cx="0" cy="60" r="12" fill="#16A34A"/>
         <text x="0" y="64" textAnchor="middle" fontSize="10" fontWeight="bold" fill="white">3</text>
         
-        <rect x="-60" y="80" width="120" height="75" fill="white" rx="8" stroke="#12805A" strokeWidth="1"/>
-        <text x="0" y="100" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">December 2023</text>
+        <rect x="-60" y="80" width="120" height="75" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
+        <text x="0" y="100" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">December 2023</text>
         <text x="0" y="118" textAnchor="middle" fontSize="9" fill="#555A63">Lisa sells all shares</text>
         <text x="0" y="132" textAnchor="middle" fontSize="9" fill="#555A63">at the higher price</text>
-        <text x="0" y="148" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#12805A">$150/share = $1,500</text>
+        <text x="0" y="148" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#16A34A">$150/share = $1,500</text>
       </g>
     </g>
     
@@ -385,10 +385,10 @@ const GlobalExampleSVG = () => (
         <text x="140" y="15" fontSize="11" fontWeight="600" fill="#2C3F5E">$1,000</text>
         
         <text x="0" y="35" fontSize="11" fill="#555A63">Sale price:</text>
-        <text x="140" y="35" fontSize="11" fontWeight="600" fill="#12805A">$1,500</text>
+        <text x="140" y="35" fontSize="11" fontWeight="600" fill="#16A34A">$1,500</text>
         
         <text x="0" y="55" fontSize="12" fontWeight="600" fill="#373A41">Capital Gain:</text>
-        <text x="140" y="55" fontSize="12" fontWeight="bold" fill="#12805A">$500</text>
+        <text x="140" y="55" fontSize="12" fontWeight="bold" fill="#16A34A">$500</text>
       </g>
       
       <g transform="translate(220, 15)">
@@ -441,24 +441,24 @@ const UnrealizedVsRealizedSVG = () => (
     
     {/* Realized side */}
     <g transform="translate(370, 55)">
-      <rect x="0" y="0" width="280" height="195" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="195" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="280" height="40" fill="#12805A" rx="12"/>
-      <rect x="0" y="20" width="280" height="20" fill="#12805A"/>
+      <rect x="0" y="0" width="280" height="40" fill="#16A34A" rx="12"/>
+      <rect x="0" y="20" width="280" height="20" fill="#16A34A"/>
       <text x="140" y="27" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">✓ Realized Gain</text>
       
       {/* Content */}
       <g transform="translate(20, 55)">
-        <text x="120" y="15" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">"Actual profit"</text>
+        <text x="120" y="15" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">"Actual profit"</text>
         
         <text x="0" y="40" fontSize="10" fill="#555A63">• You've sold the asset</text>
         <text x="0" y="58" fontSize="10" fill="#555A63">• Profit is now real cash</text>
         <text x="0" y="76" fontSize="10" fill="#555A63">• Transaction is complete</text>
         
-        <rect x="20" y="95" width="200" height="35" fill="#EEF9F4" rx="6"/>
-        <text x="120" y="110" textAnchor="middle" fontSize="10" fill="#12805A">May be taxed</text>
-        <text x="120" y="123" textAnchor="middle" fontSize="10" fill="#12805A">(depending on rules)</text>
+        <rect x="20" y="95" width="200" height="35" fill="#F0FDF4" rx="6"/>
+        <text x="120" y="110" textAnchor="middle" fontSize="10" fill="#16A34A">May be taxed</text>
+        <text x="120" y="123" textAnchor="middle" fontSize="10" fill="#16A34A">(depending on rules)</text>
       </g>
     </g>
   </svg>
@@ -608,7 +608,7 @@ const TaxLesson3 = () => {
               Awareness Only
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 tracking-[-0.025em]">Capital Gains – Simple Idea</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-[-0.025em]">Capital Gains – Simple Idea</h1>
           <p className="text-xl text-blue-100">
             Understanding what happens when you sell an investment for a profit
           </p>
@@ -621,7 +621,7 @@ const TaxLesson3 = () => {
         {/* Introduction */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.025em]">What Is a "Capital Gain"?</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.025em]">What Is a "Capital Gain"?</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               You've probably heard people talk about "capital gains" in relation to investing. It might 
               sound complicated, but the concept is actually quite simple. Let's break it down.
@@ -636,7 +636,7 @@ const TaxLesson3 = () => {
 
         {/* What Is Capital Gain */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Simple Math</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Simple Math</h2>
           <WhatIsCapitalGainSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -649,7 +649,7 @@ const TaxLesson3 = () => {
 
         {/* Buy Hold Sell */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Buy, Hold, Sell: The Three Stages</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Buy, Hold, Sell: The Three Stages</h2>
           <BuyHoldSellSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-3">Understanding Each Stage</h3>
@@ -672,7 +672,7 @@ const TaxLesson3 = () => {
 
         {/* Gain vs Loss */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Gain vs Loss</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Gain vs Loss</h2>
           <GainVsLossSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -689,7 +689,7 @@ const TaxLesson3 = () => {
 
         {/* Unrealized vs Realized */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Unrealized vs Realized Gains</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Unrealized vs Realized Gains</h2>
           <UnrealizedVsRealizedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -706,13 +706,13 @@ const TaxLesson3 = () => {
 
         {/* Why Taxed */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Governments Tax Capital Gains?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Governments Tax Capital Gains?</h2>
           <WhyTaxedSVG />
         </section>
 
         {/* Global Example */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Example: Lisa's Stock Investment</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Example: Lisa's Stock Investment</h2>
           <GlobalExampleSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -731,14 +731,14 @@ const TaxLesson3 = () => {
 
         {/* India Note */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
           <IndiaNotesSVG />
         </section>
 
         {/* Quiz Section */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
             
             {quizQuestions.map((q, index) => (
               <div key={q.id} className={`${index > 0 ? 'mt-8 pt-8 border-t border-gray-200' : ''}`}>
@@ -808,7 +808,7 @@ const TaxLesson3 = () => {
         {/* Reflection */}
         <section className="mb-12">
           <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
             <p className="text-gray-700 text-lg leading-relaxed">
               Think about something you own that has increased in value over time — maybe a collectible, 
               property, or even an old item. If you sold it today, would you have a capital gain? 

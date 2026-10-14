@@ -78,8 +78,8 @@ const Icons = {
       {/* Bell curve path */}
       <path d="M 40 200 Q 80 180, 120 120 T 200 50 T 280 120 Q 320 180, 360 200" stroke="#5A77AA" strokeWidth="3" fill="url(#bellGrad)"/>
       {/* Mean line */}
-      <line x1="200" y1="50" x2="200" y2="210" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5"/>
-      <text x="200" y="230" fill="#12805A" fontSize="12" fontWeight="bold" textAnchor="middle">μ (Mean)</text>
+      <line x1="200" y1="50" x2="200" y2="210" stroke="#16A34A" strokeWidth="2" strokeDasharray="5,5"/>
+      <text x="200" y="230" fill="#16A34A" fontSize="12" fontWeight="bold" textAnchor="middle">μ (Mean)</text>
       {/* Standard deviation markers */}
       <line x1="130" y1="190" x2="130" y2="205" stroke="#E04848" strokeWidth="2"/>
       <line x1="270" y1="190" x2="270" y2="205" stroke="#E04848" strokeWidth="2"/>
@@ -109,10 +109,10 @@ const Icons = {
       <text x="150" y="145" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Systematic Risk</text>
       <text x="150" y="180" fill="#E04848" fontSize="11" textAnchor="middle">Cannot Diversify</text>
       {/* Unsystematic Risk */}
-      <rect x="260" y="120" width="90" height="40" fill="#12805A" opacity="0.6" stroke="#12805A" strokeWidth="2" rx="4"/>
+      <rect x="260" y="120" width="90" height="40" fill="#16A34A" opacity="0.6" stroke="#16A34A" strokeWidth="2" rx="4"/>
       <text x="305" y="138" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle">Unsystematic</text>
       <text x="305" y="152" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle">Risk</text>
-      <text x="305" y="180" fill="#12805A" fontSize="11" textAnchor="middle">Can Diversify!</text>
+      <text x="305" y="180" fill="#16A34A" fontSize="11" textAnchor="middle">Can Diversify!</text>
       {/* Arrows */}
       <path d="M 200 100 L 150 110" stroke="currentColor" strokeWidth="1.5" opacity="0.4" markerEnd="url(#arrow)"/>
       <path d="M 200 100 L 305 110" stroke="currentColor" strokeWidth="1.5" opacity="0.4" markerEnd="url(#arrow)"/>
@@ -144,11 +144,11 @@ const Icons = {
       <line x1="50" y1="190" x2="220" y2="120" stroke="#B8923F" strokeWidth="2" strokeDasharray="3,3" opacity="0.4"/>
       <text x="220" y="110" fill="#B8923F" fontSize="11" fontWeight="bold" textAnchor="middle">Med SR</text>
       {/* High Sharpe */}
-      <circle cx="250" cy="70" r="8" fill="#12805A" stroke="white" strokeWidth="2"/>
-      <line x1="50" y1="190" x2="250" y2="70" stroke="#12805A" strokeWidth="2.5" opacity="0.6"/>
-      <text x="250" y="60" fill="#12805A" fontSize="11" fontWeight="bold" textAnchor="middle">High SR ★</text>
+      <circle cx="250" cy="70" r="8" fill="#16A34A" stroke="white" strokeWidth="2"/>
+      <line x1="50" y1="190" x2="250" y2="70" stroke="#16A34A" strokeWidth="2.5" opacity="0.6"/>
+      <text x="250" y="60" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">High SR ★</text>
       {/* Legend */}
-      <text x="200" y="25" fill="#12805A" fontSize="12" fontWeight="bold" textAnchor="middle">Steeper slope = Better Sharpe Ratio</text>
+      <text x="200" y="25" fill="#16A34A" fontSize="12" fontWeight="bold" textAnchor="middle">Steeper slope = Better Sharpe Ratio</text>
     </svg>
   )
 };
@@ -236,7 +236,7 @@ const PCLesson2 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Risk and Return Deep Dive</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Risk and Return Deep Dive</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the fundamental concepts of investment risk. Understand different risk types, how to measure them, and why the risk-return relationship drives all investment decisions.</p>
           </header>
 
@@ -249,7 +249,7 @@ const PCLesson2 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Risk-Return Trade-Off</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Risk-Return Trade-Off</h2>
                     <p className="text-sm text-gray-500 ">The fundamental law of investing</p>
                   </div>
                 </div>
@@ -296,7 +296,7 @@ const PCLesson2 = () => {
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Systematic vs. Unsystematic Risk</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Systematic vs. Unsystematic Risk</h2>
                     <p className="text-sm text-gray-500 ">Understanding what you can and cannot diversify</p>
                   </div>
                 </div>
@@ -370,7 +370,7 @@ const PCLesson2 = () => {
                     <Icons.Activity className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Measuring Risk: Standard Deviation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Measuring Risk: Standard Deviation</h2>
                     <p className="text-sm text-gray-500 ">The most common risk metric explained</p>
                   </div>
                 </div>
@@ -436,7 +436,7 @@ const PCLesson2 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Sharpe Ratio</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">The Sharpe Ratio</h2>
                     <p className="text-sm text-gray-500 ">Measuring risk-adjusted returns</p>
                   </div>
                 </div>
@@ -505,7 +505,7 @@ const PCLesson2 = () => {
                     <Icons.Shield className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Beyond Standard Deviation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Beyond Standard Deviation</h2>
                     <p className="text-sm text-gray-500 ">Advanced risk measures</p>
                   </div>
                 </div>
@@ -552,7 +552,7 @@ const PCLesson2 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of risk and return</p>
                   </div>
                 </div>

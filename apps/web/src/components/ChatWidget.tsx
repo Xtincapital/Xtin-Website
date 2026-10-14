@@ -68,7 +68,7 @@ function ChatWidget() {
     () =>
       isDark
         ? {
-            launcherBg: '#12805A',
+            launcherBg: '#16A34A',
             launcherText: '#F5F5F7',
             panelBg: '#1F1F1F',
             panelBorder: '#373A41',
@@ -296,7 +296,7 @@ function ChatWidget() {
               <div style={{ fontSize: 12, color: palette.panelHeaderMuted }}>
                 Your smart financial friend
                 {messages.length > 1 && (
-                  <span style={{ marginLeft: 8, color: '#12805A', fontWeight: 500 }}>
+                  <span style={{ marginLeft: 8, color: '#16A34A', fontWeight: 500 }}>
                     • {messages.length - 1} messages
                   </span>
                 )}
@@ -363,7 +363,7 @@ function ChatWidget() {
                             border: `1px solid ${palette.tableBorder}`,
                             padding: '8px', 
                             textAlign: 'left',
-                            fontWeight: 600,
+                            fontWeight: 700,
                           }} {...props} />
                         ),
                         td: ({node, ...props}) => (
@@ -374,13 +374,13 @@ function ChatWidget() {
                         ),
                         // Style headers
                         h1: ({node, ...props}) => (
-                          <h1 style={{ fontSize: '18px', fontWeight: 600, margin: '16px 0 8px 0', color: palette.bubbleText }} {...props} />
+                          <h1 style={{ fontSize: '18px', fontWeight: 700, margin: '16px 0 8px 0', color: palette.bubbleText }} {...props} />
                         ),
                         h2: ({node, ...props}) => (
-                          <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '14px 0 6px 0', color: palette.bubbleText }} {...props} />
+                          <h2 style={{ fontSize: '16px', fontWeight: 700, margin: '14px 0 6px 0', color: palette.bubbleText }} {...props} />
                         ),
                         h3: ({node, ...props}) => (
-                          <h3 style={{ fontSize: '14px', fontWeight: 600, margin: '12px 0 6px 0', color: palette.bubbleText }} {...props} />
+                          <h3 style={{ fontSize: '14px', fontWeight: 700, margin: '12px 0 6px 0', color: palette.bubbleText }} {...props} />
                         ),
                         // Style lists
                         ul: ({node, ...props}) => (

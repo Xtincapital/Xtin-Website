@@ -78,8 +78,8 @@ const Icons = {
           <stop offset="100%" stopColor="#5A77AA" stopOpacity="0.2"/>
         </linearGradient>
         <linearGradient id="bondGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#12805A" stopOpacity="0.6"/>
-          <stop offset="100%" stopColor="#12805A" stopOpacity="0.2"/>
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="#16A34A" stopOpacity="0.2"/>
         </linearGradient>
       </defs>
       {/* Axes */}
@@ -91,7 +91,7 @@ const Icons = {
       <path d="M 50 50 L 130 70 L 210 100 L 290 140 L 370 180" stroke="#5A77AA" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 50 L 130 70 L 210 100 L 290 140 L 370 180 L 370 200 L 50 200 Z" fill="url(#stockGrad)"/>
       {/* Bond allocation (increasing) */}
-      <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100 L 370 200 Z" fill="url(#bondGrad)"/>
       {/* Age markers */}
       {[{x:50,a:'25'},{x:130,a:'35'},{x:210,a:'45'},{x:290,a:'55'},{x:370,a:'65'}].map((m, i) => (
@@ -102,7 +102,7 @@ const Icons = {
       ))}
       {/* Labels */}
       <text x="80" y="70" fill="#5A77AA" fontSize="13" fontWeight="bold">Stocks</text>
-      <text x="340" y="115" fill="#12805A" fontSize="13" fontWeight="bold">Bonds</text>
+      <text x="340" y="115" fill="#16A34A" fontSize="13" fontWeight="bold">Bonds</text>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Target-Date Glide Path</text>
     </svg>
   )
@@ -191,7 +191,7 @@ const PCLesson4 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Strategic Asset Allocation</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Strategic Asset Allocation</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn how to set long-term portfolio targets based on your goals, time horizon, and risk tolerance. Master the framework that drives 90%+ of portfolio return variation.</p>
           </header>
 
@@ -204,7 +204,7 @@ const PCLesson4 = () => {
                     <Icons.PieChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">What is Strategic Asset Allocation?</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">What is Strategic Asset Allocation?</h2>
                     <p className="text-sm text-gray-500 ">The foundation of your investment policy</p>
                   </div>
                 </div>
@@ -246,7 +246,7 @@ const PCLesson4 = () => {
                     <Icons.User className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Determining Your Risk Tolerance</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Determining Your Risk Tolerance</h2>
                     <p className="text-sm text-gray-500 ">Know yourself before building your portfolio</p>
                   </div>
                 </div>
@@ -312,7 +312,7 @@ const PCLesson4 = () => {
                     <Icons.Target className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Asset Allocation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Asset Allocation</h2>
                     <p className="text-sm text-gray-500 ">Age-based portfolio strategies</p>
                   </div>
                 </div>
@@ -419,7 +419,7 @@ const PCLesson4 = () => {
                     <Icons.Calendar className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Investing</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Investing</h2>
                     <p className="text-sm text-gray-500 ">Age-appropriate asset allocation</p>
                   </div>
                 </div>
@@ -472,7 +472,7 @@ const PCLesson4 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Sample Strategic Allocations</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Sample Strategic Allocations</h2>
                     <p className="text-sm text-gray-500 ">Model portfolios by risk level</p>
                   </div>
                 </div>
@@ -527,7 +527,7 @@ const PCLesson4 = () => {
                     <Icons.RefreshCw className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Strategies</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Strategies</h2>
                     <p className="text-sm text-gray-500 ">Maintaining your target allocation</p>
                   </div>
                 </div>
@@ -571,7 +571,7 @@ const PCLesson4 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of strategic allocation</p>
                   </div>
                 </div>

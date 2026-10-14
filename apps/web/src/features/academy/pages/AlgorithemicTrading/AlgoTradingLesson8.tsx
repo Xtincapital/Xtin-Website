@@ -115,7 +115,7 @@ const AlgoTradingLesson8 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 8 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Database className="w-8 h-8 text-white"/>
               </span>
@@ -156,7 +156,7 @@ const AlgoTradingLesson8 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Types of Market Data</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Types of Market Data</h2>
             <p className="text-gray-700  mb-6">
               Understanding the different types of data helps you choose what you need for your strategy.
             </p>
@@ -181,11 +181,11 @@ const AlgoTradingLesson8 = () => {
 
                 {/* OHLC Data */}
                 <g transform="translate(250, 50)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <rect x="0" y="0" width="200" height="35" rx="12" fill="#12805A"/>
-                  <rect x="0" y="23" width="200" height="12" fill="#12805A"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="35" rx="12" fill="#16A34A"/>
+                  <rect x="0" y="23" width="200" height="12" fill="#16A34A"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">OHLC DATA</text>
-                  <text x="100" y="58" textAnchor="middle" fill="#3CCB97" fontSize="9">Candlestick bars</text>
+                  <text x="100" y="58" textAnchor="middle" fill="#16A34A" fontSize="9">Candlestick bars</text>
                   <text x="20" y="80" fill="#A0A3AA" fontSize="8">• Open, High, Low, Close</text>
                   <text x="20" y="95" fill="#A0A3AA" fontSize="8">• 1min to Daily intervals</text>
                   <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Manageable storage</text>
@@ -234,7 +234,7 @@ const AlgoTradingLesson8 = () => {
             </div>
 
             {/* Data Sources */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-brand-soft  rounded-xl flex items-center justify-center">
                 <Icons.Download className="w-5 h-5 text-brand "/>
               </span>
@@ -290,7 +290,7 @@ const AlgoTradingLesson8 = () => {
             </div>
 
             {/* Data Cleaning */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Filter className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -325,7 +325,7 @@ const AlgoTradingLesson8 = () => {
             </div>
 
             {/* Storage Solutions */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Server className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -339,8 +339,8 @@ const AlgoTradingLesson8 = () => {
 
                 {/* Small Scale */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <text x="100" y="30" textAnchor="middle" fill="#3CCB97" fontSize="12" fontWeight="700">SMALL SCALE</text>
+                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="100" y="30" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">SMALL SCALE</text>
                   <text x="100" y="50" textAnchor="middle" fill="#717680" fontSize="9">&lt; 1GB data</text>
                   
                   <text x="20" y="80" fill="white" fontSize="10" fontWeight="600">CSV Files</text>
@@ -351,7 +351,7 @@ const AlgoTradingLesson8 = () => {
                   <text x="20" y="145" fill="#A0A3AA" fontSize="8">• Compressed, fast reads</text>
                   <text x="20" y="158" fill="#A0A3AA" fontSize="8">• Better than CSV</text>
                   
-                  <text x="100" y="190" textAnchor="middle" fill="#3CCB97" fontSize="8">✓ Recommended for beginners</text>
+                  <text x="100" y="190" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Recommended for beginners</text>
                 </g>
 
                 {/* Medium Scale */}
@@ -435,7 +435,7 @@ const AlgoTradingLesson8 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which data type is most suitable for a typical swing trading strategy?"
               options={["Tick data (every trade)", "Daily/Hourly OHLC data", "Alternative data (satellite imagery)", "Level 2 order book data"]}

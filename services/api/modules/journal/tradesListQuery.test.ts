@@ -23,6 +23,18 @@ describe("trade list filters", () => {
     });
 });
 
+describe("column sort", () => {
+    it("accepts a whitelisted column and direction", () => {
+        expect(validateTradeListQuery({ sort: "pnl", dir: "desc" }).data).toMatchObject({ sort: "pnl", dir: "desc" });
+        expect(validateTradeListQuery({ sort: "entry_price", dir: "asc" }).data).toMatchObject({ sort: "entry_price", dir: "asc" });
+    });
+
+    it("rejects columns outside the list (no arbitrary ordering)", () => {
+        expect(validateTradeListQuery({ sort: "user_id" }).errors).toBeDefined();
+        expect(validateTradeListQuery({ sort: "pnl", dir: "sideways" }).errors).toBeDefined();
+    });
+});
+
 describe("duplicate flags", () => {
     it("reads only_duplicates / flag_duplicates", async () => {
         expect(validateTradeListQuery({ only_duplicates: "true", flag_duplicates: "true" }).data).toMatchObject({ only_duplicates: true, flag_duplicates: true });

@@ -23,7 +23,7 @@ const CertificateModal = ({
           </div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-slate-400">Certificate Unlocked</p>
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-slate-100">{certificate.title}</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100">{certificate.title}</h3>
           </div>
         </div>
 

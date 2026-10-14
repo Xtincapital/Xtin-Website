@@ -18,8 +18,8 @@ const WhatAreTaxesSVG = () => (
     {/* Flow visualization */}
     <g transform="translate(50, 75)">
       {/* You earn */}
-      <rect x="0" y="0" width="140" height="80" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">💼 You Earn</text>
+      <rect x="0" y="0" width="140" height="80" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">💼 You Earn</text>
       <text x="70" y="45" textAnchor="middle" fontSize="9" fill="#373A41">Salary, investments,</text>
       <text x="70" y="60" textAnchor="middle" fontSize="9" fill="#373A41">business income</text>
       
@@ -78,8 +78,8 @@ const TaxesInInvestingSVG = () => (
     {/* Illustration: Same return, different outcomes */}
     <g transform="translate(50, 75)">
       {/* Investor A */}
-      <rect x="0" y="0" width="280" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Tax-Aware Investor</text>
+      <rect x="0" y="0" width="280" height="170" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Tax-Aware Investor</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="115" fill="white" rx="8"/>
@@ -90,7 +90,7 @@ const TaxesInInvestingSVG = () => (
         <text x="125" y="77" textAnchor="middle" fontSize="8" fill="#717680">Holds investments long-term</text>
         <text x="125" y="92" textAnchor="middle" fontSize="8" fill="#717680">Plans for tax efficiency</text>
         <line x1="20" y1="100" x2="230" y2="100" stroke="#E4E4EA" strokeWidth="1"/>
-        <text x="125" y="115" textAnchor="middle" fontSize="10" fill="#12805A" fontWeight="600">Final: ~$19,500</text>
+        <text x="125" y="115" textAnchor="middle" fontSize="10" fill="#16A34A" fontWeight="600">Final: ~$19,500</text>
       </g>
     </g>
     
@@ -145,9 +145,9 @@ const PreVsPostTaxSVG = () => (
       
       {/* Post-tax bar */}
       <text x="0" y="115" fontSize="10" fill="#373A41" fontWeight="500">Post-Tax Return (7.5%)</text>
-      <rect x="150" y="100" width="262.5" height="30" fill="#EEF9F4" rx="6" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="281.25" y="120" textAnchor="middle" fontSize="10" fill="#12805A" fontWeight="600">$10,000 → $10,750</text>
-      <text x="520" y="120" fontSize="9" fill="#12805A" fontWeight="600">+$750 (what you keep)</text>
+      <rect x="150" y="100" width="262.5" height="30" fill="#F0FDF4" rx="6" stroke="#16A34A" strokeWidth="2"/>
+      <text x="281.25" y="120" textAnchor="middle" fontSize="10" fill="#16A34A" fontWeight="600">$10,000 → $10,750</text>
+      <text x="520" y="120" fontSize="9" fill="#16A34A" fontWeight="600">+$750 (what you keep)</text>
     </g>
     
     {/* Key insight */}
@@ -238,22 +238,22 @@ const WhatYoullLearnSVG = () => (
     <g transform="translate(50, 75)">
       {/* Row 1 */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Tax Basics</text>
+        <rect x="0" y="0" width="190" height="75" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">✓ Tax Basics</text>
         <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">How taxes work at a</text>
         <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">fundamental level</text>
       </g>
       
       <g transform="translate(205, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Investment Taxes</text>
+        <rect x="0" y="0" width="190" height="75" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">✓ Investment Taxes</text>
         <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">How different investments</text>
         <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">are taxed differently</text>
       </g>
       
       <g transform="translate(410, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Tax-Smart Thinking</text>
+        <rect x="0" y="0" width="190" height="75" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">✓ Tax-Smart Thinking</text>
         <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">Questions to ask before</text>
         <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">making financial decisions</text>
       </g>
@@ -275,9 +275,9 @@ const WhatYoullLearnSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="240" width="500" height="30" fill="#12805A" rx="6"/>
+    <rect x="100" y="240" width="500" height="30" fill="#16A34A" rx="6"/>
     <text x="350" y="253" textAnchor="middle" fontSize="9" fill="white">Goal: Not to make you a tax expert, but to make you tax-aware.</text>
-    <text x="350" y="266" textAnchor="middle" fontSize="8" fill="#EEF9F4">Awareness helps you ask the right questions and avoid costly mistakes.</text>
+    <text x="350" y="266" textAnchor="middle" fontSize="8" fill="#F0FDF4">Awareness helps you ask the right questions and avoid costly mistakes.</text>
   </svg>
 );
 
@@ -372,7 +372,7 @@ const TaxOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="taxes" /></div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Tax Basics – Understanding Taxes in Investing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Tax Basics – Understanding Taxes in Investing</h1>
             <p className="text-gray-600 text-lg">
               Learn how taxes affect your income and investments at a fundamental level.
             </p>
@@ -412,7 +412,7 @@ const TaxOverview = () => {
 
         {/* What Are Taxes */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Are Taxes and Why Do They Exist?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">What Are Taxes and Why Do They Exist?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -432,7 +432,7 @@ const TaxOverview = () => {
 
         {/* Why Taxes Matter in Investing */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Taxes Matter in Investing</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Taxes Matter in Investing</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -450,7 +450,7 @@ const TaxOverview = () => {
 
         {/* Pre-Tax vs Post-Tax */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Pre-Tax vs. Post-Tax Returns</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Pre-Tax vs. Post-Tax Returns</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -465,7 +465,7 @@ const TaxOverview = () => {
 
         {/* Common Mistakes */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Common Beginner Tax Mistakes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Common Beginner Tax Mistakes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -480,7 +480,7 @@ const TaxOverview = () => {
 
         {/* What You'll Learn */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What You'll Understand After This Module</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What You'll Understand After This Module</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -510,7 +510,7 @@ const TaxOverview = () => {
 
         {/* Lessons List */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Module Lessons</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Module Lessons</h2>
           <div className="space-y-3">
             {lessons.map((lesson) => (
               <div

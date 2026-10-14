@@ -53,31 +53,31 @@ const TwoTypesOfEarningsSVG = () => (
     
     {/* Right side - Money Working for You */}
     <g transform="translate(380, 60)">
-      <rect x="0" y="0" width="270" height="230" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="270" height="230" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       {/* Icon - Money growing */}
       <g transform="translate(100, 20)">
-        <rect x="15" y="50" width="40" height="50" fill="#12805A" rx="3"/>
+        <rect x="15" y="50" width="40" height="50" fill="#16A34A" rx="3"/>
         <text x="35" y="80" textAnchor="middle" fontSize="18" fill="white">$</text>
         {/* Growth arrow */}
-        <path d="M35 45 L35 20 L25 30 M35 20 L45 30" stroke="#12805A" strokeWidth="3" fill="none"/>
+        <path d="M35 45 L35 20 L25 30 M35 20 L45 30" stroke="#16A34A" strokeWidth="3" fill="none"/>
         {/* Plant leaves */}
-        <ellipse cx="25" cy="25" rx="8" ry="12" fill="#3CCB97" transform="rotate(-30 25 25)"/>
-        <ellipse cx="45" cy="25" rx="8" ry="12" fill="#3CCB97" transform="rotate(30 45 25)"/>
+        <ellipse cx="25" cy="25" rx="8" ry="12" fill="#16A34A" transform="rotate(-30 25 25)"/>
+        <ellipse cx="45" cy="25" rx="8" ry="12" fill="#16A34A" transform="rotate(30 45 25)"/>
       </g>
       
-      <text x="135" y="130" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#12805A">Money Working for You</text>
+      <text x="135" y="130" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#16A34A">Money Working for You</text>
       <text x="135" y="150" textAnchor="middle" fontSize="11" fill="#373A41">"Passive" or Investment Income</text>
       
       {/* Examples */}
       <g transform="translate(20, 165)">
-        <circle cx="8" cy="8" r="4" fill="#12805A"/>
+        <circle cx="8" cy="8" r="4" fill="#16A34A"/>
         <text x="20" y="12" fontSize="10" fill="#555A63">Dividends from stocks</text>
         
-        <circle cx="8" cy="28" r="4" fill="#12805A"/>
+        <circle cx="8" cy="28" r="4" fill="#16A34A"/>
         <text x="20" y="32" fontSize="10" fill="#555A63">Interest from savings</text>
         
-        <circle cx="8" cy="48" r="4" fill="#12805A"/>
+        <circle cx="8" cy="48" r="4" fill="#16A34A"/>
         <text x="20" y="52" fontSize="10" fill="#555A63">Profit from selling investments</text>
       </g>
     </g>
@@ -137,17 +137,17 @@ const IncomeTaxExplainedSVG = () => (
       
       {/* Arrow 3 */}
       <g transform="translate(530, 40)">
-        <line x1="0" y1="20" x2="50" y2="20" stroke="#12805A" strokeWidth="2"/>
-        <polygon points="50,15 60,20 50,25" fill="#12805A"/>
+        <line x1="0" y1="20" x2="50" y2="20" stroke="#16A34A" strokeWidth="2"/>
+        <polygon points="50,15 60,20 50,25" fill="#16A34A"/>
       </g>
     </g>
     
     {/* Take-home box */}
     <g transform="translate(540, 55)">
-      <rect x="0" y="0" width="120" height="90" fill="#EEF9F4" rx="10" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="120" height="90" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
       <text x="60" y="35" textAnchor="middle" fontSize="18">💰</text>
-      <text x="60" y="58" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Your Take-Home</text>
-      <text x="60" y="72" textAnchor="middle" fontSize="9" fill="#12805A">Net Pay</text>
+      <text x="60" y="58" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Your Take-Home</text>
+      <text x="60" y="72" textAnchor="middle" fontSize="9" fill="#16A34A">Net Pay</text>
     </g>
     
     {/* Examples section */}
@@ -189,44 +189,44 @@ const IncomeTaxExplainedSVG = () => (
 const InvestmentTaxExplainedSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#EEF9F4" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F0FDF4" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#12805A">Investment Tax: Tax on Money Your Money Earns</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#16A34A">Investment Tax: Tax on Money Your Money Earns</text>
     
     {/* Flow diagram */}
     <g transform="translate(50, 55)">
       {/* Your money */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="120" height="90" fill="white" rx="10" stroke="#12805A" strokeWidth="2"/>
-        <rect x="35" y="15" width="50" height="35" fill="#12805A" rx="5"/>
+        <rect x="0" y="0" width="120" height="90" fill="white" rx="10" stroke="#16A34A" strokeWidth="2"/>
+        <rect x="35" y="15" width="50" height="35" fill="#16A34A" rx="5"/>
         <text x="60" y="38" textAnchor="middle" fontSize="14" fill="white">$$$</text>
-        <text x="60" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Your Money</text>
+        <text x="60" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Your Money</text>
         <text x="60" y="85" textAnchor="middle" fontSize="9" fill="#717680">(Saved/Invested)</text>
       </g>
       
       {/* Arrow 1 */}
       <g transform="translate(130, 40)">
-        <line x1="0" y1="20" x2="50" y2="20" stroke="#12805A" strokeWidth="2"/>
-        <polygon points="50,15 60,20 50,25" fill="#12805A"/>
+        <line x1="0" y1="20" x2="50" y2="20" stroke="#16A34A" strokeWidth="2"/>
+        <polygon points="50,15 60,20 50,25" fill="#16A34A"/>
       </g>
       
       {/* Investments grow */}
       <g transform="translate(200, 0)">
-        <rect x="0" y="0" width="120" height="90" fill="white" rx="10" stroke="#12805A" strokeWidth="2"/>
+        <rect x="0" y="0" width="120" height="90" fill="white" rx="10" stroke="#16A34A" strokeWidth="2"/>
         <g transform="translate(30, 10)">
           {/* Growth chart */}
-          <polyline points="0,50 20,40 40,30 60,15" stroke="#12805A" strokeWidth="3" fill="none"/>
-          <circle cx="60" cy="15" r="5" fill="#12805A"/>
+          <polyline points="0,50 20,40 40,30 60,15" stroke="#16A34A" strokeWidth="3" fill="none"/>
+          <circle cx="60" cy="15" r="5" fill="#16A34A"/>
         </g>
-        <text x="60" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Grows Over Time</text>
+        <text x="60" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Grows Over Time</text>
         <text x="60" y="85" textAnchor="middle" fontSize="9" fill="#717680">Earns returns</text>
       </g>
       
       {/* Arrow 2 */}
       <g transform="translate(330, 40)">
-        <line x1="0" y1="20" x2="50" y2="20" stroke="#12805A" strokeWidth="2"/>
-        <polygon points="50,15 60,20 50,25" fill="#12805A"/>
+        <line x1="0" y1="20" x2="50" y2="20" stroke="#16A34A" strokeWidth="2"/>
+        <polygon points="50,15 60,20 50,25" fill="#16A34A"/>
       </g>
       
       {/* Tax on gains */}
@@ -239,45 +239,45 @@ const InvestmentTaxExplainedSVG = () => (
       
       {/* Arrow 3 */}
       <g transform="translate(530, 40)">
-        <line x1="0" y1="20" x2="50" y2="20" stroke="#12805A" strokeWidth="2"/>
-        <polygon points="50,15 60,20 50,25" fill="#12805A"/>
+        <line x1="0" y1="20" x2="50" y2="20" stroke="#16A34A" strokeWidth="2"/>
+        <polygon points="50,15 60,20 50,25" fill="#16A34A"/>
       </g>
     </g>
     
     {/* Net profit box */}
     <g transform="translate(540, 55)">
-      <rect x="0" y="0" width="120" height="90" fill="#EEF9F4" rx="10" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="120" height="90" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
       <text x="60" y="35" textAnchor="middle" fontSize="18">📈</text>
-      <text x="60" y="58" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Your Net Profit</text>
-      <text x="60" y="72" textAnchor="middle" fontSize="9" fill="#12805A">After taxes</text>
+      <text x="60" y="58" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Your Net Profit</text>
+      <text x="60" y="72" textAnchor="middle" fontSize="9" fill="#16A34A">After taxes</text>
     </g>
     
     {/* Types of investment income */}
     <g transform="translate(50, 165)">
-      <text x="0" y="0" fontSize="12" fontWeight="600" fill="#12805A">Types of Investment Income:</text>
+      <text x="0" y="0" fontSize="12" fontWeight="600" fill="#16A34A">Types of Investment Income:</text>
       
       <g transform="translate(0, 20)">
-        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#12805A" strokeWidth="1"/>
+        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
         <text x="95" y="25" textAnchor="middle" fontSize="18">📊</text>
-        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Capital Gains</text>
+        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Capital Gains</text>
         <text x="95" y="60" textAnchor="middle" fontSize="9" fill="#717680">Profit from selling stocks,</text>
         <text x="95" y="73" textAnchor="middle" fontSize="9" fill="#717680">bonds, or property for more</text>
         <text x="95" y="86" textAnchor="middle" fontSize="9" fill="#717680">than you paid</text>
       </g>
       
       <g transform="translate(210, 20)">
-        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#12805A" strokeWidth="1"/>
+        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
         <text x="95" y="25" textAnchor="middle" fontSize="18">💵</text>
-        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Dividends</text>
+        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Dividends</text>
         <text x="95" y="60" textAnchor="middle" fontSize="9" fill="#717680">Payments companies make</text>
         <text x="95" y="73" textAnchor="middle" fontSize="9" fill="#717680">to shareholders from</text>
         <text x="95" y="86" textAnchor="middle" fontSize="9" fill="#717680">their profits</text>
       </g>
       
       <g transform="translate(420, 20)">
-        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#12805A" strokeWidth="1"/>
+        <rect x="0" y="0" width="190" height="95" fill="white" rx="8" stroke="#16A34A" strokeWidth="1"/>
         <text x="95" y="25" textAnchor="middle" fontSize="18">🏦</text>
-        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Interest Income</text>
+        <text x="95" y="45" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Interest Income</text>
         <text x="95" y="60" textAnchor="middle" fontSize="9" fill="#717680">Earnings from savings</text>
         <text x="95" y="73" textAnchor="middle" fontSize="9" fill="#717680">accounts, bonds, or</text>
         <text x="95" y="86" textAnchor="middle" fontSize="9" fill="#717680">fixed deposits</text>
@@ -397,15 +397,15 @@ const GlobalExampleSVG = () => (
     
     {/* Investment section */}
     <g transform="translate(370, 160)">
-      <rect x="0" y="0" width="280" height="180" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="180" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
-      <rect x="0" y="0" width="280" height="35" fill="#12805A" rx="12" />
-      <rect x="0" y="17" width="280" height="18" fill="#12805A"/>
+      <rect x="0" y="0" width="280" height="35" fill="#16A34A" rx="12" />
+      <rect x="0" y="17" width="280" height="18" fill="#16A34A"/>
       <text x="140" y="23" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">INCOME FROM INVESTMENTS</text>
       
       <g transform="translate(20, 50)">
         <text x="0" y="15" fontSize="11" fill="#555A63">Stock sale profit:</text>
-        <text x="180" y="15" fontSize="11" fontWeight="600" fill="#12805A">$5,000</text>
+        <text x="180" y="15" fontSize="11" fontWeight="600" fill="#16A34A">$5,000</text>
         
         <line x1="0" y1="30" x2="240" y2="30" stroke="#E4E4EA" strokeWidth="1"/>
         
@@ -414,8 +414,8 @@ const GlobalExampleSVG = () => (
         <text x="0" y="80" fontSize="10" fill="#717680">while invested in stocks.</text>
         
         <g transform="translate(0, 95)">
-          <rect x="0" y="0" width="240" height="30" fill="#EEF9F4" rx="5"/>
-          <text x="120" y="19" textAnchor="middle" fontSize="10" fill="#12805A">📈 Tax Type: Capital Gains Tax</text>
+          <rect x="0" y="0" width="240" height="30" fill="#F0FDF4" rx="5"/>
+          <text x="120" y="19" textAnchor="middle" fontSize="10" fill="#16A34A">📈 Tax Type: Capital Gains Tax</text>
         </g>
       </g>
     </g>
@@ -445,8 +445,8 @@ const ComparisonTableSVG = () => (
       <rect x="210" y="17" width="200" height="18" fill="#5A77AA"/>
       <text x="310" y="23" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">Income Tax</text>
       
-      <rect x="420" y="0" width="200" height="35" fill="#12805A" rx="8"/>
-      <rect x="420" y="17" width="200" height="18" fill="#12805A"/>
+      <rect x="420" y="0" width="200" height="35" fill="#16A34A" rx="8"/>
+      <rect x="420" y="17" width="200" height="18" fill="#16A34A"/>
       <text x="520" y="23" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">Investment Tax</text>
     </g>
     
@@ -459,9 +459,9 @@ const ComparisonTableSVG = () => (
       <text x="310" y="22" textAnchor="middle" fontSize="10" fill="#2C3F5E">Working (salary,</text>
       <text x="310" y="35" textAnchor="middle" fontSize="10" fill="#2C3F5E">freelance, business)</text>
       
-      <rect x="420" y="0" width="200" height="45" fill="#EEF9F4" stroke="#E4E4EA" strokeWidth="1"/>
-      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#12805A">Investments (stocks,</text>
-      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#12805A">bonds, property)</text>
+      <rect x="420" y="0" width="200" height="45" fill="#F0FDF4" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#16A34A">Investments (stocks,</text>
+      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#16A34A">bonds, property)</text>
     </g>
     
     {/* Row 2 - Effort */}
@@ -474,8 +474,8 @@ const ComparisonTableSVG = () => (
       <text x="310" y="35" textAnchor="middle" fontSize="10" fill="#2C3F5E">time for money</text>
       
       <rect x="420" y="0" width="200" height="45" fill="white" stroke="#E4E4EA" strokeWidth="1"/>
-      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#12805A">Passive — money</text>
-      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#12805A">works for you</text>
+      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#16A34A">Passive — money</text>
+      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#16A34A">works for you</text>
     </g>
     
     {/* Row 3 - Risk */}
@@ -487,9 +487,9 @@ const ComparisonTableSVG = () => (
       <text x="310" y="22" textAnchor="middle" fontSize="10" fill="#2C3F5E">Low — you did the</text>
       <text x="310" y="35" textAnchor="middle" fontSize="10" fill="#2C3F5E">work, you get paid</text>
       
-      <rect x="420" y="0" width="200" height="45" fill="#EEF9F4" stroke="#E4E4EA" strokeWidth="1"/>
-      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#12805A">Higher — you could</text>
-      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#12805A">gain or lose</text>
+      <rect x="420" y="0" width="200" height="45" fill="#F0FDF4" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#16A34A">Higher — you could</text>
+      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#16A34A">gain or lose</text>
     </g>
     
     {/* Row 4 - When taxed */}
@@ -502,8 +502,8 @@ const ComparisonTableSVG = () => (
       <text x="310" y="35" textAnchor="middle" fontSize="10" fill="#2C3F5E">(each paycheck)</text>
       
       <rect x="420" y="0" width="200" height="45" fill="white" stroke="#E4E4EA" strokeWidth="1"/>
-      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#12805A">Often when sold</text>
-      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#12805A">(realized gains)</text>
+      <text x="520" y="22" textAnchor="middle" fontSize="10" fill="#16A34A">Often when sold</text>
+      <text x="520" y="35" textAnchor="middle" fontSize="10" fill="#16A34A">(realized gains)</text>
     </g>
     
     {/* Note */}
@@ -655,7 +655,7 @@ const TaxLesson2 = () => {
               Awareness Only
             </span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 tracking-[-0.025em]">Taxes on Income vs Investments</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 tracking-[-0.025em]">Taxes on Income vs Investments</h1>
           <p className="text-xl text-blue-100">
             Understanding how different types of earnings are taxed differently
           </p>
@@ -668,7 +668,7 @@ const TaxLesson2 = () => {
         {/* Introduction */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.025em]">Not All Money Is Taxed the Same Way</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.025em]">Not All Money Is Taxed the Same Way</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               When it comes to taxes, where your money comes from matters. Money you earn from your job 
               is treated differently than money your investments earn for you. Understanding this basic 
@@ -683,7 +683,7 @@ const TaxLesson2 = () => {
 
         {/* Two Types of Earnings */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Two Ways to Earn Money</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Two Ways to Earn Money</h2>
           <TwoTypesOfEarningsSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -697,7 +697,7 @@ const TaxLesson2 = () => {
 
         {/* Income Tax Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Is Income Tax?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Is Income Tax?</h2>
           <IncomeTaxExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <h3 className="text-lg font-semibold text-blue-700 mb-3">Income Tax = Tax on Your Work Earnings</h3>
@@ -715,7 +715,7 @@ const TaxLesson2 = () => {
 
         {/* Investment Tax Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Is Investment Tax?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Is Investment Tax?</h2>
           <InvestmentTaxExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <h3 className="text-lg font-semibold text-brand mb-3">Investment Tax = Tax on What Your Money Earns</h3>
@@ -733,7 +733,7 @@ const TaxLesson2 = () => {
 
         {/* Why Different */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Are They Taxed Differently?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Are They Taxed Differently?</h2>
           <WhyDifferentSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -747,7 +747,7 @@ const TaxLesson2 = () => {
 
         {/* Global Example */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Example: Same Person, Different Taxes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Example: Same Person, Different Taxes</h2>
           <GlobalExampleSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 leading-relaxed">
@@ -761,7 +761,7 @@ const TaxLesson2 = () => {
 
         {/* Comparison Table */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Quick Comparison</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Quick Comparison</h2>
           <ComparisonTableSVG />
         </section>
 
@@ -772,14 +772,14 @@ const TaxLesson2 = () => {
 
         {/* India Note */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">India-Specific Context</h2>
           <IndiaNotesSVG />
         </section>
 
         {/* Quiz Section */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Check Your Understanding</h2>
             
             {quizQuestions.map((q, index) => (
               <div key={q.id} className={`${index > 0 ? 'mt-8 pt-8 border-t border-gray-200' : ''}`}>
@@ -849,7 +849,7 @@ const TaxLesson2 = () => {
         {/* Reflection */}
         <section className="mb-12">
           <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 tracking-[-0.015em]">💭 Reflection Question</h2>
             <p className="text-gray-700 text-lg leading-relaxed">
               Think about your own financial situation. What types of income do you currently have — 
               mostly from work, or do you also have some investment income (even if it's just interest 

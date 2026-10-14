@@ -258,7 +258,7 @@ const RetirementCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6">
               {results ? (
                 <div>
-                  <h2 className="text-2xl font-semibold mb-6 text-center">
+                  <h2 className="text-2xl font-bold mb-6 text-center">
                     Projected Growth
                   </h2>
                   {chartData.length > 0 ? (

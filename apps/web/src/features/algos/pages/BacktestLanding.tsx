@@ -82,7 +82,7 @@ const BacktestLanding = () => {
       {/* Subtle Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(rgba(31, 169, 120, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 169, 120, 0.4) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(22, 163, 74, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(22, 163, 74, 0.4) 1px, transparent 1px)`,
           backgroundSize: '60px 60px'
         }} />
         <div className="absolute top-20 left-10 w-96 h-96 bg-brand-soft rounded-full blur-[120px]" />
@@ -105,7 +105,7 @@ const BacktestLanding = () => {
                 <span className="text-sm font-medium text-brand">AI-Powered Backtesting</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl font-display font-semibold mb-6 leading-tight tracking-[-0.025em]">
+              <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 leading-tight tracking-[-0.025em]">
                 <span className="text-gray-900">Backtest any trade</span>
                 <br />
                 <span className="text-brand">
@@ -197,7 +197,7 @@ const BacktestLanding = () => {
       <section className="relative px-4 sm:px-6 lg:px-8 py-20 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 tracking-[-0.025em]">Everything you need to test an idea</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 tracking-[-0.025em]">Everything you need to test an idea</h2>
             <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
               A research desk in a chat box — from first hypothesis to a report you can trust.
             </p>
@@ -219,7 +219,7 @@ const BacktestLanding = () => {
       {/* CTA */}
       <section className="relative px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto rounded-3xl px-8 py-14 text-center text-white bg-brand-fill">
-          <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Know before you trade.</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Know before you trade.</h2>
           <p className="mx-auto mt-3 max-w-xl text-white/85">
             Sign in with your free Xtin account and backtest your first idea in under a minute — no code.
           </p>

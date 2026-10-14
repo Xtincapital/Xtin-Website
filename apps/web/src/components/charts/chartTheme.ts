@@ -68,7 +68,7 @@ export const chartTooltip = {
     fontSize: 12,
   },
   labelStyle: { color: chartColors.muted, fontSize: 11, marginBottom: 2 },
-  itemStyle: { color: "hsl(var(--popover-foreground))", fontWeight: 600, fontVariantNumeric: "tabular-nums", padding: 0 },
+  itemStyle: { color: "hsl(var(--popover-foreground))", fontWeight: 700, fontVariantNumeric: "tabular-nums", padding: 0 },
   wrapperStyle: { outline: "none" },
 } as const;
 
@@ -85,8 +85,8 @@ export const chartActiveDot = { r: 5, strokeWidth: 2, stroke: "hsl(var(--card))"
  *  CSS variables. Same values as the tokens above, per theme. */
 export function canvasChartColors(dark: boolean) {
   return dark
-    ? { up: "#3CCB97", down: "#F26B6B", text: "#A0A3AA", grid: "rgba(255,255,255,0.05)", baseline: "#555A63", crosshairLabel: "#2F2F35", marker: "#7C95C4", font: '"Inter Tight", "Plus Jakarta Sans", system-ui, sans-serif' }
-    : { up: "#12805A", down: "#C7363B", text: "#717680", grid: "#EFEBE3", baseline: "#A0A3AA", crosshairLabel: "#2A2A2C", marker: "#3E5C8A", font: '"Inter Tight", "Plus Jakarta Sans", system-ui, sans-serif' };
+    ? { up: "#16A34A", down: "#F26B6B", text: "#A0A3AA", grid: "rgba(255,255,255,0.05)", baseline: "#555A63", crosshairLabel: "#2F2F35", marker: "#7C95C4", font: '"Inter Tight", "Plus Jakarta Sans", system-ui, sans-serif' }
+    : { up: "#16A34A", down: "#C7363B", text: "#717680", grid: "#EFEBE3", baseline: "#A0A3AA", crosshairLabel: "#2A2A2C", marker: "#3E5C8A", font: '"Inter Tight", "Plus Jakarta Sans", system-ui, sans-serif' };
 }
 
 /** rgba() of a #RRGGBB hex at the given opacity (for canvas area fills). */

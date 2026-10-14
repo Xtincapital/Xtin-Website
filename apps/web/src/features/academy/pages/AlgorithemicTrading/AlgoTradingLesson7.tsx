@@ -118,7 +118,7 @@ const AlgoTradingLesson7 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 7 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Monitor className="w-8 h-8 text-white"/>
               </span>
@@ -159,7 +159,7 @@ const AlgoTradingLesson7 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">The Paper-to-Live Transition</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">The Paper-to-Live Transition</h2>
             <p className="text-gray-700  mb-6">
               Never jump straight from backtest to live trading. Follow this progression:
             </p>
@@ -178,7 +178,7 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 1 */}
-                <path d="M160 100 L190 100" stroke="#3CCB97" strokeWidth="3" markerEnd="url(#arrow)"/>
+                <path d="M160 100 L190 100" stroke="#16A34A" strokeWidth="3" markerEnd="url(#arrow)"/>
                 
                 {/* Step 2 - Paper */}
                 <g transform="translate(200, 60)">
@@ -189,7 +189,7 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 2 */}
-                <path d="M330 100 L360 100" stroke="#3CCB97" strokeWidth="3"/>
+                <path d="M330 100 L360 100" stroke="#16A34A" strokeWidth="3"/>
                 
                 {/* Step 3 - Small Live */}
                 <g transform="translate(370, 60)">
@@ -200,14 +200,14 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 3 */}
-                <path d="M500 100 L530 100" stroke="#3CCB97" strokeWidth="3"/>
+                <path d="M500 100 L530 100" stroke="#16A34A" strokeWidth="3"/>
                 
                 {/* Step 4 - Full Live */}
                 <g transform="translate(540, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#12805A" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#16A34A" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">FULL LIVE</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#ABE5CC" fontSize="8">Full position sizes</text>
-                  <text x="60" y="68" textAnchor="middle" fill="#ABE5CC" fontSize="8">Continuous monitoring</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#BBF7D0" fontSize="8">Full position sizes</text>
+                  <text x="60" y="68" textAnchor="middle" fill="#BBF7D0" fontSize="8">Continuous monitoring</text>
                 </g>
 
                 {/* Time indicator */}
@@ -215,14 +215,14 @@ const AlgoTradingLesson7 = () => {
                 
                 <defs>
                   <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3CCB97"/>
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#16A34A"/>
                   </marker>
                 </defs>
               </svg>
             </div>
 
             {/* Monitoring Dashboard */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Monitor className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -243,9 +243,9 @@ const AlgoTradingLesson7 = () => {
                 
                 {/* Top Row - Key Metrics */}
                 <g transform="translate(50, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#16A34A" strokeWidth="1"/>
                   <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="9">Today's P&L</text>
-                  <text x="70" y="50" textAnchor="middle" fill="#12805A" fontSize="16" fontWeight="700">+₹12,450</text>
+                  <text x="70" y="50" textAnchor="middle" fill="#16A34A" fontSize="16" fontWeight="700">+₹12,450</text>
                 </g>
                 <g transform="translate(210, 60)">
                   <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#5A77AA" strokeWidth="1"/>
@@ -269,8 +269,8 @@ const AlgoTradingLesson7 = () => {
                   <text x="150" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10">Equity Curve (MTD)</text>
                   {/* Simplified line chart */}
                   <polyline points="20,100 50,90 80,85 110,70 140,80 170,60 200,55 230,65 260,45 280,50" 
-                    stroke="#12805A" strokeWidth="2" fill="none"/>
-                  <circle cx="280" cy="50" r="4" fill="#12805A"/>
+                    stroke="#16A34A" strokeWidth="2" fill="none"/>
+                  <circle cx="280" cy="50" r="4" fill="#16A34A"/>
                 </g>
 
                 {/* Active Positions */}
@@ -286,7 +286,7 @@ const AlgoTradingLesson7 = () => {
                   <text x="20" y="65" fill="white" fontSize="9">RELIANCE</text>
                   <text x="90" y="65" fill="white" fontSize="9">100</text>
                   <text x="140" y="65" fill="white" fontSize="9">₹2,450</text>
-                  <text x="200" y="65" fill="#12805A" fontSize="9">+₹3,200</text>
+                  <text x="200" y="65" fill="#16A34A" fontSize="9">+₹3,200</text>
                   
                   <text x="20" y="85" fill="white" fontSize="9">INFY</text>
                   <text x="90" y="85" fill="white" fontSize="9">200</text>
@@ -296,7 +296,7 @@ const AlgoTradingLesson7 = () => {
                   <text x="20" y="105" fill="white" fontSize="9">HDFC</text>
                   <text x="90" y="105" fill="white" fontSize="9">50</text>
                   <text x="140" y="105" fill="white" fontSize="9">₹1,720</text>
-                  <text x="200" y="105" fill="#12805A" fontSize="9">+₹1,150</text>
+                  <text x="200" y="105" fill="#16A34A" fontSize="9">+₹1,150</text>
                 </g>
 
                 {/* System Status */}
@@ -304,9 +304,9 @@ const AlgoTradingLesson7 = () => {
                   <rect x="0" y="0" width="600" height="60" rx="8" fill="#1F1F1F"/>
                   <text x="300" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10">System Status</text>
                   
-                  <circle cx="60" cy="42" r="6" fill="#12805A"/><text x="80" y="46" fill="#A0A3AA" fontSize="9">Broker Connected</text>
-                  <circle cx="200" cy="42" r="6" fill="#12805A"/><text x="220" y="46" fill="#A0A3AA" fontSize="9">Data Feed OK</text>
-                  <circle cx="340" cy="42" r="6" fill="#12805A"/><text x="360" y="46" fill="#A0A3AA" fontSize="9">Strategy Running</text>
+                  <circle cx="60" cy="42" r="6" fill="#16A34A"/><text x="80" y="46" fill="#A0A3AA" fontSize="9">Broker Connected</text>
+                  <circle cx="200" cy="42" r="6" fill="#16A34A"/><text x="220" y="46" fill="#A0A3AA" fontSize="9">Data Feed OK</text>
+                  <circle cx="340" cy="42" r="6" fill="#16A34A"/><text x="360" y="46" fill="#A0A3AA" fontSize="9">Strategy Running</text>
                   <circle cx="480" cy="42" r="6" fill="#B8923F"/><text x="500" y="46" fill="#A0A3AA" fontSize="9">1 Alert</text>
                 </g>
               </svg>
@@ -341,7 +341,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Alerts and Circuit Breakers */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Bell className="w-5 h-5 text-red-600 "/>
               </span>
@@ -368,7 +368,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Psychology */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Brain className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -400,7 +400,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Production Issues */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-amber-100  rounded-xl flex items-center justify-center">
                 <Icons.Server className="w-5 h-5 text-amber-600 "/>
               </span>
@@ -480,7 +480,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What's the recommended minimum time from backtest to full live trading?"
               options={["1-2 weeks", "3-4 weeks", "6-12 weeks", "6 months"]}
@@ -503,7 +503,7 @@ const AlgoTradingLesson7 = () => {
             {/* Completion Banner */}
             <div className="bg-gradient-to-r from-amber-100 to-yellow-100   rounded-2xl p-8 mb-10 border-2 border-amber-400  text-center">
               <FaTrophy className="w-16 h-16 text-amber-500 mx-auto mb-4"/>
-              <h2 className="text-2xl font-semibold text-amber-900  mb-2 tracking-[-0.015em]">Great Progress!</h2>
+              <h2 className="text-2xl font-bold text-amber-900  mb-2 tracking-[-0.015em]">Great Progress!</h2>
               <p className="text-amber-800  mb-4">
                 You've completed the core trading foundations! 
                 Next up: learn about <strong>data sources</strong> and <strong>broker APIs</strong> to actually build your systems.

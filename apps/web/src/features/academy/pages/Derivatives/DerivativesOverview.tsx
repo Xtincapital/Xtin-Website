@@ -103,7 +103,7 @@ const HeroVisualizationSVG = () => (
       
       {/* Call Option Arrow Up */}
       <g transform="translate(-15, 0)">
-        <path d="M0,15 L0,-15 M-8,-7 L0,-15 L8,-7" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M0,15 L0,-15 M-8,-7 L0,-15 L8,-7" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
       </g>
       
       {/* Put Option Arrow Down */}
@@ -207,16 +207,16 @@ const DerivativesContractSVG = () => (
     
     {/* Underlying Asset */}
     <g transform="translate(80, 120)">
-      <rect x="0" y="0" width="180" height="160" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <rect x="0" y="0" width="180" height="40" fill="#12805A" rx="12" ry="12"/>
+      <rect x="0" y="0" width="180" height="160" fill="white" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="40" fill="#16A34A" rx="12" ry="12"/>
       <text x="90" y="26" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">UNDERLYING ASSET</text>
       <g transform="translate(30, 60)">
-        <rect x="0" y="0" width="120" height="30" fill="#EEF9F4" rx="6"/>
-        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#12805A">Stock: $150.00</text>
+        <rect x="0" y="0" width="120" height="30" fill="#F0FDF4" rx="6"/>
+        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#16A34A">Stock: $150.00</text>
       </g>
       <g transform="translate(30, 100)">
-        <rect x="0" y="0" width="120" height="30" fill="#EEF9F4" rx="6"/>
-        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#12805A">Real Ownership</text>
+        <rect x="0" y="0" width="120" height="30" fill="#F0FDF4" rx="6"/>
+        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#16A34A">Real Ownership</text>
       </g>
     </g>
     
@@ -262,9 +262,9 @@ const DerivativesContractSVG = () => (
     
     {/* Profit/Loss */}
     <g transform="translate(640, 100)">
-      <rect x="0" y="0" width="140" height="70" fill="#EEF9F4" rx="10" stroke="#12805A" strokeWidth="2"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">Profit</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#12805A">+$5,000</text>
+      <rect x="0" y="0" width="140" height="70" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">Profit</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#16A34A">+$5,000</text>
     </g>
     <g transform="translate(640, 230)">
       <rect x="0" y="0" width="140" height="70" fill="#FDF1F1" rx="10" stroke="#C7363B" strokeWidth="2"/>
@@ -286,8 +286,8 @@ const PayoffDiagramsSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full h-auto">
     <defs>
       <linearGradient id="callGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="#12805A" stopOpacity="0.3"/>
-        <stop offset="100%" stopColor="#12805A" stopOpacity="0"/>
+        <stop offset="0%" stopColor="#16A34A" stopOpacity="0.3"/>
+        <stop offset="100%" stopColor="#16A34A" stopOpacity="0"/>
       </linearGradient>
       <linearGradient id="putGrad" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="#E04848" stopOpacity="0.3"/>
@@ -298,18 +298,18 @@ const PayoffDiagramsSVG = () => (
     <rect x="0" y="0" width="700" height="300" fill="#1F1F1F" rx="12"/>
     
     <g transform="translate(40, 20)">
-      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">Long Call Option</text>
+      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">Long Call Option</text>
       <line x1="30" y1="180" x2="250" y2="180" stroke="#717680" strokeWidth="1"/>
       <line x1="30" y1="40" x2="30" y2="180" stroke="#717680" strokeWidth="1"/>
       <text x="140" y="205" textAnchor="middle" fontSize="10" fill="#A0A3AA">Stock Price</text>
       <text x="15" y="110" textAnchor="middle" fontSize="10" fill="#A0A3AA" transform="rotate(-90 15 110)">P/L</text>
       <line x1="30" y1="130" x2="250" y2="130" stroke="#555A63" strokeWidth="1" strokeDasharray="4"/>
-      <path d="M 30 150 L 140 150 L 220 70" stroke="#12805A" strokeWidth="3" fill="none"/>
+      <path d="M 30 150 L 140 150 L 220 70" stroke="#16A34A" strokeWidth="3" fill="none"/>
       <path d="M 140 150 L 220 70 L 220 180 L 140 180 Z" fill="url(#callGrad)"/>
       <line x1="140" y1="130" x2="140" y2="190" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
       <text x="140" y="215" textAnchor="middle" fontSize="9" fill="#B8923F">Strike</text>
       <text x="80" y="165" fontSize="9" fill="#E04848">Max Loss: Premium</text>
-      <text x="180" y="85" fontSize="9" fill="#12805A">Unlimited Profit</text>
+      <text x="180" y="85" fontSize="9" fill="#16A34A">Unlimited Profit</text>
     </g>
     
     <g transform="translate(370, 20)">
@@ -324,13 +324,13 @@ const PayoffDiagramsSVG = () => (
       <line x1="110" y1="130" x2="110" y2="190" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
       <text x="110" y="215" textAnchor="middle" fontSize="9" fill="#B8923F">Strike</text>
       <text x="160" y="165" fontSize="9" fill="#E04848">Max Loss: Premium</text>
-      <text x="50" y="85" fontSize="9" fill="#12805A">Profit when</text>
-      <text x="50" y="97" fontSize="9" fill="#12805A">price falls</text>
+      <text x="50" y="85" fontSize="9" fill="#16A34A">Profit when</text>
+      <text x="50" y="97" fontSize="9" fill="#16A34A">price falls</text>
     </g>
     
     <g transform="translate(150, 250)">
       <rect x="0" y="0" width="400" height="35" fill="#2A2A2C" rx="8"/>
-      <circle cx="40" cy="17" r="6" fill="#12805A"/>
+      <circle cx="40" cy="17" r="6" fill="#16A34A"/>
       <text x="55" y="22" fontSize="11" fill="#E4E4EA">Calls profit when price rises</text>
       <circle cx="230" cy="17" r="6" fill="#E04848"/>
       <text x="245" y="22" fontSize="11" fill="#E4E4EA">Puts profit when price falls</text>
@@ -377,13 +377,13 @@ const GreeksOverviewSVG = () => (
     </g>
     
     <g transform="translate(450, 80)">
-      <rect x="0" y="0" width="120" height="120" fill="#2A2A2C" rx="10" stroke="#12805A" strokeWidth="2"/>
-      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#12805A">V</text>
+      <rect x="0" y="0" width="120" height="120" fill="#2A2A2C" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#16A34A">V</text>
       <text x="60" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Vega</text>
       <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#A0A3AA">Volatility</text>
       <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#A0A3AA">sensitivity</text>
-      <rect x="20" y="100" width="80" height="12" fill="#12805A" fillOpacity="0.3" rx="2"/>
-      <rect x="20" y="100" width="50" height="12" fill="#12805A" rx="2"/>
+      <rect x="20" y="100" width="80" height="12" fill="#16A34A" fillOpacity="0.3" rx="2"/>
+      <rect x="20" y="100" width="50" height="12" fill="#16A34A" rx="2"/>
     </g>
     
     <g transform="translate(590, 80)">
@@ -453,7 +453,7 @@ const DerivativesOverview = () => {
               
               <div className="mb-3"><ModuleBadge moduleId="derivatives" /></div>
               
-              <h1 className="text-4xl md:text-5xl font-display font-semibold text-white mb-4 leading-tight tracking-[-0.025em]">
+              <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-4 leading-tight tracking-[-0.025em]">
                 Derivatives: <br className="hidden sm:block" />Futures &amp; Options
               </h1>
               
@@ -492,7 +492,7 @@ const DerivativesOverview = () => {
 
         {/* Contract Flow Diagram */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.025em]">Understanding Derivative Contracts</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center tracking-[-0.025em]">Understanding Derivative Contracts</h2>
           <DerivativesContractSVG />
         </div>
 
@@ -553,19 +553,19 @@ const DerivativesOverview = () => {
 
         {/* Payoff Diagrams */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.025em]">Option Payoff Profiles</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center tracking-[-0.025em]">Option Payoff Profiles</h2>
           <PayoffDiagramsSVG />
         </div>
 
         {/* Greeks Overview */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.025em]">The Option Greeks</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center tracking-[-0.025em]">The Option Greeks</h2>
           <GreeksOverviewSVG />
         </div>
 
         {/* Course Content */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900  mb-2 tracking-[-0.025em]">Course Content</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-2 tracking-[-0.025em]">Course Content</h2>
           <p className="text-gray-600  mb-8">
             12 comprehensive lessons covering derivatives from fundamentals to advanced strategies
           </p>
@@ -613,7 +613,7 @@ const DerivativesOverview = () => {
 
         {/* Learning Path */}
         <div className="rounded-2xl p-8 shadow-lg mb-12 bg-brand-fill">
-          <h2 className="text-2xl font-semibold text-white mb-6 tracking-[-0.015em]">Recommended Learning Path</h2>
+          <h2 className="text-2xl font-bold text-white mb-6 tracking-[-0.015em]">Recommended Learning Path</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5">
@@ -675,7 +675,7 @@ const DerivativesOverview = () => {
 
         {/* CTA */}
         <div className="rounded-2xl p-8 text-center text-white shadow-xl bg-brand-fill">
-          <h3 className="text-2xl font-semibold mb-3 tracking-[-0.015em]">Ready to Master Derivatives?</h3>
+          <h3 className="text-2xl font-bold mb-3 tracking-[-0.015em]">Ready to Master Derivatives?</h3>
           <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
             Begin your journey into the complex world of futures and options. 
             Remember: knowledge is your best protection in derivative markets.

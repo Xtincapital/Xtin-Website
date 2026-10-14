@@ -130,18 +130,18 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
     >
       <defs>
         <radialGradient id="eco-glow" cx="60" cy="55" r="42" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="rgb(18 128 90)" stopOpacity="0.14" />
-          <stop offset="0.7" stopColor="rgb(18 128 90)" stopOpacity="0.04" />
-          <stop offset="1" stopColor="rgb(18 128 90)" stopOpacity="0" />
+          <stop offset="0" stopColor="rgb(22 163 74)" stopOpacity="0.14" />
+          <stop offset="0.7" stopColor="rgb(22 163 74)" stopOpacity="0.04" />
+          <stop offset="1" stopColor="rgb(22 163 74)" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="eco-ring" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="rgb(18 128 90)" stopOpacity="0.75" />
+          <stop offset="0" stopColor="rgb(22 163 74)" stopOpacity="0.75" />
           <stop offset="0.5" stopColor="#A0A3AA" stopOpacity="0.35" />
-          <stop offset="1" stopColor="rgb(18 128 90)" stopOpacity="0.75" />
+          <stop offset="1" stopColor="rgb(22 163 74)" stopOpacity="0.75" />
         </linearGradient>
       </defs>
       <circle cx="60" cy="55" r={ORBIT_R + 3} fill="url(#eco-glow)" />
-      <circle cx="60" cy="55" r={ORBIT_R + 8} fill="none" stroke="rgb(18 128 90)" strokeOpacity="0.07" strokeWidth="0.35" />
+      <circle cx="60" cy="55" r={ORBIT_R + 8} fill="none" stroke="rgb(22 163 74)" strokeOpacity="0.07" strokeWidth="0.35" />
       <circle
         cx="60" cy="55" r={ORBIT_R}
         fill="none"
@@ -150,7 +150,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         strokeDasharray="3 2.5"
       />
       {[0, 4.6, 9.2].map((delay) => (
-        <circle key={delay} r="0.95" fill="rgb(18 128 90)">
+        <circle key={delay} r="0.95" fill="rgb(22 163 74)">
           <animateMotion
             dur="14s"
             begin={`${delay}s`}
@@ -176,7 +176,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             key={mod.id}
             x1={x1} y1={y1}
             x2={x2} y2={y2}
-            stroke={hoveredNode === mod.id ? '#12805A' : '#A0A3AA'}
+            stroke={hoveredNode === mod.id ? '#16A34A' : '#A0A3AA'}
             strokeOpacity={hoveredNode === mod.id ? 0.85 : 0.4}
             strokeWidth={hoveredNode === mod.id ? '0.45' : '0.3'}
             strokeDasharray="2.5 2"
@@ -201,7 +201,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         const uy = dy / dist;
         const path = `M ${(60 + 12 * ux).toFixed(2)} ${(55 + 12 * uy).toFixed(2)} L ${(mod.x - 9 * ux + 10).toFixed(2)} ${(mod.y - 9 * uy + 5).toFixed(2)}`;
         return (
-          <circle key={`pulse-${mod.id}`} r="0.7" fill="rgb(18 128 90)" opacity="0">
+          <circle key={`pulse-${mod.id}`} r="0.7" fill="rgb(22 163 74)" opacity="0">
             <animateMotion dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" path={path} />
             <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1" dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" />
           </circle>
@@ -228,12 +228,12 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       />
       <motion.div
         className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-brand-line dark:border-slate-700"
-        style={{ boxShadow: '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
+        style={{ boxShadow: '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
         animate={{
           boxShadow: [
-            '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)',
-            '0 0 0 10px rgba(31, 169, 120,0.04), 0 12px 40px rgba(31, 169, 120,0.20), 0 4px 12px rgba(0,0,0,0.08)',
-            '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 10px rgba(22, 163, 74,0.04), 0 12px 40px rgba(22, 163, 74,0.20), 0 4px 12px rgba(0,0,0,0.08)',
+            '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)',
           ],
         }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -275,7 +275,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(22, 163, 74,0.18)]'
                   : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
@@ -301,7 +301,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(22, 163, 74,0.18)]'
                   : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
@@ -357,7 +357,7 @@ const GuestHomeHero = () => {
               Built for modern Indian investors
             </div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-[1.06] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-display font-bold leading-[1.06] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
               The Xtin Capital{' '}
               <span className="relative whitespace-nowrap text-brand dark:text-brand">
                 Ecosystem

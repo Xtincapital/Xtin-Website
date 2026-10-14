@@ -102,7 +102,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
             currency: orderData.order.currency,
             name: 'Xtin Academy Pro',
             description: orderData.plan.label,
-            theme: { color: '#12805A' },
+            theme: { color: '#16A34A' },
             prefill: { email: user?.email || '' },
             handler: async (response) => {
               try {
@@ -164,7 +164,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/40 dark:to-yellow-900/30 text-amber-700 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
               <FaCrown /> Xtin Academy Pro
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
               Unlock the complete library
             </h2>
             <p className="text-sm text-gray-500 dark:text-slate-400">

@@ -115,8 +115,8 @@ const ThetaConceptSVG = () => (
         </g>
         
         <g transform="translate(310, 0)">
-          <rect x="0" y="0" width="290" height="65" fill="#12805A" fillOpacity="0.15" rx="8" stroke="#12805A" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">SHORT OPTIONS (Seller)</text>
+          <rect x="0" y="0" width="290" height="65" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">SHORT OPTIONS (Seller)</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Theta</text>
           <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Time decay works for you</text>
         </g>
@@ -170,8 +170,8 @@ const ThetaDecaySVG = () => (
       
       {/* Annotations */}
       <g transform="translate(50, 20)">
-        <rect x="0" y="0" width="150" height="30" fill="#12805A" fillOpacity="0.2" rx="4"/>
-        <text x="75" y="20" textAnchor="middle" fontSize="9" fill="#12805A">Gradual decay - time to adjust</text>
+        <rect x="0" y="0" width="150" height="30" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+        <text x="75" y="20" textAnchor="middle" fontSize="9" fill="#16A34A">Gradual decay - time to adjust</text>
       </g>
       
       <g transform="translate(350, 120)">
@@ -226,8 +226,8 @@ const VegaConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         <g>
-          <rect x="0" y="0" width="290" height="65" fill="#12805A" fillOpacity="0.15" rx="8" stroke="#12805A" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">LONG OPTIONS</text>
+          <rect x="0" y="0" width="290" height="65" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">LONG OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Vega (Long Volatility)</text>
           <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Profit when IV increases</text>
         </g>
@@ -263,8 +263,8 @@ const RhoConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         <g>
-          <rect x="0" y="0" width="290" height="70" fill="#12805A" fillOpacity="0.15" rx="8" stroke="#12805A" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">CALL OPTIONS</text>
+          <rect x="0" y="0" width="290" height="70" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">CALL OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Rho</text>
           <text x="145" y="60" textAnchor="middle" fontSize="9" fill="#A0A3AA">Rising rates increase call values</text>
         </g>
@@ -306,7 +306,7 @@ const GreeksSummarySVG = () => (
     {/* Data Rows */}
     <g transform="translate(40, 95)">
       {[
-        { greek: "Delta (Δ)", measures: "Stock Price", long: "0 to +1 (call)", short: "0 to -1 (call)", highest: "Deep ITM", color: "#12805A" },
+        { greek: "Delta (Δ)", measures: "Stock Price", long: "0 to +1 (call)", short: "0 to -1 (call)", highest: "Deep ITM", color: "#16A34A" },
         { greek: "Gamma (Γ)", measures: "Delta Change", long: "Positive", short: "Negative", highest: "ATM, near expiry", color: "#8F6FC4" },
         { greek: "Theta (Θ)", measures: "Time Decay", long: "Negative", short: "Positive", highest: "ATM, near expiry", color: "#C7363B" },
         { greek: "Vega (ν)", measures: "IV Change", long: "Positive", short: "Negative", highest: "ATM, long dated", color: "#5A77AA" },
@@ -426,7 +426,7 @@ const FOLesson7 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             The Greeks Part 2: Theta, Vega & Rho
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -466,7 +466,7 @@ const FOLesson7 = () => {
                   <Icons.Watch className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Theta</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Theta</h2>
                   <p className="text-sm text-gray-500 ">The daily cost of holding options</p>
                 </div>
               </div>
@@ -503,7 +503,7 @@ const FOLesson7 = () => {
                   <Icons.TrendingDown className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Non-Linear Decay</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Non-Linear Decay</h2>
                   <p className="text-sm text-gray-500 ">Why the final weeks are critical</p>
                 </div>
               </div>
@@ -542,7 +542,7 @@ const FOLesson7 = () => {
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Vega</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Vega</h2>
                   <p className="text-sm text-gray-500 ">Your volatility exposure</p>
                 </div>
               </div>
@@ -578,7 +578,7 @@ const FOLesson7 = () => {
                   <Icons.Percent className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Rho</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Rho</h2>
                   <p className="text-sm text-gray-500 ">Interest rate sensitivity</p>
                 </div>
               </div>
@@ -610,7 +610,7 @@ const FOLesson7 = () => {
                   <Icons.Sunrise className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Complete Picture</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Complete Picture</h2>
                   <p className="text-sm text-gray-500 ">All five Greeks at a glance</p>
                 </div>
               </div>
@@ -638,7 +638,7 @@ const FOLesson7 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Theta is always negative for long options - you pay daily rent for time value",
@@ -662,7 +662,7 @@ const FOLesson7 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

@@ -235,7 +235,7 @@ const StockMarketLesson1 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.StockChart className="w-7 h-7 text-indigo-600" />
               </span>
@@ -301,12 +301,12 @@ const StockMarketLesson1 = () => {
 
               {/* Left Side - Vegetable Market */}
               <g transform="translate(50, 50)">
-                <rect x="0" y="0" width="250" height="200" rx="16" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
-                <text x="125" y="30" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="700">Sabzi Mandi</text>
+                <rect x="0" y="0" width="250" height="200" rx="16" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="125" y="30" textAnchor="middle" fill="#16A34A" fontSize="14" fontWeight="700">Sabzi Mandi</text>
                 
                 {/* Vegetables */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#12805A"/>
+                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#16A34A"/>
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Tomatoes</text>
                 </g>
                 <g transform="translate(100, 60)">
@@ -314,13 +314,13 @@ const StockMarketLesson1 = () => {
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Onions</text>
                 </g>
                 <g transform="translate(170, 60)">
-                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#12805A"/>
+                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#16A34A"/>
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Potatoes</text>
                 </g>
                 
-                <text x="125" y="140" textAnchor="middle" fill="#12805A" fontSize="11">You buy: Vegetables</text>
-                <text x="125" y="158" textAnchor="middle" fill="#12805A" fontSize="11">You get: Food to eat</text>
-                <text x="125" y="176" textAnchor="middle" fill="#12805A" fontSize="11">Seller gets: Money</text>
+                <text x="125" y="140" textAnchor="middle" fill="#16A34A" fontSize="11">You buy: Vegetables</text>
+                <text x="125" y="158" textAnchor="middle" fill="#16A34A" fontSize="11">You get: Food to eat</text>
+                <text x="125" y="176" textAnchor="middle" fill="#16A34A" fontSize="11">Seller gets: Money</text>
               </g>
 
               {/* Arrow */}
@@ -470,11 +470,11 @@ const StockMarketLesson1 = () => {
 
               {/* Step 3: You */}
               <g transform="translate(510, 40)">
-                <rect x="0" y="0" width="140" height="100" rx="12" fill="#12805A"/>
+                <rect x="0" y="0" width="140" height="100" rx="12" fill="#16A34A"/>
                 <text x="70" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">YOU</text>
-                <text x="70" y="50" textAnchor="middle" fill="#ABE5CC" fontSize="10">(Investor)</text>
-                <text x="70" y="75" textAnchor="middle" fill="#EEF9F4" fontSize="9">Buy shares through</text>
-                <text x="70" y="90" textAnchor="middle" fill="#EEF9F4" fontSize="9">Zerodha, Groww, etc.</text>
+                <text x="70" y="50" textAnchor="middle" fill="#BBF7D0" fontSize="10">(Investor)</text>
+                <text x="70" y="75" textAnchor="middle" fill="#F0FDF4" fontSize="9">Buy shares through</text>
+                <text x="70" y="90" textAnchor="middle" fill="#F0FDF4" fontSize="9">Zerodha, Groww, etc.</text>
               </g>
 
               {/* Bottom: What happens next */}
@@ -483,8 +483,8 @@ const StockMarketLesson1 = () => {
                 <text x="300" y="25" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">What Happens Next?</text>
                 
                 <g transform="translate(30, 45)">
-                  <circle cx="0" cy="8" r="6" fill="#12805A"/>
-                  <text x="15" y="12" fill="#12805A" fontSize="10">If company does well → Share price goes up → You profit!</text>
+                  <circle cx="0" cy="8" r="6" fill="#16A34A"/>
+                  <text x="15" y="12" fill="#16A34A" fontSize="10">If company does well → Share price goes up → You profit!</text>
                 </g>
                 <g transform="translate(30, 70)">
                   <circle cx="0" cy="8" r="6" fill="#E04848"/>
@@ -618,7 +618,7 @@ const StockMarketLesson1 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

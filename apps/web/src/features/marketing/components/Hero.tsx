@@ -83,7 +83,7 @@ const Hero = () => {
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>
             <pattern id="heroGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="#12805A"/>
+              <circle cx="1" cy="1" r="1" fill="#16A34A"/>
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#heroGrid)"/>
@@ -100,7 +100,7 @@ const Hero = () => {
               Building for Everyone
             </div>
             
-            <h1 className="text-4xl md:text-5xl font-display font-semibold leading-tight text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.025em]">
+            <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.025em]">
               World's Most Advanced{' '}
               <span className="text-brand">Finance Ecosystem</span>
             </h1>
@@ -146,11 +146,11 @@ const Hero = () => {
                     <svg className="w-24 h-24 text-brand" viewBox="0 0 100 100" fill="none">
                       {/* Growth Chart */}
                       <path d="M15 70 L30 55 L50 60 L70 35 L85 25" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                      <circle cx="15" cy="70" r="4" fill="#12805A"/>
-                      <circle cx="30" cy="55" r="4" fill="#12805A"/>
-                      <circle cx="50" cy="60" r="4" fill="#12805A"/>
-                      <circle cx="70" cy="35" r="4" fill="#12805A"/>
-                      <circle cx="85" cy="25" r="4" fill="#12805A"/>
+                      <circle cx="15" cy="70" r="4" fill="#16A34A"/>
+                      <circle cx="30" cy="55" r="4" fill="#16A34A"/>
+                      <circle cx="50" cy="60" r="4" fill="#16A34A"/>
+                      <circle cx="70" cy="35" r="4" fill="#16A34A"/>
+                      <circle cx="85" cy="25" r="4" fill="#16A34A"/>
                       {/* Arrow */}
                       <path d="M78 22 L88 20 L86 30" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     </svg>
@@ -209,7 +209,7 @@ const Hero = () => {
             {/* Header */}
             <div className="p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center bg-brand-soft">
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-slate-100">Platform Demo</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Platform Demo</h2>
                 <p className="text-sm text-gray-600 dark:text-slate-400">Step {currentDemoStep + 1} of {demoSteps.length}</p>
               </div>
               <button 

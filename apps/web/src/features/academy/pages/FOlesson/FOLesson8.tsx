@@ -143,8 +143,8 @@ const VIXExplainedSVG = () => (
       <rect x="0" y="0" width="500" height="50" fill="#2A2A2C" rx="8"/>
       
       {/* Color zones */}
-      <rect x="5" y="15" width="120" height="20" fill="#12805A" fillOpacity="0.5" rx="4"/>
-      <rect x="125" y="15" width="120" height="20" fill="#12805A" fillOpacity="0.3" rx="4"/>
+      <rect x="5" y="15" width="120" height="20" fill="#16A34A" fillOpacity="0.5" rx="4"/>
+      <rect x="125" y="15" width="120" height="20" fill="#16A34A" fillOpacity="0.3" rx="4"/>
       <rect x="245" y="15" width="120" height="20" fill="#D2754C" fillOpacity="0.5" rx="4"/>
       <rect x="365" y="15" width="130" height="20" fill="#C7363B" fillOpacity="0.5" rx="4"/>
       
@@ -154,8 +154,8 @@ const VIXExplainedSVG = () => (
       <text x="305" y="30" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">20-30</text>
       <text x="430" y="30" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">30+</text>
       
-      <text x="65" y="60" textAnchor="middle" fontSize="8" fill="#12805A">Low/Complacent</text>
-      <text x="185" y="60" textAnchor="middle" fontSize="8" fill="#12805A">Normal</text>
+      <text x="65" y="60" textAnchor="middle" fontSize="8" fill="#16A34A">Low/Complacent</text>
+      <text x="185" y="60" textAnchor="middle" fontSize="8" fill="#16A34A">Normal</text>
       <text x="305" y="60" textAnchor="middle" fontSize="8" fill="#D2754C">Elevated</text>
       <text x="430" y="60" textAnchor="middle" fontSize="8" fill="#C7363B">High Fear</text>
     </g>
@@ -230,8 +230,8 @@ const VolatilitySmileSVG = () => (
       </g>
       
       <g transform="translate(370, 100)">
-        <rect x="0" y="0" width="140" height="40" fill="#12805A" fillOpacity="0.2" rx="4"/>
-        <text x="70" y="17" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Lower IV (OTM Calls)</text>
+        <rect x="0" y="0" width="140" height="40" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+        <text x="70" y="17" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">Lower IV (OTM Calls)</text>
         <text x="70" y="32" textAnchor="middle" fontSize="8" fill="#A0A3AA">Less demand for upside</text>
       </g>
       
@@ -265,8 +265,8 @@ const IVRankSVG = () => (
     
     {/* IV Rank */}
     <g transform="translate(40, 80)">
-      <rect x="0" y="0" width="300" height="170" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="1"/>
-      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">IV RANK</text>
+      <rect x="0" y="0" width="300" height="170" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="1"/>
+      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">IV RANK</text>
       
       <g transform="translate(20, 50)">
         <text x="0" y="0" fontSize="10" fill="white">Current IV&apos;s position in 52-week range</text>
@@ -276,7 +276,7 @@ const IVRankSVG = () => (
         <text x="130" y="60" textAnchor="middle" fontSize="9" fill="white">(Current IV - 52wk Low) / (52wk High - 52wk Low)</text>
         
         <text x="0" y="95" fontSize="9" fill="#A0A3AA">Example: IV Range 15%-45%, Current 25%</text>
-        <text x="0" y="110" fontSize="9" fill="#12805A">IV Rank = (25-15)/(45-15) = 33%</text>
+        <text x="0" y="110" fontSize="9" fill="#16A34A">IV Rank = (25-15)/(45-15) = 33%</text>
       </g>
     </g>
     
@@ -331,8 +331,8 @@ const IVCrushSVG = () => (
       <text x="300" y="120" textAnchor="middle" fontSize="9" fill="#A0A3AA">Call Price: $10.00</text>
       
       {/* After Earnings */}
-      <circle cx="500" r="8" cy="80" fill="#12805A"/>
-      <text x="500" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Day After</text>
+      <circle cx="500" r="8" cy="80" fill="#16A34A"/>
+      <text x="500" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Day After</text>
       <text x="500" y="105" textAnchor="middle" fontSize="9" fill="#A0A3AA">IV: 35%</text>
       <text x="500" y="120" textAnchor="middle" fontSize="9" fill="#A0A3AA">Call Price: $5.50</text>
     </g>
@@ -351,8 +351,8 @@ const IVCrushSVG = () => (
     
     {/* Solution */}
     <g transform="translate(50, 320)">
-      <rect x="0" y="0" width="600" height="45" fill="#12805A" fillOpacity="0.15" rx="8"/>
-      <text x="300" y="28" textAnchor="middle" fontSize="10" fill="#12805A">Solution: Sell options before earnings to benefit from IV crush, or use defined-risk spreads to reduce vega exposure.</text>
+      <rect x="0" y="0" width="600" height="45" fill="#16A34A" fillOpacity="0.15" rx="8"/>
+      <text x="300" y="28" textAnchor="middle" fontSize="10" fill="#16A34A">Solution: Sell options before earnings to benefit from IV crush, or use defined-risk spreads to reduce vega exposure.</text>
     </g>
   </svg>
 );
@@ -452,7 +452,7 @@ const FOLesson8 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Volatility Analysis
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -492,7 +492,7 @@ const FOLesson8 = () => {
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">IV vs HV: The Complete Picture</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">IV vs HV: The Complete Picture</h2>
                   <p className="text-sm text-gray-500 ">Forward-looking vs backward-looking volatility</p>
                 </div>
               </div>
@@ -532,7 +532,7 @@ const FOLesson8 = () => {
                   <Icons.BarChart className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The VIX Index</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The VIX Index</h2>
                   <p className="text-sm text-gray-500 ">The market&apos;s fear gauge</p>
                 </div>
               </div>
@@ -569,7 +569,7 @@ const FOLesson8 = () => {
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Volatility Smile & Skew</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Volatility Smile & Skew</h2>
                   <p className="text-sm text-gray-500 ">Why different strikes have different IVs</p>
                 </div>
               </div>
@@ -602,7 +602,7 @@ const FOLesson8 = () => {
                   <Icons.Zap className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">IV Rank & Percentile</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">IV Rank & Percentile</h2>
                   <p className="text-sm text-gray-500 ">Contextualizing current IV levels</p>
                 </div>
               </div>
@@ -633,7 +633,7 @@ const FOLesson8 = () => {
                   <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The IV Crush Trap</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The IV Crush Trap</h2>
                   <p className="text-sm text-gray-500 ">The #1 mistake options beginners make</p>
                 </div>
               </div>
@@ -660,7 +660,7 @@ const FOLesson8 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "IV shows expected volatility; HV shows actual past volatility",
@@ -684,7 +684,7 @@ const FOLesson8 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

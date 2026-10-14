@@ -105,7 +105,7 @@ const FarmerScene = () => (
       </linearGradient>
       <linearGradient id="fs-f1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#6DB28B"/><stop offset="1" stopColor="#4E9B73"/></linearGradient>
       <linearGradient id="fs-f2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#3F9068"/><stop offset="1" stopColor="#2E7A58"/></linearGradient>
-      <linearGradient id="fs-f3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#12805A"/><stop offset="1" stopColor="#0A5D40"/></linearGradient>
+      <linearGradient id="fs-f3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#16A34A"/><stop offset="1" stopColor="#0A5D40"/></linearGradient>
     </defs>
     <rect width="600" height="300" fill="url(#fs-sky)"/>
     <g className="xs-glow"><circle cx="455" cy="118" r="130" fill="url(#fs-sun)"/></g>
@@ -206,24 +206,24 @@ const FamilyScene = () => (
     <path d="M62 140 L100 104 L128 130 L150 112 L168 128 V142 H62Z" fill="#6C8DA8" opacity="0.7"/>
     <circle cx="140" cy="76" r="9" fill="#FFF3CF" opacity="0.9"/>
     <rect x="58" y="46" width="112" height="100" rx="3" stroke="#8C6A43" strokeWidth="5"/><path d="M114 46 V146 M58 96 H170" stroke="#8C6A43" strokeWidth="3"/>
-    <path d="M48 40 H70 V150 Q58 140 48 150Z" fill="#12805A" opacity="0.85"/><path d="M180 40 H158 V150 Q170 140 180 150Z" fill="#12805A" opacity="0.85"/>
+    <path d="M48 40 H70 V150 Q58 140 48 150Z" fill="#16A34A" opacity="0.85"/><path d="M180 40 H158 V150 Q170 140 180 150Z" fill="#16A34A" opacity="0.85"/>
     {/* wall clock */}
     <circle cx="235" cy="70" r="20" fill="#FFFDF8" stroke="#8C6A43" strokeWidth="3.5"/>
     <path d="M235 70 V56 M235 70 L245 76" stroke="#3A2A1B" strokeWidth="2" strokeLinecap="round"/><circle cx="235" cy="70" r="2" fill="#C7363B"/>
     {/* framed family photo + marigold garland */}
     <rect x="340" y="52" width="46" height="38" rx="2" fill="#FFFDF8" stroke="#8C6A43" strokeWidth="3"/>
-    <circle cx="354" cy="68" r="5" fill={Skin}/><circle cx="368" cy="66" r="5" fill={Skin}/><path d="M348 84 q6 -10 12 0 M362 84 q6 -10 12 0" stroke="#12805A" strokeWidth="3" fill="none"/>
+    <circle cx="354" cy="68" r="5" fill={Skin}/><circle cx="368" cy="66" r="5" fill={Skin}/><path d="M348 84 q6 -10 12 0 M362 84 q6 -10 12 0" stroke="#16A34A" strokeWidth="3" fill="none"/>
     <path d="M326 46 Q363 62 400 46" stroke="#E9A23C" strokeWidth="3" strokeDasharray="1 5" strokeLinecap="round"/><path d="M326 46 Q363 62 400 46" stroke="#F3C26A" strokeWidth="1.5" strokeDasharray="1 5" strokeLinecap="round"/>
     {/* wall calendar */}
     <rect x="450" y="50" width="62" height="78" rx="3" fill="#FFFDF8" stroke="#D2BF98"/>
     <rect x="450" y="50" width="62" height="17" rx="3" fill="#C7363B"/><circle cx="462" cy="50" r="2" fill="#8F2A2F"/><circle cx="500" cy="50" r="2" fill="#8F2A2F"/>
-    {Array.from({length: 15}).map((_, i) => <rect key={i} x={457 + (i % 5) * 10} y={74 + Math.floor(i / 5) * 14} width="7" height="9" rx="1" fill={i === 7 ? '#12805A' : '#DCCFB2'}/>)}
+    {Array.from({length: 15}).map((_, i) => <rect key={i} x={457 + (i % 5) * 10} y={74 + Math.floor(i / 5) * 14} width="7" height="9" rx="1" fill={i === 7 ? '#16A34A' : '#DCCFB2'}/>)}
     {/* shelf with jars */}
     <rect x="510" y="150" width="80" height="5" fill="#7A5230"/>
     <g><rect x="518" y="128" width="16" height="22" rx="3" fill="#E9B44C"/><rect x="540" y="134" width="14" height="16" rx="3" fill="#C7363B"/><rect x="560" y="124" width="18" height="26" rx="3" fill="#F2EEE4" stroke="#CFC8B4"/></g>
     {/* hanging lamp */}
     <path d="M300 0 V44" stroke="#5A3F26" strokeWidth="2"/>
-    <path d="M270 82 Q300 30 330 82Z" fill="#12805A"/><path d="M270 82 H330" stroke="#0B5A3E" strokeWidth="2"/>
+    <path d="M270 82 Q300 30 330 82Z" fill="#16A34A"/><path d="M270 82 H330" stroke="#0B5A3E" strokeWidth="2"/>
     <g className="xs-glow"><ellipse cx="300" cy="190" rx="210" ry="170" fill="url(#fm-lamp)"/><circle cx="300" cy="86" r="7" fill="#FFF3C9"/></g>
     {/* father (left) */}
     <g transform="translate(200 128)">
@@ -237,10 +237,10 @@ const FamilyScene = () => (
     </g>
     {/* mother (right) */}
     <g transform="translate(400 128)">
-      <path d="M-36 110 V48 Q-36 26 -12 26 H12 Q36 26 36 48 V110Z" fill="#12805A"/>
+      <path d="M-36 110 V48 Q-36 26 -12 26 H12 Q36 26 36 48 V110Z" fill="#16A34A"/>
       <path d="M-36 110 V64 Q-36 52 -28 48 L-22 110Z" fill="#0E6B4A"/>
       <path d="M-34 38 Q-46 80 -30 108 L-18 108 Q-30 72 -22 32Z" fill="#E9B44C"/><path d="M-34 38 Q-46 80 -30 108" stroke="#C48A1D" strokeWidth="2" fill="none"/>
-      <path d="M-24 48 L-52 80" stroke="#12805A" strokeWidth="14" strokeLinecap="round"/><circle cx="-56" cy="84" r="6" fill={Skin}/>
+      <path d="M-24 48 L-52 80" stroke="#16A34A" strokeWidth="14" strokeLinecap="round"/><circle cx="-56" cy="84" r="6" fill={Skin}/>
       <path d="M-58 80 v8 M-54 80 v8" stroke="#E9B44C" strokeWidth="1.5"/>
       <Face r={18} mood={1}/>
       <path d="M-19 -2 Q-21 -26 0 -26 Q21 -26 19 -2 Q18 -15 0 -15 Q-18 -15 -19 -2Z" fill={Hair}/>
@@ -262,8 +262,8 @@ const FamilyScene = () => (
     {/* items on table */}
     <rect x="218" y="182" width="56" height="17" rx="1.5" fill="#FFFDF8" transform="rotate(-4 218 182)"/>
     <path d="M226 188 h38 M226 193 h28" stroke="#B6AE9C" strokeWidth="1.2" strokeLinecap="round" transform="rotate(-4 218 182)"/>
-    <rect x="284" y="184" width="48" height="15" rx="2" fill="#F3FBF7" stroke="#12805A" strokeWidth="1"/>
-    <path d="M291 194 l8 -5 l7 3 l9 -7 l9 2" stroke="#12805A" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect x="284" y="184" width="48" height="15" rx="2" fill="#F3FBF7" stroke="#16A34A" strokeWidth="1"/>
+    <path d="M291 194 l8 -5 l7 3 l9 -7 l9 2" stroke="#16A34A" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
     <rect x="344" y="184" width="22" height="15" rx="2.5" fill="#2F3540"/><rect x="347" y="186" width="16" height="4" rx="1" fill="#7BD8B0"/>
     <g fill="#8A929C"><rect x="348" y="192" width="4" height="2"/><rect x="354" y="192" width="4" height="2"/><rect x="360" y="192" width="3" height="2"/></g>
     <path d="M384 199 h22 l-3 -15 h-16z" fill="#FFFDF8"/><path d="M385 189 h20" stroke="#E9B44C" strokeWidth="2"/>
@@ -347,7 +347,7 @@ const StudentScene = () => (
     {/* bag + books + chai glass */}
     <path d="M264 264 Q258 230 278 222 H298 Q316 230 308 264Z" fill="#C7363B"/><path d="M264 264 Q258 236 268 228 L276 264Z" fill="#9E2A2F"/>
     <rect x="276" y="238" width="24" height="10" rx="2" fill="#8F2A2F"/><path d="M278 222 q10 -12 20 0" stroke="#7A2226" strokeWidth="3" fill="none"/>
-    <rect x="206" y="256" width="36" height="8" rx="1.5" fill="#12805A"/><rect x="209" y="248" width="31" height="8" rx="1.5" fill="#5A77AA"/><rect x="212" y="240" width="27" height="8" rx="1.5" fill="#E9B44C"/>
+    <rect x="206" y="256" width="36" height="8" rx="1.5" fill="#16A34A"/><rect x="209" y="248" width="31" height="8" rx="1.5" fill="#5A77AA"/><rect x="212" y="240" width="27" height="8" rx="1.5" fill="#E9B44C"/>
     <rect x="438" y="252" width="8" height="12" rx="1.5" fill="#E8C98A" opacity="0.9"/><g className="xs-rise"><path d="M442 248 q-3 -6 0 -11" stroke="#BFC8DD" strokeWidth="1.3" strokeLinecap="round" fill="none"/></g>
     <Grain id="st"/>
   </svg>
@@ -372,7 +372,7 @@ const ShopkeeperScene = () => (
     {[116, 164, 212].map((y, r) => (
       <g key={y}>
         {Array.from({length: 10}).map((_, i) => {
-          const c = ['#12805A', '#E9B44C', '#C7363B', '#5A77AA', '#F2EEE4', '#8F6FC4'][(i + r * 2) % 6];
+          const c = ['#16A34A', '#E9B44C', '#C7363B', '#5A77AA', '#F2EEE4', '#8F6FC4'][(i + r * 2) % 6];
           const h = 22 + ((i * 7 + r * 5) % 3) * 6;
           return (
             <g key={i}>
@@ -390,7 +390,7 @@ const ShopkeeperScene = () => (
     <path d="M300 62 V90" stroke="#5A3F26" strokeWidth="1.5"/><g className="xs-glow"><ellipse cx="300" cy="170" rx="170" ry="120" fill="url(#sk-bulb)"/></g><circle cx="300" cy="94" r="6" fill="#FFF3C9"/>
     {/* hanging sign */}
     <rect x="228" y="72" width="144" height="26" rx="4" fill="#FFFDF8" stroke="#8A6238" strokeWidth="2.5"/>
-    <path d="M244 85 h112" stroke="#12805A" strokeWidth="4" strokeLinecap="round" opacity="0.55"/><circle cx="238" cy="85" r="2" fill="#C7363B"/><circle cx="362" cy="85" r="2" fill="#C7363B"/>
+    <path d="M244 85 h112" stroke="#16A34A" strokeWidth="4" strokeLinecap="round" opacity="0.55"/><circle cx="238" cy="85" r="2" fill="#C7363B"/><circle cx="362" cy="85" r="2" fill="#C7363B"/>
     {/* shopkeeper */}
     <g transform="translate(300 146)">
       <path d="M-38 110 V56 Q-38 32 -14 32 H14 Q38 32 38 56 V110Z" fill="#F2EEE4"/>
@@ -416,8 +416,8 @@ const ShopkeeperScene = () => (
     <path d="M144 209 h42 M144 214 h30" stroke="#9AA3B5" strokeWidth="1.4" strokeLinecap="round"/>
     <rect x="216" y="204" width="32" height="20" rx="3" fill="#2F3540"/><rect x="220" y="207" width="24" height="6" rx="1" fill="#7BD8B0"/>
     <g fill="#8A929C">{[0,1,2,3,4,5].map(i => <rect key={i} x={220 + (i % 3) * 8} y={216 + Math.floor(i / 3) * 4} width="5" height="2.4"/>)}</g>
-    <g stroke="#12805A" strokeWidth="1"><rect x="356" y="208" width="36" height="14" rx="1.5" fill="#E7F6EE" transform="rotate(-7 356 208)"/><rect x="370" y="205" width="36" height="14" rx="1.5" fill="#D7F0E3"/></g>
-    <circle cx="388" cy="212" r="3.5" stroke="#12805A" fill="none"/>
+    <g stroke="#16A34A" strokeWidth="1"><rect x="356" y="208" width="36" height="14" rx="1.5" fill="#E7F6EE" transform="rotate(-7 356 208)"/><rect x="370" y="205" width="36" height="14" rx="1.5" fill="#D7F0E3"/></g>
+    <circle cx="388" cy="212" r="3.5" stroke="#16A34A" fill="none"/>
     <rect x="428" y="200" width="52" height="24" rx="3" fill="#6B4627"/><rect x="428" y="200" width="52" height="7" rx="3" fill="#8A6238"/><rect x="450" y="206" width="8" height="6" fill="#E9B44C"/>
     <g transform="translate(496 196)"><path d="M0 28 h24" stroke="#5A3A20" strokeWidth="3"/><path d="M12 28 V6 M2 10 h20" stroke="#8A929C" strokeWidth="2"/><path d="M-2 10 q4 6 8 0 M18 10 q4 6 8 0" stroke="#8A929C" strokeWidth="1.5" fill="none"/></g>
     <Grain id="sk"/>
@@ -516,7 +516,7 @@ const AboutPage = () => {
               Our Story
             </motion.p>
 
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.08] tracking-[-0.025em] mb-8">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.08] tracking-[-0.025em] mb-8">
               Making India{' '}
               <span className="text-brand">wealthy</span>,
               <br />
@@ -618,7 +618,7 @@ const AboutPage = () => {
           
           <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-8">The Turning Point</p>
           
-          <h2 className="text-2xl md:text-3xl font-display font-semibold leading-tight mb-8 tracking-[-0.025em]">
+          <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-8 tracking-[-0.025em]">
             India achieved political freedom in 1947.
             <br />
             <span className="text-gray-400 dark:text-slate-500 font-light">The second freedom movement is</span>
@@ -666,7 +666,7 @@ const AboutPage = () => {
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Who We Are</p>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">The People Behind This</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">The People Behind This</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="space-y-6 text-center">
@@ -693,7 +693,7 @@ const AboutPage = () => {
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Our Journey</p>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">From an idea to a movement</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">From an idea to a movement</h2>
           </motion.div>
 
           {/* Timeline */}
@@ -735,7 +735,7 @@ const AboutPage = () => {
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-10">
             <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Registered Entity</p>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Company Details</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Company Details</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="bg-white dark:bg-slate-800/60 rounded-2xl p-8 border border-gray-100 dark:border-slate-700/50">
@@ -768,7 +768,7 @@ const AboutPage = () => {
         <motion.div variants={fadeUp} className="max-w-3xl mx-auto text-center">
           <div className="w-16 h-0.5 bg-brand-fill dark:bg-brand-fill mx-auto mb-12 opacity-40" />
           
-          <h2 className="text-2xl md:text-3xl font-display font-semibold mb-8 leading-tight tracking-[-0.025em]">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 leading-tight tracking-[-0.025em]">
             We're not building a product.
             <br />
             <span className="text-brand">We're building a bridge.</span>

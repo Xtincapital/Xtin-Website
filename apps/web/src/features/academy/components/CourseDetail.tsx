@@ -48,7 +48,7 @@ const CourseDetail = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <span className="text-brand font-semibold tracking-wide uppercase text-sm">Course</span>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold mt-2 mb-4 leading-tight text-gray-900 tracking-[-0.025em]">
+            <h1 className="text-5xl md:text-6xl font-display font-bold mt-2 mb-4 leading-tight text-gray-900 tracking-[-0.025em]">
               {course.title}
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -98,7 +98,7 @@ const CourseDetail = () => {
       {/* Curriculum Section */}
       <section className="py-16 px-6 lg:px-24 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-8 text-gray-900 tracking-[-0.015em]">Course Curriculum</h2>
+          <h2 className="text-2xl font-bold mb-8 text-gray-900 tracking-[-0.015em]">Course Curriculum</h2>
           
           <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             {course.chapters.map((chapter, index) => (

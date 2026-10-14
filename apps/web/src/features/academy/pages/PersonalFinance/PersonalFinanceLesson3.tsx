@@ -118,7 +118,7 @@ const PersonalFinanceLesson3 = () => {
                 10 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <ChartBarIcon className="w-7 h-7 text-brand" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson3 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Budget?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is a Budget?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">budget</strong> is simply a plan for your money. Before you spend, you decide where each dollar should go. No surprises at the end of the month!
@@ -199,7 +199,7 @@ const PersonalFinanceLesson3 = () => {
                 <path 
                   d="M150 50 A100 100 0 0 1 150 250" 
                   fill="none" 
-                  stroke="#12805A" 
+                  stroke="#16A34A" 
                   strokeWidth="40"
                   strokeLinecap="round"
                 />
@@ -229,8 +229,8 @@ const PersonalFinanceLesson3 = () => {
                 
                 {/* Labels - moved further right with more space */}
                 <g transform="translate(280, 100)">
-                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#12805A"/>
-                  <text x="24" y="13" fill="#12805A" fontSize="13" fontWeight="600">50% Needs</text>
+                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#16A34A"/>
+                  <text x="24" y="13" fill="#16A34A" fontSize="13" fontWeight="600">50% Needs</text>
                 </g>
                 <g transform="translate(280, 130)">
                   <rect x="0" y="0" width="16" height="16" rx="4" fill="#8F6FC4"/>
@@ -313,7 +313,7 @@ const PersonalFinanceLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

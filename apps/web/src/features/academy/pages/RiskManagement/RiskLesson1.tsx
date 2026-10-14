@@ -86,10 +86,10 @@ const RiskBeforeRewardSVG = () => (
     <text x="350" y="135" textAnchor="middle" fontSize="8" fill="#717680">Time passes</text>
     
     {/* Reward zone (right) */}
-    <rect x="400" y="100" width="200" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="500" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">REWARD</text>
-    <text x="500" y="155" textAnchor="middle" fontSize="9" fill="#12805A">Only possible after</text>
-    <text x="500" y="175" textAnchor="middle" fontSize="9" fill="#12805A">surviving the risk</text>
+    <rect x="400" y="100" width="200" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="2"/>
+    <text x="500" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">REWARD</text>
+    <text x="500" y="155" textAnchor="middle" fontSize="9" fill="#16A34A">Only possible after</text>
+    <text x="500" y="175" textAnchor="middle" fontSize="9" fill="#16A34A">surviving the risk</text>
     
     {/* Key insight */}
     <rect x="150" y="220" width="400" height="40" fill="#2A2A2C" rx="8"/>
@@ -129,11 +129,11 @@ const WhatIsRiskSVG = () => (
     </g>
     
     <g transform="translate(470, 145)">
-      <rect x="0" y="0" width="180" height="120" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">🎯 Range of Possibilities</text>
-      <text x="90" y="55" textAnchor="middle" fontSize="8" fill="#12805A">Multiple outcomes exist —</text>
-      <text x="90" y="72" textAnchor="middle" fontSize="8" fill="#12805A">some favorable, some not —</text>
-      <text x="90" y="89" textAnchor="middle" fontSize="8" fill="#12805A">you face all of them</text>
+      <rect x="0" y="0" width="180" height="120" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">🎯 Range of Possibilities</text>
+      <text x="90" y="55" textAnchor="middle" fontSize="8" fill="#16A34A">Multiple outcomes exist —</text>
+      <text x="90" y="72" textAnchor="middle" fontSize="8" fill="#16A34A">some favorable, some not —</text>
+      <text x="90" y="89" textAnchor="middle" fontSize="8" fill="#16A34A">you face all of them</text>
     </g>
   </svg>
 );
@@ -149,20 +149,20 @@ const CertainVsUncertainSVG = () => (
     
     {/* Left: Certain */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="270" height="230" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="135" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Certain Outcome</text>
+      <rect x="0" y="0" width="270" height="230" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="135" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">✓ Certain Outcome</text>
       
       {/* Single path */}
-      <circle cx="135" cy="70" r="15" fill="#12805A"/>
+      <circle cx="135" cy="70" r="15" fill="#16A34A"/>
       <text x="135" y="75" textAnchor="middle" fontSize="10" fill="white">A</text>
       
-      <line x1="135" y1="90" x2="135" y2="150" stroke="#12805A" strokeWidth="3"/>
+      <line x1="135" y1="90" x2="135" y2="150" stroke="#16A34A" strokeWidth="3"/>
       
-      <circle cx="135" cy="170" r="15" fill="#12805A"/>
+      <circle cx="135" cy="170" r="15" fill="#16A34A"/>
       <text x="135" y="175" textAnchor="middle" fontSize="10" fill="white">B</text>
       
-      <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#12805A">Known cost → Known result</text>
-      <text x="135" y="222" textAnchor="middle" fontSize="8" fill="#12805A">Example: Fixed deposit interest</text>
+      <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#16A34A">Known cost → Known result</text>
+      <text x="135" y="222" textAnchor="middle" fontSize="8" fill="#16A34A">Example: Fixed deposit interest</text>
     </g>
     
     {/* Right: Uncertain */}
@@ -177,7 +177,7 @@ const CertainVsUncertainSVG = () => (
       {/* Branching lines */}
       <line x1="135" y1="90" x2="60" y2="150" stroke="#E04848" strokeWidth="2" strokeDasharray="4"/>
       <line x1="135" y1="90" x2="135" y2="150" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
-      <line x1="135" y1="90" x2="210" y2="150" stroke="#12805A" strokeWidth="2" strokeDasharray="4"/>
+      <line x1="135" y1="90" x2="210" y2="150" stroke="#16A34A" strokeWidth="2" strokeDasharray="4"/>
       
       <circle cx="60" cy="170" r="12" fill="#E04848"/>
       <text x="60" y="175" textAnchor="middle" fontSize="8" fill="white">-$</text>
@@ -185,7 +185,7 @@ const CertainVsUncertainSVG = () => (
       <circle cx="135" cy="170" r="12" fill="#B8923F"/>
       <text x="135" y="175" textAnchor="middle" fontSize="8" fill="white">~</text>
       
-      <circle cx="210" cy="170" r="12" fill="#12805A"/>
+      <circle cx="210" cy="170" r="12" fill="#16A34A"/>
       <text x="210" y="175" textAnchor="middle" fontSize="8" fill="white">+$</text>
       
       <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#842428">Same action → Multiple results</text>
@@ -314,18 +314,18 @@ const RiskCannotBeRemovedSVG = () => (
     
     {/* Right approach */}
     <g transform="translate(380, 55)">
-      <rect x="0" y="0" width="270" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ The Realistic Goal</text>
-      <text x="135" y="48" textAnchor="middle" fontSize="9" fill="#12805A">"Manage risk thoughtfully"</text>
+      <rect x="0" y="0" width="270" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">✓ The Realistic Goal</text>
+      <text x="135" y="48" textAnchor="middle" fontSize="9" fill="#16A34A">"Manage risk thoughtfully"</text>
       
       {/* Contained risk symbol */}
-      <rect x="85" y="65" width="100" height="80" fill="#EEF9F4" stroke="#12805A" strokeWidth="3" rx="8"/>
-      <text x="135" y="115" textAnchor="middle" fontSize="14" fill="#12805A">RISK</text>
+      <rect x="85" y="65" width="100" height="80" fill="#F0FDF4" stroke="#16A34A" strokeWidth="3" rx="8"/>
+      <text x="135" y="115" textAnchor="middle" fontSize="14" fill="#16A34A">RISK</text>
       
-      <text x="135" y="168" textAnchor="middle" fontSize="8" fill="#12805A">This leads to:</text>
-      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#12805A">• Accepting uncertainty exists</text>
-      <text x="135" y="200" textAnchor="middle" fontSize="8" fill="#12805A">• Taking calculated exposure</text>
-      <text x="135" y="215" textAnchor="middle" fontSize="8" fill="#12805A">• Preparing for adverse outcomes</text>
+      <text x="135" y="168" textAnchor="middle" fontSize="8" fill="#16A34A">This leads to:</text>
+      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#16A34A">• Accepting uncertainty exists</text>
+      <text x="135" y="200" textAnchor="middle" fontSize="8" fill="#16A34A">• Taking calculated exposure</text>
+      <text x="135" y="215" textAnchor="middle" fontSize="8" fill="#16A34A">• Preparing for adverse outcomes</text>
     </g>
     
     {/* Bottom message */}
@@ -349,7 +349,7 @@ const SameInvestmentSVG = () => (
     <text x="120" y="180" textAnchor="middle" fontSize="9" fill="white">buys $1000</text>
     
     {/* Branches */}
-    <line x1="160" y1="145" x2="280" y2="80" stroke="#12805A" strokeWidth="2"/>
+    <line x1="160" y1="145" x2="280" y2="80" stroke="#16A34A" strokeWidth="2"/>
     <line x1="160" y1="170" x2="280" y2="170" stroke="#B8923F" strokeWidth="2"/>
     <line x1="160" y1="195" x2="280" y2="260" stroke="#E04848" strokeWidth="2"/>
     
@@ -359,9 +359,9 @@ const SameInvestmentSVG = () => (
     <text x="220" y="240" fontSize="8" fill="#717680">Scenario C</text>
     
     {/* Outcomes */}
-    <rect x="300" y="50" width="350" height="60" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
-    <text x="475" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">📈 Market rises</text>
-    <text x="475" y="95" textAnchor="middle" fontSize="9" fill="#12805A">Investment grows to $1,300 — Investor feels successful</text>
+    <rect x="300" y="50" width="350" height="60" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="2"/>
+    <text x="475" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">📈 Market rises</text>
+    <text x="475" y="95" textAnchor="middle" fontSize="9" fill="#16A34A">Investment grows to $1,300 — Investor feels successful</text>
     
     <rect x="300" y="140" width="350" height="60" fill="#FBF7EC" rx="10" stroke="#E2C273" strokeWidth="2"/>
     <text x="475" y="165" textAnchor="middle" fontSize="10" fontWeight="600" fill="#7C5D2B">📊 Market stays flat</text>
@@ -387,7 +387,7 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="riskGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="0%" stopColor="#16A34A"/>
         <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
@@ -447,14 +447,14 @@ const RiskLesson1 = () => {
             <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 1 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">What Is Risk in Financial Markets?</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">What Is Risk in Financial Markets?</h1>
             <p className="text-gray-600 mt-2">Understanding the foundation of all financial decisions</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Risk Exists in All Financial Decisions</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Risk Exists in All Financial Decisions</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -480,7 +480,7 @@ const RiskLesson1 = () => {
 
         {/* Core Explanation: What Risk Means */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Risk Means in Finance</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Risk Means in Finance</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -501,7 +501,7 @@ const RiskLesson1 = () => {
 
         {/* Certain vs Uncertain */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Certain vs Uncertain Outcomes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Certain vs Uncertain Outcomes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -521,7 +521,7 @@ const RiskLesson1 = () => {
 
         {/* Known vs Unknown */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Known Costs vs Unknown Outcomes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Known Costs vs Unknown Outcomes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -541,7 +541,7 @@ const RiskLesson1 = () => {
 
         {/* Risk vs Volatility */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Risk vs Volatility: A Common Misconception</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Risk vs Volatility: A Common Misconception</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -566,7 +566,7 @@ const RiskLesson1 = () => {
 
         {/* Risk Cannot Be Removed */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Risk Cannot Be Removed</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Risk Cannot Be Removed</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -588,7 +588,7 @@ const RiskLesson1 = () => {
 
         {/* Practical Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Example: Same Investment, Different Outcomes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Example: Same Investment, Different Outcomes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -629,7 +629,7 @@ const RiskLesson1 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

@@ -296,7 +296,7 @@ const TradingBasicsLesson2 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Types className="w-7 h-7 text-orange-600" />
               </span>
@@ -335,7 +335,7 @@ const TradingBasicsLesson2 = () => {
                   <stop offset="0%" stopColor="#E04848"/>
                   <stop offset="33%" stopColor="#D2754C"/>
                   <stop offset="66%" stopColor="#B8923F"/>
-                  <stop offset="100%" stopColor="#12805A"/>
+                  <stop offset="100%" stopColor="#16A34A"/>
                 </linearGradient>
               </defs>
               
@@ -388,15 +388,15 @@ const TradingBasicsLesson2 = () => {
               
               {/* Positional Box */}
               <g transform="translate(495, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="70" y="30" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">POSITIONAL</text>
-                <circle cx="70" cy="60" r="20" fill="#EEF9F4"/>
-                <text x="70" y="55" textAnchor="middle" fill="#12805A" fontSize="8">📅</text>
-                <text x="70" y="68" textAnchor="middle" fill="#12805A" fontSize="7">LONG</text>
-                <text x="70" y="100" textAnchor="middle" fill="#12805A" fontSize="9">Weeks to</text>
-                <text x="70" y="112" textAnchor="middle" fill="#12805A" fontSize="9">months</text>
-                <text x="70" y="140" textAnchor="middle" fill="#12805A" fontSize="9" fontWeight="600">Risk: MODERATE</text>
-                <text x="70" y="160" textAnchor="middle" fill="#12805A" fontSize="8">2-5 trades/month</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="70" y="30" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">POSITIONAL</text>
+                <circle cx="70" cy="60" r="20" fill="#F0FDF4"/>
+                <text x="70" y="55" textAnchor="middle" fill="#16A34A" fontSize="8">📅</text>
+                <text x="70" y="68" textAnchor="middle" fill="#16A34A" fontSize="7">LONG</text>
+                <text x="70" y="100" textAnchor="middle" fill="#16A34A" fontSize="9">Weeks to</text>
+                <text x="70" y="112" textAnchor="middle" fill="#16A34A" fontSize="9">months</text>
+                <text x="70" y="140" textAnchor="middle" fill="#16A34A" fontSize="9" fontWeight="600">Risk: MODERATE</text>
+                <text x="70" y="160" textAnchor="middle" fill="#16A34A" fontSize="8">2-5 trades/month</text>
               </g>
               
               {/* Arrow showing increasing time */}
@@ -408,7 +408,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* Detailed Cards for Each Type */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 tracking-[-0.015em]">Understanding Each Type</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 tracking-[-0.015em]">Understanding Each Type</h2>
 
             {/* Scalping */}
             <TradingTypeCard
@@ -659,7 +659,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-orange-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

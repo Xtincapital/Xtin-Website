@@ -47,17 +47,14 @@ import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import StatCard from "../components/StatCard";
 import { signedMoney } from "../lib/format";
+import { heatCellStyle } from "../lib/journalPatternHelpers";
+import { HeatLegend } from "../components/HeatCell";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-// Day-cell tint: stronger for bigger days, so the best and worst days stand out.
-const TONE_POS = "rgb(var(--brand))";
-const TONE_NEG = "hsl(var(--destructive))";
-const TONE_FLAT = "hsl(var(--warning))";
 
 interface DayCell {
   day: number;
@@ -205,6 +202,7 @@ const Calendar = () => {
                 {MONTH_NAMES[month]} {year}
               </CardTitle>
               <div className="flex items-center gap-2">
+                <HeatLegend className="mr-2 max-md:hidden" />
                 <Button variant="outline" size="icon" onClick={() => changeMonth(-1)} aria-label="Previous month">
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
@@ -225,27 +223,18 @@ const Calendar = () => {
                 ))}
                 {cells.map((cell) => {
                   const hasTrades = cell.trades.length > 0;
-                  const positive = cell.pnl > 0;
-                  const negative = cell.pnl < 0;
                   const isToday = cell.day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-                  const strength = Math.round(10 + Math.min(1, Math.abs(cell.pnl) / maxAbsDay) * 30);
-                  const toneColor = positive ? TONE_POS : negative ? TONE_NEG : TONE_FLAT;
                   return (
                     <button
                       key={cell.day}
                       type="button"
                       disabled={!hasTrades}
                       onClick={() => setSelectedDay(cell.day)}
-                      style={
+                      style={hasTrades ? heatCellStyle(cell.pnl, maxAbsDay) : undefined}
+                      className={`relative flex min-h-[5.5rem] flex-col items-center justify-center gap-0.5 rounded-xl p-2 text-center transition-[transform,box-shadow] duration-300 ${
                         hasTrades
-                          ? {
-                              background: `color-mix(in srgb, ${toneColor} ${strength}%, hsl(var(--card)))`,
-                              borderColor: `color-mix(in srgb, ${toneColor} ${strength + 18}%, transparent)`,
-                            }
-                          : undefined
-                      }
-                      className={`relative flex min-h-[5.5rem] flex-col items-center justify-center gap-0.5 rounded-xl border p-2 text-center transition-[transform,box-shadow] duration-300 ${
-                        hasTrades ? "cursor-pointer hover:-translate-y-1 hover:shadow-lg" : "border-transparent bg-muted/40 cursor-default"
+                          ? "cursor-pointer shadow-[inset_0_0_0_1px_var(--heat-line)] hover:-translate-y-1 hover:shadow-lg"
+                          : "border border-dashed cursor-default text-muted-foreground"
                       } ${isToday ? "ring-[1.5px] ring-inset ring-amber-400" : ""}`}
                     >
                       {isToday && (
@@ -253,15 +242,13 @@ const Calendar = () => {
                           Today
                         </span>
                       )}
-                      <div className={`text-sm font-semibold tabular-nums ${hasTrades ? "text-foreground" : "text-muted-foreground"}`}>{cell.day}</div>
+                      <div className="text-sm font-bold tabular-nums">{cell.day}</div>
                       {hasTrades && (
                         <>
-                          <div className="text-xs text-muted-foreground max-sm:hidden">
+                          <div className="text-xs opacity-75 max-sm:hidden">
                             {cell.trades.length} trade{cell.trades.length > 1 ? "s" : ""}
                           </div>
-                          <div className={`text-xs font-semibold tabular-nums ${positive ? "text-brand" : negative ? "text-destructive" : "text-amber-600 dark:text-amber-400"}`}>
-                            {signedMoney(formatCurrency, cell.pnl, { compact: true })}
-                          </div>
+                          <div className="text-xs font-bold tabular-nums">{signedMoney(formatCurrency, cell.pnl, { compact: true })}</div>
                         </>
                       )}
                     </button>

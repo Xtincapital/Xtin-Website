@@ -115,7 +115,7 @@ const AlgoTradingLesson2 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 2 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Architecture className="w-8 h-8 text-white"/>
               </span>
@@ -154,7 +154,7 @@ const AlgoTradingLesson2 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-indigo-100  rounded-xl flex items-center justify-center">
                 <Icons.Architecture className="w-5 h-5 text-indigo-600 "/>
               </span>
@@ -208,11 +208,11 @@ const AlgoTradingLesson2 = () => {
 
                 {/* Component 4: Execution Engine */}
                 <g transform="translate(480, 70)">
-                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <circle cx="80" cy="30" r="15" fill="#12805A"/>
+                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <circle cx="80" cy="30" r="15" fill="#16A34A"/>
                   <text x="80" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">4</text>
-                  <text x="80" y="60" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">EXECUTION</text>
-                  <text x="80" y="75" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">ENGINE</text>
+                  <text x="80" y="60" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">EXECUTION</text>
+                  <text x="80" y="75" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">ENGINE</text>
                   <text x="80" y="92" textAnchor="middle" fill="#717680" fontSize="8">Sends orders</text>
                 </g>
 
@@ -285,7 +285,7 @@ const AlgoTradingLesson2 = () => {
             </div>
 
             {/* Institutional vs Retail */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Institutional vs Retail Systems</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Institutional vs Retail Systems</h2>
             <div className="overflow-x-auto mb-10">
               <table className="w-full text-sm">
                 <thead>
@@ -333,7 +333,7 @@ const AlgoTradingLesson2 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which component acts as the 'gatekeeper' that validates signals before execution?"
               options={["Data Handler", "Signal Generator", "Risk Manager", "Execution Engine"]}

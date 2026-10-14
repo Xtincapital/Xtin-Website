@@ -146,7 +146,7 @@ const SignupPage = () => {
 					{/* Header */}
 					<div className="text-center mb-8">
 						<AuthHero variant="signup" />
-						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
+						<h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-2 tracking-[-0.025em]">
 							Create Your Account
 						</h1>
 						<p className="text-gray-600">

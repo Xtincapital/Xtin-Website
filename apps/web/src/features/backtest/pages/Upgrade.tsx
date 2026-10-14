@@ -71,7 +71,7 @@ export default function Upgrade() {
         currency: order.order.currency,
         name: "Xtin Backtest",
         description: `${order.pass.label} — ${order.pass.days} days of Pro`,
-        theme: { color: "#12805A" },
+        theme: { color: "#16A34A" },
         handler: async (response: Record<string, string>) => {
           try {
             const res = await backtestApi.verifyPass({
@@ -140,7 +140,7 @@ export default function Upgrade() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-brand/70 bg-gradient-to-b from-[#10233a] to-[#131417] text-white shadow-[0_18px_50px_-12px_rgba(31, 169, 120,0.45)] lg:-my-2 lg:py-7" : card}`}
+              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-brand/70 bg-gradient-to-b from-[#10233a] to-[#131417] text-white shadow-[0_18px_50px_-12px_rgba(22, 163, 74,0.45)] lg:-my-2 lg:py-7" : card}`}
             >
               {x.tag && (
                 <span className={`absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-bold tracking-wider ${featured ? " text-slate-900" : "bg-amber-400 text-slate-900"} bg-brand-fill`}>{x.tag}</span>

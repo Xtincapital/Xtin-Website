@@ -53,7 +53,7 @@ const Icons = {
   TaxAccountViz: ({ className = "w-full h-56" }) => (
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
-        {['#12805A', '#5A77AA', '#B8923F'].map((color, i) => (
+        {['#16A34A', '#5A77AA', '#B8923F'].map((color, i) => (
           <linearGradient key={`tGrad-${i}`} id={`taxGrad${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={color} stopOpacity="0.7"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.4"/>
@@ -73,7 +73,7 @@ const Icons = {
       {/* Asset placement arrows */}
       <g transform="translate(50, 180)">
         <text x="0" y="0" fill="currentColor" fontSize="12" fontWeight="bold">Best Assets by Account:</text>
-        <text x="0" y="20" fill="#12805A" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
+        <text x="0" y="20" fill="#16A34A" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
         <text x="0" y="38" fill="#5A77AA" fontSize="11">• Tax-Free: High-growth stocks</text>
         <text x="0" y="56" fill="#B8923F" fontSize="11">• Taxable: Index funds, muni bonds</text>
       </g>
@@ -167,7 +167,7 @@ const PCLesson10 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold mb-5 leading-tight tracking-[-0.025em] text-brand">Tax-Efficient Investing</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 leading-tight tracking-[-0.025em] text-brand">Tax-Efficient Investing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the strategies that keep more money in your pocket. Learn tax-loss harvesting, asset location, and other techniques to minimize your tax burden while maximizing after-tax returns.</p>
           </header>
 
@@ -180,7 +180,7 @@ const PCLesson10 = () => {
                       <Icons.DollarSign className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Why Tax Efficiency Matters</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Why Tax Efficiency Matters</h2>
                       <p className="text-sm text-gray-500 ">The return you keep is what counts</p>
                     </div>
                   </div>
@@ -231,7 +231,7 @@ const PCLesson10 = () => {
                       <Icons.Shield className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Tax-Loss Harvesting</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Tax-Loss Harvesting</h2>
                       <p className="text-sm text-gray-500 ">Turn losses into tax savings</p>
                     </div>
                   </div>
@@ -300,7 +300,7 @@ const PCLesson10 = () => {
                       <Icons.MapPin className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Asset Location Strategy</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Asset Location Strategy</h2>
                       <p className="text-sm text-gray-500 ">The right asset in the right account</p>
                     </div>
                   </div>
@@ -382,7 +382,7 @@ const PCLesson10 = () => {
                       <Icons.Shield className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Advantaged Accounts</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Advantaged Accounts</h2>
                       <p className="text-sm text-gray-500 ">Optimizing account structure</p>
                     </div>
                   </div>
@@ -478,7 +478,7 @@ const PCLesson10 = () => {
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Advanced Tax Strategies</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Advanced Tax Strategies</h2>
                       <p className="text-sm text-gray-500 ">Beyond the basics</p>
                     </div>
                   </div>
@@ -519,7 +519,7 @@ const PCLesson10 = () => {
                       <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Common Tax Mistakes</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Common Tax Mistakes</h2>
                       <p className="text-sm text-gray-500 ">Pitfalls to avoid</p>
                     </div>
                   </div>
@@ -565,7 +565,7 @@ const PCLesson10 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of tax-efficient investing</p>
                     </div>
                   </div>

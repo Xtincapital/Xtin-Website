@@ -94,6 +94,25 @@ export function getHeatmapColor(value: number, maxAbs: number): string {
   return `color-mix(in srgb, hsl(${tone}) ${strength}%, hsl(var(--card)))`;
 }
 
+/** Heat step for a P&L value: tone (profit / loss / breakeven) and a level
+ *  1-5. Square-root scaling, so smaller days still show some colour instead
+ *  of everything but the biggest cell looking empty. */
+export function heatLevel(value: number, maxAbs: number): { tone: "p" | "n" | "z"; level: number } {
+  if (!value || !maxAbs) return { tone: "z", level: 0 };
+  const ratio = Math.min(Math.abs(value) / maxAbs, 1);
+  return { tone: value > 0 ? "p" : "n", level: Math.max(1, Math.min(5, Math.ceil(Math.sqrt(ratio) * 5))) };
+}
+
+/** Background + text colour for a heat cell (CSS vars in journal.css). */
+export function heatCellStyle(value: number, maxAbs: number): { backgroundColor: string; color: string } {
+  const { tone, level } = heatLevel(value, maxAbs);
+  if (tone === "z") return { backgroundColor: "var(--heat-z)", color: "var(--heat-ink)" };
+  return {
+    backgroundColor: `var(--heat-${tone}${level})`,
+    color: level === 5 ? `var(--heat-ink-${tone}5)` : "var(--heat-ink)",
+  };
+}
+
 /** Port of app.js's `normalizeStrategyName()` — used by Hourly's
  *  "best strategy per hour" breakdown. */
 export function normalizeStrategyName(name: string | null | undefined): string {

@@ -103,17 +103,17 @@ const WhatIsDerivativeSVG = () => (
     
     {/* Underlying Asset */}
     <g transform="translate(50, 90)">
-      <rect x="0" y="0" width="180" height="200" fill="#12805A" fillOpacity="0.15" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <text x="90" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">UNDERLYING ASSET</text>
+      <rect x="0" y="0" width="180" height="200" fill="#16A34A" fillOpacity="0.15" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="90" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">UNDERLYING ASSET</text>
       <text x="90" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">The real thing</text>
       
       <g transform="translate(15, 70)">
         <rect x="0" y="0" width="150" height="110" fill="#1F1F1F" rx="8"/>
         <text x="75" y="25" textAnchor="middle" fontSize="11" fill="white">Examples:</text>
-        <text x="75" y="45" textAnchor="middle" fontSize="10" fill="#12805A">Stock (AAPL, MSFT)</text>
-        <text x="75" y="62" textAnchor="middle" fontSize="10" fill="#12805A">Index (S&P 500, NIFTY)</text>
-        <text x="75" y="79" textAnchor="middle" fontSize="10" fill="#12805A">Commodity (Gold, Oil)</text>
-        <text x="75" y="96" textAnchor="middle" fontSize="10" fill="#12805A">Currency (USD/EUR)</text>
+        <text x="75" y="45" textAnchor="middle" fontSize="10" fill="#16A34A">Stock (AAPL, MSFT)</text>
+        <text x="75" y="62" textAnchor="middle" fontSize="10" fill="#16A34A">Index (S&P 500, NIFTY)</text>
+        <text x="75" y="79" textAnchor="middle" fontSize="10" fill="#16A34A">Commodity (Gold, Oil)</text>
+        <text x="75" y="96" textAnchor="middle" fontSize="10" fill="#16A34A">Currency (USD/EUR)</text>
       </g>
     </g>
     
@@ -172,19 +172,19 @@ const MarketParticipantsSVG = () => (
     
     {/* Hedgers */}
     <g transform="translate(30, 80)">
-      <rect x="0" y="0" width="200" height="240" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <circle cx="100" cy="35" r="25" fill="#12805A" fillOpacity="0.3"/>
-      <text x="100" y="42" textAnchor="middle" fontSize="20" fill="#12805A">H</text>
-      <text x="100" y="80" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">HEDGERS</text>
+      <rect x="0" y="0" width="200" height="240" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <circle cx="100" cy="35" r="25" fill="#16A34A" fillOpacity="0.3"/>
+      <text x="100" y="42" textAnchor="middle" fontSize="20" fill="#16A34A">H</text>
+      <text x="100" y="80" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">HEDGERS</text>
       <text x="100" y="100" textAnchor="middle" fontSize="10" fill="#A0A3AA">Risk Reducers</text>
       
       <g transform="translate(15, 115)">
         <rect x="0" y="0" width="170" height="110" fill="#1F1F1F" rx="8"/>
         <text x="85" y="20" textAnchor="middle" fontSize="9" fill="white">Examples:</text>
-        <text x="85" y="38" textAnchor="middle" fontSize="8" fill="#12805A">• Farmer locking crop price</text>
-        <text x="85" y="52" textAnchor="middle" fontSize="8" fill="#12805A">• Airline hedging fuel costs</text>
-        <text x="85" y="66" textAnchor="middle" fontSize="8" fill="#12805A">• Fund manager protecting</text>
-        <text x="85" y="78" textAnchor="middle" fontSize="8" fill="#12805A">  portfolio from decline</text>
+        <text x="85" y="38" textAnchor="middle" fontSize="8" fill="#16A34A">• Farmer locking crop price</text>
+        <text x="85" y="52" textAnchor="middle" fontSize="8" fill="#16A34A">• Airline hedging fuel costs</text>
+        <text x="85" y="66" textAnchor="middle" fontSize="8" fill="#16A34A">• Fund manager protecting</text>
+        <text x="85" y="78" textAnchor="middle" fontSize="8" fill="#16A34A">  portfolio from decline</text>
         <text x="85" y="98" textAnchor="middle" fontSize="8" fill="#A0A3AA">Goal: Reduce uncertainty</text>
       </g>
     </g>
@@ -246,17 +246,17 @@ const ExchangeVsOTCSVG = () => (
     
     {/* Exchange Traded */}
     <g transform="translate(30, 80)">
-      <rect x="0" y="0" width="300" height="200" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <text x="150" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">EXCHANGE-TRADED</text>
+      <rect x="0" y="0" width="300" height="200" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="150" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">EXCHANGE-TRADED</text>
       <text x="150" y="48" textAnchor="middle" fontSize="10" fill="#A0A3AA">CME, NSE, ICE</text>
       
       <g transform="translate(20, 65)">
         {[
-          { icon: "✓", text: "Standardized contracts", color: "#12805A" },
-          { icon: "✓", text: "Central clearing (counterparty guarantee)", color: "#12805A" },
-          { icon: "✓", text: "Transparent pricing", color: "#12805A" },
-          { icon: "✓", text: "High liquidity", color: "#12805A" },
-          { icon: "✓", text: "Regulated environment", color: "#12805A" }
+          { icon: "✓", text: "Standardized contracts", color: "#16A34A" },
+          { icon: "✓", text: "Central clearing (counterparty guarantee)", color: "#16A34A" },
+          { icon: "✓", text: "Transparent pricing", color: "#16A34A" },
+          { icon: "✓", text: "High liquidity", color: "#16A34A" },
+          { icon: "✓", text: "Regulated environment", color: "#16A34A" }
         ].map((item, i) => (
           <g key={i} transform={`translate(0, ${i * 25})`}>
             <text x="0" y="15" fontSize="12" fill={item.color}>{item.icon}</text>
@@ -306,8 +306,8 @@ const LeverageIllustrationSVG = () => (
     
     {/* Without Leverage */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="280" height="200" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">WITHOUT LEVERAGE</text>
+      <rect x="0" y="0" width="280" height="200" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">WITHOUT LEVERAGE</text>
       <text x="140" y="48" textAnchor="middle" fontSize="10" fill="#A0A3AA">Direct stock purchase</text>
       
       <g transform="translate(20, 65)">
@@ -317,9 +317,9 @@ const LeverageIllustrationSVG = () => (
       </g>
       
       <g transform="translate(20, 115)">
-        <rect x="0" y="0" width="115" height="65" fill="#12805A" fillOpacity="0.2" rx="6"/>
-        <text x="57" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Stock rises 10%</text>
-        <text x="57" y="38" textAnchor="middle" fontSize="12" fontWeight="700" fill="#12805A">+$1,000</text>
+        <rect x="0" y="0" width="115" height="65" fill="#16A34A" fillOpacity="0.2" rx="6"/>
+        <text x="57" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Stock rises 10%</text>
+        <text x="57" y="38" textAnchor="middle" fontSize="12" fontWeight="700" fill="#16A34A">+$1,000</text>
         <text x="57" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">+10% return</text>
       </g>
       
@@ -344,10 +344,10 @@ const LeverageIllustrationSVG = () => (
       </g>
       
       <g transform="translate(20, 115)">
-        <rect x="0" y="0" width="115" height="65" fill="#12805A" fillOpacity="0.2" rx="6"/>
-        <text x="57" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Stock rises 10%</text>
-        <text x="57" y="38" textAnchor="middle" fontSize="12" fontWeight="700" fill="#12805A">+$10,000</text>
-        <text x="57" y="55" textAnchor="middle" fontSize="9" fill="#12805A">+100% return!</text>
+        <rect x="0" y="0" width="115" height="65" fill="#16A34A" fillOpacity="0.2" rx="6"/>
+        <text x="57" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Stock rises 10%</text>
+        <text x="57" y="38" textAnchor="middle" fontSize="12" fontWeight="700" fill="#16A34A">+$10,000</text>
+        <text x="57" y="55" textAnchor="middle" fontSize="9" fill="#16A34A">+100% return!</text>
       </g>
       
       <g transform="translate(145, 115)">
@@ -379,9 +379,9 @@ const ZeroSumGameSVG = () => (
     <g transform="translate(150, 80)">
       {/* Left side - Winner */}
       <g transform="translate(0, 50)">
-        <rect x="0" y="0" width="150" height="100" fill="#12805A" fillOpacity="0.2" rx="10"/>
-        <text x="75" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">WINNER</text>
-        <text x="75" y="55" textAnchor="middle" fontSize="20" fontWeight="700" fill="#12805A">+$5,000</text>
+        <rect x="0" y="0" width="150" height="100" fill="#16A34A" fillOpacity="0.2" rx="10"/>
+        <text x="75" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">WINNER</text>
+        <text x="75" y="55" textAnchor="middle" fontSize="20" fontWeight="700" fill="#16A34A">+$5,000</text>
         <text x="75" y="80" textAnchor="middle" fontSize="10" fill="#A0A3AA">Bet was correct</text>
       </g>
       
@@ -509,7 +509,7 @@ const FOLesson1 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Introduction to Derivatives
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -549,7 +549,7 @@ const FOLesson1 = () => {
                   <Icons.BookOpen className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">What is a Derivative?</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">What is a Derivative?</h2>
                   <p className="text-sm text-gray-500 ">The foundational concept</p>
                 </div>
               </div>
@@ -599,7 +599,7 @@ const FOLesson1 = () => {
                   <Icons.Users className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Who Trades Derivatives?</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Who Trades Derivatives?</h2>
                   <p className="text-sm text-gray-500 ">Understanding market participants</p>
                 </div>
               </div>
@@ -636,7 +636,7 @@ const FOLesson1 = () => {
                   <Icons.Building className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Market Structure</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Market Structure</h2>
                   <p className="text-sm text-gray-500 ">Exchange-traded vs Over-the-Counter</p>
                 </div>
               </div>
@@ -667,7 +667,7 @@ const FOLesson1 = () => {
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Leverage Effect</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Leverage Effect</h2>
                   <p className="text-sm text-gray-500 ">Understanding amplification of returns</p>
                 </div>
               </div>
@@ -706,7 +706,7 @@ const FOLesson1 = () => {
                   <Icons.Scale className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Zero-Sum Game</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Zero-Sum Game</h2>
                   <p className="text-sm text-gray-500 ">Understanding the adversarial nature</p>
                 </div>
               </div>
@@ -738,7 +738,7 @@ const FOLesson1 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Derivatives are contracts whose value is derived from underlying assets",
@@ -762,7 +762,7 @@ const FOLesson1 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

@@ -251,7 +251,7 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Hourly P&L
                 <InfoTip title="Hourly P&L">
                   <p>Total profit or loss for trades entered in each hour. Green bars are profitable hours, red bars are losing hours. Click a bar to list its trades.</p>
@@ -271,7 +271,7 @@ const Hourly = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Trade Count by Hour
                 <InfoTip title="Trade Count by Hour">
                   <p>How many trades you entered in each hour. Compare it with Hourly P&L: do you trade the most when you earn the least?</p>
@@ -300,7 +300,7 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Session Performance
                 <InfoTip title="Session Performance">
                   <p>Total P&L per market session (Asia, Europe, Americas, Overnight). Click a session name on the right to list its trades.</p>
@@ -323,7 +323,7 @@ const Hourly = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Win Rate by Hour
                 <InfoTip title="Win Rate by Hour">
                   <p>The share of winning trades among trades that ended in a win or a loss, for each hour. Above 50% means more winners than losers.</p>
@@ -348,7 +348,7 @@ const Hourly = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Hourly Breakdown
                 <InfoTip title="Hourly Breakdown">
                   <p>A table of every hour of the day: number of trades, total and average P&L, win rate and your most-used strategy. Click a row to list its trades.</p>

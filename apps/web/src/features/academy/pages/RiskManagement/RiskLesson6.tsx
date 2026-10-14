@@ -93,20 +93,20 @@ const TwoApproachesSVG = () => (
     
     {/* Investing Side */}
     <g transform="translate(380, 75)">
-      <rect x="0" y="0" width="270" height="175" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">Investing</text>
+      <rect x="0" y="0" width="270" height="175" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="13" fontWeight="600" fill="#16A34A">Investing</text>
       
       {/* Icon: Tree/Growth */}
       <g transform="translate(115, 45)">
-        <circle cx="20" cy="20" r="18" fill="#12805A"/>
+        <circle cx="20" cy="20" r="18" fill="#16A34A"/>
         <path d="M20 28 L20 20 M15 22 L20 16 L25 22 M13 26 L20 18 L27 26" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"/>
       </g>
       
-      <text x="135" y="95" textAnchor="middle" fontSize="9" fill="#12805A">Long time horizons</text>
-      <text x="135" y="112" textAnchor="middle" fontSize="9" fill="#12805A">Infrequent decisions</text>
-      <text x="135" y="129" textAnchor="middle" fontSize="9" fill="#12805A">Patience required</text>
-      <text x="135" y="146" textAnchor="middle" fontSize="9" fill="#12805A">Delayed feedback</text>
-      <text x="135" y="163" textAnchor="middle" fontSize="9" fill="#12805A">Lower day-to-day intensity</text>
+      <text x="135" y="95" textAnchor="middle" fontSize="9" fill="#16A34A">Long time horizons</text>
+      <text x="135" y="112" textAnchor="middle" fontSize="9" fill="#16A34A">Infrequent decisions</text>
+      <text x="135" y="129" textAnchor="middle" fontSize="9" fill="#16A34A">Patience required</text>
+      <text x="135" y="146" textAnchor="middle" fontSize="9" fill="#16A34A">Delayed feedback</text>
+      <text x="135" y="163" textAnchor="middle" fontSize="9" fill="#16A34A">Lower day-to-day intensity</text>
     </g>
   </svg>
 );
@@ -170,13 +170,13 @@ const TimeHorizonSVG = () => (
     
     {/* Investing Zone */}
     <g transform="translate(300, 130)">
-      <rect x="0" y="0" width="280" height="50" fill="#EEF9F4" rx="8" stroke="#12805A" strokeWidth="2"/>
-      <text x="140" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Investing Zone</text>
-      <text x="140" y="38" textAnchor="middle" fontSize="8" fill="#12805A">Months → Decades</text>
+      <rect x="0" y="0" width="280" height="50" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Investing Zone</text>
+      <text x="140" y="38" textAnchor="middle" fontSize="8" fill="#16A34A">Months → Decades</text>
       
       {/* Arrow pointing to timeline */}
-      <line x1="140" y1="-5" x2="140" y2="-25" stroke="#12805A" strokeWidth="2"/>
-      <polygon points="135,-25 140,-35 145,-25" fill="#12805A"/>
+      <line x1="140" y1="-5" x2="140" y2="-25" stroke="#16A34A" strokeWidth="2"/>
+      <polygon points="135,-25 140,-35 145,-25" fill="#16A34A"/>
     </g>
     
     {/* Key insight boxes */}
@@ -188,10 +188,10 @@ const TimeHorizonSVG = () => (
     </g>
     
     <g transform="translate(380, 210)">
-      <rect x="0" y="0" width="240" height="60" fill="#EEF9F4" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
-      <text x="120" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Investing Risk:</text>
-      <text x="120" y="38" textAnchor="middle" fontSize="8" fill="#12805A">Long-term direction matters</text>
-      <text x="120" y="52" textAnchor="middle" fontSize="8" fill="#12805A">Daily noise is filtered out</text>
+      <rect x="0" y="0" width="240" height="60" fill="#F0FDF4" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
+      <text x="120" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">Investing Risk:</text>
+      <text x="120" y="38" textAnchor="middle" fontSize="8" fill="#16A34A">Long-term direction matters</text>
+      <text x="120" y="52" textAnchor="middle" fontSize="8" fill="#16A34A">Daily noise is filtered out</text>
     </g>
   </svg>
 );
@@ -222,20 +222,20 @@ const VolatilityTimeSVG = () => (
     
     {/* Long-term view (smooth) */}
     <g transform="translate(380, 80)">
-      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Long-Term View (Investing)</text>
+      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Long-Term View (Investing)</text>
       
-      <rect x="0" y="10" width="260" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <rect x="0" y="10" width="260" height="100" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
       
       {/* Smooth upward line with light volatility */}
       <path d="M20 85 Q70 80 120 65 Q170 55 220 45 Q240 42 245 40" 
-            fill="none" stroke="#12805A" strokeWidth="3" strokeLinecap="round"/>
+            fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round"/>
       
       {/* Faded volatility underneath */}
       <path d="M20 85 L35 80 L50 88 L65 78 L80 82 L95 72 L110 78 L125 68 L140 72 L155 62 L170 66 L185 55 L200 58 L215 48 L230 52 L245 40" 
-            fill="none" stroke="#3CCB97" strokeWidth="1" strokeLinecap="round" strokeDasharray="2"/>
+            fill="none" stroke="#16A34A" strokeWidth="1" strokeLinecap="round" strokeDasharray="2"/>
       
       {/* Calm indicator */}
-      <text x="130" y="125" textAnchor="middle" fontSize="8" fill="#12805A">😌 Noise smooths into trend</text>
+      <text x="130" y="125" textAnchor="middle" fontSize="8" fill="#16A34A">😌 Noise smooths into trend</text>
     </g>
     
     {/* Bottom insight */}
@@ -278,23 +278,23 @@ const DecisionFrequencySVG = () => (
     
     {/* Investing: Few decisions */}
     <g transform="translate(380, 80)">
-      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Investing: Rare Decisions</text>
+      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Investing: Rare Decisions</text>
       
-      <rect x="0" y="15" width="260" height="80" fill="#EEF9F4" rx="8"/>
+      <rect x="0" y="15" width="260" height="80" fill="#F0FDF4" rx="8"/>
       
       {/* Few decision points */}
       <g transform="translate(20, 40)">
-        <circle cx="30" cy="0" r="10" fill="#12805A"/>
+        <circle cx="30" cy="0" r="10" fill="#16A34A"/>
         <text x="30" y="4" textAnchor="middle" fontSize="7" fill="white">D</text>
         
-        <circle cx="190" cy="0" r="10" fill="#12805A"/>
+        <circle cx="190" cy="0" r="10" fill="#16A34A"/>
         <text x="190" y="4" textAnchor="middle" fontSize="7" fill="white">D</text>
         
-        <line x1="45" y1="0" x2="175" y2="0" stroke="#3CCB97" strokeWidth="2" strokeDasharray="5"/>
-        <text x="110" y="30" textAnchor="middle" fontSize="7" fill="#12805A">Long periods between decisions</text>
+        <line x1="45" y1="0" x2="175" y2="0" stroke="#16A34A" strokeWidth="2" strokeDasharray="5"/>
+        <text x="110" y="30" textAnchor="middle" fontSize="7" fill="#16A34A">Long periods between decisions</text>
       </g>
       
-      <text x="130" y="110" textAnchor="middle" fontSize="8" fill="#12805A">✓ Fewer decisions = fewer error opportunities</text>
+      <text x="130" y="110" textAnchor="middle" fontSize="8" fill="#16A34A">✓ Fewer decisions = fewer error opportunities</text>
     </g>
     
     {/* Comparison insight */}
@@ -302,7 +302,7 @@ const DecisionFrequencySVG = () => (
       <rect x="0" y="0" width="500" height="60" fill="#2A2A2C" rx="10"/>
       <text x="250" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Different Risk Types:</text>
       <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#9FB3D3">Trading: Risk of frequent mistakes</text>
-      <text x="375" y="45" textAnchor="middle" fontSize="9" fill="#3CCB97">Investing: Risk of inaction or impatience</text>
+      <text x="375" y="45" textAnchor="middle" fontSize="9" fill="#16A34A">Investing: Risk of inaction or impatience</text>
     </g>
   </svg>
 );
@@ -332,9 +332,9 @@ const EmotionalPressureSVG = () => (
     
     {/* Investing emotional pattern */}
     <g transform="translate(380, 80)">
-      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Investing: Slow Burns</text>
+      <text x="130" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Investing: Slow Burns</text>
       
-      <rect x="0" y="15" width="260" height="100" fill="#EEF9F4" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
+      <rect x="0" y="15" width="260" height="100" fill="#F0FDF4" rx="8" stroke="#BBF7D0" strokeWidth="1"/>
       
       {/* Stress line - gentle waves with occasional spike */}
       <path d="M20 60 Q50 55 80 58 Q110 62 140 55 Q160 50 170 30 Q180 50 200 55 Q230 52 245 58" 
@@ -382,7 +382,7 @@ const SameAssetDifferentExperienceSVG = () => (
     
     {/* Branching paths */}
     <path d="M350 95 L200 130" fill="none" stroke="#5A77AA" strokeWidth="2"/>
-    <path d="M350 95 L500 130" fill="none" stroke="#12805A" strokeWidth="2"/>
+    <path d="M350 95 L500 130" fill="none" stroke="#16A34A" strokeWidth="2"/>
     
     {/* Trader's Experience */}
     <g transform="translate(50, 135)">
@@ -403,19 +403,19 @@ const SameAssetDifferentExperienceSVG = () => (
     
     {/* Investor's Experience */}
     <g transform="translate(370, 135)">
-      <rect x="0" y="0" width="280" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">🌱 Investor's Experience</text>
+      <rect x="0" y="0" width="280" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">🌱 Investor's Experience</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#12805A">Month 1: Bought based on thesis</text>
-        <text x="0" y="18" fontSize="9" fill="#12805A">Month 2: Checked briefly — fine</text>
-        <text x="0" y="36" fontSize="9" fill="#12805A">Month 3: Some volatility — ignored</text>
-        <text x="0" y="54" fontSize="9" fill="#12805A">Month 6: Reviewed thesis — still valid</text>
-        <text x="0" y="72" fontSize="9" fill="#12805A">Year 1: Gradual progress — satisfied</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A">Month 1: Bought based on thesis</text>
+        <text x="0" y="18" fontSize="9" fill="#16A34A">Month 2: Checked briefly — fine</text>
+        <text x="0" y="36" fontSize="9" fill="#16A34A">Month 3: Some volatility — ignored</text>
+        <text x="0" y="54" fontSize="9" fill="#16A34A">Month 6: Reviewed thesis — still valid</text>
+        <text x="0" y="72" fontSize="9" fill="#16A34A">Year 1: Gradual progress — satisfied</text>
       </g>
       
-      <rect x="20" y="140" width="240" height="30" fill="#EEF9F4" rx="6"/>
-      <text x="140" y="160" textAnchor="middle" fontSize="9" fill="#12805A">Result: Calm journey, few decisions</text>
+      <rect x="20" y="140" width="240" height="30" fill="#F0FDF4" rx="6"/>
+      <text x="140" y="160" textAnchor="middle" fontSize="9" fill="#16A34A">Result: Calm journey, few decisions</text>
     </g>
   </svg>
 );
@@ -449,8 +449,8 @@ const NeitherIsSaferSVG = () => (
       {/* Investing pan */}
       <g transform="translate(150, 0)">
         <line x1="10" y1="0" x2="10" y2="30" stroke="#717680" strokeWidth="2"/>
-        <ellipse cx="10" cy="35" rx="40" ry="10" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-        <text x="10" y="60" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Investing</text>
+        <ellipse cx="10" cy="35" rx="40" ry="10" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+        <text x="10" y="60" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">Investing</text>
       </g>
     </g>
     
@@ -465,12 +465,12 @@ const NeitherIsSaferSVG = () => (
     </g>
     
     <g transform="translate(380, 170)">
-      <rect x="0" y="0" width="260" height="90" fill="#EEF9F4" rx="10"/>
-      <text x="130" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Investing Risks Include:</text>
-      <text x="130" y="42" textAnchor="middle" fontSize="8" fill="#12805A">• Staying in bad positions too long</text>
-      <text x="130" y="56" textAnchor="middle" fontSize="8" fill="#12805A">• Missing warning signs</text>
-      <text x="130" y="70" textAnchor="middle" fontSize="8" fill="#12805A">• Confusing patience with stubbornness</text>
-      <text x="130" y="84" textAnchor="middle" fontSize="8" fill="#12805A">• Complacency during slow erosion</text>
+      <rect x="0" y="0" width="260" height="90" fill="#F0FDF4" rx="10"/>
+      <text x="130" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Investing Risks Include:</text>
+      <text x="130" y="42" textAnchor="middle" fontSize="8" fill="#16A34A">• Staying in bad positions too long</text>
+      <text x="130" y="56" textAnchor="middle" fontSize="8" fill="#16A34A">• Missing warning signs</text>
+      <text x="130" y="70" textAnchor="middle" fontSize="8" fill="#16A34A">• Confusing patience with stubbornness</text>
+      <text x="130" y="84" textAnchor="middle" fontSize="8" fill="#16A34A">• Complacency during slow erosion</text>
     </g>
   </svg>
 );
@@ -486,7 +486,7 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="tradingInvestingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="0%" stopColor="#16A34A"/>
         <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
@@ -546,14 +546,14 @@ const RiskLesson6 = () => {
             <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 6 of 7
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Risk in Trading vs Investing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Risk in Trading vs Investing</h1>
             <p className="text-gray-600 mt-2">Understanding how time horizon transforms risk</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Trading and Investing Feel Risky in Different Ways</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Trading and Investing Feel Risky in Different Ways</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -579,7 +579,7 @@ const RiskLesson6 = () => {
 
         {/* Time Horizon */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Time Horizon Changes Everything</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Time Horizon Changes Everything</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -604,7 +604,7 @@ const RiskLesson6 = () => {
 
         {/* Volatility vs Time */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Same Asset, Different Views</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Same Asset, Different Views</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -627,7 +627,7 @@ const RiskLesson6 = () => {
 
         {/* Decision Frequency */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Decision Frequency Creates Different Risks</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Decision Frequency Creates Different Risks</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -652,7 +652,7 @@ const RiskLesson6 = () => {
 
         {/* Emotional Pressure */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Emotional Pressure: Different Patterns</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Emotional Pressure: Different Patterns</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -676,7 +676,7 @@ const RiskLesson6 = () => {
 
         {/* Same Asset, Different Experience */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Same Asset, Completely Different Journeys</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Same Asset, Completely Different Journeys</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -700,7 +700,7 @@ const RiskLesson6 = () => {
 
         {/* Neither Is Safer */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Neither Approach Is "Safer" By Default</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Neither Approach Is "Safer" By Default</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -752,7 +752,7 @@ const RiskLesson6 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

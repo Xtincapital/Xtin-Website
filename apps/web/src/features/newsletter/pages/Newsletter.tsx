@@ -83,14 +83,14 @@ const PhoneMockup = () => (
           {/* Battery */}
           <rect x="18" y="1" width="16" height="8" rx="2" stroke="#2A2A2C" strokeWidth="1" fill="none" />
           <rect x="34" y="3" width="2" height="4" rx="1" fill="#2A2A2C" />
-          <rect x="20" y="3" width="10" height="4" rx="1" fill="#12805A" />
+          <rect x="20" y="3" width="10" height="4" rx="1" fill="#16A34A" />
         </g>
 
         {/* Dynamic Island / Notch */}
         <rect x="100" y="22" width="80" height="24" rx="12" fill="#000" />
 
         {/* Newsletter Header */}
-        <rect x="16" y="56" width="248" height="60" fill="#12805A" />
+        <rect x="16" y="56" width="248" height="60" fill="#16A34A" />
 
         {/* Xtin Logo in header */}
         <g transform="translate(90, 70)">
@@ -103,14 +103,14 @@ const PhoneMockup = () => (
         <rect x="28" y="128" width="224" height="110" rx="12" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
 
         {/* Chart illustration in card */}
-        <rect x="40" y="140" width="200" height="60" rx="8" fill="#EEF9F4" />
-        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#12805A" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <circle cx="225" cy="135" r="4" fill="#12805A" />
+        <rect x="40" y="140" width="200" height="60" rx="8" fill="#F0FDF4" />
+        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        <circle cx="225" cy="135" r="4" fill="#16A34A" />
         {/* Trend arrow */}
         <g transform="translate(190, 145)">
-          <rect x="0" y="0" width="40" height="16" rx="8" fill="#EEF9F4" />
-          <path d="M8 10L12 6L16 8" stroke="#12805A" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          <text x="22" y="11" fill="#12805A" fontSize="7" fontWeight="600">+2.4%</text>
+          <rect x="0" y="0" width="40" height="16" rx="8" fill="#F0FDF4" />
+          <path d="M8 10L12 6L16 8" stroke="#16A34A" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <text x="22" y="11" fill="#16A34A" fontSize="7" fontWeight="600">+2.4%</text>
         </g>
 
         {/* Card title */}
@@ -124,8 +124,8 @@ const PhoneMockup = () => (
         <text x="88" y="275" fill="#1F1F1F" fontSize="9" fontWeight="600">RBI's Big Move</text>
         <text x="88" y="287" fill="#717680" fontSize="7">What it means for your</text>
         <text x="88" y="297" fill="#717680" fontSize="7">money, explained simply...</text>
-        <rect x="200" y="270" width="40" height="24" rx="12" fill="#EEF9F4" />
-        <text x="220" y="286" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
+        <rect x="200" y="270" width="40" height="24" rx="12" fill="#F0FDF4" />
+        <text x="220" y="286" textAnchor="middle" fill="#16A34A" fontSize="8" fontWeight="600">Read</text>
 
         <rect x="28" y="330" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
         <circle cx="58" cy="365" r="18" fill="#E0E7F1" />
@@ -133,8 +133,8 @@ const PhoneMockup = () => (
         <text x="88" y="355" fill="#1F1F1F" fontSize="9" fontWeight="600">Sensex at 85K</text>
         <text x="88" y="367" fill="#717680" fontSize="7">The story behind today's</text>
         <text x="88" y="377" fill="#717680" fontSize="7">market rally...</text>
-        <rect x="200" y="350" width="40" height="24" rx="12" fill="#EEF9F4" />
-        <text x="220" y="366" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
+        <rect x="200" y="350" width="40" height="24" rx="12" fill="#F0FDF4" />
+        <text x="220" y="366" textAnchor="middle" fill="#16A34A" fontSize="8" fontWeight="600">Read</text>
 
         <rect x="28" y="410" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
         <circle cx="58" cy="445" r="18" fill="#ECE4F6" />
@@ -142,8 +142,8 @@ const PhoneMockup = () => (
         <text x="88" y="435" fill="#1F1F1F" fontSize="9" fontWeight="600">One Smart Idea</text>
         <text x="88" y="447" fill="#717680" fontSize="7">A simple tip to grow</text>
         <text x="88" y="457" fill="#717680" fontSize="7">your wealth...</text>
-        <rect x="200" y="430" width="40" height="24" rx="12" fill="#EEF9F4" />
-        <text x="220" y="446" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
+        <rect x="200" y="430" width="40" height="24" rx="12" fill="#F0FDF4" />
+        <text x="220" y="446" textAnchor="middle" fill="#16A34A" fontSize="8" fontWeight="600">Read</text>
 
         {/* Bottom nav hint */}
         <rect x="90" y="510" width="100" height="4" rx="2" fill="#E4E4EA" />
@@ -333,7 +333,7 @@ const Newsletter = () => {
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl md:text-5xl font-display font-semibold leading-[1.1] tracking-[-0.025em] mb-6">
+              <h1 className="text-5xl md:text-6xl font-display font-bold leading-[1.1] tracking-[-0.025em] mb-6">
                 Financial News{' '}
                 <span className="text-brand">
                   Made Simple.
@@ -456,7 +456,7 @@ const Newsletter = () => {
       <section className="py-20 lg:py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.025em]">
               Two briefs a day. Every market.
             </h2>
             <p className="text-gray-600 dark:text-slate-300 max-w-xl mx-auto">
@@ -593,7 +593,7 @@ const Newsletter = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
             <div>
-              <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.025em]">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.025em]">
                 {activeTab === 'newsletters' ? 'Xtin Daily' : 'Substack Articles'}
               </h2>
               <p className="text-gray-600 dark:text-slate-300">
@@ -858,7 +858,7 @@ const Newsletter = () => {
               <span className="text-sm font-medium text-brand dark:text-brand">Free forever</span>
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.025em]">
               Stay informed.{' '}
               <span className="text-brand">Stay ahead.</span>
             </h2>

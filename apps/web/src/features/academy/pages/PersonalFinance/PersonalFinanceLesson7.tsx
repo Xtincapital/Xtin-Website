@@ -118,7 +118,7 @@ const PersonalFinanceLesson7 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <ShieldIcon className="w-7 h-7 text-brand" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson7 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is Insurance?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is Insurance?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Insurance</strong> is a way to protect yourself from big, unexpected expenses. You pay a small amount regularly (called a <strong className="text-brand">premium</strong>), and in return, the insurance company covers large costs when something bad happens.
@@ -208,7 +208,7 @@ const PersonalFinanceLesson7 = () => {
             </div>
 
             {/* Types of Insurance */}
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Types of Insurance</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">Types of Insurance</h2>
             
             <div className="space-y-4 mb-8">
               <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-5 border border-rose-200">
@@ -268,9 +268,9 @@ const PersonalFinanceLesson7 = () => {
                 
                 {/* Arrow: Premium */}
                 <g transform="translate(95, 65)">
-                  <path d="M0 15 L50 15" stroke="#12805A" strokeWidth="3"/>
-                  <polygon points="50,15 40,9 40,21" fill="#12805A"/>
-                  <text x="25" y="5" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">$50/mo</text>
+                  <path d="M0 15 L50 15" stroke="#16A34A" strokeWidth="3"/>
+                  <polygon points="50,15 40,9 40,21" fill="#16A34A"/>
+                  <text x="25" y="5" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">$50/mo</text>
                 </g>
                 
                 {/* Insurance Shield */}
@@ -298,11 +298,11 @@ const PersonalFinanceLesson7 = () => {
                 
                 {/* Protection Result */}
                 <g transform="translate(435, 35)">
-                  <rect x="0" y="0" width="90" height="80" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                  <text x="45" y="35" textAnchor="middle" fill="#12805A" fontSize="24">✔</text>
-                  <text x="45" y="55" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="bold">PROTECTED</text>
-                  <text x="45" y="70" textAnchor="middle" fill="#12805A" fontSize="9">Bills Covered!</text>
-                  <text x="45" y="110" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">PEACE OF MIND</text>
+                  <rect x="0" y="0" width="90" height="80" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="45" y="35" textAnchor="middle" fill="#16A34A" fontSize="24">✔</text>
+                  <text x="45" y="55" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="bold">PROTECTED</text>
+                  <text x="45" y="70" textAnchor="middle" fill="#16A34A" fontSize="9">Bills Covered!</text>
+                  <text x="45" y="110" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">PEACE OF MIND</text>
                 </g>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-6">
@@ -436,7 +436,7 @@ const PersonalFinanceLesson7 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

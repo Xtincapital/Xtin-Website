@@ -91,23 +91,23 @@ const CoveredCallSVG = () => (
       <path d="M 0 200 L 280 40" fill="none" stroke="#555A63" strokeWidth="1.5" strokeDasharray="4"/>
       
       {/* Covered call payoff */}
-      <path d="M 0 180 L 140 100 L 280 100" fill="none" stroke="#12805A" strokeWidth="3"/>
+      <path d="M 0 180 L 140 100 L 280 100" fill="none" stroke="#16A34A" strokeWidth="3"/>
       
       {/* Strike marker */}
       <line x1="140" y1="100" x2="140" y2="125" stroke="#D2754C" strokeWidth="2" strokeDasharray="3"/>
       <text x="140" y="140" textAnchor="middle" fontSize="8" fill="#D2754C">Strike</text>
       
       {/* Max profit line */}
-      <line x1="140" y1="100" x2="280" y2="100" stroke="#12805A" strokeWidth="2" strokeDasharray="4"/>
+      <line x1="140" y1="100" x2="280" y2="100" stroke="#16A34A" strokeWidth="2" strokeDasharray="4"/>
       
-      <text x="220" y="90" fontSize="8" fill="#12805A">Max Profit (capped)</text>
+      <text x="220" y="90" fontSize="8" fill="#16A34A">Max Profit (capped)</text>
     </g>
     
     {/* Strategy Details */}
     <g transform="translate(380, 80)">
       <rect x="0" y="0" width="280" height="180" fill="#2A2A2C" rx="10"/>
       
-      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">STRATEGY COMPONENTS</text>
+      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">STRATEGY COMPONENTS</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position:</text>
@@ -127,8 +127,8 @@ const CoveredCallSVG = () => (
     
     {/* When to Use */}
     <g transform="translate(50, 285)">
-      <rect x="0" y="0" width="600" height="80" fill="#12805A" fillOpacity="0.1" rx="10" stroke="#12805A" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">IDEAL MARKET OUTLOOK</text>
+      <rect x="0" y="0" width="600" height="80" fill="#16A34A" fillOpacity="0.1" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">IDEAL MARKET OUTLOOK</text>
       <text x="20" y="45" fontSize="9" fill="white">• Neutral to slightly bullish on the underlying stock</text>
       <text x="20" y="62" fontSize="9" fill="white">• Willing to sell shares at the strike price (willing to cap gains)</text>
       <text x="320" y="45" fontSize="9" fill="white">• Want to generate income from existing holdings</text>
@@ -233,10 +233,10 @@ const LongStraddleSVG = () => (
       <text x="180" y="168" fontSize="8" fill="#C7363B">Max Loss</text>
       
       {/* Breakeven points */}
-      <circle cx="70" cy="120" r="4" fill="#12805A"/>
-      <circle cx="210" cy="120" r="4" fill="#12805A"/>
-      <text x="70" y="110" textAnchor="middle" fontSize="7" fill="#12805A">BE Low</text>
-      <text x="210" y="110" textAnchor="middle" fontSize="7" fill="#12805A">BE High</text>
+      <circle cx="70" cy="120" r="4" fill="#16A34A"/>
+      <circle cx="210" cy="120" r="4" fill="#16A34A"/>
+      <text x="70" y="110" textAnchor="middle" fontSize="7" fill="#16A34A">BE Low</text>
+      <text x="210" y="110" textAnchor="middle" fontSize="7" fill="#16A34A">BE High</text>
     </g>
     
     {/* Strategy Details */}
@@ -295,9 +295,9 @@ const LongStrangleSVG = () => (
       
       {/* Strike markers */}
       <circle cx="90" cy="160" r="4" fill="#C7363B"/>
-      <circle cx="190" cy="160" r="4" fill="#12805A"/>
+      <circle cx="190" cy="160" r="4" fill="#16A34A"/>
       <text x="90" y="180" textAnchor="middle" fontSize="7" fill="#C7363B">Put Strike</text>
-      <text x="190" y="180" textAnchor="middle" fontSize="7" fill="#12805A">Call Strike</text>
+      <text x="190" y="180" textAnchor="middle" fontSize="7" fill="#16A34A">Call Strike</text>
       
       {/* Max loss zone */}
       <rect x="90" y="155" width="100" height="10" fill="#C7363B" fillOpacity="0.2"/>
@@ -348,7 +348,7 @@ const StrategySelectionSVG = () => (
     {/* Matrix Grid */}
     <g transform="translate(80, 60)">
       {/* Headers */}
-      <text x="135" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">BULLISH</text>
+      <text x="135" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">BULLISH</text>
       <text x="270" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#A0A3AA">NEUTRAL</text>
       <text x="405" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">BEARISH</text>
       <text x="540" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8F6FC4">BIG MOVE</text>
@@ -369,8 +369,8 @@ const StrategySelectionSVG = () => (
       <line x1="60" y1="165" x2="540" y2="165" stroke="#373A41" strokeWidth="1"/>
       
       {/* Row 1: Own Stock */}
-      <rect x="70" y="25" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Hold Stock</text>
+      <rect x="70" y="25" width="120" height="55" fill="#16A34A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Hold Stock</text>
       <text x="130" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">or Covered Call</text>
       
       <rect x="205" y="25" width="120" height="55" fill="#D2754C" fillOpacity="0.15" rx="6"/>
@@ -386,8 +386,8 @@ const StrategySelectionSVG = () => (
       <text x="535" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">CC + Prot Put</text>
       
       {/* Row 2: No Stock */}
-      <rect x="70" y="100" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Long Call</text>
+      <rect x="70" y="100" width="120" height="55" fill="#16A34A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Long Call</text>
       <text x="130" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Leveraged upside</text>
       
       <rect x="205" y="100" width="120" height="55" fill="#A0A3AA" fillOpacity="0.15" rx="6"/>
@@ -403,8 +403,8 @@ const StrategySelectionSVG = () => (
       <text x="535" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Volatility play</text>
       
       {/* Row 3: Income */}
-      <rect x="70" y="175" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Bull Put Spread</text>
+      <rect x="70" y="175" width="120" height="55" fill="#16A34A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Bull Put Spread</text>
       <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#A0A3AA">Credit spread</text>
       
       <rect x="205" y="175" width="120" height="55" fill="#D2754C" fillOpacity="0.15" rx="6"/>
@@ -522,7 +522,7 @@ const FOLesson9 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Basic Option Strategies
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -562,7 +562,7 @@ const FOLesson9 = () => {
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Covered Call</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Covered Call</h2>
                   <p className="text-sm text-gray-500 ">The most popular option strategy</p>
                 </div>
               </div>
@@ -599,7 +599,7 @@ const FOLesson9 = () => {
                   <Icons.Shield className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Protective Put</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Protective Put</h2>
                   <p className="text-sm text-gray-500 ">Portfolio insurance for stock holders</p>
                 </div>
               </div>
@@ -631,7 +631,7 @@ const FOLesson9 = () => {
                   <Icons.Maximize className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Long Straddle</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Long Straddle</h2>
                   <p className="text-sm text-gray-500 ">Profit from big moves, either direction</p>
                 </div>
               </div>
@@ -667,7 +667,7 @@ const FOLesson9 = () => {
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Long Strangle</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Long Strangle</h2>
                   <p className="text-sm text-gray-500 ">Cheaper alternative to the straddle</p>
                 </div>
               </div>
@@ -708,7 +708,7 @@ const FOLesson9 = () => {
                   <Icons.Target className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Strategy Selection Framework</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Strategy Selection Framework</h2>
                   <p className="text-sm text-gray-500 ">Match your strategy to your outlook</p>
                 </div>
               </div>
@@ -725,7 +725,7 @@ const FOLesson9 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Covered call: Own stock + sell call = income with capped upside",
@@ -749,7 +749,7 @@ const FOLesson9 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

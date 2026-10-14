@@ -251,7 +251,7 @@ const TradingBasicsLesson6 = () => {
                 Reality Check
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <Icons.ChartDown className="w-7 h-7 text-rose-600" />
               </span>
@@ -308,8 +308,8 @@ const TradingBasicsLesson6 = () => {
                   const col = i % 3;
                   return (
                     <g key={i} transform={`translate(${col * 45}, ${row * 25})`}>
-                      <circle cx="8" cy="4" r="4" fill="#12805A"/>
-                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#12805A" strokeWidth="1.5"/>
+                      <circle cx="8" cy="4" r="4" fill="#16A34A"/>
+                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#16A34A" strokeWidth="1.5"/>
                     </g>
                   );
                 })}
@@ -319,8 +319,8 @@ const TradingBasicsLesson6 = () => {
               <rect x="50" y="250" width="300" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
               <text x="200" y="275" textAnchor="middle" fill="#842428" fontSize="14" fontWeight="700">89 LOSE MONEY</text>
               
-              <rect x="400" y="250" width="150" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-              <text x="475" y="275" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="700">11 PROFIT</text>
+              <rect x="400" y="250" width="150" height="40" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+              <text x="475" y="275" textAnchor="middle" fill="#16A34A" fontSize="14" fontWeight="700">11 PROFIT</text>
             </svg>
 
             <div className="grid md:grid-cols-3 gap-3">
@@ -401,7 +401,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* The 10 Reasons Most Traders Lose */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.TargetMiss className="w-6 h-6 text-rose-600" />
               <span>10 Reasons Most Traders Lose Money</span>
             </h2>
@@ -670,7 +670,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

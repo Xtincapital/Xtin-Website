@@ -68,7 +68,7 @@ const Icons = {
   FactorChart: ({ className = "w-full h-56" }) => (
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
-        {['#5A77AA', '#12805A', '#B8923F', '#8F6FC4', '#E04848'].map((color, i) => (
+        {['#5A77AA', '#16A34A', '#B8923F', '#8F6FC4', '#E04848'].map((color, i) => (
           <linearGradient key={`fGrad-${i}`} id={`factorGrad${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor={color} stopOpacity="0.8"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.4"/>
@@ -179,7 +179,7 @@ const PCLesson6 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-violet-900 to-purple-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Factor Investing</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-violet-900 to-purple-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Factor Investing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover the systematic drivers of investment returns. Learn about value, momentum, size, quality, and other factors that have historically delivered premiums—and understand their risks.</p>
           </header>
 
@@ -192,7 +192,7 @@ const PCLesson6 = () => {
                     <Icons.Layers className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">What Are Factors?</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">What Are Factors?</h2>
                     <p className="text-sm text-gray-500 ">The building blocks of returns</p>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ const PCLesson6 = () => {
                     <Icons.Percent className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Value Factor</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Value Factor</h2>
                     <p className="text-sm text-gray-500 ">Buying stocks on sale</p>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const PCLesson6 = () => {
                     <Icons.Zap className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Momentum Factor</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Momentum Factor</h2>
                     <p className="text-sm text-gray-500 ">Trends tend to continue</p>
                   </div>
                 </div>
@@ -317,7 +317,7 @@ const PCLesson6 = () => {
                     <Icons.TrendingUp className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Factor Performance Analysis</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Factor Performance Analysis</h2>
                     <p className="text-sm text-gray-500 ">Historical factor premiums</p>
                   </div>
                 </div>
@@ -395,7 +395,7 @@ const PCLesson6 = () => {
                     <Icons.Box className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Size, Quality, and Other Factors</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Size, Quality, and Other Factors</h2>
                     <p className="text-sm text-gray-500 ">Completing the factor toolkit</p>
                   </div>
                 </div>
@@ -455,7 +455,7 @@ const PCLesson6 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Implementing Factor Strategies</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Implementing Factor Strategies</h2>
                     <p className="text-sm text-gray-500 ">Practical approaches</p>
                   </div>
                 </div>
@@ -518,7 +518,7 @@ const PCLesson6 = () => {
                     <Icons.Award className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Factor Investing Challenges</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Factor Investing Challenges</h2>
                     <p className="text-sm text-gray-500 ">Risks and limitations</p>
                   </div>
                 </div>
@@ -556,7 +556,7 @@ const PCLesson6 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of factor investing</p>
                   </div>
                 </div>

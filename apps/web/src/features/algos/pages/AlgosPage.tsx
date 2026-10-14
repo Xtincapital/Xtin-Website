@@ -541,7 +541,7 @@ const AlgosPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-gray-900">Make Your Own Algorithm</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Make Your Own Algorithm</h2>
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
                 onClick={() => setShowBuildAlgoModal(false)}
@@ -671,7 +671,7 @@ const AlgosPage = () => {
                 </svg>
                 AI-Powered Trading Systems
               </div>
-              <h1 className="text-4xl md:text-5xl font-display font-semibold leading-tight mb-6 tracking-[-0.025em]">
+              <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-6 tracking-[-0.025em]">
                 <span className="text-white">XTIN</span>{' '}
                 <span className="text-brand">Algos</span>
               </h1>
@@ -734,10 +734,10 @@ const AlgosPage = () => {
                   
                   {/* Chart Header */}
                   <rect x="40" y="40" width="320" height="40" rx="8" fill="#373A41"/>
-                  <circle cx="60" cy="60" r="8" fill="#12805A"/>
+                  <circle cx="60" cy="60" r="8" fill="#16A34A"/>
                   <rect x="80" y="55" width="80" height="10" rx="5" fill="#717680"/>
-                  <rect x="280" y="50" width="60" height="20" rx="4" fill="#12805A" fillOpacity="0.2"/>
-                  <text x="295" y="64" fill="#12805A" fontSize="12" fontWeight="bold">LIVE</text>
+                  <rect x="280" y="50" width="60" height="20" rx="4" fill="#16A34A" fillOpacity="0.2"/>
+                  <text x="295" y="64" fill="#16A34A" fontSize="12" fontWeight="bold">LIVE</text>
                   
                   {/* Candlestick Chart Area */}
                   <rect x="40" y="100" width="320" height="180" rx="8" fill="#1F1F1F"/>
@@ -750,11 +750,11 @@ const AlgosPage = () => {
                   
                   {/* Candlesticks */}
                   {/* Green candles (bullish) */}
-                  <rect x="60" y="200" width="8" height="40" fill="#12805A"/>
-                  <line x1="64" y1="190" x2="64" y2="250" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="60" y="200" width="8" height="40" fill="#16A34A"/>
+                  <line x1="64" y1="190" x2="64" y2="250" stroke="#16A34A" strokeWidth="2"/>
                   
-                  <rect x="90" y="180" width="8" height="50" fill="#12805A"/>
-                  <line x1="94" y1="170" x2="94" y2="240" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="90" y="180" width="8" height="50" fill="#16A34A"/>
+                  <line x1="94" y1="170" x2="94" y2="240" stroke="#16A34A" strokeWidth="2"/>
                   
                   {/* Red candles (bearish) */}
                   <rect x="120" y="160" width="8" height="35" fill="#E04848"/>
@@ -764,33 +764,33 @@ const AlgosPage = () => {
                   <line x1="154" y1="165" x2="154" y2="215" stroke="#E04848" strokeWidth="2"/>
                   
                   {/* More green candles */}
-                  <rect x="180" y="155" width="8" height="45" fill="#12805A"/>
-                  <line x1="184" y1="145" x2="184" y2="210" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="180" y="155" width="8" height="45" fill="#16A34A"/>
+                  <line x1="184" y1="145" x2="184" y2="210" stroke="#16A34A" strokeWidth="2"/>
                   
-                  <rect x="210" y="135" width="8" height="50" fill="#12805A"/>
-                  <line x1="214" y1="125" x2="214" y2="195" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="210" y="135" width="8" height="50" fill="#16A34A"/>
+                  <line x1="214" y1="125" x2="214" y2="195" stroke="#16A34A" strokeWidth="2"/>
                   
-                  <rect x="240" y="120" width="8" height="40" fill="#12805A"/>
-                  <line x1="244" y1="110" x2="244" y2="170" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="240" y="120" width="8" height="40" fill="#16A34A"/>
+                  <line x1="244" y1="110" x2="244" y2="170" stroke="#16A34A" strokeWidth="2"/>
                   
                   {/* Red candle */}
                   <rect x="270" y="140" width="8" height="25" fill="#E04848"/>
                   <line x1="274" y1="130" x2="274" y2="175" stroke="#E04848" strokeWidth="2"/>
                   
                   {/* Final green candles */}
-                  <rect x="300" y="125" width="8" height="35" fill="#12805A"/>
-                  <line x1="304" y1="115" x2="304" y2="170" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="300" y="125" width="8" height="35" fill="#16A34A"/>
+                  <line x1="304" y1="115" x2="304" y2="170" stroke="#16A34A" strokeWidth="2"/>
                   
-                  <rect x="330" y="115" width="8" height="40" fill="#12805A"/>
-                  <line x1="334" y1="105" x2="334" y2="165" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="330" y="115" width="8" height="40" fill="#16A34A"/>
+                  <line x1="334" y1="105" x2="334" y2="165" stroke="#16A34A" strokeWidth="2"/>
                   
                   {/* Trend Line */}
-                  <path d="M60 220 Q150 200 200 160 T340 115" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                  <path d="M60 220 Q150 200 200 160 T340 115" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
                   
                   {/* Signal Arrows */}
                   <g transform="translate(90, 255)">
-                    <polygon points="0,10 10,0 20,10" fill="#12805A"/>
-                    <text x="10" y="25" fill="#12805A" fontSize="8" textAnchor="middle">BUY</text>
+                    <polygon points="0,10 10,0 20,10" fill="#16A34A"/>
+                    <text x="10" y="25" fill="#16A34A" fontSize="8" textAnchor="middle">BUY</text>
                   </g>
                   
                   <g transform="translate(150, 145)">
@@ -799,14 +799,14 @@ const AlgosPage = () => {
                   </g>
                   
                   <g transform="translate(210, 195)">
-                    <polygon points="0,10 10,0 20,10" fill="#12805A"/>
-                    <text x="10" y="25" fill="#12805A" fontSize="8" textAnchor="middle">BUY</text>
+                    <polygon points="0,10 10,0 20,10" fill="#16A34A"/>
+                    <text x="10" y="25" fill="#16A34A" fontSize="8" textAnchor="middle">BUY</text>
                   </g>
                   
                   {/* Bottom Stats Bar */}
                   <rect x="40" y="290" width="320" height="30" rx="8" fill="#373A41"/>
                   <text x="60" y="310" fill="#A0A3AA" fontSize="10">Vol: 2.4M</text>
-                  <text x="140" y="310" fill="#12805A" fontSize="10">+12.5%</text>
+                  <text x="140" y="310" fill="#16A34A" fontSize="10">+12.5%</text>
                   <text x="220" y="310" fill="#A0A3AA" fontSize="10">RSI: 65</text>
                   <text x="300" y="310" fill="#A0A3AA" fontSize="10">MACD: ↑</text>
                 </svg>
@@ -848,7 +848,7 @@ const AlgosPage = () => {
                 </svg>
                 Premium Strategies
               </div>
-              <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
                 XTIN Exclusive <span className="text-brand">Algorithms</span>
               </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -872,7 +872,7 @@ const AlgosPage = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                       </div>
-                      <h3 className="text-2xl font-semibold text-white">{algo.name}</h3>
+                      <h3 className="text-2xl font-bold text-white">{algo.name}</h3>
                       <p className="text-white/85 text-sm mt-1">{algo.tagline}</p>
                       <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
                     </div>
@@ -974,7 +974,7 @@ const AlgosPage = () => {
                   <div className="flex items-center mb-6">
                     <div className="text-4xl mr-4">⚡</div>
                     <div>
-                      <h3 className="text-2xl font-semibold text-white mb-2">More XTIN Exclusive Algorithms</h3>
+                      <h3 className="text-2xl font-bold text-white mb-2">More XTIN Exclusive Algorithms</h3>
                       <p className="text-brand font-medium">Coming Soon</p>
                     </div>
                   </div>
@@ -1017,7 +1017,7 @@ const AlgosPage = () => {
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
                 AlgoMarket
               </h2>
               <p className="text-gray-600 text-lg">
@@ -1037,7 +1037,7 @@ const AlgosPage = () => {
                         </svg>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-4">Community Algorithms Coming Soon</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Community Algorithms Coming Soon</h3>
                     <p className="text-gray-700 mb-6">
                       We're building our community marketplace where verified traders can publish their strategies. Be among the first to access community-driven algorithms.
                     </p>
@@ -1589,7 +1589,7 @@ const AlgosPage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-semibold mb-2">🎉 Welcome Aboard!</h2>
+              <h2 className="text-2xl font-bold mb-2">🎉 Welcome Aboard!</h2>
               <p className="text-white/85">Your subscription is now active</p>
             </div>
             
@@ -1658,7 +1658,7 @@ const AlgosPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-gray-900">Schedule Algorithm Consultation</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Schedule Algorithm Consultation</h2>
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
                 onClick={closeConsultationModal}
@@ -1710,7 +1710,7 @@ const AlgosPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-gray-900">{editingApplication ? 'Edit your application' : 'Apply to Publish Your Algorithm'}</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{editingApplication ? 'Edit your application' : 'Apply to Publish Your Algorithm'}</h2>
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
                 onClick={closePublisherForm}
@@ -1862,7 +1862,7 @@ const AlgosPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-2xl font-semibold text-gray-900">✅ Thank You!</h2>
+              <h2 className="text-2xl font-bold text-gray-900">✅ Thank You!</h2>
               <button 
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
                 onClick={closeSuccessModal}

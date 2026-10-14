@@ -340,7 +340,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "Xtin Journal Pro",
         description: orderRes.plan?.label || "Journal Pro subscription",
-        theme: { color: "#12805A" },
+        theme: { color: "#16A34A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {
@@ -411,7 +411,7 @@ export const useJournalPlanStore = create<JournalPlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "Xtin Journal — AI tokens",
         description: orderRes.package?.label || "AI token pack",
-        theme: { color: "#12805A" },
+        theme: { color: "#16A34A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {

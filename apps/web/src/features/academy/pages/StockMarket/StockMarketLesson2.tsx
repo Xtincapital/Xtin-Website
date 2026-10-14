@@ -249,7 +249,7 @@ const StockMarketLesson2 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-xl shadow-sm">
                 <Icons.Share className="w-7 h-7 text-blue-600" />
               </span>
@@ -300,8 +300,8 @@ const StockMarketLesson2 = () => {
                 <circle cx="80" cy="70" r="6" fill="#E04848"/>
                 <circle cx="120" cy="85" r="6" fill="#E04848"/>
                 <circle cx="90" cy="120" r="6" fill="#E04848"/>
-                <circle cx="115" cy="130" r="6" fill="#12805A"/>
-                <circle cx="75" cy="105" r="6" fill="#12805A"/>
+                <circle cx="115" cy="130" r="6" fill="#16A34A"/>
+                <circle cx="75" cy="105" r="6" fill="#16A34A"/>
                 
                 <text x="100" y="195" textAnchor="middle" fill="#654B26" fontSize="11">You buy 2 slices</text>
                 <text x="100" y="210" textAnchor="middle" fill="#654B26" fontSize="11">= You own 25% of pizza</text>
@@ -332,7 +332,7 @@ const StockMarketLesson2 = () => {
                         width="18" 
                         height="22" 
                         rx="2" 
-                        fill={row === 0 && col < 2 ? "#12805A" : "#C0A9E2"}
+                        fill={row === 0 && col < 2 ? "#16A34A" : "#C0A9E2"}
                         stroke="#7A5BA6"
                         strokeWidth="1"
                       />
@@ -521,13 +521,13 @@ const StockMarketLesson2 = () => {
 
               {/* Explanation */}
               <g transform="translate(320, 50)">
-                <rect x="0" y="0" width="330" height="120" rx="12" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
-                <text x="165" y="30" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Cost to Buy 1 Share of Reliance</text>
+                <rect x="0" y="0" width="330" height="120" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="165" y="30" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">Cost to Buy 1 Share of Reliance</text>
                 
                 <g transform="translate(20, 50)">
-                  <text x="0" y="15" fill="#12805A" fontSize="11">• With Rs. 2,500 → You buy 1 share</text>
-                  <text x="0" y="35" fill="#12805A" fontSize="11">• With Rs. 25,000 → You buy 10 shares</text>
-                  <text x="0" y="55" fill="#12805A" fontSize="11">• With Rs. 2,50,000 → You buy 100 shares</text>
+                  <text x="0" y="15" fill="#16A34A" fontSize="11">• With Rs. 2,500 → You buy 1 share</text>
+                  <text x="0" y="35" fill="#16A34A" fontSize="11">• With Rs. 25,000 → You buy 10 shares</text>
+                  <text x="0" y="55" fill="#16A34A" fontSize="11">• With Rs. 2,50,000 → You buy 100 shares</text>
                 </g>
               </g>
 
@@ -690,7 +690,7 @@ const StockMarketLesson2 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-blue-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

@@ -118,7 +118,7 @@ const PersonalFinanceLesson5 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <BankIcon className="w-7 h-7 text-brand" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson5 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Bank?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is a Bank?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">bank</strong> is a safe place to keep your money. Instead of storing cash at home (risky!), you deposit it in a bank where it's protected.
@@ -186,7 +186,7 @@ const PersonalFinanceLesson5 = () => {
               </div>
             </div>
 
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Savings Account?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is a Savings Account?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">savings account</strong> is the most common type of bank account. You deposit money, the bank keeps it safe, and pays you a small reward called <strong className="text-brand">interest</strong>.
@@ -215,9 +215,9 @@ const PersonalFinanceLesson5 = () => {
                 
                 {/* Arrow 1: Deposit */}
                 <g transform="translate(110, 85)">
-                  <path d="M0 20 L60 20" stroke="#12805A" strokeWidth="3" markerEnd="url(#arrowGreen)"/>
-                  <text x="30" y="10" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">Deposit</text>
-                  <text x="30" y="45" textAnchor="middle" fill="#12805A" fontSize="10">$1,000</text>
+                  <path d="M0 20 L60 20" stroke="#16A34A" strokeWidth="3" markerEnd="url(#arrowGreen)"/>
+                  <text x="30" y="10" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">Deposit</text>
+                  <text x="30" y="45" textAnchor="middle" fill="#16A34A" fontSize="10">$1,000</text>
                 </g>
                 
                 {/* Bank building */}
@@ -242,16 +242,16 @@ const PersonalFinanceLesson5 = () => {
                 
                 {/* Growing money */}
                 <g transform="translate(400, 55)">
-                  <rect x="0" y="20" width="70" height="70" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                  <text x="35" y="55" textAnchor="middle" fill="#12805A" fontSize="22" fontWeight="bold">$$$</text>
-                  <text x="35" y="72" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">GROWS!</text>
-                  <text x="35" y="115" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="bold">YOUR $$$</text>
+                  <rect x="0" y="20" width="70" height="70" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="35" y="55" textAnchor="middle" fill="#16A34A" fontSize="22" fontWeight="bold">$$$</text>
+                  <text x="35" y="72" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="bold">GROWS!</text>
+                  <text x="35" y="115" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="bold">YOUR $$$</text>
                 </g>
                 
                 {/* Arrow definitions */}
                 <defs>
                   <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#12805A"/>
+                    <polygon points="0 0, 10 3, 0 6" fill="#16A34A"/>
                   </marker>
                 </defs>
               </svg>
@@ -371,7 +371,7 @@ const PersonalFinanceLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

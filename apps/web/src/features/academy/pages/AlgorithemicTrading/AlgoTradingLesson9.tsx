@@ -115,7 +115,7 @@ const AlgoTradingLesson9 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 9 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Api className="w-8 h-8 text-white"/>
               </span>
@@ -157,7 +157,7 @@ const AlgoTradingLesson9 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">How Broker APIs Work</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">How Broker APIs Work</h2>
             <p className="text-gray-700  mb-6">
               Broker APIs let your code communicate with the exchange through the broker's servers. Here's the flow:
             </p>
@@ -177,9 +177,9 @@ const AlgoTradingLesson9 = () => {
 
                 {/* Arrow 1 */}
                 <g transform="translate(170, 90)">
-                  <path d="M0 10 L60 10" stroke="#3CCB97" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#3CCB97"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#3CCB97" fontSize="8">REST/WebSocket</text>
+                  <path d="M0 10 L60 10" stroke="#16A34A" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#16A34A"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#16A34A" fontSize="8">REST/WebSocket</text>
                 </g>
 
                 {/* Broker API */}
@@ -192,17 +192,17 @@ const AlgoTradingLesson9 = () => {
 
                 {/* Arrow 2 */}
                 <g transform="translate(380, 90)">
-                  <path d="M0 10 L60 10" stroke="#3CCB97" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#3CCB97"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#3CCB97" fontSize="8">FIX Protocol</text>
+                  <path d="M0 10 L60 10" stroke="#16A34A" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#16A34A"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#16A34A" fontSize="8">FIX Protocol</text>
                 </g>
 
                 {/* Exchange */}
                 <g transform="translate(450, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#12805A" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#16A34A" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">EXCHANGE</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">(NSE/BSE)</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#ABE5CC" fontSize="8">Order matching</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#BBF7D0" fontSize="8">Order matching</text>
                 </g>
 
                 {/* Return flow */}
@@ -217,14 +217,14 @@ const AlgoTradingLesson9 = () => {
                 </g>
                 <g transform="translate(370, 220)">
                   <rect x="0" y="0" width="280" height="45" rx="8" fill="#2A2A2C"/>
-                  <text x="140" y="18" textAnchor="middle" fill="#3CCB97" fontSize="10" fontWeight="600">WebSocket</text>
+                  <text x="140" y="18" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">WebSocket</text>
                   <text x="140" y="35" textAnchor="middle" fill="#717680" fontSize="8">Real-time stream • Price ticks, order updates</text>
                 </g>
               </svg>
             </div>
 
             {/* Indian Broker APIs */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Link className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -273,7 +273,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Authentication */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-amber-100  rounded-xl flex items-center justify-center">
                 <Icons.Lock className="w-5 h-5 text-amber-600 "/>
               </span>
@@ -310,7 +310,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* API Capabilities */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Code className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -347,7 +347,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Code Example */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Conceptual Code Structure</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Conceptual Code Structure</h2>
             <p className="text-gray-700  mb-4">
               Here's what a typical trading script structure looks like (pseudocode):
             </p>
@@ -462,7 +462,7 @@ kite_ticker.connect()`}
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What is the main difference between REST API and WebSocket?"
               options={["REST is free, WebSocket is paid", "REST is request-response, WebSocket is real-time streaming", "REST is for orders, WebSocket is for data only", "There is no difference"]}
@@ -485,7 +485,7 @@ kite_ticker.connect()`}
             {/* Completion Banner */}
             <div className="bg-gradient-to-r from-amber-100 to-yellow-100   rounded-2xl p-8 mb-10 border-2 border-amber-400  text-center">
               <FaTrophy className="w-16 h-16 text-amber-500 mx-auto mb-4"/>
-              <h2 className="text-2xl font-semibold text-amber-900  mb-2 tracking-[-0.015em]">🎉 Congratulations!</h2>
+              <h2 className="text-2xl font-bold text-amber-900  mb-2 tracking-[-0.015em]">🎉 Congratulations!</h2>
               <p className="text-amber-800  mb-4">
                 You've completed the entire <strong>Algorithmic Trading Module</strong>! 
                 You now understand the full journey from strategy concept to live deployment.

@@ -117,7 +117,7 @@ const PersonalFinanceLesson4 = () => {
                 10 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <PiggyBankIcon className="w-7 h-7 text-brand" />
               </span>
@@ -155,7 +155,7 @@ const PersonalFinanceLesson4 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is Savings?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is Savings?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Savings</strong> is the money you keep aside instead of spending. It's your future self saying "thank you."
@@ -165,7 +165,7 @@ const PersonalFinanceLesson4 = () => {
               But not all savings are equal. The most important type? Your <strong className="text-cyan-600">Emergency Fund</strong>.
             </p>
 
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is an Emergency Fund?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is an Emergency Fund?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               An emergency fund is money saved for <em>unexpected</em> situations — job loss, medical bills, car repairs, or urgent home fixes. It's not for vacations or shopping sales!
@@ -408,7 +408,7 @@ const PersonalFinanceLesson4 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <PencilIcon className="w-6 h-6 text-white" />
               </span>

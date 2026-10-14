@@ -281,7 +281,7 @@ const TradingBasicsLesson4 = () => {
                 Critical
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-rose-200 rounded-xl shadow-sm">
                 <Icons.StopLoss className="w-7 h-7 text-red-600" />
               </span>
@@ -347,21 +347,21 @@ const TradingBasicsLesson4 = () => {
               
               {/* Right bars - Required gains */}
               <g transform="translate(310, 50)">
-                <text x="0" y="15" fill="#12805A" fontSize="12" fontWeight="600">Gain Needed</text>
+                <text x="0" y="15" fill="#16A34A" fontSize="12" fontWeight="600">Gain Needed</text>
                 
-                <rect x="0" y="25" width="45" height="30" rx="4" fill="#EEF9F4"/>
-                <text x="22" y="47" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">11%</text>
+                <rect x="0" y="25" width="45" height="30" rx="4" fill="#F0FDF4"/>
+                <text x="22" y="47" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">11%</text>
                 
-                <rect x="0" y="65" width="70" height="30" rx="4" fill="#ABE5CC"/>
-                <text x="35" y="87" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">25%</text>
+                <rect x="0" y="65" width="70" height="30" rx="4" fill="#BBF7D0"/>
+                <text x="35" y="87" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">25%</text>
                 
-                <rect x="0" y="105" width="120" height="30" rx="4" fill="#3CCB97"/>
-                <text x="60" y="127" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">43%</text>
+                <rect x="0" y="105" width="120" height="30" rx="4" fill="#16A34A"/>
+                <text x="60" y="127" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">43%</text>
                 
-                <rect x="0" y="145" width="200" height="30" rx="4" fill="#3CCB97"/>
-                <text x="100" y="167" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">100%</text>
+                <rect x="0" y="145" width="200" height="30" rx="4" fill="#16A34A"/>
+                <text x="100" y="167" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">100%</text>
                 
-                <rect x="0" y="185" width="270" height="30" rx="4" fill="#12805A"/>
+                <rect x="0" y="185" width="270" height="30" rx="4" fill="#16A34A"/>
                 <text x="135" y="207" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="600">300%</text>
               </g>
               
@@ -391,7 +391,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* What is a Stop Loss */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.StopLoss className="w-6 h-6 text-red-600" />
               <span>What is a Stop Loss?</span>
             </h2>
@@ -431,7 +431,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Types of Risk */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 tracking-[-0.015em]">Three Types of Risk You Must Manage</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 tracking-[-0.015em]">Three Types of Risk You Must Manage</h2>
 
             <div className="space-y-4">
               <RiskCard
@@ -735,7 +735,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-red-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

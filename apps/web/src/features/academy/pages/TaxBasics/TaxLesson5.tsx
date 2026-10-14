@@ -74,7 +74,7 @@ const WhatIsTaxEfficiencySVG = () => (
       <text x="0" y="-55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">WHAT YOU EARN</text>
       
       {/* Inner circle - what you keep */}
-      <circle cx="0" cy="0" r="55" fill="#12805A" stroke="#12805A" strokeWidth="3"/>
+      <circle cx="0" cy="0" r="55" fill="#16A34A" stroke="#16A34A" strokeWidth="3"/>
       <text x="0" y="-10" textAnchor="middle" fontSize="11" fontWeight="700" fill="white">WHAT YOU</text>
       <text x="0" y="8" textAnchor="middle" fontSize="11" fontWeight="700" fill="white">KEEP</text>
       
@@ -129,20 +129,20 @@ const EarningVsKeepingSVG = () => (
     
     {/* Right side - Keeping */}
     <g transform="translate(525, 170)">
-      <rect x="-100" y="-80" width="200" height="160" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-100" y="-80" width="200" height="160" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
-      <text x="0" y="-55" textAnchor="middle" fontSize="13" fontWeight="700" fill="#12805A">KEEPING RETURNS</text>
+      <text x="0" y="-55" textAnchor="middle" fontSize="13" fontWeight="700" fill="#16A34A">KEEPING RETURNS</text>
       
       {/* Smaller stack representing net */}
       <g transform="translate(-40, 10)">
-        <ellipse cx="0" cy="30" rx="25" ry="6" fill="#12805A"/>
-        <rect x="-25" y="5" width="50" height="25" fill="#12805A"/>
-        <ellipse cx="0" cy="5" rx="25" ry="6" fill="#3CCB97"/>
+        <ellipse cx="0" cy="30" rx="25" ry="6" fill="#16A34A"/>
+        <rect x="-25" y="5" width="50" height="25" fill="#16A34A"/>
+        <ellipse cx="0" cy="5" rx="25" ry="6" fill="#16A34A"/>
         <text x="0" y="10" textAnchor="middle" fontSize="8" fontWeight="600" fill="white">NET</text>
       </g>
       
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#12805A">What remains after</text>
-      <text x="0" y="82" textAnchor="middle" fontSize="9" fill="#12805A">taxes are paid</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#16A34A">What remains after</text>
+      <text x="0" y="82" textAnchor="middle" fontSize="9" fill="#16A34A">taxes are paid</text>
     </g>
     
     {/* Bottom insight */}
@@ -176,7 +176,7 @@ const TheGapSVG = () => (
       <text x="280" y="50" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">TAXES</text>
       
       {/* Net portion */}
-      <rect x="220" y="75" width="120" height="95" fill="#12805A" rx="4"/>
+      <rect x="220" y="75" width="120" height="95" fill="#16A34A" rx="4"/>
       <text x="280" y="125" textAnchor="middle" fontSize="14" fontWeight="700" fill="white">NET</text>
       <text x="280" y="145" textAnchor="middle" fontSize="10" fill="white">Returns</text>
       
@@ -187,7 +187,7 @@ const TheGapSVG = () => (
       
       {/* Percentages */}
       <text x="390" y="50" fontSize="10" fill="#C7363B">Portion to government</text>
-      <text x="390" y="130" fontSize="10" fill="#12805A">Portion you keep</text>
+      <text x="390" y="130" fontSize="10" fill="#16A34A">Portion you keep</text>
     </g>
     
     {/* The gap concept */}
@@ -229,8 +229,8 @@ const WhyPlanningEarlyMattersSVG = () => (
       <text x="300" y="142" textAnchor="middle" fontSize="8" fill="#717680">choices</text>
       
       {/* Later stage */}
-      <circle cx="500" cy="100" r="12" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
-      <text x="500" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">LATER</text>
+      <circle cx="500" cy="100" r="12" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
+      <text x="500" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">LATER</text>
       <text x="500" y="130" textAnchor="middle" fontSize="8" fill="#717680">Keep more</text>
       <text x="500" y="142" textAnchor="middle" fontSize="8" fill="#717680">over time</text>
     </g>
@@ -259,8 +259,8 @@ const WhyPlanningEarlyMattersSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="270" width="500" height="35" fill="#EEF9F4" rx="8" stroke="#12805A" strokeWidth="1"/>
-    <text x="350" y="292" textAnchor="middle" fontSize="10" fill="#12805A">
+    <rect x="100" y="270" width="500" height="35" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+    <text x="350" y="292" textAnchor="middle" fontSize="10" fill="#16A34A">
       Early awareness ≠ obsessing over taxes. It's simply being thoughtful from the start.
     </text>
   </svg>
@@ -295,9 +295,9 @@ const CompoundingEffectSVG = () => (
       
       {/* More efficient path (higher) */}
       <path d="M50 160 Q150 150 200 130 Q300 100 400 60 Q480 30 540 20" 
-            fill="none" stroke="#12805A" strokeWidth="4" strokeLinecap="round"/>
-      <circle cx="540" cy="20" r="8" fill="#12805A"/>
-      <text x="560" y="25" fontSize="8" fill="#12805A" fontWeight="600">More tax-aware</text>
+            fill="none" stroke="#16A34A" strokeWidth="4" strokeLinecap="round"/>
+      <circle cx="540" cy="20" r="8" fill="#16A34A"/>
+      <text x="560" y="25" fontSize="8" fill="#16A34A" fontWeight="600">More tax-aware</text>
       
       {/* Less efficient path (lower) */}
       <path d="M50 160 Q150 155 200 145 Q300 125 400 95 Q480 75 540 65" 
@@ -349,9 +349,9 @@ const GlobalExampleSVG = () => (
       <polygon points="168,35 180,40 168,45" fill="#A0A3AA"/>
       
       {/* Step 2: Growth */}
-      <rect x="185" y="0" width="130" height="80" fill="#EEF9F4" rx="8" stroke="#12805A" strokeWidth="1"/>
-      <text x="250" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">EARNS</text>
-      <text x="250" y="45" textAnchor="middle" fontSize="16" fontWeight="700" fill="#12805A">$1,000</text>
+      <rect x="185" y="0" width="130" height="80" fill="#F0FDF4" rx="8" stroke="#16A34A" strokeWidth="1"/>
+      <text x="250" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#16A34A">EARNS</text>
+      <text x="250" y="45" textAnchor="middle" fontSize="16" fontWeight="700" fill="#16A34A">$1,000</text>
       <text x="250" y="65" textAnchor="middle" fontSize="8" fill="#717680">Gross profit</text>
       
       {/* Arrow */}
@@ -395,14 +395,14 @@ const NotTaxAvoidanceSVG = () => (
     {/* Two columns comparison */}
     <g transform="translate(50, 75)">
       {/* Tax Efficiency - Good */}
-      <rect x="0" y="0" width="280" height="140" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="700" fill="#12805A">✓ TAX EFFICIENCY</text>
-      <line x1="20" y1="40" x2="260" y2="40" stroke="#3CCB97" strokeWidth="1"/>
-      <text x="140" y="60" textAnchor="middle" fontSize="9" fill="#12805A">Being aware of taxes</text>
-      <text x="140" y="78" textAnchor="middle" fontSize="9" fill="#12805A">Making thoughtful decisions</text>
-      <text x="140" y="96" textAnchor="middle" fontSize="9" fill="#12805A">Using legal options wisely</text>
-      <text x="140" y="114" textAnchor="middle" fontSize="9" fill="#12805A">Planning within the rules</text>
-      <text x="140" y="132" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">Responsible & Legal</text>
+      <rect x="0" y="0" width="280" height="140" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="700" fill="#16A34A">✓ TAX EFFICIENCY</text>
+      <line x1="20" y1="40" x2="260" y2="40" stroke="#16A34A" strokeWidth="1"/>
+      <text x="140" y="60" textAnchor="middle" fontSize="9" fill="#16A34A">Being aware of taxes</text>
+      <text x="140" y="78" textAnchor="middle" fontSize="9" fill="#16A34A">Making thoughtful decisions</text>
+      <text x="140" y="96" textAnchor="middle" fontSize="9" fill="#16A34A">Using legal options wisely</text>
+      <text x="140" y="114" textAnchor="middle" fontSize="9" fill="#16A34A">Planning within the rules</text>
+      <text x="140" y="132" textAnchor="middle" fontSize="8" fontWeight="600" fill="#16A34A">Responsible & Legal</text>
       
       {/* Tax Avoidance/Evasion - Bad */}
       <rect x="320" y="0" width="280" height="140" fill="#FDF1F1" rx="12" stroke="#E04848" strokeWidth="2"/>
@@ -457,7 +457,7 @@ const IndiaNoteSVG = () => (
     {/* Flag colors accent */}
     <rect x="0" y="0" width="8" height="160" fill="#D2754C" rx="4"/>
     <rect x="8" y="0" width="4" height="160" fill="white"/>
-    <rect x="12" y="0" width="8" height="160" fill="#12805A"/>
+    <rect x="12" y="0" width="8" height="160" fill="#16A34A"/>
     
     {/* Content */}
     <text x="350" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#9C4D2E">🇮🇳 India-Specific Note</text>
@@ -547,14 +547,14 @@ const TaxLesson5 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 5 of 6
             </span>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Tax Efficiency & Planning (Conceptual)</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mt-4 tracking-[-0.025em]">Tax Efficiency & Planning (Conceptual)</h1>
             <p className="text-gray-600 mt-2">Understanding the concept of keeping more of what you earn</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why "Keeping More" Matters</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why "Keeping More" Matters</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -579,7 +579,7 @@ const TaxLesson5 = () => {
 
         {/* Earning vs Keeping */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Earning Returns vs Keeping Returns</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Earning Returns vs Keeping Returns</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -605,7 +605,7 @@ const TaxLesson5 = () => {
 
         {/* The Gap */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding the Gap</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Understanding the Gap</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -629,7 +629,7 @@ const TaxLesson5 = () => {
 
         {/* Why Planning Early */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Think About This Early?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Think About This Early?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -658,7 +658,7 @@ const TaxLesson5 = () => {
 
         {/* Compounding Effect */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Long-Term Perspective</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Long-Term Perspective</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -683,7 +683,7 @@ const TaxLesson5 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Example</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -711,7 +711,7 @@ const TaxLesson5 = () => {
 
         {/* Important Distinction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">An Important Clarification</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">An Important Clarification</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -753,7 +753,7 @@ const TaxLesson5 = () => {
 
         {/* India Note */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">🌍 Global Context with India Note</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">🌍 Global Context with India Note</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -769,7 +769,7 @@ const TaxLesson5 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}

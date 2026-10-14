@@ -91,7 +91,7 @@ const PositionSizingSVG = () => (
     <g transform="translate(50, 80)">
       <rect x="0" y="0" width="190" height="150" fill="#2A2A2C" rx="10"/>
       
-      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">FIXED PERCENTAGE</text>
+      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">FIXED PERCENTAGE</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Risk 1-2% of account per trade</text>
@@ -153,7 +153,7 @@ const PositionSizingSVG = () => (
         <text x="0" y="30" fontSize="10" fill="white">Trade Setup: Buy XYZ at $50, stop loss at $48</text>
         <text x="0" y="48" fontSize="10" fill="#A0A3AA">Risk per share: $50 - $48 = $2</text>
         
-        <text x="0" y="75" fontSize="10" fill="#12805A">Position Size: $1,000 ÷ $2 = 500 shares</text>
+        <text x="0" y="75" fontSize="10" fill="#16A34A">Position Size: $1,000 ÷ $2 = 500 shares</text>
         <text x="0" y="93" fontSize="10" fill="#A0A3AA">Capital Required: 500 × $50 = $25,000 (50% of account)</text>
       </g>
     </g>
@@ -177,9 +177,9 @@ const GreeksPortfolioSVG = () => (
       <g transform="translate(20, 50)">
         {/* Delta */}
         <text x="0" y="0" fontSize="10" fill="#A0A3AA">Net Delta:</text>
-        <text x="120" y="0" fontSize="10" fontWeight="600" fill="#12805A">+2,500</text>
-        <rect x="180" y="-10" width="80" height="16" fill="#12805A" fillOpacity="0.2" rx="4"/>
-        <text x="220" y="2" textAnchor="middle" fontSize="8" fill="#12805A">BULLISH</text>
+        <text x="120" y="0" fontSize="10" fontWeight="600" fill="#16A34A">+2,500</text>
+        <rect x="180" y="-10" width="80" height="16" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+        <text x="220" y="2" textAnchor="middle" fontSize="8" fill="#16A34A">BULLISH</text>
         
         {/* Gamma */}
         <text x="0" y="30" fontSize="10" fill="#A0A3AA">Net Gamma:</text>
@@ -214,7 +214,7 @@ const GreeksPortfolioSVG = () => (
       <text x="135" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">BALANCING ACTIONS</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fontWeight="500" fill="#12805A">To Reduce Delta:</text>
+        <text x="0" y="0" fontSize="9" fontWeight="500" fill="#16A34A">To Reduce Delta:</text>
         <text x="0" y="15" fontSize="8" fill="#A0A3AA">• Sell calls or buy puts</text>
         <text x="0" y="28" fontSize="8" fill="#A0A3AA">• Sell stock/futures</text>
         
@@ -234,8 +234,8 @@ const GreeksPortfolioSVG = () => (
     
     {/* Target Ranges */}
     <g transform="translate(50, 300)">
-      <rect x="0" y="0" width="600" height="85" fill="#12805A" fillOpacity="0.1" rx="10" stroke="#12805A" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">PROFESSIONAL TARGET RANGES</text>
+      <rect x="0" y="0" width="600" height="85" fill="#16A34A" fillOpacity="0.1" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">PROFESSIONAL TARGET RANGES</text>
       
       <g transform="translate(20, 40)">
         <text x="0" y="10" fontSize="9" fill="white">Delta: ±5-10% of portfolio value | Gamma: Manageable daily swings (±1-2% P/L)</text>
@@ -292,7 +292,7 @@ const RiskMetricsSVG = () => (
     <g transform="translate(460, 80)">
       <rect x="0" y="0" width="190" height="140" fill="#2A2A2C" rx="10"/>
       
-      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">SHARPE RATIO</text>
+      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">SHARPE RATIO</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Risk-adjusted return</text>
@@ -373,7 +373,7 @@ const TradeJournalSVG = () => (
     <g transform="translate(370, 80)">
       <rect x="0" y="0" width="280" height="260" fill="#2A2A2C" rx="10"/>
       
-      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">METRICS TO TRACK</text>
+      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">METRICS TO TRACK</text>
       
       <g transform="translate(15, 50)">
         <text x="0" y="0" fontSize="9" fontWeight="500" fill="white">Performance:</text>
@@ -409,9 +409,9 @@ const FinalChecklistSVG = () => (
     {/* Checklist Items */}
     <g transform="translate(50, 60)">
       {[
-        { text: "Position size calculated using fixed % risk rule?", color: "#12805A" },
-        { text: "Stop loss defined before entry?", color: "#12805A" },
-        { text: "Risk/reward ratio acceptable (≥1:2)?", color: "#12805A" },
+        { text: "Position size calculated using fixed % risk rule?", color: "#16A34A" },
+        { text: "Stop loss defined before entry?", color: "#16A34A" },
+        { text: "Risk/reward ratio acceptable (≥1:2)?", color: "#16A34A" },
         { text: "Portfolio Greeks within target ranges?", color: "#5A77AA" },
         { text: "No excessive correlation with existing positions?", color: "#5A77AA" },
         { text: "Total account risk under daily/weekly limits?", color: "#D2754C" },
@@ -531,7 +531,7 @@ const FOLesson12 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Risk Management & Position Sizing
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -571,7 +571,7 @@ const FOLesson12 = () => {
                   <Icons.Scale className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Position Sizing</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Position Sizing</h2>
                   <p className="text-sm text-gray-500 ">The most important trading skill you&apos;ll learn</p>
                 </div>
               </div>
@@ -608,7 +608,7 @@ const FOLesson12 = () => {
                   <Icons.Sliders className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Greeks Management</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Greeks Management</h2>
                   <p className="text-sm text-gray-500 ">Managing aggregate risk across all positions</p>
                 </div>
               </div>
@@ -644,7 +644,7 @@ const FOLesson12 = () => {
                   <Icons.BarChart className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Risk Metrics</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Risk Metrics</h2>
                   <p className="text-sm text-gray-500 ">Quantifying portfolio risk like a professional</p>
                 </div>
               </div>
@@ -666,7 +666,7 @@ const FOLesson12 = () => {
                   <Icons.Award className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Trade Journaling</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Trade Journaling</h2>
                   <p className="text-sm text-gray-500 ">The secret weapon of successful traders</p>
                 </div>
               </div>
@@ -689,7 +689,7 @@ const FOLesson12 = () => {
                   <Icons.Shield className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Pre-Trade Checklist</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Pre-Trade Checklist</h2>
                   <p className="text-sm text-gray-500 ">Run through before every single trade</p>
                 </div>
               </div>
@@ -706,7 +706,7 @@ const FOLesson12 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Position sizing is THE most important trading skill",
@@ -730,7 +730,7 @@ const FOLesson12 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -799,7 +799,7 @@ const FOLesson12 = () => {
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Award className="w-10 h-10" />
               </div>
-              <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Module Complete!</h2>
+              <h2 className="text-2xl font-bold mb-2 tracking-[-0.015em]">Module Complete!</h2>
               <p className="text-white/85 mb-6 max-w-2xl mx-auto">
                 Congratulations on completing the Futures & Options module. You now have a comprehensive 
                 understanding of derivatives, from basic concepts to advanced strategies and risk management. 

@@ -144,7 +144,7 @@ export default function Portfolio() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
                 <PieChartIcon className="h-4 w-4 text-brand" />
                 Current Portfolio Analysis
               </CardTitle>
@@ -257,7 +257,7 @@ export default function Portfolio() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
                 <ShieldQuestion className="h-4 w-4 text-brand" />
                 Risk Assessment
               </CardTitle>

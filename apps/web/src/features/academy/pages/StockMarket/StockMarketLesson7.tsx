@@ -399,7 +399,7 @@ const StockMarketLesson7 = () => {
                 Module Complete!
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Warning className="w-7 h-7 text-rose-600" />
               </span>
@@ -470,7 +470,7 @@ const StockMarketLesson7 = () => {
 
           {/* All 8 Mistakes */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <Icons.Warning className="w-6 h-6 text-rose-600" />
               </span>
@@ -628,7 +628,7 @@ const StockMarketLesson7 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -680,7 +680,7 @@ const StockMarketLesson7 = () => {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Celebration className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Module {getModuleInfo("stock-market")?.number} Complete!</h2>
+              <h2 className="text-2xl font-bold mb-2 tracking-[-0.015em]">Module {getModuleInfo("stock-market")?.number} Complete!</h2>
               <p className="text-white/90 mb-4">
                 Congratulations! You've completed Stock Market Basics. You now understand how the stock market works, 
                 what shares are, how trading happens, market indices, price movements, investing vs trading, and common mistakes to avoid.

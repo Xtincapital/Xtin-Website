@@ -61,7 +61,7 @@ export default function BuyTokensModal() {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-brand text-xs font-semibold uppercase tracking-wider mb-3">
             <Coins className="w-3.5 h-3.5" /> AI tokens
           </span>
-          <h2 className="text-2xl font-semibold text-foreground">Top up your tokens</h2>
+          <h2 className="text-2xl font-bold text-foreground">Top up your tokens</h2>
           <p className="text-sm text-muted-foreground mt-2">
             {wallet
               ? `You have ${formatTokens(wallet.balance)} left. Add more — they never expire.`

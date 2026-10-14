@@ -54,10 +54,10 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 300" fill="none">
       {/* Grid cells with different correlations */}
       {[
-        [{v:1,c:'#12805A'},{v:0.3,c:'#5A77AA'},{v:-0.2,c:'#8F6FC4'},{v:0.1,c:'#7C95C4'}],
-        [{v:0.3,c:'#5A77AA'},{v:1,c:'#12805A'},{v:0.5,c:'#3CCB97'},{v:0.2,c:'#5A77AA'}],
-        [{v:-0.2,c:'#8F6FC4'},{v:0.5,c:'#3CCB97'},{v:1,c:'#12805A'},{v:-0.1,c:'#A88BD9'}],
-        [{v:0.1,c:'#7C95C4'},{v:0.2,c:'#5A77AA'},{v:-0.1,c:'#A88BD9'},{v:1,c:'#12805A'}]
+        [{v:1,c:'#16A34A'},{v:0.3,c:'#5A77AA'},{v:-0.2,c:'#8F6FC4'},{v:0.1,c:'#7C95C4'}],
+        [{v:0.3,c:'#5A77AA'},{v:1,c:'#16A34A'},{v:0.5,c:'#16A34A'},{v:0.2,c:'#5A77AA'}],
+        [{v:-0.2,c:'#8F6FC4'},{v:0.5,c:'#16A34A'},{v:1,c:'#16A34A'},{v:-0.1,c:'#A88BD9'}],
+        [{v:0.1,c:'#7C95C4'},{v:0.2,c:'#5A77AA'},{v:-0.1,c:'#A88BD9'},{v:1,c:'#16A34A'}]
       ].map((row, i) => (
         row.map((cell, j) => (
           <g key={`${i}-${j}`}>
@@ -80,7 +80,7 @@ const Icons = {
         <text x="45" y="11" fill="currentColor" fontSize="10">Negative</text>
         <rect x="100" y="0" width="40" height="15" fill="#5A77AA" opacity="0.6" rx="2"/>
         <text x="145" y="11" fill="currentColor" fontSize="10">Low</text>
-        <rect x="190" y="0" width="40" height="15" fill="#12805A" opacity="0.6" rx="2"/>
+        <rect x="190" y="0" width="40" height="15" fill="#16A34A" opacity="0.6" rx="2"/>
         <text x="235" y="11" fill="currentColor" fontSize="10">High</text>
       </g>
     </svg>
@@ -170,7 +170,7 @@ const PCLesson8 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold mb-5 leading-tight tracking-[-0.025em] text-brand">Diversification Mastery</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 leading-tight tracking-[-0.025em] text-brand">Diversification Mastery</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover why diversification is called the "only free lunch in investing." Learn to build portfolios that reduce risk without sacrificing returns through true diversification across assets and geography.</p>
           </header>
 
@@ -183,7 +183,7 @@ const PCLesson8 = () => {
                       <Icons.Layers className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Free Lunch of Finance</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Free Lunch of Finance</h2>
                       <p className="text-sm text-gray-500 ">Why diversification matters</p>
                     </div>
                   </div>
@@ -222,7 +222,7 @@ const PCLesson8 = () => {
                       <Icons.Grid className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">True vs. Naive Diversification</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">True vs. Naive Diversification</h2>
                       <p className="text-sm text-gray-500 ">Quantity is not quality</p>
                     </div>
                   </div>
@@ -301,7 +301,7 @@ const PCLesson8 = () => {
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Correlation</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Correlation</h2>
                       <p className="text-sm text-gray-500 ">The key to diversification</p>
                     </div>
                   </div>
@@ -378,7 +378,7 @@ const PCLesson8 = () => {
                       <Icons.Grid className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Asset Correlation Analysis</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Asset Correlation Analysis</h2>
                       <p className="text-sm text-gray-500 ">Understanding asset relationships</p>
                     </div>
                   </div>
@@ -476,7 +476,7 @@ const PCLesson8 = () => {
                       <Icons.Globe className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Global Diversification</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Global Diversification</h2>
                       <p className="text-sm text-gray-500 ">Beyond your home market</p>
                     </div>
                   </div>
@@ -541,7 +541,7 @@ const PCLesson8 = () => {
                       <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Limits and Common Mistakes</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Limits and Common Mistakes</h2>
                       <p className="text-sm text-gray-500 ">What diversification cannot do</p>
                     </div>
                   </div>
@@ -600,7 +600,7 @@ const PCLesson8 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of diversification</p>
                     </div>
                   </div>

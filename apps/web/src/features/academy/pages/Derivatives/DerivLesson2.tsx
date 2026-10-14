@@ -71,14 +71,14 @@ const ObligationSVG = () => (
     
     {/* Buyer side */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">The Buyer</text>
+      <rect x="0" y="0" width="280" height="170" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">The Buyer</text>
       <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#717680">(Agrees to BUY at the set price)</text>
       
       <g transform="translate(20, 60)">
         <rect x="0" y="0" width="240" height="90" fill="white" rx="8"/>
         <text x="120" y="25" textAnchor="middle" fontSize="24">🛒</text>
-        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#12805A" fontWeight="500">MUST buy at agreed price</text>
+        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#16A34A" fontWeight="500">MUST buy at agreed price</text>
         <text x="120" y="68" textAnchor="middle" fontSize="8" fill="#717680">Even if market price is lower</text>
         <text x="120" y="82" textAnchor="middle" fontSize="8" fill="#717680">No backing out</text>
       </g>
@@ -147,8 +147,8 @@ const WhyFuturesExistSVG = () => (
     
     {/* Solution */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">The Solution: Futures</text>
+      <rect x="0" y="0" width="280" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">The Solution: Futures</text>
       
       <g transform="translate(20, 50)">
         <rect x="0" y="0" width="240" height="130" fill="white" rx="8"/>
@@ -156,10 +156,10 @@ const WhyFuturesExistSVG = () => (
         <text x="120" y="22" textAnchor="middle" fontSize="20">📋</text>
         <text x="120" y="42" textAnchor="middle" fontSize="9" fill="#373A41" fontWeight="500">The airline buys oil futures:</text>
         
-        <text x="120" y="62" textAnchor="middle" fontSize="8" fill="#12805A">"We'll lock in $80/barrel for delivery"</text>
-        <text x="120" y="77" textAnchor="middle" fontSize="8" fill="#12805A">"throughout the year."</text>
-        <text x="120" y="92" textAnchor="middle" fontSize="8" fill="#12805A">"Now we KNOW our fuel costs!"</text>
-        <text x="120" y="107" textAnchor="middle" fontSize="8" fill="#12805A">"We can set ticket prices confidently."</text>
+        <text x="120" y="62" textAnchor="middle" fontSize="8" fill="#16A34A">"We'll lock in $80/barrel for delivery"</text>
+        <text x="120" y="77" textAnchor="middle" fontSize="8" fill="#16A34A">"throughout the year."</text>
+        <text x="120" y="92" textAnchor="middle" fontSize="8" fill="#16A34A">"Now we KNOW our fuel costs!"</text>
+        <text x="120" y="107" textAnchor="middle" fontSize="8" fill="#16A34A">"We can set ticket prices confidently."</text>
         
         <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#717680">Price certainty enables business planning</text>
       </g>
@@ -183,8 +183,8 @@ const TwoSidesSVG = () => (
     
     {/* Hedger side */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">The Hedger</text>
+      <rect x="0" y="0" width="280" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">The Hedger</text>
       <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#717680">(Wants price certainty)</text>
       
       <g transform="translate(20, 60)">
@@ -193,7 +193,7 @@ const TwoSidesSVG = () => (
         <text x="120" y="22" textAnchor="middle" fontSize="18">🌾 ✈️ 🏭</text>
         <text x="120" y="42" textAnchor="middle" fontSize="8" fill="#373A41">Farmers, airlines, manufacturers...</text>
         
-        <text x="120" y="62" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Goal: Remove uncertainty</text>
+        <text x="120" y="62" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Goal: Remove uncertainty</text>
         <text x="120" y="78" textAnchor="middle" fontSize="8" fill="#717680">Willing to give up potential gains</text>
         <text x="120" y="92" textAnchor="middle" fontSize="8" fill="#717680">to avoid potential losses</text>
       </g>
@@ -250,8 +250,8 @@ const GlobalExampleSVG = () => (
     
     {/* Scenario 1: Price drops */}
     <g transform="translate(50, 205)">
-      <rect x="0" y="0" width="290" height="145" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Scenario A: Price Drops</text>
+      <rect x="0" y="0" width="290" height="145" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Scenario A: Price Drops</text>
       <text x="145" y="38" textAnchor="middle" fontSize="8" fill="#717680">Cocoa falls to $2,200/ton by September</text>
       
       <g transform="translate(15, 50)">
@@ -263,10 +263,10 @@ const GlobalExampleSVG = () => (
         <line x1="20" y1="42" x2="240" y2="42" stroke="#E4E4EA" strokeWidth="1"/>
         
         <text x="130" y="56" textAnchor="middle" fontSize="8" fill="#373A41">With futures contract:</text>
-        <text x="130" y="70" textAnchor="middle" fontSize="9" fill="#12805A" fontWeight="500">Still gets $300,000! 🎉</text>
+        <text x="130" y="70" textAnchor="middle" fontSize="9" fill="#16A34A" fontWeight="500">Still gets $300,000! 🎉</text>
       </g>
       
-      <text x="145" y="140" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Protected from the drop</text>
+      <text x="145" y="140" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Protected from the drop</text>
     </g>
     
     {/* Scenario 2: Price rises */}
@@ -279,7 +279,7 @@ const GlobalExampleSVG = () => (
         <rect x="0" y="0" width="260" height="80" fill="white" rx="6"/>
         
         <text x="130" y="18" textAnchor="middle" fontSize="8" fill="#373A41">Without futures:</text>
-        <text x="130" y="32" textAnchor="middle" fontSize="9" fill="#12805A">$4,000 × 100 = $400,000 🎉</text>
+        <text x="130" y="32" textAnchor="middle" fontSize="9" fill="#16A34A">$4,000 × 100 = $400,000 🎉</text>
         
         <line x1="20" y1="42" x2="240" y2="42" stroke="#E4E4EA" strokeWidth="1"/>
         
@@ -311,14 +311,14 @@ const CommonFuturesSVG = () => (
     <g transform="translate(50, 75)">
       {/* Commodities */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="140" height="160" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
-        <text x="70" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Commodities</text>
+        <rect x="0" y="0" width="140" height="160" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+        <text x="70" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Commodities</text>
         <text x="70" y="50" textAnchor="middle" fontSize="20">🛢️ 🌾 ☕</text>
         <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#717680">Oil, Natural Gas</text>
         <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#717680">Wheat, Corn, Soybeans</text>
         <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#717680">Coffee, Cocoa, Sugar</text>
         <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#717680">Gold, Silver, Copper</text>
-        <text x="70" y="145" textAnchor="middle" fontSize="7" fill="#12805A">Physical goods</text>
+        <text x="70" y="145" textAnchor="middle" fontSize="7" fill="#16A34A">Physical goods</text>
       </g>
       
       {/* Indices */}
@@ -463,7 +463,7 @@ const DerivLesson2 = () => {
                 Lesson 2 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">What Are Futures?</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">What Are Futures?</h1>
             <p className="text-gray-600 text-lg">
               Understanding agreements about the future.
             </p>
@@ -477,7 +477,7 @@ const DerivLesson2 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Is a Futures Contract?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">What Is a Futures Contract?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -502,7 +502,7 @@ const DerivLesson2 = () => {
 
         {/* The Obligation */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Key Feature: It's an Obligation</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Key Feature: It's an Obligation</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -530,7 +530,7 @@ const DerivLesson2 = () => {
 
         {/* Why Futures Exist */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Were Futures Invented?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Were Futures Invented?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -549,7 +549,7 @@ const DerivLesson2 = () => {
 
         {/* Two Sides */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Two Sides of Every Trade</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Two Sides of Every Trade</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -577,7 +577,7 @@ const DerivLesson2 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -600,7 +600,7 @@ const DerivLesson2 = () => {
 
         {/* Common Futures */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Can You Trade Futures On?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Can You Trade Futures On?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -635,7 +635,7 @@ const DerivLesson2 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of futures basics.</p>
           
           <div className="space-y-8">

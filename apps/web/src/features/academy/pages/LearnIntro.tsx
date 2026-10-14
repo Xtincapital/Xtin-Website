@@ -145,7 +145,7 @@ const LearnIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.08] tracking-[-0.025em] mb-5">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.08] tracking-[-0.025em] mb-5">
               Learn investing,
               <br />
               <span className="text-brand">the right way</span>
@@ -217,7 +217,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple process</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">How it works</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">How it works</h2>
           </motion.div>
 
           <div className="relative">
@@ -243,7 +243,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Course catalog</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">Pick your learning path</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">Pick your learning path</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Structured from beginner to advanced. Start anywhere.</p>
           </motion.div>
 
@@ -286,7 +286,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The advantage</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">Why learn here</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">Why learn here</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -311,7 +311,7 @@ const LearnIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Who it's for</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Who it's for</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -341,7 +341,7 @@ const LearnIntro = () => {
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
             <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Pricing</span>
-            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">100% Free. Always.</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">100% Free. Always.</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-brand/20 bg-brand-fill">
@@ -353,7 +353,7 @@ const LearnIntro = () => {
                 <LockOpen />
                 <span>Our Mission</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-display font-semibold mb-6 tracking-[-0.025em]">&#8377;0 Forever</h3>
+              <h3 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-[-0.025em]">&#8377;0 Forever</h3>
               <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-10">
                 We believe in making India wealthy, not just rich. Education should never be a luxury. This is our contribution to India's second freedom movement &mdash; a financial movement for everyone.
               </p>
@@ -389,7 +389,7 @@ const LearnIntro = () => {
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-4 tracking-[-0.025em]">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 tracking-[-0.025em]">
               Start learning today
             </h2>
             <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">

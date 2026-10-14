@@ -283,7 +283,7 @@ const StockMarketLesson6 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <Icons.Compare className="w-7 h-7 text-brand" />
               </span>
@@ -318,25 +318,25 @@ const StockMarketLesson6 = () => {
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
               {/* Investor Side */}
               <g transform="translate(50, 30)">
-                <rect x="0" y="0" width="250" height="240" rx="16" fill="#EEF9F4" stroke="#12805A" strokeWidth="3"/>
-                <text x="125" y="30" textAnchor="middle" fill="#12805A" fontSize="16" fontWeight="700">INVESTING</text>
-                <text x="125" y="50" textAnchor="middle" fill="#12805A" fontSize="10">"Plant a tree, watch it grow"</text>
+                <rect x="0" y="0" width="250" height="240" rx="16" fill="#F0FDF4" stroke="#16A34A" strokeWidth="3"/>
+                <text x="125" y="30" textAnchor="middle" fill="#16A34A" fontSize="16" fontWeight="700">INVESTING</text>
+                <text x="125" y="50" textAnchor="middle" fill="#16A34A" fontSize="10">"Plant a tree, watch it grow"</text>
                 
                 {/* Tree growing visualization */}
                 <g transform="translate(75, 70)">
                   <rect x="45" y="100" width="10" height="40" fill="#654B26"/>
-                  <circle cx="50" cy="80" r="30" fill="#12805A"/>
-                  <circle cx="35" cy="90" r="20" fill="#12805A"/>
-                  <circle cx="65" cy="90" r="20" fill="#12805A"/>
+                  <circle cx="50" cy="80" r="30" fill="#16A34A"/>
+                  <circle cx="35" cy="90" r="20" fill="#16A34A"/>
+                  <circle cx="65" cy="90" r="20" fill="#16A34A"/>
                   <text x="50" y="85" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">5-20</text>
                   <text x="50" y="95" textAnchor="middle" fill="white" fontSize="8">YEARS</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 180)">
-                  <text x="0" y="0" fill="#12805A" fontSize="10">✓ Long-term wealth building</text>
-                  <text x="0" y="18" fill="#12805A" fontSize="10">✓ Less time-consuming</text>
-                  <text x="0" y="36" fill="#12805A" fontSize="10">✓ Lower stress</text>
+                  <text x="0" y="0" fill="#16A34A" fontSize="10">✓ Long-term wealth building</text>
+                  <text x="0" y="18" fill="#16A34A" fontSize="10">✓ Less time-consuming</text>
+                  <text x="0" y="36" fill="#16A34A" fontSize="10">✓ Lower stress</text>
                 </g>
               </g>
 
@@ -356,8 +356,8 @@ const StockMarketLesson6 = () => {
                 <g transform="translate(25, 70)">
                   <rect x="0" y="0" width="200" height="100" rx="8" fill="white" stroke="#E2C273" strokeWidth="2"/>
                   <path d="M20 70 L50 50 L80 65 L110 30 L140 45 L170 25" stroke="#B8923F" strokeWidth="3" fill="none"/>
-                  <circle cx="50" cy="50" r="4" fill="#12805A"/>
-                  <text x="50" y="45" textAnchor="middle" fill="#12805A" fontSize="7">BUY</text>
+                  <circle cx="50" cy="50" r="4" fill="#16A34A"/>
+                  <text x="50" y="45" textAnchor="middle" fill="#16A34A" fontSize="7">BUY</text>
                   <circle cx="110" cy="30" r="4" fill="#E04848"/>
                   <text x="110" y="25" textAnchor="middle" fill="#E04848" fontSize="7">SELL</text>
                   <text x="100" y="90" textAnchor="middle" fill="#654B26" fontSize="9">Minutes to Days</text>
@@ -373,8 +373,8 @@ const StockMarketLesson6 = () => {
 
               {/* Bottom note */}
               <g transform="translate(50, 285)">
-                <rect x="0" y="0" width="600" height="30" rx="8" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
-                <text x="300" y="20" textAnchor="middle" fill="#12805A" fontSize="11">
+                <rect x="0" y="0" width="600" height="30" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="300" y="20" textAnchor="middle" fill="#16A34A" fontSize="11">
                   Neither is "better" — they serve different goals and suit different personalities
                 </text>
               </g>
@@ -716,7 +716,7 @@ const StockMarketLesson6 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-brand-soft rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

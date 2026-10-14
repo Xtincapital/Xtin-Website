@@ -293,7 +293,7 @@ export default function Pricing() {
               <Card key={pack.id} className={pack.id === "ai_1000" ? "border-primary/40 shadow-md" : undefined}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">{pack.label}</CardTitle>
+                    <CardTitle className="text-lg">{pack.label}</CardTitle>
                     {pack.id === "ai_1000" && <Badge variant="secondary">Best value</Badge>}
                   </div>
                   <p className="pt-1 text-2xl font-bold">

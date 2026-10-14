@@ -225,7 +225,7 @@ const AdminCertificates = () => {
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
               Certificate Management
             </h1>
             <p className="mt-2 text-gray-600 dark:text-slate-400">

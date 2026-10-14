@@ -247,7 +247,7 @@ const AlgoTradingLesson1 = () => {
                 15 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Foundation className="w-8 h-8 text-white" />
               </span>
@@ -307,7 +307,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Section 1: Definition */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100  rounded-xl">
                 <Icons.Code className="w-5 h-5 text-indigo-600 " />
               </span>
@@ -408,7 +408,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Section 2: History */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100  rounded-xl">
                 <Icons.History className="w-5 h-5 text-indigo-600 " />
               </span>
@@ -443,12 +443,12 @@ const AlgoTradingLesson1 = () => {
 
                 {/* Era 2: Electronic Trading */}
                 <g transform="translate(200, 60)">
-                  <circle cx="0" cy="80" r="12" fill="#12805A" stroke="#3CCB97" strokeWidth="2"/>
-                  <rect x="-70" y="0" width="140" height="55" rx="8" fill="#2A2A2C" stroke="#12805A" strokeWidth="1"/>
-                  <text x="0" y="20" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">Electronic Markets</text>
+                  <circle cx="0" cy="80" r="12" fill="#16A34A" stroke="#16A34A" strokeWidth="2"/>
+                  <rect x="-70" y="0" width="140" height="55" rx="8" fill="#2A2A2C" stroke="#16A34A" strokeWidth="1"/>
+                  <text x="0" y="20" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">Electronic Markets</text>
                   <text x="0" y="35" textAnchor="middle" fill="#A0A3AA" fontSize="8">1980s - 1990s</text>
                   <text x="0" y="48" textAnchor="middle" fill="#717680" fontSize="7">NASDAQ, screen-based</text>
-                  <path d="M0 55 L0 68" stroke="#12805A" strokeWidth="1.5"/>
+                  <path d="M0 55 L0 68" stroke="#16A34A" strokeWidth="1.5"/>
                 </g>
 
                 {/* Era 3: Early Algos */}
@@ -479,7 +479,7 @@ const AlgoTradingLesson1 = () => {
                   <text x="100" y="55" textAnchor="middle" fill="#8F6FC4" fontSize="22" fontWeight="700">70%+</text>
                   <text x="100" y="70" textAnchor="middle" fill="#717680" fontSize="8">US equity volume from algos</text>
                   
-                  <text x="300" y="55" textAnchor="middle" fill="#12805A" fontSize="22" fontWeight="700">50%+</text>
+                  <text x="300" y="55" textAnchor="middle" fill="#16A34A" fontSize="22" fontWeight="700">50%+</text>
                   <text x="300" y="70" textAnchor="middle" fill="#717680" fontSize="8">Indian market algo share</text>
                   
                   <text x="500" y="55" textAnchor="middle" fill="#8F6FC4" fontSize="22" fontWeight="700">&lt;1ms</text>
@@ -489,7 +489,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Section 3: Why Institutions Use Algos */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100  rounded-xl">
                 <Icons.Building className="w-5 h-5 text-indigo-600 " />
               </span>
@@ -557,7 +557,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Section 4: Types of Strategies */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100  rounded-xl">
                 <Icons.Chart className="w-5 h-5 text-indigo-600 " />
               </span>
@@ -611,15 +611,15 @@ const AlgoTradingLesson1 = () => {
 
                 {/* Strategy 3: Momentum/Trend */}
                 <g transform="translate(410, 60)">
-                  <rect x="0" y="0" width="150" height="120" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <text x="75" y="25" textAnchor="middle" fill="#3CCB97" fontSize="12" fontWeight="700">Trend Following</text>
-                  <text x="75" y="42" textAnchor="middle" fill="#12805A" fontSize="10">& Momentum</text>
+                  <rect x="0" y="0" width="150" height="120" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="75" y="25" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">Trend Following</text>
+                  <text x="75" y="42" textAnchor="middle" fill="#16A34A" fontSize="10">& Momentum</text>
                   <text x="75" y="65" textAnchor="middle" fill="#A0A3AA" fontSize="9">• Moving averages</text>
                   <text x="75" y="80" textAnchor="middle" fill="#A0A3AA" fontSize="9">• Breakout systems</text>
                   <text x="75" y="95" textAnchor="middle" fill="#A0A3AA" fontSize="9">• Managed futures</text>
-                  <rect x="10" y="105" width="130" height="10" rx="3" fill="#12805A"/>
-                  <text x="75" y="113" textAnchor="middle" fill="#3CCB97" fontSize="7">Days to months</text>
-                  <path d="M75 130 L75 218" stroke="#12805A" strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <rect x="10" y="105" width="130" height="10" rx="3" fill="#16A34A"/>
+                  <text x="75" y="113" textAnchor="middle" fill="#16A34A" fontSize="7">Days to months</text>
+                  <path d="M75 130 L75 218" stroke="#16A34A" strokeWidth="1.5" strokeDasharray="4,2"/>
                 </g>
 
                 {/* Strategy 4: Factor/Quant */}
@@ -660,7 +660,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Section 5: Common Misconceptions */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100  rounded-xl">
                 <Icons.Warning className="w-5 h-5 text-rose-600 " />
               </span>
@@ -731,7 +731,7 @@ const AlgoTradingLesson1 = () => {
             </div>
 
             {/* Quiz Section */}
-            <h2 className="text-2xl font-semibold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100  rounded-xl">
                 <Icons.Brain className="w-5 h-5 text-indigo-600 " />
               </span>

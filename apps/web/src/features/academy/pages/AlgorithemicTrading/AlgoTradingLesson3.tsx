@@ -123,7 +123,7 @@ const AlgoTradingLesson3 = () => {
               <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 3 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Strategy className="w-8 h-8 text-white"/>
               </span>
@@ -164,7 +164,7 @@ const AlgoTradingLesson3 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">The 4 Core Strategy Types</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">The 4 Core Strategy Types</h2>
 
             {/* Strategy Types Visual */}
             <div className="rounded-2xl p-6 mb-10 border border-indigo-800/50 shadow-xl bg-brand-fill">
@@ -181,10 +181,10 @@ const AlgoTradingLesson3 = () => {
 
                 {/* Quadrant 1: Trend Following (top-left) */}
                 <g transform="translate(80, 80)">
-                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <circle cx="30" cy="30" r="18" fill="#12805A"/>
+                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <circle cx="30" cy="30" r="18" fill="#16A34A"/>
                   <text x="30" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">1</text>
-                  <text x="130" y="30" textAnchor="middle" fill="#3CCB97" fontSize="13" fontWeight="700">TREND FOLLOWING</text>
+                  <text x="130" y="30" textAnchor="middle" fill="#16A34A" fontSize="13" fontWeight="700">TREND FOLLOWING</text>
                   <text x="130" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="9">"The trend is your friend"</text>
                   <text x="130" y="70" textAnchor="middle" fill="#717680" fontSize="8">• Moving averages, breakouts</text>
                   <text x="130" y="85" textAnchor="middle" fill="#717680" fontSize="8">• Hold days to months</text>
@@ -406,7 +406,7 @@ const AlgoTradingLesson3 = () => {
             </div>
 
             {/* Comparison Table */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Strategy Comparison</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Strategy Comparison</h2>
             <div className="overflow-x-auto mb-10">
               <table className="w-full text-sm">
                 <thead>
@@ -482,7 +482,7 @@ const AlgoTradingLesson3 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which strategy type typically has the lowest win rate but largest profits per winning trade?"
               options={["Mean Reversion", "Trend Following", "Market Making", "Statistical Arbitrage"]}

@@ -639,7 +639,7 @@ const Dashboard = () => {
                 {getInitials()}
               </div>
               <div className="min-w-0">
-                <h1 className="xt-title truncate">Welcome back, {displayName}</h1>
+                <h1 className="xt-title truncate">{displayName}</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
               </div>
             </div>
@@ -718,7 +718,7 @@ const Dashboard = () => {
                     <div key={sub.id} className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-medium truncate">{sub.planName}</h3>
+                          <h3 className="font-bold truncate">{sub.planName}</h3>
                           {sub.isBundle && (
                             <span className="text-xs font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-brand-soft dark:bg-brand-fill/60 text-brand dark:text-brand">Bundle</span>
                           )}

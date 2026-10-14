@@ -8,7 +8,7 @@ import remarkGfm from "remark-gfm";
 // The assistant answers in markdown (headings, tables, bold, lists); without
 // rendering it the chat showed raw `##` and `| a | b |` text.
 const markdownComponents = {
-  h1: (p: any) => <h1 className="text-3xl md:text-4xl mt-3 mb-1.5 font-semibold" {...p} />,
+  h1: (p: any) => <h1 className="text-4xl md:text-5xl mt-3 mb-1.5 font-bold" {...p} />,
   h2: (p: any) => <h2 className="text-base font-semibold mt-3 mb-1.5" {...p} />,
   h3: (p: any) => <h3 className="text-base font-semibold mt-2.5 mb-1" {...p} />,
   p: (p: any) => <p className="my-1.5 leading-relaxed" {...p} />,

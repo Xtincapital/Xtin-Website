@@ -69,7 +69,7 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
         <linearGradient id="feasibleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#12805A" stopOpacity="0.3"/>
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.3"/>
           <stop offset="100%" stopColor="#5A77AA" stopOpacity="0.2"/>
         </linearGradient>
       </defs>
@@ -79,7 +79,7 @@ const Icons = {
       <text x="210" y="230" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Asset A Weight</text>
       <text x="20" y="120" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 120)">Asset B Weight</text>
       {/* Feasible region (polygon) */}
-      <path d="M 80 200 L 320 200 L 280 80 L 120 80 Z" fill="url(#feasibleGrad)" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5"/>
+      <path d="M 80 200 L 320 200 L 280 80 L 120 80 Z" fill="url(#feasibleGrad)" stroke="#16A34A" strokeWidth="2" strokeDasharray="5,5"/>
       {/* Constraint lines */}
       <line x1="80" y1="80" x2="80" y2="200" stroke="#E04848" strokeWidth="2" opacity="0.6"/>
       <text x="75" y="140" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="end">Min 20%</text>
@@ -92,7 +92,7 @@ const Icons = {
       <text x="200" y="115" fill="#8F6FC4" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
       {/* Labels */}
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Constrained Optimization</text>
-      <text x="200" y="150" fill="#12805A" fontSize="11" fontWeight="bold" textAnchor="middle">Feasible Region</text>
+      <text x="200" y="150" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">Feasible Region</text>
     </svg>
   )
 };
@@ -180,7 +180,7 @@ const PCLesson7 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-cyan-900 to-blue-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Optimization</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-cyan-900 to-blue-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Optimization</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the quantitative techniques used to construct optimal portfolios. Understand Mean-Variance Optimization, its limitations, and practical improvements used by professional asset managers.</p>
           </header>
 
@@ -193,7 +193,7 @@ const PCLesson7 = () => {
                     <Icons.Settings className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Mean-Variance Optimization (MVO)</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Mean-Variance Optimization (MVO)</h2>
                     <p className="text-sm text-gray-500 ">Markowitz's mathematical framework</p>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ const PCLesson7 = () => {
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">MVO's Limitations</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">MVO's Limitations</h2>
                     <p className="text-sm text-gray-500 ">Why simple MVO often fails in practice</p>
                   </div>
                 </div>
@@ -294,7 +294,7 @@ const PCLesson7 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Adding Practical Constraints</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Adding Practical Constraints</h2>
                     <p className="text-sm text-gray-500 ">Making optimization work in the real world</p>
                   </div>
                 </div>
@@ -346,7 +346,7 @@ const PCLesson7 = () => {
                     <Icons.Target className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization</h2>
                     <p className="text-sm text-gray-500 ">Real-world constraints and solutions</p>
                   </div>
                 </div>
@@ -423,7 +423,7 @@ const PCLesson7 = () => {
                     <Icons.Shield className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Robust Optimization Methods</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Robust Optimization Methods</h2>
                     <p className="text-sm text-gray-500 ">Beyond traditional MVO</p>
                   </div>
                 </div>
@@ -471,7 +471,7 @@ const PCLesson7 = () => {
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization Workflow</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization Workflow</h2>
                     <p className="text-sm text-gray-500 ">How professionals actually build portfolios</p>
                   </div>
                 </div>
@@ -516,7 +516,7 @@ const PCLesson7 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of portfolio optimization</p>
                   </div>
                 </div>

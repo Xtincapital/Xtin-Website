@@ -128,7 +128,7 @@ export default function UpgradeModal() {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-brand text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" /> FundaKaMental Pro
           </span>
-          <h2 className="text-2xl font-semibold text-foreground">{copy.title}</h2>
+          <h2 className="text-2xl font-bold text-foreground">{copy.title}</h2>
           <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
             {copy.sub}
           </p>

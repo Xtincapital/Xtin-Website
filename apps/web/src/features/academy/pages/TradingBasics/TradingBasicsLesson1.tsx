@@ -262,7 +262,7 @@ const TradingBasicsLesson1 = () => {
                 Awareness
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Trading className="w-7 h-7 text-amber-600" />
               </span>
@@ -344,28 +344,28 @@ const TradingBasicsLesson1 = () => {
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 350" fill="none">
               {/* Investing Side */}
               <g transform="translate(30, 30)">
-                <rect x="0" y="0" width="280" height="280" rx="16" fill="#EEF9F4" stroke="#12805A" strokeWidth="3"/>
-                <text x="140" y="35" textAnchor="middle" fill="#12805A" fontSize="18" fontWeight="700">INVESTING</text>
-                <text x="140" y="55" textAnchor="middle" fill="#12805A" fontSize="11">"I own a piece of this company"</text>
+                <rect x="0" y="0" width="280" height="280" rx="16" fill="#F0FDF4" stroke="#16A34A" strokeWidth="3"/>
+                <text x="140" y="35" textAnchor="middle" fill="#16A34A" fontSize="18" fontWeight="700">INVESTING</text>
+                <text x="140" y="55" textAnchor="middle" fill="#16A34A" fontSize="11">"I own a piece of this company"</text>
                 
                 {/* Growing tree visualization */}
                 <g transform="translate(90, 80)">
                   <rect x="45" y="120" width="12" height="50" fill="#654B26"/>
-                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#12805A"/>
-                  <ellipse cx="35" cy="105" rx="25" ry="22" fill="#12805A"/>
-                  <ellipse cx="67" cy="105" rx="25" ry="22" fill="#12805A"/>
+                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#16A34A"/>
+                  <ellipse cx="35" cy="105" rx="25" ry="22" fill="#16A34A"/>
+                  <ellipse cx="67" cy="105" rx="25" ry="22" fill="#16A34A"/>
                   <text x="51" y="95" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">5-20</text>
                   <text x="51" y="108" textAnchor="middle" fill="white" fontSize="9">YEARS</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 210)">
-                  <circle cx="8" cy="8" r="4" fill="#12805A"/>
-                  <text x="20" y="12" fill="#12805A" fontSize="10">Buy & hold for years</text>
-                  <circle cx="8" cy="28" r="4" fill="#12805A"/>
-                  <text x="20" y="32" fill="#12805A" fontSize="10">Focus on company growth</text>
-                  <circle cx="8" cy="48" r="4" fill="#12805A"/>
-                  <text x="20" y="52" fill="#12805A" fontSize="10">Less time, less stress</text>
+                  <circle cx="8" cy="8" r="4" fill="#16A34A"/>
+                  <text x="20" y="12" fill="#16A34A" fontSize="10">Buy & hold for years</text>
+                  <circle cx="8" cy="28" r="4" fill="#16A34A"/>
+                  <text x="20" y="32" fill="#16A34A" fontSize="10">Focus on company growth</text>
+                  <circle cx="8" cy="48" r="4" fill="#16A34A"/>
+                  <text x="20" y="52" fill="#16A34A" fontSize="10">Less time, less stress</text>
                 </g>
               </g>
 
@@ -387,12 +387,12 @@ const TradingBasicsLesson1 = () => {
                   <path d="M20 80 L50 50 L80 70 L110 30 L140 60 L170 25 L200 45 L220 35" stroke="#B8923F" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                   
                   {/* Buy/Sell markers */}
-                  <circle cx="50" cy="50" r="6" fill="#12805A"/>
-                  <text x="50" y="45" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="50" cy="50" r="6" fill="#16A34A"/>
+                  <text x="50" y="45" textAnchor="middle" fill="#16A34A" fontSize="8" fontWeight="bold">BUY</text>
                   <circle cx="110" cy="30" r="6" fill="#E04848"/>
                   <text x="110" y="25" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
-                  <circle cx="140" cy="60" r="6" fill="#12805A"/>
-                  <text x="140" y="75" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="140" cy="60" r="6" fill="#16A34A"/>
+                  <text x="140" y="75" textAnchor="middle" fill="#16A34A" fontSize="8" fontWeight="bold">BUY</text>
                   <circle cx="200" cy="45" r="6" fill="#E04848"/>
                   <text x="200" y="40" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
                   
@@ -634,7 +634,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

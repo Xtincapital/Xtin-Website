@@ -69,7 +69,7 @@ const MoneyMindsetOverview = () => {
 
             <div className="mb-3"><ModuleBadge moduleId="money-mindset" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <BrainIcon className="w-7 h-7 text-rose-600" />
               </span>
@@ -84,7 +84,7 @@ const MoneyMindsetOverview = () => {
           <div className="bg-gradient-to-br from-white to-rose-50 rounded-3xl p-8 mb-10 border border-rose-100 shadow-lg">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Money progress starts with behavior.</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">Money progress starts with behavior.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   This module helps beginners build a healthier relationship with money before moving
                   deeper into saving, debt, investing, and planning.
@@ -141,7 +141,7 @@ const MoneyMindsetOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-rose-600" />
               <span>Your Learning Path</span>
             </h2>
@@ -200,7 +200,7 @@ const MoneyMindsetOverview = () => {
           </div>
 
           <div className="bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Build Better Money Habits?</h3>
+            <h3 className="text-2xl font-bold mb-2 tracking-[-0.015em]">Ready to Build Better Money Habits?</h3>
             <p className="text-rose-100 mb-6">Start with why small choices shape your financial direction.</p>
             <button
               onClick={() => navigate("/learn/money-mindset-lesson-1")}

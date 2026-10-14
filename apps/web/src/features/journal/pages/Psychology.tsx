@@ -235,7 +235,7 @@ const Psychology = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 P&L by Emotion
                 <InfoTip title="P&L by emotion">
                   <p>Total profit or loss from trades tagged with each emotion. Green bars made money; red bars lost money.</p>
@@ -264,7 +264,7 @@ const Psychology = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Top Tags
                 <InfoTip title="Top tags">
                   <p>The ten tags you use most. Tags are short labels you add to a trade, like &quot;breakout&quot; or &quot;revenge trade&quot;.</p>

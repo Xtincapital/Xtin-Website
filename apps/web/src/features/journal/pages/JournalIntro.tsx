@@ -129,7 +129,7 @@ export default function JournalIntro() {
       {/* Features Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold mb-16 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold mb-16 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Key Features
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -156,7 +156,7 @@ export default function JournalIntro() {
       {/* Benefits Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Why Keep a Trade Journal?
           </motion.h2>
           <div className="space-y-4">

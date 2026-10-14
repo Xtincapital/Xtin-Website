@@ -10,7 +10,7 @@ fontStyleSheet.textContent = `
   }
 
   .newsletter-display h1, .newsletter-display h2, .newsletter-display h3, .newsletter-display h4, .newsletter-display h5, .newsletter-display h6 {
-    font-family: 'Inter Tight', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; letter-spacing: -0.02em;
+    font-family: 'Inter Tight', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.02em;
   }
 `;
 if (typeof document !== 'undefined') {
@@ -50,9 +50,9 @@ const NewsletterDisplay = () => {
           <p style={{ color: '#717680' }}>Loading newsletter...</p>
         ) : (
           <>
-            <h1 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '8px' }}>Newsletter not found</h1>
+            <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Newsletter not found</h1>
             <p style={{ color: '#717680', marginBottom: '24px' }}>This edition may have been moved or the link is incorrect.</p>
-            <Link to="/newsletter" style={{ backgroundColor: '#12805A', color: '#ffffff', fontWeight: 600, padding: '10px 20px', borderRadius: '8px' }}>
+            <Link to="/newsletter" style={{ backgroundColor: '#16A34A', color: '#ffffff', fontWeight: 700, padding: '10px 20px', borderRadius: '8px' }}>
               Back to Newsletter
             </Link>
           </>
@@ -70,10 +70,10 @@ const NewsletterDisplay = () => {
         <h2 style={{
           fontFamily: '"Inter Tight", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
           fontSize: '24px',
-          fontWeight: '600',
+          fontWeight: '700',
           color: '#2A2A2C',
           marginBottom: '20px',
-          borderBottom: '2px solid #12805A',
+          borderBottom: '2px solid #16A34A',
           paddingBottom: '10px'
         }}>
           {heading}
@@ -90,7 +90,7 @@ const NewsletterDisplay = () => {
               <h3 style={{
                 fontFamily: '"Inter Tight", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 fontSize: '18px',
-                fontWeight: '600',
+                fontWeight: '700',
                 color: '#373A41',
                 marginBottom: '10px'
               }}>
@@ -132,11 +132,11 @@ const NewsletterDisplay = () => {
         <h1 style={{
           fontFamily: '"Inter Tight", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
           fontSize: '36px',
-          fontWeight: '600',
+          fontWeight: '700',
           color: '#1F1F1F',
           textAlign: 'center',
           marginBottom: '20px',
-          borderBottom: '3px solid #12805A',
+          borderBottom: '3px solid #16A34A',
           paddingBottom: '20px'
         }}>
           {newsletter.title}

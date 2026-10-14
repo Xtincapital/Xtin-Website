@@ -36,8 +36,8 @@ const WhatIsOptionSVG = () => (
     
     {/* Middle - Get the right */}
     <g transform="translate(260, 80)">
-      <rect x="0" y="0" width="180" height="150" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Step 2: Receive a Right</text>
+      <rect x="0" y="0" width="180" height="150" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Step 2: Receive a Right</text>
       
       <g transform="translate(15, 45)">
         <rect x="0" y="0" width="150" height="90" fill="white" rx="8"/>
@@ -63,7 +63,7 @@ const WhatIsOptionSVG = () => (
         <rect x="0" y="0" width="150" height="90" fill="white" rx="8"/>
         <text x="75" y="25" textAnchor="middle" fontSize="22">🤔</text>
         <text x="75" y="50" textAnchor="middle" fontSize="9" fill="#373A41">Use it or let it expire</text>
-        <text x="75" y="65" textAnchor="middle" fontSize="9" fill="#12805A" fontWeight="500">It's YOUR decision</text>
+        <text x="75" y="65" textAnchor="middle" fontSize="9" fill="#16A34A" fontWeight="500">It's YOUR decision</text>
         <text x="75" y="80" textAnchor="middle" fontSize="8" fill="#717680">No one can force you</text>
       </g>
     </g>
@@ -115,8 +115,8 @@ const OptionsVsFuturesSVG = () => (
     
     {/* Options side */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">OPTIONS</text>
+      <rect x="0" y="0" width="280" height="220" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">OPTIONS</text>
       <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#717680">A right (choice)</text>
       
       <g transform="translate(20, 60)">
@@ -124,7 +124,7 @@ const OptionsVsFuturesSVG = () => (
         
         <text x="120" y="25" textAnchor="middle" fontSize="24">🎫 ✓</text>
         
-        <text x="120" y="55" textAnchor="middle" fontSize="9" fill="#12805A" fontWeight="500">You CAN complete the deal (if you want)</text>
+        <text x="120" y="55" textAnchor="middle" fontSize="9" fill="#16A34A" fontWeight="500">You CAN complete the deal (if you want)</text>
         
         <line x1="20" y1="70" x2="220" y2="70" stroke="#E4E4EA" strokeWidth="1"/>
         
@@ -197,12 +197,12 @@ const MovieTicketAnalogySVG = () => (
     
     {/* Outcomes */}
     <g transform="translate(470, 75)">
-      <rect x="0" y="0" width="180" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Two Possibilities</text>
+      <rect x="0" y="0" width="180" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Two Possibilities</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="150" height="65" fill="white" rx="6"/>
-        <text x="75" y="18" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">You go: 🎉</text>
+        <text x="75" y="18" textAnchor="middle" fontSize="8" fontWeight="500" fill="#16A34A">You go: 🎉</text>
         <text x="75" y="35" textAnchor="middle" fontSize="7" fill="#373A41">Enjoy the movie!</text>
         <text x="75" y="50" textAnchor="middle" fontSize="7" fill="#373A41">Ticket was worth it.</text>
         <text x="75" y="62" textAnchor="middle" fontSize="6" fill="#717680">(Exercise the option)</text>
@@ -235,8 +235,8 @@ const TwoTypesOptionsSVG = () => (
     
     {/* Call Option */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">CALL OPTION</text>
+      <rect x="0" y="0" width="280" height="180" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">CALL OPTION</text>
       <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#717680">The right to BUY</text>
       
       <g transform="translate(20, 60)">
@@ -245,7 +245,7 @@ const TwoTypesOptionsSVG = () => (
         <text x="120" y="28" textAnchor="middle" fontSize="28">📈 🛒</text>
         
         <text x="120" y="55" textAnchor="middle" fontSize="9" fill="#373A41">Gives you the right to</text>
-        <text x="120" y="70" textAnchor="middle" fontSize="10" fill="#12805A" fontWeight="600">BUY at a set price</text>
+        <text x="120" y="70" textAnchor="middle" fontSize="10" fill="#16A34A" fontWeight="600">BUY at a set price</text>
         
         <text x="120" y="90" textAnchor="middle" fontSize="8" fill="#717680">Useful if you think prices will go UP</text>
       </g>
@@ -303,8 +303,8 @@ const GlobalExampleSVG = () => (
     
     {/* Scenario 1: She buys */}
     <g transform="translate(50, 220)">
-      <rect x="0" y="0" width="290" height="145" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Scenario A: She Exercises</text>
+      <rect x="0" y="0" width="290" height="145" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Scenario A: She Exercises</text>
       <text x="145" y="38" textAnchor="middle" fontSize="8" fill="#717680">Financing approved, inspections pass</text>
       
       <g transform="translate(15, 50)">
@@ -313,7 +313,7 @@ const GlobalExampleSVG = () => (
         <text x="130" y="20" textAnchor="middle" fontSize="22">🏠 ✅</text>
         
         <text x="130" y="42" textAnchor="middle" fontSize="8" fill="#373A41">Sarah uses her option and buys at $400,000</text>
-        <text x="130" y="56" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Total cost: $405,000 ($400K + $5K premium)</text>
+        <text x="130" y="56" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Total cost: $405,000 ($400K + $5K premium)</text>
         <text x="130" y="70" textAnchor="middle" fontSize="7" fill="#717680">The premium was worth it for the certainty</text>
       </g>
     </g>
@@ -354,17 +354,17 @@ const WhyOptionsCostMoneySVG = () => (
     
     {/* Buyer perspective */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="160" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Option Buyer (You)</text>
+      <rect x="0" y="0" width="280" height="160" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">Option Buyer (You)</text>
       
       <g transform="translate(20, 45)">
         <rect x="0" y="0" width="240" height="95" fill="white" rx="8"/>
         
         <text x="120" y="22" textAnchor="middle" fontSize="18">😊</text>
         
-        <text x="120" y="42" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Limited downside (lose only premium)</text>
-        <text x="120" y="58" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Unlimited upside potential</text>
-        <text x="120" y="74" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">You have the CHOICE</text>
+        <text x="120" y="42" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Limited downside (lose only premium)</text>
+        <text x="120" y="58" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">Unlimited upside potential</text>
+        <text x="120" y="74" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="500">You have the CHOICE</text>
         
         <text x="120" y="90" textAnchor="middle" fontSize="7" fill="#717680">This flexibility has value!</text>
       </g>
@@ -493,7 +493,7 @@ const DerivLesson3 = () => {
                 Lesson 3 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">What Are Options?</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">What Are Options?</h1>
             <p className="text-gray-600 text-lg">
               Understanding the right to choose.
             </p>
@@ -507,7 +507,7 @@ const DerivLesson3 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Is an Option?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">What Is an Option?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -530,7 +530,7 @@ const DerivLesson3 = () => {
 
         {/* Options vs Futures */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Options vs. Futures: Side by Side</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Options vs. Futures: Side by Side</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -556,7 +556,7 @@ const DerivLesson3 = () => {
 
         {/* Movie Ticket Analogy */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Analogy</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Analogy</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -572,7 +572,7 @@ const DerivLesson3 = () => {
 
         {/* Two Types */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Two Types of Options</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Two Types of Options</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -598,7 +598,7 @@ const DerivLesson3 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -620,7 +620,7 @@ const DerivLesson3 = () => {
 
         {/* Why Options Cost Money */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Options Cost Money?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Options Cost Money?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -660,7 +660,7 @@ const DerivLesson3 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of options basics.</p>
           
           <div className="space-y-8">

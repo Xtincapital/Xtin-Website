@@ -280,7 +280,7 @@ export default function Family() {
         {/* Income Contribution chart */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Income Contribution</CardTitle>
+            <CardTitle className="text-lg">Income Contribution</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoading ? (

@@ -293,7 +293,7 @@ const StockMarketOverview = () => {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-display font-semibold mb-3 tracking-[-0.025em]">
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-3 tracking-[-0.025em]">
                 Stock Market Basics
               </h1>
               <p className="text-indigo-100 text-lg mb-6 max-w-2xl">
@@ -320,7 +320,7 @@ const StockMarketOverview = () => {
 
           {/* What You'll Learn */}
           <div className="bg-white rounded-2xl p-6 md:p-8 mb-10 border border-gray-200 shadow-sm">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-xl">
                 <Icons.Target className="w-5 h-5 text-indigo-600" />
               </span>
@@ -364,7 +364,7 @@ const StockMarketOverview = () => {
 
           {/* Lessons List */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-xl">
                 <Icons.Book className="w-5 h-5 text-indigo-600" />
               </span>

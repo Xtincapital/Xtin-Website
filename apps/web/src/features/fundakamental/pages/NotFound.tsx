@@ -17,7 +17,7 @@ const NotFound = () => {
       <div className="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center bg-background px-6 py-12">
         <EmptyStateIllustration size={220} className="mb-8" />
 
-        <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand mb-3">404</h1>
+        <h1 className="text-5xl md:text-6xl font-display font-bold text-brand mb-3">404</h1>
         <p className="text-xl text-foreground font-semibold mb-2">Page not found</p>
         <p className="text-muted-foreground mb-8 text-center max-w-sm">
           The page you're looking for doesn't exist or has been moved.

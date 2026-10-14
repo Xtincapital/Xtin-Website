@@ -286,7 +286,7 @@ const StockMarketLesson3 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.Exchange className="w-7 h-7 text-purple-600" />
               </span>
@@ -377,10 +377,10 @@ const StockMarketLesson3 = () => {
 
               {/* Bank Account */}
               <g transform="translate(50, 60)">
-                <rect x="0" y="0" width="150" height="100" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="75" y="25" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">BANK ACCOUNT</text>
-                <text x="75" y="50" textAnchor="middle" fill="#12805A" fontSize="11">Your Money</text>
-                <text x="75" y="75" textAnchor="middle" fill="#12805A" fontSize="16" fontWeight="700">₹ 50,000</text>
+                <rect x="0" y="0" width="150" height="100" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="75" y="25" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">BANK ACCOUNT</text>
+                <text x="75" y="50" textAnchor="middle" fill="#16A34A" fontSize="11">Your Money</text>
+                <text x="75" y="75" textAnchor="middle" fill="#16A34A" fontSize="16" fontWeight="700">₹ 50,000</text>
                 <text x="75" y="92" textAnchor="middle" fill="#C7363B" fontSize="10">-₹ 35,000</text>
               </g>
 
@@ -413,7 +413,7 @@ const StockMarketLesson3 = () => {
                 <text x="75" y="25" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">NSE / BSE</text>
                 <text x="75" y="50" textAnchor="middle" fill="#7C5D2B" fontSize="11">Matches Buyers</text>
                 <text x="75" y="65" textAnchor="middle" fill="#7C5D2B" fontSize="11">& Sellers</text>
-                <text x="75" y="85" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">✓ TRADE EXECUTED</text>
+                <text x="75" y="85" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">✓ TRADE EXECUTED</text>
               </g>
 
               {/* After Trade Section */}
@@ -429,8 +429,8 @@ const StockMarketLesson3 = () => {
 
                 {/* Bank balance */}
                 <g transform="translate(300, 40)">
-                  <rect x="0" y="0" width="250" height="30" rx="6" fill="#ABE5CC"/>
-                  <text x="125" y="20" textAnchor="middle" fill="#12805A" fontSize="11">Bank Balance: ₹ 50,000 - 35,000 = ₹ 15,000</text>
+                  <rect x="0" y="0" width="250" height="30" rx="6" fill="#BBF7D0"/>
+                  <text x="125" y="20" textAnchor="middle" fill="#16A34A" fontSize="11">Bank Balance: ₹ 50,000 - 35,000 = ₹ 15,000</text>
                 </g>
               </g>
             </svg>
@@ -781,7 +781,7 @@ const StockMarketLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-purple-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

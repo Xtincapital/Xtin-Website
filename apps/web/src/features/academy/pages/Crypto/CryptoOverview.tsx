@@ -71,7 +71,7 @@ const CryptoOverview = () => {
             </div>
 
             <div className="mb-3"><ModuleBadge moduleId="crypto" /></div>
-<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+<h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <ShieldIcon className="w-7 h-7 text-yellow-700" />
               </span>
@@ -86,7 +86,7 @@ const CryptoOverview = () => {
           <div className="bg-gradient-to-br from-white to-yellow-50 rounded-3xl p-8 mb-10 border border-yellow-100 shadow-lg">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Understand before exposure.</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">Understand before exposure.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   Crypto combines technology, markets, security, tax, and psychology. The goal here is
                   to help you understand the system deeply enough to avoid hype-driven mistakes.
@@ -144,7 +144,7 @@ const CryptoOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-yellow-700" />
               <span>Your Learning Path</span>
             </h2>
@@ -203,7 +203,7 @@ const CryptoOverview = () => {
           </div>
 
           <div className="rounded-2xl p-8 text-white text-center bg-brand-fill">
-            <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Learn Crypto Safely?</h3>
+            <h3 className="text-2xl font-bold mb-2 tracking-[-0.015em]">Ready to Learn Crypto Safely?</h3>
             <p className="text-yellow-100 mb-6">Start with what crypto really is before touching wallets or exchanges.</p>
             <button
               onClick={() => navigate("/learn/crypto-lesson-1")}

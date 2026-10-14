@@ -525,7 +525,7 @@ const Settings = () => {
 
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-medium text-foreground mb-4 flex items-center gap-2">
+                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
                       <Key className="w-4 h-4" />
                       Change Password
                     </h3>
@@ -573,7 +573,7 @@ const Settings = () => {
                   </div>
 
                   <div className="pt-6 border-t border-border">
-                    <h3 className="font-medium text-destructive mb-2">Delete Account</h3>
+                    <h3 className="font-bold text-destructive mb-2">Delete Account</h3>
                     <p className="text-sm text-muted-foreground mb-4">
                       Permanently delete your Xtin Capital account and all of its data.
                     </p>

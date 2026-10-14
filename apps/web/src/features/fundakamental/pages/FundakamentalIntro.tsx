@@ -105,7 +105,7 @@ const FundakamentalIntro = () => {
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl mb-6 font-display font-semibold leading-[1.02] tracking-[-0.025em] text-slate-900 dark:text-white">
+              <h1 className="text-5xl md:text-6xl mb-6 font-display font-bold leading-[1.02] tracking-[-0.025em] text-slate-900 dark:text-white">
                 Research Companies with{' '}
                 <span className="text-brand dark:text-brand">Clear Data &amp; AI</span>
               </h1>
@@ -170,7 +170,7 @@ const FundakamentalIntro = () => {
         {/* How it works */}
         <section className="px-6 py-16 md:px-12 lg:px-24 border-t border-slate-200/60 dark:border-slate-800">
           <div className="mx-auto max-w-7xl">
-            <h2 className="text-2xl md:text-3xl mb-10 text-center font-display font-semibold tracking-[-0.025em] text-slate-900 dark:text-white">How it works</h2>
+            <h2 className="text-3xl md:text-4xl mb-10 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">How it works</h2>
             <div className="grid gap-6 md:grid-cols-3">
               {steps.map(({ title, description, Icon }, i) => (
                 <div key={title} className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700/60 dark:bg-slate-900">
@@ -188,7 +188,7 @@ const FundakamentalIntro = () => {
 
         {/* Feature Grid Section */}
         <section className="px-6 py-16 md:px-12 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
-          <h2 className="text-2xl md:text-3xl mb-10 text-center font-display font-semibold tracking-[-0.025em] text-slate-900 dark:text-white">Everything you need to research a stock</h2>
+          <h2 className="text-3xl md:text-4xl mb-10 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">Everything you need to research a stock</h2>
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map(({ title, description, Icon }) => (
               <article key={title} className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/60 hover:border-brand-line dark:hover:border-brand transition-all duration-300">
@@ -205,7 +205,7 @@ const FundakamentalIntro = () => {
         {/* Free vs Pro */}
         <section className="px-6 py-16 md:px-12 lg:px-24 border-t border-slate-200/60 dark:border-slate-800">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl md:text-3xl mb-2 text-center font-display font-semibold tracking-[-0.025em] text-slate-900 dark:text-white">Start free. Upgrade when it pays off.</h2>
+            <h2 className="text-3xl md:text-4xl mb-2 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">Start free. Upgrade when it pays off.</h2>
             <p className="mb-10 text-center text-slate-600 dark:text-slate-400">No card needed to begin.</p>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-700/60 dark:bg-slate-900">

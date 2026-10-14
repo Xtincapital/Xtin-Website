@@ -85,24 +85,24 @@ const CallVsPutSVG = () => (
     
     {/* Call Option */}
     <g transform="translate(30, 80)">
-      <rect x="0" y="0" width="310" height="300" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <rect x="0" y="0" width="310" height="300" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="2"/>
       
       <g transform="translate(155, 30)">
-        <circle r="22" fill="#12805A" fillOpacity="0.3"/>
-        <path d="M0,-10 L0,10 M-7,3 L0,-4 L7,3" stroke="#12805A" strokeWidth="3" fill="none"/>
+        <circle r="22" fill="#16A34A" fillOpacity="0.3"/>
+        <path d="M0,-10 L0,10 M-7,3 L0,-4 L7,3" stroke="#16A34A" strokeWidth="3" fill="none"/>
       </g>
       
-      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#12805A">CALL OPTION</text>
+      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#16A34A">CALL OPTION</text>
       <text x="155" y="90" textAnchor="middle" fontSize="10" fill="#A0A3AA">Right to BUY at strike price</text>
       
       <g transform="translate(20, 110)">
         <rect x="0" y="0" width="270" height="170" fill="#1F1F1F" rx="10"/>
         
         <text x="135" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Call Buyer (Long Call)</text>
-        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#12805A">Pays premium upfront</text>
+        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#16A34A">Pays premium upfront</text>
         <text x="135" y="62" textAnchor="middle" fontSize="9" fill="#A0A3AA">Profits when price rises above strike</text>
         <text x="135" y="79" textAnchor="middle" fontSize="9" fill="#A0A3AA">Max loss = Premium paid</text>
-        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#12805A">Max profit = Unlimited</text>
+        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#16A34A">Max profit = Unlimited</text>
         
         <line x1="20" y1="108" x2="250" y2="108" stroke="#373A41" strokeWidth="1"/>
         
@@ -159,7 +159,7 @@ const PayoffDiagramsSVG = () => (
     {/* Long Call Payoff */}
     <g transform="translate(40, 80)">
       <rect x="0" y="0" width="300" height="160" fill="#2A2A2C" rx="10"/>
-      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">Long Call Option</text>
+      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">Long Call Option</text>
       
       <g transform="translate(30, 45)">
         {/* Axes */}
@@ -173,14 +173,14 @@ const PayoffDiagramsSVG = () => (
         <text x="110" y="115" textAnchor="middle" fontSize="8" fill="#D2754C">Strike</text>
         
         {/* Payoff line */}
-        <path d="M 15 65 L 110 65 L 180 15" stroke="#12805A" strokeWidth="3" fill="none"/>
+        <path d="M 15 65 L 110 65 L 180 15" stroke="#16A34A" strokeWidth="3" fill="none"/>
         
         {/* Premium line (horizontal dashed) */}
         <line x1="15" y1="65" x2="220" y2="65" stroke="#A0A3AA" strokeWidth="1" strokeDasharray="3,3"/>
         <text x="5" y="75" fontSize="7" fill="#C7363B">Max Loss: Premium</text>
         
         {/* Unlimited profit label */}
-        <text x="175" y="20" fontSize="7" fill="#12805A">Unlimited Profit</text>
+        <text x="175" y="20" fontSize="7" fill="#16A34A">Unlimited Profit</text>
       </g>
     </g>
     
@@ -224,7 +224,7 @@ const PayoffDiagramsSVG = () => (
         
         {/* Payoff line - mirror of long call */}
         <path d="M 15 35 L 110 35 L 180 75" stroke="#D2754C" strokeWidth="3" fill="none"/>
-        <text x="5" y="38" fontSize="7" fill="#12805A">+Premium</text>
+        <text x="5" y="38" fontSize="7" fill="#16A34A">+Premium</text>
         <text x="175" y="85" fontSize="7" fill="#C7363B">Unlimited loss</text>
       </g>
     </g>
@@ -240,7 +240,7 @@ const PayoffDiagramsSVG = () => (
         
         {/* Payoff line - mirror of long put */}
         <path d="M 30 75 L 110 35 L 200 35" stroke="#8F6FC4" strokeWidth="3" fill="none"/>
-        <text x="205" y="38" fontSize="7" fill="#12805A">+Premium</text>
+        <text x="205" y="38" fontSize="7" fill="#16A34A">+Premium</text>
         <text x="20" y="85" fontSize="7" fill="#C7363B">Large loss</text>
       </g>
     </g>
@@ -248,7 +248,7 @@ const PayoffDiagramsSVG = () => (
     {/* Legend */}
     <g transform="translate(150, 390)">
       <rect x="0" y="-5" width="400" height="30" fill="#2A2A2C" rx="8"/>
-      <circle cx="40" cy="10" r="6" fill="#12805A"/>
+      <circle cx="40" cy="10" r="6" fill="#16A34A"/>
       <text x="55" y="14" fontSize="9" fill="#A0A3AA">Calls profit when price rises</text>
       <circle cx="240" cy="10" r="6" fill="#C7363B"/>
       <text x="255" y="14" fontSize="9" fill="#A0A3AA">Puts profit when price falls</text>
@@ -289,12 +289,12 @@ const MoneynessSVG = () => (
     
     {/* Call Options Moneyness */}
     <g transform="translate(50, 170)">
-      <rect x="0" y="0" width="290" height="160" fill="#12805A" fillOpacity="0.1" rx="10" stroke="#12805A" strokeWidth="1"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">CALL OPTIONS</text>
+      <rect x="0" y="0" width="290" height="160" fill="#16A34A" fillOpacity="0.1" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#16A34A">CALL OPTIONS</text>
       
       <g transform="translate(20, 45)">
         {[
-          { name: "In-The-Money (ITM)", desc: "Strike < Current", example: "$90 Call", color: "#12805A", gain: "Has intrinsic value" },
+          { name: "In-The-Money (ITM)", desc: "Strike < Current", example: "$90 Call", color: "#16A34A", gain: "Has intrinsic value" },
           { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Call", color: "#D2754C", gain: "No intrinsic value" },
           { name: "Out-of-Money (OTM)", desc: "Strike > Current", example: "$110 Call", color: "#C7363B", gain: "No intrinsic value" }
         ].map((item, i) => (
@@ -314,7 +314,7 @@ const MoneynessSVG = () => (
       
       <g transform="translate(20, 45)">
         {[
-          { name: "In-The-Money (ITM)", desc: "Strike > Current", example: "$110 Put", color: "#12805A", gain: "Has intrinsic value" },
+          { name: "In-The-Money (ITM)", desc: "Strike > Current", example: "$110 Put", color: "#16A34A", gain: "Has intrinsic value" },
           { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Put", color: "#D2754C", gain: "No intrinsic value" },
           { name: "Out-of-Money (OTM)", desc: "Strike < Current", example: "$90 Put", color: "#C7363B", gain: "No intrinsic value" }
         ].map((item, i) => (
@@ -347,15 +347,15 @@ const IntrinsicTimeValueSVG = () => (
     
     {/* Intrinsic Value */}
     <g transform="translate(50, 160)">
-      <rect x="0" y="0" width="290" height="180" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
-      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">INTRINSIC VALUE</text>
+      <rect x="0" y="0" width="290" height="180" fill="#16A34A" fillOpacity="0.1" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#16A34A">INTRINSIC VALUE</text>
       <text x="145" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Real, tangible value</text>
       
       <g transform="translate(20, 70)">
         <rect x="0" y="0" width="250" height="90" fill="#1F1F1F" rx="8"/>
         <text x="125" y="20" textAnchor="middle" fontSize="10" fill="white">What the option is worth if exercised NOW</text>
         
-        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#12805A">Call: Max(0, Stock Price - Strike)</text>
+        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#16A34A">Call: Max(0, Stock Price - Strike)</text>
         <text x="125" y="62" textAnchor="middle" fontSize="9" fill="#C7363B">Put: Max(0, Strike - Stock Price)</text>
         
         <text x="125" y="82" textAnchor="middle" fontSize="8" fill="#A0A3AA">Only ITM options have intrinsic value</text>
@@ -540,7 +540,7 @@ const FOLesson4 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             Options Mechanics
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -580,7 +580,7 @@ const FOLesson4 = () => {
                   <Icons.Phone className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Call vs Put Options</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Call vs Put Options</h2>
                   <p className="text-sm text-gray-500 ">The two fundamental building blocks</p>
                 </div>
               </div>
@@ -621,7 +621,7 @@ const FOLesson4 = () => {
                   <Icons.Layers className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Option Payoff Diagrams</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Option Payoff Diagrams</h2>
                   <p className="text-sm text-gray-500 ">Visualizing profit and loss at expiry</p>
                 </div>
               </div>
@@ -657,7 +657,7 @@ const FOLesson4 = () => {
                   <Icons.Target className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Option Moneyness</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Option Moneyness</h2>
                   <p className="text-sm text-gray-500 ">ITM, ATM, and OTM explained</p>
                 </div>
               </div>
@@ -694,7 +694,7 @@ const FOLesson4 = () => {
                   <Icons.DollarSign className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Option Premium Breakdown</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Option Premium Breakdown</h2>
                   <p className="text-sm text-gray-500 ">Understanding what you pay for</p>
                 </div>
               </div>
@@ -730,7 +730,7 @@ const FOLesson4 = () => {
                   <Icons.ArrowRight className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Exercise Styles</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Exercise Styles</h2>
                   <p className="text-sm text-gray-500 ">American vs European options</p>
                 </div>
               </div>
@@ -756,7 +756,7 @@ const FOLesson4 = () => {
           {/* Key Takeaways */}
           <section>
             <div className="rounded-2xl p-8 text-white bg-brand-fill">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Call = Right to BUY; Put = Right to SELL at strike price",
@@ -780,7 +780,7 @@ const FOLesson4 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (

@@ -525,7 +525,7 @@ const NewAnalysis = () => {
           )}
 
           <div className="mt-6 p-4 rounded-lg bg-secondary/30 border border-border">
-            <h3 className="text-base font-medium text-foreground mb-2">
+            <h3 className="text-base font-bold text-foreground mb-2">
               Supported Documents
             </h3>
             <ul className="text-sm text-muted-foreground space-y-1">

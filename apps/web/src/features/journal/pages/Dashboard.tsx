@@ -257,9 +257,12 @@ const Dashboard = () => {
           transition={{ duration: 0.4 }}
           className="mb-8"
         >
-          <ProductBrand to="/journal" name="Journal" className="mb-3" />
-          <h1 className="xt-title mb-2">Dashboard</h1>
-          <p className="text-muted-foreground flex items-center gap-1.5">
+          {/* Title on the left, the product wordmark on the right of the same line. */}
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+            <h1 className="xt-title">Dashboard</h1>
+            <ProductBrand to="/journal" name="Journal" size="lg" />
+          </div>
+          <p className="mt-2 text-muted-foreground flex items-center gap-1.5">
             {tradesLoading ? "Loading your trading activity..." : `${metrics.totalTrades} trades logged`}
             {!tradesLoading && <CurrencyBreakdown trades={rawTrades} />}
           </p>
@@ -299,7 +302,7 @@ const Dashboard = () => {
         >
           <Card className="lg:col-span-2">
             <CardHeader className="flex flex-row items-center justify-between gap-3 space-y-0">
-              <CardTitle className="text-base">Monthly P&L Trend</CardTitle>
+              <CardTitle className="text-lg">Monthly P&L Trend</CardTitle>
               <span className="text-xs tabular-nums text-muted-foreground">
                 Last 12 months ·{" "}
                 <span className={trendTotal >= 0 ? "text-brand" : "text-destructive"}>{money(trendTotal)}</span>
@@ -317,7 +320,7 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Win Rate</CardTitle>
+              <CardTitle className="text-lg">Win Rate</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="h-64 flex items-center justify-center">

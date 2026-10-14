@@ -47,7 +47,7 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="p-6 text-white flex items-start justify-between gap-4 bg-brand-fill">
           <div>
-            <h2 className="text-2xl font-semibold">{detail.name}</h2>
+            <h2 className="text-2xl font-bold">{detail.name}</h2>
             <p className="text-white/85 text-sm mt-1">{detail.tagline}</p>
             <div className="flex flex-wrap gap-2 mt-3">
               <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-medium">{detail.style}</span>

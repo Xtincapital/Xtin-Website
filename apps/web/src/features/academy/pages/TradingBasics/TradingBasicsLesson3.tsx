@@ -271,7 +271,7 @@ const TradingBasicsLesson3 = () => {
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <Icons.PnL className="w-7 h-7 text-yellow-600" />
               </span>
@@ -362,19 +362,19 @@ const TradingBasicsLesson3 = () => {
               
               {/* Left side - What you think */}
               <g transform="translate(50, 50)">
-                <rect x="0" y="0" width="200" height="240" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="100" y="30" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">WHAT YOU THINK</text>
+                <rect x="0" y="0" width="200" height="240" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="100" y="30" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">WHAT YOU THINK</text>
                 
                 <rect x="20" y="50" width="160" height="60" rx="8" fill="white"/>
-                <text x="100" y="75" textAnchor="middle" fill="#12805A" fontSize="11">Gross Profit</text>
-                <text x="100" y="95" textAnchor="middle" fill="#12805A" fontSize="18" fontWeight="700">Rs. 2,000</text>
+                <text x="100" y="75" textAnchor="middle" fill="#16A34A" fontSize="11">Gross Profit</text>
+                <text x="100" y="95" textAnchor="middle" fill="#16A34A" fontSize="18" fontWeight="700">Rs. 2,000</text>
                 
-                <text x="100" y="135" textAnchor="middle" fill="#12805A" fontSize="10">Simple math:</text>
-                <text x="100" y="150" textAnchor="middle" fill="#12805A" fontSize="10">Rs. 52,000 - Rs. 50,000</text>
+                <text x="100" y="135" textAnchor="middle" fill="#16A34A" fontSize="10">Simple math:</text>
+                <text x="100" y="150" textAnchor="middle" fill="#16A34A" fontSize="10">Rs. 52,000 - Rs. 50,000</text>
                 
-                <text x="100" y="180" textAnchor="middle" fill="#12805A" fontSize="13" fontWeight="600">"I made 4% profit!"</text>
+                <text x="100" y="180" textAnchor="middle" fill="#16A34A" fontSize="13" fontWeight="600">"I made 4% profit!"</text>
                 
-                <text x="100" y="220" textAnchor="middle" fill="#12805A" fontSize="28">😊</text>
+                <text x="100" y="220" textAnchor="middle" fill="#16A34A" fontSize="28">😊</text>
               </g>
               
               {/* Arrow */}
@@ -408,7 +408,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Hidden Costs Breakdown */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.Hidden className="w-6 h-6 text-yellow-600" />
               <span>The Hidden Costs of Every Trade</span>
             </h2>
@@ -715,7 +715,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

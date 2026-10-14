@@ -125,7 +125,7 @@ const NewsletterTour = () => {
             className="absolute rounded-2xl transition-all duration-300 pointer-events-none"
             style={{
               ...spotlight,
-              boxShadow: '0 0 0 9999px rgba(19, 20, 23, 0.72), 0 0 0 3px rgba(31, 169, 120, 0.9), 0 0 32px 6px rgba(31, 169, 120, 0.45)',
+              boxShadow: '0 0 0 9999px rgba(19, 20, 23, 0.72), 0 0 0 3px rgba(22, 163, 74, 0.9), 0 0 32px 6px rgba(22, 163, 74, 0.45)',
             }}
           />
         ) : (

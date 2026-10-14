@@ -133,7 +133,7 @@ const PersonalFinanceLesson1 = () => {
                 ~10 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <LightbulbIcon className="w-7 h-7 text-brand" />
               </span>
@@ -171,7 +171,7 @@ const PersonalFinanceLesson1 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">So, What is Personal Finance?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">So, What is Personal Finance?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Personal finance</strong> is simply how you manage your own money. That's it!
@@ -220,8 +220,8 @@ const PersonalFinanceLesson1 = () => {
                 {/* Definitions for gradients and shadows */}
                 <defs>
                   <linearGradient id="youGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#12805A"/>
-                    <stop offset="100%" stopColor="#12805A"/>
+                    <stop offset="0%" stopColor="#16A34A"/>
+                    <stop offset="100%" stopColor="#16A34A"/>
                   </linearGradient>
                   <linearGradient id="incomeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#E0E7F1"/>
@@ -264,11 +264,11 @@ const PersonalFinanceLesson1 = () => {
                 <rect x="35" y="167" width="100" height="30" rx="8" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2" filter="url(#shadow)"/>
                 <text x="85" y="187" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">Spend</text>
                 
-                <rect x="150" y="167" width="100" height="30" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2" filter="url(#shadow)"/>
-                <text x="200" y="187" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Save</text>
+                <rect x="150" y="167" width="100" height="30" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2" filter="url(#shadow)"/>
+                <text x="200" y="187" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">Save</text>
                 
-                <rect x="265" y="167" width="100" height="30" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2" filter="url(#shadow)"/>
-                <text x="315" y="187" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Invest</text>
+                <rect x="265" y="167" width="100" height="30" rx="8" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2" filter="url(#shadow)"/>
+                <text x="315" y="187" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">Invest</text>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-5 font-medium">
                 Your income splits into spending, saving, and investing
@@ -308,7 +308,7 @@ const PersonalFinanceLesson1 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

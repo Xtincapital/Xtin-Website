@@ -15,7 +15,7 @@ const DashboardIntro = () => {
         <div className="text-center mb-16">
           <IntroHeroArt id="Dashboard" />
           <span className="text-sm font-medium text-brand dark:text-brand tracking-wider uppercase inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Dashboard</span>
-          <h1 className="text-4xl md:text-5xl font-display font-semibold mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.025em]">Everything in One Place</h1>
+          <h1 className="text-5xl md:text-6xl font-display font-bold mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.025em]">Everything in One Place</h1>
           <p className="text-lg text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
             Your personal financial command center. Portfolio, courses, advisors, algorithms — one screen.
           </p>
@@ -114,7 +114,7 @@ const DashboardIntro = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">See your financial picture</h2>
+          <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">See your financial picture</h2>
           <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Create your account and get your personal dashboard instantly.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/dashboard" className="px-8 py-3 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-lg text-sm transition-colors">

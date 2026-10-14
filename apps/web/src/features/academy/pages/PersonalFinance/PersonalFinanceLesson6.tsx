@@ -118,7 +118,7 @@ const PersonalFinanceLesson6 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
                 <CreditCardIcon className="w-7 h-7 text-brand" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson6 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is Credit?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is Credit?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Credit</strong> means borrowing money now and paying it back later. When you use a credit card or take a loan, you're using credit.
@@ -186,13 +186,13 @@ const PersonalFinanceLesson6 = () => {
               </div>
             </div>
 
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Loan?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is a Loan?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">loan</strong> is when a bank gives you a large amount of money upfront. You agree to pay it back over time, usually with <strong className="text-brand">interest</strong> (the bank's fee for lending you money).
             </p>
 
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is EMI?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">What is EMI?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">EMI (Equated Monthly Installment)</strong> is a fixed amount you pay every month to repay a loan. It includes part of the loan amount + interest.
@@ -225,10 +225,10 @@ const PersonalFinanceLesson6 = () => {
                 
                 {/* Arrow: Loan */}
                 <g transform="translate(130, 80)">
-                  <path d="M0 20 L70 20" stroke="#12805A" strokeWidth="3"/>
-                  <polygon points="70,20 60,14 60,26" fill="#12805A"/>
-                  <text x="35" y="8" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">LOAN</text>
-                  <text x="35" y="45" textAnchor="middle" fill="#12805A" fontSize="10">$10,000</text>
+                  <path d="M0 20 L70 20" stroke="#16A34A" strokeWidth="3"/>
+                  <polygon points="70,20 60,14 60,26" fill="#16A34A"/>
+                  <text x="35" y="8" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">LOAN</text>
+                  <text x="35" y="45" textAnchor="middle" fill="#16A34A" fontSize="10">$10,000</text>
                 </g>
                 
                 {/* Person (You) */}
@@ -410,7 +410,7 @@ const PersonalFinanceLesson6 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>

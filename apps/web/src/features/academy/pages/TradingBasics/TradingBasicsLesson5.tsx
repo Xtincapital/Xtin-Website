@@ -277,7 +277,7 @@ const TradingBasicsLesson5 = () => {
                 Critical
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.Brain className="w-7 h-7 text-purple-600" />
               </span>
@@ -316,16 +316,16 @@ const TradingBasicsLesson5 = () => {
               {/* Emotions around the cycle */}
               {/* Optimism - Top */}
               <g transform="translate(300, 30)">
-                <circle cx="0" cy="0" r="35" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">Optimism</text>
-                <text x="0" y="8" textAnchor="middle" fill="#12805A" fontSize="8">"I got this!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Optimism</text>
+                <text x="0" y="8" textAnchor="middle" fill="#16A34A" fontSize="8">"I got this!"</text>
               </g>
               
               {/* Excitement - Top Right */}
               <g transform="translate(430, 80)">
-                <circle cx="0" cy="0" r="35" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">Excitement</text>
-                <text x="0" y="8" textAnchor="middle" fill="#12805A" fontSize="8">"Making money!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Excitement</text>
+                <text x="0" y="8" textAnchor="middle" fill="#16A34A" fontSize="8">"Making money!"</text>
               </g>
               
               {/* Thrill - Right */}
@@ -389,7 +389,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* The Six Deadly Emotions */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.Warning className="w-6 h-6 text-purple-600" />
               <span>The Six Deadly Trading Emotions</span>
             </h2>
@@ -670,7 +670,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-purple-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

@@ -107,7 +107,7 @@ export default function GiniIntro() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
             <IntroHeroArt id="Gini AI" />
-            <h1 className="text-4xl md:text-5xl font-display font-semibold tracking-[-0.025em] mb-6 text-gray-900 dark:text-white">
+            <h1 className="text-5xl md:text-6xl font-display font-bold tracking-[-0.025em] mb-6 text-gray-900 dark:text-white">
               Gini AI Advisor
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
@@ -129,7 +129,7 @@ export default function GiniIntro() {
       {/* Features Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em] mb-16 text-center text-gray-900 dark:text-white">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em] mb-16 text-center text-gray-900 dark:text-white">
             Why Choose Gini AI?
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -156,7 +156,7 @@ export default function GiniIntro() {
       {/* Benefits Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             What You Get
           </motion.h2>
           <div className="space-y-4">

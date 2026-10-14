@@ -6,7 +6,7 @@
 // HTML strings of `.heatmap-cell` divs into `#monthlyHeatmapGrid` /
 // `#weekdayHeatmapGrid` / `#hourMarketHeatmapGrid`; this reproduces the same
 // three heatmap grids + summary metrics as real React state + shadcn
-// `Card`/`Select`, colored with the ported `getHeatmapColor()` interpolation
+// `Card`/`Select`, colored with the Journal heat scale (components/HeatCell.tsx)
 // logic (see ../lib/journalPatternHelpers.ts) as inline `backgroundColor`
 // styles on CSS-grid cells — a colored grid isn't a `recharts` chart type,
 // so it's built directly rather than forced into that library, per this
@@ -40,6 +40,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
 import StatCard from "../components/StatCard";
+import HeatCell, { HeatLegend } from "../components/HeatCell";
 import { signedMoney } from "../lib/format";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
@@ -48,7 +49,6 @@ import {
   GLOBAL_SESSIONS,
   formatHourDisplay,
   getEntryHour,
-  getHeatmapColor,
   getSessionLabelForTrade,
   marketLabel,
 } from "../lib/journalPatternHelpers";
@@ -375,7 +375,7 @@ const Heatmaps = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }} className="mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Monthly Heatmap
                 <InfoTip title="Monthly heatmap" widthClass="w-80">
                   <p>One box per calendar month showing your total P&L and number of trades. Green months made money, red months lost money.</p>
@@ -383,6 +383,8 @@ const Heatmaps = () => {
                   <p>Click a month to list its trades.</p>
                 </InfoTip>
               </CardTitle>
+              <div className="flex flex-wrap items-center gap-4">
+              <HeatLegend className="max-sm:hidden" />
               <Select value={year} onValueChange={setYear}>
                 <SelectTrigger className="w-32 h-8 text-xs">
                   <SelectValue placeholder="Year" />
@@ -396,14 +398,19 @@ const Heatmaps = () => {
                   ))}
                 </SelectContent>
               </Select>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                 {monthlyStats.map((stat, idx) => (
-                  <button
-                    type="button"
+                  <HeatCell
                     key={MONTH_NAMES[idx]}
-                    disabled={stat.trades === 0}
+                    pnl={stat.pnl}
+                    trades={stat.trades}
+                    maxAbs={monthlyMaxAbs}
+                    label={MONTH_NAMES[idx]}
+                    amount={shortCurrency(stat.pnl)}
+                    title={`${MONTH_NAMES[idx]} • ${stat.trades} trade${stat.trades === 1 ? "" : "s"}\nP&L: ${shortCurrency(stat.pnl)}\nClick to see these trades`}
                     onClick={() =>
                       setDrill({
                         title: `${MONTH_NAMES[idx]}${year === "all" ? "" : ` ${year}`}`,
@@ -411,16 +418,7 @@ const Heatmaps = () => {
                         trades: stat.list,
                       })
                     }
-                    className="rounded-lg p-3 flex flex-col items-center justify-center text-center min-h-[84px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                    style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, monthlyMaxAbs) : "hsl(var(--muted) / 0.5)" }}
-                    title={`${MONTH_NAMES[idx]} • ${stat.trades} trade${stat.trades === 1 ? "" : "s"}\nP&L: ${shortCurrency(stat.pnl)}${stat.trades ? "\nClick to see these trades" : ""}`}
-                  >
-                    <span className="text-xs font-semibold text-muted-foreground">{MONTH_NAMES[idx]}</span>
-                    <strong className="text-sm text-foreground">{shortCurrency(stat.pnl)}</strong>
-                    <span className="text-xs text-muted-foreground">
-                      {stat.trades} trade{stat.trades === 1 ? "" : "s"}
-                    </span>
-                  </button>
+                  />
                 ))}
               </div>
             </CardContent>
@@ -430,8 +428,8 @@ const Heatmaps = () => {
         {/* Day of week x Session heatmap */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }} className="mb-8">
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+            <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3 space-y-0">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Day of Week x Session
                 <InfoTip title="Day of week × session" widthClass="w-80">
                   <p>Rows are weekdays; columns are global market sessions (Asia, Europe, Americas, Overnight) based on when you entered the trade.</p>
@@ -439,6 +437,7 @@ const Heatmaps = () => {
                   <p>Click a box to list its trades.</p>
                 </InfoTip>
               </CardTitle>
+              <HeatLegend />
             </CardHeader>
             <CardContent>
               {filteredTrades.length === 0 ? (
@@ -461,18 +460,15 @@ const Heatmaps = () => {
                         {sessionLabels.map((session) => {
                           const stat = weekdayMatrix[day][session];
                           return (
-                            <button
-                              type="button"
+                            <HeatCell
                               key={`${day}-${session}`}
-                              disabled={stat.trades === 0}
+                              pnl={stat.pnl}
+                              trades={stat.trades}
+                              maxAbs={weekdayMaxAbs}
+                              amount={shortCurrency(stat.pnl)}
+                              title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}\nClick to see these trades`}
                               onClick={() => setDrill({ title: `${day}, ${session}`, subtitle: "Day of week × session", trades: stat.list })}
-                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                              style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, weekdayMaxAbs) : "hsl(var(--muted) / 0.5)" }}
-                              title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
-                            >
-                              <strong className="text-sm text-foreground">{stat.trades}</strong>
-                              <span className="text-xs text-muted-foreground">{shortCurrency(stat.pnl)}</span>
-                            </button>
+                            />
                           );
                         })}
                       </Fragment>
@@ -487,8 +483,8 @@ const Heatmaps = () => {
         {/* Hour x Market heatmap */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }}>
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+            <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3 space-y-0">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Hour x Market
                 <InfoTip title="Hour × market" widthClass="w-80">
                   <p>Rows are the hours of the day you entered trades; columns are the markets you trade most (everything else is grouped as &quot;Other&quot;).</p>
@@ -496,6 +492,7 @@ const Heatmaps = () => {
                   <p>Click a box to list its trades.</p>
                 </InfoTip>
               </CardTitle>
+              <HeatLegend />
             </CardHeader>
             <CardContent>
               {filteredTrades.length === 0 ? (
@@ -520,18 +517,15 @@ const Heatmaps = () => {
                         {hourMarketData.markets.map((market) => {
                           const stat = hourMarketData.matrix[hour][market];
                           return (
-                            <button
-                              type="button"
+                            <HeatCell
                               key={`${hour}-${market}`}
-                              disabled={stat.trades === 0}
+                              pnl={stat.pnl}
+                              trades={stat.trades}
+                              maxAbs={hourMarketMaxAbs}
+                              amount={shortCurrency(stat.pnl)}
+                              title={`${formatHourDisplay(hour)} • ${marketLabel(market)}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}\nClick to see these trades`}
                               onClick={() => setDrill({ title: `${formatHourDisplay(hour)}, ${marketLabel(market)}`, subtitle: "Hour × market", trades: stat.list })}
-                              className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                              style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, hourMarketMaxAbs) : "hsl(var(--muted) / 0.5)" }}
-                              title={`${formatHourDisplay(hour)} • ${market}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
-                            >
-                              <strong className="text-sm text-foreground">{stat.trades}</strong>
-                              <span className="text-xs text-muted-foreground">{shortCurrency(stat.pnl)}</span>
-                            </button>
+                            />
                           );
                         })}
                       </Fragment>

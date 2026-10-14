@@ -86,8 +86,8 @@ const Icons = {
       <circle cx="200" cy="130" r="8" fill="#8F6FC4" stroke="white" strokeWidth="2"/>
       <text x="200" y="115" fill="#8F6FC4" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
       {/* Min Risk Point */}
-      <circle cx="100" cy="200" r="6" fill="#12805A" stroke="white" strokeWidth="2"/>
-      <text x="100" y="220" fill="#12805A" fontSize="11" textAnchor="middle">Min Risk</text>
+      <circle cx="100" cy="200" r="6" fill="#16A34A" stroke="white" strokeWidth="2"/>
+      <text x="100" y="220" fill="#16A34A" fontSize="11" textAnchor="middle">Min Risk</text>
     </svg>
   ),
   // Diversification Benefit
@@ -106,7 +106,7 @@ const Icons = {
         <circle key={`pt-${i}`} cx={pt.x} cy={pt.y} r="5" fill="#E04848" stroke="white" strokeWidth="2"/>
       ))}
       {/* Labels */}
-      <text x="50" y="30" fill="#12805A" fontSize="12" fontWeight="bold">High Risk</text>
+      <text x="50" y="30" fill="#16A34A" fontSize="12" fontWeight="bold">High Risk</text>
       <text x="350" y="195" fill="#E04848" fontSize="12" fontWeight="bold" textAnchor="end">Low Risk</text>
       <text x="200" y="195" fill="currentColor" opacity="0.6" fontSize="12" textAnchor="middle">Number of Assets →</text>
       <text x="30" y="100" fill="currentColor" opacity="0.6" fontSize="11" textAnchor="middle" transform="rotate(-90 30 100)">Portfolio Risk</text>
@@ -198,7 +198,7 @@ const PCLesson1 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Modern Portfolio Theory</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Modern Portfolio Theory</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover the mathematical framework that revolutionized investment management and earned Harry Markowitz a Nobel Prize. Learn how to think about risk and return in a portfolio context.</p>
           </header>
 
@@ -211,7 +211,7 @@ const PCLesson1 = () => {
                     <Icons.BookOpen className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Birth of Scientific Investing</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Birth of Scientific Investing</h2>
                     <p className="text-sm text-gray-500 ">Where intuition met mathematics</p>
                   </div>
                 </div>
@@ -239,7 +239,7 @@ const PCLesson1 = () => {
                     <Icons.Award className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Father of Modern Finance</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Father of Modern Finance</h2>
                     <p className="text-sm text-gray-500 ">Harry Markowitz and his Nobel-winning framework</p>
                   </div>
                 </div>
@@ -282,7 +282,7 @@ const PCLesson1 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Expected Return: The Weighted Average</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Expected Return: The Weighted Average</h2>
                     <p className="text-sm text-gray-500 ">Calculating what you might earn</p>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ const PCLesson1 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Risk: Where Magic Happens</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Risk: Where Magic Happens</h2>
                     <p className="text-sm text-gray-500 ">Why portfolio risk isn't just a weighted average</p>
                   </div>
                 </div>
@@ -400,7 +400,7 @@ const PCLesson1 = () => {
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Efficient Frontier</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Efficient Frontier</h2>
                     <p className="text-sm text-gray-500 ">The boundary of optimal portfolios</p>
                   </div>
                 </div>
@@ -462,7 +462,7 @@ const PCLesson1 = () => {
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of Modern Portfolio Theory</p>
                   </div>
                 </div>

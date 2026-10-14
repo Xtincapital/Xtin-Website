@@ -294,7 +294,7 @@ const TradingBasicsOverview = () => {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-display font-semibold mb-3 tracking-[-0.025em]">Trading Basics</h1>
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-3 tracking-[-0.025em]">Trading Basics</h1>
               <p className="text-white/90 text-lg mb-6 max-w-2xl">
                 Understand trading before you risk real money. This module focuses on awareness, 
                 not strategies — so you can make an informed decision about whether trading is right for you.
@@ -451,16 +451,16 @@ const TradingBasicsOverview = () => {
             <svg className="w-full max-w-2xl mx-auto" viewBox="0 0 600 200" fill="none">
               {/* Investing Side */}
               <g transform="translate(30, 20)">
-                <rect x="0" y="0" width="240" height="160" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
-                <text x="120" y="30" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="700">INVESTING</text>
+                <rect x="0" y="0" width="240" height="160" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="120" y="30" textAnchor="middle" fill="#16A34A" fontSize="14" fontWeight="700">INVESTING</text>
                 
                 {/* Long steady line */}
-                <path d="M30 120 Q70 110 110 100 Q150 90 190 70 L220 60" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                <circle cx="30" cy="120" r="5" fill="#12805A"/>
-                <circle cx="220" cy="60" r="7" fill="#12805A"/>
+                <path d="M30 120 Q70 110 110 100 Q150 90 190 70 L220 60" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                <circle cx="30" cy="120" r="5" fill="#16A34A"/>
+                <circle cx="220" cy="60" r="7" fill="#16A34A"/>
                 
-                <text x="120" y="145" textAnchor="middle" fill="#12805A" fontSize="10">Years to Decades</text>
-                <text x="120" y="90" textAnchor="middle" fill="#12805A" fontSize="9">Slow & Steady Growth</text>
+                <text x="120" y="145" textAnchor="middle" fill="#16A34A" fontSize="10">Years to Decades</text>
+                <text x="120" y="90" textAnchor="middle" fill="#16A34A" fontSize="9">Slow & Steady Growth</text>
               </g>
 
               {/* VS Circle */}
@@ -476,9 +476,9 @@ const TradingBasicsOverview = () => {
                 
                 {/* Volatile zigzag line */}
                 <path d="M20 90 L50 60 L80 100 L110 50 L140 85 L170 40 L200 70 L220 55" stroke="#B8923F" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="50" cy="60" r="4" fill="#12805A"/>
+                <circle cx="50" cy="60" r="4" fill="#16A34A"/>
                 <circle cx="110" cy="50" r="4" fill="#E04848"/>
-                <circle cx="170" cy="40" r="4" fill="#12805A"/>
+                <circle cx="170" cy="40" r="4" fill="#16A34A"/>
                 
                 <text x="120" y="145" textAnchor="middle" fill="#7C5D2B" fontSize="10">Minutes to Weeks</text>
                 <text x="120" y="120" textAnchor="middle" fill="#654B26" fontSize="9">Frequent Buy/Sell Decisions</text>
@@ -493,7 +493,7 @@ const TradingBasicsOverview = () => {
               {/* Gradient Bar */}
               <defs>
                 <linearGradient id="riskGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#12805A"/>
+                  <stop offset="0%" stopColor="#16A34A"/>
                   <stop offset="40%" stopColor="#B8923F"/>
                   <stop offset="70%" stopColor="#D2754C"/>
                   <stop offset="100%" stopColor="#E04848"/>
@@ -502,8 +502,8 @@ const TradingBasicsOverview = () => {
               <rect x="50" y="30" width="500" height="20" rx="10" fill="url(#riskGradient)"/>
               
               {/* Labels */}
-              <text x="90" y="70" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">Savings</text>
-              <text x="90" y="85" textAnchor="middle" fill="#12805A" fontSize="8">Low Risk</text>
+              <text x="90" y="70" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Savings</text>
+              <text x="90" y="85" textAnchor="middle" fill="#16A34A" fontSize="8">Low Risk</text>
               
               <text x="220" y="70" textAnchor="middle" fill="#9A7634" fontSize="10" fontWeight="600">Investing</text>
               <text x="220" y="85" textAnchor="middle" fill="#9A7634" fontSize="8">Moderate</text>

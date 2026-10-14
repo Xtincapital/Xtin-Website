@@ -116,7 +116,7 @@ const AlgoTradingLesson5 = () => {
               <span className="px-4 py-1.5 bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-full text-sm font-bold">Lesson 5 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-lg">
                 <Icons.Shield className="w-8 h-8 text-white"/>
               </span>
@@ -158,7 +158,7 @@ const AlgoTradingLesson5 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">Why Risk Management Matters More Than Strategy</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">Why Risk Management Matters More Than Strategy</h2>
             <p className="text-gray-700  mb-6">
               A mediocre strategy with excellent risk management will outperform an excellent strategy with poor risk management. 
               Here's why: <strong>markets are unpredictable</strong>. No matter how good your backtest looks, unexpected events happen.
@@ -183,9 +183,9 @@ const AlgoTradingLesson5 = () => {
                   <text x="200" y="168" textAnchor="middle" fill="#F6ECCE" fontSize="8">Limit peak-to-trough losses</text>
                   
                   {/* Level 3 - Position Sizing */}
-                  <path d="M200 80 L290 135 L110 135 Z" fill="#12805A" opacity="0.9"/>
+                  <path d="M200 80 L290 135 L110 135 Z" fill="#16A34A" opacity="0.9"/>
                   <text x="200" y="115" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">POSITION SIZING</text>
-                  <text x="200" y="128" textAnchor="middle" fill="#EEF9F4" fontSize="8">Right size per trade</text>
+                  <text x="200" y="128" textAnchor="middle" fill="#F0FDF4" fontSize="8">Right size per trade</text>
                   
                   {/* Level 4 - Entry/Exit */}
                   <path d="M200 105 L250 90 L150 90 L200 105" fill="#5A77AA" opacity="0.9"/>
@@ -204,9 +204,9 @@ const AlgoTradingLesson5 = () => {
                   <text x="20" y="84" textAnchor="middle" fill="white" fontSize="8">2</text>
                   <text x="40" y="84" fill="#E2C273" fontSize="9">Control Drawdowns</text>
                   
-                  <circle cx="20" cy="110" r="8" fill="#12805A"/>
+                  <circle cx="20" cy="110" r="8" fill="#16A34A"/>
                   <text x="20" y="114" textAnchor="middle" fill="white" fontSize="8">3</text>
-                  <text x="40" y="114" fill="#3CCB97" fontSize="9">Size Positions</text>
+                  <text x="40" y="114" fill="#16A34A" fontSize="9">Size Positions</text>
                   
                   <circle cx="20" cy="140" r="8" fill="#5A77AA"/>
                   <text x="20" y="144" textAnchor="middle" fill="white" fontSize="8">4</text>
@@ -216,7 +216,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Position Sizing */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-brand-soft  rounded-xl flex items-center justify-center">
                 <Icons.Scale className="w-5 h-5 text-brand "/>
               </span>
@@ -319,7 +319,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Drawdown Management */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.TrendDown className="w-5 h-5 text-red-600 "/>
               </span>
@@ -374,7 +374,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Portfolio Level Controls */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Portfolio-Level Risk Controls</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Portfolio-Level Risk Controls</h2>
             <p className="text-gray-700  mb-6">
               Beyond individual trade risk, you need system-wide safeguards:
             </p>
@@ -399,7 +399,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Stop Loss Types */}
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Stop Loss Strategies</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Stop Loss Strategies</h2>
             
             <div className="rounded-2xl p-6 mb-10 border border-rose-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
@@ -411,7 +411,7 @@ const AlgoTradingLesson5 = () => {
                   <text x="100" y="30" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">FIXED STOP</text>
                   <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Exit at specific price</text>
                   <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Sell if price drops 2%"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#12805A" fontSize="8">✓ Simple, predictable</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Simple, predictable</text>
                 </g>
 
                 {/* Trailing Stop */}
@@ -420,7 +420,7 @@ const AlgoTradingLesson5 = () => {
                   <text x="100" y="30" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">TRAILING STOP</text>
                   <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Moves with price</text>
                   <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Always 5% below high"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#12805A" fontSize="8">✓ Locks in profits</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Locks in profits</text>
                 </g>
 
                 {/* Volatility Stop */}
@@ -429,13 +429,13 @@ const AlgoTradingLesson5 = () => {
                   <text x="100" y="30" textAnchor="middle" fill="#E2C273" fontSize="11" fontWeight="600">VOLATILITY STOP (ATR)</text>
                   <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Based on market volatility</text>
                   <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Exit at 2× ATR below"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#12805A" fontSize="8">✓ Adapts to conditions</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Adapts to conditions</text>
                 </g>
 
                 {/* Best Practice */}
                 <g transform="translate(100, 180)">
-                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
-                  <text x="250" y="25" textAnchor="middle" fill="#3CCB97" fontSize="11" fontWeight="600">💡 BEST PRACTICE</text>
+                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="250" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">💡 BEST PRACTICE</text>
                   <text x="250" y="45" textAnchor="middle" fill="#A0A3AA" fontSize="9">Use ATR-based stops for algo trading — they adapt to market conditions</text>
                   <text x="250" y="60" textAnchor="middle" fill="#717680" fontSize="8">Typical range: 1.5× to 3× ATR based on strategy timeframe</text>
                 </g>
@@ -489,7 +489,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="If your account drops by 50%, how much gain do you need to recover?"
               options={["50%", "75%", "100%", "150%"]}
