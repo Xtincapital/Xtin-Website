@@ -13,8 +13,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { PageBackdrop, IconBadge } from "../../marketing/components/PageArt";
-import { KeyRound } from "lucide-react";
+import { Mail } from "lucide-react";
+import { PageBackdrop, AuthHero } from "../../marketing/components/PageArt";
 import authService from "../../../services/authService";
 
 const ForgotPasswordPage = () => {
@@ -49,7 +49,7 @@ const ForgotPasswordPage = () => {
 				<div className="relative max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<IconBadge Icon={KeyRound} className="mb-5" />
+						<AuthHero variant="forgot" />
 						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Reset Your Password
 						</h1>
@@ -80,15 +80,18 @@ const ForgotPasswordPage = () => {
 								<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
 									Email Address
 								</label>
-								<input
-									type="email"
-									id="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									required
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
-									placeholder="Enter your email"
-								/>
+								<div className="relative">
+									<Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+									<input
+										type="email"
+										id="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+										className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+										placeholder="Enter your email"
+									/>
+								</div>
 							</div>
 
 							{/* Submit Button */}

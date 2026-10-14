@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight, Send } from 'lucide-react';
 
 /* ─── 9 modules evenly spaced (40° apart) on a circle of radius 39 around center (50,50) ─── */
 const modules: {
@@ -122,15 +123,37 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid meet"
     >
-      {/* Single large dashed orbit boundary — shifted right */}
+      <defs>
+        <radialGradient id="eco-glow" cx="60" cy="55" r="42" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="rgb(18 128 90)" stopOpacity="0.14" />
+          <stop offset="0.7" stopColor="rgb(18 128 90)" stopOpacity="0.04" />
+          <stop offset="1" stopColor="rgb(18 128 90)" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="eco-ring" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="rgb(18 128 90)" stopOpacity="0.75" />
+          <stop offset="0.5" stopColor="#A0A3AA" stopOpacity="0.35" />
+          <stop offset="1" stopColor="rgb(18 128 90)" stopOpacity="0.75" />
+        </linearGradient>
+      </defs>
+      <circle cx="60" cy="55" r={ORBIT_R + 3} fill="url(#eco-glow)" />
+      <circle cx="60" cy="55" r={ORBIT_R + 8} fill="none" stroke="rgb(18 128 90)" strokeOpacity="0.07" strokeWidth="0.35" />
       <circle
         cx="60" cy="55" r={ORBIT_R}
         fill="none"
-        stroke="#A0A3AA"
-        strokeOpacity="0.5"
+        stroke="url(#eco-ring)"
         strokeWidth="0.5"
         strokeDasharray="3 2.5"
       />
+      {[0, 4.6, 9.2].map((delay) => (
+        <circle key={delay} r="0.95" fill="rgb(18 128 90)">
+          <animateMotion
+            dur="14s"
+            begin={`${delay}s`}
+            repeatCount="indefinite"
+            path={`M ${60 + ORBIT_R} 55 a ${ORBIT_R} ${ORBIT_R} 0 1 0 ${-ORBIT_R * 2} 0 a ${ORBIT_R} ${ORBIT_R} 0 1 0 ${ORBIT_R * 2} 0`}
+          />
+        </circle>
+      ))}
 
       {/* Straight dashed spokes: center node edge → card edge */}
       {modules.map((mod, i) => {
@@ -174,6 +197,13 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         className="absolute inset-0 -m-5 rounded-full border border-brand-line dark:border-brand/50"
         animate={{ scale: [1, 1.22, 1], opacity: [0.45, 0, 0.45] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="absolute -inset-[3px] rounded-full opacity-80"
+        style={{ background: 'conic-gradient(from 0deg, rgb(var(--brand) / 0.9), transparent 35%, rgb(var(--brand) / 0.35) 60%, transparent 80%, rgb(var(--brand) / 0.9))' }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
       />
       <motion.div
         className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-brand-line dark:border-slate-700"
@@ -221,7 +251,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         {mod.isExternal ? (
           <a href={mod.link} target="_blank" rel="noopener noreferrer" className="block focus:outline-none">
             <motion.div
-              className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
+              className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
                   ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
                   : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
@@ -230,7 +260,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
             >
               <div
-                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}
               >
                 {mod.icon}
               </div>
@@ -247,7 +277,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         ) : (
           <Link to={mod.link} className="block focus:outline-none">
             <motion.div
-              className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
+              className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
                   ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
                   : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
@@ -256,7 +286,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
             >
               <div
-                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}
               >
                 {mod.icon}
               </div>
@@ -286,19 +316,32 @@ const GuestHomeHero = () => {
 
   return (
     <section className="relative bg-white dark:bg-slate-950 py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 mt-16 overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 -top-24 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-brand-soft opacity-80 blur-[110px]" />
+        <div className="absolute right-[-8%] top-1/3 h-[420px] w-[420px] rounded-full bg-brand-fill/10 blur-[100px]" />
+        <div className="absolute inset-0 text-brand opacity-[0.14] [background-image:radial-gradient(currentColor_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_60%_30%,#000,transparent_70%)]" />
+      </div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-[0.78fr_1.22fr] gap-8 md:gap-10 xl:gap-12 items-center">
 
           {/* ── Left: text ── */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-brand-line dark:border-brand/50 bg-brand-soft dark:bg-brand-soft px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-xs font-semibold text-brand dark:text-brand mb-4 sm:mb-5">
-              <span className="h-2 w-2 rounded-full bg-brand-fill" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-fill opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-fill" />
+              </span>
               Built for modern Indian investors
             </div>
 
             <h1 className="text-3xl md:text-4xl font-display font-semibold leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
               The Xtin Capital{' '}
-              <span className="text-brand dark:text-brand">Ecosystem</span>
+              <span className="relative whitespace-nowrap text-brand dark:text-brand">
+                Ecosystem
+                <svg aria-hidden="true" viewBox="0 0 200 12" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-2.5 w-full" fill="none">
+                  <path d="M2 8 C45 2 115 2 198 7" stroke="rgb(var(--brand-fill))" strokeWidth="3.5" strokeLinecap="round" opacity="0.85" />
+                </svg>
+              </span>
             </h1>
             <p className="text-gray-600 dark:text-slate-300 text-sm sm:text-base md:text-lg leading-6 sm:leading-7 mb-5 sm:mb-6 max-w-xl">
               Invest, learn, and grow with algo trading, AI tools, and structured
@@ -312,15 +355,17 @@ const GuestHomeHero = () => {
                 href="https://t.me/MarketXtin"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center bg-brand-fill hover:bg-brand-hover text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-brand/15 transition"
+                className="inline-flex items-center justify-center bg-brand-fill hover:bg-brand-hover text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-brand/25 transition hover:-translate-y-0.5 hover:shadow-xl gap-2"
               >
+                <Send className="h-4 w-4" />
                 Join Telegram Community
               </a>
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-brand dark:hover:border-brand bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-brand dark:hover:text-brand font-semibold px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-brand dark:hover:border-brand bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-brand dark:hover:text-brand font-semibold px-6 py-3 rounded-lg transition hover:-translate-y-0.5 hover:shadow-md gap-2 group"
               >
                 Get Started
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
@@ -332,7 +377,7 @@ const GuestHomeHero = () => {
                   to={mod.link}
                   className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm p-3 active:scale-95 transition-transform"
                 >
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}>
                     {mod.icon}
                   </div>
                   <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight whitespace-nowrap">
@@ -344,7 +389,7 @@ const GuestHomeHero = () => {
 
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center lg:justify-start text-sm font-medium text-gray-500 dark:text-slate-400">
               {['India Focused', 'Free Tools', 'AI-Powered'].map((label) => (
-                <span key={label} className="flex items-center gap-1.5">
+                <span key={label} className="flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 px-3 py-1">
                   <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>

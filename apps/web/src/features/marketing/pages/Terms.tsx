@@ -9,7 +9,7 @@ import { COMPANY } from '../../../constants/company';
 
 const Section = ({ title, children }) => (
   <section className="space-y-3">
-    <h3 className="text-xl font-semibold text-gray-900 border-l-[3px] border-brand-fill pl-3">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
     <div className="text-gray-700 leading-7 space-y-2">{children}</div>
   </section>
 );

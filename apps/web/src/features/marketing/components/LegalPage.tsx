@@ -11,7 +11,7 @@ import type { LucideIcon } from 'lucide-react';
 
 export const LegalSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="space-y-3">
-    <h2 className="text-xl font-semibold text-gray-900 border-l-[3px] border-brand-fill pl-3">{title}</h2>
+    <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
     <div className="text-gray-700 leading-7 space-y-2">{children}</div>
   </section>
 );
