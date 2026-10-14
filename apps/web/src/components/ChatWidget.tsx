@@ -68,52 +68,52 @@ function ChatWidget() {
     () =>
       isDark
         ? {
-            launcherBg: '#0B4532',
-            launcherText: '#F7F6F2',
-            panelBg: '#151517',
-            panelBorder: '#404047',
-            panelHeaderBg: '#0A0A0B',
-            panelHeaderMuted: '#A3A1A6',
-            panelBodyBg: '#151517',
+            launcherBg: '#12805A',
+            launcherText: '#F5F5F7',
+            panelBg: '#1F1F1F',
+            panelBorder: '#373A41',
+            panelHeaderBg: '#131417',
+            panelHeaderMuted: '#A0A3AA',
+            panelBodyBg: '#1F1F1F',
             bubbleUser: '#344C72',
-            bubbleAssistant: '#232327',
-            bubbleText: '#E4E1D9',
-            label: '#A3A1A6',
-            subtle: '#151517',
-            codeBg: '#0A0A0B',
-            codeText: '#CFCBC1',
-            inlineCodeBg: '#404047',
-            tableHeader: '#232327',
-            tableBorder: '#5A5A62',
-            quoteBorder: '#5A5A62',
+            bubbleAssistant: '#2A2A2C',
+            bubbleText: '#E4E4EA',
+            label: '#A0A3AA',
+            subtle: '#1F1F1F',
+            codeBg: '#131417',
+            codeText: '#CFD0D3',
+            inlineCodeBg: '#373A41',
+            tableHeader: '#2A2A2C',
+            tableBorder: '#555A63',
+            quoteBorder: '#555A63',
             link: '#7C95C4',
-            actionBg: '#0A0A0B',
-            actionText: '#F7F6F2',
-            footerBg: '#0A0A0B',
+            actionBg: '#131417',
+            actionText: '#F5F5F7',
+            footerBg: '#131417',
           }
         : {
-            launcherBg: '#151517',
+            launcherBg: '#1F1F1F',
             launcherText: '#ffffff',
             panelBg: '#ffffff',
-            panelBorder: '#E4E1D9',
-            panelHeaderBg: '#F7F6F2',
-            panelHeaderMuted: '#75757D',
+            panelBorder: '#E4E4EA',
+            panelHeaderBg: '#F5F5F7',
+            panelHeaderMuted: '#717680',
             panelBodyBg: '#ffffff',
             bubbleUser: '#F6F2FB',
-            bubbleAssistant: '#EFEDE7',
-            bubbleText: '#151517',
-            label: '#75757D',
-            subtle: '#EFEDE7',
-            codeBg: '#232327',
-            codeText: '#E4E1D9',
-            inlineCodeBg: '#E4E1D9',
-            tableHeader: '#E4E1D9',
-            tableBorder: '#CFCBC1',
-            quoteBorder: '#CFCBC1',
+            bubbleAssistant: '#EEEEF1',
+            bubbleText: '#1F1F1F',
+            label: '#717680',
+            subtle: '#EEEEF1',
+            codeBg: '#2A2A2C',
+            codeText: '#E4E4EA',
+            inlineCodeBg: '#E4E4EA',
+            tableHeader: '#E4E4EA',
+            tableBorder: '#CFD0D3',
+            quoteBorder: '#CFD0D3',
             link: '#5A77AA',
-            actionBg: '#151517',
+            actionBg: '#1F1F1F',
             actionText: '#ffffff',
-            footerBg: '#F7F6F2',
+            footerBg: '#F5F5F7',
           },
     [isDark],
   );
@@ -296,7 +296,7 @@ function ChatWidget() {
               <div style={{ fontSize: 12, color: palette.panelHeaderMuted }}>
                 Your smart financial friend
                 {messages.length > 1 && (
-                  <span style={{ marginLeft: 8, color: '#1FA978', fontWeight: 500 }}>
+                  <span style={{ marginLeft: 8, color: '#12805A', fontWeight: 500 }}>
                     • {messages.length - 1} messages
                   </span>
                 )}
@@ -374,7 +374,7 @@ function ChatWidget() {
                         ),
                         // Style headers
                         h1: ({node, ...props}) => (
-                          <h1 style={{ fontSize: '18px', fontWeight: 700, margin: '16px 0 8px 0', color: palette.bubbleText }} {...props} />
+                          <h1 style={{ fontSize: '18px', fontWeight: 600, margin: '16px 0 8px 0', color: palette.bubbleText }} {...props} />
                         ),
                         h2: ({node, ...props}) => (
                           <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '14px 0 6px 0', color: palette.bubbleText }} {...props} />
@@ -449,7 +449,7 @@ function ChatWidget() {
               onKeyDown={onKey}
               placeholder="Ask about markets, tools, or our platform..."
               rows={2}
-              style={{ width: '100%', borderRadius: 8, border: `1px solid ${palette.panelBorder}`, padding: 8, resize: 'none', fontFamily: 'system-ui, -apple-system, sans-serif', background: palette.panelBg, color: palette.bubbleText }}
+              style={{ width: '100%', borderRadius: 8, border: `1px solid ${palette.panelBorder}`, padding: 8, resize: 'none', fontFamily: 'inherit', background: palette.panelBg, color: palette.bubbleText }}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
               <button onClick={sendMessage} disabled={loading} style={{ background: palette.actionBg, color: palette.actionText, border: 'none', borderRadius: 8, padding: '8px 12px', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.6 : 1 }}>

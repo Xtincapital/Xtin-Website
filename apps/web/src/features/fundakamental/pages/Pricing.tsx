@@ -118,7 +118,7 @@ export default function Pricing() {
 
   return (
     <DashboardLayout>
-      <div className="container mx-auto px-4 py-24 bg-white/50 min-h-screen">
+      <div className="max-w-7xl w-full mx-auto px-4 py-24 bg-white/50 min-h-screen">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -133,7 +133,7 @@ export default function Pricing() {
           <h2 className="xt-title mt-3 mb-4">
             Simple, Transparent
             <br />
-            <span className="text-primary">Pricing</span>
+            <span className="text-brand">Pricing</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Start free and upgrade when you are ready. No hidden fees.
@@ -178,7 +178,7 @@ export default function Pricing() {
                   <span className="text-muted-foreground">{plan.period}</span>
                 </div>
                 {plan.subprice && (
-                  <p className="text-xs text-primary font-medium mt-2">{plan.subprice}</p>
+                  <p className="text-xs text-brand font-medium mt-2">{plan.subprice}</p>
                 )}
               </div>
 
@@ -186,7 +186,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <Check className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">
                       {feature}
                     </span>

@@ -329,7 +329,7 @@ import { RouteMetaFallback } from './components/SEO';
 // Fallback shown while a lazy-loaded route chunk is fetched.
 const RouteLoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600" />
+    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand" />
   </div>
 );
 

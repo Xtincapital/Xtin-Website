@@ -38,7 +38,7 @@ const TimeChangesEverythingSVG = () => (
       <path d="M0,0 L0,-70 A70,70 0 0,1 60.6,-35 Z" fill="#F6C3C3" stroke="#E04848" strokeWidth="2"/>
       
       {/* Long-term zone (green) */}
-      <path d="M0,0 L60.6,-35 A70,70 0 1,1 -0.1,-70 Z" fill="#ABE5CC" stroke="#1FA978" strokeWidth="2"/>
+      <path d="M0,0 L60.6,-35 A70,70 0 1,1 -0.1,-70 Z" fill="#ABE5CC" stroke="#12805A" strokeWidth="2"/>
       
       {/* Center */}
       <circle cx="0" cy="0" r="10" fill="#2C3F5E"/>
@@ -56,9 +56,9 @@ const TimeChangesEverythingSVG = () => (
     </g>
     
     <g transform="translate(500, 100)">
-      <rect x="0" y="0" width="120" height="60" fill="#ABE5CC" rx="8" stroke="#1FA978" strokeWidth="2"/>
+      <rect x="0" y="0" width="120" height="60" fill="#ABE5CC" rx="8" stroke="#12805A" strokeWidth="2"/>
       <text x="60" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LONG-TERM</text>
-      <text x="60" y="45" textAnchor="middle" fontSize="9" fill="#0D543C">Patient holding</text>
+      <text x="60" y="45" textAnchor="middle" fontSize="9" fill="#12805A">Patient holding</text>
     </g>
     
     {/* Bottom message */}
@@ -151,28 +151,28 @@ const LongTermExplainedSVG = () => (
       
       {/* Buy point */}
       <g transform="translate(0, 0)">
-        <circle cx="0" cy="54" r="15" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+        <circle cx="0" cy="54" r="15" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
         <text x="0" y="58" textAnchor="middle" fontSize="10" fontWeight="bold" fill="white">BUY</text>
-        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#0D543C">January 1, 2023</text>
+        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#12805A">January 1, 2023</text>
       </g>
       
       {/* Time period indicator */}
       <g transform="translate(150, 20)">
-        <rect x="0" y="0" width="300" height="25" fill="white" rx="6" stroke="#1FA978" strokeWidth="1"/>
+        <rect x="0" y="0" width="300" height="25" fill="white" rx="6" stroke="#12805A" strokeWidth="1"/>
         <text x="150" y="17" textAnchor="middle" fontSize="10" fill="#12805A">Exceeds the threshold period (patient waiting)</text>
       </g>
       
       {/* Sell point */}
       <g transform="translate(600, 0)">
-        <circle cx="0" cy="54" r="15" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+        <circle cx="0" cy="54" r="15" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
         <text x="0" y="58" textAnchor="middle" fontSize="10" fontWeight="bold" fill="white">SELL</text>
-        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#0D543C">March 15, 2024</text>
-        <text x="0" y="100" textAnchor="middle" fontSize="8" fill="#0B4532">(14+ months later)</text>
+        <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#12805A">March 15, 2024</text>
+        <text x="0" y="100" textAnchor="middle" fontSize="8" fill="#12805A">(14+ months later)</text>
       </g>
       
       {/* Arrow showing long period */}
-      <line x1="20" y1="35" x2="580" y2="35" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,3"/>
-      <polygon points="575,30 590,35 575,40" fill="#1FA978"/>
+      <line x1="20" y1="35" x2="580" y2="35" stroke="#12805A" strokeWidth="2" strokeDasharray="5,3"/>
+      <polygon points="575,30 590,35 575,40" fill="#12805A"/>
     </g>
     
     {/* Characteristics */}
@@ -180,24 +180,24 @@ const LongTermExplainedSVG = () => (
       <text x="0" y="0" fontSize="12" fontWeight="600" fill="#12805A">Long-Term Characteristics:</text>
       
       <g transform="translate(0, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
         <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">⏳ Patient Holding</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#0B4532">Held for longer than</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#0B4532">the threshold period</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Held for longer than</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">the threshold period</text>
       </g>
       
       <g transform="translate(200, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
         <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">💚 Often Taxed Less</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#0B4532">Usually gets favorable</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#0B4532">tax treatment</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Usually gets favorable</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">tax treatment</text>
       </g>
       
       <g transform="translate(400, 20)">
-        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+        <rect x="0" y="0" width="180" height="75" fill="white" rx="8" stroke="#3CCB97" strokeWidth="1"/>
         <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">🌱 Buy & Hold</text>
-        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#0B4532">Less frequent</text>
-        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#0B4532">transactions</text>
+        <text x="90" y="42" textAnchor="middle" fontSize="9" fill="#12805A">Less frequent</text>
+        <text x="90" y="56" textAnchor="middle" fontSize="9" fill="#12805A">transactions</text>
       </g>
     </g>
   </svg>
@@ -219,10 +219,10 @@ const WhyTimeMattesSVG = () => (
       <text x="35" y="42" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">1</text>
       
       <text x="70" y="32" fontSize="12" fontWeight="600" fill="#7A5BA6">Encourages Long-Term Thinking</text>
-      <text x="20" y="55" fontSize="10" fill="#5A5A62">Governments want investors to</text>
-      <text x="20" y="70" fontSize="10" fill="#5A5A62">think long-term. Favorable tax</text>
-      <text x="20" y="85" fontSize="10" fill="#5A5A62">treatment for patient holding</text>
-      <text x="20" y="100" fontSize="10" fill="#5A5A62">encourages this behavior.</text>
+      <text x="20" y="55" fontSize="10" fill="#555A63">Governments want investors to</text>
+      <text x="20" y="70" fontSize="10" fill="#555A63">think long-term. Favorable tax</text>
+      <text x="20" y="85" fontSize="10" fill="#555A63">treatment for patient holding</text>
+      <text x="20" y="100" fontSize="10" fill="#555A63">encourages this behavior.</text>
     </g>
     
     {/* Reason 2 */}
@@ -232,10 +232,10 @@ const WhyTimeMattesSVG = () => (
       <text x="35" y="42" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">2</text>
       
       <text x="70" y="32" fontSize="12" fontWeight="600" fill="#7A5BA6">Reduces Market Speculation</text>
-      <text x="20" y="55" fontSize="10" fill="#5A5A62">Quick buying and selling can</text>
-      <text x="20" y="70" fontSize="10" fill="#5A5A62">create market instability. Higher</text>
-      <text x="20" y="85" fontSize="10" fill="#5A5A62">taxes on short-term gains may</text>
-      <text x="20" y="100" fontSize="10" fill="#5A5A62">discourage excessive trading.</text>
+      <text x="20" y="55" fontSize="10" fill="#555A63">Quick buying and selling can</text>
+      <text x="20" y="70" fontSize="10" fill="#555A63">create market instability. Higher</text>
+      <text x="20" y="85" fontSize="10" fill="#555A63">taxes on short-term gains may</text>
+      <text x="20" y="100" fontSize="10" fill="#555A63">discourage excessive trading.</text>
     </g>
     
     {/* Reason 3 */}
@@ -245,10 +245,10 @@ const WhyTimeMattesSVG = () => (
       <text x="35" y="42" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">3</text>
       
       <text x="70" y="32" fontSize="12" fontWeight="600" fill="#7A5BA6">Rewards Patient Investors</text>
-      <text x="20" y="55" fontSize="10" fill="#5A5A62">Those who hold through market</text>
-      <text x="20" y="70" fontSize="10" fill="#5A5A62">ups and downs are often given</text>
-      <text x="20" y="85" fontSize="10" fill="#5A5A62">a tax benefit as a reward for</text>
-      <text x="20" y="100" fontSize="10" fill="#5A5A62">their patience and commitment.</text>
+      <text x="20" y="55" fontSize="10" fill="#555A63">Those who hold through market</text>
+      <text x="20" y="70" fontSize="10" fill="#555A63">ups and downs are often given</text>
+      <text x="20" y="85" fontSize="10" fill="#555A63">a tax benefit as a reward for</text>
+      <text x="20" y="100" fontSize="10" fill="#555A63">their patience and commitment.</text>
     </g>
     
     {/* Reason 4 */}
@@ -258,10 +258,10 @@ const WhyTimeMattesSVG = () => (
       <text x="35" y="42" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">4</text>
       
       <text x="70" y="32" fontSize="12" fontWeight="600" fill="#7A5BA6">Supports Economic Stability</text>
-      <text x="20" y="55" fontSize="10" fill="#5A5A62">Long-term investing supports</text>
-      <text x="20" y="70" fontSize="10" fill="#5A5A62">businesses with stable capital.</text>
-      <text x="20" y="85" fontSize="10" fill="#5A5A62">Tax policy often reflects this</text>
-      <text x="20" y="100" fontSize="10" fill="#5A5A62">preference for stability.</text>
+      <text x="20" y="55" fontSize="10" fill="#555A63">Long-term investing supports</text>
+      <text x="20" y="70" fontSize="10" fill="#555A63">businesses with stable capital.</text>
+      <text x="20" y="85" fontSize="10" fill="#555A63">Tax policy often reflects this</text>
+      <text x="20" y="100" fontSize="10" fill="#555A63">preference for stability.</text>
     </g>
   </svg>
 );
@@ -270,7 +270,7 @@ const WhyTimeMattesSVG = () => (
 const ComparisonSVG = () => (
   <svg viewBox="0 0 700 350" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="350" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="350" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#2C3F5E">Quick Selling vs Patient Holding</text>
@@ -288,27 +288,27 @@ const ComparisonSVG = () => (
       <g transform="translate(20, 60)">
         <g transform="translate(0, 0)">
           <circle cx="8" cy="8" r="5" fill="#F6C3C3"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Holding:</tspan> Brief period</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Holding:</tspan> Brief period</text>
         </g>
         
         <g transform="translate(0, 30)">
           <circle cx="8" cy="8" r="5" fill="#F6C3C3"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Approach:</tspan> Active trading</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Approach:</tspan> Active trading</text>
         </g>
         
         <g transform="translate(0, 60)">
           <circle cx="8" cy="8" r="5" fill="#F6C3C3"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Tax treatment:</tspan> Usually higher</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Tax treatment:</tspan> Usually higher</text>
         </g>
         
         <g transform="translate(0, 90)">
           <circle cx="8" cy="8" r="5" fill="#F6C3C3"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Often taxed as:</tspan> Regular income</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Often taxed as:</tspan> Regular income</text>
         </g>
         
         <g transform="translate(0, 120)">
           <circle cx="8" cy="8" r="5" fill="#F6C3C3"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Philosophy:</tspan> Quick profits</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Philosophy:</tspan> Quick profits</text>
         </g>
         
         <rect x="0" y="155" width="240" height="50" fill="#FDF1F1" rx="6"/>
@@ -325,43 +325,43 @@ const ComparisonSVG = () => (
     
     {/* Long-term side */}
     <g transform="translate(370, 55)">
-      <rect x="0" y="0" width="280" height="270" fill="white" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="270" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="280" height="45" fill="#1FA978" rx="12"/>
-      <rect x="0" y="25" width="280" height="20" fill="#1FA978"/>
+      <rect x="0" y="0" width="280" height="45" fill="#12805A" rx="12"/>
+      <rect x="0" y="25" width="280" height="20" fill="#12805A"/>
       <text x="140" y="30" textAnchor="middle" fontSize="13" fontWeight="bold" fill="white">🌱 LONG-TERM</text>
       
       {/* Content */}
       <g transform="translate(20, 60)">
         <g transform="translate(0, 0)">
           <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Holding:</tspan> Extended period</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Holding:</tspan> Extended period</text>
         </g>
         
         <g transform="translate(0, 30)">
           <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Approach:</tspan> Buy and hold</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Approach:</tspan> Buy and hold</text>
         </g>
         
         <g transform="translate(0, 60)">
           <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Tax treatment:</tspan> Usually lower</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Tax treatment:</tspan> Usually lower</text>
         </g>
         
         <g transform="translate(0, 90)">
           <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Often taxed as:</tspan> Capital gains</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Often taxed as:</tspan> Capital gains</text>
         </g>
         
         <g transform="translate(0, 120)">
           <circle cx="8" cy="8" r="5" fill="#ABE5CC"/>
-          <text x="22" y="12" fontSize="10" fill="#404047"><tspan fontWeight="600">Philosophy:</tspan> Wealth building</text>
+          <text x="22" y="12" fontSize="10" fill="#373A41"><tspan fontWeight="600">Philosophy:</tspan> Wealth building</text>
         </g>
         
         <rect x="0" y="155" width="240" height="50" fill="#EEF9F4" rx="6"/>
-        <text x="120" y="175" textAnchor="middle" fontSize="9" fill="#0D543C">Example: Buy stock in January 2023,</text>
-        <text x="120" y="190" textAnchor="middle" fontSize="9" fill="#0D543C">sell in March 2024 (14+ months)</text>
+        <text x="120" y="175" textAnchor="middle" fontSize="9" fill="#12805A">Example: Buy stock in January 2023,</text>
+        <text x="120" y="190" textAnchor="middle" fontSize="9" fill="#12805A">sell in March 2024 (14+ months)</text>
       </g>
     </g>
   </svg>
@@ -384,8 +384,8 @@ const GlobalExampleSVG = () => (
       <path d="M28 28 Q35 34 42 28" stroke="white" strokeWidth="2" fill="none"/>
       <rect x="20" y="45" width="30" height="35" fill="#5A77AA" rx="4"/>
       <text x="85" y="35" fontSize="13" fontWeight="600" fill="#2C3F5E">Emma</text>
-      <text x="85" y="52" fontSize="10" fill="#5A5A62">Made $1,000 profit on each stock</text>
-      <text x="85" y="67" fontSize="10" fill="#5A5A62">But held them for different times</text>
+      <text x="85" y="52" fontSize="10" fill="#555A63">Made $1,000 profit on each stock</text>
+      <text x="85" y="67" fontSize="10" fill="#555A63">But held them for different times</text>
     </g>
     
     {/* Investment 1: Short-term */}
@@ -397,24 +397,24 @@ const GlobalExampleSVG = () => (
       <text x="140" y="27" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">Stock A: Short-Term</text>
       
       <g transform="translate(20, 55)">
-        <text x="0" y="15" fontSize="10" fill="#5A5A62">Bought:</text>
-        <text x="120" y="15" fontSize="10" fontWeight="600" fill="#404047">January 1, 2024</text>
+        <text x="0" y="15" fontSize="10" fill="#555A63">Bought:</text>
+        <text x="120" y="15" fontSize="10" fontWeight="600" fill="#373A41">January 1, 2024</text>
         
-        <text x="0" y="35" fontSize="10" fill="#5A5A62">Price paid:</text>
-        <text x="120" y="35" fontSize="10" fontWeight="600" fill="#404047">$5,000</text>
+        <text x="0" y="35" fontSize="10" fill="#555A63">Price paid:</text>
+        <text x="120" y="35" fontSize="10" fontWeight="600" fill="#373A41">$5,000</text>
         
-        <text x="0" y="55" fontSize="10" fill="#5A5A62">Sold:</text>
-        <text x="120" y="55" fontSize="10" fontWeight="600" fill="#404047">April 15, 2024</text>
+        <text x="0" y="55" fontSize="10" fill="#555A63">Sold:</text>
+        <text x="120" y="55" fontSize="10" fontWeight="600" fill="#373A41">April 15, 2024</text>
         
-        <text x="0" y="75" fontSize="10" fill="#5A5A62">Sale price:</text>
-        <text x="120" y="75" fontSize="10" fontWeight="600" fill="#404047">$6,000</text>
+        <text x="0" y="75" fontSize="10" fill="#555A63">Sale price:</text>
+        <text x="120" y="75" fontSize="10" fontWeight="600" fill="#373A41">$6,000</text>
         
-        <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E1D9" strokeWidth="1"/>
+        <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E4EA" strokeWidth="1"/>
         
-        <text x="0" y="110" fontSize="10" fill="#5A5A62">Profit:</text>
+        <text x="0" y="110" fontSize="10" fill="#555A63">Profit:</text>
         <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#12805A">$1,000</text>
         
-        <text x="0" y="130" fontSize="10" fill="#5A5A62">Holding period:</text>
+        <text x="0" y="130" fontSize="10" fill="#555A63">Holding period:</text>
         <text x="120" y="130" fontSize="10" fontWeight="600" fill="#C7363B">~3.5 months</text>
         
         <rect x="0" y="150" width="240" height="40" fill="#FDF1F1" rx="6"/>
@@ -425,36 +425,36 @@ const GlobalExampleSVG = () => (
     
     {/* Investment 2: Long-term */}
     <g transform="translate(370, 130)">
-      <rect x="0" y="0" width="280" height="250" fill="white" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="250" fill="white" rx="12" stroke="#12805A" strokeWidth="2"/>
       
-      <rect x="0" y="0" width="280" height="40" fill="#1FA978" rx="12"/>
-      <rect x="0" y="20" width="280" height="20" fill="#1FA978"/>
+      <rect x="0" y="0" width="280" height="40" fill="#12805A" rx="12"/>
+      <rect x="0" y="20" width="280" height="20" fill="#12805A"/>
       <text x="140" y="27" textAnchor="middle" fontSize="12" fontWeight="bold" fill="white">Stock B: Long-Term</text>
       
       <g transform="translate(20, 55)">
-        <text x="0" y="15" fontSize="10" fill="#5A5A62">Bought:</text>
-        <text x="120" y="15" fontSize="10" fontWeight="600" fill="#404047">January 1, 2023</text>
+        <text x="0" y="15" fontSize="10" fill="#555A63">Bought:</text>
+        <text x="120" y="15" fontSize="10" fontWeight="600" fill="#373A41">January 1, 2023</text>
         
-        <text x="0" y="35" fontSize="10" fill="#5A5A62">Price paid:</text>
-        <text x="120" y="35" fontSize="10" fontWeight="600" fill="#404047">$5,000</text>
+        <text x="0" y="35" fontSize="10" fill="#555A63">Price paid:</text>
+        <text x="120" y="35" fontSize="10" fontWeight="600" fill="#373A41">$5,000</text>
         
-        <text x="0" y="55" fontSize="10" fill="#5A5A62">Sold:</text>
-        <text x="120" y="55" fontSize="10" fontWeight="600" fill="#404047">April 15, 2024</text>
+        <text x="0" y="55" fontSize="10" fill="#555A63">Sold:</text>
+        <text x="120" y="55" fontSize="10" fontWeight="600" fill="#373A41">April 15, 2024</text>
         
-        <text x="0" y="75" fontSize="10" fill="#5A5A62">Sale price:</text>
-        <text x="120" y="75" fontSize="10" fontWeight="600" fill="#404047">$6,000</text>
+        <text x="0" y="75" fontSize="10" fill="#555A63">Sale price:</text>
+        <text x="120" y="75" fontSize="10" fontWeight="600" fill="#373A41">$6,000</text>
         
-        <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E1D9" strokeWidth="1"/>
+        <line x1="0" y1="90" x2="240" y2="90" stroke="#E4E4EA" strokeWidth="1"/>
         
-        <text x="0" y="110" fontSize="10" fill="#5A5A62">Profit:</text>
+        <text x="0" y="110" fontSize="10" fill="#555A63">Profit:</text>
         <text x="120" y="110" fontSize="11" fontWeight="bold" fill="#12805A">$1,000</text>
         
-        <text x="0" y="130" fontSize="10" fill="#5A5A62">Holding period:</text>
+        <text x="0" y="130" fontSize="10" fill="#555A63">Holding period:</text>
         <text x="120" y="130" fontSize="10" fontWeight="600" fill="#12805A">~15 months</text>
         
         <rect x="0" y="150" width="240" height="40" fill="#EEF9F4" rx="6"/>
-        <text x="120" y="168" textAnchor="middle" fontSize="9" fill="#0D543C">Long-term gain: May qualify</text>
-        <text x="120" y="182" textAnchor="middle" fontSize="9" fill="#0D543C">for lower tax rate</text>
+        <text x="120" y="168" textAnchor="middle" fontSize="9" fill="#12805A">Long-term gain: May qualify</text>
+        <text x="120" y="182" textAnchor="middle" fontSize="9" fill="#12805A">for lower tax rate</text>
       </g>
     </g>
     
@@ -468,7 +468,7 @@ const GlobalExampleSVG = () => (
 const ThresholdConceptSVG = () => (
   <svg viewBox="0 0 700 240" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="240" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="240" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#2C3F5E">The Threshold: Where Short Becomes Long</text>
@@ -484,8 +484,8 @@ const ThresholdConceptSVG = () => (
         <rect x="-3" y="20" width="6" height="70" fill="#2C3F5E"/>
         <polygon points="-15,15 0,0 15,15" fill="#2C3F5E"/>
         <text x="0" y="105" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#2C3F5E">THRESHOLD</text>
-        <text x="0" y="120" textAnchor="middle" fontSize="8" fill="#75757D">(Varies by country</text>
-        <text x="0" y="132" textAnchor="middle" fontSize="8" fill="#75757D">and asset type)</text>
+        <text x="0" y="120" textAnchor="middle" fontSize="8" fill="#717680">(Varies by country</text>
+        <text x="0" y="132" textAnchor="middle" fontSize="8" fill="#717680">and asset type)</text>
       </g>
       
       {/* Long-term zone */}
@@ -493,15 +493,15 @@ const ThresholdConceptSVG = () => (
       <text x="440" y="60" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LONG-TERM ZONE</text>
       
       {/* Timeline bar */}
-      <rect x="0" y="48" width="600" height="3" fill="#A3A1A6"/>
+      <rect x="0" y="48" width="600" height="3" fill="#A0A3AA"/>
       
       {/* Start marker */}
-      <circle cx="0" cy="50" r="6" fill="#75757D"/>
-      <text x="0" y="25" textAnchor="middle" fontSize="8" fill="#75757D">Buy</text>
+      <circle cx="0" cy="50" r="6" fill="#717680"/>
+      <text x="0" y="25" textAnchor="middle" fontSize="8" fill="#717680">Buy</text>
       
       {/* End marker */}
-      <circle cx="600" cy="50" r="6" fill="#75757D"/>
-      <text x="600" y="25" textAnchor="middle" fontSize="8" fill="#75757D">Time →</text>
+      <circle cx="600" cy="50" r="6" fill="#717680"/>
+      <text x="600" y="25" textAnchor="middle" fontSize="8" fill="#717680">Time →</text>
     </g>
     
     {/* Note */}
@@ -528,9 +528,9 @@ const KeyTakeawaySVG = () => (
     {/* Key takeaway text */}
     <g transform="translate(110, 30)">
       <text x="0" y="15" fontSize="14" fontWeight="bold" fill="#2C3F5E">Key Takeaway</text>
-      <text x="0" y="42" fontSize="11" fill="#232327">How long you hold an investment can affect how it's taxed when you sell.</text>
-      <text x="0" y="59" fontSize="11" fill="#232327">Short-term gains (quick sales) are often taxed at higher rates than</text>
-      <text x="0" y="76" fontSize="11" fill="#232327">long-term gains (patient holding).</text>
+      <text x="0" y="42" fontSize="11" fill="#2A2A2C">How long you hold an investment can affect how it's taxed when you sell.</text>
+      <text x="0" y="59" fontSize="11" fill="#2A2A2C">Short-term gains (quick sales) are often taxed at higher rates than</text>
+      <text x="0" y="76" fontSize="11" fill="#2A2A2C">long-term gains (patient holding).</text>
       <text x="0" y="102" fontSize="11" fontWeight="600" fill="#2C3F5E">Being aware of holding periods can help you understand potential tax implications.</text>
     </g>
   </svg>
@@ -640,7 +640,7 @@ const TaxLesson4 = () => {
       <Navbar />
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 pt-16">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-white py-12">
+      <div className="text-white py-12 bg-brand-fill">
         <div className="max-w-4xl mx-auto px-6">
           <button
             onClick={() => navigate('/learn/taxes')}
@@ -657,7 +657,7 @@ const TaxLesson4 = () => {
               Awareness Only
             </span>
           </div>
-          <h1 className="text-4xl font-display font-normal mb-4 tracking-[-0.015em]">Long-Term vs Short-Term Taxes</h1>
+          <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 tracking-[-0.025em]">Long-Term vs Short-Term Taxes</h1>
           <p className="text-xl text-blue-100">
             Understanding how holding period affects how your gains are taxed
           </p>
@@ -670,7 +670,7 @@ const TaxLesson4 = () => {
         {/* Introduction */}
         <section className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.015em]">Time Changes Everything</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4 tracking-[-0.025em]">Time Changes Everything</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               When you sell an investment for a profit, one of the most important factors in how 
               that profit gets taxed is something simple: <strong>how long did you hold it?</strong>
@@ -686,13 +686,13 @@ const TaxLesson4 = () => {
 
         {/* Time Changes Everything Visual */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Role of Time in Taxes</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">The Role of Time in Taxes</h2>
           <TimeChangesEverythingSVG />
         </section>
 
         {/* Short-Term Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Short-Term: Quick Buying and Selling</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Short-Term: Quick Buying and Selling</h2>
           <ShortTermExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -711,7 +711,7 @@ const TaxLesson4 = () => {
 
         {/* Long-Term Explained */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Long-Term: Patient Holding</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Long-Term: Patient Holding</h2>
           <LongTermExplainedSVG />
           <div className="bg-white rounded-2xl shadow-lg p-8 mt-6">
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -799,7 +799,7 @@ const TaxLesson4 = () => {
                       } ${
                         showResults[q.id]
                           ? option.id === q.correctAnswer
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === option.id
                             ? 'border-red-500 bg-red-50'
                             : ''
@@ -823,7 +823,7 @@ const TaxLesson4 = () => {
                 {!showResults[q.id] && quizAnswers[q.id] && (
                   <button
                     onClick={() => checkAnswer(q.id)}
-                    className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    className="mt-4 px-6 py-2 bg-brand-fill text-white rounded-lg hover:bg-brand-hover transition-colors"
                   >
                     Check Answer
                   </button>
@@ -832,11 +832,11 @@ const TaxLesson4 = () => {
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
                     quizAnswers[q.id] === q.correctAnswer
-                      ? 'bg-green-100 border border-green-300'
+                      ? 'bg-brand-soft border border-brand-line'
                       : 'bg-red-100 border border-red-300'
                   }`}>
                     <p className={`font-semibold ${
-                      quizAnswers[q.id] === q.correctAnswer ? 'text-green-800' : 'text-red-800'
+                      quizAnswers[q.id] === q.correctAnswer ? 'text-brand' : 'text-red-800'
                     }`}>
                       {quizAnswers[q.id] === q.correctAnswer ? '✓ Correct!' : '✗ Not quite right'}
                     </p>
@@ -877,7 +877,7 @@ const TaxLesson4 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/tax-lesson-5')}
-            className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-brand-fill text-white rounded-xl hover:bg-brand-hover transition-colors"
           >
             <span>Next: Long-Term vs Short-Term Taxes</span>
             <span>→</span>

@@ -14,7 +14,7 @@ function StatusBadge({ status }: { status: Receipt["status"] }) {
   return status === "refunded" ? (
     <span className="inline-flex rounded-full bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-rose-950/50 dark:text-rose-300">Refunded</span>
   ) : (
-    <span className="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300">Paid</span>
+    <span className="inline-flex rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand dark:bg-brand-fill/50 dark:text-brand">Paid</span>
   );
 }
 
@@ -35,7 +35,7 @@ function DownloadButton({ receipt }: { receipt: Receipt }) {
       onClick={download}
       disabled={busy}
       aria-label={`Download receipt ${receipt.receipt_no}`}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand hover:text-brand disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
     >
       <Download size={14} /> {busy ? "Preparing…" : "PDF"}
     </button>
@@ -60,13 +60,13 @@ export default function Billing() {
   }, [load]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 font-sans text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="flex min-h-screen flex-col bg-background font-sans text-slate-900 dark:text-slate-100">
       <SEO title="Billing & Receipts" description="Your Xtin Capital purchase history and receipts." canonicalUrl="/billing" noIndex />
       <Navbar />
 
       <main className="mt-20 flex-grow px-4 py-10 md:px-8">
         <div className="mx-auto max-w-5xl space-y-6">
-          <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-slate-500 transition hover:text-emerald-600 dark:text-slate-400">
+          <Link to="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-slate-500 transition hover:text-brand dark:text-slate-400">
             <ArrowLeft size={14} /> Dashboard
           </Link>
 
@@ -97,7 +97,7 @@ export default function Billing() {
               <ReceiptText size={32} className="text-slate-400" />
               <h2 className="mt-3 font-semibold">No purchases yet</h2>
               <p className="mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">When you buy a plan or a token pack, its receipt will show up here.</p>
-              <Link to="/dashboard" className="mt-5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700">
+              <Link to="/dashboard" className="mt-5 rounded-lg bg-brand-fill px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-hover">
                 Browse plans
               </Link>
             </div>
@@ -154,7 +154,7 @@ export default function Billing() {
 
           <p className="text-xs text-slate-500 dark:text-slate-400">
             Receipts are issued by {COMPANY.legalName} (GSTIN {COMPANY.gstin}). Prices include applicable taxes. Questions about a payment?
-            Email <a className="text-emerald-600 hover:underline" href={`mailto:${COMPANY.supportEmail}`}>{COMPANY.supportEmail}</a> with the receipt number.
+            Email <a className="text-brand hover:underline" href={`mailto:${COMPANY.supportEmail}`}>{COMPANY.supportEmail}</a> with the receipt number.
           </p>
         </div>
       </main>

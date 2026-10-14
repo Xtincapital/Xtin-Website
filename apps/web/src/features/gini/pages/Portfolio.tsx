@@ -145,7 +145,7 @@ export default function Portfolio() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <PieChartIcon className="h-4 w-4 text-primary" />
+                <PieChartIcon className="h-4 w-4 text-brand" />
                 Current Portfolio Analysis
               </CardTitle>
             </CardHeader>
@@ -239,7 +239,7 @@ export default function Portfolio() {
                             <TableCell className="text-right">{formatCurrency(row.value)}</TableCell>
                             <TableCell className="text-right">{row.allocation.toFixed(1)}%</TableCell>
                             <TableCell className="text-right">{row.avgReturn.toFixed(1)}%</TableCell>
-                            <TableCell className="text-right font-semibold text-success">
+                            <TableCell className="text-right font-semibold text-brand">
                               {row.contribution.toFixed(2)}%
                             </TableCell>
                           </TableRow>
@@ -258,7 +258,7 @@ export default function Portfolio() {
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <ShieldQuestion className="h-4 w-4 text-primary" />
+                <ShieldQuestion className="h-4 w-4 text-brand" />
                 Risk Assessment
               </CardTitle>
             </CardHeader>
@@ -295,7 +295,7 @@ export default function Portfolio() {
 
               {riskResult && (
                 <div className="rounded-lg bg-secondary p-4">
-                  <h4 className="text-sm font-semibold text-foreground mb-3">Recommended Allocation</h4>
+                  <h4 className="text-base font-semibold text-foreground mb-3">Recommended Allocation</h4>
                   <div className="grid grid-cols-3 gap-4">
                     <div className="text-center">
                       <p className="text-xs text-muted-foreground">Equity</p>

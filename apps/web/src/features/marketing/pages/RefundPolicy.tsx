@@ -54,7 +54,7 @@ function RefundPolicy() {
           <li>Plans are one-time payments for a fixed period (monthly or yearly) and do not renew automatically.</li>
           <li>You may stop using a plan at any time; access continues until the end of the period you paid for.</li>
           <li>No prorated refunds are provided for unused time.</li>
-          <li>We may suspend or terminate access, without refund, for violation of our <Link to="/terms" className="text-green-600 hover:text-green-700 font-medium">Terms of Service</Link>.</li>
+          <li>We may suspend or terminate access, without refund, for violation of our <Link to="/terms" className="text-brand hover:text-brand font-medium">Terms of Service</Link>.</li>
         </ul>
       </LegalSection>
 
@@ -69,7 +69,7 @@ function RefundPolicy() {
       <LegalSection title="6. Contact">
         <p>
           Refund questions: <SupportEmailLink /> — response time {COMPANY.responseTime.toLowerCase()}. See also our{' '}
-          <Link to="/contact" className="text-green-600 hover:text-green-700 font-medium">Contact page</Link>.
+          <Link to="/contact" className="text-brand hover:text-brand font-medium">Contact page</Link>.
         </p>
       </LegalSection>
     </LegalPage>

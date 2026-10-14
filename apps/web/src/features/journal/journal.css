@@ -21,32 +21,32 @@
   body.journal-portals > :not(#root) {
     --jr-surface: #FFFFFF;
     --jr-raised: #FAF9F6;
-    --jr-page: #F7F6F2;
-    --jr-border: #E4E1D9;
-    --jr-heading: #151517;
-    --jr-subheading: #151517;
-    --jr-text: #5A5A62;
-    --jr-muted: #75757D;
+    --jr-page: #F5F5F7;
+    --jr-border: #E4E4EA;
+    --jr-heading: #1F1F1F;
+    --jr-subheading: #1F1F1F;
+    --jr-text: #555A63;
+    --jr-muted: #717680;
     --jr-brand: #12805A;
     --jr-brand-hover: #0E6A4A;
     --jr-brand-tint: #EEF9F4;
-    --jr-divider: #CFCBC1;
+    --jr-divider: #CFD0D3;
   }
 
   html.dark .journal-scope,
   html.dark body.journal-portals > :not(#root) {
-    --jr-surface: #151517;
+    --jr-surface: #1F1F1F;
     --jr-raised: #1C1C1F;
-    --jr-page: #0A0A0B;
-    --jr-border: #232327;
-    --jr-heading: #EDEDEF;
-    --jr-subheading: #EDEDEF;
-    --jr-text: #A3A1A6;
+    --jr-page: #131417;
+    --jr-border: #2A2A2C;
+    --jr-heading: #FFFFFF;
+    --jr-subheading: #FFFFFF;
+    --jr-text: #A0A3AA;
     --jr-muted: #8B8B93;
     --jr-brand: #3CCB97;
     --jr-brand-hover: #77D3AE;
     --jr-brand-tint: rgba(60, 203, 151, 0.12);
-    --jr-divider: #404047;
+    --jr-divider: #373A41;
   }
 }
 
@@ -124,14 +124,14 @@
 }
 
 .journal-classic .header-left p {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
   color: var(--jr-text);
   font-weight: 400;
 }
 
 .journal-classic .header-right {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--jr-text);
   display: flex;
   align-items: center;
@@ -171,7 +171,9 @@
 .journal-classic .nav-bar {
   background-color: var(--jr-surface);
   border-bottom: 1px solid var(--jr-border);
-  padding: 0 32px;
+  /* The bar's background runs full width like the site nav, but its tabs sit
+     in the site's centred page column (Tailwind max-w-7xl = 80rem). */
+  padding: 0 max(32px, calc((100% - 80rem) / 2));
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
@@ -267,7 +269,8 @@
 
 .journal-classic .tab-content {
   flex: 1;
-  padding: 32px;
+  /* Same centred page column as the tab bar and the rest of the site. */
+  padding: 32px max(32px, calc((100% - 80rem) / 2));
   max-width: 100%;
   background-color: var(--jr-page);
   animation: journalTabFadeIn 0.24s ease;
@@ -302,16 +305,16 @@
 /* Page titles → the site's page-title role (.xt-title) */
 .journal-classic .journal-content h1 {
   font-family: theme("fontFamily.display");
-  font-size: 2.25rem;
-  line-height: 1.05;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.025em;
   color: var(--jr-heading);
 }
 
 @media (min-width: 768px) {
   .journal-classic .journal-content h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -323,7 +326,7 @@
 /* Section and card titles → the site's card-title role (.xt-card-title) */
 .journal-classic .journal-content h2,
 .journal-classic .journal-content h3 {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.4;
   font-weight: 600;
   letter-spacing: normal;
@@ -338,7 +341,7 @@
 
 /* Metric values → the site's metric role (.xt-metric) */
 .journal-classic .journal-content .text-3xl {
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.2;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
@@ -379,7 +382,7 @@
 
 .journal-classic .journal-content table td {
   padding: 12px 16px;
-  font-size: 13px;
+  font-size: 14px;
   border-bottom: 1px solid var(--jr-border);
   font-variant-numeric: tabular-nums;
 }
@@ -515,7 +518,7 @@
    above; only translucent surfaces need their own dark value. */
 @layer base {
   html.dark .journal-scope .glass {
-    background-color: rgb(21 21 23 / 0.8);
+    background-color: rgb(31 31 31 / 0.8);
   }
 
   html.dark .journal-classic .journal-content table tbody tr:hover {

@@ -141,7 +141,7 @@ const Calendar = () => {
             Calendar
             <InfoTip title="How to read the calendar" widthClass="w-80">
               <p>Each box is a day. It shows how many trades you took and your total P&L for that day.</p>
-              <p><strong className="text-success">Green</strong> days made money, <strong className="text-destructive">red</strong> days lost money, <strong className="text-amber-500">amber</strong> days broke even, and grey days had no trades.</p>
+              <p><strong className="text-brand">Green</strong> days made money, <strong className="text-destructive">red</strong> days lost money, <strong className="text-amber-500">amber</strong> days broke even, and grey days had no trades.</p>
               <p><strong className="text-foreground">Click a day</strong> with trades to see every trade from it, and click a trade to see its full details. Use the arrows to move between months.</p>
             </InfoTip>
           </h1>
@@ -176,7 +176,7 @@ const Calendar = () => {
                   <p>Days whose combined P&L across all trades was above zero.</p>
                 </InfoTip>
               </p>
-              <p className="stat-value font-semibold text-success">{profitableDays}</p>
+              <p className="stat-value font-semibold text-brand">{profitableDays}</p>
             </CardContent>
           </Card>
           <Card>
@@ -209,7 +209,7 @@ const Calendar = () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="text-lg flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-primary" />
+                <CalendarDays className="w-4 h-4 text-brand" />
                 {MONTH_NAMES[month]} {year}
               </CardTitle>
               <div className="flex items-center gap-2">
@@ -254,10 +254,10 @@ const Calendar = () => {
                       <div className="text-sm font-semibold text-foreground tabular-nums">{cell.day}</div>
                       {hasTrades ? (
                         <>
-                          <div className="text-[11px] text-muted-foreground mt-1">
+                          <div className="text-xs text-muted-foreground mt-1">
                             {cell.trades.length} trade{cell.trades.length > 1 ? "s" : ""}
                           </div>
-                          <div className={`text-[11px] font-semibold tabular-nums mt-0.5 ${positive ? "text-success" : negative ? "text-destructive" : "text-amber-500"}`}>
+                          <div className={`text-xs font-semibold tabular-nums mt-0.5 ${positive ? "text-brand" : negative ? "text-destructive" : "text-amber-500"}`}>
                             {formatCurrency(cell.pnl, { compact: true })}
                           </div>
                         </>

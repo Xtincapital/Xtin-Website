@@ -80,7 +80,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               {lesson.num === 1 && <ModuleBadge moduleId="crypto" />}
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Lesson {lesson.num} of {cryptoLessons.length}
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
@@ -90,7 +90,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
                 Risk Awareness
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-yellow-700" />
               </span>
@@ -117,7 +117,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">
                     {paragraph}
@@ -163,7 +163,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrectOption = lesson.quiz.correct === index;
                 let stateClass = "bg-white border-gray-200 hover:bg-yellow-50 hover:border-yellow-300";
-                if (answered && isCorrectOption) stateClass = "bg-emerald-50 border-emerald-400";
+                if (answered && isCorrectOption) stateClass = "bg-brand-soft border-brand";
                 if (answered && isSelected && !isCorrectOption) stateClass = "bg-red-50 border-red-400";
 
                 return (
@@ -176,7 +176,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
                     <span className="flex items-center gap-3">
                       <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold ${
                         answered && isCorrectOption
-                          ? "bg-emerald-500 text-white"
+                          ? "bg-brand-fill text-white"
                           : answered && isSelected
                             ? "bg-red-500 text-white"
                             : "bg-yellow-100 text-yellow-800"
@@ -184,7 +184,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
                         {String.fromCharCode(65 + index)}
                       </span>
                       <span className="text-gray-700 flex-1">{option}</span>
-                      {answered && isCorrectOption && <FaCheckCircle className="text-emerald-500 text-lg" />}
+                      {answered && isCorrectOption && <FaCheckCircle className="text-brand text-lg" />}
                       {answered && isSelected && !isCorrectOption && <FaTimesCircle className="text-red-500 text-lg" />}
                     </span>
                   </button>
@@ -192,14 +192,14 @@ const CryptoLessonPage = ({ lessonNumber }) => {
               })}
             </div>
             {answered && (
-              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
+              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand border border-brand-line" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
                 <p className="font-semibold">{isCorrect ? "Correct" : "Not quite"}</p>
                 <p className="text-sm mt-1 opacity-90">{lesson.quiz.explanation}</p>
               </div>
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 mt-10 text-white">
+          <div className="rounded-2xl p-6 mt-10 text-white bg-brand-fill">
             <h2 className="font-semibold text-xl mb-3 flex items-center gap-2">
               <BookOpenIcon className="w-6 h-6" />
               Key Takeaway
@@ -217,7 +217,7 @@ const CryptoLessonPage = ({ lessonNumber }) => {
             </button>
             <button
               onClick={() => navigate(nextPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="flex items-center justify-center gap-2 px-6 py-3 text-white rounded-xl font-semibold hover:shadow-lg transition-all bg-brand-fill"
             >
               <span>{lesson.num === cryptoLessons.length ? "Finish Module" : `Next: Lesson ${lesson.num + 1}`}</span>
               <FaArrowRight />

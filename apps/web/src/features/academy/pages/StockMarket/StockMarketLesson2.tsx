@@ -183,7 +183,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -191,11 +191,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -205,7 +205,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -242,14 +242,14 @@ const StockMarketLesson2 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 2 of 7
               </span>
               <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-xl shadow-sm">
                 <Icons.Share className="w-7 h-7 text-blue-600" />
               </span>
@@ -287,7 +287,7 @@ const StockMarketLesson2 = () => {
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
               {/* Left Side - Pizza */}
               <g transform="translate(50, 30)">
-                <text x="100" y="0" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="700">Pizza = 8 Slices</text>
+                <text x="100" y="0" textAnchor="middle" fill="#373A41" fontSize="14" fontWeight="700">Pizza = 8 Slices</text>
                 
                 {/* Pizza circle with slices */}
                 <circle cx="100" cy="100" r="70" fill="#CDAA5F" stroke="#B8923F" strokeWidth="3"/>
@@ -300,8 +300,8 @@ const StockMarketLesson2 = () => {
                 <circle cx="80" cy="70" r="6" fill="#E04848"/>
                 <circle cx="120" cy="85" r="6" fill="#E04848"/>
                 <circle cx="90" cy="120" r="6" fill="#E04848"/>
-                <circle cx="115" cy="130" r="6" fill="#1FA978"/>
-                <circle cx="75" cy="105" r="6" fill="#1FA978"/>
+                <circle cx="115" cy="130" r="6" fill="#12805A"/>
+                <circle cx="75" cy="105" r="6" fill="#12805A"/>
                 
                 <text x="100" y="195" textAnchor="middle" fill="#654B26" fontSize="11">You buy 2 slices</text>
                 <text x="100" y="210" textAnchor="middle" fill="#654B26" fontSize="11">= You own 25% of pizza</text>
@@ -316,7 +316,7 @@ const StockMarketLesson2 = () => {
 
               {/* Right Side - Company */}
               <g transform="translate(400, 30)">
-                <text x="125" y="0" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="700">Reliance = 676 Cr Shares</text>
+                <text x="125" y="0" textAnchor="middle" fill="#373A41" fontSize="14" fontWeight="700">Reliance = 676 Cr Shares</text>
                 
                 {/* Company building representation */}
                 <rect x="50" y="20" width="150" height="150" rx="12" fill="#8F6FC4" stroke="#7A5BA6" strokeWidth="3"/>
@@ -332,7 +332,7 @@ const StockMarketLesson2 = () => {
                         width="18" 
                         height="22" 
                         rx="2" 
-                        fill={row === 0 && col < 2 ? "#1FA978" : "#C0A9E2"}
+                        fill={row === 0 && col < 2 ? "#12805A" : "#C0A9E2"}
                         stroke="#7A5BA6"
                         strokeWidth="1"
                       />
@@ -361,7 +361,7 @@ const StockMarketLesson2 = () => {
               <span>The Simple Definition</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
+            <div className="rounded-xl p-6 text-white mb-4 bg-brand-fill">
               <p className="text-xl font-semibold text-center">
                 A <span className="underline decoration-yellow-300 decoration-2">share</span> is a 
                 <span className="underline decoration-yellow-300 decoration-2"> unit of ownership</span> in a company.
@@ -389,23 +389,23 @@ const StockMarketLesson2 = () => {
             </p>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-3">You CAN:</h4>
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-3">You CAN:</h4>
                 <ul className="space-y-2">
-                  <li className="flex items-start gap-2 text-green-700 text-sm">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand text-sm">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span><strong>Share in profits</strong> — Get dividends when company shares profits</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700 text-sm">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand text-sm">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span><strong>Benefit from growth</strong> — Share price rises when company grows</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700 text-sm">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand text-sm">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span><strong>Vote on decisions</strong> — Vote in company meetings (AGMs)</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700 text-sm">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand text-sm">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span><strong>Sell anytime</strong> — Sell your shares to anyone in the market</span>
                   </li>
                 </ul>
@@ -436,26 +436,26 @@ const StockMarketLesson2 = () => {
           </div>
 
           {/* How Shareholders Make Money */}
-          <div className="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl p-6 mb-6 border border-gray-200">
+          <div className="rounded-2xl p-6 mb-6 border border-gray-200 bg-brand-soft">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Icons.Rupee className="w-6 h-6 text-green-600" />
+              <Icons.Rupee className="w-6 h-6 text-brand" />
               <span>How Do Shareholders Make Money?</span>
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
               {/* Capital Gains */}
-              <div className="bg-white rounded-xl p-5 border border-green-200">
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Icons.Growth className="w-6 h-6 text-green-600" />
+                  <div className="w-10 h-10 bg-brand-soft rounded-lg flex items-center justify-center">
+                    <Icons.Growth className="w-6 h-6 text-brand" />
                   </div>
                   <h4 className="font-bold text-gray-900">1. Capital Gains</h4>
                 </div>
                 <p className="text-gray-600 text-sm mb-3">
                   Buy low, sell high. If the share price goes up, you profit!
                 </p>
-                <div className="bg-green-50 rounded-lg p-3 text-sm">
-                  <p className="text-green-800">
+                <div className="bg-brand-soft rounded-lg p-3 text-sm">
+                  <p className="text-brand">
                     <strong>Example:</strong><br/>
                     Buy Infosys at Rs. 1,400<br/>
                     Sell after 2 years at Rs. 1,800<br/>
@@ -504,7 +504,7 @@ const StockMarketLesson2 = () => {
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 250" fill="none">
               {/* Header */}
-              <text x="350" y="25" textAnchor="middle" fill="#404047" fontSize="13" fontWeight="600">
+              <text x="350" y="25" textAnchor="middle" fill="#373A41" fontSize="13" fontWeight="600">
                 What does "Reliance is at Rs. 2,500" mean?
               </text>
 
@@ -521,13 +521,13 @@ const StockMarketLesson2 = () => {
 
               {/* Explanation */}
               <g transform="translate(320, 50)">
-                <rect x="0" y="0" width="330" height="120" rx="12" fill="#EEF9F4" stroke="#77D3AE" strokeWidth="2"/>
-                <text x="165" y="30" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="700">Cost to Buy 1 Share of Reliance</text>
+                <rect x="0" y="0" width="330" height="120" rx="12" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+                <text x="165" y="30" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Cost to Buy 1 Share of Reliance</text>
                 
                 <g transform="translate(20, 50)">
-                  <text x="0" y="15" fill="#0E6A4A" fontSize="11">• With Rs. 2,500 → You buy 1 share</text>
-                  <text x="0" y="35" fill="#0E6A4A" fontSize="11">• With Rs. 25,000 → You buy 10 shares</text>
-                  <text x="0" y="55" fill="#0E6A4A" fontSize="11">• With Rs. 2,50,000 → You buy 100 shares</text>
+                  <text x="0" y="15" fill="#12805A" fontSize="11">• With Rs. 2,500 → You buy 1 share</text>
+                  <text x="0" y="35" fill="#12805A" fontSize="11">• With Rs. 25,000 → You buy 10 shares</text>
+                  <text x="0" y="55" fill="#12805A" fontSize="11">• With Rs. 2,50,000 → You buy 100 shares</text>
                 </g>
               </g>
 
@@ -611,31 +611,31 @@ const StockMarketLesson2 = () => {
                     <td className="p-3 font-medium text-gray-900">Reliance</td>
                     <td className="p-3 text-gray-600">Rs. 2,500</td>
                     <td className="p-3 text-gray-600">676 Cr shares</td>
-                    <td className="p-3 text-green-600">Cost: Rs. 25,000</td>
+                    <td className="p-3 text-brand">Cost: Rs. 25,000</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
                     <td className="p-3 font-medium text-gray-900">TCS</td>
                     <td className="p-3 text-gray-600">Rs. 3,500</td>
                     <td className="p-3 text-gray-600">366 Cr shares</td>
-                    <td className="p-3 text-green-600">Cost: Rs. 35,000</td>
+                    <td className="p-3 text-brand">Cost: Rs. 35,000</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-900">HDFC Bank</td>
                     <td className="p-3 text-gray-600">Rs. 1,700</td>
                     <td className="p-3 text-gray-600">760 Cr shares</td>
-                    <td className="p-3 text-green-600">Cost: Rs. 17,000</td>
+                    <td className="p-3 text-brand">Cost: Rs. 17,000</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
                     <td className="p-3 font-medium text-gray-900">ITC</td>
                     <td className="p-3 text-gray-600">Rs. 450</td>
                     <td className="p-3 text-gray-600">1,245 Cr shares</td>
-                    <td className="p-3 text-green-600">Cost: Rs. 4,500</td>
+                    <td className="p-3 text-brand">Cost: Rs. 4,500</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-900">Yes Bank</td>
                     <td className="p-3 text-gray-600">Rs. 20</td>
                     <td className="p-3 text-gray-600">2,963 Cr shares</td>
-                    <td className="p-3 text-green-600">Cost: Rs. 200</td>
+                    <td className="p-3 text-brand">Cost: Rs. 200</td>
                   </tr>
                 </tbody>
               </table>
@@ -748,7 +748,7 @@ const StockMarketLesson2 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-3')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-blue-600 hover:to-indigo-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: How Buying & Selling Works</span>
               <FaArrowRight className="text-sm" />

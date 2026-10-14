@@ -78,7 +78,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm brand-on-dark"
       onClick={handleBackdropClick}
     >
       <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
@@ -95,8 +95,8 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
         <div className="p-8">
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 rounded-full mb-4">
-              <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-brand-soft rounded-full mb-4">
+              <svg className="w-7 h-7 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
@@ -109,7 +109,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
                 : 'Please sign in to access this tool')}
             </p>
             {targetToolPath && (
-              <p className="text-sm text-green-600 mt-1">
+              <p className="text-sm text-brand mt-1">
                 You'll be redirected after signing in
               </p>
             )}
@@ -135,7 +135,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
                 placeholder="Enter your email"
               />
             </div>
@@ -151,7 +151,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
                 placeholder="Enter your password"
               />
             </div>
@@ -163,15 +163,15 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
                 required
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+                className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
               />
               <span className="ml-2 text-sm text-gray-600">
                 I agree to the{" "}
-                <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium">
+                <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand hover:text-brand font-medium">
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium">
+                <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-brand hover:text-brand font-medium">
                   Privacy Policy
                 </a>
               </span>
@@ -180,7 +180,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -229,7 +229,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-sm">
               Don't have an account?{' '}
-              <a href="/signup" className="text-green-600 hover:text-green-700 font-medium">
+              <a href="/signup" className="text-brand hover:text-brand font-medium">
                 Sign up
               </a>
             </p>

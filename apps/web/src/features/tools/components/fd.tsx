@@ -93,7 +93,7 @@ const FDCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Navbar */}
       <Navbar />
 
@@ -108,7 +108,7 @@ const FDCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is a Fixed Deposit (FD)?
             </button>
@@ -192,15 +192,15 @@ const FDCalculator = () => {
               )}
               <button
                 onClick={calculateFD}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate FD
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                   <p className="text-lg font-medium">
-                     Future Value: <span className="text-green-700">{sym}{futureValue}</span>
+                     Future Value: <span className="text-brand">{sym}{futureValue}</span>
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
@@ -229,7 +229,7 @@ const FDCalculator = () => {
                 <h2 className="xt-section">Growth Over Time</h2>
                 <button
                   onClick={() => setIsPieChart(!isPieChart)}
-                  className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                  className="px-4 py-2 bg-brand-fill text-white rounded-lg hover:bg-brand-hover transition"
                 >
                   {isPieChart ? "Show Line Chart" : "Show Pie Chart"}
                 </button>

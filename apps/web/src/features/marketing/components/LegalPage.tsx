@@ -14,13 +14,13 @@ export const LegalSection = ({ title, children }: { title: string; children: Rea
 );
 
 export const SupportEmailLink = () => (
-  <a href={`mailto:${COMPANY.supportEmail}`} className="text-green-600 hover:text-green-700 font-medium">
+  <a href={`mailto:${COMPANY.supportEmail}`} className="text-brand hover:text-brand font-medium">
     {COMPANY.supportEmail}
   </a>
 );
 
 export const SupportPhoneLink = () => (
-  <a href={COMPANY.phoneHref} className="text-green-600 hover:text-green-700 font-medium">
+  <a href={COMPANY.phoneHref} className="text-brand hover:text-brand font-medium">
     {COMPANY.phone}
   </a>
 );

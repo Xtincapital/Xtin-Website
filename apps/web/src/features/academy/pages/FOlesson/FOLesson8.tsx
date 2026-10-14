@@ -68,8 +68,8 @@ const IVvsHVDeepSVG = () => (
   <svg viewBox="0 0 700 400" className="w-full h-auto">
     <defs>
       <linearGradient id="volGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
@@ -80,15 +80,15 @@ const IVvsHVDeepSVG = () => (
     {/* Chart Area */}
     <g transform="translate(80, 70)">
       {/* Axes */}
-      <line x1="0" y1="200" x2="540" y2="200" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="200" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="0" y1="200" x2="540" y2="200" stroke="#555A63" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="200" stroke="#555A63" strokeWidth="1"/>
       
       {/* Y-axis labels */}
-      <text x="-10" y="10" textAnchor="end" fontSize="9" fill="#A3A1A6">50%</text>
-      <text x="-10" y="60" textAnchor="end" fontSize="9" fill="#A3A1A6">40%</text>
-      <text x="-10" y="110" textAnchor="end" fontSize="9" fill="#A3A1A6">30%</text>
-      <text x="-10" y="160" textAnchor="end" fontSize="9" fill="#A3A1A6">20%</text>
-      <text x="-10" y="200" textAnchor="end" fontSize="9" fill="#A3A1A6">10%</text>
+      <text x="-10" y="10" textAnchor="end" fontSize="9" fill="#A0A3AA">50%</text>
+      <text x="-10" y="60" textAnchor="end" fontSize="9" fill="#A0A3AA">40%</text>
+      <text x="-10" y="110" textAnchor="end" fontSize="9" fill="#A0A3AA">30%</text>
+      <text x="-10" y="160" textAnchor="end" fontSize="9" fill="#A0A3AA">20%</text>
+      <text x="-10" y="200" textAnchor="end" fontSize="9" fill="#A0A3AA">10%</text>
       
       {/* HV Line (blue) */}
       <path 
@@ -121,10 +121,10 @@ const IVvsHVDeepSVG = () => (
     
     {/* Key Observations */}
     <g transform="translate(50, 315)">
-      <rect x="0" y="0" width="600" height="75" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="75" fill="#2A2A2C" rx="10"/>
       <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Key Observations</text>
-      <text x="20" y="42" fontSize="9" fill="#A3A1A6">1. IV spikes BEFORE events (anticipation), HV reflects PAST movements</text>
-      <text x="20" y="58" fontSize="9" fill="#A3A1A6">2. IV &gt; HV = Options are &quot;expensive&quot; | IV &lt; HV = Options are &quot;cheap&quot;</text>
+      <text x="20" y="42" fontSize="9" fill="#A0A3AA">1. IV spikes BEFORE events (anticipation), HV reflects PAST movements</text>
+      <text x="20" y="58" fontSize="9" fill="#A0A3AA">2. IV &gt; HV = Options are &quot;expensive&quot; | IV &lt; HV = Options are &quot;cheap&quot;</text>
       <text x="20" y="74" fontSize="9" fill="#D2754C">3. After events, IV typically &quot;crushes&quot; back toward HV</text>
     </g>
   </svg>
@@ -133,18 +133,18 @@ const IVvsHVDeepSVG = () => (
 // SVG: VIX Explained
 const VIXExplainedSVG = () => (
   <svg viewBox="0 0 700 350" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="350" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="350" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">The VIX - &quot;Fear Index&quot;</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">CBOE Volatility Index - Market&apos;s 30-day expected volatility</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">CBOE Volatility Index - Market&apos;s 30-day expected volatility</text>
     
     {/* VIX Gauge */}
     <g transform="translate(100, 90)">
-      <rect x="0" y="0" width="500" height="50" fill="#232327" rx="8"/>
+      <rect x="0" y="0" width="500" height="50" fill="#2A2A2C" rx="8"/>
       
       {/* Color zones */}
-      <rect x="5" y="15" width="120" height="20" fill="#1FA978" fillOpacity="0.5" rx="4"/>
-      <rect x="125" y="15" width="120" height="20" fill="#1FA978" fillOpacity="0.3" rx="4"/>
+      <rect x="5" y="15" width="120" height="20" fill="#12805A" fillOpacity="0.5" rx="4"/>
+      <rect x="125" y="15" width="120" height="20" fill="#12805A" fillOpacity="0.3" rx="4"/>
       <rect x="245" y="15" width="120" height="20" fill="#D2754C" fillOpacity="0.5" rx="4"/>
       <rect x="365" y="15" width="130" height="20" fill="#C7363B" fillOpacity="0.5" rx="4"/>
       
@@ -154,8 +154,8 @@ const VIXExplainedSVG = () => (
       <text x="305" y="30" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">20-30</text>
       <text x="430" y="30" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">30+</text>
       
-      <text x="65" y="60" textAnchor="middle" fontSize="8" fill="#1FA978">Low/Complacent</text>
-      <text x="185" y="60" textAnchor="middle" fontSize="8" fill="#1FA978">Normal</text>
+      <text x="65" y="60" textAnchor="middle" fontSize="8" fill="#12805A">Low/Complacent</text>
+      <text x="185" y="60" textAnchor="middle" fontSize="8" fill="#12805A">Normal</text>
       <text x="305" y="60" textAnchor="middle" fontSize="8" fill="#D2754C">Elevated</text>
       <text x="430" y="60" textAnchor="middle" fontSize="8" fill="#C7363B">High Fear</text>
     </g>
@@ -167,7 +167,7 @@ const VIXExplainedSVG = () => (
       <text x="20" y="50" fontSize="9" fill="white">• Uses S&P 500 index options prices</text>
       <text x="20" y="68" fontSize="9" fill="white">• Weights near-term & next-term options</text>
       <text x="20" y="86" fontSize="9" fill="white">• Derives 30-day expected volatility</text>
-      <text x="20" y="104" fontSize="9" fill="#A3A1A6">• Expressed as annualized percentage</text>
+      <text x="20" y="104" fontSize="9" fill="#A0A3AA">• Expressed as annualized percentage</text>
     </g>
     
     {/* What VIX Tells You */}
@@ -176,8 +176,8 @@ const VIXExplainedSVG = () => (
       <text x="145" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">What VIX Tells You</text>
       <text x="20" y="50" fontSize="9" fill="white">• VIX of 20 = ~1.25% daily move expected</text>
       <text x="20" y="68" fontSize="9" fill="white">• VIX of 30 = ~1.9% daily move expected</text>
-      <text x="20" y="86" fontSize="9" fill="#A3A1A6">Formula: Daily move ≈ VIX / √252</text>
-      <text x="20" y="104" fontSize="9" fill="#A3A1A6">VIX tends to spike during sell-offs</text>
+      <text x="20" y="86" fontSize="9" fill="#A0A3AA">Formula: Daily move ≈ VIX / √252</text>
+      <text x="20" y="104" fontSize="9" fill="#A0A3AA">VIX tends to spike during sell-offs</text>
     </g>
     
     {/* Key Insight */}
@@ -191,24 +191,24 @@ const VIXExplainedSVG = () => (
 // SVG: Volatility Smile
 const VolatilitySmileSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Volatility Smile & Skew</text>
     
     {/* Chart Area */}
     <g transform="translate(80, 60)">
       {/* Axes */}
-      <line x1="0" y1="200" x2="540" y2="200" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="270" y1="0" x2="270" y2="200" stroke="#5A5A62" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="200" x2="540" y2="200" stroke="#555A63" strokeWidth="1"/>
+      <line x1="270" y1="0" x2="270" y2="200" stroke="#555A63" strokeWidth="1" strokeDasharray="4"/>
       
       {/* X-axis labels */}
-      <text x="0" y="220" textAnchor="middle" fontSize="9" fill="#A3A1A6">OTM Puts</text>
+      <text x="0" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">OTM Puts</text>
       <text x="270" y="220" textAnchor="middle" fontSize="9" fill="#D2754C">ATM</text>
-      <text x="540" y="220" textAnchor="middle" fontSize="9" fill="#A3A1A6">OTM Calls</text>
-      <text x="270" y="240" textAnchor="middle" fontSize="10" fill="#A3A1A6">Strike Price (relative to spot)</text>
+      <text x="540" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">OTM Calls</text>
+      <text x="270" y="240" textAnchor="middle" fontSize="10" fill="#A0A3AA">Strike Price (relative to spot)</text>
       
       {/* Y-axis label */}
-      <text x="-40" y="100" fontSize="10" fill="#A3A1A6" transform="rotate(-90, -40, 100)">Implied Volatility</text>
+      <text x="-40" y="100" fontSize="10" fill="#A0A3AA" transform="rotate(-90, -40, 100)">Implied Volatility</text>
       
       {/* Smile curve (equity skew - puts more expensive) */}
       <path 
@@ -219,20 +219,20 @@ const VolatilitySmileSVG = () => (
       {/* Flat line (what BS assumes) */}
       <path 
         d="M 0 140 L 540 140"
-        fill="none" stroke="#75757D" strokeWidth="2" strokeDasharray="8"
+        fill="none" stroke="#717680" strokeWidth="2" strokeDasharray="8"
       />
       
       {/* Annotations */}
       <g transform="translate(30, 30)">
         <rect x="0" y="0" width="140" height="40" fill="#C7363B" fillOpacity="0.2" rx="4"/>
         <text x="70" y="17" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">Higher IV (OTM Puts)</text>
-        <text x="70" y="32" textAnchor="middle" fontSize="8" fill="#A3A1A6">Crash protection premium</text>
+        <text x="70" y="32" textAnchor="middle" fontSize="8" fill="#A0A3AA">Crash protection premium</text>
       </g>
       
       <g transform="translate(370, 100)">
-        <rect x="0" y="0" width="140" height="40" fill="#1FA978" fillOpacity="0.2" rx="4"/>
-        <text x="70" y="17" textAnchor="middle" fontSize="9" fontWeight="600" fill="#1FA978">Lower IV (OTM Calls)</text>
-        <text x="70" y="32" textAnchor="middle" fontSize="8" fill="#A3A1A6">Less demand for upside</text>
+        <rect x="0" y="0" width="140" height="40" fill="#12805A" fillOpacity="0.2" rx="4"/>
+        <text x="70" y="17" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Lower IV (OTM Calls)</text>
+        <text x="70" y="32" textAnchor="middle" fontSize="8" fill="#A0A3AA">Less demand for upside</text>
       </g>
       
       {/* Legend */}
@@ -240,17 +240,17 @@ const VolatilitySmileSVG = () => (
         <line x1="0" y1="0" x2="25" y2="0" stroke="#D2754C" strokeWidth="3"/>
         <text x="35" y="4" fontSize="9" fill="#D2754C">Actual Market IV</text>
         
-        <line x1="0" y1="15" x2="25" y2="15" stroke="#75757D" strokeWidth="2" strokeDasharray="4"/>
-        <text x="35" y="19" fontSize="9" fill="#75757D">BS Assumption</text>
+        <line x1="0" y1="15" x2="25" y2="15" stroke="#717680" strokeWidth="2" strokeDasharray="4"/>
+        <text x="35" y="19" fontSize="9" fill="#717680">BS Assumption</text>
       </g>
     </g>
     
     {/* Explanation */}
     <g transform="translate(50, 300)">
-      <rect x="0" y="0" width="600" height="70" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="70" fill="#2A2A2C" rx="10"/>
       <text x="300" y="20" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Why the Skew Exists</text>
-      <text x="20" y="40" fontSize="9" fill="#A3A1A6">• Markets crash faster than they rally - OTM puts are expensive due to tail risk hedging</text>
-      <text x="20" y="55" fontSize="9" fill="#A3A1A6">• Institutional investors constantly buy downside protection, driving up put IV</text>
+      <text x="20" y="40" fontSize="9" fill="#A0A3AA">• Markets crash faster than they rally - OTM puts are expensive due to tail risk hedging</text>
+      <text x="20" y="55" fontSize="9" fill="#A0A3AA">• Institutional investors constantly buy downside protection, driving up put IV</text>
     </g>
   </svg>
 );
@@ -258,25 +258,25 @@ const VolatilitySmileSVG = () => (
 // SVG: IV Rank and Percentile
 const IVRankSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">IV Rank vs IV Percentile</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Essential metrics for determining if options are &quot;cheap&quot; or &quot;expensive&quot;</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Essential metrics for determining if options are &quot;cheap&quot; or &quot;expensive&quot;</text>
     
     {/* IV Rank */}
     <g transform="translate(40, 80)">
-      <rect x="0" y="0" width="300" height="170" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="1"/>
-      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">IV RANK</text>
+      <rect x="0" y="0" width="300" height="170" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="1"/>
+      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">IV RANK</text>
       
       <g transform="translate(20, 50)">
         <text x="0" y="0" fontSize="10" fill="white">Current IV&apos;s position in 52-week range</text>
         
-        <text x="0" y="30" fontSize="9" fill="#A3A1A6">Formula:</text>
-        <rect x="0" y="40" width="260" height="30" fill="#151517" rx="4"/>
+        <text x="0" y="30" fontSize="9" fill="#A0A3AA">Formula:</text>
+        <rect x="0" y="40" width="260" height="30" fill="#1F1F1F" rx="4"/>
         <text x="130" y="60" textAnchor="middle" fontSize="9" fill="white">(Current IV - 52wk Low) / (52wk High - 52wk Low)</text>
         
-        <text x="0" y="95" fontSize="9" fill="#A3A1A6">Example: IV Range 15%-45%, Current 25%</text>
-        <text x="0" y="110" fontSize="9" fill="#1FA978">IV Rank = (25-15)/(45-15) = 33%</text>
+        <text x="0" y="95" fontSize="9" fill="#A0A3AA">Example: IV Range 15%-45%, Current 25%</text>
+        <text x="0" y="110" fontSize="9" fill="#12805A">IV Rank = (25-15)/(45-15) = 33%</text>
       </g>
     </g>
     
@@ -288,11 +288,11 @@ const IVRankSVG = () => (
       <g transform="translate(20, 50)">
         <text x="0" y="0" fontSize="10" fill="white">% of days IV was LOWER than today</text>
         
-        <text x="0" y="30" fontSize="9" fill="#A3A1A6">Formula:</text>
-        <rect x="0" y="40" width="260" height="30" fill="#151517" rx="4"/>
+        <text x="0" y="30" fontSize="9" fill="#A0A3AA">Formula:</text>
+        <rect x="0" y="40" width="260" height="30" fill="#1F1F1F" rx="4"/>
         <text x="130" y="60" textAnchor="middle" fontSize="9" fill="white"># Days IV &lt; Current / Total Days (252)</text>
         
-        <text x="0" y="95" fontSize="9" fill="#A3A1A6">Example: 200 of 252 days had lower IV</text>
+        <text x="0" y="95" fontSize="9" fill="#A0A3AA">Example: 200 of 252 days had lower IV</text>
         <text x="0" y="110" fontSize="9" fill="#5A77AA">IV Percentile = 200/252 = 79%</text>
       </g>
     </g>
@@ -301,7 +301,7 @@ const IVRankSVG = () => (
     <g transform="translate(50, 265)">
       <rect x="0" y="0" width="600" height="45" fill="#D2754C" fillOpacity="0.15" rx="8"/>
       <text x="300" y="18" textAnchor="middle" fontSize="10" fontWeight="600" fill="#D2754C">TRADING APPLICATION</text>
-      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#A3A1A6">High IV Rank/Percentile (&gt;50%) = Favor selling options | Low (&lt;30%) = Favor buying options</text>
+      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#A0A3AA">High IV Rank/Percentile (&gt;50%) = Favor selling options | Low (&lt;30%) = Favor buying options</text>
     </g>
   </svg>
 );
@@ -309,32 +309,32 @@ const IVRankSVG = () => (
 // SVG: IV Crush Example
 const IVCrushSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">IV Crush: The Earnings Trap</text>
     
     {/* Timeline */}
     <g transform="translate(80, 60)">
       {/* Main line */}
-      <line x1="0" y1="80" x2="540" y2="80" stroke="#5A5A62" strokeWidth="2"/>
+      <line x1="0" y1="80" x2="540" y2="80" stroke="#555A63" strokeWidth="2"/>
       
       {/* Before Earnings */}
       <circle cx="100" r="8" cy="80" fill="#D2754C"/>
       <text x="100" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#D2754C">1 Week Before</text>
-      <text x="100" y="105" textAnchor="middle" fontSize="9" fill="#A3A1A6">IV: 65%</text>
-      <text x="100" y="120" textAnchor="middle" fontSize="9" fill="#A3A1A6">Call Price: $8.00</text>
+      <text x="100" y="105" textAnchor="middle" fontSize="9" fill="#A0A3AA">IV: 65%</text>
+      <text x="100" y="120" textAnchor="middle" fontSize="9" fill="#A0A3AA">Call Price: $8.00</text>
       
       {/* Earnings */}
       <circle cx="300" r="10" cy="80" fill="#C7363B"/>
       <text x="300" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">EARNINGS</text>
-      <text x="300" y="105" textAnchor="middle" fontSize="9" fill="#A3A1A6">IV Peak: 85%</text>
-      <text x="300" y="120" textAnchor="middle" fontSize="9" fill="#A3A1A6">Call Price: $10.00</text>
+      <text x="300" y="105" textAnchor="middle" fontSize="9" fill="#A0A3AA">IV Peak: 85%</text>
+      <text x="300" y="120" textAnchor="middle" fontSize="9" fill="#A0A3AA">Call Price: $10.00</text>
       
       {/* After Earnings */}
-      <circle cx="500" r="8" cy="80" fill="#1FA978"/>
-      <text x="500" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">Day After</text>
-      <text x="500" y="105" textAnchor="middle" fontSize="9" fill="#A3A1A6">IV: 35%</text>
-      <text x="500" y="120" textAnchor="middle" fontSize="9" fill="#A3A1A6">Call Price: $5.50</text>
+      <circle cx="500" r="8" cy="80" fill="#12805A"/>
+      <text x="500" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Day After</text>
+      <text x="500" y="105" textAnchor="middle" fontSize="9" fill="#A0A3AA">IV: 35%</text>
+      <text x="500" y="120" textAnchor="middle" fontSize="9" fill="#A0A3AA">Call Price: $5.50</text>
     </g>
     
     {/* The Trap */}
@@ -351,8 +351,8 @@ const IVCrushSVG = () => (
     
     {/* Solution */}
     <g transform="translate(50, 320)">
-      <rect x="0" y="0" width="600" height="45" fill="#1FA978" fillOpacity="0.15" rx="8"/>
-      <text x="300" y="28" textAnchor="middle" fontSize="10" fill="#1FA978">Solution: Sell options before earnings to benefit from IV crush, or use defined-risk spreads to reduce vega exposure.</text>
+      <rect x="0" y="0" width="600" height="45" fill="#12805A" fillOpacity="0.15" rx="8"/>
+      <text x="300" y="28" textAnchor="middle" fontSize="10" fill="#12805A">Solution: Sell options before earnings to benefit from IV crush, or use defined-risk spreads to reduce vega exposure.</text>
     </g>
   </svg>
 );
@@ -452,7 +452,7 @@ const FOLesson8 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Volatility Analysis
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -461,7 +461,7 @@ const FOLesson8 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -488,11 +488,11 @@ const FOLesson8 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">IV vs HV: The Complete Picture</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">IV vs HV: The Complete Picture</h2>
                   <p className="text-sm text-gray-500 ">Forward-looking vs backward-looking volatility</p>
                 </div>
               </div>
@@ -506,8 +506,8 @@ const FOLesson8 = () => {
               <IVvsHVDeepSVG />
 
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                  <h4 className="font-bold text-green-800  mb-2">When IV &lt; HV</h4>
+                <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                  <h4 className="font-bold text-brand  mb-2">When IV &lt; HV</h4>
                   <p className="text-gray-700  text-sm">
                     Options are &quot;cheap&quot; - market expects less movement than history suggests. 
                     Consider buying strategies (long calls, long puts, straddles).
@@ -528,11 +528,11 @@ const FOLesson8 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.BarChart className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The VIX Index</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The VIX Index</h2>
                   <p className="text-sm text-gray-500 ">The market&apos;s fear gauge</p>
                 </div>
               </div>
@@ -565,11 +565,11 @@ const FOLesson8 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Volatility Smile & Skew</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Volatility Smile & Skew</h2>
                   <p className="text-sm text-gray-500 ">Why different strikes have different IVs</p>
                 </div>
               </div>
@@ -598,11 +598,11 @@ const FOLesson8 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.Zap className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">IV Rank & Percentile</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">IV Rank & Percentile</h2>
                   <p className="text-sm text-gray-500 ">Contextualizing current IV levels</p>
                 </div>
               </div>
@@ -614,8 +614,8 @@ const FOLesson8 = () => {
 
               <IVRankSVG />
 
-              <div className="mt-6 bg-green-50  rounded-xl p-5 border border-green-200 ">
-                <h4 className="font-bold text-green-800  mb-2">Which to Use?</h4>
+              <div className="mt-6 bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                <h4 className="font-bold text-brand  mb-2">Which to Use?</h4>
                 <p className="text-gray-700  text-sm">
                   <strong>IV Percentile</strong> is generally more useful because it accounts for all data points, 
                   not just extremes. A single spike in IV can skew IV Rank for months. Most professional 
@@ -633,7 +633,7 @@ const FOLesson8 = () => {
                   <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The IV Crush Trap</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The IV Crush Trap</h2>
                   <p className="text-sm text-gray-500 ">The #1 mistake options beginners make</p>
                 </div>
               </div>
@@ -659,8 +659,8 @@ const FOLesson8 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "IV shows expected volatility; HV shows actual past volatility",
@@ -699,11 +699,11 @@ const FOLesson8 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -714,7 +714,7 @@ const FOLesson8 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -728,7 +728,7 @@ const FOLesson8 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -759,7 +759,7 @@ const FOLesson8 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-9')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Basic Option Strategies</span>
               <Icons.ArrowRight className="w-5 h-5" />

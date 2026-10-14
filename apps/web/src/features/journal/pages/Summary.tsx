@@ -361,10 +361,10 @@ const Summary = () => {
                 </div>
                 {card.onClick ? (
                   <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
-                    <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                    <p className={`stat-value font-semibold ${card.positive ? "text-brand" : "text-destructive"}`}>{card.value}</p>
                   </button>
                 ) : (
-                  <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.positive ? "text-brand" : "text-destructive"}`}>{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -385,9 +385,9 @@ const Summary = () => {
                         <p>{card.info}</p>
                       </InfoTip>
                     </p>
-                    <card.icon className="w-3.5 h-3.5 text-primary" />
+                    <card.icon className="w-3.5 h-3.5 text-brand" />
                   </div>
-                  <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.positive ? "text-brand" : "text-destructive"}`}>{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1">{card.sub}</p>
                 </CardContent>
               </Card>

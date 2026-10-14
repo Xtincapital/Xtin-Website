@@ -54,7 +54,7 @@ export default function Technicals() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h1 className="xt-title mb-2">Technical Indicators</h1>
-            <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">PRO</span>
+            <span className="text-xs font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">PRO</span>
           </div>
           <p className="text-muted-foreground max-w-2xl">
             RSI, MACD, moving averages, Bollinger Bands and more for any NSE or US stock, with an overall technical
@@ -91,7 +91,7 @@ export default function Technicals() {
                 key={t}
                 onClick={() => pick(t)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                  t === ticker ? "bg-primary text-white" : "bg-accent text-primary hover:bg-primary/10"
+                  t === ticker ? "bg-primary text-white" : "bg-accent text-brand hover:bg-primary/10"
                 }`}
               >
                 {t}
@@ -120,7 +120,7 @@ export default function Technicals() {
           </div>
         ) : (
           <div className="rounded-2xl bg-white border border-border p-10 text-center text-muted-foreground">
-            <Activity className="w-10 h-10 mx-auto mb-3 text-primary/40" />
+            <Activity className="w-10 h-10 mx-auto mb-3 text-brand/40" />
             Pick a stock above to see its technical indicators.
           </div>
         )}

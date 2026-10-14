@@ -19,7 +19,7 @@ const modules: {
     label: 'Algo Trading',
     tag: 'Trading',
     link: '/intro/algorithms',
-    iconBg: 'from-emerald-400 to-green-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -45,7 +45,7 @@ const modules: {
     label: 'Fundakamental',
     tag: 'Research',
     link: '/intro/fundakamental',
-    iconBg: 'from-lime-400 to-emerald-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.52l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -71,7 +71,7 @@ const modules: {
     label: 'Learn',
     tag: 'Courses',
     link: '/intro/learn',
-    iconBg: 'from-teal-400 to-emerald-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -126,7 +126,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       <circle
         cx="60" cy="55" r={ORBIT_R}
         fill="none"
-        stroke="#A3A1A6"
+        stroke="#A0A3AA"
         strokeOpacity="0.5"
         strokeWidth="0.5"
         strokeDasharray="3 2.5"
@@ -148,7 +148,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             key={mod.id}
             x1={x1} y1={y1}
             x2={x2} y2={y2}
-            stroke={hoveredNode === mod.id ? '#1FA978' : '#A3A1A6'}
+            stroke={hoveredNode === mod.id ? '#12805A' : '#A0A3AA'}
             strokeOpacity={hoveredNode === mod.id ? 0.85 : 0.4}
             strokeWidth={hoveredNode === mod.id ? '0.45' : '0.3'}
             strokeDasharray="2.5 2"
@@ -171,12 +171,12 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       style={{ left: '60%', top: '55%', transform: 'translate(-50%, -50%)' }}
     >
       <motion.div
-        className="absolute inset-0 -m-5 rounded-full border border-emerald-200/60 dark:border-emerald-700/50"
+        className="absolute inset-0 -m-5 rounded-full border border-brand-line dark:border-brand/50"
         animate={{ scale: [1, 1.22, 1], opacity: [0.45, 0, 0.45] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-700"
+        className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-brand-line dark:border-slate-700"
         style={{ boxShadow: '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
         animate={{
           boxShadow: [
@@ -192,13 +192,13 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         <Link
           to="/intro/dashboard"
           aria-label="Xtin Capital dashboard — everything in one place"
-          className="absolute inset-0 rounded-full flex items-center justify-center text-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          className="absolute inset-0 rounded-full flex items-center justify-center text-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         >
           <span>
             <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 leading-none">
               Xtin
             </span>
-            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-emerald-500 dark:text-emerald-400 leading-none mt-0.5">
+            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-brand dark:text-brand leading-none mt-0.5">
               Capital
             </span>
           </span>
@@ -223,8 +223,8 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(21, 21, 23,0.10)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
@@ -235,10 +235,10 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
                 {mod.icon}
               </div>
               <div className="hidden sm:flex flex-col justify-center ml-2.5 mr-1.5 min-w-0">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
                   {mod.tag}
                 </span>
-                <span className="text-[13px] font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
                   {mod.label}
                 </span>
               </div>
@@ -249,8 +249,8 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(21, 21, 23,0.10)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
@@ -261,10 +261,10 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
                 {mod.icon}
               </div>
               <div className="hidden sm:flex flex-col justify-center ml-2.5 mr-1.5 min-w-0">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
                   {mod.tag}
                 </span>
-                <span className="text-[13px] font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
                   {mod.label}
                 </span>
               </div>
@@ -291,14 +291,14 @@ const GuestHomeHero = () => {
 
           {/* ── Left: text ── */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 dark:border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/25 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-4 sm:mb-5">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-line dark:border-brand/50 bg-brand-soft dark:bg-brand-soft px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-xs font-semibold text-brand dark:text-brand mb-4 sm:mb-5">
+              <span className="h-2 w-2 rounded-full bg-brand-fill" />
               Built for modern Indian investors
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] font-display font-normal leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
               The Xtin Capital{' '}
-              <span className="text-emerald-600 dark:text-emerald-400">Ecosystem</span>
+              <span className="text-brand dark:text-brand">Ecosystem</span>
             </h1>
             <p className="text-gray-600 dark:text-slate-300 text-sm sm:text-base md:text-lg leading-6 sm:leading-7 mb-5 sm:mb-6 max-w-xl">
               Invest, learn, and grow with algo trading, AI tools, and structured
@@ -312,13 +312,13 @@ const GuestHomeHero = () => {
                 href="https://t.me/MarketXtin"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-emerald-600/15 transition"
+                className="inline-flex items-center justify-center bg-brand-fill hover:bg-brand-hover text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-brand/15 transition"
               >
                 Join Telegram Community
               </a>
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-emerald-700 dark:hover:text-emerald-300 font-semibold px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-brand dark:hover:border-brand bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-brand dark:hover:text-brand font-semibold px-6 py-3 rounded-lg transition"
               >
                 Get Started
               </Link>
@@ -335,7 +335,7 @@ const GuestHomeHero = () => {
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}>
                     {mod.icon}
                   </div>
-                  <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight whitespace-nowrap">
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight whitespace-nowrap">
                     {mod.label}
                   </span>
                 </Link>
@@ -345,7 +345,7 @@ const GuestHomeHero = () => {
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center lg:justify-start text-sm font-medium text-gray-500 dark:text-slate-400">
               {['India Focused', 'Free Tools', 'AI-Powered'].map((label) => (
                 <span key={label} className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                   {label}

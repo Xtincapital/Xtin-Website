@@ -9,10 +9,10 @@ import Footer from "../../../../components/Footer";
 const TimeHorizonSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Time Horizons: Trading vs Long-Term Investing</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Time Horizons: Trading vs Long-Term Investing</text>
     
     {/* Left: Trading / Short-term */}
     <g transform="translate(50, 55)">
@@ -21,7 +21,7 @@ const TimeHorizonSVG = () => (
       
       {/* Timeline visualization - fragmented */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="40" x2="230" y2="40" stroke="#E4E1D9" strokeWidth="2"/>
+        <line x1="0" y1="40" x2="230" y2="40" stroke="#E4E4EA" strokeWidth="2"/>
         
         {/* Many small segments with arrows */}
         <rect x="10" y="30" width="25" height="20" fill="#CDAA5F" rx="3"/>
@@ -58,28 +58,28 @@ const TimeHorizonSVG = () => (
     
     {/* Right: Long-Term Investing */}
     <g transform="translate(380, 55)">
-      <rect x="0" y="0" width="270" height="210" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">🌱 Long-Term Investing</text>
+      <rect x="0" y="0" width="270" height="210" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">🌱 Long-Term Investing</text>
       
       {/* Timeline visualization - single continuous bar */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="40" x2="230" y2="40" stroke="#E4E1D9" strokeWidth="2"/>
+        <line x1="0" y1="40" x2="230" y2="40" stroke="#E4E4EA" strokeWidth="2"/>
         
         {/* Single long bar */}
-        <rect x="10" y="30" width="200" height="20" fill="#1FA978" rx="3"/>
+        <rect x="10" y="30" width="200" height="20" fill="#12805A" rx="3"/>
         <text x="110" y="44" textAnchor="middle" fontSize="8" fill="white" fontWeight="500">Own → Hold → Grow</text>
         
         {/* Time labels */}
-        <text x="0" y="65" fontSize="7" fill="#0B4532">Year 1</text>
-        <text x="100" y="65" fontSize="7" fill="#0B4532">Year 5</text>
-        <text x="200" y="65" fontSize="7" fill="#0B4532">Year 10+</text>
+        <text x="0" y="65" fontSize="7" fill="#12805A">Year 1</text>
+        <text x="100" y="65" fontSize="7" fill="#12805A">Year 5</text>
+        <text x="200" y="65" fontSize="7" fill="#12805A">Year 10+</text>
       </g>
       
       <g transform="translate(20, 130)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">• Few decisions over years</text>
-        <text x="0" y="18" fontSize="9" fill="#0B4532">• Low stress approach</text>
-        <text x="0" y="36" fontSize="9" fill="#0B4532">• Ignoring daily noise</text>
-        <text x="0" y="54" fontSize="9" fill="#0B4532">• Trusting long-term trends</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">• Few decisions over years</text>
+        <text x="0" y="18" fontSize="9" fill="#12805A">• Low stress approach</text>
+        <text x="0" y="36" fontSize="9" fill="#12805A">• Ignoring daily noise</text>
+        <text x="0" y="54" fontSize="9" fill="#12805A">• Trusting long-term trends</text>
       </g>
     </g>
   </svg>
@@ -89,11 +89,11 @@ const TimeHorizonSVG = () => (
 const OwnershipGrowthSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Long-Term Investing = Owning Pieces of Growing Things</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">When businesses grow, your ownership stake grows in value</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Long-Term Investing = Owning Pieces of Growing Things</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">When businesses grow, your ownership stake grows in value</text>
     
     {/* Business growth visualization */}
     <g transform="translate(80, 80)">
@@ -108,21 +108,21 @@ const OwnershipGrowthSVG = () => (
       </g>
       
       {/* Arrow */}
-      <path d="M100 130 L140 130" stroke="#A3A1A6" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+      <path d="M100 130 L140 130" stroke="#A0A3AA" strokeWidth="2" markerEnd="url(#arrowhead)"/>
       
       {/* Year 5 - Medium business */}
       <g transform="translate(160, 0)">
-        <rect x="0" y="50" width="100" height="130" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="2"/>
-        <rect x="35" y="110" width="30" height="70" fill="#1FA978" rx="2"/>
-        <rect x="10" y="70" width="20" height="20" fill="#77D3AE" rx="2"/>
-        <rect x="70" y="70" width="20" height="20" fill="#77D3AE" rx="2"/>
-        <rect x="40" y="70" width="20" height="20" fill="#77D3AE" rx="2"/>
-        <text x="50" y="200" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Year 5</text>
-        <text x="50" y="215" textAnchor="middle" fontSize="8" fill="#1FA978">Growing</text>
+        <rect x="0" y="50" width="100" height="130" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
+        <rect x="35" y="110" width="30" height="70" fill="#12805A" rx="2"/>
+        <rect x="10" y="70" width="20" height="20" fill="#3CCB97" rx="2"/>
+        <rect x="70" y="70" width="20" height="20" fill="#3CCB97" rx="2"/>
+        <rect x="40" y="70" width="20" height="20" fill="#3CCB97" rx="2"/>
+        <text x="50" y="200" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Year 5</text>
+        <text x="50" y="215" textAnchor="middle" fontSize="8" fill="#12805A">Growing</text>
       </g>
       
       {/* Arrow */}
-      <path d="M280 130 L320 130" stroke="#A3A1A6" strokeWidth="2"/>
+      <path d="M280 130 L320 130" stroke="#A0A3AA" strokeWidth="2"/>
       
       {/* Year 10 - Large business */}
       <g transform="translate(340, 0)">
@@ -139,7 +139,7 @@ const OwnershipGrowthSVG = () => (
       
       <defs>
         <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-          <polygon points="0 0, 10 3.5, 0 7" fill="#A3A1A6"/>
+          <polygon points="0 0, 10 3.5, 0 7" fill="#A0A3AA"/>
         </marker>
       </defs>
     </g>
@@ -157,41 +157,41 @@ const OwnershipGrowthSVG = () => (
 const NoiseVsTrendSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Daily Noise vs Long-Term Trend</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The same asset looks different depending on your time horizon</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Daily Noise vs Long-Term Trend</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The same asset looks different depending on your time horizon</text>
     
     {/* Chart area */}
     <g transform="translate(80, 70)">
       {/* Grid */}
-      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
       
       {/* Noisy short-term line (gray, jagged) */}
       <path d="M0 140 L20 130 L40 145 L60 120 L80 135 L100 110 L120 125 L140 100 L160 115 L180 95 L200 108 L220 85 L240 100 L260 75 L280 90 L300 70 L320 82 L340 60 L360 75 L380 55 L400 68 L420 50 L440 62 L460 42 L480 55 L500 35 L520 48 L540 30" 
-            fill="none" stroke="#A3A1A6" strokeWidth="1.5" opacity="0.6"/>
+            fill="none" stroke="#A0A3AA" strokeWidth="1.5" opacity="0.6"/>
       
       {/* Smooth long-term trend line (green, smooth) */}
       <path d="M0 150 Q135 130 270 100 Q405 65 540 35" 
-            fill="none" stroke="#1FA978" strokeWidth="3"/>
+            fill="none" stroke="#12805A" strokeWidth="3"/>
       
       {/* Labels */}
       <g transform="translate(545, 25)">
-        <circle cx="0" cy="0" r="4" fill="#1FA978"/>
-        <text x="10" y="4" fontSize="9" fill="#0D543C">Long-term trend</text>
+        <circle cx="0" cy="0" r="4" fill="#12805A"/>
+        <text x="10" y="4" fontSize="9" fill="#12805A">Long-term trend</text>
       </g>
       
       <g transform="translate(545, 50)">
-        <line x1="-5" y1="0" x2="5" y2="0" stroke="#A3A1A6" strokeWidth="2"/>
-        <text x="10" y="4" fontSize="9" fill="#75757D">Daily fluctuations</text>
+        <line x1="-5" y1="0" x2="5" y2="0" stroke="#A0A3AA" strokeWidth="2"/>
+        <text x="10" y="4" fontSize="9" fill="#717680">Daily fluctuations</text>
       </g>
       
       {/* Time axis labels */}
-      <text x="0" y="200" fontSize="8" fill="#75757D">Start</text>
-      <text x="260" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Years Pass</text>
-      <text x="540" y="200" textAnchor="end" fontSize="8" fill="#75757D">Decades Later</text>
+      <text x="0" y="200" fontSize="8" fill="#717680">Start</text>
+      <text x="260" y="200" textAnchor="middle" fontSize="8" fill="#717680">Years Pass</text>
+      <text x="540" y="200" textAnchor="end" fontSize="8" fill="#717680">Decades Later</text>
       
       {/* Annotation box */}
       <g transform="translate(150, 130)">
@@ -207,10 +207,10 @@ const NoiseVsTrendSVG = () => (
 const MindsetComparisonSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Two Different Mindsets</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Two Different Mindsets</text>
     
     {/* Left: Speculator mindset */}
     <g transform="translate(50, 55)">
@@ -231,19 +231,19 @@ const MindsetComparisonSVG = () => (
     
     {/* Right: Investor mindset */}
     <g transform="translate(380, 55)">
-      <rect x="0" y="0" width="270" height="195" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">🌱 Investor Mindset</text>
+      <rect x="0" y="0" width="270" height="195" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">🌱 Investor Mindset</text>
       
       <g transform="translate(20, 50)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">"Do I own quality assets?"</text>
-        <text x="0" y="22" fontSize="9" fill="#0B4532">"Is my time horizon long enough?"</text>
-        <text x="0" y="44" fontSize="9" fill="#0B4532">"Am I being patient?"</text>
-        <text x="0" y="66" fontSize="9" fill="#0B4532">"Can I ignore the noise?"</text>
-        <text x="0" y="88" fontSize="9" fill="#0B4532">"Does this fit my plan?"</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">"Do I own quality assets?"</text>
+        <text x="0" y="22" fontSize="9" fill="#12805A">"Is my time horizon long enough?"</text>
+        <text x="0" y="44" fontSize="9" fill="#12805A">"Am I being patient?"</text>
+        <text x="0" y="66" fontSize="9" fill="#12805A">"Can I ignore the noise?"</text>
+        <text x="0" y="88" fontSize="9" fill="#12805A">"Does this fit my plan?"</text>
       </g>
       
       <rect x="20" y="150" width="230" height="30" fill="#ABE5CC" rx="6"/>
-      <text x="135" y="170" textAnchor="middle" fontSize="9" fill="#0D543C">Calm confidence and clarity</text>
+      <text x="135" y="170" textAnchor="middle" fontSize="9" fill="#12805A">Calm confidence and clarity</text>
     </g>
   </svg>
 );
@@ -252,11 +252,11 @@ const MindsetComparisonSVG = () => (
 const InactionValueSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Frequent Action Isn't Required</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">In long-term investing, patience is the strategy</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Frequent Action Isn't Required</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">In long-term investing, patience is the strategy</text>
     
     {/* Visual: Activity level comparison */}
     <g transform="translate(80, 75)">
@@ -281,25 +281,25 @@ const InactionValueSVG = () => (
       
       {/* Low activity investor */}
       <g transform="translate(300, 0)">
-        <rect x="0" y="0" width="240" height="80" fill="#D5F2E5" rx="10"/>
-        <text x="120" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Long-Term Investor</text>
+        <rect x="0" y="0" width="240" height="80" fill="#EEF9F4" rx="10"/>
+        <text x="120" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Long-Term Investor</text>
         
         {/* Few action icons */}
         <g transform="translate(70, 40)">
-          <circle cx="20" cy="15" r="12" fill="#1FA978"/>
+          <circle cx="20" cy="15" r="12" fill="#12805A"/>
           <text x="20" y="19" textAnchor="middle" fontSize="8" fill="white">✓</text>
-          <circle cx="80" cy="15" r="12" fill="#1FA978"/>
+          <circle cx="80" cy="15" r="12" fill="#12805A"/>
           <text x="80" y="19" textAnchor="middle" fontSize="8" fill="white">✓</text>
         </g>
-        <text x="120" y="75" textAnchor="middle" fontSize="8" fill="#0B4532">Few decisions, more patience</text>
+        <text x="120" y="75" textAnchor="middle" fontSize="8" fill="#12805A">Few decisions, more patience</text>
       </g>
     </g>
     
     {/* Bottom insight */}
     <g transform="translate(80, 175)">
-      <rect x="0" y="0" width="540" height="60" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="540" height="60" fill="#2A2A2C" rx="10"/>
       <text x="270" y="25" textAnchor="middle" fontSize="11" fill="white" fontWeight="500">Long-term investing works because time does the heavy lifting.</text>
-      <text x="270" y="45" textAnchor="middle" fontSize="10" fill="#A3A1A6">Your job is simply to stay invested and let compounding work.</text>
+      <text x="270" y="45" textAnchor="middle" fontSize="10" fill="#A0A3AA">Your job is simply to stay invested and let compounding work.</text>
     </g>
   </svg>
 );
@@ -308,10 +308,10 @@ const InactionValueSVG = () => (
 const EmotionalBenefitSVG = () => (
   <svg viewBox="0 0 700 240" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="240" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="240" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Emotional Benefit of Long-Term Thinking</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Emotional Benefit of Long-Term Thinking</text>
     
     {/* Stress timeline comparison */}
     <g transform="translate(60, 60)">
@@ -328,23 +328,23 @@ const EmotionalBenefitSVG = () => (
       {/* Long-term calm line */}
       <g transform="translate(0, 70)">
         <text x="0" y="0" fontSize="10" fill="#12805A" fontWeight="500">Long-term focus: 😌</text>
-        <rect x="120" y="-12" width="450" height="25" fill="#D5F2E5" rx="6"/>
+        <rect x="120" y="-12" width="450" height="25" fill="#EEF9F4" rx="6"/>
         
         {/* Calm steady line */}
         <path d="M130 0 Q270 -2 400 0 Q520 2 560 0" 
-              fill="none" stroke="#1FA978" strokeWidth="2"/>
+              fill="none" stroke="#12805A" strokeWidth="2"/>
       </g>
     </g>
     
     {/* Benefits list */}
     <g transform="translate(80, 170)">
-      <rect x="0" y="0" width="540" height="50" fill="#EEF9F4" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="135" y="20" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Less screen time</text>
-      <text x="135" y="38" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Better sleep</text>
-      <text x="270" y="20" textAnchor="middle" fontSize="9" fill="#0D543C">✓ No daily anxiety</text>
-      <text x="270" y="38" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Focus on life</text>
-      <text x="405" y="20" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Clear mind</text>
-      <text x="405" y="38" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Sustainable approach</text>
+      <rect x="0" y="0" width="540" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="135" y="20" textAnchor="middle" fontSize="9" fill="#12805A">✓ Less screen time</text>
+      <text x="135" y="38" textAnchor="middle" fontSize="9" fill="#12805A">✓ Better sleep</text>
+      <text x="270" y="20" textAnchor="middle" fontSize="9" fill="#12805A">✓ No daily anxiety</text>
+      <text x="270" y="38" textAnchor="middle" fontSize="9" fill="#12805A">✓ Focus on life</text>
+      <text x="405" y="20" textAnchor="middle" fontSize="9" fill="#12805A">✓ Clear mind</text>
+      <text x="405" y="38" textAnchor="middle" fontSize="9" fill="#12805A">✓ Sustainable approach</text>
     </g>
   </svg>
 );
@@ -353,31 +353,31 @@ const EmotionalBenefitSVG = () => (
 const HeldVsTradedSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Same Asset, Different Approaches</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What happens when you hold vs when you trade frequently</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Same Asset, Different Approaches</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What happens when you hold vs when you trade frequently</text>
     
     {/* Person A - Holder */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="190" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Person A: The Holder</text>
+      <rect x="0" y="0" width="280" height="190" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Person A: The Holder</text>
       
       {/* Simple timeline */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="30" x2="240" y2="30" stroke="#1FA978" strokeWidth="3"/>
-        <circle cx="0" cy="30" r="8" fill="#1FA978"/>
-        <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#0D543C">Bought</text>
-        <circle cx="240" cy="30" r="8" fill="#1FA978"/>
-        <text x="240" y="55" textAnchor="middle" fontSize="8" fill="#0D543C">Still owns</text>
+        <line x1="0" y1="30" x2="240" y2="30" stroke="#12805A" strokeWidth="3"/>
+        <circle cx="0" cy="30" r="8" fill="#12805A"/>
+        <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#12805A">Bought</text>
+        <circle cx="240" cy="30" r="8" fill="#12805A"/>
+        <text x="240" y="55" textAnchor="middle" fontSize="8" fill="#12805A">Still owns</text>
       </g>
       
       <g transform="translate(20, 115)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">• Bought quality assets once</text>
-        <text x="0" y="18" fontSize="9" fill="#0B4532">• Ignored market ups and downs</text>
-        <text x="0" y="36" fontSize="9" fill="#0B4532">• Checked portfolio occasionally</text>
-        <text x="0" y="54" fontSize="9" fill="#0B4532">• Lived life peacefully</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">• Bought quality assets once</text>
+        <text x="0" y="18" fontSize="9" fill="#12805A">• Ignored market ups and downs</text>
+        <text x="0" y="36" fontSize="9" fill="#12805A">• Checked portfolio occasionally</text>
+        <text x="0" y="54" fontSize="9" fill="#12805A">• Lived life peacefully</text>
       </g>
     </g>
     
@@ -388,14 +388,14 @@ const HeldVsTradedSVG = () => (
       
       {/* Complex timeline */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="30" x2="240" y2="30" stroke="#E4E1D9" strokeWidth="2"/>
-        <circle cx="0" cy="30" r="6" fill="#1FA978"/>
+        <line x1="0" y1="30" x2="240" y2="30" stroke="#E4E4EA" strokeWidth="2"/>
+        <circle cx="0" cy="30" r="6" fill="#12805A"/>
         <circle cx="40" cy="30" r="6" fill="#E04848"/>
-        <circle cx="80" cy="30" r="6" fill="#1FA978"/>
+        <circle cx="80" cy="30" r="6" fill="#12805A"/>
         <circle cx="120" cy="30" r="6" fill="#E04848"/>
-        <circle cx="160" cy="30" r="6" fill="#1FA978"/>
+        <circle cx="160" cy="30" r="6" fill="#12805A"/>
         <circle cx="200" cy="30" r="6" fill="#E04848"/>
-        <circle cx="240" cy="30" r="6" fill="#1FA978"/>
+        <circle cx="240" cy="30" r="6" fill="#12805A"/>
         <text x="120" y="55" textAnchor="middle" fontSize="8" fill="#533E22">Buy-sell-buy-sell-buy...</text>
       </g>
       
@@ -469,7 +469,7 @@ const LTILesson1 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -490,7 +490,7 @@ const LTILesson1 = () => {
                 Lesson 1 of 7
               </span>
             </div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">What is Long-Term Investing?</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">What is Long-Term Investing?</h1>
             <p className="text-gray-600 text-lg">
               Understanding the foundation of wealth building through patient ownership.
             </p>
@@ -499,7 +499,7 @@ const LTILesson1 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Long-Term Investing Exists</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Long-Term Investing Exists</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -590,10 +590,10 @@ const LTILesson1 = () => {
                 Companies hire, innovate, expand, and create more value over time.
               </p>
             </div>
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200 text-center">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line text-center">
               <div className="text-3xl mb-2">🌍</div>
-              <h4 className="font-semibold text-green-800 mb-2">Economies Expand</h4>
-              <p className="text-green-700 text-sm">
+              <h4 className="font-semibold text-brand mb-2">Economies Expand</h4>
+              <p className="text-brand text-sm">
                 Global population and productivity increase decade after decade.
               </p>
             </div>
@@ -768,7 +768,7 @@ const LTILesson1 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -776,11 +776,11 @@ const LTILesson1 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -791,9 +791,9 @@ const LTILesson1 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -805,7 +805,7 @@ const LTILesson1 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-teal-200" />
             <h3 className="text-xl font-semibold">Reflection Activity</h3>
@@ -841,9 +841,9 @@ const LTILesson1 = () => {
                 <li>✓ Daily noise fades against long-term trends</li>
               </ul>
             </div>
-            <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-              <h4 className="font-semibold text-emerald-800 mb-2">Key Mindset Shift</h4>
-              <ul className="text-emerald-700 text-sm space-y-1">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Key Mindset Shift</h4>
+              <ul className="text-brand text-sm space-y-1">
                 <li>✓ From "timing" to "time"</li>
                 <li>✓ From "predicting" to "participating"</li>
                 <li>✓ From "reacting" to "staying the course"</li>
@@ -864,7 +864,7 @@ const LTILesson1 = () => {
           </Link>
           <button
             onClick={() => navigate('/learn/lti-lesson-2')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: The Power of Compounding</span>
             <FaArrowRight />

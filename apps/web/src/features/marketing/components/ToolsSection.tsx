@@ -77,7 +77,7 @@ const ToolsSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-display font-normal text-gray-900 mb-4 tracking-[-0.015em]">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Ecosystem & Tools
           </h2>
           <p className="text-gray-600 max-w-xl mx-auto">
@@ -90,13 +90,13 @@ const ToolsSection = () => {
           {tools.map((tool, index) => {
             const Content = (
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 ring-1 ring-primary/15 flex items-center justify-center text-primary dark:text-success flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 ring-1 ring-primary/15 flex items-center justify-center text-brand dark:text-brand flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
                   {tool.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-green-700 transition-colors flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand transition-colors flex items-center gap-2">
                     {tool.title}
-                    <svg className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </h3>
@@ -105,7 +105,7 @@ const ToolsSection = () => {
               </div>
             );
 
-            const cardClasses = "group p-6 bg-card rounded-2xl border border-border shadow-sm hover:border-green-300 dark:hover:border-green-800 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300";
+            const cardClasses = "group p-6 bg-card rounded-2xl border border-border shadow-sm hover:border-brand-line dark:hover:border-brand hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300";
 
             return (
               <Link 

@@ -99,7 +99,7 @@ const NPSCalculator = () => {
   const formProps = useCalcForm(calculateNPS);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-background min-h-screen">
       <Navbar />
       <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -109,7 +109,7 @@ const NPSCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is NPS?
             </button>
@@ -160,7 +160,7 @@ const NPSCalculator = () => {
                   {error}
                 </p>
               )}
-              <button onClick={calculateNPS} className="mt-8 w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-green-700 transition-colors">
+              <button onClick={calculateNPS} className="mt-8 w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-brand-hover transition-colors">
                 Calculate
               </button>
             </div>
@@ -196,10 +196,10 @@ const NPSCalculator = () => {
                     <hr className="my-4" />
                     <div className="flex justify-between items-center text-xl">
                       <span className="font-semibold text-gray-700">Estimated Monthly Pension</span>
-                      <span className="font-bold text-green-600">₹{formatNumber(results.monthlyPension)}</span>
+                      <span className="font-bold text-brand">₹{formatNumber(results.monthlyPension)}</span>
                     </div>
                   </div>
-                  <div className="mt-6 bg-green-50 p-4 rounded-lg text-center font-bold text-gray-800">
+                  <div className="mt-6 bg-brand-soft p-4 rounded-lg text-center font-bold text-gray-800">
                     Invest ₹{formatNumber(results.monthlyInvestment)} per month until age {results.retirementAge}. At retirement, withdraw up to ₹{formatNumber(results.lumpSumWithdrawal)} as lump sum and get a monthly pension of ₹{formatNumber(results.monthlyPension)}.
                   </div>
                 </div>

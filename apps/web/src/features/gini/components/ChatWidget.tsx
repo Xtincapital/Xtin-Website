@@ -187,9 +187,9 @@ export default function ChatWidget() {
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close Gini AI Chat"
-          className="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] shadow-[0_10px_30px_-6px_rgba(10, 10, 11,0.55)] transition-transform hover:scale-105"
+          className="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] shadow-[0_10px_30px_-6px_rgba(19, 20, 23,0.55)] transition-transform hover:scale-105"
         >
-          <span className="flex h-full w-full items-center justify-center rounded-full bg-[#0A0A0B] text-white"><X className="h-6 w-6" /></span>
+          <span className="flex h-full w-full items-center justify-center rounded-full bg-[#131417] text-white brand-on-dark"><X className="h-6 w-6" /></span>
         </button>
       ) : (
         <AiLauncher label="Ask Gini" sub="Your AI planner" onClick={() => setOpen(true)} />
@@ -203,7 +203,7 @@ export default function ChatWidget() {
             <div className="min-w-0">
               <p className="font-semibold leading-tight">Gini</p>
               <p className="text-xs text-primary-foreground/70">Your Financial Advisor</p>
-              <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-medium">
+              <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium">
                 <Coins className="h-3 w-3" />
                 {wallet ? `${formatTokens(wallet.token_balance)} AI tokens left` : "Loading tokens…"}
               </span>

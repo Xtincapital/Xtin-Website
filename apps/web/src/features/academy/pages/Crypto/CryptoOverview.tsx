@@ -30,7 +30,7 @@ const lessonIcons = [
 const colors = [
   "from-amber-600 to-amber-700",
   "from-blue-500 to-indigo-500",
-  "from-emerald-500 to-teal-500",
+  "bg-brand-fill",
   "from-violet-500 to-indigo-500",
   "from-red-500 to-rose-500",
   "from-slate-500 to-gray-600"
@@ -55,7 +55,7 @@ const CryptoOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Advanced Module
               </span>
               <span className="px-3 py-1.5 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-1.5">
@@ -71,7 +71,7 @@ const CryptoOverview = () => {
             </div>
 
             <div className="mb-3"><ModuleBadge moduleId="crypto" /></div>
-<h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <ShieldIcon className="w-7 h-7 text-yellow-700" />
               </span>
@@ -107,7 +107,7 @@ const CryptoOverview = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
+              <div className="rounded-2xl p-6 text-white shadow-xl bg-brand-fill">
                 <ShieldIcon className="w-12 h-12 text-white/90 mb-4" />
                 <p className="text-sm uppercase tracking-wide text-yellow-100 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
@@ -202,7 +202,7 @@ const CryptoOverview = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+          <div className="rounded-2xl p-8 text-white text-center bg-brand-fill">
             <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Learn Crypto Safely?</h3>
             <p className="text-yellow-100 mb-6">Start with what crypto really is before touching wallets or exchanges.</p>
             <button

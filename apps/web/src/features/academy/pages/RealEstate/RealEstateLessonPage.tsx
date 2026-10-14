@@ -78,14 +78,14 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               {lesson.num === 1 && <ModuleBadge moduleId="real-estate" />}
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Lesson {lesson.num} of {realEstateLessons.length}
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
                 {lesson.duration} read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-indigo-600" />
               </span>
@@ -114,7 +114,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">
                     {paragraph}
@@ -161,7 +161,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
                 const isCorrectOption = lesson.quiz.correct === index;
                 let stateClass = "bg-white border-gray-200 hover:bg-indigo-50 hover:border-indigo-300";
 
-                if (answered && isCorrectOption) stateClass = "bg-emerald-50 border-emerald-400";
+                if (answered && isCorrectOption) stateClass = "bg-brand-soft border-brand";
                 if (answered && isSelected && !isCorrectOption) stateClass = "bg-red-50 border-red-400";
 
                 return (
@@ -174,7 +174,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
                     <span className="flex items-center gap-3">
                       <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold ${
                         answered && isCorrectOption
-                          ? "bg-emerald-500 text-white"
+                          ? "bg-brand-fill text-white"
                           : answered && isSelected
                             ? "bg-red-500 text-white"
                             : "bg-indigo-100 text-indigo-700"
@@ -182,7 +182,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
                         {String.fromCharCode(65 + index)}
                       </span>
                       <span className="text-gray-700 flex-1">{option}</span>
-                      {answered && isCorrectOption && <FaCheckCircle className="text-emerald-500 text-lg" />}
+                      {answered && isCorrectOption && <FaCheckCircle className="text-brand text-lg" />}
                       {answered && isSelected && !isCorrectOption && <FaTimesCircle className="text-red-500 text-lg" />}
                     </span>
                   </button>
@@ -190,11 +190,11 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
               })}
             </div>
             {answered && (
-              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
+              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand border border-brand-line" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
                 <p className="font-semibold flex items-center gap-2">
                   {isCorrect ? (
                     <>
-                      <CheckCircleIcon className="w-5 h-5 text-emerald-600" />
+                      <CheckCircleIcon className="w-5 h-5 text-brand" />
                       Correct
                     </>
                   ) : (
@@ -209,7 +209,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 mt-10 text-white relative overflow-hidden">
+          <div className="rounded-2xl p-6 mt-10 text-white relative overflow-hidden bg-brand-fill">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
             <h2 className="font-semibold text-xl mb-3 flex items-center gap-2 relative z-10">
               <BookOpenIcon className="w-6 h-6" />
@@ -228,7 +228,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
             </button>
             <button
               onClick={() => navigate(nextPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all"
+              className="flex items-center justify-center gap-2 px-6 py-3 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all bg-brand-fill"
             >
               <span>{lesson.num === realEstateLessons.length ? "Finish Module" : `Next: Lesson ${lesson.num + 1}`}</span>
               <FaArrowRight />

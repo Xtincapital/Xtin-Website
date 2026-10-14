@@ -27,12 +27,12 @@ const PhoneMockup = () => (
   <div className="relative">
     {/* Decorative background circle */}
     <div className="absolute inset-0 flex items-center justify-center">
-      <div className="w-[420px] h-[420px] rounded-full bg-gradient-to-br from-green-50 to-emerald-100/50 dark:from-emerald-900/20 dark:to-slate-900"></div>
+      <div className="w-[420px] h-[420px] rounded-full bg-brand-soft"></div>
     </div>
 
     {/* Decorative dots pattern */}
     <div className="absolute inset-0 overflow-hidden">
-      <svg className="absolute right-0 top-1/4 w-32 h-32 text-green-200/40" viewBox="0 0 100 100">
+      <svg className="absolute right-0 top-1/4 w-32 h-32 text-white/85" viewBox="0 0 100 100">
         {[...Array(5)].map((_, row) =>
           [...Array(5)].map((_, col) => (
             <circle key={`${row}-${col}`} cx={10 + col * 20} cy={10 + row * 20} r="2" fill="currentColor" />
@@ -46,13 +46,13 @@ const PhoneMockup = () => (
       {/* Phone outer frame */}
       <defs>
         <linearGradient id="phoneFrame" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#232327" />
-          <stop offset="50%" stopColor="#151517" />
-          <stop offset="100%" stopColor="#232327" />
+          <stop offset="0%" stopColor="#2A2A2C" />
+          <stop offset="50%" stopColor="#1F1F1F" />
+          <stop offset="100%" stopColor="#2A2A2C" />
         </linearGradient>
         <linearGradient id="screenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#F7F6F2" />
+          <stop offset="100%" stopColor="#F5F5F7" />
         </linearGradient>
         <clipPath id="screenClip">
           <rect x="16" y="16" width="248" height="528" rx="28" />
@@ -74,16 +74,16 @@ const PhoneMockup = () => (
 
         {/* Status bar */}
         <rect x="16" y="16" width="248" height="32" fill="#ffffff" />
-        <text x="32" y="36" fill="#232327" fontSize="11" fontWeight="500">9:41</text>
+        <text x="32" y="36" fill="#2A2A2C" fontSize="11" fontWeight="500">9:41</text>
         <g transform="translate(210, 26)">
           {/* Signal */}
-          <rect x="0" y="4" width="3" height="6" rx="1" fill="#232327" />
-          <rect x="5" y="2" width="3" height="8" rx="1" fill="#232327" />
-          <rect x="10" y="0" width="3" height="10" rx="1" fill="#232327" />
+          <rect x="0" y="4" width="3" height="6" rx="1" fill="#2A2A2C" />
+          <rect x="5" y="2" width="3" height="8" rx="1" fill="#2A2A2C" />
+          <rect x="10" y="0" width="3" height="10" rx="1" fill="#2A2A2C" />
           {/* Battery */}
-          <rect x="18" y="1" width="16" height="8" rx="2" stroke="#232327" strokeWidth="1" fill="none" />
-          <rect x="34" y="3" width="2" height="4" rx="1" fill="#232327" />
-          <rect x="20" y="3" width="10" height="4" rx="1" fill="#1FA978" />
+          <rect x="18" y="1" width="16" height="8" rx="2" stroke="#2A2A2C" strokeWidth="1" fill="none" />
+          <rect x="34" y="3" width="2" height="4" rx="1" fill="#2A2A2C" />
+          <rect x="20" y="3" width="10" height="4" rx="1" fill="#12805A" />
         </g>
 
         {/* Dynamic Island / Notch */}
@@ -100,64 +100,64 @@ const PhoneMockup = () => (
         </g>
 
         {/* Newsletter Title Card */}
-        <rect x="28" y="128" width="224" height="110" rx="12" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <rect x="28" y="128" width="224" height="110" rx="12" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
 
         {/* Chart illustration in card */}
         <rect x="40" y="140" width="200" height="60" rx="8" fill="#EEF9F4" />
-        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <circle cx="225" cy="135" r="4" fill="#1FA978" />
+        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#12805A" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        <circle cx="225" cy="135" r="4" fill="#12805A" />
         {/* Trend arrow */}
         <g transform="translate(190, 145)">
-          <rect x="0" y="0" width="40" height="16" rx="8" fill="#D5F2E5" />
+          <rect x="0" y="0" width="40" height="16" rx="8" fill="#EEF9F4" />
           <path d="M8 10L12 6L16 8" stroke="#12805A" strokeWidth="1.5" strokeLinecap="round" fill="none" />
           <text x="22" y="11" fill="#12805A" fontSize="7" fontWeight="600">+2.4%</text>
         </g>
 
         {/* Card title */}
-        <text x="40" y="218" fill="#151517" fontSize="10" fontWeight="700">Markets Today: What Moved &amp; Why</text>
-        <text x="40" y="230" fill="#75757D" fontSize="7">Morning Brief • 3 min read</text>
+        <text x="40" y="218" fill="#1F1F1F" fontSize="10" fontWeight="700">Markets Today: What Moved &amp; Why</text>
+        <text x="40" y="230" fill="#717680" fontSize="7">Morning Brief • 3 min read</text>
 
         {/* Content preview cards */}
-        <rect x="28" y="250" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <rect x="28" y="250" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
         <circle cx="58" cy="285" r="18" fill="#F6ECCE" />
         <text x="58" y="289" textAnchor="middle" fill="#9A7634" fontSize="16">₹</text>
-        <text x="88" y="275" fill="#151517" fontSize="9" fontWeight="600">RBI's Big Move</text>
-        <text x="88" y="287" fill="#75757D" fontSize="7">What it means for your</text>
-        <text x="88" y="297" fill="#75757D" fontSize="7">money, explained simply...</text>
+        <text x="88" y="275" fill="#1F1F1F" fontSize="9" fontWeight="600">RBI's Big Move</text>
+        <text x="88" y="287" fill="#717680" fontSize="7">What it means for your</text>
+        <text x="88" y="297" fill="#717680" fontSize="7">money, explained simply...</text>
         <rect x="200" y="270" width="40" height="24" rx="12" fill="#EEF9F4" />
         <text x="220" y="286" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
-        <rect x="28" y="330" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <rect x="28" y="330" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
         <circle cx="58" cy="365" r="18" fill="#E0E7F1" />
         <text x="58" y="370" textAnchor="middle" fill="#3E5C8A" fontSize="14">📊</text>
-        <text x="88" y="355" fill="#151517" fontSize="9" fontWeight="600">Sensex at 85K</text>
-        <text x="88" y="367" fill="#75757D" fontSize="7">The story behind today's</text>
-        <text x="88" y="377" fill="#75757D" fontSize="7">market rally...</text>
+        <text x="88" y="355" fill="#1F1F1F" fontSize="9" fontWeight="600">Sensex at 85K</text>
+        <text x="88" y="367" fill="#717680" fontSize="7">The story behind today's</text>
+        <text x="88" y="377" fill="#717680" fontSize="7">market rally...</text>
         <rect x="200" y="350" width="40" height="24" rx="12" fill="#EEF9F4" />
         <text x="220" y="366" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
-        <rect x="28" y="410" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <rect x="28" y="410" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E4EA" strokeWidth="1" />
         <circle cx="58" cy="445" r="18" fill="#ECE4F6" />
         <text x="58" y="450" textAnchor="middle" fill="#7A5BA6" fontSize="14">💡</text>
-        <text x="88" y="435" fill="#151517" fontSize="9" fontWeight="600">One Smart Idea</text>
-        <text x="88" y="447" fill="#75757D" fontSize="7">A simple tip to grow</text>
-        <text x="88" y="457" fill="#75757D" fontSize="7">your wealth...</text>
+        <text x="88" y="435" fill="#1F1F1F" fontSize="9" fontWeight="600">One Smart Idea</text>
+        <text x="88" y="447" fill="#717680" fontSize="7">A simple tip to grow</text>
+        <text x="88" y="457" fill="#717680" fontSize="7">your wealth...</text>
         <rect x="200" y="430" width="40" height="24" rx="12" fill="#EEF9F4" />
         <text x="220" y="446" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
         {/* Bottom nav hint */}
-        <rect x="90" y="510" width="100" height="4" rx="2" fill="#E4E1D9" />
+        <rect x="90" y="510" width="100" height="4" rx="2" fill="#E4E4EA" />
       </g>
 
       {/* Side buttons */}
-      <rect x="-2" y="120" width="2" height="30" rx="1" fill="#404047" />
-      <rect x="-2" y="170" width="2" height="50" rx="1" fill="#404047" />
-      <rect x="-2" y="230" width="2" height="50" rx="1" fill="#404047" />
-      <rect x="280" y="180" width="2" height="60" rx="1" fill="#404047" />
+      <rect x="-2" y="120" width="2" height="30" rx="1" fill="#373A41" />
+      <rect x="-2" y="170" width="2" height="50" rx="1" fill="#373A41" />
+      <rect x="-2" y="230" width="2" height="50" rx="1" fill="#373A41" />
+      <rect x="280" y="180" width="2" height="60" rx="1" fill="#373A41" />
     </svg>
 
     {/* Floating badge */}
-    <div className="absolute -top-2 -right-2 bg-green-500 dark:bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+    <div className="absolute -top-2 -right-2 bg-brand-fill dark:bg-brand-fill text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
       NEW
     </div>
   </div>
@@ -314,28 +314,28 @@ const Newsletter = () => {
       <Navbar />
 
       {/* Hero Section - Premium Editorial Style */}
-      <section className="relative overflow-hidden">
+      <section className="px-6 md:px-12 lg:px-24 relative overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-emerald-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/20" />
+        <div className="absolute inset-0" />
 
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div className="relative max-w-7xl w-full mx-auto pt-32 pb-20 lg:pt-40 lg:pb-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Content */}
             <div className="max-w-xl">
               {/* Eyebrow */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100/80 dark:bg-emerald-900/30 border border-green-200/50 dark:border-emerald-700/40 mb-6">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line mb-6">
+                <svg className="w-5 h-5 text-brand" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
                 </svg>
-                <span className="text-sm font-medium text-green-700 dark:text-emerald-300">
+                <span className="text-sm font-medium text-brand dark:text-brand">
                   Loved by 10,000+ readers
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal leading-[1.1] tracking-[-0.02em] mb-6">
+              <h1 className="text-4xl md:text-5xl font-display font-semibold leading-[1.1] tracking-[-0.025em] mb-6">
                 Financial News{' '}
-                <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                <span className="text-brand">
                   Made Simple.
                 </span>
               </h1>
@@ -354,7 +354,7 @@ const Newsletter = () => {
                       id="newsletter-email-hero"
                       type="email"
                       placeholder="Enter your email address"
-                      className="w-full px-5 py-4 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base"
+                      className="w-full px-5 py-4 rounded-xl bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all text-base"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
@@ -363,7 +363,7 @@ const Newsletter = () => {
                   <button
                     onClick={handleSubscribe}
                     disabled={loading}
-                    className={`px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-green-600/25 hover:shadow-green-600/40 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'
+                    className={`px-8 py-4 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl shadow-lg shadow-brand/25 hover:shadow-brand/40 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'
                       }`}
                   >
                     {loading ? (
@@ -386,7 +386,7 @@ const Newsletter = () => {
                 </div>
 
                 <p className="mt-4 text-sm text-gray-500 dark:text-slate-400 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-4 h-4 text-brand" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                   </svg>
                   Free forever. No spam. Unsubscribe anytime.
@@ -395,7 +395,7 @@ const Newsletter = () => {
                 {message && (
                   <div className={`mt-4 p-3 rounded-lg text-sm font-medium ${isError
                     ? 'bg-red-50 text-red-600 border border-red-200'
-                    : 'bg-green-50 text-green-600 border border-green-200'
+                    : 'bg-brand-soft text-brand border border-brand-line'
                     }`}>
                     {isError ? message : '🎉 ' + message}
                   </div>
@@ -423,12 +423,12 @@ const Newsletter = () => {
       </section>
 
       {/* Trust Section */}
-      <section className="border-y border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-900/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section className="px-6 md:px-12 lg:px-24 border-y border-gray-100 dark:border-slate-800 bg-background">
+        <div className="max-w-7xl w-full mx-auto py-8">
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
             <div className="flex items-center gap-3">
               <div className="flex -space-x-3">
-                {['bg-green-500', 'bg-emerald-500', 'bg-teal-500', 'bg-cyan-500'].map((bg, i) => (
+                {['bg-brand-fill', 'bg-brand-fill', 'bg-teal-500', 'bg-cyan-500'].map((bg, i) => (
                   <div key={i} className={`w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 flex items-center justify-center text-xs font-bold text-white ${bg}`}>
                     {['A', 'R', 'S', 'K'][i]}
                   </div>
@@ -443,7 +443,7 @@ const Newsletter = () => {
             <div className="h-8 w-px bg-gray-200 dark:bg-slate-700 hidden md:block" />
 
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-brand" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
               <span>8 AM & 5 PM daily</span>
@@ -456,7 +456,7 @@ const Newsletter = () => {
       <section className="py-20 lg:py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.015em]">
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.025em]">
               Two briefs a day. Every market.
             </h2>
             <p className="text-gray-600 dark:text-slate-300 max-w-xl mx-auto">
@@ -468,8 +468,8 @@ const Newsletter = () => {
           <div data-nl-tour="editions" className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="relative rounded-2xl border border-gray-100 dark:border-slate-700 bg-gradient-to-br from-amber-50/60 to-white dark:from-amber-900/10 dark:to-slate-900 p-6">
               {!pro && (
-                <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-[10px] font-bold">
-                  <FaCrown className="text-[9px]" /> PRO
+                <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold">
+                  <FaCrown className="text-xs" /> PRO
                 </span>
               )}
               <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
@@ -484,16 +484,16 @@ const Newsletter = () => {
               </p>
             </div>
 
-            <div className="relative rounded-2xl border border-green-200 dark:border-emerald-700/50 bg-gradient-to-br from-green-50/60 to-white dark:from-emerald-900/10 dark:to-slate-900 p-6">
-              <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 dark:bg-emerald-900/40 text-green-700 dark:text-emerald-300 text-[10px] font-bold">
-                <FaCheck className="text-[9px]" /> FREE
+            <div className="relative rounded-2xl border border-brand-line dark:border-brand/50 p-6 bg-brand-soft">
+              <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-bold">
+                <FaCheck className="text-xs" /> FREE
               </span>
               <div className="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-4">
                 <FaMoon className="text-indigo-500 text-xl" />
               </div>
               <div className="flex items-center gap-2 mb-1">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Post-Market Wrap</h3>
-                <span className="text-xs font-semibold text-green-600">5:00 PM</span>
+                <span className="text-xs font-semibold text-brand">5:00 PM</span>
               </div>
               <p className="text-sm text-gray-500 dark:text-slate-400">
                 What actually moved and why with numbers. Winners, losers, the day's big story, and tomorrow's watchlist.
@@ -526,13 +526,13 @@ const Newsletter = () => {
                     key={m.id}
                     onClick={included ? undefined : () => openUpgrade('US and Global editions are part of Pro.')}
                     className={`relative p-4 rounded-xl border text-left transition-all ${included
-                      ? 'border-green-500 bg-green-50 dark:bg-emerald-900/30 ring-1 ring-green-500'
+                      ? 'border-brand bg-brand-soft dark:bg-brand-soft ring-1 ring-brand'
                       : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-amber-300 cursor-pointer'
                       }`}
                   >
                     {included ? (
-                      <span className="absolute top-3 right-3 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
-                        <FaCheck className="text-white text-[9px]" />
+                      <span className="absolute top-3 right-3 w-5 h-5 rounded-full bg-brand-fill flex items-center justify-center">
+                        <FaCheck className="text-white text-xs" />
                       </span>
                     ) : (
                       <FaLock className="absolute top-3 right-3 text-gray-300 dark:text-slate-600 text-xs" />
@@ -540,7 +540,7 @@ const Newsletter = () => {
                     <div className="text-2xl mb-1">{m.flag}</div>
                     <div className="font-bold text-gray-900 dark:text-slate-100">{m.label}</div>
                     <div className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">{m.blurb}</div>
-                    <div className="text-xs font-semibold mt-2 text-green-700 dark:text-emerald-300">
+                    <div className="text-xs font-semibold mt-2 text-brand dark:text-brand">
                       {pro ? 'Morning + evening' : m.id === 'IN' ? 'Evening wrap' : 'Pro only'}
                     </div>
                   </div>
@@ -548,13 +548,13 @@ const Newsletter = () => {
               })}
             </div>
             {pro ? (
-              <p className="mt-4 text-sm text-green-600 font-medium flex items-center gap-1.5">
+              <p className="mt-4 text-sm text-brand font-medium flex items-center gap-1.5">
                 <FaCrown /> You're Pro — every market, both editions, sent automatically.
               </p>
             ) : (
               <button
                 onClick={() => openUpgrade('Unlock US and Global editions and get both the morning brief and evening wrap.')}
-                className="mt-5 w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-green-500/25 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
+                className="mt-5 w-full sm:w-auto px-6 py-3 text-white rounded-xl font-bold shadow-lg shadow-brand/25 hover:shadow-xl transition-all inline-flex items-center justify-center gap-2 bg-brand-fill"
               >
                 <FaCrown />
                 Unlock all markets  {formatNewsletterPrice(pricing.yearly, pricing)}/yr
@@ -565,15 +565,15 @@ const Newsletter = () => {
       </section>
 
       {/* Archive Section - Newsletters / Substack toggle */}
-      <section data-nl-tour="archive" className="py-20 lg:py-28 bg-gray-50/40 dark:bg-slate-950">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section data-nl-tour="archive" className="px-6 md:px-12 lg:px-24 py-20 lg:py-28 bg-background">
+        <div className="max-w-7xl w-full mx-auto">
           {/* Tab Switcher */}
           <div className="flex justify-center mb-10">
             <div className="inline-flex p-1.5 rounded-2xl bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
               <button
                 onClick={() => setActiveTab('substack')}
                 className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${activeTab === 'substack'
-                  ? 'bg-white dark:bg-slate-950 text-green-600 dark:text-emerald-300 shadow-sm'
+                  ? 'bg-white dark:bg-slate-950 text-brand dark:text-brand shadow-sm'
                   : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'
                   }`}
               >
@@ -582,7 +582,7 @@ const Newsletter = () => {
               <button
                 onClick={() => setActiveTab('newsletters')}
                 className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${activeTab === 'newsletters'
-                  ? 'bg-white dark:bg-slate-950 text-green-600 dark:text-emerald-300 shadow-sm'
+                  ? 'bg-white dark:bg-slate-950 text-brand dark:text-brand shadow-sm'
                   : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'
                   }`}
               >
@@ -593,7 +593,7 @@ const Newsletter = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
+              <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.025em]">
                 {activeTab === 'newsletters' ? 'Xtin Daily' : 'Substack Articles'}
               </h2>
               <p className="text-gray-600 dark:text-slate-300">
@@ -607,7 +607,7 @@ const Newsletter = () => {
                 newsletters.length > FREE_ARCHIVE_LIMIT && (
                   <button
                     onClick={() => setShowAllNewsletters(!showAllNewsletters)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-green-600 dark:text-emerald-300 font-medium hover:bg-green-50 dark:hover:bg-emerald-900/20 transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-brand dark:text-brand font-medium hover:bg-brand-soft dark:hover:bg-brand-hover transition-all"
                   >
                     {showAllNewsletters ? (
                       <>
@@ -641,7 +641,7 @@ const Newsletter = () => {
               substackArticles.length > 6 && (
                 <button
                   onClick={() => setShowAllSubstack(!showAllSubstack)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-green-600 dark:text-emerald-300 font-medium hover:bg-green-50 dark:hover:bg-emerald-900/20 transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-slate-800 text-brand dark:text-brand font-medium hover:bg-brand-soft dark:hover:bg-brand-hover transition-all"
                 >
                   {showAllSubstack ? (
                     <>
@@ -667,7 +667,7 @@ const Newsletter = () => {
             newslettersLoading ? (
               <div className="flex justify-center items-center py-20">
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+                  <div className="w-12 h-12 border-4 border-brand-line border-t-brand rounded-full animate-spin" />
                   <p className="text-gray-500 dark:text-slate-400">Loading newsletters...</p>
                 </div>
               </div>
@@ -687,9 +687,9 @@ const Newsletter = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {(pro && showAllNewsletters ? newsletters : newsletters.slice(0, visibleArchiveCount(newsletters.length))).map((newsletter) => (
-                  <article key={newsletter.id} className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700 hover:border-green-200 dark:hover:border-emerald-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <article key={newsletter.id} className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700 hover:border-brand-line dark:hover:border-brand shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     {/* Card Header */}
-                    <div className="relative h-44 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 p-6 flex flex-col justify-between overflow-hidden">
+                    <div className="relative h-44 p-6 flex flex-col justify-between overflow-hidden bg-brand-fill">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl transform translate-x-8 -translate-y-8" />
 
                       <span className="relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium w-fit">
@@ -717,7 +717,7 @@ const Newsletter = () => {
 
                     {/* Card Content */}
                     <div className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3 line-clamp-2 group-hover:text-green-600 dark:group-hover:text-emerald-300 transition-colors">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3 line-clamp-2 group-hover:text-brand dark:group-hover:text-brand transition-colors">
                         {newsletter.title}
                       </h3>
                       <p className="text-gray-600 dark:text-slate-300 text-sm mb-4 line-clamp-2">
@@ -725,7 +725,7 @@ const Newsletter = () => {
                       </p>
                       <button
                         onClick={() => navigate(`/newsletter/${newsletter.id}`, { state: { newsletter } })}
-                        className="inline-flex items-center gap-2 text-green-600 font-semibold text-sm group-hover:gap-3 transition-all"
+                        className="inline-flex items-center gap-2 text-brand font-semibold text-sm group-hover:gap-3 transition-all"
                       >
                         <span>Read Newsletter</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -742,7 +742,7 @@ const Newsletter = () => {
                     onClick={() => openUpgrade(`${newsletters.length - FREE_ARCHIVE_LIMIT}+ past editions are waiting in the Pro archive.`)}
                     className="group relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/60 dark:to-slate-900 rounded-2xl overflow-hidden border-2 border-dashed border-amber-200 dark:border-amber-700/40 hover:border-amber-400 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center p-8 text-center min-h-[300px]"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-lg shadow-amber-500/30 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 mb-4 group-hover:scale-110 transition-transform bg-brand-fill">
                       <FaLock className="text-white text-xl" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-1">
@@ -751,7 +751,7 @@ const Newsletter = () => {
                     <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
                       The full searchable archive — every morning brief and evening wrap — is part of Pro.
                     </p>
-                    <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-green-500/25">
+                    <span className="inline-flex items-center gap-2 px-5 py-2.5 text-white rounded-xl font-bold text-sm shadow-lg shadow-brand/25 bg-brand-fill">
                       <FaCrown className="text-xs" />
                       Unlock the archive
                     </span>
@@ -763,7 +763,7 @@ const Newsletter = () => {
             substackLoading ? (
               <div className="flex justify-center items-center py-20">
                 <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+                  <div className="w-12 h-12 border-4 border-brand-line border-t-brand rounded-full animate-spin" />
                   <p className="text-gray-500 dark:text-slate-400">Loading articles...</p>
                 </div>
               </div>
@@ -786,10 +786,10 @@ const Newsletter = () => {
                   <article
                     key={article.id}
                     onClick={() => navigate(`/newsletter/article/${article.slug}`, { state: { article } })}
-                    className="group cursor-pointer bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700 hover:border-green-200 dark:hover:border-emerald-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                    className="group cursor-pointer bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700 hover:border-brand-line dark:hover:border-brand shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
                   >
                     {/* Cover Image */}
-                    <div className="relative h-44 overflow-hidden bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600">
+                    <div className="relative h-44 overflow-hidden bg-brand-fill">
                       {article.coverImage ? (
                         <img
                           src={article.coverImage}
@@ -825,13 +825,13 @@ const Newsletter = () => {
                           : ''}
                         {article.wordcount ? ` • ${Math.max(1, Math.round(article.wordcount / 200))} min read` : ''}
                       </span>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3 line-clamp-2 group-hover:text-green-600 dark:group-hover:text-emerald-300 transition-colors">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-3 line-clamp-2 group-hover:text-brand dark:group-hover:text-brand transition-colors">
                         {article.title}
                       </h3>
                       <p className="text-gray-600 dark:text-slate-300 text-sm mb-4 line-clamp-3 flex-1">
                         {article.subtitle}
                       </p>
-                      <span className="inline-flex items-center gap-2 text-green-600 font-semibold text-sm group-hover:gap-3 transition-all">
+                      <span className="inline-flex items-center gap-2 text-brand font-semibold text-sm group-hover:gap-3 transition-all">
                         <span>Read Article</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -847,20 +847,20 @@ const Newsletter = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 lg:py-32 bg-gradient-to-b from-gray-50 via-green-50/30 to-gray-50 dark:from-slate-900 dark:via-emerald-950/20 dark:to-slate-950">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="px-6 md:px-12 lg:px-24 py-24 lg:py-32 bg-brand-soft">
+        <div className="max-w-7xl w-full mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100/80 dark:bg-emerald-900/30 border border-green-200/50 dark:border-emerald-700/40 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line mb-8">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-fill opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-fill"></span>
               </span>
-              <span className="text-sm font-medium text-green-700 dark:text-emerald-300">Free forever</span>
+              <span className="text-sm font-medium text-brand dark:text-brand">Free forever</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-normal text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.015em]">
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.025em]">
               Stay informed.{' '}
-              <span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">Stay ahead.</span>
+              <span className="text-brand">Stay ahead.</span>
             </h2>
 
             <p className="text-lg text-gray-600 dark:text-slate-300 mb-10 max-w-xl mx-auto">
@@ -875,7 +875,7 @@ const Newsletter = () => {
                     id="newsletter-email-cta"
                     type="email"
                     placeholder="Enter your email address"
-                    className="w-full px-5 py-4 rounded-xl bg-gray-50 dark:bg-slate-800 border-0 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-gray-50 dark:bg-slate-800 border-0 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand transition-all"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
@@ -884,7 +884,7 @@ const Newsletter = () => {
                 <button
                   onClick={handleSubscribe}
                   disabled={loading}
-                  className={`px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-green-600/25 transition-all duration-300 whitespace-nowrap ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5 hover:shadow-green-600/40'
+                  className={`px-8 py-4 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl shadow-lg shadow-brand/25 transition-all duration-300 whitespace-nowrap ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5 hover:shadow-brand/40'
                     }`}
                 >
                   {loading ? 'Subscribing...' : 'Subscribe'}
@@ -892,7 +892,7 @@ const Newsletter = () => {
               </div>
 
               {message && (
-                <div className={`mt-4 p-3 rounded-lg text-sm font-medium ${isError ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300' : 'bg-green-50 dark:bg-emerald-900/20 text-green-600 dark:text-emerald-300'
+                <div className={`mt-4 p-3 rounded-lg text-sm font-medium ${isError ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300' : 'bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand'
                   }`}>
                   {isError ? message : '🎉 ' + message}
                 </div>
@@ -909,7 +909,7 @@ const Newsletter = () => {
             <div className="mt-12 pt-8 border-t border-gray-100 dark:border-slate-700">
               <p className="text-sm text-gray-500 dark:text-slate-400">
                 Be a part of our ever growing community.{' '}
-                <a href="https://twitter.com/XtinCapital" target="_blank" rel="noopener noreferrer" className="text-green-600 font-medium hover:underline">
+                <a href="https://twitter.com/XtinCapital" target="_blank" rel="noopener noreferrer" className="text-brand font-medium hover:underline">
                   Follow us on X →
                 </a>
               </p>

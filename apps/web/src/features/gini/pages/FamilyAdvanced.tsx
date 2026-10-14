@@ -204,7 +204,7 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
           </div>
         ) : (
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-foreground">Household Income Timeline</h4>
+            <h4 className="text-base font-semibold text-foreground">Household Income Timeline</h4>
             <ChartContainer config={chartConfig} className="h-96 w-full">
               <LineChart data={chartData}>
                 <CartesianGrid {...chartGrid} />
@@ -714,7 +714,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
 
         {chartData.length > 0 && (
           <div>
-            <h4 className="mb-2 text-sm font-semibold text-foreground">Education Funding Timeline</h4>
+            <h4 className="mb-2 text-base font-semibold text-foreground">Education Funding Timeline</h4>
             <ChartContainer config={chartConfig} className="h-72 w-full">
               <BarChart data={chartData}>
                 <CartesianGrid {...chartGrid} />
@@ -957,7 +957,7 @@ function TaxOptimizationTab() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <h4 className="text-sm font-semibold text-foreground">Section 80C</h4>
+                <h4 className="text-base font-semibold text-foreground">Section 80C</h4>
                 <span className={`text-xs ${total80C > SECTION_80C_CAP ? "text-destructive" : "text-muted-foreground"}`}>
                   {formatCurrency(total80C)} of {formatCurrency(SECTION_80C_CAP)} cap
                 </span>
@@ -999,7 +999,7 @@ function TaxOptimizationTab() {
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-foreground">Section 80D — Health Insurance</h4>
+              <h4 className="mb-2 text-base font-semibold text-foreground">Section 80D — Health Insurance</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-self-health">Self &amp; Family Health Insurance</Label>
@@ -1025,7 +1025,7 @@ function TaxOptimizationTab() {
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-foreground">Section 80E — Education Loan</h4>
+              <h4 className="mb-2 text-base font-semibold text-foreground">Section 80E — Education Loan</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-edu-loan">Education Loan Interest</Label>

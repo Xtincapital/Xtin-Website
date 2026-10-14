@@ -147,7 +147,7 @@ const RealEstateCalculator = () => {
 
   const getStatusColor = (status: Status) => {
     switch (status) {
-      case 'good': return 'text-green-600 bg-green-50 border-green-200';
+      case 'good': return 'text-brand bg-brand-soft border-brand-line';
       case 'neutral': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
       case 'avoid': return 'text-red-600 bg-red-50 border-red-200';
       default: return 'text-gray-500 bg-gray-50 border-gray-200';
@@ -237,7 +237,7 @@ const RealEstateCalculator = () => {
   const years = results?.analysis.assumptions.years ?? 10;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <SEO
         title="Real Estate Investment Calculator - 4-Filter Property Analysis"
         description="Analyze property investments with our 4-Filter Framework. Calculate net rental yield and price-to-rent against your location, evaluate infrastructure and liquidity, and compare with a fixed deposit after costs and tax in India."
@@ -251,7 +251,7 @@ const RealEstateCalculator = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 bg-brand-soft text-brand px-4 py-2 rounded-full text-sm font-medium mb-4">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
               </svg>
@@ -259,7 +259,7 @@ const RealEstateCalculator = () => {
             </div>
             <h1 className="xt-title mb-4">
               Real Estate Investment{" "}
-              <span className="text-green-600">Calculator</span>
+              <span className="text-brand">Calculator</span>
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Make data-driven property decisions. Our 4-filter framework judges a property against its own location, then compares it with a fixed deposit after costs and tax.
@@ -270,7 +270,7 @@ const RealEstateCalculator = () => {
           <div className="text-center mb-8">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-5 py-2.5 bg-white border border-green-200 text-green-700 rounded-full shadow-sm hover:bg-green-50 transition font-medium"
+              className="px-5 py-2.5 bg-white border border-brand-line text-brand rounded-full shadow-sm hover:bg-brand-soft transition font-medium"
             >
               {showInfo ? "Hide" : "Learn"} The 4-Filter Framework
             </button>
@@ -279,8 +279,8 @@ const RealEstateCalculator = () => {
                 <h3 className="text-xl font-semibold text-gray-900 mb-1">The 4-Filter Property Investment Framework</h3>
                 <p className="text-sm text-gray-500 mb-4">Each filter is judged against typical values for the location type you choose (see the benchmark table below).</p>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-green-50 rounded-xl">
-                    <h4 className="font-semibold text-green-800 mb-2">🏠 Filter 1: Net Rental Yield</h4>
+                  <div className="p-4 bg-brand-soft rounded-xl">
+                    <h4 className="font-semibold text-brand mb-2">🏠 Filter 1: Net Rental Yield</h4>
                     <p className="text-sm text-gray-700">(Rent after vacancy and upkeep) ÷ (Price + buying costs)</p>
                     <p className="text-xs text-gray-500 mt-1">How much income the money you put in actually earns.</p>
                   </div>
@@ -313,7 +313,7 @@ const RealEstateCalculator = () => {
             <div className="lg:col-span-1 space-y-4">
               <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-100" {...formProps}>
                 <h2 className="text-xl font-semibold text-gray-900 mb-5 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
                   Property Details
@@ -337,7 +337,7 @@ const RealEstateCalculator = () => {
                         }
                       }}
                       placeholder="1,00,00,000"
-                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition"
                     />
                   </div>
                 </div>
@@ -360,7 +360,7 @@ const RealEstateCalculator = () => {
                         }
                       }}
                       placeholder="25,000"
-                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition"
                     />
                   </div>
                 </div>
@@ -374,7 +374,7 @@ const RealEstateCalculator = () => {
                     id="realestate-property-type"
                     value={propertyType}
                     onChange={(e) => setPropertyType(e.target.value)}
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
+                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition bg-white"
                   >
                     <option value="1bhk">1 BHK Apartment</option>
                     <option value="2bhk">2 BHK Apartment</option>
@@ -394,7 +394,7 @@ const RealEstateCalculator = () => {
                     id="realestate-location-type"
                     value={location}
                     onChange={(e) => setLocation(e.target.value as LocationType)}
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
+                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition bg-white"
                   >
                     <option value="metro">Metro City (Mumbai, Delhi, Bangalore...)</option>
                     <option value="tier2">Tier 2 City (Pune, Ahmedabad, Jaipur...)</option>
@@ -411,7 +411,7 @@ const RealEstateCalculator = () => {
                     id="realestate-upcoming-infrastructure"
                     value={infrastructure}
                     onChange={(e) => setInfrastructure(e.target.value)}
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition bg-white"
+                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition bg-white"
                   >
                     <option value="">Select infrastructure...</option>
                     <option value="metro">Metro / Rapid Transit</option>
@@ -434,7 +434,7 @@ const RealEstateCalculator = () => {
                     value={saleTime}
                     onChange={(e) => setSaleTime(e.target.value)}
                     placeholder={`${BENCHMARKS[location].daysDefault} (typical)`}
-                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                    className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand transition"
                   />
                   <p className="text-xs text-gray-500 mt-1">Leave blank to use the typical value for your location. Local property portals show real listing durations.</p>
                 </div>
@@ -472,7 +472,7 @@ const RealEstateCalculator = () => {
                             value={adv[key]}
                             onChange={setAdvField(key as keyof typeof adv)}
                             placeholder={hint}
-                            className="w-full p-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                            className="w-full p-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand transition"
                           />
                         </div>
                       ))}
@@ -483,7 +483,7 @@ const RealEstateCalculator = () => {
 
                 <button
                   onClick={calculateAll}
-                  className="w-full mt-2 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold transition-colors"
+                  className="w-full mt-2 py-3 bg-brand-fill hover:bg-brand-hover text-white rounded-xl font-semibold transition-colors"
                 >
                   Calculate Analysis
                 </button>
@@ -504,7 +504,7 @@ const RealEstateCalculator = () => {
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="font-semibold text-gray-900">{card.title}</h3>
                       <span className={`w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold ${
-                        card.status === 'good' ? 'bg-green-500 text-white' :
+                        card.status === 'good' ? 'bg-brand-fill text-white' :
                         card.status === 'neutral' ? 'bg-yellow-500 text-white' :
                         card.status === 'avoid' ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-500'
                       }`}>
@@ -521,7 +521,7 @@ const RealEstateCalculator = () => {
               {/* Overall Assessment */}
               {results && (
                 <div className={`rounded-2xl p-6 border-2 ${
-                  results.analysis.recommendationClass === 'good' ? 'bg-green-50 border-green-300' :
+                  results.analysis.recommendationClass === 'good' ? 'bg-brand-soft border-brand-line' :
                   results.analysis.recommendationClass === 'neutral' ? 'bg-yellow-50 border-yellow-300' :
                   results.analysis.recommendationClass === 'avoid' ? 'bg-red-50 border-red-300' : 'bg-gray-50 border-gray-200'
                 }`}>
@@ -529,7 +529,7 @@ const RealEstateCalculator = () => {
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-1">Overall Assessment</h3>
                       <p className={`text-2xl font-bold ${
-                        results.analysis.recommendationClass === 'good' ? 'text-green-700' :
+                        results.analysis.recommendationClass === 'good' ? 'text-brand' :
                         results.analysis.recommendationClass === 'neutral' ? 'text-yellow-700' :
                         results.analysis.recommendationClass === 'avoid' ? 'text-red-700' : 'text-gray-600'
                       }`}>
@@ -558,7 +558,7 @@ const RealEstateCalculator = () => {
                           key={id}
                           onClick={() => setChartType(id)}
                           className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
-                            chartType === id ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                            chartType === id ? "bg-brand-fill text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                           }`}
                         >
                           {label}
@@ -621,7 +621,7 @@ const RealEstateCalculator = () => {
                 return (
                   <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2">
-                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                       Property vs Fixed Deposit ({years} Year Comparison)
@@ -632,7 +632,7 @@ const RealEstateCalculator = () => {
                     <div className="grid sm:grid-cols-3 gap-4">
                       <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
                         <p className="text-gray-500 text-sm mb-1">Property (base case)</p>
-                        <p className="text-2xl font-bold text-green-600">{formatCurrency(b.profit)}</p>
+                        <p className="text-2xl font-bold text-brand">{formatCurrency(b.profit)}</p>
                         <p className="text-xs text-gray-500 mt-1">profit, about {b.cagrPct.toFixed(1)}% a year at {b.growthPct.toFixed(1)}% price growth</p>
                       </div>
                       <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
@@ -642,7 +642,7 @@ const RealEstateCalculator = () => {
                       </div>
                       <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
                         <p className="text-gray-500 text-sm mb-1">Higher Return</p>
-                        <p className={`text-2xl font-bold ${better ? 'text-green-600' : 'text-blue-600'}`}>
+                        <p className={`text-2xl font-bold ${better ? 'text-brand' : 'text-blue-600'}`}>
                           {better ? 'Property' : 'Fixed Deposit'}
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
@@ -653,7 +653,7 @@ const RealEstateCalculator = () => {
                       </div>
                     </div>
 
-                    <h4 className="text-sm font-semibold text-gray-700 mt-6 mb-2">If prices grow faster or slower</h4>
+                    <h4 className="text-base font-semibold text-gray-700 mt-6 mb-2">If prices grow faster or slower</h4>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
@@ -667,12 +667,12 @@ const RealEstateCalculator = () => {
                         </thead>
                         <tbody className="divide-y divide-gray-100">
                           {a.scenarios.map((sc) => (
-                            <tr key={sc.key} className={sc.key === 'base' ? 'bg-green-50/50 font-medium' : ''}>
+                            <tr key={sc.key} className={sc.key === 'base' ? 'bg-brand-soft font-medium' : ''}>
                               <td className="py-2 pr-3">{sc.label}</td>
                               <td className="py-2 pr-3">{sc.growthPct.toFixed(1)}%</td>
                               <td className="py-2 pr-3">{formatCurrency(sc.profit)}</td>
                               <td className="py-2 pr-3">{sc.cagrPct.toFixed(1)}%</td>
-                              <td className={`py-2 ${sc.beatsFd ? 'text-green-600' : 'text-red-600'}`}>{sc.beatsFd ? 'Beats FD' : 'Behind FD'}</td>
+                              <td className={`py-2 ${sc.beatsFd ? 'text-brand' : 'text-red-600'}`}>{sc.beatsFd ? 'Beats FD' : 'Behind FD'}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -691,7 +691,7 @@ const RealEstateCalculator = () => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Insights</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {[
-                      { label: 'Annual Rent (gross)', value: formatCurrency(results.analysis.grossAnnualRent), cls: 'text-green-600', bg: 'bg-green-100' },
+                      { label: 'Annual Rent (gross)', value: formatCurrency(results.analysis.grossAnnualRent), cls: 'text-brand', bg: 'bg-brand-soft' },
                       { label: 'Price Growth Estimate', value: `${results.analysis.growthBasePct.toFixed(1)}% per year${results.analysis.infraAdjPct ? ` (incl. +${results.analysis.infraAdjPct}% for projects)` : ''}`, cls: 'text-blue-600', bg: 'bg-blue-100' },
                       { label: `${years}-Year Property Value`, value: formatCurrency(finalRow?.propertyValue || 0), cls: 'text-purple-600', bg: 'bg-purple-100' },
                       { label: 'Total Cost to Buy', value: formatCurrency(results.analysis.outlay), cls: 'text-orange-600', bg: 'bg-orange-100' },
@@ -725,7 +725,7 @@ const RealEstateCalculator = () => {
                 { value: "6.9%", label: "Vacancy Rate", trend: "National" },
               ].map((stat, index) => (
                 <div key={index} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
-                  <div className="text-xl md:text-2xl font-bold text-green-600">{stat.value}</div>
+                  <div className="text-xl md:text-2xl font-bold text-brand">{stat.value}</div>
                   <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
                   <div className="text-xs text-gray-400 mt-0.5">{stat.trend}</div>
                 </div>
@@ -742,7 +742,7 @@ const RealEstateCalculator = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-900 text-white">
+                  <tr className="bg-gray-900 text-white brand-on-dark">
                     <th className="px-4 py-3 text-left rounded-tl-lg">Measure</th>
                     {(Object.keys(BENCHMARKS) as LocationType[]).map((k, i, arr) => (
                       <th key={k} className={`px-4 py-3 text-center ${i === arr.length - 1 ? 'rounded-tr-lg' : ''}`}>{BENCHMARKS[k].label}</th>

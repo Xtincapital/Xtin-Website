@@ -75,15 +75,15 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
           let bg = "bg-gray-50  hover:bg-indigo-50", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-indigo-100  text-indigo-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-indigo-100  text-indigo-600'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -91,7 +91,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -120,11 +120,11 @@ const AlgoTradingLesson3 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 3 of 9</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 3 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Strategy className="w-8 h-8 text-white"/>
               </span>
               Strategy Development Fundamentals
@@ -167,76 +167,76 @@ const AlgoTradingLesson3 = () => {
             <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">The 4 Core Strategy Types</h2>
 
             {/* Strategy Types Visual */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-indigo-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-indigo-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 400" fill="none">
                 <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="15" fontWeight="700">STRATEGY TYPE OVERVIEW</text>
                 
                 {/* Quadrant Grid */}
-                <line x1="350" y1="60" x2="350" y2="340" stroke="#404047" strokeWidth="2"/>
-                <line x1="50" y1="200" x2="650" y2="200" stroke="#404047" strokeWidth="2"/>
+                <line x1="350" y1="60" x2="350" y2="340" stroke="#373A41" strokeWidth="2"/>
+                <line x1="50" y1="200" x2="650" y2="200" stroke="#373A41" strokeWidth="2"/>
                 
                 {/* Axis Labels */}
-                <text x="350" y="360" textAnchor="middle" fill="#A3A1A6" fontSize="10">← Slower Execution | Faster Execution →</text>
-                <text x="30" y="200" textAnchor="middle" fill="#A3A1A6" fontSize="10" transform="rotate(-90, 30, 200)">← Lower Frequency | Higher Frequency →</text>
+                <text x="350" y="360" textAnchor="middle" fill="#A0A3AA" fontSize="10">← Slower Execution | Faster Execution →</text>
+                <text x="30" y="200" textAnchor="middle" fill="#A0A3AA" fontSize="10" transform="rotate(-90, 30, 200)">← Lower Frequency | Higher Frequency →</text>
 
                 {/* Quadrant 1: Trend Following (top-left) */}
                 <g transform="translate(80, 80)">
-                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#232327" stroke="#1FA978" strokeWidth="2"/>
-                  <circle cx="30" cy="30" r="18" fill="#1FA978"/>
+                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
+                  <circle cx="30" cy="30" r="18" fill="#12805A"/>
                   <text x="30" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">1</text>
-                  <text x="130" y="30" textAnchor="middle" fill="#77D3AE" fontSize="13" fontWeight="700">TREND FOLLOWING</text>
-                  <text x="130" y="50" textAnchor="middle" fill="#A3A1A6" fontSize="9">"The trend is your friend"</text>
-                  <text x="130" y="70" textAnchor="middle" fill="#75757D" fontSize="8">• Moving averages, breakouts</text>
-                  <text x="130" y="85" textAnchor="middle" fill="#75757D" fontSize="8">• Hold days to months</text>
+                  <text x="130" y="30" textAnchor="middle" fill="#3CCB97" fontSize="13" fontWeight="700">TREND FOLLOWING</text>
+                  <text x="130" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="9">"The trend is your friend"</text>
+                  <text x="130" y="70" textAnchor="middle" fill="#717680" fontSize="8">• Moving averages, breakouts</text>
+                  <text x="130" y="85" textAnchor="middle" fill="#717680" fontSize="8">• Hold days to months</text>
                 </g>
 
                 {/* Quadrant 2: Mean Reversion (top-right) */}
                 <g transform="translate(400, 80)">
-                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#232327" stroke="#5A77AA" strokeWidth="2"/>
+                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#5A77AA" strokeWidth="2"/>
                   <circle cx="30" cy="30" r="18" fill="#5A77AA"/>
                   <text x="30" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">2</text>
                   <text x="130" y="30" textAnchor="middle" fill="#9FB3D3" fontSize="13" fontWeight="700">MEAN REVERSION</text>
-                  <text x="130" y="50" textAnchor="middle" fill="#A3A1A6" fontSize="9">"What goes up must come down"</text>
-                  <text x="130" y="70" textAnchor="middle" fill="#75757D" fontSize="8">• RSI, Bollinger Bands</text>
-                  <text x="130" y="85" textAnchor="middle" fill="#75757D" fontSize="8">• Hold hours to days</text>
+                  <text x="130" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="9">"What goes up must come down"</text>
+                  <text x="130" y="70" textAnchor="middle" fill="#717680" fontSize="8">• RSI, Bollinger Bands</text>
+                  <text x="130" y="85" textAnchor="middle" fill="#717680" fontSize="8">• Hold hours to days</text>
                 </g>
 
                 {/* Quadrant 3: Momentum (bottom-left) */}
                 <g transform="translate(80, 220)">
-                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#232327" stroke="#B8923F" strokeWidth="2"/>
+                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#B8923F" strokeWidth="2"/>
                   <circle cx="30" cy="30" r="18" fill="#B8923F"/>
                   <text x="30" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">3</text>
                   <text x="130" y="30" textAnchor="middle" fill="#E2C273" fontSize="13" fontWeight="700">MOMENTUM</text>
-                  <text x="130" y="50" textAnchor="middle" fill="#A3A1A6" fontSize="9">"Winners keep winning"</text>
-                  <text x="130" y="70" textAnchor="middle" fill="#75757D" fontSize="8">• Relative strength, sector rotation</text>
-                  <text x="130" y="85" textAnchor="middle" fill="#75757D" fontSize="8">• Hold weeks to months</text>
+                  <text x="130" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="9">"Winners keep winning"</text>
+                  <text x="130" y="70" textAnchor="middle" fill="#717680" fontSize="8">• Relative strength, sector rotation</text>
+                  <text x="130" y="85" textAnchor="middle" fill="#717680" fontSize="8">• Hold weeks to months</text>
                 </g>
 
                 {/* Quadrant 4: Market Making (bottom-right) */}
                 <g transform="translate(400, 220)">
-                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#232327" stroke="#8F6FC4" strokeWidth="2"/>
+                  <rect x="0" y="0" width="220" height="100" rx="12" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
                   <circle cx="30" cy="30" r="18" fill="#8F6FC4"/>
                   <text x="30" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">4</text>
                   <text x="130" y="30" textAnchor="middle" fill="#C0A9E2" fontSize="13" fontWeight="700">MARKET MAKING</text>
-                  <text x="130" y="50" textAnchor="middle" fill="#A3A1A6" fontSize="9">"Profit from the spread"</text>
-                  <text x="130" y="70" textAnchor="middle" fill="#75757D" fontSize="8">• Bid-ask spread capture</text>
-                  <text x="130" y="85" textAnchor="middle" fill="#75757D" fontSize="8">• Hold seconds to minutes</text>
+                  <text x="130" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="9">"Profit from the spread"</text>
+                  <text x="130" y="70" textAnchor="middle" fill="#717680" fontSize="8">• Bid-ask spread capture</text>
+                  <text x="130" y="85" textAnchor="middle" fill="#717680" fontSize="8">• Hold seconds to minutes</text>
                 </g>
 
                 {/* Center label */}
-                <circle cx="350" cy="200" r="25" fill="#151517" stroke="#5A5A62" strokeWidth="2"/>
+                <circle cx="350" cy="200" r="25" fill="#1F1F1F" stroke="#555A63" strokeWidth="2"/>
                 <text x="350" y="205" textAnchor="middle" fill="#ECE4F6" fontSize="9" fontWeight="600">CORE</text>
               </svg>
             </div>
 
             {/* Strategy 1: Trend Following */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-8 border-l-4 border-emerald-500">
+            <div className="rounded-2xl p-6 mb-8 border-l-4 border-brand bg-brand-soft">
               <div className="flex items-center gap-3 mb-4">
-                <span className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center">
+                <span className="w-12 h-12 bg-brand-fill rounded-xl flex items-center justify-center">
                   <Icons.TrendUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <span className="text-xs font-bold text-emerald-600 ">STRATEGY TYPE 1</span>
+                  <span className="text-xs font-bold text-brand ">STRATEGY TYPE 1</span>
                   <h3 className="text-xl font-semibold text-gray-900 ">Trend Following</h3>
                 </div>
               </div>
@@ -247,7 +247,7 @@ const AlgoTradingLesson3 = () => {
 
               <div className="grid md:grid-cols-2 gap-4 mb-4">
                 <div className="bg-white/50  rounded-xl p-4">
-                  <h4 className="font-semibold text-emerald-700  mb-2">Common Indicators</h4>
+                  <h4 className="font-semibold text-brand  mb-2">Common Indicators</h4>
                   <ul className="text-sm text-gray-600  space-y-1">
                     <li>• Moving Average Crossovers (50/200 SMA)</li>
                     <li>• MACD (Moving Average Convergence)</li>
@@ -256,7 +256,7 @@ const AlgoTradingLesson3 = () => {
                   </ul>
                 </div>
                 <div className="bg-white/50  rounded-xl p-4">
-                  <h4 className="font-semibold text-emerald-700  mb-2">Best Market Conditions</h4>
+                  <h4 className="font-semibold text-brand  mb-2">Best Market Conditions</h4>
                   <ul className="text-sm text-gray-600  space-y-1">
                     <li>✓ Strong directional moves</li>
                     <li>✓ Low volatility transitions</li>
@@ -266,8 +266,8 @@ const AlgoTradingLesson3 = () => {
                 </div>
               </div>
 
-              <div className="bg-emerald-100  rounded-lg p-3">
-                <p className="text-sm text-emerald-800 ">
+              <div className="bg-brand-soft  rounded-lg p-3">
+                <p className="text-sm text-brand ">
                   <strong>Indian Market Example:</strong> A 50-day MA crossover strategy on Nifty 50 would have caught the 2020-2021 bull run from 8,000 to 18,000+ levels.
                 </p>
               </div>
@@ -412,7 +412,7 @@ const AlgoTradingLesson3 = () => {
                 <thead>
                   <tr className="bg-indigo-100 ">
                     <th className="p-3 text-left font-bold text-indigo-800 ">Factor</th>
-                    <th className="p-3 text-center font-bold text-emerald-700 ">Trend</th>
+                    <th className="p-3 text-center font-bold text-brand ">Trend</th>
                     <th className="p-3 text-center font-bold text-blue-700 ">Mean Rev.</th>
                     <th className="p-3 text-center font-bold text-amber-700 ">Momentum</th>
                     <th className="p-3 text-center font-bold text-violet-700 ">Arb/MM</th>
@@ -463,9 +463,9 @@ const AlgoTradingLesson3 = () => {
             </div>
 
             {/* Key Takeaways */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
+            <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
               <ul className="space-y-2">
@@ -474,8 +474,8 @@ const AlgoTradingLesson3 = () => {
                   "Trend following has low win rates but large wins; Mean reversion has high win rates but small wins",
                   "Start with one strategy type and master it before combining multiple approaches",
                   "Always account for transaction costs, slippage, and taxes in your strategy testing"].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                    <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                  <li key={i} className="flex items-start gap-3 text-brand ">
+                    <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -510,7 +510,7 @@ const AlgoTradingLesson3 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: System Architecture
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-4')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all bg-brand-fill">
               Next: Backtesting Essentials<FaArrowRight/>
             </button>
           </div>

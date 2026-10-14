@@ -5,14 +5,14 @@ import Footer from '../../../components/Footer';
 
 const DashboardIntro = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen bg-background text-gray-900 dark:text-slate-100 transition-colors duration-200">
       <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
         {/* Hero */}
         <div className="text-center mb-16">
-          <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">Dashboard</span>
-          <h1 className="text-4xl md:text-5xl font-display font-normal mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.015em]">Everything in One Place</h1>
+          <span className="text-sm font-medium text-brand dark:text-brand tracking-wider uppercase">Dashboard</span>
+          <h1 className="text-4xl md:text-5xl font-display font-semibold mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.025em]">Everything in One Place</h1>
           <p className="text-lg text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
             Your personal financial command center. Portfolio, courses, advisors, algorithms — one screen.
           </p>
@@ -27,7 +27,7 @@ const DashboardIntro = () => {
             { label: 'Cost', value: 'Free' },
           ].map((item) => (
             <div key={item.label} className="bg-white dark:bg-slate-900 rounded-xl p-5 text-center border border-gray-100 dark:border-slate-800">
-              <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{item.value}</p>
+              <p className="text-xl font-bold text-brand dark:text-brand">{item.value}</p>
               <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">{item.label}</p>
             </div>
           ))}
@@ -76,7 +76,7 @@ const DashboardIntro = () => {
               'Clean design, no ads, no clutter',
             ].map((b) => (
               <li key={b} className="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300">
-                <span className="text-emerald-500 mt-0.5">✓</span>
+                <span className="text-brand mt-0.5">✓</span>
                 {b}
               </li>
             ))}
@@ -114,10 +114,10 @@ const DashboardIntro = () => {
           <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">See your financial picture</h2>
           <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Create your account and get your personal dashboard instantly.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/dashboard" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-sm transition-colors">
+            <Link to="/dashboard" className="px-8 py-3 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-lg text-sm transition-colors">
               Go to Dashboard
             </Link>
-            <Link to="/signup" className="px-8 py-3 border border-gray-200 dark:border-slate-700 hover:border-emerald-300 text-gray-600 dark:text-slate-200 font-semibold rounded-lg text-sm transition-colors">
+            <Link to="/signup" className="px-8 py-3 border border-gray-200 dark:border-slate-700 hover:border-brand-line text-gray-600 dark:text-slate-200 font-semibold rounded-lg text-sm transition-colors">
               Create Free Account
             </Link>
           </div>

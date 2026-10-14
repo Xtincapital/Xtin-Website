@@ -15,7 +15,7 @@
     
     <!-- Viewport and Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <meta name="theme-color" content="#0A0A0B" />
+    <meta name="theme-color" content="#131417" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -57,8 +57,14 @@
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Site typefaces: Inter (UI and body), Instrument Serif (page titles). -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" />
+    <!-- Site typefaces: Plus Jakarta Sans for all text, Inter Tight for numbers.
+         The Inter Tight request is subset (text=) to digits and number symbols,
+         plus the symbols Jakarta lacks (≈ ≤ ≥ ≠ √ Σ, arrows, ✓, Greek letters
+         and subscripts used in Academy formulas). Google tags it with a
+         matching unicode-range, so the browser takes only those characters
+         from it and everything else from Jakarta. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..800&text=0123456789.%2C%25%2B-%E2%88%92%E2%82%B9%24%E2%82%AC%C2%A3%C2%A5%C3%97%E2%89%88%E2%89%A4%E2%89%A5%E2%86%90%E2%86%91%E2%86%92%E2%86%93%E2%9C%93%CE%93%CE%94%CE%98%CE%9B%CE%9E%CE%A0%CE%A3%CE%A6%CE%A8%CE%A9%CE%B1%CE%B2%CE%B3%CE%B4%CE%B5%CE%B6%CE%B7%CE%B8%CE%BA%CE%BB%CE%BC%CE%BD%CE%BE%CF%80%CF%81%CF%83%CF%84%CF%85%CF%86%CF%87%CF%88%CF%89%C6%92%E2%88%86%E2%88%9A%E2%89%A0%C2%B1%E2%88%91%E2%88%9E%E2%82%80%E2%82%81%E2%82%82%E2%82%83%E2%82%84%E2%82%85%E2%82%86%E2%82%87%E2%82%88%E2%82%89%E2%82%90%E2%82%98%E2%82%9A%E1%B5%A2%E2%81%BF%C2%B2%C2%B3%E2%9C%97%E2%97%8B%E2%97%8F%E2%98%85%E2%99%A1%E2%97%86%E2%9A%A0&display=swap" />
 
     <!-- DNS Prefetch for External Resources -->
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />

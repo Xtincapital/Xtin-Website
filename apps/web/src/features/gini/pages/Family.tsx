@@ -356,12 +356,12 @@ export default function Family() {
                         <div className="flex items-center gap-1.5 flex-wrap">
                           <p className="font-semibold text-foreground text-sm truncate">{member.name}</p>
                           {member.is_earner && (
-                            <Badge variant="secondary" className="text-[10px] text-success">
+                            <Badge variant="secondary" className="text-xs text-brand">
                               Earner
                             </Badge>
                           )}
                           {member.is_dependent && (
-                            <Badge variant="secondary" className="text-[10px]">
+                            <Badge variant="secondary" className="text-xs">
                               Dependent
                             </Badge>
                           )}

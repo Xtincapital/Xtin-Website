@@ -111,7 +111,7 @@ const CHART_COLORS = chartColors.series;
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; title: string; subtitle: string }) {
   return (
     <CardHeader className="flex flex-row items-start gap-3 space-y-0">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent text-brand">
         <Icon className="h-4.5 w-4.5" />
       </span>
       <div>
@@ -436,7 +436,7 @@ export default function FamilyPlanning() {
                                 disabled={finished(stage)}
                                 onChange={(e) => setEduCost(child.id, stage.costKey, e.target.value)}
                               />
-                              {finished(stage) && <p className="text-[11px] text-muted-foreground">Already done</p>}
+                              {finished(stage) && <p className="text-xs text-muted-foreground">Already done</p>}
                             </div>
                           ))}
                         </div>
@@ -656,7 +656,7 @@ export default function FamilyPlanning() {
                 </p>
 
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">Money set aside for these plans</h4>
+                  <h4 className="text-base font-bold text-foreground">Money set aside for these plans</h4>
                   <p className="mb-2 text-xs text-muted-foreground">
                     Saving the amounts above each month at {PLAN_RETURN}% a year. The line drops each time fees, a wedding or another cost is paid out (red dots). Hover or tap any dot for the full detail.
                   </p>
@@ -752,12 +752,12 @@ export default function FamilyPlanning() {
                 </div>
 
                 <div>
-                  <h4 className="mb-2 text-sm font-bold text-foreground">Key milestones</h4>
+                  <h4 className="mb-2 text-base font-bold text-foreground">Key milestones</h4>
                   <div className="space-y-2">
                     {milestones.map((m) => (
                       <div key={`${m.year}-${m.label}`} className="flex items-center justify-between gap-3 rounded-lg border-l-4 border-primary bg-accent/30 p-3">
                         <div>
-                          <span className="text-sm font-bold text-primary">{m.year}</span>
+                          <span className="text-sm font-bold text-brand">{m.year}</span>
                           <p className="text-sm text-foreground">{m.label}</p>
                         </div>
                         <div className="text-sm font-semibold text-foreground">{money(m.amount)}</div>

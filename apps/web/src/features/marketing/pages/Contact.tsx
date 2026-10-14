@@ -13,20 +13,20 @@ function Contact() {
     >
       <LegalSection title="Customer support">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-            <p className="text-sm font-semibold text-green-800 mb-1">Email</p>
+          <div className="bg-brand-soft border border-brand-line rounded-xl p-4">
+            <p className="text-sm font-semibold text-brand mb-1">Email</p>
             <SupportEmailLink />
-            <p className="text-xs text-green-700 mt-2">Response time: {COMPANY.responseTime}</p>
+            <p className="text-xs text-brand mt-2">Response time: {COMPANY.responseTime}</p>
           </div>
-          <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-            <p className="text-sm font-semibold text-green-800 mb-1">Phone</p>
+          <div className="bg-brand-soft border border-brand-line rounded-xl p-4">
+            <p className="text-sm font-semibold text-brand mb-1">Phone</p>
             <SupportPhoneLink />
-            <p className="text-xs text-green-700 mt-2">{COMPANY.supportHours}</p>
+            <p className="text-xs text-brand mt-2">{COMPANY.supportHours}</p>
           </div>
         </div>
         <p className="text-sm">
           For payment or refund issues, include your registered email and the Razorpay payment ID. See our{' '}
-          <Link to="/refund-policy" className="text-green-600 hover:text-green-700 font-medium">Refund &amp; Cancellation Policy</Link>.
+          <Link to="/refund-policy" className="text-brand hover:text-brand font-medium">Refund &amp; Cancellation Policy</Link>.
         </p>
       </LegalSection>
 

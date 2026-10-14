@@ -8,11 +8,11 @@ import Footer from "../../../../components/Footer";
 const WhyRiskySVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Are Derivatives Risky?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Three core reasons derivatives can lead to large losses</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Are Derivatives Risky?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Three core reasons derivatives can lead to large losses</text>
     
     {/* Reason 1: Amplified moves */}
     <g transform="translate(50, 80)">
@@ -22,8 +22,8 @@ const WhyRiskySVG = () => (
       <g transform="translate(15, 45)">
         <rect x="0" y="0" width="160" height="105" fill="white" rx="8"/>
         <text x="80" y="25" textAnchor="middle" fontSize="24">📈📉</text>
-        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#404047">Small price changes in</text>
-        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#404047">the underlying asset can</text>
+        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#373A41">Small price changes in</text>
+        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#373A41">the underlying asset can</text>
         <text x="80" y="76" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">cause BIG changes</text>
         <text x="80" y="89" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">in your position</text>
       </g>
@@ -37,8 +37,8 @@ const WhyRiskySVG = () => (
       <g transform="translate(15, 45)">
         <rect x="0" y="0" width="160" height="105" fill="white" rx="8"/>
         <text x="80" y="25" textAnchor="middle" fontSize="24">⏰💸</text>
-        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#404047">Derivatives have</text>
-        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#404047">expiration dates.</text>
+        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#373A41">Derivatives have</text>
+        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#373A41">expiration dates.</text>
         <text x="80" y="76" textAnchor="middle" fontSize="8" fill="#654B26" fontWeight="500">Time constantly</text>
         <text x="80" y="89" textAnchor="middle" fontSize="8" fill="#654B26" fontWeight="500">erodes value</text>
       </g>
@@ -52,8 +52,8 @@ const WhyRiskySVG = () => (
       <g transform="translate(15, 45)">
         <rect x="0" y="0" width="160" height="105" fill="white" rx="8"/>
         <text x="80" y="25" textAnchor="middle" fontSize="24">⛓️📋</text>
-        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#404047">With futures (and selling</text>
-        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#404047">options), you can be</text>
+        <text x="80" y="50" textAnchor="middle" fontSize="8" fill="#373A41">With futures (and selling</text>
+        <text x="80" y="63" textAnchor="middle" fontSize="8" fill="#373A41">options), you can be</text>
         <text x="80" y="76" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">forced to fulfill the</text>
         <text x="80" y="89" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">contract at a loss</text>
       </g>
@@ -70,32 +70,32 @@ const WhyRiskySVG = () => (
 const LimitedUnlimitedRiskSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Limited Risk vs. Unlimited Risk</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Understanding the spectrum of potential losses</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Limited Risk vs. Unlimited Risk</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Understanding the spectrum of potential losses</text>
     
     {/* Limited Risk - Buying Options */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="210" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">LIMITED RISK</text>
-      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#75757D">Buying options</text>
+      <rect x="0" y="0" width="280" height="210" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">LIMITED RISK</text>
+      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#717680">Buying options</text>
       
       <g transform="translate(20, 55)">
         <rect x="0" y="0" width="240" height="135" fill="white" rx="8"/>
         
         <text x="120" y="25" textAnchor="middle" fontSize="24">🎫</text>
         
-        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#404047">When you BUY an option:</text>
+        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#373A41">When you BUY an option:</text>
         
-        <line x1="20" y1="62" x2="220" y2="62" stroke="#E4E1D9" strokeWidth="1"/>
+        <line x1="20" y1="62" x2="220" y2="62" stroke="#E4E4EA" strokeWidth="1"/>
         
-        <text x="120" y="80" textAnchor="middle" fontSize="8" fill="#0D543C" fontWeight="500">Maximum loss = Premium paid</text>
-        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#404047">You paid $500 for the option?</text>
-        <text x="120" y="108" textAnchor="middle" fontSize="8" fill="#404047">Worst case: you lose $500.</text>
-        <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#75757D">The option expires worthless, but</text>
-        <text x="120" y="135" textAnchor="middle" fontSize="7" fill="#75757D">you can't lose more than you paid.</text>
+        <text x="120" y="80" textAnchor="middle" fontSize="8" fill="#12805A" fontWeight="500">Maximum loss = Premium paid</text>
+        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#373A41">You paid $500 for the option?</text>
+        <text x="120" y="108" textAnchor="middle" fontSize="8" fill="#373A41">Worst case: you lose $500.</text>
+        <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#717680">The option expires worthless, but</text>
+        <text x="120" y="135" textAnchor="middle" fontSize="7" fill="#717680">you can't lose more than you paid.</text>
       </g>
     </g>
     
@@ -103,29 +103,29 @@ const LimitedUnlimitedRiskSVG = () => (
     <g transform="translate(370, 75)">
       <rect x="0" y="0" width="280" height="210" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
       <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">UNLIMITED RISK</text>
-      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#75757D">Futures & Selling options</text>
+      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#717680">Futures & Selling options</text>
       
       <g transform="translate(20, 55)">
         <rect x="0" y="0" width="240" height="135" fill="white" rx="8"/>
         
         <text x="120" y="25" textAnchor="middle" fontSize="24">⚠️</text>
         
-        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#404047">With futures or selling options:</text>
+        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#373A41">With futures or selling options:</text>
         
-        <line x1="20" y1="62" x2="220" y2="62" stroke="#E4E1D9" strokeWidth="1"/>
+        <line x1="20" y1="62" x2="220" y2="62" stroke="#E4E4EA" strokeWidth="1"/>
         
         <text x="120" y="80" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">Losses can exceed your initial amount</text>
-        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#404047">You might deposit $5,000...</text>
-        <text x="120" y="108" textAnchor="middle" fontSize="8" fill="#404047">and lose $15,000 or more.</text>
-        <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#75757D">There's no natural cap on how much</text>
-        <text x="120" y="135" textAnchor="middle" fontSize="7" fill="#75757D">the market can move against you.</text>
+        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#373A41">You might deposit $5,000...</text>
+        <text x="120" y="108" textAnchor="middle" fontSize="8" fill="#373A41">and lose $15,000 or more.</text>
+        <text x="120" y="125" textAnchor="middle" fontSize="7" fill="#717680">There's no natural cap on how much</text>
+        <text x="120" y="135" textAnchor="middle" fontSize="7" fill="#717680">the market can move against you.</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="295" width="500" height="35" fill="#232327" rx="6"/>
+    <rect x="100" y="295" width="500" height="35" fill="#2A2A2C" rx="6"/>
     <text x="350" y="310" textAnchor="middle" fontSize="9" fill="white">"Limited risk" sounds safer — but remember, losing 100% of your premium is still losing everything you put in.</text>
-    <text x="350" y="325" textAnchor="middle" fontSize="8" fill="#A3A1A6">"Unlimited risk" can mean owing MORE money than you started with.</text>
+    <text x="350" y="325" textAnchor="middle" fontSize="8" fill="#A0A3AA">"Unlimited risk" can mean owing MORE money than you started with.</text>
   </svg>
 );
 
@@ -133,33 +133,33 @@ const LimitedUnlimitedRiskSVG = () => (
 const SpeedOfLossesSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Losses Can Happen Faster Than You Expect</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Derivatives move quickly — there's often no time to react</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Losses Can Happen Faster Than You Expect</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Derivatives move quickly — there's often no time to react</text>
     
     {/* Stocks comparison */}
     <g transform="translate(50, 75)">
       <rect x="0" y="0" width="280" height="180" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
       <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#344C72">Stocks</text>
-      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#75757D">Slower, more gradual changes</text>
+      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#717680">Slower, more gradual changes</text>
       
       <g transform="translate(20, 55)">
         <rect x="0" y="0" width="240" height="105" fill="white" rx="8"/>
         
         {/* Gradual decline visual */}
         <g transform="translate(20, 15)">
-          <line x1="0" y1="0" x2="200" y2="0" stroke="#E4E1D9" strokeWidth="1"/>
-          <line x1="0" y1="25" x2="200" y2="25" stroke="#E4E1D9" strokeWidth="1"/>
-          <line x1="0" y1="50" x2="200" y2="50" stroke="#E4E1D9" strokeWidth="1"/>
+          <line x1="0" y1="0" x2="200" y2="0" stroke="#E4E4EA" strokeWidth="1"/>
+          <line x1="0" y1="25" x2="200" y2="25" stroke="#E4E4EA" strokeWidth="1"/>
+          <line x1="0" y1="50" x2="200" y2="50" stroke="#E4E4EA" strokeWidth="1"/>
           
           {/* Gradual line */}
           <polyline points="0,10 50,15 100,20 150,30 200,40" fill="none" stroke="#344C72" strokeWidth="2"/>
-          <text x="100" y="70" textAnchor="middle" fontSize="7" fill="#75757D">Gradual decline over weeks/months</text>
+          <text x="100" y="70" textAnchor="middle" fontSize="7" fill="#717680">Gradual decline over weeks/months</text>
         </g>
         
-        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#404047">Time to think, react, or hold</text>
+        <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#373A41">Time to think, react, or hold</text>
       </g>
     </g>
     
@@ -167,20 +167,20 @@ const SpeedOfLossesSVG = () => (
     <g transform="translate(370, 75)">
       <rect x="0" y="0" width="280" height="180" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
       <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Derivatives</text>
-      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#75757D">Rapid, dramatic changes</text>
+      <text x="140" y="42" textAnchor="middle" fontSize="9" fill="#717680">Rapid, dramatic changes</text>
       
       <g transform="translate(20, 55)">
         <rect x="0" y="0" width="240" height="105" fill="white" rx="8"/>
         
         {/* Sharp decline visual */}
         <g transform="translate(20, 15)">
-          <line x1="0" y1="0" x2="200" y2="0" stroke="#E4E1D9" strokeWidth="1"/>
-          <line x1="0" y1="25" x2="200" y2="25" stroke="#E4E1D9" strokeWidth="1"/>
-          <line x1="0" y1="50" x2="200" y2="50" stroke="#E4E1D9" strokeWidth="1"/>
+          <line x1="0" y1="0" x2="200" y2="0" stroke="#E4E4EA" strokeWidth="1"/>
+          <line x1="0" y1="25" x2="200" y2="25" stroke="#E4E4EA" strokeWidth="1"/>
+          <line x1="0" y1="50" x2="200" y2="50" stroke="#E4E4EA" strokeWidth="1"/>
           
           {/* Sharp drop line */}
           <polyline points="0,5 30,5 35,45 200,50" fill="none" stroke="#C7363B" strokeWidth="2"/>
-          <text x="100" y="70" textAnchor="middle" fontSize="7" fill="#75757D">Sudden drop in hours or minutes</text>
+          <text x="100" y="70" textAnchor="middle" fontSize="7" fill="#717680">Sudden drop in hours or minutes</text>
         </g>
         
         <text x="120" y="95" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">No time to react — damage is done</text>
@@ -197,46 +197,46 @@ const SpeedOfLossesSVG = () => (
 const MarginCallSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Margin Call: When Losses Force Action</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">With futures, you can be forced to add money or have your position closed</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Margin Call: When Losses Force Action</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">With futures, you can be forced to add money or have your position closed</text>
     
     {/* Step 1 */}
     <g transform="translate(50, 75)">
       <rect x="0" y="0" width="140" height="190" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="70" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#344C72">Step 1</text>
-      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#75757D">You deposit margin</text>
+      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#717680">You deposit margin</text>
       
       <g transform="translate(10, 50)">
         <rect x="0" y="0" width="120" height="125" fill="white" rx="6"/>
         <text x="60" y="25" textAnchor="middle" fontSize="20">💰</text>
-        <text x="60" y="50" textAnchor="middle" fontSize="8" fill="#404047">Deposit $5,000</text>
-        <text x="60" y="65" textAnchor="middle" fontSize="8" fill="#404047">as "good faith"</text>
-        <text x="60" y="85" textAnchor="middle" fontSize="7" fill="#75757D">This is your margin</text>
-        <text x="60" y="100" textAnchor="middle" fontSize="7" fill="#75757D">It's not the full</text>
-        <text x="60" y="112" textAnchor="middle" fontSize="7" fill="#75757D">contract value</text>
+        <text x="60" y="50" textAnchor="middle" fontSize="8" fill="#373A41">Deposit $5,000</text>
+        <text x="60" y="65" textAnchor="middle" fontSize="8" fill="#373A41">as "good faith"</text>
+        <text x="60" y="85" textAnchor="middle" fontSize="7" fill="#717680">This is your margin</text>
+        <text x="60" y="100" textAnchor="middle" fontSize="7" fill="#717680">It's not the full</text>
+        <text x="60" y="112" textAnchor="middle" fontSize="7" fill="#717680">contract value</text>
       </g>
     </g>
     
     {/* Arrow */}
     <g transform="translate(195, 160)">
-      <line x1="0" y1="0" x2="25" y2="0" stroke="#75757D" strokeWidth="2"/>
-      <polygon points="25,0 18,-4 18,4" fill="#75757D"/>
+      <line x1="0" y1="0" x2="25" y2="0" stroke="#717680" strokeWidth="2"/>
+      <polygon points="25,0 18,-4 18,4" fill="#717680"/>
     </g>
     
     {/* Step 2 */}
     <g transform="translate(230, 75)">
       <rect x="0" y="0" width="140" height="190" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="1"/>
       <text x="70" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#654B26">Step 2</text>
-      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#75757D">Market moves against you</text>
+      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#717680">Market moves against you</text>
       
       <g transform="translate(10, 50)">
         <rect x="0" y="0" width="120" height="125" fill="white" rx="6"/>
         <text x="60" y="25" textAnchor="middle" fontSize="20">📉</text>
-        <text x="60" y="50" textAnchor="middle" fontSize="8" fill="#404047">Your position loses</text>
-        <text x="60" y="65" textAnchor="middle" fontSize="8" fill="#404047">value rapidly</text>
+        <text x="60" y="50" textAnchor="middle" fontSize="8" fill="#373A41">Your position loses</text>
+        <text x="60" y="65" textAnchor="middle" fontSize="8" fill="#373A41">value rapidly</text>
         <text x="60" y="85" textAnchor="middle" fontSize="7" fill="#654B26">Margin balance</text>
         <text x="60" y="100" textAnchor="middle" fontSize="7" fill="#654B26">drops below</text>
         <text x="60" y="112" textAnchor="middle" fontSize="7" fill="#654B26">required level</text>
@@ -245,31 +245,31 @@ const MarginCallSVG = () => (
     
     {/* Arrow */}
     <g transform="translate(375, 160)">
-      <line x1="0" y1="0" x2="25" y2="0" stroke="#75757D" strokeWidth="2"/>
-      <polygon points="25,0 18,-4 18,4" fill="#75757D"/>
+      <line x1="0" y1="0" x2="25" y2="0" stroke="#717680" strokeWidth="2"/>
+      <polygon points="25,0 18,-4 18,4" fill="#717680"/>
     </g>
     
     {/* Step 3 */}
     <g transform="translate(410, 75)">
       <rect x="0" y="0" width="140" height="190" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="1"/>
       <text x="70" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">Step 3</text>
-      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#75757D">Margin call!</text>
+      <text x="70" y="38" textAnchor="middle" fontSize="7" fill="#717680">Margin call!</text>
       
       <g transform="translate(10, 50)">
         <rect x="0" y="0" width="120" height="125" fill="white" rx="6"/>
         <text x="60" y="25" textAnchor="middle" fontSize="20">📞</text>
         <text x="60" y="50" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">Add more money</text>
         <text x="60" y="65" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">immediately!</text>
-        <text x="60" y="85" textAnchor="middle" fontSize="7" fill="#404047">Or your position</text>
-        <text x="60" y="100" textAnchor="middle" fontSize="7" fill="#404047">will be forcibly</text>
-        <text x="60" y="112" textAnchor="middle" fontSize="7" fill="#404047">closed at a loss</text>
+        <text x="60" y="85" textAnchor="middle" fontSize="7" fill="#373A41">Or your position</text>
+        <text x="60" y="100" textAnchor="middle" fontSize="7" fill="#373A41">will be forcibly</text>
+        <text x="60" y="112" textAnchor="middle" fontSize="7" fill="#373A41">closed at a loss</text>
       </g>
     </g>
     
     {/* Arrow */}
     <g transform="translate(555, 160)">
-      <line x1="0" y1="0" x2="25" y2="0" stroke="#75757D" strokeWidth="2"/>
-      <polygon points="25,0 18,-4 18,4" fill="#75757D"/>
+      <line x1="0" y1="0" x2="25" y2="0" stroke="#717680" strokeWidth="2"/>
+      <polygon points="25,0 18,-4 18,4" fill="#717680"/>
     </g>
     
     {/* Step 4 */}
@@ -282,9 +282,9 @@ const MarginCallSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="280" width="500" height="30" fill="#232327" rx="6"/>
+    <rect x="100" y="280" width="500" height="30" fill="#2A2A2C" rx="6"/>
     <text x="350" y="293" textAnchor="middle" fontSize="9" fill="white">Margin calls don't wait for you to check your phone. They happen automatically.</text>
-    <text x="350" y="306" textAnchor="middle" fontSize="8" fill="#A3A1A6">You can wake up to find your position closed and money gone.</text>
+    <text x="350" y="306" textAnchor="middle" fontSize="8" fill="#A0A3AA">You can wake up to find your position closed and money gone.</text>
   </svg>
 );
 
@@ -292,41 +292,41 @@ const MarginCallSVG = () => (
 const GlobalExampleSVG = () => (
   <svg viewBox="0 0 700 420" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="420" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="420" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Real-World Example: Tom's Oil Futures</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How a "sure thing" became a nightmare</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Real-World Example: Tom's Oil Futures</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">How a "sure thing" became a nightmare</text>
     
     {/* Setup */}
     <g transform="translate(50, 70)">
       <rect x="0" y="0" width="600" height="65" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="300" y="18" textAnchor="middle" fontSize="10" fontWeight="500" fill="#344C72">The Setup</text>
-      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#404047">Tom reads that oil prices will rise due to supply cuts. He's confident.</text>
-      <text x="300" y="50" textAnchor="middle" fontSize="9" fill="#404047">He deposits $10,000 margin to buy oil futures worth $100,000 (10:1 exposure).</text>
+      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#373A41">Tom reads that oil prices will rise due to supply cuts. He's confident.</text>
+      <text x="300" y="50" textAnchor="middle" fontSize="9" fill="#373A41">He deposits $10,000 margin to buy oil futures worth $100,000 (10:1 exposure).</text>
     </g>
     
     {/* His thinking */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="600" height="50" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="300" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">Tom's Thinking</text>
-      <text x="300" y="35" textAnchor="middle" fontSize="8" fill="#404047">"If oil goes up 5%, I make $5,000 on my $10,000 — that's 50% return! Easy money!"</text>
+      <rect x="0" y="0" width="600" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="300" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Tom's Thinking</text>
+      <text x="300" y="35" textAnchor="middle" fontSize="8" fill="#373A41">"If oil goes up 5%, I make $5,000 on my $10,000 — that's 50% return! Easy money!"</text>
     </g>
     
     {/* What happened */}
     <g transform="translate(50, 210)">
       <rect x="0" y="0" width="600" height="65" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="1"/>
       <text x="300" y="18" textAnchor="middle" fontSize="10" fontWeight="500" fill="#C7363B">What Actually Happened</text>
-      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#404047">Unexpected news: A country increased production. Oil dropped 8% overnight.</text>
-      <text x="300" y="50" textAnchor="middle" fontSize="9" fill="#404047">Tom's position lost $8,000 while he was sleeping. He woke up to a margin call.</text>
+      <text x="300" y="35" textAnchor="middle" fontSize="9" fill="#373A41">Unexpected news: A country increased production. Oil dropped 8% overnight.</text>
+      <text x="300" y="50" textAnchor="middle" fontSize="9" fill="#373A41">Tom's position lost $8,000 while he was sleeping. He woke up to a margin call.</text>
     </g>
     
     {/* The math */}
     <g transform="translate(50, 290)">
-      <rect x="0" y="0" width="290" height="85" fill="white" rx="8" stroke="#E4E1D9" strokeWidth="1"/>
-      <text x="145" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#404047">The Math (simplified)</text>
-      <text x="145" y="40" textAnchor="middle" fontSize="8" fill="#75757D">$100,000 exposure × 8% drop = $8,000 loss</text>
-      <text x="145" y="55" textAnchor="middle" fontSize="8" fill="#75757D">Tom's $10,000 margin → $2,000 remaining</text>
+      <rect x="0" y="0" width="290" height="85" fill="white" rx="8" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="145" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#373A41">The Math (simplified)</text>
+      <text x="145" y="40" textAnchor="middle" fontSize="8" fill="#717680">$100,000 exposure × 8% drop = $8,000 loss</text>
+      <text x="145" y="55" textAnchor="middle" fontSize="8" fill="#717680">Tom's $10,000 margin → $2,000 remaining</text>
       <text x="145" y="70" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">80% of his money gone in one night</text>
     </g>
     
@@ -334,13 +334,13 @@ const GlobalExampleSVG = () => (
     <g transform="translate(360, 290)">
       <rect x="0" y="0" width="290" height="85" fill="#FDF1F1" rx="8" stroke="#F09B9B" strokeWidth="1"/>
       <text x="145" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#C7363B">The Outcome</text>
-      <text x="145" y="40" textAnchor="middle" fontSize="8" fill="#404047">Tom had to deposit more money or</text>
-      <text x="145" y="55" textAnchor="middle" fontSize="8" fill="#404047">close his position at a massive loss.</text>
+      <text x="145" y="40" textAnchor="middle" fontSize="8" fill="#373A41">Tom had to deposit more money or</text>
+      <text x="145" y="55" textAnchor="middle" fontSize="8" fill="#373A41">close his position at a massive loss.</text>
       <text x="145" y="70" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="500">His "sure thing" cost him $8,000.</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="50" y="385" width="600" height="25" fill="#232327" rx="6"/>
+    <rect x="50" y="385" width="600" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="402" textAnchor="middle" fontSize="9" fill="white">Tom was RIGHT about the long-term trend. But futures don't care about "long-term" — they punish you NOW.</text>
   </svg>
 );
@@ -349,11 +349,11 @@ const GlobalExampleSVG = () => (
 const CommonLossesSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Common Ways Beginners Lose Money</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Understanding these patterns can help you avoid them</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Common Ways Beginners Lose Money</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Understanding these patterns can help you avoid them</text>
     
     {/* Loss type 1 */}
     <g transform="translate(50, 75)">
@@ -363,12 +363,12 @@ const CommonLossesSVG = () => (
       <g transform="translate(10, 35)">
         <rect x="0" y="0" width="170" height="125" fill="white" rx="6"/>
         <text x="85" y="22" textAnchor="middle" fontSize="18">💸💸💸</text>
-        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#404047">Buying options that</text>
-        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#404047">expire worthless,</text>
-        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#404047">over and over.</text>
+        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#373A41">Buying options that</text>
+        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#373A41">expire worthless,</text>
+        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#373A41">over and over.</text>
         <text x="85" y="90" textAnchor="middle" fontSize="7" fill="#C7363B">"I only lost $200 each time"</text>
         <text x="85" y="103" textAnchor="middle" fontSize="7" fill="#C7363B">× 50 trades = $10,000</text>
-        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#75757D">Small losses compound</text>
+        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#717680">Small losses compound</text>
       </g>
     </g>
     
@@ -380,12 +380,12 @@ const CommonLossesSVG = () => (
       <g transform="translate(10, 35)">
         <rect x="0" y="0" width="170" height="125" fill="white" rx="6"/>
         <text x="85" y="22" textAnchor="middle" fontSize="18">🙈⏰</text>
-        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#404047">Hoping a losing</text>
-        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#404047">position will recover</text>
-        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#404047">while time erodes value.</text>
+        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#373A41">Hoping a losing</text>
+        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#373A41">position will recover</text>
+        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#373A41">while time erodes value.</text>
         <text x="85" y="90" textAnchor="middle" fontSize="7" fill="#C7363B">"It'll come back"</text>
         <text x="85" y="103" textAnchor="middle" fontSize="7" fill="#C7363B">→ It doesn't</text>
-        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#75757D">Time decay is relentless</text>
+        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#717680">Time decay is relentless</text>
       </g>
     </g>
     
@@ -397,19 +397,19 @@ const CommonLossesSVG = () => (
       <g transform="translate(10, 35)">
         <rect x="0" y="0" width="170" height="125" fill="white" rx="6"/>
         <text x="85" y="22" textAnchor="middle" fontSize="18">🎰📈</text>
-        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#404047">Taking positions</text>
-        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#404047">too large for</text>
-        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#404047">your account size.</text>
+        <text x="85" y="45" textAnchor="middle" fontSize="8" fill="#373A41">Taking positions</text>
+        <text x="85" y="58" textAnchor="middle" fontSize="8" fill="#373A41">too large for</text>
+        <text x="85" y="71" textAnchor="middle" fontSize="8" fill="#373A41">your account size.</text>
         <text x="85" y="90" textAnchor="middle" fontSize="7" fill="#C7363B">"Go big or go home"</text>
         <text x="85" y="103" textAnchor="middle" fontSize="7" fill="#C7363B">→ Goes home broke</text>
-        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#75757D">One bad trade = account wipeout</text>
+        <text x="85" y="118" textAnchor="middle" fontSize="6" fill="#717680">One bad trade = account wipeout</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="260" width="500" height="30" fill="#75757D" rx="6"/>
+    <rect x="100" y="260" width="500" height="30" fill="#717680" rx="6"/>
     <text x="350" y="273" textAnchor="middle" fontSize="9" fill="white">None of these require being "wrong" about the market direction.</text>
-    <text x="350" y="286" textAnchor="middle" fontSize="8" fill="#E4E1D9">You can be right about the direction and STILL lose money with derivatives.</text>
+    <text x="350" y="286" textAnchor="middle" fontSize="8" fill="#E4E4EA">You can be right about the direction and STILL lose money with derivatives.</text>
   </svg>
 );
 
@@ -513,7 +513,7 @@ const DerivLesson4 = () => {
                 Lesson 4 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Risk in Futures & Options</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Risk in Futures & Options</h1>
             <p className="text-gray-600 text-lg">
               Understanding why derivatives can lead to large losses.
             </p>
@@ -527,7 +527,7 @@ const DerivLesson4 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Are Derivatives Risky?</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Are Derivatives Risky?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -698,7 +698,7 @@ const DerivLesson4 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -706,11 +706,11 @@ const DerivLesson4 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -721,9 +721,9 @@ const DerivLesson4 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -789,7 +789,7 @@ const DerivLesson4 = () => {
           </Link>
           <Link
             to="/learn/deriv-lesson-5"
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: Why Most Beginners Lose in Derivatives</span>
             <FaArrowRight />

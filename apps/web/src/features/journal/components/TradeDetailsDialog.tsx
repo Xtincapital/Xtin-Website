@@ -24,7 +24,7 @@ function fmtDate(value: string | null | undefined) {
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="space-y-2">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</h3>
+      <h3 className="text-base font-semibold uppercase tracking-wide text-muted-foreground">{title}</h3>
       <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3">{children}</dl>
     </section>
   );
@@ -45,7 +45,7 @@ type Fmt = (v: number | null | undefined) => string | null;
 export function TradeDetailsBody({ trade, money, convertedPnl }: { trade: Trade; money: Fmt; convertedPnl?: string | null }) {
   const pnl = trade.pnl;
   const result = pnl == null ? "Open" : pnl > 0 ? "Win" : pnl < 0 ? "Loss" : "Breakeven";
-  const resultClass = pnl == null ? "text-muted-foreground" : pnl > 0 ? "text-emerald-600 dark:text-emerald-400" : pnl < 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground";
+  const resultClass = pnl == null ? "text-muted-foreground" : pnl > 0 ? "text-brand dark:text-brand" : pnl < 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground";
   const hasOption = !!(trade.contract || trade.strike_price != null || trade.option_type || trade.underlying_price != null || trade.implied_volatility != null || trade.days_to_expiry != null);
 
   return (
@@ -96,7 +96,7 @@ export function TradeDetailsBody({ trade, money, convertedPnl }: { trade: Trade;
 
       {(trade.notes || (trade.tags && trade.tags.length > 0)) && (
         <section className="space-y-2">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Notes</h3>
+          <h3 className="text-base font-semibold uppercase tracking-wide text-muted-foreground">Notes</h3>
           {trade.notes && <p className="whitespace-pre-wrap text-sm">{trade.notes}</p>}
           {trade.tags && trade.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
@@ -130,7 +130,7 @@ function OpenTradeDetails({ trade, onClose, onEdit, onLogAgain }: Props & { trad
   const own = String(trade.currency || "INR").toUpperCase();
   const money: Fmt = (v) => (v == null ? null : formatMoney(v, own));
   const pnl = trade.pnl;
-  const resultClass = pnl == null ? "text-muted-foreground" : pnl > 0 ? "text-emerald-600 dark:text-emerald-400" : pnl < 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground";
+  const resultClass = pnl == null ? "text-muted-foreground" : pnl > 0 ? "text-brand dark:text-brand" : pnl < 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground";
   const converted = own !== displayCurrency && pnl != null ? tradeInCurrency(trade, displayCurrency).pnl : null;
 
   return (

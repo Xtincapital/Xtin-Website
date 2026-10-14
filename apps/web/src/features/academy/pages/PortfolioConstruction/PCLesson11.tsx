@@ -65,8 +65,8 @@ const Icons = {
       <text x="210" y="250" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Time →</text>
       <text x="20" y="130" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 130)">Portfolio Value</text>
       {/* Normal growth path */}
-      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
-      <text x="360" y="75" fill="#1FA978" fontSize="11">Normal</text>
+      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
+      <text x="360" y="75" fill="#12805A" fontSize="11">Normal</text>
       {/* Stress scenario path */}
       <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130" stroke="#E04848" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130 L 350 220 L 50 220 Z" fill="url(#stressGrad)"/>
@@ -172,7 +172,7 @@ const PCLesson11 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-rose-900 to-red-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Portfolio Stress Testing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Stress Testing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn to test your portfolio against extreme scenarios before they happen. Understand scenario analysis, historical stress tests, and Monte Carlo simulation to build resilient portfolios.</p>
           </header>
 
@@ -185,14 +185,14 @@ const PCLesson11 = () => {
                       <Icons.Zap className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Why Stress Test?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Why Stress Test?</h2>
                       <p className="text-sm text-gray-500 ">Prepare for the unexpected</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Stress testing asks "what if?" It subjects your portfolio to hypothetical adverse scenarios to understand how much you might lose in a crisis. This isn't about predicting the future - it's about preparing for it and ensuring you can stay the course when markets get difficult.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">The Value of Stress Testing</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
@@ -252,7 +252,7 @@ const PCLesson11 = () => {
                           <tr key={i} className="border-b border-gray-100">
                             <td className="py-3 px-4 text-gray-700 font-medium">{row.scenario}</td>
                             <td className="py-3 px-4 text-center text-red-600">{row.stocks}</td>
-                            <td className={`py-3 px-4 text-center ${row.bonds.startsWith('+') ? 'text-emerald-600' : 'text-red-600'}`}>{row.bonds}</td>
+                            <td className={`py-3 px-4 text-center ${row.bonds.startsWith('+') ? 'text-brand' : 'text-red-600'}`}>{row.bonds}</td>
                             <td className={`py-3 px-4 text-center font-bold text-${row.color}-600`}>{row.result}</td>
                           </tr>
                         ))}
@@ -287,7 +287,7 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/>
                       </svg>
@@ -319,7 +319,7 @@ const PCLesson11 = () => {
                             <div className="text-xs text-gray-500">S&P 500</div>
                           </div>
                           <div>
-                            <div className={`font-bold ${crisis.agg.startsWith('+') ? 'text-emerald-600' : 'text-red-600'}`}>{crisis.agg}</div>
+                            <div className={`font-bold ${crisis.agg.startsWith('+') ? 'text-brand' : 'text-red-600'}`}>{crisis.agg}</div>
                             <div className="text-xs text-gray-500">US Agg Bond</div>
                           </div>
                           <div>
@@ -347,7 +347,7 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                       <Icons.Activity className="w-6 h-6 text-white"/>
                     </span>
                     <div>
@@ -358,7 +358,7 @@ const PCLesson11 = () => {
 
                   <p className="text-gray-700  leading-relaxed mb-6">Monte Carlo simulation generates thousands of random return scenarios based on statistical characteristics of your portfolio (expected returns, volatilities, correlations). It reveals the range of possible outcomes and their probabilities.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">How Monte Carlo Works</h4>
                     <div className="space-y-3">
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
@@ -414,7 +414,7 @@ const PCLesson11 = () => {
                         <div className="text-xs text-gray-500">Median (50th Percentile)</div>
                       </div>
                       <div className="p-4 bg-white  rounded-lg">
-                        <div className="text-emerald-600  font-bold text-lg">$15M</div>
+                        <div className="text-brand  font-bold text-lg">$15M</div>
                         <div className="text-xs text-gray-500">95th Percentile (Best 5%)</div>
                       </div>
                     </div>
@@ -426,7 +426,7 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
@@ -438,8 +438,8 @@ const PCLesson11 = () => {
                   <p className="text-gray-700  leading-relaxed mb-6">Stress testing is only valuable if you act on the insights. Here's how to use your results to build a more resilient portfolio and financial plan.</p>
 
                   <div className="space-y-4 mb-6">
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-2">1. Assess Your True Risk Tolerance</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">1. Assess Your True Risk Tolerance</h4>
                       <p className="text-sm text-gray-700 ">If stress tests show potential losses that would cause you to panic-sell, your portfolio is too aggressive. Reduce risk now, before the stress occurs. It's easier to stay invested through a 20% decline than a 40% decline.</p>
                     </div>
 
@@ -464,7 +464,7 @@ const PCLesson11 = () => {
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-xl p-6 border-l-4 border-emerald-500">
+                  <div className="rounded-xl p-6 border-l-4 border-brand bg-brand-soft">
                     <h4 className="font-bold text-gray-900  mb-2">The Goal</h4>
                     <p className="text-gray-700  text-sm">A well-stress-tested portfolio isn't one that never loses money - that's impossible. It's one where you understand the potential losses, have accepted them in advance, and have a plan to stay the course. Preparation prevents panic.</p>
                   </div>
@@ -497,7 +497,7 @@ const PCLesson11 = () => {
                             return (
                               <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                                 className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                  ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                   ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                   ${isSelected && !showResults ? 'border-rose-500 bg-rose-50 ' : ''}
                                   ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -506,7 +506,7 @@ const PCLesson11 = () => {
                                   {String.fromCharCode(65 + oIdx)}
                                 </span>
                                 <span className="flex-1 text-gray-700 ">{option}</span>
-                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                                 {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                               </button>
                             );

@@ -160,19 +160,19 @@ function renderCoachText(text: string): ReactNode {
 
     if (numberedHeading) {
       blocks.push(
-        <h4 key={idx} className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-foreground first:mt-0">
-          <span className="text-primary">{numberedHeading[1]}.</span> {numberedHeading[2]}
+        <h4 key={idx} className="mt-3 flex items-center gap-1.5 text-base font-semibold text-foreground first:mt-0">
+          <span className="text-brand">{numberedHeading[1]}.</span> {numberedHeading[2]}
         </h4>,
       );
     } else if (isHashHeading) {
       blocks.push(
-        <h4 key={idx} className="mt-3 text-sm font-semibold text-foreground first:mt-0">
+        <h4 key={idx} className="mt-3 text-base font-semibold text-foreground first:mt-0">
           {line.replace(/^#{1,3}\s+/, "")}
         </h4>,
       );
     } else if (isFullyBold) {
       blocks.push(
-        <h4 key={idx} className="mt-3 text-sm font-semibold text-foreground first:mt-0">
+        <h4 key={idx} className="mt-3 text-base font-semibold text-foreground first:mt-0">
           {line.slice(2, -2)}
         </h4>,
       );
@@ -255,7 +255,7 @@ export default function Coach() {
         >
           <div>
             <h1 className="xt-title mb-2 flex items-center gap-3">
-              <Sparkles className="h-6 w-6 text-primary" />
+              <Sparkles className="h-6 w-6 text-brand" />
               AI Coach
             </h1>
             <p className="text-muted-foreground">Chat, weekly reviews, and pre-trade checks powered by your trade history</p>
@@ -264,9 +264,9 @@ export default function Coach() {
           {/* Wallet balance badge */}
           <Card className="w-full sm:w-auto">
             <CardContent className="flex items-center gap-3 p-3 px-4">
-              <Wallet className="h-4 w-4 text-primary shrink-0" />
+              <Wallet className="h-4 w-4 text-brand shrink-0" />
               <div className="min-w-0">
-                <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">AI Tokens</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">AI Tokens</p>
                 <p className="text-sm font-bold text-foreground">
                   {walletLoading && !wallet ? "Loading..." : wallet ? formatTokens(wallet.token_balance) : "—"}
                 </p>
@@ -816,11 +816,11 @@ function InsightsTab({ trades, tradesLoading, active }: { trades: Trade[]; trade
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
         Rule-based flags from your trade history — for the full strategy and emotion breakdowns, see{" "}
-        <Link to="/journal/analytics" className="text-primary underline underline-offset-2">
+        <Link to="/journal/analytics" className="text-brand underline underline-offset-2">
           Analytics
         </Link>{" "}
         and{" "}
-        <Link to="/journal/psychology" className="text-primary underline underline-offset-2">
+        <Link to="/journal/psychology" className="text-brand underline underline-offset-2">
           Psychology
         </Link>
         .
@@ -834,7 +834,7 @@ function InsightsTab({ trades, tradesLoading, active }: { trades: Trade[]; trade
 
       {issues.length > 0 && (
         <div className="space-y-3">
-          <h3 className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+          <h3 className="flex items-center gap-1.5 text-base font-semibold text-foreground">
             <TrendingDown className="h-4 w-4 text-destructive" /> Needs Attention
           </h3>
           {issues.map((issue) => (
@@ -857,15 +857,15 @@ function InsightsTab({ trades, tradesLoading, active }: { trades: Trade[]; trade
 
       {strengths.length > 0 && (
         <div className="space-y-3">
-          <h3 className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-            <TrendingUp className="h-4 w-4 text-success" /> Working Well
+          <h3 className="flex items-center gap-1.5 text-base font-semibold text-foreground">
+            <TrendingUp className="h-4 w-4 text-brand" /> Working Well
           </h3>
           {strengths.map((s) => (
             <Card key={s.title}>
               <CardContent className="p-4">
                 <div className="mb-1 flex items-center justify-between gap-2">
                   <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-                    <CircleCheck className="h-3.5 w-3.5 text-success shrink-0" />
+                    <CircleCheck className="h-3.5 w-3.5 text-brand shrink-0" />
                     {s.title}
                   </span>
                   <Badge variant="outline">{s.metric}</Badge>

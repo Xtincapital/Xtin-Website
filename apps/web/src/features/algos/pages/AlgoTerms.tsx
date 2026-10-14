@@ -14,7 +14,7 @@ const Section = ({ title, children }) => (
 
 function AlgoTerms() {
   return (
-    <div className="bg-gray-50 text-gray-900 min-h-screen">
+    <div className="bg-background text-gray-900 min-h-screen">
       <SEO
         title="Algorithm Trading Terms & Conditions"
         description="Read Xtin Capital's Algorithm Trading Terms and Conditions. Understand risks, disclaimers, and your responsibilities when using our trading algorithms."
@@ -27,13 +27,13 @@ function AlgoTerms() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <Link to="/algos" className="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium mb-4">
+            <Link to="/algos" className="inline-flex items-center text-brand hover:text-brand text-sm font-medium mb-4">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Algorithms
             </Link>
-            <h1 className="text-3xl md:text-4xl font-display font-normal mb-2 tracking-[-0.015em]">Algorithm Trading Terms & Conditions</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-2 tracking-[-0.025em]">Algorithm Trading Terms & Conditions</h1>
             <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
             <p className="text-gray-600">Last updated: January 13, 2026</p>
           </div>
@@ -214,9 +214,9 @@ function AlgoTerms() {
             </Section>
 
             <Section title="14. Contact Information">
-              <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                <p className="font-semibold text-green-800 mb-3">For questions or concerns:</p>
-                <div className="text-green-700 space-y-2 text-sm">
+              <div className="bg-brand-soft border border-brand-line rounded-xl p-4">
+                <p className="font-semibold text-brand mb-3">For questions or concerns:</p>
+                <div className="text-brand space-y-2 text-sm">
                   <p>
                     <strong>Email:</strong>{' '}
                     <a href={`mailto:${COMPANY.supportEmail}`} className="underline">{COMPANY.supportEmail}</a>
@@ -225,7 +225,7 @@ function AlgoTerms() {
                     <strong>Phone:</strong>{' '}
                     <a href={COMPANY.phoneHref} className="underline">{COMPANY.phone}</a>
                   </p>
-                  <p className="text-xs text-green-600 mt-2">
+                  <p className="text-xs text-brand mt-2">
                     Response time: Within 24-48 business hours
                   </p>
                 </div>
@@ -233,7 +233,7 @@ function AlgoTerms() {
             </Section>
 
             {/* Final Acknowledgment */}
-            <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 mt-8">
+            <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 mt-8 brand-on-dark">
               <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
                 <svg className="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
@@ -253,7 +253,7 @@ function AlgoTerms() {
           <div className="mt-8 text-center">
             <Link 
               to="/algos" 
-              className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl transition-colors"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

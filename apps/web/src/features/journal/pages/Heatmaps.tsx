@@ -250,7 +250,7 @@ const Heatmaps = () => {
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
           <h1 className="xt-title mb-2 flex items-center gap-3">
-            <Flame className="w-6 h-6 text-primary" />
+            <Flame className="w-6 h-6 text-brand" />
             Heatmaps
             <InfoTip title="What is a heatmap?" widthClass="w-80">
               <p>A heatmap colours a grid by how much you made or lost in each box: green is profit, red is loss, and the deeper the colour the bigger the amount.</p>
@@ -415,7 +415,7 @@ const Heatmaps = () => {
                   >
                     <span className="text-xs font-semibold text-muted-foreground">{MONTH_NAMES[idx]}</span>
                     <strong className="text-sm text-foreground">{shortCurrency(stat.pnl)}</strong>
-                    <span className="text-[11px] text-muted-foreground">
+                    <span className="text-xs text-muted-foreground">
                       {stat.trades} trade{stat.trades === 1 ? "" : "s"}
                     </span>
                   </button>
@@ -449,7 +449,7 @@ const Heatmaps = () => {
                   >
                     <div />
                     {sessionLabels.map((s) => (
-                      <div key={s} className="text-[11px] font-semibold text-muted-foreground text-center px-1">
+                      <div key={s} className="text-xs font-semibold text-muted-foreground text-center px-1">
                         {s}
                       </div>
                     ))}
@@ -469,7 +469,7 @@ const Heatmaps = () => {
                               title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
                               <strong className="text-sm text-foreground">{stat.trades}</strong>
-                              <span className="text-[11px] text-muted-foreground">{shortCurrency(stat.pnl)}</span>
+                              <span className="text-xs text-muted-foreground">{shortCurrency(stat.pnl)}</span>
                             </button>
                           );
                         })}
@@ -506,7 +506,7 @@ const Heatmaps = () => {
                   >
                     <div />
                     {hourMarketData.markets.map((m) => (
-                      <div key={m} className="text-[11px] font-semibold text-muted-foreground text-center px-1 truncate">
+                      <div key={m} className="text-xs font-semibold text-muted-foreground text-center px-1 truncate">
                         {marketLabel(m)}
                       </div>
                     ))}
@@ -528,7 +528,7 @@ const Heatmaps = () => {
                               title={`${formatHourDisplay(hour)} • ${market}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
                               <strong className="text-sm text-foreground">{stat.trades}</strong>
-                              <span className="text-[11px] text-muted-foreground">{shortCurrency(stat.pnl)}</span>
+                              <span className="text-xs text-muted-foreground">{shortCurrency(stat.pnl)}</span>
                             </button>
                           );
                         })}
@@ -578,12 +578,12 @@ function MetricCard({
         </div>
         {onClick ? (
           <button type="button" onClick={onClick} className="block w-full text-left cursor-pointer">
-            <p className={`stat-value font-semibold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className={`stat-value font-semibold ${positive ? "text-brand" : "text-destructive"}`}>{value}</p>
             <p className="text-xs text-muted-foreground mt-1">{sub} · view trades</p>
           </button>
         ) : (
           <>
-            <p className={`stat-value font-semibold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className={`stat-value font-semibold ${positive ? "text-brand" : "text-destructive"}`}>{value}</p>
             <p className="text-xs text-muted-foreground mt-1">{sub}</p>
           </>
         )}

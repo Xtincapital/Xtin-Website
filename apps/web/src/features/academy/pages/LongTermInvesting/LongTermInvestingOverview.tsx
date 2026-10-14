@@ -9,10 +9,10 @@ import ModuleBadge from "../../components/ModuleBadge";
 const TimeWealthHeroSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Power of Time in Building Wealth</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Power of Time in Building Wealth</text>
     
     {/* Central growing tree visualization */}
     <g transform="translate(280, 70)">
@@ -23,10 +23,10 @@ const TimeWealthHeroSVG = () => (
       <rect x="55" y="130" width="30" height="70" fill="#654B26" rx="4"/>
       
       {/* Tree crown - representing growth */}
-      <ellipse cx="70" cy="100" rx="60" ry="50" fill="#1FA978"/>
+      <ellipse cx="70" cy="100" rx="60" ry="50" fill="#12805A"/>
       <ellipse cx="45" cy="110" rx="35" ry="30" fill="#12805A"/>
       <ellipse cx="95" cy="110" rx="35" ry="30" fill="#12805A"/>
-      <ellipse cx="70" cy="70" rx="40" ry="35" fill="#0E6A4A"/>
+      <ellipse cx="70" cy="70" rx="40" ry="35" fill="#12805A"/>
       
       {/* Money symbols in tree */}
       <text x="50" y="90" fontSize="14" fill="white" fontWeight="600">$</text>
@@ -49,18 +49,18 @@ const TimeWealthHeroSVG = () => (
     
     {/* Right: Patience ingredient */}
     <g transform="translate(480, 90)">
-      <rect x="0" y="0" width="180" height="130" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">🧘 Patience</text>
+      <rect x="0" y="0" width="180" height="130" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">🧘 Patience</text>
       
-      <text x="90" y="55" textAnchor="middle" fontSize="9" fill="#0B4532">The hardest skill</text>
-      <text x="90" y="75" textAnchor="middle" fontSize="9" fill="#0B4532">Waiting is active, not passive</text>
-      <text x="90" y="95" textAnchor="middle" fontSize="9" fill="#0B4532">Discipline through volatility</text>
-      <text x="90" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Rewards the steady</text>
+      <text x="90" y="55" textAnchor="middle" fontSize="9" fill="#12805A">The hardest skill</text>
+      <text x="90" y="75" textAnchor="middle" fontSize="9" fill="#12805A">Waiting is active, not passive</text>
+      <text x="90" y="95" textAnchor="middle" fontSize="9" fill="#12805A">Discipline through volatility</text>
+      <text x="90" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Rewards the steady</text>
     </g>
     
     {/* Arrow pointing to result */}
-    <line x1="220" y1="180" x2="260" y2="180" stroke="#75757D" strokeWidth="2"/>
-    <line x1="440" y1="180" x2="480" y2="180" stroke="#75757D" strokeWidth="2"/>
+    <line x1="220" y1="180" x2="260" y2="180" stroke="#717680" strokeWidth="2"/>
+    <line x1="440" y1="180" x2="480" y2="180" stroke="#717680" strokeWidth="2"/>
     
     {/* Bottom message */}
     <rect x="150" y="280" width="400" height="30" fill="#12805A" rx="8"/>
@@ -72,38 +72,38 @@ const TimeWealthHeroSVG = () => (
 const CompoundingMagicSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Magic of Compounding: Growth on Growth</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same effort, dramatically different results over time</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Magic of Compounding: Growth on Growth</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same effort, dramatically different results over time</text>
     
     {/* Chart area */}
     <g transform="translate(80, 80)">
       {/* Grid lines */}
-      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
-      <line x1="0" y1="135" x2="540" y2="135" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="90" x2="540" y2="90" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="45" x2="540" y2="45" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
+      <line x1="0" y1="135" x2="540" y2="135" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="90" x2="540" y2="90" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="45" x2="540" y2="45" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
       
       {/* Linear growth (simple interest concept) */}
       <path d="M0 160 L135 140 L270 120 L405 100 L540 80" 
-            fill="none" stroke="#A3A1A6" strokeWidth="2" strokeDasharray="5"/>
-      <text x="545" y="85" fontSize="8" fill="#75757D">Linear</text>
+            fill="none" stroke="#A0A3AA" strokeWidth="2" strokeDasharray="5"/>
+      <text x="545" y="85" fontSize="8" fill="#717680">Linear</text>
       
       {/* Compound growth curve */}
       <path d="M0 160 Q135 155 270 130 Q400 80 480 30 L540 10" 
-            fill="none" stroke="#1FA978" strokeWidth="3"/>
-      <circle cx="540" cy="10" r="5" fill="#1FA978"/>
-      <text x="545" y="15" fontSize="8" fill="#0D543C" fontWeight="600">Compound</text>
+            fill="none" stroke="#12805A" strokeWidth="3"/>
+      <circle cx="540" cy="10" r="5" fill="#12805A"/>
+      <text x="545" y="15" fontSize="8" fill="#12805A" fontWeight="600">Compound</text>
       
       {/* Time labels */}
-      <text x="0" y="198" textAnchor="middle" fontSize="8" fill="#75757D">Start</text>
-      <text x="135" y="198" textAnchor="middle" fontSize="8" fill="#75757D">Year 10</text>
-      <text x="270" y="198" textAnchor="middle" fontSize="8" fill="#75757D">Year 20</text>
-      <text x="405" y="198" textAnchor="middle" fontSize="8" fill="#75757D">Year 30</text>
-      <text x="540" y="198" textAnchor="middle" fontSize="8" fill="#75757D">Year 40</text>
+      <text x="0" y="198" textAnchor="middle" fontSize="8" fill="#717680">Start</text>
+      <text x="135" y="198" textAnchor="middle" fontSize="8" fill="#717680">Year 10</text>
+      <text x="270" y="198" textAnchor="middle" fontSize="8" fill="#717680">Year 20</text>
+      <text x="405" y="198" textAnchor="middle" fontSize="8" fill="#717680">Year 30</text>
+      <text x="540" y="198" textAnchor="middle" fontSize="8" fill="#717680">Year 40</text>
       
       {/* Annotation: The hockey stick moment */}
       <g transform="translate(350, 50)">
@@ -115,7 +115,7 @@ const CompoundingMagicSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="270" width="500" height="22" fill="#232327" rx="4"/>
+    <rect x="100" y="270" width="500" height="22" fill="#2A2A2C" rx="4"/>
     <text x="350" y="285" textAnchor="middle" fontSize="9" fill="white">Compounding is slow then sudden. The last decade often creates more wealth than the first three combined.</text>
   </svg>
 );
@@ -124,10 +124,10 @@ const CompoundingMagicSVG = () => (
 const SlowWealthSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Most Wealth Is Built Slowly, Not Quickly</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Most Wealth Is Built Slowly, Not Quickly</text>
     
     {/* Left: Get Rich Quick approach */}
     <g transform="translate(50, 60)">
@@ -154,25 +154,25 @@ const SlowWealthSVG = () => (
     
     {/* Right: Slow & Steady approach */}
     <g transform="translate(380, 60)">
-      <rect x="0" y="0" width="270" height="210" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ Slow & Steady Approach</text>
+      <rect x="0" y="0" width="270" height="210" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Slow & Steady Approach</text>
       
       {/* Steady upward chart */}
       <g transform="translate(30, 50)">
         <path d="M0 100 Q45 95 90 85 Q135 70 180 45" 
-              fill="none" stroke="#1FA978" strokeWidth="2"/>
-        <circle cx="180" cy="45" r="4" fill="#1FA978"/>
+              fill="none" stroke="#12805A" strokeWidth="2"/>
+        <circle cx="180" cy="45" r="4" fill="#12805A"/>
       </g>
       
       <g transform="translate(20, 140)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">• Consistent, boring contributions</text>
-        <text x="0" y="18" fontSize="9" fill="#0B4532">• Ignore short-term noise</text>
-        <text x="0" y="36" fontSize="9" fill="#0B4532">• Low activity, low fees</text>
-        <text x="0" y="54" fontSize="9" fill="#0B4532">• Peace of mind</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">• Consistent, boring contributions</text>
+        <text x="0" y="18" fontSize="9" fill="#12805A">• Ignore short-term noise</text>
+        <text x="0" y="36" fontSize="9" fill="#12805A">• Low activity, low fees</text>
+        <text x="0" y="54" fontSize="9" fill="#12805A">• Peace of mind</text>
       </g>
       
       <rect x="20" y="190" width="230" height="15" fill="#ABE5CC" rx="4"/>
-      <text x="135" y="201" textAnchor="middle" fontSize="8" fill="#0D543C">Historically proven to work</text>
+      <text x="135" y="201" textAnchor="middle" fontSize="8" fill="#12805A">Historically proven to work</text>
     </g>
   </svg>
 );
@@ -181,11 +181,11 @@ const SlowWealthSVG = () => (
 const TimeVsTimingSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Time IN the Market vs Timing the Market</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">One of the most important distinctions in investing</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Time IN the Market vs Timing the Market</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">One of the most important distinctions in investing</text>
     
     {/* Left: Market Timer */}
     <g transform="translate(50, 70)">
@@ -207,20 +207,20 @@ const TimeVsTimingSVG = () => (
     
     {/* Right: Time in Market */}
     <g transform="translate(380, 70)">
-      <rect x="0" y="0" width="270" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">📅 Time in Market</text>
+      <rect x="0" y="0" width="270" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">📅 Time in Market</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">Simply stays invested:</text>
-        <text x="0" y="18" fontSize="9" fill="#0B4532">• Through market ups</text>
-        <text x="0" y="36" fontSize="9" fill="#0B4532">• Through market downs</text>
-        <text x="0" y="54" fontSize="9" fill="#0B4532">• Consistently, year after year</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">Simply stays invested:</text>
+        <text x="0" y="18" fontSize="9" fill="#12805A">• Through market ups</text>
+        <text x="0" y="36" fontSize="9" fill="#12805A">• Through market downs</text>
+        <text x="0" y="54" fontSize="9" fill="#12805A">• Consistently, year after year</text>
       </g>
       
       <rect x="20" y="115" width="230" height="50" fill="#EEF9F4" rx="6"/>
-      <text x="135" y="133" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">The Advantage:</text>
-      <text x="135" y="148" textAnchor="middle" fontSize="8" fill="#0B4532">No prediction required.</text>
-      <text x="135" y="160" textAnchor="middle" fontSize="8" fill="#0B4532">Captures long-term market growth.</text>
+      <text x="135" y="133" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">The Advantage:</text>
+      <text x="135" y="148" textAnchor="middle" fontSize="8" fill="#12805A">No prediction required.</text>
+      <text x="135" y="160" textAnchor="middle" fontSize="8" fill="#12805A">Captures long-term market growth.</text>
     </g>
   </svg>
 );
@@ -229,40 +229,40 @@ const TimeVsTimingSVG = () => (
 const WhoIsThisForSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Who This Module Is For</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Who This Module Is For</text>
     
     {/* This IS for you */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="280" height="240" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ This Module IS For You If...</text>
+      <rect x="0" y="0" width="280" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ This Module IS For You If...</text>
       
       <g transform="translate(20, 50)">
-        <circle cx="8" cy="8" r="4" fill="#1FA978"/>
-        <text x="20" y="12" fontSize="9" fill="#0B4532">You want to build wealth over years/decades</text>
+        <circle cx="8" cy="8" r="4" fill="#12805A"/>
+        <text x="20" y="12" fontSize="9" fill="#12805A">You want to build wealth over years/decades</text>
         
-        <circle cx="8" cy="32" r="4" fill="#1FA978"/>
-        <text x="20" y="36" fontSize="9" fill="#0B4532">You're tired of short-term market noise</text>
+        <circle cx="8" cy="32" r="4" fill="#12805A"/>
+        <text x="20" y="36" fontSize="9" fill="#12805A">You're tired of short-term market noise</text>
         
-        <circle cx="8" cy="56" r="4" fill="#1FA978"/>
-        <text x="20" y="60" fontSize="9" fill="#0B4532">You value peace of mind over excitement</text>
+        <circle cx="8" cy="56" r="4" fill="#12805A"/>
+        <text x="20" y="60" fontSize="9" fill="#12805A">You value peace of mind over excitement</text>
         
-        <circle cx="8" cy="80" r="4" fill="#1FA978"/>
-        <text x="20" y="84" fontSize="9" fill="#0B4532">You understand that slow is sustainable</text>
+        <circle cx="8" cy="80" r="4" fill="#12805A"/>
+        <text x="20" y="84" fontSize="9" fill="#12805A">You understand that slow is sustainable</text>
         
-        <circle cx="8" cy="104" r="4" fill="#1FA978"/>
-        <text x="20" y="108" fontSize="9" fill="#0B4532">You want a proven, simple approach</text>
+        <circle cx="8" cy="104" r="4" fill="#12805A"/>
+        <text x="20" y="108" fontSize="9" fill="#12805A">You want a proven, simple approach</text>
         
-        <circle cx="8" cy="128" r="4" fill="#1FA978"/>
-        <text x="20" y="132" fontSize="9" fill="#0B4532">You're willing to be patient</text>
+        <circle cx="8" cy="128" r="4" fill="#12805A"/>
+        <text x="20" y="132" fontSize="9" fill="#12805A">You're willing to be patient</text>
         
-        <circle cx="8" cy="152" r="4" fill="#1FA978"/>
-        <text x="20" y="156" fontSize="9" fill="#0B4532">You completed Risk Management module</text>
+        <circle cx="8" cy="152" r="4" fill="#12805A"/>
+        <text x="20" y="156" fontSize="9" fill="#12805A">You completed Risk Management module</text>
         
-        <circle cx="8" cy="176" r="4" fill="#1FA978"/>
-        <text x="20" y="180" fontSize="9" fill="#0B4532">You want process over prediction</text>
+        <circle cx="8" cy="176" r="4" fill="#12805A"/>
+        <text x="20" y="180" fontSize="9" fill="#12805A">You want process over prediction</text>
       </g>
     </g>
     
@@ -304,10 +304,10 @@ const WhoIsThisForSVG = () => (
 const WhatYoullLearnSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What You'll Clearly Understand After This Module</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What You'll Clearly Understand After This Module</text>
     
     {/* Learning outcomes in a flow */}
     <g transform="translate(50, 60)">
@@ -320,10 +320,10 @@ const WhatYoullLearnSVG = () => (
       </g>
       
       <g transform="translate(210, 0)">
-        <rect x="0" y="0" width="180" height="70" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
-        <text x="90" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">⏰ Know Why</text>
-        <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#0B4532">Time in market beats</text>
-        <text x="90" y="58" textAnchor="middle" fontSize="8" fill="#0B4532">timing the market</text>
+        <rect x="0" y="0" width="180" height="70" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
+        <text x="90" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">⏰ Know Why</text>
+        <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#12805A">Time in market beats</text>
+        <text x="90" y="58" textAnchor="middle" fontSize="8" fill="#12805A">timing the market</text>
       </g>
       
       <g transform="translate(420, 0)">
@@ -366,7 +366,7 @@ const WhatYoullLearnSVG = () => (
 const ModulePhilosophySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central philosophy */}
     <rect x="50" y="25" width="600" height="150" fill="url(#philosophyGrad)" rx="16"/>
@@ -410,7 +410,7 @@ const LongTermInvestingOverview = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -431,7 +431,7 @@ const LongTermInvestingOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="long-term-investing" /></div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Long-Term Investing</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Long-Term Investing</h1>
             <p className="text-xl text-teal-600 font-medium mb-4">Wealth Building Fundamentals</p>
             <p className="text-gray-600 text-lg">
               Learn the timeless principles of building wealth through patient, disciplined, 
@@ -448,7 +448,7 @@ const LongTermInvestingOverview = () => {
 
         {/* What Long-Term Investing Really Means */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Long-Term Investing Really Means</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Long-Term Investing Really Means</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -628,7 +628,7 @@ const LongTermInvestingOverview = () => {
 
           <WhatYoullLearnSVG />
           
-          <div className="mt-6 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl p-6 border border-teal-200">
+          <div className="mt-6 rounded-xl p-6 border border-teal-200 bg-brand-soft">
             <h4 className="font-semibold text-teal-800 mb-3">🎯 The Ultimate Goal</h4>
             <p className="text-teal-700">
               After completing this module, you should feel calm confidence in your approach 
@@ -650,7 +650,7 @@ const LongTermInvestingOverview = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Module Philosophy</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {modulePhilosophy.map((item, index) => (
-              <div key={index} className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-5 border border-teal-200">
+              <div key={index} className="rounded-xl p-5 border border-teal-200 bg-brand-soft">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl">{item.icon}</span>
                   <h4 className="font-semibold text-teal-800">{item.title}</h4>
@@ -716,7 +716,7 @@ const LongTermInvestingOverview = () => {
         </div>
 
         {/* Prerequisites */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">📋 Recommended Prerequisites</h3>
           <p className="text-teal-100 mb-4">
             While this module is designed to be accessible to beginners, you'll get more 
@@ -751,7 +751,7 @@ const LongTermInvestingOverview = () => {
           </p>
           <button
             onClick={() => navigate('/learn')}
-            className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors"
+            className="bg-brand-fill hover:bg-brand-hover text-white px-8 py-3 rounded-xl font-semibold transition-colors"
           >
             Back to Learning Center
           </button>

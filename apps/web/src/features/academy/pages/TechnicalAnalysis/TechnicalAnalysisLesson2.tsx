@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,19 +61,19 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const LineVsCandlestickSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Line Chart vs Candlestick Chart</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Line Chart vs Candlestick Chart</text>
     
     {/* Left Panel - Line Chart */}
-    <rect x="20" y="50" width="270" height="230" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
-    <text x="155" y="75" textAnchor="middle" fontSize="13" fontWeight="600" fill="#75757D">Line Chart</text>
-    <text x="155" y="92" textAnchor="middle" fontSize="10" fill="#A3A1A6">Shows only closing prices</text>
+    <rect x="20" y="50" width="270" height="230" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
+    <text x="155" y="75" textAnchor="middle" fontSize="13" fontWeight="600" fill="#717680">Line Chart</text>
+    <text x="155" y="92" textAnchor="middle" fontSize="10" fill="#A0A3AA">Shows only closing prices</text>
     
     {/* Line chart axes */}
-    <line x1="50" y1="110" x2="50" y2="240" stroke="#CFCBC1" strokeWidth="1.5"/>
-    <line x1="50" y1="240" x2="260" y2="240" stroke="#CFCBC1" strokeWidth="1.5"/>
+    <line x1="50" y1="110" x2="50" y2="240" stroke="#CFD0D3" strokeWidth="1.5"/>
+    <line x1="50" y1="240" x2="260" y2="240" stroke="#CFD0D3" strokeWidth="1.5"/>
     
     {/* Simple line */}
     <path 
@@ -96,13 +96,13 @@ const LineVsCandlestickSVG = () => (
     <text x="150" y="267" textAnchor="middle" fontSize="9" fill="#654B26">⚠️ Missing: Open, High, Low data</text>
     
     {/* Right Panel - Candlestick Chart */}
-    <rect x="310" y="50" width="270" height="230" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="310" y="50" width="270" height="230" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     <text x="445" y="75" textAnchor="middle" fontSize="13" fontWeight="600" fill="#2C3F5E">Candlestick Chart</text>
     <text x="445" y="92" textAnchor="middle" fontSize="10" fill="#5A77AA">Shows Open, High, Low, Close</text>
     
     {/* Candlestick axes */}
-    <line x1="340" y1="110" x2="340" y2="240" stroke="#CFCBC1" strokeWidth="1.5"/>
-    <line x1="340" y1="240" x2="550" y2="240" stroke="#CFCBC1" strokeWidth="1.5"/>
+    <line x1="340" y1="110" x2="340" y2="240" stroke="#CFD0D3" strokeWidth="1.5"/>
+    <line x1="340" y1="240" x2="550" y2="240" stroke="#CFD0D3" strokeWidth="1.5"/>
     
     {/* Candlesticks */}
     {/* Bearish candle 1 */}
@@ -110,24 +110,24 @@ const LineVsCandlestickSVG = () => (
     <rect x="357" y="155" width="16" height="40" fill="#E04848" rx="2"/>
     
     {/* Bullish candle 2 */}
-    <line x1="400" y1="135" x2="400" y2="200" stroke="#1FA978" strokeWidth="1.5"/>
-    <rect x="392" y="150" width="16" height="35" fill="#1FA978" rx="2"/>
+    <line x1="400" y1="135" x2="400" y2="200" stroke="#12805A" strokeWidth="1.5"/>
+    <rect x="392" y="150" width="16" height="35" fill="#12805A" rx="2"/>
     
     {/* Bearish candle 3 */}
     <line x1="435" y1="130" x2="435" y2="195" stroke="#E04848" strokeWidth="1.5"/>
     <rect x="427" y="145" width="16" height="30" fill="#E04848" rx="2"/>
     
     {/* Bullish candle 4 */}
-    <line x1="470" y1="115" x2="470" y2="175" stroke="#1FA978" strokeWidth="1.5"/>
-    <rect x="462" y="130" width="16" height="30" fill="#1FA978" rx="2"/>
+    <line x1="470" y1="115" x2="470" y2="175" stroke="#12805A" strokeWidth="1.5"/>
+    <rect x="462" y="130" width="16" height="30" fill="#12805A" rx="2"/>
     
     {/* Bullish candle 5 */}
-    <line x1="505" y1="105" x2="505" y2="160" stroke="#1FA978" strokeWidth="1.5"/>
-    <rect x="497" y="115" width="16" height="35" fill="#1FA978" rx="2"/>
+    <line x1="505" y1="105" x2="505" y2="160" stroke="#12805A" strokeWidth="1.5"/>
+    <rect x="497" y="115" width="16" height="35" fill="#12805A" rx="2"/>
     
     {/* Complete info indicator */}
-    <rect x="335" y="252" width="210" height="22" fill="#D5F2E5" rx="6"/>
-    <text x="440" y="267" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Complete price behavior visible</text>
+    <rect x="335" y="252" width="210" height="22" fill="#EEF9F4" rx="6"/>
+    <text x="440" y="267" textAnchor="middle" fontSize="9" fill="#12805A">✓ Complete price behavior visible</text>
   </svg>
 );
 
@@ -135,22 +135,22 @@ const LineVsCandlestickSVG = () => (
 const CandlestickAnatomySVG = () => (
   <svg viewBox="0 0 600 380" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="380" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="380" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Anatomy of a Candlestick</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Every candle tells a story about price activity</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Anatomy of a Candlestick</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Every candle tells a story about price activity</text>
     
     {/* Center large candlestick */}
     <g transform="translate(300, 210)">
       {/* Upper wick */}
-      <line x1="0" y1="-130" x2="0" y2="-70" stroke="#404047" strokeWidth="3"/>
+      <line x1="0" y1="-130" x2="0" y2="-70" stroke="#373A41" strokeWidth="3"/>
       
       {/* Body */}
       <rect x="-35" y="-70" width="70" height="100" fill="#E0E7F1" stroke="#5A77AA" strokeWidth="3" rx="4"/>
       
       {/* Lower wick */}
-      <line x1="0" y1="30" x2="0" y2="100" stroke="#404047" strokeWidth="3"/>
+      <line x1="0" y1="30" x2="0" y2="100" stroke="#373A41" strokeWidth="3"/>
       
       {/* Center pattern */}
       <line x1="-20" y1="-20" x2="20" y2="-20" stroke="#5A77AA" strokeWidth="1" strokeDasharray="4 2"/>
@@ -159,47 +159,47 @@ const CandlestickAnatomySVG = () => (
     
     {/* Labels with lines */}
     {/* High label */}
-    <line x1="300" y1="80" x2="180" y2="60" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <line x1="300" y1="80" x2="180" y2="60" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
     <rect x="80" y="45" width="100" height="32" fill="#F6ECCE" rx="8" stroke="#B8923F" strokeWidth="1.5"/>
     <text x="130" y="63" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">HIGH</text>
     <text x="130" y="73" textAnchor="middle" fontSize="8" fill="#7C5D2B">Highest price</text>
     
     {/* Open label */}
-    <line x1="265" y1="140" x2="160" y2="120" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <line x1="265" y1="140" x2="160" y2="120" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
     <rect x="60" y="105" width="100" height="32" fill="#E0E7F1" rx="8" stroke="#5A77AA" strokeWidth="1.5"/>
     <text x="110" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">OPEN</text>
     <text x="110" y="133" textAnchor="middle" fontSize="8" fill="#3E5C8A">Starting price</text>
     
     {/* Close label */}
-    <line x1="265" y1="240" x2="160" y2="260" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <line x1="265" y1="240" x2="160" y2="260" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
     <rect x="60" y="245" width="100" height="32" fill="#E0E7F1" rx="8" stroke="#5A77AA" strokeWidth="1.5"/>
     <text x="110" y="263" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">CLOSE</text>
     <text x="110" y="273" textAnchor="middle" fontSize="8" fill="#3E5C8A">Ending price</text>
     
     {/* Low label */}
-    <line x1="300" y1="310" x2="180" y2="330" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <line x1="300" y1="310" x2="180" y2="330" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
     <rect x="80" y="315" width="100" height="32" fill="#F6ECCE" rx="8" stroke="#B8923F" strokeWidth="1.5"/>
     <text x="130" y="333" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">LOW</text>
     <text x="130" y="343" textAnchor="middle" fontSize="8" fill="#7C5D2B">Lowest price</text>
     
     {/* Right side labels */}
     {/* Upper wick label */}
-    <line x1="300" y1="95" x2="420" y2="75" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
-    <rect x="420" y="55" width="140" height="40" fill="#EFEDE7" rx="8" stroke="#A3A1A6" strokeWidth="1.5"/>
-    <text x="490" y="73" textAnchor="middle" fontSize="10" fontWeight="600" fill="#5A5A62">Upper Wick</text>
-    <text x="490" y="88" textAnchor="middle" fontSize="8" fill="#75757D">Price reached but retreated</text>
+    <line x1="300" y1="95" x2="420" y2="75" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <rect x="420" y="55" width="140" height="40" fill="#EEEEF1" rx="8" stroke="#A0A3AA" strokeWidth="1.5"/>
+    <text x="490" y="73" textAnchor="middle" fontSize="10" fontWeight="600" fill="#555A63">Upper Wick</text>
+    <text x="490" y="88" textAnchor="middle" fontSize="8" fill="#717680">Price reached but retreated</text>
     
     {/* Body label */}
-    <line x1="335" y1="190" x2="420" y2="170" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <line x1="335" y1="190" x2="420" y2="170" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
     <rect x="420" y="150" width="140" height="40" fill="#E0E7F1" rx="8" stroke="#5A77AA" strokeWidth="1.5"/>
     <text x="490" y="168" textAnchor="middle" fontSize="10" fontWeight="600" fill="#344C72">Body</text>
     <text x="490" y="183" textAnchor="middle" fontSize="8" fill="#3E5C8A">Range: Open to Close</text>
     
     {/* Lower wick label */}
-    <line x1="300" y1="290" x2="420" y2="280" stroke="#75757D" strokeWidth="1.5" strokeDasharray="4 2"/>
-    <rect x="420" y="260" width="140" height="40" fill="#EFEDE7" rx="8" stroke="#A3A1A6" strokeWidth="1.5"/>
-    <text x="490" y="278" textAnchor="middle" fontSize="10" fontWeight="600" fill="#5A5A62">Lower Wick</text>
-    <text x="490" y="293" textAnchor="middle" fontSize="8" fill="#75757D">Price dropped but recovered</text>
+    <line x1="300" y1="290" x2="420" y2="280" stroke="#717680" strokeWidth="1.5" strokeDasharray="4 2"/>
+    <rect x="420" y="260" width="140" height="40" fill="#EEEEF1" rx="8" stroke="#A0A3AA" strokeWidth="1.5"/>
+    <text x="490" y="278" textAnchor="middle" fontSize="10" fontWeight="600" fill="#555A63">Lower Wick</text>
+    <text x="490" y="293" textAnchor="middle" fontSize="8" fill="#717680">Price dropped but recovered</text>
   </svg>
 );
 
@@ -207,34 +207,34 @@ const CandlestickAnatomySVG = () => (
 const BullishVsBearishSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Bullish vs Bearish Candles</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">The color tells you if buyers or sellers won the period</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Bullish vs Bearish Candles</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">The color tells you if buyers or sellers won the period</text>
     
     {/* Left Panel - Bullish */}
-    <rect x="30" y="70" width="250" height="250" fill="#EEF9F4" rx="12" stroke="#1FA978" strokeWidth="2"/>
+    <rect x="30" y="70" width="250" height="250" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
     <text x="155" y="98" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">Bullish Candle</text>
-    <text x="155" y="115" textAnchor="middle" fontSize="10" fill="#0E6A4A">(Green / White)</text>
+    <text x="155" y="115" textAnchor="middle" fontSize="10" fill="#12805A">(Green / White)</text>
     
     {/* Bullish candle */}
     <g transform="translate(155, 195)">
-      <line x1="0" y1="-55" x2="0" y2="-30" stroke="#1FA978" strokeWidth="2.5"/>
-      <rect x="-25" y="-30" width="50" height="60" fill="#1FA978" rx="3"/>
-      <line x1="0" y1="30" x2="0" y2="55" stroke="#1FA978" strokeWidth="2.5"/>
+      <line x1="0" y1="-55" x2="0" y2="-30" stroke="#12805A" strokeWidth="2.5"/>
+      <rect x="-25" y="-30" width="50" height="60" fill="#12805A" rx="3"/>
+      <line x1="0" y1="30" x2="0" y2="55" stroke="#12805A" strokeWidth="2.5"/>
       
       {/* Price labels */}
-      <text x="35" y="-25" fontSize="9" fill="#0D543C">Close (Higher)</text>
-      <text x="35" y="25" fontSize="9" fill="#0D543C">Open (Lower)</text>
+      <text x="35" y="-25" fontSize="9" fill="#12805A">Close (Higher)</text>
+      <text x="35" y="25" fontSize="9" fill="#12805A">Open (Lower)</text>
     </g>
     
     {/* Arrow showing direction */}
     <g transform="translate(155, 280)">
       <path d="M-20 15 L0 -5 L20 15" stroke="#12805A" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
-    <text x="155" y="308" textAnchor="middle" fontSize="11" fontWeight="500" fill="#0D543C">Price moved UP</text>
-    <text x="155" y="322" textAnchor="middle" fontSize="9" fill="#0E6A4A">Close &gt; Open</text>
+    <text x="155" y="308" textAnchor="middle" fontSize="11" fontWeight="500" fill="#12805A">Price moved UP</text>
+    <text x="155" y="322" textAnchor="middle" fontSize="9" fill="#12805A">Close &gt; Open</text>
     
     {/* Right Panel - Bearish */}
     <rect x="320" y="70" width="250" height="250" fill="#FDF1F1" rx="12" stroke="#E04848" strokeWidth="2"/>
@@ -265,52 +265,52 @@ const BullishVsBearishSVG = () => (
 const CandleSizeMeaningSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">What Candle Size Suggests</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Larger bodies suggest stronger conviction in that direction</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">What Candle Size Suggests</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Larger bodies suggest stronger conviction in that direction</text>
     
     {/* Small Candle */}
     <g transform="translate(120, 180)">
-      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#75757D">Small Body</text>
+      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#717680">Small Body</text>
       
-      <line x1="0" y1="-50" x2="0" y2="-30" stroke="#1FA978" strokeWidth="2"/>
-      <rect x="-15" y="-30" width="30" height="20" fill="#1FA978" rx="2"/>
-      <line x1="0" y1="-10" x2="0" y2="10" stroke="#1FA978" strokeWidth="2"/>
+      <line x1="0" y1="-50" x2="0" y2="-30" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-15" y="-30" width="30" height="20" fill="#12805A" rx="2"/>
+      <line x1="0" y1="-10" x2="0" y2="10" stroke="#12805A" strokeWidth="2"/>
       
-      <text x="0" y="40" textAnchor="middle" fontSize="9" fill="#5A5A62">Low activity</text>
-      <text x="0" y="55" textAnchor="middle" fontSize="9" fill="#5A5A62">Indecision</text>
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#5A5A62">Balanced buyers/sellers</text>
+      <text x="0" y="40" textAnchor="middle" fontSize="9" fill="#555A63">Low activity</text>
+      <text x="0" y="55" textAnchor="middle" fontSize="9" fill="#555A63">Indecision</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#555A63">Balanced buyers/sellers</text>
     </g>
     
     {/* Medium Candle */}
     <g transform="translate(300, 180)">
-      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#75757D">Medium Body</text>
+      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#717680">Medium Body</text>
       
-      <line x1="0" y1="-55" x2="0" y2="-35" stroke="#1FA978" strokeWidth="2"/>
-      <rect x="-18" y="-35" width="36" height="45" fill="#1FA978" rx="2"/>
-      <line x1="0" y1="10" x2="0" y2="30" stroke="#1FA978" strokeWidth="2"/>
+      <line x1="0" y1="-55" x2="0" y2="-35" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-18" y="-35" width="36" height="45" fill="#12805A" rx="2"/>
+      <line x1="0" y1="10" x2="0" y2="30" stroke="#12805A" strokeWidth="2"/>
       
-      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#5A5A62">Moderate activity</text>
-      <text x="0" y="65" textAnchor="middle" fontSize="9" fill="#5A5A62">Some conviction</text>
-      <text x="0" y="80" textAnchor="middle" fontSize="9" fill="#5A5A62">Normal trading</text>
+      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#555A63">Moderate activity</text>
+      <text x="0" y="65" textAnchor="middle" fontSize="9" fill="#555A63">Some conviction</text>
+      <text x="0" y="80" textAnchor="middle" fontSize="9" fill="#555A63">Normal trading</text>
     </g>
     
     {/* Large Candle */}
     <g transform="translate(480, 180)">
-      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#75757D">Large Body</text>
+      <rect x="-60" y="-110" width="120" height="200" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+      <text x="0" y="-85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#717680">Large Body</text>
       
-      <line x1="0" y1="-60" x2="0" y2="-50" stroke="#1FA978" strokeWidth="2"/>
-      <rect x="-22" y="-50" width="44" height="70" fill="#1FA978" rx="2"/>
-      <line x1="0" y1="20" x2="0" y2="30" stroke="#1FA978" strokeWidth="2"/>
+      <line x1="0" y1="-60" x2="0" y2="-50" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-22" y="-50" width="44" height="70" fill="#12805A" rx="2"/>
+      <line x1="0" y1="20" x2="0" y2="30" stroke="#12805A" strokeWidth="2"/>
       
-      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#5A5A62">High activity</text>
-      <text x="0" y="65" textAnchor="middle" fontSize="9" fill="#5A5A62">Strong conviction</text>
-      <text x="0" y="80" textAnchor="middle" fontSize="9" fill="#5A5A62">Decisive movement</text>
+      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#555A63">High activity</text>
+      <text x="0" y="65" textAnchor="middle" fontSize="9" fill="#555A63">Strong conviction</text>
+      <text x="0" y="80" textAnchor="middle" fontSize="9" fill="#555A63">Decisive movement</text>
     </g>
     
     {/* Bottom note */}
@@ -323,16 +323,16 @@ const CandleSizeMeaningSVG = () => (
 const WickMeaningSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">What Wicks Tell You</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Wicks show price rejection — where price went but couldn't stay</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">What Wicks Tell You</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Wicks show price rejection — where price went but couldn't stay</text>
     
     {/* Long Upper Wick */}
     <g transform="translate(150, 190)">
-      <rect x="-70" y="-120" width="140" height="220" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-      <text x="0" y="-95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#75757D">Long Upper Wick</text>
+      <rect x="-70" y="-120" width="140" height="220" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+      <text x="0" y="-95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#717680">Long Upper Wick</text>
       
       {/* Candle with long upper wick */}
       <line x1="0" y1="-70" x2="0" y2="-20" stroke="#E04848" strokeWidth="2.5"/>
@@ -340,9 +340,9 @@ const WickMeaningSVG = () => (
       <line x1="0" y1="15" x2="0" y2="30" stroke="#E04848" strokeWidth="2"/>
       
       {/* Annotation */}
-      <path d="M25 -45 L45 -45" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="3 2"/>
-      <text x="50" y="-42" fontSize="8" fill="#75757D">Price rose high</text>
-      <text x="50" y="-32" fontSize="8" fill="#75757D">but was pushed back</text>
+      <path d="M25 -45 L45 -45" stroke="#A0A3AA" strokeWidth="1" strokeDasharray="3 2"/>
+      <text x="50" y="-42" fontSize="8" fill="#717680">Price rose high</text>
+      <text x="50" y="-32" fontSize="8" fill="#717680">but was pushed back</text>
       
       <text x="0" y="60" textAnchor="middle" fontSize="9" fill="#842428">Sellers rejected</text>
       <text x="0" y="75" textAnchor="middle" fontSize="9" fill="#842428">higher prices</text>
@@ -350,21 +350,21 @@ const WickMeaningSVG = () => (
     
     {/* Long Lower Wick */}
     <g transform="translate(450, 190)">
-      <rect x="-70" y="-120" width="140" height="220" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-      <text x="0" y="-95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#75757D">Long Lower Wick</text>
+      <rect x="-70" y="-120" width="140" height="220" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+      <text x="0" y="-95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#717680">Long Lower Wick</text>
       
       {/* Candle with long lower wick */}
-      <line x1="0" y1="-50" x2="0" y2="-35" stroke="#1FA978" strokeWidth="2"/>
-      <rect x="-18" y="-35" width="36" height="35" fill="#1FA978" rx="2"/>
-      <line x1="0" y1="0" x2="0" y2="50" stroke="#1FA978" strokeWidth="2.5"/>
+      <line x1="0" y1="-50" x2="0" y2="-35" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-18" y="-35" width="36" height="35" fill="#12805A" rx="2"/>
+      <line x1="0" y1="0" x2="0" y2="50" stroke="#12805A" strokeWidth="2.5"/>
       
       {/* Annotation */}
-      <path d="M25 25 L45 25" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="3 2"/>
-      <text x="50" y="22" fontSize="8" fill="#75757D">Price fell low</text>
-      <text x="50" y="32" fontSize="8" fill="#75757D">but bounced back</text>
+      <path d="M25 25 L45 25" stroke="#A0A3AA" strokeWidth="1" strokeDasharray="3 2"/>
+      <text x="50" y="22" fontSize="8" fill="#717680">Price fell low</text>
+      <text x="50" y="32" fontSize="8" fill="#717680">but bounced back</text>
       
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#0D543C">Buyers rejected</text>
-      <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#0D543C">lower prices</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#12805A">Buyers rejected</text>
+      <text x="0" y="85" textAnchor="middle" fontSize="9" fill="#12805A">lower prices</text>
     </g>
     
     {/* Bottom insight */}
@@ -378,26 +378,26 @@ const WickMeaningSVG = () => (
 const BuyingSellingExampleSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Reading Market Activity</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">These candles show strong conviction in one direction</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Reading Market Activity</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">These candles show strong conviction in one direction</text>
     
     {/* Strong Buying Candle */}
-    <rect x="40" y="70" width="240" height="210" fill="#EEF9F4" rx="12" stroke="#1FA978" strokeWidth="2"/>
+    <rect x="40" y="70" width="240" height="210" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
     <text x="160" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">Strong Buying Activity</text>
     
     <g transform="translate(160, 175)">
       {/* Large bullish candle with small wicks */}
-      <line x1="0" y1="-60" x2="0" y2="-50" stroke="#1FA978" strokeWidth="3"/>
-      <rect x="-28" y="-50" width="56" height="80" fill="#1FA978" rx="3"/>
-      <line x1="0" y1="30" x2="0" y2="40" stroke="#1FA978" strokeWidth="3"/>
+      <line x1="0" y1="-60" x2="0" y2="-50" stroke="#12805A" strokeWidth="3"/>
+      <rect x="-28" y="-50" width="56" height="80" fill="#12805A" rx="3"/>
+      <line x1="0" y1="30" x2="0" y2="40" stroke="#12805A" strokeWidth="3"/>
     </g>
     
-    <text x="160" y="240" textAnchor="middle" fontSize="10" fill="#0D543C">Large green body</text>
-    <text x="160" y="255" textAnchor="middle" fontSize="10" fill="#0D543C">Small or no wicks</text>
-    <text x="160" y="270" textAnchor="middle" fontSize="9" fill="#0E6A4A" fontStyle="italic">Buyers dominated the session</text>
+    <text x="160" y="240" textAnchor="middle" fontSize="10" fill="#12805A">Large green body</text>
+    <text x="160" y="255" textAnchor="middle" fontSize="10" fill="#12805A">Small or no wicks</text>
+    <text x="160" y="270" textAnchor="middle" fontSize="9" fill="#12805A" fontStyle="italic">Buyers dominated the session</text>
     
     {/* Strong Selling Candle */}
     <rect x="320" y="70" width="240" height="210" fill="#FDF1F1" rx="12" stroke="#E04848" strokeWidth="2"/>
@@ -420,52 +420,52 @@ const BuyingSellingExampleSVG = () => (
 const OHLCTimelineSVG = () => (
   <svg viewBox="0 0 600 260" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">One Candle = One Time Period</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Each candle captures what happened during its timeframe</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">One Candle = One Time Period</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Each candle captures what happened during its timeframe</text>
     
     {/* Timeline */}
-    <line x1="80" y1="85" x2="520" y2="85" stroke="#CFCBC1" strokeWidth="2"/>
+    <line x1="80" y1="85" x2="520" y2="85" stroke="#CFD0D3" strokeWidth="2"/>
     
     {/* Time markers */}
     <circle cx="100" cy="85" r="8" fill="#5A77AA"/>
     <text x="100" y="105" textAnchor="middle" fontSize="9" fill="#5A77AA">OPEN</text>
-    <text x="100" y="118" textAnchor="middle" fontSize="8" fill="#75757D">$48.00</text>
+    <text x="100" y="118" textAnchor="middle" fontSize="8" fill="#717680">$48.00</text>
     
     <circle cx="220" cy="85" r="8" fill="#B8923F"/>
     <text x="220" y="105" textAnchor="middle" fontSize="9" fill="#B8923F">HIGH</text>
-    <text x="220" y="118" textAnchor="middle" fontSize="8" fill="#75757D">$52.50</text>
+    <text x="220" y="118" textAnchor="middle" fontSize="8" fill="#717680">$52.50</text>
     
     <circle cx="380" cy="85" r="8" fill="#B8923F"/>
     <text x="380" y="105" textAnchor="middle" fontSize="9" fill="#B8923F">LOW</text>
-    <text x="380" y="118" textAnchor="middle" fontSize="8" fill="#75757D">$47.00</text>
+    <text x="380" y="118" textAnchor="middle" fontSize="8" fill="#717680">$47.00</text>
     
-    <circle cx="500" cy="85" r="8" fill="#1FA978"/>
-    <text x="500" y="105" textAnchor="middle" fontSize="9" fill="#1FA978">CLOSE</text>
-    <text x="500" y="118" textAnchor="middle" fontSize="8" fill="#75757D">$51.00</text>
+    <circle cx="500" cy="85" r="8" fill="#12805A"/>
+    <text x="500" y="105" textAnchor="middle" fontSize="9" fill="#12805A">CLOSE</text>
+    <text x="500" y="118" textAnchor="middle" fontSize="8" fill="#717680">$51.00</text>
     
     {/* Arrow showing time */}
-    <path d="M80 75 L520 75" stroke="#A3A1A6" strokeWidth="1" markerEnd="url(#arrowhead2)"/>
-    <text x="300" y="68" textAnchor="middle" fontSize="9" fill="#A3A1A6">Time →</text>
+    <path d="M80 75 L520 75" stroke="#A0A3AA" strokeWidth="1" markerEnd="url(#arrowhead2)"/>
+    <text x="300" y="68" textAnchor="middle" fontSize="9" fill="#A0A3AA">Time →</text>
     
     {/* Resulting candle */}
-    <rect x="200" y="145" width="200" height="100" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-    <text x="300" y="165" textAnchor="middle" fontSize="11" fontWeight="500" fill="#75757D">Resulting Candle:</text>
+    <rect x="200" y="145" width="200" height="100" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+    <text x="300" y="165" textAnchor="middle" fontSize="11" fontWeight="500" fill="#717680">Resulting Candle:</text>
     
     <g transform="translate(300, 210)">
-      <line x1="0" y1="-30" x2="0" y2="-15" stroke="#1FA978" strokeWidth="2"/>
-      <rect x="-20" y="-15" width="40" height="25" fill="#1FA978" rx="2"/>
-      <line x1="0" y1="10" x2="0" y2="25" stroke="#1FA978" strokeWidth="2"/>
+      <line x1="0" y1="-30" x2="0" y2="-15" stroke="#12805A" strokeWidth="2"/>
+      <rect x="-20" y="-15" width="40" height="25" fill="#12805A" rx="2"/>
+      <line x1="0" y1="10" x2="0" y2="25" stroke="#12805A" strokeWidth="2"/>
     </g>
     
-    <text x="300" y="248" textAnchor="middle" fontSize="9" fill="#0D543C">Green because Close ($51) &gt; Open ($48)</text>
+    <text x="300" y="248" textAnchor="middle" fontSize="9" fill="#12805A">Green because Close ($51) &gt; Open ($48)</text>
     
     {/* Arrow definition */}
     <defs>
       <marker id="arrowhead2" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
-        <polygon points="0 0, 8 4, 0 8" fill="#A3A1A6"/>
+        <polygon points="0 0, 8 4, 0 8" fill="#A0A3AA"/>
       </marker>
     </defs>
   </svg>
@@ -517,14 +517,14 @@ const TechnicalAnalysisLesson2 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 2 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Candlesticks – Reading Price Behavior</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Candlesticks – Reading Price Behavior</h1>
             <p className="text-gray-600 mt-2">Understanding how a single candle captures an entire story of price activity</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Candlesticks?</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Candlesticks?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -555,7 +555,7 @@ const TechnicalAnalysisLesson2 = () => {
 
         {/* OHLC Explanation */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Four Prices in Every Candle</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">The Four Prices in Every Candle</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -699,9 +699,9 @@ const TechnicalAnalysisLesson2 = () => {
           <BuyingSellingExampleSVG />
           
           <div className="mt-6 grid md:grid-cols-2 gap-4">
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Strong Buying Session</h4>
-              <p className="text-green-900 text-sm">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Strong Buying Session</h4>
+              <p className="text-brand text-sm">
                 A large green candle with minimal wicks shows that buyers were in control from start to finish. 
                 Price opened, moved up steadily, and closed near its high.
               </p>
@@ -769,7 +769,7 @@ const TechnicalAnalysisLesson2 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Each candlestick shows four prices: Open, High, Low, and Close (OHLC)</li>
@@ -792,7 +792,7 @@ const TechnicalAnalysisLesson2 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-3')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

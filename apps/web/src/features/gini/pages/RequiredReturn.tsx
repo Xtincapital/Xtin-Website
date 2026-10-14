@@ -181,7 +181,7 @@ function assessFeasibility(requiredReturnRate: number): { feasibility: Feasibili
 }
 
 const FEASIBILITY_STYLES: Record<Feasibility, { icon: typeof CheckCircle2; className: string }> = {
-  achievable: { icon: CheckCircle2, className: "text-success" },
+  achievable: { icon: CheckCircle2, className: "text-brand" },
   challenging: { icon: AlertTriangle, className: "text-warning" },
   difficult: { icon: XCircle, className: "text-destructive" },
 };
@@ -264,7 +264,7 @@ export default function RequiredReturn() {
           <div className="space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-2 space-y-0">
-                <Percent className="h-5 w-5 text-primary" />
+                <Percent className="h-5 w-5 text-brand" />
                 <CardTitle>Current Situation</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -348,11 +348,11 @@ export default function RequiredReturn() {
                       <p className="xt-label">
                         Required Annual Return
                       </p>
-                      <p className="mt-1 xt-metric text-primary">{formatPercent(results.requiredReturnRate)}</p>
+                      <p className="mt-1 xt-metric text-brand">{formatPercent(results.requiredReturnRate)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
                       <p className="xt-label">Gap</p>
-                      <p className={cn("mt-1 text-xl font-bold", results.gap > 0 ? "text-destructive" : "text-success")}>
+                      <p className={cn("mt-1 text-xl font-bold", results.gap > 0 ? "text-destructive" : "text-brand")}>
                         {results.gap > 0 ? "+" : ""}
                         {formatPercent(results.gap)}
                       </p>
@@ -372,7 +372,7 @@ export default function RequiredReturn() {
                   </div>
 
                   <div>
-                    <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Recommendations</h4>
+                    <h4 className="mb-2 text-base font-semibold text-muted-foreground">Recommendations</h4>
                     <ul className="list-disc space-y-1 pl-5 text-sm text-foreground">
                       {results.recommendations.map((r, i) => (
                         <li key={i}>{r}</li>

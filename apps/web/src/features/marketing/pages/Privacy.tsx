@@ -99,7 +99,7 @@ function Privacy() {
 
             <Section title="11. Contact Us">
               <p>
-                Questions about privacy, or to request access, correction or deletion of your data? Email <a href={`mailto:${COMPANY.supportEmail}`} className="text-green-600 hover:text-green-700 font-medium">{COMPANY.supportEmail}</a> (subject “Privacy”) or call <a className="text-green-600 hover:text-green-700 font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>. Our grievance contact is reachable at the same address; we acknowledge requests within 48 hours.
+                Questions about privacy, or to request access, correction or deletion of your data? Email <a href={`mailto:${COMPANY.supportEmail}`} className="text-brand hover:text-brand font-medium">{COMPANY.supportEmail}</a> (subject “Privacy”) or call <a className="text-brand hover:text-brand font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>. Our grievance contact is reachable at the same address; we acknowledge requests within 48 hours.
               </p>
             </Section>
           </div>

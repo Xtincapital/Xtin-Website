@@ -46,7 +46,7 @@ function ShippingPolicy() {
         <p>
           If your purchase is not active within 24 hours, email <SupportEmailLink /> with your registered email and the Razorpay payment
           ID. If we cannot deliver within 72 hours, you are eligible for a refund under our{' '}
-          <Link to="/refund-policy" className="text-green-600 hover:text-green-700 font-medium">Refund &amp; Cancellation Policy</Link>.
+          <Link to="/refund-policy" className="text-brand hover:text-brand font-medium">Refund &amp; Cancellation Policy</Link>.
         </p>
       </LegalSection>
     </LegalPage>

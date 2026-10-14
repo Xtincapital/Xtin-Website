@@ -15,7 +15,7 @@ import {
 const STATUS: Record<ApplicationStatus, { label: string; cls: string; hint: string }> = {
   pending: { label: 'Submitted', cls: 'bg-gray-100 text-gray-700', hint: 'Received — waiting for our team to pick it up. You can still edit it.' },
   under_review: { label: 'Under review', cls: 'bg-amber-100 text-amber-800', hint: 'Our team is reviewing your algorithm and backtest. Details are locked while we review.' },
-  approved: { label: 'Approved', cls: 'bg-green-100 text-green-800', hint: 'Approved — we will contact you about next steps.' },
+  approved: { label: 'Approved', cls: 'bg-brand-soft text-brand', hint: 'Approved — we will contact you about next steps.' },
   rejected: { label: 'Rejected', cls: 'bg-red-100 text-red-800', hint: 'Not approved this time.' },
 };
 
@@ -102,7 +102,7 @@ const PublisherApplicationsModal = ({ open, onClose, onEdit, refreshKey = 0 }: P
                   <div className="mt-3 flex flex-wrap gap-3">
                     <button
                       type="button"
-                      className="text-sm font-semibold text-green-700 hover:underline"
+                      className="text-sm font-semibold text-brand hover:underline"
                       onClick={() => setExpanded((e) => ({ ...e, [a.id]: !open }))}
                       aria-expanded={open}
                     >

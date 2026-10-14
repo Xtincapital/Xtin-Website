@@ -32,7 +32,7 @@ export function HelpTooltip({
           <button
             type="button"
             className={cn(
-              "inline-flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20",
+              "inline-flex items-center justify-center rounded-full text-muted-foreground hover:text-brand hover:bg-accent/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20",
               "w-4 h-4",
               className
             )}
@@ -74,7 +74,7 @@ export function InfoBadge({
 }: InfoBadgeProps) {
   const variantStyles = {
     default: "bg-secondary text-foreground",
-    success: "bg-primary/10 text-primary",
+    success: "bg-primary/10 text-brand",
     warning: "bg-warning/10 text-warning",
     destructive: "bg-destructive/10 text-destructive",
   };
@@ -130,7 +130,7 @@ export function MetricCard({
       <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2">
           {icon && (
-            <div className="w-8 h-8 rounded-xl bg-accent/30 flex items-center justify-center text-primary">
+            <div className="w-8 h-8 rounded-xl bg-accent/30 flex items-center justify-center text-brand">
               {icon}
             </div>
           )}
@@ -144,7 +144,7 @@ export function MetricCard({
             className={cn(
               "text-xs font-medium px-2 py-0.5 rounded-full",
               trend.isPositive
-                ? "bg-primary/10 text-primary"
+                ? "bg-primary/10 text-brand"
                 : "bg-destructive/10 text-destructive"
             )}
           >

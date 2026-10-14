@@ -32,7 +32,7 @@ export default function ApproxAmount({
     text = value.toFixed(2);
   }
   return (
-    <span className={`${inline ? 'ml-1' : 'block'} text-[11px] font-normal text-muted-foreground ${className}`} title={`Approximate value in ${currency}`}>
+    <span className={`${inline ? 'ml-1' : 'block'} text-xs font-normal text-muted-foreground ${className}`} title={`Approximate value in ${currency}`}>
       ≈ {text}
     </span>
   );

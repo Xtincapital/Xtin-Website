@@ -236,7 +236,7 @@ const AnalysisReport = () => {
     return (
       <DashboardLayout>
         <div className="flex flex-col items-center justify-center h-[calc(100vh-7rem)] gap-3 text-muted-foreground">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <Loader2 className="w-8 h-8 animate-spin text-brand" />
           <p>Loading report…</p>
         </div>
       </DashboardLayout>
@@ -307,7 +307,7 @@ const AnalysisReport = () => {
                   </h1>
                   {/* Uploads without a chosen company have no ticker/exchange ("N/A") — hide the badges then. */}
                   {hasValue(report.ticker) && (
-                    <span className="px-2 py-1 rounded bg-primary/10 text-primary text-sm font-medium">
+                    <span className="px-2 py-1 rounded bg-primary/10 text-brand text-sm font-medium">
                       {report.ticker}
                     </span>
                   )}
@@ -326,8 +326,8 @@ const AnalysisReport = () => {
                   Overall Score
                 </div>
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                  <span className="text-3xl font-bold text-primary">
+                  <TrendingUp className="w-5 h-5 text-brand" />
+                  <span className="text-3xl font-bold text-brand">
                     {report.overall_score}/10
                   </span>
                 </div>
@@ -341,7 +341,7 @@ const AnalysisReport = () => {
               {/* The verdict — one line anyone can grasp instantly */}
               {report.plain_english && (
                 <section className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-start gap-3">
-                  <Sparkles className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <Sparkles className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="xt-eyebrow mb-1">The bottom line</p>
                     <p className="text-foreground font-medium leading-relaxed">{report.plain_english}</p>
@@ -352,7 +352,7 @@ const AnalysisReport = () => {
               {/* Executive Summary */}
               <section>
                 <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-primary" />
+                  <FileText className="w-5 h-5 text-brand" />
                   Executive Summary
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -364,7 +364,7 @@ const AnalysisReport = () => {
               {report.personalized_take && (
                 <section className="p-5 rounded-xl bg-secondary/40 border border-border">
                   <h2 className="text-base font-bold text-foreground mb-2 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-primary" />
+                    <Sparkles className="w-4 h-4 text-brand" />
                     Written for how you invest
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">{report.personalized_take}</p>
@@ -374,7 +374,7 @@ const AnalysisReport = () => {
               {/* Score Cards */}
               <section>
                 <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-primary" />
+                  <BarChart3 className="w-5 h-5 text-brand" />
                   Financial Health Scores
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -397,7 +397,7 @@ const AnalysisReport = () => {
                       <div
                         className={`text-xs font-medium mt-1 ${
                           value.score >= 8
-                            ? "text-success"
+                            ? "text-brand"
                             : value.score >= 6
                             ? "text-warning"
                             : "text-destructive"
@@ -413,7 +413,7 @@ const AnalysisReport = () => {
               {/* Key Ratios */}
               <section>
                 <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-                  <PieChart className="w-5 h-5 text-primary" />
+                  <PieChart className="w-5 h-5 text-brand" />
                   Key Financial Ratios
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -440,7 +440,7 @@ const AnalysisReport = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <section>
                   <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary" />
+                    <CheckCircle className="w-5 h-5 text-brand" />
                     Strengths
                   </h2>
                   <ul className="space-y-3">
@@ -449,7 +449,7 @@ const AnalysisReport = () => {
                         key={index}
                         className="flex items-start gap-3 text-sm text-muted-foreground"
                       >
-                        <CheckCircle className="w-4 h-4 text-success flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                         {strength}
                       </li>
                     ))}
@@ -484,7 +484,7 @@ const AnalysisReport = () => {
                       <ul className="space-y-2">
                         {report.bull_case.map((b, i) => (
                           <li key={i} className="text-sm text-muted-foreground flex gap-2">
-                            <span className="text-success font-bold">+</span> {b}
+                            <span className="text-brand font-bold">+</span> {b}
                           </li>
                         ))}
                       </ul>
@@ -509,13 +509,13 @@ const AnalysisReport = () => {
               {report.what_to_watch?.length ? (
                 <section>
                   <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5 text-primary" />
+                    <BarChart3 className="w-5 h-5 text-brand" />
                     What to watch next quarter
                   </h2>
                   <ul className="space-y-2">
                     {report.what_to_watch.map((w, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                        <span className="w-5 h-5 rounded-full bg-primary/10 text-brand text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
                         {w}
                       </li>
                     ))}
@@ -530,12 +530,12 @@ const AnalysisReport = () => {
                   onClick={() => usePlanStore.getState().openUpgrade("general")}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-primary" />
+                    <Sparkles className="w-4 h-4 text-brand" />
                     <span className="text-sm font-bold text-foreground">Unlock the full analyst view with Pro</span>
-                    <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">PRO</span>
+                    <span className="ml-auto text-xs font-extrabold px-2 py-0.5 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">PRO</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    A personalised take written for how <em>you</em> invest, a full bull vs bear breakdown, what to watch next quarter, and one-click PDF export. <span className="text-primary font-semibold">Upgrade →</span>
+                    A personalised take written for how <em>you</em> invest, a full bull vs bear breakdown, what to watch next quarter, and one-click PDF export. <span className="text-brand font-semibold">Upgrade →</span>
                   </p>
                 </section>
               )}
@@ -543,7 +543,7 @@ const AnalysisReport = () => {
               {/* Investment Assessment */}
               <section>
                 <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-primary" />
+                  <DollarSign className="w-5 h-5 text-brand" />
                   Investment Assessment
                 </h2>
                 <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
@@ -576,7 +576,7 @@ const AnalysisReport = () => {
           {/* Chat Header */}
           <div className="p-4 border-b border-border">
             <h2 className="font-semibold text-foreground flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-primary" />
+              <MessageSquare className="w-5 h-5 text-brand" />
               Ask Questions
             </h2>
             <p className="text-xs text-muted-foreground mt-1">

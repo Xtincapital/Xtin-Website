@@ -44,11 +44,11 @@ export default function ProRequiredDialog() {
         </div>
 
         <div className="rounded-xl bg-slate-50 p-4 text-sm dark:bg-white/5">
-          <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Your free plan includes</div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Your free plan includes</div>
           <ul className="space-y-1.5">
             {included.map((i) => (
               <li key={i} className="flex gap-2">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand dark:text-brand" />
                 {i}
               </li>
             ))}

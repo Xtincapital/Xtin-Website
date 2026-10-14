@@ -27,11 +27,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
-                : 'border-gray-200 hover:border-emerald-400 hover:bg-emerald-50'
+                : 'border-gray-200 hover:border-brand hover:bg-brand-soft'
             }`}
           >
             {option}
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,19 +61,19 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const CapitalFoundationSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Capital Is The Foundation of Everything</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Capital Is The Foundation of Everything</text>
     
     {/* Building structure */}
     <g transform="translate(200, 50)">
       {/* Foundation - Capital */}
-      <rect x="0" y="200" width="300" height="40" fill="#12805A" rx="4" stroke="#0E6A4A" strokeWidth="2"/>
+      <rect x="0" y="200" width="300" height="40" fill="#12805A" rx="4" stroke="#12805A" strokeWidth="2"/>
       <text x="150" y="225" textAnchor="middle" fontSize="12" fontWeight="700" fill="white">CAPITAL</text>
       
       {/* Floor 1 - Opportunity */}
-      <rect x="20" y="160" width="260" height="35" fill="#1FA978" rx="4"/>
+      <rect x="20" y="160" width="260" height="35" fill="#12805A" rx="4"/>
       <text x="150" y="182" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Opportunity to Invest</text>
       
       {/* Floor 2 - Participation */}
@@ -81,12 +81,12 @@ const CapitalFoundationSVG = () => (
       <text x="150" y="142" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Market Participation</text>
       
       {/* Floor 3 - Compounding */}
-      <rect x="60" y="80" width="180" height="35" fill="#77D3AE" rx="4"/>
-      <text x="150" y="102" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Compounding Growth</text>
+      <rect x="60" y="80" width="180" height="35" fill="#3CCB97" rx="4"/>
+      <text x="150" y="102" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Compounding Growth</text>
       
       {/* Roof - Success */}
-      <polygon points="150,30 250,75 50,75" fill="#ABE5CC" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="150" y="62" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Success</text>
+      <polygon points="150,30 250,75 50,75" fill="#ABE5CC" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="150" y="62" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Success</text>
     </g>
     
     {/* Arrow pointing to foundation */}
@@ -97,13 +97,13 @@ const CapitalFoundationSVG = () => (
           <polygon points="0 0, 10 3.5, 0 7" fill="#12805A"/>
         </marker>
       </defs>
-      <text x="10" y="-10" fontSize="9" fill="#0D543C">Without this,</text>
-      <text x="10" y="5" fontSize="9" fill="#0D543C">nothing above</text>
-      <text x="10" y="20" fontSize="9" fill="#0D543C">is possible</text>
+      <text x="10" y="-10" fontSize="9" fill="#12805A">Without this,</text>
+      <text x="10" y="5" fontSize="9" fill="#12805A">nothing above</text>
+      <text x="10" y="20" fontSize="9" fill="#12805A">is possible</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="260" width="500" height="30" fill="#232327" rx="6"/>
+    <rect x="100" y="260" width="500" height="30" fill="#2A2A2C" rx="6"/>
     <text x="350" y="280" textAnchor="middle" fontSize="10" fill="white">💡 Capital is not just money — it's your ability to participate in future opportunities.</text>
   </svg>
 );
@@ -112,11 +112,11 @@ const CapitalFoundationSVG = () => (
 const SurvivalBeforeSuccessSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The First Rule: Survive</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">You cannot succeed if you're eliminated from the game</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The First Rule: Survive</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">You cannot succeed if you're eliminated from the game</text>
     
     {/* Left: Eliminated */}
     <g transform="translate(50, 70)">
@@ -136,18 +136,18 @@ const SurvivalBeforeSuccessSVG = () => (
     
     {/* Right: Surviving */}
     <g transform="translate(380, 70)">
-      <rect x="0" y="0" width="270" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ Surviving Investor</text>
+      <rect x="0" y="0" width="270" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Surviving Investor</text>
       
       {/* Checkmark with investor icon */}
-      <circle cx="135" cy="85" r="30" fill="#EEF9F4" stroke="#1FA978" strokeWidth="2"/>
-      <text x="135" y="92" textAnchor="middle" fontSize="20" fill="#1FA978">👤</text>
-      <circle cx="155" cy="65" r="12" fill="#1FA978"/>
+      <circle cx="135" cy="85" r="30" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+      <text x="135" y="92" textAnchor="middle" fontSize="20" fill="#12805A">👤</text>
+      <circle cx="155" cy="65" r="12" fill="#12805A"/>
       <text x="155" y="70" textAnchor="middle" fontSize="12" fill="white">✓</text>
       
-      <text x="135" y="135" textAnchor="middle" fontSize="9" fill="#0B4532">Capital protected</text>
-      <text x="135" y="152" textAnchor="middle" fontSize="9" fill="#0B4532">Still in the game</text>
-      <text x="135" y="169" textAnchor="middle" fontSize="9" fill="#0D543C">Future opportunities: UNLIMITED</text>
+      <text x="135" y="135" textAnchor="middle" fontSize="9" fill="#12805A">Capital protected</text>
+      <text x="135" y="152" textAnchor="middle" fontSize="9" fill="#12805A">Still in the game</text>
+      <text x="135" y="169" textAnchor="middle" fontSize="9" fill="#12805A">Future opportunities: UNLIMITED</text>
     </g>
   </svg>
 );
@@ -156,19 +156,19 @@ const SurvivalBeforeSuccessSVG = () => (
 const LossesHurtMoreSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Losses Hurt More Than Gains Help</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The asymmetry that defines risk management</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Losses Hurt More Than Gains Help</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The asymmetry that defines risk management</text>
     
     {/* Visual scale/balance */}
     <g transform="translate(350, 180)">
       {/* Fulcrum */}
-      <polygon points="0,60 -20,100 20,100" fill="#75757D"/>
+      <polygon points="0,60 -20,100 20,100" fill="#717680"/>
       
       {/* Tilted beam */}
-      <line x1="-180" y1="-20" x2="180" y2="40" stroke="#404047" strokeWidth="6" strokeLinecap="round"/>
+      <line x1="-180" y1="-20" x2="180" y2="40" stroke="#373A41" strokeWidth="6" strokeLinecap="round"/>
       
       {/* Loss side (heavier, lower) */}
       <g transform="translate(-180, -20)">
@@ -179,9 +179,9 @@ const LossesHurtMoreSVG = () => (
       
       {/* Gain side (lighter, higher) */}
       <g transform="translate(180, 40)">
-        <rect x="-50" y="-60" width="100" height="60" fill="#1FA978" rx="8"/>
+        <rect x="-50" y="-60" width="100" height="60" fill="#12805A" rx="8"/>
         <text x="0" y="-35" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">GAIN</text>
-        <text x="0" y="-15" textAnchor="middle" fontSize="8" fill="#D5F2E5">Lighter impact</text>
+        <text x="0" y="-15" textAnchor="middle" fontSize="8" fill="#EEF9F4">Lighter impact</text>
       </g>
     </g>
     
@@ -194,14 +194,14 @@ const LossesHurtMoreSVG = () => (
     </g>
     
     <g transform="translate(470, 70)">
-      <rect x="0" y="0" width="180" height="70" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="90" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">When you preserve capital...</text>
-      <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#0B4532">Even modest gains compound</text>
-      <text x="90" y="60" textAnchor="middle" fontSize="8" fill="#0B4532">into meaningful growth over time</text>
+      <rect x="0" y="0" width="180" height="70" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="90" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">When you preserve capital...</text>
+      <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#12805A">Even modest gains compound</text>
+      <text x="90" y="60" textAnchor="middle" fontSize="8" fill="#12805A">into meaningful growth over time</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">This asymmetry is why capital protection must come before profit-seeking.</text>
   </svg>
 );
@@ -210,21 +210,21 @@ const LossesHurtMoreSVG = () => (
 const CapitalErosionSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Path of Capital Erosion</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How losses accumulate and become harder to recover from</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Path of Capital Erosion</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">How losses accumulate and become harder to recover from</text>
     
     {/* Erosion visualization - stacked bars getting smaller */}
     <g transform="translate(100, 75)">
       {/* Starting capital */}
-      <rect x="0" y="0" width="80" height="180" fill="#1FA978" rx="4"/>
+      <rect x="0" y="0" width="80" height="180" fill="#12805A" rx="4"/>
       <text x="40" y="95" textAnchor="middle" fontSize="9" fontWeight="600" fill="white" transform="rotate(-90 40 95)">Starting Capital</text>
-      <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#0D543C">Full</text>
+      <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#12805A">Full</text>
       
       {/* After first loss */}
-      <rect x="110" y="30" width="80" height="150" fill="#1FA978" rx="4"/>
+      <rect x="110" y="30" width="80" height="150" fill="#12805A" rx="4"/>
       <text x="150" y="110" textAnchor="middle" fontSize="9" fontWeight="600" fill="white" transform="rotate(-90 150 110)">After Loss 1</text>
       <text x="150" y="200" textAnchor="middle" fontSize="8" fill="#12805A">Reduced</text>
       
@@ -254,8 +254,8 @@ const CapitalErosionSVG = () => (
       <text x="50" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">Recovery</text>
       <text x="50" y="40" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">Difficulty</text>
       
-      <rect x="10" y="55" width="80" height="15" fill="#D5F2E5" rx="2"/>
-      <text x="50" y="66" textAnchor="middle" fontSize="7" fill="#0D543C">Easy</text>
+      <rect x="10" y="55" width="80" height="15" fill="#EEF9F4" rx="2"/>
+      <text x="50" y="66" textAnchor="middle" fontSize="7" fill="#12805A">Easy</text>
       
       <rect x="10" y="75" width="80" height="15" fill="#F6ECCE" rx="2"/>
       <text x="50" y="86" textAnchor="middle" fontSize="7" fill="#7C5D2B">Moderate</text>
@@ -276,11 +276,11 @@ const CapitalErosionSVG = () => (
 const TwoInvestorsSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Two Investors, Two Paths</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same starting point, different priorities, different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Two Investors, Two Paths</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same starting point, different priorities, different outcomes</text>
     
     {/* Starting point */}
     <circle cx="350" cy="90" r="30" fill="#8F6FC4" stroke="#7A5BA6" strokeWidth="3"/>
@@ -288,21 +288,21 @@ const TwoInvestorsSVG = () => (
     <text x="350" y="100" textAnchor="middle" fontSize="9" fill="white">with capital</text>
     
     {/* Branching paths */}
-    <path d="M320 110 Q250 150 150 180" fill="none" stroke="#1FA978" strokeWidth="3"/>
+    <path d="M320 110 Q250 150 150 180" fill="none" stroke="#12805A" strokeWidth="3"/>
     <path d="M380 110 Q450 150 550 180" fill="none" stroke="#E04848" strokeWidth="3"/>
     
     {/* Investor A - Protection focused */}
     <g transform="translate(50, 170)">
-      <rect x="0" y="0" width="200" height="150" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="100" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Investor A</text>
-      <text x="100" y="42" textAnchor="middle" fontSize="9" fill="#0B4532">"Protection First"</text>
+      <rect x="0" y="0" width="200" height="150" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="100" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Investor A</text>
+      <text x="100" y="42" textAnchor="middle" fontSize="9" fill="#12805A">"Protection First"</text>
       
-      <text x="15" y="65" fontSize="8" fill="#0D543C">• Limits exposure in uncertain times</text>
-      <text x="15" y="82" fontSize="8" fill="#0D543C">• Accepts missing some gains</text>
-      <text x="15" y="99" fontSize="8" fill="#0D543C">• Keeps capital intact through storms</text>
-      <text x="15" y="116" fontSize="8" fill="#0D543C">• Still in the game after years</text>
+      <text x="15" y="65" fontSize="8" fill="#12805A">• Limits exposure in uncertain times</text>
+      <text x="15" y="82" fontSize="8" fill="#12805A">• Accepts missing some gains</text>
+      <text x="15" y="99" fontSize="8" fill="#12805A">• Keeps capital intact through storms</text>
+      <text x="15" y="116" fontSize="8" fill="#12805A">• Still in the game after years</text>
       
-      <rect x="20" y="125" width="160" height="18" fill="#1FA978" rx="4"/>
+      <rect x="20" y="125" width="160" height="18" fill="#12805A" rx="4"/>
       <text x="100" y="138" textAnchor="middle" fontSize="8" fontWeight="600" fill="white">Outcome: SURVIVING & GROWING</text>
     </g>
     
@@ -327,11 +327,11 @@ const TwoInvestorsSVG = () => (
 const DrawdownVsVolatilitySVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Drawdown vs Volatility</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Both involve movement, but they measure different things</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Drawdown vs Volatility</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Both involve movement, but they measure different things</text>
     
     {/* Left: Volatility */}
     <g transform="translate(50, 70)">
@@ -355,8 +355,8 @@ const DrawdownVsVolatilitySVG = () => (
       <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">📉 Drawdown</text>
       
       {/* Declining line from peak */}
-      <circle cx="50" cy="80" r="6" fill="#1FA978"/>
-      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#0D543C">Peak</text>
+      <circle cx="50" cy="80" r="6" fill="#12805A"/>
+      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#12805A">Peak</text>
       <path d="M56 85 L100 100 L140 130 L180 150 L220 160" 
             fill="none" stroke="#E04848" strokeWidth="3"/>
       <circle cx="220" cy="160" r="6" fill="#E04848"/>
@@ -371,7 +371,7 @@ const DrawdownVsVolatilitySVG = () => (
     </g>
     
     {/* Bottom comparison */}
-    <rect x="100" y="275" width="500" height="20" fill="#232327" rx="5"/>
+    <rect x="100" y="275" width="500" height="20" fill="#2A2A2C" rx="5"/>
     <text x="350" y="289" textAnchor="middle" fontSize="8" fill="white">Volatility is movement. Drawdown is damage. Managing drawdown protects capital.</text>
   </svg>
 );
@@ -380,22 +380,22 @@ const DrawdownVsVolatilitySVG = () => (
 const CompoundingAdvantageSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Survival Enables Compounding</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Protected capital grows; destroyed capital cannot</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Why Survival Enables Compounding</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Protected capital grows; destroyed capital cannot</text>
     
     {/* Timeline */}
-    <line x1="80" y1="250" x2="620" y2="250" stroke="#CFCBC1" strokeWidth="2"/>
-    <text x="350" y="270" textAnchor="middle" fontSize="9" fill="#75757D">Time →</text>
+    <line x1="80" y1="250" x2="620" y2="250" stroke="#CFD0D3" strokeWidth="2"/>
+    <text x="350" y="270" textAnchor="middle" fontSize="9" fill="#717680">Time →</text>
     
     {/* Protected path - steady growth */}
     <path d="M100 200 Q200 190 300 170 Q400 140 500 100 Q550 80 600 60" 
-          fill="none" stroke="#1FA978" strokeWidth="4" strokeLinecap="round"/>
-    <circle cx="600" cy="60" r="8" fill="#1FA978"/>
-    <text x="620" y="55" fontSize="9" fontWeight="600" fill="#0D543C">Growing</text>
-    <text x="620" y="70" fontSize="8" fill="#0B4532">steadily</text>
+          fill="none" stroke="#12805A" strokeWidth="4" strokeLinecap="round"/>
+    <circle cx="600" cy="60" r="8" fill="#12805A"/>
+    <text x="620" y="55" fontSize="9" fontWeight="600" fill="#12805A">Growing</text>
+    <text x="620" y="70" fontSize="8" fill="#12805A">steadily</text>
     
     {/* Unprotected path - crash and struggle */}
     <path d="M100 200 Q150 150 200 120 L250 200 Q300 210 350 205 Q400 200 450 210 Q500 215 550 220 L600 225" 
@@ -405,9 +405,9 @@ const CompoundingAdvantageSVG = () => (
     <text x="620" y="235" fontSize="8" fill="#842428">recovering</text>
     
     {/* Labels */}
-    <rect x="80" y="60" width="120" height="50" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="1"/>
-    <text x="140" y="82" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">Protected Capital</text>
-    <text x="140" y="98" textAnchor="middle" fontSize="7" fill="#0B4532">Compounds over time</text>
+    <rect x="80" y="60" width="120" height="50" fill="#EEF9F4" rx="6" stroke="#3CCB97" strokeWidth="1"/>
+    <text x="140" y="82" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">Protected Capital</text>
+    <text x="140" y="98" textAnchor="middle" fontSize="7" fill="#12805A">Compounds over time</text>
     
     <rect x="80" y="120" width="120" height="50" fill="#FDF1F1" rx="6" stroke="#F09B9B" strokeWidth="1"/>
     <text x="140" y="142" textAnchor="middle" fontSize="8" fontWeight="600" fill="#C7363B">Damaged Capital</text>
@@ -424,7 +424,7 @@ const CompoundingAdvantageSVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#protectGradient)" rx="16"/>
@@ -475,29 +475,29 @@ const RiskLesson2 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 transition-colors mb-4"
+            className="flex items-center gap-2 text-brand hover:text-brand transition-colors mb-4"
           >
             <FaArrowLeft />
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 2 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Why Capital Protection Comes First</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Why Capital Protection Comes First</h1>
             <p className="text-gray-600 mt-2">The foundation of sustainable investing</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Protecting Capital Is More Important Than Making Profits</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Protecting Capital Is More Important Than Making Profits</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -688,8 +688,8 @@ const RiskLesson2 = () => {
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <KeyTakeawaySVG />
           
-          <div className="mt-6 bg-emerald-50 rounded-xl p-5 border border-emerald-200">
-            <p className="text-emerald-800 font-medium">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand font-medium">
               Remember: Capital protection is not about fear. It's not about being conservative. 
               It's about being strategic. The goal is to stay in the game long enough for 
               compounding to work in your favor.
@@ -698,9 +698,9 @@ const RiskLesson2 = () => {
         </div>
 
         {/* India-specific Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Context</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Context</h3>
+          <p className="text-brand">
             Long-term investors around the world — from the United States to Europe to India — 
             consistently prioritize capital protection. The most successful institutional investors, 
             endowment funds, and family offices all share this philosophy: survive first, grow later. 
@@ -720,33 +720,33 @@ const RiskLesson2 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 bg-brand-soft">
           <div className="flex items-start gap-4">
-            <div className="bg-emerald-500 rounded-full p-3">
+            <div className="bg-brand-fill rounded-full p-3">
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Reflection Activity</h3>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200">
+              <h3 className="text-xl font-semibold text-brand mb-3">Reflection Activity</h3>
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <p className="text-gray-800 font-medium mb-4">
                   Consider how you currently think about losses in your financial life:
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">1.</span>
+                    <span className="text-brand font-bold">1.</span>
                     <span>When you think about investing, do you focus more on what you might gain or what you might lose?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">2.</span>
+                    <span className="text-brand font-bold">2.</span>
                     <span>Have you ever experienced a significant financial loss? How long did it take to recover — financially and emotionally?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">3.</span>
+                    <span className="text-brand font-bold">3.</span>
                     <span>If you had to choose between a strategy that offers high returns with high risk versus moderate returns with capital protection, which would you choose? Why?</span>
                   </li>
                 </ul>
-                <div className="mt-4 p-4 bg-emerald-50 rounded-lg">
-                  <p className="text-emerald-800 text-sm">
+                <div className="mt-4 p-4 bg-brand-soft rounded-lg">
+                  <p className="text-brand text-sm">
                     <strong>Why this matters:</strong> Understanding your current relationship with 
                     loss helps you recognize whether your instincts align with sustainable investing 
                     principles. There's no judgment here — only awareness.
@@ -758,7 +758,7 @@ const RiskLesson2 = () => {
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">🔑 Lesson Summary</h3>
           <ul className="space-y-2 text-lg">
             <li>• Capital is the raw material of all investing — without it, nothing is possible</li>
@@ -781,7 +781,7 @@ const RiskLesson2 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-lesson-3')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

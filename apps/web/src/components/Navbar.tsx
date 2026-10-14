@@ -5,10 +5,10 @@ import ThemeToggle from './ThemeToggle';
 import RegionSwitcher from './RegionSwitcher';
 
 const navLinkClass = ({ isActive }) =>
-  `hover:text-green-600 transition pb-1 whitespace-nowrap ${isActive ? 'border-b-2 border-green-600 text-green-700' : ''}`;
+  `hover:text-brand transition pb-1 whitespace-nowrap ${isActive ? 'border-b-2 border-brand text-brand' : ''}`;
 
 const mobileNavLinkClass = ({ isActive }) =>
-  `block hover:text-green-600 transition pb-1 ${isActive ? 'border-b-2 border-green-600 text-green-700' : ''}`;
+  `block hover:text-brand transition pb-1 ${isActive ? 'border-b-2 border-brand text-brand' : ''}`;
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,7 +93,7 @@ const Navbar = () => {
       <nav className="bg-white shadow-md py-4 px-4 md:px-8 lg:px-12 fixed top-0 left-0 right-0 z-50" role="navigation" aria-label="Main navigation">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-green-600 text-white px-4 py-2 rounded"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-brand-fill text-white px-4 py-2 rounded"
         >
           Skip to main content
         </a>
@@ -106,7 +106,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={goBack}
-                className="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-gray-600 hover:text-green-600 hover:bg-gray-100 transition"
+                className="w-9 h-9 -ml-1 flex items-center justify-center rounded-full text-gray-600 hover:text-brand hover:bg-gray-100 transition"
                 aria-label="Go back"
                 title="Go back"
               >
@@ -120,7 +120,7 @@ const Navbar = () => {
               className="text-2xl font-bold text-gray-900 whitespace-nowrap"
               aria-label="Xtin Capital - Home"
             >
-              Xtin <span className="text-green-600">Capital</span>
+              Xtin <span className="text-brand">Capital</span>
             </Link>
           </div>
 
@@ -136,7 +136,7 @@ const Navbar = () => {
                   <button
                     type="button"
                     onClick={() => navigate('/dashboard')}
-                    className="text-gray-700 hover:text-green-600 transition font-medium px-4 py-2 rounded-lg hover:bg-gray-100 max-w-[10rem] 2xl:max-w-[14rem] truncate"
+                    className="text-gray-700 hover:text-brand transition font-medium px-4 py-2 rounded-lg hover:bg-gray-100 max-w-[10rem] 2xl:max-w-[14rem] truncate"
                     title="View your dashboard"
                   >
                     Hello, {displayName}!
@@ -146,7 +146,7 @@ const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/login')}
-                  className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                  className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition"
                 >
                   Get Started
                 </button>
@@ -157,7 +157,7 @@ const Navbar = () => {
           <div className={`${mobileOnly} flex items-center gap-3 ml-auto`}>
             <ThemeToggle />
             <button
-              className="w-11 h-11 flex items-center justify-center rounded-lg text-gray-700 text-2xl hover:text-green-600 hover:bg-gray-100 transition"
+              className="w-11 h-11 flex items-center justify-center rounded-lg text-gray-700 text-2xl hover:text-brand hover:bg-gray-100 transition"
               onClick={toggleMenu}
               aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMenuOpen}
@@ -179,7 +179,7 @@ const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/dashboard')}
-                  className="min-w-0 max-w-full truncate text-gray-700 hover:text-green-600 transition font-medium px-3 py-2 rounded-lg hover:bg-gray-100 text-sm"
+                  className="min-w-0 max-w-full truncate text-gray-700 hover:text-brand transition font-medium px-3 py-2 rounded-lg hover:bg-gray-100 text-sm"
                 >
                   Hello, {displayName}!
                 </button>
@@ -187,7 +187,7 @@ const Navbar = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/login')}
-                  className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm"
+                  className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition text-sm"
                 >
                   Get Started
                 </button>

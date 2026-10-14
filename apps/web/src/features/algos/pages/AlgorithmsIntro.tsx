@@ -133,14 +133,14 @@ const DotGridBg = () => (
 
 /* ─── Data ──────────────────────────────────────────────── */
 const steps = [
-  { icon: I.search, title: 'Browse Strategies', desc: 'View algos with CAGR, win rate & drawdown stats', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
-  { icon: I.code, title: 'Review the Logic', desc: 'Plain-English entry, exit & risk rules', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
-  { icon: I.link, title: 'Connect Broker', desc: 'Link your account — supports major Indian brokers', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
-  { icon: I.play, title: 'Go Live', desc: 'Auto-trades execute. Track every trade in real-time', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: I.search, title: 'Browse Strategies', desc: 'View algos with CAGR, win rate & drawdown stats', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: I.code, title: 'Review the Logic', desc: 'Plain-English entry, exit & risk rules', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: I.link, title: 'Connect Broker', desc: 'Link your account — supports major Indian brokers', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: I.play, title: 'Go Live', desc: 'Auto-trades execute. Track every trade in real-time', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
 ];
 
 const strategies = [
-  { icon: I.momentum, title: 'Momentum / Breakout', desc: 'Rides strong price moves using RSI, MACD & Bollinger Bands', color: 'from-emerald-500 to-green-600' },
+  { icon: I.momentum, title: 'Momentum / Breakout', desc: 'Rides strong price moves using RSI, MACD & Bollinger Bands', color: 'bg-brand-fill' },
   { icon: I.revert, title: 'Mean Reversion', desc: 'Bets that overextended prices snap back to their average', color: 'from-blue-500 to-cyan-600' },
   { icon: I.options, title: 'Options Selling', desc: 'Profits from time decay on Nifty & Bank Nifty options', color: 'from-violet-500 to-purple-600' },
   { icon: I.trend, title: 'Trend Following', desc: 'Captures large moves; sits out during choppy markets', color: 'from-amber-500 to-orange-600' },
@@ -156,17 +156,17 @@ const benefits = [
 ];
 
 const personas = [
-  { icon: I.briefcase, label: 'Working Professional', problem: 'No time to watch charts all day', border: 'border-l-emerald-500' },
+  { icon: I.briefcase, label: 'Working Professional', problem: 'No time to watch charts all day', border: 'border-l-brand' },
   { icon: I.academic, label: 'Beginner Trader', problem: 'Wants to learn from automated trade logs', border: 'border-l-blue-500' },
   { icon: I.userChart, label: 'Experienced Trader', problem: 'Needs to remove emotional decisions', border: 'border-l-purple-500' },
   { icon: I.refresh, label: 'Passive Investor', problem: 'Seeks a set-and-forget approach', border: 'border-l-amber-500' },
 ];
 
 const trustBadges = [
-  { icon: I.shieldCheck, label: 'Transparent Logs', sub: 'Every trade recorded', color: 'text-primary dark:text-success' },
-  { icon: I.globe, label: 'NSE & BSE', sub: 'Both exchanges supported', color: 'text-primary dark:text-success' },
-  { icon: I.server, label: '99.9% Uptime', sub: 'Enterprise-grade infrastructure', color: 'text-primary dark:text-success' },
-  { icon: I.clock, label: '10+ Years', sub: 'Backtested historical data', color: 'text-primary dark:text-success' },
+  { icon: I.shieldCheck, label: 'Transparent Logs', sub: 'Every trade recorded', color: 'text-brand dark:text-brand' },
+  { icon: I.globe, label: 'NSE & BSE', sub: 'Both exchanges supported', color: 'text-brand dark:text-brand' },
+  { icon: I.server, label: '99.9% Uptime', sub: 'Enterprise-grade infrastructure', color: 'text-brand dark:text-brand' },
+  { icon: I.clock, label: '10+ Years', sub: 'Backtested historical data', color: 'text-brand dark:text-brand' },
 ];
 
 /* ═══════════════════════════════════════════════════════════
@@ -183,26 +183,26 @@ const AlgorithmsIntro = () => {
       {/* ─────────── 1. HERO (Zerodha / Groww inspired — centered, warm, airy) ─────────── */}
       <section className="relative pt-32 pb-24 px-6 md:px-12 lg:px-24 overflow-hidden">
         {/* Soft gradient blobs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-100 dark:bg-emerald-900/15 opacity-50 blur-[120px] pointer-events-none" />
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-green-50 dark:bg-green-900/10 opacity-50 blur-[80px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] rounded-full bg-emerald-50 dark:bg-emerald-900/10 opacity-40 blur-[80px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-50 blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-50 blur-[80px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-40 blur-[80px] pointer-events-none" />
 
         {/* Minimal decorative SVG — rising line */}
         <svg className="absolute bottom-0 left-0 w-full h-32 pointer-events-none opacity-[0.04] dark:opacity-[0.06]" viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-          <path d="M0 120 Q360 20 720 60 T1440 10" stroke="currentColor" strokeWidth="2" className="text-emerald-600"/>
-          <path d="M0 120 Q400 50 800 80 T1440 30" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400"/>
+          <path d="M0 120 Q360 20 720 60 T1440 10" stroke="currentColor" strokeWidth="2" className="text-brand"/>
+          <path d="M0 120 Q400 50 800 80 T1440 30" stroke="currentColor" strokeWidth="1.5" className="text-brand"/>
         </svg>
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }}>
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-green-50 dark:bg-emerald-900/30 text-green-700 dark:text-emerald-300 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-green-100 dark:border-emerald-700/30">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand px-4 py-2 rounded-full text-sm font-medium mb-8 border border-brand-line dark:border-brand-line">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"/></svg>
               AI-Powered Trading Systems
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.1] mb-6 tracking-[-0.02em]">
+            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.1] mb-6 tracking-[-0.025em]">
               Invest smarter with{' '}
-              <span className="bg-gradient-to-r from-green-600 to-emerald-500 dark:from-emerald-400 dark:to-green-300 bg-clip-text text-transparent">algorithms</span>
+              <span className="text-brand">algorithms</span>
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-lg md:text-xl text-gray-500 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto">
@@ -212,14 +212,14 @@ const AlgorithmsIntro = () => {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
               <Link
                 to="/algos"
-                className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:shadow-green-600/30 hover:-translate-y-0.5 text-base"
+                className="inline-flex items-center justify-center gap-2 bg-brand-fill hover:bg-brand-hover text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-brand/20 hover:shadow-brand/30 hover:-translate-y-0.5 text-base"
               >
                 Explore Algorithms
                 {I.arrowRight}
               </Link>
               <button
                 onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-green-300 dark:hover:border-emerald-600 hover:text-green-600 dark:hover:text-emerald-300 transition-all duration-200 text-base"
+                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-brand-line dark:hover:border-brand hover:text-brand dark:hover:text-brand transition-all duration-200 text-base"
               >
                 See How It Works
               </button>
@@ -236,7 +236,7 @@ const AlgorithmsIntro = () => {
                   {i > 0 && <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />}
                   <div className="text-center">
                     <div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-slate-100">{s.value}</div>
-                    <div className="text-[11px] text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
+                    <div className="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
                   </div>
                 </React.Fragment>
               ))}
@@ -289,7 +289,7 @@ const AlgorithmsIntro = () => {
                 key={s.title}
                 variants={fadeUp}
                 custom={i}
-                className="group bg-white dark:bg-slate-800/80 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:border-green-200 dark:hover:border-emerald-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group bg-white dark:bg-slate-800/80 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:border-brand-line dark:hover:border-brand hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex items-start gap-5">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${s.color} text-white flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
@@ -323,7 +323,7 @@ const AlgorithmsIntro = () => {
                 custom={i}
                 className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-11 h-11 rounded-xl bg-green-100 dark:bg-emerald-900/30 text-green-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <div className="w-11 h-11 rounded-xl bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand flex items-center justify-center mb-4">
                   {b.icon}
                 </div>
                 <h3 className="text-base font-bold mb-1.5">{b.title}</h3>
@@ -346,7 +346,7 @@ const AlgorithmsIntro = () => {
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-6">
             {/* XTIN Algos */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white flex items-center justify-center mb-5">
+              <div className="w-12 h-12 rounded-xl text-white flex items-center justify-center mb-5 bg-brand-fill">
                 {I.bolt}
               </div>
               <h3 className="text-xl font-semibold mb-2">XTIN Exclusive Algos</h3>
@@ -354,18 +354,18 @@ const AlgorithmsIntro = () => {
               <ul className="space-y-3 mb-6">
                 {['AurumV — Systematic Gold Strategy', 'Bird Eye — Multi-Engine Portfolio', 'Gamma — 15-Minute Gold Strategy', 'Z1 — Systematic Investment Strategy'].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300">
-                    <span className="text-green-500 mt-0.5 flex-shrink-0">{I.check}</span>
+                    <span className="text-brand mt-0.5 flex-shrink-0">{I.check}</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link to="/algos" className="inline-flex items-center gap-2 text-green-600 dark:text-emerald-400 font-semibold text-sm hover:gap-3 transition-all">
+              <Link to="/algos" className="inline-flex items-center gap-2 text-brand dark:text-brand font-semibold text-sm hover:gap-3 transition-all">
                 View Algorithms {I.arrowRight}
               </Link>
             </div>
 
             {/* AlgoMarket + Build */}
-            <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="rounded-2xl p-8 text-white relative overflow-hidden bg-brand-fill">
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <div className="relative z-10">
                 <div className="flex gap-3 mb-5">
@@ -377,11 +377,11 @@ const AlgorithmsIntro = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Build & Publish</h3>
-                <p className="text-green-100 text-sm mb-5">Create custom algorithms or publish your strategies on AlgoMarket</p>
+                <p className="text-white/85 text-sm mb-5">Create custom algorithms or publish your strategies on AlgoMarket</p>
                 <ul className="space-y-3 mb-6">
                   {['Visual no-code algo builder', 'Full backtesting engine', 'Community marketplace (Q3 2026)', 'Revenue share for publishers'].map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-green-50">
-                      <span className="text-green-200 mt-0.5 flex-shrink-0">{I.check}</span>
+                    <li key={f} className="flex items-start gap-2 text-sm text-white/85">
+                      <span className="text-white/85 mt-0.5 flex-shrink-0">{I.check}</span>
                       {f}
                     </li>
                   ))}
@@ -412,7 +412,7 @@ const AlgorithmsIntro = () => {
                 custom={i}
                 className={`bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 ${p.border} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
               >
-                <div className="text-green-600 dark:text-emerald-400 mb-4">{p.icon}</div>
+                <div className="text-brand dark:text-brand mb-4">{p.icon}</div>
                 <h3 className="text-base font-bold mb-2">{p.label}</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400 italic">"{p.problem}"</p>
               </motion.div>
@@ -425,7 +425,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Built for Trust & Reliability</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Built for Trust & Reliability</h2>
           </motion.div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -439,7 +439,7 @@ const AlgorithmsIntro = () => {
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-50 dark:bg-slate-700 mb-3 ${t.color}`}>
                   {t.icon}
                 </div>
-                <h4 className="font-bold text-sm mb-1">{t.label}</h4>
+                <h4 className="font-bold text-base mb-1">{t.label}</h4>
                 <p className="text-xs text-gray-400 dark:text-slate-500">{t.sub}</p>
               </motion.div>
             ))}
@@ -462,12 +462,12 @@ const AlgorithmsIntro = () => {
                 {I.search}
                 <span>Browse</span>
               </div>
-              <h3 className="text-3xl font-display font-normal mb-2 tracking-[-0.015em]">Free</h3>
+              <h3 className="text-3xl font-display font-semibold mb-2 tracking-[-0.025em]">Free</h3>
               <p className="text-gray-500 dark:text-slate-400 text-sm mb-5">to browse & view performance</p>
               <ul className="space-y-3">
                 {['Browse all strategy performance', 'View CAGR, drawdown & win rates', 'Read plain-English logic', 'Compare strategies side-by-side'].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300">
-                    <span className="text-green-500 mt-0.5 flex-shrink-0">{I.check}</span>
+                    <span className="text-brand mt-0.5 flex-shrink-0">{I.check}</span>
                     {f}
                   </li>
                 ))}
@@ -475,24 +475,24 @@ const AlgorithmsIntro = () => {
             </div>
 
             {/* Paid */}
-            <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="rounded-2xl p-8 text-white relative overflow-hidden bg-brand-fill">
               <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <div className="relative z-10">
                 <div className="inline-flex items-center gap-2 bg-white/15 text-white px-3 py-1.5 rounded-full text-xs font-semibold mb-4">
                   {I.bolt}
                   <span>Subscribe</span>
                 </div>
-                <h3 className="text-3xl font-display font-normal mb-2 tracking-[-0.015em]">Per-Publisher Pricing</h3>
-                <p className="text-green-100 text-sm mb-5">Each publisher sets their strategy fee</p>
+                <h3 className="text-3xl font-display font-semibold mb-2 tracking-[-0.025em]">Per-Publisher Pricing</h3>
+                <p className="text-white/85 text-sm mb-5">Each publisher sets their strategy fee</p>
                 <ul className="space-y-3">
                   {['Live automated execution', 'Real-time dashboard & alerts', 'Full trade log for every strategy', 'Cancel anytime — no lock-in'].map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-green-50">
-                      <span className="text-green-200 mt-0.5 flex-shrink-0">{I.check}</span>
+                    <li key={f} className="flex items-start gap-2 text-sm text-white/85">
+                      <span className="text-white/85 mt-0.5 flex-shrink-0">{I.check}</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 text-xs text-green-200 flex items-center gap-1.5">
+                <p className="mt-6 text-xs text-white/85 flex items-center gap-1.5">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   Strategy subscriptions priced per publisher — no hidden charges.
                 </p>
@@ -506,22 +506,22 @@ const AlgorithmsIntro = () => {
       <Section className="py-24 px-6 md:px-12 lg:px-24">
         <motion.div
           variants={fadeUp}
-          className="max-w-4xl mx-auto text-center bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-display font-normal text-white mb-4 tracking-[-0.015em]">
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-4 tracking-[-0.025em]">
               Let algorithms trade while you live your life
             </h2>
-            <p className="text-green-100 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">
               Browse strategies, review backtests, and deploy — all from your dashboard. No coding required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/algos"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-700 font-bold px-10 py-4 rounded-xl hover:bg-green-50 transition-all duration-200 shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-white text-brand font-bold px-10 py-4 rounded-xl hover:bg-brand-soft transition-all duration-200 shadow-lg hover:-translate-y-0.5"
               >
                 Explore Algorithms
                 {I.arrowRight}
@@ -533,7 +533,7 @@ const AlgorithmsIntro = () => {
                 Create Free Account
               </Link>
             </div>
-            <p className="text-green-200 text-sm mt-6">Free to browse. No commitment required.</p>
+            <p className="text-white/85 text-sm mt-6">Free to browse. No commitment required.</p>
           </div>
         </motion.div>
       </Section>

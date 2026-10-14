@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const OverloadedVsCleanSVG = () => (
   <svg viewBox="0 0 640 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Mistake #1: Overloading the Chart</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">More indicators don't mean better understanding</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Mistake #1: Overloading the Chart</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">More indicators don't mean better understanding</text>
     
     {/* Left - Overloaded */}
     <rect x="30" y="70" width="275" height="240" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -75,9 +75,9 @@ const OverloadedVsCleanSVG = () => (
       <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Chaotic overlapping lines */}
-      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A3A1A6" strokeWidth="1.5"/>
+      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-85 20 L-40 15 L0 5 L40 -5 L85 -15" fill="none" stroke="#5A77AA" strokeWidth="1.5"/>
-      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#1FA978" strokeWidth="1.5"/>
+      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
       <path d="M-85 -20 L-50 -30 L-10 -15 L30 -35 L70 -20 L85 -30" fill="none" stroke="#D2754C" strokeWidth="1.5"/>
       <path d="M-85 -10 L-40 0 L10 -20 L50 -5 L85 -25" fill="none" stroke="#8F6FC4" strokeWidth="1.5"/>
       <path d="M-85 50 L-30 35 L30 50 L85 30" fill="none" stroke="#E04848" strokeWidth="1.5" strokeDasharray="4 2"/>
@@ -93,21 +93,21 @@ const OverloadedVsCleanSVG = () => (
     <text x="167" y="302" textAnchor="middle" fontSize="9" fill="#842428">Overwhelmed and confused</text>
     
     {/* Right - Clean */}
-    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Clean Chart</text>
     
     <g transform="translate(472, 185)">
       <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Clean price only */}
-      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#75757D" strokeWidth="2.5"/>
+      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#717680" strokeWidth="2.5"/>
       
       {/* One simple moving average */}
-      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#1FA978" strokeWidth="2"/>
+      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#12805A" strokeWidth="2"/>
     </g>
     
-    <text x="472" y="288" textAnchor="middle" fontSize="9" fill="#0D543C">"Price is trending up"</text>
-    <text x="472" y="302" textAnchor="middle" fontSize="9" fill="#0D543C">Clear and focused</text>
+    <text x="472" y="288" textAnchor="middle" fontSize="9" fill="#12805A">"Price is trending up"</text>
+    <text x="472" y="302" textAnchor="middle" fontSize="9" fill="#12805A">Clear and focused</text>
   </svg>
 );
 
@@ -115,11 +115,11 @@ const OverloadedVsCleanSVG = () => (
 const PredictionVsObservationSVG = () => (
   <svg viewBox="0 0 640 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Mistake #2: Predicting Instead of Observing</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Charts show context, not certainty</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Mistake #2: Predicting Instead of Observing</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Charts show context, not certainty</text>
     
     {/* Left - Prediction mindset */}
     <rect x="30" y="70" width="275" height="220" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -129,7 +129,7 @@ const PredictionVsObservationSVG = () => (
       <rect x="-100" y="-50" width="200" height="100" fill="#FBE1E1" rx="8" stroke="#F09B9B" strokeWidth="1"/>
       
       {/* Price chart */}
-      <path d="M-80 30 L-40 10 L0 20 L40 -10 L70 0" fill="none" stroke="#75757D" strokeWidth="2"/>
+      <path d="M-80 30 L-40 10 L0 20 L40 -10 L70 0" fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Predicted future arrow */}
       <path d="M70 0 L90 -30" stroke="#C7363B" strokeWidth="2" strokeDasharray="4 3"/>
@@ -145,25 +145,25 @@ const PredictionVsObservationSVG = () => (
     <text x="167" y="269" textAnchor="middle" fontSize="9" fill="#842428">Overconfident, often wrong</text>
     
     {/* Right - Observation mindset */}
-    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Observation Mindset</text>
     
     <g transform="translate(472, 170)">
-      <rect x="-100" y="-50" width="200" height="100" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="-100" y="-50" width="200" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
       
       {/* Price chart */}
-      <path d="M-80 30 L-40 10 L0 20 L40 -10 L70 0" fill="none" stroke="#75757D" strokeWidth="2"/>
+      <path d="M-80 30 L-40 10 L0 20 L40 -10 L70 0" fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Question mark for future */}
-      <text x="85" y="5" fontSize="14" fill="#75757D">?</text>
+      <text x="85" y="5" fontSize="14" fill="#717680">?</text>
       
       {/* Eye icon */}
-      <ellipse cx="-70" cy="-30" rx="14" ry="10" fill="#D5F2E5" stroke="#1FA978" strokeWidth="1.5"/>
-      <circle cx="-70" cy="-30" r="4" fill="#1FA978"/>
+      <ellipse cx="-70" cy="-30" rx="14" ry="10" fill="#EEF9F4" stroke="#12805A" strokeWidth="1.5"/>
+      <circle cx="-70" cy="-30" r="4" fill="#12805A"/>
     </g>
     
-    <text x="472" y="255" textAnchor="middle" fontSize="9" fill="#0D543C">"Price is currently rising"</text>
-    <text x="472" y="269" textAnchor="middle" fontSize="9" fill="#0D543C">Humble, context-aware</text>
+    <text x="472" y="255" textAnchor="middle" fontSize="9" fill="#12805A">"Price is currently rising"</text>
+    <text x="472" y="269" textAnchor="middle" fontSize="9" fill="#12805A">Humble, context-aware</text>
   </svg>
 );
 
@@ -171,11 +171,11 @@ const PredictionVsObservationSVG = () => (
 const HigherTimeframeSVG = () => (
   <svg viewBox="0 0 640 380" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="380" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="380" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Mistake #3: Ignoring the Bigger Picture</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Short-term noise can mislead without higher timeframe context</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Mistake #3: Ignoring the Bigger Picture</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Short-term noise can mislead without higher timeframe context</text>
     
     {/* Short timeframe only - Mistake */}
     <rect x="30" y="70" width="275" height="140" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -186,12 +186,12 @@ const HigherTimeframeSVG = () => (
       <text x="-90" y="-20" fontSize="7" fill="#C7363B">5-min chart</text>
       
       {/* Short term uptrend */}
-      <path d="M-80 25 L-50 15 L-20 20 L10 5 L40 10 L70 -5 L85 -15" fill="none" stroke="#1FA978" strokeWidth="2"/>
-      <text x="0" y="-20" textAnchor="middle" fontSize="8" fill="#0D543C">"Strong uptrend!"</text>
+      <path d="M-80 25 L-50 15 L-20 20 L10 5 L40 10 L70 -5 L85 -15" fill="none" stroke="#12805A" strokeWidth="2"/>
+      <text x="0" y="-20" textAnchor="middle" fontSize="8" fill="#12805A">"Strong uptrend!"</text>
     </g>
     
     {/* Higher timeframe context - Correct */}
-    <rect x="335" y="70" width="275" height="140" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="140" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ With Higher Timeframe Context</text>
     
     <g transform="translate(472, 145)">
@@ -217,9 +217,9 @@ const HigherTimeframeSVG = () => (
       <path d="M-160 -5 L-120 5 L-80 15 L-40 10 L0 20 L40 15 L80 25 L120 20 L145 30" fill="none" stroke="#E04848" strokeWidth="2"/>
       
       {/* Small uptick at end */}
-      <path d="M120 20 L145 30 L155 25" fill="none" stroke="#1FA978" strokeWidth="2"/>
+      <path d="M120 20 L145 30 L155 25" fill="none" stroke="#12805A" strokeWidth="2"/>
       
-      <text x="0" y="-35" textAnchor="middle" fontSize="9" fill="#75757D">Short-term rise within a larger decline</text>
+      <text x="0" y="-35" textAnchor="middle" fontSize="9" fill="#717680">Short-term rise within a larger decline</text>
     </g>
     
     <text x="320" y="355" textAnchor="middle" fontSize="10" fill="#26354F">What looks strong in isolation may be weak in context</text>
@@ -230,11 +230,11 @@ const HigherTimeframeSVG = () => (
 const TooManyLinesSVG = () => (
   <svg viewBox="0 0 640 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Mistake #4: Drawing Too Many Lines</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">When everything is important, nothing is</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Mistake #4: Drawing Too Many Lines</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">When everything is important, nothing is</text>
     
     {/* Left - Too many lines */}
     <rect x="30" y="70" width="275" height="220" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -244,13 +244,13 @@ const TooManyLinesSVG = () => (
       <rect x="-105" y="-65" width="210" height="130" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Price */}
-      <path d="M-85 20 L-50 0 L-20 15 L10 -10 L40 5 L70 -20 L85 -10" fill="none" stroke="#75757D" strokeWidth="2"/>
+      <path d="M-85 20 L-50 0 L-20 15 L10 -10 L40 5 L70 -20 L85 -10" fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Too many horizontal lines */}
       <line x1="-90" y1="-50" x2="90" y2="-50" stroke="#E04848" strokeWidth="1"/>
       <line x1="-90" y1="-35" x2="90" y2="-35" stroke="#D2754C" strokeWidth="1"/>
       <line x1="-90" y1="-20" x2="90" y2="-20" stroke="#B8923F" strokeWidth="1"/>
-      <line x1="-90" y1="-5" x2="90" y2="-5" stroke="#1FA978" strokeWidth="1"/>
+      <line x1="-90" y1="-5" x2="90" y2="-5" stroke="#12805A" strokeWidth="1"/>
       <line x1="-90" y1="10" x2="90" y2="10" stroke="#5A77AA" strokeWidth="1"/>
       <line x1="-90" y1="25" x2="90" y2="25" stroke="#8F6FC4" strokeWidth="1"/>
       <line x1="-90" y1="40" x2="90" y2="40" stroke="#8F6FC4" strokeWidth="1"/>
@@ -264,25 +264,25 @@ const TooManyLinesSVG = () => (
     <text x="167" y="282" textAnchor="middle" fontSize="9" fill="#842428">Analysis paralysis</text>
     
     {/* Right - Key levels only */}
-    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Key Levels Only</text>
     
     <g transform="translate(472, 180)">
       <rect x="-105" y="-65" width="210" height="130" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Price */}
-      <path d="M-85 20 L-50 0 L-20 15 L10 -10 L40 5 L70 -20 L85 -10" fill="none" stroke="#75757D" strokeWidth="2"/>
+      <path d="M-85 20 L-50 0 L-20 15 L10 -10 L40 5 L70 -20 L85 -10" fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Only 2 key levels */}
       <line x1="-90" y1="-25" x2="90" y2="-25" stroke="#E04848" strokeWidth="1.5"/>
       <text x="95" y="-22" fontSize="7" fill="#E04848">Resistance</text>
       
-      <line x1="-90" y1="25" x2="90" y2="25" stroke="#1FA978" strokeWidth="1.5"/>
-      <text x="95" y="28" fontSize="7" fill="#1FA978">Support</text>
+      <line x1="-90" y1="25" x2="90" y2="25" stroke="#12805A" strokeWidth="1.5"/>
+      <text x="95" y="28" fontSize="7" fill="#12805A">Support</text>
     </g>
     
-    <text x="472" y="268" textAnchor="middle" fontSize="9" fill="#0D543C">"Two key zones to watch"</text>
-    <text x="472" y="282" textAnchor="middle" fontSize="9" fill="#0D543C">Focused and actionable</text>
+    <text x="472" y="268" textAnchor="middle" fontSize="9" fill="#12805A">"Two key zones to watch"</text>
+    <text x="472" y="282" textAnchor="middle" fontSize="9" fill="#12805A">Focused and actionable</text>
   </svg>
 );
 
@@ -290,11 +290,11 @@ const TooManyLinesSVG = () => (
 const ChangingToolsSVG = () => (
   <svg viewBox="0 0 640 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Mistake #5: Constantly Changing Tools</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Jumping between setups prevents understanding any of them</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Mistake #5: Constantly Changing Tools</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Jumping between setups prevents understanding any of them</text>
     
     {/* Left - Tool hopping */}
     <rect x="30" y="70" width="275" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -302,27 +302,27 @@ const ChangingToolsSVG = () => (
     
     <g transform="translate(167, 170)">
       {/* Timeline with different tools */}
-      <line x1="-100" y1="0" x2="100" y2="0" stroke="#E4E1D9" strokeWidth="2"/>
+      <line x1="-100" y1="0" x2="100" y2="0" stroke="#E4E4EA" strokeWidth="2"/>
       
       {/* Week 1 */}
       <circle cx="-75" cy="0" r="15" fill="#FBE1E1" stroke="#F09B9B" strokeWidth="1"/>
       <text x="-75" y="4" textAnchor="middle" fontSize="8" fill="#842428">MA</text>
-      <text x="-75" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 1</text>
+      <text x="-75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 1</text>
       
       {/* Week 2 */}
       <circle cx="-25" cy="0" r="15" fill="#F6ECCE" stroke="#E2C273" strokeWidth="1"/>
       <text x="-25" y="4" textAnchor="middle" fontSize="8" fill="#7C5D2B">RSI</text>
-      <text x="-25" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 2</text>
+      <text x="-25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 2</text>
       
       {/* Week 3 */}
       <circle cx="25" cy="0" r="15" fill="#E0E7F1" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="25" y="4" textAnchor="middle" fontSize="7" fill="#344C72">MACD</text>
-      <text x="25" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 3</text>
+      <text x="25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 3</text>
       
       {/* Week 4 */}
       <circle cx="75" cy="0" r="15" fill="#ECE4F6" stroke="#C0A9E2" strokeWidth="1"/>
       <text x="75" y="4" textAnchor="middle" fontSize="7" fill="#7A5BA6">Bands</text>
-      <text x="75" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 4</text>
+      <text x="75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 4</text>
       
       <text x="0" y="45" textAnchor="middle" fontSize="8" fill="#C7363B">→ Never masters any tool</text>
     </g>
@@ -330,34 +330,34 @@ const ChangingToolsSVG = () => (
     <text x="167" y="250" textAnchor="middle" fontSize="9" fill="#842428">"This one doesn't work, try another"</text>
     
     {/* Right - Consistent approach */}
-    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Consistent Approach</text>
     
     <g transform="translate(472, 170)">
       {/* Timeline with same tool */}
-      <line x1="-100" y1="0" x2="100" y2="0" stroke="#77D3AE" strokeWidth="2"/>
+      <line x1="-100" y1="0" x2="100" y2="0" stroke="#3CCB97" strokeWidth="2"/>
       
       {/* All weeks same tool */}
-      <circle cx="-75" cy="0" r="15" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-      <text x="-75" y="4" textAnchor="middle" fontSize="8" fill="#0D543C">MA</text>
-      <text x="-75" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 1</text>
+      <circle cx="-75" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+      <text x="-75" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <text x="-75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 1</text>
       
-      <circle cx="-25" cy="0" r="15" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-      <text x="-25" y="4" textAnchor="middle" fontSize="8" fill="#0D543C">MA</text>
-      <text x="-25" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 2</text>
+      <circle cx="-25" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+      <text x="-25" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <text x="-25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 2</text>
       
-      <circle cx="25" cy="0" r="15" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-      <text x="25" y="4" textAnchor="middle" fontSize="8" fill="#0D543C">MA</text>
-      <text x="25" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 3</text>
+      <circle cx="25" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+      <text x="25" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <text x="25" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 3</text>
       
-      <circle cx="75" cy="0" r="15" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-      <text x="75" y="4" textAnchor="middle" fontSize="8" fill="#0D543C">MA</text>
-      <text x="75" y="-25" textAnchor="middle" fontSize="7" fill="#75757D">Week 4</text>
+      <circle cx="75" cy="0" r="15" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+      <text x="75" y="4" textAnchor="middle" fontSize="8" fill="#12805A">MA</text>
+      <text x="75" y="-25" textAnchor="middle" fontSize="7" fill="#717680">Week 4</text>
       
-      <text x="0" y="45" textAnchor="middle" fontSize="8" fill="#0D543C">→ Develops real understanding</text>
+      <text x="0" y="45" textAnchor="middle" fontSize="8" fill="#12805A">→ Develops real understanding</text>
     </g>
     
-    <text x="472" y="250" textAnchor="middle" fontSize="9" fill="#0D543C">"I'll learn this tool deeply first"</text>
+    <text x="472" y="250" textAnchor="middle" fontSize="9" fill="#12805A">"I'll learn this tool deeply first"</text>
   </svg>
 );
 
@@ -365,11 +365,11 @@ const ChangingToolsSVG = () => (
 const ConfusedVsCalmSVG = () => (
   <svg viewBox="0 0 640 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">The Result: Confusion vs Clarity</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Your approach determines your experience</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">The Result: Confusion vs Clarity</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Your approach determines your experience</text>
     
     {/* Left - Confused trader */}
     <rect x="30" y="70" width="275" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -397,24 +397,24 @@ const ConfusedVsCalmSVG = () => (
     <text x="167" y="245" textAnchor="middle" fontSize="9" fill="#842428">Stressed, reactive, overwhelmed</text>
     
     {/* Right - Calm observer */}
-    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">Calm Observer</text>
     
     <g transform="translate(472, 165)">
       {/* Calm figure */}
-      <circle cx="0" cy="-40" r="25" fill="#D5F2E5" stroke="#77D3AE" strokeWidth="2"/>
+      <circle cx="0" cy="-40" r="25" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
       <text x="0" y="-35" textAnchor="middle" fontSize="20">😌</text>
       
       {/* Simple thought */}
-      <ellipse cx="0" cy="-80" rx="50" ry="18" fill="#D5F2E5" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="0" y="-77" textAnchor="middle" fontSize="8" fill="#0D543C">Price is above average</text>
+      <ellipse cx="0" cy="-80" rx="50" ry="18" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="0" y="-77" textAnchor="middle" fontSize="8" fill="#12805A">Price is above average</text>
       
       {/* Clean chart icon */}
-      <rect x="-35" y="10" width="70" height="40" fill="#ffffff" rx="6" stroke="#77D3AE" strokeWidth="1"/>
-      <path d="M-25 40 L-10 30 L5 35 L20 20 L30 25" fill="none" stroke="#1FA978" strokeWidth="1.5"/>
+      <rect x="-35" y="10" width="70" height="40" fill="#ffffff" rx="6" stroke="#3CCB97" strokeWidth="1"/>
+      <path d="M-25 40 L-10 30 L5 35 L20 20 L30 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
     </g>
     
-    <text x="472" y="245" textAnchor="middle" fontSize="9" fill="#0D543C">Patient, observant, clear-headed</text>
+    <text x="472" y="245" textAnchor="middle" fontSize="9" fill="#12805A">Patient, observant, clear-headed</text>
   </svg>
 );
 
@@ -422,11 +422,11 @@ const ConfusedVsCalmSVG = () => (
 const SimplicityPrincipleSVG = () => (
   <svg viewBox="0 0 600 260" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">The Simplicity Principle</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Less complexity often leads to better understanding</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">The Simplicity Principle</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Less complexity often leads to better understanding</text>
     
     {/* Progression */}
     <g transform="translate(100, 140)">
@@ -439,10 +439,10 @@ const SimplicityPrincipleSVG = () => (
     </g>
     
     {/* Arrow */}
-    <path d="M180 140 L230 140" stroke="#A3A1A6" strokeWidth="2" markerEnd="url(#simplicity-arrow)"/>
+    <path d="M180 140 L230 140" stroke="#A0A3AA" strokeWidth="2" markerEnd="url(#simplicity-arrow)"/>
     <defs>
       <marker id="simplicity-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#A3A1A6"/>
+        <polygon points="0 0, 10 3.5, 0 7" fill="#A0A3AA"/>
       </marker>
     </defs>
     
@@ -456,15 +456,15 @@ const SimplicityPrincipleSVG = () => (
     </g>
     
     {/* Arrow */}
-    <path d="M380 140 L430 140" stroke="#A3A1A6" strokeWidth="2" markerEnd="url(#simplicity-arrow)"/>
+    <path d="M380 140 L430 140" stroke="#A0A3AA" strokeWidth="2" markerEnd="url(#simplicity-arrow)"/>
     
     {/* End - Simple */}
     <g transform="translate(500, 140)">
-      <rect x="-60" y="-50" width="120" height="100" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="-60" y="-50" width="120" height="100" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
       <text x="0" y="-25" textAnchor="middle" fontSize="22">🔧</text>
-      <text x="0" y="-5" textAnchor="middle" fontSize="9" fill="#0D543C">One tool</text>
-      <text x="0" y="10" textAnchor="middle" fontSize="9" fill="#0D543C">Deep understanding</text>
-      <text x="0" y="30" textAnchor="middle" fontSize="8" fill="#1FA978">High clarity</text>
+      <text x="0" y="-5" textAnchor="middle" fontSize="9" fill="#12805A">One tool</text>
+      <text x="0" y="10" textAnchor="middle" fontSize="9" fill="#12805A">Deep understanding</text>
+      <text x="0" y="30" textAnchor="middle" fontSize="8" fill="#12805A">High clarity</text>
     </g>
   </svg>
 );
@@ -485,7 +485,7 @@ const ModuleCompletionSVG = () => (
     </defs>
     
     {/* Background */}
-    <rect x="0" y="0" width="400" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="400" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Celebration rays */}
     <g transform="translate(200, 130)">
@@ -519,8 +519,8 @@ const ModuleCompletionSVG = () => (
     
     {/* Text */}
     <text x="200" y="215" textAnchor="middle" fontSize="14" fontWeight="700" fill="#2C3F5E">Module Complete!</text>
-    <text x="200" y="235" textAnchor="middle" fontSize="11" fill="#75757D">Technical Analysis – Visual Foundations</text>
-    <text x="200" y="255" textAnchor="middle" fontSize="10" fill="#A3A1A6">You've built a strong foundation</text>
+    <text x="200" y="235" textAnchor="middle" fontSize="11" fill="#717680">Technical Analysis – Visual Foundations</text>
+    <text x="200" y="255" textAnchor="middle" fontSize="10" fill="#A0A3AA">You've built a strong foundation</text>
   </svg>
 );
 
@@ -593,14 +593,14 @@ const TechnicalAnalysisLesson7 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 7 of 7 – Final Lesson
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Common Charting Mistakes Beginners Make</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Common Charting Mistakes Beginners Make</h1>
             <p className="text-gray-600 mt-2">Awareness before action — avoiding the pitfalls</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Charting Mistakes Are Common</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Charting Mistakes Are Common</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -666,8 +666,8 @@ const TechnicalAnalysisLesson7 = () => {
 
           <OverloadedVsCleanSVG />
           
-          <div className="mt-6 bg-green-50 rounded-xl p-5 border border-green-200">
-            <p className="text-green-800">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand">
               <strong>Better approach:</strong> Start with price alone. Add one tool only if it helps you 
               see something you couldn't see before. If a tool doesn't add clarity, remove it.
             </p>
@@ -844,7 +844,7 @@ const TechnicalAnalysisLesson7 = () => {
         </div>
 
         {/* Module Completion */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaTrophy className="text-yellow-400 text-2xl" />
             <h3 className="text-xl font-semibold">Module Complete!</h3>
@@ -907,7 +907,7 @@ const TechnicalAnalysisLesson7 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Back to Module Overview</span>
           </button>

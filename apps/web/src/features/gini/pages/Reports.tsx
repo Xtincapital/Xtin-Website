@@ -313,7 +313,7 @@ export default function Reports() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div className="flex items-center gap-2">
-          <FileBarChart className="h-6 w-6 text-primary" />
+          <FileBarChart className="h-6 w-6 text-brand" />
           <div>
             <h1 className="xt-title mb-2">Reports</h1>
             <p className="text-sm text-muted-foreground">Analyse your portfolio and download the full report as a PDF or CSV</p>
@@ -323,7 +323,7 @@ export default function Reports() {
         {analysis !== "done" ? (
           <Card>
             <CardContent className="flex flex-col items-center px-6 py-10 text-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-brand">
                 {analysis === "analysing" ? <Loader2 className="h-7 w-7 animate-spin" /> : <ScanSearch className="h-7 w-7" />}
               </span>
               {analysis === "analysing" ? (
@@ -333,7 +333,7 @@ export default function Reports() {
                     {ANALYSIS_STEPS.map((label, i) => (
                       <li key={label} className={i <= step ? "text-foreground" : "text-muted-foreground/50"}>
                         <span className="mr-2 inline-flex w-4 justify-center">
-                          {i < step ? <Check className="h-4 w-4 text-primary" /> : i === step ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "·"}
+                          {i < step ? <Check className="h-4 w-4 text-brand" /> : i === step ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "·"}
                         </span>
                         {label}
                       </li>
@@ -424,7 +424,7 @@ export default function Reports() {
                 {isLoading || !meta ? (
                   <Skeleton className="h-96 w-full" />
                 ) : (
-                  <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#E4E1D9] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
+                  <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#E4E4EA] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
                     <div className="mx-auto" style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
                       <div id="report-scale-wrap" style={{ width: REPORT_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
                         <div ref={previewRef}>

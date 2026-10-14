@@ -20,10 +20,10 @@ function Section({ n, icon: Icon, title, hint, children }: { n: number; icon: ty
   return (
     <section className={`${card} p-5 sm:p-6`}>
       <div className="mb-4 flex items-start gap-3">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-xs font-bold text-white dark:bg-white dark:text-slate-900">{n}</span>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-xs font-bold text-white dark:bg-white dark:text-slate-900 brand-on-dark">{n}</span>
         <div>
           <h2 className="flex items-center gap-2 font-semibold">
-            <Icon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> {title}
+            <Icon className="h-4 w-4 text-brand dark:text-brand" /> {title}
           </h2>
           <p className={`text-sm ${muted}`}>{hint}</p>
         </div>
@@ -245,10 +245,10 @@ export default function StrategyBuilder() {
 
         {/* live summary */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="relative overflow-hidden rounded-2xl bg-[#0A0A0B] p-5 text-white shadow-xl shadow-slate-900/10">
-            <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-500/30 blur-3xl" />
+          <div className="relative overflow-hidden rounded-2xl bg-[#131417] p-5 text-white shadow-xl shadow-slate-900/10 brand-on-dark">
+            <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand-soft blur-3xl" />
             <div className="relative xt-eyebrow">Your rule, in words</div>
-            <p className="relative mt-3 text-[15px] leading-relaxed text-slate-100">{strategySentence(def)}</p>
+            <p className="relative mt-3 text-base leading-relaxed text-slate-100">{strategySentence(def)}</p>
             {error && <p className="relative mt-4 rounded-xl bg-rose-500/15 px-3 py-2 text-sm text-rose-200">{error}</p>}
             <button onClick={onSave} disabled={save.isPending} className={`${btnPrimary} relative mt-5 w-full`}>
               <Save className="h-4 w-4" />

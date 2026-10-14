@@ -164,7 +164,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -172,11 +172,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -186,7 +186,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -251,7 +251,7 @@ const TradingBasicsLesson6 = () => {
                 Reality Check
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <Icons.ChartDown className="w-7 h-7 text-rose-600" />
               </span>
@@ -283,7 +283,7 @@ const TradingBasicsLesson6 = () => {
             
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 600 300" fill="none">
               {/* Title */}
-              <text x="300" y="25" textAnchor="middle" fill="#232327" fontSize="13" fontWeight="700">
+              <text x="300" y="25" textAnchor="middle" fill="#2A2A2C" fontSize="13" fontWeight="700">
                 Out of Every 100 F&O Traders in India
               </text>
               
@@ -308,8 +308,8 @@ const TradingBasicsLesson6 = () => {
                   const col = i % 3;
                   return (
                     <g key={i} transform={`translate(${col * 45}, ${row * 25})`}>
-                      <circle cx="8" cy="4" r="4" fill="#1FA978"/>
-                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#1FA978" strokeWidth="1.5"/>
+                      <circle cx="8" cy="4" r="4" fill="#12805A"/>
+                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#12805A" strokeWidth="1.5"/>
                     </g>
                   );
                 })}
@@ -319,8 +319,8 @@ const TradingBasicsLesson6 = () => {
               <rect x="50" y="250" width="300" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
               <text x="200" y="275" textAnchor="middle" fill="#842428" fontSize="14" fontWeight="700">89 LOSE MONEY</text>
               
-              <rect x="400" y="250" width="150" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-              <text x="475" y="275" textAnchor="middle" fill="#0D543C" fontSize="14" fontWeight="700">11 PROFIT</text>
+              <rect x="400" y="250" width="150" height="40" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+              <text x="475" y="275" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="700">11 PROFIT</text>
             </svg>
 
             <div className="grid md:grid-cols-3 gap-3">
@@ -362,24 +362,24 @@ const TradingBasicsLesson6 = () => {
                 </thead>
                 <tbody>
                   <tr className="border-t border-gray-100">
-                    <td className="p-3 font-medium text-green-700">Proprietary Traders (FIIs)</td>
+                    <td className="p-3 font-medium text-brand">Proprietary Traders (FIIs)</td>
                     <td className="p-3">Sophisticated algos, better information</td>
-                    <td className="p-3 font-bold text-green-600">Rs. 28,000+ Cr profit</td>
+                    <td className="p-3 font-bold text-brand">Rs. 28,000+ Cr profit</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50">
-                    <td className="p-3 font-medium text-green-700">Brokers</td>
+                    <td className="p-3 font-medium text-brand">Brokers</td>
                     <td className="p-3">Brokerage on every trade (win or lose)</td>
-                    <td className="p-3 font-bold text-green-600">Rs. 25,000+ Cr fees</td>
+                    <td className="p-3 font-bold text-brand">Rs. 25,000+ Cr fees</td>
                   </tr>
                   <tr className="border-t border-gray-100">
-                    <td className="p-3 font-medium text-green-700">Government</td>
+                    <td className="p-3 font-medium text-brand">Government</td>
                     <td className="p-3">STT, GST, Stamp Duty</td>
-                    <td className="p-3 font-bold text-green-600">Rs. 32,000+ Cr taxes</td>
+                    <td className="p-3 font-bold text-brand">Rs. 32,000+ Cr taxes</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50">
-                    <td className="p-3 font-medium text-green-700">Exchanges (NSE/BSE)</td>
+                    <td className="p-3 font-medium text-brand">Exchanges (NSE/BSE)</td>
                     <td className="p-3">Transaction charges</td>
-                    <td className="p-3 font-bold text-green-600">Rs. 4,000+ Cr fees</td>
+                    <td className="p-3 font-bold text-brand">Rs. 4,000+ Cr fees</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-rose-50">
                     <td className="p-3 font-medium text-rose-700">Retail Traders</td>
@@ -512,7 +512,7 @@ const TradingBasicsLesson6 = () => {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white text-sm font-bold">2</span>
                 </div>
                 <div className="flex-1 bg-white rounded-lg p-3 border border-gray-200">

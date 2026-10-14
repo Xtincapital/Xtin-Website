@@ -57,7 +57,7 @@ const GratuityCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
@@ -67,7 +67,7 @@ const GratuityCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
               What is Gratuity?
             </button>
@@ -124,16 +124,16 @@ const GratuityCalculator = () => {
               )}
               <button
                 onClick={calculateGratuity}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate Gratuity
               </button>
 
               {gratuity && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg text-center">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg text-center">
                   <p className="text-xl font-medium">
                     Gratuity Amount:{" "}
-                    <span className="text-green-700 text-2xl">
+                    <span className="text-brand text-2xl">
                       ₹{gratuity}
                     </span>
                   </p>

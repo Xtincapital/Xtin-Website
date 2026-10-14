@@ -73,19 +73,19 @@ const CostOfCarrySVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
     <defs>
       <linearGradient id="formulaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="380" fill="url(#formulaGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">The Cost of Carry Model</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Theoretical framework for futures pricing</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Theoretical framework for futures pricing</text>
     
     {/* Main Formula */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="600" height="100" fill="#232327" rx="12"/>
+      <rect x="0" y="0" width="600" height="100" fill="#2A2A2C" rx="12"/>
       
       <g transform="translate(300, 50)">
         <text textAnchor="middle" y="0" fontSize="24" fontWeight="700" fill="white">F = S × e</text>
@@ -93,7 +93,7 @@ const CostOfCarrySVG = () => (
       </g>
       
       <g transform="translate(20, 85)">
-        <text fontSize="9" fill="#A3A1A6">Where: F = Futures Price | S = Spot Price | r = Risk-Free Rate | d = Dividend Yield | t = Time to Expiry</text>
+        <text fontSize="9" fill="#A0A3AA">Where: F = Futures Price | S = Spot Price | r = Risk-Free Rate | d = Dividend Yield | t = Time to Expiry</text>
       </g>
     </g>
     
@@ -101,54 +101,54 @@ const CostOfCarrySVG = () => (
     <g transform="translate(30, 200)">
       {/* Spot Price */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="150" height="100" fill="#1FA978" fillOpacity="0.15" rx="10" stroke="#1FA978" strokeWidth="1"/>
-        <text x="75" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#1FA978">Spot Price (S)</text>
-        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Current market</text>
-        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A3A1A6">price of asset</text>
-        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#75757D">Foundation of futures</text>
+        <rect x="0" y="0" width="150" height="100" fill="#12805A" fillOpacity="0.15" rx="10" stroke="#12805A" strokeWidth="1"/>
+        <text x="75" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">Spot Price (S)</text>
+        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Current market</text>
+        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A0A3AA">price of asset</text>
+        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#717680">Foundation of futures</text>
       </g>
       
       {/* Plus sign */}
-      <text x="165" y="55" fontSize="24" fontWeight="700" fill="#75757D">+</text>
+      <text x="165" y="55" fontSize="24" fontWeight="700" fill="#717680">+</text>
       
       {/* Interest Cost */}
       <g transform="translate(190, 0)">
         <rect x="0" y="0" width="150" height="100" fill="#D2754C" fillOpacity="0.15" rx="10" stroke="#D2754C" strokeWidth="1"/>
         <text x="75" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">Interest (r × t)</text>
-        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Financing cost to</text>
-        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A3A1A6">hold position</text>
-        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#75757D">Adds to futures price</text>
+        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Financing cost to</text>
+        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A0A3AA">hold position</text>
+        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#717680">Adds to futures price</text>
       </g>
       
       {/* Minus sign */}
-      <text x="355" y="55" fontSize="24" fontWeight="700" fill="#75757D">−</text>
+      <text x="355" y="55" fontSize="24" fontWeight="700" fill="#717680">−</text>
       
       {/* Dividend/Convenience */}
       <g transform="translate(380, 0)">
         <rect x="0" y="0" width="150" height="100" fill="#5A77AA" fillOpacity="0.15" rx="10" stroke="#5A77AA" strokeWidth="1"/>
         <text x="75" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#5A77AA">Benefits (d × t)</text>
-        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Dividends, coupons</text>
-        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A3A1A6">missed by futures</text>
-        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#75757D">Reduces futures price</text>
+        <text x="75" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Dividends, coupons</text>
+        <text x="75" y="65" textAnchor="middle" fontSize="10" fill="#A0A3AA">missed by futures</text>
+        <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#717680">Reduces futures price</text>
       </g>
       
       {/* Equals */}
-      <text x="545" y="55" fontSize="24" fontWeight="700" fill="#75757D">=</text>
+      <text x="545" y="55" fontSize="24" fontWeight="700" fill="#717680">=</text>
       
       {/* Futures Price */}
       <g transform="translate(570, 0)">
         <rect x="0" y="0" width="90" height="100" fill="#8F6FC4" fillOpacity="0.15" rx="10" stroke="#8F6FC4" strokeWidth="1"/>
         <text x="45" y="35" textAnchor="middle" fontSize="12" fontWeight="600" fill="#8F6FC4">Futures</text>
         <text x="45" y="55" textAnchor="middle" fontSize="12" fontWeight="600" fill="#8F6FC4">Price (F)</text>
-        <text x="45" y="85" textAnchor="middle" fontSize="9" fill="#75757D">Fair value</text>
+        <text x="45" y="85" textAnchor="middle" fontSize="9" fill="#717680">Fair value</text>
       </g>
     </g>
     
     {/* Example */}
     <g transform="translate(50, 315)">
-      <rect x="0" y="0" width="600" height="55" fill="#232327" rx="8"/>
+      <rect x="0" y="0" width="600" height="55" fill="#2A2A2C" rx="8"/>
       <text x="20" y="22" fontSize="10" fontWeight="600" fill="white">Example:</text>
-      <text x="90" y="22" fontSize="10" fill="#A3A1A6">Spot = $100 | r = 5% | d = 2% | t = 0.25 years (3 months)</text>
+      <text x="90" y="22" fontSize="10" fill="#A0A3AA">Spot = $100 | r = 5% | d = 2% | t = 0.25 years (3 months)</text>
       <text x="20" y="42" fontSize="10" fontWeight="600" fill="#D2754C">Fair Value:</text>
       <text x="100" y="42" fontSize="10" fill="white">F = 100 × e^(0.05-0.02)×0.25 = 100 × 1.0075 = $100.75</text>
     </g>
@@ -158,27 +158,27 @@ const CostOfCarrySVG = () => (
 // SVG: Contango vs Backwardation
 const ContangoBackwardationSVG = () => (
   <svg viewBox="0 0 700 400" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="400" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="400" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Market Structure: Contango vs Backwardation</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Understanding the relationship between spot and futures prices</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Understanding the relationship between spot and futures prices</text>
     
     {/* Contango Chart */}
     <g transform="translate(40, 80)">
-      <rect x="0" y="0" width="300" height="230" fill="#232327" rx="12"/>
+      <rect x="0" y="0" width="300" height="230" fill="#2A2A2C" rx="12"/>
       <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#D2754C">CONTANGO</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Futures &gt; Spot (Normal Market)</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Futures &gt; Spot (Normal Market)</text>
       
       {/* Chart area */}
       <g transform="translate(40, 70)">
         {/* Axes */}
-        <line x1="0" y1="120" x2="220" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-        <line x1="0" y1="0" x2="0" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-        <text x="-15" y="60" fontSize="9" fill="#A3A1A6" transform="rotate(-90, -15, 60)">Price</text>
+        <line x1="0" y1="120" x2="220" y2="120" stroke="#555A63" strokeWidth="1"/>
+        <line x1="0" y1="0" x2="0" y2="120" stroke="#555A63" strokeWidth="1"/>
+        <text x="-15" y="60" fontSize="9" fill="#A0A3AA" transform="rotate(-90, -15, 60)">Price</text>
         
         {/* Spot line */}
-        <line x1="0" y1="90" x2="200" y2="90" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,5"/>
-        <text x="210" y="93" fontSize="8" fill="#1FA978">Spot</text>
+        <line x1="0" y1="90" x2="200" y2="90" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5"/>
+        <text x="210" y="93" fontSize="8" fill="#12805A">Spot</text>
         
         {/* Futures curve - upward sloping */}
         <path d="M 0 70 Q 100 75 200 90" stroke="#D2754C" strokeWidth="3" fill="none"/>
@@ -191,26 +191,26 @@ const ContangoBackwardationSVG = () => (
       </g>
       
       {/* Description */}
-      <text x="150" y="210" textAnchor="middle" fontSize="9" fill="#A3A1A6">Cost of carry exceeds convenience yield</text>
-      <text x="150" y="225" textAnchor="middle" fontSize="8" fill="#75757D">Common in: Interest rate futures, most equity indices</text>
+      <text x="150" y="210" textAnchor="middle" fontSize="9" fill="#A0A3AA">Cost of carry exceeds convenience yield</text>
+      <text x="150" y="225" textAnchor="middle" fontSize="8" fill="#717680">Common in: Interest rate futures, most equity indices</text>
     </g>
     
     {/* Backwardation Chart */}
     <g transform="translate(360, 80)">
-      <rect x="0" y="0" width="300" height="230" fill="#232327" rx="12"/>
+      <rect x="0" y="0" width="300" height="230" fill="#2A2A2C" rx="12"/>
       <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#C7363B">BACKWARDATION</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Futures &lt; Spot (Inverted Market)</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Futures &lt; Spot (Inverted Market)</text>
       
       {/* Chart area */}
       <g transform="translate(40, 70)">
         {/* Axes */}
-        <line x1="0" y1="120" x2="220" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-        <line x1="0" y1="0" x2="0" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-        <text x="-15" y="60" fontSize="9" fill="#A3A1A6" transform="rotate(-90, -15, 60)">Price</text>
+        <line x1="0" y1="120" x2="220" y2="120" stroke="#555A63" strokeWidth="1"/>
+        <line x1="0" y1="0" x2="0" y2="120" stroke="#555A63" strokeWidth="1"/>
+        <text x="-15" y="60" fontSize="9" fill="#A0A3AA" transform="rotate(-90, -15, 60)">Price</text>
         
         {/* Spot line */}
-        <line x1="0" y1="50" x2="200" y2="50" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,5"/>
-        <text x="210" y="53" fontSize="8" fill="#1FA978">Spot</text>
+        <line x1="0" y1="50" x2="200" y2="50" stroke="#12805A" strokeWidth="2" strokeDasharray="5,5"/>
+        <text x="210" y="53" fontSize="8" fill="#12805A">Spot</text>
         
         {/* Futures curve - downward sloping */}
         <path d="M 0 80 Q 100 70 200 50" stroke="#C7363B" strokeWidth="3" fill="none"/>
@@ -223,16 +223,16 @@ const ContangoBackwardationSVG = () => (
       </g>
       
       {/* Description */}
-      <text x="150" y="210" textAnchor="middle" fontSize="9" fill="#A3A1A6">Convenience yield exceeds cost of carry</text>
-      <text x="150" y="225" textAnchor="middle" fontSize="8" fill="#75757D">Common in: Commodities during shortages</text>
+      <text x="150" y="210" textAnchor="middle" fontSize="9" fill="#A0A3AA">Convenience yield exceeds cost of carry</text>
+      <text x="150" y="225" textAnchor="middle" fontSize="8" fill="#717680">Common in: Commodities during shortages</text>
     </g>
     
     {/* Key Insight */}
     <g transform="translate(50, 325)">
-      <rect x="0" y="0" width="600" height="65" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="65" fill="#2A2A2C" rx="10"/>
       <text x="300" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Trading Implications</text>
-      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#A3A1A6">Contango: Roll costs hurt long positions (futures converge down to spot)</text>
-      <text x="300" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">Backwardation: Roll costs benefit long positions (futures converge up to spot)</text>
+      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#A0A3AA">Contango: Roll costs hurt long positions (futures converge down to spot)</text>
+      <text x="300" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">Backwardation: Roll costs benefit long positions (futures converge up to spot)</text>
     </g>
   </svg>
 );
@@ -240,31 +240,31 @@ const ContangoBackwardationSVG = () => (
 // SVG: Basis and Convergence
 const BasisConvergenceSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Basis and Convergence</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">The gap between spot and futures prices</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">The gap between spot and futures prices</text>
     
     {/* Chart Area */}
     <g transform="translate(70, 80)">
       {/* Axes */}
-      <line x1="0" y1="150" x2="560" y2="150" stroke="#5A5A62" strokeWidth="2"/>
-      <line x1="0" y1="0" x2="0" y2="150" stroke="#5A5A62" strokeWidth="2"/>
+      <line x1="0" y1="150" x2="560" y2="150" stroke="#555A63" strokeWidth="2"/>
+      <line x1="0" y1="0" x2="0" y2="150" stroke="#555A63" strokeWidth="2"/>
       
       {/* Labels */}
-      <text x="280" y="175" textAnchor="middle" fontSize="11" fill="#A3A1A6">Time</text>
-      <text x="-40" y="75" fontSize="11" fill="#A3A1A6" transform="rotate(-90, -40, 75)">Price</text>
+      <text x="280" y="175" textAnchor="middle" fontSize="11" fill="#A0A3AA">Time</text>
+      <text x="-40" y="75" fontSize="11" fill="#A0A3AA" transform="rotate(-90, -40, 75)">Price</text>
       
       {/* Time markers */}
-      <text x="50" y="168" fontSize="9" fill="#75757D">Today</text>
-      <text x="280" y="168" fontSize="9" fill="#75757D">Mid-Contract</text>
-      <text x="500" y="168" fontSize="9" fill="#75757D">Expiry</text>
+      <text x="50" y="168" fontSize="9" fill="#717680">Today</text>
+      <text x="280" y="168" fontSize="9" fill="#717680">Mid-Contract</text>
+      <text x="500" y="168" fontSize="9" fill="#717680">Expiry</text>
       
       {/* Spot price line (relatively flat) */}
-      <path d="M 50 90 Q 200 85 350 95 Q 450 90 530 90" stroke="#1FA978" strokeWidth="3" fill="none"/>
-      <circle cx="50" cy="90" r="5" fill="#1FA978"/>
-      <circle cx="530" cy="90" r="5" fill="#1FA978"/>
-      <text x="545" y="95" fontSize="10" fontWeight="500" fill="#1FA978">Spot</text>
+      <path d="M 50 90 Q 200 85 350 95 Q 450 90 530 90" stroke="#12805A" strokeWidth="3" fill="none"/>
+      <circle cx="50" cy="90" r="5" fill="#12805A"/>
+      <circle cx="530" cy="90" r="5" fill="#12805A"/>
+      <text x="545" y="95" fontSize="10" fontWeight="500" fill="#12805A">Spot</text>
       
       {/* Futures price line (converging to spot) */}
       <path d="M 50 40 Q 200 50 350 70 Q 450 85 530 90" stroke="#D2754C" strokeWidth="3" fill="none"/>
@@ -300,52 +300,52 @@ const BasisConvergenceSVG = () => (
 // SVG: Arbitrage Mechanism
 const ArbitrageSVG = () => (
   <svg viewBox="0 0 700 420" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="420" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="420" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">How Arbitrage Keeps Futures Fairly Priced</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">If futures deviate from fair value, arbitrageurs profit and restore equilibrium</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">If futures deviate from fair value, arbitrageurs profit and restore equilibrium</text>
     
     {/* Overpriced Futures */}
     <g transform="translate(30, 80)">
       <rect x="0" y="0" width="310" height="240" fill="#C7363B" fillOpacity="0.1" rx="12" stroke="#C7363B" strokeWidth="2"/>
       <text x="155" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#C7363B">FUTURES OVERPRICED</text>
-      <text x="155" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">F &gt; S × e^(r-d)t (too expensive)</text>
+      <text x="155" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">F &gt; S × e^(r-d)t (too expensive)</text>
       
       <g transform="translate(20, 70)">
         <text x="135" y="0" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Arbitrage Steps:</text>
         
         {[
           { step: "1", action: "SELL futures (short)", color: "#C7363B" },
-          { step: "2", action: "BUY spot asset", color: "#1FA978" },
+          { step: "2", action: "BUY spot asset", color: "#12805A" },
           { step: "3", action: "BORROW money to buy", color: "#5A77AA" },
           { step: "4", action: "At expiry: deliver asset", color: "#D2754C" }
         ].map((item, i) => (
           <g key={i} transform={`translate(0, ${20 + i * 38})`}>
             <circle cx="15" cy="12" r="12" fill={item.color} fillOpacity="0.3"/>
             <text x="15" y="17" textAnchor="middle" fontSize="10" fontWeight="700" fill={item.color}>{item.step}</text>
-            <text x="40" y="17" fontSize="10" fill="#E4E1D9">{item.action}</text>
+            <text x="40" y="17" fontSize="10" fill="#E4E4EA">{item.action}</text>
           </g>
         ))}
         
         <g transform="translate(0, 175)">
-          <rect x="0" y="0" width="270" height="35" fill="#1FA978" fillOpacity="0.2" rx="6"/>
-          <text x="135" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">RESULT: Lock in risk-free profit</text>
-          <text x="135" y="28" textAnchor="middle" fontSize="8" fill="#A3A1A6">Selling pressure pushes futures down</text>
+          <rect x="0" y="0" width="270" height="35" fill="#12805A" fillOpacity="0.2" rx="6"/>
+          <text x="135" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">RESULT: Lock in risk-free profit</text>
+          <text x="135" y="28" textAnchor="middle" fontSize="8" fill="#A0A3AA">Selling pressure pushes futures down</text>
         </g>
       </g>
     </g>
     
     {/* Underpriced Futures */}
     <g transform="translate(360, 80)">
-      <rect x="0" y="0" width="310" height="240" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
-      <text x="155" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">FUTURES UNDERPRICED</text>
-      <text x="155" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">F &lt; S × e^(r-d)t (too cheap)</text>
+      <rect x="0" y="0" width="310" height="240" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <text x="155" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">FUTURES UNDERPRICED</text>
+      <text x="155" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">F &lt; S × e^(r-d)t (too cheap)</text>
       
       <g transform="translate(20, 70)">
         <text x="135" y="0" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Arbitrage Steps:</text>
         
         {[
-          { step: "1", action: "BUY futures (long)", color: "#1FA978" },
+          { step: "1", action: "BUY futures (long)", color: "#12805A" },
           { step: "2", action: "SELL/short spot asset", color: "#C7363B" },
           { step: "3", action: "INVEST proceeds at r", color: "#5A77AA" },
           { step: "4", action: "At expiry: take delivery", color: "#D2754C" }
@@ -353,23 +353,23 @@ const ArbitrageSVG = () => (
           <g key={i} transform={`translate(0, ${20 + i * 38})`}>
             <circle cx="15" cy="12" r="12" fill={item.color} fillOpacity="0.3"/>
             <text x="15" y="17" textAnchor="middle" fontSize="10" fontWeight="700" fill={item.color}>{item.step}</text>
-            <text x="40" y="17" fontSize="10" fill="#E4E1D9">{item.action}</text>
+            <text x="40" y="17" fontSize="10" fill="#E4E4EA">{item.action}</text>
           </g>
         ))}
         
         <g transform="translate(0, 175)">
-          <rect x="0" y="0" width="270" height="35" fill="#1FA978" fillOpacity="0.2" rx="6"/>
-          <text x="135" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">RESULT: Lock in risk-free profit</text>
-          <text x="135" y="28" textAnchor="middle" fontSize="8" fill="#A3A1A6">Buying pressure pushes futures up</text>
+          <rect x="0" y="0" width="270" height="35" fill="#12805A" fillOpacity="0.2" rx="6"/>
+          <text x="135" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">RESULT: Lock in risk-free profit</text>
+          <text x="135" y="28" textAnchor="middle" fontSize="8" fill="#A0A3AA">Buying pressure pushes futures up</text>
         </g>
       </g>
     </g>
     
     {/* Key Insight */}
     <g transform="translate(50, 370)">
-      <rect x="0" y="0" width="600" height="40" fill="#232327" rx="8"/>
+      <rect x="0" y="0" width="600" height="40" fill="#2A2A2C" rx="8"/>
       <text x="300" y="16" textAnchor="middle" fontSize="10" fontWeight="600" fill="#D2754C">KEY INSIGHT</text>
-      <text x="300" y="32" textAnchor="middle" fontSize="9" fill="#A3A1A6">Arbitrage keeps futures close to fair value. Large deviations are quickly corrected by professional traders.</text>
+      <text x="300" y="32" textAnchor="middle" fontSize="9" fill="#A0A3AA">Arbitrage keeps futures close to fair value. Large deviations are quickly corrected by professional traders.</text>
     </g>
   </svg>
 );
@@ -377,22 +377,22 @@ const ArbitrageSVG = () => (
 // SVG: Premium vs Discount
 const PremiumDiscountSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="280" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Futures Premium vs Discount</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Understanding market sentiment from futures pricing</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Understanding market sentiment from futures pricing</text>
     
     {/* Premium */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="280" height="150" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
-      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">PREMIUM</text>
-      <text x="140" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Futures &gt; Spot</text>
+      <rect x="0" y="0" width="280" height="150" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
+      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#12805A">PREMIUM</text>
+      <text x="140" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Futures &gt; Spot</text>
       
       <g transform="translate(20, 65)">
-        <text x="120" y="15" textAnchor="middle" fontSize="24" fontWeight="700" fill="#1FA978">F &gt; S</text>
-        <text x="120" y="45" textAnchor="middle" fontSize="9" fill="#E4E1D9">Normal in most markets</text>
-        <text x="120" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">Reflects cost of carry</text>
-        <text x="120" y="80" textAnchor="middle" fontSize="9" fill="#A3A1A6">(financing, storage)</text>
+        <text x="120" y="15" textAnchor="middle" fontSize="24" fontWeight="700" fill="#12805A">F &gt; S</text>
+        <text x="120" y="45" textAnchor="middle" fontSize="9" fill="#E4E4EA">Normal in most markets</text>
+        <text x="120" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">Reflects cost of carry</text>
+        <text x="120" y="80" textAnchor="middle" fontSize="9" fill="#A0A3AA">(financing, storage)</text>
       </g>
     </g>
     
@@ -400,20 +400,20 @@ const PremiumDiscountSVG = () => (
     <g transform="translate(370, 80)">
       <rect x="0" y="0" width="280" height="150" fill="#C7363B" fillOpacity="0.1" rx="12" stroke="#C7363B" strokeWidth="2"/>
       <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#C7363B">DISCOUNT</text>
-      <text x="140" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Futures &lt; Spot</text>
+      <text x="140" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Futures &lt; Spot</text>
       
       <g transform="translate(20, 65)">
         <text x="120" y="15" textAnchor="middle" fontSize="24" fontWeight="700" fill="#C7363B">F &lt; S</text>
-        <text x="120" y="45" textAnchor="middle" fontSize="9" fill="#E4E1D9">Often signals:</text>
-        <text x="120" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">- Bearish sentiment</text>
-        <text x="120" y="80" textAnchor="middle" fontSize="9" fill="#A3A1A6">- High dividend yield</text>
+        <text x="120" y="45" textAnchor="middle" fontSize="9" fill="#E4E4EA">Often signals:</text>
+        <text x="120" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">- Bearish sentiment</text>
+        <text x="120" y="80" textAnchor="middle" fontSize="9" fill="#A0A3AA">- High dividend yield</text>
       </g>
     </g>
     
     {/* Practical Note */}
     <g transform="translate(50, 245)">
-      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A3A1A6">Monitor premium/discount changes for sentiment shifts. Sudden changes can signal institutional activity.</text>
+      <rect x="0" y="0" width="600" height="25" fill="#2A2A2C" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A0A3AA">Monitor premium/discount changes for sentiment shifts. Sudden changes can signal institutional activity.</text>
     </g>
   </svg>
 );
@@ -513,7 +513,7 @@ const FOLesson3 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Futures Pricing & Basis
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -522,7 +522,7 @@ const FOLesson3 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -549,11 +549,11 @@ const FOLesson3 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Calculator className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Cost of Carry Model</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Cost of Carry Model</h2>
                   <p className="text-sm text-gray-500 ">Theoretical foundation of futures pricing</p>
                 </div>
               </div>
@@ -590,11 +590,11 @@ const FOLesson3 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Contango vs Backwardation</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Contango vs Backwardation</h2>
                   <p className="text-sm text-gray-500 ">Market structure shapes trading strategies</p>
                 </div>
               </div>
@@ -627,11 +627,11 @@ const FOLesson3 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Basis and Convergence</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Basis and Convergence</h2>
                   <p className="text-sm text-gray-500 ">The gap that must close at expiry</p>
                 </div>
               </div>
@@ -666,11 +666,11 @@ const FOLesson3 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                   <Icons.DollarSign className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Arbitrage Mechanism</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Arbitrage Mechanism</h2>
                   <p className="text-sm text-gray-500 ">How fair pricing is maintained</p>
                 </div>
               </div>
@@ -702,11 +702,11 @@ const FOLesson3 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                   <Icons.TrendingDown className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Premium vs Discount</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Premium vs Discount</h2>
                   <p className="text-sm text-gray-500 ">Reading market sentiment from futures pricing</p>
                 </div>
               </div>
@@ -731,8 +731,8 @@ const FOLesson3 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Futures fair value = Spot × e^(r-d)t where r = interest rate, d = dividend yield",
@@ -756,7 +756,7 @@ const FOLesson3 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -771,11 +771,11 @@ const FOLesson3 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -786,7 +786,7 @@ const FOLesson3 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -800,7 +800,7 @@ const FOLesson3 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -831,7 +831,7 @@ const FOLesson3 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-4')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Options Mechanics</span>
               <Icons.ArrowRight className="w-5 h-5" />

@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,20 +61,20 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const NoisyPriceSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Raw Price Can Feel Overwhelming</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Every tick, every move — it's hard to see the bigger picture</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Raw Price Can Feel Overwhelming</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Every tick, every move — it's hard to see the bigger picture</text>
     
     {/* Chart area */}
-    <rect x="50" y="70" width="500" height="170" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="170" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Very noisy price line */}
     <path 
       d="M70 150 L85 135 L95 155 L105 130 L115 145 L125 125 L140 140 L150 120 L165 135 L175 115 L190 130 L200 110 L215 125 L225 105 L240 120 L250 100 L265 115 L280 95 L295 110 L305 90 L320 105 L335 85 L350 100 L365 80 L380 95 L395 75 L410 90 L425 70 L440 85 L455 75 L470 90 L485 70 L500 85 L520 75 L530 80" 
       fill="none" 
-      stroke="#A3A1A6" 
+      stroke="#A0A3AA" 
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -95,11 +95,11 @@ const NoisyPriceSVG = () => (
 const WhatIsMovingAverageSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">What is a Moving Average?</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">A simple way to smooth price data and see the underlying direction</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">What is a Moving Average?</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">A simple way to smooth price data and see the underlying direction</text>
     
     {/* Left side - concept */}
     <rect x="30" y="70" width="250" height="220" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
@@ -136,7 +136,7 @@ const WhatIsMovingAverageSVG = () => (
     <text x="155" y="278" textAnchor="middle" fontSize="9" fill="#26354F">→ Plot that point → Repeat</text>
     
     {/* Right side - result */}
-    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">The Result</text>
     
     <g transform="translate(445, 175)">
@@ -146,7 +146,7 @@ const WhatIsMovingAverageSVG = () => (
       <path 
         d="M-75 30 L-55 10 L-40 25 L-20 -5 L0 15 L20 -15 L40 5 L60 -25 L75 -10" 
         fill="none" 
-        stroke="#A3A1A6" 
+        stroke="#A0A3AA" 
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -156,7 +156,7 @@ const WhatIsMovingAverageSVG = () => (
       <path 
         d="M-75 20 L-45 12 L-15 0 L15 -8 L45 -15 L75 -18" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -165,13 +165,13 @@ const WhatIsMovingAverageSVG = () => (
     
     {/* Legend */}
     <g transform="translate(445, 255)">
-      <line x1="-60" y1="0" x2="-40" y2="0" stroke="#A3A1A6" strokeWidth="1.5"/>
-      <text x="-35" y="4" fontSize="9" fill="#75757D">Raw Price</text>
-      <line x1="15" y1="0" x2="35" y2="0" stroke="#1FA978" strokeWidth="2.5"/>
-      <text x="40" y="4" fontSize="9" fill="#0D543C">Moving Avg</text>
+      <line x1="-60" y1="0" x2="-40" y2="0" stroke="#A0A3AA" strokeWidth="1.5"/>
+      <text x="-35" y="4" fontSize="9" fill="#717680">Raw Price</text>
+      <line x1="15" y1="0" x2="35" y2="0" stroke="#12805A" strokeWidth="2.5"/>
+      <text x="40" y="4" fontSize="9" fill="#12805A">Moving Avg</text>
     </g>
     
-    <text x="445" y="280" textAnchor="middle" fontSize="9" fill="#0D543C">Smoother line reveals the trend</text>
+    <text x="445" y="280" textAnchor="middle" fontSize="9" fill="#12805A">Smoother line reveals the trend</text>
   </svg>
 );
 
@@ -179,11 +179,11 @@ const WhatIsMovingAverageSVG = () => (
 const BeforeAfterSVG = () => (
   <svg viewBox="0 0 640 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Same Data, Different Clarity</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Adding a moving average helps reveal the underlying direction</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Same Data, Different Clarity</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Adding a moving average helps reveal the underlying direction</text>
     
     {/* Left - Without MA */}
     <rect x="25" y="70" width="285" height="240" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -193,15 +193,15 @@ const BeforeAfterSVG = () => (
       <rect x="-115" y="-70" width="230" height="140" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Y axis labels */}
-      <text x="-105" y="-50" fontSize="8" fill="#A3A1A6">$60</text>
-      <text x="-105" y="0" fontSize="8" fill="#A3A1A6">$50</text>
-      <text x="-105" y="50" fontSize="8" fill="#A3A1A6">$40</text>
+      <text x="-105" y="-50" fontSize="8" fill="#A0A3AA">$60</text>
+      <text x="-105" y="0" fontSize="8" fill="#A0A3AA">$50</text>
+      <text x="-105" y="50" fontSize="8" fill="#A0A3AA">$40</text>
       
       {/* Noisy price only */}
       <path 
         d="M-85 40 L-70 25 L-55 35 L-40 15 L-25 30 L-10 5 L5 20 L20 -5 L35 15 L50 -15 L65 5 L80 -25 L95 -10 L105 -30" 
         fill="none" 
-        stroke="#75757D" 
+        stroke="#717680" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -212,22 +212,22 @@ const BeforeAfterSVG = () => (
     <text x="167" y="300" textAnchor="middle" fontSize="9" fill="#842428">Every wiggle demands attention</text>
     
     {/* Right - With MA */}
-    <rect x="330" y="70" width="285" height="240" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="330" y="70" width="285" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">With Moving Average</text>
     
     <g transform="translate(472, 190)">
       <rect x="-115" y="-70" width="230" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Y axis labels */}
-      <text x="-105" y="-50" fontSize="8" fill="#A3A1A6">$60</text>
-      <text x="-105" y="0" fontSize="8" fill="#A3A1A6">$50</text>
-      <text x="-105" y="50" fontSize="8" fill="#A3A1A6">$40</text>
+      <text x="-105" y="-50" fontSize="8" fill="#A0A3AA">$60</text>
+      <text x="-105" y="0" fontSize="8" fill="#A0A3AA">$50</text>
+      <text x="-105" y="50" fontSize="8" fill="#A0A3AA">$40</text>
       
       {/* Same noisy price */}
       <path 
         d="M-85 40 L-70 25 L-55 35 L-40 15 L-25 30 L-10 5 L5 20 L20 -5 L35 15 L50 -15 L65 5 L80 -25 L95 -10 L105 -30" 
         fill="none" 
-        stroke="#A3A1A6" 
+        stroke="#A0A3AA" 
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -237,15 +237,15 @@ const BeforeAfterSVG = () => (
       <path 
         d="M-85 35 L-55 25 L-25 15 L5 5 L35 -5 L65 -12 L95 -18 L105 -22" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </g>
     
-    <text x="472" y="285" textAnchor="middle" fontSize="9" fill="#0D543C">"The green line shows: trending up"</text>
-    <text x="472" y="300" textAnchor="middle" fontSize="9" fill="#0D543C">Context emerges through smoothing</text>
+    <text x="472" y="285" textAnchor="middle" fontSize="9" fill="#12805A">"The green line shows: trending up"</text>
+    <text x="472" y="300" textAnchor="middle" fontSize="9" fill="#12805A">Context emerges through smoothing</text>
   </svg>
 );
 
@@ -253,30 +253,30 @@ const BeforeAfterSVG = () => (
 const FastVsSlowSVG = () => (
   <svg viewBox="0 0 600 360" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="360" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="360" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Fast vs Slow Moving Averages</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Different lookback periods create different smoothness levels</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Fast vs Slow Moving Averages</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Different lookback periods create different smoothness levels</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
-    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
-    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A0A3AA">High</text>
+    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A0A3AA">Mid</text>
+    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Grid */}
-    <line x1="60" y1="95" x2="540" y2="95" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="170" x2="540" y2="170" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="245" x2="540" y2="245" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="95" x2="540" y2="95" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="170" x2="540" y2="170" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="245" x2="540" y2="245" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Raw price - light gray */}
     <path 
       d="M70 200 L100 180 L130 195 L160 160 L190 175 L220 140 L250 160 L280 125 L310 145 L340 110 L370 130 L400 95 L430 115 L460 90 L490 105 L530 85" 
       fill="none" 
-      stroke="#CFCBC1" 
+      stroke="#CFD0D3" 
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -303,10 +303,10 @@ const FastVsSlowSVG = () => (
     />
     
     {/* Legend */}
-    <rect x="100" y="285" width="400" height="60" fill="#EFEDE7" rx="10"/>
+    <rect x="100" y="285" width="400" height="60" fill="#EEEEF1" rx="10"/>
     
-    <line x1="130" y1="305" x2="160" y2="305" stroke="#CFCBC1" strokeWidth="2"/>
-    <text x="170" y="308" fontSize="10" fill="#75757D">Raw Price</text>
+    <line x1="130" y1="305" x2="160" y2="305" stroke="#CFD0D3" strokeWidth="2"/>
+    <text x="170" y="308" fontSize="10" fill="#717680">Raw Price</text>
     
     <line x1="270" y1="305" x2="300" y2="305" stroke="#D2754C" strokeWidth="2.5"/>
     <text x="310" y="308" fontSize="10" fill="#9C4D2E">Fast MA (fewer periods)</text>
@@ -314,7 +314,7 @@ const FastVsSlowSVG = () => (
     <line x1="130" y1="330" x2="160" y2="330" stroke="#8F6FC4" strokeWidth="2.5"/>
     <text x="170" y="333" fontSize="10" fill="#654B8A">Slow MA (more periods)</text>
     
-    <text x="310" y="333" fontSize="9" fill="#75757D">→ Smoother, shows bigger picture</text>
+    <text x="310" y="333" fontSize="9" fill="#717680">→ Smoother, shows bigger picture</text>
   </svg>
 );
 
@@ -322,11 +322,11 @@ const FastVsSlowSVG = () => (
 const FastMADetailSVG = () => (
   <svg viewBox="0 0 600 260" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Fast Moving Average</text>
-    <text x="300" y="43" textAnchor="middle" fontSize="10" fill="#75757D">Uses fewer periods — reacts quickly to price changes</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Fast Moving Average</text>
+    <text x="300" y="43" textAnchor="middle" fontSize="10" fill="#717680">Uses fewer periods — reacts quickly to price changes</text>
     
     {/* Chart */}
     <rect x="50" y="60" width="350" height="150" fill="#ffffff" rx="10" stroke="#F0C2A9" strokeWidth="2"/>
@@ -335,7 +335,7 @@ const FastMADetailSVG = () => (
     <path 
       d="M70 150 L100 120 L130 140 L160 100 L190 125 L220 90 L250 110 L280 75 L310 95 L340 70 L380 85" 
       fill="none" 
-      stroke="#A3A1A6" 
+      stroke="#A0A3AA" 
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -371,11 +371,11 @@ const FastMADetailSVG = () => (
 const SlowMADetailSVG = () => (
   <svg viewBox="0 0 600 260" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Slow Moving Average</text>
-    <text x="300" y="43" textAnchor="middle" fontSize="10" fill="#75757D">Uses more periods — shows the bigger picture trend</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Slow Moving Average</text>
+    <text x="300" y="43" textAnchor="middle" fontSize="10" fill="#717680">Uses more periods — shows the bigger picture trend</text>
     
     {/* Chart */}
     <rect x="50" y="60" width="350" height="150" fill="#ffffff" rx="10" stroke="#C0A9E2" strokeWidth="2"/>
@@ -384,7 +384,7 @@ const SlowMADetailSVG = () => (
     <path 
       d="M70 150 L100 120 L130 140 L160 100 L190 125 L220 90 L250 110 L280 75 L310 95 L340 70 L380 85" 
       fill="none" 
-      stroke="#A3A1A6" 
+      stroke="#A0A3AA" 
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -420,14 +420,14 @@ const SlowMADetailSVG = () => (
 const PriceRelativeToAverageSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Price Relative to the Average</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Where price sits compared to its average provides context</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Price Relative to the Average</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Where price sits compared to its average provides context</text>
     
     {/* Main chart */}
-    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Moving average line */}
     <path 
@@ -443,7 +443,7 @@ const PriceRelativeToAverageSVG = () => (
     <path 
       d="M70 150 L100 140 L130 130 L160 125 L190 115 L220 120 L250 110 L280 115" 
       fill="none" 
-      stroke="#1FA978" 
+      stroke="#12805A" 
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -460,18 +460,18 @@ const PriceRelativeToAverageSVG = () => (
     />
     
     {/* Labels */}
-    <rect x="80" y="90" width="130" height="24" fill="#D5F2E5" rx="6"/>
-    <text x="145" y="106" textAnchor="middle" fontSize="9" fill="#0D543C">Price ABOVE average</text>
+    <rect x="80" y="90" width="130" height="24" fill="#EEF9F4" rx="6"/>
+    <text x="145" y="106" textAnchor="middle" fontSize="9" fill="#12805A">Price ABOVE average</text>
     
     <rect x="390" y="195" width="130" height="24" fill="#FBE1E1" rx="6"/>
     <text x="455" y="211" textAnchor="middle" fontSize="9" fill="#842428">Price BELOW average</text>
     
     {/* Legend at bottom */}
-    <rect x="100" y="265" width="400" height="60" fill="#EFEDE7" rx="10"/>
+    <rect x="100" y="265" width="400" height="60" fill="#EEEEF1" rx="10"/>
     
-    <rect x="120" y="278" width="160" height="35" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="1"/>
-    <text x="200" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">Above Average</text>
-    <text x="200" y="307" textAnchor="middle" fontSize="8" fill="#0E6A4A">Recently stronger than usual</text>
+    <rect x="120" y="278" width="160" height="35" fill="#EEF9F4" rx="6" stroke="#3CCB97" strokeWidth="1"/>
+    <text x="200" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Above Average</text>
+    <text x="200" y="307" textAnchor="middle" fontSize="8" fill="#12805A">Recently stronger than usual</text>
     
     <rect x="320" y="278" width="160" height="35" fill="#FBE1E1" rx="6" stroke="#F09B9B" strokeWidth="1"/>
     <text x="400" y="295" textAnchor="middle" fontSize="9" fontWeight="500" fill="#842428">Below Average</text>
@@ -483,11 +483,11 @@ const PriceRelativeToAverageSVG = () => (
 const ContextNotSignalsSVG = () => (
   <svg viewBox="0 0 640 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Moving Averages Provide Context</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">They summarize what has happened — they don't predict what will happen</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Moving Averages Provide Context</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">They summarize what has happened — they don't predict what will happen</text>
     
     {/* Left - Wrong understanding */}
     <rect x="30" y="70" width="275" height="180" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -507,7 +507,7 @@ const ContextNotSignalsSVG = () => (
     </g>
     
     {/* Right - Correct understanding */}
-    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Correct Understanding</text>
     
     <g transform="translate(472, 165)">
@@ -517,10 +517,10 @@ const ContextNotSignalsSVG = () => (
       <path d="M-80 20 L0 0 L80 -20" fill="none" stroke="#5A77AA" strokeWidth="2"/>
       
       {/* Correct: showing past trend */}
-      <text x="0" y="-30" textAnchor="middle" fontSize="8" fill="#0D543C">Shows recent direction</text>
-      <path d="M-60 15 L60 -15" fill="none" stroke="#1FA978" strokeWidth="1" strokeDasharray="3 2"/>
+      <text x="0" y="-30" textAnchor="middle" fontSize="8" fill="#12805A">Shows recent direction</text>
+      <path d="M-60 15 L60 -15" fill="none" stroke="#12805A" strokeWidth="1" strokeDasharray="3 2"/>
       
-      <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#0D543C">"Price has been trending up recently"</text>
+      <text x="0" y="55" textAnchor="middle" fontSize="8" fill="#12805A">"Price has been trending up recently"</text>
     </g>
     
     {/* Bottom insight */}
@@ -575,14 +575,14 @@ const TechnicalAnalysisLesson5 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 5 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Moving Averages – Context, Not Signals</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Moving Averages – Context, Not Signals</h1>
             <p className="text-gray-600 mt-2">Understanding how smoothing reveals the bigger picture</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Raw Price Can Look Noisy</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Raw Price Can Look Noisy</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -660,8 +660,8 @@ const TechnicalAnalysisLesson5 = () => {
 
           <BeforeAfterSVG />
           
-          <div className="mt-6 bg-green-50 rounded-xl p-5 border border-green-200">
-            <p className="text-green-800">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand">
               <strong>Notice:</strong> The moving average doesn't tell you what will happen next. 
               It simply makes it easier to see that price has been generally rising in this example.
             </p>
@@ -835,7 +835,7 @@ const TechnicalAnalysisLesson5 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Moving averages smooth price data to reveal the underlying trend</li>
@@ -858,7 +858,7 @@ const TechnicalAnalysisLesson5 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-6')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

@@ -11,5 +11,5 @@ export const CATEGORY_COLORS = [
   "#E2C273", // light gold
   "#C0A9E2", // light violet
   "#82CDD6", // light teal
-  "#75757D", // neutral
+  "#717680", // neutral
 ];

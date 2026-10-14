@@ -24,13 +24,13 @@ import ModuleBadge from "../../components/ModuleBadge";
 const lessonIcons = [CoinsIcon, BalanceScaleIcon, ChartBarIcon, CreditCardIcon, WarningIcon, BankIcon, PercentIcon, TargetIcon];
 const colors = [
   "from-blue-500 to-cyan-500",
-  "from-emerald-500 to-teal-500",
+  "bg-brand-fill",
   "from-indigo-500 to-blue-500",
   "from-amber-500 to-orange-500",
   "from-rose-500 to-pink-500",
   "from-violet-500 to-indigo-500",
   "from-cyan-500 to-blue-500",
-  "from-green-500 to-emerald-500"
+  "bg-brand-fill"
 ];
 
 const DebtOverview = () => {
@@ -52,7 +52,7 @@ const DebtOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Intermediate Module
               </span>
               <span className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm flex items-center gap-1.5">
@@ -62,14 +62,14 @@ const DebtOverview = () => {
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
                 ~180 min total
               </span>
-              <span className="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+              <span className="px-3 py-1.5 bg-brand-soft text-brand rounded-full text-sm font-medium">
                 Credit Control
               </span>
             </div>
 
             <div className="mb-3"><ModuleBadge moduleId="debt-management" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-100 to-cyan-200 rounded-xl shadow-sm">
                 <CreditCardIcon className="w-7 h-7 text-blue-600" />
               </span>
@@ -99,13 +99,13 @@ const DebtOverview = () => {
                     <p className="text-sm font-semibold text-gray-900">Card traps</p>
                   </div>
                   <div className="bg-white rounded-xl p-4 border border-blue-100 shadow-sm">
-                    <BankIcon className="w-6 h-6 text-emerald-600 mb-2" />
+                    <BankIcon className="w-6 h-6 text-brand mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Loan strategy</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
+              <div className="rounded-2xl p-6 text-white shadow-xl bg-brand-fill">
                 <BalanceScaleIcon className="w-12 h-12 text-white/90 mb-4" />
                 <p className="text-sm uppercase tracking-wide text-blue-100 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
@@ -192,14 +192,14 @@ const DebtOverview = () => {
               <h3 className="font-semibold text-rose-900 mb-1">Trap aware</h3>
               <p className="text-sm text-rose-700">BNPL, app loans, and minimum-due cycles.</p>
             </div>
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
-              <KeyIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-semibold text-emerald-900 mb-1">Action focused</h3>
-              <p className="text-sm text-emerald-700">List, prioritize, repay, and rebuild credit.</p>
+            <div className="bg-brand-soft rounded-2xl p-5 border border-brand-line">
+              <KeyIcon className="w-7 h-7 text-brand mb-3" />
+              <h3 className="font-semibold text-brand mb-1">Action focused</h3>
+              <p className="text-sm text-brand">List, prioritize, repay, and rebuild credit.</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+          <div className="rounded-2xl p-8 text-white text-center bg-brand-fill">
             <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Take Control of Debt?</h3>
             <p className="text-blue-100 mb-6">Start with what debt really is: borrowing future income.</p>
             <button

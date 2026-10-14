@@ -192,7 +192,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -200,11 +200,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -214,7 +214,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -251,7 +251,7 @@ const TradingBasicsLesson1 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 1 of 7
               </span>
               <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">
@@ -262,7 +262,7 @@ const TradingBasicsLesson1 = () => {
                 Awareness
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Trading className="w-7 h-7 text-amber-600" />
               </span>
@@ -344,14 +344,14 @@ const TradingBasicsLesson1 = () => {
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 350" fill="none">
               {/* Investing Side */}
               <g transform="translate(30, 30)">
-                <rect x="0" y="0" width="280" height="280" rx="16" fill="#EEF9F4" stroke="#1FA978" strokeWidth="3"/>
-                <text x="140" y="35" textAnchor="middle" fill="#0D543C" fontSize="18" fontWeight="700">INVESTING</text>
-                <text x="140" y="55" textAnchor="middle" fill="#0E6A4A" fontSize="11">"I own a piece of this company"</text>
+                <rect x="0" y="0" width="280" height="280" rx="16" fill="#EEF9F4" stroke="#12805A" strokeWidth="3"/>
+                <text x="140" y="35" textAnchor="middle" fill="#12805A" fontSize="18" fontWeight="700">INVESTING</text>
+                <text x="140" y="55" textAnchor="middle" fill="#12805A" fontSize="11">"I own a piece of this company"</text>
                 
                 {/* Growing tree visualization */}
                 <g transform="translate(90, 80)">
                   <rect x="45" y="120" width="12" height="50" fill="#654B26"/>
-                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#1FA978"/>
+                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#12805A"/>
                   <ellipse cx="35" cy="105" rx="25" ry="22" fill="#12805A"/>
                   <ellipse cx="67" cy="105" rx="25" ry="22" fill="#12805A"/>
                   <text x="51" y="95" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">5-20</text>
@@ -360,19 +360,19 @@ const TradingBasicsLesson1 = () => {
                 
                 {/* Key points */}
                 <g transform="translate(20, 210)">
-                  <circle cx="8" cy="8" r="4" fill="#1FA978"/>
-                  <text x="20" y="12" fill="#0D543C" fontSize="10">Buy & hold for years</text>
-                  <circle cx="8" cy="28" r="4" fill="#1FA978"/>
-                  <text x="20" y="32" fill="#0D543C" fontSize="10">Focus on company growth</text>
-                  <circle cx="8" cy="48" r="4" fill="#1FA978"/>
-                  <text x="20" y="52" fill="#0D543C" fontSize="10">Less time, less stress</text>
+                  <circle cx="8" cy="8" r="4" fill="#12805A"/>
+                  <text x="20" y="12" fill="#12805A" fontSize="10">Buy & hold for years</text>
+                  <circle cx="8" cy="28" r="4" fill="#12805A"/>
+                  <text x="20" y="32" fill="#12805A" fontSize="10">Focus on company growth</text>
+                  <circle cx="8" cy="48" r="4" fill="#12805A"/>
+                  <text x="20" y="52" fill="#12805A" fontSize="10">Less time, less stress</text>
                 </g>
               </g>
 
               {/* VS Circle */}
               <g transform="translate(320, 140)">
-                <circle cx="30" cy="30" r="28" fill="#EFEDE7" stroke="#CFCBC1" strokeWidth="3"/>
-                <text x="30" y="36" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="700">VS</text>
+                <circle cx="30" cy="30" r="28" fill="#EEEEF1" stroke="#CFD0D3" strokeWidth="3"/>
+                <text x="30" y="36" textAnchor="middle" fill="#373A41" fontSize="14" fontWeight="700">VS</text>
               </g>
 
               {/* Trading Side */}
@@ -387,12 +387,12 @@ const TradingBasicsLesson1 = () => {
                   <path d="M20 80 L50 50 L80 70 L110 30 L140 60 L170 25 L200 45 L220 35" stroke="#B8923F" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                   
                   {/* Buy/Sell markers */}
-                  <circle cx="50" cy="50" r="6" fill="#1FA978"/>
-                  <text x="50" y="45" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="50" cy="50" r="6" fill="#12805A"/>
+                  <text x="50" y="45" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="bold">BUY</text>
                   <circle cx="110" cy="30" r="6" fill="#E04848"/>
                   <text x="110" y="25" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
-                  <circle cx="140" cy="60" r="6" fill="#1FA978"/>
-                  <text x="140" y="75" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="140" cy="60" r="6" fill="#12805A"/>
+                  <text x="140" y="75" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="bold">BUY</text>
                   <circle cx="200" cy="45" r="6" fill="#E04848"/>
                   <text x="200" y="40" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
                   
@@ -412,7 +412,7 @@ const TradingBasicsLesson1 = () => {
 
               {/* Bottom comparison */}
               <g transform="translate(30, 320)">
-                <text x="350" y="15" textAnchor="middle" fill="#75757D" fontSize="11" fontStyle="italic">
+                <text x="350" y="15" textAnchor="middle" fill="#717680" fontSize="11" fontStyle="italic">
                   Same stock market, completely different approaches and mindsets
                 </text>
               </g>
@@ -431,8 +431,8 @@ const TradingBasicsLesson1 = () => {
                 <thead>
                   <tr>
                     <th className="text-left p-3 bg-gray-50 rounded-tl-lg font-semibold text-gray-700">Aspect</th>
-                    <th className="text-left p-3 bg-green-50">
-                      <span className="flex items-center gap-2 text-green-700 font-semibold">
+                    <th className="text-left p-3 bg-brand-soft">
+                      <span className="flex items-center gap-2 text-brand font-semibold">
                         <Icons.Investing className="w-5 h-5" />
                         Investing
                       </span>
@@ -448,37 +448,37 @@ const TradingBasicsLesson1 = () => {
                 <tbody>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-700">Holding Period</td>
-                    <td className="p-3 text-green-700">Years to decades</td>
+                    <td className="p-3 text-brand">Years to decades</td>
                     <td className="p-3 text-amber-700">Minutes to months</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
                     <td className="p-3 font-medium text-gray-700">Primary Goal</td>
-                    <td className="p-3 text-green-700">Build long-term wealth</td>
+                    <td className="p-3 text-brand">Build long-term wealth</td>
                     <td className="p-3 text-amber-700">Profit from price swings</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-700">Decision Basis</td>
-                    <td className="p-3 text-green-700">Company fundamentals</td>
+                    <td className="p-3 text-brand">Company fundamentals</td>
                     <td className="p-3 text-amber-700">Price charts & patterns</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
                     <td className="p-3 font-medium text-gray-700">Time Required</td>
-                    <td className="p-3 text-green-700">Few hours per month</td>
+                    <td className="p-3 text-brand">Few hours per month</td>
                     <td className="p-3 text-amber-700">Several hours daily</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-700">Emotional Stress</td>
-                    <td className="p-3 text-green-700">Low to moderate</td>
+                    <td className="p-3 text-brand">Low to moderate</td>
                     <td className="p-3 text-amber-700">High (requires discipline)</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
                     <td className="p-3 font-medium text-gray-700">Success Rate</td>
-                    <td className="p-3 text-green-700">Higher (12-14% CAGR historically)</td>
+                    <td className="p-3 text-brand">Higher (12-14% CAGR historically)</td>
                     <td className="p-3 text-amber-700">Lower (89% lose money)</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium text-gray-700">Best For</td>
-                    <td className="p-3 text-green-700">Most people</td>
+                    <td className="p-3 text-brand">Most people</td>
                     <td className="p-3 text-amber-700">Full-time professionals</td>
                   </tr>
                 </tbody>
@@ -495,12 +495,12 @@ const TradingBasicsLesson1 = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200">
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icons.Investing className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">Investor's Thinking</h4>
+                  <Icons.Investing className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">Investor's Thinking</h4>
                 </div>
-                <ul className="space-y-2 text-sm text-green-700">
+                <ul className="space-y-2 text-sm text-brand">
                   <li>"Reliance is expanding into green energy and retail"</li>
                   <li>"The company has strong fundamentals"</li>
                   <li>"I'll hold for 5-10 years and let it grow"</li>
@@ -582,8 +582,8 @@ const TradingBasicsLesson1 = () => {
               </div>
             </div>
 
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <p className="text-green-800 text-sm">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <p className="text-brand text-sm">
                 <strong>Meanwhile:</strong> Investors who simply held Nifty 50 index funds for 10+ years 
                 earned 12-14% annual returns — beating most traders without any stress or daily effort.
               </p>
@@ -692,7 +692,7 @@ const TradingBasicsLesson1 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-2')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Types of Trading</span>
               <FaArrowRight className="text-sm" />

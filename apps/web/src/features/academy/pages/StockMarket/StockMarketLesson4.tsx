@@ -203,7 +203,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -211,11 +211,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -225,7 +225,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -262,14 +262,14 @@ const StockMarketLesson4 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 4 of 7
               </span>
               <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Index className="w-7 h-7 text-amber-600" />
               </span>
@@ -304,7 +304,7 @@ const StockMarketLesson4 = () => {
               <span>The Simple Explanation</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
+            <div className="rounded-xl p-6 text-white mb-4 bg-brand-fill">
               <p className="text-xl font-semibold text-center">
                 A <span className="underline decoration-yellow-300 decoration-2">Market Index</span> is a 
                 <span className="underline decoration-yellow-300 decoration-2"> single number</span> that represents 
@@ -327,7 +327,7 @@ const StockMarketLesson4 = () => {
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
               {/* Title */}
-              <text x="350" y="25" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="600">
+              <text x="350" y="25" textAnchor="middle" fill="#373A41" fontSize="14" fontWeight="600">
                 An Index = A Basket of Selected Stocks
               </text>
 
@@ -350,7 +350,7 @@ const StockMarketLesson4 = () => {
                 </g>
                 
                 <g transform="translate(95, 108)">
-                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#1FA978"/>
+                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#12805A"/>
                   <text x="25" y="25" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">HDFC</text>
                   <text x="25" y="45" textAnchor="middle" fill="#ABE5CC" fontSize="7">₹1,700</text>
                 </g>
@@ -504,7 +504,7 @@ const StockMarketLesson4 = () => {
 
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 500 200" fill="none">
               {/* Title */}
-              <text x="250" y="20" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="600">
+              <text x="250" y="20" textAnchor="middle" fill="#373A41" fontSize="12" fontWeight="600">
                 Bigger Company = More Weight in Index
               </text>
 
@@ -549,17 +549,17 @@ const StockMarketLesson4 = () => {
           {/* What Do Index Movements Mean */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Icons.TrendUp className="w-6 h-6 text-green-600" />
+              <Icons.TrendUp className="w-6 h-6 text-brand" />
               <span>What Do Index Movements Mean?</span>
             </h2>
 
             <div className="grid md:grid-cols-2 gap-4 mb-4">
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200">
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icons.TrendUp className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">Index Goes UP</h4>
+                  <Icons.TrendUp className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">Index Goes UP</h4>
                 </div>
-                <p className="text-green-700 text-sm">
+                <p className="text-brand text-sm">
                   Overall, the companies in the index are doing well. Investors are optimistic. 
                   Called a <strong>"Bull Market"</strong> if the uptrend continues.
                 </p>
@@ -587,7 +587,7 @@ const StockMarketLesson4 = () => {
                 </div>
                 <div className="text-center p-2 bg-white rounded-lg">
                   <p className="text-gray-500">% Change</p>
-                  <p className="font-bold text-green-600">+1.1%</p>
+                  <p className="font-bold text-brand">+1.1%</p>
                   <p className="text-gray-400 text-xs">Relative movement</p>
                 </div>
                 <div className="text-center p-2 bg-white rounded-lg">
@@ -620,7 +620,7 @@ const StockMarketLesson4 = () => {
                     <span><strong>Nifty Bank</strong> — Top 12 banking stocks</span>
                   </li>
                   <li className="flex items-center gap-2 text-gray-700">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     <span><strong>Nifty IT</strong> — Top IT companies</span>
                   </li>
                   <li className="flex items-center gap-2 text-gray-700">
@@ -646,7 +646,7 @@ const StockMarketLesson4 = () => {
                     <span><strong>S&P 500</strong> — USA (500 companies)</span>
                   </li>
                   <li className="flex items-center gap-2 text-gray-700">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     <span><strong>NASDAQ</strong> — USA tech companies</span>
                   </li>
                   <li className="flex items-center gap-2 text-gray-700">
@@ -681,7 +681,7 @@ const StockMarketLesson4 = () => {
                 { name: "HDFC Bank", weight: "~13%", color: "bg-blue-100 text-blue-700" },
                 { name: "Reliance", weight: "~10%", color: "bg-indigo-100 text-indigo-700" },
                 { name: "ICICI Bank", weight: "~7%", color: "bg-purple-100 text-purple-700" },
-                { name: "Infosys", weight: "~6%", color: "bg-green-100 text-green-700" },
+                { name: "Infosys", weight: "~6%", color: "bg-brand-soft text-brand" },
                 { name: "TCS", weight: "~4%", color: "bg-teal-100 text-teal-700" },
                 { name: "L&T", weight: "~4%", color: "bg-amber-100 text-amber-700" },
                 { name: "ITC", weight: "~4%", color: "bg-red-100 text-red-700" },
@@ -803,7 +803,7 @@ const StockMarketLesson4 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-5')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Why Stock Prices Move</span>
               <FaArrowRight className="text-sm" />

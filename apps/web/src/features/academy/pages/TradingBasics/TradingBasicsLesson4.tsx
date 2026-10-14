@@ -181,7 +181,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -189,11 +189,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -203,7 +203,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -281,7 +281,7 @@ const TradingBasicsLesson4 = () => {
                 Critical
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-rose-200 rounded-xl shadow-sm">
                 <Icons.StopLoss className="w-7 h-7 text-red-600" />
               </span>
@@ -314,7 +314,7 @@ const TradingBasicsLesson4 = () => {
             <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">The Scary Math of Losses</h2>
             
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 600 280" fill="none">
-              <text x="300" y="25" textAnchor="middle" fill="#232327" fontSize="13" fontWeight="700">
+              <text x="300" y="25" textAnchor="middle" fill="#2A2A2C" fontSize="13" fontWeight="700">
                 How Much Gain You Need to Recover from a Loss
               </text>
               
@@ -340,26 +340,26 @@ const TradingBasicsLesson4 = () => {
               
               {/* Arrow */}
               <g transform="translate(220, 140)">
-                <path d="M0 0 L60 0" stroke="#75757D" strokeWidth="3"/>
-                <polygon points="60,-8 80,0 60,8" fill="#75757D"/>
-                <text x="40" y="-15" textAnchor="middle" fill="#75757D" fontSize="10" fontWeight="600">Needs</text>
+                <path d="M0 0 L60 0" stroke="#717680" strokeWidth="3"/>
+                <polygon points="60,-8 80,0 60,8" fill="#717680"/>
+                <text x="40" y="-15" textAnchor="middle" fill="#717680" fontSize="10" fontWeight="600">Needs</text>
               </g>
               
               {/* Right bars - Required gains */}
               <g transform="translate(310, 50)">
-                <text x="0" y="15" fill="#0D543C" fontSize="12" fontWeight="600">Gain Needed</text>
+                <text x="0" y="15" fill="#12805A" fontSize="12" fontWeight="600">Gain Needed</text>
                 
-                <rect x="0" y="25" width="45" height="30" rx="4" fill="#D5F2E5"/>
-                <text x="22" y="47" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">11%</text>
+                <rect x="0" y="25" width="45" height="30" rx="4" fill="#EEF9F4"/>
+                <text x="22" y="47" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">11%</text>
                 
                 <rect x="0" y="65" width="70" height="30" rx="4" fill="#ABE5CC"/>
-                <text x="35" y="87" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">25%</text>
+                <text x="35" y="87" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">25%</text>
                 
-                <rect x="0" y="105" width="120" height="30" rx="4" fill="#77D3AE"/>
-                <text x="60" y="127" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">43%</text>
+                <rect x="0" y="105" width="120" height="30" rx="4" fill="#3CCB97"/>
+                <text x="60" y="127" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">43%</text>
                 
                 <rect x="0" y="145" width="200" height="30" rx="4" fill="#3CCB97"/>
-                <text x="100" y="167" textAnchor="middle" fill="#052A1E" fontSize="11" fontWeight="600">100%</text>
+                <text x="100" y="167" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">100%</text>
                 
                 <rect x="0" y="185" width="270" height="30" rx="4" fill="#12805A"/>
                 <text x="135" y="207" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="600">300%</text>
@@ -473,9 +473,9 @@ const TradingBasicsLesson4 = () => {
           </div>
 
           {/* The 2% Rule */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-8 border-2 border-green-300">
-            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
-              <Icons.Checklist className="w-6 h-6 text-green-600" />
+          <div className="rounded-2xl p-6 mb-8 border-2 border-brand-line bg-brand-soft">
+            <h2 className="text-xl font-semibold text-brand mb-4 flex items-center gap-2">
+              <Icons.Checklist className="w-6 h-6 text-brand" />
               <span>The Golden 2% Rule</span>
             </h2>
             
@@ -485,19 +485,19 @@ const TradingBasicsLesson4 = () => {
               </p>
               
               <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <h4 className="font-bold text-green-800 mb-2">Why 2%?</h4>
-                  <ul className="space-y-2 text-green-700">
+                <div className="bg-brand-soft rounded-lg p-4 border border-brand-line">
+                  <h4 className="font-bold text-brand mb-2">Why 2%?</h4>
+                  <ul className="space-y-2 text-brand">
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 mt-0.5">✓</span>
+                      <span className="text-brand mt-0.5">✓</span>
                       <span>You can survive 50 consecutive losses (unlikely!)</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 mt-0.5">✓</span>
+                      <span className="text-brand mt-0.5">✓</span>
                       <span>Gives room for learning without blowing up</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-500 mt-0.5">✓</span>
+                      <span className="text-brand mt-0.5">✓</span>
                       <span>Reduces emotional stress on each trade</span>
                     </li>
                   </ul>
@@ -518,8 +518,8 @@ const TradingBasicsLesson4 = () => {
               </div>
             </div>
 
-            <div className="bg-green-100 rounded-lg p-3">
-              <p className="text-green-800 text-sm">
+            <div className="bg-brand-soft rounded-lg p-3">
+              <p className="text-brand text-sm">
                 <strong>Pro Tip:</strong> Conservative traders use 1% risk. Aggressive might use 3-5%, but this significantly 
                 increases the chance of large drawdowns. Start with 1-2% until you're consistently profitable.
               </p>
@@ -537,7 +537,7 @@ const TradingBasicsLesson4 = () => {
               For every rupee you risk, how much do you aim to make? This is your <strong>Risk:Reward ratio</strong>.
             </p>
 
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-5 text-white mb-4">
+            <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-5 text-white mb-4 brand-on-dark">
               <p className="text-center font-mono text-lg mb-2">
                 Risk:Reward Ratio = Potential Profit ÷ Potential Loss
               </p>
@@ -561,11 +561,11 @@ const TradingBasicsLesson4 = () => {
                 <p className="text-xs text-yellow-600 mt-2">Need 33%+ win rate</p>
               </div>
 
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200 text-center">
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line text-center">
                 <p className="text-sm text-gray-600 mb-2">Good Trade</p>
-                <p className="text-2xl font-bold text-green-600">1:3</p>
+                <p className="text-2xl font-bold text-brand">1:3</p>
                 <p className="text-xs text-gray-500 mt-1">Risk Rs. 100 to make Rs. 300</p>
-                <p className="text-xs text-green-600 mt-2">Need 25%+ win rate</p>
+                <p className="text-xs text-brand mt-2">Need 25%+ win rate</p>
               </div>
             </div>
 

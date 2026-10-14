@@ -12,12 +12,13 @@ import type { ReportMeta } from "@/lib/reportMeta";
 export const REPORT_WIDTH = 794; // px — A4 at 96dpi
 
 const C = {
-  navy: "#151517", navy2: "#232327", gold: "#9A7634", goldSoft: "#F6ECCE",
-  ink: "#151517", mute: "#75757D", line: "#E4E1D9", soft: "#F7F6F2",
-  good: "#0E6A4A", warn: "#7C5D2B", bad: "#A52A2F",
+  navy: "#1F1F1F", navy2: "#2A2A2C", gold: "#9A7634", goldSoft: "#F6ECCE",
+  ink: "#1F1F1F", mute: "#717680", line: "#E4E4EA", soft: "#F5F5F7",
+  good: "#12805A", warn: "#7C5D2B", bad: "#A52A2F",
 };
-const serif = '"Instrument Serif", Georgia, "Times New Roman", serif';
-const sans = 'Inter, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+// Site pair: Inter Tight (digits-only subset) + Plus Jakarta Sans for letters.
+const display = '"Inter Tight", "Plus Jakarta Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+const sans = display;
 
 export interface ReportData {
   clientName: string;
@@ -40,7 +41,7 @@ export interface ReportData {
   isSample: boolean;
 }
 
-const BAR_COLORS = [C.navy, C.gold, "#3E5C8A", "#2A8C9A", "#7A5BA6", "#7A5BA6", "#75757D"];
+const BAR_COLORS = [C.navy, C.gold, "#3E5C8A", "#2A8C9A", "#7A5BA6", "#7A5BA6", "#717680"];
 
 export function ratioRating(kind: "debt" | "emi" | "growth" | "goals", v: number): { label: string; color: string } {
   const pick = (good: boolean, ok: boolean) => (good ? { label: "Healthy", color: C.good } : ok ? { label: "Watch", color: C.warn } : { label: "Needs attention", color: C.bad });
@@ -57,8 +58,8 @@ function Block({ children, style }: { children: ReactNode; style?: CSSProperties
 function Heading({ no, title, sub }: { no: string; title: string; sub?: string }) {
   return (
     <div style={{ display: "flex", alignItems: "baseline", gap: 12, borderBottom: `2px solid ${C.navy}`, paddingBottom: 6, margin: "26px 0 12px" }}>
-      <span style={{ fontFamily: serif, fontSize: 13, color: C.gold, fontWeight: 700, letterSpacing: 1 }}>{no}</span>
-      <span style={{ fontFamily: serif, fontSize: 20, fontWeight: 700, color: C.navy }}>{title}</span>
+      <span style={{ fontFamily: display, fontSize: 13, color: C.gold, fontWeight: 600, letterSpacing: 1 }}>{no}</span>
+      <span style={{ fontFamily: display, fontSize: 20, fontWeight: 600, color: C.navy }}>{title}</span>
       {sub && <span style={{ marginLeft: "auto", fontSize: 11, color: C.mute }}>{sub}</span>}
     </div>
   );
@@ -68,7 +69,7 @@ function Kpi({ label, value, tone }: { label: string; value: string; tone?: stri
   return (
     <div style={{ flex: 1, background: C.soft, border: `1px solid ${C.line}`, borderTop: `3px solid ${tone || C.navy}`, borderRadius: 6, padding: "10px 12px" }}>
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 0.8, color: C.mute }}>{label}</div>
-      <div style={{ fontFamily: serif, fontSize: 20, fontWeight: 700, color: tone || C.navy, marginTop: 4 }}>{value}</div>
+      <div style={{ fontFamily: display, fontSize: 20, fontWeight: 600, color: tone || C.navy, marginTop: 4 }}>{value}</div>
     </div>
   );
 }
@@ -114,20 +115,20 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <Monogram size={56} />
           <div>
-            <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 700, letterSpacing: 3 }}>XTIN CAPITAL</div>
+            <div style={{ fontFamily: display, fontSize: 22, fontWeight: 600, letterSpacing: 3 }}>XTIN CAPITAL</div>
             <div style={{ fontSize: 10, letterSpacing: 2, color: "#CDAA5F", marginTop: 2 }}>GINI · FAMILY FINANCIAL PLANNING</div>
           </div>
-          <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 10, lineHeight: 1.6, color: "#CFCBC1" }}>
+          <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 10, lineHeight: 1.6, color: "#CFD0D3" }}>
             <div>Report No.</div>
-            <div style={{ fontSize: 13, color: "#ffffff", fontWeight: 700, letterSpacing: 1 }}>{meta.reportNo}</div>
+            <div style={{ fontSize: 13, color: "#ffffff", fontWeight: 600, letterSpacing: 1 }}>{meta.reportNo}</div>
           </div>
         </div>
-        <div style={{ fontFamily: serif, fontSize: 34, fontWeight: 700, marginTop: 34, lineHeight: 1.15 }}>Financial Planning Report</div>
-        <div style={{ fontSize: 13, color: "#CFCBC1", marginTop: 6 }}>A consolidated view of net worth, cash flow and goals</div>
+        <div style={{ fontFamily: display, fontSize: 34, fontWeight: 600, marginTop: 34, lineHeight: 1.15 }}>Financial Planning Report</div>
+        <div style={{ fontSize: 13, color: "#CFD0D3", marginTop: 6 }}>A consolidated view of net worth, cash flow and goals</div>
         <div style={{ display: "flex", gap: 36, marginTop: 26, fontSize: 11 }}>
-          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED FOR</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{d.clientName}</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>{d.clientEmail}</div></div>
-          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>DATE ISSUED</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{dateStr}</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>{timeStr}</div></div>
-          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED BY</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>Gini Planning Engine</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>Xtin Capital Research</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED FOR</div><div style={{ fontSize: 16, fontFamily: display, marginTop: 3 }}>{d.clientName}</div><div style={{ color: "#CFD0D3", marginTop: 2 }}>{d.clientEmail}</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>DATE ISSUED</div><div style={{ fontSize: 16, fontFamily: display, marginTop: 3 }}>{dateStr}</div><div style={{ color: "#CFD0D3", marginTop: 2 }}>{timeStr}</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED BY</div><div style={{ fontSize: 16, fontFamily: display, marginTop: 3 }}>Gini Planning Engine</div><div style={{ color: "#CFD0D3", marginTop: 2 }}>Xtin Capital Research</div></div>
         </div>
       </div>
 
@@ -152,7 +153,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           <Kpi label="Monthly EMIs" value={m(d.monthlyEmi)} tone={C.warn} />
           <Kpi label="Net monthly cash flow" value={m(d.monthlyCashFlow)} tone={d.monthlyCashFlow >= 0 ? C.good : C.bad} />
         </div>
-        <p style={{ fontSize: 12, lineHeight: 1.65, color: "#404047", marginTop: 14 }}>
+        <p style={{ fontSize: 12, lineHeight: 1.65, color: "#373A41", marginTop: 14 }}>
           {d.preparedFor.length > 1 ? `This report covers the ${d.clientName} household (${d.preparedFor.join(", ")}). ` : `This report covers ${d.clientName}'s finances. `}
           Net worth stands at <strong>{m(d.netWorth)}</strong>, with {m(d.totalAssets)} in assets against {m(d.totalLiabilities)} in liabilities.
           {d.monthlyIncome > 0 && <> After EMIs, the household keeps <strong>{m(d.monthlyCashFlow)}</strong> a month of recorded income. </>}
@@ -170,9 +171,9 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
               {health.map((h) => (
                 <tr key={h.name}>
                   <td style={td}>{h.name}</td>
-                  <td style={{ ...td, ...num, fontWeight: 700 }}>{h.value}</td>
+                  <td style={{ ...td, ...num, fontWeight: 600 }}>{h.value}</td>
                   <td style={{ ...td, color: C.mute }}>{h.bench}</td>
-                  <td style={{ ...td, color: h.r.color, fontWeight: 700 }}>● {h.r.label}</td>
+                  <td style={{ ...td, color: h.r.color, fontWeight: 600 }}>● {h.r.label}</td>
                 </tr>
               ))}
             </tbody>
@@ -197,7 +198,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
                   <tr key={a.category}>
                     <td style={td}><span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: BAR_COLORS[i % BAR_COLORS.length], marginRight: 8 }} />{a.category}</td>
                     <td style={{ ...td, ...num }}>{m(a.value)}</td>
-                    <td style={{ ...td, ...num, width: 60, fontWeight: 700 }}>{a.pct.toFixed(1)}%</td>
+                    <td style={{ ...td, ...num, width: 60, fontWeight: 600 }}>{a.pct.toFixed(1)}%</td>
                   </tr>
                 ))}
               </tbody>
@@ -209,12 +210,12 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
       {/* Holdings + liabilities tables */}
       {d.assets.length > 0 && chunk(d.assets, 14).map((rows, i) => (
         <Block key={`a${i}`} style={{ marginTop: 14 }}>
-          {i === 0 && <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 6 }}>Holdings Register</div>}
+          {i === 0 && <div style={{ fontFamily: display, fontSize: 14, fontWeight: 600, color: C.navy, marginBottom: 6 }}>Holdings Register</div>}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead><tr><th style={th}>Asset</th><th style={th}>Category</th><th style={th}>Owner</th><th style={{ ...th, ...num }}>Exp. return</th><th style={{ ...th, ...num }}>Value</th></tr></thead>
             <tbody>
               {rows.map((a, k) => (
-                <tr key={k}><td style={td}>{a.name}</td><td style={{ ...td, color: C.mute }}>{a.category}</td><td style={{ ...td, color: C.mute }}>{a.owner}</td><td style={{ ...td, ...num }}>{a.returnRate != null ? `${a.returnRate}%` : "—"}</td><td style={{ ...td, ...num, fontWeight: 700 }}>{m(a.value)}</td></tr>
+                <tr key={k}><td style={td}>{a.name}</td><td style={{ ...td, color: C.mute }}>{a.category}</td><td style={{ ...td, color: C.mute }}>{a.owner}</td><td style={{ ...td, ...num }}>{a.returnRate != null ? `${a.returnRate}%` : "—"}</td><td style={{ ...td, ...num, fontWeight: 600 }}>{m(a.value)}</td></tr>
               ))}
             </tbody>
           </table>
@@ -222,12 +223,12 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
       ))}
       {d.liabilities.length > 0 && chunk(d.liabilities, 12).map((rows, i) => (
         <Block key={`l${i}`} style={{ marginTop: 14 }}>
-          {i === 0 && <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy, marginBottom: 6 }}>Liabilities Register</div>}
+          {i === 0 && <div style={{ fontFamily: display, fontSize: 14, fontWeight: 600, color: C.navy, marginBottom: 6 }}>Liabilities Register</div>}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead><tr><th style={th}>Liability</th><th style={th}>Type</th><th style={{ ...th, ...num }}>Rate</th><th style={{ ...th, ...num }}>EMI</th><th style={{ ...th, ...num }}>Outstanding</th></tr></thead>
             <tbody>
               {rows.map((l, k) => (
-                <tr key={k}><td style={td}>{l.name}</td><td style={{ ...td, color: C.mute }}>{l.type}</td><td style={{ ...td, ...num }}>{l.rate != null ? `${l.rate}%` : "—"}</td><td style={{ ...td, ...num }}>{l.emi != null ? m(l.emi) : "—"}</td><td style={{ ...td, ...num, fontWeight: 700 }}>{m(l.amount)}</td></tr>
+                <tr key={k}><td style={td}>{l.name}</td><td style={{ ...td, color: C.mute }}>{l.type}</td><td style={{ ...td, ...num }}>{l.rate != null ? `${l.rate}%` : "—"}</td><td style={{ ...td, ...num }}>{l.emi != null ? m(l.emi) : "—"}</td><td style={{ ...td, ...num, fontWeight: 600 }}>{m(l.amount)}</td></tr>
               ))}
             </tbody>
           </table>
@@ -244,12 +245,12 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           <Block key={i} style={{ marginBottom: 10 }}>
             <div style={{ border: `1px solid ${C.line}`, borderLeft: `4px solid ${color}`, borderRadius: 6, padding: "10px 14px" }}>
               <div style={{ display: "flex", alignItems: "baseline" }}>
-                <span style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy }}>{g.name}</span>
+                <span style={{ fontFamily: display, fontSize: 14, fontWeight: 600, color: C.navy }}>{g.name}</span>
                 <span style={{ marginLeft: 8, fontSize: 10, color: C.mute }}>{g.category} · {g.priority} priority</span>
-                <span style={{ marginLeft: "auto", fontWeight: 700, color }}>{g.progressPct.toFixed(0)}% funded</span>
+                <span style={{ marginLeft: "auto", fontWeight: 600, color }}>{g.progressPct.toFixed(0)}% funded</span>
               </div>
               <div style={{ height: 7, background: C.line, borderRadius: 4, margin: "8px 0" }}><div style={{ width: `${Math.min(100, g.progressPct)}%`, height: 7, background: color, borderRadius: 4 }} /></div>
-              <div style={{ display: "flex", fontSize: 11, color: "#404047", gap: 24 }}>
+              <div style={{ display: "flex", fontSize: 11, color: "#373A41", gap: 24 }}>
                 <span>Target year: <strong>{g.targetYear ?? "—"}</strong></span>
                 <span>Inflation-adjusted cost: <strong>{m(g.futureValue)}</strong></span>
                 <span>Saved so far: <strong>{m(g.saved)}</strong></span>
@@ -267,7 +268,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
             <thead><tr><th style={th}>Member</th><th style={th}>Relationship</th><th style={{ ...th, ...num }}>Age</th><th style={th}>Role</th><th style={{ ...th, ...num }}>Monthly income</th></tr></thead>
             <tbody>
               {d.members.map((p, i) => (
-                <tr key={i}><td style={{ ...td, fontWeight: 700 }}>{p.name}</td><td style={{ ...td, color: C.mute }}>{p.relationship}</td><td style={{ ...td, ...num }}>{p.age ?? "—"}</td><td style={td}>{p.earner ? "Earner" : "Dependent"}</td><td style={{ ...td, ...num }}>{p.income ? m(p.income) : "—"}</td></tr>
+                <tr key={i}><td style={{ ...td, fontWeight: 600 }}>{p.name}</td><td style={{ ...td, color: C.mute }}>{p.relationship}</td><td style={{ ...td, ...num }}>{p.age ?? "—"}</td><td style={td}>{p.earner ? "Earner" : "Dependent"}</td><td style={{ ...td, ...num }}>{p.income ? m(p.income) : "—"}</td></tr>
               ))}
             </tbody>
           </table>
@@ -279,8 +280,8 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
         <div style={{ display: "flex", gap: 18, border: `1px solid ${C.gold}`, background: C.goldSoft, borderRadius: 8, padding: "14px 16px" }}>
           <Monogram size={46} />
           <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy }}>Report authenticity</div>
-            <div style={{ fontSize: 11, color: "#404047", lineHeight: 1.6, marginTop: 4 }}>
+            <div style={{ fontFamily: display, fontSize: 14, fontWeight: 600, color: C.navy }}>Report authenticity</div>
+            <div style={{ fontSize: 11, color: "#373A41", lineHeight: 1.6, marginTop: 4 }}>
               Issued to <strong>{d.clientName}</strong> on {dateStr} at {timeStr} by the Gini Planning Engine, Xtin Capital.
               The fingerprint below is computed from the figures in this report; if any number is changed, the fingerprint no longer matches the original.
             </div>

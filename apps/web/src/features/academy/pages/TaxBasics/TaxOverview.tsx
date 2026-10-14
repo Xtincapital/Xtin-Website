@@ -9,53 +9,53 @@ import ModuleBadge from "../../components/ModuleBadge";
 const WhatAreTaxesSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What Are Taxes and Why Do They Exist?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">A portion of your earnings that funds public services and infrastructure</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What Are Taxes and Why Do They Exist?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">A portion of your earnings that funds public services and infrastructure</text>
     
     {/* Flow visualization */}
     <g transform="translate(50, 75)">
       {/* You earn */}
-      <rect x="0" y="0" width="140" height="80" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">💼 You Earn</text>
-      <text x="70" y="45" textAnchor="middle" fontSize="9" fill="#404047">Salary, investments,</text>
-      <text x="70" y="60" textAnchor="middle" fontSize="9" fill="#404047">business income</text>
+      <rect x="0" y="0" width="140" height="80" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">💼 You Earn</text>
+      <text x="70" y="45" textAnchor="middle" fontSize="9" fill="#373A41">Salary, investments,</text>
+      <text x="70" y="60" textAnchor="middle" fontSize="9" fill="#373A41">business income</text>
       
       {/* Arrow */}
-      <polygon points="155,40 175,40 175,35 190,45 175,55 175,50 155,50" fill="#75757D"/>
+      <polygon points="155,40 175,40 175,35 190,45 175,55 175,50 155,50" fill="#717680"/>
       
       {/* Government takes portion */}
       <rect x="200" y="0" width="140" height="80" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="2"/>
       <text x="270" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">🏛️ Tax Collected</text>
-      <text x="270" y="45" textAnchor="middle" fontSize="9" fill="#404047">A percentage goes</text>
-      <text x="270" y="60" textAnchor="middle" fontSize="9" fill="#404047">to the government</text>
+      <text x="270" y="45" textAnchor="middle" fontSize="9" fill="#373A41">A percentage goes</text>
+      <text x="270" y="60" textAnchor="middle" fontSize="9" fill="#373A41">to the government</text>
       
       {/* Arrow */}
-      <polygon points="355,40 375,40 375,35 390,45 375,55 375,50 355,50" fill="#75757D"/>
+      <polygon points="355,40 375,40 375,35 390,45 375,55 375,50 355,50" fill="#717680"/>
       
       {/* Public services */}
       <rect x="400" y="0" width="140" height="80" fill="#ECE4F6" rx="10" stroke="#C0A9E2" strokeWidth="2"/>
       <text x="470" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B8A">🏗️ Public Services</text>
-      <text x="470" y="45" textAnchor="middle" fontSize="9" fill="#404047">Roads, schools,</text>
-      <text x="470" y="60" textAnchor="middle" fontSize="9" fill="#404047">healthcare, defense</text>
+      <text x="470" y="45" textAnchor="middle" fontSize="9" fill="#373A41">Roads, schools,</text>
+      <text x="470" y="60" textAnchor="middle" fontSize="9" fill="#373A41">healthcare, defense</text>
     </g>
     
     {/* Why taxes exist */}
     <g transform="translate(50, 175)">
-      <rect x="0" y="0" width="600" height="75" fill="white" rx="10" stroke="#E4E1D9" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#404047">Why Taxes Exist</text>
+      <rect x="0" y="0" width="600" height="75" fill="white" rx="10" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#373A41">Why Taxes Exist</text>
       
       <g transform="translate(30, 38)">
-        <text x="0" y="0" fontSize="8" fill="#75757D">✓ Fund infrastructure (roads, bridges, utilities)</text>
-        <text x="190" y="0" fontSize="8" fill="#75757D">✓ Provide public services (education, healthcare)</text>
-        <text x="410" y="0" fontSize="8" fill="#75757D">✓ National defense & security</text>
+        <text x="0" y="0" fontSize="8" fill="#717680">✓ Fund infrastructure (roads, bridges, utilities)</text>
+        <text x="190" y="0" fontSize="8" fill="#717680">✓ Provide public services (education, healthcare)</text>
+        <text x="410" y="0" fontSize="8" fill="#717680">✓ National defense & security</text>
       </g>
       <g transform="translate(30, 55)">
-        <text x="0" y="0" fontSize="8" fill="#75757D">✓ Social safety nets (pensions, unemployment)</text>
-        <text x="190" y="0" fontSize="8" fill="#75757D">✓ Maintain law and order</text>
-        <text x="410" y="0" fontSize="8" fill="#75757D">✓ Support economic stability</text>
+        <text x="0" y="0" fontSize="8" fill="#717680">✓ Social safety nets (pensions, unemployment)</text>
+        <text x="190" y="0" fontSize="8" fill="#717680">✓ Maintain law and order</text>
+        <text x="410" y="0" fontSize="8" fill="#717680">✓ Support economic stability</text>
       </g>
     </g>
     
@@ -69,28 +69,28 @@ const WhatAreTaxesSVG = () => (
 const TaxesInInvestingSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Taxes Matter in Investing</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What you keep matters more than what you earn</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Taxes Matter in Investing</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What you keep matters more than what you earn</text>
     
     {/* Illustration: Same return, different outcomes */}
     <g transform="translate(50, 75)">
       {/* Investor A */}
-      <rect x="0" y="0" width="280" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Tax-Aware Investor</text>
+      <rect x="0" y="0" width="280" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Tax-Aware Investor</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="115" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047">$10,000 invested for 10 years</text>
-        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#404047">8% annual return</text>
-        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E1D9" strokeWidth="1"/>
-        <text x="125" y="62" textAnchor="middle" fontSize="8" fill="#75757D">Uses tax-advantaged accounts</text>
-        <text x="125" y="77" textAnchor="middle" fontSize="8" fill="#75757D">Holds investments long-term</text>
-        <text x="125" y="92" textAnchor="middle" fontSize="8" fill="#75757D">Plans for tax efficiency</text>
-        <line x1="20" y1="100" x2="230" y2="100" stroke="#E4E1D9" strokeWidth="1"/>
-        <text x="125" y="115" textAnchor="middle" fontSize="10" fill="#0D543C" fontWeight="600">Final: ~$19,500</text>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#373A41">$10,000 invested for 10 years</text>
+        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#373A41">8% annual return</text>
+        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E4EA" strokeWidth="1"/>
+        <text x="125" y="62" textAnchor="middle" fontSize="8" fill="#717680">Uses tax-advantaged accounts</text>
+        <text x="125" y="77" textAnchor="middle" fontSize="8" fill="#717680">Holds investments long-term</text>
+        <text x="125" y="92" textAnchor="middle" fontSize="8" fill="#717680">Plans for tax efficiency</text>
+        <line x1="20" y1="100" x2="230" y2="100" stroke="#E4E4EA" strokeWidth="1"/>
+        <text x="125" y="115" textAnchor="middle" fontSize="10" fill="#12805A" fontWeight="600">Final: ~$19,500</text>
       </g>
     </g>
     
@@ -101,13 +101,13 @@ const TaxesInInvestingSVG = () => (
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="115" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047">$10,000 invested for 10 years</text>
-        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#404047">8% annual return (same!)</text>
-        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E1D9" strokeWidth="1"/>
-        <text x="125" y="62" textAnchor="middle" fontSize="8" fill="#75757D">Frequent trading (taxed yearly)</text>
-        <text x="125" y="77" textAnchor="middle" fontSize="8" fill="#75757D">Ignores tax implications</text>
-        <text x="125" y="92" textAnchor="middle" fontSize="8" fill="#75757D">No planning</text>
-        <line x1="20" y1="100" x2="230" y2="100" stroke="#E4E1D9" strokeWidth="1"/>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#373A41">$10,000 invested for 10 years</text>
+        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#373A41">8% annual return (same!)</text>
+        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E4EA" strokeWidth="1"/>
+        <text x="125" y="62" textAnchor="middle" fontSize="8" fill="#717680">Frequent trading (taxed yearly)</text>
+        <text x="125" y="77" textAnchor="middle" fontSize="8" fill="#717680">Ignores tax implications</text>
+        <text x="125" y="92" textAnchor="middle" fontSize="8" fill="#717680">No planning</text>
+        <line x1="20" y1="100" x2="230" y2="100" stroke="#E4E4EA" strokeWidth="1"/>
         <text x="125" y="115" textAnchor="middle" fontSize="10" fill="#C7363B" fontWeight="600">Final: ~$14,800</text>
       </g>
     </g>
@@ -123,39 +123,39 @@ const TaxesInInvestingSVG = () => (
 const PreVsPostTaxSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Pre-Tax vs. Post-Tax Returns</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The number that matters is what you actually keep</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Pre-Tax vs. Post-Tax Returns</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The number that matters is what you actually keep</text>
     
     {/* Visual comparison */}
     <g transform="translate(100, 75)">
       {/* Pre-tax bar */}
-      <text x="0" y="15" fontSize="10" fill="#404047" fontWeight="500">Pre-Tax Return (10%)</text>
+      <text x="0" y="15" fontSize="10" fill="#373A41" fontWeight="500">Pre-Tax Return (10%)</text>
       <rect x="150" y="0" width="350" height="30" fill="#E0E7F1" rx="6" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="325" y="20" textAnchor="middle" fontSize="10" fill="#2C3F5E" fontWeight="600">$10,000 → $11,000</text>
-      <text x="520" y="20" fontSize="9" fill="#75757D">+$1,000</text>
+      <text x="520" y="20" fontSize="9" fill="#717680">+$1,000</text>
       
       {/* Tax taken */}
-      <text x="0" y="65" fontSize="10" fill="#404047" fontWeight="500">Taxes Owed (e.g., 25%)</text>
+      <text x="0" y="65" fontSize="10" fill="#373A41" fontWeight="500">Taxes Owed (e.g., 25%)</text>
       <rect x="150" y="50" width="87.5" height="30" fill="#F6C3C3" rx="6" stroke="#F09B9B" strokeWidth="1"/>
       <text x="193.75" y="70" textAnchor="middle" fontSize="10" fill="#C7363B" fontWeight="600">-$250</text>
-      <text x="520" y="70" fontSize="9" fill="#75757D">Tax paid</text>
+      <text x="520" y="70" fontSize="9" fill="#717680">Tax paid</text>
       
       {/* Post-tax bar */}
-      <text x="0" y="115" fontSize="10" fill="#404047" fontWeight="500">Post-Tax Return (7.5%)</text>
-      <rect x="150" y="100" width="262.5" height="30" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="281.25" y="120" textAnchor="middle" fontSize="10" fill="#0D543C" fontWeight="600">$10,000 → $10,750</text>
-      <text x="520" y="120" fontSize="9" fill="#0D543C" fontWeight="600">+$750 (what you keep)</text>
+      <text x="0" y="115" fontSize="10" fill="#373A41" fontWeight="500">Post-Tax Return (7.5%)</text>
+      <rect x="150" y="100" width="262.5" height="30" fill="#EEF9F4" rx="6" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="281.25" y="120" textAnchor="middle" fontSize="10" fill="#12805A" fontWeight="600">$10,000 → $10,750</text>
+      <text x="520" y="120" fontSize="9" fill="#12805A" fontWeight="600">+$750 (what you keep)</text>
     </g>
     
     {/* Key insight */}
     <g transform="translate(50, 195)">
-      <rect x="0" y="0" width="600" height="55" fill="white" rx="10" stroke="#E4E1D9" strokeWidth="1"/>
-      <text x="300" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#404047">🔑 Key Insight</text>
-      <text x="300" y="38" textAnchor="middle" fontSize="8" fill="#75757D">A 10% return isn't really 10% — it's whatever remains after taxes.</text>
-      <text x="300" y="52" textAnchor="middle" fontSize="8" fill="#75757D">Always think about returns in terms of what you'll actually keep, not the headline number.</text>
+      <rect x="0" y="0" width="600" height="55" fill="white" rx="10" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="300" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#373A41">🔑 Key Insight</text>
+      <text x="300" y="38" textAnchor="middle" fontSize="8" fill="#717680">A 10% return isn't really 10% — it's whatever remains after taxes.</text>
+      <text x="300" y="52" textAnchor="middle" fontSize="8" fill="#717680">Always think about returns in terms of what you'll actually keep, not the headline number.</text>
     </g>
   </svg>
 );
@@ -164,11 +164,11 @@ const PreVsPostTaxSVG = () => (
 const CommonMistakesSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Common Beginner Tax Mistakes</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Avoiding these can save you significant money over time</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Common Beginner Tax Mistakes</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Avoiding these can save you significant money over time</text>
     
     {/* Mistake 1 */}
     <g transform="translate(50, 75)">
@@ -176,8 +176,8 @@ const CommonMistakesSVG = () => (
       <text x="145" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">❌ Ignoring Tax Implications</text>
       <g transform="translate(15, 35)">
         <rect x="0" y="0" width="260" height="60" fill="white" rx="6"/>
-        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#404047">Making investment decisions without</text>
-        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#404047">considering tax consequences.</text>
+        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#373A41">Making investment decisions without</text>
+        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#373A41">considering tax consequences.</text>
         <text x="130" y="50" textAnchor="middle" fontSize="7" fill="#C7363B">"I didn't know I'd owe taxes on that!"</text>
       </g>
     </g>
@@ -188,8 +188,8 @@ const CommonMistakesSVG = () => (
       <text x="145" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">❌ Frequent Trading</text>
       <g transform="translate(15, 35)">
         <rect x="0" y="0" width="260" height="60" fill="white" rx="6"/>
-        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#404047">Buying and selling often creates</text>
-        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#404047">taxable events every time you profit.</text>
+        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#373A41">Buying and selling often creates</text>
+        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#373A41">taxable events every time you profit.</text>
         <text x="130" y="50" textAnchor="middle" fontSize="7" fill="#C7363B">Short-term gains often taxed higher</text>
       </g>
     </g>
@@ -200,8 +200,8 @@ const CommonMistakesSVG = () => (
       <text x="145" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">❌ Missing Tax-Advantaged Accounts</text>
       <g transform="translate(15, 35)">
         <rect x="0" y="0" width="260" height="60" fill="white" rx="6"/>
-        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#404047">Not using accounts that offer</text>
-        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#404047">tax benefits (retirement accounts, etc.)</text>
+        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#373A41">Not using accounts that offer</text>
+        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#373A41">tax benefits (retirement accounts, etc.)</text>
         <text x="130" y="50" textAnchor="middle" fontSize="7" fill="#C7363B">Leaving money on the table</text>
       </g>
     </g>
@@ -212,8 +212,8 @@ const CommonMistakesSVG = () => (
       <text x="145" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">❌ Poor Record Keeping</text>
       <g transform="translate(15, 35)">
         <rect x="0" y="0" width="260" height="60" fill="white" rx="6"/>
-        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#404047">Not tracking purchase prices and</text>
-        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#404047">dates for investments.</text>
+        <text x="130" y="18" textAnchor="middle" fontSize="7" fill="#373A41">Not tracking purchase prices and</text>
+        <text x="130" y="32" textAnchor="middle" fontSize="7" fill="#373A41">dates for investments.</text>
         <text x="130" y="50" textAnchor="middle" fontSize="7" fill="#C7363B">Can lead to paying more than owed</text>
       </g>
     </g>
@@ -228,56 +228,56 @@ const CommonMistakesSVG = () => (
 const WhatYoullLearnSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What You'll Understand After This Module</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Building tax awareness — not expertise, but foundation</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What You'll Understand After This Module</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Building tax awareness — not expertise, but foundation</text>
     
     {/* Learning outcomes */}
     <g transform="translate(50, 75)">
       {/* Row 1 */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">✓ Tax Basics</text>
-        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#404047">How taxes work at a</text>
-        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#404047">fundamental level</text>
+        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Tax Basics</text>
+        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">How taxes work at a</text>
+        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">fundamental level</text>
       </g>
       
       <g transform="translate(205, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">✓ Investment Taxes</text>
-        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#404047">How different investments</text>
-        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#404047">are taxed differently</text>
+        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Investment Taxes</text>
+        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">How different investments</text>
+        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">are taxed differently</text>
       </g>
       
       <g transform="translate(410, 0)">
-        <rect x="0" y="0" width="190" height="75" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
-        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">✓ Tax-Smart Thinking</text>
-        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#404047">Questions to ask before</text>
-        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#404047">making financial decisions</text>
+        <rect x="0" y="0" width="190" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
+        <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">✓ Tax-Smart Thinking</text>
+        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">Questions to ask before</text>
+        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">making financial decisions</text>
       </g>
       
       {/* Row 2 */}
       <g transform="translate(100, 95)">
         <rect x="0" y="0" width="190" height="75" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
         <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#2C3F5E">✓ Tax-Advantaged Options</text>
-        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#404047">Awareness of accounts</text>
-        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#404047">that offer tax benefits</text>
+        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">Awareness of accounts</text>
+        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">that offer tax benefits</text>
       </g>
       
       <g transform="translate(310, 95)">
         <rect x="0" y="0" width="190" height="75" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
         <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#2C3F5E">✓ When to Seek Help</text>
-        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#404047">Recognizing when you</text>
-        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#404047">need professional advice</text>
+        <text x="95" y="42" textAnchor="middle" fontSize="7" fill="#373A41">Recognizing when you</text>
+        <text x="95" y="55" textAnchor="middle" fontSize="7" fill="#373A41">need professional advice</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="240" width="500" height="30" fill="#0D543C" rx="6"/>
+    <rect x="100" y="240" width="500" height="30" fill="#12805A" rx="6"/>
     <text x="350" y="253" textAnchor="middle" fontSize="9" fill="white">Goal: Not to make you a tax expert, but to make you tax-aware.</text>
-    <text x="350" y="266" textAnchor="middle" fontSize="8" fill="#D5F2E5">Awareness helps you ask the right questions and avoid costly mistakes.</text>
+    <text x="350" y="266" textAnchor="middle" fontSize="8" fill="#EEF9F4">Awareness helps you ask the right questions and avoid costly mistakes.</text>
   </svg>
 );
 
@@ -372,7 +372,7 @@ const TaxOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="taxes" /></div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Tax Basics – Understanding Taxes in Investing</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Tax Basics – Understanding Taxes in Investing</h1>
             <p className="text-gray-600 text-lg">
               Learn how taxes affect your income and investments at a fundamental level.
             </p>
@@ -412,7 +412,7 @@ const TaxOverview = () => {
 
         {/* What Are Taxes */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Are Taxes and Why Do They Exist?</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Are Taxes and Why Do They Exist?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -546,7 +546,7 @@ const TaxOverview = () => {
         </div>
 
         {/* Final Note */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg text-white">
+        <div className="rounded-2xl p-8 shadow-lg text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">Ready to Build Tax Awareness?</h3>
           <p className="text-blue-100 mb-4">
             Understanding taxes is one of the most practical financial skills 

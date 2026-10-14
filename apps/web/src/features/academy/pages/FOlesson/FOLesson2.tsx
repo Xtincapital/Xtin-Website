@@ -78,33 +78,33 @@ const FuturesContractSVG = () => (
   <svg viewBox="0 0 700 400" className="w-full h-auto">
     <defs>
       <linearGradient id="futuresGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="400" fill="url(#futuresGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Anatomy of a Futures Contract</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Standardized agreement to buy/sell at predetermined price on future date</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Standardized agreement to buy/sell at predetermined price on future date</text>
     
     {/* Contract Document Visual */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="600" height="280" fill="#232327" rx="12" stroke="#5A5A62" strokeWidth="2"/>
+      <rect x="0" y="0" width="600" height="280" fill="#2A2A2C" rx="12" stroke="#555A63" strokeWidth="2"/>
       
       {/* Header */}
-      <rect x="0" y="0" width="600" height="50" fill="#404047" rx="12"/>
+      <rect x="0" y="0" width="600" height="50" fill="#373A41" rx="12"/>
       <text x="300" y="32" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">FUTURES CONTRACT SPECIFICATION</text>
       
       {/* Contract Elements */}
       <g transform="translate(20, 70)">
         {/* Underlying Asset */}
         <g>
-          <rect x="0" y="0" width="270" height="90" fill="#1FA978" fillOpacity="0.15" rx="8" stroke="#1FA978" strokeWidth="1"/>
-          <text x="135" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1FA978">UNDERLYING ASSET</text>
+          <rect x="0" y="0" width="270" height="90" fill="#12805A" fillOpacity="0.15" rx="8" stroke="#12805A" strokeWidth="1"/>
+          <text x="135" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">UNDERLYING ASSET</text>
           <text x="135" y="45" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">NIFTY 50 Index</text>
-          <text x="135" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">What you&apos;re trading</text>
-          <text x="135" y="80" textAnchor="middle" fontSize="8" fill="#A3A1A6">(Stock, Index, Commodity, Currency)</text>
+          <text x="135" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">What you&apos;re trading</text>
+          <text x="135" y="80" textAnchor="middle" fontSize="8" fill="#A0A3AA">(Stock, Index, Commodity, Currency)</text>
         </g>
         
         {/* Contract Size */}
@@ -112,8 +112,8 @@ const FuturesContractSVG = () => (
           <rect x="0" y="0" width="270" height="90" fill="#5A77AA" fillOpacity="0.15" rx="8" stroke="#5A77AA" strokeWidth="1"/>
           <text x="135" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#5A77AA">LOT SIZE (Contract Multiplier)</text>
           <text x="135" y="45" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">50 Units</text>
-          <text x="135" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">Value = Index Level x 50</text>
-          <text x="135" y="80" textAnchor="middle" fontSize="8" fill="#A3A1A6">If NIFTY = 22,000 → Contract = ₹11 Lakh</text>
+          <text x="135" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">Value = Index Level x 50</text>
+          <text x="135" y="80" textAnchor="middle" fontSize="8" fill="#A0A3AA">If NIFTY = 22,000 → Contract = ₹11 Lakh</text>
         </g>
       </g>
       
@@ -123,8 +123,8 @@ const FuturesContractSVG = () => (
           <rect x="0" y="0" width="175" height="85" fill="#D2754C" fillOpacity="0.15" rx="8" stroke="#D2754C" strokeWidth="1"/>
           <text x="87" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#D2754C">EXPIRY DATE</text>
           <text x="87" y="42" textAnchor="middle" fontSize="14" fontWeight="700" fill="white">Last Thursday</text>
-          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A3A1A6">of contract month</text>
-          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A3A1A6">Monthly/Weekly cycles</text>
+          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">of contract month</text>
+          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A0A3AA">Monthly/Weekly cycles</text>
         </g>
         
         {/* Tick Size */}
@@ -132,8 +132,8 @@ const FuturesContractSVG = () => (
           <rect x="0" y="0" width="175" height="85" fill="#8F6FC4" fillOpacity="0.15" rx="8" stroke="#8F6FC4" strokeWidth="1"/>
           <text x="87" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8F6FC4">TICK SIZE</text>
           <text x="87" y="42" textAnchor="middle" fontSize="14" fontWeight="700" fill="white">0.05 Points</text>
-          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A3A1A6">Minimum price move</text>
-          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A3A1A6">Tick Value = ₹2.50</text>
+          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Minimum price move</text>
+          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A0A3AA">Tick Value = ₹2.50</text>
         </g>
         
         {/* Settlement */}
@@ -141,15 +141,15 @@ const FuturesContractSVG = () => (
           <rect x="0" y="0" width="175" height="85" fill="#8F6FC4" fillOpacity="0.15" rx="8" stroke="#8F6FC4" strokeWidth="1"/>
           <text x="87" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8F6FC4">SETTLEMENT</text>
           <text x="87" y="42" textAnchor="middle" fontSize="14" fontWeight="700" fill="white">Cash Settled</text>
-          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A3A1A6">No physical delivery</text>
-          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A3A1A6">P&L settled in cash</text>
+          <text x="87" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">No physical delivery</text>
+          <text x="87" y="75" textAnchor="middle" fontSize="8" fill="#A0A3AA">P&L settled in cash</text>
         </g>
       </g>
     </g>
     
     {/* Key Point */}
     <g transform="translate(50, 365)">
-      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
+      <rect x="0" y="0" width="600" height="25" fill="#2A2A2C" rx="6"/>
       <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#D2754C">Standardization enables liquidity — same contracts traded by thousands of participants</text>
     </g>
   </svg>
@@ -158,23 +158,23 @@ const FuturesContractSVG = () => (
 // SVG: Margin System
 const MarginSystemSVG = () => (
   <svg viewBox="0 0 700 420" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="420" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="420" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">The Margin System</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">How futures enable leveraged trading through collateral requirements</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">How futures enable leveraged trading through collateral requirements</text>
     
     {/* Margin Types */}
     <g transform="translate(30, 80)">
       {/* Initial Margin */}
       <g>
-        <rect x="0" y="0" width="200" height="180" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
-        <text x="100" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#1FA978">INITIAL MARGIN</text>
-        <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">Upfront deposit required</text>
+        <rect x="0" y="0" width="200" height="180" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
+        <text x="100" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">INITIAL MARGIN</text>
+        <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">Upfront deposit required</text>
         
         <g transform="translate(15, 70)">
-          <rect x="0" y="0" width="170" height="95" fill="#151517" rx="8"/>
-          <text x="85" y="25" textAnchor="middle" fontSize="24" fontWeight="700" fill="#1FA978">~10-15%</text>
-          <text x="85" y="45" textAnchor="middle" fontSize="9" fill="#A3A1A6">of contract value</text>
+          <rect x="0" y="0" width="170" height="95" fill="#1F1F1F" rx="8"/>
+          <text x="85" y="25" textAnchor="middle" fontSize="24" fontWeight="700" fill="#12805A">~10-15%</text>
+          <text x="85" y="45" textAnchor="middle" fontSize="9" fill="#A0A3AA">of contract value</text>
           <text x="85" y="65" textAnchor="middle" fontSize="8" fill="white">Example: ₹11L contract</text>
           <text x="85" y="80" textAnchor="middle" fontSize="8" fill="white">requires ~₹1.5L margin</text>
         </g>
@@ -184,12 +184,12 @@ const MarginSystemSVG = () => (
       <g transform="translate(220, 0)">
         <rect x="0" y="0" width="200" height="180" fill="#D2754C" fillOpacity="0.1" rx="12" stroke="#D2754C" strokeWidth="2"/>
         <text x="100" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#D2754C">MAINTENANCE</text>
-        <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">Minimum balance required</text>
+        <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">Minimum balance required</text>
         
         <g transform="translate(15, 70)">
-          <rect x="0" y="0" width="170" height="95" fill="#151517" rx="8"/>
+          <rect x="0" y="0" width="170" height="95" fill="#1F1F1F" rx="8"/>
           <text x="85" y="25" textAnchor="middle" fontSize="24" fontWeight="700" fill="#D2754C">~7-10%</text>
-          <text x="85" y="45" textAnchor="middle" fontSize="9" fill="#A3A1A6">of contract value</text>
+          <text x="85" y="45" textAnchor="middle" fontSize="9" fill="#A0A3AA">of contract value</text>
           <text x="85" y="65" textAnchor="middle" fontSize="8" fill="white">If balance falls below,</text>
           <text x="85" y="80" textAnchor="middle" fontSize="8" fill="white">margin call triggered</text>
         </g>
@@ -199,12 +199,12 @@ const MarginSystemSVG = () => (
       <g transform="translate(440, 0)">
         <rect x="0" y="0" width="220" height="180" fill="#C7363B" fillOpacity="0.1" rx="12" stroke="#C7363B" strokeWidth="2"/>
         <text x="110" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#C7363B">MARK-TO-MARKET</text>
-        <text x="110" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">Daily settlement of P&L</text>
+        <text x="110" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">Daily settlement of P&L</text>
         
         <g transform="translate(15, 70)">
-          <rect x="0" y="0" width="190" height="95" fill="#151517" rx="8"/>
+          <rect x="0" y="0" width="190" height="95" fill="#1F1F1F" rx="8"/>
           <text x="95" y="25" textAnchor="middle" fontSize="12" fontWeight="700" fill="#C7363B">DAILY</text>
-          <text x="95" y="45" textAnchor="middle" fontSize="9" fill="#A3A1A6">profits/losses settled</text>
+          <text x="95" y="45" textAnchor="middle" fontSize="9" fill="#A0A3AA">profits/losses settled</text>
           <text x="95" y="65" textAnchor="middle" fontSize="8" fill="white">Gains credited to account</text>
           <text x="95" y="80" textAnchor="middle" fontSize="8" fill="white">Losses debited immediately</text>
         </g>
@@ -213,29 +213,29 @@ const MarginSystemSVG = () => (
     
     {/* Flow Diagram */}
     <g transform="translate(50, 275)">
-      <rect x="0" y="0" width="600" height="100" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="100" fill="#2A2A2C" rx="10"/>
       <text x="300" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Margin Call Flow</text>
       
       <g transform="translate(30, 45)">
         {/* Step 1 */}
-        <rect x="0" y="0" width="100" height="40" fill="#1FA978" fillOpacity="0.3" rx="6"/>
+        <rect x="0" y="0" width="100" height="40" fill="#12805A" fillOpacity="0.3" rx="6"/>
         <text x="50" y="25" textAnchor="middle" fontSize="8" fill="white">Position Opens</text>
         
-        <polygon points="110,20 125,12 125,28" fill="#75757D"/>
+        <polygon points="110,20 125,12 125,28" fill="#717680"/>
         
         {/* Step 2 */}
         <rect x="135" y="0" width="100" height="40" fill="#D2754C" fillOpacity="0.3" rx="6"/>
         <text x="185" y="18" textAnchor="middle" fontSize="8" fill="white">Price Moves</text>
         <text x="185" y="30" textAnchor="middle" fontSize="8" fill="white">Against You</text>
         
-        <polygon points="245,20 260,12 260,28" fill="#75757D"/>
+        <polygon points="245,20 260,12 260,28" fill="#717680"/>
         
         {/* Step 3 */}
         <rect x="270" y="0" width="120" height="40" fill="#C7363B" fillOpacity="0.3" rx="6"/>
         <text x="330" y="18" textAnchor="middle" fontSize="8" fill="white">Below Maintenance</text>
         <text x="330" y="30" textAnchor="middle" fontSize="8" fill="#C7363B">MARGIN CALL!</text>
         
-        <polygon points="400,20 415,12 415,28" fill="#75757D"/>
+        <polygon points="400,20 415,12 415,28" fill="#717680"/>
         
         {/* Step 4 */}
         <rect x="425" y="0" width="110" height="40" fill="#6B2023" fillOpacity="0.5" rx="6"/>
@@ -255,10 +255,10 @@ const MarginSystemSVG = () => (
 // SVG: Daily Settlement
 const DailySettlementSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Daily Mark-to-Market Settlement</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">How profits and losses are settled every single trading day</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">How profits and losses are settled every single trading day</text>
     
     {/* Timeline */}
     <g transform="translate(100, 85)">
@@ -268,7 +268,7 @@ const DailySettlementSVG = () => (
       <g transform="translate(0, 25)">
         {["Day 0", "Day 1", "Day 2", "Day 3", "Day 4"].map((day, i) => (
           <g key={i} transform={`translate(${i * 115}, 0)`}>
-            <rect x="0" y="0" width="105" height="30" fill="#404047" rx="6"/>
+            <rect x="0" y="0" width="105" height="30" fill="#373A41" rx="6"/>
             <text x="52" y="20" textAnchor="middle" fontSize="10" fontWeight="500" fill="white">{day}</text>
           </g>
         ))}
@@ -276,10 +276,10 @@ const DailySettlementSVG = () => (
       
       {/* Price row */}
       <g transform="translate(0, 65)">
-        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A3A1A6">Settle Price</text>
+        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A0A3AA">Settle Price</text>
         {[22000, 22200, 21800, 22100, 22400].map((price, i) => (
           <g key={i} transform={`translate(${i * 115}, 0)`}>
-            <rect x="0" y="0" width="105" height="35" fill="#232327" rx="6"/>
+            <rect x="0" y="0" width="105" height="35" fill="#2A2A2C" rx="6"/>
             <text x="52" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="white">{price.toLocaleString()}</text>
           </g>
         ))}
@@ -287,17 +287,17 @@ const DailySettlementSVG = () => (
       
       {/* Daily P&L row */}
       <g transform="translate(0, 110)">
-        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A3A1A6">Daily P&L</text>
+        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A0A3AA">Daily P&L</text>
         {["Entry", "+200 pts", "-400 pts", "+300 pts", "+300 pts"].map((pnl, i) => {
           const isProfit = pnl.includes("+");
           const isLoss = pnl.includes("-");
           return (
             <g key={i} transform={`translate(${i * 115}, 0)`}>
               <rect x="0" y="0" width="105" height="35" 
-                fill={isProfit ? "#1FA978" : isLoss ? "#C7363B" : "#75757D"} 
+                fill={isProfit ? "#12805A" : isLoss ? "#C7363B" : "#717680"} 
                 fillOpacity={i === 0 ? 0.2 : 0.25} rx="6"/>
               <text x="52" y="22" textAnchor="middle" fontSize="11" fontWeight="600" 
-                fill={isProfit ? "#1FA978" : isLoss ? "#C7363B" : "#A3A1A6"}>{pnl}</text>
+                fill={isProfit ? "#12805A" : isLoss ? "#C7363B" : "#A0A3AA"}>{pnl}</text>
             </g>
           );
         })}
@@ -305,16 +305,16 @@ const DailySettlementSVG = () => (
       
       {/* Cash Flow row */}
       <g transform="translate(0, 155)">
-        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A3A1A6">Cash Flow</text>
-        <text x="-10" y="32" textAnchor="end" fontSize="8" fill="#75757D">(Lot = 50)</text>
+        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A0A3AA">Cash Flow</text>
+        <text x="-10" y="32" textAnchor="end" fontSize="8" fill="#717680">(Lot = 50)</text>
         {["—", "+₹10,000", "-₹20,000", "+₹15,000", "+₹15,000"].map((cash, i) => {
           const isProfit = cash.includes("+");
           const isLoss = cash.includes("-");
           return (
             <g key={i} transform={`translate(${i * 115}, 0)`}>
-              <rect x="0" y="0" width="105" height="35" fill="#151517" rx="6" stroke={isProfit ? "#1FA978" : isLoss ? "#C7363B" : "#5A5A62"} strokeWidth="1"/>
+              <rect x="0" y="0" width="105" height="35" fill="#1F1F1F" rx="6" stroke={isProfit ? "#12805A" : isLoss ? "#C7363B" : "#555A63"} strokeWidth="1"/>
               <text x="52" y="22" textAnchor="middle" fontSize="10" fontWeight="600" 
-                fill={isProfit ? "#1FA978" : isLoss ? "#F09B9B" : "#A3A1A6"}>{cash}</text>
+                fill={isProfit ? "#12805A" : isLoss ? "#F09B9B" : "#A0A3AA"}>{cash}</text>
             </g>
           );
         })}
@@ -322,14 +322,14 @@ const DailySettlementSVG = () => (
       
       {/* Running Total */}
       <g transform="translate(0, 205)">
-        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A3A1A6">Running Total</text>
+        <text x="-10" y="18" textAnchor="end" fontSize="9" fill="#A0A3AA">Running Total</text>
         {["₹0", "+₹10,000", "-₹10,000", "+₹5,000", "+₹20,000"].map((total, i) => {
           const val = parseInt(total.replace(/[₹,+]/g, '')) || 0;
           return (
             <g key={i} transform={`translate(${i * 115}, 0)`}>
-              <rect x="0" y="0" width="105" height="35" fill="#232327" rx="6"/>
+              <rect x="0" y="0" width="105" height="35" fill="#2A2A2C" rx="6"/>
               <text x="52" y="22" textAnchor="middle" fontSize="10" fontWeight="700" 
-                fill={val > 0 ? "#1FA978" : val < 0 ? "#C7363B" : "white"}>{total}</text>
+                fill={val > 0 ? "#12805A" : val < 0 ? "#C7363B" : "white"}>{total}</text>
             </g>
           );
         })}
@@ -338,8 +338,8 @@ const DailySettlementSVG = () => (
     
     {/* Key insight */}
     <g transform="translate(50, 340)">
-      <rect x="0" y="0" width="600" height="30" fill="#232327" rx="6"/>
-      <text x="300" y="19" textAnchor="middle" fontSize="9" fill="#A3A1A6">Net P&L = (Exit Price - Entry Price) × Lot Size = (22,400 - 22,000) × 50 = ₹20,000 profit</text>
+      <rect x="0" y="0" width="600" height="30" fill="#2A2A2C" rx="6"/>
+      <text x="300" y="19" textAnchor="middle" fontSize="9" fill="#A0A3AA">Net P&L = (Exit Price - Entry Price) × Lot Size = (22,400 - 22,000) × 50 = ₹20,000 profit</text>
     </g>
   </svg>
 );
@@ -347,29 +347,29 @@ const DailySettlementSVG = () => (
 // SVG: Long vs Short
 const LongShortSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Long vs Short Positions</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Two sides of every futures trade</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Two sides of every futures trade</text>
     
     {/* Long Position */}
     <g transform="translate(40, 80)">
-      <rect x="0" y="0" width="290" height="200" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <rect x="0" y="0" width="290" height="200" fill="#12805A" fillOpacity="0.1" rx="12" stroke="#12805A" strokeWidth="2"/>
       
       <g transform="translate(145, 25)">
-        <circle r="20" fill="#1FA978" fillOpacity="0.3"/>
-        <path d="M0,-12 L0,12 M-8,4 L0,-4 L8,4" stroke="#1FA978" strokeWidth="3" fill="none"/>
+        <circle r="20" fill="#12805A" fillOpacity="0.3"/>
+        <path d="M0,-12 L0,12 M-8,4 L0,-4 L8,4" stroke="#12805A" strokeWidth="3" fill="none"/>
       </g>
       
-      <text x="145" y="65" textAnchor="middle" fontSize="16" fontWeight="700" fill="#1FA978">LONG (BUY)</text>
-      <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A3A1A6">Obligation to BUY at expiry</text>
+      <text x="145" y="65" textAnchor="middle" fontSize="16" fontWeight="700" fill="#12805A">LONG (BUY)</text>
+      <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A0A3AA">Obligation to BUY at expiry</text>
       
       <g transform="translate(20, 100)">
-        <rect x="0" y="0" width="250" height="85" fill="#151517" rx="8"/>
+        <rect x="0" y="0" width="250" height="85" fill="#1F1F1F" rx="8"/>
         <text x="125" y="25" textAnchor="middle" fontSize="10" fill="white">Profit when price RISES</text>
-        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#1FA978">P&L = (Exit - Entry) × Lots</text>
-        <text x="125" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">Bullish view on underlying</text>
-        <text x="125" y="80" textAnchor="middle" fontSize="8" fill="#75757D">Unlimited profit, unlimited loss</text>
+        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#12805A">P&L = (Exit - Entry) × Lots</text>
+        <text x="125" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">Bullish view on underlying</text>
+        <text x="125" y="80" textAnchor="middle" fontSize="8" fill="#717680">Unlimited profit, unlimited loss</text>
       </g>
     </g>
     
@@ -383,21 +383,21 @@ const LongShortSVG = () => (
       </g>
       
       <text x="145" y="65" textAnchor="middle" fontSize="16" fontWeight="700" fill="#C7363B">SHORT (SELL)</text>
-      <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A3A1A6">Obligation to SELL at expiry</text>
+      <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A0A3AA">Obligation to SELL at expiry</text>
       
       <g transform="translate(20, 100)">
-        <rect x="0" y="0" width="250" height="85" fill="#151517" rx="8"/>
+        <rect x="0" y="0" width="250" height="85" fill="#1F1F1F" rx="8"/>
         <text x="125" y="25" textAnchor="middle" fontSize="10" fill="white">Profit when price FALLS</text>
         <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#C7363B">P&L = (Entry - Exit) × Lots</text>
-        <text x="125" y="65" textAnchor="middle" fontSize="9" fill="#A3A1A6">Bearish view on underlying</text>
-        <text x="125" y="80" textAnchor="middle" fontSize="8" fill="#75757D">Unlimited profit, unlimited loss</text>
+        <text x="125" y="65" textAnchor="middle" fontSize="9" fill="#A0A3AA">Bearish view on underlying</text>
+        <text x="125" y="80" textAnchor="middle" fontSize="8" fill="#717680">Unlimited profit, unlimited loss</text>
       </g>
     </g>
     
     {/* Key point */}
     <g transform="translate(50, 290)">
-      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A3A1A6">Unlike stocks, you can short futures just as easily as going long — no borrowing required</text>
+      <rect x="0" y="0" width="600" height="25" fill="#2A2A2C" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A0A3AA">Unlike stocks, you can short futures just as easily as going long — no borrowing required</text>
     </g>
   </svg>
 );
@@ -405,22 +405,22 @@ const LongShortSVG = () => (
 // SVG: Contract Expiry
 const ContractExpirySVG = () => (
   <svg viewBox="0 0 700 280" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="280" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Contract Expiry Cycles</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Understanding when futures contracts expire</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Understanding when futures contracts expire</text>
     
     {/* Monthly Contracts */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="600" height="70" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="70" fill="#2A2A2C" rx="10"/>
       <text x="20" y="25" fontSize="12" fontWeight="600" fill="#D2754C">MONTHLY CONTRACTS</text>
-      <text x="20" y="45" fontSize="9" fill="#A3A1A6">Expire on last Thursday of each month</text>
+      <text x="20" y="45" fontSize="9" fill="#A0A3AA">Expire on last Thursday of each month</text>
       
       <g transform="translate(260, 12)">
         {["Current", "Near", "Far"].map((label, i) => (
           <g key={i} transform={`translate(${i * 115}, 0)`}>
-            <rect x="0" y="0" width="105" height="48" fill={i === 0 ? "#D2754C" : "#5A5A62"} fillOpacity={i === 0 ? 0.3 : 0.3} rx="6"/>
-            <text x="52" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill={i === 0 ? "#D2754C" : "#A3A1A6"}>{label} Month</text>
+            <rect x="0" y="0" width="105" height="48" fill={i === 0 ? "#D2754C" : "#555A63"} fillOpacity={i === 0 ? 0.3 : 0.3} rx="6"/>
+            <text x="52" y="18" textAnchor="middle" fontSize="9" fontWeight="500" fill={i === 0 ? "#D2754C" : "#A0A3AA"}>{label} Month</text>
             <text x="52" y="36" textAnchor="middle" fontSize="10" fill="white">
               {i === 0 ? "Jan 25" : i === 1 ? "Feb 25" : "Mar 25"}
             </text>
@@ -431,15 +431,15 @@ const ContractExpirySVG = () => (
     
     {/* Weekly Contracts */}
     <g transform="translate(50, 165)">
-      <rect x="0" y="0" width="600" height="70" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="70" fill="#2A2A2C" rx="10"/>
       <text x="20" y="25" fontSize="12" fontWeight="600" fill="#5A77AA">WEEKLY CONTRACTS</text>
-      <text x="20" y="45" fontSize="9" fill="#A3A1A6">Expire every Thursday</text>
+      <text x="20" y="45" fontSize="9" fill="#A0A3AA">Expire every Thursday</text>
       
       <g transform="translate(260, 12)">
         {["This Week", "Next Week", "Week 3", "Week 4"].map((label, i) => (
           <g key={i} transform={`translate(${i * 87}, 0)`}>
-            <rect x="0" y="0" width="80" height="48" fill={i === 0 ? "#5A77AA" : "#5A5A62"} fillOpacity={i === 0 ? 0.3 : 0.3} rx="6"/>
-            <text x="40" y="18" textAnchor="middle" fontSize="8" fontWeight="500" fill={i === 0 ? "#5A77AA" : "#A3A1A6"}>{label}</text>
+            <rect x="0" y="0" width="80" height="48" fill={i === 0 ? "#5A77AA" : "#555A63"} fillOpacity={i === 0 ? 0.3 : 0.3} rx="6"/>
+            <text x="40" y="18" textAnchor="middle" fontSize="8" fontWeight="500" fill={i === 0 ? "#5A77AA" : "#A0A3AA"}>{label}</text>
             <text x="40" y="36" textAnchor="middle" fontSize="9" fill="white">{`Jan ${9 + i * 7}`}</text>
           </g>
         ))}
@@ -448,7 +448,7 @@ const ContractExpirySVG = () => (
     
     {/* Key point */}
     <g transform="translate(50, 250)">
-      <text x="300" y="12" textAnchor="middle" fontSize="9" fill="#A3A1A6">Liquidity is highest in current month/week contracts. Far-dated contracts have lower volume and wider spreads.</text>
+      <text x="300" y="12" textAnchor="middle" fontSize="9" fill="#A0A3AA">Liquidity is highest in current month/week contracts. Far-dated contracts have lower volume and wider spreads.</text>
     </g>
   </svg>
 );
@@ -548,7 +548,7 @@ const FOLesson2 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Futures Fundamentals
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -557,7 +557,7 @@ const FOLesson2 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -584,11 +584,11 @@ const FOLesson2 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.FileText className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Contract Specifications</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Contract Specifications</h2>
                   <p className="text-sm text-gray-500 ">The building blocks of a futures contract</p>
                 </div>
               </div>
@@ -623,11 +623,11 @@ const FOLesson2 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.DollarSign className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Margin System</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">The Margin System</h2>
                   <p className="text-sm text-gray-500 ">How leverage is enabled through collateral</p>
                 </div>
               </div>
@@ -659,11 +659,11 @@ const FOLesson2 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                   <Icons.RefreshCw className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Daily Mark-to-Market</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Daily Mark-to-Market</h2>
                   <p className="text-sm text-gray-500 ">Understanding daily profit and loss settlement</p>
                 </div>
               </div>
@@ -695,11 +695,11 @@ const FOLesson2 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.Layers className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Long vs Short Positions</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Long vs Short Positions</h2>
                   <p className="text-sm text-gray-500 ">Profiting from both rising and falling markets</p>
                 </div>
               </div>
@@ -712,8 +712,8 @@ const FOLesson2 = () => {
               <LongShortSVG />
 
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                  <h4 className="font-bold text-green-800  mb-2">When to Go Long</h4>
+                <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                  <h4 className="font-bold text-brand  mb-2">When to Go Long</h4>
                   <ul className="text-gray-700  text-sm space-y-1">
                     <li>• Bullish outlook on underlying</li>
                     <li>• Expecting prices to rise</li>
@@ -736,11 +736,11 @@ const FOLesson2 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                   <Icons.Calendar className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Contract Expiry Cycles</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Contract Expiry Cycles</h2>
                   <p className="text-sm text-gray-500 ">Understanding when contracts expire</p>
                 </div>
               </div>
@@ -765,8 +765,8 @@ const FOLesson2 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Futures contracts have standardized specifications: underlying, lot size, tick size, expiry",
@@ -790,7 +790,7 @@ const FOLesson2 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -805,11 +805,11 @@ const FOLesson2 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -820,7 +820,7 @@ const FOLesson2 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -834,7 +834,7 @@ const FOLesson2 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -865,7 +865,7 @@ const FOLesson2 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-3')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Futures Pricing</span>
               <Icons.ArrowRight className="w-5 h-5" />

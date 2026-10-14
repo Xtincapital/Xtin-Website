@@ -83,13 +83,13 @@ const ProductsPage = () => {
               const CardContent = (
                 <div className="relative flex h-full flex-col text-center">
                   <div className="flex justify-end">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-400 transition group-hover:border-emerald-200 group-hover:text-emerald-600">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-400 transition group-hover:border-brand-line group-hover:text-brand">
                       <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
                     </span>
                   </div>
 
                   <div className="flex flex-1 items-center justify-center">
-                    <span className="inline-flex h-24 w-24 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success transition-transform duration-300 group-hover:scale-105">
+                    <span className="inline-flex h-24 w-24 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand transition-transform duration-300 group-hover:scale-105">
                       <item.Icon className="h-12 w-12" strokeWidth={1.7} />
                     </span>
                   </div>
@@ -101,7 +101,7 @@ const ProductsPage = () => {
                 </div>
               );
 
-              const cardClasses = "group aspect-square rounded-2xl border border-border bg-card p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500";
+              const cardClasses = "group aspect-square rounded-2xl border border-border bg-card p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-brand-line hover:shadow-xl hover:shadow-brand/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
               return (
                 <Link

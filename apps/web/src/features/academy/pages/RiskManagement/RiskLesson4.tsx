@@ -27,11 +27,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
-                : 'border-gray-200 hover:border-emerald-400 hover:bg-emerald-50'
+                : 'border-gray-200 hover:border-brand hover:bg-brand-soft'
             }`}
           >
             {option}
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhatIsPositionSizeSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">What Is Position Size?</text>
-    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#75757D">How much of your capital is committed to a single idea</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">What Is Position Size?</text>
+    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#717680">How much of your capital is committed to a single idea</text>
     
     {/* Total Capital Box */}
     <g transform="translate(100, 80)">
@@ -76,14 +76,14 @@ const WhatIsPositionSizeSVG = () => (
     
     {/* Position Size Slice */}
     <g transform="translate(100, 180)">
-      <rect x="0" y="0" width="150" height="80" fill="#12805A" rx="12" stroke="#0E6A4A" strokeWidth="3"/>
+      <rect x="0" y="0" width="150" height="80" fill="#12805A" rx="12" stroke="#12805A" strokeWidth="3"/>
       <text x="75" y="35" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Position</text>
       <text x="75" y="52" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Size</text>
       
       {/* Remaining capital */}
-      <rect x="160" y="0" width="340" height="80" fill="#E4E1D9" rx="12" stroke="#A3A1A6" strokeWidth="2" strokeDasharray="4"/>
-      <text x="330" y="35" textAnchor="middle" fontSize="10" fill="#75757D">Remaining Capital</text>
-      <text x="330" y="52" textAnchor="middle" fontSize="9" fill="#75757D">(Not exposed to this idea)</text>
+      <rect x="160" y="0" width="340" height="80" fill="#E4E4EA" rx="12" stroke="#A0A3AA" strokeWidth="2" strokeDasharray="4"/>
+      <text x="330" y="35" textAnchor="middle" fontSize="10" fill="#717680">Remaining Capital</text>
+      <text x="330" y="52" textAnchor="middle" fontSize="9" fill="#717680">(Not exposed to this idea)</text>
     </g>
     
     {/* Arrow and label */}
@@ -93,7 +93,7 @@ const WhatIsPositionSizeSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="270" width="500" height="22" fill="#232327" rx="5"/>
+    <rect x="100" y="270" width="500" height="22" fill="#2A2A2C" rx="5"/>
     <text x="350" y="285" textAnchor="middle" fontSize="9" fill="white">Position size = how much you're risking on ONE decision</text>
   </svg>
 );
@@ -102,29 +102,29 @@ const WhatIsPositionSizeSVG = () => (
 const SmallVsLargeSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Small Position vs Large Position</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The same idea, different exposure levels</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Small Position vs Large Position</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The same idea, different exposure levels</text>
     
     {/* Small Position */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Small Position</text>
+      <rect x="0" y="0" width="280" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Small Position</text>
       
       {/* Capital bar */}
-      <rect x="20" y="50" width="240" height="40" fill="#E4E1D9" rx="6" stroke="#A3A1A6" strokeWidth="1"/>
-      <rect x="20" y="50" width="50" height="40" fill="#1FA978" rx="6"/>
+      <rect x="20" y="50" width="240" height="40" fill="#E4E4EA" rx="6" stroke="#A0A3AA" strokeWidth="1"/>
+      <rect x="20" y="50" width="50" height="40" fill="#12805A" rx="6"/>
       <text x="45" y="75" textAnchor="middle" fontSize="8" fill="white" fontWeight="600">Exposed</text>
-      <text x="160" y="75" textAnchor="middle" fontSize="8" fill="#75757D">Protected</text>
+      <text x="160" y="75" textAnchor="middle" fontSize="8" fill="#717680">Protected</text>
       
       {/* If wrong scenario */}
-      <text x="140" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">If the idea is wrong:</text>
+      <text x="140" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">If the idea is wrong:</text>
       <rect x="40" y="125" width="200" height="55" fill="#EEF9F4" rx="6"/>
-      <text x="140" y="145" textAnchor="middle" fontSize="8" fill="#0B4532">• Small loss to capital</text>
-      <text x="140" y="160" textAnchor="middle" fontSize="8" fill="#0B4532">• Plenty left to continue</text>
-      <text x="140" y="175" textAnchor="middle" fontSize="8" fill="#0B4532">• Can try again</text>
+      <text x="140" y="145" textAnchor="middle" fontSize="8" fill="#12805A">• Small loss to capital</text>
+      <text x="140" y="160" textAnchor="middle" fontSize="8" fill="#12805A">• Plenty left to continue</text>
+      <text x="140" y="175" textAnchor="middle" fontSize="8" fill="#12805A">• Can try again</text>
     </g>
     
     {/* Large Position */}
@@ -133,10 +133,10 @@ const SmallVsLargeSVG = () => (
       <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Large Position</text>
       
       {/* Capital bar */}
-      <rect x="20" y="50" width="240" height="40" fill="#E4E1D9" rx="6" stroke="#A3A1A6" strokeWidth="1"/>
+      <rect x="20" y="50" width="240" height="40" fill="#E4E4EA" rx="6" stroke="#A0A3AA" strokeWidth="1"/>
       <rect x="20" y="50" width="190" height="40" fill="#E04848" rx="6"/>
       <text x="115" y="75" textAnchor="middle" fontSize="8" fill="white" fontWeight="600">Exposed</text>
-      <text x="235" y="75" textAnchor="middle" fontSize="7" fill="#75757D">Left</text>
+      <text x="235" y="75" textAnchor="middle" fontSize="7" fill="#717680">Left</text>
       
       {/* If wrong scenario */}
       <text x="140" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">If the idea is wrong:</text>
@@ -147,7 +147,7 @@ const SmallVsLargeSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">Same idea. Different position sizes. Completely different outcomes.</text>
   </svg>
 );
@@ -156,11 +156,11 @@ const SmallVsLargeSVG = () => (
 const ExposureSurvivalSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Exposure Determines Survival</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">It's not about being right — it's about surviving when you're wrong</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Exposure Determines Survival</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">It's not about being right — it's about surviving when you're wrong</text>
     
     {/* Two paths visualization */}
     <g transform="translate(350, 170)">
@@ -170,15 +170,15 @@ const ExposureSurvivalSVG = () => (
       <text x="0" y="-73" textAnchor="middle" fontSize="8" fill="white">Idea</text>
       
       {/* Branching paths */}
-      <path d="M-15 -55 Q-100 -20 -150 40" fill="none" stroke="#1FA978" strokeWidth="3"/>
+      <path d="M-15 -55 Q-100 -20 -150 40" fill="none" stroke="#12805A" strokeWidth="3"/>
       <path d="M15 -55 Q100 -20 150 40" fill="none" stroke="#E04848" strokeWidth="3"/>
       
       {/* Small exposure outcome */}
       <g transform="translate(-150, 50)">
-        <circle cx="0" cy="0" r="35" fill="#D5F2E5" stroke="#1FA978" strokeWidth="3"/>
-        <text x="0" y="-8" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">Small</text>
-        <text x="0" y="5" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">Exposure</text>
-        <text x="0" y="20" textAnchor="middle" fontSize="7" fill="#0B4532">Survives</text>
+        <circle cx="0" cy="0" r="35" fill="#EEF9F4" stroke="#12805A" strokeWidth="3"/>
+        <text x="0" y="-8" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">Small</text>
+        <text x="0" y="5" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">Exposure</text>
+        <text x="0" y="20" textAnchor="middle" fontSize="7" fill="#12805A">Survives</text>
       </g>
       
       {/* Large exposure outcome */}
@@ -190,7 +190,7 @@ const ExposureSurvivalSVG = () => (
       </g>
       
       {/* Labels */}
-      <text x="-150" y="100" textAnchor="middle" fontSize="8" fill="#0D543C">Still in the game</text>
+      <text x="-150" y="100" textAnchor="middle" fontSize="8" fill="#12805A">Still in the game</text>
       <text x="150" y="100" textAnchor="middle" fontSize="8" fill="#C7363B">Game over</text>
     </g>
     
@@ -204,11 +204,11 @@ const ExposureSurvivalSVG = () => (
 const SameIdeaDifferentResultsSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Identical Ideas Produce Different Results</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The idea is the same — the outcome depends on position size</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Why Identical Ideas Produce Different Results</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The idea is the same — the outcome depends on position size</text>
     
     {/* Three investors with same idea */}
     <g transform="translate(50, 70)">
@@ -220,16 +220,16 @@ const SameIdeaDifferentResultsSVG = () => (
     {/* Three outcomes */}
     <g transform="translate(50, 130)">
       {/* Investor A - Conservative */}
-      <rect x="0" y="0" width="180" height="140" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Investor A</text>
-      <text x="90" y="42" textAnchor="middle" fontSize="8" fill="#0B4532">Small position</text>
+      <rect x="0" y="0" width="180" height="140" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Investor A</text>
+      <text x="90" y="42" textAnchor="middle" fontSize="8" fill="#12805A">Small position</text>
       
-      <rect x="15" y="55" width="150" height="25" fill="#E4E1D9" rx="4"/>
-      <rect x="15" y="55" width="30" height="25" fill="#1FA978" rx="4"/>
+      <rect x="15" y="55" width="150" height="25" fill="#E4E4EA" rx="4"/>
+      <rect x="15" y="55" width="30" height="25" fill="#12805A" rx="4"/>
       
-      <text x="90" y="100" textAnchor="middle" fontSize="8" fill="#0D543C">If wrong:</text>
-      <text x="90" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Minor setback</text>
-      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#0B4532">Continues investing</text>
+      <text x="90" y="100" textAnchor="middle" fontSize="8" fill="#12805A">If wrong:</text>
+      <text x="90" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Minor setback</text>
+      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#12805A">Continues investing</text>
     </g>
     
     <g transform="translate(260, 130)">
@@ -238,7 +238,7 @@ const SameIdeaDifferentResultsSVG = () => (
       <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#7C5D2B">Investor B</text>
       <text x="90" y="42" textAnchor="middle" fontSize="8" fill="#654B26">Medium position</text>
       
-      <rect x="15" y="55" width="150" height="25" fill="#E4E1D9" rx="4"/>
+      <rect x="15" y="55" width="150" height="25" fill="#E4E4EA" rx="4"/>
       <rect x="15" y="55" width="75" height="25" fill="#B8923F" rx="4"/>
       
       <text x="90" y="100" textAnchor="middle" fontSize="8" fill="#7C5D2B">If wrong:</text>
@@ -252,7 +252,7 @@ const SameIdeaDifferentResultsSVG = () => (
       <text x="90" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">Investor C</text>
       <text x="90" y="42" textAnchor="middle" fontSize="8" fill="#842428">Large position</text>
       
-      <rect x="15" y="55" width="150" height="25" fill="#E4E1D9" rx="4"/>
+      <rect x="15" y="55" width="150" height="25" fill="#E4E4EA" rx="4"/>
       <rect x="15" y="55" width="135" height="25" fill="#E04848" rx="4"/>
       
       <text x="90" y="100" textAnchor="middle" fontSize="8" fill="#C7363B">If wrong:</text>
@@ -261,7 +261,7 @@ const SameIdeaDifferentResultsSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">Same idea, same outcome — but different consequences based on exposure.</text>
   </svg>
 );
@@ -270,11 +270,11 @@ const SameIdeaDifferentResultsSVG = () => (
 const ExposureVsPredictionSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Exposure Control vs Prediction</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">You can't control outcomes, but you can control exposure</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Exposure Control vs Prediction</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">You can't control outcomes, but you can control exposure</text>
     
     {/* Left: Prediction (uncontrollable) */}
     <g transform="translate(50, 80)">
@@ -295,21 +295,21 @@ const ExposureVsPredictionSVG = () => (
     
     {/* Right: Exposure (controllable) */}
     <g transform="translate(370, 80)">
-      <rect x="0" y="0" width="280" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ Exposure Control</text>
-      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#0B4532">(Completely in your hands)</text>
+      <rect x="0" y="0" width="280" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Exposure Control</text>
+      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#12805A">(Completely in your hands)</text>
       
       {/* Slider showing control */}
       <g transform="translate(40, 75)">
-        <rect x="0" y="0" width="200" height="12" fill="#E4E1D9" rx="6"/>
-        <rect x="0" y="0" width="80" height="12" fill="#1FA978" rx="6"/>
-        <circle cx="80" cy="6" r="10" fill="#1FA978" stroke="white" strokeWidth="2"/>
-        <text x="100" y="35" textAnchor="middle" fontSize="8" fill="#0D543C">You decide how much</text>
+        <rect x="0" y="0" width="200" height="12" fill="#E4E4EA" rx="6"/>
+        <rect x="0" y="0" width="80" height="12" fill="#12805A" rx="6"/>
+        <circle cx="80" cy="6" r="10" fill="#12805A" stroke="white" strokeWidth="2"/>
+        <text x="100" y="35" textAnchor="middle" fontSize="8" fill="#12805A">You decide how much</text>
       </g>
       
-      <text x="140" y="135" textAnchor="middle" fontSize="8" fill="#0B4532">• You choose position size</text>
-      <text x="140" y="150" textAnchor="middle" fontSize="8" fill="#0B4532">• You determine maximum loss</text>
-      <text x="140" y="165" textAnchor="middle" fontSize="8" fill="#0B4532">• You control survival</text>
+      <text x="140" y="135" textAnchor="middle" fontSize="8" fill="#12805A">• You choose position size</text>
+      <text x="140" y="150" textAnchor="middle" fontSize="8" fill="#12805A">• You determine maximum loss</text>
+      <text x="140" y="165" textAnchor="middle" fontSize="8" fill="#12805A">• You control survival</text>
     </g>
     
     {/* Bottom insight */}
@@ -322,31 +322,31 @@ const ExposureVsPredictionSVG = () => (
 const CapitalImpactSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Impact on Capital: Before and After</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What happens to your capital when an idea goes wrong</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Impact on Capital: Before and After</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What happens to your capital when an idea goes wrong</text>
     
     {/* Small Position Impact */}
     <g transform="translate(50, 75)">
-      <text x="140" y="0" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Small Position</text>
+      <text x="140" y="0" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Small Position</text>
       
       {/* Before */}
-      <text x="35" y="25" fontSize="8" fill="#75757D">Before:</text>
-      <rect x="70" y="15" width="180" height="30" fill="#1FA978" rx="4"/>
+      <text x="35" y="25" fontSize="8" fill="#717680">Before:</text>
+      <rect x="70" y="15" width="180" height="30" fill="#12805A" rx="4"/>
       <text x="160" y="35" textAnchor="middle" fontSize="9" fill="white" fontWeight="600">Full Capital</text>
       
       {/* Arrow */}
-      <text x="160" y="65" textAnchor="middle" fontSize="12" fill="#75757D">↓</text>
+      <text x="160" y="65" textAnchor="middle" fontSize="12" fill="#717680">↓</text>
       
       {/* After */}
-      <text x="35" y="95" fontSize="8" fill="#75757D">After:</text>
-      <rect x="70" y="85" width="160" height="30" fill="#1FA978" rx="4"/>
+      <text x="35" y="95" fontSize="8" fill="#717680">After:</text>
+      <rect x="70" y="85" width="160" height="30" fill="#12805A" rx="4"/>
       <rect x="230" y="85" width="20" height="30" fill="#F09B9B" rx="4"/>
       <text x="150" y="105" textAnchor="middle" fontSize="8" fill="white" fontWeight="600">Most capital intact</text>
       
-      <text x="160" y="135" textAnchor="middle" fontSize="9" fill="#0D543C">✓ Minor damage, still strong</text>
+      <text x="160" y="135" textAnchor="middle" fontSize="9" fill="#12805A">✓ Minor damage, still strong</text>
     </g>
     
     {/* Large Position Impact */}
@@ -354,16 +354,16 @@ const CapitalImpactSVG = () => (
       <text x="140" y="0" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Large Position</text>
       
       {/* Before */}
-      <text x="35" y="25" fontSize="8" fill="#75757D">Before:</text>
-      <rect x="70" y="15" width="180" height="30" fill="#1FA978" rx="4"/>
+      <text x="35" y="25" fontSize="8" fill="#717680">Before:</text>
+      <rect x="70" y="15" width="180" height="30" fill="#12805A" rx="4"/>
       <text x="160" y="35" textAnchor="middle" fontSize="9" fill="white" fontWeight="600">Full Capital</text>
       
       {/* Arrow */}
-      <text x="160" y="65" textAnchor="middle" fontSize="12" fill="#75757D">↓</text>
+      <text x="160" y="65" textAnchor="middle" fontSize="12" fill="#717680">↓</text>
       
       {/* After */}
-      <text x="35" y="95" fontSize="8" fill="#75757D">After:</text>
-      <rect x="70" y="85" width="50" height="30" fill="#1FA978" rx="4"/>
+      <text x="35" y="95" fontSize="8" fill="#717680">After:</text>
+      <rect x="70" y="85" width="50" height="30" fill="#12805A" rx="4"/>
       <rect x="120" y="85" width="130" height="30" fill="#E04848" rx="4"/>
       <text x="95" y="105" textAnchor="middle" fontSize="7" fill="white">Left</text>
       <text x="185" y="105" textAnchor="middle" fontSize="8" fill="white" fontWeight="600">Lost</text>
@@ -373,10 +373,10 @@ const CapitalImpactSVG = () => (
     
     {/* Visual comparison bars */}
     <g transform="translate(100, 195)">
-      <text x="0" y="0" fontSize="10" fontWeight="600" fill="#404047">What remains after the same failed idea:</text>
+      <text x="0" y="0" fontSize="10" fontWeight="600" fill="#373A41">What remains after the same failed idea:</text>
       
       {/* Small position result */}
-      <rect x="0" y="20" width="400" height="25" fill="#1FA978" rx="4"/>
+      <rect x="0" y="20" width="400" height="25" fill="#12805A" rx="4"/>
       <text x="10" y="37" fontSize="9" fill="white" fontWeight="600">Small position: Most capital preserved</text>
       
       {/* Large position result */}
@@ -387,7 +387,7 @@ const CapitalImpactSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">The same mistake has vastly different consequences depending on position size.</text>
   </svg>
 );
@@ -396,11 +396,11 @@ const CapitalImpactSVG = () => (
 const TwoTradersStorySVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">A Tale of Two Traders</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same opportunity, same outcome, different stories</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">A Tale of Two Traders</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same opportunity, same outcome, different stories</text>
     
     {/* Scene 1: Both see opportunity */}
     <g transform="translate(50, 70)">
@@ -411,10 +411,10 @@ const TwoTradersStorySVG = () => (
     
     {/* Scene 2: Different choices */}
     <g transform="translate(50, 135)">
-      <rect x="0" y="0" width="290" height="70" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Trader A: Small Position</text>
-      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#0B4532">"I'll commit a portion I can afford to lose"</text>
-      <text x="145" y="58" textAnchor="middle" fontSize="8" fill="#0B4532">"This way I stay safe if I'm wrong"</text>
+      <rect x="0" y="0" width="290" height="70" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="145" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Trader A: Small Position</text>
+      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#12805A">"I'll commit a portion I can afford to lose"</text>
+      <text x="145" y="58" textAnchor="middle" fontSize="8" fill="#12805A">"This way I stay safe if I'm wrong"</text>
       
       <rect x="310" y="0" width="290" height="70" fill="#FDF1F1" rx="8" stroke="#F09B9B" strokeWidth="2"/>
       <text x="455" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">Trader B: Large Position</text>
@@ -430,7 +430,7 @@ const TwoTradersStorySVG = () => (
     
     {/* Scene 4: Aftermath */}
     <g transform="translate(50, 275)">
-      <rect x="0" y="0" width="290" height="50" fill="#1FA978" rx="8"/>
+      <rect x="0" y="0" width="290" height="50" fill="#12805A" rx="8"/>
       <text x="145" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">Trader A: Small loss, moves on</text>
       <text x="145" y="38" textAnchor="middle" fontSize="8" fill="white">"Lesson learned, capital intact"</text>
       
@@ -445,7 +445,7 @@ const TwoTradersStorySVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#positionGradient)" rx="16"/>
@@ -496,29 +496,29 @@ const RiskLesson4 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 transition-colors mb-4"
+            className="flex items-center gap-2 text-brand hover:text-brand transition-colors mb-4"
           >
             <FaArrowLeft />
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 4 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Position Sizing – Conceptual Understanding</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Position Sizing – Conceptual Understanding</h1>
             <p className="text-gray-600 mt-2">How exposure determines survival</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Position Size Determines Risk</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Position Size Determines Risk</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -702,8 +702,8 @@ const RiskLesson4 = () => {
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <KeyTakeawaySVG />
           
-          <div className="mt-6 bg-emerald-50 rounded-xl p-5 border border-emerald-200">
-            <p className="text-emerald-800 font-medium">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand font-medium">
               Remember: Position sizing isn't about being timid or lacking conviction. It's 
               about recognizing that every idea can fail, and designing your approach so that 
               failure doesn't end your ability to succeed in the future.
@@ -712,9 +712,9 @@ const RiskLesson4 = () => {
         </div>
 
         {/* India-specific Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Context</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Context</h3>
+          <p className="text-brand">
             Exposure control is a universal principle that applies to every market in the world. 
             Whether you're investing in the United States, Europe, Japan, or India, the mathematics 
             of position sizing remain the same. A large position that goes wrong will damage capital 
@@ -732,33 +732,33 @@ const RiskLesson4 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 bg-brand-soft">
           <div className="flex items-start gap-4">
-            <div className="bg-emerald-500 rounded-full p-3">
+            <div className="bg-brand-fill rounded-full p-3">
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Reflection Activity</h3>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200">
+              <h3 className="text-xl font-semibold text-brand mb-3">Reflection Activity</h3>
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <p className="text-gray-800 font-medium mb-4">
                   Think honestly about your current investment or trading approach:
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">1.</span>
+                    <span className="text-brand font-bold">1.</span>
                     <span>Do you have any single position that represents a large portion of your total capital? How would you feel if it dropped significantly?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">2.</span>
+                    <span className="text-brand font-bold">2.</span>
                     <span>When you've been confident about an idea in the past, did you increase your position size? What happened?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">3.</span>
+                    <span className="text-brand font-bold">3.</span>
                     <span>Where might you currently be overexposed without realizing it? Consider individual investments, sectors, or asset types.</span>
                   </li>
                 </ul>
-                <div className="mt-4 p-4 bg-emerald-50 rounded-lg">
-                  <p className="text-emerald-800 text-sm">
+                <div className="mt-4 p-4 bg-brand-soft rounded-lg">
+                  <p className="text-brand text-sm">
                     <strong>Purpose:</strong> This isn't about judging your past decisions. It's 
                     about developing awareness of how position sizing affects your risk, so you 
                     can make more intentional choices going forward.
@@ -770,7 +770,7 @@ const RiskLesson4 = () => {
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">🔑 Lesson Summary</h3>
           <ul className="space-y-2 text-lg">
             <li>• <strong>Position size</strong> is how much capital you expose to any single idea</li>
@@ -793,7 +793,7 @@ const RiskLesson4 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-lesson-5')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

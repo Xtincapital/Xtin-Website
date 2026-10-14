@@ -342,7 +342,7 @@ export default function Watchlist() {
   const formatChange = (change: number | null | undefined, changePct: number | null | undefined) => {
     if (change == null || changePct == null) return 'N/A';
 
-    const color = change >= 0 ? 'text-primary' : 'text-destructive';
+    const color = change >= 0 ? 'text-brand' : 'text-destructive';
     const icon = change >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />;
 
     return (
@@ -708,7 +708,7 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <Eye className="w-5 h-5 text-primary" />
+                <Eye className="w-5 h-5 text-brand" />
                 <p className="xt-metric">{summary.total_items}</p>
               </div>
             </CardContent>
@@ -725,11 +725,11 @@ export default function Watchlist() {
               ) : (
               <div className="flex items-center gap-2">
                 {summary.avg_change_pct >= 0 ? (
-                  <TrendingUp className="w-5 h-5 text-primary" />
+                  <TrendingUp className="w-5 h-5 text-brand" />
                 ) : (
                   <TrendingDown className="w-5 h-5 text-destructive" />
                 )}
-                <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-primary' : 'text-destructive'}`}>
+                <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-brand' : 'text-destructive'}`}>
                   {(summary.avg_change_pct ?? 0) >= 0 ? '+' : ''}{(summary.avg_change_pct ?? 0).toFixed(2)}%
                 </p>
               </div>
@@ -743,7 +743,7 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <Target className="w-5 h-5 text-primary" />
+                <Target className="w-5 h-5 text-brand" />
                 <p className="xt-metric">{summary.targets_hit}</p>
                 {summary.targets_near > 0 && (
                   <Badge variant="secondary">{summary.targets_near} near</Badge>
@@ -758,7 +758,7 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" />
+                <BarChart3 className="w-5 h-5 text-brand" />
                 <p className="xt-metric">
                   {trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}
                   {trackedValueSymbol && <ApproxAmount inline amount={summary.tracked_value} from={trackedValueSymbol === '₹' ? 'INR' : 'USD'} className="text-sm" />}
@@ -845,7 +845,7 @@ export default function Watchlist() {
                     <TableCell>
                       {item.target_distance != null && item.target_distance_pct != null ? (
                         <div>
-                          <div className={item.target_distance >= 0 ? 'text-primary' : 'text-destructive'}>
+                          <div className={item.target_distance >= 0 ? 'text-brand' : 'text-destructive'}>
                             {item.target_distance >= 0 ? '+' : ''}{item.target_distance.toFixed(2)}
                           </div>
                           <div className="text-xs text-muted-foreground">

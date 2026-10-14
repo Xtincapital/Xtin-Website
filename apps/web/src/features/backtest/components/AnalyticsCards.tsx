@@ -12,8 +12,8 @@ const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 function CardHeader({ icon: Icon, title, hint }: { icon: typeof CalendarDays; title: string; hint?: string }) {
   return (
     <div className="mb-4 flex items-center justify-between gap-2">
-      <h4 className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-100">
-        <Icon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+      <h4 className="flex items-center gap-2 text-base font-semibold text-slate-800 dark:text-slate-100">
+        <Icon className="h-4 w-4 text-brand dark:text-brand" />
         {title}
       </h4>
       {hint && <span className={`text-xs ${muted}`}>{hint}</span>}
@@ -23,7 +23,7 @@ function CardHeader({ icon: Icon, title, hint }: { icon: typeof CalendarDays; ti
 
 const FLAT = 0.05; // |return| below this reads as "no change"
 const cellColor = (ret: number, maxAbs: number) => {
-  if (!maxAbs || Math.abs(ret) < FLAT) return "rgba(163, 161, 166,0.12)";
+  if (!maxAbs || Math.abs(ret) < FLAT) return "rgba(160, 163, 170,0.12)";
   const a = 0.15 + 0.75 * Math.min(1, Math.abs(ret) / maxAbs);
   return ret > 0 ? `rgba(31, 169, 120,${a})` : `rgba(224, 72, 72,${a})`;
 };
@@ -39,7 +39,7 @@ export function MonthlyHeatmap({ result }: { result: BacktestResult }) {
     <div className={`${card} p-5`}>
       <CardHeader icon={CalendarDays} title="Monthly returns" hint="% change per month" />
       <div className="overflow-x-auto">
-        <table className="w-full border-separate border-spacing-1 text-[11px]">
+        <table className="w-full border-separate border-spacing-1 text-xs">
           <thead>
             <tr className={muted}>
               <th className="w-10 text-left font-medium" />
@@ -71,7 +71,7 @@ export function MonthlyHeatmap({ result }: { result: BacktestResult }) {
                       </td>
                     );
                   })}
-                  <td className={`pl-2 text-right font-semibold tabular-nums ${total >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
+                  <td className={`pl-2 text-right font-semibold tabular-nums ${total >= 0 ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>
                     {total >= 0 ? "+" : ""}
                     {total.toFixed(1)}%
                   </td>
@@ -101,14 +101,14 @@ export function PnlDistribution({ result }: { result: BacktestResult }) {
               return (
                 <div
                   key={i}
-                  className={`flex-1 rounded-t-md ${mid >= 0 ? "bg-emerald-500/80" : "bg-rose-500/80"}`}
+                  className={`flex-1 rounded-t-md ${mid >= 0 ? "bg-brand-fill/80" : "bg-rose-500/80"}`}
                   style={{ height: `${Math.max(b.count ? 6 : 2, (b.count / max) * 100)}%`, opacity: b.count ? 1 : 0.25 }}
                   title={`${b.from.toFixed(1)}% to ${b.to.toFixed(1)}%: ${b.count} trade${b.count === 1 ? "" : "s"}`}
                 />
               );
             })}
           </div>
-          <div className={`mt-1.5 flex justify-between text-[11px] tabular-nums ${muted}`}>
+          <div className={`mt-1.5 flex justify-between text-xs tabular-nums ${muted}`}>
             <span>{buckets[0].from.toFixed(1)}%</span>
             <span>P&L per trade</span>
             <span>{buckets[buckets.length - 1].to.toFixed(1)}%</span>
@@ -116,7 +116,7 @@ export function PnlDistribution({ result }: { result: BacktestResult }) {
           <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
             <div>
               <dt className={`text-xs ${muted}`}>Average win</dt>
-              <dd className="font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">{inr(m.avg_win)}</dd>
+              <dd className="font-semibold tabular-nums text-brand dark:text-brand">{inr(m.avg_win)}</dd>
             </div>
             <div>
               <dt className={`text-xs ${muted}`}>Average loss</dt>
@@ -132,7 +132,7 @@ export function PnlDistribution({ result }: { result: BacktestResult }) {
 }
 
 const REASON_COLOR: Record<string, string> = {
-  target: "bg-emerald-500",
+  target: "bg-brand-fill",
   signal: "bg-sky-500",
   stop_loss: "bg-rose-500",
   trailing_sl: "bg-amber-500",

@@ -505,7 +505,7 @@ export default function NetWorth() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
             <div className="flex items-center gap-2">
-              <Wallet className="h-5 w-5 text-primary" />
+              <Wallet className="h-5 w-5 text-brand" />
               <CardTitle>Assets</CardTitle>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -587,7 +587,7 @@ export default function NetWorth() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
             <div className="flex items-center gap-2">
-              <Landmark className="h-5 w-5 text-primary" />
+              <Landmark className="h-5 w-5 text-brand" />
               <CardTitle>Liabilities</CardTitle>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -675,14 +675,14 @@ export default function NetWorth() {
         {/* Net Worth Summary */}
         <Card>
           <CardHeader className="flex flex-row items-center gap-2 space-y-0">
-            <Scale className="h-5 w-5 text-primary" />
+            <Scale className="h-5 w-5 text-brand" />
             <CardTitle>Net Worth Summary</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-lg border p-4">
                 <p className="xt-label">Total Assets</p>
-                <p className="mt-1 xt-metric text-success">{formatCurrency(totalAssets)}</p>
+                <p className="mt-1 xt-metric text-brand">{formatCurrency(totalAssets)}</p>
               </div>
               <div className="rounded-lg border p-4">
                 <p className="xt-label">Total Liabilities</p>
@@ -690,7 +690,7 @@ export default function NetWorth() {
               </div>
               <div className="rounded-lg border p-4">
                 <p className="xt-label">Net Worth</p>
-                <p className={cn("mt-1 text-xl font-bold", netWorth >= 0 ? "text-success" : "text-destructive")}>
+                <p className={cn("mt-1 text-xl font-bold", netWorth >= 0 ? "text-brand" : "text-destructive")}>
                   {formatCurrency(netWorth)}
                 </p>
               </div>
@@ -698,7 +698,7 @@ export default function NetWorth() {
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <div>
-                <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Asset Allocation</h4>
+                <h4 className="mb-2 text-base font-semibold text-muted-foreground">Asset Allocation</h4>
                 {allocationData.length === 0 ? (
                   <div className="flex h-[240px] items-center justify-center text-sm text-muted-foreground">
                     Add assets to see allocation
@@ -717,7 +717,7 @@ export default function NetWorth() {
                 )}
               </div>
               <div>
-                <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Assets vs Liabilities</h4>
+                <h4 className="mb-2 text-base font-semibold text-muted-foreground">Assets vs Liabilities</h4>
                 <ChartContainer config={comparisonConfig} className="h-[240px] w-full">
                   <BarChart data={comparisonData}>
                     <CartesianGrid {...chartGrid} />

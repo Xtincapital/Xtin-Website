@@ -93,7 +93,7 @@ function RichText({ text }: { text: string }) {
 
 function Avatar() {
   return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-md shadow-emerald-600/20">
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl shadow-md shadow-brand/20 bg-brand-fill">
       <Bot className="h-4 w-4 text-white" />
     </span>
   );
@@ -107,7 +107,7 @@ function Thinking() {
         <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <span className="flex gap-1">
             {[0, 1, 2].map((i) => (
-              <motion.span key={i} className="h-1.5 w-1.5 rounded-full bg-emerald-500" animate={{ opacity: [0.25, 1, 0.25] }} transition={{ duration: 1, repeat: Infinity, delay: i * 0.18 }} />
+              <motion.span key={i} className="h-1.5 w-1.5 rounded-full bg-brand-fill" animate={{ opacity: [0.25, 1, 0.25] }} transition={{ duration: 1, repeat: Infinity, delay: i * 0.18 }} />
             ))}
           </span>
           Reading your rule and replaying the market…
@@ -140,22 +140,22 @@ function ReportPlaceholder({ loading }: { loading: boolean }) {
       <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 w-full opacity-60">
         <defs>
           <linearGradient id="bt-ph" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#1FA978" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#1FA978" stopOpacity="0" />
+            <stop offset="0%" stopColor="#12805A" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#12805A" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24 L600 200 L0 200 Z" fill="url(#bt-ph)" />
-        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#1FA978" strokeWidth="2" strokeDasharray="6 6" />
+        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#12805A" strokeWidth="2" strokeDasharray="6 6" />
       </svg>
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 ring-1 ring-emerald-200 dark:from-emerald-500/20 dark:to-teal-500/10 dark:ring-emerald-400/20">
-        <Wand2 className="h-6 w-6 text-emerald-600 dark:text-emerald-300" />
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl ring-1 ring-brand-line dark:ring-brand-line bg-brand-soft">
+        <Wand2 className="h-6 w-6 text-brand dark:text-brand" />
       </span>
       <h2 className="relative mt-5 text-xl font-semibold tracking-tight">Your quant report lands here</h2>
       <p className={`relative mt-2 max-w-sm text-sm ${muted}`}>Describe a trading idea on the left. In about a second you'll know how it would have done on real history.</p>
       <ul className="relative mt-6 grid gap-2.5 text-left text-sm sm:grid-cols-2">
         {items.map(({ icon: Icon, text }) => (
           <li key={text} className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white/70 px-3 py-2 backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <Icon className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <Icon className="h-4 w-4 shrink-0 text-brand dark:text-brand" />
             {text}
           </li>
         ))}
@@ -288,8 +288,8 @@ export default function Playground() {
                 <div className={`text-xs ${muted}`}>Plain English in, quant report out</div>
               </div>
             </div>
-            <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${loading ? "bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" : "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300"}`}>
-              <span className={`h-1.5 w-1.5 rounded-full ${loading ? "animate-pulse bg-amber-500" : "bg-emerald-500"}`} />
+            <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${loading ? "bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300" : "bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand"}`}>
+              <span className={`h-1.5 w-1.5 rounded-full ${loading ? "animate-pulse bg-amber-500" : "bg-brand-fill"}`} />
               {loading ? "Running" : "Ready"}
             </span>
           </div>
@@ -297,7 +297,7 @@ export default function Playground() {
           {/* settings */}
           <div className="grid grid-cols-2 items-end gap-2 border-b border-slate-100 bg-slate-50/60 px-4 py-3 sm:grid-cols-[1fr_auto_auto] dark:border-white/5 dark:bg-white/[0.02]">
             <div className="col-span-2 sm:col-span-1">
-              <div className={`mb-1 text-[10px] font-semibold uppercase tracking-wider ${muted}`}>Risk profile</div>
+              <div className={`mb-1 text-xs font-semibold uppercase tracking-wider ${muted}`}>Risk profile</div>
               <div className="flex rounded-lg bg-slate-200/60 p-0.5 dark:bg-white/5" role="radiogroup" aria-label="Risk profile">
                 {RISKS.map((r) => (
                   <button
@@ -314,17 +314,17 @@ export default function Playground() {
               </div>
             </div>
             <label>
-              <span className={`mb-1 block text-[10px] font-semibold uppercase tracking-wider ${muted}`}>Symbol</span>
+              <span className={`mb-1 block text-xs font-semibold uppercase tracking-wider ${muted}`}>Symbol</span>
               <input
                 value={symbol}
                 placeholder="Auto"
                 maxLength={20}
                 onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-                className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold uppercase sm:w-20 text-slate-900 outline-none placeholder:font-normal placeholder:normal-case focus:border-emerald-500 dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold uppercase sm:w-20 text-slate-900 outline-none placeholder:font-normal placeholder:normal-case focus:border-brand dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
               />
             </label>
             <label>
-              <span className={`mb-1 block text-[10px] font-semibold uppercase tracking-wider ${muted}`}>Capital</span>
+              <span className={`mb-1 block text-xs font-semibold uppercase tracking-wider ${muted}`}>Capital</span>
               <div className="sm:w-28">
                 <MoneyInput
                   value={capital}
@@ -332,7 +332,7 @@ export default function Playground() {
                   decimals={0}
                   aria-label="Starting capital"
                   onChange={(e) => setCapital(Number(e.target.value) || 0)}
-                  className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold tabular-nums text-slate-900 outline-none focus:border-emerald-500 dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-semibold tabular-nums text-slate-900 outline-none focus:border-brand dark:border-white/10 dark:bg-slate-950/60 dark:text-white"
                 />
               </div>
             </label>
@@ -344,7 +344,7 @@ export default function Playground() {
               {messages.map((msg, i) =>
                 msg.role === "user" ? (
                   <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex justify-end">
-                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-gradient-to-br from-emerald-600 to-teal-600 px-4 py-2.5 text-sm text-white shadow-md shadow-emerald-600/15">{msg.text}</div>
+                    <div className="max-w-[85%] rounded-2xl rounded-tr-sm px-4 py-2.5 text-sm text-white shadow-md shadow-brand/15 bg-brand-fill">{msg.text}</div>
                   </motion.div>
                 ) : (
                   <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-2.5">
@@ -354,8 +354,8 @@ export default function Playground() {
                         <RichText text={msg.text} />
                       </div>
                       {msg.interpretation && (
-                        <div className="rounded-xl border border-emerald-200/70 bg-emerald-50/60 px-3 py-2.5 text-xs leading-relaxed text-slate-600 dark:border-emerald-400/20 dark:bg-emerald-500/5 dark:text-slate-300">
-                          <div className="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                        <div className="rounded-xl border border-brand-line bg-brand-soft px-3 py-2.5 text-xs leading-relaxed text-slate-600 dark:border-brand-line dark:bg-brand-soft dark:text-slate-300">
+                          <div className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand dark:text-brand">
                             <Sparkles className="h-3 w-3" /> What I understood
                           </div>
                           <RichText text={msg.interpretation} />
@@ -378,7 +378,7 @@ export default function Playground() {
                             <button
                               key={s}
                               onClick={() => void send(s)}
-                              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-600 transition hover:border-emerald-400 hover:text-emerald-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-emerald-300"
+                              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600 transition hover:border-brand hover:text-brand dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-brand"
                             >
                               <Sparkles className="h-3 w-3" />
                               {s}
@@ -395,15 +395,15 @@ export default function Playground() {
 
             {fresh && !loading && (
               <div className="pt-2">
-                <div className={`mb-2 text-[11px] font-semibold uppercase tracking-wider ${muted}`}>Try an idea</div>
+                <div className={`mb-2 text-xs font-semibold uppercase tracking-wider ${muted}`}>Try an idea</div>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                   {EXAMPLES.map(({ icon: Icon, tag, text, pro }) => (
                     <button
                       key={text}
                       onClick={() => void send(text)}
-                      className="group rounded-xl border border-slate-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md hover:shadow-emerald-600/5 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-emerald-400/50"
+                      className="group rounded-xl border border-slate-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:border-brand hover:shadow-md hover:shadow-brand/5 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-brand/50"
                     >
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand dark:text-brand">
                         <Icon className="h-3.5 w-3.5" /> {tag}
                         {pro && locked("options") && <ProBadge className="ml-auto" />}
                       </div>
@@ -423,7 +423,7 @@ export default function Playground() {
             }}
             className="border-t border-slate-100 p-3 dark:border-white/5"
           >
-            <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-white p-1.5 pl-3 transition focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 dark:border-white/10 dark:bg-slate-950/60">
+            <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-white p-1.5 pl-3 transition focus-within:border-brand focus-within:ring-4 focus-within:ring-brand-line dark:border-white/10 dark:bg-slate-950/60">
               <textarea
                 value={input}
                 rows={2}
@@ -443,12 +443,12 @@ export default function Playground() {
                 type="submit"
                 disabled={loading || !input.trim()}
                 aria-label="Run backtest"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-600/25 transition hover:from-emerald-400 hover:to-teal-500 disabled:opacity-40"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white shadow-md shadow-brand/25 transition disabled:opacity-40 bg-brand-fill hover:bg-brand-hover"
               >
                 <SendHorizontal className="h-4 w-4" />
               </button>
             </div>
-            <div className={`mt-1.5 px-1 text-[11px] ${muted}`}>
+            <div className={`mt-1.5 px-1 text-xs ${muted}`}>
               {loaded && !isPro ? (
                 <>
                   Free plan: daily candles · last {historyDays && historyDays % 365 === 0 ? `${historyDays / 365} years` : `${historyDays} days`} · stocks &amp; indices.{" "}

@@ -46,15 +46,15 @@ const FarmerScene = () => (
     <circle cx="500" cy="60" r="25" fill="#E2C273" opacity="0.8"/>
     
     {/* Mountains */}
-    <path d="M0 200 L80 120 L160 180 L240 100 L320 160 L400 90 L480 150 L560 110 L600 140 L600 300 L0 300 Z" fill="#D5F2E5" opacity="0.4"/>
+    <path d="M0 200 L80 120 L160 180 L240 100 L320 160 L400 90 L480 150 L560 110 L600 140 L600 300 L0 300 Z" fill="#EEF9F4" opacity="0.4"/>
     
     {/* Fields — terraced lines */}
-    <path d="M0 220 Q150 200 300 220 Q450 240 600 215" stroke="#1FA978" strokeWidth="1.5" opacity="0.3" fill="none"/>
-    <path d="M0 240 Q150 225 300 240 Q450 255 600 235" stroke="#1FA978" strokeWidth="1.5" opacity="0.25" fill="none"/>
-    <path d="M0 260 Q150 248 300 260 Q450 272 600 255" stroke="#1FA978" strokeWidth="1.5" opacity="0.2" fill="none"/>
+    <path d="M0 220 Q150 200 300 220 Q450 240 600 215" stroke="#12805A" strokeWidth="1.5" opacity="0.3" fill="none"/>
+    <path d="M0 240 Q150 225 300 240 Q450 255 600 235" stroke="#12805A" strokeWidth="1.5" opacity="0.25" fill="none"/>
+    <path d="M0 260 Q150 248 300 260 Q450 272 600 255" stroke="#12805A" strokeWidth="1.5" opacity="0.2" fill="none"/>
     
     {/* Ground */}
-    <path d="M0 270 Q300 260 600 270 L600 300 L0 300 Z" fill="#1FA978" opacity="0.15"/>
+    <path d="M0 270 Q300 260 600 270 L600 300 L0 300 Z" fill="#12805A" opacity="0.15"/>
     
     {/* Farmer figure */}
     <g transform="translate(180, 195)">
@@ -63,30 +63,30 @@ const FarmerScene = () => (
       {/* Turban */}
       <ellipse cx="0" cy="-44" rx="14" ry="8" fill="#C7363B" opacity="0.7"/>
       {/* Torso */}
-      <path d="M-10 -23 L10 -23 L8 10 L-8 10 Z" fill="#EFEDE7" opacity="0.8"/>
+      <path d="M-10 -23 L10 -23 L8 10 L-8 10 Z" fill="#EEEEF1" opacity="0.8"/>
       {/* Dhoti */}
-      <path d="M-8 10 L-12 45 L12 45 L8 10 Z" fill="#EFEDE7" opacity="0.6"/>
+      <path d="M-8 10 L-12 45 L12 45 L8 10 Z" fill="#EEEEF1" opacity="0.6"/>
       {/* Arms holding tool */}
       <line x1="-10" y1="-15" x2="-25" y2="5" stroke="#654B26" strokeWidth="3" opacity="0.7" strokeLinecap="round"/>
       <line x1="10" y1="-15" x2="25" y2="-5" stroke="#654B26" strokeWidth="3" opacity="0.7" strokeLinecap="round"/>
       {/* Plough / tool */}
-      <line x1="25" y1="-5" x2="40" y2="25" stroke="#75757D" strokeWidth="2.5" strokeLinecap="round"/>
-      <path d="M35 20 L45 30 L38 32" stroke="#75757D" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      <line x1="25" y1="-5" x2="40" y2="25" stroke="#717680" strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M35 20 L45 30 L38 32" stroke="#717680" strokeWidth="2" fill="none" strokeLinecap="round"/>
     </g>
     
     {/* Crop plants */}
     {[60, 100, 140, 280, 320, 360, 400, 440, 480].map((x, i) => (
       <g key={i} transform={`translate(${x}, ${255 + (i % 3) * 5})`}>
-        <line x1="0" y1="0" x2="0" y2="-18" stroke="#1FA978" strokeWidth="1.5" opacity="0.5"/>
+        <line x1="0" y1="0" x2="0" y2="-18" stroke="#12805A" strokeWidth="1.5" opacity="0.5"/>
         <ellipse cx="-5" cy="-14" rx="5" ry="3" fill="#3CCB97" opacity="0.4" transform={`rotate(-25 -5 -14)`}/>
         <ellipse cx="5" cy="-16" rx="5" ry="3" fill="#3CCB97" opacity="0.4" transform={`rotate(20 5 -16)`}/>
       </g>
     ))}
     
     {/* Birds */}
-    <path d="M120 60 Q125 55 130 60" stroke="#404047" strokeWidth="1.2" fill="none" opacity="0.3"/>
-    <path d="M140 50 Q145 45 150 50" stroke="#404047" strokeWidth="1.2" fill="none" opacity="0.25"/>
-    <path d="M155 65 Q160 60 165 65" stroke="#404047" strokeWidth="1.2" fill="none" opacity="0.2"/>
+    <path d="M120 60 Q125 55 130 60" stroke="#373A41" strokeWidth="1.2" fill="none" opacity="0.3"/>
+    <path d="M140 50 Q145 45 150 50" stroke="#373A41" strokeWidth="1.2" fill="none" opacity="0.25"/>
+    <path d="M155 65 Q160 60 165 65" stroke="#373A41" strokeWidth="1.2" fill="none" opacity="0.2"/>
   </svg>
 );
 
@@ -97,12 +97,12 @@ const FamilyScene = () => (
     <rect width="600" height="300" fill="#F6ECCE" opacity="0.15"/>
     
     {/* Wall */}
-    <rect x="50" y="30" width="500" height="200" rx="4" fill="#FBF7EC" opacity="0.3" stroke="#E4E1D9" strokeWidth="1"/>
+    <rect x="50" y="30" width="500" height="200" rx="4" fill="#FBF7EC" opacity="0.3" stroke="#E4E4EA" strokeWidth="1"/>
     
     {/* Window */}
-    <rect x="400" y="50" width="80" height="60" rx="4" fill="#E0E7F1" opacity="0.4" stroke="#E4E1D9" strokeWidth="1"/>
-    <line x1="440" y1="50" x2="440" y2="110" stroke="#E4E1D9" strokeWidth="1"/>
-    <line x1="400" y1="80" x2="480" y2="80" stroke="#E4E1D9" strokeWidth="1"/>
+    <rect x="400" y="50" width="80" height="60" rx="4" fill="#E0E7F1" opacity="0.4" stroke="#E4E4EA" strokeWidth="1"/>
+    <line x1="440" y1="50" x2="440" y2="110" stroke="#E4E4EA" strokeWidth="1"/>
+    <line x1="400" y1="80" x2="480" y2="80" stroke="#E4E4EA" strokeWidth="1"/>
     
     {/* Table */}
     <rect x="130" y="180" width="280" height="8" rx="2" fill="#654B26" opacity="0.6"/>
@@ -110,9 +110,9 @@ const FamilyScene = () => (
     <rect x="390" y="188" width="8" height="60" fill="#654B26" opacity="0.5"/>
     
     {/* Papers on table */}
-    <rect x="200" y="168" width="40" height="14" rx="1" fill="white" stroke="#CFCBC1" strokeWidth="0.5" transform="rotate(-5 200 168)"/>
-    <rect x="250" y="170" width="35" height="12" rx="1" fill="white" stroke="#CFCBC1" strokeWidth="0.5" transform="rotate(3 250 170)"/>
-    <rect x="310" y="166" width="50" height="16" rx="1" fill="#D5F2E5" stroke="#1FA978" strokeWidth="0.5" transform="rotate(-2 310 166)"/>
+    <rect x="200" y="168" width="40" height="14" rx="1" fill="white" stroke="#CFD0D3" strokeWidth="0.5" transform="rotate(-5 200 168)"/>
+    <rect x="250" y="170" width="35" height="12" rx="1" fill="white" stroke="#CFD0D3" strokeWidth="0.5" transform="rotate(3 250 170)"/>
+    <rect x="310" y="166" width="50" height="16" rx="1" fill="#EEF9F4" stroke="#12805A" strokeWidth="0.5" transform="rotate(-2 310 166)"/>
     
     {/* Father figure - left */}
     <g transform="translate(180, 130)">
@@ -126,9 +126,9 @@ const FamilyScene = () => (
       <circle cx="0" cy="-20" r="14" fill="#CDAA5F" opacity="0.8"/>
       {/* Bindi */}
       <circle cx="0" cy="-22" r="1.5" fill="#C7363B" opacity="0.6"/>
-      <path d="M-11 0 L11 0 L9 50 L-9 50 Z" fill="#1FA978" opacity="0.4"/>
+      <path d="M-11 0 L11 0 L9 50 L-9 50 Z" fill="#12805A" opacity="0.4"/>
       {/* Dupatta hint */}
-      <path d="M-14 -10 Q-20 5 -14 20" stroke="#1FA978" strokeWidth="2" opacity="0.3" fill="none"/>
+      <path d="M-14 -10 Q-20 5 -14 20" stroke="#12805A" strokeWidth="2" opacity="0.3" fill="none"/>
       <line x1="-12" y1="10" x2="-25" y2="35" stroke="#CDAA5F" strokeWidth="3" opacity="0.6" strokeLinecap="round"/>
     </g>
     
@@ -139,7 +139,7 @@ const FamilyScene = () => (
     </g>
     
     {/* Calendar on wall */}
-    <rect x="120" y="60" width="40" height="50" rx="2" fill="white" stroke="#E4E1D9" strokeWidth="1"/>
+    <rect x="120" y="60" width="40" height="50" rx="2" fill="white" stroke="#E4E4EA" strokeWidth="1"/>
     <rect x="120" y="60" width="40" height="12" rx="2" fill="#C7363B" opacity="0.5"/>
     
     {/* Photo frame on wall */}
@@ -151,20 +151,20 @@ const FamilyScene = () => (
 const StudentScene = () => (
   <svg viewBox="0 0 600 300" fill="none" className="w-full">
     {/* Night sky */}
-    <rect width="600" height="300" fill="#151517" opacity="0.05"/>
+    <rect width="600" height="300" fill="#1F1F1F" opacity="0.05"/>
     
     {/* Stars */}
     {[{x:80,y:30},{x:180,y:50},{x:350,y:25},{x:450,y:60},{x:520,y:35},{x:100,y:70},{x:400,y:80}].map((s,i) => (
-      <circle key={i} cx={s.x} cy={s.y} r="1.5" fill="#1FA978" opacity={0.15 + (i * 0.05)}/>
+      <circle key={i} cx={s.x} cy={s.y} r="1.5" fill="#12805A" opacity={0.15 + (i * 0.05)}/>
     ))}
     
     {/* Moon */}
-    <circle cx="480" cy="50" r="22" fill="#1FA978" opacity="0.08"/>
+    <circle cx="480" cy="50" r="22" fill="#12805A" opacity="0.08"/>
     <circle cx="490" cy="45" r="20" fill="white" opacity="0.02"/>
     
     {/* Streetlight pole */}
-    <rect x="295" y="90" width="6" height="170" fill="#75757D" opacity="0.3"/>
-    <rect x="280" y="82" width="36" height="12" rx="4" fill="#75757D" opacity="0.3"/>
+    <rect x="295" y="90" width="6" height="170" fill="#717680" opacity="0.3"/>
+    <rect x="280" y="82" width="36" height="12" rx="4" fill="#717680" opacity="0.3"/>
     
     {/* Light glow */}
     <ellipse cx="298" cy="100" rx="80" ry="120" fill="#E2C273" opacity="0.05"/>
@@ -174,38 +174,38 @@ const StudentScene = () => (
     <circle cx="298" cy="95" r="6" fill="#E2C273" opacity="0.4"/>
     
     {/* Ground */}
-    <path d="M0 270 L600 270 L600 300 L0 300 Z" fill="#1FA978" opacity="0.05"/>
-    <line x1="0" y1="270" x2="600" y2="270" stroke="#CFCBC1" strokeWidth="0.5" opacity="0.3"/>
+    <path d="M0 270 L600 270 L600 300 L0 300 Z" fill="#12805A" opacity="0.05"/>
+    <line x1="0" y1="270" x2="600" y2="270" stroke="#CFD0D3" strokeWidth="0.5" opacity="0.3"/>
     
     {/* Student sitting */}
     <g transform="translate(260, 215)">
       {/* Legs crossed */}
-      <ellipse cx="0" cy="45" rx="20" ry="8" fill="#232327" opacity="0.3"/>
+      <ellipse cx="0" cy="45" rx="20" ry="8" fill="#2A2A2C" opacity="0.3"/>
       {/* Body */}
       <path d="M-10 5 L10 5 L8 45 L-8 45 Z" fill="#2C3F5E" opacity="0.35"/>
       {/* Head */}
       <circle cx="0" cy="-10" r="13" fill="#CDAA5F" opacity="0.7"/>
       {/* Hair */}
-      <path d="M-13 -15 Q0 -28 13 -15" fill="#151517" opacity="0.4"/>
+      <path d="M-13 -15 Q0 -28 13 -15" fill="#1F1F1F" opacity="0.4"/>
       
       {/* Book in hands */}
-      <rect x="-18" y="15" width="36" height="24" rx="2" fill="white" opacity="0.6" stroke="#CFCBC1" strokeWidth="0.5"/>
-      <line x1="-18" y1="27" x2="18" y2="27" stroke="#CFCBC1" strokeWidth="0.3"/>
+      <rect x="-18" y="15" width="36" height="24" rx="2" fill="white" opacity="0.6" stroke="#CFD0D3" strokeWidth="0.5"/>
+      <line x1="-18" y1="27" x2="18" y2="27" stroke="#CFD0D3" strokeWidth="0.3"/>
       {/* Text lines on book */}
-      <line x1="-14" y1="20" x2="14" y2="20" stroke="#CFCBC1" strokeWidth="0.8" opacity="0.4"/>
-      <line x1="-14" y1="24" x2="10" y2="24" stroke="#CFCBC1" strokeWidth="0.8" opacity="0.3"/>
-      <line x1="-14" y1="32" x2="12" y2="32" stroke="#CFCBC1" strokeWidth="0.8" opacity="0.3"/>
+      <line x1="-14" y1="20" x2="14" y2="20" stroke="#CFD0D3" strokeWidth="0.8" opacity="0.4"/>
+      <line x1="-14" y1="24" x2="10" y2="24" stroke="#CFD0D3" strokeWidth="0.8" opacity="0.3"/>
+      <line x1="-14" y1="32" x2="12" y2="32" stroke="#CFD0D3" strokeWidth="0.8" opacity="0.3"/>
     </g>
     
     {/* More books beside */}
     <g transform="translate(320, 250)">
-      <rect x="0" y="0" width="25" height="5" rx="1" fill="#1FA978" opacity="0.3"/>
+      <rect x="0" y="0" width="25" height="5" rx="1" fill="#12805A" opacity="0.3"/>
       <rect x="2" y="-5" width="25" height="5" rx="1" fill="#5A77AA" opacity="0.25"/>
       <rect x="1" y="-10" width="23" height="5" rx="1" fill="#8F6FC4" opacity="0.2"/>
     </g>
     
     {/* Bag */}
-    <path d="M200 240 Q195 220 205 215 L220 215 Q230 220 225 240 Z" fill="#75757D" opacity="0.25"/>
+    <path d="M200 240 Q195 220 205 215 L220 215 Q230 220 225 240 Z" fill="#717680" opacity="0.25"/>
   </svg>
 );
 
@@ -228,7 +228,7 @@ const ShopkeeperScene = () => (
     
     {/* Items on shelves */}
     {[140, 180, 220, 260, 340, 380, 420, 460].map((x, i) => (
-      <rect key={i} x={x} y={115 + (i % 2 ? 0 : 40)} width="18" height="14" rx="2" fill={['#1FA978','#5A77AA','#CDAA5F','#8F6FC4','#1FA978','#8F6FC4','#B8923F','#5A77AA'][i]} opacity="0.15"/>
+      <rect key={i} x={x} y={115 + (i % 2 ? 0 : 40)} width="18" height="14" rx="2" fill={['#12805A','#5A77AA','#CDAA5F','#8F6FC4','#12805A','#8F6FC4','#B8923F','#5A77AA'][i]} opacity="0.15"/>
     ))}
     
     {/* Counter */}
@@ -239,18 +239,18 @@ const ShopkeeperScene = () => (
       <circle cx="0" cy="-20" r="14" fill="#CDAA5F" opacity="0.7"/>
       {/* Topi */}
       <ellipse cx="0" cy="-30" rx="16" ry="6" fill="white" opacity="0.5"/>
-      <path d="M-12 0 L12 0 L10 40 L-10 40 Z" fill="#EFEDE7" opacity="0.5"/>
+      <path d="M-12 0 L12 0 L10 40 L-10 40 Z" fill="#EEEEF1" opacity="0.5"/>
       {/* Holding register */}
       <rect x="-15" y="15" width="30" height="20" rx="2" fill="#F6ECCE" opacity="0.6" stroke="#CDAA5F" strokeWidth="0.8"/>
     </g>
     
     {/* Calculator on counter */}
-    <rect x="380" y="198" width="22" height="14" rx="2" fill="#232327" opacity="0.3"/>
-    <rect x="383" y="200" width="16" height="5" rx="1" fill="#1FA978" opacity="0.3"/>
+    <rect x="380" y="198" width="22" height="14" rx="2" fill="#2A2A2C" opacity="0.3"/>
+    <rect x="383" y="200" width="16" height="5" rx="1" fill="#12805A" opacity="0.3"/>
     
     {/* Currency notes */}
-    <rect x="180" y="200" width="30" height="12" rx="1" fill="#D5F2E5" opacity="0.5" stroke="#1FA978" strokeWidth="0.5" transform="rotate(-8 180 200)"/>
-    <rect x="215" y="202" width="30" height="12" rx="1" fill="#D5F2E5" opacity="0.4" stroke="#1FA978" strokeWidth="0.5" transform="rotate(5 215 202)"/>
+    <rect x="180" y="200" width="30" height="12" rx="1" fill="#EEF9F4" opacity="0.5" stroke="#12805A" strokeWidth="0.5" transform="rotate(-8 180 200)"/>
+    <rect x="215" y="202" width="30" height="12" rx="1" fill="#EEF9F4" opacity="0.4" stroke="#12805A" strokeWidth="0.5" transform="rotate(5 215 202)"/>
   </svg>
 );
 
@@ -336,19 +336,19 @@ const AboutPage = () => {
 
       {/* ═══════════════ CHAPTER 1: THE OPENING ═══════════════ */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-green-50/30 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-green-100/30 to-emerald-100/10 dark:from-emerald-900/8 dark:to-transparent blur-[120px] pointer-events-none" />
+        <div className="absolute inset-0" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none bg-brand-soft" />
 
         <div className="relative max-w-3xl mx-auto px-6 pt-40 pb-20 md:pt-48 md:pb-28 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.15 } } }}>
             
-            <motion.p variants={fadeUp} className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-[0.2em] mb-8">
+            <motion.p variants={fadeUp} className="text-brand dark:text-brand font-medium text-sm uppercase tracking-[0.2em] mb-8">
               Our Story
             </motion.p>
 
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-display font-normal leading-[1.08] tracking-[-0.02em] mb-8">
+            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.08] tracking-[-0.025em] mb-8">
               Making India{' '}
-              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">wealthy</span>,
+              <span className="text-brand">wealthy</span>,
               <br />
               not just rich.
             </motion.h1>
@@ -444,16 +444,16 @@ const AboutPage = () => {
       {/* ═══════════════ THE TURNING POINT ═══════════════ */}
       <Section className="py-24 md:py-32 px-6">
         <motion.div variants={fadeUp} className="max-w-3xl mx-auto text-center">
-          <div className="w-16 h-0.5 bg-green-600 dark:bg-emerald-400 mx-auto mb-12 opacity-40" />
+          <div className="w-16 h-0.5 bg-brand-fill dark:bg-brand-fill mx-auto mb-12 opacity-40" />
           
-          <p className="text-sm text-green-600 dark:text-emerald-400 font-medium uppercase tracking-[0.2em] mb-8">The Turning Point</p>
+          <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-8">The Turning Point</p>
           
-          <h2 className="text-3xl md:text-[2.75rem] font-display font-normal leading-tight mb-8 tracking-[-0.015em]">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold leading-tight mb-8 tracking-[-0.025em]">
             India achieved political freedom in 1947.
             <br />
             <span className="text-gray-400 dark:text-slate-500 font-light">The second freedom movement is</span>
             <br />
-            <span className="bg-gradient-to-r from-green-600 to-emerald-500 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">financial freedom.</span>
+            <span className="text-brand">financial freedom.</span>
           </h2>
           
           <p className="text-lg text-gray-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto mb-6">
@@ -464,7 +464,7 @@ const AboutPage = () => {
             That's why Xtin Capital exists.
           </p>
           
-          <div className="w-16 h-0.5 bg-green-600 dark:bg-emerald-400 mx-auto mt-12 opacity-40" />
+          <div className="w-16 h-0.5 bg-brand-fill dark:bg-brand-fill mx-auto mt-12 opacity-40" />
         </motion.div>
       </Section>
 
@@ -472,7 +472,7 @@ const AboutPage = () => {
       <Section className="py-20 px-6 bg-gray-50/50 dark:bg-slate-900/30">
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center space-y-10">
-            <p className="text-sm text-green-600 dark:text-emerald-400 font-medium uppercase tracking-[0.2em]">What We Believe</p>
+            <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em]">What We Believe</p>
 
             <div className="space-y-8">
               {[
@@ -495,8 +495,8 @@ const AboutPage = () => {
       <Section className="py-20 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <p className="text-sm text-green-600 dark:text-emerald-400 font-medium uppercase tracking-[0.2em] mb-4">Who We Are</p>
-            <h2 className="text-3xl md:text-4xl font-display font-normal tracking-[-0.015em]">The People Behind This</h2>
+            <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Who We Are</p>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">The People Behind This</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="space-y-6 text-center">
@@ -512,7 +512,7 @@ const AboutPage = () => {
             <p className="text-xl text-gray-700 dark:text-slate-300 font-medium mt-8">
               Not because it's a good business model.
               <br />
-              <span className="text-green-600 dark:text-emerald-400">Because it's the right thing to do.</span>
+              <span className="text-brand dark:text-brand">Because it's the right thing to do.</span>
             </p>
           </motion.div>
         </div>
@@ -522,13 +522,13 @@ const AboutPage = () => {
       <Section className="py-20 px-6 bg-gray-50/50 dark:bg-slate-900/30">
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <p className="text-sm text-green-600 dark:text-emerald-400 font-medium uppercase tracking-[0.2em] mb-4">Our Journey</p>
-            <h2 className="text-3xl md:text-4xl font-display font-normal tracking-[-0.015em]">From an idea to a movement</h2>
+            <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Our Journey</p>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">From an idea to a movement</h2>
           </motion.div>
 
           {/* Timeline */}
           <div className="relative">
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-green-200 dark:bg-emerald-800/40" />
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-brand-soft dark:bg-brand-fill/40" />
 
             {[
               {
@@ -549,10 +549,10 @@ const AboutPage = () => {
               },
             ].map((item, i) => (
               <motion.div key={item.marker} variants={fadeUp} custom={i} className="relative pl-16 md:pl-20 mb-12 last:mb-0">
-                <div className="absolute left-3.5 md:left-5.5 top-1.5 w-5 h-5 rounded-full bg-green-600 dark:bg-emerald-500 border-4 border-white dark:border-slate-950 z-10">
+                <div className="absolute left-3.5 md:left-5.5 top-1.5 w-5 h-5 rounded-full bg-brand-fill dark:bg-brand-fill border-4 border-white dark:border-slate-950 z-10">
                   <div className="w-1 h-1 rounded-full bg-white mx-auto mt-1" />
                 </div>
-                <span className="text-sm font-bold text-green-600 dark:text-emerald-400 block mb-2">{item.marker}</span>
+                <span className="text-sm font-bold text-brand dark:text-brand block mb-2">{item.marker}</span>
                 <p className="text-gray-600 dark:text-slate-400 leading-relaxed">{item.text}</p>
               </motion.div>
             ))}
@@ -564,8 +564,8 @@ const AboutPage = () => {
       <Section className="py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-10">
-            <p className="text-sm text-green-600 dark:text-emerald-400 font-medium uppercase tracking-[0.2em] mb-4">Registered Entity</p>
-            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Company Details</h2>
+            <p className="text-sm text-brand dark:text-brand font-medium uppercase tracking-[0.2em] mb-4">Registered Entity</p>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Company Details</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="bg-white dark:bg-slate-800/60 rounded-2xl p-8 border border-gray-100 dark:border-slate-700/50">
@@ -578,7 +578,7 @@ const AboutPage = () => {
               ].map((d) => (
                 <div key={d.label}>
                   <div className="text-xs font-medium text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">{d.label}</div>
-                  <div className={`text-lg font-bold ${d.green ? 'text-green-600 dark:text-emerald-400' : ''}`}>{d.value}</div>
+                  <div className={`text-lg font-bold ${d.green ? 'text-brand dark:text-brand' : ''}`}>{d.value}</div>
                 </div>
               ))}
               <div className="sm:col-span-2">
@@ -596,12 +596,12 @@ const AboutPage = () => {
       {/* ═══════════════ CLOSING ═══════════════ */}
       <Section className="py-24 md:py-32 px-6 bg-gray-50/50 dark:bg-slate-900/30">
         <motion.div variants={fadeUp} className="max-w-3xl mx-auto text-center">
-          <div className="w-16 h-0.5 bg-green-600 dark:bg-emerald-400 mx-auto mb-12 opacity-40" />
+          <div className="w-16 h-0.5 bg-brand-fill dark:bg-brand-fill mx-auto mb-12 opacity-40" />
           
-          <h2 className="text-3xl md:text-4xl font-display font-normal mb-8 leading-tight tracking-[-0.015em]">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold mb-8 leading-tight tracking-[-0.025em]">
             We're not building a product.
             <br />
-            <span className="bg-gradient-to-r from-green-600 to-emerald-500 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">We're building a bridge.</span>
+            <span className="text-brand">We're building a bridge.</span>
           </h2>
           
           <p className="text-lg text-gray-500 dark:text-slate-400 leading-relaxed max-w-xl mx-auto mb-8">
@@ -614,7 +614,7 @@ const AboutPage = () => {
 
           <button
             onClick={() => setShowContactModal(true)} 
-            className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 bg-brand-fill hover:bg-brand-hover text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-brand/20 hover:-translate-y-0.5"
           >
             Write to Us
           </button>
@@ -623,7 +623,7 @@ const AboutPage = () => {
 
       {/* ─────────── CONTACT MODAL ─────────── */}
       {showContactModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 brand-on-dark">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -635,7 +635,7 @@ const AboutPage = () => {
             </div>
             <div className="p-6">
               {submitStatus === 'success' && (
-                <div className="mb-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/30 rounded-xl text-green-800 dark:text-green-300 text-sm">Message sent!</div>
+                <div className="mb-4 p-4 bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line rounded-xl text-brand dark:text-brand text-sm">Message sent!</div>
               )}
               {submitStatus === 'error' && (
                 <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30 rounded-xl text-red-800 dark:text-red-300 text-sm">{errorMessage || 'Failed to send. Please email us directly.'}</div>
@@ -648,14 +648,14 @@ const AboutPage = () => {
                 ].map((f) => (
                   <div key={f.name}>
                     <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">{f.label}</label>
-                    <input type={f.type} name={f.name} value={formData[f.name]} onChange={handleInputChange} required minLength={f.minLength} className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-slate-100" placeholder={f.placeholder} />
+                    <input type={f.type} name={f.name} value={formData[f.name]} onChange={handleInputChange} required minLength={f.minLength} className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand dark:bg-slate-700 dark:text-slate-100" placeholder={f.placeholder} />
                   </div>
                 ))}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">Message</label>
-                  <textarea rows={4} name="message" value={formData.message} onChange={handleInputChange} required minLength={10} className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-slate-100" placeholder="Tell us your story..." />
+                  <textarea rows={4} name="message" value={formData.message} onChange={handleInputChange} required minLength={10} className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand dark:bg-slate-700 dark:text-slate-100" placeholder="Tell us your story..." />
                 </div>
-                <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition disabled:opacity-50">{isSubmitting ? 'Sending...' : 'Send'}</button>
+                <button type="submit" disabled={isSubmitting} className="w-full bg-brand-fill hover:bg-brand-hover text-white font-semibold py-3 rounded-xl transition disabled:opacity-50">{isSubmitting ? 'Sending...' : 'Send'}</button>
               </form>
             </div>
           </motion.div>

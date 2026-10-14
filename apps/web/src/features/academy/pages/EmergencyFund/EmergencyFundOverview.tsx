@@ -22,11 +22,11 @@ import ModuleBadge from "../../components/ModuleBadge";
 
 const lessonIcons = [ShieldIcon, LightbulbIcon, TargetIcon, WalletIcon, BankIcon, CoinsIcon, KeyIcon, WarningIcon, PiggyBankIcon];
 const colors = [
-  "from-emerald-500 to-teal-500",
+  "bg-brand-fill",
   "from-blue-500 to-cyan-500",
   "from-indigo-500 to-blue-500",
   "from-amber-500 to-orange-500",
-  "from-green-500 to-emerald-500",
+  "bg-brand-fill",
   "from-rose-500 to-pink-500",
   "from-cyan-500 to-blue-500",
   "from-violet-500 to-indigo-500"
@@ -36,14 +36,14 @@ const EmergencyFundOverview = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-white to-emerald-50/30 text-gray-900 min-h-screen flex flex-col font-sans">
+    <div className="text-gray-900 min-h-screen flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           <button
             onClick={() => navigate("/learn")}
-            className="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors mb-8 group"
+            className="flex items-center gap-2 text-gray-500 hover:text-brand transition-colors mb-8 group"
           >
             <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
             <span>Back to Learn</span>
@@ -51,10 +51,10 @@ const EmergencyFundOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Beginner Module
               </span>
-              <span className="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm flex items-center gap-1.5">
+              <span className="px-3 py-1.5 bg-brand-soft text-brand rounded-full text-sm flex items-center gap-1.5">
                 <ClockIcon className="w-4 h-4" />
                 15 Lessons
               </span>
@@ -68,9 +68,9 @@ const EmergencyFundOverview = () => {
 
             <div className="mb-3"><ModuleBadge moduleId="emergency-fund" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-200 rounded-xl shadow-sm">
-                <ShieldIcon className="w-7 h-7 text-emerald-600" />
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
+                <ShieldIcon className="w-7 h-7 text-brand" />
               </span>
               <span>Emergency Fund & Financial Safety Net</span>
             </h1>
@@ -80,7 +80,7 @@ const EmergencyFundOverview = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-white to-emerald-50 rounded-3xl p-8 mb-10 border border-emerald-100 shadow-lg">
+          <div className="rounded-3xl p-8 mb-10 border border-brand-line shadow-lg bg-brand-soft">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Before wealth grows, safety must exist.</h2>
@@ -89,28 +89,28 @@ const EmergencyFundOverview = () => {
                   who want financial confidence before taking bigger investing risks.
                 </p>
                 <div className="grid sm:grid-cols-3 gap-3">
-                  <div className="bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
-                    <WalletIcon className="w-6 h-6 text-emerald-600 mb-2" />
+                  <div className="bg-white rounded-xl p-4 border border-brand-line shadow-sm">
+                    <WalletIcon className="w-6 h-6 text-brand mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Expense target</p>
                   </div>
-                  <div className="bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-4 border border-brand-line shadow-sm">
                     <BankIcon className="w-6 h-6 text-blue-600 mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Safe storage</p>
                   </div>
-                  <div className="bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
+                  <div className="bg-white rounded-xl p-4 border border-brand-line shadow-sm">
                     <KeyIcon className="w-6 h-6 text-amber-600 mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Clear rules</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
+              <div className="rounded-2xl p-6 text-white shadow-xl bg-brand-fill">
                 <ShieldIcon className="w-12 h-12 text-white/90 mb-4" />
-                <p className="text-sm uppercase tracking-wide text-emerald-100 font-semibold mb-2">Core principle</p>
+                <p className="text-sm uppercase tracking-wide text-white/85 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
                   Safety money should be easy to access and hard to misuse.
                 </p>
-                <p className="text-emerald-50 text-sm leading-relaxed">
+                <p className="text-white/85 text-sm leading-relaxed">
                   The goal is calm decision-making when income, health, job, or family pressure changes suddenly.
                 </p>
               </div>
@@ -141,7 +141,7 @@ const EmergencyFundOverview = () => {
 
           <div className="mb-10">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
-              <BookOpenIcon className="w-7 h-7 text-emerald-600" />
+              <BookOpenIcon className="w-7 h-7 text-brand" />
               <span>Your Learning Path</span>
             </h2>
 
@@ -152,7 +152,7 @@ const EmergencyFundOverview = () => {
                   <button
                     key={lesson.num}
                     onClick={() => navigate(`/learn/emergency-fund-lesson-${lesson.num}`)}
-                    className="w-full text-left bg-white rounded-2xl p-5 border-2 border-gray-100 hover:border-emerald-300 hover:shadow-lg transition-all group"
+                    className="w-full text-left bg-white rounded-2xl p-5 border-2 border-gray-100 hover:border-brand-line hover:shadow-lg transition-all group"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`w-14 h-14 bg-gradient-to-br ${colors[index % colors.length]} rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform`}>
@@ -160,7 +160,7 @@ const EmergencyFundOverview = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs font-semibold text-emerald-600">LESSON {lesson.num}</span>
+                          <span className="text-xs font-semibold text-brand">LESSON {lesson.num}</span>
                           <span className="text-gray-300">-</span>
                           <span className="text-xs text-gray-500 flex items-center gap-1">
                             <ClockIcon className="w-3 h-3" />
@@ -170,8 +170,8 @@ const EmergencyFundOverview = () => {
                         <h3 className="font-semibold text-gray-900 text-lg">{lesson.title}</h3>
                         <p className="text-sm text-gray-500">{lesson.subtitle}</p>
                       </div>
-                      <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center group-hover:bg-emerald-500 transition-colors">
-                        <FaPlay className="w-3 h-3 text-emerald-600 group-hover:text-white transition-colors ml-0.5" />
+                      <div className="w-10 h-10 bg-brand-soft rounded-full flex items-center justify-center group-hover:bg-brand-hover transition-colors">
+                        <FaPlay className="w-3 h-3 text-brand group-hover:text-white transition-colors ml-0.5" />
                       </div>
                     </div>
                   </button>
@@ -181,10 +181,10 @@ const EmergencyFundOverview = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 mb-10">
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
-              <PiggyBankIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-semibold text-emerald-900 mb-1">Beginner first</h3>
-              <p className="text-sm text-emerald-700">Simple rules before advanced products.</p>
+            <div className="bg-brand-soft rounded-2xl p-5 border border-brand-line">
+              <PiggyBankIcon className="w-7 h-7 text-brand mb-3" />
+              <h3 className="font-semibold text-brand mb-1">Beginner first</h3>
+              <p className="text-sm text-brand">Simple rules before advanced products.</p>
             </div>
             <div className="bg-amber-50 rounded-2xl p-5 border border-amber-200">
               <WarningIcon className="w-7 h-7 text-amber-600 mb-3" />
@@ -198,12 +198,12 @@ const EmergencyFundOverview = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+          <div className="rounded-2xl p-8 text-white text-center bg-brand-fill">
             <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Build Your Safety Net?</h3>
-            <p className="text-emerald-100 mb-6">Start with the simple idea: emergency money protects your plan.</p>
+            <p className="text-white/85 mb-6">Start with the simple idea: emergency money protects your plan.</p>
             <button
               onClick={() => navigate("/learn/emergency-fund-lesson-1")}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-emerald-600 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-brand rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all"
             >
               <FaPlay className="w-3 h-3" />
               <span>Start Lesson 1</span>

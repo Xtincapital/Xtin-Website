@@ -128,11 +128,11 @@ const Daily = () => {
       label: "Daily P&L",
       info: "Your total profit or loss for the day, after fees.",
       value: formatCurrency(metrics.totalPnL),
-      className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showDay("All trades", dailyTrades),
     },
     { label: "Wins / Losses", info: "How many of the day's trades made money, and how many lost money. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showDay("Winning trades", dayWins) },
-    { label: "Win Rate", info: "The percentage of the day's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showDay("Winning trades", dayWins) },
+    { label: "Win Rate", info: "The percentage of the day's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-brand", onClick: showDay("Winning trades", dayWins) },
   ];
 
   return (

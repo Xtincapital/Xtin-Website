@@ -9,7 +9,7 @@ import { ADMIN_PAGES } from "../adminPages";
 export default function AdminHome() {
   const { user } = useAuth();
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-background text-slate-900 dark:text-slate-100">
       <SEO title="Admin — Xtin Capital" noIndex />
       <AdminHeader />
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
@@ -20,14 +20,14 @@ export default function AdminHome() {
             <Link
               key={to}
               to={to}
-              className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5 transition hover:border-emerald-500 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900"
+              className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5 transition hover:border-brand hover:shadow-sm dark:border-slate-800 dark:bg-slate-900"
             >
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">
+              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand dark:bg-brand-fill/50 dark:text-brand">
                 <Icon size={20} />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-center justify-between gap-2 font-semibold">
-                  {label} <ArrowRight size={16} className="text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-emerald-600" />
+                  {label} <ArrowRight size={16} className="text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-brand" />
                 </span>
                 <span className="mt-1 block text-sm text-slate-500 dark:text-slate-400">{blurb}</span>
               </span>

@@ -152,7 +152,10 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
     <>
       <Navbar />
       {/* pt-20 clears the fixed site Navbar */}
-      <div className="gini-scope pt-20 min-h-screen bg-background flex">
+      <div
+        className="gini-scope pt-20 min-h-screen bg-background flex"
+        style={{ "--sb": collapsed ? "76px" : "260px" } as React.CSSProperties}
+      >
         {/* Sidebar — sticky under the Navbar on desktop, a drawer below lg */}
         <motion.aside
           initial={false}
@@ -169,7 +172,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
             {navSections.map((section) => (
               <div key={section.label}>
                 {!collapsed && (
-                  <div className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
+                  <div className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
                     {section.label}
                   </div>
                 )}
@@ -196,7 +199,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                             transition={{ type: "spring", stiffness: 500, damping: 40 }}
                           />
                         )}
-                        <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary dark:text-success")} />
+                        <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-brand dark:text-brand")} />
                         {!collapsed && <span className="relative text-sm">{item.name}</span>}
                         {!collapsed && item.pro && planFetched && <ProIcon unlocked={isPro} className="relative w-3.5 h-3.5 ml-auto" />}
                       </Link>
@@ -230,7 +233,13 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0">
+        {/* Page content sits in the site's centred column (same edges as the
+            nav, Tools and Learn) while the sidebar stays on the screen edge.
+            Padding % is relative to the full-width row; below ~1800px the
+            column would run under the sidebar, so it starts 2rem after it.
+            The layout owns the side margins, so pages drop their own (px-0)
+            on desktop and every page's text lines up with the nav. */}
+        <main className="flex-1 min-w-0 lg:pl-[max(2rem,calc((100%_-_80rem)/2_-_var(--sb)))] lg:pr-[max(2rem,calc((100%_-_80rem)/2))] lg:[&>*]:!px-0">
           {/* Mobile bar — opens the sidebar drawer */}
           <div className="lg:hidden sticky top-20 z-20 h-14 flex items-center gap-3 px-4 bg-card border-b border-border">
             <button

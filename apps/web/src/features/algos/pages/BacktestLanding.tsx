@@ -85,9 +85,9 @@ const BacktestLanding = () => {
           backgroundImage: `linear-gradient(rgba(31, 169, 120, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 169, 120, 0.4) 1px, transparent 1px)`,
           backgroundSize: '60px 60px'
         }} />
-        <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]" />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-brand-soft rounded-full blur-[120px]" />
         <div className="absolute top-40 right-20 w-80 h-80 bg-teal-500/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-emerald-400/5 rounded-full blur-[80px]" />
+        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-brand-soft rounded-full blur-[80px]" />
       </div>
 
       {/* Hero Section */}
@@ -97,25 +97,25 @@ const BacktestLanding = () => {
 
             {/* Left Content */}
             <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-soft border border-brand-line rounded-full mb-8">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-fill opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-fill"></span>
                 </span>
-                <span className="text-sm font-medium text-emerald-700">AI-Powered Backtesting</span>
+                <span className="text-sm font-medium text-brand">AI-Powered Backtesting</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-tight tracking-[-0.015em]">
+              <h1 className="text-4xl md:text-5xl font-display font-semibold mb-6 leading-tight tracking-[-0.025em]">
                 <span className="text-gray-900">Backtest any trade</span>
                 <br />
-                <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                <span className="text-brand">
                   by chatting with AI
                 </span>
               </h1>
 
               <p className="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed max-w-xl">
                 Describe a strategy in plain English and get a full quant report on years of
-                real market data — <span className="text-emerald-600 font-medium">no code, in seconds</span>.
+                real market data — <span className="text-brand font-medium">no code, in seconds</span>.
               </p>
 
               {/* CTA Buttons */}
@@ -123,7 +123,7 @@ const BacktestLanding = () => {
                 <Link
                   to="/backtest/app"
                   onClick={handleLaunch}
-                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105"
+                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand/25 hover:shadow-brand/40 hover:scale-105"
                 >
                   <span className="relative z-10 flex items-center">
                     {user ? 'Launch Backtest' : 'Sign in to launch'}
@@ -147,16 +147,16 @@ const BacktestLanding = () => {
 
             {/* Right: chat-to-report mock */}
             <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
-              <div className="rounded-3xl border border-gray-200 bg-white shadow-2xl shadow-emerald-500/10 overflow-hidden">
+              <div className="rounded-3xl border border-gray-200 bg-white shadow-2xl shadow-brand/10 overflow-hidden">
                 <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
                   <span className="h-3 w-3 rounded-full bg-red-400" />
                   <span className="h-3 w-3 rounded-full bg-amber-400" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <span className="h-3 w-3 rounded-full bg-brand-fill" />
                   <span className="ml-3 text-sm font-medium text-gray-500">Xtin Backtest</span>
                 </div>
                 <div className="p-5 space-y-4">
                   <div className="flex justify-end">
-                    <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-emerald-600 px-4 py-2.5 text-sm text-white">
+                    <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-brand-fill px-4 py-2.5 text-sm text-white">
                       Buy {show.symbol} when RSI drops below 30, 2% stop, {show.capital}
                     </div>
                   </div>
@@ -165,23 +165,23 @@ const BacktestLanding = () => {
                       Done — over the last year this was profitable ✅
                       <div className="mt-3 grid grid-cols-3 gap-2">
                         <div className="rounded-lg bg-white border border-gray-200 px-2 py-1.5 text-center">
-                          <div className="text-emerald-600 font-bold">{show.ret}</div>
-                          <div className="text-[10px] text-gray-400">Return</div>
+                          <div className="text-brand font-bold">{show.ret}</div>
+                          <div className="text-xs text-gray-400">Return</div>
                         </div>
                         <div className="rounded-lg bg-white border border-gray-200 px-2 py-1.5 text-center">
                           <div className="text-gray-900 font-bold">1.62</div>
-                          <div className="text-[10px] text-gray-400">Sharpe</div>
+                          <div className="text-xs text-gray-400">Sharpe</div>
                         </div>
                         <div className="rounded-lg bg-white border border-gray-200 px-2 py-1.5 text-center">
                           <div className="text-gray-900 font-bold">61%</div>
-                          <div className="text-[10px] text-gray-400">Win rate</div>
+                          <div className="text-xs text-gray-400">Win rate</div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {['Tighten the stop to 1%', 'Try it on 15m', 'Make it a short'].map((s) => (
-                      <span key={s} className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-700">
+                      <span key={s} className="rounded-full border border-brand-line bg-brand-soft px-3 py-1 text-xs text-brand">
                         {s}
                       </span>
                     ))}
@@ -194,18 +194,18 @@ const BacktestLanding = () => {
       </section>
 
       {/* Features */}
-      <section className="relative px-4 sm:px-6 lg:px-8 py-20 bg-gray-50">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-20 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-display font-normal text-gray-900 tracking-[-0.015em]">Everything you need to test an idea</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-gray-900 tracking-[-0.025em]">Everything you need to test an idea</h2>
             <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
               A research desk in a chat box — from first hypothesis to a report you can trust.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {FEATURES.map((f) => (
-              <div key={f.title} className="rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 mb-4">
+              <div key={f.title} className="rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-lg hover:shadow-brand/10 transition-all duration-300">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand mb-4">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">{f.icon}</svg>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{f.title}</h3>
@@ -218,15 +218,15 @@ const BacktestLanding = () => {
 
       {/* CTA */}
       <section className="relative px-4 sm:px-6 lg:px-8 py-20">
-        <div className="max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-600 px-8 py-14 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-display font-normal tracking-[-0.015em]">Know before you trade.</h2>
-          <p className="mx-auto mt-3 max-w-xl text-emerald-50">
+        <div className="max-w-4xl mx-auto rounded-3xl px-8 py-14 text-center text-white bg-brand-fill">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Know before you trade.</h2>
+          <p className="mx-auto mt-3 max-w-xl text-white/85">
             Sign in with your free Xtin account and backtest your first idea in under a minute — no code.
           </p>
           <Link
             to="/backtest/app"
             onClick={handleLaunch}
-            className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-7 py-3.5 font-semibold text-emerald-700 hover:bg-emerald-50 transition"
+            className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-7 py-3.5 font-semibold text-brand hover:bg-brand-soft transition"
           >
             {user ? 'Open the playground' : 'Sign in to start backtesting'}
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

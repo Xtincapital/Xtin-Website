@@ -169,7 +169,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -177,11 +177,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -191,7 +191,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -228,14 +228,14 @@ const StockMarketLesson1 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 1 of 7
               </span>
               <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.StockChart className="w-7 h-7 text-indigo-600" />
               </span>
@@ -271,7 +271,7 @@ const StockMarketLesson1 = () => {
               <span>The Simple Answer</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
+            <div className="rounded-xl p-6 text-white mb-4 bg-brand-fill">
               <p className="text-xl font-semibold text-center">
                 The stock market is a <span className="underline decoration-yellow-300 decoration-2">marketplace</span> where 
                 people <span className="underline decoration-yellow-300 decoration-2">buy and sell</span> small pieces of 
@@ -295,18 +295,18 @@ const StockMarketLesson1 = () => {
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 300" fill="none">
               {/* Title */}
-              <text x="350" y="25" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="600">
+              <text x="350" y="25" textAnchor="middle" fill="#373A41" fontSize="14" fontWeight="600">
                 Sabzi Mandi vs Stock Market
               </text>
 
               {/* Left Side - Vegetable Market */}
               <g transform="translate(50, 50)">
-                <rect x="0" y="0" width="250" height="200" rx="16" fill="#D5F2E5" stroke="#77D3AE" strokeWidth="2"/>
-                <text x="125" y="30" textAnchor="middle" fill="#0D543C" fontSize="14" fontWeight="700">Sabzi Mandi</text>
+                <rect x="0" y="0" width="250" height="200" rx="16" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+                <text x="125" y="30" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="700">Sabzi Mandi</text>
                 
                 {/* Vegetables */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#1FA978"/>
+                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#12805A"/>
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Tomatoes</text>
                 </g>
                 <g transform="translate(100, 60)">
@@ -314,13 +314,13 @@ const StockMarketLesson1 = () => {
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Onions</text>
                 </g>
                 <g transform="translate(170, 60)">
-                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#1FA978"/>
+                  <rect x="0" y="0" width="60" height="50" rx="8" fill="#12805A"/>
                   <text x="30" y="30" textAnchor="middle" fill="white" fontSize="10">Potatoes</text>
                 </g>
                 
-                <text x="125" y="140" textAnchor="middle" fill="#0D543C" fontSize="11">You buy: Vegetables</text>
-                <text x="125" y="158" textAnchor="middle" fill="#0D543C" fontSize="11">You get: Food to eat</text>
-                <text x="125" y="176" textAnchor="middle" fill="#0D543C" fontSize="11">Seller gets: Money</text>
+                <text x="125" y="140" textAnchor="middle" fill="#12805A" fontSize="11">You buy: Vegetables</text>
+                <text x="125" y="158" textAnchor="middle" fill="#12805A" fontSize="11">You get: Food to eat</text>
+                <text x="125" y="176" textAnchor="middle" fill="#12805A" fontSize="11">Seller gets: Money</text>
               </g>
 
               {/* Arrow */}
@@ -390,19 +390,19 @@ const StockMarketLesson1 = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-                <h4 className="font-semibold text-green-800 mb-2">Company Benefits</h4>
-                <ul className="text-sm text-green-700 space-y-1">
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+                <h4 className="font-semibold text-brand mb-2">Company Benefits</h4>
+                <ul className="text-sm text-brand space-y-1">
                   <li className="flex items-center gap-2">
-                    <Icons.Check className="w-4 h-4 text-green-500" />
+                    <Icons.Check className="w-4 h-4 text-brand" />
                     <span>Gets money to grow business</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Icons.Check className="w-4 h-4 text-green-500" />
+                    <Icons.Check className="w-4 h-4 text-brand" />
                     <span>No need to repay like a loan</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Icons.Check className="w-4 h-4 text-green-500" />
+                    <Icons.Check className="w-4 h-4 text-brand" />
                     <span>Can attract talented employees with stock options</span>
                   </li>
                 </ul>
@@ -470,11 +470,11 @@ const StockMarketLesson1 = () => {
 
               {/* Step 3: You */}
               <g transform="translate(510, 40)">
-                <rect x="0" y="0" width="140" height="100" rx="12" fill="#1FA978"/>
+                <rect x="0" y="0" width="140" height="100" rx="12" fill="#12805A"/>
                 <text x="70" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">YOU</text>
                 <text x="70" y="50" textAnchor="middle" fill="#ABE5CC" fontSize="10">(Investor)</text>
-                <text x="70" y="75" textAnchor="middle" fill="#D5F2E5" fontSize="9">Buy shares through</text>
-                <text x="70" y="90" textAnchor="middle" fill="#D5F2E5" fontSize="9">Zerodha, Groww, etc.</text>
+                <text x="70" y="75" textAnchor="middle" fill="#EEF9F4" fontSize="9">Buy shares through</text>
+                <text x="70" y="90" textAnchor="middle" fill="#EEF9F4" fontSize="9">Zerodha, Groww, etc.</text>
               </g>
 
               {/* Bottom: What happens next */}
@@ -483,8 +483,8 @@ const StockMarketLesson1 = () => {
                 <text x="300" y="25" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">What Happens Next?</text>
                 
                 <g transform="translate(30, 45)">
-                  <circle cx="0" cy="8" r="6" fill="#1FA978"/>
-                  <text x="15" y="12" fill="#0D543C" fontSize="10">If company does well → Share price goes up → You profit!</text>
+                  <circle cx="0" cy="8" r="6" fill="#12805A"/>
+                  <text x="15" y="12" fill="#12805A" fontSize="10">If company does well → Share price goes up → You profit!</text>
                 </g>
                 <g transform="translate(30, 70)">
                   <circle cx="0" cy="8" r="6" fill="#E04848"/>
@@ -529,9 +529,9 @@ const StockMarketLesson1 = () => {
               </div>
             </div>
 
-            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Good News for Beginners:</h4>
-              <p className="text-green-700 text-sm">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Good News for Beginners:</h4>
+              <p className="text-brand text-sm">
                 You don't need to visit these exchanges physically! Apps like Zerodha, Groww, Upstox, 
                 and Angel One connect directly to NSE and BSE. You can buy/sell shares from your phone 
                 in seconds, anytime during market hours (9:15 AM - 3:30 PM, Monday-Friday).
@@ -550,7 +550,7 @@ const StockMarketLesson1 = () => {
               <div className="bg-white rounded-xl p-4">
                 <p className="font-semibold text-red-700 mb-1">"Stock market is like gambling"</p>
                 <p className="text-gray-600 text-sm">
-                  <strong className="text-green-700">Reality:</strong> Gambling is pure chance. Investing is 
+                  <strong className="text-brand">Reality:</strong> Gambling is pure chance. Investing is 
                   owning real businesses with real products, employees, and profits. Yes, there's risk — 
                   but it's not random luck.
                 </p>
@@ -559,7 +559,7 @@ const StockMarketLesson1 = () => {
               <div className="bg-white rounded-xl p-4">
                 <p className="font-semibold text-red-700 mb-1">"You need lakhs to start"</p>
                 <p className="text-gray-600 text-sm">
-                  <strong className="text-green-700">Reality:</strong> You can start with as little as Rs. 100! 
+                  <strong className="text-brand">Reality:</strong> You can start with as little as Rs. 100! 
                   Many good stocks cost Rs. 100-500 per share. Some apps even let you buy fractional shares.
                 </p>
               </div>
@@ -567,7 +567,7 @@ const StockMarketLesson1 = () => {
               <div className="bg-white rounded-xl p-4">
                 <p className="font-semibold text-red-700 mb-1">"Only experts can invest"</p>
                 <p className="text-gray-600 text-sm">
-                  <strong className="text-green-700">Reality:</strong> Anyone with basic knowledge can start. 
+                  <strong className="text-brand">Reality:</strong> Anyone with basic knowledge can start. 
                   Index funds and ETFs let you invest in the whole market without picking individual stocks.
                 </p>
               </div>
@@ -676,7 +676,7 @@ const StockMarketLesson1 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-2')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-indigo-600 hover:to-violet-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: What Are Shares?</span>
               <FaArrowRight className="text-sm" />

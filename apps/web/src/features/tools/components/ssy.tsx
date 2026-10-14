@@ -77,7 +77,7 @@ const SSYCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Navbar */}
       <Navbar />
 
@@ -92,7 +92,7 @@ const SSYCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is SSY?
             </button>
@@ -166,18 +166,18 @@ const SSYCalculator = () => {
               )}
               <button
                 onClick={calculateSSY}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate SSY
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg text-center">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg text-center">
                   <p className="text-lg font-medium text-gray-800">
-                    Investments of <span className="font-bold text-green-700">₹{formatNumber(snap.yearlyInvestment)}</span> each year should be made for 15 years.
+                    Investments of <span className="font-bold text-brand">₹{formatNumber(snap.yearlyInvestment)}</span> each year should be made for 15 years.
                   </p>
                   <p className="mt-4 text-xl font-bold text-gray-800">
-                    The maturity amount received at the end of year <span className="text-green-700">{parseInt(String(snap.startYear)) + 21}</span> will be <span className="text-green-700">₹{formatNumber(futureValue)}</span>.
+                    The maturity amount received at the end of year <span className="text-brand">{parseInt(String(snap.startYear)) + 21}</span> will be <span className="text-brand">₹{formatNumber(futureValue)}</span>.
                   </p>
                 </div>
               )}

@@ -49,7 +49,7 @@ export default function RegionSwitcher({ className = '' }) {
 
       {open && (
         <div className="absolute right-0 mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-[10100] py-1">
-          <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-gray-400">Region &amp; currency</div>
+          <div className="px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-gray-400">Region &amp; currency</div>
           {REGION_ORDER.map((code) => {
             const r = REGIONS[code];
             const showInfo = infoFor === code;
@@ -64,14 +64,14 @@ export default function RegionSwitcher({ className = '' }) {
                     <span className="text-base">{r.flag}</span>
                     <span className="flex-1 text-gray-700 dark:text-gray-200">{r.name}</span>
                     <span className="text-xs text-gray-400">{r.symbol.trim()} {r.currency}</span>
-                    {region === code && <span className="text-emerald-500">✓</span>}
+                    {region === code && <span className="text-brand">✓</span>}
                   </button>
                   <button
                     type="button"
                     onClick={() => setInfoFor(showInfo ? null : code)}
                     aria-label={`${r.currency} against the other currencies`}
                     aria-expanded={showInfo}
-                    className="mx-2 w-5 h-5 shrink-0 rounded-full border border-gray-300 dark:border-gray-500 text-[11px] font-serif italic leading-none text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                    className="mx-2 w-5 h-5 shrink-0 rounded-full border border-gray-300 dark:border-gray-500 text-xs font-semibold leading-none text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                   >
                     i
                   </button>
@@ -93,7 +93,7 @@ export default function RegionSwitcher({ className = '' }) {
                         ))}
                       </tbody>
                     </table>
-                    <p className="mt-1.5 text-[11px] text-gray-400">
+                    <p className="mt-1.5 text-xs text-gray-400">
                       {snapshot.live ? (asOfLabel ? `Rates as of ${asOfLabel}` : 'Live rates') : 'Approximate rates (live rates unavailable)'}
                     </p>
                   </div>

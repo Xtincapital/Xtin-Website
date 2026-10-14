@@ -43,7 +43,7 @@ const IncomeTaxCalculator = () => {
 
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-background">
             <Navbar />
             <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
                 <div className="max-w-4xl mx-auto">
@@ -139,18 +139,18 @@ const IncomeTaxCalculator = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={calculateTax} className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition">
+                            <button onClick={calculateTax} className="w-full mt-6 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition">
                                 Calculate
                             </button>
                         </div>
                         <div className="bg-white shadow-md rounded-xl p-6 flex flex-col justify-center items-center">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">Total tax (Old Regime)</h3>
-                                <p className="text-4xl font-bold text-green-700">₹ {formatNumber(oldRegimeTax)}</p>
+                                <p className="text-4xl font-bold text-brand">₹ {formatNumber(oldRegimeTax)}</p>
                             </div>
                             <div className="text-center mt-8">
                                 <h3 className="text-xl font-semibold mb-2">Total tax (New Regime)</h3>
-                                <p className="text-4xl font-bold text-green-700">₹ {formatNumber(newRegimeTax)}</p>
+                                <p className="text-4xl font-bold text-brand">₹ {formatNumber(newRegimeTax)}</p>
                             </div>
                         </div>
                     </div>

@@ -554,7 +554,7 @@ const Dashboard = () => {
       key: 'algos',
       title: 'Algo Trading',
       desc: 'Automated strategy execution on NSE/BSE',
-      icon: <Zap size={22} className="text-emerald-500" />,
+      icon: <Zap size={22} className="text-brand" />,
       activeText: 'Purchased · Active',
       inactiveText: 'Not Purchased',
       activeActionText: 'Open Algos',
@@ -626,7 +626,7 @@ const Dashboard = () => {
   const hasAnything = ownedServices.length > 0;
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
+    <div className="bg-background text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-200">
       <Navbar />
 
       <main className="flex-grow px-4 md:px-8 py-10 mt-20">
@@ -635,7 +635,7 @@ const Dashboard = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4 min-w-0">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center text-base font-bold shrink-0">
+              <div className="w-12 h-12 rounded-full bg-brand-fill text-white flex items-center justify-center text-base font-bold shrink-0">
                 {getInitials()}
               </div>
               <div className="min-w-0">
@@ -644,14 +644,14 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <button onClick={handleOpenNameModal} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
+              <button onClick={handleOpenNameModal} className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-brand transition">
                 <Edit2 size={14} /> Edit profile
               </button>
-              <Link to="/billing" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
+              <Link to="/billing" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-brand transition">
                 <FileText size={14} /> Billing
               </Link>
               {isAdminEmail(user?.email) && (
-                <Link to="/admin" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-emerald-500 transition">
+                <Link to="/admin" className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-medium hover:border-brand transition">
                   <Shield size={14} /> Admin
                 </Link>
               )}
@@ -676,19 +676,19 @@ const Dashboard = () => {
                   <Link
                     key={srv.key}
                     to={srv.activeLink}
-                    className="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-emerald-500 hover:shadow-sm transition"
+                    className="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand hover:shadow-sm transition"
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-brand-soft dark:bg-brand-fill/50 flex items-center justify-center">
                         {srv.icon}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Active
+                      <span className="inline-flex items-center gap-1 text-xs font-medium text-brand dark:text-brand">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-fill" /> Active
                       </span>
                     </div>
                     <h3 className="font-semibold">{srv.title}</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4 leading-relaxed">{srv.desc}</p>
-                    <span className="inline-flex items-center gap-1 text-sm font-medium text-emerald-600 dark:text-emerald-400 group-hover:gap-2 transition-all">
+                    <span className="inline-flex items-center gap-1 text-sm font-medium text-brand dark:text-brand group-hover:gap-2 transition-all">
                       {srv.activeActionText} <ArrowRight size={14} />
                     </span>
                   </Link>
@@ -699,8 +699,8 @@ const Dashboard = () => {
                 <p className="font-semibold">No Pro plans yet</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 mb-5">Pick a single tool or save with a bundle. Only what you buy shows up here.</p>
                 <div className="flex justify-center gap-2">
-                  <button onClick={() => handleOpenBundleModal('single')} className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition">Browse plans</button>
-                  <button onClick={() => handleOpenBundleModal('combos')} className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-emerald-500 transition">View bundles</button>
+                  <button onClick={() => handleOpenBundleModal('single')} className="px-4 py-2 rounded-lg bg-brand-fill hover:bg-brand-hover text-white text-sm font-medium transition">Browse plans</button>
+                  <button onClick={() => handleOpenBundleModal('combos')} className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-brand transition">View bundles</button>
                 </div>
               </div>
             )}
@@ -720,7 +720,7 @@ const Dashboard = () => {
                         <div className="flex items-center gap-2">
                           <h3 className="font-medium truncate">{sub.planName}</h3>
                           {sub.isBundle && (
-                            <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">Bundle</span>
+                            <span className="text-xs font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-brand-soft dark:bg-brand-fill/60 text-brand dark:text-brand">Bundle</span>
                           )}
                         </div>
                         {sub.isBundle && sub.products?.length > 0 && (
@@ -746,8 +746,8 @@ const Dashboard = () => {
               <div className="flex items-baseline justify-between mb-4">
                 <h2 className="text-lg font-semibold">Add more</h2>
                 <div className="flex items-center gap-4 text-sm">
-                  <button onClick={() => handleOpenBundleModal('combos')} className="font-medium text-emerald-600 dark:text-emerald-400 hover:underline">Bundles</button>
-                  <button onClick={() => handleOpenBundleModal('custom')} className="font-medium text-emerald-600 dark:text-emerald-400 hover:underline">Build your own</button>
+                  <button onClick={() => handleOpenBundleModal('combos')} className="font-medium text-brand dark:text-brand hover:underline">Bundles</button>
+                  <button onClick={() => handleOpenBundleModal('custom')} className="font-medium text-brand dark:text-brand hover:underline">Build your own</button>
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -755,7 +755,7 @@ const Dashboard = () => {
                   <button
                     key={srv.key}
                     onClick={() => handleOpenBundleModal('single', srv.key)}
-                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm hover:border-emerald-500 transition"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm hover:border-brand transition"
                   >
                     <Plus size={14} className="text-slate-400" /> {srv.title}
                   </button>
@@ -778,7 +778,7 @@ const Dashboard = () => {
 
       {/* ═══ Plans modal ═══ */}
       {showBundleModal && (
-        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex justify-center z-50 p-4 overflow-y-auto" onClick={() => setShowBundleModal(false)}>
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex justify-center z-50 p-4 overflow-y-auto brand-on-dark" onClick={() => setShowBundleModal(false)}>
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full my-auto overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
 
             {/* Header */}
@@ -799,7 +799,7 @@ const Dashboard = () => {
                   <button
                     key={id}
                     onClick={() => setModalTab(id)}
-                    className={`px-3 py-1.5 rounded-lg font-medium transition ${modalTab === id ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`px-3 py-1.5 rounded-lg font-medium transition ${modalTab === id ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'} brand-on-dark`}
                   >
                     {label}
                   </button>
@@ -808,7 +808,7 @@ const Dashboard = () => {
               <div className="inline-flex items-center p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-medium">
                 <button onClick={() => setBillingCycle('monthly')} className={`px-3 py-1.5 rounded-md transition ${billingCycle === 'monthly' ? 'bg-white dark:bg-slate-900 shadow-sm' : 'text-slate-500'}`}>Monthly</button>
                 <button onClick={() => setBillingCycle('annual')} className={`px-3 py-1.5 rounded-md transition ${billingCycle === 'annual' ? 'bg-white dark:bg-slate-900 shadow-sm' : 'text-slate-500'}`}>
-                  Annual <span className="text-emerald-600 dark:text-emerald-400 font-semibold">−20%</span>
+                  Annual <span className="text-brand dark:text-brand font-semibold">−20%</span>
                 </button>
               </div>
             </div>
@@ -833,10 +833,10 @@ const Dashboard = () => {
                           <button
                             key={prod.id}
                             onClick={() => setSelectedSingleProduct(prod.id)}
-                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left whitespace-nowrap transition ${sel ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-left whitespace-nowrap transition ${sel ? 'bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand font-medium' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
                           >
                             <PIcon size={16} /> <span className="flex-1">{prod.name}</span>
-                            {userSubscriptions[prod.id] && <Check size={14} className="text-emerald-500" />}
+                            {userSubscriptions[prod.id] && <Check size={14} className="text-brand" />}
                           </button>
                         );
                       })}
@@ -845,7 +845,7 @@ const Dashboard = () => {
                     <div>
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">{activeDetails.badge}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wider text-brand dark:text-brand">{activeDetails.badge}</span>
                           <h4 className="text-2xl font-semibold tracking-tight mt-1">{activeProd.name}</h4>
                           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{activeProd.desc}</p>
                         </div>
@@ -858,23 +858,23 @@ const Dashboard = () => {
                       <ul className="mt-6 space-y-2.5">
                         {activeDetails.features.map((feat, idx) => (
                           <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
-                            <Check size={16} className="text-emerald-500 shrink-0 mt-0.5" /> {feat}
+                            <Check size={16} className="text-brand shrink-0 mt-0.5" /> {feat}
                           </li>
                         ))}
                       </ul>
 
                       <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
                         {owned ? (
-                          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700 dark:text-emerald-400"><CheckCircle2 size={16} /> You already have this plan</span>
+                          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand dark:text-brand"><CheckCircle2 size={16} /> You already have this plan</span>
                         ) : (
                           <button
                             onClick={() => handleInitiatePurchase(activeProd)}
-                            className="px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition"
+                            className="px-5 py-2.5 rounded-lg bg-brand-fill hover:bg-brand-hover text-white text-sm font-medium transition"
                           >
                             Subscribe · ₹{price.toLocaleString()}{cycle}
                           </button>
                         )}
-                        <button onClick={() => setModalTab('combos')} className="text-sm text-slate-500 hover:text-emerald-600 transition">Compare bundles →</button>
+                        <button onClick={() => setModalTab('combos')} className="text-sm text-slate-500 hover:text-brand transition">Compare bundles →</button>
                       </div>
                     </div>
                   </div>
@@ -890,13 +890,13 @@ const Dashboard = () => {
                     return (
                       <div
                         key={bundle.id}
-                        className={`rounded-xl border p-5 flex flex-col ${featured ? 'md:col-span-2 border-emerald-500 bg-emerald-50/40 dark:bg-emerald-950/20' : 'border-slate-200 dark:border-slate-800'}`}
+                        className={`rounded-xl border p-5 flex flex-col ${featured ? 'md:col-span-2 border-brand bg-brand-soft dark:bg-brand-soft' : 'border-slate-200 dark:border-slate-800'}`}
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <div className="flex items-center gap-2">
                               <h5 className="font-semibold">{bundle.name}</h5>
-                              <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">Save {bundle.savePercent}</span>
+                              <span className="text-xs font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-brand-soft dark:bg-brand-fill text-brand dark:text-brand">Save {bundle.savePercent}</span>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{bundle.desc}</p>
                           </div>
@@ -908,12 +908,12 @@ const Dashboard = () => {
                         </div>
                         <ul className={`mt-4 gap-x-6 gap-y-1.5 text-sm text-slate-700 dark:text-slate-300 ${featured ? 'grid grid-cols-1 sm:grid-cols-2' : 'space-y-1.5'}`}>
                           {bundle.products.map((p) => (
-                            <li key={p} className="flex items-center gap-2"><Check size={14} className="text-emerald-500 shrink-0" /> {p}</li>
+                            <li key={p} className="flex items-center gap-2"><Check size={14} className="text-brand shrink-0" /> {p}</li>
                           ))}
                         </ul>
                         <button
                           onClick={() => handleInitiatePurchase(bundle)}
-                          className={`mt-5 self-start px-4 py-2 rounded-lg text-sm font-medium transition ${featured ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'border border-slate-300 dark:border-slate-700 hover:border-emerald-500 hover:text-emerald-600'}`}
+                          className={`mt-5 self-start px-4 py-2 rounded-lg text-sm font-medium transition ${featured ? 'bg-brand-fill hover:bg-brand-hover text-white' : 'border border-slate-300 dark:border-slate-700 hover:border-brand hover:text-brand'}`}
                         >
                           Get {featured ? 'all-access' : 'bundle'}
                         </button>
@@ -936,9 +936,9 @@ const Dashboard = () => {
                           key={prod.id}
                           onClick={() => toggleCustomProduct(prod.id)}
                           aria-pressed={on}
-                          className={`text-left rounded-lg border p-4 flex items-start gap-3 transition ${on ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30' : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}`}
+                          className={`text-left rounded-lg border p-4 flex items-start gap-3 transition ${on ? 'border-brand bg-brand-soft dark:bg-brand-soft' : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}`}
                         >
-                          <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-slate-300 dark:border-slate-600'}`}>
+                          <span className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 ${on ? 'bg-brand-fill border-brand text-white' : 'border-slate-300 dark:border-slate-600'}`}>
                             {on && <Check size={12} />}
                           </span>
                           <span className="flex-1 min-w-0">
@@ -953,7 +953,7 @@ const Dashboard = () => {
 
                   <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="text-sm">
-                      <div className="font-medium">{customBundleCalculations.count} selected{customBundleCalculations.discountPercent > 0 && <span className="text-emerald-600 dark:text-emerald-400"> · {customBundleCalculations.discountPercent}% off</span>}</div>
+                      <div className="font-medium">{customBundleCalculations.count} selected{customBundleCalculations.discountPercent > 0 && <span className="text-brand dark:text-brand"> · {customBundleCalculations.discountPercent}% off</span>}</div>
                       {customBundleCalculations.count < 2 && <div className="text-xs text-slate-500 mt-0.5">Select at least 2 to build a bundle.</div>}
                     </div>
                     <div className="flex items-center gap-4">
@@ -971,7 +971,7 @@ const Dashboard = () => {
                           annualPrice: customBundleCalculations.finalAnnual,
                         })}
                         disabled={customBundleCalculations.count < 2}
-                        className="px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition disabled:opacity-40 disabled:pointer-events-none"
+                        className="px-5 py-2.5 rounded-lg bg-brand-fill hover:bg-brand-hover text-white text-sm font-medium transition disabled:opacity-40 disabled:pointer-events-none"
                       >
                         Checkout
                       </button>
@@ -988,7 +988,7 @@ const Dashboard = () => {
       {showCheckoutModal && checkoutItem && (() => {
         const total = billingCycle === 'monthly' ? (checkoutItem.monthlyPrice || checkoutItem.monthly) : (checkoutItem.annualPrice || checkoutItem.annual);
         return (
-          <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+          <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4 brand-on-dark">
             <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 dark:border-slate-800">
               <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
                 <h3 className="font-semibold">Checkout</h3>
@@ -997,7 +997,7 @@ const Dashboard = () => {
               <div className="p-6">
                 {checkoutSuccess ? (
                   <div className="text-center py-4">
-                    <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center mx-auto mb-3"><Check size={24} /></div>
+                    <div className="w-12 h-12 rounded-full bg-brand-soft dark:bg-brand-fill text-brand flex items-center justify-center mx-auto mb-3"><Check size={24} /></div>
                     <h4 className="text-lg font-semibold">Subscription active</h4>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Pro access is now enabled for the included tools.</p>
                   </div>
@@ -1029,7 +1029,7 @@ const Dashboard = () => {
                     </div>
                     <div className="mt-6 flex gap-3">
                       <button onClick={() => setShowCheckoutModal(false)} className="flex-1 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition">Cancel</button>
-                      <button onClick={handleConfirmPayment} disabled={processingPayment} className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition disabled:opacity-50">
+                      <button onClick={handleConfirmPayment} disabled={processingPayment} className="flex-1 py-2.5 rounded-lg bg-brand-fill hover:bg-brand-hover text-white text-sm font-medium transition disabled:opacity-50">
                         {processingPayment ? 'Processing…' : `Pay ₹${(checkoutCouponPrice !== null ? checkoutCouponPrice / 100 : total).toLocaleString('en-IN')}`}
                       </button>
                     </div>
@@ -1043,7 +1043,7 @@ const Dashboard = () => {
 
       {/* ═══ Profile modal ═══ */}
       {showNameModal && (
-        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 brand-on-dark">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 dark:border-slate-800">
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
               <h3 className="font-semibold">Edit profile</h3>
@@ -1062,15 +1062,15 @@ const Dashboard = () => {
                     value={value}
                     onChange={(e) => setter(e.target.value)}
                     disabled={updating}
-                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-white dark:bg-slate-800 text-sm transition"
+                    className="w-full px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-line focus:border-brand bg-white dark:bg-slate-800 text-sm transition"
                   />
                 </div>
               ))}
               {updateError && <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-medium">{updateError}</div>}
-              {updateMessage && <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-xs font-medium">{updateMessage}</div>}
+              {updateMessage && <div className="p-3 rounded-lg bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-medium">{updateMessage}</div>}
               <div className="flex gap-3 pt-2">
                 <button onClick={() => setShowNameModal(false)} disabled={updating} className="flex-1 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition disabled:opacity-50">Cancel</button>
-                <button onClick={handleUpdateName} disabled={updating} className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition disabled:opacity-50">{updating ? 'Saving…' : 'Save changes'}</button>
+                <button onClick={handleUpdateName} disabled={updating} className="flex-1 py-2.5 rounded-lg bg-brand-fill hover:bg-brand-hover text-white text-sm font-medium transition disabled:opacity-50">{updating ? 'Saving…' : 'Save changes'}</button>
               </div>
               <div className="mt-2 pt-5 border-t border-rose-200 dark:border-rose-900/60 flex flex-wrap items-center justify-between gap-3">
                 <div>

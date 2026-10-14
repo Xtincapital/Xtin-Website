@@ -148,10 +148,10 @@ const CompanySearchResults = ({
           >
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <span className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-semibold shrink-0">
+                <span className="px-1.5 py-0.5 rounded bg-primary/10 text-brand text-xs font-semibold shrink-0">
                   {company.ticker}
                 </span>
-                <h3 className="font-medium text-sm text-foreground truncate">{company.name}</h3>
+                <h3 className="font-medium text-base text-foreground truncate">{company.name}</h3>
               </div>
               <p className="text-xs text-muted-foreground truncate mt-0.5">
                 {[company.sector, ...metrics].filter(Boolean).join(" · ") || "Click to analyze"}
@@ -166,8 +166,8 @@ const CompanySearchResults = ({
                 </div>
                 <ApproxAmount amount={company.price} from={symbol === "₹" ? "INR" : "USD"} />
                 <div
-                  className={`flex items-center justify-end gap-0.5 text-[11px] font-medium ${
-                    company.change_percent >= 0 ? "text-success" : "text-destructive"
+                  className={`flex items-center justify-end gap-0.5 text-xs font-medium ${
+                    company.change_percent >= 0 ? "text-brand" : "text-destructive"
                   }`}
                 >
                   {company.change_percent >= 0 ? (

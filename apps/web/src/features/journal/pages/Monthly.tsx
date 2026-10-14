@@ -149,11 +149,11 @@ const Monthly = () => {
       label: "Monthly P&L",
       info: "Your total profit or loss for the month, after fees.",
       value: formatCurrency(metrics.totalPnL),
-      className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showMonth("All trades", monthlyTrades),
     },
     { label: "Wins / Losses", info: "How many trades made money, and how many lost money, this month. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showMonth("Winning trades", closedWins) },
-    { label: "Win Rate", info: "The percentage of this month's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showMonth("Winning trades", closedWins) },
+    { label: "Win Rate", info: "The percentage of this month's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-brand", onClick: showMonth("Winning trades", closedWins) },
   ];
   void closedLosses;
 
@@ -218,7 +218,7 @@ const Monthly = () => {
           className="flex items-center justify-between mb-6"
         >
           <div className="flex items-center gap-2 text-lg font-bold text-foreground">
-            <CalendarRange className="w-4 h-4 text-primary" />
+            <CalendarRange className="w-4 h-4 text-brand" />
             {MONTH_NAMES[month]} {year}
           </div>
           <div className="flex items-center gap-2">

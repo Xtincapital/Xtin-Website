@@ -289,7 +289,7 @@ const Dashboard = () => {
                   className={
                     card.positive === undefined
                       ? "stat-value font-semibold text-foreground"
-                      : `stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`
+                      : `stat-value font-semibold ${card.positive ? "text-brand" : "text-destructive"}`
                   }
                 >
                   <RollingNumber value={card.value} />
@@ -386,10 +386,10 @@ const Dashboard = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-                <Receipt className="w-4 h-4 text-primary" />
+                <Receipt className="w-4 h-4 text-brand" />
                 Recent Trades
               </h2>
-              <Link to="/journal/trades" className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+              <Link to="/journal/trades" className="text-brand hover:text-brand/80 text-sm font-medium flex items-center gap-1">
                 View All
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
@@ -411,7 +411,7 @@ const Dashboard = () => {
                   return (
                     <Card key={trade.id} className="transition-[transform,border-color] duration-300 hover:translate-x-1 hover:border-gray-300 dark:hover:border-gray-700">
                       <CardContent className="p-4 flex items-center justify-between gap-3">
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] border bg-secondary text-[11px] font-bold tracking-wide text-muted-foreground">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] border bg-secondary text-xs font-bold tracking-wide text-muted-foreground">
                           {assetMonogram(trade.asset)}
                         </span>
                         <div className="min-w-0 flex-1">
@@ -422,7 +422,7 @@ const Dashboard = () => {
                             {new Date(trade.date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
                           </p>
                         </div>
-                        <div className={`flex items-center gap-1 shrink-0 font-semibold text-sm ${positive ? "text-success" : "text-destructive"}`}>
+                        <div className={`flex items-center gap-1 shrink-0 font-semibold text-sm ${positive ? "text-brand" : "text-destructive"}`}>
                           {positive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                           {formatCurrency(trade.pnl ?? 0)}
                         </div>
@@ -437,10 +437,10 @@ const Dashboard = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-                <Target className="w-4 h-4 text-primary" />
+                <Target className="w-4 h-4 text-brand" />
                 Goal Progress
               </h2>
-              <Link to="/journal/goals" className="text-primary hover:text-primary/80 text-sm font-medium flex items-center gap-1">
+              <Link to="/journal/goals" className="text-brand hover:text-brand/80 text-sm font-medium flex items-center gap-1">
                 Manage
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>

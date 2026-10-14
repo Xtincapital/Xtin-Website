@@ -128,7 +128,7 @@ const SWPCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Navbar */}
       <Navbar />
 
@@ -143,7 +143,7 @@ const SWPCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is SWP?
             </button>
@@ -168,7 +168,7 @@ const SWPCalculator = () => {
                       value="duration"
                       checked={swpMode === "duration"}
                       onChange={(e) => setSwpMode(e.target.value)}
-                      className="form-radio h-4 w-4 text-green-600"
+                      className="form-radio h-4 w-4 text-brand"
                     />
                     <span className="ml-2 text-gray-700">Find Duration</span>
                   </label>
@@ -179,7 +179,7 @@ const SWPCalculator = () => {
                       value="balance"
                       checked={swpMode === "balance"}
                       onChange={(e) => setSwpMode(e.target.value)}
-                      className="form-radio h-4 w-4 text-green-600"
+                      className="form-radio h-4 w-4 text-brand"
                     />
                     <span className="ml-2 text-gray-700">Find Balance</span>
                   </label>
@@ -255,13 +255,13 @@ const SWPCalculator = () => {
               )}
               <button
                 onClick={calculateSWP}
-                className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+                className="w-full py-3 bg-brand-fill hover:bg-brand-hover text-white rounded-lg font-semibold transition-colors"
               >
                 Calculate SWP
               </button>
               {summary && (
                 <div
-                  className="mt-8 bg-green-50 p-6 rounded-lg text-center"
+                  className="mt-8 bg-brand-soft p-6 rounded-lg text-center"
                   dangerouslySetInnerHTML={{ __html: summary }}
                 ></div>
               )}
@@ -278,7 +278,7 @@ const SWPCalculator = () => {
                     onClick={() => setChartType("line")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "line"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -288,7 +288,7 @@ const SWPCalculator = () => {
                     onClick={() => setChartType("pie")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "pie"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >

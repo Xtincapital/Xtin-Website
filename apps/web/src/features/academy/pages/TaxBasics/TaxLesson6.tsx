@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhyMistakesHappenSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="600" fill="#2C3F5E">Why Do Tax Mistakes Happen?</text>
-    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#75757D">Common reasons beginners overlook taxes</text>
+    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#717680">Common reasons beginners overlook taxes</text>
     
     {/* Four reasons */}
     <g transform="translate(50, 80)">
@@ -115,31 +115,31 @@ const WhyMistakesHappenSVG = () => (
 const Mistake1SVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="600" fill="#C7363B">Mistake #1: Ignoring Taxes Completely</text>
-    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#75757D">"I'll deal with taxes later" mentality</text>
+    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#717680">"I'll deal with taxes later" mentality</text>
     
     {/* Visual representation */}
     <g transform="translate(100, 80)">
       {/* Investor thinking only about returns */}
-      <rect x="0" y="0" width="200" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="100" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">What Beginners Think About</text>
+      <rect x="0" y="0" width="200" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="100" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">What Beginners Think About</text>
       
       <g transform="translate(30, 45)">
-        <circle cx="20" cy="20" r="15" fill="#1FA978"/>
+        <circle cx="20" cy="20" r="15" fill="#12805A"/>
         <text x="20" y="25" textAnchor="middle" fontSize="10" fill="white">📈</text>
-        <text x="55" y="25" fontSize="9" fill="#0D543C">Profits going up</text>
+        <text x="55" y="25" fontSize="9" fill="#12805A">Profits going up</text>
       </g>
       <g transform="translate(30, 80)">
-        <circle cx="20" cy="20" r="15" fill="#1FA978"/>
+        <circle cx="20" cy="20" r="15" fill="#12805A"/>
         <text x="20" y="25" textAnchor="middle" fontSize="10" fill="white">💰</text>
-        <text x="55" y="25" fontSize="9" fill="#0D543C">Account balance</text>
+        <text x="55" y="25" fontSize="9" fill="#12805A">Account balance</text>
       </g>
       
       {/* VS */}
-      <text x="250" y="75" textAnchor="middle" fontSize="14" fontWeight="700" fill="#75757D">vs</text>
+      <text x="250" y="75" textAnchor="middle" fontSize="14" fontWeight="700" fill="#717680">vs</text>
       
       {/* What they ignore */}
       <rect x="300" y="0" width="200" height="130" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
@@ -169,11 +169,11 @@ const Mistake1SVG = () => (
 const Mistake2SVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="600" fill="#C7363B">Mistake #2: Selling Without Considering Timing</text>
-    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#75757D">Making sell decisions based only on price</text>
+    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#717680">Making sell decisions based only on price</text>
     
     {/* Timeline showing two scenarios */}
     <g transform="translate(50, 80)">
@@ -182,9 +182,9 @@ const Mistake2SVG = () => (
       <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Hasty Decision</text>
       
       {/* Timeline */}
-      <line x1="30" y1="70" x2="250" y2="70" stroke="#CFCBC1" strokeWidth="2"/>
+      <line x1="30" y1="70" x2="250" y2="70" stroke="#CFD0D3" strokeWidth="2"/>
       <circle cx="60" cy="70" r="8" fill="#5A77AA"/>
-      <text x="60" y="90" textAnchor="middle" fontSize="7" fill="#75757D">Buy</text>
+      <text x="60" y="90" textAnchor="middle" fontSize="7" fill="#717680">Buy</text>
       
       <circle cx="140" cy="70" r="8" fill="#E04848"/>
       <text x="140" y="55" textAnchor="middle" fontSize="7" fill="#C7363B">Sell (11 months)</text>
@@ -194,20 +194,20 @@ const Mistake2SVG = () => (
       <text x="140" y="133" textAnchor="middle" fontSize="7" fill="#842428">(short-term holding)</text>
       
       {/* Scenario B: Patient approach */}
-      <rect x="320" y="0" width="280" height="140" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="320" y="0" width="280" height="140" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
       <text x="460" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Considered Decision</text>
       
       {/* Timeline */}
-      <line x1="350" y1="70" x2="570" y2="70" stroke="#CFCBC1" strokeWidth="2"/>
+      <line x1="350" y1="70" x2="570" y2="70" stroke="#CFD0D3" strokeWidth="2"/>
       <circle cx="380" cy="70" r="8" fill="#5A77AA"/>
-      <text x="380" y="90" textAnchor="middle" fontSize="7" fill="#75757D">Buy</text>
+      <text x="380" y="90" textAnchor="middle" fontSize="7" fill="#717680">Buy</text>
       
-      <circle cx="520" cy="70" r="8" fill="#1FA978"/>
+      <circle cx="520" cy="70" r="8" fill="#12805A"/>
       <text x="520" y="55" textAnchor="middle" fontSize="7" fill="#12805A">Sell (13+ months)</text>
       <text x="520" y="90" textAnchor="middle" fontSize="7" fill="#12805A">Aware of timing</text>
       
-      <text x="460" y="120" textAnchor="middle" fontSize="8" fill="#0D543C">Result: May qualify for different treatment</text>
-      <text x="460" y="133" textAnchor="middle" fontSize="7" fill="#0D543C">(long-term holding)</text>
+      <text x="460" y="120" textAnchor="middle" fontSize="8" fill="#12805A">Result: May qualify for different treatment</text>
+      <text x="460" y="133" textAnchor="middle" fontSize="7" fill="#12805A">(long-term holding)</text>
     </g>
     
     {/* Key point */}
@@ -221,11 +221,11 @@ const Mistake2SVG = () => (
 const Mistake3SVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="600" fill="#C7363B">Mistake #3: Misunderstanding What Gets Taxed</text>
-    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#75757D">Confusion about realized vs unrealized gains</text>
+    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#717680">Confusion about realized vs unrealized gains</text>
     
     {/* Two scenarios */}
     <g transform="translate(50, 75)">
@@ -242,7 +242,7 @@ const Mistake3SVG = () => (
       
       <text x="170" y="80" fontSize="9" fill="#2C3F5E">• Paper profit only</text>
       <text x="170" y="95" fontSize="9" fill="#2C3F5E">• Not yet sold</text>
-      <text x="170" y="110" fontSize="9" fill="#1FA978" fontWeight="600">• Generally not taxed yet</text>
+      <text x="170" y="110" fontSize="9" fill="#12805A" fontWeight="600">• Generally not taxed yet</text>
       
       {/* Realized */}
       <rect x="320" y="0" width="280" height="150" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="2"/>
@@ -275,20 +275,20 @@ const Mistake3SVG = () => (
 const SmallMistakesCompoundSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="600" fill="#2C3F5E">Small Mistakes Add Up Over Time</text>
-    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#75757D">Why awareness matters for long-term wealth</text>
+    <text x="350" y="52" textAnchor="middle" fontSize="11" fill="#717680">Why awareness matters for long-term wealth</text>
     
     {/* Compounding visual */}
     <g transform="translate(80, 70)">
       {/* Year labels */}
-      <text x="70" y="170" textAnchor="middle" fontSize="8" fill="#75757D">Year 1</text>
-      <text x="180" y="170" textAnchor="middle" fontSize="8" fill="#75757D">Year 5</text>
-      <text x="290" y="170" textAnchor="middle" fontSize="8" fill="#75757D">Year 10</text>
-      <text x="400" y="170" textAnchor="middle" fontSize="8" fill="#75757D">Year 20</text>
-      <text x="510" y="170" textAnchor="middle" fontSize="8" fill="#75757D">Year 30</text>
+      <text x="70" y="170" textAnchor="middle" fontSize="8" fill="#717680">Year 1</text>
+      <text x="180" y="170" textAnchor="middle" fontSize="8" fill="#717680">Year 5</text>
+      <text x="290" y="170" textAnchor="middle" fontSize="8" fill="#717680">Year 10</text>
+      <text x="400" y="170" textAnchor="middle" fontSize="8" fill="#717680">Year 20</text>
+      <text x="510" y="170" textAnchor="middle" fontSize="8" fill="#717680">Year 30</text>
       
       {/* Small leak visual - growing drops */}
       <circle cx="70" cy="130" r="8" fill="#E04848" opacity="0.6"/>
@@ -306,8 +306,8 @@ const SmallMistakesCompoundSVG = () => (
     </g>
     
     {/* Explanation */}
-    <rect x="100" y="210" width="500" height="55" fill="#232327" rx="10"/>
-    <text x="350" y="230" textAnchor="middle" fontSize="10" fill="#A3A1A6">The Impact:</text>
+    <rect x="100" y="210" width="500" height="55" fill="#2A2A2C" rx="10"/>
+    <text x="350" y="230" textAnchor="middle" fontSize="10" fill="#A0A3AA">The Impact:</text>
     <text x="350" y="248" textAnchor="middle" fontSize="10" fill="white">
       Repeated small tax inefficiencies, compounded over decades,
     </text>
@@ -321,32 +321,32 @@ const SmallMistakesCompoundSVG = () => (
 const GlobalExampleSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#2C3F5E">Example: Jordan's Tax Surprise</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="11" fill="#75757D">A common scenario many beginners experience</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="11" fill="#717680">A common scenario many beginners experience</text>
     
     {/* Character */}
     <g transform="translate(80, 80)">
       <circle cx="40" cy="30" r="25" fill="#E0E7F1" stroke="#5A77AA" strokeWidth="2"/>
       <text x="40" y="35" textAnchor="middle" fontSize="20">👤</text>
       <text x="40" y="75" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">Jordan</text>
-      <text x="40" y="90" textAnchor="middle" fontSize="8" fill="#75757D">New Investor</text>
+      <text x="40" y="90" textAnchor="middle" fontSize="8" fill="#717680">New Investor</text>
     </g>
     
     {/* Story timeline */}
     <g transform="translate(160, 70)">
       {/* Step 1 */}
-      <rect x="0" y="0" width="150" height="85" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="0" y="0" width="150" height="85" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
       <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">January</text>
-      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#0D543C">Buys stocks for</text>
+      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#12805A">Buys stocks for</text>
       <text x="75" y="55" textAnchor="middle" fontSize="14" fontWeight="700" fill="#12805A">$5,000</text>
-      <text x="75" y="75" textAnchor="middle" fontSize="7" fill="#0D543C">Excited to start investing</text>
+      <text x="75" y="75" textAnchor="middle" fontSize="7" fill="#12805A">Excited to start investing</text>
       
       {/* Arrow */}
-      <line x1="160" y1="42" x2="185" y2="42" stroke="#A3A1A6" strokeWidth="2"/>
-      <polygon points="183,37 195,42 183,47" fill="#A3A1A6"/>
+      <line x1="160" y1="42" x2="185" y2="42" stroke="#A0A3AA" strokeWidth="2"/>
+      <polygon points="183,37 195,42 183,47" fill="#A0A3AA"/>
       
       {/* Step 2 */}
       <rect x="200" y="0" width="150" height="85" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="1"/>
@@ -356,8 +356,8 @@ const GlobalExampleSVG = () => (
       <text x="275" y="75" textAnchor="middle" fontSize="7" fill="#654B26">Happy about $2,000 gain!</text>
       
       {/* Arrow */}
-      <line x1="360" y1="42" x2="385" y2="42" stroke="#A3A1A6" strokeWidth="2"/>
-      <polygon points="383,37 395,42 383,47" fill="#A3A1A6"/>
+      <line x1="360" y1="42" x2="385" y2="42" stroke="#A0A3AA" strokeWidth="2"/>
+      <polygon points="383,37 395,42 383,47" fill="#A0A3AA"/>
     </g>
     
     {/* The surprise */}
@@ -389,7 +389,7 @@ const GlobalExampleSVG = () => (
 const ThreeMistakesSummarySVG = () => (
   <svg viewBox="0 0 700 220" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="220" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="220" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
     <text x="350" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#2C3F5E">Three Common Mistakes to Be Aware Of</text>
@@ -422,8 +422,8 @@ const ThreeMistakesSummarySVG = () => (
     </g>
     
     {/* Bottom note */}
-    <rect x="150" y="180" width="400" height="28" fill="#D5F2E5" rx="6"/>
-    <text x="350" y="199" textAnchor="middle" fontSize="9" fill="#0D543C">
+    <rect x="150" y="180" width="400" height="28" fill="#EEF9F4" rx="6"/>
+    <text x="350" y="199" textAnchor="middle" fontSize="9" fill="#12805A">
       ✓ Awareness of these mistakes is the first step to avoiding them.
     </text>
   </svg>
@@ -433,7 +433,7 @@ const ThreeMistakesSummarySVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#mistakesGradient)" rx="16"/>
@@ -462,7 +462,7 @@ const IndiaNoteSVG = () => (
     {/* Flag colors accent */}
     <rect x="0" y="0" width="8" height="140" fill="#D2754C" rx="4"/>
     <rect x="8" y="0" width="4" height="140" fill="white"/>
-    <rect x="12" y="0" width="8" height="140" fill="#1FA978"/>
+    <rect x="12" y="0" width="8" height="140" fill="#12805A"/>
     
     {/* Content */}
     <text x="350" y="30" textAnchor="middle" fontSize="13" fontWeight="600" fill="#9C4D2E">🇮🇳 India-Specific Note</text>
@@ -549,14 +549,14 @@ const TaxLesson6 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 6 of 6
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Common Tax Mistakes Beginners Make</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Common Tax Mistakes Beginners Make</h1>
             <p className="text-gray-600 mt-2">Awareness of pitfalls helps you avoid them</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Tax Mistakes Happen</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Tax Mistakes Happen</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -781,7 +781,7 @@ const TaxLesson6 = () => {
         </div>
 
         {/* Module Complete */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">🎉 Module Complete!</h3>
           <p className="text-lg mb-4">
             Congratulations! You've completed the Tax Basics module. You now have foundational 
@@ -812,7 +812,7 @@ const TaxLesson6 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/taxes')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Back to Module</span>
             <FaArrowRight />

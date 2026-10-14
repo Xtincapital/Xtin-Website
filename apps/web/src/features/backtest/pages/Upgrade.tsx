@@ -41,7 +41,7 @@ const COMPARE: [string, string | boolean, string | boolean][] = [
 ];
 
 const Cell = ({ v }: { v: string | boolean }) =>
-  typeof v === "string" ? <span className="font-semibold">{v}</span> : v ? <Check className="mx-auto h-4 w-4 text-emerald-600 dark:text-emerald-400" /> : <Minus className="mx-auto h-4 w-4 text-slate-300 dark:text-slate-600" />;
+  typeof v === "string" ? <span className="font-semibold">{v}</span> : v ? <Check className="mx-auto h-4 w-4 text-brand dark:text-brand" /> : <Minus className="mx-auto h-4 w-4 text-slate-300 dark:text-slate-600" />;
 
 export default function Upgrade() {
   const qc = useQueryClient();
@@ -123,7 +123,7 @@ export default function Upgrade() {
           </div>
           {p.tier !== "pro" && p.backtests_limit ? (
             <div className="h-2 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
-              <div className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-500" style={{ width: `${Math.min(100, ((p.backtests_used ?? 0) / p.backtests_limit) * 100)}%` }} />
+              <div className="h-full rounded-full bg-brand-fill" style={{ width: `${Math.min(100, ((p.backtests_used ?? 0) / p.backtests_limit) * 100)}%` }} />
             </div>
           ) : null}
         </div>
@@ -140,18 +140,18 @@ export default function Upgrade() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-emerald-400/70 bg-gradient-to-b from-[#10233a] to-[#0A0A0B] text-white shadow-[0_18px_50px_-12px_rgba(31, 169, 120,0.45)] lg:-my-2 lg:py-7" : card}`}
+              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-brand/70 bg-gradient-to-b from-[#10233a] to-[#131417] text-white shadow-[0_18px_50px_-12px_rgba(31, 169, 120,0.45)] lg:-my-2 lg:py-7" : card}`}
             >
               {x.tag && (
-                <span className={`absolute -top-3 left-5 rounded-full px-3 py-0.5 text-[11px] font-bold tracking-wider ${featured ? "bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-900" : "bg-amber-400 text-slate-900"}`}>{x.tag}</span>
+                <span className={`absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-bold tracking-wider ${featured ? " text-slate-900" : "bg-amber-400 text-slate-900"} bg-brand-fill`}>{x.tag}</span>
               )}
-              <div className={`text-sm font-semibold ${featured ? "text-emerald-300" : ""}`}>{x.label}</div>
+              <div className={`text-sm font-semibold ${featured ? "text-brand" : ""}`}>{x.label}</div>
               <div className="mt-3 text-3xl font-semibold tracking-[-0.02em] tabular-nums">{inrCharge(x.amount_paise / 100)}</div>
               <ApproxPrice inr={x.amount_paise / 100} className={`block ${featured ? "text-slate-400" : muted}`} />
               <div className={`mt-1 text-xs ${featured ? "text-slate-400" : muted}`}>
                 {x.days} days · <span className="tabular-nums">{inrCharge(perDay)}</span>/day
               </div>
-              {x.amount_paise / x.days === cheapestPerDay && <div className="mt-2 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Lowest per-day price</div>}
+              {x.amount_paise / x.days === cheapestPerDay && <div className="mt-2 text-xs font-semibold text-brand dark:text-brand">Lowest per-day price</div>}
               <button
                 onClick={() => void buy(x.id)}
                 disabled={busy !== null}
@@ -171,11 +171,11 @@ export default function Upgrade() {
       <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className={`${card} overflow-hidden`}>
           <table className="w-full text-sm">
-            <thead className={`bg-slate-50 text-[11px] uppercase tracking-wider dark:bg-white/[0.03] ${muted}`}>
+            <thead className={`bg-slate-50 text-xs uppercase tracking-wider dark:bg-white/[0.03] ${muted}`}>
               <tr>
                 <th className="px-5 py-3 text-left font-semibold">What you get</th>
                 <th className="w-32 px-3 py-3 text-center font-semibold">Free</th>
-                <th className="w-32 px-3 py-3 text-center font-semibold text-emerald-700 dark:text-emerald-400">Pro</th>
+                <th className="w-32 px-3 py-3 text-center font-semibold text-brand dark:text-brand">Pro</th>
               </tr>
             </thead>
             <tbody>
@@ -185,7 +185,7 @@ export default function Upgrade() {
                   <td className="px-3 py-3 text-center">
                     <Cell v={free} />
                   </td>
-                  <td className="bg-emerald-50/40 px-3 py-3 text-center dark:bg-emerald-500/5">
+                  <td className="bg-brand-soft px-3 py-3 text-center dark:bg-brand-soft">
                     <Cell v={pro} />
                   </td>
                 </tr>
@@ -201,7 +201,7 @@ export default function Upgrade() {
             { icon: Sparkles, title: "Pro the moment you pay", text: "Your pass activates instantly — even if your browser closes mid-checkout." },
           ].map(({ icon: Icon, title, text }) => (
             <li key={title} className={`${card} flex gap-3 p-4`}>
-              <Icon className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              <Icon className="mt-0.5 h-5 w-5 shrink-0 text-brand dark:text-brand" />
               <div>
                 <div className="font-semibold">{title}</div>
                 <div className={`text-xs ${muted}`}>{text}</div>

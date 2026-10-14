@@ -253,7 +253,7 @@ export default function Dashboard() {
                     className={
                       card.positive === undefined
                         ? "xt-metric text-foreground"
-                        : `xt-metric ${card.positive ? "text-success" : "text-destructive"}`
+                        : `xt-metric ${card.positive ? "text-brand" : "text-destructive"}`
                     }
                   >
                     <RollingNumber value={String(card.value)} />

@@ -27,11 +27,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
-                : 'border-gray-200 hover:border-emerald-400 hover:bg-emerald-50'
+                : 'border-gray-200 hover:border-brand hover:bg-brand-soft'
             }`}
           >
             {option}
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const DisciplineVsIntelligenceSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Discipline Beats Intelligence in Markets</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Knowing what to do means nothing without the consistency to do it</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Discipline Beats Intelligence in Markets</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Knowing what to do means nothing without the consistency to do it</text>
     
     {/* Intelligence side */}
     <g transform="translate(60, 80)">
@@ -84,21 +84,21 @@ const DisciplineVsIntelligenceSVG = () => (
     
     {/* Plus sign */}
     <g transform="translate(330, 140)">
-      <text x="0" y="0" fontSize="24" fontWeight="600" fill="#75757D">→</text>
+      <text x="0" y="0" fontSize="24" fontWeight="600" fill="#717680">→</text>
     </g>
     
     {/* Discipline side */}
     <g transform="translate(390, 80)">
-      <rect x="0" y="0" width="250" height="160" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="125" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0D543C">⚡ Discipline Applied</text>
+      <rect x="0" y="0" width="250" height="160" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="125" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">⚡ Discipline Applied</text>
       
       <g transform="translate(25, 50)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532">• Follows the plan consistently</text>
-        <text x="0" y="18" fontSize="9" fill="#0B4532">• Acts even when uncomfortable</text>
-        <text x="0" y="36" fontSize="9" fill="#0B4532">• Maintains habits over time</text>
-        <text x="0" y="54" fontSize="9" fill="#0B4532">• Stays calm under pressure</text>
-        <text x="0" y="72" fontSize="9" fill="#0B4532">• Knowledge becomes results</text>
-        <text x="0" y="90" fontSize="9" fill="#0D543C" fontWeight="600">= Long-term survival</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A">• Follows the plan consistently</text>
+        <text x="0" y="18" fontSize="9" fill="#12805A">• Acts even when uncomfortable</text>
+        <text x="0" y="36" fontSize="9" fill="#12805A">• Maintains habits over time</text>
+        <text x="0" y="54" fontSize="9" fill="#12805A">• Stays calm under pressure</text>
+        <text x="0" y="72" fontSize="9" fill="#12805A">• Knowledge becomes results</text>
+        <text x="0" y="90" fontSize="9" fill="#12805A" fontWeight="600">= Long-term survival</text>
       </g>
     </g>
   </svg>
@@ -108,11 +108,11 @@ const DisciplineVsIntelligenceSVG = () => (
 const WhatIsRiskDisciplineSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">What Is Risk Discipline?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The practice of consistent, repeated behaviors that protect your capital</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">What Is Risk Discipline?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The practice of consistent, repeated behaviors that protect your capital</text>
     
     {/* Central concept */}
     <g transform="translate(250, 75)">
@@ -123,13 +123,13 @@ const WhatIsRiskDisciplineSVG = () => (
     {/* Branches */}
     <g transform="translate(60, 150)">
       {/* Branch 1 */}
-      <rect x="0" y="0" width="170" height="70" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="85" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">🔄 Consistent Actions</text>
-      <text x="85" y="42" textAnchor="middle" fontSize="8" fill="#0B4532">Same rules, every time</text>
-      <text x="85" y="56" textAnchor="middle" fontSize="8" fill="#0B4532">No exceptions for "special" cases</text>
+      <rect x="0" y="0" width="170" height="70" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="85" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">🔄 Consistent Actions</text>
+      <text x="85" y="42" textAnchor="middle" fontSize="8" fill="#12805A">Same rules, every time</text>
+      <text x="85" y="56" textAnchor="middle" fontSize="8" fill="#12805A">No exceptions for "special" cases</text>
       
       {/* Line to center */}
-      <line x1="85" y1="-25" x2="250" y2="-50" stroke="#77D3AE" strokeWidth="2"/>
+      <line x1="85" y1="-25" x2="250" y2="-50" stroke="#3CCB97" strokeWidth="2"/>
     </g>
     
     <g transform="translate(265, 150)">
@@ -155,7 +155,7 @@ const WhatIsRiskDisciplineSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="250" width="500" height="35" fill="#232327" rx="8"/>
+    <rect x="100" y="250" width="500" height="35" fill="#2A2A2C" rx="8"/>
     <text x="350" y="272" textAnchor="middle" fontSize="10" fill="white">Discipline is not a single decision — it's thousands of small choices, made correctly, over time.</text>
   </svg>
 );
@@ -164,20 +164,20 @@ const WhatIsRiskDisciplineSVG = () => (
 const HabitLoopSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Discipline Habit Loop</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Good habits become automatic with repetition</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Discipline Habit Loop</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Good habits become automatic with repetition</text>
     
     {/* Circular habit loop */}
     <g transform="translate(200, 100)">
       {/* Circle path */}
-      <circle cx="150" cy="100" r="80" fill="none" stroke="#E4E1D9" strokeWidth="8"/>
+      <circle cx="150" cy="100" r="80" fill="none" stroke="#E4E4EA" strokeWidth="8"/>
       
       {/* Arrows on circle */}
-      <path d="M150 20 A80 80 0 0 1 230 100" fill="none" stroke="#1FA978" strokeWidth="6" strokeLinecap="round"/>
-      <polygon points="225,90 235,100 225,110" fill="#1FA978"/>
+      <path d="M150 20 A80 80 0 0 1 230 100" fill="none" stroke="#12805A" strokeWidth="6" strokeLinecap="round"/>
+      <polygon points="225,90 235,100 225,110" fill="#12805A"/>
       
       <path d="M230 100 A80 80 0 0 1 150 180" fill="none" stroke="#5A77AA" strokeWidth="6" strokeLinecap="round"/>
       <polygon points="160,175 150,185 140,175" fill="#5A77AA"/>
@@ -190,7 +190,7 @@ const HabitLoopSVG = () => (
       
       {/* Labels */}
       <g transform="translate(130, -5)">
-        <rect x="0" y="0" width="80" height="25" fill="#1FA978" rx="6"/>
+        <rect x="0" y="0" width="80" height="25" fill="#12805A" rx="6"/>
         <text x="40" y="17" textAnchor="middle" fontSize="8" fontWeight="600" fill="white">1. TRIGGER</text>
       </g>
       
@@ -210,19 +210,19 @@ const HabitLoopSVG = () => (
       </g>
       
       {/* Center text */}
-      <text x="150" y="95" textAnchor="middle" fontSize="10" fontWeight="600" fill="#404047">HABIT</text>
-      <text x="150" y="110" textAnchor="middle" fontSize="10" fontWeight="600" fill="#404047">LOOP</text>
+      <text x="150" y="95" textAnchor="middle" fontSize="10" fontWeight="600" fill="#373A41">HABIT</text>
+      <text x="150" y="110" textAnchor="middle" fontSize="10" fontWeight="600" fill="#373A41">LOOP</text>
     </g>
     
     {/* Example */}
     <g transform="translate(480, 80)">
-      <rect x="0" y="0" width="180" height="140" fill="#EEF9F4" rx="10" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="90" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Example:</text>
-      <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#0B4532">Trigger: About to enter position</text>
-      <text x="90" y="65" textAnchor="middle" fontSize="8" fill="#0B4532">Action: Check position size</text>
-      <text x="90" y="85" textAnchor="middle" fontSize="8" fill="#0B4532">Result: Appropriate exposure</text>
-      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#0B4532">Reinforce: Peace of mind</text>
-      <text x="90" y="128" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">→ Becomes automatic</text>
+      <rect x="0" y="0" width="180" height="140" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="90" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Example:</text>
+      <text x="90" y="45" textAnchor="middle" fontSize="8" fill="#12805A">Trigger: About to enter position</text>
+      <text x="90" y="65" textAnchor="middle" fontSize="8" fill="#12805A">Action: Check position size</text>
+      <text x="90" y="85" textAnchor="middle" fontSize="8" fill="#12805A">Result: Appropriate exposure</text>
+      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#12805A">Reinforce: Peace of mind</text>
+      <text x="90" y="128" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">→ Becomes automatic</text>
     </g>
     
     {/* Bottom insight */}
@@ -235,11 +235,11 @@ const HabitLoopSVG = () => (
 const HabitTimeframesSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Discipline Habits Across Timeframes</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Different habits for different rhythms</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Discipline Habits Across Timeframes</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Different habits for different rhythms</text>
     
     {/* Daily */}
     <g transform="translate(50, 75)">
@@ -269,28 +269,28 @@ const HabitTimeframesSVG = () => (
     
     {/* Weekly */}
     <g transform="translate(255, 75)">
-      <rect x="0" y="0" width="190" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="95" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">📊 Weekly Habits</text>
+      <rect x="0" y="0" width="190" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="95" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">📊 Weekly Habits</text>
       
       <g transform="translate(15, 50)">
-        <circle cx="8" cy="8" r="4" fill="#1FA978"/>
-        <text x="20" y="12" fontSize="8" fill="#0B4532">Review week's decisions</text>
+        <circle cx="8" cy="8" r="4" fill="#12805A"/>
+        <text x="20" y="12" fontSize="8" fill="#12805A">Review week's decisions</text>
         
-        <circle cx="8" cy="28" r="4" fill="#1FA978"/>
-        <text x="20" y="32" fontSize="8" fill="#0B4532">Check overall allocation</text>
+        <circle cx="8" cy="28" r="4" fill="#12805A"/>
+        <text x="20" y="32" fontSize="8" fill="#12805A">Check overall allocation</text>
         
-        <circle cx="8" cy="48" r="4" fill="#1FA978"/>
-        <text x="20" y="52" fontSize="8" fill="#0B4532">Identify any rule breaks</text>
+        <circle cx="8" cy="48" r="4" fill="#12805A"/>
+        <text x="20" y="52" fontSize="8" fill="#12805A">Identify any rule breaks</text>
         
-        <circle cx="8" cy="68" r="4" fill="#1FA978"/>
-        <text x="20" y="72" fontSize="8" fill="#0B4532">Assess emotional patterns</text>
+        <circle cx="8" cy="68" r="4" fill="#12805A"/>
+        <text x="20" y="72" fontSize="8" fill="#12805A">Assess emotional patterns</text>
         
-        <circle cx="8" cy="88" r="4" fill="#1FA978"/>
-        <text x="20" y="92" fontSize="8" fill="#0B4532">Plan adjustments if needed</text>
+        <circle cx="8" cy="88" r="4" fill="#12805A"/>
+        <text x="20" y="92" fontSize="8" fill="#12805A">Plan adjustments if needed</text>
       </g>
       
       <rect x="15" y="160" width="160" height="28" fill="#EEF9F4" rx="6"/>
-      <text x="95" y="178" textAnchor="middle" fontSize="8" fill="#0D543C">Frequency: Once weekly</text>
+      <text x="95" y="178" textAnchor="middle" fontSize="8" fill="#12805A">Frequency: Once weekly</text>
     </g>
     
     {/* Long-term */}
@@ -321,8 +321,8 @@ const HabitTimeframesSVG = () => (
     
     {/* Connection arrow */}
     <g transform="translate(100, 290)">
-      <line x1="0" y1="0" x2="500" y2="0" stroke="#75757D" strokeWidth="2" markerEnd="url(#arrowhead)"/>
-      <text x="250" y="18" textAnchor="middle" fontSize="9" fill="#75757D">All timeframes work together to build lasting discipline</text>
+      <line x1="0" y1="0" x2="500" y2="0" stroke="#717680" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+      <text x="250" y="18" textAnchor="middle" fontSize="9" fill="#717680">All timeframes work together to build lasting discipline</text>
     </g>
   </svg>
 );
@@ -331,11 +331,11 @@ const HabitTimeframesSVG = () => (
 const OneTimeVsConsistentSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">One-Time Decisions vs Consistent Behavior</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Discipline is not a moment — it's a pattern</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">One-Time Decisions vs Consistent Behavior</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Discipline is not a moment — it's a pattern</text>
     
     {/* One-time decision */}
     <g transform="translate(60, 80)">
@@ -344,15 +344,15 @@ const OneTimeVsConsistentSVG = () => (
       
       {/* Timeline with single point */}
       <g transform="translate(30, 60)">
-        <line x1="0" y1="30" x2="200" y2="30" stroke="#E4E1D9" strokeWidth="2"/>
+        <line x1="0" y1="30" x2="200" y2="30" stroke="#E4E4EA" strokeWidth="2"/>
         
         {/* Single good decision */}
-        <circle cx="50" cy="30" r="10" fill="#1FA978"/>
-        <text x="50" y="50" textAnchor="middle" fontSize="7" fill="#0D543C">Good</text>
+        <circle cx="50" cy="30" r="10" fill="#12805A"/>
+        <text x="50" y="50" textAnchor="middle" fontSize="7" fill="#12805A">Good</text>
         
         {/* Followed by inconsistency */}
         <circle cx="100" cy="30" r="8" fill="#E04848"/>
-        <circle cx="140" cy="30" r="8" fill="#A3A1A6"/>
+        <circle cx="140" cy="30" r="8" fill="#A0A3AA"/>
         <circle cx="180" cy="30" r="8" fill="#E04848"/>
         
         <text x="140" y="55" textAnchor="middle" fontSize="7" fill="#842428">Inconsistent after</text>
@@ -365,26 +365,26 @@ const OneTimeVsConsistentSVG = () => (
     
     {/* Consistent behavior */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="260" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="130" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ Consistent Behavior</text>
+      <rect x="0" y="0" width="260" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="130" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ Consistent Behavior</text>
       
       {/* Timeline with consistent points */}
       <g transform="translate(30, 60)">
-        <line x1="0" y1="30" x2="200" y2="30" stroke="#77D3AE" strokeWidth="2"/>
+        <line x1="0" y1="30" x2="200" y2="30" stroke="#3CCB97" strokeWidth="2"/>
         
         {/* Consistent good decisions */}
-        <circle cx="25" cy="30" r="8" fill="#1FA978"/>
-        <circle cx="65" cy="30" r="8" fill="#1FA978"/>
-        <circle cx="105" cy="30" r="8" fill="#1FA978"/>
-        <circle cx="145" cy="30" r="8" fill="#1FA978"/>
-        <circle cx="185" cy="30" r="8" fill="#1FA978"/>
+        <circle cx="25" cy="30" r="8" fill="#12805A"/>
+        <circle cx="65" cy="30" r="8" fill="#12805A"/>
+        <circle cx="105" cy="30" r="8" fill="#12805A"/>
+        <circle cx="145" cy="30" r="8" fill="#12805A"/>
+        <circle cx="185" cy="30" r="8" fill="#12805A"/>
         
-        <text x="100" y="55" textAnchor="middle" fontSize="7" fill="#0D543C">Pattern of discipline</text>
+        <text x="100" y="55" textAnchor="middle" fontSize="7" fill="#12805A">Pattern of discipline</text>
       </g>
       
-      <text x="130" y="140" textAnchor="middle" fontSize="9" fill="#0B4532">"I follow my rules, always"</text>
-      <text x="130" y="158" textAnchor="middle" fontSize="9" fill="#0B4532">→ Compounds into protection</text>
-      <text x="130" y="172" textAnchor="middle" fontSize="8" fill="#0D543C">Many small right choices build survival</text>
+      <text x="130" y="140" textAnchor="middle" fontSize="9" fill="#12805A">"I follow my rules, always"</text>
+      <text x="130" y="158" textAnchor="middle" fontSize="9" fill="#12805A">→ Compounds into protection</text>
+      <text x="130" y="172" textAnchor="middle" fontSize="8" fill="#12805A">Many small right choices build survival</text>
     </g>
   </svg>
 );
@@ -393,21 +393,21 @@ const OneTimeVsConsistentSVG = () => (
 const TwoParticipantsSVG = () => (
   <svg viewBox="0 0 700 360" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="360" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="360" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Two Participants, Different Discipline Levels</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same starting point, divergent paths over time</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Two Participants, Different Discipline Levels</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same starting point, divergent paths over time</text>
     
     {/* Starting point */}
     <g transform="translate(300, 70)">
-      <rect x="0" y="0" width="100" height="30" fill="#75757D" rx="6"/>
+      <rect x="0" y="0" width="100" height="30" fill="#717680" rx="6"/>
       <text x="50" y="20" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">Year 0: Start</text>
     </g>
     
     {/* Branching paths */}
     <path d="M350 100 L200 140" fill="none" stroke="#E04848" strokeWidth="2"/>
-    <path d="M350 100 L500 140" fill="none" stroke="#1FA978" strokeWidth="2"/>
+    <path d="M350 100 L500 140" fill="none" stroke="#12805A" strokeWidth="2"/>
     
     {/* Undisciplined path */}
     <g transform="translate(50, 145)">
@@ -429,20 +429,20 @@ const TwoParticipantsSVG = () => (
     
     {/* Disciplined path */}
     <g transform="translate(370, 145)">
-      <rect x="0" y="0" width="280" height="185" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">😌 Participant B: Disciplined</text>
+      <rect x="0" y="0" width="280" height="185" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">😌 Participant B: Disciplined</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="8" fill="#0B4532">Year 1: Followed rules, modest progress</text>
-        <text x="0" y="18" fontSize="8" fill="#0B4532">Year 2: Weathered volatility, stayed calm</text>
-        <text x="0" y="36" fontSize="8" fill="#0B4532">Year 3: Continued consistency, growing</text>
-        <text x="0" y="54" fontSize="8" fill="#0B4532">Year 4: Avoided major mistakes</text>
-        <text x="0" y="72" fontSize="8" fill="#0B4532">Year 5: Compounding working in their favor</text>
+        <text x="0" y="0" fontSize="8" fill="#12805A">Year 1: Followed rules, modest progress</text>
+        <text x="0" y="18" fontSize="8" fill="#12805A">Year 2: Weathered volatility, stayed calm</text>
+        <text x="0" y="36" fontSize="8" fill="#12805A">Year 3: Continued consistency, growing</text>
+        <text x="0" y="54" fontSize="8" fill="#12805A">Year 4: Avoided major mistakes</text>
+        <text x="0" y="72" fontSize="8" fill="#12805A">Year 5: Compounding working in their favor</text>
       </g>
       
       <rect x="20" y="135" width="240" height="40" fill="#ABE5CC" rx="6"/>
-      <text x="140" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Result: Steady growth, peace of mind</text>
-      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#0B4532">Discipline turned time into an ally</text>
+      <text x="140" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Result: Steady growth, peace of mind</text>
+      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#12805A">Discipline turned time into an ally</text>
     </g>
   </svg>
 );
@@ -451,30 +451,30 @@ const TwoParticipantsSVG = () => (
 const SurvivalCurveSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Long-Term Survival Curve</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Discipline determines who stays in the game</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Long-Term Survival Curve</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Discipline determines who stays in the game</text>
     
     {/* Chart area */}
     <g transform="translate(80, 80)">
       {/* Axes */}
-      <line x1="0" y1="170" x2="540" y2="170" stroke="#CFCBC1" strokeWidth="2"/>
-      <line x1="0" y1="0" x2="0" y2="170" stroke="#CFCBC1" strokeWidth="2"/>
+      <line x1="0" y1="170" x2="540" y2="170" stroke="#CFD0D3" strokeWidth="2"/>
+      <line x1="0" y1="0" x2="0" y2="170" stroke="#CFD0D3" strokeWidth="2"/>
       
       {/* Y-axis label */}
-      <text x="-20" y="85" textAnchor="middle" fontSize="9" fill="#75757D" transform="rotate(-90, -20, 85)">Participants Remaining</text>
+      <text x="-20" y="85" textAnchor="middle" fontSize="9" fill="#717680" transform="rotate(-90, -20, 85)">Participants Remaining</text>
       
       {/* X-axis label */}
-      <text x="270" y="195" textAnchor="middle" fontSize="9" fill="#75757D">Time (Years)</text>
+      <text x="270" y="195" textAnchor="middle" fontSize="9" fill="#717680">Time (Years)</text>
       
       {/* X-axis markers */}
-      <text x="0" y="185" textAnchor="middle" fontSize="8" fill="#A3A1A6">0</text>
-      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#A3A1A6">5</text>
-      <text x="270" y="185" textAnchor="middle" fontSize="8" fill="#A3A1A6">10</text>
-      <text x="405" y="185" textAnchor="middle" fontSize="8" fill="#A3A1A6">15</text>
-      <text x="540" y="185" textAnchor="middle" fontSize="8" fill="#A3A1A6">20</text>
+      <text x="0" y="185" textAnchor="middle" fontSize="8" fill="#A0A3AA">0</text>
+      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#A0A3AA">5</text>
+      <text x="270" y="185" textAnchor="middle" fontSize="8" fill="#A0A3AA">10</text>
+      <text x="405" y="185" textAnchor="middle" fontSize="8" fill="#A0A3AA">15</text>
+      <text x="540" y="185" textAnchor="middle" fontSize="8" fill="#A0A3AA">20</text>
       
       {/* Undisciplined curve - drops sharply */}
       <path d="M0 20 Q50 30 100 60 Q150 100 200 130 Q250 150 300 158 Q400 165 540 168" 
@@ -484,17 +484,17 @@ const SurvivalCurveSVG = () => (
       
       {/* Disciplined curve - stays higher */}
       <path d="M0 20 Q100 25 200 35 Q300 50 400 65 Q500 80 540 90" 
-            fill="none" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
-      <text x="460" y="80" fontSize="8" fill="#0D543C">Disciplined</text>
-      <text x="460" y="93" fontSize="7" fill="#0B4532">(Most survive)</text>
+            fill="none" stroke="#12805A" strokeWidth="3" strokeLinecap="round"/>
+      <text x="460" y="80" fontSize="8" fill="#12805A">Disciplined</text>
+      <text x="460" y="93" fontSize="7" fill="#12805A">(Most survive)</text>
       
       {/* Starting point */}
-      <circle cx="0" cy="20" r="6" fill="#75757D"/>
-      <text x="15" y="15" fontSize="8" fill="#75757D">Everyone starts here</text>
+      <circle cx="0" cy="20" r="6" fill="#717680"/>
+      <text x="15" y="15" fontSize="8" fill="#717680">Everyone starts here</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="260" width="500" height="28" fill="#232327" rx="6"/>
+    <rect x="100" y="260" width="500" height="28" fill="#2A2A2C" rx="6"/>
     <text x="350" y="279" textAnchor="middle" fontSize="9" fill="white">The market doesn't care about brilliance. It rewards those who survive long enough to benefit.</text>
   </svg>
 );
@@ -503,7 +503,7 @@ const SurvivalCurveSVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#disciplineGradient)" rx="16"/>
@@ -555,29 +555,29 @@ const RiskLesson7 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 transition-colors mb-4"
+            className="flex items-center gap-2 text-brand hover:text-brand transition-colors mb-4"
           >
             <FaArrowLeft />
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 7 of 7 — Final Lesson
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Risk Discipline & Long-Term Survival</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Risk Discipline & Long-Term Survival</h1>
             <p className="text-gray-600 mt-2">Building habits that protect you for decades</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Discipline Matters More Than Intelligence</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Discipline Matters More Than Intelligence</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -749,8 +749,8 @@ const RiskLesson7 = () => {
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <KeyTakeawaySVG />
           
-          <div className="mt-6 bg-emerald-50 rounded-xl p-5 border border-emerald-200">
-            <p className="text-emerald-800 font-medium">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand font-medium">
               Remember: Discipline isn't about being perfect. You'll make mistakes. What 
               matters is that your baseline behavior — your default patterns — protect your 
               capital. When discipline is your habit, occasional errors don't compound into 
@@ -760,9 +760,9 @@ const RiskLesson7 = () => {
         </div>
 
         {/* India-specific Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Context</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Context</h3>
+          <p className="text-brand">
             Disciplined investing is emphasized in every major financial market worldwide. 
             From Warren Buffett in the United States to disciplined fund managers in Europe, 
             Asia, and India, the message is consistent: long-term success comes from 
@@ -781,22 +781,22 @@ const RiskLesson7 = () => {
         </div>
 
         {/* Final Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 bg-brand-soft">
           <div className="flex items-start gap-4">
-            <div className="bg-emerald-500 rounded-full p-3">
+            <div className="bg-brand-fill rounded-full p-3">
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Final Reflection: Your Commitment</h3>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200">
+              <h3 className="text-xl font-semibold text-brand mb-3">Final Reflection: Your Commitment</h3>
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <p className="text-gray-800 font-medium mb-4">
                   As you complete this module, make a commitment to yourself:
                 </p>
-                <div className="bg-emerald-50 rounded-lg p-4 mb-4">
-                  <p className="text-emerald-900 font-semibold text-lg mb-2">
+                <div className="bg-brand-soft rounded-lg p-4 mb-4">
+                  <p className="text-brand font-semibold text-lg mb-2">
                     What is ONE discipline habit you will commit to practicing consistently?
                   </p>
-                  <p className="text-emerald-800 text-sm">
+                  <p className="text-brand text-sm">
                     Choose something specific and actionable. Not "be more careful" but 
                     something like "always check my position size before entering" or 
                     "review my week's decisions every Sunday."
@@ -804,15 +804,15 @@ const RiskLesson7 = () => {
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">1.</span>
+                    <span className="text-brand font-bold">1.</span>
                     <span>Write down your chosen habit. Make it specific enough that you'll know whether you did it or not.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">2.</span>
+                    <span className="text-brand font-bold">2.</span>
                     <span>Decide when and how often you'll practice it. Daily? Weekly? Before every decision?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">3.</span>
+                    <span className="text-brand font-bold">3.</span>
                     <span>Commit to practicing it for at least 30 days without exception. After that, it will start becoming automatic.</span>
                   </li>
                 </ul>
@@ -829,12 +829,12 @@ const RiskLesson7 = () => {
         </div>
 
         {/* Module Completion Summary */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaTrophy className="text-yellow-300 text-2xl" />
             <h3 className="text-xl font-semibold">Module Complete: Risk Management Mastery</h3>
           </div>
-          <p className="text-emerald-100 mb-4">
+          <p className="text-white/85 mb-4">
             Congratulations on completing the Risk Management module. You've learned the 
             foundational principles that separate long-term survivors from those who exit early.
           </p>
@@ -868,7 +868,7 @@ const RiskLesson7 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <FaTrophy className="text-yellow-300" />
             <span>Complete Module</span>

@@ -189,7 +189,7 @@ const AdminCertificates = () => {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <p className="text-lg text-gray-600 dark:text-slate-300">Please log in to access the admin panel.</p>
       </div>
     );
@@ -197,7 +197,7 @@ const AdminCertificates = () => {
 
   if (!isAuthorized) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="max-w-md rounded-2xl border border-red-200 bg-white p-8 text-center shadow-lg dark:border-red-900/50 dark:bg-slate-800">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
             <svg className="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,11 +221,11 @@ const AdminCertificates = () => {
       <SEO title="Admin — Certificate Management — Xtin Capital" />
       <AdminHeader />
 
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      <div className="min-h-screen bg-background">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-display font-normal text-gray-900 dark:text-slate-100 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
               Certificate Management
             </h1>
             <p className="mt-2 text-gray-600 dark:text-slate-400">
@@ -256,7 +256,7 @@ const AdminCertificates = () => {
                       className={`w-full rounded-xl border px-4 py-3 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 ${
                         formErrors.intern_name
                           ? 'border-red-400 focus:border-red-500 focus:ring-red-200 dark:border-red-500'
-                          : 'border-gray-200 focus:border-emerald-500 focus:ring-emerald-200 dark:border-slate-600 dark:focus:border-emerald-400 dark:focus:ring-emerald-900'
+                          : 'border-gray-200 focus:border-brand focus:ring-brand-line dark:border-slate-600 dark:focus:border-brand dark:focus:ring-brand'
                       }`}
                     />
                     {formErrors.intern_name && (
@@ -278,7 +278,7 @@ const AdminCertificates = () => {
                       className={`w-full rounded-xl border px-4 py-3 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 ${
                         formErrors.intern_role
                           ? 'border-red-400 focus:border-red-500 focus:ring-red-200 dark:border-red-500'
-                          : 'border-gray-200 focus:border-emerald-500 focus:ring-emerald-200 dark:border-slate-600 dark:focus:border-emerald-400 dark:focus:ring-emerald-900'
+                          : 'border-gray-200 focus:border-brand focus:ring-brand-line dark:border-slate-600 dark:focus:border-brand dark:focus:ring-brand'
                       }`}
                     />
                     {formErrors.intern_role && (
@@ -299,7 +299,7 @@ const AdminCertificates = () => {
                       className={`w-full rounded-xl border px-4 py-3 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 ${
                         formErrors.start_date
                           ? 'border-red-400 focus:border-red-500 focus:ring-red-200 dark:border-red-500'
-                          : 'border-gray-200 focus:border-emerald-500 focus:ring-emerald-200 dark:border-slate-600 dark:focus:border-emerald-400 dark:focus:ring-emerald-900'
+                          : 'border-gray-200 focus:border-brand focus:ring-brand-line dark:border-slate-600 dark:focus:border-brand dark:focus:ring-brand'
                       }`}
                     />
                     {formErrors.start_date && (
@@ -320,7 +320,7 @@ const AdminCertificates = () => {
                       className={`w-full rounded-xl border px-4 py-3 text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 dark:bg-slate-700 dark:text-slate-100 ${
                         formErrors.end_date
                           ? 'border-red-400 focus:border-red-500 focus:ring-red-200 dark:border-red-500'
-                          : 'border-gray-200 focus:border-emerald-500 focus:ring-emerald-200 dark:border-slate-600 dark:focus:border-emerald-400 dark:focus:ring-emerald-900'
+                          : 'border-gray-200 focus:border-brand focus:ring-brand-line dark:border-slate-600 dark:focus:border-brand dark:focus:ring-brand'
                       }`}
                     />
                     {formErrors.end_date && (
@@ -339,7 +339,7 @@ const AdminCertificates = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+                    className="w-full rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-brand-fill dark:hover:bg-brand-hover brand-on-dark"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">
@@ -357,7 +357,7 @@ const AdminCertificates = () => {
 
                 {/* Success message */}
                 {submitSuccess && (
-                  <div className="mt-4 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300">
+                  <div className="mt-4 rounded-lg bg-brand-soft p-3 text-sm text-brand dark:bg-brand-soft dark:text-brand">
                     <p className="font-semibold">{submitSuccess.message}</p>
                   </div>
                 )}
@@ -385,7 +385,7 @@ const AdminCertificates = () => {
                         placeholder="Search by name or certificate ID..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full rounded-xl border border-gray-200 py-2.5 pl-10 pr-4 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-emerald-400 dark:focus:ring-emerald-900"
+                        className="w-full rounded-xl border border-gray-200 py-2.5 pl-10 pr-4 text-sm shadow-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-line dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:focus:border-brand dark:focus:ring-brand"
                       />
                     </div>
 
@@ -395,7 +395,7 @@ const AdminCertificates = () => {
                       <select
                         value={filterRevoked}
                         onChange={(e) => setFilterRevoked(e.target.value)}
-                        className="rounded-xl border border-gray-200 px-3 py-2.5 text-sm shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
+                        className="rounded-xl border border-gray-200 px-3 py-2.5 text-sm shadow-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-line dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100"
                       >
                         <option value="all">All</option>
                         <option value="active">Active</option>
@@ -409,14 +409,14 @@ const AdminCertificates = () => {
                 <div className="overflow-x-auto">
                   {isLoadingList ? (
                     <div className="flex items-center justify-center py-16">
-                      <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-600" />
+                      <div className="h-10 w-10 animate-spin rounded-full border-4 border-brand-line border-t-brand" />
                     </div>
                   ) : listError ? (
                     <div className="py-16 text-center">
                       <p className="text-red-500 dark:text-red-400">{listError}</p>
                       <button
                         onClick={() => fetchCertificates(1)}
-                        className="mt-3 text-sm font-semibold text-emerald-600 hover:text-emerald-500 dark:text-emerald-400"
+                        className="mt-3 text-sm font-semibold text-brand hover:text-brand dark:text-brand"
                       >
                         Try Again
                       </button>
@@ -475,7 +475,7 @@ const AdminCertificates = () => {
                                   Revoked
                                 </span>
                               ) : (
-                                <span className="inline-flex rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                                <span className="inline-flex rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-semibold text-brand dark:bg-brand-soft dark:text-brand">
                                   Active
                                 </span>
                               )}

@@ -209,7 +209,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -217,11 +217,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -231,7 +231,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -265,12 +265,12 @@ const MistakeCard = ({ number, title, icon: Icon, description, wrongWay, rightWa
           <p className="text-red-700 text-sm">{wrongWay}</p>
         </div>
         
-        <div className="bg-green-100 rounded-xl p-4 border border-green-200">
+        <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
           <div className="flex items-center gap-2 mb-2">
-            <Icons.Check className="w-4 h-4 text-green-600" />
-            <span className="font-semibold text-green-800 text-sm">Right Approach</span>
+            <Icons.Check className="w-4 h-4 text-brand" />
+            <span className="font-semibold text-brand text-sm">Right Approach</span>
           </div>
-          <p className="text-green-700 text-sm">{rightWay}</p>
+          <p className="text-brand text-sm">{rightWay}</p>
         </div>
       </div>
       
@@ -399,7 +399,7 @@ const StockMarketLesson7 = () => {
                 Module Complete!
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Warning className="w-7 h-7 text-rose-600" />
               </span>
@@ -514,69 +514,69 @@ const StockMarketLesson7 = () => {
                 <p className="text-red-600 text-xs font-medium">Lesson: Big name ≠ Good investment</p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-2">Success: Patient Investors</h4>
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-2">Success: Patient Investors</h4>
                 <p className="text-gray-700 text-sm mb-2">
                   Those who invested in Nifty 50 and held for 10+ years made 12-14% CAGR returns consistently.
                 </p>
-                <p className="text-green-600 text-xs font-medium">Lesson: Patience + Diversification = Success</p>
+                <p className="text-brand text-xs font-medium">Lesson: Patience + Diversification = Success</p>
               </div>
             </div>
           </div>
 
           {/* How to Protect Yourself */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-10 border border-green-200">
-            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
-              <Icons.Shield className="w-6 h-6 text-green-600" />
+          <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+            <h2 className="text-xl font-semibold text-brand mb-4 flex items-center gap-2">
+              <Icons.Shield className="w-6 h-6 text-brand" />
               <span>How to Protect Yourself</span>
             </h2>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
-                  <Icons.Learn className="w-5 h-5 text-green-600" />
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-3 flex items-center gap-2">
+                  <Icons.Learn className="w-5 h-5 text-brand" />
                   Before You Invest
                 </h4>
                 <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Learn the basics (you're doing this now!)</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Start with index funds or blue-chip stocks</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Only invest money you won't need for 5+ years</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Build emergency fund first (6 months expenses)</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
-                  <Icons.Target className="w-5 h-5 text-green-600" />
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-3 flex items-center gap-2">
+                  <Icons.Target className="w-5 h-5 text-brand" />
                   While You're Invested
                 </h4>
                 <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Diversify across 10-15 stocks minimum</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Use SIPs to avoid timing mistakes</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Review portfolio quarterly, not daily</span>
                   </li>
-                  <li className="flex items-start gap-2 text-green-700">
-                    <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li className="flex items-start gap-2 text-brand">
+                    <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                     <span>Stay calm during market crashes</span>
                   </li>
                 </ul>
@@ -675,7 +675,7 @@ const StockMarketLesson7 = () => {
           </div>
 
           {/* Module Completion */}
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 mb-10 text-white">
+          <div className="rounded-2xl p-8 mb-10 text-white bg-brand-fill">
             <div className="text-center">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Celebration className="w-8 h-8 text-white" />

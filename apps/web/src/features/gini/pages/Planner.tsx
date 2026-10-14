@@ -226,7 +226,7 @@ export default function Planner() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-primary" />
+                <TrendingUp className="h-4 w-4 text-brand" />
                 Planning Inputs
               </CardTitle>
             </CardHeader>
@@ -297,7 +297,7 @@ export default function Planner() {
                     <p className="xt-label">
                       Projected Corpus at Retirement
                     </p>
-                    <p className="mt-1 xt-metric text-success">{formatCurrency(base.projectedCorpus)}</p>
+                    <p className="mt-1 xt-metric text-brand">{formatCurrency(base.projectedCorpus)}</p>
                   </div>
                   <div className="rounded-lg border p-4">
                     <p className="xt-label">Total Amount Invested</p>
@@ -310,7 +310,7 @@ export default function Planner() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-muted-foreground mb-2">Wealth Growth Over Time</h4>
+                  <h4 className="text-base font-semibold text-muted-foreground mb-2">Wealth Growth Over Time</h4>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={base.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -380,7 +380,7 @@ export default function Planner() {
 
                 {goalMarkers.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center gap-1.5">
+                    <h4 className="text-base font-semibold text-muted-foreground mb-2 flex items-center gap-1.5">
                       <Target className="h-3.5 w-3.5" />
                       Goals within this horizon
                     </h4>
@@ -487,13 +487,13 @@ export default function Planner() {
               </div>
 
               <div className="rounded-lg bg-secondary p-5 text-center">
-                <h4 className="text-sm font-semibold text-muted-foreground mb-1">Adjusted Projection</h4>
+                <h4 className="text-base font-semibold text-muted-foreground mb-1">Adjusted Projection</h4>
                 {!base ? (
                   <p className="text-sm text-muted-foreground">Calculate a projection above to explore scenarios.</p>
                 ) : (
                   <>
                     <div className="text-2xl font-bold text-foreground">{formatCurrency(scenario!.adjustedCorpus)}</div>
-                    <div className={cn("text-sm font-medium mt-1", scenario!.change >= 0 ? "text-success" : "text-destructive")}>
+                    <div className={cn("text-sm font-medium mt-1", scenario!.change >= 0 ? "text-brand" : "text-destructive")}>
                       {scenario!.change >= 0 ? "↑ " : "↓ "}
                       {formatCurrency(Math.abs(scenario!.change))} ({scenario!.change >= 0 ? "+" : ""}
                       {scenario!.changePercent.toFixed(1)}%)

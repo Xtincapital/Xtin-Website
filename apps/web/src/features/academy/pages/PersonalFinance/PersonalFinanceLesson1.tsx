@@ -50,7 +50,7 @@ const PersonalFinanceLesson1 = () => {
     const isCorrect = userAnswer === correctAnswer;
 
     return (
-      <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-200 shadow-sm">
+      <div className="rounded-2xl p-6 border border-brand-line shadow-sm bg-brand-soft">
         <p className="font-semibold text-gray-900 mb-4 text-lg">{question}</p>
         <div className="space-y-3">
           {options.map((option, index) => {
@@ -58,13 +58,13 @@ const PersonalFinanceLesson1 = () => {
             const isSelected = userAnswer === optionLetter;
             const isCorrectOption = correctAnswer === optionLetter;
             
-            let bgColor = "bg-white hover:bg-emerald-50 hover:border-emerald-300";
+            let bgColor = "bg-white hover:bg-brand-soft hover:border-brand-line";
             let borderColor = "border-gray-200";
             
             if (answered) {
               if (isCorrectOption) {
-                bgColor = "bg-emerald-50";
-                borderColor = "border-emerald-400";
+                bgColor = "bg-brand-soft";
+                borderColor = "border-brand";
               } else if (isSelected && !isCorrectOption) {
                 bgColor = "bg-red-50";
                 borderColor = "border-red-400";
@@ -79,11 +79,11 @@ const PersonalFinanceLesson1 = () => {
                 className={`w-full text-left p-4 rounded-xl border-2 ${borderColor} ${bgColor} transition-all ${!answered ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <span className="flex items-center gap-3">
-                  <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold transition-colors ${answered && isCorrectOption ? 'bg-emerald-500 text-white' : answered && isSelected ? 'bg-red-500 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
+                  <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold transition-colors ${answered && isCorrectOption ? 'bg-brand-fill text-white' : answered && isSelected ? 'bg-red-500 text-white' : 'bg-brand-soft text-brand'}`}>
                     {optionLetter}
                   </span>
                   <span className="text-gray-700 flex-1">{option}</span>
-                  {answered && isCorrectOption && <FaCheckCircle className="text-emerald-500 text-lg" />}
+                  {answered && isCorrectOption && <FaCheckCircle className="text-brand text-lg" />}
                   {answered && isSelected && !isCorrectOption && <FaTimesCircle className="ml-auto text-red-500" />}
                 </span>
               </button>
@@ -91,10 +91,10 @@ const PersonalFinanceLesson1 = () => {
           })}
         </div>
         {answered && (
-          <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800 border border-amber-200'}`}>
+          <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft text-brand border border-brand-line' : 'bg-amber-100 text-amber-800 border border-amber-200'}`}>
             <p className="font-semibold flex items-center gap-2">
               {isCorrect ? (
-                <><CheckCircleIcon className="w-5 h-5 text-emerald-600" /> Correct!</>
+                <><CheckCircleIcon className="w-5 h-5 text-brand" /> Correct!</>
               ) : (
                 <><svg className="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Not quite.</>
               )}
@@ -107,7 +107,7 @@ const PersonalFinanceLesson1 = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-white to-emerald-50/30 text-gray-900 min-h-screen flex flex-col font-sans">
+    <div className="text-gray-900 min-h-screen flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
@@ -116,7 +116,7 @@ const PersonalFinanceLesson1 = () => {
           {/* Breadcrumb */}
           <button 
             onClick={() => navigate('/learn')}
-            className="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors mb-8 group"
+            className="flex items-center gap-2 text-gray-500 hover:text-brand transition-colors mb-8 group"
           >
             <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
             <span>Back to Learn</span>
@@ -126,16 +126,16 @@ const PersonalFinanceLesson1 = () => {
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <ModuleBadge moduleId="personal-finance" />
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Lesson 1 of 9
               </span>
               <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
                 ~10 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-200 rounded-xl shadow-sm">
-                <LightbulbIcon className="w-7 h-7 text-emerald-600" />
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
+                <LightbulbIcon className="w-7 h-7 text-brand" />
               </span>
               <span>What is Personal Finance?</span>
             </h1>
@@ -145,22 +145,22 @@ const PersonalFinanceLesson1 = () => {
           </div>
 
           {/* Learning Objectives */}
-          <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-semibold text-emerald-900 mb-4 flex items-center gap-3">
+          <div className="rounded-2xl p-6 mb-10 border border-brand-line shadow-sm bg-brand-soft">
+            <h2 className="font-semibold text-brand mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
-                <TargetIcon className="w-5 h-5 text-emerald-600" />
+                <TargetIcon className="w-5 h-5 text-brand" />
               </span>
               <span>Learning Objectives</span>
             </h2>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-emerald-800">
-                <span className="text-emerald-500 mt-0.5 flex-shrink-0">
+              <li className="flex items-start gap-3 text-brand">
+                <span className="text-brand mt-0.5 flex-shrink-0">
                   <CheckCircleIcon className="w-5 h-5" />
                 </span>
                 <span>Understand what personal finance means in simple words</span>
               </li>
-              <li className="flex items-start gap-3 text-emerald-800">
-                <span className="text-emerald-500 mt-0.5 flex-shrink-0">
+              <li className="flex items-start gap-3 text-brand">
+                <span className="text-brand mt-0.5 flex-shrink-0">
                   <CheckCircleIcon className="w-5 h-5" />
                 </span>
                 <span>Know why managing money is important for everyone</span>
@@ -182,26 +182,26 @@ const PersonalFinanceLesson1 = () => {
             </p>
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 text-center border border-emerald-200 shadow-sm hover:shadow-lg transition-shadow">
+              <div className="rounded-2xl p-6 text-center border border-brand-line shadow-sm hover:shadow-lg transition-shadow bg-brand-soft">
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-white rounded-xl shadow-sm mb-3">
-                  <WalletIcon className="w-7 h-7 text-emerald-600" />
+                  <WalletIcon className="w-7 h-7 text-brand" />
                 </div>
-                <h4 className="font-bold text-emerald-900 text-lg">Earning</h4>
-                <p className="text-sm text-emerald-700 mt-1">Money coming in (salary, business)</p>
+                <h4 className="font-bold text-brand text-lg">Earning</h4>
+                <p className="text-sm text-brand mt-1">Money coming in (salary, business)</p>
               </div>
-              <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 text-center border border-emerald-200 shadow-sm hover:shadow-lg transition-shadow">
+              <div className="rounded-2xl p-6 text-center border border-brand-line shadow-sm hover:shadow-lg transition-shadow bg-brand-soft">
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-white rounded-xl shadow-sm mb-3">
-                  <ShoppingCartIcon className="w-7 h-7 text-emerald-600" />
+                  <ShoppingCartIcon className="w-7 h-7 text-brand" />
                 </div>
-                <h4 className="font-bold text-emerald-900 text-lg">Spending</h4>
-                <p className="text-sm text-emerald-700 mt-1">Money going out (rent, food, fun)</p>
+                <h4 className="font-bold text-brand text-lg">Spending</h4>
+                <p className="text-sm text-brand mt-1">Money going out (rent, food, fun)</p>
               </div>
-              <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 text-center border border-emerald-200 shadow-sm hover:shadow-lg transition-shadow">
+              <div className="rounded-2xl p-6 text-center border border-brand-line shadow-sm hover:shadow-lg transition-shadow bg-brand-soft">
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-white rounded-xl shadow-sm mb-3">
-                  <PiggyBankIcon className="w-7 h-7 text-emerald-600" />
+                  <PiggyBankIcon className="w-7 h-7 text-brand" />
                 </div>
-                <h4 className="font-bold text-emerald-900 text-lg">Saving</h4>
-                <p className="text-sm text-emerald-700 mt-1">Money kept for later (future goals)</p>
+                <h4 className="font-bold text-brand text-lg">Saving</h4>
+                <p className="text-sm text-brand mt-1">Money kept for later (future goals)</p>
               </div>
             </div>
 
@@ -213,14 +213,14 @@ const PersonalFinanceLesson1 = () => {
             {/* SVG Diagram - Enhanced Professional Version */}
             <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 mb-10 border border-gray-200 shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center flex items-center justify-center gap-2">
-                <TargetIcon className="w-5 h-5 text-emerald-600" />
+                <TargetIcon className="w-5 h-5 text-brand" />
                 How Money Flows
               </h3>
               <svg className="w-full max-w-lg mx-auto" viewBox="0 0 400 200" fill="none">
                 {/* Definitions for gradients and shadows */}
                 <defs>
                   <linearGradient id="youGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#1FA978"/>
+                    <stop offset="0%" stopColor="#12805A"/>
                     <stop offset="100%" stopColor="#12805A"/>
                   </linearGradient>
                   <linearGradient id="incomeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -231,7 +231,7 @@ const PersonalFinanceLesson1 = () => {
                     <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.15"/>
                   </filter>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#75757D"/>
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#717680"/>
                   </marker>
                 </defs>
                 
@@ -243,32 +243,32 @@ const PersonalFinanceLesson1 = () => {
                 <circle cx="200" cy="28" r="5" fill="white" fillOpacity="0.3"/>
                 
                 {/* Arrow down from You */}
-                <path d="M200 63 L200 85" stroke="#A3A1A6" strokeWidth="2" strokeDasharray="4 2"/>
-                <polygon points="195,82 200,92 205,82" fill="#75757D"/>
+                <path d="M200 63 L200 85" stroke="#A0A3AA" strokeWidth="2" strokeDasharray="4 2"/>
+                <polygon points="195,82 200,92 205,82" fill="#717680"/>
                 
                 {/* Income box with gradient */}
                 <rect x="125" y="95" width="150" height="38" rx="10" fill="url(#incomeGradient)" stroke="#5A77AA" strokeWidth="2" filter="url(#shadow)"/>
                 <text x="200" y="119" textAnchor="middle" fill="#2C3F5E" fontSize="14" fontWeight="700">Your Income</text>
                 
                 {/* Animated-looking split arrows */}
-                <path d="M155 133 L95 160" stroke="#A3A1A6" strokeWidth="2" strokeLinecap="round"/>
-                <polygon points="90,156 88,166 98,162" fill="#75757D"/>
+                <path d="M155 133 L95 160" stroke="#A0A3AA" strokeWidth="2" strokeLinecap="round"/>
+                <polygon points="90,156 88,166 98,162" fill="#717680"/>
                 
-                <path d="M200 133 L200 160" stroke="#A3A1A6" strokeWidth="2" strokeLinecap="round"/>
-                <polygon points="195,157 200,167 205,157" fill="#75757D"/>
+                <path d="M200 133 L200 160" stroke="#A0A3AA" strokeWidth="2" strokeLinecap="round"/>
+                <polygon points="195,157 200,167 205,157" fill="#717680"/>
                 
-                <path d="M245 133 L305 160" stroke="#A3A1A6" strokeWidth="2" strokeLinecap="round"/>
-                <polygon points="302,162 312,166 310,156" fill="#75757D"/>
+                <path d="M245 133 L305 160" stroke="#A0A3AA" strokeWidth="2" strokeLinecap="round"/>
+                <polygon points="302,162 312,166 310,156" fill="#717680"/>
                 
                 {/* Three destination boxes with enhanced styling */}
                 <rect x="35" y="167" width="100" height="30" rx="8" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2" filter="url(#shadow)"/>
                 <text x="85" y="187" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">Spend</text>
                 
-                <rect x="150" y="167" width="100" height="30" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2" filter="url(#shadow)"/>
-                <text x="200" y="187" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="700">Save</text>
+                <rect x="150" y="167" width="100" height="30" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2" filter="url(#shadow)"/>
+                <text x="200" y="187" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Save</text>
                 
-                <rect x="265" y="167" width="100" height="30" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2" filter="url(#shadow)"/>
-                <text x="315" y="187" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="700">Invest</text>
+                <rect x="265" y="167" width="100" height="30" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2" filter="url(#shadow)"/>
+                <text x="315" y="187" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">Invest</text>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-5 font-medium">
                 Your income splits into spending, saving, and investing
@@ -309,7 +309,7 @@ const PersonalFinanceLesson1 = () => {
           {/* Quiz Section */}
           <div className="mt-12">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
+              <span className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg bg-brand-fill">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>
               <span>Quick Check</span>
@@ -345,14 +345,14 @@ const PersonalFinanceLesson1 = () => {
           </div>
 
           {/* Key Takeaway */}
-          <div className="mt-12 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-lg">
+          <div className="mt-12 rounded-2xl p-6 text-white shadow-lg bg-brand-fill">
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-white/20 rounded-xl backdrop-blur-sm">
                 <KeyIcon className="w-5 h-5 text-white" />
               </span>
               <span>Key Takeaway</span>
             </h3>
-            <p className="text-green-50 leading-relaxed">
+            <p className="text-white/85 leading-relaxed">
               Personal finance isn't complicated. It's about knowing your money — what comes in, what goes out, and what you keep. 
               When you manage this well, you're building a secure future!
             </p>
@@ -362,14 +362,14 @@ const PersonalFinanceLesson1 = () => {
           <div className="mt-12 flex items-center justify-between pt-8 border-t border-gray-100">
             <button 
               onClick={() => navigate('/learn')}
-              className="flex items-center gap-2 px-6 py-3 text-gray-600 hover:text-emerald-600 transition-colors group"
+              className="flex items-center gap-2 px-6 py-3 text-gray-600 hover:text-brand transition-colors group"
             >
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
               <span>Back to Module</span>
             </button>
             <button 
               onClick={() => navigate('/learn/personal-finance-lesson-2')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-brand/25 transition-all bg-brand-fill"
             >
               <span>Next: Income vs Expenses</span>
               <FaArrowRight />

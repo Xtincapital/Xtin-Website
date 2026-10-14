@@ -173,7 +173,7 @@ const History = () => {
     const s = score.toFixed(1);
     if (score >= 7) {
       return (
-        <div className="flex items-center gap-1 px-2 py-1 rounded bg-success/10 text-success">
+        <div className="flex items-center gap-1 px-2 py-1 rounded bg-success/10 text-brand">
           <TrendingUp className="w-4 h-4" />
           <span className="font-semibold text-sm">{s}/10</span>
         </div>
@@ -282,7 +282,7 @@ const History = () => {
         {!loading && !error && total === 0 && (
           <div className="text-center py-16 bg-white rounded-2xl border border-border">
             <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-7 h-7 text-primary" />
+              <FileText className="w-7 h-7 text-brand" />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">No reports yet</h3>
             <p className="text-muted-foreground mb-5">
@@ -318,7 +318,7 @@ const History = () => {
                         <h3 className="font-semibold text-foreground mb-1">{report.company}</h3>
                         <div className="flex items-center gap-2 flex-wrap">
                           {report.ticker && !/^n\/?a$/i.test(report.ticker.trim()) && (
-                            <span className="px-2 py-0.5 rounded-full bg-accent/30 text-xs text-primary font-medium">
+                            <span className="px-2 py-0.5 rounded-full bg-accent/30 text-xs text-brand font-medium">
                               {report.ticker}
                             </span>
                           )}

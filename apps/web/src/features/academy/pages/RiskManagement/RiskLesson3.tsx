@@ -27,11 +27,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
-                : 'border-gray-200 hover:border-emerald-400 hover:bg-emerald-50'
+                : 'border-gray-200 hover:border-brand hover:bg-brand-soft'
             }`}
           >
             {option}
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const ThreeLayersOfRiskSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Three Layers of Risk</text>
-    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#75757D">Every investment decision involves multiple risk dimensions</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Three Layers of Risk</text>
+    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#717680">Every investment decision involves multiple risk dimensions</text>
     
     {/* Concentric circles showing layers */}
     <g transform="translate(350, 185)">
@@ -88,7 +88,7 @@ const ThreeLayersOfRiskSVG = () => (
     
     {/* Legend */}
     <g transform="translate(50, 280)">
-      <rect x="0" y="0" width="600" height="30" fill="#232327" rx="6"/>
+      <rect x="0" y="0" width="600" height="30" fill="#2A2A2C" rx="6"/>
       <circle cx="100" cy="15" r="6" fill="#5A77AA"/>
       <text x="115" y="19" fontSize="8" fill="white">Visible on charts</text>
       <circle cx="280" cy="15" r="6" fill="#B8923F"/>
@@ -103,11 +103,11 @@ const ThreeLayersOfRiskSVG = () => (
 const MarketRiskSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Market Risk: The Visible Risk</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What most people think of when they hear "risk"</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Market Risk: The Visible Risk</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What most people think of when they hear "risk"</text>
     
     {/* Chart visualization */}
     <g transform="translate(100, 70)">
@@ -126,22 +126,22 @@ const MarketRiskSVG = () => (
       
       {/* Upward arrow */}
       <g transform="translate(180, 90)">
-        <line x1="0" y1="30" x2="0" y2="-10" stroke="#1FA978" strokeWidth="3"/>
-        <polygon points="-8,-5 0,-20 8,-5" fill="#1FA978"/>
+        <line x1="0" y1="30" x2="0" y2="-10" stroke="#12805A" strokeWidth="3"/>
+        <polygon points="-8,-5 0,-20 8,-5" fill="#12805A"/>
         <text x="15" y="10" fontSize="8" fill="#12805A">Price rises</text>
       </g>
       
       {/* Y-axis label */}
-      <text x="15" y="75" fontSize="8" fill="#75757D" transform="rotate(-90 15 75)">Price</text>
+      <text x="15" y="75" fontSize="8" fill="#717680" transform="rotate(-90 15 75)">Price</text>
       
       {/* X-axis label */}
-      <text x="250" y="145" textAnchor="middle" fontSize="8" fill="#75757D">Time</text>
+      <text x="250" y="145" textAnchor="middle" fontSize="8" fill="#717680">Time</text>
     </g>
     
     {/* Examples */}
     <g transform="translate(50, 235)">
       <text x="0" y="0" fontSize="9" fontWeight="600" fill="#2C3F5E">Examples:</text>
-      <text x="70" y="0" fontSize="9" fill="#404047">Economic news • Company earnings • Interest rate changes • Global events • Sector movements</text>
+      <text x="70" y="0" fontSize="9" fill="#373A41">Economic news • Company earnings • Interest rate changes • Global events • Sector movements</text>
     </g>
     
     {/* Key insight */}
@@ -154,22 +154,22 @@ const MarketRiskSVG = () => (
 const SystemRiskSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">System Risk: The Hidden Risk</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Risks in processes, tools, and execution that don't appear on price charts</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">System Risk: The Hidden Risk</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Risks in processes, tools, and execution that don't appear on price charts</text>
     
     {/* Process flow with failure points */}
     <g transform="translate(50, 80)">
       {/* Step 1: Decision */}
-      <rect x="0" y="30" width="100" height="60" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Decision</text>
-      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#0D543C">Make a choice</text>
+      <rect x="0" y="30" width="100" height="60" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="50" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Decision</text>
+      <text x="50" y="70" textAnchor="middle" fontSize="7" fill="#12805A">Make a choice</text>
       
       {/* Arrow 1 */}
-      <line x1="105" y1="60" x2="140" y2="60" stroke="#A3A1A6" strokeWidth="2"/>
-      <polygon points="138,55 150,60 138,65" fill="#A3A1A6"/>
+      <line x1="105" y1="60" x2="140" y2="60" stroke="#A0A3AA" strokeWidth="2"/>
+      <polygon points="138,55 150,60 138,65" fill="#A0A3AA"/>
       
       {/* Step 2: Platform */}
       <rect x="150" y="30" width="100" height="60" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="2"/>
@@ -182,8 +182,8 @@ const SystemRiskSVG = () => (
       <text x="250" y="15" fontSize="6" fill="#C7363B">App crash?</text>
       
       {/* Arrow 2 */}
-      <line x1="255" y1="60" x2="290" y2="60" stroke="#A3A1A6" strokeWidth="2"/>
-      <polygon points="288,55 300,60 288,65" fill="#A3A1A6"/>
+      <line x1="255" y1="60" x2="290" y2="60" stroke="#A0A3AA" strokeWidth="2"/>
+      <polygon points="288,55 300,60 288,65" fill="#A0A3AA"/>
       
       {/* Step 3: Network */}
       <rect x="300" y="30" width="100" height="60" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="2"/>
@@ -196,8 +196,8 @@ const SystemRiskSVG = () => (
       <text x="400" y="15" fontSize="6" fill="#C7363B">Slow/offline?</text>
       
       {/* Arrow 3 */}
-      <line x1="405" y1="60" x2="440" y2="60" stroke="#A3A1A6" strokeWidth="2"/>
-      <polygon points="438,55 450,60 438,65" fill="#A3A1A6"/>
+      <line x1="405" y1="60" x2="440" y2="60" stroke="#A0A3AA" strokeWidth="2"/>
+      <polygon points="438,55 450,60 438,65" fill="#A0A3AA"/>
       
       {/* Step 4: Exchange */}
       <rect x="450" y="30" width="100" height="60" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="2"/>
@@ -238,11 +238,11 @@ const SystemRiskSVG = () => (
 const EmotionalRiskSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Emotional Risk: The Internal Risk</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The risk you bring to every decision — your own psychology</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Emotional Risk: The Internal Risk</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The risk you bring to every decision — your own psychology</text>
     
     {/* Brain with emotion zones */}
     <g transform="translate(350, 165)">
@@ -257,9 +257,9 @@ const EmotionalRiskSVG = () => (
       </g>
       
       <g transform="translate(60, -30)">
-        <circle cx="0" cy="0" r="25" fill="#ABE5CC" stroke="#1FA978" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="25" fill="#ABE5CC" stroke="#12805A" strokeWidth="2"/>
         <text x="0" y="-5" textAnchor="middle" fontSize="7" fontWeight="600" fill="#12805A">GREED</text>
-        <text x="0" y="8" textAnchor="middle" fontSize="6" fill="#0D543C">Over-exposure</text>
+        <text x="0" y="8" textAnchor="middle" fontSize="6" fill="#12805A">Over-exposure</text>
       </g>
       
       <g transform="translate(-60, 35)">
@@ -308,11 +308,11 @@ const EmotionalRiskSVG = () => (
 const RisksInteractSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">How Risks Interact and Compound</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Risks rarely appear alone — they trigger and amplify each other</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">How Risks Interact and Compound</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Risks rarely appear alone — they trigger and amplify each other</text>
     
     {/* Three risk nodes */}
     <g transform="translate(350, 170)">
@@ -333,18 +333,18 @@ const RisksInteractSVG = () => (
       
       {/* Connecting arrows with labels */}
       {/* Market → Emotional */}
-      <path d="M-85 -25 Q-60 30 -35 55" fill="none" stroke="#A3A1A6" strokeWidth="2" markerEnd="url(#arrowGray)"/>
-      <text x="-80" y="25" fontSize="6" fill="#75757D">Price drops</text>
-      <text x="-80" y="35" fontSize="6" fill="#75757D">trigger fear</text>
+      <path d="M-85 -25 Q-60 30 -35 55" fill="none" stroke="#A0A3AA" strokeWidth="2" markerEnd="url(#arrowGray)"/>
+      <text x="-80" y="25" fontSize="6" fill="#717680">Price drops</text>
+      <text x="-80" y="35" fontSize="6" fill="#717680">trigger fear</text>
       
       {/* System → Emotional */}
-      <path d="M85 -25 Q60 30 35 55" fill="none" stroke="#A3A1A6" strokeWidth="2" markerEnd="url(#arrowGray)"/>
-      <text x="55" y="25" fontSize="6" fill="#75757D">Failures</text>
-      <text x="55" y="35" fontSize="6" fill="#75757D">cause panic</text>
+      <path d="M85 -25 Q60 30 35 55" fill="none" stroke="#A0A3AA" strokeWidth="2" markerEnd="url(#arrowGray)"/>
+      <text x="55" y="25" fontSize="6" fill="#717680">Failures</text>
+      <text x="55" y="35" fontSize="6" fill="#717680">cause panic</text>
       
       {/* Market ↔ System */}
-      <path d="M-70 -60 L70 -60" fill="none" stroke="#A3A1A6" strokeWidth="2"/>
-      <text x="0" y="-70" textAnchor="middle" fontSize="6" fill="#75757D">Volatility overloads systems</text>
+      <path d="M-70 -60 L70 -60" fill="none" stroke="#A0A3AA" strokeWidth="2"/>
+      <text x="0" y="-70" textAnchor="middle" fontSize="6" fill="#717680">Volatility overloads systems</text>
       
       {/* Emotional → Both */}
       <path d="M-25 45 Q-70 0 -90 -20" fill="none" stroke="#E04848" strokeWidth="2" strokeDasharray="4" markerEnd="url(#arrowRed)"/>
@@ -352,7 +352,7 @@ const RisksInteractSVG = () => (
       
       <defs>
         <marker id="arrowGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-          <polygon points="0 0, 8 3, 0 6" fill="#A3A1A6"/>
+          <polygon points="0 0, 8 3, 0 6" fill="#A0A3AA"/>
         </marker>
         <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
           <polygon points="0 0, 8 3, 0 6" fill="#E04848"/>
@@ -369,7 +369,7 @@ const RisksInteractSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">A single risk rarely causes failure. Risk compounding does.</text>
   </svg>
 );
@@ -378,11 +378,11 @@ const RisksInteractSVG = () => (
 const VisibleVsInvisibleSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Visible vs Invisible Risk</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What you see on charts is only part of the picture</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Visible vs Invisible Risk</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What you see on charts is only part of the picture</text>
     
     {/* Iceberg visualization */}
     <g transform="translate(350, 175)">
@@ -424,7 +424,7 @@ const VisibleVsInvisibleSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="265" width="500" height="25" fill="#232327" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="9" fill="white">The risks you don't see are often the ones that sink you.</text>
   </svg>
 );
@@ -433,14 +433,14 @@ const VisibleVsInvisibleSVG = () => (
 const MultipleRisksScenarioSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">When All Three Risks Strike Together</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">A realistic scenario showing risk compounding</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">When All Three Risks Strike Together</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">A realistic scenario showing risk compounding</text>
     
     {/* Timeline */}
-    <line x1="80" y1="280" x2="620" y2="280" stroke="#CFCBC1" strokeWidth="2"/>
+    <line x1="80" y1="280" x2="620" y2="280" stroke="#CFD0D3" strokeWidth="2"/>
     
     {/* Event 1: Market */}
     <g transform="translate(100, 80)">
@@ -453,8 +453,8 @@ const MultipleRisksScenarioSVG = () => (
       <text x="65" y="55" textAnchor="middle" fontSize="8" fill="#2C3F5E">drops market sharply</text>
       
       <rect x="10" y="65" width="110" height="45" fill="#F1F4F9" rx="4"/>
-      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#404047">Your holdings</text>
-      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#404047">are affected</text>
+      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#373A41">Your holdings</text>
+      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#373A41">are affected</text>
     </g>
     
     {/* Event 2: System */}
@@ -468,8 +468,8 @@ const MultipleRisksScenarioSVG = () => (
       <text x="65" y="55" textAnchor="middle" fontSize="8" fill="#7C5D2B">under heavy traffic</text>
       
       <rect x="10" y="65" width="110" height="45" fill="#FBF7EC" rx="4"/>
-      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#404047">You cannot act</text>
-      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#404047">when you want to</text>
+      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#373A41">You cannot act</text>
+      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#373A41">when you want to</text>
     </g>
     
     {/* Event 3: Emotional */}
@@ -483,8 +483,8 @@ const MultipleRisksScenarioSVG = () => (
       <text x="65" y="55" textAnchor="middle" fontSize="8" fill="#654B8A">as losses mount</text>
       
       <rect x="10" y="65" width="110" height="45" fill="#F6F2FB" rx="4"/>
-      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#404047">You make impulsive</text>
-      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#404047">decisions</text>
+      <text x="65" y="82" textAnchor="middle" fontSize="7" fill="#373A41">You make impulsive</text>
+      <text x="65" y="95" textAnchor="middle" fontSize="7" fill="#373A41">decisions</text>
     </g>
     
     {/* Connection arrows */}
@@ -507,7 +507,7 @@ const MultipleRisksScenarioSVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#awarenessGradient)" rx="16"/>
@@ -558,29 +558,29 @@ const RiskLesson3 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 transition-colors mb-4"
+            className="flex items-center gap-2 text-brand hover:text-brand transition-colors mb-4"
           >
             <FaArrowLeft />
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 3 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Types of Risk – Market, System & Emotional</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Types of Risk – Market, System & Emotional</h1>
             <p className="text-gray-600 mt-2">Understanding the multiple dimensions of risk</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Identifying Risk Types Matters</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Identifying Risk Types Matters</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -769,8 +769,8 @@ const RiskLesson3 = () => {
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <KeyTakeawaySVG />
           
-          <div className="mt-6 bg-emerald-50 rounded-xl p-5 border border-emerald-200">
-            <p className="text-emerald-800 font-medium">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand font-medium">
               Remember: You don't need to have solutions for every risk type right now. The goal 
               of this lesson is simply awareness — recognizing that risk is multi-dimensional 
               and that the risks you don't see can be just as dangerous as the ones you do.
@@ -779,9 +779,9 @@ const RiskLesson3 = () => {
         </div>
 
         {/* India-specific Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Context</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Context</h3>
+          <p className="text-brand">
             These three categories of risk — market, system, and emotional — exist in every 
             financial market worldwide, from Wall Street to European exchanges to Asian markets 
             including India. The technology may differ, the specific triggers may vary, but the 
@@ -801,33 +801,33 @@ const RiskLesson3 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 bg-brand-soft">
           <div className="flex items-start gap-4">
-            <div className="bg-emerald-500 rounded-full p-3">
+            <div className="bg-brand-fill rounded-full p-3">
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Reflection Activity</h3>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200">
+              <h3 className="text-xl font-semibold text-brand mb-3">Reflection Activity</h3>
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <p className="text-gray-800 font-medium mb-4">
                   Consider the three types of risk and your own experience:
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">1.</span>
+                    <span className="text-brand font-bold">1.</span>
                     <span>Of the three risk types (market, system, emotional), which do you think you have the most control over? Why?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">2.</span>
+                    <span className="text-brand font-bold">2.</span>
                     <span>Have you ever experienced a situation where multiple risks combined to make things worse? What happened?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">3.</span>
+                    <span className="text-brand font-bold">3.</span>
                     <span>Which "invisible" risk (system or emotional) do you think you currently pay the least attention to?</span>
                   </li>
                 </ul>
-                <div className="mt-4 p-4 bg-emerald-50 rounded-lg">
-                  <p className="text-emerald-800 text-sm">
+                <div className="mt-4 p-4 bg-brand-soft rounded-lg">
+                  <p className="text-brand text-sm">
                     <strong>Hint:</strong> Emotional risk is the one type you can directly control — 
                     but most people underestimate how much it influences their decisions. System 
                     risk is often ignored until something goes wrong.
@@ -839,7 +839,7 @@ const RiskLesson3 = () => {
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">🔑 Lesson Summary</h3>
           <ul className="space-y-2 text-lg">
             <li>• <strong>Market risk</strong> is visible — price movements driven by external forces</li>
@@ -862,7 +862,7 @@ const RiskLesson3 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-lesson-4')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

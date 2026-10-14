@@ -121,7 +121,10 @@ const DashboardLayout = ({ children }: SidebarProps) => {
     <>
       <Navbar />
       {/* pt-20 clears the fixed site Navbar */}
-      <div className="fundakamental-scope pt-20 min-h-screen bg-background flex">
+      <div
+        className="fundakamental-scope pt-20 min-h-screen bg-background flex"
+        style={{ "--sb": collapsed ? "76px" : "260px" } as React.CSSProperties}
+      >
         {/* Sidebar — sticky under the Navbar on desktop, a drawer below lg */}
         <motion.aside
           initial={false}
@@ -162,17 +165,17 @@ const DashboardLayout = ({ children }: SidebarProps) => {
                       transition={{ type: "spring", stiffness: 500, damping: 40 }}
                     />
                   )}
-                  <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary dark:text-success")} />
+                  <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-brand dark:text-brand")} />
                   {!collapsed && (
                     <>
                       <span className="relative text-sm">{item.name}</span>
                       {item.name === "Alerts" && unreadAlerts > 0 && (
-                        <span className="relative ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center" aria-label={`${unreadAlerts} unread alerts`}>
+                        <span className="relative ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center" aria-label={`${unreadAlerts} unread alerts`}>
                           {unreadAlerts > 99 ? "99+" : unreadAlerts}
                         </span>
                       )}
                       {item.premium && (
-                        <span className="relative ml-auto pro-gold-bg text-[10px] font-bold tracking-wide px-1.5 py-0.5 rounded">
+                        <span className="relative ml-auto pro-gold-bg text-xs font-bold tracking-wide px-1.5 py-0.5 rounded">
                           PRO
                         </span>
                       )}
@@ -194,7 +197,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
             <div className="mx-3 mb-3 p-3 rounded-xl bg-card border border-border">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
-                  <Coins className="w-3.5 h-3.5 text-primary" /> AI tokens
+                  <Coins className="w-3.5 h-3.5 text-brand" /> AI tokens
                 </span>
                 <span className="text-xs font-bold text-foreground">{formatTokens(wallet.balance)}</span>
               </div>
@@ -206,7 +209,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
               </div>
               <button
                 onClick={() => (isPro ? openBuyTokens() : usePlanStore.getState().openUpgrade("reports"))}
-                className="mt-2 text-[11px] font-semibold text-primary hover:underline"
+                className="mt-2 text-xs font-semibold text-brand hover:underline"
               >
                 {isPro ? "Buy more tokens" : "Get more with Pro →"}
               </button>
@@ -217,7 +220,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
           {!collapsed && !isPro && (
             <div className="mx-3 mb-3 p-4 rounded-2xl bg-accent border border-primary/10" data-tour="upgrade-card">
               <div className="flex items-center gap-2 mb-1.5">
-                <Sparkles className="w-4 h-4 text-primary" />
+                <Sparkles className="w-4 h-4 text-brand" />
                 <span className="text-sm font-semibold text-foreground capitalize">Free Plan</span>
               </div>
               <p className="text-xs text-muted-foreground mb-3">
@@ -256,7 +259,13 @@ const DashboardLayout = ({ children }: SidebarProps) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0">
+        {/* Page content sits in the site's centred column (same edges as the
+            nav, Tools and Learn) while the sidebar stays on the screen edge.
+            Padding % is relative to the full-width row; below ~1800px the
+            column would run under the sidebar, so it starts 2rem after it.
+            The layout owns the side margins, so pages drop their own (px-0)
+            on desktop and every page's text lines up with the nav. */}
+        <main className="flex-1 min-w-0 lg:pl-[max(2rem,calc((100%_-_80rem)/2_-_var(--sb)))] lg:pr-[max(2rem,calc((100%_-_80rem)/2))] lg:[&>*]:!px-0">
           {/* Mobile bar — opens the sidebar drawer */}
           <div className="lg:hidden sticky top-20 z-20 h-14 flex items-center gap-3 px-4 bg-card border-b border-border">
             <button
@@ -276,7 +285,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
             >
               <Bell className="w-5 h-5" />
               {unreadAlerts > 0 && (
-                <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">
                   {unreadAlerts > 9 ? "9+" : unreadAlerts}
                 </span>
               )}
@@ -290,7 +299,7 @@ const DashboardLayout = ({ children }: SidebarProps) => {
         <button
           onClick={startTour}
           title="Take the tour"
-          className="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-full bg-card border border-border shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors"
+          className="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-full bg-card border border-border shadow-lg flex items-center justify-center text-brand hover:bg-primary hover:text-white transition-colors"
           aria-label="Take the product tour"
         >
           <HelpCircle className="w-5 h-5" />

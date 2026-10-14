@@ -91,7 +91,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
                 Habit Building
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-rose-600" />
               </span>
@@ -118,7 +118,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">{paragraph}</p>
                 ))}
@@ -160,7 +160,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrectOption = lesson.quiz.correct === index;
                 let stateClass = "bg-white border-gray-200 hover:bg-rose-50 hover:border-rose-300";
-                if (answered && isCorrectOption) stateClass = "bg-emerald-50 border-emerald-400";
+                if (answered && isCorrectOption) stateClass = "bg-brand-soft border-brand";
                 if (answered && isSelected && !isCorrectOption) stateClass = "bg-red-50 border-red-400";
                 return (
                   <button
@@ -172,7 +172,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
                     <span className="flex items-center gap-3">
                       <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold ${
                         answered && isCorrectOption
-                          ? "bg-emerald-500 text-white"
+                          ? "bg-brand-fill text-white"
                           : answered && isSelected
                             ? "bg-red-500 text-white"
                             : "bg-rose-100 text-rose-700"
@@ -180,7 +180,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
                         {String.fromCharCode(65 + index)}
                       </span>
                       <span className="text-gray-700 flex-1">{option}</span>
-                      {answered && isCorrectOption && <FaCheckCircle className="text-emerald-500 text-lg" />}
+                      {answered && isCorrectOption && <FaCheckCircle className="text-brand text-lg" />}
                       {answered && isSelected && !isCorrectOption && <FaTimesCircle className="text-red-500 text-lg" />}
                     </span>
                   </button>
@@ -188,7 +188,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
               })}
             </div>
             {answered && (
-              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
+              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand border border-brand-line" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
                 <p className="font-semibold">{isCorrect ? "Correct" : "Not quite"}</p>
                 <p className="text-sm mt-1 opacity-90">{lesson.quiz.explanation}</p>
               </div>

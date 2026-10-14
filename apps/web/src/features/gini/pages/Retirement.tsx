@@ -243,7 +243,7 @@ export default function Retirement() {
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Landmark className="h-4 w-4 text-primary" />
+                <Landmark className="h-4 w-4 text-brand" />
                 Retirement Planning Inputs
               </CardTitle>
             </CardHeader>
@@ -369,7 +369,7 @@ export default function Retirement() {
                   </div>
                   <div className="rounded-lg border p-4">
                     <p className="xt-label">Surplus / Shortfall</p>
-                    <p className={cn("mt-1 text-xl font-bold", result.surplus >= 0 ? "text-success" : "text-destructive")}>
+                    <p className={cn("mt-1 text-xl font-bold", result.surplus >= 0 ? "text-brand" : "text-destructive")}>
                       {formatCurrency(result.surplus)}
                     </p>
                   </div>
@@ -380,7 +380,7 @@ export default function Retirement() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-muted-foreground mb-2">Corpus Depletion Curve</h4>
+                  <h4 className="text-base font-semibold text-muted-foreground mb-2">Corpus Depletion Curve</h4>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
                       <ComposedChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>

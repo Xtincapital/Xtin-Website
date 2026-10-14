@@ -1,7 +1,7 @@
 // Xtin design palette — the single source of truth for colour.
 //
-// Direction A ("private bank"): warm ivory light mode, true-black dark mode,
-// one emerald brand green, gold as the premium accent.
+// Light mode is pure white, dark mode near-black (both modelled on
+// GeeksforGeeks), with one brand green and gold as the premium accent.
 //
 // Tailwind's 22 default hues are collapsed onto 8 families (see HUE_FAMILY),
 // so every existing `bg-emerald-600`, `text-slate-500`, `border-indigo-200`
@@ -15,10 +15,11 @@
 // same values, so change a colour here first.
 
 export const families = {
-  // Text, surfaces, borders. Warm at the light end, neutral black at the dark end.
+  // Text, surfaces, borders — GeeksforGeeks' neutrals. Light mode is pure
+  // white with #F5F5F7 panels; dark mode is #131417 with #1F1F1F cards.
   neutral: {
-    50: '#F7F6F2', 100: '#EFEDE7', 200: '#E4E1D9', 300: '#CFCBC1', 400: '#A3A1A6',
-    500: '#75757D', 600: '#5A5A62', 700: '#404047', 800: '#232327', 900: '#151517', 950: '#0A0A0B',
+    50: '#F5F5F7', 100: '#EEEEF1', 200: '#E4E4EA', 300: '#CFD0D3', 400: '#A0A3AA',
+    500: '#717680', 600: '#555A63', 700: '#373A41', 800: '#2A2A2C', 900: '#1F1F1F', 950: '#131417',
   },
   // Brand / profit. 600 = buttons & light-mode text, 400 = dark-mode text.
   brand: {

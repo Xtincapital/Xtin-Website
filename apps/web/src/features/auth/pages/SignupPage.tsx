@@ -143,7 +143,7 @@ const SignupPage = () => {
 				<div className="max-w-lg mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-display font-normal text-gray-900 mb-2 tracking-[-0.015em]">
+						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Create Your Account
 						</h1>
 						<p className="text-gray-600">
@@ -162,8 +162,8 @@ const SignupPage = () => {
 
 						{/* Success Message */}
 						{success && (
-							<div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-								<p className="text-green-600 text-sm">{success}</p>
+							<div className="mb-6 p-4 bg-brand-soft border border-brand-line rounded-lg">
+								<p className="text-brand text-sm">{success}</p>
 							</div>
 						)}
 
@@ -181,7 +181,7 @@ const SignupPage = () => {
 										value={formData.firstName}
 										onChange={handleChange}
 										required
-										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 										placeholder="First name"
 									/>
 								</div>
@@ -196,7 +196,7 @@ const SignupPage = () => {
 										value={formData.lastName}
 										onChange={handleChange}
 										required
-										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 										placeholder="Last name"
 									/>
 								</div>
@@ -214,7 +214,7 @@ const SignupPage = () => {
 									value={formData.email}
 									onChange={handleChange}
 									required
-									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 									placeholder="Enter your email"
 								/>
 							</div>
@@ -230,7 +230,7 @@ const SignupPage = () => {
 									name="phone"
 									value={formData.phone}
 									onChange={handleChange}
-									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 									placeholder="Enter your phone number"
 								/>
 								<p className="text-xs text-gray-500 mt-1">
@@ -253,7 +253,7 @@ const SignupPage = () => {
 												value={formData.password}
 												onChange={handleChange}
 												required
-												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 												placeholder="Create a password"
 											/>
 											<button
@@ -287,7 +287,7 @@ const SignupPage = () => {
 												value={formData.confirmPassword}
 												onChange={handleChange}
 												required
-												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 												placeholder="Re-enter password"
 											/>
 											<button
@@ -324,15 +324,15 @@ const SignupPage = () => {
 										checked={formData.agreeToTerms}
 										onChange={handleChange}
 										required
-										className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+										className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
 									/>
 									<span className="ml-2 text-sm text-gray-600">
 										I agree to the{" "}
-										<Link to="/terms" className="text-green-600 hover:text-green-700 font-medium">
+										<Link to="/terms" className="text-brand hover:text-brand font-medium">
 											Terms of Service
 										</Link>{" "}
 										and{" "}
-										<Link to="/privacy" className="text-green-600 hover:text-green-700 font-medium">
+										<Link to="/privacy" className="text-brand hover:text-brand font-medium">
 											Privacy Policy
 										</Link>
 									</span>
@@ -343,7 +343,7 @@ const SignupPage = () => {
 										name="newsletter"
 										checked={formData.newsletter}
 										onChange={handleChange}
-										className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+										className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
 									/>
 									<span className="ml-2 text-sm text-gray-600">
 										I want to receive updates about new features and investment opportunities
@@ -355,7 +355,7 @@ const SignupPage = () => {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isLoading ? (
 									<div className="flex items-center justify-center">
@@ -407,7 +407,7 @@ const SignupPage = () => {
 						<div className="mt-6 text-center">
 							<p className="text-gray-600">
 								Already have an account?{" "}
-								<Link to="/login" className="text-green-600 hover:text-green-700 font-medium">
+								<Link to="/login" className="text-brand hover:text-brand font-medium">
 									Sign in
 								</Link>
 							</p>
@@ -420,7 +420,7 @@ const SignupPage = () => {
 
 			{/* Email Verification Modal */}
 			{showVerifyModal && (
-				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 brand-on-dark">
 					<div className="bg-white rounded-lg p-8 max-w-md mx-4">
 						<h2 className="text-xl font-semibold text-gray-900 mb-4">Verify Your Email</h2>
 						<p className="text-gray-600 mb-6">
@@ -431,7 +431,7 @@ const SignupPage = () => {
 								setShowVerifyModal(false);
 								navigate('/login');
 							}}
-							className="w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition duration-200"
+							className="w-full bg-brand-fill text-white py-2 px-4 rounded-lg font-semibold hover:bg-brand-hover transition duration-200"
 						>
 							OK
 						</button>

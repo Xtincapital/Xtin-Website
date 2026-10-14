@@ -127,7 +127,7 @@ const RetirementCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
@@ -137,7 +137,7 @@ const RetirementCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
               What is Retirement Planning?
             </button>
@@ -250,7 +250,7 @@ const RetirementCalculator = () => {
               )}
               <button
                 onClick={calculateRetirement}
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition mt-4"
+                className="w-full bg-brand-fill text-white py-3 rounded-lg font-semibold hover:bg-brand-hover transition mt-4"
               >
                 Calculate
               </button>
@@ -296,7 +296,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Inflation-adjusted monthly expenses at retirement
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.inflationAdjustedMonthlyExpenses)}
                       </span>
                     </div>
@@ -304,7 +304,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Required retirement corpus
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.requiredCorpus)}
                       </span>
                     </div>
@@ -312,7 +312,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Future value of current savings
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.futureValueOfCurrentSavings)}
                       </span>
                     </div>
@@ -320,13 +320,13 @@ const RetirementCalculator = () => {
                       <span className="text-lg font-bold">
                         Required monthly investment
                       </span>
-                      <span className="text-lg font-bold text-green-700">
+                      <span className="text-lg font-bold text-brand">
                         {sym}{formatNumber(results.requiredMonthlyInvestment)}
                       </span>
                     </div>
                   </div>
-                  <div className="mt-6 text-center text-gray-700 bg-green-100 p-4 rounded-lg border border-green-200">
-                    <p className="text-green-800">
+                  <div className="mt-6 text-center text-gray-700 bg-brand-soft p-4 rounded-lg border border-brand-line">
+                    <p className="text-brand">
                       To maintain your lifestyle after retirement, you need a
                       corpus of{" "}
                       <span className="font-bold">

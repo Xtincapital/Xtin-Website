@@ -93,7 +93,7 @@ const SIPCalculator = () => {
   const formProps = useCalcForm(calculateSIP);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <SEO
         title="SIP Calculator - Calculate Systematic Investment Plan Returns"
         description="Free SIP calculator to estimate returns on your monthly mutual fund investments. Calculate future value, total invested amount, and wealth gained with different SIP amounts and durations."
@@ -112,7 +112,7 @@ const SIPCalculator = () => {
               <Link
                 to="/tools/sip"
                 replace
-                className="px-6 py-2 text-lg font-semibold text-white bg-green-700 rounded-full shadow-md"
+                className="px-6 py-2 text-lg font-semibold text-white bg-brand-fill rounded-full shadow-md"
               >
                 SIP
               </Link>
@@ -130,7 +130,7 @@ const SIPCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is SIP?
             </button>
@@ -185,7 +185,7 @@ const SIPCalculator = () => {
                     const rate = parseFloat(annualRate);
                     if (rate < 8) {
                       return (
-                        <div className="w-1/2 mx-auto bg-green-100 text-green-700 p-2 text-center rounded-full" role="alert">
+                        <div className="w-1/2 mx-auto bg-brand-soft text-brand p-2 text-center rounded-full" role="alert">
                           <p className="font-bold">Conservative</p>
                         </div>
                       );
@@ -224,15 +224,15 @@ const SIPCalculator = () => {
               )}
               <button
                 onClick={calculateSIP}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate SIP
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                   <p className="text-lg font-medium">
-                     Future Value: <span className="text-green-700">{sym}{futureValue}</span>
+                     Future Value: <span className="text-brand">{sym}{futureValue}</span>
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
@@ -265,7 +265,7 @@ const SIPCalculator = () => {
                     onClick={() => setChartType("line")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "line"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -275,7 +275,7 @@ const SIPCalculator = () => {
                     onClick={() => setChartType("pie")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "pie"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >

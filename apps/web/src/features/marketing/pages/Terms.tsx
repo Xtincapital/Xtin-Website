@@ -66,7 +66,7 @@ function Terms() {
 
             <Section title="6. Subscriptions and Payments">
               <p>
-                Paid plans are one‑time payments for a fixed period and do not renew automatically. Prices include applicable taxes unless stated otherwise. Refunds and cancellations are governed by our <Link to="/refund-policy" className="text-green-600 hover:text-green-700 font-medium">Refund &amp; Cancellation Policy</Link>, and delivery by our <Link to="/shipping-policy" className="text-green-600 hover:text-green-700 font-medium">Shipping &amp; Delivery Policy</Link>.
+                Paid plans are one‑time payments for a fixed period and do not renew automatically. Prices include applicable taxes unless stated otherwise. Refunds and cancellations are governed by our <Link to="/refund-policy" className="text-brand hover:text-brand font-medium">Refund &amp; Cancellation Policy</Link>, and delivery by our <Link to="/shipping-policy" className="text-brand hover:text-brand font-medium">Shipping &amp; Delivery Policy</Link>.
               </p>
             </Section>
 
@@ -102,7 +102,7 @@ function Terms() {
 
             <Section title="12. Contact">
               <p>
-                Questions? Email us at <a href={`mailto:${COMPANY.supportEmail}`} className="text-green-600 hover:text-green-700 font-medium">{COMPANY.supportEmail}</a> or call <a className="text-green-600 hover:text-green-700 font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>.
+                Questions? Email us at <a href={`mailto:${COMPANY.supportEmail}`} className="text-brand hover:text-brand font-medium">{COMPANY.supportEmail}</a> or call <a className="text-brand hover:text-brand font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>.
               </p>
             </Section>
           </div>

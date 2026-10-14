@@ -318,12 +318,12 @@ const Dashboard = () => {
           {/* Search Company */}
           <div className="p-6 rounded-2xl bg-white border border-border shadow-sm" data-tour="search-company">
             <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
-              <Search className="w-4 h-4 text-primary" />
+              <Search className="w-4 h-4 text-brand" />
               Search Company
             </h2>
             <div className="relative" ref={searchRef}>
               {analyzingTicker ? (
-                <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-primary animate-spin" />
+                <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand animate-spin" />
               ) : (
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               )}
@@ -360,7 +360,7 @@ const Dashboard = () => {
                     setSearchQuery(ticker);
                     setIsSearchFocused(true);
                   }}
-                  className="px-3 py-1.5 rounded-full bg-accent text-xs font-medium text-primary hover:bg-primary/10 transition-colors"
+                  className="px-3 py-1.5 rounded-full bg-accent text-xs font-medium text-brand hover:bg-primary/10 transition-colors"
                 >
                   {ticker}
                 </button>
@@ -371,7 +371,7 @@ const Dashboard = () => {
           {/* Upload */}
           <div className="p-6 rounded-2xl bg-white border border-border shadow-sm" data-tour="upload-report">
             <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
-              <Upload className="w-4 h-4 text-primary" />
+              <Upload className="w-4 h-4 text-brand" />
               Upload Financial Statements
             </h2>
 
@@ -387,7 +387,7 @@ const Dashboard = () => {
                 }`}
               >
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <Plus className="w-5 h-5 text-primary" />
+                  <Plus className="w-5 h-5 text-brand" />
                 </div>
                 <p className="text-sm text-muted-foreground mb-1">
                   Drag & drop files here or click to browse
@@ -407,7 +407,7 @@ const Dashboard = () => {
               <div className="p-4 rounded-xl bg-secondary/50 border border-border">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5 text-primary" />
+                    <FileText className="w-5 h-5 text-brand" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1 gap-2">
@@ -451,11 +451,11 @@ const Dashboard = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-                <Clock className="w-4 h-4 text-primary" />
+                <Clock className="w-4 h-4 text-brand" />
                 Recent Reports
               </h2>
               <Link to="/fundakamental/history">
-                <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 text-sm font-medium gap-1">
+                <Button variant="ghost" size="sm" className="text-brand hover:text-brand/80 text-sm font-medium gap-1">
                   View All
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Button>
@@ -465,7 +465,7 @@ const Dashboard = () => {
             <div className="space-y-3">
               {loadingReports ? (
                 <div className="text-center py-12 bg-white rounded-2xl border border-border">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto text-primary"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto text-brand"></div>
                   <p className="mt-4 text-xs text-muted-foreground">Loading recent reports...</p>
                 </div>
               ) : reports.length === 0 ? (
@@ -493,7 +493,7 @@ const Dashboard = () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-bold text-foreground text-sm">
+                            <h3 className="font-bold text-foreground text-base">
                               {report.company}
                             </h3>
                             {hasTicker(report.ticker) && (
@@ -519,7 +519,7 @@ const Dashboard = () => {
                         <div
                           className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
                             report.trend === "up"
-                              ? "bg-primary/10 text-primary"
+                              ? "bg-primary/10 text-brand"
                               : report.trend === "flat"
                               ? "bg-amber-100 text-amber-700"
                               : "bg-destructive/10 text-destructive"
@@ -553,7 +553,7 @@ const Dashboard = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-                <FileText className="w-4 h-4 text-primary" />
+                <FileText className="w-4 h-4 text-brand" />
                 Quick Access
               </h2>
               <Button
@@ -564,7 +564,7 @@ const Dashboard = () => {
                 variant="ghost"
                 size="sm"
                 aria-label="Add a stock to Quick Access"
-                className="text-primary hover:text-primary/80 h-8 w-8 p-0 rounded-full"
+                className="text-brand hover:text-brand/80 h-8 w-8 p-0 rounded-full"
               >
                 <Plus className="w-4 h-4" />
               </Button>
@@ -645,7 +645,7 @@ const Dashboard = () => {
                               className="flex items-center justify-between p-2 hover:bg-accent/40 rounded-lg cursor-pointer transition-colors"
                             >
                               <div className="flex items-center gap-2 min-w-0">
-                                <span className="px-2 py-0.5 rounded bg-primary/10 text-primary text-xs font-semibold shrink-0">
+                                <span className="px-2 py-0.5 rounded bg-primary/10 text-brand text-xs font-semibold shrink-0">
                                   {company.ticker}
                                 </span>
                                 <span className="text-xs font-medium text-foreground truncate">
@@ -715,9 +715,9 @@ const Dashboard = () => {
                                   {stock.ticker}
                                 </p>
                                 {isRowAnalyzing ? (
-                                  <Loader2 className="w-3.5 h-3.5 text-primary animate-spin" />
+                                  <Loader2 className="w-3.5 h-3.5 text-brand animate-spin" />
                                 ) : live ? (
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" title="Live" />
+                                  <span className="w-1.5 h-1.5 rounded-full bg-brand-fill animate-pulse" title="Live" />
                                 ) : null}
                               </div>
                               <p className="text-xs text-muted-foreground">
@@ -733,7 +733,7 @@ const Dashboard = () => {
                           </td>
                           <td
                             className={`py-3 px-4 text-right text-sm font-semibold ${
-                              Number(currentChange) >= 0 ? "text-primary" : "text-destructive"
+                              Number(currentChange) >= 0 ? "text-brand" : "text-destructive"
                             }`}
                           >
                             {currentChange == null || !(Number(currentPrice) > 0)

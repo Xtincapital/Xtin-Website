@@ -351,7 +351,7 @@ const Analytics = () => {
                     className={
                       card.positive === undefined
                         ? "stat-value font-semibold text-foreground truncate"
-                        : `stat-value font-semibold truncate ${card.positive ? "text-success" : "text-destructive"}`
+                        : `stat-value font-semibold truncate ${card.positive ? "text-brand" : "text-destructive"}`
                     }
                   >
                     {card.value}
@@ -519,10 +519,10 @@ const Analytics = () => {
                             <TableCell className="font-medium">{name}</TableCell>
                             <TableCell className="text-right">{s.trades}</TableCell>
                             <TableCell className="text-right">{s.winRate.toFixed(1)}%</TableCell>
-                            <TableCell className={`text-right font-medium ${s.totalPnL >= 0 ? "text-success" : "text-destructive"}`}>
+                            <TableCell className={`text-right font-medium ${s.totalPnL >= 0 ? "text-brand" : "text-destructive"}`}>
                               {formatCurrency(s.totalPnL)}
                             </TableCell>
-                            <TableCell className={`text-right ${s.avgPnL >= 0 ? "text-success" : "text-destructive"}`}>
+                            <TableCell className={`text-right ${s.avgPnL >= 0 ? "text-brand" : "text-destructive"}`}>
                               {formatCurrency(s.avgPnL)}
                             </TableCell>
                             <TableCell className="text-right">{s.profitFactor === Infinity ? "∞" : s.profitFactor.toFixed(2)}</TableCell>

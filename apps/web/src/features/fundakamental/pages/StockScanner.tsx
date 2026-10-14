@@ -625,7 +625,7 @@ const StockScanner = () => {
           className="mb-6"
         >
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-4 h-4 text-primary" />
+            <Sparkles className="w-4 h-4 text-brand" />
             <h2 className="xt-label">
               Start with a proven screen
             </h2>
@@ -643,7 +643,7 @@ const StockScanner = () => {
               >
                 <div className="text-2xl mb-2">{preset.emoji}</div>
                 <div className="font-bold text-foreground text-sm">{preset.name}</div>
-                <div className="text-xs text-primary font-medium mb-1.5">{preset.tagline}</div>
+                <div className="text-xs text-brand font-medium mb-1.5">{preset.tagline}</div>
                 <div className="text-xs text-muted-foreground leading-relaxed">{preset.plain}</div>
               </button>
             ))}
@@ -659,7 +659,7 @@ const StockScanner = () => {
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-              <Filter className="w-5 h-5 text-primary" />
+              <Filter className="w-5 h-5 text-brand" />
               Filter Criteria
             </h2>
             <Button variant="outline" size="sm" onClick={addFilter} className="gap-2">
@@ -684,7 +684,7 @@ const StockScanner = () => {
                   <SelectContent className="max-h-80">
                     {filterFieldGroups.map((grp) => (
                       <SelectGroup key={grp.group}>
-                        <SelectLabel className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                        <SelectLabel className="text-xs uppercase tracking-wide text-muted-foreground">
                           {grp.group}
                         </SelectLabel>
                         {grp.fields.map((field) => (
@@ -763,7 +763,7 @@ const StockScanner = () => {
               {isScanning ? "Scanning..." : isPro ? "Run Scan" : "Run Scan on Live Data"}
             </Button>
             {!isPro && (
-              <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">
+              <span className="text-xs font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">
                 PRO
               </span>
             )}
@@ -813,7 +813,7 @@ const StockScanner = () => {
                 {isPro ? `Results (${results.length} matches)` : "Sample results"}
               </h2>
               {!isPro && (
-                <span className="text-[11px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+                <span className="text-xs font-semibold text-amber-600 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
                   Preview — live results are Pro
                 </span>
               )}
@@ -836,12 +836,12 @@ const StockScanner = () => {
               className="px-4 py-3 bg-primary/5 border-b border-primary/15 flex items-center gap-3 cursor-pointer hover:bg-primary/10 transition-colors"
               onClick={() => usePlanStore.getState().openUpgrade("screener")}
             >
-              <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
+              <Sparkles className="w-4 h-4 text-brand flex-shrink-0" />
               <p className="text-sm text-muted-foreground flex-1">
                 This is a sample of what a screen returns. <span className="font-semibold text-foreground">Go Pro</span> to
                 run this against the entire market, see every match ranked, and export the list.
               </p>
-              <span className="text-sm font-bold text-primary whitespace-nowrap">Unlock →</span>
+              <span className="text-sm font-bold text-brand whitespace-nowrap">Unlock →</span>
             </div>
           )}
 
@@ -943,7 +943,7 @@ const StockScanner = () => {
                       </div>
                     </td>
                     <td className="py-4 px-4">
-                      <span className="px-2 py-1 rounded-full bg-accent/30 text-xs text-primary font-medium">
+                      <span className="px-2 py-1 rounded-full bg-accent/30 text-xs text-brand font-medium">
                         {stock.sector}
                       </span>
                     </td>
@@ -960,7 +960,7 @@ const StockScanner = () => {
                       <span
                         className={`flex items-center justify-end gap-1 ${
                           stock.revenueGrowth >= 0
-                            ? "text-success"
+                            ? "text-brand"
                             : "text-destructive"
                         }`}
                       >
@@ -1002,9 +1002,9 @@ const StockScanner = () => {
                         </div>
                         <span className={`text-sm font-bold ${
                           stock.matchScore >= 90
-                            ? "text-success"
+                            ? "text-brand"
                             : stock.matchScore >= 75
-                            ? "text-primary"
+                            ? "text-brand"
                             : "text-warning"
                         }`}>
                           {stock.matchScore}%

@@ -69,16 +69,16 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         {options.map((opt, i) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
-          let bg = "bg-gray-50  hover:bg-green-50 ", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          let bg = "bg-gray-50  hover:bg-brand-soft ", border = "border-gray-200 ";
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-green-100  text-green-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-brand-soft  text-brand'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -86,7 +86,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -101,25 +101,25 @@ const AlgoTradingLesson7 = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-white to-green-50/30   text-gray-900  min-h-screen flex flex-col">
+    <div className="text-gray-900 min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           
           {/* Breadcrumb */}
           <button onClick={() => navigate('/learn/algorithmic-trading')}
-            className="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors mb-8 group">
+            className="flex items-center gap-2 text-gray-500 hover:text-brand transition-colors mb-8 group">
             <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/><span>Back to Algorithmic Trading</span>
           </button>
 
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 7 of 9 • Final</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 7 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Monitor className="w-8 h-8 text-white"/>
               </span>
               Live Trading & Monitoring
@@ -130,16 +130,16 @@ const AlgoTradingLesson7 = () => {
           </div>
 
           {/* Learning Objectives */}
-          <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-            <h2 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
-              <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
+          <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+            <h2 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+              <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
             <ul className="space-y-2">
               {["Set up a proper monitoring dashboard for your algorithm", "Implement alerts and circuit breakers", 
                 "Understand the psychology of live trading", "Handle common production issues gracefully"].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                  <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                <li key={i} className="flex items-start gap-3 text-brand ">
+                  <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -159,13 +159,13 @@ const AlgoTradingLesson7 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">The Paper-to-Live Transition</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.025em]">The Paper-to-Live Transition</h2>
             <p className="text-gray-700  mb-6">
               Never jump straight from backtest to live trading. Follow this progression:
             </p>
 
             {/* Transition Path SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-emerald-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-brand/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 200" fill="none">
                 <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">PAPER TO LIVE TRANSITION PATH</text>
                 
@@ -178,7 +178,7 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 1 */}
-                <path d="M160 100 L190 100" stroke="#77D3AE" strokeWidth="3" markerEnd="url(#arrow)"/>
+                <path d="M160 100 L190 100" stroke="#3CCB97" strokeWidth="3" markerEnd="url(#arrow)"/>
                 
                 {/* Step 2 - Paper */}
                 <g transform="translate(200, 60)">
@@ -189,7 +189,7 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 2 */}
-                <path d="M330 100 L360 100" stroke="#77D3AE" strokeWidth="3"/>
+                <path d="M330 100 L360 100" stroke="#3CCB97" strokeWidth="3"/>
                 
                 {/* Step 3 - Small Live */}
                 <g transform="translate(370, 60)">
@@ -200,29 +200,29 @@ const AlgoTradingLesson7 = () => {
                 </g>
                 
                 {/* Arrow 3 */}
-                <path d="M500 100 L530 100" stroke="#77D3AE" strokeWidth="3"/>
+                <path d="M500 100 L530 100" stroke="#3CCB97" strokeWidth="3"/>
                 
                 {/* Step 4 - Full Live */}
                 <g transform="translate(540, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#1FA978" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#12805A" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">FULL LIVE</text>
                   <text x="60" y="55" textAnchor="middle" fill="#ABE5CC" fontSize="8">Full position sizes</text>
                   <text x="60" y="68" textAnchor="middle" fill="#ABE5CC" fontSize="8">Continuous monitoring</text>
                 </g>
 
                 {/* Time indicator */}
-                <text x="350" y="175" textAnchor="middle" fill="#75757D" fontSize="10">Minimum 6-12 weeks from backtest to full live</text>
+                <text x="350" y="175" textAnchor="middle" fill="#717680" fontSize="10">Minimum 6-12 weeks from backtest to full live</text>
                 
                 <defs>
                   <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#77D3AE"/>
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#3CCB97"/>
                   </marker>
                 </defs>
               </svg>
             </div>
 
             {/* Monitoring Dashboard */}
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Monitor className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -234,59 +234,59 @@ const AlgoTradingLesson7 = () => {
             </p>
 
             {/* Dashboard SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 400" fill="none">
                 <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">ALGO TRADING DASHBOARD LAYOUT</text>
                 
                 {/* Main Dashboard Frame */}
-                <rect x="30" y="40" width="640" height="340" rx="12" fill="#232327" stroke="#404047" strokeWidth="2"/>
+                <rect x="30" y="40" width="640" height="340" rx="12" fill="#2A2A2C" stroke="#373A41" strokeWidth="2"/>
                 
                 {/* Top Row - Key Metrics */}
                 <g transform="translate(50, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#1FA978" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Today's P&L</text>
-                  <text x="70" y="50" textAnchor="middle" fill="#1FA978" fontSize="16" fontWeight="700">+₹12,450</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="9">Today's P&L</text>
+                  <text x="70" y="50" textAnchor="middle" fill="#12805A" fontSize="16" fontWeight="700">+₹12,450</text>
                 </g>
                 <g transform="translate(210, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#5A77AA" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Win Rate</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#5A77AA" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="9">Win Rate</text>
                   <text x="70" y="50" textAnchor="middle" fill="#5A77AA" fontSize="16" fontWeight="700">58.3%</text>
                 </g>
                 <g transform="translate(370, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#8F6FC4" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Trades Today</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#1F1F1F" stroke="#8F6FC4" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="9">Trades Today</text>
                   <text x="70" y="50" textAnchor="middle" fill="#8F6FC4" fontSize="16" fontWeight="700">24</text>
                 </g>
                 <g transform="translate(530, 60)">
-                  <rect x="0" y="0" width="120" height="70" rx="8" fill="#151517" stroke="#B8923F" strokeWidth="1"/>
-                  <text x="60" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Drawdown</text>
+                  <rect x="0" y="0" width="120" height="70" rx="8" fill="#1F1F1F" stroke="#B8923F" strokeWidth="1"/>
+                  <text x="60" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="9">Drawdown</text>
                   <text x="60" y="50" textAnchor="middle" fill="#B8923F" fontSize="16" fontWeight="700">-2.1%</text>
                 </g>
 
                 {/* Equity Curve Panel */}
                 <g transform="translate(50, 150)">
-                  <rect x="0" y="0" width="300" height="130" rx="8" fill="#151517"/>
-                  <text x="150" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">Equity Curve (MTD)</text>
+                  <rect x="0" y="0" width="300" height="130" rx="8" fill="#1F1F1F"/>
+                  <text x="150" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10">Equity Curve (MTD)</text>
                   {/* Simplified line chart */}
                   <polyline points="20,100 50,90 80,85 110,70 140,80 170,60 200,55 230,65 260,45 280,50" 
-                    stroke="#1FA978" strokeWidth="2" fill="none"/>
-                  <circle cx="280" cy="50" r="4" fill="#1FA978"/>
+                    stroke="#12805A" strokeWidth="2" fill="none"/>
+                  <circle cx="280" cy="50" r="4" fill="#12805A"/>
                 </g>
 
                 {/* Active Positions */}
                 <g transform="translate(370, 150)">
-                  <rect x="0" y="0" width="280" height="130" rx="8" fill="#151517"/>
-                  <text x="140" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">Active Positions</text>
+                  <rect x="0" y="0" width="280" height="130" rx="8" fill="#1F1F1F"/>
+                  <text x="140" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10">Active Positions</text>
                   
-                  <text x="20" y="45" fill="#A3A1A6" fontSize="8">Symbol</text>
-                  <text x="90" y="45" fill="#A3A1A6" fontSize="8">Qty</text>
-                  <text x="140" y="45" fill="#A3A1A6" fontSize="8">Entry</text>
-                  <text x="200" y="45" fill="#A3A1A6" fontSize="8">P&L</text>
+                  <text x="20" y="45" fill="#A0A3AA" fontSize="8">Symbol</text>
+                  <text x="90" y="45" fill="#A0A3AA" fontSize="8">Qty</text>
+                  <text x="140" y="45" fill="#A0A3AA" fontSize="8">Entry</text>
+                  <text x="200" y="45" fill="#A0A3AA" fontSize="8">P&L</text>
                   
                   <text x="20" y="65" fill="white" fontSize="9">RELIANCE</text>
                   <text x="90" y="65" fill="white" fontSize="9">100</text>
                   <text x="140" y="65" fill="white" fontSize="9">₹2,450</text>
-                  <text x="200" y="65" fill="#1FA978" fontSize="9">+₹3,200</text>
+                  <text x="200" y="65" fill="#12805A" fontSize="9">+₹3,200</text>
                   
                   <text x="20" y="85" fill="white" fontSize="9">INFY</text>
                   <text x="90" y="85" fill="white" fontSize="9">200</text>
@@ -296,18 +296,18 @@ const AlgoTradingLesson7 = () => {
                   <text x="20" y="105" fill="white" fontSize="9">HDFC</text>
                   <text x="90" y="105" fill="white" fontSize="9">50</text>
                   <text x="140" y="105" fill="white" fontSize="9">₹1,720</text>
-                  <text x="200" y="105" fill="#1FA978" fontSize="9">+₹1,150</text>
+                  <text x="200" y="105" fill="#12805A" fontSize="9">+₹1,150</text>
                 </g>
 
                 {/* System Status */}
                 <g transform="translate(50, 300)">
-                  <rect x="0" y="0" width="600" height="60" rx="8" fill="#151517"/>
-                  <text x="300" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">System Status</text>
+                  <rect x="0" y="0" width="600" height="60" rx="8" fill="#1F1F1F"/>
+                  <text x="300" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10">System Status</text>
                   
-                  <circle cx="60" cy="42" r="6" fill="#1FA978"/><text x="80" y="46" fill="#A3A1A6" fontSize="9">Broker Connected</text>
-                  <circle cx="200" cy="42" r="6" fill="#1FA978"/><text x="220" y="46" fill="#A3A1A6" fontSize="9">Data Feed OK</text>
-                  <circle cx="340" cy="42" r="6" fill="#1FA978"/><text x="360" y="46" fill="#A3A1A6" fontSize="9">Strategy Running</text>
-                  <circle cx="480" cy="42" r="6" fill="#B8923F"/><text x="500" y="46" fill="#A3A1A6" fontSize="9">1 Alert</text>
+                  <circle cx="60" cy="42" r="6" fill="#12805A"/><text x="80" y="46" fill="#A0A3AA" fontSize="9">Broker Connected</text>
+                  <circle cx="200" cy="42" r="6" fill="#12805A"/><text x="220" y="46" fill="#A0A3AA" fontSize="9">Data Feed OK</text>
+                  <circle cx="340" cy="42" r="6" fill="#12805A"/><text x="360" y="46" fill="#A0A3AA" fontSize="9">Strategy Running</text>
+                  <circle cx="480" cy="42" r="6" fill="#B8923F"/><text x="500" y="46" fill="#A0A3AA" fontSize="9">1 Alert</text>
                 </g>
               </svg>
             </div>
@@ -325,7 +325,7 @@ const AlgoTradingLesson7 = () => {
                 { metric: "Latency", why: "Order execution speed", category: "System" },
                 { metric: "Connection Status", why: "Are all systems online?", category: "System" }
               ].map((item, i) => {
-                const catColors = { Performance: "bg-emerald-100  text-emerald-700 ",
+                const catColors = { Performance: "bg-brand-soft  text-brand ",
                   Risk: "bg-red-100  text-red-700 ",
                   System: "bg-blue-100  text-blue-700 " };
                 return (
@@ -392,8 +392,8 @@ const AlgoTradingLesson7 = () => {
                     <Icons.Warning className="w-5 h-5 text-amber-500"/>{item.trap}
                   </h4>
                   <p className="text-sm text-gray-600  mb-3">{item.desc}</p>
-                  <div className="bg-emerald-50  rounded-lg p-2">
-                    <p className="text-sm text-emerald-700 "><strong>Fix:</strong> {item.solution}</p>
+                  <div className="bg-brand-soft  rounded-lg p-2">
+                    <p className="text-sm text-brand "><strong>Fix:</strong> {item.solution}</p>
                   </div>
                 </div>
               ))}
@@ -459,9 +459,9 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Key Takeaways */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
+            <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
               <ul className="space-y-2">
@@ -472,8 +472,8 @@ const AlgoTradingLesson7 = () => {
                   "Your psychology still matters — don't override your algorithm emotionally",
                   "Have a daily routine for checking and reconciling",
                   "Plan for failures — redundancy and graceful degradation are essential"].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                    <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                  <li key={i} className="flex items-start gap-3 text-brand ">
+                    <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -517,11 +517,11 @@ const AlgoTradingLesson7 = () => {
           {/* Navigation */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-gray-200 ">
             <button onClick={() => navigate('/learn/algo-trading-lesson-6')}
-              className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors group">
+              className="flex items-center gap-2 text-gray-600 hover:text-brand transition-colors group">
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Execution & Order Types
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-8')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all bg-brand-fill">
               Next: Data Management<FaArrowRight/>
             </button>
           </div>

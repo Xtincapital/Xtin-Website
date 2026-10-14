@@ -82,7 +82,7 @@ const LoginPage = () => {
 				<div className="max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-display font-normal text-gray-900 mb-2 tracking-[-0.015em]">
+						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Welcome Back
 						</h1>
 						<p className="text-gray-600">
@@ -112,7 +112,7 @@ const LoginPage = () => {
 									value={formData.email}
 									onChange={handleChange}
 									required
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 									placeholder="Enter your email"
 								/>
 							</div>
@@ -129,7 +129,7 @@ const LoginPage = () => {
 									value={formData.password}
 									onChange={handleChange}
 									required
-									className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+									className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 									placeholder="Enter your password"
 								/>
 								<button
@@ -161,11 +161,11 @@ const LoginPage = () => {
 										name="rememberMe"
 										checked={formData.rememberMe}
 										onChange={handleChange}
-										className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+										className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded"
 									/>
 									<span className="ml-2 text-sm text-gray-600">Remember me</span>
 								</label>
-								<Link to="/forgot-password" className="text-sm text-green-600 hover:text-green-700 font-medium">
+								<Link to="/forgot-password" className="text-sm text-brand hover:text-brand font-medium">
 									Forgot password?
 								</Link>
 							</div>
@@ -178,15 +178,15 @@ const LoginPage = () => {
 									checked={formData.agreeToTerms}
 									onChange={handleChange}
 									required
-									className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+									className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
 								/>
 								<span className="ml-2 text-sm text-gray-600">
 									I agree to the{" "}
-									<Link to="/terms" className="text-green-600 hover:text-green-700 font-medium">
+									<Link to="/terms" className="text-brand hover:text-brand font-medium">
 										Terms of Service
 									</Link>{" "}
 									and{" "}
-									<Link to="/privacy" className="text-green-600 hover:text-green-700 font-medium">
+									<Link to="/privacy" className="text-brand hover:text-brand font-medium">
 										Privacy Policy
 									</Link>
 								</span>
@@ -196,7 +196,7 @@ const LoginPage = () => {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isLoading ? (
 									<div className="flex items-center justify-center">
@@ -247,7 +247,7 @@ const LoginPage = () => {
 						<div className="mt-6 text-center">
 							<p className="text-gray-600">
 								Don't have an account?{" "}
-								<Link to="/signup" className="text-green-600 hover:text-green-700 font-medium">
+								<Link to="/signup" className="text-brand hover:text-brand font-medium">
 									Sign up
 								</Link>
 							</p>

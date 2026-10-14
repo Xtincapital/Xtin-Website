@@ -28,11 +28,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
-                : 'border-gray-200 hover:border-emerald-400 hover:bg-emerald-50'
+                : 'border-gray-200 hover:border-brand hover:bg-brand-soft'
             }`}
           >
             {option}
@@ -40,14 +40,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -62,13 +62,13 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const RiskBeforeRewardSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Risk Exists Before Reward</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Risk Exists Before Reward</text>
     
     {/* Timeline */}
-    <line x1="100" y1="150" x2="600" y2="150" stroke="#CFCBC1" strokeWidth="3" strokeLinecap="round"/>
+    <line x1="100" y1="150" x2="600" y2="150" stroke="#CFD0D3" strokeWidth="3" strokeLinecap="round"/>
     
     {/* Risk zone (left) */}
     <rect x="100" y="100" width="200" height="100" fill="#FDF1F1" rx="8" stroke="#F09B9B" strokeWidth="2"/>
@@ -77,22 +77,22 @@ const RiskBeforeRewardSVG = () => (
     <text x="200" y="175" textAnchor="middle" fontSize="9" fill="#842428">Outcomes unknown</text>
     
     {/* Arrow */}
-    <path d="M320 150 L380 150" stroke="#75757D" strokeWidth="2" markerEnd="url(#arrowHead)"/>
+    <path d="M320 150 L380 150" stroke="#717680" strokeWidth="2" markerEnd="url(#arrowHead)"/>
     <defs>
       <marker id="arrowHead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#75757D"/>
+        <polygon points="0 0, 10 3.5, 0 7" fill="#717680"/>
       </marker>
     </defs>
-    <text x="350" y="135" textAnchor="middle" fontSize="8" fill="#75757D">Time passes</text>
+    <text x="350" y="135" textAnchor="middle" fontSize="8" fill="#717680">Time passes</text>
     
     {/* Reward zone (right) */}
-    <rect x="400" y="100" width="200" height="100" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="2"/>
-    <text x="500" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0D543C">REWARD</text>
-    <text x="500" y="155" textAnchor="middle" fontSize="9" fill="#0B4532">Only possible after</text>
-    <text x="500" y="175" textAnchor="middle" fontSize="9" fill="#0B4532">surviving the risk</text>
+    <rect x="400" y="100" width="200" height="100" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="2"/>
+    <text x="500" y="130" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">REWARD</text>
+    <text x="500" y="155" textAnchor="middle" fontSize="9" fill="#12805A">Only possible after</text>
+    <text x="500" y="175" textAnchor="middle" fontSize="9" fill="#12805A">surviving the risk</text>
     
     {/* Key insight */}
-    <rect x="150" y="220" width="400" height="40" fill="#232327" rx="8"/>
+    <rect x="150" y="220" width="400" height="40" fill="#2A2A2C" rx="8"/>
     <text x="350" y="245" textAnchor="middle" fontSize="10" fill="white">💡 You cannot skip risk to reach reward. Risk comes first, always.</text>
   </svg>
 );
@@ -101,10 +101,10 @@ const RiskBeforeRewardSVG = () => (
 const WhatIsRiskSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">What Is Risk in Financial Markets?</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">What Is Risk in Financial Markets?</text>
     
     {/* Central definition */}
     <rect x="150" y="55" width="400" height="70" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
@@ -129,11 +129,11 @@ const WhatIsRiskSVG = () => (
     </g>
     
     <g transform="translate(470, 145)">
-      <rect x="0" y="0" width="180" height="120" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">🎯 Range of Possibilities</text>
-      <text x="90" y="55" textAnchor="middle" fontSize="8" fill="#0B4532">Multiple outcomes exist —</text>
-      <text x="90" y="72" textAnchor="middle" fontSize="8" fill="#0B4532">some favorable, some not —</text>
-      <text x="90" y="89" textAnchor="middle" fontSize="8" fill="#0B4532">you face all of them</text>
+      <rect x="0" y="0" width="180" height="120" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">🎯 Range of Possibilities</text>
+      <text x="90" y="55" textAnchor="middle" fontSize="8" fill="#12805A">Multiple outcomes exist —</text>
+      <text x="90" y="72" textAnchor="middle" fontSize="8" fill="#12805A">some favorable, some not —</text>
+      <text x="90" y="89" textAnchor="middle" fontSize="8" fill="#12805A">you face all of them</text>
     </g>
   </svg>
 );
@@ -142,27 +142,27 @@ const WhatIsRiskSVG = () => (
 const CertainVsUncertainSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Certain vs Uncertain Outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Certain vs Uncertain Outcomes</text>
     
     {/* Left: Certain */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="270" height="230" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0D543C">✓ Certain Outcome</text>
+      <rect x="0" y="0" width="270" height="230" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Certain Outcome</text>
       
       {/* Single path */}
-      <circle cx="135" cy="70" r="15" fill="#1FA978"/>
+      <circle cx="135" cy="70" r="15" fill="#12805A"/>
       <text x="135" y="75" textAnchor="middle" fontSize="10" fill="white">A</text>
       
-      <line x1="135" y1="90" x2="135" y2="150" stroke="#1FA978" strokeWidth="3"/>
+      <line x1="135" y1="90" x2="135" y2="150" stroke="#12805A" strokeWidth="3"/>
       
-      <circle cx="135" cy="170" r="15" fill="#1FA978"/>
+      <circle cx="135" cy="170" r="15" fill="#12805A"/>
       <text x="135" y="175" textAnchor="middle" fontSize="10" fill="white">B</text>
       
-      <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#0B4532">Known cost → Known result</text>
-      <text x="135" y="222" textAnchor="middle" fontSize="8" fill="#0D543C">Example: Fixed deposit interest</text>
+      <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#12805A">Known cost → Known result</text>
+      <text x="135" y="222" textAnchor="middle" fontSize="8" fill="#12805A">Example: Fixed deposit interest</text>
     </g>
     
     {/* Right: Uncertain */}
@@ -177,7 +177,7 @@ const CertainVsUncertainSVG = () => (
       {/* Branching lines */}
       <line x1="135" y1="90" x2="60" y2="150" stroke="#E04848" strokeWidth="2" strokeDasharray="4"/>
       <line x1="135" y1="90" x2="135" y2="150" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
-      <line x1="135" y1="90" x2="210" y2="150" stroke="#1FA978" strokeWidth="2" strokeDasharray="4"/>
+      <line x1="135" y1="90" x2="210" y2="150" stroke="#12805A" strokeWidth="2" strokeDasharray="4"/>
       
       <circle cx="60" cy="170" r="12" fill="#E04848"/>
       <text x="60" y="175" textAnchor="middle" fontSize="8" fill="white">-$</text>
@@ -185,7 +185,7 @@ const CertainVsUncertainSVG = () => (
       <circle cx="135" cy="170" r="12" fill="#B8923F"/>
       <text x="135" y="175" textAnchor="middle" fontSize="8" fill="white">~</text>
       
-      <circle cx="210" cy="170" r="12" fill="#1FA978"/>
+      <circle cx="210" cy="170" r="12" fill="#12805A"/>
       <text x="210" y="175" textAnchor="middle" fontSize="8" fill="white">+$</text>
       
       <text x="135" y="205" textAnchor="middle" fontSize="9" fill="#842428">Same action → Multiple results</text>
@@ -193,7 +193,7 @@ const CertainVsUncertainSVG = () => (
     </g>
     
     {/* Bottom insight */}
-    <text x="350" y="305" textAnchor="middle" fontSize="10" fill="#75757D">Financial markets are defined by uncertainty — not all outcomes can be predicted.</text>
+    <text x="350" y="305" textAnchor="middle" fontSize="10" fill="#717680">Financial markets are defined by uncertainty — not all outcomes can be predicted.</text>
   </svg>
 );
 
@@ -201,11 +201,11 @@ const CertainVsUncertainSVG = () => (
 const KnownVsUnknownSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Known Costs vs Unknown Outcomes</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What you control vs what you cannot</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Known Costs vs Unknown Outcomes</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What you control vs what you cannot</text>
     
     {/* Left: Known */}
     <rect x="50" y="70" width="270" height="180" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
@@ -234,7 +234,7 @@ const KnownVsUnknownSVG = () => (
     <text x="515" y="215" textAnchor="middle" fontSize="9" fill="#842428">How long until results appear</text>
     
     {/* Bottom insight */}
-    <text x="350" y="268" textAnchor="middle" fontSize="10" fill="#5A5A62">Risk is the gap between what you can control (costs) and what you cannot (outcomes).</text>
+    <text x="350" y="268" textAnchor="middle" fontSize="10" fill="#555A63">Risk is the gap between what you can control (costs) and what you cannot (outcomes).</text>
   </svg>
 );
 
@@ -242,11 +242,11 @@ const KnownVsUnknownSVG = () => (
 const RiskVsVolatilitySVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Risk vs Volatility: Not the Same</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">A common misconception clarified</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Risk vs Volatility: Not the Same</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">A common misconception clarified</text>
     
     {/* Left: Volatility */}
     <g transform="translate(50, 70)">
@@ -282,7 +282,7 @@ const RiskVsVolatilitySVG = () => (
     </g>
     
     {/* Bottom comparison */}
-    <rect x="100" y="270" width="500" height="24" fill="#232327" rx="6"/>
+    <rect x="100" y="270" width="500" height="24" fill="#2A2A2C" rx="6"/>
     <text x="350" y="286" textAnchor="middle" fontSize="9" fill="white">Volatility is visible movement. Risk is the potential for loss. High volatility ≠ high risk automatically.</text>
   </svg>
 );
@@ -291,10 +291,10 @@ const RiskVsVolatilitySVG = () => (
 const RiskCannotBeRemovedSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Risk Cannot Be Removed — Only Managed</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Risk Cannot Be Removed — Only Managed</text>
     
     {/* Wrong approach */}
     <g transform="translate(50, 55)">
@@ -314,22 +314,22 @@ const RiskCannotBeRemovedSVG = () => (
     
     {/* Right approach */}
     <g transform="translate(380, 55)">
-      <rect x="0" y="0" width="270" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ The Realistic Goal</text>
-      <text x="135" y="48" textAnchor="middle" fontSize="9" fill="#0B4532">"Manage risk thoughtfully"</text>
+      <rect x="0" y="0" width="270" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ The Realistic Goal</text>
+      <text x="135" y="48" textAnchor="middle" fontSize="9" fill="#12805A">"Manage risk thoughtfully"</text>
       
       {/* Contained risk symbol */}
-      <rect x="85" y="65" width="100" height="80" fill="#EEF9F4" stroke="#1FA978" strokeWidth="3" rx="8"/>
-      <text x="135" y="115" textAnchor="middle" fontSize="14" fill="#1FA978">RISK</text>
+      <rect x="85" y="65" width="100" height="80" fill="#EEF9F4" stroke="#12805A" strokeWidth="3" rx="8"/>
+      <text x="135" y="115" textAnchor="middle" fontSize="14" fill="#12805A">RISK</text>
       
-      <text x="135" y="168" textAnchor="middle" fontSize="8" fill="#0B4532">This leads to:</text>
-      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#0D543C">• Accepting uncertainty exists</text>
-      <text x="135" y="200" textAnchor="middle" fontSize="8" fill="#0D543C">• Taking calculated exposure</text>
-      <text x="135" y="215" textAnchor="middle" fontSize="8" fill="#0D543C">• Preparing for adverse outcomes</text>
+      <text x="135" y="168" textAnchor="middle" fontSize="8" fill="#12805A">This leads to:</text>
+      <text x="135" y="185" textAnchor="middle" fontSize="8" fill="#12805A">• Accepting uncertainty exists</text>
+      <text x="135" y="200" textAnchor="middle" fontSize="8" fill="#12805A">• Taking calculated exposure</text>
+      <text x="135" y="215" textAnchor="middle" fontSize="8" fill="#12805A">• Preparing for adverse outcomes</text>
     </g>
     
     {/* Bottom message */}
-    <text x="350" y="280" textAnchor="middle" fontSize="10" fill="#75757D">Risk management is not about avoidance — it's about intelligent engagement with uncertainty.</text>
+    <text x="350" y="280" textAnchor="middle" fontSize="10" fill="#717680">Risk management is not about avoidance — it's about intelligent engagement with uncertainty.</text>
   </svg>
 );
 
@@ -337,11 +337,11 @@ const RiskCannotBeRemovedSVG = () => (
 const SameInvestmentSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Same Investment, Different Outcomes</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Why uncertainty is unavoidable</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Same Investment, Different Outcomes</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Why uncertainty is unavoidable</text>
     
     {/* Starting point */}
     <circle cx="120" cy="170" r="35" fill="#8F6FC4" stroke="#7A5BA6" strokeWidth="3"/>
@@ -349,19 +349,19 @@ const SameInvestmentSVG = () => (
     <text x="120" y="180" textAnchor="middle" fontSize="9" fill="white">buys $1000</text>
     
     {/* Branches */}
-    <line x1="160" y1="145" x2="280" y2="80" stroke="#1FA978" strokeWidth="2"/>
+    <line x1="160" y1="145" x2="280" y2="80" stroke="#12805A" strokeWidth="2"/>
     <line x1="160" y1="170" x2="280" y2="170" stroke="#B8923F" strokeWidth="2"/>
     <line x1="160" y1="195" x2="280" y2="260" stroke="#E04848" strokeWidth="2"/>
     
     {/* Scenario labels */}
-    <text x="220" y="100" fontSize="8" fill="#75757D">Scenario A</text>
-    <text x="220" y="165" fontSize="8" fill="#75757D">Scenario B</text>
-    <text x="220" y="240" fontSize="8" fill="#75757D">Scenario C</text>
+    <text x="220" y="100" fontSize="8" fill="#717680">Scenario A</text>
+    <text x="220" y="165" fontSize="8" fill="#717680">Scenario B</text>
+    <text x="220" y="240" fontSize="8" fill="#717680">Scenario C</text>
     
     {/* Outcomes */}
-    <rect x="300" y="50" width="350" height="60" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-    <text x="475" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">📈 Market rises</text>
-    <text x="475" y="95" textAnchor="middle" fontSize="9" fill="#0B4532">Investment grows to $1,300 — Investor feels successful</text>
+    <rect x="300" y="50" width="350" height="60" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+    <text x="475" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">📈 Market rises</text>
+    <text x="475" y="95" textAnchor="middle" fontSize="9" fill="#12805A">Investment grows to $1,300 — Investor feels successful</text>
     
     <rect x="300" y="140" width="350" height="60" fill="#FBF7EC" rx="10" stroke="#E2C273" strokeWidth="2"/>
     <text x="475" y="165" textAnchor="middle" fontSize="10" fontWeight="600" fill="#7C5D2B">📊 Market stays flat</text>
@@ -372,7 +372,7 @@ const SameInvestmentSVG = () => (
     <text x="475" y="275" textAnchor="middle" fontSize="9" fill="#842428">Investment drops to $700 — Investor faces loss</text>
     
     {/* Key insight */}
-    <text x="350" y="310" textAnchor="middle" fontSize="9" fill="#5A5A62">The same decision leads to different outcomes. This is risk — it exists before you know which scenario unfolds.</text>
+    <text x="350" y="310" textAnchor="middle" fontSize="9" fill="#555A63">The same decision leads to different outcomes. This is risk — it exists before you know which scenario unfolds.</text>
   </svg>
 );
 
@@ -380,7 +380,7 @@ const SameInvestmentSVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F5F5F7" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#riskGradient)" rx="16"/>
@@ -431,30 +431,30 @@ const RiskLesson1 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/learn/risk-management')}
-            className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 transition-colors mb-4"
+            className="flex items-center gap-2 text-brand hover:text-brand transition-colors mb-4"
           >
             <FaArrowLeft />
             <span>Back to Risk Management</span>
           </button>
           <div className="bg-white rounded-2xl p-6 shadow-lg">
             <ModuleBadge moduleId="risk-management" />
-            <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
               Lesson 1 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">What Is Risk in Financial Markets?</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">What Is Risk in Financial Markets?</h1>
             <p className="text-gray-600 mt-2">Understanding the foundation of all financial decisions</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Risk Exists in All Financial Decisions</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Risk Exists in All Financial Decisions</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -614,9 +614,9 @@ const RiskLesson1 = () => {
         </div>
 
         {/* India-specific Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Context</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Context</h3>
+          <p className="text-brand">
             Market uncertainty exists everywhere — from the United States and Europe to 
             India and other emerging markets. The fundamental nature of risk (uncertainty 
             of outcomes) is universal. Whether you're investing in New York, London, Mumbai, 
@@ -636,34 +636,34 @@ const RiskLesson1 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl p-8 shadow-lg mb-8">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 bg-brand-soft">
           <div className="flex items-start gap-4">
-            <div className="bg-emerald-500 rounded-full p-3">
+            <div className="bg-brand-fill rounded-full p-3">
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Reflection Activity</h3>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200">
+              <h3 className="text-xl font-semibold text-brand mb-3">Reflection Activity</h3>
+              <div className="bg-white rounded-xl p-5 border border-brand-line">
                 <p className="text-gray-800 font-medium mb-4">
                   Think about your own financial decisions — past, present, or planned. 
                   Consider these questions:
                 </p>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">1.</span>
+                    <span className="text-brand font-bold">1.</span>
                     <span>Where do you face uncertainty in your financial life? (Investments, career, expenses?)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">2.</span>
+                    <span className="text-brand font-bold">2.</span>
                     <span>Have you ever made a decision expecting a certain outcome, only to experience something different?</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">3.</span>
+                    <span className="text-brand font-bold">3.</span>
                     <span>How comfortable are you with uncertainty? Does the unknown create anxiety, or can you accept it calmly?</span>
                   </li>
                 </ul>
-                <div className="mt-4 p-4 bg-emerald-50 rounded-lg">
-                  <p className="text-emerald-800 text-sm">
+                <div className="mt-4 p-4 bg-brand-soft rounded-lg">
+                  <p className="text-brand text-sm">
                     <strong>Why this matters:</strong> Understanding your own relationship 
                     with uncertainty is the first step to managing risk effectively. There's 
                     no right answer — only honest self-awareness.
@@ -675,7 +675,7 @@ const RiskLesson1 = () => {
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-4">🔑 Lesson Summary</h3>
           <ul className="space-y-2 text-lg">
             <li>• Risk in finance means uncertainty of outcomes — not danger</li>
@@ -698,7 +698,7 @@ const RiskLesson1 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-lesson-2')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

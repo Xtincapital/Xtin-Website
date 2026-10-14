@@ -218,7 +218,7 @@ const Hourly = () => {
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
           <h1 className="xt-title mb-2 flex items-center gap-3">
-            <Clock className="w-6 h-6 text-primary" />
+            <Clock className="w-6 h-6 text-brand" />
             Hourly Analysis
             <InfoTip title="Hourly analysis" widthClass="w-80">
               <p>Shows how you do at different times of the day, using the entry time of each trade. Many traders find they make most of their money in one or two hours and give it back at other times.</p>
@@ -406,7 +406,7 @@ const Hourly = () => {
                     <button type="button" key={s.label} onClick={() => showSession(s.label)} className="flex w-full items-center gap-2 text-xs text-left cursor-pointer hover:underline" title="Click to see these trades">
                       <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: SESSION_COLORS[i % SESSION_COLORS.length] }} />
                       <span className="text-muted-foreground truncate">{s.label}</span>
-                      <span className={`ml-auto font-semibold ${s.pnl >= 0 ? "text-success" : "text-destructive"}`}>
+                      <span className={`ml-auto font-semibold ${s.pnl >= 0 ? "text-brand" : "text-destructive"}`}>
                         {shortCurrency(s.pnl)}
                       </span>
                     </button>
@@ -515,8 +515,8 @@ const Hourly = () => {
                       >
                         <TableCell className="font-medium">{formatHourDisplay(bucket.hour)}</TableCell>
                         <TableCell>{bucket.trades.length}</TableCell>
-                        <TableCell className={positive ? "text-success" : "text-destructive"}>{formatCurrency(bucket.totalPnL)}</TableCell>
-                        <TableCell className={positive ? "text-success" : "text-destructive"}>{formatCurrency(avgPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{formatCurrency(bucket.totalPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{formatCurrency(avgPnL)}</TableCell>
                         <TableCell>{winRate.toFixed(1)}%</TableCell>
                         <TableCell className="max-w-[140px] truncate">{bestStrategy}</TableCell>
                         <TableCell>

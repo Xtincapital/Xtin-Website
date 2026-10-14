@@ -77,37 +77,37 @@ const PositionSizingSVG = () => (
   <svg viewBox="0 0 700 420" className="w-full h-auto">
     <defs>
       <linearGradient id="psGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="420" fill="url(#psGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Position Sizing Methods</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">How much capital to allocate per trade</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">How much capital to allocate per trade</text>
     
     {/* Method 1: Fixed Percentage */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="190" height="150" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="150" fill="#2A2A2C" rx="10"/>
       
-      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1FA978">FIXED PERCENTAGE</text>
+      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">FIXED PERCENTAGE</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Risk 1-2% of account per trade</text>
         
         <text x="0" y="25" fontSize="9" fill="#D2754C">Formula:</text>
-        <text x="0" y="42" fontSize="8" fill="#A3A1A6">Position Size = Account × Risk %</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">÷ Trade Risk (per share)</text>
+        <text x="0" y="42" fontSize="8" fill="#A0A3AA">Position Size = Account × Risk %</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">÷ Trade Risk (per share)</text>
         
         <text x="0" y="82" fontSize="8" fill="white">Example: $100K account, 1% risk</text>
-        <text x="0" y="96" fontSize="8" fill="#A3A1A6">$1,000 max risk per trade</text>
+        <text x="0" y="96" fontSize="8" fill="#A0A3AA">$1,000 max risk per trade</text>
       </g>
     </g>
     
     {/* Method 2: Kelly Criterion */}
     <g transform="translate(255, 80)">
-      <rect x="0" y="0" width="190" height="150" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="150" fill="#2A2A2C" rx="10"/>
       
       <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#5A77AA">KELLY CRITERION</text>
       
@@ -115,18 +115,18 @@ const PositionSizingSVG = () => (
         <text x="0" y="0" fontSize="9" fill="white">Mathematically optimal sizing</text>
         
         <text x="0" y="25" fontSize="9" fill="#D2754C">Formula:</text>
-        <text x="0" y="42" fontSize="8" fill="#A3A1A6">f* = (p × b - q) / b</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">p=win rate, q=1-p, b=win/loss</text>
+        <text x="0" y="42" fontSize="8" fill="#A0A3AA">f* = (p × b - q) / b</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">p=win rate, q=1-p, b=win/loss</text>
         
         <text x="0" y="82" fontSize="8" fill="white">60% wins, 2:1 R/R:</text>
-        <text x="0" y="96" fontSize="8" fill="#A3A1A6">(0.6×2 - 0.4) / 2 = 40%</text>
+        <text x="0" y="96" fontSize="8" fill="#A0A3AA">(0.6×2 - 0.4) / 2 = 40%</text>
         <text x="0" y="110" fontSize="8" fill="#C7363B">Use ½ or ¼ Kelly in practice</text>
       </g>
     </g>
     
     {/* Method 3: Volatility-Based */}
     <g transform="translate(460, 80)">
-      <rect x="0" y="0" width="190" height="150" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="150" fill="#2A2A2C" rx="10"/>
       
       <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#8F6FC4">VOLATILITY-BASED</text>
       
@@ -134,11 +134,11 @@ const PositionSizingSVG = () => (
         <text x="0" y="0" fontSize="9" fill="white">Adjust size by asset volatility</text>
         
         <text x="0" y="25" fontSize="9" fill="#D2754C">Formula:</text>
-        <text x="0" y="42" fontSize="8" fill="#A3A1A6">Position = Account × Risk %</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">÷ (N × ATR)</text>
+        <text x="0" y="42" fontSize="8" fill="#A0A3AA">Position = Account × Risk %</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">÷ (N × ATR)</text>
         
         <text x="0" y="82" fontSize="8" fill="white">N = ATR multiplier for stop</text>
-        <text x="0" y="96" fontSize="8" fill="#A3A1A6">Higher volatility = smaller size</text>
+        <text x="0" y="96" fontSize="8" fill="#A0A3AA">Higher volatility = smaller size</text>
       </g>
     </g>
     
@@ -151,10 +151,10 @@ const PositionSizingSVG = () => (
         <text x="0" y="0" fontSize="10" fill="white">Account: $50,000 | Max Risk Per Trade: 2% = $1,000</text>
         
         <text x="0" y="30" fontSize="10" fill="white">Trade Setup: Buy XYZ at $50, stop loss at $48</text>
-        <text x="0" y="48" fontSize="10" fill="#A3A1A6">Risk per share: $50 - $48 = $2</text>
+        <text x="0" y="48" fontSize="10" fill="#A0A3AA">Risk per share: $50 - $48 = $2</text>
         
-        <text x="0" y="75" fontSize="10" fill="#1FA978">Position Size: $1,000 ÷ $2 = 500 shares</text>
-        <text x="0" y="93" fontSize="10" fill="#A3A1A6">Capital Required: 500 × $50 = $25,000 (50% of account)</text>
+        <text x="0" y="75" fontSize="10" fill="#12805A">Position Size: $1,000 ÷ $2 = 500 shares</text>
+        <text x="0" y="93" fontSize="10" fill="#A0A3AA">Capital Required: 500 × $50 = $25,000 (50% of account)</text>
       </g>
     </g>
   </svg>
@@ -163,84 +163,84 @@ const PositionSizingSVG = () => (
 // SVG: Greeks Portfolio Management
 const GreeksPortfolioSVG = () => (
   <svg viewBox="0 0 700 400" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="400" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="400" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Portfolio Greeks Management</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Managing aggregate risk across all positions</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Managing aggregate risk across all positions</text>
     
     {/* Portfolio Greeks Dashboard */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="300" height="200" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="300" height="200" fill="#2A2A2C" rx="10"/>
       
       <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="white">PORTFOLIO GREEKS DASHBOARD</text>
       
       <g transform="translate(20, 50)">
         {/* Delta */}
-        <text x="0" y="0" fontSize="10" fill="#A3A1A6">Net Delta:</text>
-        <text x="120" y="0" fontSize="10" fontWeight="600" fill="#1FA978">+2,500</text>
-        <rect x="180" y="-10" width="80" height="16" fill="#1FA978" fillOpacity="0.2" rx="4"/>
-        <text x="220" y="2" textAnchor="middle" fontSize="8" fill="#1FA978">BULLISH</text>
+        <text x="0" y="0" fontSize="10" fill="#A0A3AA">Net Delta:</text>
+        <text x="120" y="0" fontSize="10" fontWeight="600" fill="#12805A">+2,500</text>
+        <rect x="180" y="-10" width="80" height="16" fill="#12805A" fillOpacity="0.2" rx="4"/>
+        <text x="220" y="2" textAnchor="middle" fontSize="8" fill="#12805A">BULLISH</text>
         
         {/* Gamma */}
-        <text x="0" y="30" fontSize="10" fill="#A3A1A6">Net Gamma:</text>
+        <text x="0" y="30" fontSize="10" fill="#A0A3AA">Net Gamma:</text>
         <text x="120" y="30" fontSize="10" fontWeight="600" fill="#D2754C">+150</text>
         <rect x="180" y="20" width="80" height="16" fill="#D2754C" fillOpacity="0.2" rx="4"/>
         <text x="220" y="32" textAnchor="middle" fontSize="8" fill="#D2754C">LONG</text>
         
         {/* Theta */}
-        <text x="0" y="60" fontSize="10" fill="#A3A1A6">Net Theta:</text>
+        <text x="0" y="60" fontSize="10" fill="#A0A3AA">Net Theta:</text>
         <text x="120" y="60" fontSize="10" fontWeight="600" fill="#C7363B">-$320/day</text>
         <rect x="180" y="50" width="80" height="16" fill="#C7363B" fillOpacity="0.2" rx="4"/>
         <text x="220" y="62" textAnchor="middle" fontSize="8" fill="#C7363B">PAYING</text>
         
         {/* Vega */}
-        <text x="0" y="90" fontSize="10" fill="#A3A1A6">Net Vega:</text>
+        <text x="0" y="90" fontSize="10" fill="#A0A3AA">Net Vega:</text>
         <text x="120" y="90" fontSize="10" fontWeight="600" fill="#5A77AA">+$800</text>
         <rect x="180" y="80" width="80" height="16" fill="#5A77AA" fillOpacity="0.2" rx="4"/>
         <text x="220" y="92" textAnchor="middle" fontSize="8" fill="#5A77AA">LONG VOL</text>
         
         {/* Interpretation */}
         <text x="0" y="130" fontSize="9" fill="white">Interpretation:</text>
-        <text x="0" y="147" fontSize="8" fill="#A3A1A6">• Moderately bullish bias</text>
-        <text x="0" y="161" fontSize="8" fill="#A3A1A6">• Profits from volatility increase</text>
-        <text x="0" y="175" fontSize="8" fill="#A3A1A6">• Losing $320/day to time decay</text>
+        <text x="0" y="147" fontSize="8" fill="#A0A3AA">• Moderately bullish bias</text>
+        <text x="0" y="161" fontSize="8" fill="#A0A3AA">• Profits from volatility increase</text>
+        <text x="0" y="175" fontSize="8" fill="#A0A3AA">• Losing $320/day to time decay</text>
       </g>
     </g>
     
     {/* Balancing Actions */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="270" height="200" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="270" height="200" fill="#2A2A2C" rx="10"/>
       
       <text x="135" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">BALANCING ACTIONS</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fontWeight="500" fill="#1FA978">To Reduce Delta:</text>
-        <text x="0" y="15" fontSize="8" fill="#A3A1A6">• Sell calls or buy puts</text>
-        <text x="0" y="28" fontSize="8" fill="#A3A1A6">• Sell stock/futures</text>
+        <text x="0" y="0" fontSize="9" fontWeight="500" fill="#12805A">To Reduce Delta:</text>
+        <text x="0" y="15" fontSize="8" fill="#A0A3AA">• Sell calls or buy puts</text>
+        <text x="0" y="28" fontSize="8" fill="#A0A3AA">• Sell stock/futures</text>
         
         <text x="0" y="50" fontSize="9" fontWeight="500" fill="#D2754C">To Reduce Gamma:</text>
-        <text x="0" y="65" fontSize="8" fill="#A3A1A6">• Sell ATM options</text>
-        <text x="0" y="78" fontSize="8" fill="#A3A1A6">• Add spreads instead of naked</text>
+        <text x="0" y="65" fontSize="8" fill="#A0A3AA">• Sell ATM options</text>
+        <text x="0" y="78" fontSize="8" fill="#A0A3AA">• Add spreads instead of naked</text>
         
         <text x="0" y="100" fontSize="9" fontWeight="500" fill="#C7363B">To Reduce Theta Bleed:</text>
-        <text x="0" y="115" fontSize="8" fill="#A3A1A6">• Close long options</text>
-        <text x="0" y="128" fontSize="8" fill="#A3A1A6">• Sell options against longs</text>
+        <text x="0" y="115" fontSize="8" fill="#A0A3AA">• Close long options</text>
+        <text x="0" y="128" fontSize="8" fill="#A0A3AA">• Sell options against longs</text>
         
         <text x="0" y="150" fontSize="9" fontWeight="500" fill="#5A77AA">To Reduce Vega:</text>
-        <text x="0" y="165" fontSize="8" fill="#A3A1A6">• Sell options</text>
-        <text x="0" y="178" fontSize="8" fill="#A3A1A6">• Use spreads to cap vega</text>
+        <text x="0" y="165" fontSize="8" fill="#A0A3AA">• Sell options</text>
+        <text x="0" y="178" fontSize="8" fill="#A0A3AA">• Use spreads to cap vega</text>
       </g>
     </g>
     
     {/* Target Ranges */}
     <g transform="translate(50, 300)">
-      <rect x="0" y="0" width="600" height="85" fill="#1FA978" fillOpacity="0.1" rx="10" stroke="#1FA978" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1FA978">PROFESSIONAL TARGET RANGES</text>
+      <rect x="0" y="0" width="600" height="85" fill="#12805A" fillOpacity="0.1" rx="10" stroke="#12805A" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">PROFESSIONAL TARGET RANGES</text>
       
       <g transform="translate(20, 40)">
         <text x="0" y="10" fontSize="9" fill="white">Delta: ±5-10% of portfolio value | Gamma: Manageable daily swings (±1-2% P/L)</text>
         <text x="0" y="28" fontSize="9" fill="white">Theta: Should be positive or minimal negative | Vega: Match your volatility outlook</text>
-        <text x="0" y="46" fontSize="9" fill="#A3A1A6">Review and rebalance weekly or when Greeks drift significantly from targets</text>
+        <text x="0" y="46" fontSize="9" fill="#A0A3AA">Review and rebalance weekly or when Greeks drift significantly from targets</text>
       </g>
     </g>
   </svg>
@@ -249,59 +249,59 @@ const GreeksPortfolioSVG = () => (
 // SVG: Risk Metrics
 const RiskMetricsSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Key Risk Metrics</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Quantifying and monitoring portfolio risk</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Quantifying and monitoring portfolio risk</text>
     
     {/* VaR */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="190" height="140" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="140" fill="#2A2A2C" rx="10"/>
       
       <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">VALUE AT RISK (VaR)</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Maximum expected loss</text>
-        <text x="0" y="16" fontSize="9" fill="#A3A1A6">at a confidence level</text>
+        <text x="0" y="16" fontSize="9" fill="#A0A3AA">at a confidence level</text>
         
         <text x="0" y="40" fontSize="9" fill="#D2754C">Example:</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">95% VaR = $10,000</text>
-        <text x="0" y="70" fontSize="8" fill="#A3A1A6">means 95% of days</text>
-        <text x="0" y="84" fontSize="8" fill="#A3A1A6">loss won&apos;t exceed $10K</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">95% VaR = $10,000</text>
+        <text x="0" y="70" fontSize="8" fill="#A0A3AA">means 95% of days</text>
+        <text x="0" y="84" fontSize="8" fill="#A0A3AA">loss won&apos;t exceed $10K</text>
       </g>
     </g>
     
     {/* Max Drawdown */}
     <g transform="translate(255, 80)">
-      <rect x="0" y="0" width="190" height="140" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="140" fill="#2A2A2C" rx="10"/>
       
       <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#D2754C">MAX DRAWDOWN</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Peak-to-trough decline</text>
-        <text x="0" y="16" fontSize="9" fill="#A3A1A6">before new high</text>
+        <text x="0" y="16" fontSize="9" fill="#A0A3AA">before new high</text>
         
         <text x="0" y="40" fontSize="9" fill="#D2754C">Example:</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">Account peak: $100K</text>
-        <text x="0" y="70" fontSize="8" fill="#A3A1A6">Account low: $75K</text>
-        <text x="0" y="84" fontSize="8" fill="#A3A1A6">Max DD: 25%</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">Account peak: $100K</text>
+        <text x="0" y="70" fontSize="8" fill="#A0A3AA">Account low: $75K</text>
+        <text x="0" y="84" fontSize="8" fill="#A0A3AA">Max DD: 25%</text>
       </g>
     </g>
     
     {/* Sharpe Ratio */}
     <g transform="translate(460, 80)">
-      <rect x="0" y="0" width="190" height="140" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="190" height="140" fill="#2A2A2C" rx="10"/>
       
-      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1FA978">SHARPE RATIO</text>
+      <text x="95" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">SHARPE RATIO</text>
       
       <g transform="translate(15, 45)">
         <text x="0" y="0" fontSize="9" fill="white">Risk-adjusted return</text>
-        <text x="0" y="16" fontSize="9" fill="#A3A1A6">(Return - Risk Free) / Volatility</text>
+        <text x="0" y="16" fontSize="9" fill="#A0A3AA">(Return - Risk Free) / Volatility</text>
         
         <text x="0" y="40" fontSize="9" fill="#D2754C">Interpretation:</text>
-        <text x="0" y="56" fontSize="8" fill="#A3A1A6">&lt;1 = Poor risk-adjusted</text>
-        <text x="0" y="70" fontSize="8" fill="#A3A1A6">1-2 = Good</text>
-        <text x="0" y="84" fontSize="8" fill="#A3A1A6">&gt;2 = Excellent</text>
+        <text x="0" y="56" fontSize="8" fill="#A0A3AA">&lt;1 = Poor risk-adjusted</text>
+        <text x="0" y="70" fontSize="8" fill="#A0A3AA">1-2 = Good</text>
+        <text x="0" y="84" fontSize="8" fill="#A0A3AA">&gt;2 = Excellent</text>
       </g>
     </g>
     
@@ -312,25 +312,25 @@ const RiskMetricsSVG = () => (
       
       <g transform="translate(30, 45)">
         <text x="0" y="0" fontSize="9" fontWeight="500" fill="white">Per Trade:</text>
-        <text x="100" y="0" fontSize="9" fill="#A3A1A6">1-2% account risk</text>
+        <text x="100" y="0" fontSize="9" fill="#A0A3AA">1-2% account risk</text>
         
         <text x="0" y="20" fontSize="9" fontWeight="500" fill="white">Per Sector:</text>
-        <text x="100" y="20" fontSize="9" fill="#A3A1A6">20-30% max allocation</text>
+        <text x="100" y="20" fontSize="9" fill="#A0A3AA">20-30% max allocation</text>
         
         <text x="0" y="40" fontSize="9" fontWeight="500" fill="white">Correlated Positions:</text>
-        <text x="100" y="40" fontSize="9" fill="#A3A1A6">5-10% combined risk</text>
+        <text x="100" y="40" fontSize="9" fill="#A0A3AA">5-10% combined risk</text>
         
         <text x="280" y="0" fontSize="9" fontWeight="500" fill="white">Daily VaR:</text>
-        <text x="380" y="0" fontSize="9" fill="#A3A1A6">2-3% of account</text>
+        <text x="380" y="0" fontSize="9" fill="#A0A3AA">2-3% of account</text>
         
         <text x="280" y="20" fontSize="9" fontWeight="500" fill="white">Max Drawdown Target:</text>
-        <text x="380" y="20" fontSize="9" fill="#A3A1A6">10-20% max acceptable</text>
+        <text x="380" y="20" fontSize="9" fill="#A0A3AA">10-20% max acceptable</text>
         
         <text x="280" y="40" fontSize="9" fontWeight="500" fill="white">Margin Usage:</text>
-        <text x="380" y="40" fontSize="9" fill="#A3A1A6">50% of available max</text>
+        <text x="380" y="40" fontSize="9" fill="#A0A3AA">50% of available max</text>
       </g>
       
-      <text x="300" y="105" textAnchor="middle" fontSize="8" fill="#A3A1A6">Adjust limits based on your risk tolerance and account size</text>
+      <text x="300" y="105" textAnchor="middle" fontSize="8" fill="#A0A3AA">Adjust limits based on your risk tolerance and account size</text>
     </g>
   </svg>
 );
@@ -338,62 +338,62 @@ const RiskMetricsSVG = () => (
 // SVG: Trade Journal
 const TradeJournalSVG = () => (
   <svg viewBox="0 0 700 360" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="360" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="360" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Trade Journal Best Practices</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Document every trade for continuous improvement</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Document every trade for continuous improvement</text>
     
     {/* Journal Entry Template */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="300" height="260" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="300" height="260" fill="#2A2A2C" rx="10"/>
       
       <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">JOURNAL ENTRY TEMPLATE</text>
       
       <g transform="translate(15, 50)">
         <text x="0" y="0" fontSize="9" fontWeight="500" fill="white">Pre-Trade:</text>
-        <text x="0" y="15" fontSize="8" fill="#A3A1A6">• Date, time, symbol</text>
-        <text x="0" y="28" fontSize="8" fill="#A3A1A6">• Strategy and setup reason</text>
-        <text x="0" y="41" fontSize="8" fill="#A3A1A6">• Entry, stop loss, target prices</text>
-        <text x="0" y="54" fontSize="8" fill="#A3A1A6">• Position size and risk amount</text>
+        <text x="0" y="15" fontSize="8" fill="#A0A3AA">• Date, time, symbol</text>
+        <text x="0" y="28" fontSize="8" fill="#A0A3AA">• Strategy and setup reason</text>
+        <text x="0" y="41" fontSize="8" fill="#A0A3AA">• Entry, stop loss, target prices</text>
+        <text x="0" y="54" fontSize="8" fill="#A0A3AA">• Position size and risk amount</text>
         
         <text x="0" y="78" fontSize="9" fontWeight="500" fill="white">During Trade:</text>
-        <text x="0" y="93" fontSize="8" fill="#A3A1A6">• Adjustments made</text>
-        <text x="0" y="106" fontSize="8" fill="#A3A1A6">• Emotional state notes</text>
-        <text x="0" y="119" fontSize="8" fill="#A3A1A6">• Market conditions</text>
+        <text x="0" y="93" fontSize="8" fill="#A0A3AA">• Adjustments made</text>
+        <text x="0" y="106" fontSize="8" fill="#A0A3AA">• Emotional state notes</text>
+        <text x="0" y="119" fontSize="8" fill="#A0A3AA">• Market conditions</text>
         
         <text x="0" y="143" fontSize="9" fontWeight="500" fill="white">Post-Trade:</text>
-        <text x="0" y="158" fontSize="8" fill="#A3A1A6">• Exit reason and price</text>
-        <text x="0" y="171" fontSize="8" fill="#A3A1A6">• P/L ($ and %)</text>
-        <text x="0" y="184" fontSize="8" fill="#A3A1A6">• What went well/wrong</text>
-        <text x="0" y="197" fontSize="8" fill="#A3A1A6">• Lessons learned</text>
+        <text x="0" y="158" fontSize="8" fill="#A0A3AA">• Exit reason and price</text>
+        <text x="0" y="171" fontSize="8" fill="#A0A3AA">• P/L ($ and %)</text>
+        <text x="0" y="184" fontSize="8" fill="#A0A3AA">• What went well/wrong</text>
+        <text x="0" y="197" fontSize="8" fill="#A0A3AA">• Lessons learned</text>
       </g>
     </g>
     
     {/* Key Metrics to Track */}
     <g transform="translate(370, 80)">
-      <rect x="0" y="0" width="280" height="260" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="280" height="260" fill="#2A2A2C" rx="10"/>
       
-      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#1FA978">METRICS TO TRACK</text>
+      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">METRICS TO TRACK</text>
       
       <g transform="translate(15, 50)">
         <text x="0" y="0" fontSize="9" fontWeight="500" fill="white">Performance:</text>
-        <text x="0" y="15" fontSize="8" fill="#A3A1A6">• Win rate (% of profitable trades)</text>
-        <text x="0" y="28" fontSize="8" fill="#A3A1A6">• Average win vs average loss</text>
-        <text x="0" y="41" fontSize="8" fill="#A3A1A6">• Profit factor (gross wins / losses)</text>
-        <text x="0" y="54" fontSize="8" fill="#A3A1A6">• Expectancy per trade</text>
+        <text x="0" y="15" fontSize="8" fill="#A0A3AA">• Win rate (% of profitable trades)</text>
+        <text x="0" y="28" fontSize="8" fill="#A0A3AA">• Average win vs average loss</text>
+        <text x="0" y="41" fontSize="8" fill="#A0A3AA">• Profit factor (gross wins / losses)</text>
+        <text x="0" y="54" fontSize="8" fill="#A0A3AA">• Expectancy per trade</text>
         
         <text x="0" y="78" fontSize="9" fontWeight="500" fill="white">By Strategy:</text>
-        <text x="0" y="93" fontSize="8" fill="#A3A1A6">• P/L by strategy type</text>
-        <text x="0" y="106" fontSize="8" fill="#A3A1A6">• Best/worst performing setups</text>
+        <text x="0" y="93" fontSize="8" fill="#A0A3AA">• P/L by strategy type</text>
+        <text x="0" y="106" fontSize="8" fill="#A0A3AA">• Best/worst performing setups</text>
         
         <text x="0" y="130" fontSize="9" fontWeight="500" fill="white">By Condition:</text>
-        <text x="0" y="145" fontSize="8" fill="#A3A1A6">• P/L by market condition</text>
-        <text x="0" y="158" fontSize="8" fill="#A3A1A6">• P/L by day of week</text>
-        <text x="0" y="171" fontSize="8" fill="#A3A1A6">• P/L by time of day</text>
+        <text x="0" y="145" fontSize="8" fill="#A0A3AA">• P/L by market condition</text>
+        <text x="0" y="158" fontSize="8" fill="#A0A3AA">• P/L by day of week</text>
+        <text x="0" y="171" fontSize="8" fill="#A0A3AA">• P/L by time of day</text>
         
         <text x="0" y="195" fontSize="9" fontWeight="500" fill="white">Review Frequency:</text>
-        <text x="0" y="210" fontSize="8" fill="#A3A1A6">Daily: Quick notes | Weekly: Analysis</text>
-        <text x="0" y="223" fontSize="8" fill="#A3A1A6">Monthly: Deep dive & adjustments</text>
+        <text x="0" y="210" fontSize="8" fill="#A0A3AA">Daily: Quick notes | Weekly: Analysis</text>
+        <text x="0" y="223" fontSize="8" fill="#A0A3AA">Monthly: Deep dive & adjustments</text>
       </g>
     </g>
   </svg>
@@ -402,16 +402,16 @@ const TradeJournalSVG = () => (
 // SVG: Final Checklist
 const FinalChecklistSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="340" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Pre-Trade Risk Checklist</text>
     
     {/* Checklist Items */}
     <g transform="translate(50, 60)">
       {[
-        { text: "Position size calculated using fixed % risk rule?", color: "#1FA978" },
-        { text: "Stop loss defined before entry?", color: "#1FA978" },
-        { text: "Risk/reward ratio acceptable (≥1:2)?", color: "#1FA978" },
+        { text: "Position size calculated using fixed % risk rule?", color: "#12805A" },
+        { text: "Stop loss defined before entry?", color: "#12805A" },
+        { text: "Risk/reward ratio acceptable (≥1:2)?", color: "#12805A" },
         { text: "Portfolio Greeks within target ranges?", color: "#5A77AA" },
         { text: "No excessive correlation with existing positions?", color: "#5A77AA" },
         { text: "Total account risk under daily/weekly limits?", color: "#D2754C" },
@@ -421,7 +421,7 @@ const FinalChecklistSVG = () => (
         { text: "Not trading based on emotion (FOMO, revenge)?", color: "#C7363B" }
       ].map((item, i) => (
         <g key={i} transform={`translate(${i < 5 ? 0 : 310}, ${(i % 5) * 52})`}>
-          <rect x="0" y="0" width="290" height="44" fill="#232327" rx="8"/>
+          <rect x="0" y="0" width="290" height="44" fill="#2A2A2C" rx="8"/>
           <rect x="12" y="12" width="20" height="20" fill={item.color} fillOpacity="0.2" rx="4" stroke={item.color} strokeWidth="1"/>
           <path d="M 17 22 L 21 26 L 27 18" fill="none" stroke={item.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <text x="42" y="28" fontSize="9" fill="white">{item.text}</text>
@@ -431,7 +431,7 @@ const FinalChecklistSVG = () => (
     
     {/* Bottom Message */}
     <g transform="translate(50, 315)">
-      <text x="300" y="0" textAnchor="middle" fontSize="10" fill="#A3A1A6">Complete this checklist before EVERY trade. No exceptions. Discipline creates profits.</text>
+      <text x="300" y="0" textAnchor="middle" fontSize="10" fill="#A0A3AA">Complete this checklist before EVERY trade. No exceptions. Discipline creates profits.</text>
     </g>
   </svg>
 );
@@ -531,7 +531,7 @@ const FOLesson12 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Risk Management & Position Sizing
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -540,7 +540,7 @@ const FOLesson12 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -567,11 +567,11 @@ const FOLesson12 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.Scale className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Position Sizing</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Position Sizing</h2>
                   <p className="text-sm text-gray-500 ">The most important trading skill you&apos;ll learn</p>
                 </div>
               </div>
@@ -604,11 +604,11 @@ const FOLesson12 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                   <Icons.Sliders className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Portfolio Greeks Management</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Portfolio Greeks Management</h2>
                   <p className="text-sm text-gray-500 ">Managing aggregate risk across all positions</p>
                 </div>
               </div>
@@ -640,11 +640,11 @@ const FOLesson12 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.BarChart className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Risk Metrics</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Risk Metrics</h2>
                   <p className="text-sm text-gray-500 ">Quantifying portfolio risk like a professional</p>
                 </div>
               </div>
@@ -662,11 +662,11 @@ const FOLesson12 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Award className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Trade Journaling</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Trade Journaling</h2>
                   <p className="text-sm text-gray-500 ">The secret weapon of successful traders</p>
                 </div>
               </div>
@@ -689,7 +689,7 @@ const FOLesson12 = () => {
                   <Icons.Shield className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Pre-Trade Checklist</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Pre-Trade Checklist</h2>
                   <p className="text-sm text-gray-500 ">Run through before every single trade</p>
                 </div>
               </div>
@@ -705,8 +705,8 @@ const FOLesson12 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Position sizing is THE most important trading skill",
@@ -730,7 +730,7 @@ const FOLesson12 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -745,11 +745,11 @@ const FOLesson12 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -760,7 +760,7 @@ const FOLesson12 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -774,7 +774,7 @@ const FOLesson12 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -795,19 +795,19 @@ const FOLesson12 = () => {
 
           {/* Module Completion */}
           <section>
-            <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+            <div className="rounded-2xl p-8 text-white text-center bg-brand-fill">
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Award className="w-10 h-10" />
               </div>
               <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Module Complete!</h2>
-              <p className="text-green-100 mb-6 max-w-2xl mx-auto">
+              <p className="text-white/85 mb-6 max-w-2xl mx-auto">
                 Congratulations on completing the Futures & Options module. You now have a comprehensive 
                 understanding of derivatives, from basic concepts to advanced strategies and risk management. 
                 Apply these skills carefully, start small, and never stop learning.
               </p>
               <button
                 onClick={() => navigate('/learn/derivatives')}
-                className="px-8 py-3 bg-white text-green-600 font-semibold rounded-xl hover:bg-green-50 transition-colors"
+                className="px-8 py-3 bg-white text-brand font-semibold rounded-xl hover:bg-brand-soft transition-colors"
               >
                 Return to Module Overview
               </button>
@@ -826,7 +826,7 @@ const FOLesson12 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Back to Module</span>
               <Icons.ArrowRight className="w-5 h-5" />

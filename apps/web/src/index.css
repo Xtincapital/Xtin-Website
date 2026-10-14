@@ -2,12 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* One green, by role. Every green class on the site maps onto these
+   (text-brand, bg-brand-fill, hover:bg-brand-hover, bg-brand-soft,
+   border-brand-line), so each role is a single shade per theme. */
 :root {
-  --theme-bg: #F7F6F2;
+  --brand: 18 128 90;             /* #12805A text, icons, links */
+  --brand-fill: 18 128 90;        /* #12805A solid buttons, badges */
+  --brand-fill-hover: 14 106 74;  /* #0E6A4A hover on solid green */
+  --brand-soft: #EEF9F4;          /* tinted backgrounds */
+  --brand-line: #ABE5CC;          /* green borders */
+}
+html.dark {
+  --brand: 60 203 151;            /* #3CCB97 */
+  --brand-fill: 18 128 90;
+  --brand-fill-hover: 31 169 120; /* #1FA978 */
+  --brand-soft: rgba(60, 203, 151, 0.12);
+  --brand-line: rgba(60, 203, 151, 0.35);
+}
+
+/* Sections that stay dark in day mode (dark hero bands, dark cards) use the
+   dark-mode greens, so green text and tints stay readable on them. */
+.brand-on-dark {
+  --brand: 60 203 151;
+  --brand-fill-hover: 31 169 120;
+  --brand-soft: rgba(60, 203, 151, 0.12);
+  --brand-line: rgba(60, 203, 151, 0.35);
+}
+
+:root {
+  --theme-bg: #FFFFFF;
   --theme-surface: #FFFFFF;
-  --theme-text: #151517;
-  --theme-muted: #75757D;
-  --theme-border: #E4E1D9;
+  --theme-text: #1F1F1F;
+  --theme-muted: #717680;
+  --theme-border: #E4E4EA;
 }
 
 /* Receipt printer neutral scale (tailwind `grayscale-*`). Spelled out in both
@@ -67,11 +94,11 @@ html.dark {
 }
 
 html.dark {
-  --theme-bg: #0A0A0B;
-  --theme-surface: #151517;
-  --theme-text: #EDEDEF;
-  --theme-muted: #A3A1A6;
-  --theme-border: #232327;
+  --theme-bg: #131417;
+  --theme-surface: #1F1F1F;
+  --theme-text: #FFFFFF;
+  --theme-muted: #B1B3B8;
+  --theme-border: #373A41;
 }
 
 html,
@@ -84,7 +111,6 @@ body,
 
 body {
   transition: background-color 220ms ease, color 220ms ease;
-  font-feature-settings: "cv11", "ss01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -94,7 +120,7 @@ body {
    page of the site. */
 @layer components {
   .xt-title {
-    @apply font-display text-[2.25rem] font-normal leading-[1.05] tracking-[-0.01em] text-gray-900 md:text-[2.75rem] dark:text-gray-50;
+    @apply font-display text-[2rem] font-semibold leading-[1.1] tracking-[-0.025em] text-gray-900 md:text-4xl dark:text-gray-50;
   }
   .xt-subtitle {
     @apply text-sm text-gray-500 md:text-base dark:text-gray-400;
@@ -103,7 +129,7 @@ body {
     @apply text-lg font-semibold tracking-[-0.01em] text-gray-900 dark:text-gray-50;
   }
   .xt-card-title {
-    @apply text-[0.9375rem] font-semibold text-gray-900 dark:text-gray-50;
+    @apply text-base font-semibold text-gray-900 dark:text-gray-50;
   }
   .xt-label {
     @apply text-xs font-medium text-gray-500 dark:text-gray-400;
@@ -168,7 +194,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 10px 24px rgba(10, 10, 11, 0.12);
+  box-shadow: 0 10px 24px rgba(19, 20, 23, 0.12);
   transition: transform 160ms ease, background-color 220ms ease, color 220ms ease, border-color 220ms ease;
 }
 
@@ -187,23 +213,23 @@ body {
 }
 
 html.dark .bg-white {
-  background-color: #151517 !important;
+  background-color: #1F1F1F !important;
 }
 
 html.dark .bg-gray-50 {
-  background-color: #151517 !important;
+  background-color: #1F1F1F !important;
 }
 
 html.dark .bg-gray-100 {
-  background-color: #151517 !important;
+  background-color: #1F1F1F !important;
 }
 
 html.dark .bg-gray-200 {
-  background-color: #232327 !important;
+  background-color: #2A2A2C !important;
 }
 
 html.dark .bg-gray-300 {
-  background-color: #404047 !important;
+  background-color: #373A41 !important;
 }
 
 html.dark .bg-green-50 {
@@ -269,34 +295,34 @@ html.dark .bg-gradient-to-br.from-green-600.to-emerald-600 {
 }
 
 html.dark .bg-black.bg-opacity-50 {
-  background-color: rgba(10, 10, 11, 0.74) !important;
+  background-color: rgba(19, 20, 23, 0.74) !important;
 }
 
 html.dark .text-gray-900 {
-  color: #EFEDE7 !important;
+  color: #FFFFFF !important;
 }
 
 html.dark .text-gray-800 {
-  color: #E4E1D9 !important;
+  color: #E4E4EA !important;
 }
 
 html.dark .text-gray-700 {
-  color: #CFCBC1 !important;
+  color: #CFD0D3 !important;
 }
 
 html.dark .text-gray-600 {
-  color: #A3A1A6 !important;
+  color: #B1B3B8 !important;
 }
 
 html.dark .text-gray-500,
 html.dark .text-gray-400 {
-  color: #A3A1A6 !important;
+  color: #B1B3B8 !important;
 }
 
 html.dark .border-gray-100,
 html.dark .border-gray-200,
 html.dark .border-gray-300 {
-  border-color: #404047 !important;
+  border-color: #373A41 !important;
 }
 
 /* Light tints with an opacity suffix (bg-green-50/50, bg-gray-50/60 …) are different
@@ -304,7 +330,7 @@ html.dark .border-gray-300 {
    Matched as a whole class (start of the attribute or after a space) so a hover
    variant like `hover:bg-green-50/50` only tints on hover, not permanently. */
 html.dark [class^="bg-gray-50/"], html.dark [class*=" bg-gray-50/"], html.dark [class*="hover:bg-gray-50/"]:hover,
-html.dark [class^="bg-slate-50/"], html.dark [class*=" bg-slate-50/"], html.dark [class*="hover:bg-slate-50/"]:hover { background-color: rgba(163, 161, 166, 0.08) !important; }
+html.dark [class^="bg-slate-50/"], html.dark [class*=" bg-slate-50/"], html.dark [class*="hover:bg-slate-50/"]:hover { background-color: rgba(160, 163, 170, 0.08) !important; }
 html.dark [class^="bg-green-50/"], html.dark [class*=" bg-green-50/"], html.dark [class*="hover:bg-green-50/"]:hover,
 html.dark [class^="bg-emerald-50/"], html.dark [class*=" bg-emerald-50/"], html.dark [class*="hover:bg-emerald-50/"]:hover { background-color: rgba(31, 169, 120, 0.1) !important; }
 html.dark [class^="bg-green-100/"], html.dark [class*=" bg-green-100/"], html.dark [class*="hover:bg-green-100/"]:hover,
@@ -422,7 +448,7 @@ html.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
 html.dark .divide-gray-300 > :not([hidden]) ~ :not([hidden]),
 html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
 html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
-  border-color: #404047 !important;
+  border-color: #373A41 !important;
 }
 
 html.dark .shadow-md,
@@ -435,33 +461,33 @@ html.dark .shadow-sm {
 
 html.dark .hover\:bg-gray-50:hover,
 html.dark .hover\:bg-gray-100:hover {
-  background-color: #232327 !important;
+  background-color: #2A2A2C !important;
 }
 
 html.dark .hover\:text-gray-700:hover {
-  color: #EFEDE7 !important;
+  color: #EEEEF1 !important;
 }
 
 html.dark .from-white,
 html.dark [class*='from-white'] {
-  --tw-gradient-from: #151517 var(--tw-gradient-from-position) !important;
-  --tw-gradient-to: rgba(21, 21, 23, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-from: #1F1F1F var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(31, 31, 31, 0) var(--tw-gradient-to-position) !important;
 }
 
 html.dark .to-white,
 html.dark [class*='to-white'] {
-  --tw-gradient-to: #151517 var(--tw-gradient-to-position) !important;
+  --tw-gradient-to: #1F1F1F var(--tw-gradient-to-position) !important;
 }
 
 html.dark .from-gray-50,
 html.dark [class*='from-gray-50'] {
-  --tw-gradient-from: #151517 var(--tw-gradient-from-position) !important;
-  --tw-gradient-to: rgba(21, 21, 23, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-from: #1F1F1F var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(31, 31, 31, 0) var(--tw-gradient-to-position) !important;
 }
 
 html.dark .to-gray-50,
 html.dark [class*='to-gray-50'] {
-  --tw-gradient-to: #151517 var(--tw-gradient-to-position) !important;
+  --tw-gradient-to: #1F1F1F var(--tw-gradient-to-position) !important;
 }
 
 html.dark .prose,
@@ -472,38 +498,38 @@ html.dark .prose h1,
 html.dark .prose h2,
 html.dark .prose h3,
 html.dark .prose h4 {
-  color: #CFCBC1 !important;
+  color: #CFD0D3 !important;
 }
 
 /* Form fields with no background class otherwise get the browser's flat grey
    dark-mode fill. :where() keeps specificity at zero so any bg-* class wins. */
 html.dark :where(input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']), select, textarea) {
-  background-color: #151517;
-  color: #E4E1D9;
+  background-color: #1F1F1F;
+  color: #E4E4EA;
 }
 
 /* Mostly-opaque translucent whites act as light cards; the 5-20% ones are glass on
    coloured heroes and are left alone. */
-html.dark .bg-white\/50, html.dark .hover\:bg-white\/50:hover { background-color: rgba(21, 21, 23, 0.5) !important; }
-html.dark .bg-white\/60, html.dark .hover\:bg-white\/60:hover { background-color: rgba(21, 21, 23, 0.6) !important; }
-html.dark .bg-white\/70, html.dark .hover\:bg-white\/70:hover { background-color: rgba(21, 21, 23, 0.7) !important; }
-html.dark .bg-white\/80, html.dark .hover\:bg-white\/80:hover { background-color: rgba(21, 21, 23, 0.8) !important; }
-html.dark .bg-white\/90, html.dark .hover\:bg-white\/90:hover { background-color: rgba(21, 21, 23, 0.9) !important; }
-html.dark .via-white, html.dark .via-gray-50, html.dark .via-slate-50 { --tw-gradient-stops: var(--tw-gradient-from), #151517 var(--tw-gradient-via-position), var(--tw-gradient-to) !important; }
+html.dark .bg-white\/50, html.dark .hover\:bg-white\/50:hover { background-color: rgba(31, 31, 31, 0.5) !important; }
+html.dark .bg-white\/60, html.dark .hover\:bg-white\/60:hover { background-color: rgba(31, 31, 31, 0.6) !important; }
+html.dark .bg-white\/70, html.dark .hover\:bg-white\/70:hover { background-color: rgba(31, 31, 31, 0.7) !important; }
+html.dark .bg-white\/80, html.dark .hover\:bg-white\/80:hover { background-color: rgba(31, 31, 31, 0.8) !important; }
+html.dark .bg-white\/90, html.dark .hover\:bg-white\/90:hover { background-color: rgba(31, 31, 31, 0.9) !important; }
+html.dark .via-white, html.dark .via-gray-50, html.dark .via-slate-50 { --tw-gradient-stops: var(--tw-gradient-from), #1F1F1F var(--tw-gradient-via-position), var(--tw-gradient-to) !important; }
 
 /* slate mirrors the gray overrides above */
-html.dark .bg-slate-50 { background-color: #151517 !important; }
-html.dark .bg-slate-100 { background-color: #151517 !important; }
-html.dark .bg-slate-200 { background-color: #232327 !important; }
-html.dark .hover\:bg-slate-50:hover, html.dark .hover\:bg-slate-100:hover { background-color: #232327 !important; }
-html.dark .text-slate-900 { color: #EFEDE7 !important; }
-html.dark .text-slate-800 { color: #E4E1D9 !important; }
-html.dark .text-slate-700 { color: #CFCBC1 !important; }
-html.dark .text-slate-600 { color: #A3A1A6 !important; }
-html.dark .text-slate-500 { color: #A3A1A6 !important; }
-html.dark .border-slate-100, html.dark .border-slate-200, html.dark .border-slate-300 { border-color: #404047 !important; }
-html.dark .from-slate-50 { --tw-gradient-from: #151517 var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(21, 21, 23, 0) var(--tw-gradient-to-position) !important; }
-html.dark .to-slate-50, html.dark .to-slate-100 { --tw-gradient-to: #151517 var(--tw-gradient-to-position) !important; }
+html.dark .bg-slate-50 { background-color: #1F1F1F !important; }
+html.dark .bg-slate-100 { background-color: #1F1F1F !important; }
+html.dark .bg-slate-200 { background-color: #2A2A2C !important; }
+html.dark .hover\:bg-slate-50:hover, html.dark .hover\:bg-slate-100:hover { background-color: #2A2A2C !important; }
+html.dark .text-slate-900 { color: #EEEEF1 !important; }
+html.dark .text-slate-800 { color: #E4E4EA !important; }
+html.dark .text-slate-700 { color: #CFD0D3 !important; }
+html.dark .text-slate-600 { color: #A0A3AA !important; }
+html.dark .text-slate-500 { color: #A0A3AA !important; }
+html.dark .border-slate-100, html.dark .border-slate-200, html.dark .border-slate-300 { border-color: #373A41 !important; }
+html.dark .from-slate-50 { --tw-gradient-from: #1F1F1F var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(31, 31, 31, 0) var(--tw-gradient-to-position) !important; }
+html.dark .to-slate-50, html.dark .to-slate-100 { --tw-gradient-to: #1F1F1F var(--tw-gradient-to-position) !important; }
 
 /* Dark mode for coloured tint boxes (bg-*-50/100, border-*-200, text-*-700..900).
    The gray overrides above make body text light, so pale tints left as-is put
@@ -687,29 +713,29 @@ html.dark .via-rose-50 { --tw-gradient-stops: var(--tw-gradient-from), rgba(224,
    app (Journal, Gini, FundaKaMental, Backtest) and every Radix portal reads
    the same palette — values come from src/styles/palette.js. */
 :root {
-  --background: 48 24% 96%;
-  --foreground: 240 5% 9%;
-  --card: 0 0% 100%;
-  --card-foreground: 240 5% 9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 5% 9%;
-  --primary: 159 75% 29%;
+  --background: 0.0 0.0% 100.0%;
+  --foreground: 0.0 0.0% 12.2%;
+  --card: 0.0 0.0% 100.0%;
+  --card-foreground: 0.0 0.0% 12.2%;
+  --popover: 0.0 0.0% 100.0%;
+  --popover-foreground: 0.0 0.0% 12.2%;
+  --primary: 159.3 75.3% 28.6%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 45 20% 92%;
-  --secondary-foreground: 240 5% 9%;
-  --muted: 45 20% 92%;
-  --muted-foreground: 240 3% 47%;
-  --accent: 153 48% 95%;
-  --accent-foreground: 159 77% 24%;
+  --secondary: 240.0 11.1% 96.5%;
+  --secondary-foreground: 0.0 0.0% 12.2%;
+  --muted: 240.0 11.1% 96.5%;
+  --muted-foreground: 220.0 6.2% 47.3%;
+  --accent: 152.7 47.8% 95.5%;
+  --accent-foreground: 159.3 75.3% 28.6%;
   --destructive: 358 57% 50%;
   --destructive-foreground: 0 0% 100%;
-  --success: 159 75% 29%;
+  --success: 159.3 75.3% 28.6%;
   --success-foreground: 0 0% 100%;
   --warning: 41 49% 48%;
   --warning-foreground: 240 5% 9%;
-  --border: 44 17% 87%;
-  --input: 43 13% 78%;
-  --ring: 159 69% 39%;
+  --border: 240.0 12.5% 90.6%;
+  --input: 225.0 4.3% 82.0%;
+  --ring: 159.3 75.3% 28.6%;
   --sidebar-background: 0 0% 100%;
   --sidebar-foreground: 240 4% 37%;
   --sidebar-primary: 159 75% 29%;
@@ -733,38 +759,38 @@ html.dark .via-rose-50 { --tw-gradient-stops: var(--tw-gradient-from), rgba(224,
   --gradient-primary: linear-gradient(135deg, #12805A 0%, #0E6A4A 100%);
   --gradient-accent: linear-gradient(135deg, #EEF9F4 0%, #D5F2E5 100%);
   --gradient-hero: linear-gradient(180deg, #FFFFFF 0%, #EEF9F4 100%);
-  --gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F7F6F2 100%);
-  --shadow-sm: 0 1px 2px rgba(21, 21, 23, 0.05);
-  --shadow-md: 0 1px 2px rgba(21, 21, 23, 0.04), 0 6px 18px rgba(21, 21, 23, 0.06);
-  --shadow-lg: 0 18px 40px rgba(21, 21, 23, 0.12);
+  --gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F5F5F7 100%);
+  --shadow-sm: 0 1px 2px rgba(31, 31, 31, 0.05);
+  --shadow-md: 0 1px 2px rgba(31, 31, 31, 0.04), 0 6px 18px rgba(31, 31, 31, 0.06);
+  --shadow-lg: 0 18px 40px rgba(31, 31, 31, 0.12);
   --shadow-glow: 0 0 30px rgba(18, 128, 90, 0.15);
 }
 
 html.dark {
   color-scheme: dark;
-  --background: 240 5% 4%;
-  --foreground: 240 6% 93%;
-  --card: 240 5% 9%;
-  --card-foreground: 240 6% 93%;
-  --popover: 240 6% 10%;
-  --popover-foreground: 240 6% 93%;
-  --primary: 159 75% 29%;
+  --background: 225.0 9.5% 8.2%;
+  --foreground: 0.0 0.0% 100.0%;
+  --card: 0.0 0.0% 12.2%;
+  --card-foreground: 0.0 0.0% 100.0%;
+  --popover: 60.0 1.5% 13.1%;
+  --popover-foreground: 0.0 0.0% 100.0%;
+  --primary: 159.3 75.3% 28.6%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 5% 15%;
-  --secondary-foreground: 240 6% 93%;
-  --muted: 240 5% 12%;
-  --muted-foreground: 264 3% 64%;
-  --accent: 159 58% 10%;
-  --accent-foreground: 156 51% 65%;
+  --secondary: 240.0 2.3% 16.9%;
+  --secondary-foreground: 0.0 0.0% 100.0%;
+  --muted: 240.0 2.3% 16.9%;
+  --muted-foreground: 222.9 4.7% 70.8%;
+  --accent: 160.7 31.8% 17.3%;
+  --accent-foreground: 158.2 57.9% 51.6%;
   --destructive: 0 71% 58%;
   --destructive-foreground: 0 0% 100%;
-  --success: 158 58% 52%;
+  --success: 158.2 57.9% 51.6%;
   --success-foreground: 240 5% 4%;
   --warning: 41 52% 59%;
   --warning-foreground: 240 5% 4%;
-  --border: 240 5% 15%;
-  --input: 240 5% 19%;
-  --ring: 158 58% 52%;
+  --border: 222.0 8.3% 23.5%;
+  --input: 222.0 8.3% 23.5%;
+  --ring: 158.2 57.9% 51.6%;
   --sidebar-background: 240 5% 9%;
   --sidebar-foreground: 264 3% 64%;
   --sidebar-primary: 159 75% 29%;
@@ -784,9 +810,9 @@ html.dark {
   --chart-6: 187 49% 54%;
   --chart-7: 216 38% 83%;
   --chart-8: 44 69% 77%;
-  --gradient-accent: linear-gradient(135deg, #0B2A1F 0%, #151517 100%);
-  --gradient-hero: linear-gradient(180deg, #151517 0%, #0A0A0B 100%);
-  --gradient-card: linear-gradient(135deg, #151517 0%, #121214 100%);
+  --gradient-accent: linear-gradient(135deg, #0B2A1F 0%, #1F1F1F 100%);
+  --gradient-hero: linear-gradient(180deg, #1F1F1F 0%, #131417 100%);
+  --gradient-card: linear-gradient(135deg, #1F1F1F 0%, #121214 100%);
   --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 6px 16px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.55);
@@ -799,28 +825,28 @@ html.dark .recharts-wrapper:not([data-chart] *) .recharts-cartesian-axis-tick-va
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-label,
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-polar-angle-axis-tick-value,
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-polar-radius-axis-tick-value {
-  fill: #CFCBC1;
+  fill: #CFD0D3;
 }
 
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-cartesian-grid line,
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-polar-grid-concentric-polygon,
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-polar-grid-angle line {
-  stroke: #404047;
+  stroke: #373A41;
 }
 
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-cartesian-axis-line,
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-cartesian-axis-tick-line {
-  stroke: #75757D;
+  stroke: #717680;
 }
 
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-default-tooltip {
-  background-color: #151517 !important;
-  border-color: #404047 !important;
-  color: #E4E1D9;
+  background-color: #1F1F1F !important;
+  border-color: #373A41 !important;
+  color: #E4E4EA;
 }
 
 html.dark .recharts-wrapper:not([data-chart] *) .recharts-legend-item-text {
-  color: #E4E1D9 !important;
+  color: #E4E4EA !important;
 }
 
 /* ── Pro gold ─────────────────────────────────────────────────────────

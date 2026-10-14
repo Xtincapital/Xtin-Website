@@ -48,7 +48,7 @@ const Icons = {
     </svg>
   ),
   check: (
-    <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+    <svg className="w-5 h-5 text-brand" fill="currentColor" viewBox="0 0 20 20">
       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
     </svg>
   ),
@@ -79,19 +79,19 @@ export default function JournalIntro() {
       icon: Icons.journal,
       title: 'Trade Logging',
       desc: 'Record every trade with detailed entry/exit points and rationale',
-      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
     {
       icon: Icons.chart,
       title: 'Performance Tracking',
       desc: 'Analyze your win rate, profit/loss ratio, and trading patterns',
-      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
     {
       icon: Icons.trending,
       title: 'Trade Analytics',
       desc: 'Identify what strategies work best with visual analytics',
-      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
   ];
 
@@ -114,7 +114,7 @@ export default function JournalIntro() {
           <motion.div custom={1} initial="hidden" animate="visible" variants={fadeUp}>
             <Link
               to="/journal"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3 text-white rounded-lg font-semibold hover:shadow-lg transition-all bg-brand-fill"
             >
               Explore Trade Journal
               {Icons.arrowRight}
@@ -126,7 +126,7 @@ export default function JournalIntro() {
       {/* Features Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-display font-normal mb-16 text-center text-gray-900 dark:text-white tracking-[-0.015em]">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold mb-16 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Key Features
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -153,7 +153,7 @@ export default function JournalIntro() {
       {/* Benefits Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-display font-normal mb-12 text-center text-gray-900 dark:text-white tracking-[-0.015em]">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-2xl md:text-3xl font-display font-semibold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Why Keep a Trade Journal?
           </motion.h2>
           <div className="space-y-4">
@@ -170,7 +170,7 @@ export default function JournalIntro() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                className="flex items-start gap-4 p-4 bg-brand-soft dark:bg-brand-soft rounded-lg border border-brand-line dark:border-brand"
               >
                 {Icons.check}
                 <span className="text-gray-800 dark:text-gray-200">{benefit}</span>

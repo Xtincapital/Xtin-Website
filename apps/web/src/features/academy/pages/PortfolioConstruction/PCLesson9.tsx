@@ -62,7 +62,7 @@ const Icons = {
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">Before</text>
         <rect x="-50" y="0" width="100" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="0" y="25" fill="white" fontSize="14" fontWeight="bold" textAnchor="middle">Stocks 70%</text>
-        <rect x="-50" y="50" width="60" height="40" fill="#1FA978" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="60" height="40" fill="#12805A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-20" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds</text>
         <text x="-20" y="88" fill="white" fontSize="11" textAnchor="middle">30%</text>
         <circle cx="0" cy="140" r="8" fill="#E04848" stroke="white" strokeWidth="2"/>
@@ -78,10 +78,10 @@ const Icons = {
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">After</text>
         <rect x="-50" y="0" width="80" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="25" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Stocks 60%</text>
-        <rect x="-50" y="50" width="80" height="40" fill="#1FA978" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="80" height="40" fill="#12805A" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds 40%</text>
-        <circle cx="0" cy="140" r="8" fill="#1FA978" stroke="white" strokeWidth="2"/>
-        <text x="0" y="160" fill="#1FA978" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
+        <circle cx="0" cy="140" r="8" fill="#12805A" stroke="white" strokeWidth="2"/>
+        <text x="0" y="160" fill="#12805A" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Portfolio Drift & Rebalancing</text>
     </svg>
@@ -168,12 +168,12 @@ const PCLesson9 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 9 OF 12</span>
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 9 OF 12</span>
               <span className="px-3 py-1.5 bg-orange-100  text-orange-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Portfolio Rebalancing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-semibold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Rebalancing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn when and how to restore your portfolio to its target allocation. Master the art of disciplined rebalancing while minimizing costs and taxes.</p>
           </header>
 
@@ -182,18 +182,18 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                       <Icons.RefreshCw className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">What is Rebalancing?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">What is Rebalancing?</h2>
                       <p className="text-sm text-gray-500 ">Maintaining your intended allocation</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Rebalancing is the process of realigning your portfolio weights back to your target allocation. Over time, different asset classes earn different returns, causing your portfolio to "drift" away from its intended mix. Rebalancing restores balance.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">Portfolio Drift Example</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
@@ -207,7 +207,7 @@ const PCLesson9 = () => {
                         <div className="text-gray-400 text-xs">Stocks outperformed</div>
                       </div>
                       <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <div className="text-emerald-400 text-sm mb-2">After Rebalancing</div>
+                        <div className="text-brand text-sm mb-2">After Rebalancing</div>
                         <div className="text-white text-2xl font-bold mb-1">60/40</div>
                         <div className="text-gray-400 text-xs">Back to target</div>
                       </div>
@@ -224,20 +224,20 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                       <Icons.Scale className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Why Rebalance?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Why Rebalance?</h2>
                       <p className="text-sm text-gray-500 ">The benefits of discipline</p>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-3">Risk Control</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">Risk Control</h4>
                       <p className="text-sm text-gray-700  mb-2">Without rebalancing, your portfolio's risk profile changes as markets move. A conservative investor can end up with an aggressive portfolio after a bull market.</p>
-                      <div className="p-3 bg-emerald-100  rounded-lg text-xs text-emerald-700 ">
+                      <div className="p-3 bg-brand-soft  rounded-lg text-xs text-brand ">
                         Keeps your risk aligned with your risk tolerance
                       </div>
                     </div>
@@ -277,7 +277,7 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20 bg-brand-fill">
                       <Icons.TrendingUp className="w-6 h-6 text-white"/>
                     </span>
                     <div>
@@ -294,7 +294,7 @@ const PCLesson9 = () => {
                       </div>
                       <p className="text-sm text-gray-700  mb-2">Rebalance on a fixed schedule: monthly, quarterly, or annually. Easy to implement and remember.</p>
                       <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
-                        <div className="p-2 bg-emerald-100  rounded text-emerald-700 ">+ Simple, predictable</div>
+                        <div className="p-2 bg-brand-soft  rounded text-brand ">+ Simple, predictable</div>
                         <div className="p-2 bg-rose-100  rounded text-rose-700 ">- May trade when unnecessary</div>
                       </div>
                     </div>
@@ -309,7 +309,7 @@ const PCLesson9 = () => {
                         <p className="text-xs text-gray-600 ">Example: Target 60% stocks. Rebalance when stocks reach 65% or 55% (5% absolute threshold).</p>
                       </div>
                       <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
-                        <div className="p-2 bg-emerald-100  rounded text-emerald-700 ">+ More efficient, fewer trades</div>
+                        <div className="p-2 bg-brand-soft  rounded text-brand ">+ More efficient, fewer trades</div>
                         <div className="p-2 bg-rose-100  rounded text-rose-700 ">- Requires monitoring</div>
                       </div>
                     </div>
@@ -321,7 +321,7 @@ const PCLesson9 = () => {
                       </div>
                       <p className="text-sm text-gray-700  mb-2">Use new contributions, dividends, and withdrawals to move toward target weights without selling. The most tax-efficient approach.</p>
                       <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
-                        <div className="p-2 bg-emerald-100  rounded text-emerald-700 ">+ Minimizes taxes and costs</div>
+                        <div className="p-2 bg-brand-soft  rounded text-brand ">+ Minimizes taxes and costs</div>
                         <div className="p-2 bg-rose-100  rounded text-rose-700 ">- May take time to correct large drifts</div>
                       </div>
                     </div>
@@ -333,7 +333,7 @@ const PCLesson9 = () => {
                       </div>
                       <p className="text-sm text-gray-700  mb-2">Combine methods: Use cash flows for minor adjustments, check thresholds monthly, do full rebalance annually. Best of all worlds.</p>
                       <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
-                        <div className="p-2 bg-emerald-100  rounded text-emerald-700 ">+ Balanced and practical</div>
+                        <div className="p-2 bg-brand-soft  rounded text-brand ">+ Balanced and practical</div>
                         <div className="p-2 bg-rose-100  rounded text-rose-700 ">- Slightly more complex</div>
                       </div>
                     </div>
@@ -344,7 +344,7 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                       <Icons.RefreshCw className="w-7 h-7 text-white"/>
                     </span>
                     <div>
@@ -354,7 +354,7 @@ const PCLesson9 = () => {
                   </div>
                   
                   {/* Visual: Rebalancing Process */}
-                  <div className="bg-gradient-to-br from-gray-900 to-violet-950 rounded-2xl p-8 mb-6 shadow-lg">
+                  <div className="bg-gradient-to-br from-gray-900 to-violet-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                     <h4 className="text-white font-bold mb-4 text-center">Visual: Rebalancing Process</h4>
                     <Icons.RebalancingViz className="w-full h-56"/>
                     <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
@@ -382,23 +382,23 @@ const PCLesson9 = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-green-50  rounded-xl p-6 border border-green-200 ">
-                      <h4 className="font-bold text-green-800  mb-3">Optimal Strategy</h4>
+                    <div className="bg-brand-soft  rounded-xl p-6 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">Optimal Strategy</h4>
                       <ul className="space-y-2 text-sm text-gray-600 ">
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>
                           <span><strong className="text-gray-900 ">Wait for LTCG:</strong> If equity position is profitable but &lt;1 year old, wait to rebalance</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>
                           <span><strong className="text-gray-900 ">Use SIP:</strong> Systematic Investment Plans for new money automatically rebalance</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>
                           <span><strong className="text-gray-900 ">March planning:</strong> Harvest LTCG up to ₹1.25L exemption before year-end</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>
                           <span><strong className="text-gray-900 ">Annual cadence:</strong> Once-yearly rebalancing works well with tax considerations</span>
                         </li>
                       </ul>
@@ -417,7 +417,7 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                       <Icons.Calendar className="w-6 h-6 text-white"/>
                     </span>
                     <div>
@@ -447,7 +447,7 @@ const PCLesson9 = () => {
                         ].map((row, i) => (
                           <tr key={i} className="border-b border-gray-100 ">
                             <td className="py-3 px-4 font-medium text-gray-900 ">{row.freq}</td>
-                            <td className="py-3 px-4 text-center text-emerald-600  text-xs">{row.pros}</td>
+                            <td className="py-3 px-4 text-center text-brand  text-xs">{row.pros}</td>
                             <td className="py-3 px-4 text-center text-rose-600  text-xs">{row.cons}</td>
                             <td className="py-3 px-4 text-center text-gray-600  text-xs">{row.best}</td>
                           </tr>
@@ -481,7 +481,7 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
                       </svg>
@@ -495,8 +495,8 @@ const PCLesson9 = () => {
                   <p className="text-gray-700  leading-relaxed mb-6">In taxable accounts, selling winners to rebalance triggers capital gains taxes. Smart rebalancing minimizes this drag while still maintaining your target allocation.</p>
 
                   <div className="space-y-4 mb-6">
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-2">Priority 1: Tax-Advantaged Accounts First</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">Priority 1: Tax-Advantaged Accounts First</h4>
                       <p className="text-sm text-gray-700 ">Do most rebalancing in IRAs and 401(k)s where there are no tax consequences. Keep taxable accounts stable when possible.</p>
                     </div>
 
@@ -528,7 +528,7 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
@@ -551,7 +551,7 @@ const PCLesson9 = () => {
                             return (
                               <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                                 className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                  ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                   ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                   ${isSelected && !showResults ? 'border-orange-500 bg-orange-50 ' : ''}
                                   ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -560,7 +560,7 @@ const PCLesson9 = () => {
                                   {String.fromCharCode(65 + oIdx)}
                                 </span>
                                 <span className="flex-1 text-gray-700 ">{option}</span>
-                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                                 {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                               </button>
                             );
@@ -577,11 +577,11 @@ const PCLesson9 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                       Check Answers
                     </button>
                   ) : (
-                    <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
+                    <div className="mt-8 p-6 rounded-xl text-center bg-brand-fill">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                       <p className="text-orange-100">{calculateScore() === quizQuestions.length ? "Excellent! You understand the discipline of rebalancing." : "Review the explanations to master rebalancing strategies."}</p>
                     </div>
@@ -594,7 +594,7 @@ const PCLesson9 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-8')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-10')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-10')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 bg-brand-fill">
               <span>Next: Tax Efficiency</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

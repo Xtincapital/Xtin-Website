@@ -232,25 +232,25 @@ const AlgorithmicTradingOverview = () => {
 
   const colorClasses = {
     indigo: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-indigo-50 border-indigo-200  ",
       text: "text-indigo-600 ",
       badge: "bg-indigo-100 text-indigo-700  "
     },
     violet: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-violet-50 border-violet-200  ",
       text: "text-violet-600 ",
       badge: "bg-violet-100 text-violet-700  "
     },
     purple: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-purple-50 border-purple-200  ",
       text: "text-purple-600 ",
       badge: "bg-purple-100 text-purple-700  "
     },
     blue: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-blue-50 border-blue-200  ",
       text: "text-blue-600 ",
       badge: "bg-blue-100 text-blue-700  "
@@ -262,28 +262,28 @@ const AlgorithmicTradingOverview = () => {
       badge: "bg-rose-100 text-rose-700  "
     },
     amber: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-amber-50 border-amber-200  ",
       text: "text-amber-600 ",
       badge: "bg-amber-100 text-amber-700  "
     },
     teal: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-teal-50 border-teal-200  ",
       text: "text-teal-600 ",
       badge: "bg-teal-100 text-teal-700  "
     },
     cyan: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
+      bg: "bg-brand-fill",
       light: "bg-cyan-50 border-cyan-200  ",
       text: "text-cyan-600 ",
       badge: "bg-cyan-100 text-cyan-700  "
     },
     emerald: {
-      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
-      light: "bg-emerald-50 border-emerald-200  ",
-      text: "text-emerald-600 ",
-      badge: "bg-emerald-100 text-emerald-700  "
+      bg: "bg-brand-fill",
+      light: "bg-brand-soft border-brand-line  ",
+      text: "text-brand ",
+      badge: "bg-brand-soft text-brand  "
     }
   };
 
@@ -306,7 +306,7 @@ const AlgorithmicTradingOverview = () => {
           {/* Module Header */}
           <div className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold shadow-lg shadow-indigo-500/25">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold shadow-lg shadow-indigo-500/25 bg-brand-fill">
                 Advanced Module
               </span>
               <span className="px-3 py-1.5 bg-indigo-100  text-indigo-700  rounded-full text-sm flex items-center gap-1.5 font-medium">
@@ -322,11 +322,11 @@ const AlgorithmicTradingOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="algorithmic-trading" /></div>
-            <h1 className="text-4xl md:text-5xl font-display font-normal text-gray-900  mb-5 flex items-center gap-4 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-xl shadow-indigo-500/30">
+            <h1 className="text-4xl md:text-5xl font-display font-semibold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-xl shadow-indigo-500/30 bg-brand-fill">
                 <Icons.Algorithm className="w-9 h-9 text-white" />
               </span>
-              <span className="bg-gradient-to-r from-green-600 to-emerald-700   text-transparent bg-clip-text">
+              <span className="text-brand">
                 Algorithmic Trading
               </span>
             </h1>
@@ -338,7 +338,7 @@ const AlgorithmicTradingOverview = () => {
           </div>
 
           {/* Hero Visual - Premium Trading System SVG */}
-          <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-3xl p-8 mb-12 border border-indigo-800/50 shadow-2xl overflow-hidden relative">
+          <div className="rounded-3xl p-8 mb-12 border border-indigo-800/50 shadow-2xl overflow-hidden relative bg-brand-fill">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -356,8 +356,8 @@ const AlgorithmicTradingOverview = () => {
                   <stop offset="100%" stopColor="#8F6FC4"/>
                 </linearGradient>
                 <linearGradient id="algoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#1FA978"/>
-                  <stop offset="100%" stopColor="#1FA978"/>
+                  <stop offset="0%" stopColor="#12805A"/>
+                  <stop offset="100%" stopColor="#12805A"/>
                 </linearGradient>
                 <linearGradient id="algoGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#B8923F"/>
@@ -376,31 +376,31 @@ const AlgorithmicTradingOverview = () => {
               <text x="350" y="30" textAnchor="middle" fill="#ECE4F6" fontSize="16" fontWeight="700" letterSpacing="1">
                 ALGORITHMIC TRADING SYSTEM ARCHITECTURE
               </text>
-              <text x="350" y="50" textAnchor="middle" fill="#A3A1A6" fontSize="11">
+              <text x="350" y="50" textAnchor="middle" fill="#A0A3AA" fontSize="11">
                 How Professional Trading Systems Process Information
               </text>
 
               {/* Data Sources Section */}
               <g transform="translate(30, 75)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#232327" stroke="#404047" strokeWidth="2"/>
-                <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="11" fontWeight="600">DATA FEEDS</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#2A2A2C" stroke="#373A41" strokeWidth="2"/>
+                <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="11" fontWeight="600">DATA FEEDS</text>
                 
                 {/* Data Items */}
-                <rect x="15" y="40" width="110" height="28" rx="6" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
+                <rect x="15" y="40" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
                 <circle cx="32" cy="54" r="8" fill="url(#algoGrad2)"/>
-                <text x="50" y="58" fill="#E4E1D9" fontSize="9">Price Data</text>
+                <text x="50" y="58" fill="#E4E4EA" fontSize="9">Price Data</text>
                 
-                <rect x="15" y="75" width="110" height="28" rx="6" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
+                <rect x="15" y="75" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
                 <circle cx="32" cy="89" r="8" fill="url(#algoGrad1)"/>
-                <text x="50" y="93" fill="#E4E1D9" fontSize="9">Order Book</text>
+                <text x="50" y="93" fill="#E4E4EA" fontSize="9">Order Book</text>
                 
-                <rect x="15" y="110" width="110" height="28" rx="6" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
+                <rect x="15" y="110" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
                 <circle cx="32" cy="124" r="8" fill="url(#algoGrad3)"/>
-                <text x="50" y="128" fill="#E4E1D9" fontSize="9">News/Events</text>
+                <text x="50" y="128" fill="#E4E4EA" fontSize="9">News/Events</text>
                 
-                <rect x="15" y="145" width="110" height="28" rx="6" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
+                <rect x="15" y="145" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
                 <circle cx="32" cy="159" r="8" fill="#8F6FC4"/>
-                <text x="50" y="163" fill="#E4E1D9" fontSize="9">Alt Data</text>
+                <text x="50" y="163" fill="#E4E4EA" fontSize="9">Alt Data</text>
               </g>
 
               {/* Arrow 1 */}
@@ -420,12 +420,12 @@ const AlgorithmicTradingOverview = () => {
                 <text x="100" y="68" textAnchor="middle" fill="#A88BD9" fontSize="8">Entry / Exit Rules</text>
                 
                 {/* Signal Generator */}
-                <rect x="15" y="82" width="80" height="40" rx="6" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
-                <text x="55" y="100" textAnchor="middle" fill="#E4E1D9" fontSize="9" fontWeight="500">Signal</text>
-                <text x="55" y="113" textAnchor="middle" fill="#A3A1A6" fontSize="8">Generator</text>
+                <rect x="15" y="82" width="80" height="40" rx="6" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
+                <text x="55" y="100" textAnchor="middle" fill="#E4E4EA" fontSize="9" fontWeight="500">Signal</text>
+                <text x="55" y="113" textAnchor="middle" fill="#A0A3AA" fontSize="8">Generator</text>
                 
                 {/* Risk Engine */}
-                <rect x="105" y="82" width="80" height="40" rx="6" fill="#151517" stroke="#E04848" strokeWidth="1"/>
+                <rect x="105" y="82" width="80" height="40" rx="6" fill="#1F1F1F" stroke="#E04848" strokeWidth="1"/>
                 <text x="145" y="100" textAnchor="middle" fill="#F09B9B" fontSize="9" fontWeight="500">Risk</text>
                 <text x="145" y="113" textAnchor="middle" fill="#F26B6B" fontSize="8">Manager</text>
                 
@@ -443,46 +443,46 @@ const AlgorithmicTradingOverview = () => {
 
               {/* Execution Section */}
               <g transform="translate(490, 75)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#232327" stroke="#404047" strokeWidth="2"/>
-                <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="11" fontWeight="600">EXECUTION</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#2A2A2C" stroke="#373A41" strokeWidth="2"/>
+                <text x="70" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="11" fontWeight="600">EXECUTION</text>
                 
                 {/* Order Types */}
-                <rect x="15" y="40" width="110" height="28" rx="6" fill="#151517" stroke="#1FA978" strokeWidth="1"/>
-                <text x="70" y="58" textAnchor="middle" fill="#77D3AE" fontSize="9">Market Orders</text>
+                <rect x="15" y="40" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
+                <text x="70" y="58" textAnchor="middle" fill="#3CCB97" fontSize="9">Market Orders</text>
                 
-                <rect x="15" y="75" width="110" height="28" rx="6" fill="#151517" stroke="#1FA978" strokeWidth="1"/>
-                <text x="70" y="93" textAnchor="middle" fill="#77D3AE" fontSize="9">Limit Orders</text>
+                <rect x="15" y="75" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#12805A" strokeWidth="1"/>
+                <text x="70" y="93" textAnchor="middle" fill="#3CCB97" fontSize="9">Limit Orders</text>
                 
-                <rect x="15" y="110" width="110" height="28" rx="6" fill="#151517" stroke="#B8923F" strokeWidth="1"/>
+                <rect x="15" y="110" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#B8923F" strokeWidth="1"/>
                 <text x="70" y="128" textAnchor="middle" fill="#E2C273" fontSize="9">TWAP / VWAP</text>
                 
-                <rect x="15" y="145" width="110" height="28" rx="6" fill="#151517" stroke="#E04848" strokeWidth="1"/>
+                <rect x="15" y="145" width="110" height="28" rx="6" fill="#1F1F1F" stroke="#E04848" strokeWidth="1"/>
                 <text x="70" y="163" textAnchor="middle" fill="#F09B9B" fontSize="9">Stop Loss</text>
               </g>
 
               {/* Bottom Feedback Loop */}
               <g transform="translate(100, 280)">
-                <rect x="0" y="0" width="500" height="50" rx="10" fill="#151517" stroke="#5A5A62" strokeWidth="1"/>
-                <text x="250" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10" fontWeight="600">MONITORING & FEEDBACK LOOP</text>
-                <text x="250" y="38" textAnchor="middle" fill="#75757D" fontSize="9">
+                <rect x="0" y="0" width="500" height="50" rx="10" fill="#1F1F1F" stroke="#555A63" strokeWidth="1"/>
+                <text x="250" y="20" textAnchor="middle" fill="#A0A3AA" fontSize="10" fontWeight="600">MONITORING & FEEDBACK LOOP</text>
+                <text x="250" y="38" textAnchor="middle" fill="#717680" fontSize="9">
                   P&L Tracking | Performance Analytics | Risk Alerts | System Health
                 </text>
                 
                 {/* Feedback Arrows */}
-                <path d="M-30 -20 L-30 25 L0 25" stroke="#5A5A62" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
-                <path d="M530 25 L560 25 L560 -205 L500 -205" stroke="#5A5A62" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
+                <path d="M-30 -20 L-30 25 L0 25" stroke="#555A63" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
+                <path d="M530 25 L560 25 L560 -205 L500 -205" stroke="#555A63" strokeWidth="1.5" fill="none" strokeDasharray="3,2"/>
               </g>
 
               {/* Legend */}
               <g transform="translate(250, 340)">
                 <circle cx="0" cy="0" r="4" fill="url(#algoGrad2)"/>
-                <text x="10" y="4" fill="#A3A1A6" fontSize="8">Input</text>
+                <text x="10" y="4" fill="#A0A3AA" fontSize="8">Input</text>
                 
                 <circle cx="60" cy="0" r="4" fill="url(#algoGrad1)"/>
-                <text x="70" y="4" fill="#A3A1A6" fontSize="8">Processing</text>
+                <text x="70" y="4" fill="#A0A3AA" fontSize="8">Processing</text>
                 
                 <circle cx="140" cy="0" r="4" fill="url(#algoGrad3)"/>
-                <text x="150" y="4" fill="#A3A1A6" fontSize="8">Output</text>
+                <text x="150" y="4" fill="#A0A3AA" fontSize="8">Output</text>
               </g>
             </svg>
           </div>
@@ -490,7 +490,7 @@ const AlgorithmicTradingOverview = () => {
           {/* What You'll Learn Section */}
           <div className="bg-gradient-to-br from-indigo-50 to-violet-50   rounded-3xl p-8 mb-12 border border-indigo-200  shadow-lg">
             <h2 className="text-2xl font-semibold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl shadow-md">
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl shadow-md bg-brand-fill">
                 <Icons.Target className="w-5 h-5 text-white" />
               </span>
               What You'll Master
@@ -597,8 +597,8 @@ const AlgorithmicTradingOverview = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-8 text-center shadow-2xl shadow-indigo-500/20">
-            <h2 className="text-2xl md:text-3xl font-display font-normal text-white mb-4 tracking-[-0.015em]">
+          <div className="rounded-3xl p-8 text-center shadow-2xl shadow-indigo-500/20 bg-brand-fill">
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-white mb-4 tracking-[-0.025em]">
               Ready to Think Like an Institution?
             </h2>
             <p className="text-indigo-100 mb-6 max-w-2xl mx-auto">

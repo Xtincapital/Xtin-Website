@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhyDirectionMattersSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Markets Move in Directions</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Understanding the general direction provides valuable context</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Markets Move in Directions</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Understanding the general direction provides valuable context</text>
     
     {/* Left - Chaos without context */}
     <rect x="30" y="70" width="250" height="190" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -79,7 +79,7 @@ const WhyDirectionMattersSVG = () => (
       <path 
         d="M-70 20 L-50 -10 L-30 25 L-10 -20 L10 15 L30 -25 L50 10 L70 -15" 
         fill="none" 
-        stroke="#A3A1A6" 
+        stroke="#A0A3AA" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -95,7 +95,7 @@ const WhyDirectionMattersSVG = () => (
     <text x="155" y="250" textAnchor="middle" fontSize="10" fill="#842428">and confusing</text>
     
     {/* Right - Clarity with context */}
-    <rect x="320" y="70" width="250" height="190" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="320" y="70" width="250" height="190" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">With Direction Context</text>
     
     {/* Clear upward movement */}
@@ -106,7 +106,7 @@ const WhyDirectionMattersSVG = () => (
       <path 
         d="M-70 30 L-50 15 L-30 25 L-10 5 L10 15 L30 -10 L50 0 L70 -25" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -116,8 +116,8 @@ const WhyDirectionMattersSVG = () => (
       <path d="M80 -10 L80 -35 M72 -27 L80 -35 L88 -27" stroke="#12805A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
     
-    <text x="445" y="235" textAnchor="middle" fontSize="10" fill="#0D543C">Direction provides structure</text>
-    <text x="445" y="250" textAnchor="middle" fontSize="10" fill="#0D543C">and understanding</text>
+    <text x="445" y="235" textAnchor="middle" fontSize="10" fill="#12805A">Direction provides structure</text>
+    <text x="445" y="250" textAnchor="middle" fontSize="10" fill="#12805A">and understanding</text>
   </svg>
 );
 
@@ -125,16 +125,16 @@ const WhyDirectionMattersSVG = () => (
 const ThreeDirectionsSVG = () => (
   <svg viewBox="0 0 640 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">The Three Market Directions</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">At any time, a market is doing one of three things</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">The Three Market Directions</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">At any time, a market is doing one of three things</text>
     
     {/* Uptrend */}
-    <rect x="25" y="70" width="185" height="230" fill="#EEF9F4" rx="12" stroke="#1FA978" strokeWidth="2"/>
+    <rect x="25" y="70" width="185" height="230" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
     <text x="117" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">UPTREND</text>
-    <text x="117" y="112" textAnchor="middle" fontSize="10" fill="#0E6A4A">Prices generally rising</text>
+    <text x="117" y="112" textAnchor="middle" fontSize="10" fill="#12805A">Prices generally rising</text>
     
     <g transform="translate(117, 175)">
       <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
@@ -143,20 +143,20 @@ const ThreeDirectionsSVG = () => (
       <path 
         d="M-55 35 L-35 20 L-20 30 L0 10 L20 20 L35 -5 L55 -25" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Dots at swing points */}
-      <circle cx="-35" cy="20" r="4" fill="#1FA978"/>
-      <circle cx="0" cy="10" r="4" fill="#1FA978"/>
-      <circle cx="35" cy="-5" r="4" fill="#1FA978"/>
+      <circle cx="-35" cy="20" r="4" fill="#12805A"/>
+      <circle cx="0" cy="10" r="4" fill="#12805A"/>
+      <circle cx="35" cy="-5" r="4" fill="#12805A"/>
     </g>
     
-    <text x="117" y="250" textAnchor="middle" fontSize="9" fill="#0D543C">Higher highs</text>
-    <text x="117" y="263" textAnchor="middle" fontSize="9" fill="#0D543C">Higher lows</text>
+    <text x="117" y="250" textAnchor="middle" fontSize="9" fill="#12805A">Higher highs</text>
+    <text x="117" y="263" textAnchor="middle" fontSize="9" fill="#12805A">Higher lows</text>
     
     {/* Arrow up */}
     <g transform="translate(117, 285)">
@@ -232,30 +232,30 @@ const ThreeDirectionsSVG = () => (
 const UptrendExplainedSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding an Uptrend</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Each swing point is higher than the previous one</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Understanding an Uptrend</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Each swing point is higher than the previous one</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
-    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
-    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A0A3AA">High</text>
+    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A0A3AA">Mid</text>
+    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Grid lines */}
-    <line x1="60" y1="95" x2="540" y2="95" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="180" x2="540" y2="180" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="265" x2="540" y2="265" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="95" x2="540" y2="95" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="180" x2="540" y2="180" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="265" x2="540" y2="265" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Uptrend price movement */}
     <path 
       d="M80 250 L130 200 L170 230 L230 170 L280 195 L340 130 L400 160 L470 100 L520 85" 
       fill="none" 
-      stroke="#1FA978" 
+      stroke="#12805A" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -275,25 +275,25 @@ const UptrendExplainedSVG = () => (
     <text x="400" y="180" textAnchor="middle" fontSize="8" fill="#344C72">Higher Low</text>
     
     {/* Higher Highs - marked with circles and labels */}
-    <circle cx="130" cy="200" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="130" cy="200" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     <text x="130" y="190" textAnchor="middle" fontSize="8" fill="#12805A">High 1</text>
     
-    <circle cx="230" cy="170" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="230" cy="170" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     <text x="230" y="160" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
-    <circle cx="340" cy="130" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="340" cy="130" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     <text x="340" y="120" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
-    <circle cx="470" cy="100" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="470" cy="100" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     <text x="470" y="90" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
     {/* Legend */}
-    <rect x="150" y="300" width="300" height="30" fill="#EEF9F4" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-    <circle cx="180" cy="315" r="6" fill="#1FA978"/>
-    <text x="195" y="318" fontSize="9" fill="#0D543C">Higher Highs</text>
+    <rect x="150" y="300" width="300" height="30" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+    <circle cx="180" cy="315" r="6" fill="#12805A"/>
+    <text x="195" y="318" fontSize="9" fill="#12805A">Higher Highs</text>
     <circle cx="310" cy="315" r="6" fill="#5A77AA"/>
     <text x="325" y="318" fontSize="9" fill="#2C3F5E">Higher Lows</text>
-    <text x="420" y="318" fontSize="9" fill="#75757D">= Uptrend</text>
+    <text x="420" y="318" fontSize="9" fill="#717680">= Uptrend</text>
   </svg>
 );
 
@@ -301,24 +301,24 @@ const UptrendExplainedSVG = () => (
 const DowntrendExplainedSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding a Downtrend</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Each swing point is lower than the previous one</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Understanding a Downtrend</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Each swing point is lower than the previous one</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
-    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
-    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A0A3AA">High</text>
+    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A0A3AA">Mid</text>
+    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Grid lines */}
-    <line x1="60" y1="95" x2="540" y2="95" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="180" x2="540" y2="180" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="60" y1="265" x2="540" y2="265" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="95" x2="540" y2="95" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="180" x2="540" y2="180" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="60" y1="265" x2="540" y2="265" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Downtrend price movement */}
     <path 
@@ -362,7 +362,7 @@ const DowntrendExplainedSVG = () => (
     <text x="195" y="318" fontSize="9" fill="#9C4D2E">Lower Highs</text>
     <circle cx="310" cy="315" r="6" fill="#E04848"/>
     <text x="325" y="318" fontSize="9" fill="#C7363B">Lower Lows</text>
-    <text x="420" y="318" fontSize="9" fill="#75757D">= Downtrend</text>
+    <text x="420" y="318" fontSize="9" fill="#717680">= Downtrend</text>
   </svg>
 );
 
@@ -370,14 +370,14 @@ const DowntrendExplainedSVG = () => (
 const SidewaysExplainedSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding a Sideways Market</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Price bounces between a ceiling and floor with no clear direction</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Understanding a Sideways Market</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Price bounces between a ceiling and floor with no clear direction</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Range boundaries */}
     <line x1="70" y1="100" x2="530" y2="100" stroke="#B8923F" strokeWidth="2" strokeDasharray="8 4"/>
@@ -420,11 +420,11 @@ const SidewaysExplainedSVG = () => (
 const SwingsWithinTrendsSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Markets Don't Move in Straight Lines</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Even in a strong trend, prices swing up and down</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Markets Don't Move in Straight Lines</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Even in a strong trend, prices swing up and down</text>
     
     {/* Left - Myth */}
     <rect x="30" y="70" width="250" height="220" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -437,7 +437,7 @@ const SwingsWithinTrendsSVG = () => (
       <path 
         d="M-70 45 L70 -45" 
         fill="none" 
-        stroke="#A3A1A6" 
+        stroke="#A0A3AA" 
         strokeWidth="3"
         strokeLinecap="round"
       />
@@ -446,7 +446,7 @@ const SwingsWithinTrendsSVG = () => (
     </g>
     
     {/* Right - Reality */}
-    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ What actually happens</text>
     
     <g transform="translate(445, 175)">
@@ -456,18 +456,18 @@ const SwingsWithinTrendsSVG = () => (
       <path 
         d="M-70 45 L-50 25 L-35 38 L-15 15 L5 30 L25 5 L45 20 L70 -30" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Dots at turns */}
-      <circle cx="-50" cy="25" r="4" fill="#1FA978"/>
-      <circle cx="-15" cy="15" r="4" fill="#1FA978"/>
-      <circle cx="25" cy="5" r="4" fill="#1FA978"/>
+      <circle cx="-50" cy="25" r="4" fill="#12805A"/>
+      <circle cx="-15" cy="15" r="4" fill="#12805A"/>
+      <circle cx="25" cy="5" r="4" fill="#12805A"/>
       
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#0D543C">Zigzag pattern trending up</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#12805A">Zigzag pattern trending up</text>
     </g>
     
     {/* Bottom insight */}
@@ -480,55 +480,55 @@ const SwingsWithinTrendsSVG = () => (
 const AssetRisingExampleSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Asset in an Uptrend</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Example: Asset in an Uptrend</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A3A1A6">$60</text>
-    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A3A1A6">$50</text>
-    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A3A1A6">$40</text>
-    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A3A1A6">$30</text>
+    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A0A3AA">$60</text>
+    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A0A3AA">$50</text>
+    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A0A3AA">$40</text>
+    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A0A3AA">$30</text>
     
     {/* Grid */}
-    <line x1="70" y1="70" x2="530" y2="70" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="115" x2="530" y2="115" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="160" x2="530" y2="160" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="205" x2="530" y2="205" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="70" x2="530" y2="70" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="115" x2="530" y2="115" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="160" x2="530" y2="160" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="205" x2="530" y2="205" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* X-axis time labels */}
-    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
-    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
-    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
-    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 4</text>
+    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
+    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 2</text>
+    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 3</text>
+    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 4</text>
     
     {/* Uptrend line */}
     <path 
       d="M90 195 L140 165 L180 180 L230 140 L280 155 L340 110 L400 125 L460 85 L510 70" 
       fill="none" 
-      stroke="#1FA978" 
+      stroke="#12805A" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Key points */}
-    <circle cx="90" cy="195" r="5" fill="#1FA978"/>
-    <circle cx="230" cy="140" r="5" fill="#1FA978"/>
-    <circle cx="340" cy="110" r="5" fill="#1FA978"/>
-    <circle cx="510" cy="70" r="5" fill="#1FA978"/>
+    <circle cx="90" cy="195" r="5" fill="#12805A"/>
+    <circle cx="230" cy="140" r="5" fill="#12805A"/>
+    <circle cx="340" cy="110" r="5" fill="#12805A"/>
+    <circle cx="510" cy="70" r="5" fill="#12805A"/>
     
     {/* Price annotations */}
-    <text x="90" y="212" textAnchor="middle" fontSize="8" fill="#0D543C">$32</text>
-    <text x="510" y="62" textAnchor="middle" fontSize="8" fill="#0D543C">$58</text>
+    <text x="90" y="212" textAnchor="middle" fontSize="8" fill="#12805A">$32</text>
+    <text x="510" y="62" textAnchor="middle" fontSize="8" fill="#12805A">$58</text>
     
     {/* Bottom note */}
-    <rect x="150" y="255" width="300" height="20" fill="#D5F2E5" rx="6"/>
-    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#0D543C">Overall direction: UP (with natural pullbacks)</text>
+    <rect x="150" y="255" width="300" height="20" fill="#EEF9F4" rx="6"/>
+    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#12805A">Overall direction: UP (with natural pullbacks)</text>
   </svg>
 );
 
@@ -536,31 +536,31 @@ const AssetRisingExampleSVG = () => (
 const AssetFallingExampleSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Asset in a Downtrend</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Example: Asset in a Downtrend</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A3A1A6">$80</text>
-    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A3A1A6">$70</text>
-    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A3A1A6">$60</text>
-    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A3A1A6">$50</text>
+    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A0A3AA">$80</text>
+    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A0A3AA">$70</text>
+    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A0A3AA">$60</text>
+    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A0A3AA">$50</text>
     
     {/* Grid */}
-    <line x1="70" y1="70" x2="530" y2="70" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="115" x2="530" y2="115" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="160" x2="530" y2="160" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="205" x2="530" y2="205" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="70" x2="530" y2="70" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="115" x2="530" y2="115" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="160" x2="530" y2="160" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="205" x2="530" y2="205" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* X-axis time labels */}
-    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
-    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
-    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
-    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 4</text>
+    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
+    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 2</text>
+    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 3</text>
+    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 4</text>
     
     {/* Downtrend line */}
     <path 
@@ -634,14 +634,14 @@ const TechnicalAnalysisLesson3 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 3 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Trends & Market Direction</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Trends & Market Direction</h1>
             <p className="text-gray-600 mt-2">Understanding how markets move and why direction matters</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Direction Matters</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Direction Matters</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -686,9 +686,9 @@ const TechnicalAnalysisLesson3 = () => {
           <ThreeDirectionsSVG />
 
           <div className="mt-8 grid md:grid-cols-3 gap-4">
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">📈 Uptrend</h4>
-              <p className="text-green-900 text-sm">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">📈 Uptrend</h4>
+              <p className="text-brand text-sm">
                 Prices are generally rising. Buyers are in control. Each swing high and 
                 swing low is higher than the previous one.
               </p>
@@ -846,9 +846,9 @@ const TechnicalAnalysisLesson3 = () => {
           <AssetFallingExampleSVG />
           
           <div className="mt-6 grid md:grid-cols-2 gap-4">
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Uptrend Observation</h4>
-              <p className="text-green-900 text-sm">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Uptrend Observation</h4>
+              <p className="text-brand text-sm">
                 Price rose from $32 to $58 — an increase of 81%. The trend provided context 
                 that buying pressure was dominant during this period.
               </p>
@@ -911,7 +911,7 @@ const TechnicalAnalysisLesson3 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Markets move in three directions: up, down, or sideways</li>
@@ -934,7 +934,7 @@ const TechnicalAnalysisLesson3 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-4')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

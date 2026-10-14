@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
 				<div className="max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-display font-normal text-gray-900 mb-2 tracking-[-0.015em]">
+						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Reset Your Password
 						</h1>
 						<p className="text-gray-600">
@@ -65,8 +65,8 @@ const ForgotPasswordPage = () => {
 
 						{/* Success Message */}
 						{success && (
-							<div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-								<p className="text-green-600 text-sm">{success}</p>
+							<div className="mb-6 p-4 bg-brand-soft border border-brand-line rounded-lg">
+								<p className="text-brand text-sm">{success}</p>
 							</div>
 						)}
 
@@ -82,7 +82,7 @@ const ForgotPasswordPage = () => {
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 									required
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
 									placeholder="Enter your email"
 								/>
 							</div>
@@ -91,7 +91,7 @@ const ForgotPasswordPage = () => {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isLoading ? (
 									<div className="flex items-center justify-center">
@@ -111,7 +111,7 @@ const ForgotPasswordPage = () => {
 						<div className="mt-6 text-center">
 							<p className="text-gray-600">
 								Remember your password?{" "}
-								<Link to="/login" className="text-green-600 hover:text-green-700 font-medium">
+								<Link to="/login" className="text-brand hover:text-brand font-medium">
 									Sign in
 								</Link>
 							</p>

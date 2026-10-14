@@ -68,67 +68,67 @@ const CoveredCallSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
     <defs>
       <linearGradient id="ccGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="380" fill="url(#ccGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Covered Call Strategy</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Own stock + Sell call = Generate income with capped upside</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Own stock + Sell call = Generate income with capped upside</text>
     
     {/* Payoff Diagram */}
     <g transform="translate(80, 80)">
       {/* Axes */}
-      <line x1="0" y1="120" x2="280" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="140" y1="20" x2="140" y2="200" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="0" y1="120" x2="280" y2="120" stroke="#555A63" strokeWidth="1"/>
+      <line x1="140" y1="20" x2="140" y2="200" stroke="#555A63" strokeWidth="1"/>
       
-      <text x="280" y="140" fontSize="9" fill="#A3A1A6">Stock Price</text>
-      <text x="145" y="15" fontSize="9" fill="#A3A1A6">P/L</text>
+      <text x="280" y="140" fontSize="9" fill="#A0A3AA">Stock Price</text>
+      <text x="145" y="15" fontSize="9" fill="#A0A3AA">P/L</text>
       
       {/* Stock only (dotted) */}
-      <path d="M 0 200 L 280 40" fill="none" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4"/>
+      <path d="M 0 200 L 280 40" fill="none" stroke="#555A63" strokeWidth="1.5" strokeDasharray="4"/>
       
       {/* Covered call payoff */}
-      <path d="M 0 180 L 140 100 L 280 100" fill="none" stroke="#1FA978" strokeWidth="3"/>
+      <path d="M 0 180 L 140 100 L 280 100" fill="none" stroke="#12805A" strokeWidth="3"/>
       
       {/* Strike marker */}
       <line x1="140" y1="100" x2="140" y2="125" stroke="#D2754C" strokeWidth="2" strokeDasharray="3"/>
       <text x="140" y="140" textAnchor="middle" fontSize="8" fill="#D2754C">Strike</text>
       
       {/* Max profit line */}
-      <line x1="140" y1="100" x2="280" y2="100" stroke="#1FA978" strokeWidth="2" strokeDasharray="4"/>
+      <line x1="140" y1="100" x2="280" y2="100" stroke="#12805A" strokeWidth="2" strokeDasharray="4"/>
       
-      <text x="220" y="90" fontSize="8" fill="#1FA978">Max Profit (capped)</text>
+      <text x="220" y="90" fontSize="8" fill="#12805A">Max Profit (capped)</text>
     </g>
     
     {/* Strategy Details */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="280" height="180" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="280" height="180" fill="#2A2A2C" rx="10"/>
       
-      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#1FA978">STRATEGY COMPONENTS</text>
+      <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">STRATEGY COMPONENTS</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position:</text>
-        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Long 100 shares of stock</text>
-        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Short 1 OTM call option</text>
+        <text x="0" y="18" fontSize="9" fill="#A0A3AA">• Long 100 shares of stock</text>
+        <text x="0" y="34" fontSize="9" fill="#A0A3AA">• Short 1 OTM call option</text>
         
         <text x="0" y="60" fontSize="10" fill="white">Max Profit:</text>
-        <text x="0" y="78" fontSize="9" fill="#A3A1A6">(Strike - Stock Price) + Premium</text>
+        <text x="0" y="78" fontSize="9" fill="#A0A3AA">(Strike - Stock Price) + Premium</text>
         
         <text x="0" y="100" fontSize="10" fill="white">Max Loss:</text>
-        <text x="0" y="118" fontSize="9" fill="#A3A1A6">Stock can go to $0 (minus premium)</text>
+        <text x="0" y="118" fontSize="9" fill="#A0A3AA">Stock can go to $0 (minus premium)</text>
         
         <text x="0" y="140" fontSize="10" fill="white">Breakeven:</text>
-        <text x="0" y="158" fontSize="9" fill="#A3A1A6">Stock Price - Premium Received</text>
+        <text x="0" y="158" fontSize="9" fill="#A0A3AA">Stock Price - Premium Received</text>
       </g>
     </g>
     
     {/* When to Use */}
     <g transform="translate(50, 285)">
-      <rect x="0" y="0" width="600" height="80" fill="#1FA978" fillOpacity="0.1" rx="10" stroke="#1FA978" strokeWidth="1"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1FA978">IDEAL MARKET OUTLOOK</text>
+      <rect x="0" y="0" width="600" height="80" fill="#12805A" fillOpacity="0.1" rx="10" stroke="#12805A" strokeWidth="1"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">IDEAL MARKET OUTLOOK</text>
       <text x="20" y="45" fontSize="9" fill="white">• Neutral to slightly bullish on the underlying stock</text>
       <text x="20" y="62" fontSize="9" fill="white">• Willing to sell shares at the strike price (willing to cap gains)</text>
       <text x="320" y="45" fontSize="9" fill="white">• Want to generate income from existing holdings</text>
@@ -140,22 +140,22 @@ const CoveredCallSVG = () => (
 // SVG: Protective Put
 const ProtectivePutSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Protective Put (Married Put)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Own stock + Buy put = Insurance against downside</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Own stock + Buy put = Insurance against downside</text>
     
     {/* Payoff Diagram */}
     <g transform="translate(80, 80)">
       {/* Axes */}
-      <line x1="0" y1="120" x2="280" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="140" y1="20" x2="140" y2="200" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="0" y1="120" x2="280" y2="120" stroke="#555A63" strokeWidth="1"/>
+      <line x1="140" y1="20" x2="140" y2="200" stroke="#555A63" strokeWidth="1"/>
       
-      <text x="280" y="140" fontSize="9" fill="#A3A1A6">Stock Price</text>
-      <text x="145" y="15" fontSize="9" fill="#A3A1A6">P/L</text>
+      <text x="280" y="140" fontSize="9" fill="#A0A3AA">Stock Price</text>
+      <text x="145" y="15" fontSize="9" fill="#A0A3AA">P/L</text>
       
       {/* Stock only (dotted) */}
-      <path d="M 0 200 L 280 40" fill="none" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4"/>
+      <path d="M 0 200 L 280 40" fill="none" stroke="#555A63" strokeWidth="1.5" strokeDasharray="4"/>
       
       {/* Protective put payoff */}
       <path d="M 0 150 L 140 150 L 280 30" fill="none" stroke="#5A77AA" strokeWidth="3"/>
@@ -172,23 +172,23 @@ const ProtectivePutSVG = () => (
     
     {/* Strategy Details */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="280" height="180" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="280" height="180" fill="#2A2A2C" rx="10"/>
       
       <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#5A77AA">STRATEGY COMPONENTS</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position:</text>
-        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Long 100 shares of stock</text>
-        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Long 1 put option (any strike)</text>
+        <text x="0" y="18" fontSize="9" fill="#A0A3AA">• Long 100 shares of stock</text>
+        <text x="0" y="34" fontSize="9" fill="#A0A3AA">• Long 1 put option (any strike)</text>
         
         <text x="0" y="60" fontSize="10" fill="white">Max Profit:</text>
-        <text x="0" y="78" fontSize="9" fill="#A3A1A6">Unlimited (stock can rise indefinitely)</text>
+        <text x="0" y="78" fontSize="9" fill="#A0A3AA">Unlimited (stock can rise indefinitely)</text>
         
         <text x="0" y="100" fontSize="10" fill="white">Max Loss:</text>
-        <text x="0" y="118" fontSize="9" fill="#A3A1A6">(Stock Price - Strike) + Premium Paid</text>
+        <text x="0" y="118" fontSize="9" fill="#A0A3AA">(Stock Price - Strike) + Premium Paid</text>
         
         <text x="0" y="140" fontSize="10" fill="white">Breakeven:</text>
-        <text x="0" y="158" fontSize="9" fill="#A3A1A6">Stock Price + Premium Paid</text>
+        <text x="0" y="158" fontSize="9" fill="#A0A3AA">Stock Price + Premium Paid</text>
       </g>
     </g>
     
@@ -207,19 +207,19 @@ const ProtectivePutSVG = () => (
 // SVG: Long Straddle
 const LongStraddleSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Long Straddle</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Buy call + Buy put (same strike) = Profit from big moves either direction</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Buy call + Buy put (same strike) = Profit from big moves either direction</text>
     
     {/* Payoff Diagram */}
     <g transform="translate(80, 80)">
       {/* Axes */}
-      <line x1="0" y1="120" x2="280" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="140" y1="20" x2="140" y2="200" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="0" y1="120" x2="280" y2="120" stroke="#555A63" strokeWidth="1"/>
+      <line x1="140" y1="20" x2="140" y2="200" stroke="#555A63" strokeWidth="1"/>
       
-      <text x="280" y="140" fontSize="9" fill="#A3A1A6">Stock Price</text>
-      <text x="145" y="15" fontSize="9" fill="#A3A1A6">P/L</text>
+      <text x="280" y="140" fontSize="9" fill="#A0A3AA">Stock Price</text>
+      <text x="145" y="15" fontSize="9" fill="#A0A3AA">P/L</text>
       
       {/* Straddle V-shape */}
       <path d="M 0 40 L 140 170 L 280 40" fill="none" stroke="#8F6FC4" strokeWidth="3"/>
@@ -233,31 +233,31 @@ const LongStraddleSVG = () => (
       <text x="180" y="168" fontSize="8" fill="#C7363B">Max Loss</text>
       
       {/* Breakeven points */}
-      <circle cx="70" cy="120" r="4" fill="#1FA978"/>
-      <circle cx="210" cy="120" r="4" fill="#1FA978"/>
-      <text x="70" y="110" textAnchor="middle" fontSize="7" fill="#1FA978">BE Low</text>
-      <text x="210" y="110" textAnchor="middle" fontSize="7" fill="#1FA978">BE High</text>
+      <circle cx="70" cy="120" r="4" fill="#12805A"/>
+      <circle cx="210" cy="120" r="4" fill="#12805A"/>
+      <text x="70" y="110" textAnchor="middle" fontSize="7" fill="#12805A">BE Low</text>
+      <text x="210" y="110" textAnchor="middle" fontSize="7" fill="#12805A">BE High</text>
     </g>
     
     {/* Strategy Details */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="280" height="180" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="280" height="180" fill="#2A2A2C" rx="10"/>
       
       <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#8F6FC4">STRATEGY COMPONENTS</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position:</text>
-        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Long 1 ATM call</text>
-        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Long 1 ATM put (same strike, same expiry)</text>
+        <text x="0" y="18" fontSize="9" fill="#A0A3AA">• Long 1 ATM call</text>
+        <text x="0" y="34" fontSize="9" fill="#A0A3AA">• Long 1 ATM put (same strike, same expiry)</text>
         
         <text x="0" y="60" fontSize="10" fill="white">Max Profit:</text>
-        <text x="0" y="78" fontSize="9" fill="#A3A1A6">Unlimited in either direction</text>
+        <text x="0" y="78" fontSize="9" fill="#A0A3AA">Unlimited in either direction</text>
         
         <text x="0" y="100" fontSize="10" fill="white">Max Loss:</text>
-        <text x="0" y="118" fontSize="9" fill="#A3A1A6">Total premium paid (both options)</text>
+        <text x="0" y="118" fontSize="9" fill="#A0A3AA">Total premium paid (both options)</text>
         
         <text x="0" y="140" fontSize="10" fill="white">Breakevens:</text>
-        <text x="0" y="158" fontSize="9" fill="#A3A1A6">Strike ± Total Premium Paid</text>
+        <text x="0" y="158" fontSize="9" fill="#A0A3AA">Strike ± Total Premium Paid</text>
       </g>
     </g>
     
@@ -276,28 +276,28 @@ const LongStraddleSVG = () => (
 // SVG: Long Strangle
 const LongStrangleSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Long Strangle</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Buy OTM call + Buy OTM put = Cheaper directional-agnostic bet</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Buy OTM call + Buy OTM put = Cheaper directional-agnostic bet</text>
     
     {/* Payoff Diagram */}
     <g transform="translate(80, 80)">
       {/* Axes */}
-      <line x1="0" y1="120" x2="280" y2="120" stroke="#5A5A62" strokeWidth="1"/>
-      <line x1="140" y1="20" x2="140" y2="200" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="0" y1="120" x2="280" y2="120" stroke="#555A63" strokeWidth="1"/>
+      <line x1="140" y1="20" x2="140" y2="200" stroke="#555A63" strokeWidth="1"/>
       
-      <text x="280" y="140" fontSize="9" fill="#A3A1A6">Stock Price</text>
-      <text x="145" y="15" fontSize="9" fill="#A3A1A6">P/L</text>
+      <text x="280" y="140" fontSize="9" fill="#A0A3AA">Stock Price</text>
+      <text x="145" y="15" fontSize="9" fill="#A0A3AA">P/L</text>
       
       {/* Strangle shape - flatter bottom */}
       <path d="M 0 40 L 90 160 L 190 160 L 280 40" fill="none" stroke="#D2754C" strokeWidth="3"/>
       
       {/* Strike markers */}
       <circle cx="90" cy="160" r="4" fill="#C7363B"/>
-      <circle cx="190" cy="160" r="4" fill="#1FA978"/>
+      <circle cx="190" cy="160" r="4" fill="#12805A"/>
       <text x="90" y="180" textAnchor="middle" fontSize="7" fill="#C7363B">Put Strike</text>
-      <text x="190" y="180" textAnchor="middle" fontSize="7" fill="#1FA978">Call Strike</text>
+      <text x="190" y="180" textAnchor="middle" fontSize="7" fill="#12805A">Call Strike</text>
       
       {/* Max loss zone */}
       <rect x="90" y="155" width="100" height="10" fill="#C7363B" fillOpacity="0.2"/>
@@ -306,23 +306,23 @@ const LongStrangleSVG = () => (
     
     {/* Strategy Details */}
     <g transform="translate(380, 80)">
-      <rect x="0" y="0" width="280" height="180" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="280" height="180" fill="#2A2A2C" rx="10"/>
       
       <text x="140" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">STRATEGY COMPONENTS</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position:</text>
-        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Long 1 OTM call (above stock price)</text>
-        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Long 1 OTM put (below stock price)</text>
+        <text x="0" y="18" fontSize="9" fill="#A0A3AA">• Long 1 OTM call (above stock price)</text>
+        <text x="0" y="34" fontSize="9" fill="#A0A3AA">• Long 1 OTM put (below stock price)</text>
         
         <text x="0" y="60" fontSize="10" fill="white">Max Profit:</text>
-        <text x="0" y="78" fontSize="9" fill="#A3A1A6">Unlimited in either direction</text>
+        <text x="0" y="78" fontSize="9" fill="#A0A3AA">Unlimited in either direction</text>
         
         <text x="0" y="100" fontSize="10" fill="white">Max Loss:</text>
-        <text x="0" y="118" fontSize="9" fill="#A3A1A6">Total premium paid (less than straddle)</text>
+        <text x="0" y="118" fontSize="9" fill="#A0A3AA">Total premium paid (less than straddle)</text>
         
         <text x="0" y="140" fontSize="10" fill="white">Breakevens:</text>
-        <text x="0" y="158" fontSize="9" fill="#A3A1A6">Call Strike + Premium / Put Strike - Premium</text>
+        <text x="0" y="158" fontSize="9" fill="#A0A3AA">Call Strike + Premium / Put Strike - Premium</text>
       </g>
     </g>
     
@@ -341,88 +341,88 @@ const LongStrangleSVG = () => (
 // SVG: Strategy Selection
 const StrategySelectionSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Strategy Selection Matrix</text>
     
     {/* Matrix Grid */}
     <g transform="translate(80, 60)">
       {/* Headers */}
-      <text x="135" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">BULLISH</text>
-      <text x="270" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#A3A1A6">NEUTRAL</text>
+      <text x="135" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">BULLISH</text>
+      <text x="270" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#A0A3AA">NEUTRAL</text>
       <text x="405" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">BEARISH</text>
       <text x="540" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#8F6FC4">BIG MOVE</text>
       
       {/* Row Labels */}
-      <text x="-5" y="55" textAnchor="end" fontSize="9" fill="#A3A1A6">OWN</text>
-      <text x="-5" y="70" textAnchor="end" fontSize="9" fill="#A3A1A6">STOCK</text>
+      <text x="-5" y="55" textAnchor="end" fontSize="9" fill="#A0A3AA">OWN</text>
+      <text x="-5" y="70" textAnchor="end" fontSize="9" fill="#A0A3AA">STOCK</text>
       
-      <text x="-5" y="130" textAnchor="end" fontSize="9" fill="#A3A1A6">NO</text>
-      <text x="-5" y="145" textAnchor="end" fontSize="9" fill="#A3A1A6">STOCK</text>
+      <text x="-5" y="130" textAnchor="end" fontSize="9" fill="#A0A3AA">NO</text>
+      <text x="-5" y="145" textAnchor="end" fontSize="9" fill="#A0A3AA">STOCK</text>
       
-      <text x="-5" y="205" textAnchor="end" fontSize="9" fill="#A3A1A6">INCOME</text>
-      <text x="-5" y="220" textAnchor="end" fontSize="9" fill="#A3A1A6">FOCUS</text>
+      <text x="-5" y="205" textAnchor="end" fontSize="9" fill="#A0A3AA">INCOME</text>
+      <text x="-5" y="220" textAnchor="end" fontSize="9" fill="#A0A3AA">FOCUS</text>
       
       {/* Grid Lines */}
-      <line x1="60" y1="15" x2="540" y2="15" stroke="#404047" strokeWidth="1"/>
-      <line x1="60" y1="90" x2="540" y2="90" stroke="#404047" strokeWidth="1"/>
-      <line x1="60" y1="165" x2="540" y2="165" stroke="#404047" strokeWidth="1"/>
+      <line x1="60" y1="15" x2="540" y2="15" stroke="#373A41" strokeWidth="1"/>
+      <line x1="60" y1="90" x2="540" y2="90" stroke="#373A41" strokeWidth="1"/>
+      <line x1="60" y1="165" x2="540" y2="165" stroke="#373A41" strokeWidth="1"/>
       
       {/* Row 1: Own Stock */}
-      <rect x="70" y="25" width="120" height="55" fill="#1FA978" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#1FA978">Hold Stock</text>
-      <text x="130" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">or Covered Call</text>
+      <rect x="70" y="25" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Hold Stock</text>
+      <text x="130" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">or Covered Call</text>
       
       <rect x="205" y="25" width="120" height="55" fill="#D2754C" fillOpacity="0.15" rx="6"/>
       <text x="265" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#D2754C">Covered Call</text>
-      <text x="265" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Generate income</text>
+      <text x="265" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">Generate income</text>
       
       <rect x="340" y="25" width="120" height="55" fill="#5A77AA" fillOpacity="0.15" rx="6"/>
       <text x="400" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#5A77AA">Protective Put</text>
-      <text x="400" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Hedge downside</text>
+      <text x="400" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">Hedge downside</text>
       
       <rect x="475" y="25" width="120" height="55" fill="#8F6FC4" fillOpacity="0.15" rx="6"/>
       <text x="535" y="50" textAnchor="middle" fontSize="9" fontWeight="500" fill="#8F6FC4">Collar</text>
-      <text x="535" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">CC + Prot Put</text>
+      <text x="535" y="65" textAnchor="middle" fontSize="8" fill="#A0A3AA">CC + Prot Put</text>
       
       {/* Row 2: No Stock */}
-      <rect x="70" y="100" width="120" height="55" fill="#1FA978" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#1FA978">Long Call</text>
-      <text x="130" y="140" textAnchor="middle" fontSize="8" fill="#A3A1A6">Leveraged upside</text>
+      <rect x="70" y="100" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Long Call</text>
+      <text x="130" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Leveraged upside</text>
       
-      <rect x="205" y="100" width="120" height="55" fill="#A3A1A6" fillOpacity="0.15" rx="6"/>
-      <text x="265" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#A3A1A6">Calendar Spread</text>
-      <text x="265" y="140" textAnchor="middle" fontSize="8" fill="#A3A1A6">Time decay play</text>
+      <rect x="205" y="100" width="120" height="55" fill="#A0A3AA" fillOpacity="0.15" rx="6"/>
+      <text x="265" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#A0A3AA">Calendar Spread</text>
+      <text x="265" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Time decay play</text>
       
       <rect x="340" y="100" width="120" height="55" fill="#C7363B" fillOpacity="0.15" rx="6"/>
       <text x="400" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#C7363B">Long Put</text>
-      <text x="400" y="140" textAnchor="middle" fontSize="8" fill="#A3A1A6">Leveraged down</text>
+      <text x="400" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Leveraged down</text>
       
       <rect x="475" y="100" width="120" height="55" fill="#8F6FC4" fillOpacity="0.15" rx="6"/>
       <text x="535" y="125" textAnchor="middle" fontSize="9" fontWeight="500" fill="#8F6FC4">Straddle/Strangle</text>
-      <text x="535" y="140" textAnchor="middle" fontSize="8" fill="#A3A1A6">Volatility play</text>
+      <text x="535" y="140" textAnchor="middle" fontSize="8" fill="#A0A3AA">Volatility play</text>
       
       {/* Row 3: Income */}
-      <rect x="70" y="175" width="120" height="55" fill="#1FA978" fillOpacity="0.15" rx="6"/>
-      <text x="130" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#1FA978">Bull Put Spread</text>
-      <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#A3A1A6">Credit spread</text>
+      <rect x="70" y="175" width="120" height="55" fill="#12805A" fillOpacity="0.15" rx="6"/>
+      <text x="130" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Bull Put Spread</text>
+      <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#A0A3AA">Credit spread</text>
       
       <rect x="205" y="175" width="120" height="55" fill="#D2754C" fillOpacity="0.15" rx="6"/>
       <text x="265" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#D2754C">Iron Condor</text>
-      <text x="265" y="215" textAnchor="middle" fontSize="8" fill="#A3A1A6">Range-bound</text>
+      <text x="265" y="215" textAnchor="middle" fontSize="8" fill="#A0A3AA">Range-bound</text>
       
       <rect x="340" y="175" width="120" height="55" fill="#C7363B" fillOpacity="0.15" rx="6"/>
       <text x="400" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#C7363B">Bear Call Spread</text>
-      <text x="400" y="215" textAnchor="middle" fontSize="8" fill="#A3A1A6">Credit spread</text>
+      <text x="400" y="215" textAnchor="middle" fontSize="8" fill="#A0A3AA">Credit spread</text>
       
       <rect x="475" y="175" width="120" height="55" fill="#8F6FC4" fillOpacity="0.15" rx="6"/>
       <text x="535" y="200" textAnchor="middle" fontSize="9" fontWeight="500" fill="#8F6FC4">Short Straddle</text>
-      <text x="535" y="215" textAnchor="middle" fontSize="8" fill="#A3A1A6">(High risk!)</text>
+      <text x="535" y="215" textAnchor="middle" fontSize="8" fill="#A0A3AA">(High risk!)</text>
     </g>
     
     {/* Legend */}
     <g transform="translate(80, 290)">
-      <text x="0" y="0" fontSize="9" fill="#A3A1A6">Next Lesson: We&apos;ll cover spreads in detail - verticals, butterflies, iron condors, and more.</text>
+      <text x="0" y="0" fontSize="9" fill="#A0A3AA">Next Lesson: We&apos;ll cover spreads in detail - verticals, butterflies, iron condors, and more.</text>
     </g>
   </svg>
 );
@@ -522,7 +522,7 @@ const FOLesson9 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Basic Option Strategies
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -531,7 +531,7 @@ const FOLesson9 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -558,11 +558,11 @@ const FOLesson9 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Covered Call</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Covered Call</h2>
                   <p className="text-sm text-gray-500 ">The most popular option strategy</p>
                 </div>
               </div>
@@ -575,11 +575,11 @@ const FOLesson9 = () => {
 
               <CoveredCallSVG />
 
-              <div className="mt-6 bg-green-50  rounded-xl p-5 border border-green-200 ">
+              <div className="mt-6 bg-brand-soft  rounded-xl p-5 border border-brand-line ">
                 <div className="flex items-start gap-3">
-                  <Icons.Lightbulb className="w-6 h-6 text-green-600 flex-shrink-0" />
+                  <Icons.Lightbulb className="w-6 h-6 text-brand flex-shrink-0" />
                   <div>
-                    <h4 className="font-bold text-green-800  mb-1">Pro Tip: Strike Selection</h4>
+                    <h4 className="font-bold text-brand  mb-1">Pro Tip: Strike Selection</h4>
                     <p className="text-gray-700  text-sm leading-relaxed">
                       Sell calls at a strike where you&apos;d be happy selling the stock. If assigned, you keep 
                       the premium AND get the strike price for your shares. Many investors sell 30-45 DTE, 
@@ -595,11 +595,11 @@ const FOLesson9 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                   <Icons.Shield className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Protective Put</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Protective Put</h2>
                   <p className="text-sm text-gray-500 ">Portfolio insurance for stock holders</p>
                 </div>
               </div>
@@ -627,11 +627,11 @@ const FOLesson9 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.Maximize className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Long Straddle</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Long Straddle</h2>
                   <p className="text-sm text-gray-500 ">Profit from big moves, either direction</p>
                 </div>
               </div>
@@ -663,11 +663,11 @@ const FOLesson9 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Long Strangle</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Long Strangle</h2>
                   <p className="text-sm text-gray-500 ">Cheaper alternative to the straddle</p>
                 </div>
               </div>
@@ -704,11 +704,11 @@ const FOLesson9 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                   <Icons.Target className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Strategy Selection Framework</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Strategy Selection Framework</h2>
                   <p className="text-sm text-gray-500 ">Match your strategy to your outlook</p>
                 </div>
               </div>
@@ -724,8 +724,8 @@ const FOLesson9 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Covered call: Own stock + sell call = income with capped upside",
@@ -749,7 +749,7 @@ const FOLesson9 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -764,11 +764,11 @@ const FOLesson9 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -779,7 +779,7 @@ const FOLesson9 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -793,7 +793,7 @@ const FOLesson9 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -824,7 +824,7 @@ const FOLesson9 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-10')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Advanced Spreads</span>
               <Icons.ArrowRight className="w-5 h-5" />

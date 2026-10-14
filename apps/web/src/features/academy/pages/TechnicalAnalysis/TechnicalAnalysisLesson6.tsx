@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,11 +61,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhyIndicatorsExistSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Do Indicators Exist?</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">They help summarize and visualize price behavior in different ways</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Why Do Indicators Exist?</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">They help summarize and visualize price behavior in different ways</text>
     
     {/* Flow diagram */}
     {/* Price Data */}
@@ -75,10 +75,10 @@ const WhyIndicatorsExistSVG = () => (
     <text x="120" y="152" textAnchor="middle" fontSize="9" fill="#26354F">Volume, Time</text>
     
     {/* Arrow */}
-    <path d="M200 130 L240 130" stroke="#75757D" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+    <path d="M200 130 L240 130" stroke="#717680" strokeWidth="2" markerEnd="url(#arrowhead)"/>
     <defs>
       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#75757D"/>
+        <polygon points="0 0, 10 3.5, 0 7" fill="#717680"/>
       </marker>
     </defs>
     
@@ -89,19 +89,19 @@ const WhyIndicatorsExistSVG = () => (
     <text x="300" y="155" textAnchor="middle" fontSize="9" fill="#654B26">Averages, ratios</text>
     
     {/* Arrow */}
-    <path d="M360 130 L400 130" stroke="#75757D" strokeWidth="2" markerEnd="url(#arrowhead)"/>
+    <path d="M360 130 L400 130" stroke="#717680" strokeWidth="2" markerEnd="url(#arrowhead)"/>
     
     {/* Indicator Output */}
-    <rect x="410" y="90" width="140" height="80" fill="#EEF9F4" rx="12" stroke="#1FA978" strokeWidth="2"/>
+    <rect x="410" y="90" width="140" height="80" fill="#EEF9F4" rx="12" stroke="#12805A" strokeWidth="2"/>
     <text x="480" y="120" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Indicator</text>
-    <text x="480" y="138" textAnchor="middle" fontSize="9" fill="#0D543C">A visual representation</text>
-    <text x="480" y="152" textAnchor="middle" fontSize="9" fill="#0D543C">of processed data</text>
+    <text x="480" y="138" textAnchor="middle" fontSize="9" fill="#12805A">A visual representation</text>
+    <text x="480" y="152" textAnchor="middle" fontSize="9" fill="#12805A">of processed data</text>
     
     {/* Bottom note */}
-    <rect x="100" y="200" width="400" height="60" fill="#EFEDE7" rx="10"/>
-    <text x="300" y="222" textAnchor="middle" fontSize="10" fontWeight="500" fill="#404047">Key Understanding</text>
-    <text x="300" y="240" textAnchor="middle" fontSize="9" fill="#75757D">Indicators don't create new information — they repackage existing price data</text>
-    <text x="300" y="254" textAnchor="middle" fontSize="9" fill="#75757D">in ways that may help you see certain aspects more clearly</text>
+    <rect x="100" y="200" width="400" height="60" fill="#EEEEF1" rx="10"/>
+    <text x="300" y="222" textAnchor="middle" fontSize="10" fontWeight="500" fill="#373A41">Key Understanding</text>
+    <text x="300" y="240" textAnchor="middle" fontSize="9" fill="#717680">Indicators don't create new information — they repackage existing price data</text>
+    <text x="300" y="254" textAnchor="middle" fontSize="9" fill="#717680">in ways that may help you see certain aspects more clearly</text>
   </svg>
 );
 
@@ -109,14 +109,14 @@ const WhyIndicatorsExistSVG = () => (
 const IndicatorLagSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Indicators Lag Behind Price</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Because they're calculated from past prices, indicators always react after the fact</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Indicators Lag Behind Price</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Because they're calculated from past prices, indicators always react after the fact</text>
     
     {/* Chart area */}
-    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Price line - turns first */}
     <path 
@@ -148,11 +148,11 @@ const IndicatorLagSVG = () => (
     <text x="420" y="165" textAnchor="middle" fontSize="9" fill="#9C4D2E">Indicator reacts later</text>
     
     {/* Lag annotation */}
-    <path d="M350 85 L420 85" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="4 3"/>
-    <text x="385" y="80" textAnchor="middle" fontSize="8" fill="#75757D">LAG</text>
+    <path d="M350 85 L420 85" stroke="#A0A3AA" strokeWidth="1" strokeDasharray="4 3"/>
+    <text x="385" y="80" textAnchor="middle" fontSize="8" fill="#717680">LAG</text>
     
     {/* Legend */}
-    <rect x="150" y="265" width="300" height="45" fill="#EFEDE7" rx="10"/>
+    <rect x="150" y="265" width="300" height="45" fill="#EEEEF1" rx="10"/>
     <line x1="180" y1="280" x2="210" y2="280" stroke="#5A77AA" strokeWidth="2.5"/>
     <text x="220" y="283" fontSize="10" fill="#344C72">Price (moves first)</text>
     <line x1="180" y1="298" x2="210" y2="298" stroke="#D2754C" strokeWidth="2.5"/>
@@ -164,11 +164,11 @@ const IndicatorLagSVG = () => (
 const IndicatorCategoriesSVG = () => (
   <svg viewBox="0 0 640 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Common Indicator Categories</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Different types of indicators attempt to measure different aspects</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Common Indicator Categories</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Different types of indicators attempt to measure different aspects</text>
     
     {/* Trend Category */}
     <rect x="30" y="75" width="180" height="190" fill="#E0E7F1" rx="12" stroke="#5A77AA" strokeWidth="2"/>
@@ -178,7 +178,7 @@ const IndicatorCategoriesSVG = () => (
     <g transform="translate(120, 175)">
       <rect x="-60" y="-40" width="120" height="80" fill="#ffffff" rx="8" stroke="#9FB3D3" strokeWidth="1"/>
       {/* Simple uptrend with MA */}
-      <path d="M-45 30 L-20 15 L5 5 L30 -10 L45 -25" fill="none" stroke="#A3A1A6" strokeWidth="1.5"/>
+      <path d="M-45 30 L-20 15 L5 5 L30 -10 L45 -25" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-45 25 L-10 10 L25 -5 L45 -15" fill="none" stroke="#5A77AA" strokeWidth="2"/>
     </g>
     <text x="120" y="250" textAnchor="middle" fontSize="8" fill="#26354F">Shows overall direction</text>
@@ -191,7 +191,7 @@ const IndicatorCategoriesSVG = () => (
     <g transform="translate(320, 175)">
       <rect x="-60" y="-40" width="120" height="80" fill="#ffffff" rx="8" stroke="#E2C273" strokeWidth="1"/>
       {/* Oscillator-style indicator */}
-      <line x1="-50" y1="0" x2="50" y2="0" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="-50" y1="0" x2="50" y2="0" stroke="#E4E4EA" strokeWidth="1"/>
       <path d="M-45 15 L-25 -20 L-5 25 L15 -15 L35 20 L45 -5" fill="none" stroke="#B8923F" strokeWidth="2"/>
     </g>
     <text x="320" y="250" textAnchor="middle" fontSize="8" fill="#654B26">Shows strength of moves</text>
@@ -204,7 +204,7 @@ const IndicatorCategoriesSVG = () => (
     <g transform="translate(520, 175)">
       <rect x="-60" y="-40" width="120" height="80" fill="#ffffff" rx="8" stroke="#C0A9E2" strokeWidth="1"/>
       {/* Volatility bands */}
-      <path d="M-45 0 L0 0 L45 0" fill="none" stroke="#A3A1A6" strokeWidth="1.5"/>
+      <path d="M-45 0 L0 0 L45 0" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-45 -20 L-20 -25 L5 -15 L30 -30 L45 -20" fill="none" stroke="#8F6FC4" strokeWidth="1.5" strokeDasharray="4 2"/>
       <path d="M-45 20 L-20 25 L5 15 L30 30 L45 20" fill="none" stroke="#8F6FC4" strokeWidth="1.5" strokeDasharray="4 2"/>
     </g>
@@ -216,15 +216,15 @@ const IndicatorCategoriesSVG = () => (
 const ConflictingSignalsSVG = () => (
   <svg viewBox="0 0 600 380" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="380" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="380" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Different Indicators, Different Views</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">The same price chart can produce conflicting interpretations</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Different Indicators, Different Views</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">The same price chart can produce conflicting interpretations</text>
     
     {/* Main price chart */}
-    <rect x="50" y="70" width="500" height="100" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
-    <text x="60" y="85" fontSize="9" fill="#75757D">Price</text>
+    <rect x="50" y="70" width="500" height="100" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
+    <text x="60" y="85" fontSize="9" fill="#717680">Price</text>
     <path 
       d="M70 130 L120 115 L170 125 L220 105 L270 115 L320 95 L370 110 L420 100 L470 105 L530 90" 
       fill="none" 
@@ -235,12 +235,12 @@ const ConflictingSignalsSVG = () => (
     />
     
     {/* Indicator A - shows bullish */}
-    <rect x="50" y="180" width="240" height="80" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-    <text x="60" y="198" fontSize="9" fontWeight="500" fill="#0D543C">Indicator A</text>
+    <rect x="50" y="180" width="240" height="80" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+    <text x="60" y="198" fontSize="9" fontWeight="500" fill="#12805A">Indicator A</text>
     <g transform="translate(170, 225)">
-      <path d="M-100 20 L-60 10 L-20 -5 L20 -15 L60 -20 L100 -25" fill="none" stroke="#1FA978" strokeWidth="2"/>
+      <path d="M-100 20 L-60 10 L-20 -5 L20 -15 L60 -20 L100 -25" fill="none" stroke="#12805A" strokeWidth="2"/>
     </g>
-    <text x="170" y="270" textAnchor="middle" fontSize="9" fill="#0D543C">↑ Suggests strength</text>
+    <text x="170" y="270" textAnchor="middle" fontSize="9" fill="#12805A">↑ Suggests strength</text>
     
     {/* Indicator B - shows bearish */}
     <rect x="310" y="180" width="240" height="80" fill="#FBE1E1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
@@ -262,11 +262,11 @@ const ConflictingSignalsSVG = () => (
 const IndicatorOverloadSVG = () => (
   <svg viewBox="0 0 640 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">More Indicators ≠ Better Clarity</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Adding more tools often creates more confusion, not less</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">More Indicators ≠ Better Clarity</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Adding more tools often creates more confusion, not less</text>
     
     {/* Left - Overloaded chart */}
     <rect x="30" y="70" width="275" height="240" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -276,9 +276,9 @@ const IndicatorOverloadSVG = () => (
       <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Messy overlapping indicators */}
-      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A3A1A6" strokeWidth="1.5"/>
+      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#A0A3AA" strokeWidth="1.5"/>
       <path d="M-85 20 L-40 15 L0 5 L40 -5 L85 -15" fill="none" stroke="#5A77AA" strokeWidth="1.5"/>
-      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#1FA978" strokeWidth="1.5"/>
+      <path d="M-85 40 L-30 25 L20 35 L60 15 L85 25" fill="none" stroke="#12805A" strokeWidth="1.5"/>
       <path d="M-85 -20 L-50 -30 L-10 -15 L30 -35 L70 -20 L85 -30" fill="none" stroke="#D2754C" strokeWidth="1.5"/>
       <path d="M-85 -10 L-40 0 L10 -20 L50 -5 L85 -25" fill="none" stroke="#8F6FC4" strokeWidth="1.5"/>
       <path d="M-85 50 L-30 35 L30 50 L85 30" fill="none" stroke="#E04848" strokeWidth="1.5" strokeDasharray="4 2"/>
@@ -293,19 +293,19 @@ const IndicatorOverloadSVG = () => (
     <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#842428">Too much noise, no clarity</text>
     
     {/* Right - Clean chart */}
-    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Clean & Focused</text>
     
     <g transform="translate(472, 185)">
       <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Clean price with one simple MA */}
-      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#75757D" strokeWidth="2"/>
-      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#1FA978" strokeWidth="2.5"/>
+      <path d="M-85 30 L-50 10 L-20 25 L10 5 L40 20 L70 -10 L85 0" fill="none" stroke="#717680" strokeWidth="2"/>
+      <path d="M-85 25 L-40 15 L5 8 L50 -2 L85 -8" fill="none" stroke="#12805A" strokeWidth="2.5"/>
     </g>
     
-    <text x="472" y="290" textAnchor="middle" fontSize="9" fill="#0D543C">"Price is above its average"</text>
-    <text x="472" y="303" textAnchor="middle" fontSize="9" fill="#0D543C">Simple context, easy to understand</text>
+    <text x="472" y="290" textAnchor="middle" fontSize="9" fill="#12805A">"Price is above its average"</text>
+    <text x="472" y="303" textAnchor="middle" fontSize="9" fill="#12805A">Simple context, easy to understand</text>
   </svg>
 );
 
@@ -313,11 +313,11 @@ const IndicatorOverloadSVG = () => (
 const DescribeDontDecideSVG = () => (
   <svg viewBox="0 0 640 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Indicators Describe, They Don't Decide</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Understanding the proper role of indicators</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Indicators Describe, They Don't Decide</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Understanding the proper role of indicators</text>
     
     {/* Wrong approach */}
     <rect x="30" y="70" width="275" height="180" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -337,21 +337,21 @@ const DescribeDontDecideSVG = () => (
     <text x="167" y="238" textAnchor="middle" fontSize="9" fill="#842428">leads to mechanical mistakes</text>
     
     {/* Right approach */}
-    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="335" y="70" width="275" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="472" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Correct Understanding</text>
     
     <g transform="translate(472, 160)">
       {/* Indicator providing context */}
-      <rect x="-80" y="-40" width="160" height="50" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="0" y="-15" textAnchor="middle" fontSize="10" fill="#0D543C">Indicator shows:</text>
-      <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="500" fill="#0D543C">"Momentum is rising"</text>
+      <rect x="-80" y="-40" width="160" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="0" y="-15" textAnchor="middle" fontSize="10" fill="#12805A">Indicator shows:</text>
+      <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="500" fill="#12805A">"Momentum is rising"</text>
       
-      <text x="0" y="35" textAnchor="middle" fontSize="9" fill="#0D543C">↓</text>
-      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#0D543C">Context, not instruction</text>
+      <text x="0" y="35" textAnchor="middle" fontSize="9" fill="#12805A">↓</text>
+      <text x="0" y="50" textAnchor="middle" fontSize="9" fill="#12805A">Context, not instruction</text>
     </g>
     
-    <text x="472" y="225" textAnchor="middle" fontSize="9" fill="#0D543C">Using indicators as one piece</text>
-    <text x="472" y="238" textAnchor="middle" fontSize="9" fill="#0D543C">of a larger understanding</text>
+    <text x="472" y="225" textAnchor="middle" fontSize="9" fill="#12805A">Using indicators as one piece</text>
+    <text x="472" y="238" textAnchor="middle" fontSize="9" fill="#12805A">of a larger understanding</text>
   </svg>
 );
 
@@ -359,14 +359,14 @@ const DescribeDontDecideSVG = () => (
 const SamePriceDifferentViewsSVG = () => (
   <svg viewBox="0 0 600 400" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="400" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="400" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Same Price Chart, Different Perspectives</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Same Price Chart, Different Perspectives</text>
     
     {/* Main price chart */}
-    <rect x="50" y="45" width="500" height="80" fill="#ffffff" rx="8" stroke="#E4E1D9" strokeWidth="2"/>
-    <text x="60" y="60" fontSize="8" fill="#75757D">Price</text>
+    <rect x="50" y="45" width="500" height="80" fill="#ffffff" rx="8" stroke="#E4E4EA" strokeWidth="2"/>
+    <text x="60" y="60" fontSize="8" fill="#717680">Price</text>
     <path 
       d="M70 100 L110 85 L150 95 L190 75 L230 85 L270 65 L310 80 L350 60 L390 75 L430 55 L470 70 L510 50 L530 60" 
       fill="none" 
@@ -384,7 +384,7 @@ const SamePriceDifferentViewsSVG = () => (
     {/* Momentum indicator */}
     <rect x="220" y="135" width="160" height="70" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="1"/>
     <text x="230" y="152" fontSize="8" fontWeight="500" fill="#7C5D2B">Momentum Indicator</text>
-    <line x1="235" y1="175" x2="365" y2="175" stroke="#E4E1D9" strokeWidth="1"/>
+    <line x1="235" y1="175" x2="365" y2="175" stroke="#E4E4EA" strokeWidth="1"/>
     <path d="M235 165 L265 180 L295 160 L325 185 L355 168 L365 175" fill="none" stroke="#B8923F" strokeWidth="2"/>
     <text x="300" y="197" textAnchor="middle" fontSize="8" fill="#7C5D2B">"Mixed / choppy"</text>
     
@@ -395,11 +395,11 @@ const SamePriceDifferentViewsSVG = () => (
     <text x="470" y="197" textAnchor="middle" fontSize="8" fill="#7A5BA6">"Volatility decreasing"</text>
     
     {/* Summary box */}
-    <rect x="80" y="220" width="440" height="80" fill="#EFEDE7" rx="10"/>
-    <text x="300" y="245" textAnchor="middle" fontSize="11" fontWeight="600" fill="#404047">Three indicators, three different stories</text>
-    <text x="300" y="265" textAnchor="middle" fontSize="9" fill="#75757D">• Trend indicator: Price direction is up</text>
-    <text x="300" y="280" textAnchor="middle" fontSize="9" fill="#75757D">• Momentum indicator: Recent moves are uneven</text>
-    <text x="300" y="295" textAnchor="middle" fontSize="9" fill="#75757D">• Volatility indicator: Swings are getting smaller</text>
+    <rect x="80" y="220" width="440" height="80" fill="#EEEEF1" rx="10"/>
+    <text x="300" y="245" textAnchor="middle" fontSize="11" fontWeight="600" fill="#373A41">Three indicators, three different stories</text>
+    <text x="300" y="265" textAnchor="middle" fontSize="9" fill="#717680">• Trend indicator: Price direction is up</text>
+    <text x="300" y="280" textAnchor="middle" fontSize="9" fill="#717680">• Momentum indicator: Recent moves are uneven</text>
+    <text x="300" y="295" textAnchor="middle" fontSize="9" fill="#717680">• Volatility indicator: Swings are getting smaller</text>
     
     {/* Insight */}
     <rect x="100" y="315" width="400" height="70" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
@@ -413,19 +413,19 @@ const SamePriceDifferentViewsSVG = () => (
 const ProperRoleSVG = () => (
   <svg viewBox="0 0 600 260" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Proper Role of Indicators</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Proper Role of Indicators</text>
     
     {/* Three pillars */}
-    <rect x="50" y="50" width="150" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-    <text x="125" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">✓ DO</text>
-    <text x="125" y="100" textAnchor="middle" fontSize="9" fill="#0D543C">Provide context</text>
-    <text x="125" y="118" textAnchor="middle" fontSize="9" fill="#0D543C">Summarize trends</text>
-    <text x="125" y="136" textAnchor="middle" fontSize="9" fill="#0D543C">Highlight conditions</text>
-    <text x="125" y="154" textAnchor="middle" fontSize="9" fill="#0D543C">Aid visualization</text>
-    <text x="125" y="172" textAnchor="middle" fontSize="9" fill="#0D543C">Simplify complexity</text>
+    <rect x="50" y="50" width="150" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+    <text x="125" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">✓ DO</text>
+    <text x="125" y="100" textAnchor="middle" fontSize="9" fill="#12805A">Provide context</text>
+    <text x="125" y="118" textAnchor="middle" fontSize="9" fill="#12805A">Summarize trends</text>
+    <text x="125" y="136" textAnchor="middle" fontSize="9" fill="#12805A">Highlight conditions</text>
+    <text x="125" y="154" textAnchor="middle" fontSize="9" fill="#12805A">Aid visualization</text>
+    <text x="125" y="172" textAnchor="middle" fontSize="9" fill="#12805A">Simplify complexity</text>
     
     <rect x="225" y="50" width="150" height="130" fill="#FBE1E1" rx="10" stroke="#F09B9B" strokeWidth="2"/>
     <text x="300" y="75" textAnchor="middle" fontSize="10" fontWeight="600" fill="#842428">✗ DON'T</text>
@@ -444,9 +444,9 @@ const ProperRoleSVG = () => (
     <text x="475" y="172" textAnchor="middle" fontSize="9" fill="#344C72">Context is key</text>
     
     {/* Bottom insight */}
-    <rect x="100" y="195" width="400" height="50" fill="#EFEDE7" rx="10"/>
-    <text x="300" y="218" textAnchor="middle" fontSize="11" fontWeight="500" fill="#404047">💡 Think of indicators as lenses, not crystal balls</text>
-    <text x="300" y="235" textAnchor="middle" fontSize="9" fill="#75757D">They help you see price data differently — they don't see the future</text>
+    <rect x="100" y="195" width="400" height="50" fill="#EEEEF1" rx="10"/>
+    <text x="300" y="218" textAnchor="middle" fontSize="11" fontWeight="500" fill="#373A41">💡 Think of indicators as lenses, not crystal balls</text>
+    <text x="300" y="235" textAnchor="middle" fontSize="9" fill="#717680">They help you see price data differently — they don't see the future</text>
   </svg>
 );
 
@@ -496,14 +496,14 @@ const TechnicalAnalysisLesson6 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 6 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Indicators – Purpose & Limitations</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Indicators – Purpose & Limitations</h1>
             <p className="text-gray-600 mt-2">Understanding what indicators can and cannot do</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Indicators Exist</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Indicators Exist</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -765,7 +765,7 @@ const TechnicalAnalysisLesson6 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Indicators are derived from price — they don't create new information</li>
@@ -788,7 +788,7 @@ const TechnicalAnalysisLesson6 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-7')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

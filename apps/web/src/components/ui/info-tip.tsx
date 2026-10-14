@@ -55,7 +55,7 @@ export function InfoTip({ title, children, className, side = "bottom", align = "
             pointerType.current = "keyboard";
           }}
           className={cn(
-            "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 align-middle",
+            "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 align-middle",
             className,
           )}
         >

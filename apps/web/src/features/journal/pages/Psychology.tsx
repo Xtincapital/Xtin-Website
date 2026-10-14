@@ -310,7 +310,7 @@ const Psychology = () => {
         {/* Journal entries */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
           <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-primary" />
+            <BookOpen className="w-4 h-4 text-brand" />
             Journal Entries
             <InfoTip title="Journal entries">
               <p>Your five most recent trades with a note. Search to find older ones, or tap Load more. Click an entry to see the full trade.</p>
@@ -365,7 +365,7 @@ const Psychology = () => {
                           </p>
                         </div>
                         <div className="text-right shrink-0">
-                          <p className={`text-base font-bold ${pnl >= 0 ? "text-success" : "text-destructive"}`}>{formatCurrency(pnl)}</p>
+                          <p className={`text-base font-bold ${pnl >= 0 ? "text-brand" : "text-destructive"}`}>{formatCurrency(pnl)}</p>
                           <p className="text-xs text-muted-foreground">{status}</p>
                         </div>
                       </div>

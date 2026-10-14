@@ -9,11 +9,11 @@ import Footer from "../../../../components/Footer";
 const WhatAreTaxesSVG = () => (
   <svg viewBox="0 0 700 240" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="240" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="240" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What Are Taxes? A Simple Definition</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Breaking it down to the basics</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What Are Taxes? A Simple Definition</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Breaking it down to the basics</text>
     
     {/* Main definition box */}
     <g transform="translate(100, 70)">
@@ -25,24 +25,24 @@ const WhatAreTaxesSVG = () => (
     
     {/* Three key points */}
     <g transform="translate(50, 165)">
-      <rect x="0" y="0" width="190" height="55" fill="#D5F2E5" rx="8"/>
-      <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">📋 Mandatory</text>
-      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#404047">Everyone who earns must</text>
-      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#404047">pay taxes — it's the law</text>
+      <rect x="0" y="0" width="190" height="55" fill="#EEF9F4" rx="8"/>
+      <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">📋 Mandatory</text>
+      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#373A41">Everyone who earns must</text>
+      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#373A41">pay taxes — it's the law</text>
     </g>
     
     <g transform="translate(255, 165)">
       <rect x="0" y="0" width="190" height="55" fill="#F6ECCE" rx="8"/>
       <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#654B26">📊 Percentage-Based</text>
-      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#404047">Usually a % of what you</text>
-      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#404047">earn, spend, or own</text>
+      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#373A41">Usually a % of what you</text>
+      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#373A41">earn, spend, or own</text>
     </g>
     
     <g transform="translate(460, 165)">
       <rect x="0" y="0" width="190" height="55" fill="#ECE4F6" rx="8"/>
       <text x="95" y="22" textAnchor="middle" fontSize="9" fontWeight="600" fill="#654B8A">🏛️ For Public Good</text>
-      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#404047">Funds services everyone</text>
-      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#404047">uses and benefits from</text>
+      <text x="95" y="40" textAnchor="middle" fontSize="8" fill="#373A41">Funds services everyone</text>
+      <text x="95" y="52" textAnchor="middle" fontSize="8" fill="#373A41">uses and benefits from</text>
     </g>
   </svg>
 );
@@ -51,11 +51,11 @@ const WhatAreTaxesSVG = () => (
 const WhyTaxesExistSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Do Governments Collect Taxes?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Taxes fund the things we all use but can't pay for individually</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Do Governments Collect Taxes?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Taxes fund the things we all use but can't pay for individually</text>
     
     {/* Central government icon */}
     <g transform="translate(300, 75)">
@@ -72,31 +72,31 @@ const WhyTaxesExistSVG = () => (
     <g transform="translate(50, 170)">
       {/* Row 1 */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="140" height="65" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+        <rect x="0" y="0" width="140" height="65" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">🛣️</text>
-        <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#0D543C">Roads & Bridges</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Infrastructure we all use</text>
+        <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Roads & Bridges</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Infrastructure we all use</text>
       </g>
       
       <g transform="translate(155, 0)">
         <rect x="0" y="0" width="140" height="65" fill="#E0E7F1" rx="8" stroke="#9FB3D3" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">🏫</text>
         <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#2C3F5E">Public Schools</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Education for everyone</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Education for everyone</text>
       </g>
       
       <g transform="translate(310, 0)">
         <rect x="0" y="0" width="140" height="65" fill="#F6ECCE" rx="8" stroke="#E2C273" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">🏥</text>
         <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#654B26">Healthcare</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Public health services</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Public health services</text>
       </g>
       
       <g transform="translate(465, 0)">
         <rect x="0" y="0" width="140" height="65" fill="#ECE4F6" rx="8" stroke="#C0A9E2" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">🚔</text>
         <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#654B8A">Police & Safety</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Keeping us secure</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Keeping us secure</text>
       </g>
       
       {/* Row 2 */}
@@ -104,21 +104,21 @@ const WhyTaxesExistSVG = () => (
         <rect x="0" y="0" width="140" height="65" fill="#ECE4F6" rx="8" stroke="#C0A9E2" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">🎖️</text>
         <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#654B8A">Defense</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">National security</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">National security</text>
       </g>
       
       <g transform="translate(232, 80)">
-        <rect x="0" y="0" width="140" height="65" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+        <rect x="0" y="0" width="140" height="65" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">👴</text>
-        <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#0E6A4A">Social Security</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Support for elderly</text>
+        <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Social Security</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Support for elderly</text>
       </g>
       
       <g transform="translate(387, 80)">
         <rect x="0" y="0" width="140" height="65" fill="#D3EEF1" rx="8" stroke="#82CDD6" strokeWidth="1"/>
         <text x="70" y="22" textAnchor="middle" fontSize="16">💡</text>
         <text x="70" y="40" textAnchor="middle" fontSize="8" fontWeight="500" fill="#23727E">Public Utilities</text>
-        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#404047">Water, electricity, etc.</text>
+        <text x="70" y="52" textAnchor="middle" fontSize="7" fill="#373A41">Water, electricity, etc.</text>
       </g>
     </g>
     
@@ -132,25 +132,25 @@ const WhyTaxesExistSVG = () => (
 const EarningVsKeepingSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Earning Money vs. Keeping Money</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The difference between your salary and what you actually get</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Earning Money vs. Keeping Money</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The difference between your salary and what you actually get</text>
     
     {/* Visual flow */}
     <g transform="translate(50, 80)">
       {/* You earn */}
-      <rect x="0" y="0" width="160" height="100" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="80" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">💼 You Earn</text>
-      <text x="80" y="50" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#0D543C">$5,000</text>
-      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#404047">Your gross salary</text>
-      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#75757D">(before anything is taken)</text>
+      <rect x="0" y="0" width="160" height="100" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="80" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">💼 You Earn</text>
+      <text x="80" y="50" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#12805A">$5,000</text>
+      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#373A41">Your gross salary</text>
+      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#717680">(before anything is taken)</text>
     </g>
     
     {/* Arrow */}
     <g transform="translate(220, 115)">
-      <polygon points="0,15 40,15 40,5 60,20 40,35 40,25 0,25" fill="#75757D"/>
+      <polygon points="0,15 40,15 40,5 60,20 40,35 40,25 0,25" fill="#717680"/>
     </g>
     
     {/* Taxes taken */}
@@ -158,13 +158,13 @@ const EarningVsKeepingSVG = () => (
       <rect x="0" y="0" width="160" height="100" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
       <text x="80" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">🏛️ Taxes Taken</text>
       <text x="80" y="50" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#C7363B">-$1,000</text>
-      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#404047">Government's share</text>
-      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#75757D">(20% in this example)</text>
+      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#373A41">Government's share</text>
+      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#717680">(20% in this example)</text>
     </g>
     
     {/* Arrow */}
     <g transform="translate(460, 115)">
-      <polygon points="0,15 40,15 40,5 60,20 40,35 40,25 0,25" fill="#75757D"/>
+      <polygon points="0,15 40,15 40,5 60,20 40,35 40,25 0,25" fill="#717680"/>
     </g>
     
     {/* You keep */}
@@ -172,16 +172,16 @@ const EarningVsKeepingSVG = () => (
       <rect x="0" y="0" width="160" height="100" fill="#E0E7F1" rx="12" stroke="#5A77AA" strokeWidth="2"/>
       <text x="80" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">💰 You Keep</text>
       <text x="80" y="50" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#2C3F5E">$4,000</text>
-      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#404047">Your net income</text>
-      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#75757D">(what actually reaches you)</text>
+      <text x="80" y="70" textAnchor="middle" fontSize="9" fill="#373A41">Your net income</text>
+      <text x="80" y="85" textAnchor="middle" fontSize="8" fill="#717680">(what actually reaches you)</text>
     </g>
     
     {/* Key insight box */}
     <g transform="translate(100, 200)">
-      <rect x="0" y="0" width="500" height="60" fill="white" rx="10" stroke="#E4E1D9" strokeWidth="1"/>
-      <text x="250" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#404047">🔑 Key Insight</text>
-      <text x="250" y="40" textAnchor="middle" fontSize="9" fill="#404047">Your "salary" isn't what you actually receive. Taxes are usually deducted automatically,</text>
-      <text x="250" y="54" textAnchor="middle" fontSize="9" fill="#404047">so you never even see that money — it goes directly to the government.</text>
+      <rect x="0" y="0" width="500" height="60" fill="white" rx="10" stroke="#E4E4EA" strokeWidth="1"/>
+      <text x="250" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#373A41">🔑 Key Insight</text>
+      <text x="250" y="40" textAnchor="middle" fontSize="9" fill="#373A41">Your "salary" isn't what you actually receive. Taxes are usually deducted automatically,</text>
+      <text x="250" y="54" textAnchor="middle" fontSize="9" fill="#373A41">so you never even see that money — it goes directly to the government.</text>
     </g>
   </svg>
 );
@@ -190,23 +190,23 @@ const EarningVsKeepingSVG = () => (
 const WhatGetsTaxedSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What Can Get Taxed?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Taxes apply to many different aspects of your financial life</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What Can Get Taxed?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Taxes apply to many different aspects of your financial life</text>
     
     {/* Four main categories */}
     <g transform="translate(50, 75)">
       {/* Income */}
-      <rect x="0" y="0" width="140" height="140" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="0" y="0" width="140" height="140" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
       <text x="70" y="30" textAnchor="middle" fontSize="24">💵</text>
-      <text x="70" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Income</text>
-      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#404047">Salary you earn</text>
-      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#404047">Business profits</text>
-      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#404047">Investment gains</text>
-      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#404047">Interest earned</text>
-      <text x="70" y="135" textAnchor="middle" fontSize="7" fill="#0D543C">Most common tax</text>
+      <text x="70" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Income</text>
+      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Salary you earn</text>
+      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#373A41">Business profits</text>
+      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#373A41">Investment gains</text>
+      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#373A41">Interest earned</text>
+      <text x="70" y="135" textAnchor="middle" fontSize="7" fill="#12805A">Most common tax</text>
     </g>
     
     <g transform="translate(205, 75)">
@@ -214,10 +214,10 @@ const WhatGetsTaxedSVG = () => (
       <rect x="0" y="0" width="140" height="140" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
       <text x="70" y="30" textAnchor="middle" fontSize="24">🛒</text>
       <text x="70" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">Purchases</text>
-      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#404047">Sales tax on goods</text>
-      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#404047">VAT/GST</text>
-      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#404047">Restaurant bills</text>
-      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#404047">Online shopping</text>
+      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Sales tax on goods</text>
+      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#373A41">VAT/GST</text>
+      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#373A41">Restaurant bills</text>
+      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#373A41">Online shopping</text>
       <text x="70" y="135" textAnchor="middle" fontSize="7" fill="#2C3F5E">Added at checkout</text>
     </g>
     
@@ -226,10 +226,10 @@ const WhatGetsTaxedSVG = () => (
       <rect x="0" y="0" width="140" height="140" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
       <text x="70" y="30" textAnchor="middle" fontSize="24">🏠</text>
       <text x="70" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">Property</text>
-      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#404047">Home ownership</text>
-      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#404047">Land value</text>
-      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#404047">Vehicle registration</text>
-      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#404047">Rental income</text>
+      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Home ownership</text>
+      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#373A41">Land value</text>
+      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#373A41">Vehicle registration</text>
+      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#373A41">Rental income</text>
       <text x="70" y="135" textAnchor="middle" fontSize="7" fill="#654B26">Annual or one-time</text>
     </g>
     
@@ -238,10 +238,10 @@ const WhatGetsTaxedSVG = () => (
       <rect x="0" y="0" width="140" height="140" fill="#ECE4F6" rx="12" stroke="#C0A9E2" strokeWidth="2"/>
       <text x="70" y="30" textAnchor="middle" fontSize="24">🎁</text>
       <text x="70" y="55" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B8A">Transfers</text>
-      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#404047">Inheritance</text>
-      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#404047">Large gifts</text>
-      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#404047">Estate value</text>
-      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#404047">Asset transfers</text>
+      <text x="70" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Inheritance</text>
+      <text x="70" y="90" textAnchor="middle" fontSize="8" fill="#373A41">Large gifts</text>
+      <text x="70" y="105" textAnchor="middle" fontSize="8" fill="#373A41">Estate value</text>
+      <text x="70" y="120" textAnchor="middle" fontSize="8" fill="#373A41">Asset transfers</text>
       <text x="70" y="135" textAnchor="middle" fontSize="7" fill="#654B8A">Varies by country</text>
     </g>
     
@@ -256,40 +256,40 @@ const WhatGetsTaxedSVG = () => (
 const GlobalExampleSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Maria's First Paycheck</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">A simple example of how taxes work in real life</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Example: Maria's First Paycheck</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">A simple example of how taxes work in real life</text>
     
     {/* Story box */}
     <g transform="translate(50, 70)">
       <rect x="0" y="0" width="600" height="65" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="300" y="20" textAnchor="middle" fontSize="9" fill="#344C72" fontWeight="500">📖 The Situation</text>
-      <text x="300" y="38" textAnchor="middle" fontSize="9" fill="#404047">Maria just got her first job with a salary of $60,000 per year.</text>
-      <text x="300" y="52" textAnchor="middle" fontSize="9" fill="#404047">She's excited about earning $5,000 per month — but that's not what she'll actually receive.</text>
+      <text x="300" y="38" textAnchor="middle" fontSize="9" fill="#373A41">Maria just got her first job with a salary of $60,000 per year.</text>
+      <text x="300" y="52" textAnchor="middle" fontSize="9" fill="#373A41">She's excited about earning $5,000 per month — but that's not what she'll actually receive.</text>
     </g>
     
     {/* Breakdown */}
     <g transform="translate(100, 150)">
-      <text x="0" y="0" fontSize="10" fontWeight="600" fill="#404047">Maria's Monthly Paycheck Breakdown:</text>
+      <text x="0" y="0" fontSize="10" fontWeight="600" fill="#373A41">Maria's Monthly Paycheck Breakdown:</text>
       
       {/* Gross */}
       <g transform="translate(0, 20)">
-        <rect x="0" y="0" width="500" height="30" fill="#D5F2E5" rx="6"/>
-        <text x="15" y="20" fontSize="9" fill="#0D543C" fontWeight="500">Gross Salary (what she earned):</text>
-        <text x="450" y="20" fontSize="10" fill="#0D543C" fontWeight="600">$5,000</text>
+        <rect x="0" y="0" width="500" height="30" fill="#EEF9F4" rx="6"/>
+        <text x="15" y="20" fontSize="9" fill="#12805A" fontWeight="500">Gross Salary (what she earned):</text>
+        <text x="450" y="20" fontSize="10" fill="#12805A" fontWeight="600">$5,000</text>
       </g>
       
       {/* Deductions */}
       <g transform="translate(0, 60)">
         <rect x="0" y="0" width="500" height="70" fill="#FDF1F1" rx="6"/>
         <text x="15" y="18" fontSize="9" fill="#C7363B" fontWeight="500">Taxes Deducted:</text>
-        <text x="30" y="35" fontSize="8" fill="#404047">Federal Income Tax (12%):</text>
+        <text x="30" y="35" fontSize="8" fill="#373A41">Federal Income Tax (12%):</text>
         <text x="450" y="35" fontSize="9" fill="#C7363B">-$600</text>
-        <text x="30" y="50" fontSize="8" fill="#404047">State Tax (5%):</text>
+        <text x="30" y="50" fontSize="8" fill="#373A41">State Tax (5%):</text>
         <text x="450" y="50" fontSize="9" fill="#C7363B">-$250</text>
-        <text x="30" y="65" fontSize="8" fill="#404047">Social Security & Medicare:</text>
+        <text x="30" y="65" fontSize="8" fill="#373A41">Social Security & Medicare:</text>
         <text x="450" y="65" fontSize="9" fill="#C7363B">-$383</text>
       </g>
       
@@ -313,11 +313,11 @@ const GlobalExampleSVG = () => (
 const SocialContractSVG = () => (
   <svg viewBox="0 0 700 220" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="220" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="220" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Taxes: The Social Contract</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">A two-way exchange between citizens and government</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Taxes: The Social Contract</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">A two-way exchange between citizens and government</text>
     
     {/* Two-way visualization */}
     <g transform="translate(50, 75)">
@@ -325,30 +325,30 @@ const SocialContractSVG = () => (
       <rect x="0" y="0" width="200" height="100" fill="#E0E7F1" rx="12" stroke="#5A77AA" strokeWidth="2"/>
       <text x="100" y="30" textAnchor="middle" fontSize="20">👨‍👩‍👧‍👦</text>
       <text x="100" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">Citizens</text>
-      <text x="100" y="75" textAnchor="middle" fontSize="8" fill="#404047">Pay taxes from</text>
-      <text x="100" y="88" textAnchor="middle" fontSize="8" fill="#404047">income & purchases</text>
+      <text x="100" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Pay taxes from</text>
+      <text x="100" y="88" textAnchor="middle" fontSize="8" fill="#373A41">income & purchases</text>
     </g>
     
     {/* Arrows */}
     <g transform="translate(260, 100)">
-      <rect x="0" y="0" width="180" height="50" fill="#EFEDE7" rx="8"/>
-      <text x="90" y="18" textAnchor="middle" fontSize="8" fill="#75757D">Taxes flow to government →</text>
-      <text x="90" y="38" textAnchor="middle" fontSize="8" fill="#75757D">← Services flow to citizens</text>
+      <rect x="0" y="0" width="180" height="50" fill="#EEEEF1" rx="8"/>
+      <text x="90" y="18" textAnchor="middle" fontSize="8" fill="#717680">Taxes flow to government →</text>
+      <text x="90" y="38" textAnchor="middle" fontSize="8" fill="#717680">← Services flow to citizens</text>
       <polygon points="160,12 175,12 175,8 185,15 175,22 175,18 160,18" fill="#5A77AA"/>
-      <polygon points="20,35 5,35 5,31 -5,38 5,45 5,41 20,41" fill="#1FA978"/>
+      <polygon points="20,35 5,35 5,31 -5,38 5,45 5,41 20,41" fill="#12805A"/>
     </g>
     
     {/* Government */}
     <g transform="translate(450, 75)">
-      <rect x="0" y="0" width="200" height="100" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="0" y="0" width="200" height="100" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
       <text x="100" y="30" textAnchor="middle" fontSize="20">🏛️</text>
-      <text x="100" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Government</text>
-      <text x="100" y="75" textAnchor="middle" fontSize="8" fill="#404047">Provides public services,</text>
-      <text x="100" y="88" textAnchor="middle" fontSize="8" fill="#404047">infrastructure, security</text>
+      <text x="100" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Government</text>
+      <text x="100" y="75" textAnchor="middle" fontSize="8" fill="#373A41">Provides public services,</text>
+      <text x="100" y="88" textAnchor="middle" fontSize="8" fill="#373A41">infrastructure, security</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="190" width="500" height="22" fill="#404047" rx="4"/>
+    <rect x="100" y="190" width="500" height="22" fill="#373A41" rx="4"/>
     <text x="350" y="205" textAnchor="middle" fontSize="8" fill="white">This is the basic "deal" of taxation: we contribute, and in return, we receive shared services.</text>
   </svg>
 );
@@ -453,7 +453,7 @@ const TaxLesson1 = () => {
                 Lesson 1 of 6 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">What Are Taxes?</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">What Are Taxes?</h1>
             <p className="text-gray-600 text-lg">
               Understanding the basics of how taxes work and why they exist.
             </p>
@@ -467,7 +467,7 @@ const TaxLesson1 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Let's Start at the Beginning</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Let's Start at the Beginning</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -556,8 +556,8 @@ const TaxLesson1 = () => {
           
           <GlobalExampleSVG />
           
-          <div className="mt-6 bg-green-50 rounded-xl p-5 border border-green-200">
-            <p className="text-green-800">
+          <div className="mt-6 bg-brand-soft rounded-xl p-5 border border-brand-line">
+            <p className="text-brand">
               <strong>Note:</strong> The exact percentages vary by country, income 
               level, and individual circumstances. This example uses simplified 
               U.S.-style rates for illustration purposes only.
@@ -619,7 +619,7 @@ const TaxLesson1 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -627,11 +627,11 @@ const TaxLesson1 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -642,9 +642,9 @@ const TaxLesson1 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -656,7 +656,7 @@ const TaxLesson1 = () => {
         </div>
 
         {/* Reflection */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-blue-200" />
             <h3 className="text-xl font-semibold">Reflection Question</h3>
@@ -711,7 +711,7 @@ const TaxLesson1 = () => {
           </Link>
           <Link
             to="/learn/tax-lesson-2"
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: Taxes on Income vs Investments</span>
             <FaArrowRight />

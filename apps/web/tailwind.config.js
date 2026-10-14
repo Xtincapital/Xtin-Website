@@ -14,32 +14,47 @@ export default {
       // read the CSS custom properties defined once for the whole site in
       // src/index.css (:root / html.dark), so every app shares one palette.
 
-      // One site-wide type system: Inter for everything, Instrument Serif
-      // (`font-display`) for page titles and hero numbers only.
+      // One site-wide type system: Plus Jakarta Sans for letters, Inter Tight
+      // for numbers. "Inter Tight" is loaded as a digits-only subset (see
+      // index.html), so listing it first only affects 0-9 and ₹ $ % + − . ,
+      // `font-display` (page titles) uses the same pair at a heavier weight.
       fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans],
-        display: ['"Instrument Serif"', "Georgia", '"Times New Roman"', "serif"],
+        sans: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
+        display: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
       },
-      // Same sizes as Tailwind's scale (no layout shift); larger sizes get
-      // slightly tighter tracking so headings read as one family.
+      // One type scale for the whole site: 12 · 14 · 16 · 18 · 24 · 32 · 40 · 48.
+      // Tailwind's in-between steps snap onto it (xl = lg, 6xl/7xl = 5xl), so
+      // every page draws from the same eight sizes.
       fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.125rem", { lineHeight: "1.75rem" }],
         "2xl": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.015em" }],
-        "3xl": ["1.875rem", { lineHeight: "2.25rem", letterSpacing: "-0.02em" }],
-        "4xl": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
-        "5xl": ["3rem", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
-        "6xl": ["3.75rem", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
-        "7xl": ["4.5rem", { lineHeight: "1", letterSpacing: "-0.03em" }],
+        "3xl": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
+        "4xl": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
+        "5xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
+        "6xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
+        "7xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
       },
-      // The site-wide page column. Tailwind's 80rem (1280px) left wide
-      // screens with big empty bands beside pages that have no sidebar;
-      // 96rem (1536px) matches `container` at 2xl, so every page lines up.
-      maxWidth: {
-        "7xl": "120rem",
+      // Three weights only: regular 400, medium 500, semibold 600.
+      fontWeight: {
+        thin: "400", extralight: "400", light: "400", normal: "400",
+        medium: "500", semibold: "600", bold: "600", extrabold: "600", black: "600",
       },
       colors: {
         // Every Tailwind hue now resolves to one of 8 palette families
         // (src/styles/palette.js).
         ...tailwindHues,
+        // The one site green, by role (values per theme live in index.css).
+        brand: {
+          DEFAULT: "rgb(var(--brand) / <alpha-value>)",
+          fill: "rgb(var(--brand-fill) / <alpha-value>)",
+          hover: "rgb(var(--brand-fill-hover) / <alpha-value>)",
+          soft: "var(--brand-soft)",
+          line: "var(--brand-line)",
+        },
         // Receipt printer (features/billing): a 12-step neutral scale that
         // inverts in dark mode (1 = background end, 12 = ink end). Channels
         // live in index.css as --gs-1 … --gs-12.

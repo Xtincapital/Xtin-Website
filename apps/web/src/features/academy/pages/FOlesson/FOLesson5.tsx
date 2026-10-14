@@ -73,21 +73,21 @@ const BlackScholesSVG = () => (
   <svg viewBox="0 0 700 450" className="w-full h-auto">
     <defs>
       <linearGradient id="bsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#151517"/>
-        <stop offset="100%" stopColor="#232327"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="450" fill="url(#bsGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Black-Scholes-Merton Model</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">The Nobel Prize-winning options pricing formula (1973)</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">The Nobel Prize-winning options pricing formula (1973)</text>
     
     {/* Main Formulas */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="600" height="120" fill="#232327" rx="12"/>
+      <rect x="0" y="0" width="600" height="120" fill="#2A2A2C" rx="12"/>
       
-      <text x="300" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#1FA978">CALL OPTION PRICE</text>
+      <text x="300" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">CALL OPTION PRICE</text>
       <text x="300" y="55" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">C = S × N(d₁) - K × e⁻ʳᵗ × N(d₂)</text>
       
       <text x="300" y="85" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">PUT OPTION PRICE</text>
@@ -99,14 +99,14 @@ const BlackScholesSVG = () => (
       <rect x="0" y="0" width="290" height="80" fill="#D2754C" fillOpacity="0.15" rx="10" stroke="#D2754C" strokeWidth="1"/>
       <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#D2754C">d₁ Formula</text>
       <text x="145" y="50" textAnchor="middle" fontSize="12" fill="white">d₁ = [ln(S/K) + (r + σ²/2)t] / (σ√t)</text>
-      <text x="145" y="70" textAnchor="middle" fontSize="9" fill="#A3A1A6">Probability-weighted stock factor</text>
+      <text x="145" y="70" textAnchor="middle" fontSize="9" fill="#A0A3AA">Probability-weighted stock factor</text>
     </g>
     
     <g transform="translate(360, 215)">
       <rect x="0" y="0" width="290" height="80" fill="#5A77AA" fillOpacity="0.15" rx="10" stroke="#5A77AA" strokeWidth="1"/>
       <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#5A77AA">d₂ Formula</text>
       <text x="145" y="50" textAnchor="middle" fontSize="12" fill="white">d₂ = d₁ - σ√t</text>
-      <text x="145" y="70" textAnchor="middle" fontSize="9" fill="#A3A1A6">Probability-weighted strike factor</text>
+      <text x="145" y="70" textAnchor="middle" fontSize="9" fill="#A0A3AA">Probability-weighted strike factor</text>
     </g>
     
     {/* Input Variables */}
@@ -115,7 +115,7 @@ const BlackScholesSVG = () => (
       
       <g transform="translate(0, 20)">
         {[
-          { symbol: "S", name: "Stock Price", desc: "Current market price", color: "#1FA978" },
+          { symbol: "S", name: "Stock Price", desc: "Current market price", color: "#12805A" },
           { symbol: "K", name: "Strike Price", desc: "Exercise price", color: "#C7363B" },
           { symbol: "t", name: "Time to Expiry", desc: "In years", color: "#D2754C" },
           { symbol: "r", name: "Risk-Free Rate", desc: "Treasury rate", color: "#5A77AA" },
@@ -125,7 +125,7 @@ const BlackScholesSVG = () => (
             <rect x="0" y="0" width="110" height="70" fill={item.color} fillOpacity="0.15" rx="8" stroke={item.color} strokeWidth="1"/>
             <text x="55" y="22" textAnchor="middle" fontSize="16" fontWeight="700" fill={item.color}>{item.symbol}</text>
             <text x="55" y="40" textAnchor="middle" fontSize="9" fontWeight="500" fill="white">{item.name}</text>
-            <text x="55" y="55" textAnchor="middle" fontSize="8" fill="#A3A1A6">{item.desc}</text>
+            <text x="55" y="55" textAnchor="middle" fontSize="8" fill="#A0A3AA">{item.desc}</text>
           </g>
         ))}
       </g>
@@ -133,7 +133,7 @@ const BlackScholesSVG = () => (
     
     {/* Key insight */}
     <g transform="translate(50, 415)">
-      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
+      <rect x="0" y="0" width="600" height="25" fill="#2A2A2C" rx="6"/>
       <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#D2754C">N(x) = Cumulative standard normal distribution. The only UNKNOWN input is volatility (σ) - hence Implied Volatility.</text>
     </g>
   </svg>
@@ -142,10 +142,10 @@ const BlackScholesSVG = () => (
 // SVG: BS Model Assumptions
 const BSAssumptionsSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Black-Scholes Model Assumptions</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Theoretical assumptions vs Market reality</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Theoretical assumptions vs Market reality</text>
     
     {/* Assumptions Grid */}
     <g transform="translate(30, 80)">
@@ -158,11 +158,11 @@ const BSAssumptionsSVG = () => (
         { assumption: "Risk-free rate is constant and known", reality: "Rates change; affects longer-dated options", valid: true }
       ].map((item, i) => (
         <g key={i} transform={`translate(${(i % 2) * 320}, ${Math.floor(i / 2) * 75})`}>
-          <rect x="0" y="0" width="310" height="65" fill="#232327" rx="8"/>
-          <circle cx="20" cy="20" r="8" fill={item.valid ? "#1FA978" : "#C7363B"} fillOpacity="0.3"/>
-          <text x="20" y="24" textAnchor="middle" fontSize="10" fill={item.valid ? "#1FA978" : "#C7363B"}>{item.valid ? "~" : "×"}</text>
+          <rect x="0" y="0" width="310" height="65" fill="#2A2A2C" rx="8"/>
+          <circle cx="20" cy="20" r="8" fill={item.valid ? "#12805A" : "#C7363B"} fillOpacity="0.3"/>
+          <text x="20" y="24" textAnchor="middle" fontSize="10" fill={item.valid ? "#12805A" : "#C7363B"}>{item.valid ? "~" : "×"}</text>
           <text x="38" y="20" fontSize="9" fontWeight="600" fill="white">{item.assumption}</text>
-          <text x="38" y="40" fontSize="8" fill="#A3A1A6">{item.reality}</text>
+          <text x="38" y="40" fontSize="8" fill="#A0A3AA">{item.reality}</text>
         </g>
       ))}
     </g>
@@ -178,31 +178,31 @@ const BSAssumptionsSVG = () => (
 // SVG: Binomial Model
 const BinomialModelSVG = () => (
   <svg viewBox="0 0 700 450" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="450" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="450" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Binomial Option Pricing Model</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Step-by-step approach to option valuation</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Step-by-step approach to option valuation</text>
     
     {/* Tree Diagram */}
     <g transform="translate(100, 90)">
       <text x="0" y="0" fontSize="11" fontWeight="600" fill="white">Two-Period Binomial Tree</text>
       
       {/* Period labels */}
-      <text x="50" y="30" textAnchor="middle" fontSize="9" fill="#A3A1A6">t=0</text>
-      <text x="200" y="30" textAnchor="middle" fontSize="9" fill="#A3A1A6">t=1</text>
-      <text x="350" y="-5" textAnchor="middle" fontSize="9" fill="#A3A1A6">t=2 (Expiry)</text>
+      <text x="50" y="30" textAnchor="middle" fontSize="9" fill="#A0A3AA">t=0</text>
+      <text x="200" y="30" textAnchor="middle" fontSize="9" fill="#A0A3AA">t=1</text>
+      <text x="350" y="-5" textAnchor="middle" fontSize="9" fill="#A0A3AA">t=2 (Expiry)</text>
       
       {/* Initial node */}
       <circle cx="50" cy="140" r="25" fill="#5A77AA" fillOpacity="0.3" stroke="#5A77AA" strokeWidth="2"/>
       <text x="50" y="137" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">S₀</text>
-      <text x="50" y="150" textAnchor="middle" fontSize="8" fill="#A3A1A6">$100</text>
+      <text x="50" y="150" textAnchor="middle" fontSize="8" fill="#A0A3AA">$100</text>
       
       {/* Up path t=1 */}
-      <line x1="75" y1="125" x2="175" y2="80" stroke="#1FA978" strokeWidth="2"/>
-      <circle cx="200" cy="70" r="25" fill="#1FA978" fillOpacity="0.3" stroke="#1FA978" strokeWidth="2"/>
+      <line x1="75" y1="125" x2="175" y2="80" stroke="#12805A" strokeWidth="2"/>
+      <circle cx="200" cy="70" r="25" fill="#12805A" fillOpacity="0.3" stroke="#12805A" strokeWidth="2"/>
       <text x="200" y="67" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Su</text>
-      <text x="200" y="80" textAnchor="middle" fontSize="8" fill="#1FA978">$110</text>
-      <text x="130" y="90" fontSize="8" fill="#1FA978">u=1.1</text>
+      <text x="200" y="80" textAnchor="middle" fontSize="8" fill="#12805A">$110</text>
+      <text x="130" y="90" fontSize="8" fill="#12805A">u=1.1</text>
       
       {/* Down path t=1 */}
       <line x1="75" y1="155" x2="175" y2="210" stroke="#C7363B" strokeWidth="2"/>
@@ -212,10 +212,10 @@ const BinomialModelSVG = () => (
       <text x="130" y="195" fontSize="8" fill="#C7363B">d=0.91</text>
       
       {/* Up-Up path t=2 */}
-      <line x1="225" y1="55" x2="325" y2="30" stroke="#1FA978" strokeWidth="2"/>
-      <circle cx="350" cy="30" r="22" fill="#1FA978" fillOpacity="0.3" stroke="#1FA978" strokeWidth="1"/>
+      <line x1="225" y1="55" x2="325" y2="30" stroke="#12805A" strokeWidth="2"/>
+      <circle cx="350" cy="30" r="22" fill="#12805A" fillOpacity="0.3" stroke="#12805A" strokeWidth="1"/>
       <text x="350" y="27" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">Suu</text>
-      <text x="350" y="40" textAnchor="middle" fontSize="8" fill="#1FA978">$121</text>
+      <text x="350" y="40" textAnchor="middle" fontSize="8" fill="#12805A">$121</text>
       
       {/* Up-Down or Down-Up path t=2 */}
       <line x1="225" y1="80" x2="325" y2="100" stroke="#D2754C" strokeWidth="2"/>
@@ -232,21 +232,21 @@ const BinomialModelSVG = () => (
       
       {/* Option Values at expiry */}
       <g transform="translate(385, 0)">
-        <text x="0" y="25" fontSize="9" fill="#1FA978">Call: $21</text>
-        <text x="50" y="25" fontSize="8" fill="#A3A1A6">(121-100)</text>
+        <text x="0" y="25" fontSize="9" fill="#12805A">Call: $21</text>
+        <text x="50" y="25" fontSize="8" fill="#A0A3AA">(121-100)</text>
         <text x="0" y="105" fontSize="9" fill="#D2754C">Call: $0</text>
-        <text x="50" y="105" fontSize="8" fill="#A3A1A6">(100-100)</text>
+        <text x="50" y="105" fontSize="8" fill="#A0A3AA">(100-100)</text>
         <text x="0" y="255" fontSize="9" fill="#C7363B">Call: $0</text>
-        <text x="50" y="255" fontSize="8" fill="#A3A1A6">(max 0)</text>
+        <text x="50" y="255" fontSize="8" fill="#A0A3AA">(max 0)</text>
       </g>
     </g>
     
     {/* Process */}
     <g transform="translate(50, 370)">
-      <rect x="0" y="0" width="600" height="70" fill="#232327" rx="10"/>
+      <rect x="0" y="0" width="600" height="70" fill="#2A2A2C" rx="10"/>
       <text x="300" y="20" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Backward Induction Process</text>
-      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#A3A1A6">1. Calculate option payoffs at expiry nodes</text>
-      <text x="300" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">2. Work backwards, discounting expected values using risk-neutral probabilities</text>
+      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#A0A3AA">1. Calculate option payoffs at expiry nodes</text>
+      <text x="300" y="55" textAnchor="middle" fontSize="9" fill="#A0A3AA">2. Work backwards, discounting expected values using risk-neutral probabilities</text>
     </g>
   </svg>
 );
@@ -254,22 +254,22 @@ const BinomialModelSVG = () => (
 // SVG: IV vs HV
 const IVvsHVSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Implied vs Historical Volatility</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">The most critical input in option pricing</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">The most critical input in option pricing</text>
     
     {/* Historical Volatility */}
     <g transform="translate(40, 80)">
       <rect x="0" y="0" width="300" height="180" fill="#5A77AA" fillOpacity="0.1" rx="12" stroke="#5A77AA" strokeWidth="2"/>
       <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#5A77AA">HISTORICAL VOLATILITY (HV)</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Looking backward</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Looking backward</text>
       
       <g transform="translate(20, 70)">
-        <rect x="0" y="0" width="260" height="90" fill="#151517" rx="8"/>
+        <rect x="0" y="0" width="260" height="90" fill="#1F1F1F" rx="8"/>
         <text x="130" y="22" textAnchor="middle" fontSize="10" fill="white">Actual price movements in the past</text>
-        <text x="130" y="42" textAnchor="middle" fontSize="9" fill="#A3A1A6">Calculated from historical prices</text>
-        <text x="130" y="62" textAnchor="middle" fontSize="9" fill="#A3A1A6">Standard deviation of returns</text>
+        <text x="130" y="42" textAnchor="middle" fontSize="9" fill="#A0A3AA">Calculated from historical prices</text>
+        <text x="130" y="62" textAnchor="middle" fontSize="9" fill="#A0A3AA">Standard deviation of returns</text>
         <text x="130" y="82" textAnchor="middle" fontSize="8" fill="#5A77AA">Example: 20-day HV = 25%</text>
       </g>
     </g>
@@ -278,22 +278,22 @@ const IVvsHVSVG = () => (
     <g transform="translate(360, 80)">
       <rect x="0" y="0" width="300" height="180" fill="#D2754C" fillOpacity="0.1" rx="12" stroke="#D2754C" strokeWidth="2"/>
       <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#D2754C">IMPLIED VOLATILITY (IV)</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Looking forward</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A0A3AA">Looking forward</text>
       
       <g transform="translate(20, 70)">
-        <rect x="0" y="0" width="260" height="90" fill="#151517" rx="8"/>
+        <rect x="0" y="0" width="260" height="90" fill="#1F1F1F" rx="8"/>
         <text x="130" y="22" textAnchor="middle" fontSize="10" fill="white">Market&apos;s expectation of future volatility</text>
-        <text x="130" y="42" textAnchor="middle" fontSize="9" fill="#A3A1A6">Derived from current option prices</text>
-        <text x="130" y="62" textAnchor="middle" fontSize="9" fill="#A3A1A6">Solve BS formula for σ given market price</text>
+        <text x="130" y="42" textAnchor="middle" fontSize="9" fill="#A0A3AA">Derived from current option prices</text>
+        <text x="130" y="62" textAnchor="middle" fontSize="9" fill="#A0A3AA">Solve BS formula for σ given market price</text>
         <text x="130" y="82" textAnchor="middle" fontSize="8" fill="#D2754C">If IV &gt; HV, options are &quot;expensive&quot;</text>
       </g>
     </g>
     
     {/* Trading Insight */}
     <g transform="translate(50, 275)">
-      <rect x="0" y="0" width="600" height="35" fill="#1FA978" fillOpacity="0.15" rx="8"/>
-      <text x="300" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">TRADING INSIGHT</text>
-      <text x="300" y="30" textAnchor="middle" fontSize="9" fill="#A3A1A6">Buy options when IV &lt; expected future volatility. Sell options when IV &gt; expected future volatility.</text>
+      <rect x="0" y="0" width="600" height="35" fill="#12805A" fillOpacity="0.15" rx="8"/>
+      <text x="300" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">TRADING INSIGHT</text>
+      <text x="300" y="30" textAnchor="middle" fontSize="9" fill="#A0A3AA">Buy options when IV &lt; expected future volatility. Sell options when IV &gt; expected future volatility.</text>
     </g>
   </svg>
 );
@@ -301,14 +301,14 @@ const IVvsHVSVG = () => (
 // SVG: Put-Call Parity
 const PutCallParitySVG = () => (
   <svg viewBox="0 0 700 280" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="280" fill="#151517" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Put-Call Parity</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">The fundamental relationship between calls, puts, stock, and bonds</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">The fundamental relationship between calls, puts, stock, and bonds</text>
     
     {/* Main Formula */}
     <g transform="translate(100, 80)">
-      <rect x="0" y="0" width="500" height="70" fill="#232327" rx="12"/>
+      <rect x="0" y="0" width="500" height="70" fill="#2A2A2C" rx="12"/>
       <text x="250" y="30" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">Put-Call Parity Equation</text>
       <text x="250" y="55" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">C + PV(K) = P + S</text>
     </g>
@@ -316,7 +316,7 @@ const PutCallParitySVG = () => (
     {/* Components */}
     <g transform="translate(50, 170)">
       {[
-        { symbol: "C", name: "Call Premium", color: "#1FA978" },
+        { symbol: "C", name: "Call Premium", color: "#12805A" },
         { symbol: "PV(K)", name: "Present Value of Strike", color: "#D2754C" },
         { symbol: "P", name: "Put Premium", color: "#C7363B" },
         { symbol: "S", name: "Stock Price", color: "#5A77AA" }
@@ -331,8 +331,8 @@ const PutCallParitySVG = () => (
     
     {/* Application */}
     <g transform="translate(50, 245)">
-      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A3A1A6">Application: If parity is violated, arbitrage opportunity exists. Also used to synthetically create positions.</text>
+      <rect x="0" y="0" width="600" height="25" fill="#2A2A2C" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A0A3AA">Application: If parity is violated, arbitrage opportunity exists. Also used to synthetically create positions.</text>
     </g>
   </svg>
 );
@@ -432,7 +432,7 @@ const FOLesson5 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 tracking-[-0.025em]">
             Options Pricing Models
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -441,7 +441,7 @@ const FOLesson5 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
             <h2 className="text-xl font-semibold">Learning Objectives</h2>
@@ -468,11 +468,11 @@ const FOLesson5 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Calculator className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Black-Scholes-Merton Model</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Black-Scholes-Merton Model</h2>
                   <p className="text-sm text-gray-500 ">The foundation of modern options pricing</p>
                 </div>
               </div>
@@ -507,7 +507,7 @@ const FOLesson5 = () => {
                   <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Model Assumptions & Limitations</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Model Assumptions & Limitations</h2>
                   <p className="text-sm text-gray-500 ">Where theory meets reality</p>
                 </div>
               </div>
@@ -534,11 +534,11 @@ const FOLesson5 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                   <Icons.Grid className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Binomial Option Pricing</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Binomial Option Pricing</h2>
                   <p className="text-sm text-gray-500 ">A more intuitive, flexible approach</p>
                 </div>
               </div>
@@ -551,8 +551,8 @@ const FOLesson5 = () => {
               <BinomialModelSVG />
 
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                  <h4 className="font-bold text-green-800  mb-2">Advantages</h4>
+                <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                  <h4 className="font-bold text-brand  mb-2">Advantages</h4>
                   <ul className="text-gray-700  text-sm space-y-1">
                     <li>• Handles American-style options</li>
                     <li>• Intuitive step-by-step logic</li>
@@ -576,11 +576,11 @@ const FOLesson5 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Implied vs Historical Volatility</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Implied vs Historical Volatility</h2>
                   <p className="text-sm text-gray-500 ">The heart of options trading</p>
                 </div>
               </div>
@@ -612,11 +612,11 @@ const FOLesson5 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                   <Icons.BookOpen className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Put-Call Parity</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.025em]">Put-Call Parity</h2>
                   <p className="text-sm text-gray-500 ">The fundamental options relationship</p>
                 </div>
               </div>
@@ -641,8 +641,8 @@ const FOLesson5 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Black-Scholes requires 5 inputs: S, K, t, r, and σ (volatility)",
@@ -666,7 +666,7 @@ const FOLesson5 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -681,11 +681,11 @@ const FOLesson5 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -696,7 +696,7 @@ const FOLesson5 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -710,7 +710,7 @@ const FOLesson5 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -741,7 +741,7 @@ const FOLesson5 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-6')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: The Greeks Part 1</span>
               <Icons.ArrowRight className="w-5 h-5" />

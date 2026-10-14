@@ -8,14 +8,14 @@ import remarkGfm from "remark-gfm";
 // The assistant answers in markdown (headings, tables, bold, lists); without
 // rendering it the chat showed raw `##` and `| a | b |` text.
 const markdownComponents = {
-  h1: (p: any) => <h1 className="text-base font-bold mt-3 mb-1.5" {...p} />,
-  h2: (p: any) => <h2 className="text-[15px] font-semibold mt-3 mb-1.5" {...p} />,
-  h3: (p: any) => <h3 className="text-sm font-semibold mt-2.5 mb-1" {...p} />,
+  h1: (p: any) => <h1 className="text-3xl md:text-4xl mt-3 mb-1.5 font-semibold" {...p} />,
+  h2: (p: any) => <h2 className="text-base font-semibold mt-3 mb-1.5" {...p} />,
+  h3: (p: any) => <h3 className="text-base font-semibold mt-2.5 mb-1" {...p} />,
   p: (p: any) => <p className="my-1.5 leading-relaxed" {...p} />,
   ul: (p: any) => <ul className="my-1.5 pl-5 list-disc space-y-0.5" {...p} />,
   ol: (p: any) => <ol className="my-1.5 pl-5 list-decimal space-y-0.5" {...p} />,
   strong: (p: any) => <strong className="font-semibold" {...p} />,
-  a: (p: any) => <a className="text-primary underline" target="_blank" rel="noreferrer" {...p} />,
+  a: (p: any) => <a className="text-brand underline" target="_blank" rel="noreferrer" {...p} />,
   table: (p: any) => (
     <div className="my-2 overflow-x-auto rounded-md border border-border">
       <table className="w-full text-xs border-collapse" {...p} />
@@ -105,7 +105,7 @@ const ChatMessage = ({
                 className="p-2.5 rounded-lg bg-secondary/50 border border-border/50 text-xs hover:border-primary/30 transition-colors cursor-pointer"
               >
                 <div className="flex items-start gap-2">
-                  <FileText className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                  <FileText className="w-3.5 h-3.5 text-brand flex-shrink-0 mt-0.5" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-foreground/80 truncate">
                       {source.document}

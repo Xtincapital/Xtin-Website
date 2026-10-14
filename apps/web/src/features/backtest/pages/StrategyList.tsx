@@ -24,8 +24,8 @@ function RuleLine({ label, tone, strategy, group }: { label: string; tone: strin
         {conds.length ? (
           conds.map((c, i) => (
             <span key={i} className="inline-flex items-center gap-1">
-              {i > 0 && <span className={`text-[10px] font-semibold uppercase ${muted}`}>{g.match === "any" ? "or" : "and"}</span>}
-              <code className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-700 dark:bg-white/5 dark:text-slate-200">{conditionText(c)}</code>
+              {i > 0 && <span className={`text-xs font-semibold uppercase ${muted}`}>{g.match === "any" ? "or" : "and"}</span>}
+              <code className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700 dark:bg-white/5 dark:text-slate-200">{conditionText(c)}</code>
             </span>
           ))
         ) : (
@@ -126,7 +126,7 @@ export default function StrategyList() {
             const risk = s.definition.risk;
             const short = s.definition.entry_action?.side === "SELL";
             return (
-              <motion.article key={s.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(idx, 8) * 0.04 }} className={`${card} group flex flex-col p-5 transition hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-600/5 dark:hover:border-emerald-400/30`}>
+              <motion.article key={s.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(idx, 8) * 0.04 }} className={`${card} group flex flex-col p-5 transition hover:border-brand-line hover:shadow-lg hover:shadow-brand/5 dark:hover:border-brand-line`}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="truncate font-semibold">{s.name}</h2>
@@ -138,11 +138,11 @@ export default function StrategyList() {
                       </span>
                     </div>
                   </div>
-                  <span className={`shrink-0 text-[11px] ${muted}`}>Updated {new Date(s.updated_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
+                  <span className={`shrink-0 text-xs ${muted}`}>Updated {new Date(s.updated_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
                 </div>
 
                 <div className="mt-4 space-y-2 rounded-xl border border-slate-100 bg-slate-50/60 p-3 dark:border-white/5 dark:bg-white/[0.02]">
-                  <RuleLine label="Entry" tone="text-emerald-600 dark:text-emerald-400" strategy={s} group="entry" />
+                  <RuleLine label="Entry" tone="text-brand dark:text-brand" strategy={s} group="entry" />
                   <RuleLine label="Exit" tone="text-amber-600 dark:text-amber-400" strategy={s} group="exit" />
                   {(risk?.stop_loss_pct || risk?.target_pct || risk?.trailing_sl_pct) && (
                     <div className="flex items-center gap-2 text-xs">

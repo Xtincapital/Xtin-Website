@@ -67,15 +67,15 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
           let bg = "bg-gray-50  hover:bg-cyan-50 ", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-cyan-100  text-cyan-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-cyan-100  text-cyan-600'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -83,7 +83,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -112,11 +112,11 @@ const AlgoTradingLesson8 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 8 of 9</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 8 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Database className="w-8 h-8 text-white"/>
               </span>
               Data Management & Sources
@@ -162,72 +162,72 @@ const AlgoTradingLesson8 = () => {
             </p>
 
             {/* Data Types SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-cyan-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-cyan-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 350" fill="none">
                 <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">TYPES OF MARKET DATA</text>
 
                 {/* Tick Data */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#232327" stroke="#33A0AE" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#33A0AE" strokeWidth="2"/>
                   <rect x="0" y="0" width="200" height="35" rx="12" fill="#33A0AE"/>
                   <rect x="0" y="23" width="200" height="12" fill="#33A0AE"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">TICK DATA</text>
                   <text x="100" y="58" textAnchor="middle" fill="#82CDD6" fontSize="9">Every single trade</text>
-                  <text x="20" y="80" fill="#A3A1A6" fontSize="8">• Price + Volume per trade</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Timestamp to millisecond</text>
-                  <text x="20" y="110" fill="#A3A1A6" fontSize="8">• Huge storage required</text>
+                  <text x="20" y="80" fill="#A0A3AA" fontSize="8">• Price + Volume per trade</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Timestamp to millisecond</text>
+                  <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Huge storage required</text>
                   <text x="100" y="125" textAnchor="middle" fill="#E2C273" fontSize="7">Best for: HFT, microstructure</text>
                 </g>
 
                 {/* OHLC Data */}
                 <g transform="translate(250, 50)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#232327" stroke="#1FA978" strokeWidth="2"/>
-                  <rect x="0" y="0" width="200" height="35" rx="12" fill="#1FA978"/>
-                  <rect x="0" y="23" width="200" height="12" fill="#1FA978"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="35" rx="12" fill="#12805A"/>
+                  <rect x="0" y="23" width="200" height="12" fill="#12805A"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">OHLC DATA</text>
-                  <text x="100" y="58" textAnchor="middle" fill="#77D3AE" fontSize="9">Candlestick bars</text>
-                  <text x="20" y="80" fill="#A3A1A6" fontSize="8">• Open, High, Low, Close</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• 1min to Daily intervals</text>
-                  <text x="20" y="110" fill="#A3A1A6" fontSize="8">• Manageable storage</text>
+                  <text x="100" y="58" textAnchor="middle" fill="#3CCB97" fontSize="9">Candlestick bars</text>
+                  <text x="20" y="80" fill="#A0A3AA" fontSize="8">• Open, High, Low, Close</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• 1min to Daily intervals</text>
+                  <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Manageable storage</text>
                   <text x="100" y="125" textAnchor="middle" fill="#E2C273" fontSize="7">Best for: Most strategies</text>
                 </g>
 
                 {/* Fundamental Data */}
                 <g transform="translate(470, 50)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#232327" stroke="#8F6FC4" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
                   <rect x="0" y="0" width="200" height="35" rx="12" fill="#8F6FC4"/>
                   <rect x="0" y="23" width="200" height="12" fill="#8F6FC4"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">FUNDAMENTAL</text>
                   <text x="100" y="58" textAnchor="middle" fill="#C0A9E2" fontSize="9">Company financials</text>
-                  <text x="20" y="80" fill="#A3A1A6" fontSize="8">• Earnings, Revenue, P/E</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Quarterly updates</text>
-                  <text x="20" y="110" fill="#A3A1A6" fontSize="8">• Requires normalization</text>
+                  <text x="20" y="80" fill="#A0A3AA" fontSize="8">• Earnings, Revenue, P/E</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Quarterly updates</text>
+                  <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Requires normalization</text>
                   <text x="100" y="125" textAnchor="middle" fill="#E2C273" fontSize="7">Best for: Value, factor models</text>
                 </g>
 
                 {/* Alternative Data */}
                 <g transform="translate(140, 200)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#232327" stroke="#B8923F" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#B8923F" strokeWidth="2"/>
                   <rect x="0" y="0" width="200" height="35" rx="12" fill="#B8923F"/>
                   <rect x="0" y="23" width="200" height="12" fill="#B8923F"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ALTERNATIVE DATA</text>
                   <text x="100" y="58" textAnchor="middle" fill="#E2C273" fontSize="9">Non-traditional sources</text>
-                  <text x="20" y="80" fill="#A3A1A6" fontSize="8">• Sentiment, news, satellite</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Social media trends</text>
-                  <text x="20" y="110" fill="#A3A1A6" fontSize="8">• Often expensive</text>
+                  <text x="20" y="80" fill="#A0A3AA" fontSize="8">• Sentiment, news, satellite</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Social media trends</text>
+                  <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Often expensive</text>
                   <text x="100" y="125" textAnchor="middle" fill="#E2C273" fontSize="7">Best for: Edge seeking</text>
                 </g>
 
                 {/* Real-time Data */}
                 <g transform="translate(360, 200)">
-                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#232327" stroke="#E04848" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="130" rx="12" fill="#2A2A2C" stroke="#E04848" strokeWidth="2"/>
                   <rect x="0" y="0" width="200" height="35" rx="12" fill="#E04848"/>
                   <rect x="0" y="23" width="200" height="12" fill="#E04848"/>
                   <text x="100" y="24" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">REAL-TIME FEEDS</text>
                   <text x="100" y="58" textAnchor="middle" fill="#F09B9B" fontSize="9">Live market data</text>
-                  <text x="20" y="80" fill="#A3A1A6" fontSize="8">• WebSocket streams</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• L1/L2 order book</text>
-                  <text x="20" y="110" fill="#A3A1A6" fontSize="8">• Subscription fees apply</text>
+                  <text x="20" y="80" fill="#A0A3AA" fontSize="8">• WebSocket streams</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• L1/L2 order book</text>
+                  <text x="20" y="110" fill="#A0A3AA" fontSize="8">• Subscription fees apply</text>
                   <text x="100" y="125" textAnchor="middle" fill="#E2C273" fontSize="7">Best for: Live trading</text>
                 </g>
               </svg>
@@ -235,8 +235,8 @@ const AlgoTradingLesson8 = () => {
 
             {/* Data Sources */}
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="w-10 h-10 bg-emerald-100  rounded-xl flex items-center justify-center">
-                <Icons.Download className="w-5 h-5 text-emerald-600 "/>
+              <span className="w-10 h-10 bg-brand-soft  rounded-xl flex items-center justify-center">
+                <Icons.Download className="w-5 h-5 text-brand "/>
               </span>
               Data Sources for Indian Markets
             </h2>
@@ -246,8 +246,8 @@ const AlgoTradingLesson8 = () => {
             </p>
 
             {/* Free Sources */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-6 border border-emerald-200 ">
-              <h3 className="font-semibold text-emerald-800  mb-4">🆓 Free Data Sources</h3>
+            <div className="rounded-2xl p-6 mb-6 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4">🆓 Free Data Sources</h3>
               <div className="space-y-4">
                 {[
                   { name: "NSE India Website", url: "nseindia.com", desc: "Official historical data, bhavcopy downloads", limit: "Limited API, manual downloads" },
@@ -255,9 +255,9 @@ const AlgoTradingLesson8 = () => {
                   { name: "Google Finance", url: "google.com/finance", desc: "Basic price data, no API", limit: "Very limited, no bulk downloads" },
                   { name: "BSE India", url: "bseindia.com", desc: "Historical data, corporate actions", limit: "Manual downloads only" },
                 ].map((src, i) => (
-                  <div key={i} className="bg-white  rounded-xl p-4 border border-emerald-200 ">
+                  <div key={i} className="bg-white  rounded-xl p-4 border border-brand-line ">
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-semibold text-emerald-700 ">{src.name}</h4>
+                      <h4 className="font-semibold text-brand ">{src.name}</h4>
                       <span className="text-xs text-gray-500 ">{src.url}</span>
                     </div>
                     <p className="text-sm text-gray-600 ">{src.desc}</p>
@@ -283,7 +283,7 @@ const AlgoTradingLesson8 = () => {
                       <span className="text-sm font-mono text-blue-600 ">{src.price}</span>
                     </div>
                     <p className="text-sm text-gray-600 ">{src.desc}</p>
-                    <p className="text-xs text-emerald-600  mt-1">✓ {src.best}</p>
+                    <p className="text-xs text-brand  mt-1">✓ {src.best}</p>
                   </div>
                 ))}
               </div>
@@ -333,57 +333,57 @@ const AlgoTradingLesson8 = () => {
             </h2>
 
             {/* Storage Comparison SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
                 <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">STORAGE SOLUTIONS BY SCALE</text>
 
                 {/* Small Scale */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#232327" stroke="#1FA978" strokeWidth="2"/>
-                  <text x="100" y="30" textAnchor="middle" fill="#77D3AE" fontSize="12" fontWeight="700">SMALL SCALE</text>
-                  <text x="100" y="50" textAnchor="middle" fill="#75757D" fontSize="9">&lt; 1GB data</text>
+                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#2A2A2C" stroke="#12805A" strokeWidth="2"/>
+                  <text x="100" y="30" textAnchor="middle" fill="#3CCB97" fontSize="12" fontWeight="700">SMALL SCALE</text>
+                  <text x="100" y="50" textAnchor="middle" fill="#717680" fontSize="9">&lt; 1GB data</text>
                   
                   <text x="20" y="80" fill="white" fontSize="10" fontWeight="600">CSV Files</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Simple, portable</text>
-                  <text x="20" y="108" fill="#A3A1A6" fontSize="8">• Easy with pandas</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Simple, portable</text>
+                  <text x="20" y="108" fill="#A0A3AA" fontSize="8">• Easy with pandas</text>
                   
                   <text x="20" y="130" fill="white" fontSize="10" fontWeight="600">Parquet</text>
-                  <text x="20" y="145" fill="#A3A1A6" fontSize="8">• Compressed, fast reads</text>
-                  <text x="20" y="158" fill="#A3A1A6" fontSize="8">• Better than CSV</text>
+                  <text x="20" y="145" fill="#A0A3AA" fontSize="8">• Compressed, fast reads</text>
+                  <text x="20" y="158" fill="#A0A3AA" fontSize="8">• Better than CSV</text>
                   
-                  <text x="100" y="190" textAnchor="middle" fill="#77D3AE" fontSize="8">✓ Recommended for beginners</text>
+                  <text x="100" y="190" textAnchor="middle" fill="#3CCB97" fontSize="8">✓ Recommended for beginners</text>
                 </g>
 
                 {/* Medium Scale */}
                 <g transform="translate(250, 50)">
-                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#232327" stroke="#5A77AA" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#2A2A2C" stroke="#5A77AA" strokeWidth="2"/>
                   <text x="100" y="30" textAnchor="middle" fill="#9FB3D3" fontSize="12" fontWeight="700">MEDIUM SCALE</text>
-                  <text x="100" y="50" textAnchor="middle" fill="#75757D" fontSize="9">1-50GB data</text>
+                  <text x="100" y="50" textAnchor="middle" fill="#717680" fontSize="9">1-50GB data</text>
                   
                   <text x="20" y="80" fill="white" fontSize="10" fontWeight="600">SQLite</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Single file database</text>
-                  <text x="20" y="108" fill="#A3A1A6" fontSize="8">• SQL queries, no server</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Single file database</text>
+                  <text x="20" y="108" fill="#A0A3AA" fontSize="8">• SQL queries, no server</text>
                   
                   <text x="20" y="130" fill="white" fontSize="10" fontWeight="600">PostgreSQL</text>
-                  <text x="20" y="145" fill="#A3A1A6" fontSize="8">• Full SQL power</text>
-                  <text x="20" y="158" fill="#A3A1A6" fontSize="8">• TimescaleDB extension</text>
+                  <text x="20" y="145" fill="#A0A3AA" fontSize="8">• Full SQL power</text>
+                  <text x="20" y="158" fill="#A0A3AA" fontSize="8">• TimescaleDB extension</text>
                   
                   <text x="100" y="190" textAnchor="middle" fill="#9FB3D3" fontSize="8">✓ Best for most algo traders</text>
                 </g>
 
                 {/* Large Scale */}
                 <g transform="translate(470, 50)">
-                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#232327" stroke="#8F6FC4" strokeWidth="2"/>
+                  <rect x="0" y="0" width="200" height="200" rx="12" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
                   <text x="100" y="30" textAnchor="middle" fill="#C0A9E2" fontSize="12" fontWeight="700">LARGE SCALE</text>
-                  <text x="100" y="50" textAnchor="middle" fill="#75757D" fontSize="9">&gt; 50GB data</text>
+                  <text x="100" y="50" textAnchor="middle" fill="#717680" fontSize="9">&gt; 50GB data</text>
                   
                   <text x="20" y="80" fill="white" fontSize="10" fontWeight="600">InfluxDB</text>
-                  <text x="20" y="95" fill="#A3A1A6" fontSize="8">• Time-series optimized</text>
-                  <text x="20" y="108" fill="#A3A1A6" fontSize="8">• Built for OHLC data</text>
+                  <text x="20" y="95" fill="#A0A3AA" fontSize="8">• Time-series optimized</text>
+                  <text x="20" y="108" fill="#A0A3AA" fontSize="8">• Built for OHLC data</text>
                   
                   <text x="20" y="130" fill="white" fontSize="10" fontWeight="600">ClickHouse</text>
-                  <text x="20" y="145" fill="#A3A1A6" fontSize="8">• Columnar storage</text>
-                  <text x="20" y="158" fill="#A3A1A6" fontSize="8">• Blazing fast queries</text>
+                  <text x="20" y="145" fill="#A0A3AA" fontSize="8">• Columnar storage</text>
+                  <text x="20" y="158" fill="#A0A3AA" fontSize="8">• Blazing fast queries</text>
                   
                   <text x="100" y="190" textAnchor="middle" fill="#C0A9E2" fontSize="8">✓ For institutional/HFT</text>
                 </g>
@@ -464,7 +464,7 @@ const AlgoTradingLesson8 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Live Trading
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-9')}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all bg-brand-fill">
               Next: Broker APIs<FaArrowRight/>
             </button>
           </div>

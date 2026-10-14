@@ -181,7 +181,7 @@ function StatusIndicator({ animate, move, stage }: { animate: boolean; move: boo
         {isComplete ? (
           <motion.span
             animate={{ opacity: 1, transform: "scale(1)" }}
-            className="col-start-1 row-start-1 grid place-items-center text-green-500"
+            className="col-start-1 row-start-1 grid place-items-center text-brand"
             exit={{ opacity: animate ? 0 : 1, transform: move ? "scale(0.96)" : "scale(1)" }}
             initial={{ opacity: animate ? 0 : 1, transform: move ? "scale(0.94)" : "scale(1)" }}
             key="complete"

@@ -38,7 +38,7 @@ const sampleArticles = [
     summary: 'An explainer on the key triggers behind the latest market surge, and whether it can sustain.',
     readTime: '3 min',
     date: 'Apr 12, 2026',
-    accent: 'bg-emerald-500',
+    accent: 'bg-brand-fill',
   },
   {
     category: 'Economy',
@@ -75,7 +75,7 @@ const BoltIcon = () => (
   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
 );
 const CheckCircle = () => (
-  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
+  <svg className="w-5 h-5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
 );
 
 /* ======================================================
@@ -92,24 +92,24 @@ const NewsletterIntro = () => {
       {/* ======== HERO - Email capture above the fold ======== */}
       <section className="relative overflow-hidden">
         {/* Layered background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-50/60 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-green-100/50 to-emerald-100/30 dark:from-emerald-900/10 dark:to-transparent blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-emerald-100/40 to-transparent dark:from-emerald-900/10 blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[100px] pointer-events-none bg-brand-soft" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[80px] pointer-events-none bg-brand-soft" />
 
         <div className="relative max-w-3xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-28 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
 
             {/* Eyebrow */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100/80 dark:bg-emerald-900/20 border border-green-200/60 dark:border-emerald-700/30 text-green-700 dark:text-emerald-300 text-sm font-medium mb-8">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-brand dark:text-brand text-sm font-medium mb-8">
               <MailIcon />
               Free daily newsletter
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-display font-normal leading-[1.08] tracking-[-0.02em] mb-5">
+            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-display font-semibold leading-[1.08] tracking-[-0.025em] mb-5">
               Understand Indian markets
               <br />
-              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">in 3 minutes a day</span>
+              <span className="text-brand">in 3 minutes a day</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -125,11 +125,11 @@ const NewsletterIntro = () => {
                   placeholder="you@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 border-0 text-base"
+                  className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand border-0 text-base"
                 />
                 <Link
                   to="/newsletter"
-                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-green-600/20 hover:shadow-green-600/30 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-2 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-brand/20 hover:shadow-brand/30 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap bg-brand-fill"
                 >
                   Subscribe free
                   <ArrowRight />
@@ -145,8 +145,8 @@ const NewsletterIntro = () => {
             {/* Social proof - reader avatars + count */}
             <motion.div variants={fadeUp} className="mt-10 flex items-center justify-center gap-3">
               <div className="flex -space-x-2">
-                {['bg-emerald-500', 'bg-blue-500', 'bg-violet-500', 'bg-green-600', 'bg-teal-500'].map((bg, i) => (
-                  <div key={i} className={`w-8 h-8 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center text-[10px] font-bold text-white ${bg}`}>
+                {['bg-brand-fill', 'bg-blue-500', 'bg-violet-500', 'bg-brand-fill', 'bg-teal-500'].map((bg, i) => (
+                  <div key={i} className={`w-8 h-8 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center text-xs font-bold text-white ${bg}`}>
                     {['A', 'R', 'S', 'K', 'P'][i]}
                   </div>
                 ))}
@@ -160,7 +160,7 @@ const NewsletterIntro = () => {
       </section>
 
       {/* ======== WHAT YOU GET - 3 bullet value props ======== */}
-      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-gray-50/50 dark:bg-slate-900/40">
+      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-background">
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="grid sm:grid-cols-3 gap-6 sm:gap-12">
             {[
@@ -169,7 +169,7 @@ const NewsletterIntro = () => {
               { icon: <LockIcon />, text: 'Free forever. No credit card needed' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 text-sm text-gray-600 dark:text-slate-400">
-                <span className="text-green-500 dark:text-emerald-400">{item.icon}</span>
+                <span className="text-brand dark:text-brand">{item.icon}</span>
                 {item.text}
               </div>
             ))}
@@ -181,8 +181,8 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-20 md:py-28 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-16">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Recent editions</span>
-            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">See what you've been missing</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Recent editions</span>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">See what you've been missing</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">A taste of what lands in your inbox every morning</p>
           </motion.div>
 
@@ -192,23 +192,23 @@ const NewsletterIntro = () => {
                 key={a.title}
                 variants={fadeUp}
                 custom={i}
-                className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 hover:border-green-200 dark:hover:border-emerald-800/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 hover:border-brand-line dark:hover:border-brand/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
                 {/* Accent bar */}
                 <div className={`h-1 ${a.accent}`} />
 
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-green-600 dark:text-emerald-400">{a.category}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-brand dark:text-brand">{a.category}</span>
                     <span className="text-xs text-gray-400 dark:text-slate-500">{a.date}</span>
                   </div>
-                  <h3 className="text-lg font-semibold leading-snug mb-3 group-hover:text-green-600 dark:group-hover:text-emerald-400 transition-colors">{a.title}</h3>
+                  <h3 className="text-lg font-semibold leading-snug mb-3 group-hover:text-brand dark:group-hover:text-brand transition-colors">{a.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed flex-1">{a.summary}</p>
                   <div className="mt-5 pt-4 border-t border-gray-50 dark:border-slate-800 flex items-center justify-between">
                     <span className="text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1">
                       <ClockIcon /> {a.readTime}
                     </span>
-                    <span className="text-sm font-semibold text-green-600 dark:text-emerald-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    <span className="text-sm font-semibold text-brand dark:text-brand flex items-center gap-1 group-hover:gap-2 transition-all">
                       Read <ArrowRight />
                     </span>
                   </div>
@@ -223,7 +223,7 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Every edition covers</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold tracking-[-0.025em]">Every edition covers</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -248,13 +248,13 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div variants={fadeUp} className="mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">How it works</span>
-            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">AI does the heavy lifting</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">How it works</span>
+            <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">AI does the heavy lifting</h2>
           </motion.div>
 
           <div className="relative">
             {/* Connector line */}
-            <div className="hidden md:block absolute top-8 left-[15%] right-[15%] h-px bg-gradient-to-r from-green-200 via-emerald-200 to-teal-200 dark:from-green-800/40 dark:via-emerald-800/40 dark:to-teal-800/40" />
+            <div className="hidden md:block absolute top-8 left-[15%] right-[15%] h-px bg-brand-soft" />
 
             <div className="grid md:grid-cols-4 gap-8 md:gap-4">
               {[
@@ -264,8 +264,8 @@ const NewsletterIntro = () => {
                 { step: '4', label: 'Deliver', desc: 'In your inbox at 8 AM' },
               ].map((s, i) => (
                 <motion.div key={s.step} variants={fadeUp} custom={i} className="relative">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-50 to-emerald-50 dark:from-emerald-900/20 dark:to-green-900/20 border border-green-200/50 dark:border-emerald-700/30 flex items-center justify-center mx-auto mb-3">
-                    <span className="text-xl font-bold bg-gradient-to-br from-green-600 to-emerald-500 bg-clip-text text-transparent">{s.step}</span>
+                  <div className="w-16 h-16 rounded-full border border-brand-line dark:border-brand-line flex items-center justify-center mx-auto mb-3 bg-brand-soft">
+                    <span className="text-xl font-bold text-brand">{s.step}</span>
                   </div>
                   <h3 className="font-bold mb-1">{s.label}</h3>
                   <p className="text-sm text-gray-500 dark:text-slate-400">{s.desc}</p>
@@ -277,7 +277,7 @@ const NewsletterIntro = () => {
       </AnimatedSection>
 
       {/* ======== TESTIMONIAL STRIP ======== */}
-      <section className="bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40 py-12 px-6">
+      <section className="bg-background border-y border-gray-100/80 dark:border-slate-800/40 py-12 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -298,7 +298,7 @@ const NewsletterIntro = () => {
       {/* ======== FINAL CTA ======== */}
       <AnimatedSection className="py-24 md:py-32 px-6">
         <motion.div variants={fadeUp} className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-display font-normal mb-4 tracking-[-0.015em]">
+          <h2 className="text-2xl md:text-3xl font-display font-semibold mb-4 tracking-[-0.025em]">
             Start your morning smarter
           </h2>
           <p className="text-gray-500 dark:text-slate-400 text-lg mb-10 max-w-lg mx-auto">
@@ -313,11 +313,11 @@ const NewsletterIntro = () => {
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 border-0 text-base"
+                className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand border-0 text-base"
               />
               <Link
                 to="/newsletter"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-green-600/20 hover:shadow-green-600/30 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 text-white font-semibold px-7 py-3.5 rounded-xl shadow-md shadow-brand/20 hover:shadow-brand/30 transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap bg-brand-fill"
               >
                 Subscribe free
                 <ArrowRight />

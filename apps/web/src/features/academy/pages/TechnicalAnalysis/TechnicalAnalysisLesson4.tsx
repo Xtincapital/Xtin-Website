@@ -27,7 +27,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               showResult
                 ? option === correctAnswer
-                  ? 'border-green-500 bg-green-50'
+                  ? 'border-brand bg-brand-soft'
                   : option === selectedAnswer
                   ? 'border-red-500 bg-red-50'
                   : 'border-gray-200 bg-gray-50'
@@ -39,14 +39,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+        <div className={`mt-4 p-4 rounded-lg flex items-start gap-3 ${isCorrect ? 'bg-brand-soft' : 'bg-red-100'}`}>
           {isCorrect ? (
-            <FaCheckCircle className="text-green-600 text-xl flex-shrink-0 mt-0.5" />
+            <FaCheckCircle className="text-brand text-xl flex-shrink-0 mt-0.5" />
           ) : (
             <FaTimesCircle className="text-red-600 text-xl flex-shrink-0 mt-0.5" />
           )}
           <div>
-            <p className={`font-semibold ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+            <p className={`font-semibold ${isCorrect ? 'text-brand' : 'text-red-800'}`}>
               {isCorrect ? 'Correct!' : 'Not quite right'}
             </p>
             <p className="text-gray-700 mt-1">{explanation}</p>
@@ -61,14 +61,14 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhyPricesReactSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Prices Pause at Certain Areas</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Market memory creates zones where price tends to react</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Why Prices Pause at Certain Areas</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Market memory creates zones where price tends to react</text>
     
     {/* Chart area */}
-    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Price movement showing reactions */}
     <path 
@@ -102,22 +102,22 @@ const WhyPricesReactSVG = () => (
 const SupportZoneSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding Support</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">An area where buying interest tends to appear</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Understanding Support</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">An area where buying interest tends to appear</text>
     
     {/* Chart area */}
-    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
-    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
-    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A0A3AA">High</text>
+    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A0A3AA">Mid</text>
+    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Support zone - highlighted area */}
-    <rect x="60" y="215" width="480" height="40" fill="#1FA978" fillOpacity="0.2" rx="4"/>
+    <rect x="60" y="215" width="480" height="40" fill="#12805A" fillOpacity="0.2" rx="4"/>
     <text x="530" y="238" textAnchor="end" fontSize="10" fontWeight="500" fill="#12805A">Support Zone</text>
     
     {/* Price movement bouncing off support */}
@@ -131,9 +131,9 @@ const SupportZoneSVG = () => (
     />
     
     {/* Bounce points at support */}
-    <circle cx="240" cy="220" r="7" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
-    <circle cx="370" cy="225" r="7" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
-    <circle cx="520" cy="230" r="7" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="240" cy="220" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="370" cy="225" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="520" cy="230" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     
     {/* Bounce arrows */}
     <path d="M240 240 L240 255 M234 249 L240 255 L246 249" stroke="#12805A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 240, 247)"/>
@@ -141,13 +141,13 @@ const SupportZoneSVG = () => (
     <path d="M520 240 L520 255 M514 249 L520 255 L526 249" stroke="#12805A" strokeWidth="2" strokeLinecap="round" transform="rotate(180, 520, 247)"/>
     
     {/* Labels */}
-    <text x="240" y="270" textAnchor="middle" fontSize="8" fill="#0D543C">Bounce</text>
-    <text x="370" y="270" textAnchor="middle" fontSize="8" fill="#0D543C">Bounce</text>
-    <text x="520" y="270" textAnchor="middle" fontSize="8" fill="#0D543C">Bounce</text>
+    <text x="240" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
+    <text x="370" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
+    <text x="520" y="270" textAnchor="middle" fontSize="8" fill="#12805A">Bounce</text>
     
     {/* Explanation box */}
-    <rect x="140" y="285" width="320" height="28" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-    <text x="300" y="300" textAnchor="middle" fontSize="10" fill="#0D543C">Price falls into the zone → Buyers step in → Price bounces up</text>
+    <rect x="140" y="285" width="320" height="28" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+    <text x="300" y="300" textAnchor="middle" fontSize="10" fill="#12805A">Price falls into the zone → Buyers step in → Price bounces up</text>
   </svg>
 );
 
@@ -155,19 +155,19 @@ const SupportZoneSVG = () => (
 const ResistanceZoneSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding Resistance</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">An area where selling interest tends to appear</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Understanding Resistance</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">An area where selling interest tends to appear</text>
     
     {/* Chart area */}
-    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="200" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
-    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
-    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A0A3AA">High</text>
+    <text x="40" y="170" textAnchor="end" fontSize="9" fill="#A0A3AA">Mid</text>
+    <text x="40" y="245" textAnchor="end" fontSize="9" fill="#A0A3AA">Low</text>
     
     {/* Resistance zone - highlighted area */}
     <rect x="60" y="80" width="480" height="40" fill="#E04848" fillOpacity="0.2" rx="4"/>
@@ -208,11 +208,11 @@ const ResistanceZoneSVG = () => (
 const ZonesVsLinesSVG = () => (
   <svg viewBox="0 0 640 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Zones, Not Exact Lines</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Support and resistance are areas, not precise price points</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Zones, Not Exact Lines</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Support and resistance are areas, not precise price points</text>
     
     {/* Left - Wrong: Exact line */}
     <rect x="30" y="70" width="270" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -228,7 +228,7 @@ const ZonesVsLinesSVG = () => (
       <path 
         d="M-70 -30 L-40 10 L-20 25 L10 15 L30 25 L50 10 L70 -20" 
         fill="none" 
-        stroke="#A3A1A6" 
+        stroke="#A0A3AA" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -243,20 +243,20 @@ const ZonesVsLinesSVG = () => (
     <text x="165" y="263" textAnchor="middle" fontSize="9" fill="#842428">Too rigid — leads to confusion</text>
     
     {/* Right - Correct: Zone */}
-    <rect x="340" y="70" width="270" height="200" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="340" y="70" width="270" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="475" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Thinking in Zones</text>
     
     <g transform="translate(475, 175)">
       <rect x="-100" y="-55" width="200" height="110" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Zone area */}
-      <rect x="-80" y="5" width="160" height="35" fill="#1FA978" fillOpacity="0.25" rx="4"/>
+      <rect x="-80" y="5" width="160" height="35" fill="#12805A" fillOpacity="0.25" rx="4"/>
       
       {/* Price reacting within the zone */}
       <path 
         d="M-70 -30 L-40 5 L-20 20 L10 10 L30 25 L50 15 L70 -25" 
         fill="none" 
-        stroke="#1FA978" 
+        stroke="#12805A" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -267,8 +267,8 @@ const ZonesVsLinesSVG = () => (
       <text x="30" y="48" fontSize="10" fill="#12805A">✓</text>
     </g>
     
-    <text x="475" y="250" textAnchor="middle" fontSize="9" fill="#0D543C">"Price tends to react in this area"</text>
-    <text x="475" y="263" textAnchor="middle" fontSize="9" fill="#0D543C">Flexible — matches reality</text>
+    <text x="475" y="250" textAnchor="middle" fontSize="9" fill="#12805A">"Price tends to react in this area"</text>
+    <text x="475" y="263" textAnchor="middle" fontSize="9" fill="#12805A">Flexible — matches reality</text>
   </svg>
 );
 
@@ -276,14 +276,14 @@ const ZonesVsLinesSVG = () => (
 const MarketMemorySVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Why Do These Zones Form?</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Market memory — participants remember significant price areas</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Why Do These Zones Form?</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#717680">Market memory — participants remember significant price areas</text>
     
     {/* Timeline visual */}
-    <rect x="50" y="80" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="50" y="80" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Price chart showing history */}
     <path 
@@ -333,23 +333,23 @@ const MarketMemorySVG = () => (
 const BounceVsBreakSVG = () => (
   <svg viewBox="0 0 640 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="640" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Two Outcomes at a Zone</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Price can either bounce off or break through</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#373A41">Two Outcomes at a Zone</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#717680">Price can either bounce off or break through</text>
     
     {/* Left - Bounce */}
-    <rect x="30" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <rect x="30" y="70" width="275" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
     <text x="167" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">Bounce (Respect)</text>
-    <text x="167" y="112" textAnchor="middle" fontSize="10" fill="#0E6A4A">Zone holds — price reverses</text>
+    <text x="167" y="112" textAnchor="middle" fontSize="10" fill="#12805A">Zone holds — price reverses</text>
     
     <g transform="translate(167, 195)">
       <rect x="-105" y="-70" width="210" height="140" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Support zone */}
-      <rect x="-85" y="25" width="170" height="30" fill="#1FA978" fillOpacity="0.25" rx="4"/>
-      <text x="70" y="43" fontSize="8" fill="#0D543C">Support</text>
+      <rect x="-85" y="25" width="170" height="30" fill="#12805A" fillOpacity="0.25" rx="4"/>
+      <text x="70" y="43" fontSize="8" fill="#12805A">Support</text>
       
       {/* Price approaching and bouncing */}
       <path 
@@ -362,15 +362,15 @@ const BounceVsBreakSVG = () => (
       />
       
       {/* Bounce point */}
-      <circle cx="40" cy="35" r="7" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+      <circle cx="40" cy="35" r="7" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
       
       {/* Arrow showing reversal */}
       <path d="M55 50 C70 60, 80 40, 90 -20" fill="none" stroke="#12805A" strokeWidth="1.5" strokeDasharray="4 3"/>
       <path d="M85 -15 L90 -20 L95 -12" fill="none" stroke="#12805A" strokeWidth="1.5"/>
     </g>
     
-    <text x="167" y="290" textAnchor="middle" fontSize="9" fill="#0D543C">Price touches zone and reverses</text>
-    <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#0D543C">Zone remains valid</text>
+    <text x="167" y="290" textAnchor="middle" fontSize="9" fill="#12805A">Price touches zone and reverses</text>
+    <text x="167" y="303" textAnchor="middle" fontSize="9" fill="#12805A">Zone remains valid</text>
     
     {/* Right - Break */}
     <rect x="335" y="70" width="275" height="240" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
@@ -411,28 +411,28 @@ const BounceVsBreakSVG = () => (
 const SupportExampleSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Price Reacting at Support</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Example: Price Reacting at Support</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="200" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="200" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="75" textAnchor="end" fontSize="9" fill="#A3A1A6">$55</text>
-    <text x="50" y="120" textAnchor="end" fontSize="9" fill="#A3A1A6">$50</text>
-    <text x="50" y="165" textAnchor="end" fontSize="9" fill="#A3A1A6">$45</text>
-    <text x="50" y="210" textAnchor="end" fontSize="9" fill="#A3A1A6">$40</text>
+    <text x="50" y="75" textAnchor="end" fontSize="9" fill="#A0A3AA">$55</text>
+    <text x="50" y="120" textAnchor="end" fontSize="9" fill="#A0A3AA">$50</text>
+    <text x="50" y="165" textAnchor="end" fontSize="9" fill="#A0A3AA">$45</text>
+    <text x="50" y="210" textAnchor="end" fontSize="9" fill="#A0A3AA">$40</text>
     
     {/* Grid */}
-    <line x1="70" y1="75" x2="530" y2="75" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="120" x2="530" y2="120" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="165" x2="530" y2="165" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="210" x2="530" y2="210" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="75" x2="530" y2="75" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="120" x2="530" y2="120" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="165" x2="530" y2="165" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="210" x2="530" y2="210" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Support zone */}
-    <rect x="70" y="195" width="460" height="35" fill="#1FA978" fillOpacity="0.2" rx="4"/>
+    <rect x="70" y="195" width="460" height="35" fill="#12805A" fillOpacity="0.2" rx="4"/>
     <text x="520" y="215" textAnchor="end" fontSize="9" fill="#12805A">$40-42 Zone</text>
     
     {/* Price movement */}
@@ -446,21 +446,21 @@ const SupportExampleSVG = () => (
     />
     
     {/* Bounce point */}
-    <circle cx="380" cy="205" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="380" cy="205" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     
     {/* Annotation */}
     <line x1="380" y1="215" x2="380" y2="235" stroke="#12805A" strokeWidth="1.5"/>
-    <text x="380" y="248" textAnchor="middle" fontSize="9" fill="#0D543C">Price touches $41</text>
-    <text x="380" y="260" textAnchor="middle" fontSize="9" fill="#0D543C">and bounces higher</text>
+    <text x="380" y="248" textAnchor="middle" fontSize="9" fill="#12805A">Price touches $41</text>
+    <text x="380" y="260" textAnchor="middle" fontSize="9" fill="#12805A">and bounces higher</text>
     
     {/* Time axis */}
-    <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
-    <text x="300" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
-    <text x="450" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
+    <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
+    <text x="300" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 2</text>
+    <text x="450" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 3</text>
     
     {/* Info box */}
-    <rect x="150" y="280" width="300" height="16" fill="#D5F2E5" rx="4"/>
-    <text x="300" y="291" textAnchor="middle" fontSize="9" fill="#0D543C">Observation: Buyers appeared around $40-42</text>
+    <rect x="150" y="280" width="300" height="16" fill="#EEF9F4" rx="4"/>
+    <text x="300" y="291" textAnchor="middle" fontSize="9" fill="#12805A">Observation: Buyers appeared around $40-42</text>
   </svg>
 );
 
@@ -468,25 +468,25 @@ const SupportExampleSVG = () => (
 const ResistanceBreakExampleSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Price Breaking Through Resistance</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Example: Price Breaking Through Resistance</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="200" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="200" fill="#ffffff" rx="10" stroke="#E4E4EA" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="75" textAnchor="end" fontSize="9" fill="#A3A1A6">$75</text>
-    <text x="50" y="120" textAnchor="end" fontSize="9" fill="#A3A1A6">$70</text>
-    <text x="50" y="165" textAnchor="end" fontSize="9" fill="#A3A1A6">$65</text>
-    <text x="50" y="210" textAnchor="end" fontSize="9" fill="#A3A1A6">$60</text>
+    <text x="50" y="75" textAnchor="end" fontSize="9" fill="#A0A3AA">$75</text>
+    <text x="50" y="120" textAnchor="end" fontSize="9" fill="#A0A3AA">$70</text>
+    <text x="50" y="165" textAnchor="end" fontSize="9" fill="#A0A3AA">$65</text>
+    <text x="50" y="210" textAnchor="end" fontSize="9" fill="#A0A3AA">$60</text>
     
     {/* Grid */}
-    <line x1="70" y1="75" x2="530" y2="75" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="120" x2="530" y2="120" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="165" x2="530" y2="165" stroke="#EFEDE7" strokeWidth="1"/>
-    <line x1="70" y1="210" x2="530" y2="210" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="75" x2="530" y2="75" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="120" x2="530" y2="120" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="165" x2="530" y2="165" stroke="#EEEEF1" strokeWidth="1"/>
+    <line x1="70" y1="210" x2="530" y2="210" stroke="#EEEEF1" strokeWidth="1"/>
     
     {/* Resistance zone */}
     <rect x="70" y="105" width="460" height="30" fill="#E04848" fillOpacity="0.2" rx="4"/>
@@ -507,19 +507,19 @@ const ResistanceBreakExampleSVG = () => (
     <circle cx="350" cy="115" r="6" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
     
     {/* Break point */}
-    <circle cx="420" cy="110" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <circle cx="420" cy="110" r="8" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
     
     {/* Annotations */}
     <text x="230" y="105" textAnchor="middle" fontSize="8" fill="#C0623B">Rejected</text>
     <text x="350" y="100" textAnchor="middle" fontSize="8" fill="#C0623B">Rejected</text>
     
     <line x1="420" y1="95" x2="420" y2="75" stroke="#12805A" strokeWidth="1.5"/>
-    <text x="420" y="68" textAnchor="middle" fontSize="9" fill="#0D543C">Breakthrough!</text>
+    <text x="420" y="68" textAnchor="middle" fontSize="9" fill="#12805A">Breakthrough!</text>
     
     {/* Time axis */}
-    <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
-    <text x="300" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
-    <text x="450" y="270" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
+    <text x="150" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 1</text>
+    <text x="300" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 2</text>
+    <text x="450" y="270" textAnchor="middle" fontSize="9" fill="#A0A3AA">Week 3</text>
     
     {/* Info box */}
     <rect x="130" y="280" width="340" height="16" fill="#E0E7F1" rx="4"/>
@@ -573,14 +573,14 @@ const TechnicalAnalysisLesson4 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 4 of 7
             </span>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Support & Resistance</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mt-4 tracking-[-0.025em]">Support & Resistance</h1>
             <p className="text-gray-600 mt-2">Understanding price reaction zones in the market</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Prices Pause at Certain Areas</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Prices Pause at Certain Areas</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -630,9 +630,9 @@ const TechnicalAnalysisLesson4 = () => {
           <SupportZoneSVG />
           
           <div className="mt-6 grid md:grid-cols-2 gap-4">
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Support Zone Characteristics</h4>
-              <ul className="text-green-900 text-sm space-y-1">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Support Zone Characteristics</h4>
+              <ul className="text-brand text-sm space-y-1">
                 <li>• Located below current price</li>
                 <li>• Buying interest appears here</li>
                 <li>• Price tends to bounce up</li>
@@ -777,8 +777,8 @@ const TechnicalAnalysisLesson4 = () => {
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Practical Examples</h2>
           
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-6 border border-green-200">
-            <h3 className="text-xl font-semibold text-green-800 mb-4">📌 Example 1: Price Reacting at Support</h3>
+          <div className="rounded-xl p-6 mb-6 border border-brand-line bg-brand-soft">
+            <h3 className="text-xl font-semibold text-brand mb-4">📌 Example 1: Price Reacting at Support</h3>
             <p className="text-gray-700 mb-4">
               An asset has established a support zone around <strong>$40-42</strong>. Price 
               falls from $55 over two weeks, then enters this zone. At $41, buying interest 
@@ -800,9 +800,9 @@ const TechnicalAnalysisLesson4 = () => {
           <ResistanceBreakExampleSVG />
           
           <div className="mt-6 grid md:grid-cols-2 gap-4">
-            <div className="bg-green-50 rounded-xl p-5 border border-green-200">
-              <h4 className="font-semibold text-green-800 mb-2">Support Reaction</h4>
-              <p className="text-green-900 text-sm">
+            <div className="bg-brand-soft rounded-xl p-5 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Support Reaction</h4>
+              <p className="text-brand text-sm">
                 The $40-42 zone showed buying interest. Price bounced — but this doesn't 
                 mean it will always bounce there in the future.
               </p>
@@ -865,7 +865,7 @@ const TechnicalAnalysisLesson4 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Support = price area where buying interest tends to appear</li>
@@ -888,7 +888,7 @@ const TechnicalAnalysisLesson4 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-5')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

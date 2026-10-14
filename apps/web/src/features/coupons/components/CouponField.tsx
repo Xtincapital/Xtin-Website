@@ -108,7 +108,7 @@ export default function CouponField({ product, amount, currency = "INR", value, 
           setOpen(true);
           setTimeout(() => inputRef.current?.focus(), 0);
         }}
-        className={cn("inline-flex items-center gap-1.5 text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400", className)}
+        className={cn("inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline dark:text-brand", className)}
       >
         <Tag size={14} /> Have a coupon code?
       </button>
@@ -118,30 +118,30 @@ export default function CouponField({ product, amount, currency = "INR", value, 
   return (
     <div className={cn("w-full text-left", className)}>
       {preview?.kind === "discount" && value ? (
-        <div className="flex items-start justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm dark:border-emerald-900 dark:bg-emerald-950/40">
+        <div className="flex items-start justify-between gap-3 rounded-lg border border-brand-line bg-brand-soft px-3 py-2 text-sm dark:border-brand dark:bg-brand-fill/40">
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5 font-semibold text-emerald-800 dark:text-emerald-300">
+            <div className="flex items-center gap-1.5 font-semibold text-brand dark:text-brand">
               <Check size={14} /> {preview.code} applied · {preview.label}
             </div>
             {amount !== undefined && preview.discount > 0 && (
-              <div className="mt-0.5 text-emerald-700 dark:text-emerald-400">
+              <div className="mt-0.5 text-brand dark:text-brand">
                 You save {formatMoney(preview.discount, currency)} — pay {formatMoney(preview.amount, currency)}
               </div>
             )}
-            {amount === undefined && <div className="mt-0.5 text-emerald-700 dark:text-emerald-400">Taken off at checkout.</div>}
+            {amount === undefined && <div className="mt-0.5 text-brand dark:text-brand">Taken off at checkout.</div>}
           </div>
-          <button type="button" onClick={remove} aria-label="Remove coupon" className="shrink-0 rounded p-1 text-emerald-700 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900/50">
+          <button type="button" onClick={remove} aria-label="Remove coupon" className="shrink-0 rounded p-1 text-brand hover:bg-brand-soft dark:text-brand dark:hover:bg-brand-hover">
             <X size={14} />
           </button>
         </div>
       ) : preview?.kind === "free_access" ? (
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm dark:border-emerald-900 dark:bg-emerald-950/40">
-          <div className="font-semibold text-emerald-800 dark:text-emerald-300">{preview.code} unlocks {preview.label} — free</div>
+        <div className="rounded-lg border border-brand-line bg-brand-soft px-3 py-2.5 text-sm dark:border-brand dark:bg-brand-fill/40">
+          <div className="font-semibold text-brand dark:text-brand">{preview.code} unlocks {preview.label} — free</div>
           <div className="mt-2 flex gap-2">
-            <button type="button" onClick={activate} disabled={busy} className="rounded-md bg-emerald-600 px-3 py-1.5 font-semibold text-white hover:bg-emerald-700 disabled:opacity-60">
+            <button type="button" onClick={activate} disabled={busy} className="rounded-md bg-brand-fill px-3 py-1.5 font-semibold text-white hover:bg-brand-hover disabled:opacity-60">
               {busy ? "Activating…" : "Activate for free"}
             </button>
-            <button type="button" onClick={remove} className="rounded-md px-3 py-1.5 font-medium text-emerald-800 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-900/50">
+            <button type="button" onClick={remove} className="rounded-md px-3 py-1.5 font-medium text-brand hover:bg-brand-soft dark:text-brand dark:hover:bg-brand-hover">
               Cancel
             </button>
           </div>
@@ -161,12 +161,12 @@ export default function CouponField({ product, amount, currency = "INR", value, 
             autoComplete="off"
             spellCheck={false}
             maxLength={32}
-            className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm uppercase tracking-wide placeholder:normal-case placeholder:tracking-normal text-slate-900 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+            className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm uppercase tracking-wide placeholder:normal-case placeholder:tracking-normal text-slate-900 outline-none focus:border-brand focus:ring-2 focus:ring-brand-line dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
           />
           <button
             type="submit"
             disabled={busy || !input.trim()}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white brand-on-dark"
           >
             {busy && <Loader2 size={14} className="animate-spin" />} Apply
           </button>

@@ -158,7 +158,7 @@ function projectGoal(goal: Goal): GoalProjection {
 }
 
 function goalStatus(progressPercent: number): { label: string; className: string } {
-  if (progressPercent >= 100) return { label: "Goal Completed", className: "text-success" };
+  if (progressPercent >= 100) return { label: "Goal Completed", className: "text-brand" };
   if (progressPercent >= 60) return { label: "On Track", className: "text-blue-600 dark:text-blue-400" };
   if (progressPercent >= 30) return { label: "Needs Attention", className: "text-warning" };
   return { label: "Critical", className: "text-destructive" };
@@ -540,7 +540,7 @@ export default function Goals() {
               {hasQuestions(form.category) && (
                 <button
                   type="button"
-                  className="text-sm font-medium text-primary hover:underline"
+                  className="text-sm font-medium text-brand hover:underline"
                   onClick={() => setMode(guided ? "manual" : "guided")}
                 >
                   {guided ? "I already know the amount" : "Help me work out the amount"}

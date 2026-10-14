@@ -182,7 +182,7 @@ export default function Pricing() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-1.5">
-                    Pro <Sparkles className="h-4 w-4 text-primary" />
+                    Pro <Sparkles className="h-4 w-4 text-brand" />
                   </CardTitle>
                   <Badge>Most popular</Badge>
                 </div>
@@ -208,7 +208,7 @@ export default function Pricing() {
                 <ul className="space-y-2 text-sm">
                   {PRO_FEATURES.map((f) => (
                     <li key={f} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -263,7 +263,7 @@ export default function Pricing() {
                   <ul className="space-y-2 text-sm">
                     {(PACK_FEATURES[pack.id as AiPackageId] || []).map((f) => (
                       <li key={f} className="flex items-start gap-2">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                         <span>{f}</span>
                       </li>
                     ))}
@@ -286,7 +286,7 @@ export default function Pricing() {
         </section>
 
         {celebrating && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 brand-on-dark">
             <Card className="mx-4 max-w-sm text-center">
               <CardContent className="space-y-2 p-8">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">

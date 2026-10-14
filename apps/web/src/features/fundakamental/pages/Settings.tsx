@@ -373,7 +373,7 @@ const Settings = () => {
                   <div className="p-4 rounded-lg border border-border mb-6">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
-                        <Coins className="w-4 h-4 text-primary" /> AI tokens
+                        <Coins className="w-4 h-4 text-brand" /> AI tokens
                       </span>
                       <span className="text-sm font-bold text-foreground">
                         {formatTokens(wallet.balance)}
@@ -387,7 +387,7 @@ const Settings = () => {
                     </div>
                     <button
                       onClick={() => (isPro ? openBuyTokens() : openUpgrade("reports"))}
-                      className="mt-2 text-[13px] font-semibold text-primary hover:underline"
+                      className="mt-2 text-sm font-semibold text-brand hover:underline"
                     >
                       {isPro ? "Buy more tokens" : "Get more with Pro →"}
                     </button>
@@ -435,7 +435,7 @@ const Settings = () => {
                               key={feature}
                               className="flex items-center gap-2 text-sm text-muted-foreground"
                             >
-                              <Check className="w-4 h-4 text-success" />
+                              <Check className="w-4 h-4 text-brand" />
                               {feature}
                             </li>
                           ))}
@@ -446,7 +446,7 @@ const Settings = () => {
                         >
                           Upgrade — {formatPrice(bp.monthly, bp.currency)}/month
                         </Button>
-                        <p className="text-xs text-primary font-medium mt-2">
+                        <p className="text-xs text-brand font-medium mt-2">
                           or {formatPrice(bp.yearly, bp.currency)}/year — save 33%
                         </p>
                       </div>

@@ -303,7 +303,7 @@ export default function MonteCarlo() {
           <div className="space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-2 space-y-0">
-                <Dices className="h-5 w-5 text-primary" />
+                <Dices className="h-5 w-5 text-brand" />
                 <CardTitle>Simulation Parameters</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -425,7 +425,7 @@ export default function MonteCarlo() {
                       <p className="xt-label">
                         Probability of Success
                       </p>
-                      <p className="mt-1 xt-metric text-success">{results.probability.toFixed(1)}%</p>
+                      <p className="mt-1 xt-metric text-brand">{results.probability.toFixed(1)}%</p>
                     </div>
                     <div className="rounded-lg border p-4">
                       <p className="xt-label">Median Outcome</p>
@@ -435,7 +435,7 @@ export default function MonteCarlo() {
                       <p className="xt-label">
                         Best Case (90th %ile)
                       </p>
-                      <p className="mt-1 xt-metric text-success">{formatCompact(results.best)}</p>
+                      <p className="mt-1 xt-metric text-brand">{formatCompact(results.best)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
                       <p className="xt-label">
@@ -447,7 +447,7 @@ export default function MonteCarlo() {
                   <p className="text-xs text-muted-foreground">Target: {formatCurrency(results.target)}</p>
 
                   <div>
-                    <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Outcome Distribution</h4>
+                    <h4 className="mb-2 text-base font-semibold text-muted-foreground">Outcome Distribution</h4>
                     <ChartContainer config={chartConfig} className="h-[280px] w-full">
                       <BarChart data={results.histogram}>
                         <CartesianGrid {...chartGrid} />

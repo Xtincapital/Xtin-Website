@@ -240,7 +240,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -248,11 +248,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -262,7 +262,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -299,14 +299,14 @@ const StockMarketLesson5 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 5 of 7
               </span>
               <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl shadow-sm">
                 <Icons.TrendUp className="w-7 h-7 text-teal-600" />
               </span>
@@ -341,7 +341,7 @@ const StockMarketLesson5 = () => {
               <span>The Foundation: Supply & Demand</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
+            <div className="rounded-xl p-6 text-white mb-4 bg-brand-fill">
               <p className="text-xl font-semibold text-center">
                 Stock prices are determined by <span className="underline decoration-yellow-300 decoration-2">supply</span> (sellers) 
                 and <span className="underline decoration-yellow-300 decoration-2">demand</span> (buyers).
@@ -363,14 +363,14 @@ const StockMarketLesson5 = () => {
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 300" fill="none">
               {/* Scenario 1: More Buyers */}
               <g transform="translate(50, 30)">
-                <text x="125" y="0" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="700">MORE BUYERS THAN SELLERS</text>
+                <text x="125" y="0" textAnchor="middle" fill="#373A41" fontSize="12" fontWeight="700">MORE BUYERS THAN SELLERS</text>
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#0D543C" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#1FA978"/>
+                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#12805A"/>
                   ))}
                 </g>
 
@@ -385,7 +385,7 @@ const StockMarketLesson5 = () => {
 
                 {/* Result */}
                 <g transform="translate(60, 160)">
-                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#1FA978"/>
+                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#12805A"/>
                   <text x="65" y="17" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">RESULT</text>
                   <text x="65" y="32" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">PRICE GOES UP ↑</text>
                 </g>
@@ -393,20 +393,20 @@ const StockMarketLesson5 = () => {
 
               {/* VS */}
               <g transform="translate(320, 100)">
-                <circle cx="30" cy="30" r="25" fill="#EFEDE7" stroke="#CFCBC1" strokeWidth="2"/>
-                <text x="30" y="35" textAnchor="middle" fill="#75757D" fontSize="12" fontWeight="700">VS</text>
+                <circle cx="30" cy="30" r="25" fill="#EEEEF1" stroke="#CFD0D3" strokeWidth="2"/>
+                <text x="30" y="35" textAnchor="middle" fill="#717680" fontSize="12" fontWeight="700">VS</text>
               </g>
 
               {/* Scenario 2: More Sellers */}
               <g transform="translate(400, 30)">
-                <text x="125" y="0" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="700">MORE SELLERS THAN BUYERS</text>
+                <text x="125" y="0" textAnchor="middle" fill="#373A41" fontSize="12" fontWeight="700">MORE SELLERS THAN BUYERS</text>
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#0D543C" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#12805A" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1].map((i) => (
-                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#1FA978"/>
+                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#12805A"/>
                   ))}
                 </g>
 
@@ -478,26 +478,26 @@ const StockMarketLesson5 = () => {
                 </div>
 
                 {/* Market-Wide Factors */}
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
-                  <h4 className="font-bold text-green-800 mb-3 flex items-center gap-2">
+                <div className="rounded-xl p-4 border border-brand-line bg-brand-soft">
+                  <h4 className="font-bold text-brand mb-3 flex items-center gap-2">
                     <Icons.Economy className="w-5 h-5" />
                     Market-Wide Factors
                   </h4>
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2 text-green-700">
-                      <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <li className="flex items-start gap-2 text-brand">
+                      <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                       <span><strong>Interest rates</strong> — RBI hikes rates? Stocks often fall</span>
                     </li>
-                    <li className="flex items-start gap-2 text-green-700">
-                      <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <li className="flex items-start gap-2 text-brand">
+                      <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                       <span><strong>Inflation</strong> — High inflation worries investors</span>
                     </li>
-                    <li className="flex items-start gap-2 text-green-700">
-                      <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <li className="flex items-start gap-2 text-brand">
+                      <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                       <span><strong>GDP growth</strong> — Strong economy = confident investors</span>
                     </li>
-                    <li className="flex items-start gap-2 text-green-700">
-                      <Icons.Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                    <li className="flex items-start gap-2 text-brand">
+                      <Icons.Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
                       <span><strong>Elections/Budget</strong> — Policy changes affect sectors</span>
                     </li>
                   </ul>
@@ -583,13 +583,13 @@ const StockMarketLesson5 = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-2">DII (Domestic Institutional Investors)</h4>
-                <p className="text-green-700 text-sm mb-2">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-2">DII (Domestic Institutional Investors)</h4>
+                <p className="text-brand text-sm mb-2">
                   Indian mutual funds, insurance companies (LIC), banks.
                 </p>
-                <div className="bg-green-50 rounded-lg p-3">
-                  <p className="text-green-800 text-sm">
+                <div className="bg-brand-soft rounded-lg p-3">
+                  <p className="text-brand text-sm">
                     <strong>When DIIs buy:</strong> They often step in when FIIs sell<br/>
                     <strong>Growing SIP culture:</strong> DIIs are getting stronger!
                   </p>
@@ -613,14 +613,14 @@ const StockMarketLesson5 = () => {
             </h2>
 
             <div className="space-y-4">
-              <div className="bg-green-50 rounded-xl p-4 border border-green-200">
+              <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-bold text-green-800">Reliance Industries (2020)</h4>
-                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-sm flex items-center gap-1">
+                  <h4 className="font-bold text-brand">Reliance Industries (2020)</h4>
+                  <span className="px-2 py-1 bg-brand-soft text-brand rounded text-sm flex items-center gap-1">
                     <Icons.ArrowUp className="w-4 h-4" /> +150%
                   </span>
                 </div>
-                <p className="text-green-700 text-sm">
+                <p className="text-brand text-sm">
                   <strong>What happened:</strong> Facebook, Google invested billions in Jio Platforms. 
                   Reliance became debt-free. Investors saw huge growth potential → massive buying!
                 </p>
@@ -666,23 +666,23 @@ const StockMarketLesson5 = () => {
                 <h4 className="font-bold text-gray-800 mb-3">Bullish Events (Markets Rise)</h4>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     Strong GDP growth numbers
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     Good monsoon (helps rural economy)
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     FII buying spree
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     Business-friendly budget policies
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span className="w-2 h-2 bg-brand-fill rounded-full"></span>
                     RBI rate cuts (cheaper loans)
                   </li>
                 </ul>
@@ -825,7 +825,7 @@ const StockMarketLesson5 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-6')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-teal-600 hover:to-cyan-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Investing vs Trading</span>
               <FaArrowRight className="text-sm" />

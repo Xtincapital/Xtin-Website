@@ -35,7 +35,7 @@ export const EmptyState = ({
       )}
     >
       <div className="w-16 h-16 rounded-2xl bg-accent/30 flex items-center justify-center mb-4">
-        <Icon className="w-8 h-8 text-primary" />
+        <Icon className="w-8 h-8 text-brand" />
       </div>
       <h3 className="text-lg font-bold text-foreground mb-2">{title}</h3>
       <p className="text-sm text-muted-foreground max-w-sm mb-6">

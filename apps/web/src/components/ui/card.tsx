@@ -16,7 +16,7 @@ CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn("text-[0.9375rem] font-semibold leading-snug tracking-[-0.005em]", className)} {...props} />
+    <h3 ref={ref} className={cn("text-base font-semibold leading-snug tracking-[-0.005em]", className)} {...props} />
   ),
 );
 CardTitle.displayName = "CardTitle";

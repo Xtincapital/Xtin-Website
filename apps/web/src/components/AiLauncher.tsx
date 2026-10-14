@@ -22,17 +22,17 @@ export function AiMark({ className }: { className?: string }) {
 }
 
 export const AI_LAUNCHER_CLASS =
-  "group fixed bottom-6 right-5 z-50 inline-flex items-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] no-underline shadow-[0_10px_30px_-6px_rgba(10, 10, 11,0.55)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_38px_-6px_rgba(31, 169, 120,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2";
+  "group fixed bottom-6 right-5 z-50 inline-flex items-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] no-underline shadow-[0_10px_30px_-6px_rgba(19, 20, 23,0.55)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_38px_-6px_rgba(31, 169, 120,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-line focus-visible:ring-offset-2";
 
 export const AiLauncherInner = ({ label, sub = "Ask anything" }: { label: string; sub?: string }) => (
-  <span className="flex items-center gap-3 rounded-full bg-[#0A0A0B]/95 py-1.5 pl-1.5 pr-1.5 text-white backdrop-blur sm:pr-5">
-    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500/25 to-teal-400/10 text-emerald-300 ring-1 ring-inset ring-emerald-300/30">
+  <span className="flex items-center gap-3 rounded-full bg-[#131417]/95 py-1.5 pl-1.5 pr-1.5 text-white backdrop-blur sm:pr-5 brand-on-dark">
+    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-brand ring-1 ring-inset ring-brand-line bg-brand-fill">
       <AiMark className="h-6 w-6" />
-      <span className="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#0A0A0B] bg-emerald-400" />
+      <span className="absolute right-0.5 top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#131417] bg-brand-fill" />
     </span>
     <span className="hidden text-left leading-tight sm:block">
       <span className="block text-sm font-semibold tracking-tight">{label}</span>
-      <span className="block text-[11px] font-normal text-slate-400">{sub}</span>
+      <span className="block text-xs font-normal text-slate-400">{sub}</span>
     </span>
   </span>
 );

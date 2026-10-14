@@ -112,8 +112,8 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
   }
 
   const signalColor = (signal: string) => {
-    if (signal.includes("STRONG BUY")) return "bg-green-600";
-    if (signal.includes("BUY")) return "bg-green-500";
+    if (signal.includes("STRONG BUY")) return "bg-brand-fill";
+    if (signal.includes("BUY")) return "bg-brand-fill";
     if (signal.includes("STRONG SELL")) return "bg-red-600";
     if (signal.includes("SELL")) return "bg-red-500";
     return "bg-gray-500";
@@ -122,7 +122,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
   const price = indicators.current_price;
   const vsAverage = (avg: number | null) =>
     isNum(avg) ? (
-      <div className={`text-xs ${price > avg ? "text-green-600" : "text-red-600"}`}>
+      <div className={`text-xs ${price > avg ? "text-brand" : "text-red-600"}`}>
         Price is {price > avg ? "above" : "below"} ({(((price - avg) / avg) * 100).toFixed(1)}%)
       </div>
     ) : null;
@@ -165,7 +165,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
             </span>
             <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className={`h-full ${signals.signal_strength > 60 ? "bg-green-500" : signals.signal_strength < 40 ? "bg-red-500" : "bg-gray-400"}`}
+                className={`h-full ${signals.signal_strength > 60 ? "bg-brand-fill" : signals.signal_strength < 40 ? "bg-red-500" : "bg-gray-400"}`}
                 style={{ width: `${Math.max(0, Math.min(100, signals.signal_strength))}%` }}
               />
             </div>
@@ -175,7 +175,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <h4 className="text-sm font-medium text-green-600 mb-2 flex items-center gap-1">
+            <h4 className="text-base font-medium text-brand mb-2 flex items-center gap-1">
               <TrendingUp className="h-4 w-4" /> Bullish readings ({signals.buy_signals.length})
             </h4>
             <ul className="space-y-1">
@@ -186,7 +186,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-medium text-red-600 mb-2 flex items-center gap-1">
+            <h4 className="text-base font-medium text-red-600 mb-2 flex items-center gap-1">
               <TrendingDown className="h-4 w-4" /> Bearish readings ({signals.sell_signals.length})
             </h4>
             <ul className="space-y-1">
@@ -230,7 +230,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.rsi) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">RSI (14)</div>
-              <div className={`text-2xl font-bold ${indicators.rsi < 30 ? "text-green-600" : indicators.rsi > 70 ? "text-red-600" : "text-foreground"}`}>
+              <div className={`text-2xl font-bold ${indicators.rsi < 30 ? "text-brand" : indicators.rsi > 70 ? "text-red-600" : "text-foreground"}`}>
                 {indicators.rsi.toFixed(1)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">
@@ -242,7 +242,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.macd) && isNum(indicators.macd_signal) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">MACD</div>
-              <div className={`text-2xl font-bold ${indicators.macd > indicators.macd_signal ? "text-green-600" : "text-red-600"}`}>
+              <div className={`text-2xl font-bold ${indicators.macd > indicators.macd_signal ? "text-brand" : "text-red-600"}`}>
                 {indicators.macd.toFixed(2)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">

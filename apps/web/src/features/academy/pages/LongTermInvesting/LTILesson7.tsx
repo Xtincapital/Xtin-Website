@@ -8,41 +8,41 @@ import Footer from "../../../../components/Footer";
 const MindsetFoundationSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Mindset Is the Foundation of Everything</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">All the knowledge in this module rests on how you think</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Mindset Is the Foundation of Everything</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">All the knowledge in this module rests on how you think</text>
     
     {/* Foundation pyramid */}
     <g transform="translate(150, 70)">
       {/* Top - Results */}
-      <polygon points="200,0 280,60 120,60" fill="#D5F2E5" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="200" y="40" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">Results</text>
-      <text x="200" y="52" textAnchor="middle" fontSize="7" fill="#0B4532">Wealth over time</text>
+      <polygon points="200,0 280,60 120,60" fill="#EEF9F4" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="200" y="40" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">Results</text>
+      <text x="200" y="52" textAnchor="middle" fontSize="7" fill="#12805A">Wealth over time</text>
       
       {/* Middle - Actions */}
-      <polygon points="120,65 280,65 320,125 80,125" fill="#ABE5CC" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="200" y="90" textAnchor="middle" fontSize="10" fontWeight="500" fill="#0D543C">Actions</text>
-      <text x="200" y="105" textAnchor="middle" fontSize="8" fill="#0B4532">Consistent investing, staying the course</text>
+      <polygon points="120,65 280,65 320,125 80,125" fill="#ABE5CC" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="200" y="90" textAnchor="middle" fontSize="10" fontWeight="500" fill="#12805A">Actions</text>
+      <text x="200" y="105" textAnchor="middle" fontSize="8" fill="#12805A">Consistent investing, staying the course</text>
       
       {/* Bottom - Mindset */}
-      <polygon points="80,130 320,130 360,190 40,190" fill="#12805A" stroke="#0E6A4A" strokeWidth="2"/>
+      <polygon points="80,130 320,130 360,190 40,190" fill="#12805A" stroke="#12805A" strokeWidth="2"/>
       <text x="200" y="155" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">MINDSET</text>
-      <text x="200" y="172" textAnchor="middle" fontSize="8" fill="#D5F2E5">Long-term thinking, patience, discipline</text>
+      <text x="200" y="172" textAnchor="middle" fontSize="8" fill="#EEF9F4">Long-term thinking, patience, discipline</text>
     </g>
     
     {/* Side annotations */}
     <g transform="translate(520, 100)">
-      <rect x="0" y="0" width="140" height="80" fill="#EEF9F4" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="8" fontWeight="500" fill="#0D543C">Without the right mindset:</text>
-      <text x="70" y="42" textAnchor="middle" fontSize="7" fill="#0B4532">• Knowledge gets abandoned</text>
-      <text x="70" y="55" textAnchor="middle" fontSize="7" fill="#0B4532">• Plans get derailed</text>
-      <text x="70" y="68" textAnchor="middle" fontSize="7" fill="#0B4532">• Emotions take over</text>
+      <rect x="0" y="0" width="140" height="80" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Without the right mindset:</text>
+      <text x="70" y="42" textAnchor="middle" fontSize="7" fill="#12805A">• Knowledge gets abandoned</text>
+      <text x="70" y="55" textAnchor="middle" fontSize="7" fill="#12805A">• Plans get derailed</text>
+      <text x="70" y="68" textAnchor="middle" fontSize="7" fill="#12805A">• Emotions take over</text>
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="240" width="500" height="28" fill="#232327" rx="6"/>
+    <rect x="100" y="240" width="500" height="28" fill="#2A2A2C" rx="6"/>
     <text x="350" y="258" textAnchor="middle" fontSize="10" fill="white">Your mindset determines whether your knowledge becomes wealth.</text>
   </svg>
 );
@@ -51,11 +51,11 @@ const MindsetFoundationSVG = () => (
 const TimePerspectivesSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Long-Term Investor's Three Perspectives</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How you see time shapes how you invest</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Long-Term Investor's Three Perspectives</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">How you see time shapes how you invest</text>
     
     {/* Daily */}
     <g transform="translate(50, 75)">
@@ -95,24 +95,24 @@ const TimePerspectivesSVG = () => (
     
     {/* Lifelong */}
     <g transform="translate(470, 75)">
-      <rect x="0" y="0" width="180" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="180" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
       <text x="90" y="30" textAnchor="middle" fontSize="24">🌳</text>
-      <text x="90" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Lifelong View</text>
+      <text x="90" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Lifelong View</text>
       
       <g transform="translate(15, 70)">
-        <text x="0" y="0" fontSize="8" fill="#0B4532" fontWeight="500">What happens:</text>
-        <text x="0" y="16" fontSize="7" fill="#0B4532">• Wealth compounds steadily</text>
-        <text x="0" y="29" fontSize="7" fill="#0B4532">• Short-term noise fades</text>
-        <text x="0" y="42" fontSize="7" fill="#0B4532">• Patience is rewarded</text>
+        <text x="0" y="0" fontSize="8" fill="#12805A" fontWeight="500">What happens:</text>
+        <text x="0" y="16" fontSize="7" fill="#12805A">• Wealth compounds steadily</text>
+        <text x="0" y="29" fontSize="7" fill="#12805A">• Short-term noise fades</text>
+        <text x="0" y="42" fontSize="7" fill="#12805A">• Patience is rewarded</text>
       </g>
       
-      <rect x="15" y="125" width="150" height="40" fill="#D5F2E5" rx="6"/>
-      <text x="90" y="143" textAnchor="middle" fontSize="8" fontWeight="500" fill="#0D543C">Mindset response:</text>
-      <text x="90" y="157" textAnchor="middle" fontSize="7" fill="#0B4532">"My future self will thank me."</text>
+      <rect x="15" y="125" width="150" height="40" fill="#EEF9F4" rx="6"/>
+      <text x="90" y="143" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Mindset response:</text>
+      <text x="90" y="157" textAnchor="middle" fontSize="7" fill="#12805A">"My future self will thank me."</text>
     </g>
     
     {/* Bottom message */}
-    <text x="350" y="280" textAnchor="middle" fontSize="10" fill="#75757D">Long-term investors live in all three — but make decisions from the lifelong view.</text>
+    <text x="350" y="280" textAnchor="middle" fontSize="10" fill="#717680">Long-term investors live in all three — but make decisions from the lifelong view.</text>
   </svg>
 );
 
@@ -120,11 +120,11 @@ const TimePerspectivesSVG = () => (
 const ConsistencyPathSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Consistency Beats Intensity</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Steady progress always wins over bursts of activity</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Consistency Beats Intensity</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Steady progress always wins over bursts of activity</text>
     
     {/* Two paths */}
     <g transform="translate(80, 75)">
@@ -139,11 +139,11 @@ const ConsistencyPathSVG = () => (
       
       {/* Steady path */}
       <g transform="translate(300, 0)">
-        <text x="80" y="-5" textAnchor="middle" fontSize="9" fill="#1FA978" fontWeight="500">Steady Consistency</text>
+        <text x="80" y="-5" textAnchor="middle" fontSize="9" fill="#12805A" fontWeight="500">Steady Consistency</text>
         <path d="M0 100 Q40 90 80 80 Q120 70 160 55" 
-              fill="none" stroke="#1FA978" strokeWidth="3"/>
-        <circle cx="160" cy="55" r="5" fill="#1FA978"/>
-        <text x="180" y="60" fontSize="8" fill="#0D543C">Calm, sustainable</text>
+              fill="none" stroke="#12805A" strokeWidth="3"/>
+        <circle cx="160" cy="55" r="5" fill="#12805A"/>
+        <text x="180" y="60" fontSize="8" fill="#12805A">Calm, sustainable</text>
       </g>
     </g>
     
@@ -155,9 +155,9 @@ const ConsistencyPathSVG = () => (
     </g>
     
     <g transform="translate(400, 190)">
-      <rect x="0" y="0" width="200" height="50" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="100" y="20" textAnchor="middle" fontSize="8" fontWeight="500" fill="#0D543C">Consistent approach:</text>
-      <text x="100" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Small steps, regular rhythm, lasting</text>
+      <rect x="0" y="0" width="200" height="50" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="100" y="20" textAnchor="middle" fontSize="8" fontWeight="500" fill="#12805A">Consistent approach:</text>
+      <text x="100" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Small steps, regular rhythm, lasting</text>
     </g>
   </svg>
 );
@@ -166,11 +166,11 @@ const ConsistencyPathSVG = () => (
 const TwoInvestorsMindsetSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Two Mindsets, Two Journeys</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same starting point, different mental approaches</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Two Mindsets, Two Journeys</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same starting point, different mental approaches</text>
     
     {/* Investor A - Reactive */}
     <g transform="translate(50, 70)">
@@ -197,30 +197,30 @@ const TwoInvestorsMindsetSVG = () => (
     
     {/* Investor B - Steady */}
     <g transform="translate(370, 70)">
-      <rect x="0" y="0" width="280" height="240" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <rect x="0" y="0" width="280" height="240" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
       <text x="140" y="30" textAnchor="middle" fontSize="32">🧘</text>
-      <text x="140" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Priya: Steady Mindset</text>
+      <text x="140" y="55" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Priya: Steady Mindset</text>
       
       <g transform="translate(20, 75)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532" fontWeight="500">How she thinks:</text>
-        <text x="0" y="18" fontSize="8" fill="#0B4532">• "I have a plan"</text>
-        <text x="0" y="33" fontSize="8" fill="#0B4532">• "Short-term doesn't define me"</text>
-        <text x="0" y="48" fontSize="8" fill="#0B4532">• "Time is on my side"</text>
-        <text x="0" y="63" fontSize="8" fill="#0B4532">• "I trust my process"</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A" fontWeight="500">How she thinks:</text>
+        <text x="0" y="18" fontSize="8" fill="#12805A">• "I have a plan"</text>
+        <text x="0" y="33" fontSize="8" fill="#12805A">• "Short-term doesn't define me"</text>
+        <text x="0" y="48" fontSize="8" fill="#12805A">• "Time is on my side"</text>
+        <text x="0" y="63" fontSize="8" fill="#12805A">• "I trust my process"</text>
       </g>
       
       <g transform="translate(20, 145)">
-        <text x="0" y="0" fontSize="9" fill="#0B4532" fontWeight="500">Her experience:</text>
-        <text x="0" y="18" fontSize="8" fill="#0B4532">• Occasional reviews</text>
-        <text x="0" y="33" fontSize="8" fill="#0B4532">• Rare changes</text>
-        <text x="0" y="48" fontSize="8" fill="#0B4532">• Low stress</text>
-        <text x="0" y="63" fontSize="8" fill="#0B4532">• Peace and confidence</text>
+        <text x="0" y="0" fontSize="9" fill="#12805A" fontWeight="500">Her experience:</text>
+        <text x="0" y="18" fontSize="8" fill="#12805A">• Occasional reviews</text>
+        <text x="0" y="33" fontSize="8" fill="#12805A">• Rare changes</text>
+        <text x="0" y="48" fontSize="8" fill="#12805A">• Low stress</text>
+        <text x="0" y="63" fontSize="8" fill="#12805A">• Peace and confidence</text>
       </g>
     </g>
     
     {/* Bottom insight */}
     <rect x="100" y="320" width="500" height="15" fill="transparent"/>
-    <text x="350" y="330" textAnchor="middle" fontSize="9" fill="#75757D">Same market. Same opportunities. Different mindsets = different experiences.</text>
+    <text x="350" y="330" textAnchor="middle" fontSize="9" fill="#717680">Same market. Same opportunities. Different mindsets = different experiences.</text>
   </svg>
 );
 
@@ -228,48 +228,48 @@ const TwoInvestorsMindsetSVG = () => (
 const CalmProgressSVG = () => (
   <svg viewBox="0 0 700 240" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="240" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="240" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Calm Progress Over Time</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The long-term path is steady, not dramatic</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Calm Progress Over Time</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The long-term path is steady, not dramatic</text>
     
     {/* Progress visualization */}
     <g transform="translate(80, 70)">
       {/* Background waves - noise */}
       <path d="M0 80 Q67 60 135 75 Q202 90 270 70 Q337 50 405 80 Q472 100 540 65" 
-            fill="none" stroke="#E4E1D9" strokeWidth="30" opacity="0.5"/>
+            fill="none" stroke="#E4E4EA" strokeWidth="30" opacity="0.5"/>
       
       {/* Steady progress line */}
       <path d="M0 100 Q135 85 270 70 Q405 55 540 35" 
-            fill="none" stroke="#1FA978" strokeWidth="4"/>
+            fill="none" stroke="#12805A" strokeWidth="4"/>
       
       {/* Milestones */}
-      <circle cx="0" cy="100" r="8" fill="#1FA978"/>
-      <text x="0" y="125" textAnchor="middle" fontSize="7" fill="#0D543C">Start</text>
+      <circle cx="0" cy="100" r="8" fill="#12805A"/>
+      <text x="0" y="125" textAnchor="middle" fontSize="7" fill="#12805A">Start</text>
       
-      <circle cx="180" cy="80" r="6" fill="#1FA978"/>
-      <text x="180" y="105" textAnchor="middle" fontSize="7" fill="#0D543C">Year 5</text>
+      <circle cx="180" cy="80" r="6" fill="#12805A"/>
+      <text x="180" y="105" textAnchor="middle" fontSize="7" fill="#12805A">Year 5</text>
       
-      <circle cx="360" cy="55" r="6" fill="#1FA978"/>
-      <text x="360" y="80" textAnchor="middle" fontSize="7" fill="#0D543C">Year 15</text>
+      <circle cx="360" cy="55" r="6" fill="#12805A"/>
+      <text x="360" y="80" textAnchor="middle" fontSize="7" fill="#12805A">Year 15</text>
       
-      <circle cx="540" cy="35" r="10" fill="#1FA978"/>
-      <text x="540" y="60" textAnchor="middle" fontSize="7" fill="#0D543C">Long-term</text>
+      <circle cx="540" cy="35" r="10" fill="#12805A"/>
+      <text x="540" y="60" textAnchor="middle" fontSize="7" fill="#12805A">Long-term</text>
       
       {/* Legend */}
       <g transform="translate(160, 145)">
-        <rect x="0" y="0" width="20" height="8" fill="#E4E1D9"/>
-        <text x="28" y="8" fontSize="7" fill="#75757D">Market noise</text>
+        <rect x="0" y="0" width="20" height="8" fill="#E4E4EA"/>
+        <text x="28" y="8" fontSize="7" fill="#717680">Market noise</text>
       </g>
       <g transform="translate(300, 145)">
-        <line x1="0" y1="4" x2="20" y2="4" stroke="#1FA978" strokeWidth="3"/>
-        <text x="28" y="8" fontSize="7" fill="#0D543C">Your steady progress</text>
+        <line x1="0" y1="4" x2="20" y2="4" stroke="#12805A" strokeWidth="3"/>
+        <text x="28" y="8" fontSize="7" fill="#12805A">Your steady progress</text>
       </g>
     </g>
     
     {/* Bottom message */}
-    <text x="350" y="225" textAnchor="middle" fontSize="10" fill="#75757D">The noise is loud. The progress is quiet. Trust the direction, not the day.</text>
+    <text x="350" y="225" textAnchor="middle" fontSize="10" fill="#717680">The noise is loud. The progress is quiet. Trust the direction, not the day.</text>
   </svg>
 );
 
@@ -277,60 +277,60 @@ const CalmProgressSVG = () => (
 const MindsetConnectionsSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">How Mindset Supports Everything You've Learned</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Your mindset is the glue that holds all lessons together</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">How Mindset Supports Everything You've Learned</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Your mindset is the glue that holds all lessons together</text>
     
     {/* Central mindset hub */}
-    <circle cx="350" cy="170" r="50" fill="#12805A" stroke="#0E6A4A" strokeWidth="3"/>
+    <circle cx="350" cy="170" r="50" fill="#12805A" stroke="#12805A" strokeWidth="3"/>
     <text x="350" y="165" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Long-Term</text>
     <text x="350" y="180" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Mindset</text>
     
     {/* Connected concepts */}
     {/* Top - Compounding */}
     <g transform="translate(280, 60)">
-      <rect x="0" y="0" width="140" height="45" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">📈 Compounding</text>
-      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Requires patience to work</text>
+      <rect x="0" y="0" width="140" height="45" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">📈 Compounding</text>
+      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Requires patience to work</text>
     </g>
-    <line x1="350" y1="105" x2="350" y2="120" stroke="#77D3AE" strokeWidth="2"/>
+    <line x1="350" y1="105" x2="350" y2="120" stroke="#3CCB97" strokeWidth="2"/>
     
     {/* Left - Time in Market */}
     <g transform="translate(70, 140)">
-      <rect x="0" y="0" width="140" height="45" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">⏰ Time in Market</text>
-      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Requires staying invested</text>
+      <rect x="0" y="0" width="140" height="45" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">⏰ Time in Market</text>
+      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Requires staying invested</text>
     </g>
-    <line x1="210" y1="162" x2="300" y2="165" stroke="#77D3AE" strokeWidth="2"/>
+    <line x1="210" y1="162" x2="300" y2="165" stroke="#3CCB97" strokeWidth="2"/>
     
     {/* Right - Diversification */}
     <g transform="translate(490, 140)">
-      <rect x="0" y="0" width="140" height="45" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">🎯 Diversification</text>
-      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Requires trust in simplicity</text>
+      <rect x="0" y="0" width="140" height="45" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">🎯 Diversification</text>
+      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Requires trust in simplicity</text>
     </g>
-    <line x1="490" y1="162" x2="400" y2="165" stroke="#77D3AE" strokeWidth="2"/>
+    <line x1="490" y1="162" x2="400" y2="165" stroke="#3CCB97" strokeWidth="2"/>
     
     {/* Bottom Left - Volatility */}
     <g transform="translate(100, 240)">
-      <rect x="0" y="0" width="140" height="45" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">🌊 Handling Volatility</text>
-      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Requires emotional calm</text>
+      <rect x="0" y="0" width="140" height="45" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">🌊 Handling Volatility</text>
+      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Requires emotional calm</text>
     </g>
-    <line x1="240" y1="262" x2="320" y2="210" stroke="#77D3AE" strokeWidth="2"/>
+    <line x1="240" y1="262" x2="320" y2="210" stroke="#3CCB97" strokeWidth="2"/>
     
     {/* Bottom Right - Behavior */}
     <g transform="translate(460, 240)">
-      <rect x="0" y="0" width="140" height="45" fill="#D5F2E5" rx="8" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#0D543C">🧘 Good Behavior</text>
-      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#0B4532">Requires discipline</text>
+      <rect x="0" y="0" width="140" height="45" fill="#EEF9F4" rx="8" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="70" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#12805A">🧘 Good Behavior</text>
+      <text x="70" y="35" textAnchor="middle" fontSize="7" fill="#12805A">Requires discipline</text>
     </g>
-    <line x1="460" y1="262" x2="380" y2="210" stroke="#77D3AE" strokeWidth="2"/>
+    <line x1="460" y1="262" x2="380" y2="210" stroke="#3CCB97" strokeWidth="2"/>
     
     {/* Bottom message */}
-    <text x="350" y="305" textAnchor="middle" fontSize="9" fill="#75757D">Every lesson you've learned works better with the right mindset behind it.</text>
+    <text x="350" y="305" textAnchor="middle" fontSize="9" fill="#717680">Every lesson you've learned works better with the right mindset behind it.</text>
   </svg>
 );
 
@@ -338,11 +338,11 @@ const MindsetConnectionsSVG = () => (
 const DailyHabitsSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Daily Habits of Long-Term Investors</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">What they do (and don't do) differently</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Daily Habits of Long-Term Investors</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">What they do (and don't do) differently</text>
     
     {/* They DON'T */}
     <g transform="translate(50, 70)">
@@ -369,29 +369,29 @@ const DailyHabitsSVG = () => (
     
     {/* They DO */}
     <g transform="translate(370, 70)">
-      <rect x="0" y="0" width="280" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="1"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ They DO:</text>
+      <rect x="0" y="0" width="280" height="170" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="1"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ They DO:</text>
       
       <g transform="translate(25, 50)">
-        <circle cx="8" cy="6" r="4" fill="#77D3AE"/>
-        <text x="20" y="10" fontSize="9" fill="#0B4532">Review once a month or quarter</text>
+        <circle cx="8" cy="6" r="4" fill="#3CCB97"/>
+        <text x="20" y="10" fontSize="9" fill="#12805A">Review once a month or quarter</text>
         
-        <circle cx="8" cy="30" r="4" fill="#77D3AE"/>
-        <text x="20" y="34" fontSize="9" fill="#0B4532">Ignore short-term market noise</text>
+        <circle cx="8" cy="30" r="4" fill="#3CCB97"/>
+        <text x="20" y="34" fontSize="9" fill="#12805A">Ignore short-term market noise</text>
         
-        <circle cx="8" cy="54" r="4" fill="#77D3AE"/>
-        <text x="20" y="58" fontSize="9" fill="#0B4532">Focus on their own long-term plan</text>
+        <circle cx="8" cy="54" r="4" fill="#3CCB97"/>
+        <text x="20" y="58" fontSize="9" fill="#12805A">Focus on their own long-term plan</text>
         
-        <circle cx="8" cy="78" r="4" fill="#77D3AE"/>
-        <text x="20" y="82" fontSize="9" fill="#0B4532">Stay with proven, simple approaches</text>
+        <circle cx="8" cy="78" r="4" fill="#3CCB97"/>
+        <text x="20" y="82" fontSize="9" fill="#12805A">Stay with proven, simple approaches</text>
         
-        <circle cx="8" cy="102" r="4" fill="#77D3AE"/>
-        <text x="20" y="106" fontSize="9" fill="#0B4532">Trust the process through all seasons</text>
+        <circle cx="8" cy="102" r="4" fill="#3CCB97"/>
+        <text x="20" y="106" fontSize="9" fill="#12805A">Trust the process through all seasons</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <text x="350" y="265" textAnchor="middle" fontSize="10" fill="#75757D">Long-term investing is mostly about what you <tspan fontWeight="600">don't</tspan> do.</text>
+    <text x="350" y="265" textAnchor="middle" fontSize="10" fill="#717680">Long-term investing is mostly about what you <tspan fontWeight="600">don't</tspan> do.</text>
   </svg>
 );
 
@@ -399,58 +399,58 @@ const DailyHabitsSVG = () => (
 const BuildingMindsetSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Building Your Long-Term Mindset</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Four pillars of lasting investing confidence</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Building Your Long-Term Mindset</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Four pillars of lasting investing confidence</text>
     
     {/* Four pillars */}
     <g transform="translate(60, 75)">
       {/* Pillar 1 */}
-      <rect x="0" y="0" width="130" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="0" y="0" width="130" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
       <text x="65" y="30" textAnchor="middle" fontSize="20">🎯</text>
-      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Clear Purpose</text>
+      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Clear Purpose</text>
       <g transform="translate(15, 65)">
-        <text x="0" y="0" fontSize="7" fill="#0B4532">Know WHY you're</text>
-        <text x="0" y="12" fontSize="7" fill="#0B4532">investing. Your goals</text>
-        <text x="0" y="24" fontSize="7" fill="#0B4532">keep you grounded.</text>
+        <text x="0" y="0" fontSize="7" fill="#12805A">Know WHY you're</text>
+        <text x="0" y="12" fontSize="7" fill="#12805A">investing. Your goals</text>
+        <text x="0" y="24" fontSize="7" fill="#12805A">keep you grounded.</text>
       </g>
     </g>
     
     <g transform="translate(205, 75)">
       {/* Pillar 2 */}
-      <rect x="0" y="0" width="130" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="0" y="0" width="130" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
       <text x="65" y="30" textAnchor="middle" fontSize="20">📋</text>
-      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Simple Plan</text>
+      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Simple Plan</text>
       <g transform="translate(15, 65)">
-        <text x="0" y="0" fontSize="7" fill="#0B4532">A clear process you</text>
-        <text x="0" y="12" fontSize="7" fill="#0B4532">can follow in any</text>
-        <text x="0" y="24" fontSize="7" fill="#0B4532">market condition.</text>
+        <text x="0" y="0" fontSize="7" fill="#12805A">A clear process you</text>
+        <text x="0" y="12" fontSize="7" fill="#12805A">can follow in any</text>
+        <text x="0" y="24" fontSize="7" fill="#12805A">market condition.</text>
       </g>
     </g>
     
     <g transform="translate(350, 75)">
       {/* Pillar 3 */}
-      <rect x="0" y="0" width="130" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="0" y="0" width="130" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
       <text x="65" y="30" textAnchor="middle" fontSize="20">🧘</text>
-      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Emotional Calm</text>
+      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Emotional Calm</text>
       <g transform="translate(15, 65)">
-        <text x="0" y="0" fontSize="7" fill="#0B4532">Accept that feelings</text>
-        <text x="0" y="12" fontSize="7" fill="#0B4532">happen but don't</text>
-        <text x="0" y="24" fontSize="7" fill="#0B4532">need to drive action.</text>
+        <text x="0" y="0" fontSize="7" fill="#12805A">Accept that feelings</text>
+        <text x="0" y="12" fontSize="7" fill="#12805A">happen but don't</text>
+        <text x="0" y="24" fontSize="7" fill="#12805A">need to drive action.</text>
       </g>
     </g>
     
     <g transform="translate(495, 75)">
       {/* Pillar 4 */}
-      <rect x="0" y="0" width="130" height="130" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="1"/>
+      <rect x="0" y="0" width="130" height="130" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="1"/>
       <text x="65" y="30" textAnchor="middle" fontSize="20">⏳</text>
-      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">Time Horizon</text>
+      <text x="65" y="52" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">Time Horizon</text>
       <g transform="translate(15, 65)">
-        <text x="0" y="0" fontSize="7" fill="#0B4532">Remember you're</text>
-        <text x="0" y="12" fontSize="7" fill="#0B4532">playing a decades-</text>
-        <text x="0" y="24" fontSize="7" fill="#0B4532">long game.</text>
+        <text x="0" y="0" fontSize="7" fill="#12805A">Remember you're</text>
+        <text x="0" y="12" fontSize="7" fill="#12805A">playing a decades-</text>
+        <text x="0" y="24" fontSize="7" fill="#12805A">long game.</text>
       </g>
     </g>
     
@@ -478,7 +478,7 @@ const KeyTakeawaySVG = () => (
     
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="#ABE5CC" fontWeight="500">Your mindset is your most valuable investing tool.</text>
     <text x="350" y="115" textAnchor="middle" fontSize="10" fill="white">Stay patient. Stay consistent. Trust the process.</text>
-    <text x="350" y="145" textAnchor="middle" fontSize="10" fill="#D5F2E5">Time + Consistency + Right Mindset = Long-Term Wealth</text>
+    <text x="350" y="145" textAnchor="middle" fontSize="10" fill="#EEF9F4">Time + Consistency + Right Mindset = Long-Term Wealth</text>
   </svg>
 );
 
@@ -522,7 +522,7 @@ const LTILesson7 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -538,11 +538,11 @@ const LTILesson7 = () => {
               <div className="bg-teal-100 p-3 rounded-xl">
                 <FaSeedling className="text-teal-600 text-2xl" />
               </div>
-              <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
                 Lesson 7 of 7 — Final Lesson
               </span>
             </div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Building a Long-Term Investing Mindset</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Building a Long-Term Investing Mindset</h1>
             <p className="text-gray-600 text-lg">
               The foundation that makes everything else work — how you think shapes how you invest.
             </p>
@@ -551,7 +551,7 @@ const LTILesson7 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Mindset Matters Most</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">Why Mindset Matters Most</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -758,7 +758,7 @@ const LTILesson7 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -766,11 +766,11 @@ const LTILesson7 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -781,9 +781,9 @@ const LTILesson7 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -795,7 +795,7 @@ const LTILesson7 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-teal-200" />
             <h3 className="text-xl font-semibold">Final Reflection Activity</h3>
@@ -841,9 +841,9 @@ const LTILesson7 = () => {
                 <li>✓ Time in market vs timing the market</li>
               </ul>
             </div>
-            <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-              <h4 className="font-semibold text-emerald-800 mb-2">Lessons 4-7</h4>
-              <ul className="text-emerald-700 text-sm space-y-1">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Lessons 4-7</h4>
+              <ul className="text-brand text-sm space-y-1">
                 <li>✓ Handling volatility and staying invested</li>
                 <li>✓ Diversification and simplicity</li>
                 <li>✓ Behavior and patience</li>
@@ -852,7 +852,7 @@ const LTILesson7 = () => {
             </div>
           </div>
           
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-5 text-white">
+          <div className="rounded-xl p-5 text-white bg-brand-fill">
             <p className="font-medium text-center">
               "The stock market is a device for transferring money from the impatient to the patient."
             </p>
@@ -871,7 +871,7 @@ const LTILesson7 = () => {
           </Link>
           <button
             onClick={() => navigate('/learn/long-term-investing')}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <FaTrophy />
             <span>Back to Module Overview</span>

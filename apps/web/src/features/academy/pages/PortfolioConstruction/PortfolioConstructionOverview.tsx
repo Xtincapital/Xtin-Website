@@ -231,18 +231,18 @@ const PortfolioConstructionOverview = () => {
   ];
 
   const colorClasses = {
-    blue: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-blue-50 border-blue-200  ", text: "text-blue-600 ", badge: "bg-blue-100 text-blue-700  " },
-    indigo: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-indigo-50 border-indigo-200  ", text: "text-indigo-600 ", badge: "bg-indigo-100 text-indigo-700  " },
-    violet: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-violet-50 border-violet-200  ", text: "text-violet-600 ", badge: "bg-violet-100 text-violet-700  " },
-    purple: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-purple-50 border-purple-200  ", text: "text-purple-600 ", badge: "bg-purple-100 text-purple-700  " },
-    fuchsia: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-fuchsia-50 border-fuchsia-200  ", text: "text-fuchsia-600 ", badge: "bg-fuchsia-100 text-fuchsia-700  " },
+    blue: { bg: "bg-brand-fill", light: "bg-blue-50 border-blue-200  ", text: "text-blue-600 ", badge: "bg-blue-100 text-blue-700  " },
+    indigo: { bg: "bg-brand-fill", light: "bg-indigo-50 border-indigo-200  ", text: "text-indigo-600 ", badge: "bg-indigo-100 text-indigo-700  " },
+    violet: { bg: "bg-brand-fill", light: "bg-violet-50 border-violet-200  ", text: "text-violet-600 ", badge: "bg-violet-100 text-violet-700  " },
+    purple: { bg: "bg-brand-fill", light: "bg-purple-50 border-purple-200  ", text: "text-purple-600 ", badge: "bg-purple-100 text-purple-700  " },
+    fuchsia: { bg: "bg-brand-fill", light: "bg-fuchsia-50 border-fuchsia-200  ", text: "text-fuchsia-600 ", badge: "bg-fuchsia-100 text-fuchsia-700  " },
     rose: { bg: "bg-gradient-to-br from-rose-500 to-rose-700", light: "bg-rose-50 border-rose-200  ", text: "text-rose-600 ", badge: "bg-rose-100 text-rose-700  " },
     red: { bg: "bg-gradient-to-br from-red-500 to-red-700", light: "bg-red-50 border-red-200  ", text: "text-red-600 ", badge: "bg-red-100 text-red-700  " },
-    orange: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-orange-50 border-orange-200  ", text: "text-orange-600 ", badge: "bg-orange-100 text-orange-700  " },
-    amber: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-amber-50 border-amber-200  ", text: "text-amber-600 ", badge: "bg-amber-100 text-amber-700  " },
-    yellow: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-yellow-50 border-yellow-200  ", text: "text-yellow-600 ", badge: "bg-yellow-100 text-yellow-700  " },
-    lime: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-lime-50 border-lime-200  ", text: "text-lime-600 ", badge: "bg-lime-100 text-lime-700  " },
-    emerald: { bg: "bg-gradient-to-br from-green-600 to-emerald-700", light: "bg-emerald-50 border-emerald-200  ", text: "text-emerald-600 ", badge: "bg-emerald-100 text-emerald-700  " },
+    orange: { bg: "bg-brand-fill", light: "bg-orange-50 border-orange-200  ", text: "text-orange-600 ", badge: "bg-orange-100 text-orange-700  " },
+    amber: { bg: "bg-brand-fill", light: "bg-amber-50 border-amber-200  ", text: "text-amber-600 ", badge: "bg-amber-100 text-amber-700  " },
+    yellow: { bg: "bg-brand-fill", light: "bg-yellow-50 border-yellow-200  ", text: "text-yellow-600 ", badge: "bg-yellow-100 text-yellow-700  " },
+    lime: { bg: "bg-brand-fill", light: "bg-brand-soft border-brand-line  ", text: "text-brand ", badge: "bg-brand-soft text-brand  " },
+    emerald: { bg: "bg-brand-fill", light: "bg-brand-soft border-brand-line  ", text: "text-brand ", badge: "bg-brand-soft text-brand  " },
   };
 
   const totalDuration = lessons.reduce((acc, l) => acc + parseInt(l.duration), 0);
@@ -261,7 +261,7 @@ const PortfolioConstructionOverview = () => {
           {/* Module Header */}
           <div className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold shadow-lg shadow-blue-500/25">Advanced Module</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold shadow-lg shadow-blue-500/25 bg-brand-fill">Advanced Module</span>
               <span className="px-3 py-1.5 bg-blue-100  text-blue-700  rounded-full text-sm flex items-center gap-1.5 font-medium">
                 <Icons.Clock className="w-4 h-4" />12 Lessons
               </span>
@@ -271,11 +271,11 @@ const PortfolioConstructionOverview = () => {
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="portfolio-construction" /></div>
-            <h1 className="text-4xl md:text-5xl font-display font-normal text-gray-900  mb-5 flex items-center gap-4 tracking-[-0.015em]">
-              <span className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-xl shadow-blue-500/30">
+            <h1 className="text-4xl md:text-5xl font-display font-semibold text-gray-900 mb-5 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-16 h-16 rounded-2xl shadow-xl shadow-blue-500/30 bg-brand-fill">
                 <Icons.Portfolio className="w-9 h-9 text-white" />
               </span>
-              <span className="bg-gradient-to-r from-green-600 to-emerald-700   text-transparent bg-clip-text">
+              <span className="text-brand">
                 Portfolio Construction
               </span>
             </h1>
@@ -287,7 +287,7 @@ const PortfolioConstructionOverview = () => {
           </div>
 
           {/* Hero Visual - Portfolio Allocation SVG */}
-          <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-3xl p-8 mb-12 border border-blue-800/50 shadow-2xl overflow-hidden relative">
+          <div className="rounded-3xl p-8 mb-12 border border-blue-800/50 shadow-2xl overflow-hidden relative bg-brand-fill">
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <pattern id="grid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -306,7 +306,7 @@ const PortfolioConstructionOverview = () => {
                   <stop offset="0%" stopColor="#8F6FC4"/><stop offset="100%" stopColor="#8F6FC4"/>
                 </linearGradient>
                 <linearGradient id="pcGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#1FA978"/><stop offset="100%" stopColor="#1FA978"/>
+                  <stop offset="0%" stopColor="#12805A"/><stop offset="100%" stopColor="#12805A"/>
                 </linearGradient>
                 <linearGradient id="pcGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#B8923F"/><stop offset="100%" stopColor="#D2754C"/>
@@ -318,14 +318,14 @@ const PortfolioConstructionOverview = () => {
 
               {/* Left: Efficient Frontier Chart */}
               <g transform="translate(30, 60)">
-                <rect x="0" y="0" width="320" height="280" rx="12" fill="#232327" stroke="#404047" strokeWidth="1"/>
-                <text x="160" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="11" fontWeight="600">EFFICIENT FRONTIER</text>
+                <rect x="0" y="0" width="320" height="280" rx="12" fill="#2A2A2C" stroke="#373A41" strokeWidth="1"/>
+                <text x="160" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="11" fontWeight="600">EFFICIENT FRONTIER</text>
                 
                 {/* Axes */}
-                <line x1="50" y1="240" x2="290" y2="240" stroke="#5A5A62" strokeWidth="1"/>
-                <line x1="50" y1="50" x2="50" y2="240" stroke="#5A5A62" strokeWidth="1"/>
-                <text x="170" y="265" textAnchor="middle" fill="#75757D" fontSize="9">Risk (Standard Deviation)</text>
-                <text x="25" y="145" textAnchor="middle" fill="#75757D" fontSize="9" transform="rotate(-90, 25, 145)">Return</text>
+                <line x1="50" y1="240" x2="290" y2="240" stroke="#555A63" strokeWidth="1"/>
+                <line x1="50" y1="50" x2="50" y2="240" stroke="#555A63" strokeWidth="1"/>
+                <text x="170" y="265" textAnchor="middle" fill="#717680" fontSize="9">Risk (Standard Deviation)</text>
+                <text x="25" y="145" textAnchor="middle" fill="#717680" fontSize="9" transform="rotate(-90, 25, 145)">Return</text>
 
                 {/* Efficient Frontier Curve */}
                 <path d="M60 200 Q100 180 130 140 Q160 100 200 80 Q240 65 280 55" stroke="url(#pcGrad1)" strokeWidth="3" fill="none"/>
@@ -337,24 +337,24 @@ const PortfolioConstructionOverview = () => {
                 <circle cx="160" cy="110" r="8" fill="#5A77AA"><title>Mixed</title></circle>
                 <text x="160" y="130" textAnchor="middle" fill="#5A77AA" fontSize="8">Balanced</text>
                 
-                <circle cx="250" cy="70" r="8" fill="#1FA978"><title>Equities</title></circle>
-                <text x="250" y="90" textAnchor="middle" fill="#1FA978" fontSize="8">Equities</text>
+                <circle cx="250" cy="70" r="8" fill="#12805A"><title>Equities</title></circle>
+                <text x="250" y="90" textAnchor="middle" fill="#12805A" fontSize="8">Equities</text>
 
                 {/* Optimal Portfolio Point */}
                 <circle cx="180" cy="95" r="10" fill="#B8923F" stroke="#CDAA5F" strokeWidth="2"/>
                 <text x="180" y="75" textAnchor="middle" fill="#CDAA5F" fontSize="9" fontWeight="600">Optimal</text>
 
                 {/* Inefficient Region */}
-                <circle cx="200" cy="160" r="6" fill="#75757D" opacity="0.5"/>
-                <circle cx="140" cy="170" r="6" fill="#75757D" opacity="0.5"/>
-                <circle cx="230" cy="150" r="6" fill="#75757D" opacity="0.5"/>
-                <text x="185" y="185" textAnchor="middle" fill="#5A5A62" fontSize="7">Inefficient</text>
+                <circle cx="200" cy="160" r="6" fill="#717680" opacity="0.5"/>
+                <circle cx="140" cy="170" r="6" fill="#717680" opacity="0.5"/>
+                <circle cx="230" cy="150" r="6" fill="#717680" opacity="0.5"/>
+                <text x="185" y="185" textAnchor="middle" fill="#555A63" fontSize="7">Inefficient</text>
               </g>
 
               {/* Right: Pie Chart + Components */}
               <g transform="translate(400, 60)">
-                <rect x="0" y="0" width="370" height="280" rx="12" fill="#232327" stroke="#404047" strokeWidth="1"/>
-                <text x="185" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="11" fontWeight="600">OPTIMAL ASSET ALLOCATION</text>
+                <rect x="0" y="0" width="370" height="280" rx="12" fill="#2A2A2C" stroke="#373A41" strokeWidth="1"/>
+                <text x="185" y="25" textAnchor="middle" fill="#A0A3AA" fontSize="11" fontWeight="600">OPTIMAL ASSET ALLOCATION</text>
 
                 {/* Pie Chart */}
                 <g transform="translate(100, 150)">
@@ -375,7 +375,7 @@ const PortfolioConstructionOverview = () => {
                   <text x="10" y="55" fill="white" fontSize="8">10%</text>
                   
                   {/* Remaining back to equities */}
-                  <path d="M0,0 L0,80 A80,80 0 0,1 0,-80 Z" fill="#232327"/>
+                  <path d="M0,0 L0,80 A80,80 0 0,1 0,-80 Z" fill="#2A2A2C"/>
                 </g>
 
                 {/* Legend */}
@@ -395,20 +395,20 @@ const PortfolioConstructionOverview = () => {
 
                 {/* Key Metrics */}
                 <g transform="translate(220, 180)">
-                  <rect x="0" y="0" width="130" height="75" rx="8" fill="#151517" stroke="#404047"/>
-                  <text x="65" y="18" textAnchor="middle" fill="#A3A1A6" fontSize="8">PORTFOLIO METRICS</text>
-                  <text x="10" y="35" fill="#75757D" fontSize="8">Exp. Return:</text>
-                  <text x="120" y="35" textAnchor="end" fill="#1FA978" fontSize="9" fontWeight="600">9.2%</text>
-                  <text x="10" y="50" fill="#75757D" fontSize="8">Volatility:</text>
+                  <rect x="0" y="0" width="130" height="75" rx="8" fill="#1F1F1F" stroke="#373A41"/>
+                  <text x="65" y="18" textAnchor="middle" fill="#A0A3AA" fontSize="8">PORTFOLIO METRICS</text>
+                  <text x="10" y="35" fill="#717680" fontSize="8">Exp. Return:</text>
+                  <text x="120" y="35" textAnchor="end" fill="#12805A" fontSize="9" fontWeight="600">9.2%</text>
+                  <text x="10" y="50" fill="#717680" fontSize="8">Volatility:</text>
                   <text x="120" y="50" textAnchor="end" fill="#B8923F" fontSize="9" fontWeight="600">12.4%</text>
-                  <text x="10" y="65" fill="#75757D" fontSize="8">Sharpe:</text>
+                  <text x="10" y="65" fill="#717680" fontSize="8">Sharpe:</text>
                   <text x="120" y="65" textAnchor="end" fill="#5A77AA" fontSize="9" fontWeight="600">0.74</text>
                 </g>
               </g>
 
               {/* Bottom: Process Flow */}
               <g transform="translate(30, 360)">
-                <text x="385" y="0" textAnchor="middle" fill="#75757D" fontSize="10">Define Goals → Select Assets → Optimize Weights → Implement → Monitor → Rebalance</text>
+                <text x="385" y="0" textAnchor="middle" fill="#717680" fontSize="10">Define Goals → Select Assets → Optimize Weights → Implement → Monitor → Rebalance</text>
               </g>
             </svg>
           </div>
@@ -416,7 +416,7 @@ const PortfolioConstructionOverview = () => {
           {/* What You'll Learn */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50   rounded-2xl p-8 mb-12 border border-blue-200 ">
             <h2 className="text-2xl font-semibold text-gray-900  mb-6 flex items-center gap-3 tracking-[-0.015em]">
-              <span className="w-10 h-10 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center">
+              <span className="w-10 h-10 rounded-xl flex items-center justify-center bg-brand-fill">
                 <Icons.Target className="w-5 h-5 text-white"/>
               </span>
               What You'll Master
@@ -519,7 +519,7 @@ const PortfolioConstructionOverview = () => {
           {/* Start Learning CTA */}
           <div className="text-center">
             <button onClick={() => navigate('/learn/pc-lesson-1')}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-105 transition-all">
+              className="inline-flex items-center gap-3 px-8 py-4 text-white font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-105 transition-all bg-brand-fill">
               Start Learning<FaArrowRight/>
             </button>
             <p className="text-sm text-gray-500  mt-4">Begin your journey to institutional-grade portfolio management</p>

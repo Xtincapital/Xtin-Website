@@ -80,7 +80,7 @@ function formatDate(value: string | null | undefined) {
 
 function tradeStatus(pnl: number | null | undefined): { label: string; className: string } {
   if (pnl == null) return { label: "-", className: "text-muted-foreground" };
-  if (pnl > 0) return { label: "Win", className: "text-emerald-600 dark:text-emerald-400" };
+  if (pnl > 0) return { label: "Win", className: "text-brand dark:text-brand" };
   if (pnl < 0) return { label: "Loss", className: "text-red-600 dark:text-red-400" };
   return { label: "Breakeven", className: "text-muted-foreground" };
 }
@@ -467,7 +467,7 @@ export default function Trades() {
                           {trade.asset}
                           {trade.is_duplicate && (
                             <span
-                              className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                              className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
                               title="Same date, asset, side, quantity, prices and entry time as another trade in your journal"
                             >
                               <Copy className="h-3 w-3" />
@@ -477,7 +477,7 @@ export default function Trades() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-2 py-0.5 text-[11px] uppercase tracking-wide">
+                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-2 py-0.5 text-xs uppercase tracking-wide">
                           {trade.buy_sell || "buy"}
                         </Badge>
                       </TableCell>
@@ -604,7 +604,7 @@ export default function Trades() {
                 <p>This permanently deletes all trades in your journal. Your goals and strategies stay. This can't be undone.</p>
                 <p>
                   Want a copy first?{" "}
-                  <button type="button" className="font-medium text-primary hover:underline" onClick={exportCsv} disabled={exporting}>
+                  <button type="button" className="font-medium text-brand hover:underline" onClick={exportCsv} disabled={exporting}>
                     Export CSV
                   </button>
                 </p>

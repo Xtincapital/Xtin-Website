@@ -43,7 +43,7 @@ const Divider = () => <div aria-hidden="true" className="my-3 border-t border-da
 
 function ReceiptSlip({ receipt }: { receipt: Receipt | null }) {
   return (
-    <div className="text-[11px] leading-relaxed">
+    <div className="text-xs leading-relaxed">
       <div className="text-center">
         <div className="text-sm font-bold tracking-[0.2em]">XTIN CAPITAL</div>
         <div className="opacity-60">{COMPANY.legalName}</div>
@@ -61,7 +61,7 @@ function ReceiptSlip({ receipt }: { receipt: Receipt | null }) {
             <span>TOTAL</span>
             <span>{formatMoney(receipt.amount, receipt.currency)}</span>
           </div>
-          <div className="text-right text-[10px] opacity-60">Incl. of applicable taxes</div>
+          <div className="text-right text-xs opacity-60">Incl. of applicable taxes</div>
           <Divider />
           <Row label={isFreeGrant(receipt) ? "Ref" : "Payment"} value={receipt.payment_id} />
           <Row label="Paid via" value={isFreeGrant(receipt) ? "Coupon" : "Razorpay"} />
@@ -175,9 +175,9 @@ export default function PurchaseReceiptDialog({
           <ReceiptPrinter.Root stage={stage} animate={!resumed} className="mx-auto">
             <ReceiptPrinter.Machine>
               <ReceiptPrinter.Header>
-                <span className="pl-1 pt-0.5 font-mono text-[11px] font-bold tracking-[0.25em] text-grayscale-8 dark:text-grayscale-11">XTIN</span>
+                <span className="pl-1 pt-0.5 font-mono text-xs font-bold tracking-[0.25em] text-grayscale-8 dark:text-grayscale-11">XTIN</span>
                 <span className="flex items-center gap-1.5 pr-1 pt-1.5" aria-hidden="true">
-                  <span className={`size-1.5 rounded-full ${complete ? "bg-green-500 shadow-[0_0_6px_theme(colors.green.500)]" : "bg-amber-400 shadow-[0_0_6px_theme(colors.amber.400)]"}`} />
+                  <span className={`size-1.5 rounded-full ${complete ? "bg-brand-fill shadow-[0_0_6px_theme(colors.green.500)]" : "bg-amber-400 shadow-[0_0_6px_theme(colors.amber.400)]"}`} />
                   <span className="size-1.5 rounded-full bg-grayscale-9/40" />
                 </span>
               </ReceiptPrinter.Header>
@@ -224,7 +224,7 @@ export default function PurchaseReceiptDialog({
               ref={doneRef}
               type="button"
               onClick={onClose}
-              className="rounded-lg bg-green-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
+              className="rounded-lg bg-brand-fill px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-hover"
             >
               Done
             </button>

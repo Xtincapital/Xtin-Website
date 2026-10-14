@@ -146,7 +146,7 @@ function computeGoalProgress(goal: Goal, metricsByTimeframe: Record<GoalTimefram
   let statusClass = "text-amber-600 dark:text-amber-400";
   if (percentComplete >= 100) {
     statusText = "Goal Completed";
-    statusClass = "text-emerald-600 dark:text-emerald-400";
+    statusClass = "text-brand dark:text-brand";
   } else if (percentComplete >= 60) {
     statusText = "On Track";
     statusClass = "text-blue-600 dark:text-blue-400";
@@ -339,7 +339,7 @@ export default function Goals() {
                   <CardContent className="space-y-3">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                       <div
-                        className={cn("h-full rounded-full", percentComplete >= 100 ? "bg-emerald-500" : "bg-primary")}
+                        className={cn("h-full rounded-full", percentComplete >= 100 ? "bg-brand-fill" : "bg-primary")}
                         style={{ width: `${Math.min(100, percentComplete)}%` }}
                       />
                     </div>

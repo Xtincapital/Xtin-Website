@@ -26,10 +26,10 @@ const colors = [
   "from-rose-500 to-pink-500",
   "from-blue-500 to-cyan-500",
   "from-amber-500 to-orange-500",
-  "from-emerald-500 to-teal-500",
+  "bg-brand-fill",
   "from-indigo-500 to-blue-500",
   "from-violet-500 to-indigo-500",
-  "from-green-500 to-emerald-500",
+  "bg-brand-fill",
   "from-cyan-500 to-blue-500"
 ];
 
@@ -69,7 +69,7 @@ const MoneyMindsetOverview = () => {
 
             <div className="mb-3"><ModuleBadge moduleId="money-mindset" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <BrainIcon className="w-7 h-7 text-rose-600" />
               </span>
@@ -95,7 +95,7 @@ const MoneyMindsetOverview = () => {
                     <p className="text-sm font-semibold text-gray-900">Impulse control</p>
                   </div>
                   <div className="bg-white rounded-xl p-4 border border-rose-100 shadow-sm">
-                    <PiggyBankIcon className="w-6 h-6 text-emerald-600 mb-2" />
+                    <PiggyBankIcon className="w-6 h-6 text-brand mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Saving habit</p>
                   </div>
                   <div className="bg-white rounded-xl p-4 border border-rose-100 shadow-sm">
@@ -187,10 +187,10 @@ const MoneyMindsetOverview = () => {
               <h3 className="font-semibold text-rose-900 mb-1">Shame-free</h3>
               <p className="text-sm text-rose-700">Improve money behavior without attacking yourself.</p>
             </div>
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
-              <PiggyBankIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-semibold text-emerald-900 mb-1">Action-based</h3>
-              <p className="text-sm text-emerald-700">Turn intentions into simple repeatable habits.</p>
+            <div className="bg-brand-soft rounded-2xl p-5 border border-brand-line">
+              <PiggyBankIcon className="w-7 h-7 text-brand mb-3" />
+              <h3 className="font-semibold text-brand mb-1">Action-based</h3>
+              <p className="text-sm text-brand">Turn intentions into simple repeatable habits.</p>
             </div>
             <div className="bg-blue-50 rounded-2xl p-5 border border-blue-200">
               <ShieldIcon className="w-7 h-7 text-blue-600 mb-3" />

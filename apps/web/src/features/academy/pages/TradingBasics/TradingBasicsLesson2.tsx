@@ -196,7 +196,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -204,11 +204,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -218,7 +218,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -289,14 +289,14 @@ const TradingBasicsLesson2 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 2 of 7
               </span>
               <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Types className="w-7 h-7 text-orange-600" />
               </span>
@@ -335,17 +335,17 @@ const TradingBasicsLesson2 = () => {
                   <stop offset="0%" stopColor="#E04848"/>
                   <stop offset="33%" stopColor="#D2754C"/>
                   <stop offset="66%" stopColor="#B8923F"/>
-                  <stop offset="100%" stopColor="#1FA978"/>
+                  <stop offset="100%" stopColor="#12805A"/>
                 </linearGradient>
               </defs>
               
               <rect x="50" y="220" width="600" height="12" rx="6" fill="url(#timelineGrad)"/>
               
               {/* Time labels */}
-              <text x="80" y="250" textAnchor="middle" fill="#75757D" fontSize="10">Seconds</text>
-              <text x="200" y="250" textAnchor="middle" fill="#75757D" fontSize="10">Minutes-Hours</text>
-              <text x="400" y="250" textAnchor="middle" fill="#75757D" fontSize="10">Days-Weeks</text>
-              <text x="600" y="250" textAnchor="middle" fill="#75757D" fontSize="10">Weeks-Months</text>
+              <text x="80" y="250" textAnchor="middle" fill="#717680" fontSize="10">Seconds</text>
+              <text x="200" y="250" textAnchor="middle" fill="#717680" fontSize="10">Minutes-Hours</text>
+              <text x="400" y="250" textAnchor="middle" fill="#717680" fontSize="10">Days-Weeks</text>
+              <text x="600" y="250" textAnchor="middle" fill="#717680" fontSize="10">Weeks-Months</text>
               
               {/* Scalping Box */}
               <g transform="translate(30, 20)">
@@ -388,19 +388,19 @@ const TradingBasicsLesson2 = () => {
               
               {/* Positional Box */}
               <g transform="translate(495, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#EEF9F4" stroke="#1FA978" strokeWidth="2"/>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#EEF9F4" stroke="#12805A" strokeWidth="2"/>
                 <text x="70" y="30" textAnchor="middle" fill="#12805A" fontSize="12" fontWeight="700">POSITIONAL</text>
-                <circle cx="70" cy="60" r="20" fill="#D5F2E5"/>
+                <circle cx="70" cy="60" r="20" fill="#EEF9F4"/>
                 <text x="70" y="55" textAnchor="middle" fill="#12805A" fontSize="8">📅</text>
                 <text x="70" y="68" textAnchor="middle" fill="#12805A" fontSize="7">LONG</text>
-                <text x="70" y="100" textAnchor="middle" fill="#0D543C" fontSize="9">Weeks to</text>
-                <text x="70" y="112" textAnchor="middle" fill="#0D543C" fontSize="9">months</text>
+                <text x="70" y="100" textAnchor="middle" fill="#12805A" fontSize="9">Weeks to</text>
+                <text x="70" y="112" textAnchor="middle" fill="#12805A" fontSize="9">months</text>
                 <text x="70" y="140" textAnchor="middle" fill="#12805A" fontSize="9" fontWeight="600">Risk: MODERATE</text>
-                <text x="70" y="160" textAnchor="middle" fill="#0D543C" fontSize="8">2-5 trades/month</text>
+                <text x="70" y="160" textAnchor="middle" fill="#12805A" fontSize="8">2-5 trades/month</text>
               </g>
               
               {/* Arrow showing increasing time */}
-              <text x="350" y="270" textAnchor="middle" fill="#75757D" fontSize="11" fontStyle="italic">
+              <text x="350" y="270" textAnchor="middle" fill="#717680" fontSize="11" fontStyle="italic">
                 ← Shorter holding period | Longer holding period →
               </text>
             </svg>
@@ -433,7 +433,7 @@ const TradingBasicsLesson2 = () => {
               risk="Very High"
               capital="Medium (Rs. 1-5L)"
               suited="4-6 hours/day"
-              color="bg-gradient-to-br from-green-600 to-emerald-700"
+              color="bg-brand-fill"
               bgColor="bg-gradient-to-br from-orange-50 to-amber-50"
               borderColor="border-orange-200"
             />
@@ -447,7 +447,7 @@ const TradingBasicsLesson2 = () => {
               risk="High"
               capital="Medium (Rs. 1-3L)"
               suited="1-2 hours/day"
-              color="bg-gradient-to-br from-green-600 to-emerald-700"
+              color="bg-brand-fill"
               bgColor="bg-gradient-to-br from-yellow-50 to-amber-50"
               borderColor="border-yellow-200"
             />
@@ -461,9 +461,9 @@ const TradingBasicsLesson2 = () => {
               risk="Moderate-High"
               capital="Lower (Rs. 50K+)"
               suited="Few hours/week"
-              color="bg-gradient-to-br from-green-600 to-emerald-700"
-              bgColor="bg-gradient-to-br from-green-50 to-emerald-50"
-              borderColor="border-green-200"
+              color="bg-brand-fill"
+              bgColor="bg-brand-soft"
+              borderColor="border-brand-line"
             />
           </div>
 
@@ -508,7 +508,7 @@ const TradingBasicsLesson2 = () => {
                     <td className="p-3">Part-time possible</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
-                    <td className="p-3 font-medium text-green-600">Positional</td>
+                    <td className="p-3 font-medium text-brand">Positional</td>
                     <td className="p-3">Weeks-Months</td>
                     <td className="p-3">2-5/month</td>
                     <td className="p-3">Few hours/week</td>
@@ -540,12 +540,12 @@ const TradingBasicsLesson2 = () => {
                 </ul>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-2">What Experts Recommend:</h4>
-                <p className="text-green-700 text-sm mb-2">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-2">What Experts Recommend:</h4>
+                <p className="text-brand text-sm mb-2">
                   If you must trade, start with <strong>Swing or Positional</strong>:
                 </p>
-                <ul className="text-green-600 text-sm space-y-1">
+                <ul className="text-brand text-sm space-y-1">
                   <li>• More time to analyze and think</li>
                   <li>• Less stressful, fewer decisions</li>
                   <li>• Compatible with a job</li>
@@ -717,7 +717,7 @@ const TradingBasicsLesson2 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-3')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-orange-600 hover:to-red-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: How Profit & Loss Works</span>
               <FaArrowRight className="text-sm" />

@@ -9,13 +9,13 @@ import ModuleBadge from "../../components/ModuleBadge";
 const CapitalProtectionHeroSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Central shield */}
     <defs>
       <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stopColor="#12805A"/>
-        <stop offset="100%" stopColor="#1FA978"/>
+        <stop offset="100%" stopColor="#12805A"/>
       </linearGradient>
       <linearGradient id="capitalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="#CDAA5F"/>
@@ -25,7 +25,7 @@ const CapitalProtectionHeroSVG = () => (
     
     {/* Shield shape */}
     <path d="M350 40 L420 70 L420 150 Q420 220 350 260 Q280 220 280 150 L280 70 Z" 
-          fill="url(#shieldGrad)" stroke="#0E6A4A" strokeWidth="3"/>
+          fill="url(#shieldGrad)" stroke="#12805A" strokeWidth="3"/>
     
     {/* Dollar symbol inside shield */}
     <text x="350" y="165" textAnchor="middle" fontSize="60" fontWeight="700" fill="white">$</text>
@@ -48,17 +48,17 @@ const CapitalProtectionHeroSVG = () => (
     
     {/* Right side - Protected outcomes */}
     <g transform="translate(470, 80)">
-      <rect x="0" y="0" width="180" height="140" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Protected Outcomes</text>
+      <rect x="0" y="0" width="180" height="140" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">Protected Outcomes</text>
       
-      <text x="90" y="55" textAnchor="middle" fontSize="9" fill="#0B4532">✓ Capital preserved</text>
-      <text x="90" y="80" textAnchor="middle" fontSize="9" fill="#0B4532">✓ Survival ensured</text>
-      <text x="90" y="105" textAnchor="middle" fontSize="9" fill="#0B4532">✓ Consistency maintained</text>
-      <text x="90" y="130" textAnchor="middle" fontSize="9" fill="#0B4532">✓ Compounding enabled</text>
+      <text x="90" y="55" textAnchor="middle" fontSize="9" fill="#12805A">✓ Capital preserved</text>
+      <text x="90" y="80" textAnchor="middle" fontSize="9" fill="#12805A">✓ Survival ensured</text>
+      <text x="90" y="105" textAnchor="middle" fontSize="9" fill="#12805A">✓ Consistency maintained</text>
+      <text x="90" y="130" textAnchor="middle" fontSize="9" fill="#12805A">✓ Compounding enabled</text>
     </g>
     
     {/* Bottom message */}
-    <text x="350" y="290" textAnchor="middle" fontSize="12" fontWeight="600" fill="#404047">Risk Management: The Shield Between You and Ruin</text>
+    <text x="350" y="290" textAnchor="middle" fontSize="12" fontWeight="600" fill="#373A41">Risk Management: The Shield Between You and Ruin</text>
   </svg>
 );
 
@@ -66,10 +66,10 @@ const CapitalProtectionHeroSVG = () => (
 const WhyRiskMattersSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Risk Management Matters More Than Returns</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Why Risk Management Matters More Than Returns</text>
     
     {/* Left: Without risk management */}
     <g transform="translate(40, 55)">
@@ -89,18 +89,18 @@ const WhyRiskMattersSVG = () => (
     
     {/* Right: With risk management */}
     <g transform="translate(380, 55)">
-      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ With Risk Management</text>
+      <rect x="0" y="0" width="280" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ With Risk Management</text>
       
       {/* Stable growth chart */}
       <polyline points="30,130 70,125 110,115 150,120 190,105 230,95 250,80" 
-                fill="none" stroke="#1FA978" strokeWidth="3"/>
-      <circle cx="250" cy="80" r="5" fill="#1FA978"/>
+                fill="none" stroke="#12805A" strokeWidth="3"/>
+      <circle cx="250" cy="80" r="5" fill="#12805A"/>
       
-      <text x="140" y="130" textAnchor="middle" fontSize="9" fill="#0B4532">$100,000 → $115,000</text>
-      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#0B4532">-12% max drawdown</text>
-      <text x="140" y="175" textAnchor="middle" fontSize="8" fill="#0D543C">Controlled, recoverable dips</text>
-      <text x="140" y="192" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">Compounding continues</text>
+      <text x="140" y="130" textAnchor="middle" fontSize="9" fill="#12805A">$100,000 → $115,000</text>
+      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#12805A">-12% max drawdown</text>
+      <text x="140" y="175" textAnchor="middle" fontSize="8" fill="#12805A">Controlled, recoverable dips</text>
+      <text x="140" y="192" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">Compounding continues</text>
     </g>
   </svg>
 );
@@ -109,40 +109,40 @@ const WhyRiskMattersSVG = () => (
 const LossAsymmetrySVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Asymmetry of Losses</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Losses hurt more than gains help — mathematically</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Asymmetry of Losses</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Losses hurt more than gains help — mathematically</text>
     
     {/* Loss/Recovery bars */}
     <g transform="translate(80, 75)">
       {/* Headers */}
       <text x="80" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">Loss</text>
-      <text x="200" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1FA978">Gain Needed to Recover</text>
-      <text x="400" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#75757D">Difficulty</text>
+      <text x="200" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#12805A">Gain Needed to Recover</text>
+      <text x="400" y="0" textAnchor="middle" fontSize="10" fontWeight="600" fill="#717680">Difficulty</text>
       
       {/* Row 1: -10% */}
       <rect x="30" y="20" width="100" height="28" fill="#FBE1E1" rx="4"/>
       <text x="80" y="39" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">-10%</text>
-      <rect x="150" y="20" width="100" height="28" fill="#D5F2E5" rx="4"/>
-      <text x="200" y="39" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">+11%</text>
-      <rect x="320" y="20" width="160" height="28" fill="#EFEDE7" rx="4"/>
-      <text x="400" y="39" textAnchor="middle" fontSize="8" fill="#75757D">Manageable</text>
+      <rect x="150" y="20" width="100" height="28" fill="#EEF9F4" rx="4"/>
+      <text x="200" y="39" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">+11%</text>
+      <rect x="320" y="20" width="160" height="28" fill="#EEEEF1" rx="4"/>
+      <text x="400" y="39" textAnchor="middle" fontSize="8" fill="#717680">Manageable</text>
       
       {/* Row 2: -25% */}
       <rect x="30" y="58" width="100" height="28" fill="#F6C3C3" rx="4"/>
       <text x="80" y="77" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">-25%</text>
       <rect x="150" y="58" width="100" height="28" fill="#ABE5CC" rx="4"/>
-      <text x="200" y="77" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">+33%</text>
+      <text x="200" y="77" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">+33%</text>
       <rect x="320" y="58" width="160" height="28" fill="#F6ECCE" rx="4"/>
       <text x="400" y="77" textAnchor="middle" fontSize="8" fill="#7C5D2B">Challenging</text>
       
       {/* Row 3: -50% */}
       <rect x="30" y="96" width="100" height="28" fill="#F09B9B" rx="4"/>
       <text x="80" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">-50%</text>
-      <rect x="150" y="96" width="100" height="28" fill="#77D3AE" rx="4"/>
-      <text x="200" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">+100%</text>
+      <rect x="150" y="96" width="100" height="28" fill="#3CCB97" rx="4"/>
+      <text x="200" y="115" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">+100%</text>
       <rect x="320" y="96" width="160" height="28" fill="#F0C2A9" rx="4"/>
       <text x="400" y="115" textAnchor="middle" fontSize="8" fill="#9C4D2E">Difficult</text>
       
@@ -150,21 +150,21 @@ const LossAsymmetrySVG = () => (
       <rect x="30" y="134" width="100" height="28" fill="#F26B6B" rx="4"/>
       <text x="80" y="153" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">-75%</text>
       <rect x="150" y="134" width="100" height="28" fill="#3CCB97" rx="4"/>
-      <text x="200" y="153" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0B4532">+300%</text>
+      <text x="200" y="153" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">+300%</text>
       <rect x="320" y="134" width="160" height="28" fill="#F09B9B" rx="4"/>
       <text x="400" y="153" textAnchor="middle" fontSize="8" fill="#842428">Very Difficult</text>
       
       {/* Row 5: -90% */}
       <rect x="30" y="172" width="100" height="28" fill="#E04848" rx="4"/>
       <text x="80" y="191" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">-90%</text>
-      <rect x="150" y="172" width="100" height="28" fill="#1FA978" rx="4"/>
+      <rect x="150" y="172" width="100" height="28" fill="#12805A" rx="4"/>
       <text x="200" y="191" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">+900%</text>
       <rect x="320" y="172" width="160" height="28" fill="#E04848" rx="4"/>
       <text x="400" y="191" textAnchor="middle" fontSize="8" fill="white">Nearly Impossible</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="280" width="500" height="30" fill="#232327" rx="8"/>
+    <rect x="100" y="280" width="500" height="30" fill="#2A2A2C" rx="8"/>
     <text x="350" y="300" textAnchor="middle" fontSize="10" fill="white">💡 Avoiding large losses is mathematically more important than chasing large gains</text>
   </svg>
 );
@@ -173,11 +173,11 @@ const LossAsymmetrySVG = () => (
 const AvoidanceVsManagementSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Risk Avoidance vs Risk Management</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">They sound similar but lead to very different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Risk Avoidance vs Risk Management</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">They sound similar but lead to very different outcomes</text>
     
     {/* Left: Risk Avoidance */}
     <g transform="translate(40, 70)">
@@ -199,20 +199,20 @@ const AvoidanceVsManagementSVG = () => (
     
     {/* Right: Risk Management */}
     <g transform="translate(380, 70)">
-      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0D543C">✓ Risk Management</text>
+      <rect x="0" y="0" width="280" height="200" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ Risk Management</text>
       
-      <text x="140" y="55" textAnchor="middle" fontSize="9" fill="#0B4532">"I'll take calculated, controlled risks"</text>
+      <text x="140" y="55" textAnchor="middle" fontSize="9" fill="#12805A">"I'll take calculated, controlled risks"</text>
       
-      <line x1="40" y1="70" x2="240" y2="70" stroke="#1FA978" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="40" y1="70" x2="240" y2="70" stroke="#12805A" strokeWidth="1" strokeDasharray="4"/>
       
-      <text x="20" y="95" fontSize="8" fill="#0D543C">• Define acceptable loss levels</text>
-      <text x="20" y="115" fontSize="8" fill="#0D543C">• Size positions appropriately</text>
-      <text x="20" y="135" fontSize="8" fill="#0D543C">• Diversify thoughtfully</text>
-      <text x="20" y="155" fontSize="8" fill="#0D543C">• Plan for adverse scenarios</text>
+      <text x="20" y="95" fontSize="8" fill="#12805A">• Define acceptable loss levels</text>
+      <text x="20" y="115" fontSize="8" fill="#12805A">• Size positions appropriately</text>
+      <text x="20" y="135" fontSize="8" fill="#12805A">• Diversify thoughtfully</text>
+      <text x="20" y="155" fontSize="8" fill="#12805A">• Plan for adverse scenarios</text>
       
       <rect x="20" y="170" width="240" height="22" fill="#ABE5CC" rx="4"/>
-      <text x="140" y="185" textAnchor="middle" fontSize="8" fill="#0B4532">Result: Sustainable growth with protection</text>
+      <text x="140" y="185" textAnchor="middle" fontSize="8" fill="#12805A">Result: Sustainable growth with protection</text>
     </g>
   </svg>
 );
@@ -221,17 +221,17 @@ const AvoidanceVsManagementSVG = () => (
 const CapitalPyramidSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">The Capital Protection Pyramid</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Build from the foundation up — never skip levels</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">The Capital Protection Pyramid</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Build from the foundation up — never skip levels</text>
     
     {/* Pyramid layers */}
     <defs>
       <linearGradient id="layer1" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="#12805A"/>
-        <stop offset="100%" stopColor="#0E6A4A"/>
+        <stop offset="100%" stopColor="#12805A"/>
       </linearGradient>
       <linearGradient id="layer2" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="#5A77AA"/>
@@ -260,7 +260,7 @@ const CapitalPyramidSVG = () => (
     <text x="350" y="235" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Position Sizing</text>
     
     {/* Layer 1 (base) - Capital Preservation */}
-    <path d="M200 265 L500 265 L560 325 L140 325 Z" fill="url(#layer1)" stroke="#0E6A4A" strokeWidth="2"/>
+    <path d="M200 265 L500 265 L560 325 L140 325 Z" fill="url(#layer1)" stroke="#12805A" strokeWidth="2"/>
     <text x="350" y="300" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Capital Preservation</text>
     
     {/* Right side labels */}
@@ -280,8 +280,8 @@ const CapitalPyramidSVG = () => (
     </g>
     
     <g transform="translate(570, 285)">
-      <rect x="0" y="0" width="110" height="25" fill="#D5F2E5" rx="4"/>
-      <text x="55" y="17" textAnchor="middle" fontSize="7" fill="#0D543C">THE FOUNDATION</text>
+      <rect x="0" y="0" width="110" height="25" fill="#EEF9F4" rx="4"/>
+      <text x="55" y="17" textAnchor="middle" fontSize="7" fill="#12805A">THE FOUNDATION</text>
     </g>
   </svg>
 );
@@ -290,26 +290,26 @@ const CapitalPyramidSVG = () => (
 const WhoIsThisForSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Who This Module Is For</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">Who This Module Is For</text>
     
     {/* Left: This is for you if... */}
     <g transform="translate(40, 55)">
-      <rect x="0" y="0" width="295" height="220" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="147" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">✓ This Module IS For You If...</text>
+      <rect x="0" y="0" width="295" height="220" fill="#EEF9F4" rx="12" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="147" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#12805A">✓ This Module IS For You If...</text>
       
-      <text x="20" y="55" fontSize="8" fill="#0B4532">• You want to protect capital before growing it</text>
-      <text x="20" y="75" fontSize="8" fill="#0B4532">• You've experienced painful losses and want to prevent repeats</text>
-      <text x="20" y="95" fontSize="8" fill="#0B4532">• You understand that survival enables compounding</text>
-      <text x="20" y="115" fontSize="8" fill="#0B4532">• You're willing to sacrifice some upside for stability</text>
-      <text x="20" y="135" fontSize="8" fill="#0B4532">• You want a framework, not tips or shortcuts</text>
-      <text x="20" y="155" fontSize="8" fill="#0B4532">• You value consistency over excitement</text>
-      <text x="20" y="175" fontSize="8" fill="#0B4532">• You're ready to think long-term</text>
+      <text x="20" y="55" fontSize="8" fill="#12805A">• You want to protect capital before growing it</text>
+      <text x="20" y="75" fontSize="8" fill="#12805A">• You've experienced painful losses and want to prevent repeats</text>
+      <text x="20" y="95" fontSize="8" fill="#12805A">• You understand that survival enables compounding</text>
+      <text x="20" y="115" fontSize="8" fill="#12805A">• You're willing to sacrifice some upside for stability</text>
+      <text x="20" y="135" fontSize="8" fill="#12805A">• You want a framework, not tips or shortcuts</text>
+      <text x="20" y="155" fontSize="8" fill="#12805A">• You value consistency over excitement</text>
+      <text x="20" y="175" fontSize="8" fill="#12805A">• You're ready to think long-term</text>
       
       <rect x="20" y="190" width="255" height="22" fill="#ABE5CC" rx="4"/>
-      <text x="147" y="205" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">You're in the right place</text>
+      <text x="147" y="205" textAnchor="middle" fontSize="8" fontWeight="600" fill="#12805A">You're in the right place</text>
     </g>
     
     {/* Right: This is NOT for you if... */}
@@ -335,18 +335,18 @@ const WhoIsThisForSVG = () => (
 const WhatYoullLearnSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">What You'll Understand After This Module</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#373A41">What You'll Understand After This Module</text>
     
     {/* Learning outcomes grid */}
     <g transform="translate(40, 55)">
       {/* Row 1 */}
-      <rect x="0" y="0" width="200" height="75" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="100" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">🛡️ Capital Protection</text>
-      <text x="100" y="45" textAnchor="middle" fontSize="7" fill="#0B4532">Why protecting what you have</text>
-      <text x="100" y="60" textAnchor="middle" fontSize="7" fill="#0B4532">matters more than chasing more</text>
+      <rect x="0" y="0" width="200" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="100" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">🛡️ Capital Protection</text>
+      <text x="100" y="45" textAnchor="middle" fontSize="7" fill="#12805A">Why protecting what you have</text>
+      <text x="100" y="60" textAnchor="middle" fontSize="7" fill="#12805A">matters more than chasing more</text>
       
       <rect x="220" y="0" width="200" height="75" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="2"/>
       <text x="320" y="25" textAnchor="middle" fontSize="9" fontWeight="600" fill="#344C72">📊 Types of Risk</text>
@@ -369,16 +369,16 @@ const WhatYoullLearnSVG = () => (
       <text x="320" y="140" textAnchor="middle" fontSize="7" fill="#842428">Understanding and limiting</text>
       <text x="320" y="155" textAnchor="middle" fontSize="7" fill="#842428">portfolio declines</text>
       
-      <rect x="440" y="95" width="200" height="75" fill="#EFEDE7" rx="10" stroke="#CFCBC1" strokeWidth="2"/>
-      <text x="540" y="120" textAnchor="middle" fontSize="9" fontWeight="600" fill="#5A5A62">🧠 Risk Psychology</text>
-      <text x="540" y="140" textAnchor="middle" fontSize="7" fill="#75757D">How emotions sabotage risk</text>
-      <text x="540" y="155" textAnchor="middle" fontSize="7" fill="#75757D">decisions — and how to manage them</text>
+      <rect x="440" y="95" width="200" height="75" fill="#EEEEF1" rx="10" stroke="#CFD0D3" strokeWidth="2"/>
+      <text x="540" y="120" textAnchor="middle" fontSize="9" fontWeight="600" fill="#555A63">🧠 Risk Psychology</text>
+      <text x="540" y="140" textAnchor="middle" fontSize="7" fill="#717680">How emotions sabotage risk</text>
+      <text x="540" y="155" textAnchor="middle" fontSize="7" fill="#717680">decisions — and how to manage them</text>
       
       {/* Row 3 */}
-      <rect x="110" y="190" width="200" height="75" fill="#D5F2E5" rx="10" stroke="#77D3AE" strokeWidth="2"/>
-      <text x="210" y="215" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">🔄 Survival Mindset</text>
-      <text x="210" y="235" textAnchor="middle" fontSize="7" fill="#0B4532">Why staying in the game</text>
-      <text x="210" y="250" textAnchor="middle" fontSize="7" fill="#0B4532">is the ultimate edge</text>
+      <rect x="110" y="190" width="200" height="75" fill="#EEF9F4" rx="10" stroke="#3CCB97" strokeWidth="2"/>
+      <text x="210" y="215" textAnchor="middle" fontSize="9" fontWeight="600" fill="#12805A">🔄 Survival Mindset</text>
+      <text x="210" y="235" textAnchor="middle" fontSize="7" fill="#12805A">Why staying in the game</text>
+      <text x="210" y="250" textAnchor="middle" fontSize="7" fill="#12805A">is the ultimate edge</text>
       
       <rect x="330" y="190" width="200" height="75" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="2"/>
       <text x="430" y="215" textAnchor="middle" fontSize="9" fontWeight="600" fill="#344C72">⚖️ Risk vs Reward</text>
@@ -413,29 +413,29 @@ const RiskManagementOverview = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <Link 
             to="/learn" 
-            className="inline-flex items-center text-emerald-600 hover:text-emerald-800 mb-4 transition-colors"
+            className="inline-flex items-center text-brand hover:text-brand mb-4 transition-colors"
           >
             <FaArrowLeft className="mr-2" />
             Back to Learning Center
           </Link>
           <div className="bg-white rounded-2xl p-8 shadow-lg">
             <div className="flex items-center gap-3 mb-4">
-              <div className="bg-emerald-100 p-3 rounded-xl">
-                <FaShieldAlt className="text-emerald-600 text-2xl" />
+              <div className="bg-brand-soft p-3 rounded-xl">
+                <FaShieldAlt className="text-brand text-2xl" />
               </div>
-              <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-brand-soft text-brand px-3 py-1 rounded-full text-sm font-medium">
                 Capital Protection Module
               </span>
             </div>
             <div className="mb-3"><ModuleBadge moduleId="risk-management" /></div>
-            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Risk Management</h1>
-            <p className="text-xl text-emerald-600 font-medium mb-4">Capital Protection Mastery</p>
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-800 mb-2 tracking-[-0.025em]">Risk Management</h1>
+            <p className="text-xl text-brand font-medium mb-4">Capital Protection Mastery</p>
             <p className="text-gray-600 text-lg">
               Learn to protect your capital before growing it. This module teaches the principles 
               of risk management that separate surviving investors from those who eventually fail.
@@ -450,7 +450,7 @@ const RiskManagementOverview = () => {
 
         {/* What Risk Management Really Means */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Risk Management Really Means</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.025em]">What Risk Management Really Means</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -531,7 +531,7 @@ const RiskManagementOverview = () => {
         </div>
 
         {/* Module Philosophy */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Module Philosophy</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {modulePhilosophy.map((item, index) => (
@@ -540,7 +540,7 @@ const RiskManagementOverview = () => {
                   <span className="text-2xl">{item.icon}</span>
                   <h3 className="text-lg font-semibold">{item.title}</h3>
                 </div>
-                <p className="text-emerald-100 text-sm">{item.description}</p>
+                <p className="text-white/85 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -593,9 +593,9 @@ const RiskManagementOverview = () => {
         </div>
 
         {/* India Context */}
-        <div className="bg-emerald-50 rounded-2xl p-6 shadow-lg mb-8 border border-emerald-200">
-          <h3 className="text-lg font-semibold text-emerald-800 mb-3">🌍 Global Perspective with Local Relevance</h3>
-          <p className="text-emerald-900">
+        <div className="bg-brand-soft rounded-2xl p-6 shadow-lg mb-8 border border-brand-line">
+          <h3 className="text-lg font-semibold text-brand mb-3">🌍 Global Perspective with Local Relevance</h3>
+          <p className="text-brand">
             While this module uses global concepts and examples, the principles apply everywhere. 
             In rapidly growing markets like India, where retail participation has surged, risk 
             management becomes even more critical. New participants often enter during bull markets 
@@ -614,13 +614,13 @@ const RiskManagementOverview = () => {
                 key={lesson.id}
                 className={`flex items-center justify-between p-4 rounded-xl border-2 ${
                   lesson.available
-                    ? 'border-emerald-200 bg-emerald-50 hover:border-emerald-400 cursor-pointer'
+                    ? 'border-brand-line bg-brand-soft hover:border-brand cursor-pointer'
                     : 'border-gray-200 bg-gray-50'
                 }`}
               >
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                    lesson.available ? 'bg-emerald-500 text-white' : 'bg-gray-300 text-gray-600'
+                    lesson.available ? 'bg-brand-fill text-white' : 'bg-gray-300 text-gray-600'
                   }`}>
                     {lesson.id}
                   </div>
@@ -631,7 +631,7 @@ const RiskManagementOverview = () => {
                 {lesson.available ? (
                   <Link
                     to={lesson.path}
-                    className="bg-green-600 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium"
+                    className="bg-brand-fill hover:bg-brand-hover text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium"
                   >
                     Start Lesson
                   </Link>
@@ -658,7 +658,7 @@ const RiskManagementOverview = () => {
             who can stay in the game long enough for compounding to work. Risk management is 
             how you stay in the game.
           </p>
-          <p className="text-lg font-medium text-emerald-300">
+          <p className="text-lg font-medium text-brand">
             Remember: Survival comes before profits. Capital preserved today enables growth tomorrow.
           </p>
         </div>

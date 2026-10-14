@@ -151,7 +151,7 @@ const AssessmentQuestion = ({ number, question, yesText, noText, yesScore, noSco
               onClick={() => onAnswer(yesScore)}
               className={`p-3 rounded-lg border-2 text-sm transition-all ${
                 answered && value === yesScore 
-                  ? 'border-green-500 bg-green-50 text-green-700' 
+                  ? 'border-brand bg-brand-soft text-brand' 
                   : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
               }`}
             >
@@ -190,7 +190,7 @@ const AlternativeCard = ({ icon: Icon, title, description, returns, risk, effort
       <div className="space-y-2 text-xs">
         <div className="flex justify-between">
           <span className="text-gray-500">Expected Returns:</span>
-          <span className="font-medium text-green-600">{returns}</span>
+          <span className="font-medium text-brand">{returns}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-500">Risk Level:</span>
@@ -354,14 +354,14 @@ const TradingBasicsLesson7 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 7 of 7
               </span>
               <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">
                 Final Assessment
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
+            <h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-200 rounded-xl shadow-sm">
                 <Icons.SelfAssess className="w-7 h-7 text-indigo-600" />
               </span>
@@ -412,9 +412,9 @@ const TradingBasicsLesson7 = () => {
                   </ul>
                 </div>
                 
-                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <h4 className="font-bold text-green-800 mb-2">Investing (SIP) Requires:</h4>
-                  <ul className="space-y-1 text-sm text-green-700">
+                <div className="bg-brand-soft rounded-lg p-4 border border-brand-line">
+                  <h4 className="font-bold text-brand mb-2">Investing (SIP) Requires:</h4>
+                  <ul className="space-y-1 text-sm text-brand">
                     <li>• Any amount (even Rs. 500/month)</li>
                     <li>• Basic knowledge (few hours)</li>
                     <li>• Patience (not discipline)</li>
@@ -436,7 +436,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* Self Assessment Quiz */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2 tracking-[-0.015em]">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2 tracking-[-0.025em]">
               <Icons.Checklist className="w-6 h-6 text-indigo-600" />
               <span>Self-Assessment: Are You Ready?</span>
             </h2>
@@ -464,13 +464,13 @@ const TradingBasicsLesson7 = () => {
             {/* Score Display */}
             {allAnswered && (
               <div className={`mt-6 rounded-2xl p-6 border-2 ${
-                result.color === 'green' ? 'bg-green-50 border-green-300' :
+                result.color === 'green' ? 'bg-brand-soft border-brand-line' :
                 result.color === 'amber' ? 'bg-amber-50 border-amber-300' :
                 'bg-red-50 border-red-300'
               }`}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                    result.color === 'green' ? 'bg-green-500' :
+                    result.color === 'green' ? 'bg-brand-fill' :
                     result.color === 'amber' ? 'bg-amber-500' :
                     'bg-red-500'
                   }`}>
@@ -478,7 +478,7 @@ const TradingBasicsLesson7 = () => {
                   </div>
                   <div>
                     <h3 className={`font-bold text-lg ${
-                      result.color === 'green' ? 'text-green-800' :
+                      result.color === 'green' ? 'text-brand' :
                       result.color === 'amber' ? 'text-amber-800' :
                       'text-red-800'
                     }`}>{result.title}</h3>
@@ -486,7 +486,7 @@ const TradingBasicsLesson7 = () => {
                   </div>
                 </div>
                 <p className={`mb-3 ${
-                  result.color === 'green' ? 'text-green-700' :
+                  result.color === 'green' ? 'text-brand' :
                   result.color === 'amber' ? 'text-amber-700' :
                   'text-red-700'
                 }`}>{result.message}</p>
@@ -642,19 +642,19 @@ const TradingBasicsLesson7 = () => {
                 <h4 className="font-bold text-gray-800 mb-2">SIP Growth in India</h4>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">→</span>
+                    <span className="text-brand font-bold">→</span>
                     <span>Monthly SIP flows: <strong>Rs. 23,000+ crore</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">→</span>
+                    <span className="text-brand font-bold">→</span>
                     <span>Total SIP accounts: <strong>8+ crore</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">→</span>
+                    <span className="text-brand font-bold">→</span>
                     <span>Average SIP size: Rs. 2,500/month</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-green-500 font-bold">→</span>
+                    <span className="text-brand font-bold">→</span>
                     <span>10-year Nifty 50 CAGR: ~12%</span>
                   </li>
                 </ul>
@@ -734,7 +734,7 @@ const TradingBasicsLesson7 = () => {
           </div>
 
           {/* Module Complete */}
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 mb-10 text-white text-center">
+          <div className="rounded-2xl p-8 mb-10 text-white text-center bg-brand-fill">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
                 <FaTrophy className="w-8 h-8 text-yellow-300" />
@@ -765,7 +765,7 @@ const TradingBasicsLesson7 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Back to Module Overview</span>
             </button>

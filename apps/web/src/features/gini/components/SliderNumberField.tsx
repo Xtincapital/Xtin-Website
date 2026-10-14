@@ -96,7 +96,7 @@ export default function SliderNumberField({
             onKeyDown={(e) => {
               if (e.key === "Enter") e.currentTarget.blur();
             }}
-            className="h-8 w-28 px-2 text-right text-sm font-semibold text-primary"
+            className="h-8 w-28 px-2 text-right text-sm font-semibold text-brand"
           />
           {suffix && <span className="text-sm text-muted-foreground">{suffix}</span>}
         </div>

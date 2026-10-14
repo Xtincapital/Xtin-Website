@@ -82,7 +82,7 @@ function PublisherTerms() {
 
             <Section title="10. Contact">
               <p>
-                Email <a href="mailto:support@xtincapital.com" className="text-green-600 hover:text-green-700 font-medium">support@xtincapital.com</a> with subject "Publisher" for questions.
+                Email <a href="mailto:support@xtincapital.com" className="text-brand hover:text-brand font-medium">support@xtincapital.com</a> with subject "Publisher" for questions.
               </p>
             </Section>
           </div>
