@@ -3,6 +3,7 @@
 // phones), and closes on Escape or an outside click.
 import * as React from "react";
 import { Info } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ export function InfoTip({ title, children, className, side = "bottom", align = "
   const closeTimer = React.useRef<number>();
 
   const pointerType = React.useRef("keyboard");
+  const reduceMotion = useReducedMotion();
 
   const hoverOpen = (e: React.PointerEvent) => {
     if (e.pointerType !== "mouse") return;
@@ -70,8 +72,15 @@ export function InfoTip({ title, children, className, side = "bottom", align = "
         onOpenAutoFocus={(e) => e.preventDefault()}
         className={cn("max-w-[calc(100vw-2rem)] p-3 text-xs leading-relaxed font-normal normal-case tracking-normal text-left", widthClass)}
       >
-        {title && <p className="mb-1 text-sm font-semibold text-foreground">{title}</p>}
-        <div className="space-y-1.5 text-muted-foreground">{children}</div>
+        {/* Card motion from SmoothUI's rich popover: a short spring in from a soft blur. */}
+        <motion.div
+          initial={reduceMotion ? false : { filter: "blur(6px)", opacity: 0, scale: 0.96, y: 4 }}
+          animate={{ filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }}
+          transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 30 }}
+        >
+          {title && <p className="mb-1 text-sm font-semibold text-foreground">{title}</p>}
+          <div className="space-y-1.5 text-muted-foreground">{children}</div>
+        </motion.div>
       </PopoverContent>
     </Popover>
   );

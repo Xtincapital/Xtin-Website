@@ -31,41 +31,14 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Bar,
-  BarChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Cell,
-} from "recharts";
-import { chartGrid, chartTick, chartTooltip, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
-import {
-  Receipt,
-  Wallet,
-  Percent,
-  TrendingUp,
-  TrendingDown,
-  ArrowUpCircle,
-  ArrowDownCircle,
-  Gauge,
-  BarChart3,
-  Flame,
-  Target,
-  Zap,
-  Award,
-} from "lucide-react";
+import { Receipt, Wallet, Percent, TrendingUp, TrendingDown, ArrowUpCircle, ArrowDownCircle, Gauge, BarChart3, Flame, Target, Zap, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JDonut } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
-import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -75,7 +48,6 @@ import { marketLabel } from "../lib/journalPatternHelpers";
 const TRADING_TYPES = ["Scalping", "Intraday", "Swing Trading", "Positional Trading", "Investing", "Long-Term Investing"];
 const TRADE_MARKETS = ["Equity", "Futures", "Options", "Commodities", "Forex", "Crypto_Currency"];
 
-const PIE_COLORS = CATEGORY_COLORS;
 
 /** Full port of app.js's `calculateMetrics()` — basic stats plus every
  *  "advanced risk metric" (Sharpe/Sortino/drawdown/profit factor/expectancy/
@@ -244,9 +216,9 @@ const Summary = () => {
 
   const basicCards: Card_[] = [
     { label: "Total Trades", info: "Every trade in your journal.", value: metrics.totalTrades.toLocaleString(), positive: true, icon: Receipt, onClick: allTrades.length ? show("All trades", "Everything in your journal", allTrades) : undefined },
-    { label: "Total P&L", info: "Profit and loss: everything your closed trades made minus what they lost, after fees. Trades in other currencies are converted to your selected currency.", value: formatCurrency(metrics.totalPnL), positive: metrics.totalPnL >= 0, icon: Wallet },
+    { label: "Total P&L", info: "Profit and loss: everything your closed trades made minus what they lost, after fees. Trades in other currencies are converted to your selected currency.", value: signedMoney(formatCurrency, metrics.totalPnL), positive: metrics.totalPnL >= 0, icon: Wallet },
     { label: "Win Rate", info: "The percentage of your closed trades that made money. A 40% win rate can still be very profitable if your wins are much bigger than your losses.", value: `${metrics.winRate.toFixed(2)}%`, positive: true, icon: Percent, onClick: wins.length ? show("Winning trades", "Trades that made money", wins) : undefined },
-    { label: "Avg P/L Per Trade", info: "Total P&L divided by the number of closed trades: what a typical trade earns or loses.", value: formatCurrency(metrics.avgPnL), positive: metrics.avgPnL >= 0, icon: TrendingUp },
+    { label: "Avg P/L Per Trade", info: "Total P&L divided by the number of closed trades: what a typical trade earns or loses.", value: signedMoney(formatCurrency, metrics.avgPnL), positive: metrics.avgPnL >= 0, icon: TrendingUp },
     { label: "Largest Win", info: "Your single biggest winning trade.", value: formatCurrency(metrics.largestWin), positive: true, icon: ArrowUpCircle, onClick: biggestWin.length ? show("Largest win", "Your best trade", biggestWin) : undefined },
     { label: "Largest Loss", info: "Your single biggest losing trade. If this is much bigger than your average loss, a risk rule was probably broken.", value: formatCurrency(metrics.largestLoss), positive: false, icon: ArrowDownCircle, onClick: biggestLoss.length ? show("Largest loss", "Your worst trade", biggestLoss) : undefined },
     { label: "Avg Winning Trade", info: "The average profit of your winning trades.", value: formatCurrency(metrics.avgWin), positive: true, icon: TrendingUp, onClick: wins.length ? show("Winning trades", "Trades that made money", wins) : undefined },
@@ -412,26 +384,19 @@ const Summary = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                {typeDistribution.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-sm text-muted-foreground">No trades yet</div>
-                ) : (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Trading type", tradesOfType(String(d.name)))()}>
-                        {typeDistribution.map((entry, index) => (
-                          <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number, name: string) => [`${value} trades`, name]}
-                        {...chartTooltip}
-                      />
-                      <Legend wrapperStyle={{ fontSize: 12 }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                )}
-              </div>
+              {typeDistribution.length === 0 ? (
+                <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades yet</div>
+              ) : (
+                <JDonut
+                  data={typeDistribution.map((d) => ({ label: String(d.name), value: d.value }))}
+                  centerLabel="trades"
+                  ariaLabel="Trades by type"
+                  onSelect={(i) => {
+                    const name = String(typeDistribution[i].name);
+                    show(`${name} trades`, "Trading type", tradesOfType(name))();
+                  }}
+                />
+              )}
             </CardContent>
           </Card>
 
@@ -445,26 +410,19 @@ const Summary = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                {marketDistribution.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-sm text-muted-foreground">No trades yet</div>
-                ) : (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={marketDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Market", tradesOfMarket(String(d.name)))()}>
-                        {marketDistribution.map((entry, index) => (
-                          <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number, name: string) => [`${value} trades`, name]}
-                        {...chartTooltip}
-                      />
-                      <Legend wrapperStyle={{ fontSize: 12 }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                )}
-              </div>
+              {marketDistribution.length === 0 ? (
+                <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades yet</div>
+              ) : (
+                <JDonut
+                  data={marketDistribution.map((d) => ({ label: String(d.name), value: d.value }))}
+                  centerLabel="trades"
+                  ariaLabel="Trades by market"
+                  onSelect={(i) => {
+                    const name = String(marketDistribution[i].name);
+                    show(`${name} trades`, "Market", tradesOfMarket(name))();
+                  }}
+                />
+              )}
             </CardContent>
           </Card>
 
@@ -478,21 +436,16 @@ const Summary = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={pnlByType} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="type" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
-                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const t = (d as unknown as { payload: { type: string } }).payload.type; show(`${t} trades`, "Trading type", tradesOfType(t))(); }}>
-                      {pnlByType.map((entry) => (
-                        <Cell key={entry.type} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={pnlByType.map((d) => ({ label: d.type, value: d.pnl }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="P&L by trading type"
+                onBarClick={(i) => {
+                  const t = pnlByType[i].type;
+                  show(`${t} trades`, "Trading type", tradesOfType(t))();
+                }}
+              />
             </CardContent>
           </Card>
 
@@ -506,21 +459,16 @@ const Summary = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={pnlByMarket} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="market" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
-                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const m = (d as unknown as { payload: { market: string } }).payload.market; show(`${m} trades`, "Market", tradesOfMarket(m))(); }}>
-                      {pnlByMarket.map((entry) => (
-                        <Cell key={entry.market} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={pnlByMarket.map((d) => ({ label: d.market, value: d.pnl }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="P&L by market"
+                onBarClick={(i) => {
+                  const m = pnlByMarket[i].market;
+                  show(`${m} trades`, "Market", tradesOfMarket(m))();
+                }}
+              />
             </CardContent>
           </Card>
         </motion.div>

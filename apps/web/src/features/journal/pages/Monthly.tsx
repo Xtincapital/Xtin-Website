@@ -38,22 +38,14 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, CalendarRange } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-} from "recharts";
-import { chartTooltip } from "@/components/charts/chartTheme";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JDonut } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
-import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -63,7 +55,6 @@ const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx's own local
 // copy (see that file's header comment for why only this subset is kept).
@@ -148,7 +139,7 @@ const Monthly = () => {
     {
       label: "Monthly P&L",
       info: "Your total profit or loss for the month, after fees.",
-      value: formatCurrency(metrics.totalPnL),
+      value: signedMoney(formatCurrency, metrics.totalPnL),
       className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showMonth("All trades", monthlyTrades),
     },
@@ -161,38 +152,19 @@ const Monthly = () => {
     data.length === 0 ? (
       <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">{emptyLabel}</div>
     ) : (
-      <div className="h-64">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius="80%"
-              stroke="hsl(var(--card))" strokeWidth={2}
-              cursor="pointer"
-              onClick={(d) =>
-                setDrill({
-                  title: `${d.name} trades`,
-                  subtitle: monthLabel,
-                  trades: monthlyTrades.filter((t) => (field === "market" ? t.market && marketLabel(t.market) === d.name : t.type === d.name)),
-                })
-              }
-            >
-              {data.map((entry, index) => (
-                <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-              {...chartTooltip}
-            />
-            <Legend wrapperStyle={{ fontSize: 12 }} />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+      <JDonut
+        data={data.map((d) => ({ label: d.name, value: d.value }))}
+        centerLabel="trades"
+        ariaLabel={field === "market" ? "Trades by market" : "Trades by type"}
+        onSelect={(i) => {
+          const name = data[i].name;
+          setDrill({
+            title: `${name} trades`,
+            subtitle: monthLabel,
+            trades: monthlyTrades.filter((t) => (field === "market" ? t.market && marketLabel(t.market) === name : t.type === name)),
+          });
+        }}
+      />
     );
 
   return (

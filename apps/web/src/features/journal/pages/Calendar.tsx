@@ -36,7 +36,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { ChevronLeft, ChevronRight, CalendarDays, TrendingUp, TrendingDown, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import InfoTip from "@/components/ui/info-tip";
@@ -45,12 +45,19 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
+import StatCard from "../components/StatCard";
+import { signedMoney } from "../lib/format";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+// Day-cell tint: stronger for bigger days, so the best and worst days stand out.
+const TONE_POS = "rgb(var(--brand))";
+const TONE_NEG = "hsl(var(--destructive))";
+const TONE_FLAT = "hsl(var(--warning))";
 
 interface DayCell {
   day: number;
@@ -116,6 +123,8 @@ const Calendar = () => {
     cells.push({ day, trades: dayTrades, pnl: dayTrades.reduce((sum, t) => sum + (t.pnl ?? 0), 0) });
   }
 
+  const maxAbsDay = Math.max(1, ...cells.map((c) => Math.abs(c.pnl)));
+
   const changeMonth = (direction: 1 | -1) => {
     let m = month + direction;
     let y = year;
@@ -157,52 +166,35 @@ const Calendar = () => {
           transition={{ duration: 0.4, delay: 0.05 }}
           className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-6"
         >
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Trading Days
-                <InfoTip title="Trading Days">
-                  <p>Days this month on which you placed at least one trade.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-semibold text-foreground">{tradingDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Profitable Days
-                <InfoTip title="Profitable Days">
-                  <p>Days whose combined P&L across all trades was above zero.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-semibold text-brand">{profitableDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Loss Days
-                <InfoTip title="Loss Days">
-                  <p>Days whose combined P&L across all trades was below zero.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-semibold text-destructive">{lossDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Best Day
-                <InfoTip title="Best Day">
-                  <p>Your single most profitable day this month: the date and its total P&L.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-semibold text-foreground">
-                {bestDay.day != null ? `${bestDay.day} (${formatCurrency(bestDay.pnl)})` : "-"}
-              </p>
-            </CardContent>
-          </Card>
+          <StatCard
+            label={<>Trading Days<InfoTip title="Trading Days"><p>Days this month on which you placed at least one trade.</p></InfoTip></>}
+            value={String(tradingDays)}
+            icon={CalendarDays}
+            sub={`${MONTH_NAMES[month]} ${year}`}
+          />
+          <StatCard
+            label={<>Profitable Days<InfoTip title="Profitable Days"><p>Days whose combined P&L across all trades was above zero.</p></InfoTip></>}
+            value={String(profitableDays)}
+            icon={TrendingUp}
+            tone="pos"
+            sub={tradingDays ? `${Math.round((profitableDays / tradingDays) * 100)}% of days` : "No trading days"}
+            subTone={tradingDays ? "pos" : undefined}
+          />
+          <StatCard
+            label={<>Loss Days<InfoTip title="Loss Days"><p>Days whose combined P&L across all trades was below zero.</p></InfoTip></>}
+            value={String(lossDays)}
+            icon={TrendingDown}
+            tone="neg"
+            sub={tradingDays ? `${Math.round((lossDays / tradingDays) * 100)}% of days` : "No trading days"}
+            subTone={tradingDays ? "neg" : undefined}
+          />
+          <StatCard
+            label={<>Best Day<InfoTip title="Best Day"><p>Your single most profitable day this month: the date and its total P&L.</p></InfoTip></>}
+            value={bestDay.day != null ? new Date(year, month, bestDay.day).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "—"}
+            icon={Trophy}
+            word
+            sub={bestDay.day != null ? signedMoney(formatCurrency, bestDay.pnl) : "No trades yet"}
+          />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
@@ -224,7 +216,7 @@ const Calendar = () => {
             <CardContent>
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((d) => (
-                  <div key={d} className="text-center text-xs font-bold text-muted-foreground/70 py-2">
+                  <div key={d} className="text-center text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground/70 py-2">
                     {d}
                   </div>
                 ))}
@@ -235,34 +227,42 @@ const Calendar = () => {
                   const hasTrades = cell.trades.length > 0;
                   const positive = cell.pnl > 0;
                   const negative = cell.pnl < 0;
+                  const isToday = cell.day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                  const strength = Math.round(10 + Math.min(1, Math.abs(cell.pnl) / maxAbsDay) * 30);
+                  const toneColor = positive ? TONE_POS : negative ? TONE_NEG : TONE_FLAT;
                   return (
                     <button
                       key={cell.day}
                       type="button"
                       disabled={!hasTrades}
                       onClick={() => setSelectedDay(cell.day)}
-                      className={`rounded-xl p-3 text-center border transition-[transform,box-shadow] duration-300 ${
-                        !hasTrades
-                          ? "border-transparent bg-muted/40 cursor-default"
-                          : positive
-                            ? "border-success/40 bg-success/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg dark:bg-success/15"
-                            : negative
-                              ? "border-destructive/40 bg-destructive/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg dark:bg-destructive/15"
-                              : "border-amber-400/50 bg-amber-400/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg"
-                      }`}
+                      style={
+                        hasTrades
+                          ? {
+                              background: `color-mix(in srgb, ${toneColor} ${strength}%, hsl(var(--card)))`,
+                              borderColor: `color-mix(in srgb, ${toneColor} ${strength + 18}%, transparent)`,
+                            }
+                          : undefined
+                      }
+                      className={`relative flex min-h-[5.5rem] flex-col items-center justify-center gap-0.5 rounded-xl border p-2 text-center transition-[transform,box-shadow] duration-300 ${
+                        hasTrades ? "cursor-pointer hover:-translate-y-1 hover:shadow-lg" : "border-transparent bg-muted/40 cursor-default"
+                      } ${isToday ? "ring-[1.5px] ring-inset ring-amber-400" : ""}`}
                     >
-                      <div className="text-sm font-semibold text-foreground tabular-nums">{cell.day}</div>
-                      {hasTrades ? (
+                      {isToday && (
+                        <span className="absolute right-2 top-1 text-xs font-semibold uppercase tracking-[0.08em] text-amber-600 dark:text-amber-400 max-sm:hidden">
+                          Today
+                        </span>
+                      )}
+                      <div className={`text-sm font-semibold tabular-nums ${hasTrades ? "text-foreground" : "text-muted-foreground"}`}>{cell.day}</div>
+                      {hasTrades && (
                         <>
-                          <div className="text-xs text-muted-foreground mt-1">
+                          <div className="text-xs text-muted-foreground max-sm:hidden">
                             {cell.trades.length} trade{cell.trades.length > 1 ? "s" : ""}
                           </div>
-                          <div className={`text-xs font-semibold tabular-nums mt-0.5 ${positive ? "text-brand" : negative ? "text-destructive" : "text-amber-500"}`}>
-                            {formatCurrency(cell.pnl, { compact: true })}
+                          <div className={`text-xs font-semibold tabular-nums ${positive ? "text-brand" : negative ? "text-destructive" : "text-amber-600 dark:text-amber-400"}`}>
+                            {signedMoney(formatCurrency, cell.pnl, { compact: true })}
                           </div>
                         </>
-                      ) : (
-                        <div className="h-8" />
                       )}
                     </button>
                   );

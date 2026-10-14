@@ -23,21 +23,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Line,
-  LineChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize, chartActiveDot, chartTooltip } from "@/components/charts/chartTheme";
 import { Clock, Activity, Timer, Target as PeakIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -45,17 +30,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JDonut, JLineChart } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
-import {
-  GLOBAL_SESSIONS,
-  formatHourDisplay,
-  formatHourRange,
-  getEntryHour,
-  getSessionLabelForTrade,
-  normalizeStrategyName,
-} from "../lib/journalPatternHelpers";
+import { GLOBAL_SESSIONS, formatHourDisplay, formatHourRange, getEntryHour, getSessionLabelForTrade, normalizeStrategyName } from "../lib/journalPatternHelpers";
 
 interface HourBucket {
   hour: number;
@@ -65,7 +45,6 @@ interface HourBucket {
   losses: number;
 }
 
-const SESSION_COLORS = ["rgba(205, 170, 95, 0.8)", "rgba(31, 169, 120, 0.8)", "rgba(90, 119, 170, 0.8)", "rgba(143, 111, 196, 0.8)"];
 
 const Hourly = () => {
   const { formatInr: formatCurrency } = useCurrency();
@@ -280,36 +259,13 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis
-                      dataKey="label"
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      width={56}
-                      tickFormatter={(v) => shortCurrency(v)}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                      {...chartTooltip}
-                    />
-                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showHour((d as unknown as { payload: { hour: number } }).payload.hour)}>
-                      {hourChartData.map((d) => (
-                        <Cell key={d.hour} fill={d.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--destructive))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.pnl, sub: `${d.tradeCount} trade${d.tradeCount === 1 ? "" : "s"}` }))}
+                formatAxis={(v) => shortCurrency(v)}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Hourly P&L"
+                onBarClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
 
@@ -323,39 +279,14 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis
-                      dataKey="label"
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      width={32}
-                      allowDecimals={false}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [value, "Trades"]}
-                      {...chartTooltip}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="tradeCount"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={2.5}
-                      dot={false}
-                      activeDot={chartActiveDot}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.tradeCount }))}
+                signed={false}
+                formatAxis={(v) => String(Math.round(v))}
+                formatValue={(v) => `${Math.round(v)} trade${Math.round(v) === 1 ? "" : "s"}`}
+                ariaLabel="Trade count by hour"
+                onPointClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -377,42 +308,16 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64 flex items-center gap-4">
-                <div className="w-1/2 h-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={sessionChartData}
-                        dataKey={(d) => Math.abs(d.pnl)}
-                        nameKey="label"
-                        innerRadius="55%"
-                        outerRadius="90%"
-                        stroke="hsl(var(--card))"
-                        strokeWidth={2}
-                      >
-                        {sessionChartData.map((entry, index) => (
-                          <Cell key={entry.label} fill={SESSION_COLORS[index % SESSION_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(_value: number, _name: string, ctx: any) => [formatCurrency(ctx?.payload?.pnl ?? 0), ctx?.payload?.label]}
-                        {...chartTooltip}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="w-1/2 space-y-2">
-                  {sessionChartData.map((s, i) => (
-                    <button type="button" key={s.label} onClick={() => showSession(s.label)} className="flex w-full items-center gap-2 text-xs text-left cursor-pointer hover:underline" title="Click to see these trades">
-                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: SESSION_COLORS[i % SESSION_COLORS.length] }} />
-                      <span className="text-muted-foreground truncate">{s.label}</span>
-                      <span className={`ml-auto font-semibold ${s.pnl >= 0 ? "text-brand" : "text-destructive"}`}>
-                        {shortCurrency(s.pnl)}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <JDonut
+                data={sessionChartData.map((d) => ({ label: d.label, value: Math.abs(d.pnl) }))}
+                centerValue={signedMoney(formatCurrency, sessionChartData.reduce((sum, d) => sum + d.pnl, 0), { compact: true })}
+                centerLabel="net P&L"
+                legendValue={(_d, i) => (
+                  <span className={sessionChartData[i].pnl >= 0 ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, sessionChartData[i].pnl, { compact: true })}</span>
+                )}
+                ariaLabel="Session performance"
+                onSelect={(i) => showSession(sessionChartData[i].label)}
+              />
             </CardContent>
           </Card>
 
@@ -426,40 +331,15 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis
-                      dataKey="label"
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      domain={[0, 100]}
-                      tick={chartTick}
-                      axisLine={false}
-                      tickLine={false}
-                      width={40}
-                      tickFormatter={(v) => `${v}%`}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]}
-                      {...chartTooltip}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="winRate"
-                      stroke="hsl(var(--chart-positive))"
-                      strokeWidth={2.5}
-                      dot={false}
-                      activeDot={chartActiveDot}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.winRate }))}
+                signed={false}
+                max={100}
+                formatAxis={(v) => `${Math.round(v)}%`}
+                formatValue={(v) => `${v.toFixed(1)}%`}
+                ariaLabel="Win rate by hour"
+                onPointClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -515,8 +395,8 @@ const Hourly = () => {
                       >
                         <TableCell className="font-medium">{formatHourDisplay(bucket.hour)}</TableCell>
                         <TableCell>{bucket.trades.length}</TableCell>
-                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{formatCurrency(bucket.totalPnL)}</TableCell>
-                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{formatCurrency(avgPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, bucket.totalPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, avgPnL)}</TableCell>
                         <TableCell>{winRate.toFixed(1)}%</TableCell>
                         <TableCell className="max-w-[140px] truncate">{bestStrategy}</TableCell>
                         <TableCell>

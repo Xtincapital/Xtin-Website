@@ -39,6 +39,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import StatCard from "../components/StatCard";
+import { signedMoney } from "../lib/format";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
@@ -243,7 +245,7 @@ const Heatmaps = () => {
     return Math.max(1, ...values);
   }, [hourMarketData]);
 
-  const shortCurrency = (v: number) => formatCurrency(v, { compact: true });
+  const shortCurrency = (v: number) => signedMoney(formatCurrency, v, { compact: true });
 
   return (
     <JournalLayout proFeature="Heatmaps">
@@ -564,31 +566,23 @@ function MetricCard({
   onClick?: () => void;
 }) {
   return (
-    <Card className={onClick ? "transition-shadow hover:shadow-md" : undefined}>
-      <CardContent className="p-5">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-            {label}
-            <InfoTip title={label}>
-              <p>{info}</p>
-              {onClick && <p>Click the card to see these trades.</p>}
-            </InfoTip>
-          </p>
-          <Icon className="w-3.5 h-3.5 text-muted-foreground" />
-        </div>
-        {onClick ? (
-          <button type="button" onClick={onClick} className="block w-full text-left cursor-pointer">
-            <p className={`stat-value font-semibold ${positive ? "text-brand" : "text-destructive"}`}>{value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{sub} · view trades</p>
-          </button>
-        ) : (
-          <>
-            <p className={`stat-value font-semibold ${positive ? "text-brand" : "text-destructive"}`}>{value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{sub}</p>
-          </>
-        )}
-      </CardContent>
-    </Card>
+    <StatCard
+      label={
+        <>
+          {label}
+          <InfoTip title={label}>
+            <p>{info}</p>
+            {onClick && <p>Click the value to see these trades.</p>}
+          </InfoTip>
+        </>
+      }
+      value={value}
+      icon={Icon}
+      word
+      sub={sub}
+      subTone={positive ? "pos" : "neg"}
+      onClick={onClick}
+    />
   );
 }
 

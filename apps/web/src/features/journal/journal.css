@@ -21,7 +21,7 @@
   body.journal-portals > :not(#root) {
     --jr-surface: #FFFFFF;
     --jr-raised: #FAF9F6;
-    --jr-page: #F5F5F7;
+    --jr-page: #FFFFFF;
     --jr-border: #E4E4EA;
     --jr-heading: #1F1F1F;
     --jr-subheading: #1F1F1F;
@@ -38,11 +38,11 @@
     --jr-surface: #1F1F1F;
     --jr-raised: #1C1C1F;
     --jr-page: #131417;
-    --jr-border: #2A2A2C;
+    --jr-border: #373A41;
     --jr-heading: #FFFFFF;
     --jr-subheading: #FFFFFF;
-    --jr-text: #A0A3AA;
-    --jr-muted: #8B8B93;
+    --jr-text: #CFD0D3;
+    --jr-muted: #B1B3B8;
     --jr-brand: #3CCB97;
     --jr-brand-hover: #77D3AE;
     --jr-brand-tint: rgba(60, 203, 151, 0.12);
@@ -261,6 +261,92 @@
 
 .journal-classic .tab-button:hover {
   color: var(--jr-heading);
+}
+
+/* Soft pill that follows the pointer across the tabs (layoutId element). */
+.journal-classic .tab-hover {
+  position: absolute;
+  inset: 6px 2px;
+  border-radius: 8px;
+  background: var(--jr-page);
+  z-index: 0;
+}
+html.dark .journal-classic .tab-hover {
+  background: #2A2A2C;
+}
+.journal-classic .tab-label,
+.journal-classic .tab-button > .tab-lock {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Journal motion & finish (from the Journal redesign concept) ───────── */
+
+/* Page sections rise in one after another. `backwards` fill only holds the
+   start frame, so framer-motion and hover transforms keep working after. */
+@media (prefers-reduced-motion: no-preference) {
+  .journal-classic .journal-content > div > * {
+    animation: jr-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .journal-classic .journal-content > div > *:nth-child(2) { animation-delay: 60ms; }
+  .journal-classic .journal-content > div > *:nth-child(3) { animation-delay: 120ms; }
+  .journal-classic .journal-content > div > *:nth-child(4) { animation-delay: 180ms; }
+  .journal-classic .journal-content > div > *:nth-child(5) { animation-delay: 240ms; }
+  .journal-classic .journal-content > div > *:nth-child(n + 6) { animation-delay: 300ms; }
+}
+@keyframes jr-rise {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* Cards: a faint spotlight follows the pointer (JournalLayout sets --mx/--my). */
+.journal-classic .journal-content .bg-card {
+  position: relative;
+  isolation: isolate;
+}
+.journal-classic .journal-content .bg-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgb(var(--brand) / 0.06), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.journal-classic .journal-content .bg-card:hover::before {
+  opacity: 1;
+}
+
+/* Stat cards lift on hover (StatCard, plus any card holding a .stat-value
+   on the pages that keep their own markup). */
+.journal-classic .journal-content .bg-card:has(.stat-value),
+.journal-classic .jr-stat {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.journal-classic .journal-content .bg-card:has(.stat-value):hover,
+.journal-classic .jr-stat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.12);
+}
+html.dark .journal-classic .journal-content .bg-card:has(.stat-value):hover,
+html.dark .journal-classic .jr-stat:hover {
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.55);
+  border-color: #373A41;
+}
+
+/* Last point of a trend line pulses twice to show "you are here". */
+@media (prefers-reduced-motion: no-preference) {
+  .journal-classic .jr-halo {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: jr-halo 2.4s cubic-bezier(0.16, 1, 0.3, 1) 1.2s 2 both;
+  }
+}
+@keyframes jr-halo {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(3.2); opacity: 0; }
 }
 
 .journal-classic .tab-button.active {

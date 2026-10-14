@@ -50,27 +50,14 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Area,
-  Bar,
-  BarChart,
-  ComposedChart,
-  Line,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Cell,
-} from "recharts";
-import { chartGrid, chartTick, chartTooltip, chartBarRadius, chartMaxBarSize, chartActiveDot, chartColors } from "@/components/charts/chartTheme";
-import ChartAreaGradient from "@/components/charts/ChartAreaGradient";
 import { Gauge, Percent, Trophy, Activity, Target, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JLineChart } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
 import { strategies as strategiesApi } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
@@ -210,10 +197,12 @@ const Analytics = () => {
     const strategyPerformance = names.map((name) => ({
       name,
       pnl: stats[name]?.totalPnL ?? 0,
+      trades: stats[name]?.trades ?? 0,
     }));
     const strategyWinRates = names.map((name) => ({
       name,
       winRate: stats[name]?.winRate ?? 0,
+      trades: stats[name]?.trades ?? 0,
     }));
 
     // Monthly P&L Trend — rolling last-12-months (see header comment for why
@@ -380,21 +369,13 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={strategyPerformance} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="name" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
-                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()}>
-                      {strategyPerformance.map((entry) => (
-                        <Cell key={entry.name} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={strategyPerformance.map((d) => ({ label: d.name, value: d.pnl, sub: `${d.trades.toLocaleString("en-IN")} trade${d.trades === 1 ? "" : "s"}` }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Strategy performance"
+                onBarClick={(i) => showStrategy(strategyPerformance[i].name)()}
+              />
             </CardContent>
           </Card>
 
@@ -408,17 +389,16 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={strategyWinRates} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="name" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={40} tickFormatter={(v) => `${v}%`} />
-                    <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]} {...chartTooltip} />
-                    <Bar dataKey="winRate" fill={chartColors.ink} fillOpacity={0.82} radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                mode="mono"
+                data={strategyWinRates.map((d) => ({ label: d.name, value: d.winRate, sub: `${d.trades.toLocaleString("en-IN")} trade${d.trades === 1 ? "" : "s"}` }))}
+                max={100}
+                reference={{ value: 50, label: "50%" }}
+                formatAxis={(v) => `${Math.round(v)}%`}
+                formatValue={(v) => `${v.toFixed(1)}% win rate`}
+                ariaLabel="Win rate by strategy"
+                onBarClick={(i) => showStrategy(strategyWinRates[i].name)()}
+              />
             </CardContent>
           </Card>
 
@@ -432,21 +412,12 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={monthlyTrend} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
-                    <defs>
-                      <ChartAreaGradient id="analyticsTrendFill" />
-                    </defs>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="label" tick={chartTick} axisLine={false} tickLine={false} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
-                    <Area type="monotone" dataKey="pnl" stroke="none" fill="url(#analyticsTrendFill)" tooltipType="none" />
-                    <Line type="monotone" dataKey="pnl" stroke={chartColors.positive} strokeWidth={2.25} dot={false} activeDot={chartActiveDot} animationDuration={1100} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={monthlyTrend.map((b) => ({ label: b.label, value: b.pnl }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Monthly P&L trend"
+              />
             </CardContent>
           </Card>
 
@@ -460,21 +431,21 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={tradeCountByType} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="type" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={30} allowDecimals={false} />
-                    <Tooltip formatter={(value: number) => [value, "Trades"]} {...chartTooltip} />
-                    <Bar dataKey="count" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const type = (d as unknown as { payload: { type: string } }).payload.type; setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) }); }}>
-                      {tradeCountByType.map((entry) => (
-                        <Cell key={entry.type} fill={chartColors.ink} fillOpacity={0.82} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                mode="mono"
+                data={tradeCountByType.map((d) => ({
+                  label: d.type,
+                  value: d.count,
+                  sub: allTrades.length ? `${Math.round((d.count / allTrades.length) * 100)}% of all trades` : undefined,
+                }))}
+                formatAxis={(v) => String(Math.round(v))}
+                formatValue={(v) => `${v.toLocaleString("en-IN")} trade${v === 1 ? "" : "s"}`}
+                ariaLabel="Trade count by type"
+                onBarClick={(i) => {
+                  const type = tradeCountByType[i].type;
+                  setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) });
+                }}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -520,10 +491,10 @@ const Analytics = () => {
                             <TableCell className="text-right">{s.trades}</TableCell>
                             <TableCell className="text-right">{s.winRate.toFixed(1)}%</TableCell>
                             <TableCell className={`text-right font-medium ${s.totalPnL >= 0 ? "text-brand" : "text-destructive"}`}>
-                              {formatCurrency(s.totalPnL)}
+                              {signedMoney(formatCurrency, s.totalPnL)}
                             </TableCell>
                             <TableCell className={`text-right ${s.avgPnL >= 0 ? "text-brand" : "text-destructive"}`}>
-                              {formatCurrency(s.avgPnL)}
+                              {signedMoney(formatCurrency, s.avgPnL)}
                             </TableCell>
                             <TableCell className="text-right">{s.profitFactor === Infinity ? "∞" : s.profitFactor.toFixed(2)}</TableCell>
                             <TableCell className="text-right">{s.consistencyScore.toFixed(0)}</TableCell>

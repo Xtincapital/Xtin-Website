@@ -19,7 +19,7 @@
 //
 // No Log Out button here: signing out lives in the site's own account menu
 // (Dashboard), like every other page.
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -81,23 +81,52 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
     if (!planFetched) fetchPlan();
   }, [planFetched, fetchPlan]);
 
+  // Tab bar: a soft pill follows the pointer between tabs (the active tab keeps
+  // its sliding underline).
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+
+  // Cards: a faint spotlight follows the pointer (journal.css draws it from
+  // --mx / --my on the hovered card).
+  const contentRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const onMove = (e: PointerEvent) => {
+      const card = (e.target as HTMLElement | null)?.closest<HTMLElement>(".bg-card");
+      if (!card || !el.contains(card)) return;
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      card.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    el.addEventListener("pointermove", onMove, { passive: true });
+    return () => el.removeEventListener("pointermove", onMove);
+  }, []);
+
   return (
     <>
       <Navbar />
       <div className="journal-scope journal-classic">
         {/* One bar: every tab stays visible (wrapping on narrow screens). */}
         <div className="nav-bar">
-          <nav className="tabs-container" aria-label="Trading journal sections">
+          <nav className="tabs-container" aria-label="Trading journal sections" onMouseLeave={() => setHoveredTab(null)}>
             {tabs.map((tab) => (
               <NavLink
                 key={tab.href}
                 to={tab.href}
                 end={tab.end}
+                onMouseEnter={() => setHoveredTab(tab.href)}
                 className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
               >
                 {({ isActive }) => (
                   <>
-                    {tab.name}
+                    {hoveredTab === tab.href && (
+                      <motion.span
+                        layoutId="journal-tab-hover"
+                        className="tab-hover"
+                        transition={{ type: "spring", stiffness: 450, damping: 38 }}
+                      />
+                    )}
+                    <span className="tab-label">{tab.name}</span>
                     {tab.pro && planFetched && <ProIcon unlocked={isPro} className="tab-lock" />}
                     {isActive && (
                       <motion.span
@@ -112,7 +141,7 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
             ))}
           </nav>
           <div className="nav-sample">
-            <JournalSampleBar placement="button" />
+            <JournalSampleBar placement="button" iconOnly buttonClassName="nav-settings" />
             <NavLink
               to="/journal/settings"
               className={({ isActive }) => (isActive ? "nav-settings active" : "nav-settings")}
@@ -126,7 +155,7 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
 
         <JournalSampleBar placement="banner" />
 
-        <main id="main-content" className="tab-content journal-content">
+        <main id="main-content" ref={contentRef} className="tab-content journal-content">
           {proFeature ? (
             <ProGate feature={proFeature} isPro={isPro} loading={!planFetched}>
               {children}

@@ -78,10 +78,18 @@ function formatDate(value: string | null | undefined) {
   return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
+/** P&L with its direction spelled out: "+₹1,267.58" / "−₹344.89". */
+function signedTradeMoney(pnl: number | null, currency: string): string {
+  if (pnl == null) return formatMoney(pnl, currency);
+  if (pnl > 0) return `+${formatMoney(pnl, currency)}`;
+  if (pnl < 0) return `−${formatMoney(Math.abs(pnl), currency)}`;
+  return formatMoney(pnl, currency);
+}
+
 function tradeStatus(pnl: number | null | undefined): { label: string; className: string } {
   if (pnl == null) return { label: "-", className: "text-muted-foreground" };
   if (pnl > 0) return { label: "Win", className: "text-brand dark:text-brand" };
-  if (pnl < 0) return { label: "Loss", className: "text-red-600 dark:text-red-400" };
+  if (pnl < 0) return { label: "Loss", className: "text-destructive" };
   return { label: "Breakeven", className: "text-muted-foreground" };
 }
 
@@ -484,8 +492,13 @@ export default function Trades() {
                       <TableCell className="text-right tabular-nums">{trade.quantity != null ? trade.quantity.toLocaleString() : "-"}</TableCell>
                       <TableCell className="text-right tabular-nums">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
                       <TableCell className="text-right tabular-nums">{formatMoney(trade.exit_price, trade.currency)}</TableCell>
-                      <TableCell className={cn("text-right font-medium tabular-nums", status.className)}>{formatMoney(trade.pnl, trade.currency)}</TableCell>
-                      <TableCell className={status.className}>{status.label}</TableCell>
+                      <TableCell className={cn("text-right font-medium tabular-nums", status.className)}>{signedTradeMoney(trade.pnl, trade.currency)}</TableCell>
+                      <TableCell className={status.className}>
+                        <span className="inline-flex items-center gap-1.5 font-medium">
+                          {trade.pnl != null && <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />}
+                          {status.label}
+                        </span>
+                      </TableCell>
                       <TableCell>{trade.strategy || "-"}</TableCell>
                       <TableCell
                         className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]"

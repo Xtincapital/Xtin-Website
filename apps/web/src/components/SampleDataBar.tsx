@@ -32,9 +32,13 @@ interface SampleDataBarProps {
   placement?: 'bar' | 'button' | 'banner';
   /** Text on the load button (default "Load sample data"). */
   label?: string;
+  /** `button` placement only: show just an icon (the label becomes its tooltip
+   *  and accessible name) and style it with this class. */
+  iconOnly?: boolean;
+  buttonClassName?: string;
 }
 
-const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data' }: SampleDataBarProps) => {
+const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data', iconOnly = false, buttonClassName }: SampleDataBarProps) => {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -97,10 +101,15 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
           onClick={() => (options.length === 1 ? handlePick(options[0].id) : setOpen((v) => !v))}
           aria-expanded={options.length > 1 ? open : undefined}
           aria-haspopup={options.length > 1 ? 'true' : undefined}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
+          aria-label={iconOnly ? label : undefined}
+          title={iconOnly ? label : undefined}
+          className={
+            buttonClassName ??
+            "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
+          }
         >
-          <Database className="w-4 h-4" aria-hidden="true" />
-          {label}
+          {iconOnly ? <FlaskConical className="w-4 h-4" aria-hidden="true" /> : <Database className="w-4 h-4" aria-hidden="true" />}
+          {!iconOnly && label}
         </button>
 
         {open && (

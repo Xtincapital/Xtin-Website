@@ -48,6 +48,7 @@ import { useJournalPlanStore } from "../store/useJournalPlanStore";
 import { api } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import type { Goal, Trade } from "../lib/api";
+import AnimatedProgressBar from "@/components/smoothui/animated-progress-bar";
 import JournalLayout from "../components/JournalLayout";
 
 // The real `Goal` type (from lib/api.ts) keeps `metric`/`timeframe` as plain
@@ -337,12 +338,7 @@ export default function Goals() {
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-                      <div
-                        className={cn("h-full rounded-full", percentComplete >= 100 ? "bg-brand-fill" : "bg-primary")}
-                        style={{ width: `${Math.min(100, percentComplete)}%` }}
-                      />
-                    </div>
+                    <AnimatedProgressBar value={percentComplete} />
                     <div className="flex items-center justify-between text-sm">
                       <span>{config.format(currentValue)}</span>
                       <span className="text-muted-foreground">Target: {config.format(goal.target_value)}</span>

@@ -37,22 +37,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Area,
-  ComposedChart,
-  Line,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Pie,
-  PieChart,
-  Cell,
-} from "recharts";
-import { chartGrid, chartXAxis, chartYAxis, chartActiveDot, chartTooltip, chartColors } from "@/components/charts/chartTheme";
-import ChartAreaGradient from "@/components/charts/ChartAreaGradient";
-import RollingNumber from "@/components/motion/RollingNumber";
 import ProductBrand from "@/components/ProductBrand";
 import {
   Wallet,
@@ -67,7 +51,7 @@ import {
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import AnimatedProgressBar from "@/components/smoothui/animated-progress-bar";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { goals as goalsApi, type Trade, type Goal } from "../lib/api";
@@ -75,6 +59,10 @@ import { getAllTrades } from "../lib/api";
 import { tradeInInr } from "../lib/tradesInInr";
 import CurrencyBreakdown from "../components/CurrencyBreakdown";
 import { marketLabel } from "../lib/journalPatternHelpers";
+import StatCard from "../components/StatCard";
+import WinRateRing from "../components/WinRateRing";
+import { JLineChart } from "../components/JournalCharts";
+import { signedMoney } from "../lib/format";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Metrics — port of app.js's calculateMetrics(), trimmed to the subset the
@@ -90,7 +78,7 @@ interface Metrics {
   losses: number;
 }
 
-function calculateMetrics(list: Trade[]): Metrics {
+function calculateMetrics(list: Trade[]): Metrics & { closed: number } {
   const totalTrades = list.length;
   // Trades without a P&L (still open) are not wins or losses, so they stay out of every rate and average.
   const closed = list.filter((t) => t.pnl != null);
@@ -99,7 +87,7 @@ function calculateMetrics(list: Trade[]): Metrics {
   const losses = closed.filter((t) => (t.pnl ?? 0) < 0);
   const winRate = closed.length > 0 ? (wins.length / closed.length) * 100 : 0;
   const avgPnL = closed.length > 0 ? totalPnL / closed.length : 0;
-  return { totalTrades, totalPnL, winRate, avgPnL, wins: wins.length, losses: losses.length };
+  return { totalTrades, totalPnL, winRate, avgPnL, wins: wins.length, losses: losses.length, closed: closed.length };
 }
 
 // Goal metric config — mirrors app.js's GOAL_METRIC_CONFIG.
@@ -132,7 +120,6 @@ function goalCurrentValue(goal: Goal, allTime: Metrics, thisMonth: Metrics): num
   }
 }
 
-const GAUGE_COLORS = [chartColors.positive, "hsl(var(--secondary))"];
 
 /** Two-letter badge for an asset row ("NIFTY 25000 CE" → "NI"). */
 const assetMonogram = (asset: string) => (asset.replace(/[^A-Za-z]/g, "").slice(0, 2) || "—").toUpperCase();
@@ -165,7 +152,7 @@ const Dashboard = () => {
   const rawTrades = tradesData?.raw ?? [];
   const goalsList = goalsData ?? [];
 
-  const { metrics, todayMetrics, monthMetrics, monthlyTrend, recentTrades } = useMemo(() => {
+  const { metrics, todayMetrics, monthMetrics, monthlyTrend, trendTotal, recentTrades, firstDate } = useMemo(() => {
     const today = new Date();
     const todayStr = today.toISOString().split("T")[0];
     const thisMonth = today.getMonth();
@@ -204,51 +191,61 @@ const Dashboard = () => {
       todayMetrics: calculateMetrics(todayTrades),
       monthMetrics: calculateMetrics(monthTrades),
       monthlyTrend: buckets,
+      trendTotal: buckets.reduce((sum, b) => sum + b.pnl, 0),
       recentTrades: sorted.slice(0, 5),
+      firstDate: sorted.length ? sorted[sorted.length - 1].date : null,
     };
   }, [allTrades]);
+
+  const money = (v: number) => signedMoney(formatCurrency, v);
+  const tone = (v: number) => (v > 0 ? ("pos" as const) : v < 0 ? ("neg" as const) : undefined);
+  const now = new Date();
+  const dayLabel = now.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+  const monthLabel = now.toLocaleDateString("en-IN", { month: "long", year: "numeric" });
+  const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
   const metricCards = [
     {
       label: "Today's P&L",
-      value: formatCurrency(todayMetrics.totalPnL),
-      positive: todayMetrics.totalPnL >= 0,
+      value: money(todayMetrics.totalPnL),
+      tone: tone(todayMetrics.totalPnL),
       icon: CalendarDays,
+      sub: `${plural(todayMetrics.totalTrades, "trade")} · ${dayLabel}`,
+      subTone: todayMetrics.totalTrades ? tone(todayMetrics.totalPnL) : undefined,
     },
     {
       label: "Total Trades",
-      value: metrics.totalTrades.toLocaleString(),
+      value: metrics.totalTrades.toLocaleString("en-IN"),
       icon: Receipt,
+      sub: firstDate ? `Since ${new Date(firstDate).toLocaleDateString("en-IN", { month: "short", year: "numeric" })}` : "No trades yet",
     },
     {
       label: "Win Rate",
       value: `${metrics.winRate.toFixed(1)}%`,
-      positive: true,
       icon: Percent,
+      sub: `${plural(metrics.wins, "win")} · ${plural(metrics.losses, "loss").replace("losss", "losses")}`,
     },
     {
       label: "Avg Trade P&L",
-      value: formatCurrency(metrics.avgPnL),
-      positive: metrics.avgPnL >= 0,
+      value: money(metrics.avgPnL),
+      tone: tone(metrics.avgPnL),
       icon: TrendingUp,
+      sub: "Per closed trade",
     },
     {
       label: "This Month P&L",
-      value: formatCurrency(monthMetrics.totalPnL),
-      positive: monthMetrics.totalPnL >= 0,
+      value: money(monthMetrics.totalPnL),
+      tone: tone(monthMetrics.totalPnL),
       icon: Wallet,
+      sub: monthLabel,
     },
     {
       label: "Total P&L",
-      value: formatCurrency(metrics.totalPnL),
-      positive: metrics.totalPnL >= 0,
+      value: money(metrics.totalPnL),
+      tone: tone(metrics.totalPnL),
       icon: Wallet,
+      sub: "All time",
     },
-  ];
-
-  const gaugeData = [
-    { name: "Win Rate", value: metrics.winRate },
-    { name: "Remaining", value: Math.max(0, 100 - metrics.winRate) },
   ];
 
   return (
@@ -276,26 +273,20 @@ const Dashboard = () => {
           className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-8"
         >
           {metricCards.map((card) => (
-            <Card key={card.label} className="transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-              <CardContent className="p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                    {card.label}
-                    {card.label === "Total P&L" && <CurrencyBreakdown trades={rawTrades} />}
-                  </p>
-                  <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
-                </div>
-                <p
-                  className={
-                    card.positive === undefined
-                      ? "stat-value font-semibold text-foreground"
-                      : `stat-value font-semibold ${card.positive ? "text-brand" : "text-destructive"}`
-                  }
-                >
-                  <RollingNumber value={card.value} />
-                </p>
-              </CardContent>
-            </Card>
+            <StatCard
+              key={card.label}
+              label={
+                <>
+                  {card.label}
+                  {card.label === "Total P&L" && <CurrencyBreakdown trades={rawTrades} />}
+                </>
+              }
+              value={card.value}
+              icon={card.icon}
+              tone={card.tone}
+              sub={card.sub}
+              subTone={card.subTone}
+            />
           ))}
         </motion.div>
 
@@ -307,40 +298,20 @@ const Dashboard = () => {
           className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
         >
           <Card className="lg:col-span-2">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between gap-3 space-y-0">
               <CardTitle className="text-base">Monthly P&L Trend</CardTitle>
+              <span className="text-xs tabular-nums text-muted-foreground">
+                Last 12 months ·{" "}
+                <span className={trendTotal >= 0 ? "text-brand" : "text-destructive"}>{money(trendTotal)}</span>
+              </span>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={monthlyTrend} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
-                    <defs>
-                      <ChartAreaGradient id="journalTrendFill" />
-                    </defs>
-                    <CartesianGrid {...chartGrid} />
-                    <XAxis dataKey="label" {...chartXAxis} />
-                    <YAxis
-                      {...chartYAxis}
-                      width={56}
-                      tickFormatter={(v) => formatCurrency(v, { compact: true })}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                      {...chartTooltip}
-                    />
-                    <Area type="monotone" dataKey="pnl" stroke="none" fill="url(#journalTrendFill)" tooltipType="none" />
-                    <Line
-                      type="monotone"
-                      dataKey="pnl"
-                      stroke={chartColors.positive}
-                      strokeWidth={2.25}
-                      dot={false}
-                      activeDot={chartActiveDot}
-                      animationDuration={1100}
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={monthlyTrend.map((b) => ({ label: b.label, value: b.pnl }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={money}
+                ariaLabel="Monthly P&L, last 12 months"
+              />
             </CardContent>
           </Card>
 
@@ -349,33 +320,8 @@ const Dashboard = () => {
               <CardTitle className="text-base">Win Rate</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64 flex flex-col items-center justify-center relative">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={gaugeData}
-                      dataKey="value"
-                      startAngle={180}
-                      endAngle={0}
-                      cx="50%"
-                      cy="70%"
-                      innerRadius="65%"
-                      outerRadius="100%"
-                      stroke="none"
-                      cornerRadius={6}
-                    >
-                      {gaugeData.map((entry, index) => (
-                        <Cell key={entry.name} fill={GAUGE_COLORS[index % GAUGE_COLORS.length]} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <RollingNumber value={`${metrics.winRate.toFixed(1)}%`} className="xt-metric text-3xl text-foreground" />
-                  <span className="text-xs text-muted-foreground mt-1">
-                    {metrics.wins}W / {metrics.losses}L
-                  </span>
-                </div>
+              <div className="h-64 flex items-center justify-center">
+                <WinRateRing wins={metrics.wins} losses={metrics.losses} total={metrics.closed} />
               </div>
             </CardContent>
           </Card>
@@ -415,7 +361,18 @@ const Dashboard = () => {
                           {assetMonogram(trade.asset)}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-foreground text-sm truncate">{trade.asset}</p>
+                          <p className="flex items-center gap-2 font-semibold text-foreground text-sm">
+                            <span className="truncate">{trade.asset}</span>
+                            {trade.buy_sell && (
+                              <span
+                                className={`shrink-0 rounded px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${
+                                  trade.buy_sell === "buy" ? "bg-brand-soft text-brand" : "bg-destructive/10 text-destructive"
+                                }`}
+                              >
+                                {trade.buy_sell}
+                              </span>
+                            )}
+                          </p>
                           <p className="text-xs text-muted-foreground truncate">
                             {[trade.type, trade.market && marketLabel(trade.market)].filter(Boolean).join(" • ")}
                             {trade.type || trade.market ? " • " : ""}
@@ -424,7 +381,7 @@ const Dashboard = () => {
                         </div>
                         <div className={`flex items-center gap-1 shrink-0 font-semibold text-sm ${positive ? "text-brand" : "text-destructive"}`}>
                           {positive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
-                          {formatCurrency(trade.pnl ?? 0)}
+                          {money(trade.pnl ?? 0)}
                         </div>
                       </CardContent>
                     </Card>
@@ -482,7 +439,7 @@ const Dashboard = () => {
                             {status}
                           </Badge>
                         </div>
-                        <Progress value={percentComplete} className="h-2 mb-2" />
+                        <AnimatedProgressBar value={percentComplete} className="mb-2" />
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                           <span>{formatValue(currentValue)}</span>
                           <span>Target: {formatValue(goal.target_value)}</span>

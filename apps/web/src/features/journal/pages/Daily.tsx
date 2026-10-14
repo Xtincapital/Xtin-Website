@@ -34,31 +34,17 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { CalendarClock } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
-import { chartGrid, chartTick, chartMaxBarSize, chartTooltip } from "@/components/charts/chartTheme";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JDonut } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
-import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 
-const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx/Monthly.tsx's
 // own local copy (see those files' header comments for why only this
@@ -127,7 +113,7 @@ const Daily = () => {
     {
       label: "Daily P&L",
       info: "Your total profit or loss for the day, after fees.",
-      value: formatCurrency(metrics.totalPnL),
+      value: signedMoney(formatCurrency, metrics.totalPnL),
       className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showDay("All trades", dailyTrades),
     },
@@ -209,22 +195,15 @@ const Daily = () => {
               {typeDistribution.length === 0 ? (
                 <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades this day</div>
               ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => showDay(`${d.name} trades`, dailyTrades.filter((t) => t.type === d.name))()}>
-                        {typeDistribution.map((entry, index) => (
-                          <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-                        {...chartTooltip}
-                      />
-                      <Legend wrapperStyle={{ fontSize: 12 }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+                <JDonut
+                  data={typeDistribution.map((d) => ({ label: d.name, value: d.value }))}
+                  centerLabel="trades"
+                  ariaLabel="Type distribution"
+                  onSelect={(i) => {
+                    const name = typeDistribution[i].name;
+                    showDay(`${name} trades`, dailyTrades.filter((t) => t.type === name))();
+                  }}
+                />
               )}
             </CardContent>
           </Card>
@@ -242,40 +221,16 @@ const Daily = () => {
               {strategyPnL.length === 0 ? (
                 <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades this day</div>
               ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={strategyPnL} layout="vertical" margin={{ top: 5, right: 20, left: 0, bottom: 0 }}>
-                      <CartesianGrid {...chartGrid} vertical horizontal={false} />
-                      <XAxis
-                        type="number"
-                        tick={chartTick}
-                        axisLine={false}
-                        tickLine={false}
-                        tickFormatter={(v) => formatCurrency(v, { compact: true })}
-                      />
-                      <YAxis
-                        type="category"
-                        dataKey="strategy"
-                        tick={chartTick}
-                        axisLine={false}
-                        tickLine={false}
-                        width={100}
-                      />
-                      <Tooltip
-                        formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                        {...chartTooltip}
-                      />
-                      <Bar dataKey="pnl" radius={[0, 6, 6, 0]} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const st = (d as unknown as { payload: { strategy: string } }).payload.strategy; showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))(); }}>
-                        {strategyPnL.map((entry) => (
-                          <Cell
-                            key={entry.strategy}
-                            fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"}
-                          />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <JBarChart
+                  data={strategyPnL.map((d) => ({ label: d.strategy, value: d.pnl }))}
+                  formatAxis={(v) => formatCurrency(v, { compact: true })}
+                  formatValue={(v) => signedMoney(formatCurrency, v)}
+                  ariaLabel="Strategy performance for this day"
+                  onBarClick={(i) => {
+                    const st = strategyPnL[i].strategy;
+                    showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))();
+                  }}
+                />
               )}
             </CardContent>
           </Card>
