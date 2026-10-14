@@ -1,4 +1,6 @@
 import React from 'react';
+import { LegalHeader } from '../components/PageArt';
+import { FileText } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
@@ -7,7 +9,7 @@ import { COMPANY } from '../../../constants/company';
 
 const Section = ({ title, children }) => (
   <section className="space-y-3">
-    <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900 border-l-[3px] border-brand-fill pl-3">{title}</h3>
     <div className="text-gray-700 leading-7 space-y-2">{children}</div>
   </section>
 );
@@ -25,11 +27,9 @@ function Terms() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="xt-title mb-3">Terms of Service</h1>
-          <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
-          <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
+          <LegalHeader Icon={FileText} title="Terms of Service" entity="XTIN SERVICES LLP (LLP ID: ACR-9371)" updated="Nov 2, 2025" />
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             <Section title="1. Acceptance of Terms">
               <p>
                 By creating an account, signing in, or using our website, tools, or services, you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.

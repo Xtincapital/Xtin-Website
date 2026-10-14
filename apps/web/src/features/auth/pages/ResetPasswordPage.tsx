@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { PageBackdrop, IconBadge } from "../../marketing/components/PageArt";
+import { ShieldCheck } from "lucide-react";
 import supabase from "../../../supabase";
 
 const ResetPasswordPage = () => {
@@ -85,10 +87,12 @@ const ResetPasswordPage = () => {
 			<Navbar />
 
 			{/* Main Content */}
-			<section className="relative bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
-				<div className="max-w-md mx-auto">
+			<section className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
+				<PageBackdrop />
+				<div className="relative max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
+						<IconBadge Icon={ShieldCheck} className="mb-5" />
 						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Reset Your Password
 						</h1>
@@ -98,7 +102,7 @@ const ResetPasswordPage = () => {
 					</div>
 
 					{/* Form */}
-					<div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+					<div className="bg-white rounded-2xl shadow-xl shadow-brand/5 border border-gray-200 border-t-4 border-t-brand-fill p-8">
 						{/* Error Message */}
 						{error && (
 							<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -126,7 +130,7 @@ const ResetPasswordPage = () => {
 										value={password}
 										onChange={(e) => setPassword(e.target.value)}
 										required
-										className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
+										className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
 										placeholder="Enter new password"
 									/>
 									<button
@@ -161,7 +165,7 @@ const ResetPasswordPage = () => {
 										value={confirmPassword}
 										onChange={(e) => setConfirmPassword(e.target.value)}
 										required
-										className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-transparent transition duration-200"
+										className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
 										placeholder="Confirm new password"
 									/>
 									<button
@@ -186,7 +190,7 @@ const ResetPasswordPage = () => {
 								<button
 									type="submit"
 									disabled={isLoading}
-									className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+									className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 shadow-lg shadow-brand/20 hover:-translate-y-0.5 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 								>
 									{isLoading ? (
 										<div className="flex items-center justify-center">

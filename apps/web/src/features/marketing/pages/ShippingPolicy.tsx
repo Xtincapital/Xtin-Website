@@ -1,4 +1,5 @@
 import React from 'react';
+import { Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LegalPage, { LegalSection, SupportEmailLink } from '../components/LegalPage';
 import { COMPANY } from '../../../constants/company';
@@ -6,6 +7,7 @@ import { COMPANY } from '../../../constants/company';
 function ShippingPolicy() {
   return (
     <LegalPage
+      icon={Truck}
       title="Shipping & Delivery Policy"
       description="How Xtin Capital delivers its digital products and subscriptions after payment."
       canonicalUrl="/shipping-policy"

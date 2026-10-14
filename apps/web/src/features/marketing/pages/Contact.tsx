@@ -1,4 +1,5 @@
 import React from 'react';
+import { LifeBuoy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LegalPage, { LegalSection, SupportEmailLink, SupportPhoneLink } from '../components/LegalPage';
 import { COMPANY, companyAddress } from '../../../constants/company';
@@ -6,6 +7,7 @@ import { COMPANY, companyAddress } from '../../../constants/company';
 function Contact() {
   return (
     <LegalPage
+      icon={LifeBuoy}
       title="Contact Us"
       description="Contact Xtin Capital (XTIN SERVICES LLP) — support email, phone, registered business details and address."
       canonicalUrl="/contact"

@@ -1,10 +1,12 @@
 import React from 'react';
+import { LegalHeader } from '../components/PageArt';
+import { PiggyBank } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
 const Section = ({ title, children }) => (
   <section className="space-y-3">
-    <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900 border-l-[3px] border-brand-fill pl-3">{title}</h3>
     <div className="text-gray-700 leading-7 space-y-2">{children}</div>
   </section>
 );
@@ -16,10 +18,9 @@ function RevenueShareAgreement() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="xt-title mb-3">Revenue Share Agreement</h1>
-          <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
+          <LegalHeader Icon={PiggyBank} title="Revenue Share Agreement" updated="Nov 2, 2025" />
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             <Section title="1. Overview">
               <p>
                 This Revenue Share Agreement ("Agreement") applies to publisher earnings for Algorithms sold or subscribed to through the Xtin Capital Marketplace.

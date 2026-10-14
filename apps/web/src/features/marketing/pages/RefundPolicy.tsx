@@ -1,4 +1,5 @@
 import React from 'react';
+import { RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import LegalPage, { LegalSection, SupportEmailLink } from '../components/LegalPage';
 import { COMPANY } from '../../../constants/company';
@@ -7,6 +8,7 @@ import { COMPANY } from '../../../constants/company';
 function RefundPolicy() {
   return (
     <LegalPage
+      icon={RotateCcw}
       title="Refund & Cancellation Policy"
       description="Refund and cancellation policy for Xtin Capital paid plans, subscriptions, algorithm indicators and AI token packs."
       canonicalUrl="/refund-policy"
