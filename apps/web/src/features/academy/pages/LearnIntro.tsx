@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt, CtaTexture } from '../../marketing/components/IntroKit';
 
 /* --- Animation --- */
 const fadeUp: Variants = {
@@ -129,11 +130,13 @@ const LearnIntro = () => {
       {/* ======== HERO ======== */}
       <section className="relative overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0" />
+        <IntroBackdrop />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none bg-brand-soft" />
 
         <div className="relative max-w-4xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-28 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
+
+            <motion.div variants={fadeUp}><IntroHeroArt id="Learn" /></motion.div>
 
             {/* Eyebrow */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-brand dark:text-brand text-sm font-medium mb-8">
@@ -213,7 +216,7 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Simple process</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple process</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">How it works</h2>
           </motion.div>
 
@@ -239,7 +242,7 @@ const LearnIntro = () => {
       <AnimatedSection id="courses" className="py-20 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Course catalog</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Course catalog</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">Pick your learning path</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Structured from beginner to advanced. Start anywhere.</p>
           </motion.div>
@@ -258,7 +261,7 @@ const LearnIntro = () => {
                   {level.courses.map((c) => (
                     <div
                       key={c.name}
-                      className={`bg-white dark:bg-slate-800 rounded-xl p-5 border-l-4 ${level.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
+                      className={`bg-white dark:bg-slate-800 rounded-2xl p-5 border-l-4 ${level.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -282,7 +285,7 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">The advantage</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The advantage</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">Why learn here</h2>
           </motion.div>
 
@@ -295,7 +298,7 @@ const LearnIntro = () => {
               { icon: <CheckIcon />, text: 'Learn and apply within the same platform' },
               { icon: <CheckIcon />, text: 'Downloadable certificates for LinkedIn & resume' },
             ].map((b, i) => (
-              <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-xl p-4 border border-gray-100/80 dark:border-slate-700/50">
+              <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-gray-100/80 dark:border-slate-700/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
                 {b.icon}
                 <span className="text-sm text-gray-700 dark:text-slate-300 leading-snug">{b.text}</span>
               </motion.div>
@@ -337,7 +340,7 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Pricing</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Pricing</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">100% Free. Always.</h2>
           </motion.div>
 
@@ -381,6 +384,7 @@ const LearnIntro = () => {
           variants={fadeUp}
           className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
+          <CtaTexture />
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 

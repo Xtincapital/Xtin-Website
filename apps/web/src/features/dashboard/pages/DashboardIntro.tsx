@@ -2,16 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt } from '../../marketing/components/IntroKit';
 
 const DashboardIntro = () => {
   return (
-    <div className="min-h-screen bg-background text-gray-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="relative min-h-screen bg-background text-gray-900 dark:text-slate-100 transition-colors duration-200">
       <Navbar />
+      <div className="absolute inset-x-0 top-0 h-[640px] overflow-hidden"><IntroBackdrop /></div>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
+      <main className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
         {/* Hero */}
         <div className="text-center mb-16">
-          <span className="text-sm font-medium text-brand dark:text-brand tracking-wider uppercase">Dashboard</span>
+          <IntroHeroArt id="Dashboard" />
+          <span className="text-sm font-medium text-brand dark:text-brand tracking-wider uppercase inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Dashboard</span>
           <h1 className="text-4xl md:text-5xl font-display font-semibold mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.025em]">Everything in One Place</h1>
           <p className="text-lg text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
             Your personal financial command center. Portfolio, courses, advisors, algorithms — one screen.
@@ -26,7 +29,7 @@ const DashboardIntro = () => {
             { label: 'Works On', value: 'All Devices' },
             { label: 'Cost', value: 'Free' },
           ].map((item) => (
-            <div key={item.label} className="bg-white dark:bg-slate-900 rounded-xl p-5 text-center border border-gray-100 dark:border-slate-800">
+            <div key={item.label} className="bg-white dark:bg-slate-900 rounded-2xl p-5 text-center border border-gray-100 dark:border-slate-800 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
               <p className="text-xl font-bold text-brand dark:text-brand">{item.value}</p>
               <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">{item.label}</p>
             </div>
@@ -34,7 +37,7 @@ const DashboardIntro = () => {
         </div>
 
         {/* What It Is */}
-        <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
+        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
           <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">What Is This?</h2>
           <p className="text-gray-600 dark:text-slate-300 text-sm leading-relaxed">
             Your home screen after login. A bird's-eye view of everything you do on Xtin Capital — investments, learning, advisory sessions, algo performance, and more. No need to navigate feature by feature.
@@ -42,7 +45,7 @@ const DashboardIntro = () => {
         </section>
 
         {/* What You See */}
-        <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
+        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
           <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">What You'll See</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[
@@ -64,7 +67,7 @@ const DashboardIntro = () => {
         </section>
 
         {/* Benefits */}
-        <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
+        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
           <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">Why Use It</h2>
           <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3">
             {[
@@ -84,7 +87,7 @@ const DashboardIntro = () => {
         </section>
 
         {/* Who It's For */}
-        <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
+        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
           <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">Who It's For</h2>
           <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3">
             {[
@@ -102,7 +105,7 @@ const DashboardIntro = () => {
         </section>
 
         {/* Pricing */}
-        <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-16">
+        <section className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-16 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
           <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Pricing</h2>
           <p className="text-gray-600 dark:text-slate-300 text-sm">
             <strong className="text-gray-900 dark:text-white">Free</strong> with every Xtin Capital account. No premium tier needed for the dashboard itself.

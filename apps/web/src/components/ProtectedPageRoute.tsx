@@ -18,7 +18,7 @@ const ProtectedPageRoute = ({ children }) => {
     // If not loading and no user, show the sign-in modal
     if (!loading && !user) {
       // Store the intended URL for redirect after login
-      sessionStorage.setItem('returnUrl', location.pathname);
+      sessionStorage.setItem('returnUrl', location.pathname + location.search);
       setShowSignInModal(true);
     }
   }, [loading, user, location.pathname]);

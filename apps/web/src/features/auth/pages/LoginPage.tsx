@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { Lock, Mail } from "lucide-react";
-import { PageBackdrop, AuthHero } from "../../marketing/components/PageArt";
+import { PageBackdrop } from "../../marketing/components/PageArt";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const LoginPage = () => {
@@ -85,8 +85,7 @@ const LoginPage = () => {
 				<div className="relative max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<AuthHero variant="login" />
-						<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
+												<h1 className="text-3xl md:text-4xl font-display font-semibold text-gray-900 mb-2 tracking-[-0.025em]">
 							Welcome Back
 						</h1>
 						<p className="text-gray-600">

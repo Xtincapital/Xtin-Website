@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt } from '../../marketing/components/IntroKit';
 
 /* --- Animation --- */
 const fadeUp: Variants = {
@@ -92,12 +93,14 @@ const NewsletterIntro = () => {
       {/* ======== HERO - Email capture above the fold ======== */}
       <section className="relative overflow-hidden">
         {/* Layered background */}
-        <div className="absolute inset-0" />
+        <IntroBackdrop />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[100px] pointer-events-none bg-brand-soft" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[80px] pointer-events-none bg-brand-soft" />
 
         <div className="relative max-w-3xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-28 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
+
+            <motion.div variants={fadeUp}><IntroHeroArt id="Newsletter" /></motion.div>
 
             {/* Eyebrow */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-brand dark:text-brand text-sm font-medium mb-8">
@@ -181,7 +184,7 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-20 md:py-28 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-16">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Recent editions</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Recent editions</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">See what you've been missing</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">A taste of what lands in your inbox every morning</p>
           </motion.div>
@@ -235,7 +238,7 @@ const NewsletterIntro = () => {
               'Regulatory Changes \u2014 SEBI, tax updates',
               'One Smart Idea \u2014 actionable investment tip',
             ].map((item, i) => (
-              <motion.div key={item} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-xl p-4 border border-gray-100/80 dark:border-slate-700/50">
+              <motion.div key={item} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-gray-100/80 dark:border-slate-700/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
                 <CheckCircle />
                 <span className="text-sm text-gray-700 dark:text-slate-300 leading-snug">{item}</span>
               </motion.div>
@@ -248,7 +251,7 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div variants={fadeUp} className="mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">How it works</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">How it works</span>
             <h2 className="text-2xl md:text-3xl font-display font-semibold mt-3 tracking-[-0.025em]">AI does the heavy lifting</h2>
           </motion.div>
 

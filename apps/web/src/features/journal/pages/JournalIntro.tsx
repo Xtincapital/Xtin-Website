@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt } from '../../marketing/components/IntroKit';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -65,7 +66,7 @@ const DotGridBg = () => (
     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="journalDotGrid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.8" className="fill-gray-200 dark:fill-slate-800" />
+          <circle cx="1" cy="1" r="0.8" className="fill-brand/30" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#journalDotGrid)" />
@@ -102,8 +103,10 @@ export default function JournalIntro() {
       {/* Hero Section */}
       <AnimatedSection className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <DotGridBg />
+        <IntroBackdrop dots={false} />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
+            <IntroHeroArt id="Journal" />
             <h1 className="xt-title mb-2">
               Trade Journal
             </h1>
@@ -137,9 +140,9 @@ export default function JournalIntro() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="p-8 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-all"
+                className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all"
               >
-                <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-soft to-transparent ring-1 ring-brand-line/70 shadow-sm ${feature.color} flex items-center justify-center mb-5`}>
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{feature.title}</h3>

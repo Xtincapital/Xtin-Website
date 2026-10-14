@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroHeroArt, CtaTexture } from '../../marketing/components/IntroKit';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -123,7 +124,7 @@ const DotGridBg = () => (
     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="dotGrid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.8" className="fill-gray-200 dark:fill-slate-800" />
+          <circle cx="1" cy="1" r="0.8" className="fill-brand/30" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#dotGrid)" />
@@ -195,6 +196,7 @@ const AlgorithmsIntro = () => {
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }}>
+            <motion.div variants={fadeUp}><IntroHeroArt id="Algorithms" /></motion.div>
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand px-4 py-2 rounded-full text-sm font-medium mb-8 border border-brand-line dark:border-brand-line">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd"/></svg>
               AI-Powered Trading Systems
@@ -249,7 +251,7 @@ const AlgorithmsIntro = () => {
       <Section id="how-it-works" className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="xt-eyebrow">Simple Process</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple Process</span>
             <h2 className="xt-title mt-2">How It Works</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">From browsing to live trading — in 4 simple steps</p>
           </motion.div>
@@ -278,7 +280,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="xt-eyebrow">Multiple Approaches</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Multiple Approaches</span>
             <h2 className="xt-title mt-2">Strategy Types</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Choose from battle-tested strategies that match your trading style</p>
           </motion.div>
@@ -310,7 +312,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="xt-eyebrow">The Edge</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The Edge</span>
             <h2 className="xt-title mt-2">Why Algorithmic Trading?</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Let machines handle the math while you focus on living</p>
           </motion.div>
@@ -338,7 +340,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="xt-eyebrow">Platform</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Platform</span>
             <h2 className="xt-title mt-2">Two Ways to Trade</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Use our exclusive strategies or build your own</p>
           </motion.div>
@@ -399,7 +401,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="xt-eyebrow">For Every Trader</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">For Every Trader</span>
             <h2 className="xt-title mt-2">Who It's For</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Whether you're starting out or scaling up — algos work for everyone</p>
           </motion.div>
@@ -451,7 +453,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="xt-eyebrow">Transparent Pricing</span>
+            <span className="xt-eyebrow inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Transparent Pricing</span>
             <h2 className="xt-title mt-2">No Hidden Charges. Ever.</h2>
           </motion.div>
 
@@ -508,6 +510,7 @@ const AlgorithmsIntro = () => {
           variants={fadeUp}
           className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
+          <CtaTexture />
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 

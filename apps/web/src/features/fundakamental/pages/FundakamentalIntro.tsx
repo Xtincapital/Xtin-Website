@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop } from '../../marketing/components/IntroKit';
 import useRegion from '@/hooks/useRegion';
 import { billingFor } from '../store/usePlanStore';
 import { formatPrice } from '../lib/currency';
@@ -93,7 +94,7 @@ const FundakamentalIntro = () => {
       <main id="main-content">
         {/* Hero Section */}
         <section className="relative overflow-hidden px-6 pt-32 pb-20 md:px-12 lg:px-24">
-          <div className="absolute inset-0" />
+          <IntroBackdrop />
           
           <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
             <div>
@@ -191,7 +192,7 @@ const FundakamentalIntro = () => {
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map(({ title, description, Icon }) => (
               <article key={title} className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/60 hover:border-brand-line dark:hover:border-brand transition-all duration-300">
-                <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white dark:bg-slate-800 text-brand dark:text-brand border border-slate-100 dark:border-slate-700 shadow-sm">
+                <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white dark:bg-slate-800 text-brand dark:text-brand border border-slate-100 dark:border-slate-700 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
                   <Icon className="h-6 w-6" />
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{title}</h3>

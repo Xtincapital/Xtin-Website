@@ -117,6 +117,11 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
     animate={mounted ? { opacity: 1, scale: 1 } : {}}
     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
   >
+    <style>{`
+      @keyframes eco-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+      .eco-float { animation: eco-float 6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .eco-float { animation: none; } }
+    `}</style>
     {/* ── SVG layer: dashed orbit ring + straight spoke lines ── */}
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -186,6 +191,22 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
           </line>
         );
       })}
+
+      {/* Small pulses travelling hub → card along each spoke */}
+      {modules.map((mod, i) => {
+        const dx = mod.x - 50;
+        const dy = mod.y - 50;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / dist;
+        const uy = dy / dist;
+        const path = `M ${(60 + 12 * ux).toFixed(2)} ${(55 + 12 * uy).toFixed(2)} L ${(mod.x - 9 * ux + 10).toFixed(2)} ${(mod.y - 9 * uy + 5).toFixed(2)}`;
+        return (
+          <circle key={`pulse-${mod.id}`} r="0.7" fill="rgb(18 128 90)" opacity="0">
+            <animateMotion dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" path={path} />
+            <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1" dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" />
+          </circle>
+        );
+      })}
     </svg>
 
     {/* ── Center node ── */}
@@ -248,6 +269,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         onMouseEnter={() => setHoveredNode(mod.id)}
         onMouseLeave={() => setHoveredNode(null)}
       >
+        <div className="eco-float" style={{ animationDelay: `${-i * 0.9}s` }}>
         {mod.isExternal ? (
           <a href={mod.link} target="_blank" rel="noopener noreferrer" className="block focus:outline-none">
             <motion.div
@@ -301,6 +323,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             </motion.div>
           </Link>
         )}
+        </div>
       </motion.div>
     ))}
   </motion.div>
@@ -334,7 +357,7 @@ const GuestHomeHero = () => {
               Built for modern Indian investors
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-display font-semibold leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-[1.06] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
               The Xtin Capital{' '}
               <span className="relative whitespace-nowrap text-brand dark:text-brand">
                 Ecosystem
@@ -400,7 +423,7 @@ const GuestHomeHero = () => {
           </div>
 
           {/* ── Right: ecosystem diagram (desktop only) ── */}
-          <div className="hidden lg:flex justify-end items-center min-w-0 overflow-visible">
+          <div className="hidden lg:flex justify-end items-center min-w-0 overflow-visible lg:pr-10 xl:pr-14">
             <EcosystemDiagram
               hoveredNode={hoveredNode}
               setHoveredNode={setHoveredNode}

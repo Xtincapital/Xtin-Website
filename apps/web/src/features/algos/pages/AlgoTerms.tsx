@@ -4,6 +4,8 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
 import { COMPANY } from '../../../constants/company';
+import { LegalHeader } from '../../marketing/components/PageArt';
+import { Scale } from 'lucide-react';
 
 const Section = ({ title, children }) => (
   <section className="space-y-4">
@@ -33,9 +35,7 @@ function AlgoTerms() {
               </svg>
               Back to Algorithms
             </Link>
-            <h1 className="text-3xl md:text-4xl font-display font-semibold mb-2 tracking-[-0.025em]">Algorithm Trading Terms & Conditions</h1>
-            <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
-            <p className="text-gray-600">Last updated: January 13, 2026</p>
+            <LegalHeader Icon={Scale} title="Algorithm Trading Terms &amp; Conditions" entity="XTIN SERVICES LLP (LLP ID: ACR-9371)" updated="January 13, 2026" />
           </div>
 
           {/* Important Notice Banner */}
@@ -58,7 +58,7 @@ function AlgoTerms() {
           </div>
 
           {/* Main Content */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             
             <Section title="1. Nature of Service">
               <p>

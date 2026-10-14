@@ -83,6 +83,19 @@ export const ProductArt = ({ id }: { id: string }) => {
           <path d="M80 36l-3-7 7-3 3 7" stroke={G} strokeWidth="3" strokeLinejoin="round"/>
         </svg>
       );
+    case 'Dashboard':
+      return (
+        <svg {...common}>
+          <rect x="10" y="12" width="76" height="72" rx="10" stroke={G} strokeWidth="3" fill={G} fillOpacity=".08"/>
+          <rect x="18" y="20" width="32" height="22" rx="5" fill={G} fillOpacity=".3" stroke={G} strokeWidth="1.8"/>
+          <path d="M23 36 l6 -6 5 4 8 -9" stroke={G} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
+          <rect x="54" y="20" width="24" height="22" rx="5" stroke={G} strokeWidth="1.8"/>
+          <circle cx="66" cy="31" r="6.5" stroke={G} strokeOpacity=".35" strokeWidth="4"/>
+          <path d="M66 24.500 a6.500 6.500 0 0 1 6.500 6.500" stroke={G} strokeWidth="4" strokeLinecap="round"/>
+          <rect x="18" y="50" width="60" height="26" rx="5" stroke={G} strokeWidth="1.8"/>
+          {[0,1,2,3,4].map(i => <rect key={i} x={24 + i * 11} y={70 - [8,14,10,18,13][i]} width="6" height={[8,14,10,18,13][i]} rx="1.800" fill={G} fillOpacity={0.4 + i * 0.12}/>)}
+        </svg>
+      );
     default: // Newsletter
       return (
         <svg {...common}>

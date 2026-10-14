@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { CtaTexture } from '../../marketing/components/IntroKit';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -108,7 +109,7 @@ const DotGridBg = () => (
     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="toolsDotGrid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.8" className="fill-gray-200 dark:fill-slate-800" />
+          <circle cx="1" cy="1" r="0.8" className="fill-brand/30" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#toolsDotGrid)" />
@@ -293,7 +294,7 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Simple process</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple process</span>
             <h2 className="xt-title mt-3">How it works</h2>
           </motion.div>
 
@@ -319,7 +320,7 @@ const ToolsIntro = () => {
       <AnimatedSection id="categories" className="py-20 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Calculator suite</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Calculator suite</span>
             <h2 className="xt-title mt-3">Every tool you need</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">20+ calculators organized by purpose — from your first SIP to retirement planning.</p>
           </motion.div>
@@ -337,7 +338,7 @@ const ToolsIntro = () => {
                   {cat.tools.map((tool) => (
                     <div
                       key={tool.name}
-                      className={`bg-white dark:bg-slate-800 rounded-xl p-5 border-l-4 ${cat.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
+                      className={`bg-white dark:bg-slate-800 rounded-2xl p-5 border-l-4 ${cat.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -386,7 +387,7 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">The advantage</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The advantage</span>
             <h2 className="xt-title mt-3">Why use these</h2>
           </motion.div>
 
@@ -437,7 +438,7 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider">Pricing</span>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Pricing</span>
             <h2 className="xt-title mt-3">100% Free. Always.</h2>
           </motion.div>
 
@@ -481,6 +482,7 @@ const ToolsIntro = () => {
           variants={fadeUp}
           className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
+          <CtaTexture />
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
