@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
-import { Sparkles } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 
 /**
  * Premium spotlight onboarding tour for first-time users.
@@ -256,15 +256,24 @@ export default function OnboardingTour() {
             : { top: cardPos.top, left: cardPos.left, background: "linear-gradient(150deg,#232327,#151517)", border: "1px solid rgba(60, 203, 151,0.25)" }
         }
       >
+        <button
+          type="button"
+          onClick={() => finish(true)}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 text-white/60 hover:bg-white/20 hover:text-white flex items-center justify-center transition-colors"
+          aria-label="Close tour"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
         {step.badge && (
           <div className="w-11 h-11 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-xl mb-3">
             {step.badge}
           </div>
         )}
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary mb-2">
+        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary mb-2 pr-10">
           <Sparkles className="w-3 h-3" /> {step.eyebrow}
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-1.5">{step.title}</h3>
+        <h3 className="text-lg font-bold leading-snug mb-1.5 pr-8">{step.title}</h3>
         <p className="text-sm text-white/70 leading-relaxed mb-4">{step.desc}</p>
 
         {/* Progress */}

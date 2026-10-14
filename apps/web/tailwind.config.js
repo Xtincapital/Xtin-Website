@@ -30,6 +30,12 @@ export default {
         "6xl": ["3.75rem", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
         "7xl": ["4.5rem", { lineHeight: "1", letterSpacing: "-0.03em" }],
       },
+      // The site-wide page column. Tailwind's 80rem (1280px) left wide
+      // screens with big empty bands beside pages that have no sidebar;
+      // 96rem (1536px) matches `container` at 2xl, so every page lines up.
+      maxWidth: {
+        "7xl": "120rem",
+      },
       colors: {
         // Every Tailwind hue now resolves to one of 8 palette families
         // (src/styles/palette.js).
