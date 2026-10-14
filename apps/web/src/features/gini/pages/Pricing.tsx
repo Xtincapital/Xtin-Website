@@ -105,7 +105,7 @@ export default function Pricing() {
           <Badge variant="secondary" className="mx-auto w-fit">
             Xtin Gini Plans
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="xt-title mb-2">
             {isPro ? "You're on Gini Pro" : "Plan your family's future with confidence"}
           </h1>
           <p className="mx-auto max-w-xl text-sm text-muted-foreground">
@@ -119,7 +119,7 @@ export default function Pricing() {
         <Card>
           <CardContent className="grid gap-6 p-6 sm:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Plan</p>
+              <p className="xt-label">Plan</p>
               <div className="mt-1 flex items-center gap-2">
                 <span className="text-lg font-semibold">{isPro ? "Pro" : "Free"}</span>
                 {isPro && (
@@ -132,7 +132,7 @@ export default function Pricing() {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <p className="xt-label flex items-center gap-1.5">
                   <Coins className="h-3.5 w-3.5" /> AI tokens
                 </p>
                 <span className="text-sm font-bold">{wallet ? formatTokens(wallet.token_balance) : "-"}</span>

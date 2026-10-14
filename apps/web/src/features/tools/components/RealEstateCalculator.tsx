@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useRegion from "../../../hooks/useRegion";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
+import { useMoneyState, useCalcSession } from "../lib/calcState";
 import { useCalcForm } from "../lib/calcForm";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import {
@@ -36,6 +36,7 @@ import {
   Radar,
   Legend,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors, chartXAxis, chartYAxis, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 
 const INFRA_LABELS: Record<string, string> = {
   metro: "Metro / Transit",
@@ -184,7 +185,7 @@ const RealEstateCalculator = () => {
     { name: 'Net Rent (after costs & tax)', value: Math.max(0, Math.round(finalRow.totalRentalIncome)) },
   ] : [];
 
-  const COLORS = ['#10B981', '#3B82F6'];
+  const COLORS = [chartColors.positive, chartColors.series[2]];
 
   useCalcSession("realestate", calculateAll, !!results);
 
@@ -256,7 +257,7 @@ const RealEstateCalculator = () => {
               </svg>
               4-Filter Framework
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="xt-title mb-4">
               Real Estate Investment{" "}
               <span className="text-green-600">Calculator</span>
             </h1>
@@ -275,7 +276,7 @@ const RealEstateCalculator = () => {
             </button>
             {showInfo && (
               <div className="mt-6 p-6 bg-white shadow-lg rounded-2xl text-left max-w-4xl mx-auto border border-gray-100">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">The 4-Filter Property Investment Framework</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">The 4-Filter Property Investment Framework</h3>
                 <p className="text-sm text-gray-500 mb-4">Each filter is judged against typical values for the location type you choose (see the benchmark table below).</p>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="p-4 bg-green-50 rounded-xl">
@@ -311,7 +312,7 @@ const RealEstateCalculator = () => {
             {/* Input Section */}
             <div className="lg:col-span-1 space-y-4">
               <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-100" {...formProps}>
-                <h2 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-gray-900 mb-5 flex items-center gap-2">
                   <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
@@ -526,7 +527,7 @@ const RealEstateCalculator = () => {
                 }`}>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">Overall Assessment</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">Overall Assessment</h3>
                       <p className={`text-2xl font-bold ${
                         results.analysis.recommendationClass === 'good' ? 'text-green-700' :
                         results.analysis.recommendationClass === 'neutral' ? 'text-yellow-700' :
@@ -550,7 +551,7 @@ const RealEstateCalculator = () => {
               {results && (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                    <h3 className="text-xl font-bold text-gray-900">Investment Analysis</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">Investment Analysis</h3>
                     <div className="flex gap-2">
                       {[['radar', 'Score'], ['pie', 'Returns'], ['bar', 'Projection']].map(([id, label]) => (
                         <button
@@ -572,8 +573,8 @@ const RealEstateCalculator = () => {
                         <PolarGrid />
                         <PolarAngleAxis dataKey="subject" tick={{ fontSize: 12 }} />
                         <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                        <Radar name="Score" dataKey="value" stroke="#10B981" fill="#10B981" fillOpacity={0.5} />
-                        <Tooltip />
+                        <Radar name="Score" dataKey="value" stroke={chartColors.positive} fill={chartColors.positive} fillOpacity={0.5} />
+                        <Tooltip {...chartTooltip} />
                       </RadarChart>
                     ) : chartType === "pie" ? (
                       <PieChart>
@@ -585,7 +586,7 @@ const RealEstateCalculator = () => {
                           cx="50%"
                           cy="50%"
                           outerRadius={100}
-                          fill="#8884d8"
+                          fill={chartColors.series[2]}
                           dataKey="value"
                         >
                           {pieData.map((entry, index) => (
@@ -593,16 +594,16 @@ const RealEstateCalculator = () => {
                           ))}
                         </Pie>
                         <Legend content={pieLegend} />
-                        <Tooltip formatter={(value) => formatCurrency(value)} />
+                        <Tooltip {...chartTooltip} formatter={(value) => formatCurrency(value)} />
                       </PieChart>
                     ) : (
                       <BarChart data={results.analysis.projections.filter((_, i, arr) => i % 2 === 0 || i === arr.length - 1)}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="year" tick={{ fontSize: 11 }} />
-                        <YAxis tickFormatter={(value) => formatCurrency(value)} width={80} tick={{ fontSize: 11 }} />
-                        <Tooltip formatter={(value) => formatCurrency(value)} />
-                        <Bar dataKey="propertyValue" name="Property Value" fill="#10B981" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="totalRentalIncome" name="Net Rent Earned (after costs & tax)" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                        <CartesianGrid {...chartGrid} />
+                        <XAxis dataKey="year" {...chartXAxis} />
+                        <YAxis {...chartYAxis} tickFormatter={(value) => formatCurrency(value)} width={80} tick={{ fontSize: 11 }} />
+                        <Tooltip {...chartTooltip} formatter={(value) => formatCurrency(value)} />
+                        <Bar dataKey="propertyValue" name="Property Value" fill={chartColors.positive} radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
+                        <Bar dataKey="totalRentalIncome" name="Net Rent Earned (after costs & tax)" fill={chartColors.series[2]} radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
                       </BarChart>
                     )}
                   </ResponsiveContainer>
@@ -619,7 +620,7 @@ const RealEstateCalculator = () => {
                 const better = a.betterInvestment === 'property';
                 return (
                   <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                    <h3 className="text-lg font-bold text-gray-900 mb-1 flex items-center gap-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2">
                       <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
@@ -687,7 +688,7 @@ const RealEstateCalculator = () => {
               {/* Key Insights */}
               {results && (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Key Insights</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Insights</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {[
                       { label: 'Annual Rent (gross)', value: formatCurrency(results.analysis.grossAnnualRent), cls: 'text-green-600', bg: 'bg-green-100' },
@@ -713,7 +714,7 @@ const RealEstateCalculator = () => {
 
           {/* Market Stats Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Market Statistics 2025</h2>
+            <h2 className="xt-section mb-6 text-center">Market Statistics 2025</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
                 { value: "$952B", label: "Global RE Investment", trend: "+27%" },
@@ -734,7 +735,7 @@ const RealEstateCalculator = () => {
 
           {/* Benchmarks used */}
           <div className="mt-12 bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">Benchmarks Used</h2>
+            <h2 className="xt-section mb-2 text-center">Benchmarks Used</h2>
             <p className="text-center text-gray-500 text-sm mb-6">
               Rough Indian-market ballparks, not live data. Good means at or better than the first value, avoid means beyond the second. Check local listings for your exact area.
             </p>

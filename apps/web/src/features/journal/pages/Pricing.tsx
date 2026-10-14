@@ -141,7 +141,7 @@ export default function Pricing() {
           <Badge variant="secondary" className="mx-auto w-fit">
             Xtin Journal Plans
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="xt-title mb-2">
             {isPro ? "You're on Journal Pro" : "Trade with an edge, not a hunch"}
           </h1>
           <p className="mx-auto max-w-xl text-sm text-muted-foreground">

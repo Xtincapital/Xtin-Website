@@ -106,7 +106,7 @@ const NewsletterIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
+            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-display font-normal leading-[1.08] tracking-[-0.02em] mb-5">
               Understand Indian markets
               <br />
               <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">in 3 minutes a day</span>
@@ -182,7 +182,7 @@ const NewsletterIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-16">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Recent editions</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">See what you've been missing</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">See what you've been missing</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">A taste of what lands in your inbox every morning</p>
           </motion.div>
 
@@ -202,7 +202,7 @@ const NewsletterIntro = () => {
                     <span className="text-xs font-semibold uppercase tracking-wider text-green-600 dark:text-emerald-400">{a.category}</span>
                     <span className="text-xs text-gray-400 dark:text-slate-500">{a.date}</span>
                   </div>
-                  <h3 className="text-lg font-bold leading-snug mb-3 group-hover:text-green-600 dark:group-hover:text-emerald-400 transition-colors">{a.title}</h3>
+                  <h3 className="text-lg font-semibold leading-snug mb-3 group-hover:text-green-600 dark:group-hover:text-emerald-400 transition-colors">{a.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed flex-1">{a.summary}</p>
                   <div className="mt-5 pt-4 border-t border-gray-50 dark:border-slate-800 flex items-center justify-between">
                     <span className="text-xs text-gray-400 dark:text-slate-500 flex items-center gap-1">
@@ -223,7 +223,7 @@ const NewsletterIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Every edition covers</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Every edition covers</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -249,7 +249,7 @@ const NewsletterIntro = () => {
         <div className="max-w-3xl mx-auto text-center">
           <motion.div variants={fadeUp} className="mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">How it works</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">AI does the heavy lifting</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">AI does the heavy lifting</h2>
           </motion.div>
 
           <div className="relative">
@@ -298,7 +298,7 @@ const NewsletterIntro = () => {
       {/* ======== FINAL CTA ======== */}
       <AnimatedSection className="py-24 md:py-32 px-6">
         <motion.div variants={fadeUp} className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-normal mb-4 tracking-[-0.015em]">
             Start your morning smarter
           </h2>
           <p className="text-gray-500 dark:text-slate-400 text-lg mb-10 max-w-lg mx-auto">

@@ -100,7 +100,7 @@ const PersonalFinanceLesson2 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson 2 of 9
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm flex items-center gap-1">
@@ -111,7 +111,7 @@ const PersonalFinanceLesson2 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-200 rounded-xl shadow-sm">
                 <BalanceScaleIcon className="w-7 h-7 text-emerald-600" />
               </span>
@@ -124,7 +124,7 @@ const PersonalFinanceLesson2 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
                 <TargetIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -149,7 +149,7 @@ const PersonalFinanceLesson2 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">The Simple Truth About Money</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">The Simple Truth About Money</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               Every dollar you spend falls into one of two categories: <strong className="text-gray-900">Needs</strong> or <strong className="text-gray-900">Wants</strong>.
@@ -169,44 +169,44 @@ const PersonalFinanceLesson2 = () => {
 
             {/* Visual SVG - Needs vs Wants Scale */}
             <div className="bg-white rounded-3xl p-8 mb-10 border border-gray-100 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">Needs vs Wants — The Balance</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">Needs vs Wants — The Balance</h3>
               <svg className="w-full max-w-lg mx-auto" viewBox="0 0 500 280" fill="none">
                 {/* Balance beam base */}
-                <rect x="235" y="220" width="30" height="60" rx="4" fill="#374151"/>
-                <polygon points="250,180 220,220 280,220" fill="#4b5563"/>
+                <rect x="235" y="220" width="30" height="60" rx="4" fill="#404047"/>
+                <polygon points="250,180 220,220 280,220" fill="#5A5A62"/>
                 
                 {/* Balance beam */}
-                <rect x="50" y="170" width="400" height="12" rx="6" fill="#9ca3af"/>
-                <circle cx="250" cy="176" r="8" fill="#374151"/>
+                <rect x="50" y="170" width="400" height="12" rx="6" fill="#A3A1A6"/>
+                <circle cx="250" cy="176" r="8" fill="#404047"/>
                 
                 {/* Left pan - Needs (heavier/lower) */}
-                <ellipse cx="100" cy="200" rx="70" ry="15" fill="#10b981"/>
-                <line x1="100" y1="176" x2="100" y2="185" stroke="#6b7280" strokeWidth="3"/>
+                <ellipse cx="100" cy="200" rx="70" ry="15" fill="#1FA978"/>
+                <line x1="100" y1="176" x2="100" y2="185" stroke="#75757D" strokeWidth="3"/>
                 
                 {/* Needs items */}
-                <rect x="55" y="130" width="90" height="55" rx="8" fill="#d1fae5" stroke="#10b981" strokeWidth="2"/>
-                <text x="100" y="150" textAnchor="middle" fill="#065f46" fontSize="11" fontWeight="bold">NEEDS ✓</text>
-                <text x="100" y="168" textAnchor="middle" fill="#047857" fontSize="9">Rent • Food</text>
-                <text x="100" y="180" textAnchor="middle" fill="#047857" fontSize="9">Utilities • Health</text>
+                <rect x="55" y="130" width="90" height="55" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                <text x="100" y="150" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="bold">NEEDS ✓</text>
+                <text x="100" y="168" textAnchor="middle" fill="#0E6A4A" fontSize="9">Rent • Food</text>
+                <text x="100" y="180" textAnchor="middle" fill="#0E6A4A" fontSize="9">Utilities • Health</text>
                 
                 {/* Right pan - Wants (lighter/higher) */}
-                <ellipse cx="400" cy="155" rx="70" ry="15" fill="#8b5cf6"/>
-                <line x1="400" y1="176" x2="400" y2="140" stroke="#6b7280" strokeWidth="3"/>
+                <ellipse cx="400" cy="155" rx="70" ry="15" fill="#8F6FC4"/>
+                <line x1="400" y1="176" x2="400" y2="140" stroke="#75757D" strokeWidth="3"/>
                 
                 {/* Wants items */}
-                <rect x="355" y="85" width="90" height="55" rx="8" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="2"/>
-                <text x="400" y="105" textAnchor="middle" fill="#5b21b6" fontSize="11" fontWeight="bold">WANTS ♡</text>
-                <text x="400" y="123" textAnchor="middle" fill="#6d28d9" fontSize="9">Streaming • Dining</text>
-                <text x="400" y="135" textAnchor="middle" fill="#6d28d9" fontSize="9">Shopping • Trips</text>
+                <rect x="355" y="85" width="90" height="55" rx="8" fill="#ECE4F6" stroke="#8F6FC4" strokeWidth="2"/>
+                <text x="400" y="105" textAnchor="middle" fill="#533F70" fontSize="11" fontWeight="bold">WANTS ♡</text>
+                <text x="400" y="123" textAnchor="middle" fill="#654B8A" fontSize="9">Streaming • Dining</text>
+                <text x="400" y="135" textAnchor="middle" fill="#654B8A" fontSize="9">Shopping • Trips</text>
                 
                 {/* Arrow showing priority */}
-                <path d="M180 120 L180 100 L220 130 L180 160 L180 140 L140 140 L140 120 Z" fill="#fbbf24" opacity="0.8"/>
-                <text x="180" y="130" textAnchor="middle" fill="#92400e" fontSize="8" fontWeight="bold">PAY</text>
-                <text x="180" y="142" textAnchor="middle" fill="#92400e" fontSize="8" fontWeight="bold">FIRST</text>
+                <path d="M180 120 L180 100 L220 130 L180 160 L180 140 L140 140 L140 120 Z" fill="#CDAA5F" opacity="0.8"/>
+                <text x="180" y="130" textAnchor="middle" fill="#654B26" fontSize="8" fontWeight="bold">PAY</text>
+                <text x="180" y="142" textAnchor="middle" fill="#654B26" fontSize="8" fontWeight="bold">FIRST</text>
                 
                 {/* Labels */}
-                <text x="100" y="230" textAnchor="middle" fill="#065f46" fontSize="12" fontWeight="bold">Essential</text>
-                <text x="400" y="230" textAnchor="middle" fill="#5b21b6" fontSize="12" fontWeight="bold">Optional</text>
+                <text x="100" y="230" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="bold">Essential</text>
+                <text x="400" y="230" textAnchor="middle" fill="#533F70" fontSize="12" fontWeight="bold">Optional</text>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-6 flex items-center justify-center gap-2">
                 <LightbulbIcon className="w-4 h-4 text-amber-500" />
@@ -217,7 +217,7 @@ const PersonalFinanceLesson2 = () => {
             {/* Real Life Example */}
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 mb-10 border border-orange-200 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-              <h3 className="font-bold text-orange-900 mb-4 flex items-center gap-3 relative z-10">
+              <h3 className="font-semibold text-orange-900 mb-4 flex items-center gap-3 relative z-10">
                 <span className="inline-flex items-center justify-center w-10 h-10 bg-white rounded-xl shadow-sm">
                   <BookOpenIcon className="w-5 h-5 text-orange-600" />
                 </span>
@@ -277,8 +277,8 @@ const PersonalFinanceLesson2 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>
               <span>Test Your Understanding</span>
@@ -314,10 +314,10 @@ const PersonalFinanceLesson2 = () => {
           </div>
 
           {/* Key Takeaway */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 rounded-2xl p-6 text-white relative overflow-hidden">
+          <div className="mt-12 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            <h3 className="font-bold text-lg mb-3 flex items-center gap-3 relative z-10">
+            <h3 className="font-semibold text-lg mb-3 flex items-center gap-3 relative z-10">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-white/20 rounded-xl backdrop-blur-sm">
                 <KeyIcon className="w-5 h-5 text-white" />
               </span>
@@ -340,7 +340,7 @@ const PersonalFinanceLesson2 = () => {
             </button>
             <button 
               onClick={() => navigate('/learn/personal-finance-lesson-3')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
             >
               <span>Next: Budgeting Basics</span>
               <FaArrowRight />

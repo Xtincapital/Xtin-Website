@@ -9,56 +9,56 @@ import Footer from "../../../../components/Footer";
 const WhatIsDerivativeSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">A Derivative Gets Its Value From Something Else</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">The word "derivative" means "derived from" — the value comes from another asset</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">A Derivative Gets Its Value From Something Else</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The word "derivative" means "derived from" — the value comes from another asset</text>
     
     {/* The Underlying Asset */}
     <g transform="translate(100, 80)">
-      <rect x="0" y="0" width="180" height="140" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">The Underlying Asset</text>
-      <text x="90" y="45" textAnchor="middle" fontSize="9" fill="#64748b">(The real thing)</text>
+      <rect x="0" y="0" width="180" height="140" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">The Underlying Asset</text>
+      <text x="90" y="45" textAnchor="middle" fontSize="9" fill="#75757D">(The real thing)</text>
       
       {/* Asset icon */}
       <g transform="translate(55, 60)">
-        <rect x="0" y="0" width="70" height="55" fill="white" rx="8" stroke="#86efac" strokeWidth="1"/>
+        <rect x="0" y="0" width="70" height="55" fill="white" rx="8" stroke="#77D3AE" strokeWidth="1"/>
         <text x="35" y="25" textAnchor="middle" fontSize="20">🏢</text>
-        <text x="35" y="45" textAnchor="middle" fontSize="8" fill="#166534">Stock, Oil, Gold</text>
+        <text x="35" y="45" textAnchor="middle" fontSize="8" fill="#0D543C">Stock, Oil, Gold</text>
       </g>
       
-      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#14532d">Has value on its own</text>
+      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#0B4532">Has value on its own</text>
     </g>
     
     {/* Arrow showing derivation */}
     <g transform="translate(290, 130)">
-      <line x1="0" y1="20" x2="100" y2="20" stroke="#f59e0b" strokeWidth="3"/>
-      <polygon points="100,20 90,14 90,26" fill="#f59e0b"/>
-      <text x="50" y="8" textAnchor="middle" fontSize="8" fill="#92400e">derives</text>
-      <text x="50" y="45" textAnchor="middle" fontSize="8" fill="#92400e">value from</text>
+      <line x1="0" y1="20" x2="100" y2="20" stroke="#B8923F" strokeWidth="3"/>
+      <polygon points="100,20 90,14 90,26" fill="#B8923F"/>
+      <text x="50" y="8" textAnchor="middle" fontSize="8" fill="#654B26">derives</text>
+      <text x="50" y="45" textAnchor="middle" fontSize="8" fill="#654B26">value from</text>
     </g>
     
     {/* The Derivative */}
     <g transform="translate(420, 80)">
-      <rect x="0" y="0" width="180" height="140" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">The Derivative</text>
-      <text x="90" y="45" textAnchor="middle" fontSize="9" fill="#64748b">(A contract about it)</text>
+      <rect x="0" y="0" width="180" height="140" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">The Derivative</text>
+      <text x="90" y="45" textAnchor="middle" fontSize="9" fill="#75757D">(A contract about it)</text>
       
       {/* Contract icon */}
       <g transform="translate(55, 60)">
-        <rect x="0" y="0" width="70" height="55" fill="white" rx="8" stroke="#fcd34d" strokeWidth="1"/>
+        <rect x="0" y="0" width="70" height="55" fill="white" rx="8" stroke="#E2C273" strokeWidth="1"/>
         <text x="35" y="25" textAnchor="middle" fontSize="20">📄</text>
-        <text x="35" y="45" textAnchor="middle" fontSize="8" fill="#92400e">Future, Option</text>
+        <text x="35" y="45" textAnchor="middle" fontSize="8" fill="#654B26">Future, Option</text>
       </g>
       
-      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#78350f">Value depends on asset</text>
+      <text x="90" y="130" textAnchor="middle" fontSize="8" fill="#533E22">Value depends on asset</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="235" width="500" height="35" fill="#1e293b" rx="8"/>
+    <rect x="100" y="235" width="500" height="35" fill="#232327" rx="8"/>
     <text x="350" y="250" textAnchor="middle" fontSize="9" fill="white">A derivative doesn't have value by itself — it's a contract tied to something else.</text>
-    <text x="350" y="263" textAnchor="middle" fontSize="8" fill="#94a3b8">If the underlying asset moves, the derivative's value changes too.</text>
+    <text x="350" y="263" textAnchor="middle" fontSize="8" fill="#A3A1A6">If the underlying asset moves, the derivative's value changes too.</text>
   </svg>
 );
 
@@ -66,92 +66,92 @@ const WhatIsDerivativeSVG = () => (
 const OwningVsContractSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Owning an Asset vs Owning a Derivative</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">They might sound similar, but they're completely different</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Owning an Asset vs Owning a Derivative</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">They might sound similar, but they're completely different</text>
     
     {/* Owning the Asset */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Owning the Asset</text>
-      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#64748b">(Like buying stock in a company)</text>
+      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Owning the Asset</text>
+      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#75757D">(Like buying stock in a company)</text>
       
       <g transform="translate(20, 60)">
         <rect x="0" y="0" width="240" height="120" fill="white" rx="8"/>
         
         <g transform="translate(15, 15)">
-          <circle cx="6" cy="6" r="4" fill="#22c55e"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">You actually OWN a piece</text>
+          <circle cx="6" cy="6" r="4" fill="#1FA978"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">You actually OWN a piece</text>
         </g>
         
         <g transform="translate(15, 38)">
-          <circle cx="6" cy="6" r="4" fill="#22c55e"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">No expiration date</text>
+          <circle cx="6" cy="6" r="4" fill="#1FA978"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">No expiration date</text>
         </g>
         
         <g transform="translate(15, 61)">
-          <circle cx="6" cy="6" r="4" fill="#22c55e"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">Can hold forever</text>
+          <circle cx="6" cy="6" r="4" fill="#1FA978"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">Can hold forever</text>
         </g>
         
         <g transform="translate(15, 84)">
-          <circle cx="6" cy="6" r="4" fill="#22c55e"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">May receive dividends</text>
+          <circle cx="6" cy="6" r="4" fill="#1FA978"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">May receive dividends</text>
         </g>
         
         <g transform="translate(15, 107)">
-          <circle cx="6" cy="6" r="4" fill="#22c55e"/>
-          <text x="18" y="10" fontSize="8" fill="#166534" fontWeight="500">You have something real</text>
+          <circle cx="6" cy="6" r="4" fill="#1FA978"/>
+          <text x="18" y="10" fontSize="8" fill="#0D543C" fontWeight="500">You have something real</text>
         </g>
       </g>
     </g>
     
     {/* VS divider */}
     <g transform="translate(340, 160)">
-      <circle cx="10" cy="10" r="18" fill="#e2e8f0"/>
-      <text x="10" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#64748b">VS</text>
+      <circle cx="10" cy="10" r="18" fill="#E4E1D9"/>
+      <text x="10" y="15" textAnchor="middle" fontSize="10" fontWeight="600" fill="#75757D">VS</text>
     </g>
     
     {/* Owning a Derivative */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Owning a Derivative</text>
-      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#64748b">(Like buying a contract about that stock)</text>
+      <rect x="0" y="0" width="280" height="200" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Owning a Derivative</text>
+      <text x="140" y="45" textAnchor="middle" fontSize="9" fill="#75757D">(Like buying a contract about that stock)</text>
       
       <g transform="translate(20, 60)">
         <rect x="0" y="0" width="240" height="120" fill="white" rx="8"/>
         
         <g transform="translate(15, 15)">
-          <circle cx="6" cy="6" r="4" fill="#f59e0b"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">You own a CONTRACT</text>
+          <circle cx="6" cy="6" r="4" fill="#B8923F"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">You own a CONTRACT</text>
         </g>
         
         <g transform="translate(15, 38)">
-          <circle cx="6" cy="6" r="4" fill="#f59e0b"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">Has an expiration date</text>
+          <circle cx="6" cy="6" r="4" fill="#B8923F"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">Has an expiration date</text>
         </g>
         
         <g transform="translate(15, 61)">
-          <circle cx="6" cy="6" r="4" fill="#f59e0b"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">Becomes worthless if you wait too long</text>
+          <circle cx="6" cy="6" r="4" fill="#B8923F"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">Becomes worthless if you wait too long</text>
         </g>
         
         <g transform="translate(15, 84)">
-          <circle cx="6" cy="6" r="4" fill="#f59e0b"/>
-          <text x="18" y="10" fontSize="8" fill="#374151">No dividends</text>
+          <circle cx="6" cy="6" r="4" fill="#B8923F"/>
+          <text x="18" y="10" fontSize="8" fill="#404047">No dividends</text>
         </g>
         
         <g transform="translate(15, 107)">
-          <circle cx="6" cy="6" r="4" fill="#f59e0b"/>
-          <text x="18" y="10" fontSize="8" fill="#92400e" fontWeight="500">You have a temporary agreement</text>
+          <circle cx="6" cy="6" r="4" fill="#B8923F"/>
+          <text x="18" y="10" fontSize="8" fill="#654B26" fontWeight="500">You have a temporary agreement</text>
         </g>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">When you buy a derivative, you don't own the asset — you own a contract about it.</text>
   </svg>
 );
@@ -160,50 +160,50 @@ const OwningVsContractSVG = () => (
 const HouseAnalogySVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">A Simple Way to Think About It</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">The difference between owning and having a contract</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">A Simple Way to Think About It</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The difference between owning and having a contract</text>
     
     {/* Owning a House */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="180" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Owning a House</text>
+      <rect x="0" y="0" width="280" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Owning a House</text>
       
       {/* House icon */}
       <g transform="translate(95, 45)">
-        <path d="M45 30 L45 80 L135 80 L135 30 L90 0 Z" fill="#86efac" stroke="#166534" strokeWidth="2"/>
-        <rect x="60" y="50" width="25" height="30" fill="#166534"/>
-        <rect x="100" y="40" width="20" height="20" fill="#dcfce7" stroke="#166534" strokeWidth="1"/>
+        <path d="M45 30 L45 80 L135 80 L135 30 L90 0 Z" fill="#77D3AE" stroke="#0D543C" strokeWidth="2"/>
+        <rect x="60" y="50" width="25" height="30" fill="#0D543C"/>
+        <rect x="100" y="40" width="20" height="20" fill="#D5F2E5" stroke="#0D543C" strokeWidth="1"/>
       </g>
       
-      <text x="140" y="140" textAnchor="middle" fontSize="9" fill="#14532d">It's YOURS</text>
-      <text x="140" y="155" textAnchor="middle" fontSize="8" fill="#64748b">You can live there, sell it, rent it out</text>
-      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#64748b">It doesn't expire</text>
+      <text x="140" y="140" textAnchor="middle" fontSize="9" fill="#0B4532">It's YOURS</text>
+      <text x="140" y="155" textAnchor="middle" fontSize="8" fill="#75757D">You can live there, sell it, rent it out</text>
+      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#75757D">It doesn't expire</text>
     </g>
     
     {/* Having a Rental Agreement */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="180" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Having a Rental Agreement</text>
+      <rect x="0" y="0" width="280" height="180" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Having a Rental Agreement</text>
       
       {/* Contract icon */}
       <g transform="translate(95, 45)">
-        <rect x="45" y="0" width="90" height="75" fill="white" stroke="#f59e0b" strokeWidth="2" rx="4"/>
-        <line x1="60" y1="20" x2="120" y2="20" stroke="#fcd34d" strokeWidth="2"/>
-        <line x1="60" y1="35" x2="110" y2="35" stroke="#fcd34d" strokeWidth="2"/>
-        <line x1="60" y1="50" x2="100" y2="50" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="90" y="68" textAnchor="middle" fontSize="8" fill="#92400e">12 months</text>
+        <rect x="45" y="0" width="90" height="75" fill="white" stroke="#B8923F" strokeWidth="2" rx="4"/>
+        <line x1="60" y1="20" x2="120" y2="20" stroke="#E2C273" strokeWidth="2"/>
+        <line x1="60" y1="35" x2="110" y2="35" stroke="#E2C273" strokeWidth="2"/>
+        <line x1="60" y1="50" x2="100" y2="50" stroke="#E2C273" strokeWidth="2"/>
+        <text x="90" y="68" textAnchor="middle" fontSize="8" fill="#654B26">12 months</text>
       </g>
       
-      <text x="140" y="140" textAnchor="middle" fontSize="9" fill="#78350f">It's a CONTRACT</text>
-      <text x="140" y="155" textAnchor="middle" fontSize="8" fill="#64748b">You have rights, but don't own the house</text>
-      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#64748b">It expires after the agreement ends</text>
+      <text x="140" y="140" textAnchor="middle" fontSize="9" fill="#533E22">It's a CONTRACT</text>
+      <text x="140" y="155" textAnchor="middle" fontSize="8" fill="#75757D">You have rights, but don't own the house</text>
+      <text x="140" y="170" textAnchor="middle" fontSize="8" fill="#75757D">It expires after the agreement ends</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="265" width="500" height="25" fill="#92400e" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#654B26" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="9" fill="white">A derivative is like the rental agreement — you have rights, but you don't own the underlying thing.</text>
   </svg>
 );
@@ -212,52 +212,52 @@ const HouseAnalogySVG = () => (
 const WhyDerivativesExistSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Why Were Derivatives Invented?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">They weren't created for speculation — they solve real business problems</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Why Were Derivatives Invented?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">They weren't created for speculation — they solve real business problems</text>
     
     {/* The Problem */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">The Problem: Uncertainty</text>
+      <rect x="0" y="0" width="280" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">The Problem: Uncertainty</text>
       
       <g transform="translate(20, 50)">
         <rect x="0" y="0" width="240" height="130" fill="white" rx="8"/>
         
         <text x="120" y="25" textAnchor="middle" fontSize="24">🌾</text>
-        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">A wheat farmer in March:</text>
+        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">A wheat farmer in March:</text>
         
-        <text x="120" y="70" textAnchor="middle" fontSize="8" fill="#dc2626">"I'll harvest in September..."</text>
-        <text x="120" y="85" textAnchor="middle" fontSize="8" fill="#dc2626">"But what if wheat prices crash by then?"</text>
-        <text x="120" y="100" textAnchor="middle" fontSize="8" fill="#dc2626">"I could lose everything!"</text>
+        <text x="120" y="70" textAnchor="middle" fontSize="8" fill="#C7363B">"I'll harvest in September..."</text>
+        <text x="120" y="85" textAnchor="middle" fontSize="8" fill="#C7363B">"But what if wheat prices crash by then?"</text>
+        <text x="120" y="100" textAnchor="middle" fontSize="8" fill="#C7363B">"I could lose everything!"</text>
         
-        <text x="120" y="120" textAnchor="middle" fontSize="8" fill="#64748b">Uncertainty makes planning impossible</text>
+        <text x="120" y="120" textAnchor="middle" fontSize="8" fill="#75757D">Uncertainty makes planning impossible</text>
       </g>
     </g>
     
     {/* The Solution */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">The Solution: Lock in a Price</text>
+      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">The Solution: Lock in a Price</text>
       
       <g transform="translate(20, 50)">
         <rect x="0" y="0" width="240" height="130" fill="white" rx="8"/>
         
         <text x="120" y="25" textAnchor="middle" fontSize="24">📋</text>
-        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">A futures contract:</text>
+        <text x="120" y="50" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">A futures contract:</text>
         
-        <text x="120" y="70" textAnchor="middle" fontSize="8" fill="#166534">"I'll agree TODAY to sell my wheat"</text>
-        <text x="120" y="85" textAnchor="middle" fontSize="8" fill="#166534">"at $5 per bushel in September"</text>
-        <text x="120" y="100" textAnchor="middle" fontSize="8" fill="#166534">"Now I know exactly what I'll earn!"</text>
+        <text x="120" y="70" textAnchor="middle" fontSize="8" fill="#0D543C">"I'll agree TODAY to sell my wheat"</text>
+        <text x="120" y="85" textAnchor="middle" fontSize="8" fill="#0D543C">"at $5 per bushel in September"</text>
+        <text x="120" y="100" textAnchor="middle" fontSize="8" fill="#0D543C">"Now I know exactly what I'll earn!"</text>
         
-        <text x="120" y="120" textAnchor="middle" fontSize="8" fill="#64748b">Certainty allows planning</text>
+        <text x="120" y="120" textAnchor="middle" fontSize="8" fill="#75757D">Certainty allows planning</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">Derivatives were invented to help businesses manage uncertainty — this is called "hedging."</text>
   </svg>
 );
@@ -266,64 +266,64 @@ const WhyDerivativesExistSVG = () => (
 const GlobalExampleSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="380" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Real-World Example: Maria's Coffee Shop</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">How a derivative can protect a business (or expose it to risk)</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Real-World Example: Maria's Coffee Shop</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How a derivative can protect a business (or expose it to risk)</text>
     
     {/* Setup */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="600" height="70" fill="#e0f2fe" rx="10" stroke="#7dd3fc" strokeWidth="1"/>
-      <text x="300" y="25" textAnchor="middle" fontSize="10" fontWeight="500" fill="#0369a1">The Situation</text>
-      <text x="300" y="45" textAnchor="middle" fontSize="9" fill="#374151">Maria owns a coffee shop in Seattle. She buys coffee beans regularly.</text>
-      <text x="300" y="60" textAnchor="middle" fontSize="9" fill="#374151">Today, coffee costs $2.00 per pound. She needs 1,000 lbs per month.</text>
+      <rect x="0" y="0" width="600" height="70" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
+      <text x="300" y="25" textAnchor="middle" fontSize="10" fontWeight="500" fill="#344C72">The Situation</text>
+      <text x="300" y="45" textAnchor="middle" fontSize="9" fill="#404047">Maria owns a coffee shop in Seattle. She buys coffee beans regularly.</text>
+      <text x="300" y="60" textAnchor="middle" fontSize="9" fill="#404047">Today, coffee costs $2.00 per pound. She needs 1,000 lbs per month.</text>
     </g>
     
     {/* Without derivative */}
     <g transform="translate(50, 160)">
-      <rect x="0" y="0" width="290" height="170" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">Without a Derivative</text>
-      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#64748b">(Just buying coffee as she needs it)</text>
+      <rect x="0" y="0" width="290" height="170" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">Without a Derivative</text>
+      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#75757D">(Just buying coffee as she needs it)</text>
       
       <g transform="translate(15, 55)">
         <rect x="0" y="0" width="260" height="100" fill="white" rx="6"/>
         
-        <text x="130" y="20" textAnchor="middle" fontSize="8" fill="#374151">If coffee prices rise to $3.00/lb:</text>
-        <text x="130" y="35" textAnchor="middle" fontSize="9" fill="#dc2626" fontWeight="500">Her costs jump from $2,000 to $3,000/month</text>
-        <text x="130" y="50" textAnchor="middle" fontSize="8" fill="#dc2626">She either raises prices or loses profit</text>
+        <text x="130" y="20" textAnchor="middle" fontSize="8" fill="#404047">If coffee prices rise to $3.00/lb:</text>
+        <text x="130" y="35" textAnchor="middle" fontSize="9" fill="#C7363B" fontWeight="500">Her costs jump from $2,000 to $3,000/month</text>
+        <text x="130" y="50" textAnchor="middle" fontSize="8" fill="#C7363B">She either raises prices or loses profit</text>
         
-        <line x1="20" y1="60" x2="240" y2="60" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="60" x2="240" y2="60" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="75" textAnchor="middle" fontSize="8" fill="#374151">If coffee prices drop to $1.50/lb:</text>
-        <text x="130" y="90" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="500">She saves money! Costs drop to $1,500/month</text>
+        <text x="130" y="75" textAnchor="middle" fontSize="8" fill="#404047">If coffee prices drop to $1.50/lb:</text>
+        <text x="130" y="90" textAnchor="middle" fontSize="9" fill="#0D543C" fontWeight="500">She saves money! Costs drop to $1,500/month</text>
       </g>
     </g>
     
     {/* With derivative */}
     <g transform="translate(360, 160)">
-      <rect x="0" y="0" width="290" height="170" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">With a Futures Contract</text>
-      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#64748b">(Locked in $2.00/lb for 6 months)</text>
+      <rect x="0" y="0" width="290" height="170" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">With a Futures Contract</text>
+      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#75757D">(Locked in $2.00/lb for 6 months)</text>
       
       <g transform="translate(15, 55)">
         <rect x="0" y="0" width="260" height="100" fill="white" rx="6"/>
         
-        <text x="130" y="20" textAnchor="middle" fontSize="8" fill="#374151">If coffee prices rise to $3.00/lb:</text>
-        <text x="130" y="35" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="500">She still pays $2.00/lb — protected!</text>
-        <text x="130" y="50" textAnchor="middle" fontSize="8" fill="#166534">Saved $1,000/month</text>
+        <text x="130" y="20" textAnchor="middle" fontSize="8" fill="#404047">If coffee prices rise to $3.00/lb:</text>
+        <text x="130" y="35" textAnchor="middle" fontSize="9" fill="#0D543C" fontWeight="500">She still pays $2.00/lb — protected!</text>
+        <text x="130" y="50" textAnchor="middle" fontSize="8" fill="#0D543C">Saved $1,000/month</text>
         
-        <line x1="20" y1="60" x2="240" y2="60" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="60" x2="240" y2="60" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="75" textAnchor="middle" fontSize="8" fill="#374151">If coffee prices drop to $1.50/lb:</text>
-        <text x="130" y="90" textAnchor="middle" fontSize="9" fill="#dc2626" fontWeight="500">She still pays $2.00/lb — locked in!</text>
+        <text x="130" y="75" textAnchor="middle" fontSize="8" fill="#404047">If coffee prices drop to $1.50/lb:</text>
+        <text x="130" y="90" textAnchor="middle" fontSize="9" fill="#C7363B" fontWeight="500">She still pays $2.00/lb — locked in!</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="50" y="340" width="600" height="30" fill="#1e293b" rx="6"/>
+    <rect x="50" y="340" width="600" height="30" fill="#232327" rx="6"/>
     <text x="350" y="352" textAnchor="middle" fontSize="9" fill="white">Derivatives can reduce uncertainty — but they also mean giving up potential gains.</text>
-    <text x="350" y="365" textAnchor="middle" fontSize="8" fill="#94a3b8">This is a real trade-off that businesses make every day.</text>
+    <text x="350" y="365" textAnchor="middle" fontSize="8" fill="#A3A1A6">This is a real trade-off that businesses make every day.</text>
   </svg>
 );
 
@@ -331,48 +331,48 @@ const GlobalExampleSVG = () => (
 const TwoTypesSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The Two Main Types of Derivatives</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">You'll learn more about each in the next lessons</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Two Main Types of Derivatives</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">You'll learn more about each in the next lessons</text>
     
     {/* Futures */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="160" fill="#e0f2fe" rx="12" stroke="#7dd3fc" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0369a1">Futures</text>
+      <rect x="0" y="0" width="280" height="160" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#344C72">Futures</text>
       
       <g transform="translate(20, 45)">
         <rect x="0" y="0" width="240" height="95" fill="white" rx="8"/>
-        <text x="120" y="22" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">An agreement to buy or sell</text>
-        <text x="120" y="38" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">at a set price on a future date</text>
+        <text x="120" y="22" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">An agreement to buy or sell</text>
+        <text x="120" y="38" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">at a set price on a future date</text>
         
-        <line x1="20" y1="50" x2="220" y2="50" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="50" x2="220" y2="50" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="120" y="68" textAnchor="middle" fontSize="8" fill="#64748b">Both parties MUST complete the deal</text>
-        <text x="120" y="83" textAnchor="middle" fontSize="8" fill="#0369a1">Obligation on both sides</text>
+        <text x="120" y="68" textAnchor="middle" fontSize="8" fill="#75757D">Both parties MUST complete the deal</text>
+        <text x="120" y="83" textAnchor="middle" fontSize="8" fill="#344C72">Obligation on both sides</text>
       </g>
     </g>
     
     {/* Options */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="160" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#92400e">Options</text>
+      <rect x="0" y="0" width="280" height="160" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#654B26">Options</text>
       
       <g transform="translate(20, 45)">
         <rect x="0" y="0" width="240" height="95" fill="white" rx="8"/>
-        <text x="120" y="22" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">The RIGHT (not obligation) to buy or sell</text>
-        <text x="120" y="38" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="500">at a set price before a certain date</text>
+        <text x="120" y="22" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">The RIGHT (not obligation) to buy or sell</text>
+        <text x="120" y="38" textAnchor="middle" fontSize="9" fill="#404047" fontWeight="500">at a set price before a certain date</text>
         
-        <line x1="20" y1="50" x2="220" y2="50" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="50" x2="220" y2="50" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="120" y="68" textAnchor="middle" fontSize="8" fill="#64748b">You can choose to walk away</text>
-        <text x="120" y="83" textAnchor="middle" fontSize="8" fill="#92400e">You pay for this flexibility (premium)</text>
+        <text x="120" y="68" textAnchor="middle" fontSize="8" fill="#75757D">You can choose to walk away</text>
+        <text x="120" y="83" textAnchor="middle" fontSize="8" fill="#654B26">You pay for this flexibility (premium)</text>
       </g>
     </g>
     
     {/* Bottom note */}
-    <rect x="100" y="245" width="500" height="25" fill="#64748b" rx="6"/>
+    <rect x="100" y="245" width="500" height="25" fill="#75757D" rx="6"/>
     <text x="350" y="262" textAnchor="middle" fontSize="9" fill="white">We'll explore both in detail — for now, just know they're contracts tied to other assets.</text>
   </svg>
 );
@@ -385,16 +385,16 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGradDeriv1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f59e0b"/>
-        <stop offset="100%" stopColor="#ea580c"/>
+        <stop offset="0%" stopColor="#B8923F"/>
+        <stop offset="100%" stopColor="#C0623B"/>
       </linearGradient>
     </defs>
     
     <text x="350" y="35" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🎯 Key Takeaway</text>
     <text x="350" y="65" textAnchor="middle" fontSize="12" fill="white">A derivative is a contract whose value comes from something else.</text>
-    <text x="350" y="90" textAnchor="middle" fontSize="11" fill="#fef3c7">You don't own the underlying asset — you own an agreement about it.</text>
-    <text x="350" y="115" textAnchor="middle" fontSize="10" fill="#fed7aa">Derivatives were invented to manage business risk, not for speculation.</text>
-    <text x="350" y="135" textAnchor="middle" fontSize="9" fill="#fcd34d">Understanding this foundation is essential before going further.</text>
+    <text x="350" y="90" textAnchor="middle" fontSize="11" fill="#F6ECCE">You don't own the underlying asset — you own an agreement about it.</text>
+    <text x="350" y="115" textAnchor="middle" fontSize="10" fill="#F0C2A9">Derivatives were invented to manage business risk, not for speculation.</text>
+    <text x="350" y="135" textAnchor="middle" fontSize="9" fill="#E2C273">Understanding this foundation is essential before going further.</text>
   </svg>
 );
 
@@ -402,18 +402,18 @@ const KeyTakeawaySVG = () => (
 const WarningBannerSVG = () => (
   <svg viewBox="0 0 700 80" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="80" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
+    <rect x="0" y="0" width="700" height="80" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
     
     {/* Warning icon */}
     <g transform="translate(30, 25)">
-      <polygon points="15,0 30,26 0,26" fill="#dc2626"/>
+      <polygon points="15,0 30,26 0,26" fill="#C7363B"/>
       <text x="15" y="20" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">!</text>
     </g>
     
     {/* Text */}
-    <text x="80" y="35" fontSize="11" fontWeight="600" fill="#dc2626">Remember: This is Awareness Education</text>
-    <text x="80" y="55" fontSize="9" fill="#991b1b">Understanding what derivatives are doesn't mean you should trade them.</text>
-    <text x="80" y="70" fontSize="8" fill="#b91c1c">Most individual traders lose money. This module is about understanding, not action.</text>
+    <text x="80" y="35" fontSize="11" fontWeight="600" fill="#C7363B">Remember: This is Awareness Education</text>
+    <text x="80" y="55" fontSize="9" fill="#842428">Understanding what derivatives are doesn't mean you should trade them.</text>
+    <text x="80" y="70" fontSize="8" fill="#A52A2F">Most individual traders lose money. This module is about understanding, not action.</text>
   </svg>
 );
 
@@ -477,7 +477,7 @@ const DerivLesson1 = () => {
                 Lesson 1 of 7 – Awareness Only
               </span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">What Are Derivatives?</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">What Are Derivatives?</h1>
             <p className="text-gray-600 text-lg">
               Understanding the basic concept before anything else.
             </p>
@@ -491,7 +491,7 @@ const DerivLesson1 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What Is a Derivative?</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Is a Derivative?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -514,7 +514,7 @@ const DerivLesson1 = () => {
 
         {/* Owning vs Contract */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Owning an Asset vs. Owning a Derivative</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Owning an Asset vs. Owning a Derivative</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -540,7 +540,7 @@ const DerivLesson1 = () => {
 
         {/* Simple Analogy */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">A Simple Analogy</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Simple Analogy</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -554,7 +554,7 @@ const DerivLesson1 = () => {
 
         {/* Why Derivatives Exist */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Do Derivatives Exist?</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Derivatives Exist?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -581,7 +581,7 @@ const DerivLesson1 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Real-World Example</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Real-World Example</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -604,7 +604,7 @@ const DerivLesson1 = () => {
 
         {/* Two Types Preview */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Two Main Types</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Two Main Types</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -639,7 +639,7 @@ const DerivLesson1 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of derivatives basics.</p>
           
           <div className="space-y-8">
@@ -692,10 +692,10 @@ const DerivLesson1 = () => {
         </div>
 
         {/* Reflection */}
-        <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-amber-200" />
-            <h3 className="text-xl font-bold">Reflection Question</h3>
+            <h3 className="text-xl font-semibold">Reflection Question</h3>
           </div>
           <div className="bg-white/20 rounded-xl p-5">
             <p className="text-white font-medium mb-3">Think about this:</p>
@@ -712,7 +712,7 @@ const DerivLesson1 = () => {
 
         {/* Lesson Summary */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Lesson Summary</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Lesson Summary</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
               <h4 className="font-semibold text-amber-800 mb-2">What You Learned</h4>
@@ -746,7 +746,7 @@ const DerivLesson1 = () => {
           </Link>
           <Link
             to="/learn/deriv-lesson-2"
-            className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: What Are Futures?</span>
             <FaArrowRight />

@@ -137,7 +137,7 @@ function CalculateButton({ onClick }: { onClick: () => void }) {
 function ResultTile({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
     <div className="rounded-lg border p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="xt-label">{label}</p>
       <p className={className ? `mt-1 text-xl font-bold ${className}` : "mt-1 text-xl font-bold"}>{value}</p>
     </div>
   );
@@ -412,7 +412,7 @@ export default function Calculators() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Financial Calculators</h1>
+          <h1 className="xt-title mb-2">Financial Calculators</h1>
           <p className="text-sm text-muted-foreground">Quick calculation tools for EMI, SIP, and inflation</p>
         </div>
 

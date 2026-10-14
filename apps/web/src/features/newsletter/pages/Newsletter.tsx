@@ -46,13 +46,13 @@ const PhoneMockup = () => (
       {/* Phone outer frame */}
       <defs>
         <linearGradient id="phoneFrame" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1f2937" />
-          <stop offset="50%" stopColor="#111827" />
-          <stop offset="100%" stopColor="#1f2937" />
+          <stop offset="0%" stopColor="#232327" />
+          <stop offset="50%" stopColor="#151517" />
+          <stop offset="100%" stopColor="#232327" />
         </linearGradient>
         <linearGradient id="screenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#f9fafb" />
+          <stop offset="100%" stopColor="#F7F6F2" />
         </linearGradient>
         <clipPath id="screenClip">
           <rect x="16" y="16" width="248" height="528" rx="28" />
@@ -74,23 +74,23 @@ const PhoneMockup = () => (
 
         {/* Status bar */}
         <rect x="16" y="16" width="248" height="32" fill="#ffffff" />
-        <text x="32" y="36" fill="#1f2937" fontSize="11" fontWeight="500">9:41</text>
+        <text x="32" y="36" fill="#232327" fontSize="11" fontWeight="500">9:41</text>
         <g transform="translate(210, 26)">
           {/* Signal */}
-          <rect x="0" y="4" width="3" height="6" rx="1" fill="#1f2937" />
-          <rect x="5" y="2" width="3" height="8" rx="1" fill="#1f2937" />
-          <rect x="10" y="0" width="3" height="10" rx="1" fill="#1f2937" />
+          <rect x="0" y="4" width="3" height="6" rx="1" fill="#232327" />
+          <rect x="5" y="2" width="3" height="8" rx="1" fill="#232327" />
+          <rect x="10" y="0" width="3" height="10" rx="1" fill="#232327" />
           {/* Battery */}
-          <rect x="18" y="1" width="16" height="8" rx="2" stroke="#1f2937" strokeWidth="1" fill="none" />
-          <rect x="34" y="3" width="2" height="4" rx="1" fill="#1f2937" />
-          <rect x="20" y="3" width="10" height="4" rx="1" fill="#10b981" />
+          <rect x="18" y="1" width="16" height="8" rx="2" stroke="#232327" strokeWidth="1" fill="none" />
+          <rect x="34" y="3" width="2" height="4" rx="1" fill="#232327" />
+          <rect x="20" y="3" width="10" height="4" rx="1" fill="#1FA978" />
         </g>
 
         {/* Dynamic Island / Notch */}
         <rect x="100" y="22" width="80" height="24" rx="12" fill="#000" />
 
         {/* Newsletter Header */}
-        <rect x="16" y="56" width="248" height="60" fill="#059669" />
+        <rect x="16" y="56" width="248" height="60" fill="#12805A" />
 
         {/* Xtin Logo in header */}
         <g transform="translate(90, 70)">
@@ -100,60 +100,60 @@ const PhoneMockup = () => (
         </g>
 
         {/* Newsletter Title Card */}
-        <rect x="28" y="128" width="224" height="110" rx="12" fill="#ffffff" stroke="#e5e7eb" strokeWidth="1" />
+        <rect x="28" y="128" width="224" height="110" rx="12" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
 
         {/* Chart illustration in card */}
-        <rect x="40" y="140" width="200" height="60" rx="8" fill="#f0fdf4" />
-        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        <circle cx="225" cy="135" r="4" fill="#10b981" />
+        <rect x="40" y="140" width="200" height="60" rx="8" fill="#EEF9F4" />
+        <path d="M55 185 L80 170 L105 175 L130 155 L155 165 L180 145 L205 150 L225 135" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        <circle cx="225" cy="135" r="4" fill="#1FA978" />
         {/* Trend arrow */}
         <g transform="translate(190, 145)">
-          <rect x="0" y="0" width="40" height="16" rx="8" fill="#dcfce7" />
-          <path d="M8 10L12 6L16 8" stroke="#059669" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          <text x="22" y="11" fill="#059669" fontSize="7" fontWeight="600">+2.4%</text>
+          <rect x="0" y="0" width="40" height="16" rx="8" fill="#D5F2E5" />
+          <path d="M8 10L12 6L16 8" stroke="#12805A" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <text x="22" y="11" fill="#12805A" fontSize="7" fontWeight="600">+2.4%</text>
         </g>
 
         {/* Card title */}
-        <text x="40" y="218" fill="#111827" fontSize="10" fontWeight="700">Markets Today: What Moved &amp; Why</text>
-        <text x="40" y="230" fill="#6b7280" fontSize="7">Morning Brief • 3 min read</text>
+        <text x="40" y="218" fill="#151517" fontSize="10" fontWeight="700">Markets Today: What Moved &amp; Why</text>
+        <text x="40" y="230" fill="#75757D" fontSize="7">Morning Brief • 3 min read</text>
 
         {/* Content preview cards */}
-        <rect x="28" y="250" width="224" height="70" rx="10" fill="#ffffff" stroke="#e5e7eb" strokeWidth="1" />
-        <circle cx="58" cy="285" r="18" fill="#fef3c7" />
-        <text x="58" y="289" textAnchor="middle" fill="#d97706" fontSize="16">₹</text>
-        <text x="88" y="275" fill="#111827" fontSize="9" fontWeight="600">RBI's Big Move</text>
-        <text x="88" y="287" fill="#6b7280" fontSize="7">What it means for your</text>
-        <text x="88" y="297" fill="#6b7280" fontSize="7">money, explained simply...</text>
-        <rect x="200" y="270" width="40" height="24" rx="12" fill="#ecfdf5" />
-        <text x="220" y="286" textAnchor="middle" fill="#059669" fontSize="8" fontWeight="600">Read</text>
+        <rect x="28" y="250" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <circle cx="58" cy="285" r="18" fill="#F6ECCE" />
+        <text x="58" y="289" textAnchor="middle" fill="#9A7634" fontSize="16">₹</text>
+        <text x="88" y="275" fill="#151517" fontSize="9" fontWeight="600">RBI's Big Move</text>
+        <text x="88" y="287" fill="#75757D" fontSize="7">What it means for your</text>
+        <text x="88" y="297" fill="#75757D" fontSize="7">money, explained simply...</text>
+        <rect x="200" y="270" width="40" height="24" rx="12" fill="#EEF9F4" />
+        <text x="220" y="286" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
-        <rect x="28" y="330" width="224" height="70" rx="10" fill="#ffffff" stroke="#e5e7eb" strokeWidth="1" />
-        <circle cx="58" cy="365" r="18" fill="#dbeafe" />
-        <text x="58" y="370" textAnchor="middle" fill="#2563eb" fontSize="14">📊</text>
-        <text x="88" y="355" fill="#111827" fontSize="9" fontWeight="600">Sensex at 85K</text>
-        <text x="88" y="367" fill="#6b7280" fontSize="7">The story behind today's</text>
-        <text x="88" y="377" fill="#6b7280" fontSize="7">market rally...</text>
-        <rect x="200" y="350" width="40" height="24" rx="12" fill="#ecfdf5" />
-        <text x="220" y="366" textAnchor="middle" fill="#059669" fontSize="8" fontWeight="600">Read</text>
+        <rect x="28" y="330" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <circle cx="58" cy="365" r="18" fill="#E0E7F1" />
+        <text x="58" y="370" textAnchor="middle" fill="#3E5C8A" fontSize="14">📊</text>
+        <text x="88" y="355" fill="#151517" fontSize="9" fontWeight="600">Sensex at 85K</text>
+        <text x="88" y="367" fill="#75757D" fontSize="7">The story behind today's</text>
+        <text x="88" y="377" fill="#75757D" fontSize="7">market rally...</text>
+        <rect x="200" y="350" width="40" height="24" rx="12" fill="#EEF9F4" />
+        <text x="220" y="366" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
-        <rect x="28" y="410" width="224" height="70" rx="10" fill="#ffffff" stroke="#e5e7eb" strokeWidth="1" />
-        <circle cx="58" cy="445" r="18" fill="#fce7f3" />
-        <text x="58" y="450" textAnchor="middle" fill="#db2777" fontSize="14">💡</text>
-        <text x="88" y="435" fill="#111827" fontSize="9" fontWeight="600">One Smart Idea</text>
-        <text x="88" y="447" fill="#6b7280" fontSize="7">A simple tip to grow</text>
-        <text x="88" y="457" fill="#6b7280" fontSize="7">your wealth...</text>
-        <rect x="200" y="430" width="40" height="24" rx="12" fill="#ecfdf5" />
-        <text x="220" y="446" textAnchor="middle" fill="#059669" fontSize="8" fontWeight="600">Read</text>
+        <rect x="28" y="410" width="224" height="70" rx="10" fill="#ffffff" stroke="#E4E1D9" strokeWidth="1" />
+        <circle cx="58" cy="445" r="18" fill="#ECE4F6" />
+        <text x="58" y="450" textAnchor="middle" fill="#7A5BA6" fontSize="14">💡</text>
+        <text x="88" y="435" fill="#151517" fontSize="9" fontWeight="600">One Smart Idea</text>
+        <text x="88" y="447" fill="#75757D" fontSize="7">A simple tip to grow</text>
+        <text x="88" y="457" fill="#75757D" fontSize="7">your wealth...</text>
+        <rect x="200" y="430" width="40" height="24" rx="12" fill="#EEF9F4" />
+        <text x="220" y="446" textAnchor="middle" fill="#12805A" fontSize="8" fontWeight="600">Read</text>
 
         {/* Bottom nav hint */}
-        <rect x="90" y="510" width="100" height="4" rx="2" fill="#e5e7eb" />
+        <rect x="90" y="510" width="100" height="4" rx="2" fill="#E4E1D9" />
       </g>
 
       {/* Side buttons */}
-      <rect x="-2" y="120" width="2" height="30" rx="1" fill="#374151" />
-      <rect x="-2" y="170" width="2" height="50" rx="1" fill="#374151" />
-      <rect x="-2" y="230" width="2" height="50" rx="1" fill="#374151" />
-      <rect x="280" y="180" width="2" height="60" rx="1" fill="#374151" />
+      <rect x="-2" y="120" width="2" height="30" rx="1" fill="#404047" />
+      <rect x="-2" y="170" width="2" height="50" rx="1" fill="#404047" />
+      <rect x="-2" y="230" width="2" height="50" rx="1" fill="#404047" />
+      <rect x="280" y="180" width="2" height="60" rx="1" fill="#404047" />
     </svg>
 
     {/* Floating badge */}
@@ -333,7 +333,7 @@ const Newsletter = () => {
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-normal leading-[1.1] tracking-[-0.02em] mb-6">
                 Financial News{' '}
                 <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
                   Made Simple.
@@ -456,7 +456,7 @@ const Newsletter = () => {
       <section className="py-20 lg:py-24 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.015em]">
               Two briefs a day. Every market.
             </h2>
             <p className="text-gray-600 dark:text-slate-300 max-w-xl mx-auto">
@@ -476,7 +476,7 @@ const Newsletter = () => {
                 <FaSun className="text-amber-500 text-xl" />
               </div>
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">Pre-Market Brief</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Pre-Market Brief</h3>
                 <span className="text-xs font-semibold text-amber-600">8:00 AM</span>
               </div>
               <p className="text-sm text-gray-500 dark:text-slate-400">
@@ -492,7 +492,7 @@ const Newsletter = () => {
                 <FaMoon className="text-indigo-500 text-xl" />
               </div>
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">Post-Market Wrap</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Post-Market Wrap</h3>
                 <span className="text-xs font-semibold text-green-600">5:00 PM</span>
               </div>
               <p className="text-sm text-gray-500 dark:text-slate-400">
@@ -505,7 +505,7 @@ const Newsletter = () => {
           <div data-nl-tour="markets" className="rounded-2xl border border-gray-100 dark:border-slate-700 bg-gray-50/60 dark:bg-slate-900/60 p-6">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">Markets you get</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Markets you get</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">
                   {pro
                     ? 'Pro includes India, US and Global — morning and evening. Nothing to pick.'
@@ -593,7 +593,7 @@ const Newsletter = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-2">
+              <h2 className="text-3xl sm:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
                 {activeTab === 'newsletters' ? 'Xtin Daily' : 'Substack Articles'}
               </h2>
               <p className="text-gray-600 dark:text-slate-300">
@@ -742,10 +742,10 @@ const Newsletter = () => {
                     onClick={() => openUpgrade(`${newsletters.length - FREE_ARCHIVE_LIMIT}+ past editions are waiting in the Pro archive.`)}
                     className="group relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/60 dark:to-slate-900 rounded-2xl overflow-hidden border-2 border-dashed border-amber-200 dark:border-amber-700/40 hover:border-amber-400 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center p-8 text-center min-h-[300px]"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-amber-500/30 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center shadow-lg shadow-amber-500/30 mb-4 group-hover:scale-110 transition-transform">
                       <FaLock className="text-white text-xl" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-1">
                       {newsletters.length - FREE_ARCHIVE_LIMIT}+ more editions
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">
@@ -858,7 +858,7 @@ const Newsletter = () => {
               <span className="text-sm font-medium text-green-700 dark:text-emerald-300">Free forever</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-slate-100 mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-normal text-gray-900 dark:text-slate-100 mb-6 tracking-[-0.015em]">
               Stay informed.{' '}
               <span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">Stay ahead.</span>
             </h2>

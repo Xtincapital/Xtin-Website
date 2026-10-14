@@ -38,6 +38,7 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, XAxis, YAxis } from "recharts";
+import { chartGrid, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import { toast } from "sonner";
 import { Download, Landmark, Pencil, Plus, Scale, Trash2, Upload, Wallet } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
@@ -496,7 +497,7 @@ export default function NetWorth() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Net Worth Calculator</h1>
+          <h1 className="xt-title mb-2">Net Worth Calculator</h1>
           <p className="text-sm text-muted-foreground">Track your assets and liabilities</p>
         </div>
 
@@ -680,15 +681,15 @@ export default function NetWorth() {
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="rounded-lg border p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Total Assets</p>
-                <p className="mt-1 text-xl font-bold text-success">{formatCurrency(totalAssets)}</p>
+                <p className="xt-label">Total Assets</p>
+                <p className="mt-1 xt-metric text-success">{formatCurrency(totalAssets)}</p>
               </div>
               <div className="rounded-lg border p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Total Liabilities</p>
-                <p className="mt-1 text-xl font-bold text-destructive">{formatCurrency(totalLiabilities)}</p>
+                <p className="xt-label">Total Liabilities</p>
+                <p className="mt-1 xt-metric text-destructive">{formatCurrency(totalLiabilities)}</p>
               </div>
               <div className="rounded-lg border p-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Net Worth</p>
+                <p className="xt-label">Net Worth</p>
                 <p className={cn("mt-1 text-xl font-bold", netWorth >= 0 ? "text-success" : "text-destructive")}>
                   {formatCurrency(netWorth)}
                 </p>
@@ -719,7 +720,7 @@ export default function NetWorth() {
                 <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Assets vs Liabilities</h4>
                 <ChartContainer config={comparisonConfig} className="h-[240px] w-full">
                   <BarChart data={comparisonData}>
-                    <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis dataKey="name" tickLine={false} axisLine={false} />
                     <YAxis tickLine={false} axisLine={false} tickFormatter={(v) => formatCurrency(v)} width={90} />
                     <ChartTooltip
@@ -727,7 +728,7 @@ export default function NetWorth() {
                         <ChartTooltipContent {...props} hideLabel formatter={(value: any) => formatCurrency(Number(value))} />
                       )}
                     />
-                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                    <Bar dataKey="value" radius={chartBarRadius} maxBarSize={chartMaxBarSize}>
                       {comparisonData.map((entry) => (
                         <Cell key={entry.name} fill={entry.fill} />
                       ))}

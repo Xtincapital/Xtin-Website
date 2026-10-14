@@ -13,7 +13,7 @@ export default function AdminHome() {
       <SEO title="Admin — Xtin Capital" noIndex />
       <AdminHeader />
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <h1 className="text-2xl font-bold tracking-tight">Admin</h1>
+        <h1 className="xt-title">Admin</h1>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Signed in as {user?.email}</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {ADMIN_PAGES.map(({ to, label, blurb, Icon }) => (

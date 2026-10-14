@@ -177,6 +177,6 @@
 
 @layer base {
   html.dark .fundakamental-scope .glass {
-    background-color: hsl(221 39% 11% / 0.8);
+    background-color: rgb(21 21 23 / 0.8);
   }
 }

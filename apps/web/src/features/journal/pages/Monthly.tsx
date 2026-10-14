@@ -46,6 +46,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { chartTooltip } from "@/components/charts/chartTheme";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -170,7 +171,7 @@ const Monthly = () => {
               cx="50%"
               cy="50%"
               outerRadius="80%"
-              stroke="none"
+              stroke="hsl(var(--card))" strokeWidth={2}
               cursor="pointer"
               onClick={(d) =>
                 setDrill({
@@ -186,12 +187,7 @@ const Monthly = () => {
             </Pie>
             <Tooltip
               formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-              contentStyle={{
-                background: "hsl(var(--popover))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: 8,
-                fontSize: 12,
-              }}
+              {...chartTooltip}
             />
             <Legend wrapperStyle={{ fontSize: 12 }} />
           </PieChart>
@@ -203,7 +199,7 @@ const Monthly = () => {
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Monthly View
             <InfoTip title="Monthly view" widthClass="w-80">
               <p>A report card for one month. Use the arrows to move between months.</p>
@@ -251,7 +247,7 @@ const Monthly = () => {
                   </InfoTip>
                 </p>
                 <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
-                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.className ?? "text-foreground"}`}>{card.value}</p>
                 </button>
               </CardContent>
             </Card>

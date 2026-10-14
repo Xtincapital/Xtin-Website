@@ -51,10 +51,11 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
+  Area,
   Bar,
   BarChart,
+  ComposedChart,
   Line,
-  LineChart,
   ResponsiveContainer,
   XAxis,
   YAxis,
@@ -62,6 +63,8 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
+import { chartGrid, chartTick, chartTooltip, chartBarRadius, chartMaxBarSize, chartActiveDot, chartColors } from "@/components/charts/chartTheme";
+import ChartAreaGradient from "@/components/charts/ChartAreaGradient";
 import { Gauge, Percent, Trophy, Activity, Target, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -76,14 +79,6 @@ import { getAllTradesInInr } from "../lib/tradesInInr";
 // datalist (app.js's `defaultStrategies`).
 const DEFAULT_STRATEGIES = ["Breakout", "Breakdown", "M Pattern", "W Pattern", "Head & shoulder", "Iron Condor", "Hammer Candle", "Shooting Star"];
 const TRADING_TYPES = ["Scalping", "Intraday", "Swing Trading", "Positional Trading", "Investing", "Long-Term Investing"];
-
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
 
 /** app.js's `normalizeStrategyName`/`toStrategyKey`/`strategyMatches`. */
 const strategyKey = (name: string | null | undefined) => (typeof name === "string" ? name.trim().toLowerCase() : "");
@@ -318,7 +313,7 @@ const Analytics = () => {
     <JournalLayout proFeature="Analytics">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Analytics
             <InfoTip title="Strategy analytics" widthClass="w-80">
               <p>Compares your trading strategies against each other so you can do more of what works and drop what doesn't.</p>
@@ -355,8 +350,8 @@ const Analytics = () => {
                   <p
                     className={
                       card.positive === undefined
-                        ? "text-lg font-bold text-foreground truncate"
-                        : `text-lg font-bold truncate ${card.positive ? "text-success" : "text-destructive"}`
+                        ? "stat-value font-semibold text-foreground truncate"
+                        : `stat-value font-semibold truncate ${card.positive ? "text-success" : "text-destructive"}`
                     }
                   >
                     {card.value}
@@ -388,11 +383,11 @@ const Analytics = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={strategyPerformance} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()}>
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="name" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
+                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()}>
                       {strategyPerformance.map((entry) => (
                         <Cell key={entry.name} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                       ))}
@@ -416,11 +411,11 @@ const Analytics = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={strategyWinRates} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={40} tickFormatter={(v) => `${v}%`} />
-                    <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="winRate" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()} />
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="name" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={40} tickFormatter={(v) => `${v}%`} />
+                    <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]} {...chartTooltip} />
+                    <Bar dataKey="winRate" fill={chartColors.ink} fillOpacity={0.82} radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -439,13 +434,17 @@ const Analytics = () => {
             <CardContent>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={monthlyTrend} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="label" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Line type="monotone" dataKey="pnl" stroke="hsl(var(--chart-positive))" strokeWidth={2.5} dot={false} activeDot={{ r: 4 }} />
-                  </LineChart>
+                  <ComposedChart data={monthlyTrend} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <ChartAreaGradient id="analyticsTrendFill" />
+                    </defs>
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="label" tick={chartTick} axisLine={false} tickLine={false} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
+                    <Area type="monotone" dataKey="pnl" stroke="none" fill="url(#analyticsTrendFill)" tooltipType="none" />
+                    <Line type="monotone" dataKey="pnl" stroke={chartColors.positive} strokeWidth={2.25} dot={false} activeDot={chartActiveDot} animationDuration={1100} />
+                  </ComposedChart>
                 </ResponsiveContainer>
               </div>
             </CardContent>
@@ -464,13 +463,13 @@ const Analytics = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={tradeCountByType} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="type" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} allowDecimals={false} />
-                    <Tooltip formatter={(value: number) => [value, "Trades"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="count" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const type = (d as unknown as { payload: { type: string } }).payload.type; setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) }); }}>
-                      {tradeCountByType.map((entry, index) => (
-                        <Cell key={entry.type} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="type" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={30} allowDecimals={false} />
+                    <Tooltip formatter={(value: number) => [value, "Trades"]} {...chartTooltip} />
+                    <Bar dataKey="count" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const type = (d as unknown as { payload: { type: string } }).payload.type; setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) }); }}>
+                      {tradeCountByType.map((entry) => (
+                        <Cell key={entry.type} fill={chartColors.ink} fillOpacity={0.82} />
                       ))}
                     </Bar>
                   </BarChart>

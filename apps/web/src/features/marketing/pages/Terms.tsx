@@ -25,7 +25,7 @@ function Terms() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">Terms of Service</h1>
+          <h1 className="xt-title mb-3">Terms of Service</h1>
           <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
           <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
 

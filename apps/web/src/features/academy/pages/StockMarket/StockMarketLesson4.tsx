@@ -262,14 +262,14 @@ const StockMarketLesson4 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 4 of 7
               </span>
               <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Index className="w-7 h-7 text-amber-600" />
               </span>
@@ -287,7 +287,7 @@ const StockMarketLesson4 = () => {
                 <Icons.News className="w-6 h-6 text-amber-600" />
               </div>
               <div>
-                <h3 className="font-bold text-amber-900 mb-2">"Sensex Crashes 500 Points!" — What Does That Even Mean?</h3>
+                <h3 className="font-semibold text-amber-900 mb-2">"Sensex Crashes 500 Points!" — What Does That Even Mean?</h3>
                 <p className="text-amber-800">
                   You've seen these headlines. But what exactly is Sensex? What's Nifty? Why do people panic when 
                   these numbers drop? These are <strong>market indices</strong> — and they're actually simpler than they sound. 
@@ -299,12 +299,12 @@ const StockMarketLesson4 = () => {
 
           {/* Simple Definition */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Thermometer className="w-6 h-6 text-amber-600" />
               <span>The Simple Explanation</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl p-6 text-white mb-4">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
               <p className="text-xl font-semibold text-center">
                 A <span className="underline decoration-yellow-300 decoration-2">Market Index</span> is a 
                 <span className="underline decoration-yellow-300 decoration-2"> single number</span> that represents 
@@ -320,78 +320,78 @@ const StockMarketLesson4 = () => {
 
           {/* Visual: The Basket Analogy */}
           <div className="bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Basket className="w-6 h-6 text-amber-600" />
               <span>Think of It Like a Basket</span>
             </h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
               {/* Title */}
-              <text x="350" y="25" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="600">
+              <text x="350" y="25" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="600">
                 An Index = A Basket of Selected Stocks
               </text>
 
               {/* Basket */}
               <g transform="translate(200, 50)">
-                <path d="M50 100 L0 200 H300 L250 100 Z" fill="#fef3c7" stroke="#f59e0b" strokeWidth="3"/>
-                <path d="M100 60 Q150 20 200 60" stroke="#f59e0b" strokeWidth="3" fill="none"/>
+                <path d="M50 100 L0 200 H300 L250 100 Z" fill="#F6ECCE" stroke="#B8923F" strokeWidth="3"/>
+                <path d="M100 60 Q150 20 200 60" stroke="#B8923F" strokeWidth="3" fill="none"/>
                 
                 {/* Stocks in basket */}
                 <g transform="translate(30, 110)">
-                  <rect x="0" y="0" width="50" height="60" rx="4" fill="#6366f1"/>
+                  <rect x="0" y="0" width="50" height="60" rx="4" fill="#8F6FC4"/>
                   <text x="25" y="25" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">TCS</text>
-                  <text x="25" y="45" textAnchor="middle" fill="#c7d2fe" fontSize="7">₹3,500</text>
+                  <text x="25" y="45" textAnchor="middle" fill="#D9CBEE" fontSize="7">₹3,500</text>
                 </g>
                 
                 <g transform="translate(60, 115)">
-                  <rect x="0" y="0" width="50" height="55" rx="4" fill="#3b82f6"/>
+                  <rect x="0" y="0" width="50" height="55" rx="4" fill="#5A77AA"/>
                   <text x="25" y="22" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">RELIANCE</text>
-                  <text x="25" y="42" textAnchor="middle" fill="#bfdbfe" fontSize="7">₹2,500</text>
+                  <text x="25" y="42" textAnchor="middle" fill="#C3D0E4" fontSize="7">₹2,500</text>
                 </g>
                 
                 <g transform="translate(95, 108)">
-                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#10b981"/>
+                  <rect x="0" y="0" width="50" height="62" rx="4" fill="#1FA978"/>
                   <text x="25" y="25" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">HDFC</text>
-                  <text x="25" y="45" textAnchor="middle" fill="#a7f3d0" fontSize="7">₹1,700</text>
+                  <text x="25" y="45" textAnchor="middle" fill="#ABE5CC" fontSize="7">₹1,700</text>
                 </g>
                 
                 <g transform="translate(130, 112)">
-                  <rect x="0" y="0" width="50" height="58" rx="4" fill="#f59e0b"/>
+                  <rect x="0" y="0" width="50" height="58" rx="4" fill="#B8923F"/>
                   <text x="25" y="24" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">INFY</text>
-                  <text x="25" y="44" textAnchor="middle" fill="#fef3c7" fontSize="7">₹1,500</text>
+                  <text x="25" y="44" textAnchor="middle" fill="#F6ECCE" fontSize="7">₹1,500</text>
                 </g>
                 
                 <g transform="translate(165, 105)">
-                  <rect x="0" y="0" width="50" height="65" rx="4" fill="#ef4444"/>
+                  <rect x="0" y="0" width="50" height="65" rx="4" fill="#E04848"/>
                   <text x="25" y="26" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">ITC</text>
-                  <text x="25" y="46" textAnchor="middle" fill="#fecaca" fontSize="7">₹450</text>
+                  <text x="25" y="46" textAnchor="middle" fill="#F6C3C3" fontSize="7">₹450</text>
                 </g>
                 
                 <g transform="translate(195, 118)">
-                  <rect x="0" y="0" width="35" height="52" rx="4" fill="#8b5cf6"/>
+                  <rect x="0" y="0" width="35" height="52" rx="4" fill="#8F6FC4"/>
                   <text x="17" y="24" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">+45</text>
-                  <text x="17" y="40" textAnchor="middle" fill="#ddd6fe" fontSize="6">more</text>
+                  <text x="17" y="40" textAnchor="middle" fill="#D9CBEE" fontSize="6">more</text>
                 </g>
               </g>
 
               {/* Arrow */}
               <g transform="translate(520, 140)">
-                <path d="M0 20 L40 20" stroke="#f59e0b" strokeWidth="3"/>
-                <path d="M35 10 L50 20 L35 30" fill="#f59e0b"/>
+                <path d="M0 20 L40 20" stroke="#B8923F" strokeWidth="3"/>
+                <path d="M35 10 L50 20 L35 30" fill="#B8923F"/>
               </g>
 
               {/* Result Number */}
               <g transform="translate(580, 100)">
-                <rect x="0" y="0" width="100" height="80" rx="12" fill="#f59e0b"/>
+                <rect x="0" y="0" width="100" height="80" rx="12" fill="#B8923F"/>
                 <text x="50" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">NIFTY 50</text>
                 <text x="50" y="55" textAnchor="middle" fill="white" fontSize="20" fontWeight="700">22,500</text>
-                <text x="50" y="72" textAnchor="middle" fill="#fef3c7" fontSize="10">+1.2%</text>
+                <text x="50" y="72" textAnchor="middle" fill="#F6ECCE" fontSize="10">+1.2%</text>
               </g>
 
               {/* Bottom explanation */}
               <g transform="translate(50, 270)">
-                <rect x="0" y="0" width="600" height="40" rx="8" fill="#fef3c7" stroke="#fcd34d" strokeWidth="2"/>
-                <text x="300" y="25" textAnchor="middle" fill="#92400e" fontSize="11">
+                <rect x="0" y="0" width="600" height="40" rx="8" fill="#F6ECCE" stroke="#E2C273" strokeWidth="2"/>
+                <text x="300" y="25" textAnchor="middle" fill="#654B26" fontSize="11">
                   50 stocks go in → 1 number comes out → That number tells you how these 50 companies are doing overall
                 </text>
               </g>
@@ -400,7 +400,7 @@ const StockMarketLesson4 = () => {
 
           {/* India's Two Main Indices */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India's Two Main Indices</span>
             </h2>
@@ -413,7 +413,7 @@ const StockMarketLesson4 = () => {
                     <span className="text-white font-bold text-lg">50</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-blue-900 text-lg">NIFTY 50</h3>
+                    <h3 className="font-semibold text-blue-900 text-lg">NIFTY 50</h3>
                     <p className="text-blue-600 text-sm">National Stock Exchange</p>
                   </div>
                 </div>
@@ -451,7 +451,7 @@ const StockMarketLesson4 = () => {
                     <span className="text-white font-bold text-lg">30</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-red-900 text-lg">SENSEX</h3>
+                    <h3 className="font-semibold text-red-900 text-lg">SENSEX</h3>
                     <p className="text-red-600 text-sm">Bombay Stock Exchange</p>
                   </div>
                 </div>
@@ -493,7 +493,7 @@ const StockMarketLesson4 = () => {
 
           {/* How Index is Calculated */}
           <div className="bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Calculator className="w-6 h-6 text-amber-600" />
               <span>How is an Index Calculated?</span>
             </h2>
@@ -504,35 +504,35 @@ const StockMarketLesson4 = () => {
 
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 500 200" fill="none">
               {/* Title */}
-              <text x="250" y="20" textAnchor="middle" fill="#374151" fontSize="12" fontWeight="600">
+              <text x="250" y="20" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="600">
                 Bigger Company = More Weight in Index
               </text>
 
               {/* Scale visualization */}
               <g transform="translate(50, 50)">
                 {/* Bar chart showing weights */}
-                <rect x="0" y="80" width="80" height="80" rx="4" fill="#3b82f6"/>
+                <rect x="0" y="80" width="80" height="80" rx="4" fill="#5A77AA"/>
                 <text x="40" y="130" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">RELIANCE</text>
-                <text x="40" y="145" textAnchor="middle" fill="#bfdbfe" fontSize="8">10% weight</text>
+                <text x="40" y="145" textAnchor="middle" fill="#C3D0E4" fontSize="8">10% weight</text>
                 
-                <rect x="100" y="100" width="70" height="60" rx="4" fill="#6366f1"/>
+                <rect x="100" y="100" width="70" height="60" rx="4" fill="#8F6FC4"/>
                 <text x="135" y="135" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">TCS</text>
-                <text x="135" y="148" textAnchor="middle" fill="#c7d2fe" fontSize="8">5% weight</text>
+                <text x="135" y="148" textAnchor="middle" fill="#D9CBEE" fontSize="8">5% weight</text>
                 
-                <rect x="190" y="110" width="65" height="50" rx="4" fill="#8b5cf6"/>
+                <rect x="190" y="110" width="65" height="50" rx="4" fill="#8F6FC4"/>
                 <text x="222" y="140" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold">HDFC</text>
-                <text x="222" y="152" textAnchor="middle" fill="#ddd6fe" fontSize="8">4% weight</text>
+                <text x="222" y="152" textAnchor="middle" fill="#D9CBEE" fontSize="8">4% weight</text>
                 
-                <rect x="275" y="125" width="55" height="35" rx="4" fill="#a855f7"/>
+                <rect x="275" y="125" width="55" height="35" rx="4" fill="#8F6FC4"/>
                 <text x="302" y="147" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">INFY</text>
                 
-                <rect x="345" y="135" width="45" height="25" rx="4" fill="#c084fc"/>
+                <rect x="345" y="135" width="45" height="25" rx="4" fill="#A88BD9"/>
                 <text x="367" y="152" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">ITC</text>
               </g>
 
               {/* Explanation */}
               <g transform="translate(50, 175)">
-                <text x="200" y="0" textAnchor="middle" fill="#92400e" fontSize="10">
+                <text x="200" y="0" textAnchor="middle" fill="#654B26" fontSize="10">
                   If Reliance moves 2%, it affects Nifty more than if ITC moves 2%
                 </text>
               </g>
@@ -548,7 +548,7 @@ const StockMarketLesson4 = () => {
 
           {/* What Do Index Movements Mean */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.TrendUp className="w-6 h-6 text-green-600" />
               <span>What Do Index Movements Mean?</span>
             </h2>
@@ -606,7 +606,7 @@ const StockMarketLesson4 = () => {
 
           {/* Other Important Indices */}
           <div className="bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Globe className="w-6 h-6 text-amber-600" />
               <span>Other Indices You Should Know</span>
             </h2>
@@ -667,7 +667,7 @@ const StockMarketLesson4 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Top Nifty 50 Companies</span>
             </h2>
@@ -703,7 +703,7 @@ const StockMarketLesson4 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 mb-10 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-amber-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -745,7 +745,7 @@ const StockMarketLesson4 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -803,7 +803,7 @@ const StockMarketLesson4 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-5')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: Why Stock Prices Move</span>
               <FaArrowRight className="text-sm" />

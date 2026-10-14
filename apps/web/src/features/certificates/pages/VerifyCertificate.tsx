@@ -98,7 +98,7 @@ const VerifyCertificate = () => {
           {state.loading && (
             <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-lg dark:border-slate-700 dark:bg-slate-800">
               <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Verifying Certificate
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -147,7 +147,7 @@ const VerifyCertificate = () => {
 
               {/* Certificate Header */}
               <div className="mb-6 border-b border-gray-100 pb-4 text-center dark:border-slate-700">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+                <h1 className="xt-title">
                   Internship Certificate
                 </h1>
                 <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
@@ -238,7 +238,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 This Certificate Has Been Revoked
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -308,7 +308,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Certificate Not Found
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -367,7 +367,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Verification Unavailable
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">

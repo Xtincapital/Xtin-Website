@@ -19,6 +19,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const CAGRCalculator = () => {
   const { symbol: sym } = useRegion();
@@ -78,7 +79,7 @@ const CAGRCalculator = () => {
       {/* Main Content */}
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             CAGR Calculator
           </h1>
 
@@ -103,7 +104,7 @@ const CAGRCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="cagr-initial-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Initial Investment
@@ -190,7 +191,7 @@ const CAGRCalculator = () => {
             {/* Graph Section */}
             <div className="bg-white shadow-md rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">Growth Over Time</h2>
+                <h2 className="xt-section">Growth Over Time</h2>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setChartType("line")}
@@ -218,7 +219,7 @@ const CAGRCalculator = () => {
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
                     <LineChart data={chartData} margin={CHART_MARGIN}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="year" {...X_AXIS_PROPS}
                         label={{
@@ -228,11 +229,11 @@ const CAGRCalculator = () => {
                         }}
                       />
                       <YAxis {...Y_AXIS_PROPS} />
-                      <Tooltip />
+                      <Tooltip {...chartTooltip} />
                       <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#16a34a"
+                        stroke={chartColors.positive}
                         strokeWidth={3}
                         dot
                       />
@@ -258,15 +259,15 @@ const CAGRCalculator = () => {
                         cy="50%"
                         labelLine={false}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill={chartColors.series[2]}
                         dataKey="value"
                         nameKey="name"
                       >
-                        <Cell key="cell-0" fill="#16a34a" />
-                        <Cell key="cell-1" fill="#f97316" />
+                        <Cell key="cell-0" fill={chartColors.positive} />
+                        <Cell key="cell-1" fill={chartColors.series[4]} />
                       </Pie>
                       <Legend content={pieLegend} />
-                      <Tooltip formatter={moneyTooltip} />
+                      <Tooltip {...chartTooltip} formatter={moneyTooltip} />
                     </PieChart>
                   )}
                 </ResponsiveContainer>

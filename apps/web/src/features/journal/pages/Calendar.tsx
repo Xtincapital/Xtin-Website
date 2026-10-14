@@ -137,7 +137,7 @@ const Calendar = () => {
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Calendar
             <InfoTip title="How to read the calendar" widthClass="w-80">
               <p>Each box is a day. It shows how many trades you took and your total P&L for that day.</p>
@@ -165,7 +165,7 @@ const Calendar = () => {
                   <p>Days this month on which you placed at least one trade.</p>
                 </InfoTip>
               </p>
-              <p className="stat-value font-bold text-foreground">{tradingDays}</p>
+              <p className="stat-value font-semibold text-foreground">{tradingDays}</p>
             </CardContent>
           </Card>
           <Card>
@@ -176,7 +176,7 @@ const Calendar = () => {
                   <p>Days whose combined P&L across all trades was above zero.</p>
                 </InfoTip>
               </p>
-              <p className="stat-value font-bold text-success">{profitableDays}</p>
+              <p className="stat-value font-semibold text-success">{profitableDays}</p>
             </CardContent>
           </Card>
           <Card>
@@ -187,7 +187,7 @@ const Calendar = () => {
                   <p>Days whose combined P&L across all trades was below zero.</p>
                 </InfoTip>
               </p>
-              <p className="stat-value font-bold text-destructive">{lossDays}</p>
+              <p className="stat-value font-semibold text-destructive">{lossDays}</p>
             </CardContent>
           </Card>
           <Card>
@@ -198,7 +198,7 @@ const Calendar = () => {
                   <p>Your single most profitable day this month: the date and its total P&L.</p>
                 </InfoTip>
               </p>
-              <p className="stat-value font-bold text-foreground">
+              <p className="stat-value font-semibold text-foreground">
                 {bestDay.day != null ? `${bestDay.day} (${formatCurrency(bestDay.pnl)})` : "-"}
               </p>
             </CardContent>
@@ -241,23 +241,23 @@ const Calendar = () => {
                       type="button"
                       disabled={!hasTrades}
                       onClick={() => setSelectedDay(cell.day)}
-                      className={`rounded-lg p-3 text-center border-2 transition-transform hover:scale-[1.03] ${
+                      className={`rounded-xl p-3 text-center border transition-[transform,box-shadow] duration-300 ${
                         !hasTrades
-                          ? "border-transparent bg-muted/30 cursor-default"
+                          ? "border-transparent bg-muted/40 cursor-default"
                           : positive
-                            ? "border-success bg-success/10 cursor-pointer"
+                            ? "border-success/40 bg-success/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg dark:bg-success/15"
                             : negative
-                              ? "border-destructive bg-destructive/10 cursor-pointer"
-                              : "border-amber-400 bg-amber-400/10 cursor-pointer"
+                              ? "border-destructive/40 bg-destructive/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg dark:bg-destructive/15"
+                              : "border-amber-400/50 bg-amber-400/10 cursor-pointer hover:-translate-y-1 hover:shadow-lg"
                       }`}
                     >
-                      <div className="text-sm font-bold text-foreground">{cell.day}</div>
+                      <div className="text-sm font-semibold text-foreground tabular-nums">{cell.day}</div>
                       {hasTrades ? (
                         <>
                           <div className="text-[11px] text-muted-foreground mt-1">
                             {cell.trades.length} trade{cell.trades.length > 1 ? "s" : ""}
                           </div>
-                          <div className={`text-[11px] font-bold mt-0.5 ${positive ? "text-success" : negative ? "text-destructive" : "text-amber-500"}`}>
+                          <div className={`text-[11px] font-semibold tabular-nums mt-0.5 ${positive ? "text-success" : negative ? "text-destructive" : "text-amber-500"}`}>
                             {formatCurrency(cell.pnl, { compact: true })}
                           </div>
                         </>

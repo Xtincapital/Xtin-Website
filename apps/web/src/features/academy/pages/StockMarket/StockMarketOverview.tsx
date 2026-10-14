@@ -201,32 +201,32 @@ const StockMarketOverview = () => {
 
   const colorClasses = {
     indigo: {
-      bg: "bg-gradient-to-br from-indigo-500 to-violet-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-indigo-50 border-indigo-200",
       text: "text-indigo-600"
     },
     blue: {
-      bg: "bg-gradient-to-br from-blue-500 to-indigo-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-blue-50 border-blue-200",
       text: "text-blue-600"
     },
     purple: {
-      bg: "bg-gradient-to-br from-purple-500 to-pink-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-purple-50 border-purple-200",
       text: "text-purple-600"
     },
     amber: {
-      bg: "bg-gradient-to-br from-amber-500 to-orange-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-amber-50 border-amber-200",
       text: "text-amber-600"
     },
     teal: {
-      bg: "bg-gradient-to-br from-teal-500 to-cyan-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-teal-50 border-teal-200",
       text: "text-teal-600"
     },
     green: {
-      bg: "bg-gradient-to-br from-green-500 to-emerald-600",
+      bg: "bg-gradient-to-br from-green-600 to-emerald-700",
       light: "bg-green-50 border-green-200",
       text: "text-green-600"
     },
@@ -264,7 +264,7 @@ const StockMarketOverview = () => {
           </button>
 
           {/* Module Header */}
-          <div className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 rounded-3xl p-8 md:p-10 mb-10 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-3xl p-8 md:p-10 mb-10 text-white relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -293,7 +293,7 @@ const StockMarketOverview = () => {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              <h1 className="text-3xl md:text-4xl font-display font-normal mb-3 tracking-[-0.015em]">
                 Stock Market Basics
               </h1>
               <p className="text-indigo-100 text-lg mb-6 max-w-2xl">
@@ -320,7 +320,7 @@ const StockMarketOverview = () => {
 
           {/* What You'll Learn */}
           <div className="bg-white rounded-2xl p-6 md:p-8 mb-10 border border-gray-200 shadow-sm">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-xl">
                 <Icons.Target className="w-5 h-5 text-indigo-600" />
               </span>
@@ -341,7 +341,7 @@ const StockMarketOverview = () => {
 
           {/* Why This Matters - India Context */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 md:p-8 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>Why This Matters for Indians</span>
             </h2>
@@ -364,7 +364,7 @@ const StockMarketOverview = () => {
 
           {/* Lessons List */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-xl">
                 <Icons.Book className="w-5 h-5 text-indigo-600" />
               </span>
@@ -434,7 +434,7 @@ const StockMarketOverview = () => {
 
           {/* Prerequisites */}
           <div className="bg-amber-50 rounded-2xl p-6 border border-amber-200 mb-10">
-            <h3 className="font-bold text-amber-900 mb-3">Recommended Before This Module</h3>
+            <h3 className="font-semibold text-amber-900 mb-3">Recommended Before This Module</h3>
             <div className="flex flex-wrap gap-3">
               <button 
                 onClick={() => navigate('/learn/personal-finance-basics')}
@@ -455,7 +455,7 @@ const StockMarketOverview = () => {
                 <Icons.Warning className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
-                <h3 className="font-bold text-indigo-900 mb-2">Educational Content Only</h3>
+                <h3 className="font-semibold text-indigo-900 mb-2">Educational Content Only</h3>
                 <p className="text-indigo-700 text-sm">
                   This module is for educational purposes only. We teach you how the stock market works — 
                   not which stocks to buy. Always do your own research or consult a SEBI-registered 

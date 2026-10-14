@@ -25,7 +25,7 @@ const CertificateQRModal = ({ certificateId, onClose }) => {
 
         {/* Header */}
         <div className="mb-6 text-center">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">
             Certificate QR Code
           </h3>
           <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">

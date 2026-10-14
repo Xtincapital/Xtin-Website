@@ -128,7 +128,7 @@ const HelpCenter = () => {
       <main id="main-content" className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Contact Us</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-900 mb-4 tracking-[-0.015em]">Contact Us</h1>
             <p className="text-lg text-gray-600">
               Send us a message and we'll get back to you soon
             </p>

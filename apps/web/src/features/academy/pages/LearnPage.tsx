@@ -104,13 +104,13 @@ const HeroDecorSVG = () => (
     {/* Gradient definitions */}
     <defs>
       <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0.1" />
-        <stop offset="100%" stopColor="#10b981" stopOpacity="0.05" />
+        <stop offset="0%" stopColor="#1FA978" stopOpacity="0.1" />
+        <stop offset="100%" stopColor="#1FA978" stopOpacity="0.05" />
       </linearGradient>
       <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0" />
-        <stop offset="50%" stopColor="#22c55e" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
+        <stop offset="0%" stopColor="#1FA978" stopOpacity="0" />
+        <stop offset="50%" stopColor="#1FA978" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="#1FA978" stopOpacity="0" />
       </linearGradient>
     </defs>
 
@@ -511,10 +511,10 @@ const LearnPage = () => {
 
   // Honest numbers, computed from the actual catalogue.
   const stats = [
-    { icon: FaGraduationCap, value: `${catalogue.totalModules}`, label: "Complete Courses", color: "text-green-600", bg: "bg-green-50" },
-    { icon: FaBookOpen, value: `${catalogue.totalLessons}+`, label: "Bite-size Lessons", color: "text-blue-600", bg: "bg-blue-50" },
-    { icon: FaUsers, value: "2,500+", label: "Learners Enrolled", color: "text-purple-600", bg: "bg-purple-50" },
-    { icon: FaCertificate, value: `${catalogue.freeModules}`, label: "Courses Free Forever", color: "text-amber-600", bg: "bg-amber-50" },
+    { icon: FaGraduationCap, value: `${catalogue.totalModules}`, label: "Complete Courses", color: "text-primary dark:text-success", bg: "bg-primary/10" },
+    { icon: FaBookOpen, value: `${catalogue.totalLessons}+`, label: "Bite-size Lessons", color: "text-primary dark:text-success", bg: "bg-primary/10" },
+    { icon: FaUsers, value: "2,500+", label: "Learners Enrolled", color: "text-primary dark:text-success", bg: "bg-primary/10" },
+    { icon: FaCertificate, value: `${catalogue.freeModules}`, label: "Courses Free Forever", color: "text-primary dark:text-success", bg: "bg-primary/10" },
   ];
 
   return (
@@ -539,9 +539,9 @@ const LearnPage = () => {
                 XTIN ACADEMY
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-tight mb-6 tracking-[-0.015em]">
                 Build Your
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-700">
                   Financial Future
                 </span>
               </h1>
@@ -553,7 +553,7 @@ const LearnPage = () => {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-semibold shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2"
+                  className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2"
                 >
                   {totalDone > 0 ? 'Continue Learning' : 'Start Learning Free'}
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -579,14 +579,14 @@ const LearnPage = () => {
               <div className="relative">
                 {/* Main card — REAL progress, not decoration */}
                 <div data-learn-tour="hero-journey" className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/40 p-8 border border-gray-100 dark:border-slate-700">
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl opacity-20 blur-xl"></div>
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl opacity-20 blur-xl"></div>
 
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                    <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center">
                       <FaGraduationCap className="text-white text-2xl" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-slate-100">Your Finance Journey</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-slate-100">Your Finance Journey</h3>
                       <p className="text-sm text-gray-500 dark:text-slate-400">
                         {totalDone > 0
                           ? `${totalDone} lesson${totalDone === 1 ? '' : 's'} completed — keep going!`
@@ -671,7 +671,7 @@ const LearnPage = () => {
           <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="moduleGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1" fill="#22c55e" opacity="0.3" />
+                <circle cx="10" cy="10" r="1" fill="#1FA978" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#moduleGrid)" />
@@ -687,7 +687,7 @@ const LearnPage = () => {
               </svg>
               THE LIBRARY · {catalogue.freeModules} COURSES FREE FOREVER
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 mb-4 tracking-[-0.015em]">
               Your Learning Journey
             </h2>
             <p className="text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
@@ -701,7 +701,7 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.BEGINNER)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-md shadow-green-500/30'
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-md shadow-green-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-emerald-300 hover:bg-green-50 dark:hover:bg-emerald-900/30'
                   }`}
               >
@@ -714,7 +714,7 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.INTERMEDIATE)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.INTERMEDIATE
-                  ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md shadow-blue-500/30'
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-md shadow-blue-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30'
                   }`}
               >
@@ -726,7 +726,7 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.ADVANCED)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.ADVANCED
-                  ? 'bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-md shadow-purple-500/30'
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-md shadow-purple-500/30'
                   : 'text-gray-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30'
                   }`}
               >
@@ -890,7 +890,7 @@ const LearnPage = () => {
           <div className="text-center mb-10">
             {/* Single Line Headline with Badge */}
             <div className="flex items-center justify-center gap-3 mb-3">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-display font-normal text-gray-900 dark:text-slate-100 tracking-[-0.02em]">
                 Premium Courses
               </h2>
             </div>
@@ -933,7 +933,7 @@ const LearnPage = () => {
             ) : (
               <button
                 onClick={() => setShowUpgrade(true)}
-                className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-full font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all duration-300"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all duration-300"
               >
                 <FaCrown className="text-xs" />
                 Lock these in with Pro — {formatLearnPrice(pricing.yearly, pricing)}/yr
@@ -959,7 +959,7 @@ const LearnPage = () => {
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-green-200/40 dark:hover:shadow-emerald-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 {/* Gradient Header with Glassmorphism Icon Container */}
-                <div className="relative h-52 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center overflow-hidden">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[0].freeVideoId}/hqdefault.jpg`}
                     alt=""
@@ -989,7 +989,7 @@ const LearnPage = () => {
 
                 {/* Card Content */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-green-700 dark:group-hover:text-emerald-300 transition-colors">Personal Finance Mastery</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-green-700 dark:group-hover:text-emerald-300 transition-colors">Personal Finance Mastery</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Complete guide to budgeting, saving, emergency funds, and building a strong financial foundation for life.
                   </p>
@@ -1019,7 +1019,7 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-blue-200/40 dark:hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center overflow-hidden">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[1].freeVideoId}/hqdefault.jpg`}
                     alt=""
@@ -1044,7 +1044,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">Stock Market Investing</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">Stock Market Investing</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Learn to analyze stocks, read financial statements, and build a winning long-term investment portfolio.
                   </p>
@@ -1059,7 +1059,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1074,7 +1074,7 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-purple-200/40 dark:hover:shadow-purple-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center overflow-hidden">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[2].freeVideoId}/hqdefault.jpg`}
                     alt=""
@@ -1099,7 +1099,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">Mutual Funds Deep Dive</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">Mutual Funds Deep Dive</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Master SIPs, index funds, debt funds, and learn to build a diversified mutual fund portfolio.
                   </p>
@@ -1114,7 +1114,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1159,7 +1159,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Options & Derivatives</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Options & Derivatives</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Advanced course on options strategies, futures trading, and derivatives for risk management.
                   </p>
@@ -1189,7 +1189,7 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-teal-200/40 dark:hover:shadow-teal-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-teal-500 via-cyan-500 to-blue-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center overflow-hidden">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[4].freeVideoId}/hqdefault.jpg`}
                     alt=""
@@ -1214,7 +1214,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">Tax Planning & Filing</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">Tax Planning & Filing</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Complete tax guide for investors - deductions, capital gains, ITR filing, and tax-saving strategies.
                   </p>
@@ -1229,7 +1229,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1267,16 +1267,16 @@ const LearnPage = () => {
             <div className="relative z-10">
               {notifySaved ? (
                 <div className="text-center py-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
                     <FaCheckCircle className="text-white text-2xl" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">You're on the list!</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">You're on the list!</h3>
                   <p className="text-gray-500 dark:text-slate-400 mb-6">
                     We'll email you the moment premium courses launch — with your early-bird perks attached.
                   </p>
                   <button
                     onClick={() => { setShowNotifyModal(false); setNotifySaved(false); }}
-                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all"
+                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all"
                   >
                     Back to learning
                   </button>
@@ -1284,10 +1284,10 @@ const LearnPage = () => {
               ) : (
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
                       <FaBell className="text-white text-2xl" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Get Early Access</h3>
+                    <h3 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">Get Early Access</h3>
                     <p className="text-gray-500 dark:text-slate-400">Be the first to know when our premium courses launch. Get exclusive early-bird benefits.</p>
                   </div>
 
@@ -1312,7 +1312,7 @@ const LearnPage = () => {
                     />
                     <button
                       type="submit"
-                      className="w-full px-6 py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full px-6 py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-2"
                     >
                       <FaBell className="text-sm" />
                       Notify Me on Launch

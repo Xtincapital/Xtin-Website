@@ -354,14 +354,14 @@ const TradingBasicsLesson7 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 7 of 7
               </span>
               <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">
                 Final Assessment
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-200 rounded-xl shadow-sm">
                 <Icons.SelfAssess className="w-7 h-7 text-indigo-600" />
               </span>
@@ -379,7 +379,7 @@ const TradingBasicsLesson7 = () => {
                 <Icons.Question className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
-                <h3 className="font-bold text-indigo-900 mb-2">The Question Nobody Asks</h3>
+                <h3 className="font-semibold text-indigo-900 mb-2">The Question Nobody Asks</h3>
                 <p className="text-indigo-800">
                   Everyone asks "How do I trade?" or "Which stock should I buy?" But the most important question is: 
                   <strong> "Should I be trading at all?"</strong> This lesson will help you answer honestly.
@@ -390,7 +390,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* The Uncomfortable Truth */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Warning className="w-6 h-6 text-amber-500" />
               <span>The Uncomfortable Truth</span>
             </h2>
@@ -436,7 +436,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* Self Assessment Quiz */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.Checklist className="w-6 h-6 text-indigo-600" />
               <span>Self-Assessment: Are You Ready?</span>
             </h2>
@@ -505,7 +505,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* Better Alternatives */}
           <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8 border border-indigo-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Path className="w-6 h-6 text-indigo-600" />
               <span>Alternatives to Active Trading</span>
             </h2>
@@ -558,7 +558,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* If You Still Want to Trade */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Checklist className="w-6 h-6 text-indigo-600" />
               <span>If You STILL Want to Trade...</span>
             </h2>
@@ -632,7 +632,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: The SIP Revolution</span>
             </h2>
@@ -693,7 +693,7 @@ const TradingBasicsLesson7 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-10 border border-indigo-200">
-            <h2 className="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-indigo-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-indigo-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -734,13 +734,13 @@ const TradingBasicsLesson7 = () => {
           </div>
 
           {/* Module Complete */}
-          <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-8 mb-10 text-white text-center">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 mb-10 text-white text-center">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
                 <FaTrophy className="w-8 h-8 text-yellow-300" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold mb-2">🎉 Module {getModuleInfo("trading-basics")?.number} Complete!</h2>
+            <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">🎉 Module {getModuleInfo("trading-basics")?.number} Complete!</h2>
             <p className="text-indigo-100 mb-4">
               You've finished Trading Basics. You now understand what trading really involves — 
               the psychology, the risks, the statistics, and most importantly, whether it's right for you.
@@ -765,7 +765,7 @@ const TradingBasicsLesson7 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Back to Module Overview</span>
             </button>

@@ -8,11 +8,11 @@ fontStyleSheet.textContent = `
   @import url('https://api.fontshare.com/v2/css?f[]=trench-slab@500&f[]=general-sans@400&display=swap');
 
   .newsletter-display * {
-    font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   .newsletter-display h1, .newsletter-display h2, .newsletter-display h3, .newsletter-display h4, .newsletter-display h5, .newsletter-display h6 {
-    font-family: 'Trench Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; font-weight: 400;
   }
 `;
 if (typeof document !== 'undefined') {
@@ -47,14 +47,14 @@ const NewsletterDisplay = () => {
 
   if (!newsletter) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '24px', textAlign: 'center', backgroundColor: '#f9fafb', color: '#111827' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '24px', textAlign: 'center', backgroundColor: '#F7F6F2', color: '#151517' }}>
         {loading ? (
-          <p style={{ color: '#6b7280' }}>Loading newsletter...</p>
+          <p style={{ color: '#75757D' }}>Loading newsletter...</p>
         ) : (
           <>
             <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Newsletter not found</h1>
-            <p style={{ color: '#6b7280', marginBottom: '24px' }}>This edition may have been moved or the link is incorrect.</p>
-            <Link to="/newsletter" style={{ backgroundColor: '#16a34a', color: '#ffffff', fontWeight: 600, padding: '10px 20px', borderRadius: '8px' }}>
+            <p style={{ color: '#75757D', marginBottom: '24px' }}>This edition may have been moved or the link is incorrect.</p>
+            <Link to="/newsletter" style={{ backgroundColor: '#12805A', color: '#ffffff', fontWeight: 600, padding: '10px 20px', borderRadius: '8px' }}>
               Back to Newsletter
             </Link>
           </>
@@ -70,12 +70,12 @@ const NewsletterDisplay = () => {
     return (
       <div key={`heading-${headingNum}`} style={{ marginBottom: '40px' }}>
         <h2 style={{
-          fontFamily: 'Trench Slab, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          fontFamily: '"Instrument Serif", Georgia, "Times New Roman", serif',
           fontSize: '24px',
-          fontWeight: '500',
-          color: '#1f2937',
+          fontWeight: '400',
+          color: '#232327',
           marginBottom: '20px',
-          borderBottom: '2px solid #059669',
+          borderBottom: '2px solid #12805A',
           paddingBottom: '10px'
         }}>
           {heading}
@@ -90,20 +90,20 @@ const NewsletterDisplay = () => {
           return (
             <div key={`sub-${headingNum}-${subNum}`} style={{ marginBottom: '30px' }}>
               <h3 style={{
-                fontFamily: 'Trench Slab, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                fontFamily: '"Instrument Serif", Georgia, "Times New Roman", serif',
                 fontSize: '18px',
-                fontWeight: '500',
-                color: '#374151',
+                fontWeight: '400',
+                color: '#404047',
                 marginBottom: '10px'
               }}>
                 {subheading}
               </h3>
               <p style={{
-                fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
                 fontSize: '16px',
                 fontWeight: '400',
                 lineHeight: '1.6',
-                color: '#4b5563',
+                color: '#5A5A62',
                 textAlign: 'justify'
               }}>
                 {content}
@@ -117,8 +117,8 @@ const NewsletterDisplay = () => {
 
   return (
     <div className="newsletter-display" style={{
-      fontFamily: 'General Sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-      backgroundColor: '#f9fafb',
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      backgroundColor: '#F7F6F2',
       minHeight: '100vh',
       padding: '20px 0'
     }}>
@@ -132,13 +132,13 @@ const NewsletterDisplay = () => {
       }}>
         {/* Title */}
         <h1 style={{
-          fontFamily: 'Trench Slab, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+          fontFamily: '"Instrument Serif", Georgia, "Times New Roman", serif',
           fontSize: '36px',
-          fontWeight: '500',
-          color: '#111827',
+          fontWeight: '400',
+          color: '#151517',
           textAlign: 'center',
           marginBottom: '20px',
-          borderBottom: '3px solid #059669',
+          borderBottom: '3px solid #12805A',
           paddingBottom: '20px'
         }}>
           {newsletter.title}
@@ -147,7 +147,7 @@ const NewsletterDisplay = () => {
         {/* Date */}
         <p style={{
           fontSize: '14px',
-          color: '#6b7280',
+          color: '#75757D',
           textAlign: 'center',
           marginBottom: '40px'
         }}>
@@ -165,9 +165,9 @@ const NewsletterDisplay = () => {
         <div style={{
           marginTop: '60px',
           paddingTop: '30px',
-          borderTop: '1px solid #e5e7eb',
+          borderTop: '1px solid #E4E1D9',
           textAlign: 'center',
-          color: '#6b7280',
+          color: '#75757D',
           fontSize: '14px'
         }}>
           <p>Xtin Capital - Financial News Made Simple</p>

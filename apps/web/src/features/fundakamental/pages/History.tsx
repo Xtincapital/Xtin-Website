@@ -204,7 +204,7 @@ const History = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-foreground mb-2">Report History</h1>
+          <h1 className="xt-title mb-2">Report History</h1>
           <p className="text-muted-foreground">Access all your past analysis reports</p>
         </motion.div>
 

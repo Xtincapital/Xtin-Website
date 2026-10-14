@@ -299,14 +299,14 @@ const StockMarketLesson5 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 5 of 7
               </span>
               <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl shadow-sm">
                 <Icons.TrendUp className="w-7 h-7 text-teal-600" />
               </span>
@@ -324,7 +324,7 @@ const StockMarketLesson5 = () => {
                 <Icons.Question className="w-6 h-6 text-teal-600" />
               </div>
               <div>
-                <h3 className="font-bold text-teal-900 mb-2">Why Did the Stock I Bought Yesterday Fall Today?</h3>
+                <h3 className="font-semibold text-teal-900 mb-2">Why Did the Stock I Bought Yesterday Fall Today?</h3>
                 <p className="text-teal-800">
                   You check your portfolio — it's red! But you didn't see any bad news. What happened? 
                   Stock prices move constantly, and understanding <strong>why</strong> is the key to being a 
@@ -336,12 +336,12 @@ const StockMarketLesson5 = () => {
 
           {/* The Foundation: Supply & Demand */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Scale className="w-6 h-6 text-teal-600" />
               <span>The Foundation: Supply & Demand</span>
             </h2>
             
-            <div className="bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl p-6 text-white mb-4">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl p-6 text-white mb-4">
               <p className="text-xl font-semibold text-center">
                 Stock prices are determined by <span className="underline decoration-yellow-300 decoration-2">supply</span> (sellers) 
                 and <span className="underline decoration-yellow-300 decoration-2">demand</span> (buyers).
@@ -358,34 +358,34 @@ const StockMarketLesson5 = () => {
 
           {/* Visual: Supply & Demand */}
           <div className="bg-gradient-to-br from-gray-50 to-teal-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">How Supply & Demand Works</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">How Supply & Demand Works</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 300" fill="none">
               {/* Scenario 1: More Buyers */}
               <g transform="translate(50, 30)">
-                <text x="125" y="0" textAnchor="middle" fill="#374151" fontSize="12" fontWeight="700">MORE BUYERS THAN SELLERS</text>
+                <text x="125" y="0" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="700">MORE BUYERS THAN SELLERS</text>
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#166534" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#0D543C" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#22c55e"/>
+                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#1FA978"/>
                   ))}
                 </g>
 
                 {/* Sellers side */}
                 <g transform="translate(150, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#991b1b" fontSize="10" fontWeight="600">SELLERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#842428" fontSize="10" fontWeight="600">SELLERS</text>
                   {[0, 1].map((i) => (
-                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#ef4444"/>
+                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#E04848"/>
                   ))}
                 </g>
 
                 {/* Result */}
                 <g transform="translate(60, 160)">
-                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#22c55e"/>
+                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#1FA978"/>
                   <text x="65" y="17" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">RESULT</text>
                   <text x="65" y="32" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">PRICE GOES UP ↑</text>
                 </g>
@@ -393,35 +393,35 @@ const StockMarketLesson5 = () => {
 
               {/* VS */}
               <g transform="translate(320, 100)">
-                <circle cx="30" cy="30" r="25" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="2"/>
-                <text x="30" y="35" textAnchor="middle" fill="#6b7280" fontSize="12" fontWeight="700">VS</text>
+                <circle cx="30" cy="30" r="25" fill="#EFEDE7" stroke="#CFCBC1" strokeWidth="2"/>
+                <text x="30" y="35" textAnchor="middle" fill="#75757D" fontSize="12" fontWeight="700">VS</text>
               </g>
 
               {/* Scenario 2: More Sellers */}
               <g transform="translate(400, 30)">
-                <text x="125" y="0" textAnchor="middle" fill="#374151" fontSize="12" fontWeight="700">MORE SELLERS THAN BUYERS</text>
+                <text x="125" y="0" textAnchor="middle" fill="#404047" fontSize="12" fontWeight="700">MORE SELLERS THAN BUYERS</text>
                 
                 {/* Buyers side */}
                 <g transform="translate(0, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#166534" fontSize="10" fontWeight="600">BUYERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#0D543C" fontSize="10" fontWeight="600">BUYERS</text>
                   {[0, 1].map((i) => (
-                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#22c55e"/>
+                    <circle key={i} cx={25 + i * 50} cy={60} r="10" fill="#1FA978"/>
                   ))}
                 </g>
 
                 {/* Sellers side */}
                 <g transform="translate(150, 20)">
-                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                  <text x="50" y="20" textAnchor="middle" fill="#991b1b" fontSize="10" fontWeight="600">SELLERS</text>
+                  <rect x="0" y="0" width="100" height="120" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                  <text x="50" y="20" textAnchor="middle" fill="#842428" fontSize="10" fontWeight="600">SELLERS</text>
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#ef4444"/>
+                    <circle key={i} cx={25 + (i % 2) * 50} cy={45 + Math.floor(i / 2) * 30} r="10" fill="#E04848"/>
                   ))}
                 </g>
 
                 {/* Result */}
                 <g transform="translate(60, 160)">
-                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#ef4444"/>
+                  <rect x="0" y="0" width="130" height="40" rx="8" fill="#E04848"/>
                   <text x="65" y="17" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">RESULT</text>
                   <text x="65" y="32" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">PRICE GOES DOWN ↓</text>
                 </g>
@@ -429,8 +429,8 @@ const StockMarketLesson5 = () => {
 
               {/* Bottom note */}
               <g transform="translate(50, 250)">
-                <rect x="0" y="0" width="600" height="35" rx="8" fill="#f0fdfa" stroke="#99f6e4" strokeWidth="2"/>
-                <text x="300" y="22" textAnchor="middle" fill="#0d9488" fontSize="11">
+                <rect x="0" y="0" width="600" height="35" rx="8" fill="#EEF8F9" stroke="#A9DDE3" strokeWidth="2"/>
+                <text x="300" y="22" textAnchor="middle" fill="#2A8C9A" fontSize="11">
                   The price at which buyers and sellers agree to trade is called the "market price"
                 </text>
               </g>
@@ -439,7 +439,7 @@ const StockMarketLesson5 = () => {
 
           {/* What Makes People Buy or Sell */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Question className="w-6 h-6 text-teal-600" />
               <span>But What Makes People Buy or Sell?</span>
             </h2>
@@ -560,7 +560,7 @@ const StockMarketLesson5 = () => {
 
           {/* FII and DII Impact */}
           <div className="bg-gradient-to-br from-gray-50 to-teal-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.FII className="w-6 h-6 text-teal-600" />
               <span>The Big Players: FII & DII</span>
             </h2>
@@ -607,7 +607,7 @@ const StockMarketLesson5 = () => {
 
           {/* Real Examples */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.News className="w-6 h-6 text-teal-600" />
               <span>Real Examples: What Moved These Stocks?</span>
             </h2>
@@ -656,7 +656,7 @@ const StockMarketLesson5 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Events That Move Our Markets</span>
             </h2>
@@ -725,7 +725,7 @@ const StockMarketLesson5 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 mb-10 border border-teal-200">
-            <h2 className="text-xl font-bold text-teal-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-teal-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-teal-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -767,7 +767,7 @@ const StockMarketLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-teal-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -825,7 +825,7 @@ const StockMarketLesson5 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-6')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-teal-600 hover:to-cyan-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: Investing vs Trading</span>
               <FaArrowRight className="text-sm" />

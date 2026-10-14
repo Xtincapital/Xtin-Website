@@ -9,68 +9,68 @@ import useRegion from "../../../hooks/useRegion";
 const icons = {
 	gini: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="4" y="8" width="40" height="32" rx="4" fill="#10B981"/>
+			<rect x="4" y="8" width="40" height="32" rx="4" fill="#1FA978"/>
 			<rect x="8" y="12" width="14" height="10" rx="2" fill="#fff"/>
 			<path d="M12 26h8M12 30h6" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
 			<circle cx="34" cy="20" r="6" fill="#fff"/>
-			<path d="M34 18v4l2 1" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round"/>
+			<path d="M34 18v4l2 1" stroke="#1FA978" strokeWidth="1.5" strokeLinecap="round"/>
 			<path d="M28 32h12" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
 		</svg>
 	),
 	sip: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="20" fill="#10B981" fillOpacity="0.15"/>
-			<path d="M14 32l6-8 6 4 8-12" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-			<circle cx="14" cy="32" r="2" fill="#10B981"/>
-			<circle cx="20" cy="24" r="2" fill="#10B981"/>
-			<circle cx="26" cy="28" r="2" fill="#10B981"/>
-			<circle cx="34" cy="16" r="2" fill="#10B981"/>
-			<path d="M32 14l4-2M34 12v4" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="24" cy="24" r="20" fill="#1FA978" fillOpacity="0.15"/>
+			<path d="M14 32l6-8 6 4 8-12" stroke="#1FA978" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+			<circle cx="14" cy="32" r="2" fill="#1FA978"/>
+			<circle cx="20" cy="24" r="2" fill="#1FA978"/>
+			<circle cx="26" cy="28" r="2" fill="#1FA978"/>
+			<circle cx="34" cy="16" r="2" fill="#1FA978"/>
+			<path d="M32 14l4-2M34 12v4" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
 		</svg>
 	),
 	lumpsum: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="6" y="14" width="36" height="24" rx="3" fill="#10B981" fillOpacity="0.15"/>
-			<rect x="10" y="18" width="28" height="16" rx="2" fill="#10B981"/>
+			<rect x="6" y="14" width="36" height="24" rx="3" fill="#1FA978" fillOpacity="0.15"/>
+			<rect x="10" y="18" width="28" height="16" rx="2" fill="#1FA978"/>
 			<circle cx="24" cy="26" r="6" fill="#fff"/>
-			<text x="24" y="29" textAnchor="middle" fill="#10B981" fontSize="8" fontWeight="bold">₹</text>
+			<text x="24" y="29" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">₹</text>
 			<rect x="12" y="20" width="4" height="4" rx="1" fill="#fff" fillOpacity="0.5"/>
 			<rect x="32" y="28" width="4" height="4" rx="1" fill="#fff" fillOpacity="0.5"/>
 		</svg>
 	),
 	swp: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="18" stroke="#10B981" strokeWidth="3" fill="#10B981" fillOpacity="0.1"/>
-			<path d="M24 14v10l6 6" stroke="#10B981" strokeWidth="3" strokeLinecap="round"/>
-			<path d="M32 8l4 4-4 4" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-			<path d="M36 12H28" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="24" cy="24" r="18" stroke="#1FA978" strokeWidth="3" fill="#1FA978" fillOpacity="0.1"/>
+			<path d="M24 14v10l6 6" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
+			<path d="M32 8l4 4-4 4" stroke="#1FA978" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M36 12H28" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
 		</svg>
 	),
 	stepUp: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<path d="M8 40h8v-8H8v8zM18 40h8V24h-8v16zM28 40h8V16h-8v24z" fill="#10B981" fillOpacity="0.3"/>
-			<path d="M8 40h8v-8H8v8zM18 40h8V24h-8v16zM28 40h8V16h-8v24z" stroke="#10B981" strokeWidth="2"/>
-			<path d="M34 12l6-4M38 8l2 6" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="38" cy="10" r="3" fill="#10B981"/>
+			<path d="M8 40h8v-8H8v8zM18 40h8V24h-8v16zM28 40h8V16h-8v24z" fill="#1FA978" fillOpacity="0.3"/>
+			<path d="M8 40h8v-8H8v8zM18 40h8V24h-8v16zM28 40h8V16h-8v24z" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M34 12l6-4M38 8l2 6" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="38" cy="10" r="3" fill="#1FA978"/>
 		</svg>
 	),
 	cagr: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="16" fill="#10B981" fillOpacity="0.15"/>
-			<path d="M16 28c0-8 4-12 8-12s8 4 8 12" stroke="#10B981" strokeWidth="3" fill="none"/>
-			<path d="M24 16v-4M24 12l-2 2M24 12l2 2" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<text x="24" y="34" textAnchor="middle" fill="#10B981" fontSize="8" fontWeight="bold">%</text>
+			<circle cx="24" cy="24" r="16" fill="#1FA978" fillOpacity="0.15"/>
+			<path d="M16 28c0-8 4-12 8-12s8 4 8 12" stroke="#1FA978" strokeWidth="3" fill="none"/>
+			<path d="M24 16v-4M24 12l-2 2M24 12l2 2" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<text x="24" y="34" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">%</text>
 		</svg>
 	),
 	elss: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<path d="M24 6l16 10v12c0 8-6 14-16 18-10-4-16-10-16-18V16L24 6z" fill="#10B981" fillOpacity="0.15" stroke="#10B981" strokeWidth="2"/>
-			<path d="M18 24l4 4 8-8" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M24 6l16 10v12c0 8-6 14-16 18-10-4-16-10-16-18V16L24 6z" fill="#1FA978" fillOpacity="0.15" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M18 24l4 4 8-8" stroke="#1FA978" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
 		</svg>
 	),
 	fd: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="8" y="12" width="32" height="24" rx="4" fill="#10B981"/>
+			<rect x="8" y="12" width="32" height="24" rx="4" fill="#1FA978"/>
 			<rect x="12" y="16" width="8" height="6" rx="1" fill="#fff"/>
 			<path d="M12 28h24M12 32h16" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
 			<circle cx="34" cy="20" r="4" fill="#fff" fillOpacity="0.3"/>
@@ -79,121 +79,121 @@ const icons = {
 	),
 	rd: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="28" r="14" fill="#10B981" fillOpacity="0.15"/>
-			<ellipse cx="24" cy="20" rx="12" ry="4" fill="#10B981"/>
-			<path d="M12 20v12c0 2.2 5.4 4 12 4s12-1.8 12-4V20" stroke="#10B981" strokeWidth="2"/>
-			<ellipse cx="24" cy="26" rx="12" ry="4" fill="none" stroke="#10B981" strokeWidth="2"/>
-			<path d="M20 10l4-4 4 4" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-			<path d="M24 6v8" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="24" cy="28" r="14" fill="#1FA978" fillOpacity="0.15"/>
+			<ellipse cx="24" cy="20" rx="12" ry="4" fill="#1FA978"/>
+			<path d="M12 20v12c0 2.2 5.4 4 12 4s12-1.8 12-4V20" stroke="#1FA978" strokeWidth="2"/>
+			<ellipse cx="24" cy="26" rx="12" ry="4" fill="none" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M20 10l4-4 4 4" stroke="#1FA978" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M24 6v8" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
 		</svg>
 	),
 	compound: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="18" fill="#10B981" fillOpacity="0.1"/>
-			<path d="M12 32Q18 24 24 24T36 16" stroke="#10B981" strokeWidth="3" strokeLinecap="round" fill="none"/>
-			<circle cx="12" cy="32" r="3" fill="#10B981"/>
-			<circle cx="24" cy="24" r="3" fill="#10B981"/>
-			<circle cx="36" cy="16" r="3" fill="#10B981"/>
-			<text x="24" y="40" textAnchor="middle" fill="#10B981" fontSize="6" fontWeight="bold">n times</text>
+			<circle cx="24" cy="24" r="18" fill="#1FA978" fillOpacity="0.1"/>
+			<path d="M12 32Q18 24 24 24T36 16" stroke="#1FA978" strokeWidth="3" strokeLinecap="round" fill="none"/>
+			<circle cx="12" cy="32" r="3" fill="#1FA978"/>
+			<circle cx="24" cy="24" r="3" fill="#1FA978"/>
+			<circle cx="36" cy="16" r="3" fill="#1FA978"/>
+			<text x="24" y="40" textAnchor="middle" fill="#1FA978" fontSize="6" fontWeight="bold">n times</text>
 		</svg>
 	),
 	simple: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="8" y="12" width="32" height="24" rx="2" fill="#10B981" fillOpacity="0.15"/>
-			<path d="M12 30l24-12" stroke="#10B981" strokeWidth="3" strokeLinecap="round"/>
-			<circle cx="12" cy="30" r="3" fill="#10B981"/>
-			<circle cx="36" cy="18" r="3" fill="#10B981"/>
-			<text x="24" y="40" textAnchor="middle" fill="#10B981" fontSize="6" fontWeight="bold">P×R×T</text>
+			<rect x="8" y="12" width="32" height="24" rx="2" fill="#1FA978" fillOpacity="0.15"/>
+			<path d="M12 30l24-12" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
+			<circle cx="12" cy="30" r="3" fill="#1FA978"/>
+			<circle cx="36" cy="18" r="3" fill="#1FA978"/>
+			<text x="24" y="40" textAnchor="middle" fill="#1FA978" fontSize="6" fontWeight="bold">P×R×T</text>
 		</svg>
 	),
 	ssy: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="18" r="8" fill="#10B981" fillOpacity="0.3"/>
-			<circle cx="24" cy="18" r="8" stroke="#10B981" strokeWidth="2"/>
-			<path d="M24 26c-8 0-14 4-14 8v4h28v-4c0-4-6-8-14-8z" fill="#10B981" fillOpacity="0.2" stroke="#10B981" strokeWidth="2"/>
-			<path d="M20 16l2 2 4-4" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<circle cx="24" cy="18" r="8" fill="#1FA978" fillOpacity="0.3"/>
+			<circle cx="24" cy="18" r="8" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M24 26c-8 0-14 4-14 8v4h28v-4c0-4-6-8-14-8z" fill="#1FA978" fillOpacity="0.2" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M20 16l2 2 4-4" stroke="#1FA978" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 		</svg>
 	),
 	retirement: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="14" r="6" fill="#10B981" fillOpacity="0.3" stroke="#10B981" strokeWidth="2"/>
-			<path d="M16 38V26a8 8 0 0116 0v12" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<path d="M20 38v-8M28 38v-8" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="38" cy="28" r="6" fill="#10B981" fillOpacity="0.2" stroke="#10B981" strokeWidth="2"/>
-			<path d="M36 28h4M38 26v4" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round"/>
+			<circle cx="24" cy="14" r="6" fill="#1FA978" fillOpacity="0.3" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M16 38V26a8 8 0 0116 0v12" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<path d="M20 38v-8M28 38v-8" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="38" cy="28" r="6" fill="#1FA978" fillOpacity="0.2" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M36 28h4M38 26v4" stroke="#1FA978" strokeWidth="1.5" strokeLinecap="round"/>
 		</svg>
 	),
 	ppf: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="10" y="8" width="28" height="32" rx="3" fill="#10B981" fillOpacity="0.15"/>
-			<rect x="14" y="12" width="20" height="4" rx="1" fill="#10B981"/>
-			<path d="M14 22h20M14 28h14M14 34h16" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="36" cy="36" r="6" fill="#10B981"/>
+			<rect x="10" y="8" width="28" height="32" rx="3" fill="#1FA978" fillOpacity="0.15"/>
+			<rect x="14" y="12" width="20" height="4" rx="1" fill="#1FA978"/>
+			<path d="M14 22h20M14 28h14M14 34h16" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="36" cy="36" r="6" fill="#1FA978"/>
 			<text x="36" y="39" textAnchor="middle" fill="#fff" fontSize="8" fontWeight="bold">G</text>
 		</svg>
 	),
 	nps: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="16" fill="#10B981" fillOpacity="0.1"/>
-			<path d="M24 8v32" stroke="#10B981" strokeWidth="2"/>
-			<path d="M16 16h16M12 24h24M16 32h16" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="24" cy="24" r="4" fill="#10B981"/>
-			<path d="M38 10l2 4h-4l2-4z" fill="#10B981"/>
+			<circle cx="24" cy="24" r="16" fill="#1FA978" fillOpacity="0.1"/>
+			<path d="M24 8v32" stroke="#1FA978" strokeWidth="2"/>
+			<path d="M16 16h16M12 24h24M16 32h16" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="24" cy="24" r="4" fill="#1FA978"/>
+			<path d="M38 10l2 4h-4l2-4z" fill="#1FA978"/>
 		</svg>
 	),
 	epf: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="8" y="10" width="32" height="28" rx="4" fill="#10B981" fillOpacity="0.15"/>
-			<path d="M16 18h16M16 24h12M16 30h14" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="36" cy="32" r="8" fill="#10B981"/>
+			<rect x="8" y="10" width="32" height="28" rx="4" fill="#1FA978" fillOpacity="0.15"/>
+			<path d="M16 18h16M16 24h12M16 30h14" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="36" cy="32" r="8" fill="#1FA978"/>
 			<path d="M33 32l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 		</svg>
 	),
 	gratuity: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="20" r="12" fill="#10B981" fillOpacity="0.15"/>
-			<path d="M18 20l4 4 8-8" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-			<rect x="14" y="34" width="20" height="6" rx="2" fill="#10B981"/>
-			<path d="M24 32v2" stroke="#10B981" strokeWidth="2"/>
+			<circle cx="24" cy="20" r="12" fill="#1FA978" fillOpacity="0.15"/>
+			<path d="M18 20l4 4 8-8" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+			<rect x="14" y="34" width="20" height="6" rx="2" fill="#1FA978"/>
+			<path d="M24 32v2" stroke="#1FA978" strokeWidth="2"/>
 		</svg>
 	),
 	tax: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<rect x="10" y="6" width="28" height="36" rx="2" fill="#10B981" fillOpacity="0.15"/>
-			<rect x="14" y="10" width="20" height="6" rx="1" fill="#10B981"/>
-			<path d="M14 22h20M14 28h16M14 34h12" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-			<circle cx="36" cy="36" r="6" fill="#10B981"/>
+			<rect x="10" y="6" width="28" height="36" rx="2" fill="#1FA978" fillOpacity="0.15"/>
+			<rect x="14" y="10" width="20" height="6" rx="1" fill="#1FA978"/>
+			<path d="M14 22h20M14 28h16M14 34h12" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+			<circle cx="36" cy="36" r="6" fill="#1FA978"/>
 			<text x="36" y="39" textAnchor="middle" fill="#fff" fontSize="7" fontWeight="bold">%</text>
 		</svg>
 	),
 	inflation: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<circle cx="24" cy="24" r="16" fill="#10B981" fillOpacity="0.1"/>
-			<path d="M14 30l6-6 6 4 8-14" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-			<path d="M30 14h8v8" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-			<text x="24" y="42" textAnchor="middle" fill="#10B981" fontSize="6" fontWeight="bold">↑ CPI</text>
+			<circle cx="24" cy="24" r="16" fill="#1FA978" fillOpacity="0.1"/>
+			<path d="M14 30l6-6 6 4 8-14" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M30 14h8v8" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+			<text x="24" y="42" textAnchor="middle" fill="#1FA978" fontSize="6" fontWeight="bold">↑ CPI</text>
 		</svg>
 	),
 	hra: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<path d="M8 22l16-12 16 12" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-			<rect x="12" y="22" width="24" height="18" fill="#10B981" fillOpacity="0.15"/>
-			<rect x="20" y="28" width="8" height="12" fill="#10B981"/>
-			<rect x="14" y="26" width="6" height="6" rx="1" fill="#10B981" fillOpacity="0.5"/>
-			<rect x="28" y="26" width="6" height="6" rx="1" fill="#10B981" fillOpacity="0.5"/>
+			<path d="M8 22l16-12 16 12" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+			<rect x="12" y="22" width="24" height="18" fill="#1FA978" fillOpacity="0.15"/>
+			<rect x="20" y="28" width="8" height="12" fill="#1FA978"/>
+			<rect x="14" y="26" width="6" height="6" rx="1" fill="#1FA978" fillOpacity="0.5"/>
+			<rect x="28" y="26" width="6" height="6" rx="1" fill="#1FA978" fillOpacity="0.5"/>
 		</svg>
 	),
 	realEstate: (
 		<svg className="w-10 h-10" viewBox="0 0 48 48" fill="none">
-			<path d="M6 24l18-14 18 14" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-			<rect x="10" y="24" width="28" height="18" rx="2" fill="#10B981" fillOpacity="0.15"/>
-			<rect x="18" y="30" width="12" height="12" rx="1" fill="#10B981"/>
+			<path d="M6 24l18-14 18 14" stroke="#1FA978" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+			<rect x="10" y="24" width="28" height="18" rx="2" fill="#1FA978" fillOpacity="0.15"/>
+			<rect x="18" y="30" width="12" height="12" rx="1" fill="#1FA978"/>
 			<path d="M24 30v12" stroke="#fff" strokeWidth="1.5"/>
 			<path d="M18 36h12" stroke="#fff" strokeWidth="1.5"/>
-			<circle cx="38" cy="12" r="6" fill="#10B981"/>
+			<circle cx="38" cy="12" r="6" fill="#1FA978"/>
 			<path d="M36 12h4M38 10v4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
-			<rect x="12" y="26" width="4" height="4" rx="0.5" fill="#10B981" fillOpacity="0.5"/>
-			<rect x="32" y="26" width="4" height="4" rx="0.5" fill="#10B981" fillOpacity="0.5"/>
+			<rect x="12" y="26" width="4" height="4" rx="0.5" fill="#1FA978" fillOpacity="0.5"/>
+			<rect x="32" y="26" width="4" height="4" rx="0.5" fill="#1FA978" fillOpacity="0.5"/>
 		</svg>
 	),
 };
@@ -341,7 +341,7 @@ const ToolsPage = () => {
 					<svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
 						<defs>
 							<pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-								<path d="M 10 0 L 0 0 0 10" fill="none" stroke="#10B981" strokeWidth="0.5"/>
+								<path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1FA978" strokeWidth="0.5"/>
 							</pattern>
 						</defs>
 						<rect width="100%" height="100%" fill="url(#grid)"/>
@@ -363,7 +363,7 @@ const ToolsPage = () => {
 								</svg>
 								19+ Free Calculators
 							</div>
-							<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-6">
+							<h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-[-0.02em] text-white mb-6">
 								Financial{' '}
 								<span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
 									Calculators
@@ -391,71 +391,71 @@ const ToolsPage = () => {
 						<div className="hidden lg:flex justify-center">
 							<svg className="w-full max-w-md" viewBox="0 0 400 350" fill="none">
 								{/* Calculator Body */}
-								<rect x="100" y="40" width="200" height="270" rx="20" fill="#1F2937"/>
-								<rect x="100" y="40" width="200" height="270" rx="20" stroke="#10B981" strokeWidth="2"/>
+								<rect x="100" y="40" width="200" height="270" rx="20" fill="#232327"/>
+								<rect x="100" y="40" width="200" height="270" rx="20" stroke="#1FA978" strokeWidth="2"/>
 								
 								{/* Screen */}
-								<rect x="120" y="60" width="160" height="60" rx="8" fill="#111827"/>
-								<text x="260" y="100" textAnchor="end" fill="#10B981" fontSize="24" fontFamily="monospace">₹12,45,678</text>
-								<text x="260" y="80" textAnchor="end" fill="#6B7280" fontSize="12" fontFamily="monospace">Total Returns</text>
+								<rect x="120" y="60" width="160" height="60" rx="8" fill="#151517"/>
+								<text x="260" y="100" textAnchor="end" fill="#1FA978" fontSize="24" fontFamily="monospace">₹12,45,678</text>
+								<text x="260" y="80" textAnchor="end" fill="#75757D" fontSize="12" fontFamily="monospace">Total Returns</text>
 								
 								{/* Buttons Row 1 */}
-								<rect x="120" y="140" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="137.5" y="163" textAnchor="middle" fill="#D1D5DB" fontSize="14">7</text>
-								<rect x="162.5" y="140" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="180" y="163" textAnchor="middle" fill="#D1D5DB" fontSize="14">8</text>
-								<rect x="205" y="140" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="222.5" y="163" textAnchor="middle" fill="#D1D5DB" fontSize="14">9</text>
-								<rect x="247.5" y="140" width="35" height="35" rx="6" fill="#10B981"/>
+								<rect x="120" y="140" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="137.5" y="163" textAnchor="middle" fill="#CFCBC1" fontSize="14">7</text>
+								<rect x="162.5" y="140" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="180" y="163" textAnchor="middle" fill="#CFCBC1" fontSize="14">8</text>
+								<rect x="205" y="140" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="222.5" y="163" textAnchor="middle" fill="#CFCBC1" fontSize="14">9</text>
+								<rect x="247.5" y="140" width="35" height="35" rx="6" fill="#1FA978"/>
 								<text x="265" y="163" textAnchor="middle" fill="#fff" fontSize="14">÷</text>
 								
 								{/* Buttons Row 2 */}
-								<rect x="120" y="182" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="137.5" y="205" textAnchor="middle" fill="#D1D5DB" fontSize="14">4</text>
-								<rect x="162.5" y="182" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="180" y="205" textAnchor="middle" fill="#D1D5DB" fontSize="14">5</text>
-								<rect x="205" y="182" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="222.5" y="205" textAnchor="middle" fill="#D1D5DB" fontSize="14">6</text>
-								<rect x="247.5" y="182" width="35" height="35" rx="6" fill="#10B981"/>
+								<rect x="120" y="182" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="137.5" y="205" textAnchor="middle" fill="#CFCBC1" fontSize="14">4</text>
+								<rect x="162.5" y="182" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="180" y="205" textAnchor="middle" fill="#CFCBC1" fontSize="14">5</text>
+								<rect x="205" y="182" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="222.5" y="205" textAnchor="middle" fill="#CFCBC1" fontSize="14">6</text>
+								<rect x="247.5" y="182" width="35" height="35" rx="6" fill="#1FA978"/>
 								<text x="265" y="205" textAnchor="middle" fill="#fff" fontSize="14">×</text>
 								
 								{/* Buttons Row 3 */}
-								<rect x="120" y="224" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="137.5" y="247" textAnchor="middle" fill="#D1D5DB" fontSize="14">1</text>
-								<rect x="162.5" y="224" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="180" y="247" textAnchor="middle" fill="#D1D5DB" fontSize="14">2</text>
-								<rect x="205" y="224" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="222.5" y="247" textAnchor="middle" fill="#D1D5DB" fontSize="14">3</text>
-								<rect x="247.5" y="224" width="35" height="35" rx="6" fill="#10B981"/>
+								<rect x="120" y="224" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="137.5" y="247" textAnchor="middle" fill="#CFCBC1" fontSize="14">1</text>
+								<rect x="162.5" y="224" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="180" y="247" textAnchor="middle" fill="#CFCBC1" fontSize="14">2</text>
+								<rect x="205" y="224" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="222.5" y="247" textAnchor="middle" fill="#CFCBC1" fontSize="14">3</text>
+								<rect x="247.5" y="224" width="35" height="35" rx="6" fill="#1FA978"/>
 								<text x="265" y="247" textAnchor="middle" fill="#fff" fontSize="14">−</text>
 								
 								{/* Buttons Row 4 */}
-								<rect x="120" y="266" width="77.5" height="35" rx="6" fill="#374151"/>
-								<text x="158.75" y="289" textAnchor="middle" fill="#D1D5DB" fontSize="14">0</text>
-								<rect x="205" y="266" width="35" height="35" rx="6" fill="#374151"/>
-								<text x="222.5" y="289" textAnchor="middle" fill="#D1D5DB" fontSize="14">.</text>
-								<rect x="247.5" y="266" width="35" height="35" rx="6" fill="#10B981"/>
+								<rect x="120" y="266" width="77.5" height="35" rx="6" fill="#404047"/>
+								<text x="158.75" y="289" textAnchor="middle" fill="#CFCBC1" fontSize="14">0</text>
+								<rect x="205" y="266" width="35" height="35" rx="6" fill="#404047"/>
+								<text x="222.5" y="289" textAnchor="middle" fill="#CFCBC1" fontSize="14">.</text>
+								<rect x="247.5" y="266" width="35" height="35" rx="6" fill="#1FA978"/>
 								<text x="265" y="289" textAnchor="middle" fill="#fff" fontSize="14">+</text>
 								
 								{/* Floating Charts */}
 								<g transform="translate(30, 80)">
-									<rect width="60" height="80" rx="8" fill="#1F2937" stroke="#10B981" strokeWidth="1"/>
-									<path d="M10 60 L20 45 L30 55 L40 30 L50 40" stroke="#10B981" strokeWidth="2" fill="none"/>
-									<circle cx="20" cy="45" r="3" fill="#10B981"/>
-									<circle cx="40" cy="30" r="3" fill="#10B981"/>
+									<rect width="60" height="80" rx="8" fill="#232327" stroke="#1FA978" strokeWidth="1"/>
+									<path d="M10 60 L20 45 L30 55 L40 30 L50 40" stroke="#1FA978" strokeWidth="2" fill="none"/>
+									<circle cx="20" cy="45" r="3" fill="#1FA978"/>
+									<circle cx="40" cy="30" r="3" fill="#1FA978"/>
 								</g>
 								
 								<g transform="translate(310, 150)">
-									<rect width="60" height="80" rx="8" fill="#1F2937" stroke="#10B981" strokeWidth="1"/>
-									<rect x="10" y="50" width="8" height="20" fill="#10B981" rx="2"/>
-									<rect x="22" y="35" width="8" height="35" fill="#10B981" rx="2" fillOpacity="0.7"/>
-									<rect x="34" y="20" width="8" height="50" fill="#10B981" rx="2" fillOpacity="0.5"/>
-									<rect x="46" y="10" width="8" height="60" fill="#10B981" rx="2" fillOpacity="0.3"/>
+									<rect width="60" height="80" rx="8" fill="#232327" stroke="#1FA978" strokeWidth="1"/>
+									<rect x="10" y="50" width="8" height="20" fill="#1FA978" rx="2"/>
+									<rect x="22" y="35" width="8" height="35" fill="#1FA978" rx="2" fillOpacity="0.7"/>
+									<rect x="34" y="20" width="8" height="50" fill="#1FA978" rx="2" fillOpacity="0.5"/>
+									<rect x="46" y="10" width="8" height="60" fill="#1FA978" rx="2" fillOpacity="0.3"/>
 								</g>
 								
 								{/* Percentage Badge */}
 								<g transform="translate(320, 60)">
-									<rect width="50" height="30" rx="15" fill="#10B981"/>
+									<rect width="50" height="30" rx="15" fill="#1FA978"/>
 									<text x="25" y="20" textAnchor="middle" fill="#fff" fontSize="12" fontWeight="bold">+15%</text>
 								</g>
 							</svg>
@@ -561,7 +561,7 @@ const ToolsPage = () => {
 						<div key={section.title}>
 							{/* Section Header */}
 							<div className="mb-10 text-center">
-								<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+								<h2 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-3 tracking-[-0.015em]">
 									{section.title}
 								</h2>
 								<p className="text-gray-600 text-lg max-w-2xl mx-auto">{section.description}</p>
@@ -594,10 +594,10 @@ const ToolsPage = () => {
 														{item.featured ? (
 															<svg className="w-8 h-8" viewBox="0 0 48 48" fill="none">
 																<rect x="4" y="8" width="40" height="32" rx="4" fill="#fff"/>
-																<rect x="8" y="12" width="14" height="10" rx="2" fill="#10B981"/>
-																<path d="M12 26h8M12 30h6" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/>
-																<circle cx="34" cy="20" r="6" fill="#10B981" fillOpacity="0.3"/>
-																<path d="M34 18v4l2 1" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round"/>
+																<rect x="8" y="12" width="14" height="10" rx="2" fill="#1FA978"/>
+																<path d="M12 26h8M12 30h6" stroke="#1FA978" strokeWidth="2" strokeLinecap="round"/>
+																<circle cx="34" cy="20" r="6" fill="#1FA978" fillOpacity="0.3"/>
+																<path d="M34 18v4l2 1" stroke="#1FA978" strokeWidth="1.5" strokeLinecap="round"/>
 															</svg>
 														) : item.icon}
 													</div>
@@ -605,7 +605,7 @@ const ToolsPage = () => {
 												
 												{/* Content */}
 												<div className="flex-1 min-w-0">
-													<h3 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-300">
+													<h3 className="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-300">
 														{item.label}
 													</h3>
 													<p className="text-gray-600 text-sm mt-1 line-clamp-2">
@@ -660,7 +660,7 @@ const ToolsPage = () => {
 			{/* Bottom CTA Section */}
 			<section className="py-16 px-6 md:px-12 lg:px-24 bg-gradient-to-r from-green-600 to-emerald-600">
 				<div className="max-w-4xl mx-auto text-center">
-					<h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+					<h2 className="text-3xl md:text-4xl font-display font-normal text-white mb-4 tracking-[-0.015em]">
 						Need Personalized Financial Guidance?
 					</h2>
 					<p className="text-green-100 text-lg mb-8">

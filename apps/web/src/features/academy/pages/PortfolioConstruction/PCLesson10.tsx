@@ -53,7 +53,7 @@ const Icons = {
   TaxAccountViz: ({ className = "w-full h-56" }) => (
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
-        {['#10b981', '#3b82f6', '#f59e0b'].map((color, i) => (
+        {['#1FA978', '#5A77AA', '#B8923F'].map((color, i) => (
           <linearGradient key={`tGrad-${i}`} id={`taxGrad${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={color} stopOpacity="0.7"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.4"/>
@@ -73,9 +73,9 @@ const Icons = {
       {/* Asset placement arrows */}
       <g transform="translate(50, 180)">
         <text x="0" y="0" fill="currentColor" fontSize="12" fontWeight="bold">Best Assets by Account:</text>
-        <text x="0" y="20" fill="#10b981" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
-        <text x="0" y="38" fill="#3b82f6" fontSize="11">• Tax-Free: High-growth stocks</text>
-        <text x="0" y="56" fill="#f59e0b" fontSize="11">• Taxable: Index funds, muni bonds</text>
+        <text x="0" y="20" fill="#1FA978" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
+        <text x="0" y="38" fill="#5A77AA" fontSize="11">• Tax-Free: High-growth stocks</text>
+        <text x="0" y="56" fill="#B8923F" fontSize="11">• Taxable: Index funds, muni bonds</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Tax-Efficient Account Structure</text>
     </svg>
@@ -162,12 +162,12 @@ const PCLesson10 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 10 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 10 OF 12</span>
               <span className="px-3 py-1.5 bg-green-100  text-green-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-green-900 to-emerald-900    bg-clip-text text-transparent mb-5 leading-tight">Tax-Efficient Investing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-green-900 to-emerald-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Tax-Efficient Investing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the strategies that keep more money in your pocket. Learn tax-loss harvesting, asset location, and other techniques to minimize your tax burden while maximizing after-tax returns.</p>
           </header>
 
@@ -176,11 +176,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
                       <Icons.DollarSign className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Why Tax Efficiency Matters</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Why Tax Efficiency Matters</h2>
                       <p className="text-sm text-gray-500 ">The return you keep is what counts</p>
                     </div>
                   </div>
@@ -227,11 +227,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                       <Icons.Shield className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Tax-Loss Harvesting</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Loss Harvesting</h2>
                       <p className="text-sm text-gray-500 ">Turn losses into tax savings</p>
                     </div>
                   </div>
@@ -296,11 +296,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                       <Icons.MapPin className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Asset Location Strategy</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Asset Location Strategy</h2>
                       <p className="text-sm text-gray-500 ">The right asset in the right account</p>
                     </div>
                   </div>
@@ -378,11 +378,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                       <Icons.Shield className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Tax-Advantaged Accounts</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Advantaged Accounts</h2>
                       <p className="text-sm text-gray-500 ">Optimizing account structure</p>
                     </div>
                   </div>
@@ -472,13 +472,13 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Advanced Tax Strategies</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Advanced Tax Strategies</h2>
                       <p className="text-sm text-gray-500 ">Beyond the basics</p>
                     </div>
                   </div>
@@ -519,7 +519,7 @@ const PCLesson10 = () => {
                       <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Common Tax Mistakes</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Common Tax Mistakes</h2>
                       <p className="text-sm text-gray-500 ">Pitfalls to avoid</p>
                     </div>
                   </div>
@@ -561,11 +561,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of tax-efficient investing</p>
                     </div>
                   </div>
@@ -610,11 +610,11 @@ const PCLesson10 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                       Check Answers
                     </button>
                   ) : (
-                    <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl text-center">
+                    <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                       <p className="text-green-100">{calculateScore() === quizQuestions.length ? "Excellent! You understand tax-efficient investing strategies." : "Review the explanations to master tax-efficient investing."}</p>
                     </div>
@@ -627,7 +627,7 @@ const PCLesson10 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-9')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-11')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-11')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200">
               <span>Next: Stress Testing</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

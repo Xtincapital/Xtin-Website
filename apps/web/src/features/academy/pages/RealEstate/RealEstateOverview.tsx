@@ -65,7 +65,7 @@ const RealEstateOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Intermediate Module
               </span>
               <span className="px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm flex items-center gap-1.5">
@@ -81,7 +81,7 @@ const RealEstateOverview = () => {
             </div>
 
             <div className="mb-3"><ModuleBadge moduleId="real-estate" /></div>
-<h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+<h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">
                 <HomeIcon className="w-7 h-7 text-indigo-600" />
               </span>
@@ -97,7 +97,7 @@ const RealEstateOverview = () => {
             <div className="absolute right-0 top-0 w-40 h-40 bg-indigo-100 rounded-full -translate-y-1/2 translate-x-1/2 opacity-70" />
             <div className="relative grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Buy the home. Do not let the home buy you.</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Buy the home. Do not let the home buy you.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   Real estate decisions become healthy when affordability, legal clarity, and lifestyle fit
                   all work together. This module gives you the checklist before the commitment.
@@ -121,7 +121,7 @@ const RealEstateOverview = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl p-6 text-white shadow-xl">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
                 <HomeIcon className="w-12 h-12 text-white/90 mb-4" />
                 <p className="text-sm uppercase tracking-wide text-indigo-100 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
@@ -136,7 +136,7 @@ const RealEstateOverview = () => {
           </div>
 
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 mb-10 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <TargetIcon className="w-6 h-6 text-amber-600" />
               <span>After This Module, You Will:</span>
             </h2>
@@ -158,7 +158,7 @@ const RealEstateOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-indigo-600" />
               <span>Your Learning Path</span>
             </h2>
@@ -185,7 +185,7 @@ const RealEstateOverview = () => {
                             {lesson.duration}
                           </span>
                         </div>
-                        <h3 className="font-bold text-gray-900 text-lg">{lesson.title}</h3>
+                        <h3 className="font-semibold text-gray-900 text-lg">{lesson.title}</h3>
                         <p className="text-sm text-gray-500">{lesson.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-500 transition-colors">
@@ -201,26 +201,26 @@ const RealEstateOverview = () => {
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             <div className="bg-indigo-50 rounded-2xl p-5 border border-indigo-200">
               <PercentIcon className="w-7 h-7 text-indigo-600 mb-3" />
-              <h3 className="font-bold text-indigo-900 mb-1">EMI aware</h3>
+              <h3 className="font-semibold text-indigo-900 mb-1">EMI aware</h3>
               <p className="text-sm text-indigo-700">Understand loan burden before committing.</p>
             </div>
             <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
               <GrowthIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-bold text-emerald-900 mb-1">Investment aware</h3>
+              <h3 className="font-semibold text-emerald-900 mb-1">Investment aware</h3>
               <p className="text-sm text-emerald-700">Evaluate yield, appreciation, and liquidity.</p>
             </div>
             <div className="bg-rose-50 rounded-2xl p-5 border border-rose-200">
               <KeyIcon className="w-7 h-7 text-rose-600 mb-3" />
-              <h3 className="font-bold text-rose-900 mb-1">Checklist driven</h3>
+              <h3 className="font-semibold text-rose-900 mb-1">Checklist driven</h3>
               <p className="text-sm text-rose-700">Make the decision with documents, not pressure.</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl p-8 text-white text-center relative overflow-hidden">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-2">Ready to Buy Smarter?</h3>
+              <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Buy Smarter?</h3>
               <p className="text-indigo-100 mb-6">Start with the difference between a home and an investment.</p>
               <button
                 onClick={() => navigate("/learn/real-estate-lesson-1")}

@@ -61,48 +61,48 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhatIsDrawdownSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">What Is A Drawdown?</text>
-    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#64748b">The decline from your highest point to your current point</text>
+    <text x="350" y="30" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">What Is A Drawdown?</text>
+    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#75757D">The decline from your highest point to your current point</text>
     
     {/* Equity curve */}
     <g transform="translate(80, 70)">
       {/* Grid lines */}
-      <line x1="0" y1="180" x2="540" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
+      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
       
       {/* Rising portion */}
       <path d="M0 160 Q50 150 100 130 Q150 110 200 80 Q230 60 260 50" 
-            fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round"/>
+            fill="none" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
       
       {/* Peak marker */}
-      <circle cx="260" cy="50" r="8" fill="#22c55e" stroke="white" strokeWidth="2"/>
-      <text x="260" y="35" textAnchor="middle" fontSize="9" fontWeight="600" fill="#166534">PEAK</text>
-      <text x="260" y="22" textAnchor="middle" fontSize="8" fill="#14532d">Highest Point</text>
+      <circle cx="260" cy="50" r="8" fill="#1FA978" stroke="white" strokeWidth="2"/>
+      <text x="260" y="35" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">PEAK</text>
+      <text x="260" y="22" textAnchor="middle" fontSize="8" fill="#0B4532">Highest Point</text>
       
       {/* Declining portion (drawdown) */}
       <path d="M260 50 Q290 70 320 100 Q350 130 380 150 Q410 160 440 155" 
-            fill="none" stroke="#ef4444" strokeWidth="3" strokeLinecap="round"/>
+            fill="none" stroke="#E04848" strokeWidth="3" strokeLinecap="round"/>
       
       {/* Current point marker */}
-      <circle cx="440" cy="155" r="8" fill="#ef4444" stroke="white" strokeWidth="2"/>
-      <text x="440" y="175" textAnchor="middle" fontSize="9" fontWeight="600" fill="#dc2626">CURRENT</text>
+      <circle cx="440" cy="155" r="8" fill="#E04848" stroke="white" strokeWidth="2"/>
+      <text x="440" y="175" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">CURRENT</text>
       
       {/* Drawdown arrow */}
-      <line x1="500" y1="50" x2="500" y2="155" stroke="#ef4444" strokeWidth="2" strokeDasharray="5"/>
-      <polygon points="495,150 500,160 505,150" fill="#ef4444"/>
-      <polygon points="495,55 500,45 505,55" fill="#ef4444"/>
+      <line x1="500" y1="50" x2="500" y2="155" stroke="#E04848" strokeWidth="2" strokeDasharray="5"/>
+      <polygon points="495,150 500,160 505,150" fill="#E04848"/>
+      <polygon points="495,55 500,45 505,55" fill="#E04848"/>
       
       {/* Drawdown label */}
-      <rect x="510" y="85" width="80" height="40" fill="#fef2f2" rx="6" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="550" y="102" textAnchor="middle" fontSize="9" fontWeight="600" fill="#dc2626">DRAWDOWN</text>
-      <text x="550" y="117" textAnchor="middle" fontSize="8" fill="#991b1b">Peak → Current</text>
+      <rect x="510" y="85" width="80" height="40" fill="#FDF1F1" rx="6" stroke="#F09B9B" strokeWidth="1"/>
+      <text x="550" y="102" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">DRAWDOWN</text>
+      <text x="550" y="117" textAnchor="middle" fontSize="8" fill="#842428">Peak → Current</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="265" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="9" fill="white">A drawdown measures how far you've fallen from your best — not from where you started.</text>
   </svg>
 );
@@ -111,61 +111,61 @@ const WhatIsDrawdownSVG = () => (
 const DrawdownsAreNormalSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Drawdowns Are Normal — Not Failure</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Even successful long-term growth includes periods of decline</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Drawdowns Are Normal — Not Failure</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Even successful long-term growth includes periods of decline</text>
     
     {/* Long-term growth with multiple drawdowns */}
     <g transform="translate(60, 70)">
       {/* Overall upward trend line */}
-      <path d="M0 180 L580 40" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="8"/>
-      <text x="520" y="30" fontSize="8" fill="#64748b">Long-term trend</text>
+      <path d="M0 180 L580 40" fill="none" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="8"/>
+      <text x="520" y="30" fontSize="8" fill="#75757D">Long-term trend</text>
       
       {/* Actual path with multiple drawdowns */}
       <path d="M0 180 Q30 170 60 150 Q80 140 100 145 Q120 155 140 130 Q170 100 200 90 Q220 100 240 115 Q260 95 280 70 Q310 50 340 55 Q360 70 380 85 Q400 65 420 50 Q450 45 480 60 Q500 50 520 45 Q550 40 580 45" 
-            fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round"/>
+            fill="none" stroke="#12805A" strokeWidth="3" strokeLinecap="round"/>
       
       {/* Drawdown markers */}
       <g transform="translate(100, 145)">
-        <line x1="0" y1="0" x2="0" y2="-15" stroke="#ef4444" strokeWidth="2"/>
-        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#dc2626">DD1</text>
+        <line x1="0" y1="0" x2="0" y2="-15" stroke="#E04848" strokeWidth="2"/>
+        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#C7363B">DD1</text>
       </g>
       
       <g transform="translate(240, 115)">
-        <line x1="0" y1="0" x2="0" y2="-25" stroke="#ef4444" strokeWidth="2"/>
-        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#dc2626">DD2</text>
+        <line x1="0" y1="0" x2="0" y2="-25" stroke="#E04848" strokeWidth="2"/>
+        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#C7363B">DD2</text>
       </g>
       
       <g transform="translate(380, 85)">
-        <line x1="0" y1="0" x2="0" y2="-35" stroke="#ef4444" strokeWidth="2"/>
-        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#dc2626">DD3</text>
+        <line x1="0" y1="0" x2="0" y2="-35" stroke="#E04848" strokeWidth="2"/>
+        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#C7363B">DD3</text>
       </g>
       
       <g transform="translate(480, 60)">
-        <line x1="0" y1="0" x2="0" y2="-15" stroke="#ef4444" strokeWidth="2"/>
-        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#dc2626">DD4</text>
+        <line x1="0" y1="0" x2="0" y2="-15" stroke="#E04848" strokeWidth="2"/>
+        <text x="0" y="15" textAnchor="middle" fontSize="7" fill="#C7363B">DD4</text>
       </g>
     </g>
     
     {/* Key point boxes */}
     <g transform="translate(80, 230)">
-      <rect x="0" y="0" width="160" height="35" fill="#dcfce7" rx="6" stroke="#86efac" strokeWidth="1"/>
-      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#166534">✓ Multiple drawdowns</text>
-      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#14532d">Yet overall growth</text>
+      <rect x="0" y="0" width="160" height="35" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="1"/>
+      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#0D543C">✓ Multiple drawdowns</text>
+      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#0B4532">Yet overall growth</text>
     </g>
     
     <g transform="translate(270, 230)">
-      <rect x="0" y="0" width="160" height="35" fill="#dbeafe" rx="6" stroke="#93c5fd" strokeWidth="1"/>
-      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#1e40af">✓ Temporary declines</text>
-      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#1e40af">Part of the journey</text>
+      <rect x="0" y="0" width="160" height="35" fill="#E0E7F1" rx="6" stroke="#9FB3D3" strokeWidth="1"/>
+      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#2C3F5E">✓ Temporary declines</text>
+      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#2C3F5E">Part of the journey</text>
     </g>
     
     <g transform="translate(460, 230)">
-      <rect x="0" y="0" width="160" height="35" fill="#fef3c7" rx="6" stroke="#fcd34d" strokeWidth="1"/>
-      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#92400e">✓ Survival matters</text>
-      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#92400e">Stay in the game</text>
+      <rect x="0" y="0" width="160" height="35" fill="#F6ECCE" rx="6" stroke="#E2C273" strokeWidth="1"/>
+      <text x="80" y="15" textAnchor="middle" fontSize="8" fontWeight="600" fill="#654B26">✓ Survival matters</text>
+      <text x="80" y="28" textAnchor="middle" fontSize="7" fill="#654B26">Stay in the game</text>
     </g>
   </svg>
 );
@@ -174,50 +174,50 @@ const DrawdownsAreNormalSVG = () => (
 const LossesClusterSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Why Losses Tend to Cluster</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Bad periods don't spread out evenly — they often come in waves</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Why Losses Tend to Cluster</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Bad periods don't spread out evenly — they often come in waves</text>
     
     {/* Timeline with clustered losses */}
     <g transform="translate(60, 90)">
       {/* Timeline */}
-      <line x1="0" y1="100" x2="580" y2="100" stroke="#cbd5e1" strokeWidth="2"/>
-      <text x="290" y="130" textAnchor="middle" fontSize="8" fill="#64748b">Time →</text>
+      <line x1="0" y1="100" x2="580" y2="100" stroke="#CFCBC1" strokeWidth="2"/>
+      <text x="290" y="130" textAnchor="middle" fontSize="8" fill="#75757D">Time →</text>
       
       {/* Good period */}
-      <rect x="0" y="60" width="150" height="40" fill="#dcfce7" rx="6"/>
-      <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#166534">Stable Period</text>
+      <rect x="0" y="60" width="150" height="40" fill="#D5F2E5" rx="6"/>
+      <text x="75" y="85" textAnchor="middle" fontSize="9" fill="#0D543C">Stable Period</text>
       
       {/* Loss cluster 1 */}
-      <rect x="160" y="40" width="120" height="60" fill="#fef2f2" rx="6" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="220" y="60" textAnchor="middle" fontSize="8" fontWeight="600" fill="#dc2626">Loss Cluster</text>
-      <text x="190" y="78" fontSize="8" fill="#991b1b">↓ ↓ ↓</text>
-      <text x="240" y="78" fontSize="8" fill="#991b1b">↓ ↓</text>
-      <text x="220" y="92" textAnchor="middle" fontSize="7" fill="#7f1d1d">Multiple losses together</text>
+      <rect x="160" y="40" width="120" height="60" fill="#FDF1F1" rx="6" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="220" y="60" textAnchor="middle" fontSize="8" fontWeight="600" fill="#C7363B">Loss Cluster</text>
+      <text x="190" y="78" fontSize="8" fill="#842428">↓ ↓ ↓</text>
+      <text x="240" y="78" fontSize="8" fill="#842428">↓ ↓</text>
+      <text x="220" y="92" textAnchor="middle" fontSize="7" fill="#6B2023">Multiple losses together</text>
       
       {/* Good period */}
-      <rect x="290" y="60" width="130" height="40" fill="#dcfce7" rx="6"/>
-      <text x="355" y="85" textAnchor="middle" fontSize="9" fill="#166534">Recovery Period</text>
+      <rect x="290" y="60" width="130" height="40" fill="#D5F2E5" rx="6"/>
+      <text x="355" y="85" textAnchor="middle" fontSize="9" fill="#0D543C">Recovery Period</text>
       
       {/* Loss cluster 2 */}
-      <rect x="430" y="40" width="100" height="60" fill="#fef2f2" rx="6" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="480" y="60" textAnchor="middle" fontSize="8" fontWeight="600" fill="#dc2626">Loss Cluster</text>
-      <text x="480" y="78" fontSize="8" fill="#991b1b">↓ ↓ ↓ ↓</text>
-      <text x="480" y="92" textAnchor="middle" fontSize="7" fill="#7f1d1d">More losses</text>
+      <rect x="430" y="40" width="100" height="60" fill="#FDF1F1" rx="6" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="480" y="60" textAnchor="middle" fontSize="8" fontWeight="600" fill="#C7363B">Loss Cluster</text>
+      <text x="480" y="78" fontSize="8" fill="#842428">↓ ↓ ↓ ↓</text>
+      <text x="480" y="92" textAnchor="middle" fontSize="7" fill="#6B2023">More losses</text>
       
       {/* Future */}
-      <rect x="540" y="60" width="40" height="40" fill="#e2e8f0" rx="6"/>
-      <text x="560" y="85" textAnchor="middle" fontSize="8" fill="#64748b">...</text>
+      <rect x="540" y="60" width="40" height="40" fill="#E4E1D9" rx="6"/>
+      <text x="560" y="85" textAnchor="middle" fontSize="8" fill="#75757D">...</text>
     </g>
     
     {/* Explanation */}
     <g transform="translate(100, 210)">
-      <rect x="0" y="0" width="500" height="70" fill="#fef9c3" rx="10" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="250" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">Why This Happens:</text>
-      <text x="250" y="42" textAnchor="middle" fontSize="9" fill="#78350f">• Market conditions affect many investments simultaneously</text>
-      <text x="250" y="58" textAnchor="middle" fontSize="9" fill="#78350f">• Correlated assets decline together • Emotional decisions compound losses</text>
+      <rect x="0" y="0" width="500" height="70" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="2"/>
+      <text x="250" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">Why This Happens:</text>
+      <text x="250" y="42" textAnchor="middle" fontSize="9" fill="#533E22">• Market conditions affect many investments simultaneously</text>
+      <text x="250" y="58" textAnchor="middle" fontSize="9" fill="#533E22">• Correlated assets decline together • Emotional decisions compound losses</text>
     </g>
   </svg>
 );
@@ -226,54 +226,54 @@ const LossesClusterSVG = () => (
 const TemporaryVsPermanentSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Temporary Drawdown vs Permanent Damage</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Not all declines are the same — understanding the difference is critical</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Temporary Drawdown vs Permanent Damage</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Not all declines are the same — understanding the difference is critical</text>
     
     {/* Left: Temporary Drawdown */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Temporary Drawdown</text>
+      <rect x="0" y="0" width="280" height="200" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Temporary Drawdown</text>
       
       {/* Recovery curve */}
       <g transform="translate(30, 50)">
         <path d="M0 30 Q40 20 80 10 Q100 20 120 50 Q140 70 160 55 Q180 35 200 20" 
-              fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round"/>
-        <circle cx="120" cy="50" r="5" fill="#ef4444"/>
-        <text x="120" y="75" textAnchor="middle" fontSize="7" fill="#dc2626">Dip</text>
-        <text x="200" y="15" fontSize="7" fill="#166534">Recovers</text>
+              fill="none" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
+        <circle cx="120" cy="50" r="5" fill="#E04848"/>
+        <text x="120" y="75" textAnchor="middle" fontSize="7" fill="#C7363B">Dip</text>
+        <text x="200" y="15" fontSize="7" fill="#0D543C">Recovers</text>
       </g>
       
-      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#14532d">• Position size was controlled</text>
-      <text x="140" y="168" textAnchor="middle" fontSize="9" fill="#14532d">• Capital intact to participate in recovery</text>
-      <text x="140" y="186" textAnchor="middle" fontSize="9" fill="#14532d">• Part of normal market cycles</text>
+      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#0B4532">• Position size was controlled</text>
+      <text x="140" y="168" textAnchor="middle" fontSize="9" fill="#0B4532">• Capital intact to participate in recovery</text>
+      <text x="140" y="186" textAnchor="middle" fontSize="9" fill="#0B4532">• Part of normal market cycles</text>
     </g>
     
     {/* Right: Permanent Damage */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">Permanent Damage</text>
+      <rect x="0" y="0" width="280" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Permanent Damage</text>
       
       {/* Non-recovery curve */}
       <g transform="translate(30, 50)">
         <path d="M0 20 Q40 15 80 10 L120 70" 
-              fill="none" stroke="#22c55e" strokeWidth="3" strokeLinecap="round"/>
+              fill="none" stroke="#1FA978" strokeWidth="3" strokeLinecap="round"/>
         <path d="M120 70 Q140 85 160 88 Q180 90 200 87" 
-              fill="none" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" strokeDasharray="5"/>
-        <circle cx="120" cy="70" r="5" fill="#ef4444"/>
-        <text x="120" y="90" textAnchor="middle" fontSize="7" fill="#dc2626">Severe loss</text>
-        <text x="180" y="105" fontSize="7" fill="#991b1b">Struggling...</text>
+              fill="none" stroke="#E04848" strokeWidth="3" strokeLinecap="round" strokeDasharray="5"/>
+        <circle cx="120" cy="70" r="5" fill="#E04848"/>
+        <text x="120" y="90" textAnchor="middle" fontSize="7" fill="#C7363B">Severe loss</text>
+        <text x="180" y="105" fontSize="7" fill="#842428">Struggling...</text>
       </g>
       
-      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#991b1b">• Position size was too large</text>
-      <text x="140" y="168" textAnchor="middle" fontSize="9" fill="#991b1b">• Insufficient capital for recovery</text>
-      <text x="140" y="186" textAnchor="middle" fontSize="9" fill="#991b1b">• May never return to previous level</text>
+      <text x="140" y="150" textAnchor="middle" fontSize="9" fill="#842428">• Position size was too large</text>
+      <text x="140" y="168" textAnchor="middle" fontSize="9" fill="#842428">• Insufficient capital for recovery</text>
+      <text x="140" y="186" textAnchor="middle" fontSize="9" fill="#842428">• May never return to previous level</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">The difference is often determined by position sizing BEFORE the drawdown occurs.</text>
   </svg>
 );
@@ -282,74 +282,74 @@ const TemporaryVsPermanentSVG = () => (
 const RecoveryTakesLongerSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Recovery Takes Longer Than You Think</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">The bigger the fall, the longer the climb back</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Recovery Takes Longer Than You Think</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">The bigger the fall, the longer the climb back</text>
     
     {/* Visual comparison */}
     <g transform="translate(80, 80)">
       {/* Small drawdown recovery */}
       <g transform="translate(0, 0)">
-        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#166534">Small Drawdown:</text>
+        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#0D543C">Small Drawdown:</text>
         
         {/* Timeline */}
-        <rect x="0" y="15" width="500" height="40" fill="#e2e8f0" rx="6"/>
+        <rect x="0" y="15" width="500" height="40" fill="#E4E1D9" rx="6"/>
         
         {/* Fall */}
-        <rect x="0" y="15" width="80" height="40" fill="#fecaca" rx="6"/>
-        <text x="40" y="40" textAnchor="middle" fontSize="8" fill="#991b1b">Fall</text>
+        <rect x="0" y="15" width="80" height="40" fill="#F6C3C3" rx="6"/>
+        <text x="40" y="40" textAnchor="middle" fontSize="8" fill="#842428">Fall</text>
         
         {/* Recovery */}
-        <rect x="80" y="15" width="100" height="40" fill="#bbf7d0" rx="6"/>
-        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#166534">Recovery</text>
+        <rect x="80" y="15" width="100" height="40" fill="#ABE5CC" rx="6"/>
+        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#0D543C">Recovery</text>
         
         {/* Back to normal */}
-        <rect x="180" y="15" width="320" height="40" fill="#dcfce7" rx="6"/>
-        <text x="340" y="40" textAnchor="middle" fontSize="8" fill="#166534">Growing again ✓</text>
+        <rect x="180" y="15" width="320" height="40" fill="#D5F2E5" rx="6"/>
+        <text x="340" y="40" textAnchor="middle" fontSize="8" fill="#0D543C">Growing again ✓</text>
       </g>
       
       {/* Medium drawdown recovery */}
       <g transform="translate(0, 70)">
-        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#a16207">Medium Drawdown:</text>
+        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#7C5D2B">Medium Drawdown:</text>
         
         {/* Timeline */}
-        <rect x="0" y="15" width="500" height="40" fill="#e2e8f0" rx="6"/>
+        <rect x="0" y="15" width="500" height="40" fill="#E4E1D9" rx="6"/>
         
         {/* Fall */}
-        <rect x="0" y="15" width="80" height="40" fill="#fecaca" rx="6"/>
-        <text x="40" y="40" textAnchor="middle" fontSize="8" fill="#991b1b">Fall</text>
+        <rect x="0" y="15" width="80" height="40" fill="#F6C3C3" rx="6"/>
+        <text x="40" y="40" textAnchor="middle" fontSize="8" fill="#842428">Fall</text>
         
         {/* Long recovery */}
-        <rect x="80" y="15" width="250" height="40" fill="#fef9c3" rx="6"/>
-        <text x="205" y="40" textAnchor="middle" fontSize="8" fill="#92400e">Slow recovery...</text>
+        <rect x="80" y="15" width="250" height="40" fill="#F6ECCE" rx="6"/>
+        <text x="205" y="40" textAnchor="middle" fontSize="8" fill="#654B26">Slow recovery...</text>
         
         {/* Finally back */}
-        <rect x="330" y="15" width="170" height="40" fill="#dcfce7" rx="6"/>
-        <text x="415" y="40" textAnchor="middle" fontSize="8" fill="#166534">Finally growing</text>
+        <rect x="330" y="15" width="170" height="40" fill="#D5F2E5" rx="6"/>
+        <text x="415" y="40" textAnchor="middle" fontSize="8" fill="#0D543C">Finally growing</text>
       </g>
       
       {/* Large drawdown recovery */}
       <g transform="translate(0, 140)">
-        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#dc2626">Large Drawdown:</text>
+        <text x="0" y="0" fontSize="9" fontWeight="600" fill="#C7363B">Large Drawdown:</text>
         
         {/* Timeline */}
-        <rect x="0" y="15" width="500" height="40" fill="#e2e8f0" rx="6"/>
+        <rect x="0" y="15" width="500" height="40" fill="#E4E1D9" rx="6"/>
         
         {/* Fall */}
-        <rect x="0" y="15" width="80" height="40" fill="#ef4444" rx="6"/>
+        <rect x="0" y="15" width="80" height="40" fill="#E04848" rx="6"/>
         <text x="40" y="40" textAnchor="middle" fontSize="8" fill="white">Fall</text>
         
         {/* Very long recovery */}
-        <rect x="80" y="15" width="420" height="40" fill="#fef2f2" rx="6" stroke="#fca5a5" strokeWidth="1" strokeDasharray="4"/>
-        <text x="290" y="35" textAnchor="middle" fontSize="8" fill="#991b1b">Still trying to recover...</text>
-        <text x="290" y="50" textAnchor="middle" fontSize="7" fill="#7f1d1d">Missing growth opportunities</text>
+        <rect x="80" y="15" width="420" height="40" fill="#FDF1F1" rx="6" stroke="#F09B9B" strokeWidth="1" strokeDasharray="4"/>
+        <text x="290" y="35" textAnchor="middle" fontSize="8" fill="#842428">Still trying to recover...</text>
+        <text x="290" y="50" textAnchor="middle" fontSize="7" fill="#6B2023">Missing growth opportunities</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="265" width="500" height="25" fill="#059669" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#12805A" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="9" fill="white">Keeping drawdowns small means spending more time growing, less time recovering.</text>
   </svg>
 );
@@ -358,66 +358,66 @@ const RecoveryTakesLongerSVG = () => (
 const TwoPortfoliosSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Two Portfolios Face The Same Market Storm</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Same conditions, different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Two Portfolios Face The Same Market Storm</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same conditions, different outcomes</text>
     
     {/* Scene: Market Storm */}
     <g transform="translate(50, 70)">
-      <rect x="0" y="0" width="600" height="40" fill="#374151" rx="8"/>
+      <rect x="0" y="0" width="600" height="40" fill="#404047" rx="8"/>
       <text x="300" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">⛈️ A significant market downturn affects both portfolios</text>
     </g>
     
     {/* Portfolio A */}
     <g transform="translate(50, 125)">
-      <rect x="0" y="0" width="290" height="170" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Portfolio A</text>
-      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#14532d">Controlled exposure, diversified</text>
+      <rect x="0" y="0" width="290" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Portfolio A</text>
+      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#0B4532">Controlled exposure, diversified</text>
       
       {/* Drawdown visualization */}
       <g transform="translate(30, 55)">
-        <rect x="0" y="0" width="230" height="30" fill="#22c55e" rx="4"/>
+        <rect x="0" y="0" width="230" height="30" fill="#1FA978" rx="4"/>
         <text x="115" y="20" textAnchor="middle" fontSize="8" fill="white">Capital before storm</text>
         
-        <text x="115" y="50" textAnchor="middle" fontSize="10" fill="#64748b">↓ Storm hits</text>
+        <text x="115" y="50" textAnchor="middle" fontSize="10" fill="#75757D">↓ Storm hits</text>
         
-        <rect x="0" y="60" width="180" height="30" fill="#22c55e" rx="4"/>
-        <rect x="180" y="60" width="50" height="30" fill="#fecaca" rx="4"/>
+        <rect x="0" y="60" width="180" height="30" fill="#1FA978" rx="4"/>
+        <rect x="180" y="60" width="50" height="30" fill="#F6C3C3" rx="4"/>
         <text x="90" y="80" textAnchor="middle" fontSize="8" fill="white">Remains</text>
-        <text x="205" y="80" textAnchor="middle" fontSize="7" fill="#991b1b">Lost</text>
+        <text x="205" y="80" textAnchor="middle" fontSize="7" fill="#842428">Lost</text>
       </g>
       
-      <text x="145" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#166534">✓ Manageable drawdown</text>
-      <text x="145" y="168" textAnchor="middle" fontSize="8" fill="#14532d">Can participate in recovery</text>
+      <text x="145" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">✓ Manageable drawdown</text>
+      <text x="145" y="168" textAnchor="middle" fontSize="8" fill="#0B4532">Can participate in recovery</text>
     </g>
     
     {/* Portfolio B */}
     <g transform="translate(360, 125)">
-      <rect x="0" y="0" width="290" height="170" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">Portfolio B</text>
-      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#991b1b">Concentrated, high exposure</text>
+      <rect x="0" y="0" width="290" height="170" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Portfolio B</text>
+      <text x="145" y="42" textAnchor="middle" fontSize="8" fill="#842428">Concentrated, high exposure</text>
       
       {/* Drawdown visualization */}
       <g transform="translate(30, 55)">
-        <rect x="0" y="0" width="230" height="30" fill="#22c55e" rx="4"/>
+        <rect x="0" y="0" width="230" height="30" fill="#1FA978" rx="4"/>
         <text x="115" y="20" textAnchor="middle" fontSize="8" fill="white">Capital before storm</text>
         
-        <text x="115" y="50" textAnchor="middle" fontSize="10" fill="#64748b">↓ Storm hits</text>
+        <text x="115" y="50" textAnchor="middle" fontSize="10" fill="#75757D">↓ Storm hits</text>
         
-        <rect x="0" y="60" width="70" height="30" fill="#ef4444" rx="4"/>
-        <rect x="70" y="60" width="160" height="30" fill="#fecaca" rx="4" stroke="#ef4444" strokeWidth="1" strokeDasharray="4"/>
+        <rect x="0" y="60" width="70" height="30" fill="#E04848" rx="4"/>
+        <rect x="70" y="60" width="160" height="30" fill="#F6C3C3" rx="4" stroke="#E04848" strokeWidth="1" strokeDasharray="4"/>
         <text x="35" y="80" textAnchor="middle" fontSize="7" fill="white">Left</text>
-        <text x="150" y="80" textAnchor="middle" fontSize="8" fill="#991b1b">Devastated</text>
+        <text x="150" y="80" textAnchor="middle" fontSize="8" fill="#842428">Devastated</text>
       </g>
       
-      <text x="145" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#dc2626">✗ Severe drawdown</text>
-      <text x="145" y="168" textAnchor="middle" fontSize="8" fill="#991b1b">Struggling to participate</text>
+      <text x="145" y="155" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C7363B">✗ Severe drawdown</text>
+      <text x="145" y="168" textAnchor="middle" fontSize="8" fill="#842428">Struggling to participate</text>
     </g>
     
     {/* Aftermath */}
-    <rect x="100" y="305" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="305" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="322" textAnchor="middle" fontSize="9" fill="white">Same storm. Different preparation. Different outcomes.</text>
   </svg>
 );
@@ -426,53 +426,53 @@ const TwoPortfoliosSVG = () => (
 const EmotionalVsDisciplinedSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Emotional vs Disciplined Response to Drawdowns</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">How you react during losses determines your recovery</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Emotional vs Disciplined Response to Drawdowns</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How you react during losses determines your recovery</text>
     
     {/* Drawdown event */}
     <g transform="translate(250, 70)">
-      <rect x="0" y="0" width="200" height="35" fill="#ef4444" rx="8"/>
+      <rect x="0" y="0" width="200" height="35" fill="#E04848" rx="8"/>
       <text x="100" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">📉 Drawdown Occurs</text>
     </g>
     
     {/* Branching paths */}
-    <path d="M350 105 L200 140" fill="none" stroke="#ec4899" strokeWidth="2"/>
-    <path d="M350 105 L500 140" fill="none" stroke="#22c55e" strokeWidth="2"/>
+    <path d="M350 105 L200 140" fill="none" stroke="#8F6FC4" strokeWidth="2"/>
+    <path d="M350 105 L500 140" fill="none" stroke="#1FA978" strokeWidth="2"/>
     
     {/* Emotional Response */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="280" height="170" fill="#fce7f3" rx="12" stroke="#f9a8d4" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#be185d">😰 Emotional Response</text>
+      <rect x="0" y="0" width="280" height="170" fill="#ECE4F6" rx="12" stroke="#C0A9E2" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B8A">😰 Emotional Response</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#9d174d">• Panic: "I need to get out NOW!"</text>
-        <text x="0" y="18" fontSize="9" fill="#9d174d">• Sell at the worst time</text>
-        <text x="0" y="36" fontSize="9" fill="#9d174d">• Lock in losses permanently</text>
-        <text x="0" y="54" fontSize="9" fill="#9d174d">• Miss the recovery</text>
-        <text x="0" y="72" fontSize="9" fill="#9d174d">• Feel regret and frustration</text>
+        <text x="0" y="0" fontSize="9" fill="#533F70">• Panic: "I need to get out NOW!"</text>
+        <text x="0" y="18" fontSize="9" fill="#533F70">• Sell at the worst time</text>
+        <text x="0" y="36" fontSize="9" fill="#533F70">• Lock in losses permanently</text>
+        <text x="0" y="54" fontSize="9" fill="#533F70">• Miss the recovery</text>
+        <text x="0" y="72" fontSize="9" fill="#533F70">• Feel regret and frustration</text>
       </g>
       
-      <rect x="20" y="135" width="240" height="25" fill="#ef4444" rx="6"/>
+      <rect x="20" y="135" width="240" height="25" fill="#E04848" rx="6"/>
       <text x="140" y="152" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">Outcome: Worse than necessary</text>
     </g>
     
     {/* Disciplined Response */}
     <g transform="translate(370, 145)">
-      <rect x="0" y="0" width="280" height="170" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">😌 Disciplined Response</text>
+      <rect x="0" y="0" width="280" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">😌 Disciplined Response</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#14532d">• Pause: "This is uncomfortable but expected"</text>
-        <text x="0" y="18" fontSize="9" fill="#14532d">• Review: Is anything fundamentally broken?</text>
-        <text x="0" y="36" fontSize="9" fill="#14532d">• Hold if position sizing was correct</text>
-        <text x="0" y="54" fontSize="9" fill="#14532d">• Participate in recovery</text>
-        <text x="0" y="72" fontSize="9" fill="#14532d">• Learn and adjust for next time</text>
+        <text x="0" y="0" fontSize="9" fill="#0B4532">• Pause: "This is uncomfortable but expected"</text>
+        <text x="0" y="18" fontSize="9" fill="#0B4532">• Review: Is anything fundamentally broken?</text>
+        <text x="0" y="36" fontSize="9" fill="#0B4532">• Hold if position sizing was correct</text>
+        <text x="0" y="54" fontSize="9" fill="#0B4532">• Participate in recovery</text>
+        <text x="0" y="72" fontSize="9" fill="#0B4532">• Learn and adjust for next time</text>
       </g>
       
-      <rect x="20" y="135" width="240" height="25" fill="#22c55e" rx="6"/>
+      <rect x="20" y="135" width="240" height="25" fill="#1FA978" rx="6"/>
       <text x="140" y="152" textAnchor="middle" fontSize="9" fontWeight="600" fill="white">Outcome: Optimal given circumstances</text>
     </g>
   </svg>
@@ -482,15 +482,15 @@ const EmotionalVsDisciplinedSVG = () => (
 const KeyTakeawaySVG = () => (
   <svg viewBox="0 0 700 200" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="200" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="200" fill="#F7F6F2" rx="16"/>
     
     {/* Central message */}
     <rect x="50" y="25" width="600" height="150" fill="url(#drawdownGradient)" rx="16"/>
     
     <defs>
       <linearGradient id="drawdownGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#059669"/>
-        <stop offset="100%" stopColor="#0d9488"/>
+        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
     
@@ -498,7 +498,7 @@ const KeyTakeawaySVG = () => (
     
     <text x="350" y="90" textAnchor="middle" fontSize="11" fill="white">Drawdowns are not failure — they are part of the journey.</text>
     <text x="350" y="112" textAnchor="middle" fontSize="11" fill="white">What matters is keeping them manageable and responding with discipline.</text>
-    <text x="350" y="150" textAnchor="middle" fontSize="15" fontWeight="700" fill="#fef3c7">SURVIVE THE DIP. PARTICIPATE IN THE RECOVERY.</text>
+    <text x="350" y="150" textAnchor="middle" fontSize="15" fontWeight="700" fill="#F6ECCE">SURVIVE THE DIP. PARTICIPATE IN THE RECOVERY.</text>
   </svg>
 );
 
@@ -548,14 +548,14 @@ const RiskLesson5 = () => {
             <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 5 of 7
             </span>
-            <h1 className="text-3xl font-bold text-gray-800 mt-4">Drawdowns & Recovery Reality</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Drawdowns & Recovery Reality</h1>
             <p className="text-gray-600 mt-2">Understanding losses as part of the journey</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Drawdowns Happen — Even With Good Decisions</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Drawdowns Happen — Even With Good Decisions</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -580,7 +580,7 @@ const RiskLesson5 = () => {
 
         {/* Drawdowns Are Normal */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Drawdowns Are Normal — Not Failure</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Drawdowns Are Normal — Not Failure</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -606,7 +606,7 @@ const RiskLesson5 = () => {
 
         {/* Why Losses Cluster */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Losses Tend to Cluster</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Losses Tend to Cluster</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -633,7 +633,7 @@ const RiskLesson5 = () => {
 
         {/* Temporary vs Permanent */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Temporary Drawdown vs Permanent Damage</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Temporary Drawdown vs Permanent Damage</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -659,7 +659,7 @@ const RiskLesson5 = () => {
 
         {/* Recovery Takes Longer */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Recovery Is Harder After Large Losses</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Recovery Is Harder After Large Losses</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -685,7 +685,7 @@ const RiskLesson5 = () => {
 
         {/* Two Portfolios */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Two Portfolios Face The Same Storm</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Two Portfolios Face The Same Storm</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -711,7 +711,7 @@ const RiskLesson5 = () => {
 
         {/* Emotional vs Disciplined Response */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Emotional vs Disciplined Response</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Emotional vs Disciplined Response</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -765,7 +765,7 @@ const RiskLesson5 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}
@@ -778,7 +778,7 @@ const RiskLesson5 = () => {
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-emerald-800 mb-3">Reflection Activity</h3>
+              <h3 className="text-xl font-semibold text-emerald-800 mb-3">Reflection Activity</h3>
               <div className="bg-white rounded-xl p-5 border border-emerald-200">
                 <p className="text-gray-800 font-medium mb-4">
                   Think about your emotional relationship with losses:
@@ -810,8 +810,8 @@ const RiskLesson5 = () => {
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
-          <h3 className="text-xl font-bold mb-4">🔑 Lesson Summary</h3>
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+          <h3 className="text-xl font-semibold mb-4">🔑 Lesson Summary</h3>
           <ul className="space-y-2 text-lg">
             <li>• <strong>Drawdown</strong> = the decline from your highest point to your current point</li>
             <li>• Drawdowns are <strong>normal</strong> — even successful long-term growth includes them</li>
@@ -833,7 +833,7 @@ const RiskLesson5 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/risk-lesson-6')}
-            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

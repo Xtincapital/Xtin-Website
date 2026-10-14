@@ -71,7 +71,7 @@ export default function Billing() {
           </Link>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Billing &amp; receipts</h1>
+            <h1 className="xt-title">Billing &amp; receipts</h1>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Every purchase you make on Xtin Capital, with a downloadable receipt.</p>
           </div>
 

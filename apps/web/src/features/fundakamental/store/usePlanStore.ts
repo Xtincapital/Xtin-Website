@@ -274,7 +274,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "FundaKaMental — AI tokens",
         description: orderRes.pack?.label || "Token pack",
-        theme: { color: "#16A34A" },
+        theme: { color: "#12805A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {
@@ -342,7 +342,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "FundaKaMental Pro",
         description: orderRes.plan?.label || "Pro subscription",
-        theme: { color: "#16A34A" },
+        theme: { color: "#12805A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {

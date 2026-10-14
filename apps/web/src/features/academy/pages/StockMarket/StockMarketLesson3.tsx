@@ -279,14 +279,14 @@ const StockMarketLesson3 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-purple-500 to-violet-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 3 of 7
               </span>
               <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.Exchange className="w-7 h-7 text-purple-600" />
               </span>
@@ -304,7 +304,7 @@ const StockMarketLesson3 = () => {
                 <Icons.Question className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 mb-2">Ever Wondered How People Buy Stocks?</h3>
+                <h3 className="font-semibold text-purple-900 mb-2">Ever Wondered How People Buy Stocks?</h3>
                 <p className="text-purple-800">
                   You've heard "I bought Reliance shares" or "I sold my Infosys stock" — but how does it actually happen? 
                   Can you just walk into NSE and buy? (Spoiler: No!) Let's demystify the entire process from opening 
@@ -316,7 +316,7 @@ const StockMarketLesson3 = () => {
 
           {/* What You Need - The Three Accounts */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Steps className="w-6 h-6 text-purple-600" />
               <span>What You Need to Start Trading</span>
             </h2>
@@ -367,70 +367,70 @@ const StockMarketLesson3 = () => {
 
           {/* Visual: How the Three Accounts Connect */}
           <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">How These Accounts Work Together</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">How These Accounts Work Together</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 300" fill="none">
               {/* Title */}
-              <text x="350" y="25" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="600">
+              <text x="350" y="25" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="600">
                 When You Buy 10 Shares of TCS at Rs. 3,500 each
               </text>
 
               {/* Bank Account */}
               <g transform="translate(50, 60)">
-                <rect x="0" y="0" width="150" height="100" rx="12" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                <text x="75" y="25" textAnchor="middle" fill="#166534" fontSize="12" fontWeight="700">BANK ACCOUNT</text>
-                <text x="75" y="50" textAnchor="middle" fill="#15803d" fontSize="11">Your Money</text>
-                <text x="75" y="75" textAnchor="middle" fill="#166534" fontSize="16" fontWeight="700">₹ 50,000</text>
-                <text x="75" y="92" textAnchor="middle" fill="#dc2626" fontSize="10">-₹ 35,000</text>
+                <rect x="0" y="0" width="150" height="100" rx="12" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                <text x="75" y="25" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="700">BANK ACCOUNT</text>
+                <text x="75" y="50" textAnchor="middle" fill="#0E6A4A" fontSize="11">Your Money</text>
+                <text x="75" y="75" textAnchor="middle" fill="#0D543C" fontSize="16" fontWeight="700">₹ 50,000</text>
+                <text x="75" y="92" textAnchor="middle" fill="#C7363B" fontSize="10">-₹ 35,000</text>
               </g>
 
               {/* Arrow 1 */}
               <g transform="translate(210, 95)">
-                <path d="M0 15 L60 15" stroke="#9333ea" strokeWidth="3" strokeDasharray="5,3"/>
-                <path d="M55 10 L65 15 L55 20" fill="#9333ea"/>
-                <text x="32" y="8" textAnchor="middle" fill="#7c3aed" fontSize="9">Money flows</text>
+                <path d="M0 15 L60 15" stroke="#7A5BA6" strokeWidth="3" strokeDasharray="5,3"/>
+                <path d="M55 10 L65 15 L55 20" fill="#7A5BA6"/>
+                <text x="32" y="8" textAnchor="middle" fill="#7A5BA6" fontSize="9">Money flows</text>
               </g>
 
               {/* Trading Account */}
               <g transform="translate(275, 60)">
-                <rect x="0" y="0" width="150" height="100" rx="12" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="2"/>
-                <text x="75" y="25" textAnchor="middle" fill="#5b21b6" fontSize="12" fontWeight="700">TRADING ACCOUNT</text>
-                <text x="75" y="50" textAnchor="middle" fill="#7c3aed" fontSize="11">Places Order</text>
-                <rect x="25" y="60" width="100" height="30" rx="6" fill="#8b5cf6"/>
+                <rect x="0" y="0" width="150" height="100" rx="12" fill="#ECE4F6" stroke="#8F6FC4" strokeWidth="2"/>
+                <text x="75" y="25" textAnchor="middle" fill="#533F70" fontSize="12" fontWeight="700">TRADING ACCOUNT</text>
+                <text x="75" y="50" textAnchor="middle" fill="#7A5BA6" fontSize="11">Places Order</text>
+                <rect x="25" y="60" width="100" height="30" rx="6" fill="#8F6FC4"/>
                 <text x="75" y="80" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">BUY TCS x 10</text>
               </g>
 
               {/* Arrow 2 */}
               <g transform="translate(435, 95)">
-                <path d="M0 15 L60 15" stroke="#9333ea" strokeWidth="3" strokeDasharray="5,3"/>
-                <path d="M55 10 L65 15 L55 20" fill="#9333ea"/>
-                <text x="32" y="8" textAnchor="middle" fill="#7c3aed" fontSize="9">Order sent</text>
+                <path d="M0 15 L60 15" stroke="#7A5BA6" strokeWidth="3" strokeDasharray="5,3"/>
+                <path d="M55 10 L65 15 L55 20" fill="#7A5BA6"/>
+                <text x="32" y="8" textAnchor="middle" fill="#7A5BA6" fontSize="9">Order sent</text>
               </g>
 
               {/* Stock Exchange */}
               <g transform="translate(500, 60)">
-                <rect x="0" y="0" width="150" height="100" rx="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-                <text x="75" y="25" textAnchor="middle" fill="#92400e" fontSize="12" fontWeight="700">NSE / BSE</text>
-                <text x="75" y="50" textAnchor="middle" fill="#b45309" fontSize="11">Matches Buyers</text>
-                <text x="75" y="65" textAnchor="middle" fill="#b45309" fontSize="11">& Sellers</text>
-                <text x="75" y="85" textAnchor="middle" fill="#16a34a" fontSize="11" fontWeight="600">✓ TRADE EXECUTED</text>
+                <rect x="0" y="0" width="150" height="100" rx="12" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2"/>
+                <text x="75" y="25" textAnchor="middle" fill="#654B26" fontSize="12" fontWeight="700">NSE / BSE</text>
+                <text x="75" y="50" textAnchor="middle" fill="#7C5D2B" fontSize="11">Matches Buyers</text>
+                <text x="75" y="65" textAnchor="middle" fill="#7C5D2B" fontSize="11">& Sellers</text>
+                <text x="75" y="85" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">✓ TRADE EXECUTED</text>
               </g>
 
               {/* After Trade Section */}
               <g transform="translate(50, 190)">
-                <rect x="0" y="0" width="600" height="80" rx="12" fill="#f3e8ff" stroke="#c084fc" strokeWidth="2"/>
-                <text x="300" y="25" textAnchor="middle" fill="#7c3aed" fontSize="12" fontWeight="700">AFTER THE TRADE (T+1 Settlement)</text>
+                <rect x="0" y="0" width="600" height="80" rx="12" fill="#ECE4F6" stroke="#A88BD9" strokeWidth="2"/>
+                <text x="300" y="25" textAnchor="middle" fill="#7A5BA6" fontSize="12" fontWeight="700">AFTER THE TRADE (T+1 Settlement)</text>
                 
                 {/* Demat receives shares */}
                 <g transform="translate(50, 40)">
-                  <rect x="0" y="0" width="200" height="30" rx="6" fill="#ddd6fe"/>
-                  <text x="100" y="20" textAnchor="middle" fill="#5b21b6" fontSize="11">Demat Account receives 10 TCS shares</text>
+                  <rect x="0" y="0" width="200" height="30" rx="6" fill="#D9CBEE"/>
+                  <text x="100" y="20" textAnchor="middle" fill="#533F70" fontSize="11">Demat Account receives 10 TCS shares</text>
                 </g>
 
                 {/* Bank balance */}
                 <g transform="translate(300, 40)">
-                  <rect x="0" y="0" width="250" height="30" rx="6" fill="#bbf7d0"/>
-                  <text x="125" y="20" textAnchor="middle" fill="#166534" fontSize="11">Bank Balance: ₹ 50,000 - 35,000 = ₹ 15,000</text>
+                  <rect x="0" y="0" width="250" height="30" rx="6" fill="#ABE5CC"/>
+                  <text x="125" y="20" textAnchor="middle" fill="#0D543C" fontSize="11">Bank Balance: ₹ 50,000 - 35,000 = ₹ 15,000</text>
                 </g>
               </g>
             </svg>
@@ -438,7 +438,7 @@ const StockMarketLesson3 = () => {
 
           {/* Who is a Broker? */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Broker className="w-6 h-6 text-purple-600" />
               <span>Who is a Stockbroker?</span>
             </h2>
@@ -483,7 +483,7 @@ const StockMarketLesson3 = () => {
 
           {/* Types of Orders */}
           <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.OrderBook className="w-6 h-6 text-purple-600" />
               <span>Types of Orders</span>
             </h2>
@@ -554,7 +554,7 @@ const StockMarketLesson3 = () => {
 
           {/* Step-by-Step: Placing Your First Order */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.MobileApp className="w-6 h-6 text-purple-600" />
               <span>Placing Your First Order (Step-by-Step)</span>
             </h2>
@@ -619,7 +619,7 @@ const StockMarketLesson3 = () => {
 
           {/* Settlement: T+1 */}
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6 border border-blue-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Settlement className="w-6 h-6 text-blue-600" />
               <span>Settlement: When Do You Get Your Shares?</span>
             </h2>
@@ -662,7 +662,7 @@ const StockMarketLesson3 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Market Timings & Rules</span>
             </h2>
@@ -716,7 +716,7 @@ const StockMarketLesson3 = () => {
 
           {/* Common Mistakes */}
           <div className="bg-red-50 rounded-2xl p-6 mb-6 border border-red-200">
-            <h2 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-red-900 mb-4 flex items-center gap-2">
               <Icons.Warning className="w-6 h-6 text-red-600" />
               <span>Common Beginner Mistakes</span>
             </h2>
@@ -739,7 +739,7 @@ const StockMarketLesson3 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 mb-10 border border-purple-200">
-            <h2 className="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-purple-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-purple-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -781,7 +781,7 @@ const StockMarketLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-purple-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -839,7 +839,7 @@ const StockMarketLesson3 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-4')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-purple-600 hover:to-violet-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: What is a Market Index?</span>
               <FaArrowRight className="text-sm" />

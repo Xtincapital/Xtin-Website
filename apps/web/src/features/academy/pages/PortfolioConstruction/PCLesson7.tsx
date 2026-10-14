@@ -69,8 +69,8 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
         <linearGradient id="feasibleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.3"/>
-          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2"/>
+          <stop offset="0%" stopColor="#1FA978" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#5A77AA" stopOpacity="0.2"/>
         </linearGradient>
       </defs>
       {/* Axes */}
@@ -79,20 +79,20 @@ const Icons = {
       <text x="210" y="230" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Asset A Weight</text>
       <text x="20" y="120" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 120)">Asset B Weight</text>
       {/* Feasible region (polygon) */}
-      <path d="M 80 200 L 320 200 L 280 80 L 120 80 Z" fill="url(#feasibleGrad)" stroke="#10b981" strokeWidth="2" strokeDasharray="5,5"/>
+      <path d="M 80 200 L 320 200 L 280 80 L 120 80 Z" fill="url(#feasibleGrad)" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,5"/>
       {/* Constraint lines */}
-      <line x1="80" y1="80" x2="80" y2="200" stroke="#ef4444" strokeWidth="2" opacity="0.6"/>
-      <text x="75" y="140" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="end">Min 20%</text>
-      <line x1="50" y1="80" x2="320" y2="80" stroke="#ef4444" strokeWidth="2" opacity="0.6"/>
-      <text x="200" y="70" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="middle">Min 20%</text>
-      <line x1="320" y1="30" x2="320" y2="200" stroke="#f59e0b" strokeWidth="2" opacity="0.6"/>
-      <text x="325" y="140" fill="#f59e0b" fontSize="11" fontWeight="bold">Max 80%</text>
+      <line x1="80" y1="80" x2="80" y2="200" stroke="#E04848" strokeWidth="2" opacity="0.6"/>
+      <text x="75" y="140" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="end">Min 20%</text>
+      <line x1="50" y1="80" x2="320" y2="80" stroke="#E04848" strokeWidth="2" opacity="0.6"/>
+      <text x="200" y="70" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="middle">Min 20%</text>
+      <line x1="320" y1="30" x2="320" y2="200" stroke="#B8923F" strokeWidth="2" opacity="0.6"/>
+      <text x="325" y="140" fill="#B8923F" fontSize="11" fontWeight="bold">Max 80%</text>
       {/* Optimal point */}
-      <circle cx="200" cy="130" r="8" fill="#8b5cf6" stroke="white" strokeWidth="3"/>
-      <text x="200" y="115" fill="#8b5cf6" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
+      <circle cx="200" cy="130" r="8" fill="#8F6FC4" stroke="white" strokeWidth="3"/>
+      <text x="200" y="115" fill="#8F6FC4" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
       {/* Labels */}
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Constrained Optimization</text>
-      <text x="200" y="150" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">Feasible Region</text>
+      <text x="200" y="150" fill="#1FA978" fontSize="11" fontWeight="bold" textAnchor="middle">Feasible Region</text>
     </svg>
   )
 };
@@ -175,12 +175,12 @@ const PCLesson7 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 7 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 7 OF 12</span>
               <span className="px-3 py-1.5 bg-cyan-100  text-cyan-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-cyan-900 to-blue-900    bg-clip-text text-transparent mb-5 leading-tight">Portfolio Optimization</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-cyan-900 to-blue-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Portfolio Optimization</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the quantitative techniques used to construct optimal portfolios. Understand Mean-Variance Optimization, its limitations, and practical improvements used by professional asset managers.</p>
           </header>
 
@@ -189,18 +189,18 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
                     <Icons.Settings className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Mean-Variance Optimization (MVO)</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Mean-Variance Optimization (MVO)</h2>
                     <p className="text-sm text-gray-500 ">Markowitz's mathematical framework</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700  leading-relaxed mb-6">Mean-Variance Optimization is the mathematical engine behind Modern Portfolio Theory. Given expected returns, volatilities, and correlations, MVO finds the <strong className="text-gray-900 ">optimal portfolio weights</strong> that maximize return for each risk level.</p>
                 
-                <div className="bg-gradient-to-br from-slate-900 to-cyan-950 rounded-xl p-8 mb-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-8 mb-6">
                   <div className="text-center mb-6">
                     <p className="text-cyan-400 text-sm font-medium mb-3 uppercase tracking-wide">The Optimization Problem</p>
                     <div className="text-white text-xl font-mono mb-2">Maximize: E(Rₚ) - λ × σ²ₚ</div>
@@ -241,7 +241,7 @@ const PCLesson7 = () => {
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">MVO's Limitations</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">MVO's Limitations</h2>
                     <p className="text-sm text-gray-500 ">Why simple MVO often fails in practice</p>
                   </div>
                 </div>
@@ -290,11 +290,11 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Adding Practical Constraints</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Adding Practical Constraints</h2>
                     <p className="text-sm text-gray-500 ">Making optimization work in the real world</p>
                   </div>
                 </div>
@@ -342,11 +342,11 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                     <Icons.Target className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Practical Optimization</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization</h2>
                     <p className="text-sm text-gray-500 ">Real-world constraints and solutions</p>
                   </div>
                 </div>
@@ -419,11 +419,11 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                     <Icons.Shield className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Robust Optimization Methods</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Robust Optimization Methods</h2>
                     <p className="text-sm text-gray-500 ">Beyond traditional MVO</p>
                   </div>
                 </div>
@@ -467,11 +467,11 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Practical Optimization Workflow</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Practical Optimization Workflow</h2>
                     <p className="text-sm text-gray-500 ">How professionals actually build portfolios</p>
                   </div>
                 </div>
@@ -486,7 +486,7 @@ const PCLesson7 = () => {
                     { step: 6, title: "Implement", desc: "Execute trades, considering transaction costs" }
                   ].map((item) => (
                     <div key={item.step} className="flex items-start gap-4 bg-gray-50  rounded-xl p-4">
-                      <span className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                      <span className="w-10 h-10 bg-gradient-to-br from-green-600 to-emerald-700 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                         {item.step}
                       </span>
                       <div>
@@ -512,11 +512,11 @@ const PCLesson7 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of portfolio optimization</p>
                   </div>
                 </div>
@@ -561,11 +561,11 @@ const PCLesson7 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-cyan-100">{calculateScore() === quizQuestions.length ? "Excellent! You've mastered portfolio optimization concepts." : "Review the explanations to strengthen your understanding."}</p>
                   </div>
@@ -578,7 +578,7 @@ const PCLesson7 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-6')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous: Factor Investing</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-8')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-8')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200">
               <span>Next: Tax-Efficient Investing</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

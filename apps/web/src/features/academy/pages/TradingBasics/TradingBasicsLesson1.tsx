@@ -251,7 +251,7 @@ const TradingBasicsLesson1 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 1 of 7
               </span>
               <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">
@@ -262,7 +262,7 @@ const TradingBasicsLesson1 = () => {
                 Awareness
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-200 rounded-xl shadow-sm">
                 <Icons.Trading className="w-7 h-7 text-amber-600" />
               </span>
@@ -280,7 +280,7 @@ const TradingBasicsLesson1 = () => {
                 <Icons.Warning className="w-6 h-6 text-red-600" />
               </div>
               <div>
-                <h3 className="font-bold text-red-900 mb-2">Awareness, Not Advice</h3>
+                <h3 className="font-semibold text-red-900 mb-2">Awareness, Not Advice</h3>
                 <p className="text-red-800">
                   This lesson teaches you what trading IS — not how to do it. SEBI data shows 89% of traders lose money. 
                   We want you to understand trading fully before you ever consider risking real money.
@@ -296,7 +296,7 @@ const TradingBasicsLesson1 = () => {
                 <Icons.Question className="w-6 h-6 text-amber-600" />
               </div>
               <div>
-                <h3 className="font-bold text-amber-900 mb-2">"My Friend Made Rs. 50,000 in One Day!"</h3>
+                <h3 className="font-semibold text-amber-900 mb-2">"My Friend Made Rs. 50,000 in One Day!"</h3>
                 <p className="text-amber-800">
                   You've heard the stories — someone made lakhs trading stocks. What they don't tell you: 
                   most traders lose money. Before you get tempted by quick profits, understand what trading 
@@ -308,7 +308,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Simple Definition */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-amber-600" />
               <span>Trading in Simple Words</span>
             </h2>
@@ -339,80 +339,80 @@ const TradingBasicsLesson1 = () => {
 
           {/* Visual: Trading vs Investing */}
           <div className="bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Trading vs Investing: The Core Difference</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Trading vs Investing: The Core Difference</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 350" fill="none">
               {/* Investing Side */}
               <g transform="translate(30, 30)">
-                <rect x="0" y="0" width="280" height="280" rx="16" fill="#ecfdf5" stroke="#22c55e" strokeWidth="3"/>
-                <text x="140" y="35" textAnchor="middle" fill="#166534" fontSize="18" fontWeight="700">INVESTING</text>
-                <text x="140" y="55" textAnchor="middle" fill="#15803d" fontSize="11">"I own a piece of this company"</text>
+                <rect x="0" y="0" width="280" height="280" rx="16" fill="#EEF9F4" stroke="#1FA978" strokeWidth="3"/>
+                <text x="140" y="35" textAnchor="middle" fill="#0D543C" fontSize="18" fontWeight="700">INVESTING</text>
+                <text x="140" y="55" textAnchor="middle" fill="#0E6A4A" fontSize="11">"I own a piece of this company"</text>
                 
                 {/* Growing tree visualization */}
                 <g transform="translate(90, 80)">
-                  <rect x="45" y="120" width="12" height="50" fill="#92400e"/>
-                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#22c55e"/>
-                  <ellipse cx="35" cy="105" rx="25" ry="22" fill="#16a34a"/>
-                  <ellipse cx="67" cy="105" rx="25" ry="22" fill="#16a34a"/>
+                  <rect x="45" y="120" width="12" height="50" fill="#654B26"/>
+                  <ellipse cx="51" cy="90" rx="45" ry="40" fill="#1FA978"/>
+                  <ellipse cx="35" cy="105" rx="25" ry="22" fill="#12805A"/>
+                  <ellipse cx="67" cy="105" rx="25" ry="22" fill="#12805A"/>
                   <text x="51" y="95" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">5-20</text>
                   <text x="51" y="108" textAnchor="middle" fill="white" fontSize="9">YEARS</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 210)">
-                  <circle cx="8" cy="8" r="4" fill="#22c55e"/>
-                  <text x="20" y="12" fill="#166534" fontSize="10">Buy & hold for years</text>
-                  <circle cx="8" cy="28" r="4" fill="#22c55e"/>
-                  <text x="20" y="32" fill="#166534" fontSize="10">Focus on company growth</text>
-                  <circle cx="8" cy="48" r="4" fill="#22c55e"/>
-                  <text x="20" y="52" fill="#166534" fontSize="10">Less time, less stress</text>
+                  <circle cx="8" cy="8" r="4" fill="#1FA978"/>
+                  <text x="20" y="12" fill="#0D543C" fontSize="10">Buy & hold for years</text>
+                  <circle cx="8" cy="28" r="4" fill="#1FA978"/>
+                  <text x="20" y="32" fill="#0D543C" fontSize="10">Focus on company growth</text>
+                  <circle cx="8" cy="48" r="4" fill="#1FA978"/>
+                  <text x="20" y="52" fill="#0D543C" fontSize="10">Less time, less stress</text>
                 </g>
               </g>
 
               {/* VS Circle */}
               <g transform="translate(320, 140)">
-                <circle cx="30" cy="30" r="28" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="3"/>
-                <text x="30" y="36" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="700">VS</text>
+                <circle cx="30" cy="30" r="28" fill="#EFEDE7" stroke="#CFCBC1" strokeWidth="3"/>
+                <text x="30" y="36" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="700">VS</text>
               </g>
 
               {/* Trading Side */}
               <g transform="translate(390, 30)">
-                <rect x="0" y="0" width="280" height="280" rx="16" fill="#fef3c7" stroke="#f59e0b" strokeWidth="3"/>
-                <text x="140" y="35" textAnchor="middle" fill="#92400e" fontSize="18" fontWeight="700">TRADING</text>
-                <text x="140" y="55" textAnchor="middle" fill="#b45309" fontSize="11">"I want to profit from price moves"</text>
+                <rect x="0" y="0" width="280" height="280" rx="16" fill="#F6ECCE" stroke="#B8923F" strokeWidth="3"/>
+                <text x="140" y="35" textAnchor="middle" fill="#654B26" fontSize="18" fontWeight="700">TRADING</text>
+                <text x="140" y="55" textAnchor="middle" fill="#7C5D2B" fontSize="11">"I want to profit from price moves"</text>
                 
                 {/* Volatile chart visualization */}
                 <g transform="translate(20, 75)">
-                  <rect x="0" y="0" width="240" height="120" rx="8" fill="white" stroke="#fcd34d" strokeWidth="2"/>
-                  <path d="M20 80 L50 50 L80 70 L110 30 L140 60 L170 25 L200 45 L220 35" stroke="#f59e0b" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="0" y="0" width="240" height="120" rx="8" fill="white" stroke="#E2C273" strokeWidth="2"/>
+                  <path d="M20 80 L50 50 L80 70 L110 30 L140 60 L170 25 L200 45 L220 35" stroke="#B8923F" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                   
                   {/* Buy/Sell markers */}
-                  <circle cx="50" cy="50" r="6" fill="#22c55e"/>
-                  <text x="50" y="45" textAnchor="middle" fill="#22c55e" fontSize="8" fontWeight="bold">BUY</text>
-                  <circle cx="110" cy="30" r="6" fill="#ef4444"/>
-                  <text x="110" y="25" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">SELL</text>
-                  <circle cx="140" cy="60" r="6" fill="#22c55e"/>
-                  <text x="140" y="75" textAnchor="middle" fill="#22c55e" fontSize="8" fontWeight="bold">BUY</text>
-                  <circle cx="200" cy="45" r="6" fill="#ef4444"/>
-                  <text x="200" y="40" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">SELL</text>
+                  <circle cx="50" cy="50" r="6" fill="#1FA978"/>
+                  <text x="50" y="45" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="110" cy="30" r="6" fill="#E04848"/>
+                  <text x="110" y="25" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
+                  <circle cx="140" cy="60" r="6" fill="#1FA978"/>
+                  <text x="140" y="75" textAnchor="middle" fill="#1FA978" fontSize="8" fontWeight="bold">BUY</text>
+                  <circle cx="200" cy="45" r="6" fill="#E04848"/>
+                  <text x="200" y="40" textAnchor="middle" fill="#E04848" fontSize="8" fontWeight="bold">SELL</text>
                   
-                  <text x="120" y="110" textAnchor="middle" fill="#92400e" fontSize="9">Minutes to Weeks</text>
+                  <text x="120" y="110" textAnchor="middle" fill="#654B26" fontSize="9">Minutes to Weeks</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 210)">
-                  <circle cx="8" cy="8" r="4" fill="#f59e0b"/>
-                  <text x="20" y="12" fill="#92400e" fontSize="10">Buy & sell frequently</text>
-                  <circle cx="8" cy="28" r="4" fill="#f59e0b"/>
-                  <text x="20" y="32" fill="#92400e" fontSize="10">Focus on price movement</text>
-                  <circle cx="8" cy="48" r="4" fill="#f59e0b"/>
-                  <text x="20" y="52" fill="#92400e" fontSize="10">More time, more stress</text>
+                  <circle cx="8" cy="8" r="4" fill="#B8923F"/>
+                  <text x="20" y="12" fill="#654B26" fontSize="10">Buy & sell frequently</text>
+                  <circle cx="8" cy="28" r="4" fill="#B8923F"/>
+                  <text x="20" y="32" fill="#654B26" fontSize="10">Focus on price movement</text>
+                  <circle cx="8" cy="48" r="4" fill="#B8923F"/>
+                  <text x="20" y="52" fill="#654B26" fontSize="10">More time, more stress</text>
                 </g>
               </g>
 
               {/* Bottom comparison */}
               <g transform="translate(30, 320)">
-                <text x="350" y="15" textAnchor="middle" fill="#64748b" fontSize="11" fontStyle="italic">
+                <text x="350" y="15" textAnchor="middle" fill="#75757D" fontSize="11" fontStyle="italic">
                   Same stock market, completely different approaches and mindsets
                 </text>
               </g>
@@ -421,7 +421,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Detailed Comparison Table */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Target className="w-6 h-6 text-amber-600" />
               <span>Side-by-Side Comparison</span>
             </h2>
@@ -488,7 +488,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Real Example */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Same Stock, Different Approaches</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Same Stock, Different Approaches</h2>
             
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
               <p className="text-gray-800 font-medium mb-2">Let's say Reliance stock is at Rs. 2,500 today:</p>
@@ -525,7 +525,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Why People Are Attracted to Trading */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 mb-6 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <Icons.ChartVolatile className="w-6 h-6 text-amber-600" />
               <span>Why Trading Looks Attractive</span>
             </h2>
@@ -562,7 +562,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Trading Statistics</span>
             </h2>
@@ -592,7 +592,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 mb-10 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-amber-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -634,7 +634,7 @@ const TradingBasicsLesson1 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -692,7 +692,7 @@ const TradingBasicsLesson1 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-2')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: Types of Trading</span>
               <FaArrowRight className="text-sm" />

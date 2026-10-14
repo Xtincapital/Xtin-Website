@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 import { createChart, ColorType, type IChartApi } from "lightweight-charts";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { toUnix } from "../lib/time";
+import { canvasChartColors, hexAlpha } from "@/components/charts/chartTheme";
 import type { EquityPoint } from "../lib/types";
 
-const TONES = {
-  emerald: { line: "#10b981", top: "rgba(16,185,129,0.28)", bottom: "rgba(16,185,129,0.01)" },
-  rose: { line: "#f43f5e", top: "rgba(244,63,94,0.02)", bottom: "rgba(244,63,94,0.28)" },
-};
+// Profit curves are green, drawdown curves red (filled downward), in the
+// site's theme colours (canvasChartColors).
+const TONES = { emerald: "up", rose: "down" } as const;
 
 /** Area chart for an equity or drawdown curve. */
 export default function TimeSeriesChart({
@@ -30,24 +30,25 @@ export default function TimeSeriesChart({
   useEffect(() => {
     if (!ref.current) return;
     const dark = theme === "dark";
-    const grid = dark ? "rgba(255,255,255,0.05)" : "#eef2f7";
+    const pal = canvasChartColors(dark);
     const chart: IChartApi = createChart(ref.current, {
       height,
-      layout: { background: { type: ColorType.Solid, color: "transparent" }, textColor: dark ? "#94a3b8" : "#64748b", fontSize: 11 },
-      grid: { vertLines: { color: grid }, horzLines: { color: grid } },
+      layout: { background: { type: ColorType.Solid, color: "transparent" }, textColor: pal.text, fontSize: 11, fontFamily: pal.font },
+      grid: { vertLines: { visible: false }, horzLines: { color: pal.grid } },
       rightPriceScale: { borderVisible: false },
       timeScale: { borderVisible: false, timeVisible: true },
-      crosshair: { vertLine: { labelBackgroundColor: "#0f766e" }, horzLine: { labelBackgroundColor: "#0f766e" } },
+      crosshair: { vertLine: { labelBackgroundColor: pal.crosshairLabel }, horzLine: { labelBackgroundColor: pal.crosshairLabel } },
       handleScroll: false,
       handleScale: false,
       localization: format ? { priceFormatter: format } : undefined,
     });
 
-    const c = TONES[tone];
+    const line = pal[TONES[tone]];
+    const rose = tone === "rose";
     const series = chart.addAreaSeries({
-      lineColor: c.line,
-      topColor: c.top,
-      bottomColor: c.bottom,
+      lineColor: line,
+      topColor: hexAlpha(line, rose ? 0.02 : dark ? 0.3 : 0.2),
+      bottomColor: hexAlpha(line, rose ? (dark ? 0.3 : 0.2) : 0.01),
       lineWidth: 2,
       invertFilledArea: tone === "rose",
       priceLineVisible: false,
@@ -59,7 +60,7 @@ export default function TimeSeriesChart({
         .filter((p) => (seen.has(p.time) ? false : (seen.add(p.time), true)))
     );
     if (baseline !== undefined) {
-      series.createPriceLine({ price: baseline, color: dark ? "#475569" : "#94a3b8", lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
+      series.createPriceLine({ price: baseline, color: pal.baseline, lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: "" });
     }
     chart.timeScale().fitContent();
 

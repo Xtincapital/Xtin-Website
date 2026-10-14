@@ -52,7 +52,7 @@ const FinancialPlanningOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Beginner Module
               </span>
               <span className="px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm flex items-center gap-1.5">
@@ -69,7 +69,7 @@ const FinancialPlanningOverview = () => {
 
             <div className="mb-3"><ModuleBadge moduleId="financial-planning" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">
                 <TargetIcon className="w-7 h-7 text-indigo-600" />
               </span>
@@ -84,7 +84,7 @@ const FinancialPlanningOverview = () => {
           <div className="bg-gradient-to-br from-white to-indigo-50 rounded-3xl p-8 mb-10 border border-indigo-100 shadow-lg">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">This is the beginner capstone.</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">This is the beginner capstone.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   This module connects the pieces users have learned separately and turns them into
                   a first practical money plan they can actually follow.
@@ -105,7 +105,7 @@ const FinancialPlanningOverview = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl p-6 text-white shadow-xl">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
                 <DocumentCheckIcon className="w-12 h-12 text-white/90 mb-4" />
                 <p className="text-sm uppercase tracking-wide text-indigo-100 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
@@ -119,7 +119,7 @@ const FinancialPlanningOverview = () => {
           </div>
 
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 mb-10 border border-emerald-200">
-            <h2 className="text-xl font-bold text-emerald-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-emerald-900 mb-4 flex items-center gap-2">
               <TargetIcon className="w-6 h-6 text-emerald-600" />
               <span>After This Module, You Will:</span>
             </h2>
@@ -141,7 +141,7 @@ const FinancialPlanningOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-indigo-600" />
               <span>Your Learning Path</span>
             </h2>
@@ -168,7 +168,7 @@ const FinancialPlanningOverview = () => {
                             {lesson.duration}
                           </span>
                         </div>
-                        <h3 className="font-bold text-gray-900 text-lg">{lesson.title}</h3>
+                        <h3 className="font-semibold text-gray-900 text-lg">{lesson.title}</h3>
                         <p className="text-sm text-gray-500">{lesson.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-500 transition-colors">
@@ -184,23 +184,23 @@ const FinancialPlanningOverview = () => {
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             <div className="bg-indigo-50 rounded-2xl p-5 border border-indigo-200">
               <BalanceScaleIcon className="w-7 h-7 text-indigo-600 mb-3" />
-              <h3 className="font-bold text-indigo-900 mb-1">Priority-based</h3>
+              <h3 className="font-semibold text-indigo-900 mb-1">Priority-based</h3>
               <p className="text-sm text-indigo-700">Know what comes first, next, and later.</p>
             </div>
             <div className="bg-amber-50 rounded-2xl p-5 border border-amber-200">
               <WarningIcon className="w-7 h-7 text-amber-600 mb-3" />
-              <h3 className="font-bold text-amber-900 mb-1">Mistake-aware</h3>
+              <h3 className="font-semibold text-amber-900 mb-1">Mistake-aware</h3>
               <p className="text-sm text-amber-700">Avoid common beginner traps and wrong product order.</p>
             </div>
             <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
               <CalculatorIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-bold text-emerald-900 mb-1">Action-ready</h3>
+              <h3 className="font-semibold text-emerald-900 mb-1">Action-ready</h3>
               <p className="text-sm text-emerald-700">Leave with a 90-day plan and checklist.</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-bold mb-2">Ready to Build Your First Money Roadmap?</h3>
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+            <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Build Your First Money Roadmap?</h3>
             <p className="text-indigo-100 mb-6">Start by understanding what financial planning really means.</p>
             <button
               onClick={() => navigate("/learn/financial-planning-lesson-1")}

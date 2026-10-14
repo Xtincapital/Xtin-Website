@@ -71,7 +71,7 @@ export default function Upgrade() {
         currency: order.order.currency,
         name: "Xtin Backtest",
         description: `${order.pass.label} — ${order.pass.days} days of Pro`,
-        theme: { color: "#059669" },
+        theme: { color: "#12805A" },
         handler: async (response: Record<string, string>) => {
           try {
             const res = await backtestApi.verifyPass({
@@ -140,13 +140,13 @@ export default function Upgrade() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-emerald-400/70 bg-gradient-to-b from-[#10233a] to-[#0a1120] text-white shadow-[0_18px_50px_-12px_rgba(16,185,129,0.45)] lg:-my-2 lg:py-7" : card}`}
+              className={`relative flex flex-col rounded-2xl p-5 ${featured ? "border border-emerald-400/70 bg-gradient-to-b from-[#10233a] to-[#0A0A0B] text-white shadow-[0_18px_50px_-12px_rgba(31, 169, 120,0.45)] lg:-my-2 lg:py-7" : card}`}
             >
               {x.tag && (
                 <span className={`absolute -top-3 left-5 rounded-full px-3 py-0.5 text-[11px] font-bold tracking-wider ${featured ? "bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-900" : "bg-amber-400 text-slate-900"}`}>{x.tag}</span>
               )}
               <div className={`text-sm font-semibold ${featured ? "text-emerald-300" : ""}`}>{x.label}</div>
-              <div className="mt-3 text-3xl font-extrabold tracking-tight tabular-nums">{inrCharge(x.amount_paise / 100)}</div>
+              <div className="mt-3 text-3xl font-semibold tracking-[-0.02em] tabular-nums">{inrCharge(x.amount_paise / 100)}</div>
               <ApproxPrice inr={x.amount_paise / 100} className={`block ${featured ? "text-slate-400" : muted}`} />
               <div className={`mt-1 text-xs ${featured ? "text-slate-400" : muted}`}>
                 {x.days} days · <span className="tabular-nums">{inrCharge(perDay)}</span>/day

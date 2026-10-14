@@ -30,13 +30,13 @@ function WinRing({ rate }: { rate: number }) {
         <circle cx="40" cy="40" r={r} fill="none" strokeWidth="8" strokeLinecap="round" stroke="url(#bt-ring)" strokeDasharray={`${(Math.min(100, rate) / 100) * c} ${c}`} />
         <defs>
           <linearGradient id="bt-ring" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#34d399" />
-            <stop offset="100%" stopColor="#0d9488" />
+            <stop offset="0%" stopColor="#3CCB97" />
+            <stop offset="100%" stopColor="#2A8C9A" />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-bold tabular-nums">{rate.toFixed(0)}%</span>
+        <span className="xt-metric">{rate.toFixed(0)}%</span>
         <span className={`text-[10px] uppercase tracking-wider ${muted}`}>win rate</span>
       </div>
     </div>
@@ -63,7 +63,7 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <div className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${muted}`}>Backtest report</div>
-            <h3 className="mt-1 truncate text-xl font-bold tracking-tight">{title}</h3>
+            <h3 className="mt-1 truncate text-xl font-semibold tracking-tight">{title}</h3>
             <div className="mt-1.5 flex flex-wrap items-center gap-2">
               <span className={chip}>{subtitle}</span>
             </div>

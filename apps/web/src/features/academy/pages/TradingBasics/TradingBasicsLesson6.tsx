@@ -251,7 +251,7 @@ const TradingBasicsLesson6 = () => {
                 Reality Check
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <Icons.ChartDown className="w-7 h-7 text-rose-600" />
               </span>
@@ -269,7 +269,7 @@ const TradingBasicsLesson6 = () => {
                 <Icons.Document className="w-6 h-6 text-rose-600" />
               </div>
               <div>
-                <h3 className="font-bold text-rose-900 mb-2">SEBI's Official Data (January 2023 Study)</h3>
+                <h3 className="font-semibold text-rose-900 mb-2">SEBI's Official Data (January 2023 Study)</h3>
                 <p className="text-rose-800">
                   SEBI studied 1 crore+ F&O traders over 3 years. The findings should make anyone pause before trading:
                 </p>
@@ -279,11 +279,11 @@ const TradingBasicsLesson6 = () => {
 
           {/* Visual: The Statistics */}
           <div className="bg-gradient-to-br from-gray-50 to-rose-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">The Hard Numbers (SEBI Study)</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">The Hard Numbers (SEBI Study)</h2>
             
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 600 300" fill="none">
               {/* Title */}
-              <text x="300" y="25" textAnchor="middle" fill="#1f2937" fontSize="13" fontWeight="700">
+              <text x="300" y="25" textAnchor="middle" fill="#232327" fontSize="13" fontWeight="700">
                 Out of Every 100 F&O Traders in India
               </text>
               
@@ -294,8 +294,8 @@ const TradingBasicsLesson6 = () => {
                   const col = i % 10;
                   return (
                     <g key={i} transform={`translate(${col * 40}, ${row * 22})`}>
-                      <circle cx="8" cy="4" r="4" fill="#f43f5e"/>
-                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#f43f5e" strokeWidth="1.5"/>
+                      <circle cx="8" cy="4" r="4" fill="#E04848"/>
+                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#E04848" strokeWidth="1.5"/>
                     </g>
                   );
                 })}
@@ -308,19 +308,19 @@ const TradingBasicsLesson6 = () => {
                   const col = i % 3;
                   return (
                     <g key={i} transform={`translate(${col * 45}, ${row * 25})`}>
-                      <circle cx="8" cy="4" r="4" fill="#22c55e"/>
-                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#22c55e" strokeWidth="1.5"/>
+                      <circle cx="8" cy="4" r="4" fill="#1FA978"/>
+                      <path d="M8 8 L8 16 M4 11 L12 11 M8 16 L4 22 M8 16 L12 22" stroke="#1FA978" strokeWidth="1.5"/>
                     </g>
                   );
                 })}
               </g>
               
               {/* Labels */}
-              <rect x="50" y="250" width="300" height="40" rx="8" fill="#fee2e2" stroke="#f43f5e" strokeWidth="2"/>
-              <text x="200" y="275" textAnchor="middle" fill="#991b1b" fontSize="14" fontWeight="700">89 LOSE MONEY</text>
+              <rect x="50" y="250" width="300" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+              <text x="200" y="275" textAnchor="middle" fill="#842428" fontSize="14" fontWeight="700">89 LOSE MONEY</text>
               
-              <rect x="400" y="250" width="150" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-              <text x="475" y="275" textAnchor="middle" fill="#166534" fontSize="14" fontWeight="700">11 PROFIT</text>
+              <rect x="400" y="250" width="150" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+              <text x="475" y="275" textAnchor="middle" fill="#0D543C" fontSize="14" fontWeight="700">11 PROFIT</text>
             </svg>
 
             <div className="grid md:grid-cols-3 gap-3">
@@ -341,7 +341,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* Who Wins in This System */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.ZeroSum className="w-6 h-6 text-rose-600" />
               <span>The Zero-Sum Reality: Where Does the Money Go?</span>
             </h2>
@@ -401,7 +401,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* The 10 Reasons Most Traders Lose */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.TargetMiss className="w-6 h-6 text-rose-600" />
               <span>10 Reasons Most Traders Lose Money</span>
             </h2>
@@ -499,7 +499,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* The Pattern of Losing Traders */}
           <div className="bg-gradient-to-r from-gray-50 to-rose-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">The Typical Losing Trader Journey</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">The Typical Losing Trader Journey</h2>
             
             <div className="space-y-4">
               <div className="flex items-center gap-4">
@@ -567,7 +567,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: The F&O Explosion</span>
             </h2>
@@ -628,7 +628,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6 mb-10 border border-rose-200">
-            <h2 className="text-xl font-bold text-rose-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-rose-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-rose-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -670,7 +670,7 @@ const TradingBasicsLesson6 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

@@ -1,14 +1,15 @@
-// Distinct, readable colours for pie slices and category bars. Green and red
-// are left out on purpose: on these pages they mean profit and loss.
+// Distinct, readable colours for pie slices and category bars, drawn from the
+// site palette (src/styles/palette.js). Green and red are left out on purpose:
+// on these pages they mean profit and loss.
 export const CATEGORY_COLORS = [
-  "#3b82f6", // blue
-  "#8b5cf6", // violet
-  "#f59e0b", // amber
-  "#14b8a6", // teal
-  "#ec4899", // pink
-  "#f97316", // orange
-  "#0ea5e9", // sky
-  "#6366f1", // indigo
-  "#84cc16", // lime
-  "#64748b", // slate
+  "#5A77AA", // slate blue
+  "#B8923F", // gold
+  "#8F6FC4", // violet
+  "#33A0AE", // teal
+  "#D2754C", // terracotta
+  "#9FB3D3", // light slate blue
+  "#E2C273", // light gold
+  "#C0A9E2", // light violet
+  "#82CDD6", // light teal
+  "#75757D", // neutral
 ];

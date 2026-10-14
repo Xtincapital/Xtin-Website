@@ -74,7 +74,7 @@ const HRACalculator = () => {
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             HRA Calculator
           </h1>
           <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">

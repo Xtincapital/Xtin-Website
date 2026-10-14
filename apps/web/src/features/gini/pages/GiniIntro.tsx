@@ -79,19 +79,19 @@ export default function GiniIntro() {
       icon: Icons.ai,
       title: 'AI-Powered Advisor',
       desc: 'Get personalized financial advice powered by advanced AI technology',
-      color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
     },
     {
       icon: Icons.chat,
       title: '24/7 Chat Support',
       desc: 'Ask questions anytime and get instant responses from your AI advisor',
-      color: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
     },
     {
       icon: Icons.shield,
       title: 'Personalized Plans',
       desc: 'Receive tailored financial strategies based on your unique goals',
-      color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success'
     },
   ];
 
@@ -104,7 +104,7 @@ export default function GiniIntro() {
         <DotGridBg />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+            <h1 className="font-display text-5xl md:text-6xl font-normal tracking-[-0.02em] mb-6 text-gray-900 dark:text-white">
               Gini AI Advisor
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
@@ -126,7 +126,7 @@ export default function GiniIntro() {
       {/* Features Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-bold mb-16 text-center text-gray-900 dark:text-white">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="font-display text-4xl font-normal tracking-[-0.01em] mb-16 text-center text-gray-900 dark:text-white">
             Why Choose Gini AI?
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -153,7 +153,7 @@ export default function GiniIntro() {
       {/* Benefits Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-display font-normal mb-12 text-center text-gray-900 dark:text-white tracking-[-0.015em]">
             What You Get
           </motion.h2>
           <div className="space-y-4">

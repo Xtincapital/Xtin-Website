@@ -115,11 +115,11 @@ const AlgoTradingLesson7 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-full text-sm font-bold">Lesson 7 of 9 • Final</span>
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 7 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
                 <Icons.Monitor className="w-8 h-8 text-white"/>
               </span>
               Live Trading & Monitoring
@@ -131,7 +131,7 @@ const AlgoTradingLesson7 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-            <h2 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -150,7 +150,7 @@ const AlgoTradingLesson7 = () => {
             
             {/* Congrats Banner */}
             <div className="bg-gradient-to-r from-yellow-50 to-amber-50   rounded-2xl p-6 mb-10 border border-yellow-300 ">
-              <h3 className="font-bold text-yellow-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-yellow-900  mb-3 text-lg flex items-center gap-2">
                 <FaTrophy className="text-yellow-500"/> You've Made It to the Final Lesson!
               </h3>
               <p className="text-yellow-800 ">
@@ -159,7 +159,7 @@ const AlgoTradingLesson7 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">The Paper-to-Live Transition</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">The Paper-to-Live Transition</h2>
             <p className="text-gray-700  mb-6">
               Never jump straight from backtest to live trading. Follow this progression:
             </p>
@@ -167,62 +167,62 @@ const AlgoTradingLesson7 = () => {
             {/* Transition Path SVG */}
             <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-emerald-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 200" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">PAPER TO LIVE TRANSITION PATH</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">PAPER TO LIVE TRANSITION PATH</text>
                 
                 {/* Step 1 - Backtest */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#3b82f6" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#5A77AA" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">BACKTEST</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#bfdbfe" fontSize="8">Historical data</text>
-                  <text x="60" y="68" textAnchor="middle" fill="#bfdbfe" fontSize="8">No real risk</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#C3D0E4" fontSize="8">Historical data</text>
+                  <text x="60" y="68" textAnchor="middle" fill="#C3D0E4" fontSize="8">No real risk</text>
                 </g>
                 
                 {/* Arrow 1 */}
-                <path d="M160 100 L190 100" stroke="#6ee7b7" strokeWidth="3" markerEnd="url(#arrow)"/>
+                <path d="M160 100 L190 100" stroke="#77D3AE" strokeWidth="3" markerEnd="url(#arrow)"/>
                 
                 {/* Step 2 - Paper */}
                 <g transform="translate(200, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#8b5cf6" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#8F6FC4" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">PAPER TRADE</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#c4b5fd" fontSize="8">Live data, fake money</text>
-                  <text x="60" y="68" textAnchor="middle" fill="#c4b5fd" fontSize="8">2-4 weeks minimum</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#C0A9E2" fontSize="8">Live data, fake money</text>
+                  <text x="60" y="68" textAnchor="middle" fill="#C0A9E2" fontSize="8">2-4 weeks minimum</text>
                 </g>
                 
                 {/* Arrow 2 */}
-                <path d="M330 100 L360 100" stroke="#6ee7b7" strokeWidth="3"/>
+                <path d="M330 100 L360 100" stroke="#77D3AE" strokeWidth="3"/>
                 
                 {/* Step 3 - Small Live */}
                 <g transform="translate(370, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#f59e0b" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#B8923F" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">SMALL LIVE</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#fcd34d" fontSize="8">10-20% of capital</text>
-                  <text x="60" y="68" textAnchor="middle" fill="#fcd34d" fontSize="8">4-8 weeks</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#E2C273" fontSize="8">10-20% of capital</text>
+                  <text x="60" y="68" textAnchor="middle" fill="#E2C273" fontSize="8">4-8 weeks</text>
                 </g>
                 
                 {/* Arrow 3 */}
-                <path d="M500 100 L530 100" stroke="#6ee7b7" strokeWidth="3"/>
+                <path d="M500 100 L530 100" stroke="#77D3AE" strokeWidth="3"/>
                 
                 {/* Step 4 - Full Live */}
                 <g transform="translate(540, 60)">
-                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#22c55e" opacity="0.9"/>
+                  <rect x="0" y="0" width="120" height="80" rx="10" fill="#1FA978" opacity="0.9"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">FULL LIVE</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#bbf7d0" fontSize="8">Full position sizes</text>
-                  <text x="60" y="68" textAnchor="middle" fill="#bbf7d0" fontSize="8">Continuous monitoring</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#ABE5CC" fontSize="8">Full position sizes</text>
+                  <text x="60" y="68" textAnchor="middle" fill="#ABE5CC" fontSize="8">Continuous monitoring</text>
                 </g>
 
                 {/* Time indicator */}
-                <text x="350" y="175" textAnchor="middle" fill="#6b7280" fontSize="10">Minimum 6-12 weeks from backtest to full live</text>
+                <text x="350" y="175" textAnchor="middle" fill="#75757D" fontSize="10">Minimum 6-12 weeks from backtest to full live</text>
                 
                 <defs>
                   <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6ee7b7"/>
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#77D3AE"/>
                   </marker>
                 </defs>
               </svg>
             </div>
 
             {/* Monitoring Dashboard */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Monitor className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -234,86 +234,86 @@ const AlgoTradingLesson7 = () => {
             </p>
 
             {/* Dashboard SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 400" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">ALGO TRADING DASHBOARD LAYOUT</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">ALGO TRADING DASHBOARD LAYOUT</text>
                 
                 {/* Main Dashboard Frame */}
-                <rect x="30" y="40" width="640" height="340" rx="12" fill="#1e293b" stroke="#334155" strokeWidth="2"/>
+                <rect x="30" y="40" width="640" height="340" rx="12" fill="#232327" stroke="#404047" strokeWidth="2"/>
                 
                 {/* Top Row - Key Metrics */}
                 <g transform="translate(50, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#0f172a" stroke="#22c55e" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#94a3b8" fontSize="9">Today's P&L</text>
-                  <text x="70" y="50" textAnchor="middle" fill="#22c55e" fontSize="16" fontWeight="700">+₹12,450</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#1FA978" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Today's P&L</text>
+                  <text x="70" y="50" textAnchor="middle" fill="#1FA978" fontSize="16" fontWeight="700">+₹12,450</text>
                 </g>
                 <g transform="translate(210, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#0f172a" stroke="#3b82f6" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#94a3b8" fontSize="9">Win Rate</text>
-                  <text x="70" y="50" textAnchor="middle" fill="#3b82f6" fontSize="16" fontWeight="700">58.3%</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#5A77AA" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Win Rate</text>
+                  <text x="70" y="50" textAnchor="middle" fill="#5A77AA" fontSize="16" fontWeight="700">58.3%</text>
                 </g>
                 <g transform="translate(370, 60)">
-                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#0f172a" stroke="#8b5cf6" strokeWidth="1"/>
-                  <text x="70" y="25" textAnchor="middle" fill="#94a3b8" fontSize="9">Trades Today</text>
-                  <text x="70" y="50" textAnchor="middle" fill="#8b5cf6" fontSize="16" fontWeight="700">24</text>
+                  <rect x="0" y="0" width="140" height="70" rx="8" fill="#151517" stroke="#8F6FC4" strokeWidth="1"/>
+                  <text x="70" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Trades Today</text>
+                  <text x="70" y="50" textAnchor="middle" fill="#8F6FC4" fontSize="16" fontWeight="700">24</text>
                 </g>
                 <g transform="translate(530, 60)">
-                  <rect x="0" y="0" width="120" height="70" rx="8" fill="#0f172a" stroke="#f59e0b" strokeWidth="1"/>
-                  <text x="60" y="25" textAnchor="middle" fill="#94a3b8" fontSize="9">Drawdown</text>
-                  <text x="60" y="50" textAnchor="middle" fill="#f59e0b" fontSize="16" fontWeight="700">-2.1%</text>
+                  <rect x="0" y="0" width="120" height="70" rx="8" fill="#151517" stroke="#B8923F" strokeWidth="1"/>
+                  <text x="60" y="25" textAnchor="middle" fill="#A3A1A6" fontSize="9">Drawdown</text>
+                  <text x="60" y="50" textAnchor="middle" fill="#B8923F" fontSize="16" fontWeight="700">-2.1%</text>
                 </g>
 
                 {/* Equity Curve Panel */}
                 <g transform="translate(50, 150)">
-                  <rect x="0" y="0" width="300" height="130" rx="8" fill="#0f172a"/>
-                  <text x="150" y="20" textAnchor="middle" fill="#94a3b8" fontSize="10">Equity Curve (MTD)</text>
+                  <rect x="0" y="0" width="300" height="130" rx="8" fill="#151517"/>
+                  <text x="150" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">Equity Curve (MTD)</text>
                   {/* Simplified line chart */}
                   <polyline points="20,100 50,90 80,85 110,70 140,80 170,60 200,55 230,65 260,45 280,50" 
-                    stroke="#22c55e" strokeWidth="2" fill="none"/>
-                  <circle cx="280" cy="50" r="4" fill="#22c55e"/>
+                    stroke="#1FA978" strokeWidth="2" fill="none"/>
+                  <circle cx="280" cy="50" r="4" fill="#1FA978"/>
                 </g>
 
                 {/* Active Positions */}
                 <g transform="translate(370, 150)">
-                  <rect x="0" y="0" width="280" height="130" rx="8" fill="#0f172a"/>
-                  <text x="140" y="20" textAnchor="middle" fill="#94a3b8" fontSize="10">Active Positions</text>
+                  <rect x="0" y="0" width="280" height="130" rx="8" fill="#151517"/>
+                  <text x="140" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">Active Positions</text>
                   
-                  <text x="20" y="45" fill="#94a3b8" fontSize="8">Symbol</text>
-                  <text x="90" y="45" fill="#94a3b8" fontSize="8">Qty</text>
-                  <text x="140" y="45" fill="#94a3b8" fontSize="8">Entry</text>
-                  <text x="200" y="45" fill="#94a3b8" fontSize="8">P&L</text>
+                  <text x="20" y="45" fill="#A3A1A6" fontSize="8">Symbol</text>
+                  <text x="90" y="45" fill="#A3A1A6" fontSize="8">Qty</text>
+                  <text x="140" y="45" fill="#A3A1A6" fontSize="8">Entry</text>
+                  <text x="200" y="45" fill="#A3A1A6" fontSize="8">P&L</text>
                   
                   <text x="20" y="65" fill="white" fontSize="9">RELIANCE</text>
                   <text x="90" y="65" fill="white" fontSize="9">100</text>
                   <text x="140" y="65" fill="white" fontSize="9">₹2,450</text>
-                  <text x="200" y="65" fill="#22c55e" fontSize="9">+₹3,200</text>
+                  <text x="200" y="65" fill="#1FA978" fontSize="9">+₹3,200</text>
                   
                   <text x="20" y="85" fill="white" fontSize="9">INFY</text>
                   <text x="90" y="85" fill="white" fontSize="9">200</text>
                   <text x="140" y="85" fill="white" fontSize="9">₹1,580</text>
-                  <text x="200" y="85" fill="#ef4444" fontSize="9">-₹800</text>
+                  <text x="200" y="85" fill="#E04848" fontSize="9">-₹800</text>
                   
                   <text x="20" y="105" fill="white" fontSize="9">HDFC</text>
                   <text x="90" y="105" fill="white" fontSize="9">50</text>
                   <text x="140" y="105" fill="white" fontSize="9">₹1,720</text>
-                  <text x="200" y="105" fill="#22c55e" fontSize="9">+₹1,150</text>
+                  <text x="200" y="105" fill="#1FA978" fontSize="9">+₹1,150</text>
                 </g>
 
                 {/* System Status */}
                 <g transform="translate(50, 300)">
-                  <rect x="0" y="0" width="600" height="60" rx="8" fill="#0f172a"/>
-                  <text x="300" y="20" textAnchor="middle" fill="#94a3b8" fontSize="10">System Status</text>
+                  <rect x="0" y="0" width="600" height="60" rx="8" fill="#151517"/>
+                  <text x="300" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10">System Status</text>
                   
-                  <circle cx="60" cy="42" r="6" fill="#22c55e"/><text x="80" y="46" fill="#94a3b8" fontSize="9">Broker Connected</text>
-                  <circle cx="200" cy="42" r="6" fill="#22c55e"/><text x="220" y="46" fill="#94a3b8" fontSize="9">Data Feed OK</text>
-                  <circle cx="340" cy="42" r="6" fill="#22c55e"/><text x="360" y="46" fill="#94a3b8" fontSize="9">Strategy Running</text>
-                  <circle cx="480" cy="42" r="6" fill="#f59e0b"/><text x="500" y="46" fill="#94a3b8" fontSize="9">1 Alert</text>
+                  <circle cx="60" cy="42" r="6" fill="#1FA978"/><text x="80" y="46" fill="#A3A1A6" fontSize="9">Broker Connected</text>
+                  <circle cx="200" cy="42" r="6" fill="#1FA978"/><text x="220" y="46" fill="#A3A1A6" fontSize="9">Data Feed OK</text>
+                  <circle cx="340" cy="42" r="6" fill="#1FA978"/><text x="360" y="46" fill="#A3A1A6" fontSize="9">Strategy Running</text>
+                  <circle cx="480" cy="42" r="6" fill="#B8923F"/><text x="500" y="46" fill="#A3A1A6" fontSize="9">1 Alert</text>
                 </g>
               </svg>
             </div>
 
             {/* Essential Metrics */}
-            <h3 className="text-xl font-bold mb-4">Essential Metrics to Monitor</h3>
+            <h3 className="text-xl font-semibold mb-4">Essential Metrics to Monitor</h3>
             <div className="grid md:grid-cols-2 gap-4 mb-10">
               {[
                 { metric: "P&L (Today/Week/Month)", why: "Know if you're making or losing money", category: "Performance" },
@@ -341,7 +341,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Alerts and Circuit Breakers */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Bell className="w-5 h-5 text-red-600 "/>
               </span>
@@ -349,7 +349,7 @@ const AlgoTradingLesson7 = () => {
             </h2>
 
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-8 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4">Automatic Shutoffs You MUST Have</h3>
+              <h3 className="font-semibold text-red-800  mb-4">Automatic Shutoffs You MUST Have</h3>
               <div className="space-y-3">
                 {[
                   { trigger: "Daily Loss Limit", action: "Stop trading if losses exceed X%", example: "e.g., -2% daily max" },
@@ -368,7 +368,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Psychology */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Brain className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -400,7 +400,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Production Issues */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-amber-100  rounded-xl flex items-center justify-center">
                 <Icons.Server className="w-5 h-5 text-amber-600 "/>
               </span>
@@ -436,7 +436,7 @@ const AlgoTradingLesson7 = () => {
 
             {/* Daily Routine */}
             <div className="bg-gradient-to-r from-blue-50 to-cyan-50   rounded-2xl p-6 mb-10 border border-blue-200 ">
-              <h3 className="font-bold text-blue-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-blue-800  mb-4 flex items-center gap-3">
                 <Icons.Shield className="w-5 h-5"/> Your Daily Trading Routine
               </h3>
               <div className="space-y-2">
@@ -460,7 +460,7 @@ const AlgoTradingLesson7 = () => {
 
             {/* Key Takeaways */}
             <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
@@ -480,7 +480,7 @@ const AlgoTradingLesson7 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What's the recommended minimum time from backtest to full live trading?"
               options={["1-2 weeks", "3-4 weeks", "6-12 weeks", "6 months"]}
@@ -503,7 +503,7 @@ const AlgoTradingLesson7 = () => {
             {/* Completion Banner */}
             <div className="bg-gradient-to-r from-amber-100 to-yellow-100   rounded-2xl p-8 mb-10 border-2 border-amber-400  text-center">
               <FaTrophy className="w-16 h-16 text-amber-500 mx-auto mb-4"/>
-              <h2 className="text-2xl font-bold text-amber-900  mb-2">Great Progress!</h2>
+              <h2 className="text-2xl font-semibold text-amber-900  mb-2 tracking-[-0.015em]">Great Progress!</h2>
               <p className="text-amber-800  mb-4">
                 You've completed the core trading foundations! 
                 Next up: learn about <strong>data sources</strong> and <strong>broker APIs</strong> to actually build your systems.
@@ -521,7 +521,7 @@ const AlgoTradingLesson7 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Execution & Order Types
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-8')}
-              className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
               Next: Data Management<FaArrowRight/>
             </button>
           </div>

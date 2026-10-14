@@ -18,7 +18,7 @@ const Check = () => (
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="mb-6">
-    <h3 className="text-sm font-bold uppercase tracking-wide text-green-700 mb-3">{title}</h3>
+    <h3 className="xt-eyebrow mb-3">{title}</h3>
     {children}
   </section>
 );
@@ -47,7 +47,7 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="bg-gradient-to-br from-green-600 to-emerald-700 p-6 text-white flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold">{detail.name}</h2>
+            <h2 className="text-2xl font-semibold">{detail.name}</h2>
             <p className="text-green-100 text-sm mt-1">{detail.tagline}</p>
             <div className="flex flex-wrap gap-2 mt-3">
               <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-medium">{detail.style}</span>

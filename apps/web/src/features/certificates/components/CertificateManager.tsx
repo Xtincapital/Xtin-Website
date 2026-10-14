@@ -16,13 +16,13 @@ const LEVEL_META = {
     label: 'Intermediate',
     badgeBg: 'bg-blue-100',
     badgeText: 'text-blue-600',
-    buttonBg: 'bg-gradient-to-r from-blue-600 to-indigo-600',
+    buttonBg: 'bg-gradient-to-r from-green-600 to-emerald-700',
   },
   [DIFFICULTY_LEVELS.ADVANCED]: {
     label: 'Advanced',
     badgeBg: 'bg-purple-100',
     badgeText: 'text-purple-600',
-    buttonBg: 'bg-gradient-to-r from-purple-600 to-indigo-600',
+    buttonBg: 'bg-gradient-to-r from-green-600 to-emerald-700',
   },
 };
 

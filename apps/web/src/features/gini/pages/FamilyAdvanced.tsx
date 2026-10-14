@@ -46,6 +46,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { chartGrid, chartBarRadius, chartMaxBarSize, chartColors } from "@/components/charts/chartTheme";
 import {
   Landmark,
   HeartHandshake,
@@ -93,13 +94,7 @@ import type {
   TaxOptimizationInput,
 } from "../lib/api";
 
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+const CHART_COLORS = chartColors.series;
 
 const SIP_TIMING: "due" | "ordinary" = "due";
 
@@ -141,7 +136,7 @@ function ResultGrid({ items }: { items: { label: string; value: string }[] }) {
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
         <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{item.label}</p>
+          <p className="xt-label">{item.label}</p>
           <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
         </div>
       ))}
@@ -212,7 +207,7 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
             <h4 className="text-sm font-semibold text-foreground">Household Income Timeline</h4>
             <ChartContainer config={chartConfig} className="h-96 w-full">
               <LineChart data={chartData}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianGrid {...chartGrid} />
                 <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
                 <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
@@ -722,7 +717,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
             <h4 className="mb-2 text-sm font-semibold text-foreground">Education Funding Timeline</h4>
             <ChartContainer config={chartConfig} className="h-72 w-full">
               <BarChart data={chartData}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianGrid {...chartGrid} />
                 <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={11} />
                 <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
@@ -731,7 +726,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
                   )}
                 />
                 <Bar dataKey="saved" stackId="a" fill="var(--color-saved)" radius={[0, 0, 0, 0]} />
-                <Bar dataKey="required" stackId="a" fill="var(--color-required)" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="required" stackId="a" fill="var(--color-required)" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
               </BarChart>
             </ChartContainer>
           </div>
@@ -1307,8 +1302,8 @@ export default function FamilyAdvanced() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">Advanced tools</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Advanced Family Planning</h1>
+          <span className="xt-eyebrow">Advanced tools</span>
+          <h1 className="xt-title mb-2">Advanced Family Planning</h1>
           <p className="text-muted-foreground">Dual retirement, elder care, children's education, and tax optimization</p>
         </div>
 

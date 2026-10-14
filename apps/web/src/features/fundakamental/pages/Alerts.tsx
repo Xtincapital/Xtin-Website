@@ -142,7 +142,7 @@ export default function Alerts() {
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Alerts</h1>
+          <h1 className="xt-title mb-2">Alerts</h1>
           <p className="text-muted-foreground mt-1">
             Get notified here when a stock reaches your price. Targets you set in your{" "}
             <Link to="/fundakamental/watchlist" className="text-primary font-medium hover:underline">

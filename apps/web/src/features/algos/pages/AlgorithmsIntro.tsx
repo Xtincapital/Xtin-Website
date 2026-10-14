@@ -133,10 +133,10 @@ const DotGridBg = () => (
 
 /* ─── Data ──────────────────────────────────────────────── */
 const steps = [
-  { icon: I.search, title: 'Browse Strategies', desc: 'View algos with CAGR, win rate & drawdown stats', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' },
-  { icon: I.code, title: 'Review the Logic', desc: 'Plain-English entry, exit & risk rules', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600' },
-  { icon: I.link, title: 'Connect Broker', desc: 'Link your account — supports major Indian brokers', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600' },
-  { icon: I.play, title: 'Go Live', desc: 'Auto-trades execute. Track every trade in real-time', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' },
+  { icon: I.search, title: 'Browse Strategies', desc: 'View algos with CAGR, win rate & drawdown stats', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: I.code, title: 'Review the Logic', desc: 'Plain-English entry, exit & risk rules', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: I.link, title: 'Connect Broker', desc: 'Link your account — supports major Indian brokers', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: I.play, title: 'Go Live', desc: 'Auto-trades execute. Track every trade in real-time', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
 ];
 
 const strategies = [
@@ -163,10 +163,10 @@ const personas = [
 ];
 
 const trustBadges = [
-  { icon: I.shieldCheck, label: 'Transparent Logs', sub: 'Every trade recorded', color: 'text-emerald-600 dark:text-emerald-400' },
-  { icon: I.globe, label: 'NSE & BSE', sub: 'Both exchanges supported', color: 'text-blue-600 dark:text-blue-400' },
-  { icon: I.server, label: '99.9% Uptime', sub: 'Enterprise-grade infrastructure', color: 'text-purple-600 dark:text-purple-400' },
-  { icon: I.clock, label: '10+ Years', sub: 'Backtested historical data', color: 'text-amber-500 dark:text-amber-400' },
+  { icon: I.shieldCheck, label: 'Transparent Logs', sub: 'Every trade recorded', color: 'text-primary dark:text-success' },
+  { icon: I.globe, label: 'NSE & BSE', sub: 'Both exchanges supported', color: 'text-primary dark:text-success' },
+  { icon: I.server, label: '99.9% Uptime', sub: 'Enterprise-grade infrastructure', color: 'text-primary dark:text-success' },
+  { icon: I.clock, label: '10+ Years', sub: 'Backtested historical data', color: 'text-primary dark:text-success' },
 ];
 
 /* ═══════════════════════════════════════════════════════════
@@ -200,7 +200,7 @@ const AlgorithmsIntro = () => {
               AI-Powered Trading Systems
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight">
+            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.1] mb-6 tracking-[-0.02em]">
               Invest smarter with{' '}
               <span className="bg-gradient-to-r from-green-600 to-emerald-500 dark:from-emerald-400 dark:to-green-300 bg-clip-text text-transparent">algorithms</span>
             </motion.h1>
@@ -249,8 +249,8 @@ const AlgorithmsIntro = () => {
       <Section id="how-it-works" className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Simple Process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">How It Works</h2>
+            <span className="xt-eyebrow">Simple Process</span>
+            <h2 className="xt-title mt-2">How It Works</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">From browsing to live trading — in 4 simple steps</p>
           </motion.div>
 
@@ -278,8 +278,8 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Multiple Approaches</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Strategy Types</h2>
+            <span className="xt-eyebrow">Multiple Approaches</span>
+            <h2 className="xt-title mt-2">Strategy Types</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Choose from battle-tested strategies that match your trading style</p>
           </motion.div>
 
@@ -310,8 +310,8 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">The Edge</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Why Algorithmic Trading?</h2>
+            <span className="xt-eyebrow">The Edge</span>
+            <h2 className="xt-title mt-2">Why Algorithmic Trading?</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Let machines handle the math while you focus on living</p>
           </motion.div>
 
@@ -338,8 +338,8 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Platform</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Two Ways to Trade</h2>
+            <span className="xt-eyebrow">Platform</span>
+            <h2 className="xt-title mt-2">Two Ways to Trade</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Use our exclusive strategies or build your own</p>
           </motion.div>
 
@@ -349,7 +349,7 @@ const AlgorithmsIntro = () => {
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white flex items-center justify-center mb-5">
                 {I.bolt}
               </div>
-              <h3 className="text-xl font-bold mb-2">XTIN Exclusive Algos</h3>
+              <h3 className="text-xl font-semibold mb-2">XTIN Exclusive Algos</h3>
               <p className="text-sm text-gray-500 dark:text-slate-400 mb-5">Premium strategies built by our quant team with ₹60Cr+ AUM managed</p>
               <ul className="space-y-3 mb-6">
                 {['AurumV — Systematic Gold Strategy', 'Bird Eye — Multi-Engine Portfolio', 'Gamma — 15-Minute Gold Strategy', 'Z1 — Systematic Investment Strategy'].map((f) => (
@@ -376,7 +376,7 @@ const AlgorithmsIntro = () => {
                     {I.upload}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Build & Publish</h3>
+                <h3 className="text-xl font-semibold mb-2">Build & Publish</h3>
                 <p className="text-green-100 text-sm mb-5">Create custom algorithms or publish your strategies on AlgoMarket</p>
                 <ul className="space-y-3 mb-6">
                   {['Visual no-code algo builder', 'Full backtesting engine', 'Community marketplace (Q3 2026)', 'Revenue share for publishers'].map((f) => (
@@ -399,8 +399,8 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-6xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">For Every Trader</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Who It's For</h2>
+            <span className="xt-eyebrow">For Every Trader</span>
+            <h2 className="xt-title mt-2">Who It's For</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Whether you're starting out or scaling up — algos work for everyone</p>
           </motion.div>
 
@@ -425,7 +425,7 @@ const AlgorithmsIntro = () => {
       <Section className="py-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Built for Trust & Reliability</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Built for Trust & Reliability</h2>
           </motion.div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -451,8 +451,8 @@ const AlgorithmsIntro = () => {
       <Section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-slate-900/60">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Transparent Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">No Hidden Charges. Ever.</h2>
+            <span className="xt-eyebrow">Transparent Pricing</span>
+            <h2 className="xt-title mt-2">No Hidden Charges. Ever.</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-6">
@@ -462,7 +462,7 @@ const AlgorithmsIntro = () => {
                 {I.search}
                 <span>Browse</span>
               </div>
-              <h3 className="text-3xl font-extrabold mb-2">Free</h3>
+              <h3 className="text-3xl font-display font-normal mb-2 tracking-[-0.015em]">Free</h3>
               <p className="text-gray-500 dark:text-slate-400 text-sm mb-5">to browse & view performance</p>
               <ul className="space-y-3">
                 {['Browse all strategy performance', 'View CAGR, drawdown & win rates', 'Read plain-English logic', 'Compare strategies side-by-side'].map((f) => (
@@ -482,7 +482,7 @@ const AlgorithmsIntro = () => {
                   {I.bolt}
                   <span>Subscribe</span>
                 </div>
-                <h3 className="text-3xl font-extrabold mb-2">Per-Publisher Pricing</h3>
+                <h3 className="text-3xl font-display font-normal mb-2 tracking-[-0.015em]">Per-Publisher Pricing</h3>
                 <p className="text-green-100 text-sm mb-5">Each publisher sets their strategy fee</p>
                 <ul className="space-y-3">
                   {['Live automated execution', 'Real-time dashboard & alerts', 'Full trade log for every strategy', 'Cancel anytime — no lock-in'].map((f) => (
@@ -512,7 +512,7 @@ const AlgorithmsIntro = () => {
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-normal text-white mb-4 tracking-[-0.015em]">
               Let algorithms trade while you live your life
             </h2>
             <p className="text-green-100 text-lg mb-8 max-w-xl mx-auto">

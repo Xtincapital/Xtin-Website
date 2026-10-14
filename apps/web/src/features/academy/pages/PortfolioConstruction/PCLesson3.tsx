@@ -73,14 +73,14 @@ const Icons = {
   AssetPieChart: ({ className = "w-full h-64" }) => (
     <svg className={className} viewBox="0 0 400 300" fill="none">
       <defs>
-        {['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'].map((color, i) => (
+        {['#5A77AA', '#1FA978', '#B8923F', '#E04848', '#8F6FC4'].map((color, i) => (
           <linearGradient key={`grad-${i}`} id={`pieGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={color} stopOpacity="0.8"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.6"/>
           </linearGradient>
         ))}
       </defs>
-      <circle cx="150" cy="150" r="100" fill="none" stroke="#e5e7eb" strokeWidth="2"/>
+      <circle cx="150" cy="150" r="100" fill="none" stroke="#E4E1D9" strokeWidth="2"/>
       {/* Stocks 40% */}
       <path d="M 150 150 L 150 50 A 100 100 0 0 1 235.35 89.65 Z" fill="url(#pieGrad0)" stroke="white" strokeWidth="2"/>
       {/* Bonds 30% */}
@@ -94,7 +94,7 @@ const Icons = {
       <path d="M 150 150 L 79.29 189.64 A 100 100 0 0 1 150 50 Z" fill="url(#pieGrad4)" stroke="white" strokeWidth="2" opacity="0.5"/>
       {/* Legend */}
       <g transform="translate(280, 80)">
-        {[{c:'#3b82f6',l:'Stocks 40%'},{c:'#10b981',l:'Bonds 30%'},{c:'#f59e0b',l:'Real Estate 15%'},{c:'#ef4444',l:'Commodities 10%'},{c:'#8b5cf6',l:'Cash 5%'}].map((item, i) => (
+        {[{c:'#5A77AA',l:'Stocks 40%'},{c:'#1FA978',l:'Bonds 30%'},{c:'#B8923F',l:'Real Estate 15%'},{c:'#E04848',l:'Commodities 10%'},{c:'#8F6FC4',l:'Cash 5%'}].map((item, i) => (
           <g key={i} transform={`translate(0, ${i*35})`}>
             <rect width="20" height="20" fill={item.c} rx="3"/>
             <text x="28" y="15" fill="currentColor" fontSize="13">{item.l}</text>
@@ -185,12 +185,12 @@ const PCLesson3 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 3 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 3 OF 12</span>
               <span className="px-3 py-1.5 bg-emerald-100  text-emerald-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-900 to-teal-900    bg-clip-text text-transparent mb-5 leading-tight">Asset Class Mastery</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-emerald-900 to-teal-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Asset Class Mastery</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Understand the building blocks of diversified portfolios. Master the characteristics, risks, and roles of equities, fixed income, real assets, and alternatives in portfolio construction.</p>
           </header>
 
@@ -199,11 +199,11 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Equities: Ownership Stakes</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Equities: Ownership Stakes</h2>
                     <p className="text-sm text-gray-500 ">The growth engine of portfolios</p>
                   </div>
                 </div>
@@ -275,11 +275,11 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                     <Icons.DollarSign className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Fixed Income: Lending Your Money</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Fixed Income: Lending Your Money</h2>
                     <p className="text-sm text-gray-500 ">The stabilizer of portfolios</p>
                   </div>
                 </div>
@@ -333,7 +333,7 @@ const PCLesson3 = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-xl p-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6">
                   <h4 className="text-white font-semibold mb-3 text-center">The Role of Bonds in Portfolios</h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     <div className="text-center">
@@ -356,11 +356,11 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                     <Icons.Building className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Real Assets: Tangible Value</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Real Assets: Tangible Value</h2>
                     <p className="text-sm text-gray-500 ">Physical assets with intrinsic worth</p>
                   </div>
                 </div>
@@ -422,11 +422,11 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
                     <Icons.Layers className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Alternative Investments</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Alternative Investments</h2>
                     <p className="text-sm text-gray-500 ">Beyond traditional stocks and bonds</p>
                   </div>
                 </div>
@@ -471,18 +471,18 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
                     <Icons.Globe className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Global Diversification</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Global Diversification</h2>
                     <p className="text-sm text-gray-500 ">Expanding beyond domestic markets</p>
                   </div>
                 </div>
 
                 <p className="text-gray-700  leading-relaxed mb-6">Geographic diversification reduces country-specific risks and captures growth opportunities worldwide. The global stock market is roughly 60% US, 25% developed international, and 15% emerging markets.</p>
 
-                <div className="bg-gradient-to-br from-slate-900 to-cyan-950 rounded-xl p-6 mb-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
                   <div className="grid md:grid-cols-3 gap-4 text-center">
                     <div className="bg-white/5 rounded-lg p-4">
                       <div className="text-cyan-400 font-bold text-xl mb-1">US Markets</div>
@@ -517,11 +517,11 @@ const PCLesson3 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of asset classes</p>
                   </div>
                 </div>
@@ -566,11 +566,11 @@ const PCLesson3 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-emerald-100">{calculateScore() === quizQuestions.length ? "Outstanding! You've mastered asset class fundamentals." : "Review the explanations to strengthen your knowledge."}</p>
                   </div>
@@ -583,7 +583,7 @@ const PCLesson3 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-2')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous: Risk and Return</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-4')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-4')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200">
               <span>Next: Strategic Asset Allocation</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

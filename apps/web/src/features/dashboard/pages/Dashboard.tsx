@@ -639,7 +639,7 @@ const Dashboard = () => {
                 {getInitials()}
               </div>
               <div className="min-w-0">
-                <h1 className="text-2xl font-bold tracking-tight truncate">Welcome back, {displayName}</h1>
+                <h1 className="xt-title truncate">Welcome back, {displayName}</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
               </div>
             </div>

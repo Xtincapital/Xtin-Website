@@ -142,10 +142,10 @@ const LearnIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
+            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-display font-normal leading-[1.08] tracking-[-0.02em] mb-5">
               Learn investing,
               <br />
-              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">the right way</span>
+              <span className="bg-gradient-to-r from-green-600 to-emerald-700 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">the right way</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -157,7 +157,7 @@ const LearnIntro = () => {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/learn"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:shadow-green-600/30 hover:-translate-y-0.5 text-base"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:shadow-green-600/30 hover:-translate-y-0.5 text-base"
               >
                 Start Learning Free
                 <ArrowRight />
@@ -214,7 +214,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Simple process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">How it works</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">How it works</h2>
           </motion.div>
 
           <div className="relative">
@@ -226,7 +226,7 @@ const LearnIntro = () => {
                     {s.icon}
                   </div>
                   <span className="text-xs font-bold text-green-600 dark:text-emerald-400">{s.num}</span>
-                  <h3 className="font-bold mt-1 mb-1">{s.title}</h3>
+                  <h3 className="font-semibold mt-1 mb-1">{s.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-slate-400">{s.desc}</p>
                 </motion.div>
               ))}
@@ -240,7 +240,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Course catalog</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Pick your learning path</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">Pick your learning path</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Structured from beginner to advanced. Start anywhere.</p>
           </motion.div>
 
@@ -249,7 +249,7 @@ const LearnIntro = () => {
               <motion.div key={level.level} variants={fadeUp} custom={li}>
                 {/* Level header */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-lg font-bold">{level.level}</h3>
+                  <h3 className="text-lg font-semibold">{level.level}</h3>
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${level.tagColor}`}>{level.tag}</span>
                 </div>
 
@@ -283,7 +283,7 @@ const LearnIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">The advantage</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Why learn here</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">Why learn here</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -308,7 +308,7 @@ const LearnIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Who it's for</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-normal tracking-[-0.015em]">Who it's for</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -325,7 +325,7 @@ const LearnIntro = () => {
                 className={`bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 ${p.border} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
               >
                 <div className="text-green-600 dark:text-emerald-400 mb-4">{p.icon}</div>
-                <h3 className="font-bold mb-2">{p.label}</h3>
+                <h3 className="font-semibold mb-2">{p.label}</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">{p.desc}</p>
               </motion.div>
             ))}
@@ -338,7 +338,7 @@ const LearnIntro = () => {
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">100% Free. Always.</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal mt-3 tracking-[-0.015em]">100% Free. Always.</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-green-600/20">
@@ -350,7 +350,7 @@ const LearnIntro = () => {
                 <LockOpen />
                 <span>Our Mission</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6">&#8377;0 Forever</h3>
+              <h3 className="text-4xl md:text-5xl font-display font-normal mb-6 tracking-[-0.015em]">&#8377;0 Forever</h3>
               <p className="text-green-50 text-lg md:text-xl leading-relaxed mb-10">
                 We believe in making India wealthy, not just rich. Education should never be a luxury. This is our contribution to India's second freedom movement &mdash; a financial movement for everyone.
               </p>
@@ -385,7 +385,7 @@ const LearnIntro = () => {
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-normal text-white mb-4 tracking-[-0.015em]">
               Start learning today
             </h2>
             <p className="text-green-100 text-lg mb-8 max-w-xl mx-auto">

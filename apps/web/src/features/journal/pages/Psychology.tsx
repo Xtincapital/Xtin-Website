@@ -36,6 +36,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recharts";
+import { chartGrid, chartTick, chartTooltip, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import { BookOpen, Tags, Sparkles, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -172,7 +173,7 @@ const Psychology = () => {
     <JournalLayout proFeature="Psychology analysis">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Psychology
             <InfoTip title="Trading psychology" widthClass="w-80">
               <p>Your emotions affect your trades: fear makes you exit early, greed makes you hold too long. This page connects the emotion you tagged on each trade to the money it made or lost.</p>
@@ -207,10 +208,10 @@ const Psychology = () => {
                 </div>
                 {card.onClick ? (
                   <button type="button" onClick={card.onClick} className="block max-w-full text-left cursor-pointer hover:underline">
-                    <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
+                    <p className="stat-value font-semibold text-foreground truncate">{card.value}</p>
                   </button>
                 ) : (
-                  <p className="stat-value font-bold text-foreground truncate">{card.value}</p>
+                  <p className="stat-value font-semibold text-foreground truncate">{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -241,11 +242,11 @@ const Psychology = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={emotionChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                      <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                      <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                      <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                      <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const key = (d as unknown as { payload?: { key?: string } })?.payload?.key; if (key) showEmotion(key, "Trades tagged with this emotion"); }}>
+                      <CartesianGrid {...chartGrid} />
+                      <XAxis dataKey="label" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
+                      <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                      <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
+                      <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const key = (d as unknown as { payload?: { key?: string } })?.payload?.key; if (key) showEmotion(key, "Trades tagged with this emotion"); }}>
                         {emotionChartData.map((entry) => (
                           <Cell key={entry.key} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                         ))}
@@ -274,14 +275,14 @@ const Psychology = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={topTags} dataKey="count" nameKey="tag" cx="50%" cy="50%" innerRadius="45%" outerRadius="80%" stroke="none">
+                      <Pie data={topTags} dataKey="count" nameKey="tag" cx="50%" cy="50%" innerRadius="45%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2}>
                         {topTags.map((entry, index) => (
                           <Cell key={entry.tag} fill={TAG_COLORS[index % TAG_COLORS.length]} />
                         ))}
                       </Pie>
                       <Tooltip
                         formatter={(value: number, name: string) => [`${value} trades`, name]}
-                        contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }}
+                        {...chartTooltip}
                       />
                     </PieChart>
                   </ResponsiveContainer>

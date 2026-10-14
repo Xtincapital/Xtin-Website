@@ -29,7 +29,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -56,6 +55,7 @@ import InfoTip from "@/components/ui/info-tip";
 import { api } from "../lib/api";
 import type { Trade, Strategy } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
+import SlideToConfirm from "@/components/motion/SlideToConfirm";
 import { useAuth } from "@/contexts/AuthContext";
 import { buildReportMeta, registerReport, verifyQr } from "@/lib/reportMeta";
 
@@ -286,8 +286,8 @@ export default function Trades() {
     }
   }
 
-  async function confirmDelete() {
-    if (!deleteTarget) return;
+  async function confirmDelete(): Promise<boolean> {
+    if (!deleteTarget) return false;
     setDeleting(true);
     try {
       await api.trades.deleteTrade(deleteTarget.id);
@@ -297,9 +297,11 @@ export default function Trades() {
       const nextOffset = trades.length === 1 && offset > 0 ? offset - PAGE_SIZE : offset;
       setOffset(nextOffset);
       await loadTrades(nextOffset);
+      return true;
     } catch (err: any) {
       console.error(err);
       toast.error(err?.message || "Failed to delete trade");
+      return false;
     } finally {
       setDeleting(false);
     }
@@ -310,7 +312,7 @@ export default function Trades() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Trades</h1>
+            <h1 className="xt-title mb-2">Trades</h1>
             <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
               {filtering ? `${total} matching trade${total === 1 ? "" : "s"}` : `${total} trade${total === 1 ? "" : "s"} logged`}
               <InfoTip title="Click a trade for the full picture">
@@ -417,6 +419,7 @@ export default function Trades() {
               <TableRow>
                 <TableHead>Date</TableHead>
                 <TableHead>Asset</TableHead>
+                <TableHead>Side</TableHead>
                 <TableHead className="text-right">Qty</TableHead>
                 <TableHead className="text-right">Entry</TableHead>
                 <TableHead className="text-right">Exit</TableHead>
@@ -430,13 +433,13 @@ export default function Trades() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={10} className="h-24 text-center text-muted-foreground">
                     Loading trades...
                   </TableCell>
                 </TableRow>
               ) : visibleTrades.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={10} className="h-24 text-center text-muted-foreground">
                     {filtering ? "No trades match these filters." : "No trades found."}
                   </TableCell>
                 </TableRow>
@@ -462,9 +465,6 @@ export default function Trades() {
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2 whitespace-nowrap">
                           {trade.asset}
-                          <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-1.5 py-0 text-[10px] uppercase">
-                            {trade.buy_sell || "buy"}
-                          </Badge>
                           {trade.is_duplicate && (
                             <span
                               className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
@@ -475,6 +475,11 @@ export default function Trades() {
                             </span>
                           )}
                         </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-2 py-0.5 text-[11px] uppercase tracking-wide">
+                          {trade.buy_sell || "buy"}
+                        </Badge>
                       </TableCell>
                       <TableCell className="text-right tabular-nums">{trade.quantity != null ? trade.quantity.toLocaleString() : "-"}</TableCell>
                       <TableCell className="text-right tabular-nums">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
@@ -635,11 +640,9 @@ export default function Trades() {
               This will permanently delete the {deleteTarget?.asset} trade from {formatDate(deleteTarget?.date)}. This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <SlideToConfirm label="Slide to delete" busyLabel="Deleting..." onConfirm={confirmDelete} />
           <AlertDialogFooter>
             <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} disabled={deleting}>
-              {deleting ? "Deleting..." : "Delete"}
-            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

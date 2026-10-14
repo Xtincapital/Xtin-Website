@@ -23,9 +23,9 @@ function CardHeader({ icon: Icon, title, hint }: { icon: typeof CalendarDays; ti
 
 const FLAT = 0.05; // |return| below this reads as "no change"
 const cellColor = (ret: number, maxAbs: number) => {
-  if (!maxAbs || Math.abs(ret) < FLAT) return "rgba(148,163,184,0.12)";
+  if (!maxAbs || Math.abs(ret) < FLAT) return "rgba(163, 161, 166,0.12)";
   const a = 0.15 + 0.75 * Math.min(1, Math.abs(ret) / maxAbs);
-  return ret > 0 ? `rgba(16,185,129,${a})` : `rgba(244,63,94,${a})`;
+  return ret > 0 ? `rgba(31, 169, 120,${a})` : `rgba(224, 72, 72,${a})`;
 };
 
 export function MonthlyHeatmap({ result }: { result: BacktestResult }) {

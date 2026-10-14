@@ -276,14 +276,14 @@ const StockMarketLesson6 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 6 of 7
               </span>
               <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-200 rounded-xl shadow-sm">
                 <Icons.Compare className="w-7 h-7 text-green-600" />
               </span>
@@ -301,7 +301,7 @@ const StockMarketLesson6 = () => {
                 <Icons.Question className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <h3 className="font-bold text-green-900 mb-2">"Should I Invest or Trade?"</h3>
+                <h3 className="font-semibold text-green-900 mb-2">"Should I Invest or Trade?"</h3>
                 <p className="text-green-800">
                   Your friend made Rs. 50,000 in one day trading Nifty options. Your uncle doubled his money 
                   in 5 years investing in TCS. Both are in the stock market — but playing completely different games. 
@@ -313,68 +313,68 @@ const StockMarketLesson6 = () => {
 
           {/* Visual: The Two Approaches */}
           <div className="bg-gradient-to-br from-gray-50 to-green-50 rounded-2xl p-6 mb-6 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Two Different Mindsets</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Two Different Mindsets</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
               {/* Investor Side */}
               <g transform="translate(50, 30)">
-                <rect x="0" y="0" width="250" height="240" rx="16" fill="#dcfce7" stroke="#22c55e" strokeWidth="3"/>
-                <text x="125" y="30" textAnchor="middle" fill="#166534" fontSize="16" fontWeight="700">INVESTING</text>
-                <text x="125" y="50" textAnchor="middle" fill="#15803d" fontSize="10">"Plant a tree, watch it grow"</text>
+                <rect x="0" y="0" width="250" height="240" rx="16" fill="#D5F2E5" stroke="#1FA978" strokeWidth="3"/>
+                <text x="125" y="30" textAnchor="middle" fill="#0D543C" fontSize="16" fontWeight="700">INVESTING</text>
+                <text x="125" y="50" textAnchor="middle" fill="#0E6A4A" fontSize="10">"Plant a tree, watch it grow"</text>
                 
                 {/* Tree growing visualization */}
                 <g transform="translate(75, 70)">
-                  <rect x="45" y="100" width="10" height="40" fill="#92400e"/>
-                  <circle cx="50" cy="80" r="30" fill="#22c55e"/>
-                  <circle cx="35" cy="90" r="20" fill="#16a34a"/>
-                  <circle cx="65" cy="90" r="20" fill="#16a34a"/>
+                  <rect x="45" y="100" width="10" height="40" fill="#654B26"/>
+                  <circle cx="50" cy="80" r="30" fill="#1FA978"/>
+                  <circle cx="35" cy="90" r="20" fill="#12805A"/>
+                  <circle cx="65" cy="90" r="20" fill="#12805A"/>
                   <text x="50" y="85" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">5-20</text>
                   <text x="50" y="95" textAnchor="middle" fill="white" fontSize="8">YEARS</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 180)">
-                  <text x="0" y="0" fill="#166534" fontSize="10">✓ Long-term wealth building</text>
-                  <text x="0" y="18" fill="#166534" fontSize="10">✓ Less time-consuming</text>
-                  <text x="0" y="36" fill="#166534" fontSize="10">✓ Lower stress</text>
+                  <text x="0" y="0" fill="#0D543C" fontSize="10">✓ Long-term wealth building</text>
+                  <text x="0" y="18" fill="#0D543C" fontSize="10">✓ Less time-consuming</text>
+                  <text x="0" y="36" fill="#0D543C" fontSize="10">✓ Lower stress</text>
                 </g>
               </g>
 
               {/* VS Circle */}
               <g transform="translate(320, 120)">
-                <circle cx="30" cy="30" r="28" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="3"/>
-                <text x="30" y="36" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="700">VS</text>
+                <circle cx="30" cy="30" r="28" fill="#EFEDE7" stroke="#CFCBC1" strokeWidth="3"/>
+                <text x="30" y="36" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="700">VS</text>
               </g>
 
               {/* Trader Side */}
               <g transform="translate(400, 30)">
-                <rect x="0" y="0" width="250" height="240" rx="16" fill="#fef3c7" stroke="#f59e0b" strokeWidth="3"/>
-                <text x="125" y="30" textAnchor="middle" fill="#92400e" fontSize="16" fontWeight="700">TRADING</text>
-                <text x="125" y="50" textAnchor="middle" fill="#b45309" fontSize="10">"Catch waves in the ocean"</text>
+                <rect x="0" y="0" width="250" height="240" rx="16" fill="#F6ECCE" stroke="#B8923F" strokeWidth="3"/>
+                <text x="125" y="30" textAnchor="middle" fill="#654B26" fontSize="16" fontWeight="700">TRADING</text>
+                <text x="125" y="50" textAnchor="middle" fill="#7C5D2B" fontSize="10">"Catch waves in the ocean"</text>
                 
                 {/* Chart with quick moves */}
                 <g transform="translate(25, 70)">
-                  <rect x="0" y="0" width="200" height="100" rx="8" fill="white" stroke="#fcd34d" strokeWidth="2"/>
-                  <path d="M20 70 L50 50 L80 65 L110 30 L140 45 L170 25" stroke="#f59e0b" strokeWidth="3" fill="none"/>
-                  <circle cx="50" cy="50" r="4" fill="#22c55e"/>
-                  <text x="50" y="45" textAnchor="middle" fill="#22c55e" fontSize="7">BUY</text>
-                  <circle cx="110" cy="30" r="4" fill="#ef4444"/>
-                  <text x="110" y="25" textAnchor="middle" fill="#ef4444" fontSize="7">SELL</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#92400e" fontSize="9">Minutes to Days</text>
+                  <rect x="0" y="0" width="200" height="100" rx="8" fill="white" stroke="#E2C273" strokeWidth="2"/>
+                  <path d="M20 70 L50 50 L80 65 L110 30 L140 45 L170 25" stroke="#B8923F" strokeWidth="3" fill="none"/>
+                  <circle cx="50" cy="50" r="4" fill="#1FA978"/>
+                  <text x="50" y="45" textAnchor="middle" fill="#1FA978" fontSize="7">BUY</text>
+                  <circle cx="110" cy="30" r="4" fill="#E04848"/>
+                  <text x="110" y="25" textAnchor="middle" fill="#E04848" fontSize="7">SELL</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#654B26" fontSize="9">Minutes to Days</text>
                 </g>
                 
                 {/* Key points */}
                 <g transform="translate(20, 180)">
-                  <text x="0" y="0" fill="#92400e" fontSize="10">✓ Quick profits possible</text>
-                  <text x="0" y="18" fill="#92400e" fontSize="10">✓ Requires active monitoring</text>
-                  <text x="0" y="36" fill="#92400e" fontSize="10">✓ Higher risk & stress</text>
+                  <text x="0" y="0" fill="#654B26" fontSize="10">✓ Quick profits possible</text>
+                  <text x="0" y="18" fill="#654B26" fontSize="10">✓ Requires active monitoring</text>
+                  <text x="0" y="36" fill="#654B26" fontSize="10">✓ Higher risk & stress</text>
                 </g>
               </g>
 
               {/* Bottom note */}
               <g transform="translate(50, 285)">
-                <rect x="0" y="0" width="600" height="30" rx="8" fill="#f0fdf4" stroke="#86efac" strokeWidth="2"/>
-                <text x="300" y="20" textAnchor="middle" fill="#166534" fontSize="11">
+                <rect x="0" y="0" width="600" height="30" rx="8" fill="#EEF9F4" stroke="#77D3AE" strokeWidth="2"/>
+                <text x="300" y="20" textAnchor="middle" fill="#0D543C" fontSize="11">
                   Neither is "better" — they serve different goals and suit different personalities
                 </text>
               </g>
@@ -383,7 +383,7 @@ const StockMarketLesson6 = () => {
 
           {/* Detailed Comparison Table */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Compare className="w-6 h-6 text-green-600" />
               <span>Head-to-Head Comparison</span>
             </h2>
@@ -455,7 +455,7 @@ const StockMarketLesson6 = () => {
 
           {/* Investor Profile */}
           <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-6 border border-green-200">
-            <h2 className="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
               <Icons.Investor className="w-6 h-6 text-green-600" />
               <span>The Investor's Approach</span>
             </h2>
@@ -516,7 +516,7 @@ const StockMarketLesson6 = () => {
 
           {/* Trader Profile */}
           <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 mb-6 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <Icons.Trader className="w-6 h-6 text-amber-600" />
               <span>The Trader's Approach</span>
             </h2>
@@ -578,7 +578,7 @@ const StockMarketLesson6 = () => {
 
           {/* Types of Trading */}
           <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Time className="w-6 h-6 text-green-600" />
               <span>Types of Trading (By Time)</span>
             </h2>
@@ -620,7 +620,7 @@ const StockMarketLesson6 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: The Numbers Don't Lie</span>
             </h2>
@@ -674,7 +674,7 @@ const StockMarketLesson6 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-10 border border-green-200">
-            <h2 className="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-green-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -716,7 +716,7 @@ const StockMarketLesson6 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-green-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -774,7 +774,7 @@ const StockMarketLesson6 = () => {
             
             <button
               onClick={() => navigate('/learn/stock-market-lesson-7')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: Common Beginner Mistakes</span>
               <FaArrowRight className="text-sm" />

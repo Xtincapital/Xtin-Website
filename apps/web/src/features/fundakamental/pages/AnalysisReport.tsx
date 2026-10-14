@@ -302,7 +302,7 @@ const AnalysisReport = () => {
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-2xl font-bold text-foreground">
+                  <h1 className="xt-title mb-2">
                     {report.company}
                   </h1>
                   {/* Uploads without a chosen company have no ticker/exchange ("N/A") — hide the badges then. */}
@@ -343,7 +343,7 @@ const AnalysisReport = () => {
                 <section className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-start gap-3">
                   <Sparkles className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-primary mb-1">The bottom line</p>
+                    <p className="xt-eyebrow mb-1">The bottom line</p>
                     <p className="text-foreground font-medium leading-relaxed">{report.plain_english}</p>
                   </div>
                 </section>
@@ -383,11 +383,11 @@ const AnalysisReport = () => {
                       key={key}
                       className="p-4 rounded-lg bg-secondary/50 border border-border"
                     >
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+                      <p className="xt-label mb-1">
                         {key}
                       </p>
                       <div className="flex items-end gap-2">
-                        <span className="text-2xl font-bold text-foreground">
+                        <span className="xt-metric text-foreground">
                           {value.score}
                         </span>
                         <span className="text-sm text-muted-foreground mb-1">

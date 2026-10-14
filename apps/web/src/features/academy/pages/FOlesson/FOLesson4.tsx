@@ -73,78 +73,78 @@ const CallVsPutSVG = () => (
   <svg viewBox="0 0 700 420" className="w-full h-auto">
     <defs>
       <linearGradient id="optGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#0f172a"/>
-        <stop offset="100%" stopColor="#1e3a5f"/>
+        <stop offset="0%" stopColor="#151517"/>
+        <stop offset="100%" stopColor="#232327"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="420" fill="url(#optGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Call Options vs Put Options</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">The two fundamental types of options</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">The two fundamental types of options</text>
     
     {/* Call Option */}
     <g transform="translate(30, 80)">
-      <rect x="0" y="0" width="310" height="300" fill="#22c55e" fillOpacity="0.1" rx="12" stroke="#22c55e" strokeWidth="2"/>
+      <rect x="0" y="0" width="310" height="300" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
       
       <g transform="translate(155, 30)">
-        <circle r="22" fill="#22c55e" fillOpacity="0.3"/>
-        <path d="M0,-10 L0,10 M-7,3 L0,-4 L7,3" stroke="#22c55e" strokeWidth="3" fill="none"/>
+        <circle r="22" fill="#1FA978" fillOpacity="0.3"/>
+        <path d="M0,-10 L0,10 M-7,3 L0,-4 L7,3" stroke="#1FA978" strokeWidth="3" fill="none"/>
       </g>
       
-      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#22c55e">CALL OPTION</text>
-      <text x="155" y="90" textAnchor="middle" fontSize="10" fill="#94a3b8">Right to BUY at strike price</text>
+      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#1FA978">CALL OPTION</text>
+      <text x="155" y="90" textAnchor="middle" fontSize="10" fill="#A3A1A6">Right to BUY at strike price</text>
       
       <g transform="translate(20, 110)">
-        <rect x="0" y="0" width="270" height="170" fill="#0f172a" rx="10"/>
+        <rect x="0" y="0" width="270" height="170" fill="#151517" rx="10"/>
         
         <text x="135" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Call Buyer (Long Call)</text>
-        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#22c55e">Pays premium upfront</text>
-        <text x="135" y="62" textAnchor="middle" fontSize="9" fill="#94a3b8">Profits when price rises above strike</text>
-        <text x="135" y="79" textAnchor="middle" fontSize="9" fill="#94a3b8">Max loss = Premium paid</text>
-        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#22c55e">Max profit = Unlimited</text>
+        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#1FA978">Pays premium upfront</text>
+        <text x="135" y="62" textAnchor="middle" fontSize="9" fill="#A3A1A6">Profits when price rises above strike</text>
+        <text x="135" y="79" textAnchor="middle" fontSize="9" fill="#A3A1A6">Max loss = Premium paid</text>
+        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#1FA978">Max profit = Unlimited</text>
         
-        <line x1="20" y1="108" x2="250" y2="108" stroke="#334155" strokeWidth="1"/>
+        <line x1="20" y1="108" x2="250" y2="108" stroke="#404047" strokeWidth="1"/>
         
         <text x="135" y="125" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Call Seller (Short Call)</text>
-        <text x="135" y="145" textAnchor="middle" fontSize="9" fill="#f97316">Receives premium upfront</text>
-        <text x="135" y="162" textAnchor="middle" fontSize="9" fill="#94a3b8">Obligated to sell if exercised</text>
+        <text x="135" y="145" textAnchor="middle" fontSize="9" fill="#D2754C">Receives premium upfront</text>
+        <text x="135" y="162" textAnchor="middle" fontSize="9" fill="#A3A1A6">Obligated to sell if exercised</text>
       </g>
     </g>
     
     {/* Put Option */}
     <g transform="translate(360, 80)">
-      <rect x="0" y="0" width="310" height="300" fill="#dc2626" fillOpacity="0.1" rx="12" stroke="#dc2626" strokeWidth="2"/>
+      <rect x="0" y="0" width="310" height="300" fill="#C7363B" fillOpacity="0.1" rx="12" stroke="#C7363B" strokeWidth="2"/>
       
       <g transform="translate(155, 30)">
-        <circle r="22" fill="#dc2626" fillOpacity="0.3"/>
-        <path d="M0,-10 L0,10 M-7,-3 L0,4 L7,-3" stroke="#dc2626" strokeWidth="3" fill="none"/>
+        <circle r="22" fill="#C7363B" fillOpacity="0.3"/>
+        <path d="M0,-10 L0,10 M-7,-3 L0,4 L7,-3" stroke="#C7363B" strokeWidth="3" fill="none"/>
       </g>
       
-      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#dc2626">PUT OPTION</text>
-      <text x="155" y="90" textAnchor="middle" fontSize="10" fill="#94a3b8">Right to SELL at strike price</text>
+      <text x="155" y="70" textAnchor="middle" fontSize="18" fontWeight="700" fill="#C7363B">PUT OPTION</text>
+      <text x="155" y="90" textAnchor="middle" fontSize="10" fill="#A3A1A6">Right to SELL at strike price</text>
       
       <g transform="translate(20, 110)">
-        <rect x="0" y="0" width="270" height="170" fill="#0f172a" rx="10"/>
+        <rect x="0" y="0" width="270" height="170" fill="#151517" rx="10"/>
         
         <text x="135" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Put Buyer (Long Put)</text>
-        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#dc2626">Pays premium upfront</text>
-        <text x="135" y="62" textAnchor="middle" fontSize="9" fill="#94a3b8">Profits when price falls below strike</text>
-        <text x="135" y="79" textAnchor="middle" fontSize="9" fill="#94a3b8">Max loss = Premium paid</text>
-        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#dc2626">Max profit = Strike - Premium</text>
+        <text x="135" y="45" textAnchor="middle" fontSize="9" fill="#C7363B">Pays premium upfront</text>
+        <text x="135" y="62" textAnchor="middle" fontSize="9" fill="#A3A1A6">Profits when price falls below strike</text>
+        <text x="135" y="79" textAnchor="middle" fontSize="9" fill="#A3A1A6">Max loss = Premium paid</text>
+        <text x="135" y="96" textAnchor="middle" fontSize="9" fill="#C7363B">Max profit = Strike - Premium</text>
         
-        <line x1="20" y1="108" x2="250" y2="108" stroke="#334155" strokeWidth="1"/>
+        <line x1="20" y1="108" x2="250" y2="108" stroke="#404047" strokeWidth="1"/>
         
         <text x="135" y="125" textAnchor="middle" fontSize="11" fontWeight="600" fill="white">Put Seller (Short Put)</text>
-        <text x="135" y="145" textAnchor="middle" fontSize="9" fill="#f97316">Receives premium upfront</text>
-        <text x="135" y="162" textAnchor="middle" fontSize="9" fill="#94a3b8">Obligated to buy if exercised</text>
+        <text x="135" y="145" textAnchor="middle" fontSize="9" fill="#D2754C">Receives premium upfront</text>
+        <text x="135" y="162" textAnchor="middle" fontSize="9" fill="#A3A1A6">Obligated to buy if exercised</text>
       </g>
     </g>
     
     {/* Key Insight */}
     <g transform="translate(50, 390)">
-      <rect x="0" y="0" width="600" height="25" fill="#1e293b" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#f97316">Options give buyers flexibility (right, not obligation) in exchange for premium. Sellers take on obligation for premium income.</text>
+      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#D2754C">Options give buyers flexibility (right, not obligation) in exchange for premium. Sellers take on obligation for premium income.</text>
     </g>
   </svg>
 );
@@ -152,106 +152,106 @@ const CallVsPutSVG = () => (
 // SVG: Option Payoff Diagrams
 const PayoffDiagramsSVG = () => (
   <svg viewBox="0 0 700 430" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="430" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="430" fill="#151517" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Option Payoff Profiles</text>
     
     {/* Long Call Payoff */}
     <g transform="translate(40, 80)">
-      <rect x="0" y="0" width="300" height="160" fill="#1e293b" rx="10"/>
-      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#22c55e">Long Call Option</text>
+      <rect x="0" y="0" width="300" height="160" fill="#232327" rx="10"/>
+      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#1FA978">Long Call Option</text>
       
       <g transform="translate(30, 45)">
         {/* Axes */}
-        <line x1="0" y1="50" x2="220" y2="50" stroke="#475569" strokeWidth="1"/>
-        <line x1="110" y1="0" x2="110" y2="100" stroke="#475569" strokeWidth="1"/>
-        <text x="180" y="100" fontSize="8" fill="#94a3b8">Stock Price</text>
-        <text x="115" y="10" fontSize="8" fill="#94a3b8">P/L</text>
+        <line x1="0" y1="50" x2="220" y2="50" stroke="#5A5A62" strokeWidth="1"/>
+        <line x1="110" y1="0" x2="110" y2="100" stroke="#5A5A62" strokeWidth="1"/>
+        <text x="180" y="100" fontSize="8" fill="#A3A1A6">Stock Price</text>
+        <text x="115" y="10" fontSize="8" fill="#A3A1A6">P/L</text>
         
         {/* Strike marker */}
-        <line x1="110" y1="45" x2="110" y2="55" stroke="#f97316" strokeWidth="2"/>
-        <text x="110" y="115" textAnchor="middle" fontSize="8" fill="#f97316">Strike</text>
+        <line x1="110" y1="45" x2="110" y2="55" stroke="#D2754C" strokeWidth="2"/>
+        <text x="110" y="115" textAnchor="middle" fontSize="8" fill="#D2754C">Strike</text>
         
         {/* Payoff line */}
-        <path d="M 15 65 L 110 65 L 180 15" stroke="#22c55e" strokeWidth="3" fill="none"/>
+        <path d="M 15 65 L 110 65 L 180 15" stroke="#1FA978" strokeWidth="3" fill="none"/>
         
         {/* Premium line (horizontal dashed) */}
-        <line x1="15" y1="65" x2="220" y2="65" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3,3"/>
-        <text x="5" y="75" fontSize="7" fill="#dc2626">Max Loss: Premium</text>
+        <line x1="15" y1="65" x2="220" y2="65" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="3,3"/>
+        <text x="5" y="75" fontSize="7" fill="#C7363B">Max Loss: Premium</text>
         
         {/* Unlimited profit label */}
-        <text x="175" y="20" fontSize="7" fill="#22c55e">Unlimited Profit</text>
+        <text x="175" y="20" fontSize="7" fill="#1FA978">Unlimited Profit</text>
       </g>
     </g>
     
     {/* Long Put Payoff */}
     <g transform="translate(360, 80)">
-      <rect x="0" y="0" width="300" height="160" fill="#1e293b" rx="10"/>
-      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">Long Put Option</text>
+      <rect x="0" y="0" width="300" height="160" fill="#232327" rx="10"/>
+      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">Long Put Option</text>
       
       <g transform="translate(30, 45)">
         {/* Axes */}
-        <line x1="0" y1="50" x2="220" y2="50" stroke="#475569" strokeWidth="1"/>
-        <line x1="110" y1="0" x2="110" y2="100" stroke="#475569" strokeWidth="1"/>
-        <text x="180" y="100" fontSize="8" fill="#94a3b8">Stock Price</text>
-        <text x="115" y="10" fontSize="8" fill="#94a3b8">P/L</text>
+        <line x1="0" y1="50" x2="220" y2="50" stroke="#5A5A62" strokeWidth="1"/>
+        <line x1="110" y1="0" x2="110" y2="100" stroke="#5A5A62" strokeWidth="1"/>
+        <text x="180" y="100" fontSize="8" fill="#A3A1A6">Stock Price</text>
+        <text x="115" y="10" fontSize="8" fill="#A3A1A6">P/L</text>
         
         {/* Strike marker */}
-        <line x1="110" y1="45" x2="110" y2="55" stroke="#f97316" strokeWidth="2"/>
-        <text x="110" y="115" textAnchor="middle" fontSize="8" fill="#f97316">Strike</text>
+        <line x1="110" y1="45" x2="110" y2="55" stroke="#D2754C" strokeWidth="2"/>
+        <text x="110" y="115" textAnchor="middle" fontSize="8" fill="#D2754C">Strike</text>
         
         {/* Payoff line */}
-        <path d="M 40 15 L 110 65 L 200 65" stroke="#dc2626" strokeWidth="3" fill="none"/>
+        <path d="M 40 15 L 110 65 L 200 65" stroke="#C7363B" strokeWidth="3" fill="none"/>
         
         {/* Premium line */}
-        <line x1="0" y1="65" x2="220" y2="65" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3,3"/>
-        <text x="160" y="75" fontSize="7" fill="#dc2626">Max Loss: Premium</text>
+        <line x1="0" y1="65" x2="220" y2="65" stroke="#A3A1A6" strokeWidth="1" strokeDasharray="3,3"/>
+        <text x="160" y="75" fontSize="7" fill="#C7363B">Max Loss: Premium</text>
         
         {/* Profit when falls label - positioned inside chart area */}
-        <text x="65" y="25" fontSize="7" fill="#dc2626">Profit when</text>
-        <text x="65" y="35" fontSize="7" fill="#dc2626">price falls</text>
+        <text x="65" y="25" fontSize="7" fill="#C7363B">Profit when</text>
+        <text x="65" y="35" fontSize="7" fill="#C7363B">price falls</text>
       </g>
     </g>
     
     {/* Short Call Payoff */}
     <g transform="translate(40, 250)">
-      <rect x="0" y="0" width="300" height="130" fill="#1e293b" rx="10"/>
-      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#f97316">Short Call Payoff</text>
+      <rect x="0" y="0" width="300" height="130" fill="#232327" rx="10"/>
+      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#D2754C">Short Call Payoff</text>
       
       <g transform="translate(30, 40)">
-        <line x1="0" y1="50" x2="220" y2="50" stroke="#475569" strokeWidth="1"/>
-        <line x1="110" y1="0" x2="110" y2="80" stroke="#475569" strokeWidth="1"/>
+        <line x1="0" y1="50" x2="220" y2="50" stroke="#5A5A62" strokeWidth="1"/>
+        <line x1="110" y1="0" x2="110" y2="80" stroke="#5A5A62" strokeWidth="1"/>
         
         {/* Payoff line - mirror of long call */}
-        <path d="M 15 35 L 110 35 L 180 75" stroke="#f97316" strokeWidth="3" fill="none"/>
-        <text x="5" y="38" fontSize="7" fill="#22c55e">+Premium</text>
-        <text x="175" y="85" fontSize="7" fill="#dc2626">Unlimited loss</text>
+        <path d="M 15 35 L 110 35 L 180 75" stroke="#D2754C" strokeWidth="3" fill="none"/>
+        <text x="5" y="38" fontSize="7" fill="#1FA978">+Premium</text>
+        <text x="175" y="85" fontSize="7" fill="#C7363B">Unlimited loss</text>
       </g>
     </g>
     
     {/* Short Put Payoff */}
     <g transform="translate(360, 250)">
-      <rect x="0" y="0" width="300" height="130" fill="#1e293b" rx="10"/>
-      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#a855f7">Short Put Payoff</text>
+      <rect x="0" y="0" width="300" height="130" fill="#232327" rx="10"/>
+      <text x="150" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#8F6FC4">Short Put Payoff</text>
       
       <g transform="translate(30, 40)">
-        <line x1="0" y1="50" x2="220" y2="50" stroke="#475569" strokeWidth="1"/>
-        <line x1="110" y1="0" x2="110" y2="80" stroke="#475569" strokeWidth="1"/>
+        <line x1="0" y1="50" x2="220" y2="50" stroke="#5A5A62" strokeWidth="1"/>
+        <line x1="110" y1="0" x2="110" y2="80" stroke="#5A5A62" strokeWidth="1"/>
         
         {/* Payoff line - mirror of long put */}
-        <path d="M 30 75 L 110 35 L 200 35" stroke="#a855f7" strokeWidth="3" fill="none"/>
-        <text x="205" y="38" fontSize="7" fill="#22c55e">+Premium</text>
-        <text x="20" y="85" fontSize="7" fill="#dc2626">Large loss</text>
+        <path d="M 30 75 L 110 35 L 200 35" stroke="#8F6FC4" strokeWidth="3" fill="none"/>
+        <text x="205" y="38" fontSize="7" fill="#1FA978">+Premium</text>
+        <text x="20" y="85" fontSize="7" fill="#C7363B">Large loss</text>
       </g>
     </g>
     
     {/* Legend */}
     <g transform="translate(150, 390)">
-      <rect x="0" y="-5" width="400" height="30" fill="#1e293b" rx="8"/>
-      <circle cx="40" cy="10" r="6" fill="#22c55e"/>
-      <text x="55" y="14" fontSize="9" fill="#94a3b8">Calls profit when price rises</text>
-      <circle cx="240" cy="10" r="6" fill="#dc2626"/>
-      <text x="255" y="14" fontSize="9" fill="#94a3b8">Puts profit when price falls</text>
+      <rect x="0" y="-5" width="400" height="30" fill="#232327" rx="8"/>
+      <circle cx="40" cy="10" r="6" fill="#1FA978"/>
+      <text x="55" y="14" fontSize="9" fill="#A3A1A6">Calls profit when price rises</text>
+      <circle cx="240" cy="10" r="6" fill="#C7363B"/>
+      <text x="255" y="14" fontSize="9" fill="#A3A1A6">Puts profit when price falls</text>
     </g>
   </svg>
 );
@@ -259,49 +259,49 @@ const PayoffDiagramsSVG = () => (
 // SVG: Moneyness
 const MoneynessSVG = () => (
   <svg viewBox="0 0 700 350" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="350" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="350" fill="#151517" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Option Moneyness</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Relationship between strike price and current market price</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Relationship between strike price and current market price</text>
     
     {/* Price Scale */}
     <g transform="translate(50, 90)">
-      <rect x="0" y="0" width="600" height="60" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="600" height="60" fill="#232327" rx="10"/>
       
       {/* Scale line */}
-      <line x1="50" y1="30" x2="550" y2="30" stroke="#475569" strokeWidth="3"/>
+      <line x1="50" y1="30" x2="550" y2="30" stroke="#5A5A62" strokeWidth="3"/>
       
       {/* Current Price marker */}
       <g transform="translate(300, 0)">
-        <polygon points="0,15 -8,0 8,0" fill="#f97316"/>
-        <text x="0" y="-5" textAnchor="middle" fontSize="10" fontWeight="600" fill="#f97316">Current Price</text>
+        <polygon points="0,15 -8,0 8,0" fill="#D2754C"/>
+        <text x="0" y="-5" textAnchor="middle" fontSize="10" fontWeight="600" fill="#D2754C">Current Price</text>
         <text x="0" y="55" textAnchor="middle" fontSize="9" fill="white">$100</text>
       </g>
       
       {/* Lower prices */}
-      <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#94a3b8">$80</text>
-      <text x="200" y="55" textAnchor="middle" fontSize="9" fill="#94a3b8">$90</text>
+      <text x="100" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">$80</text>
+      <text x="200" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">$90</text>
       
       {/* Higher prices */}
-      <text x="400" y="55" textAnchor="middle" fontSize="9" fill="#94a3b8">$110</text>
-      <text x="500" y="55" textAnchor="middle" fontSize="9" fill="#94a3b8">$120</text>
+      <text x="400" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">$110</text>
+      <text x="500" y="55" textAnchor="middle" fontSize="9" fill="#A3A1A6">$120</text>
     </g>
     
     {/* Call Options Moneyness */}
     <g transform="translate(50, 170)">
-      <rect x="0" y="0" width="290" height="160" fill="#22c55e" fillOpacity="0.1" rx="10" stroke="#22c55e" strokeWidth="1"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22c55e">CALL OPTIONS</text>
+      <rect x="0" y="0" width="290" height="160" fill="#1FA978" fillOpacity="0.1" rx="10" stroke="#1FA978" strokeWidth="1"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#1FA978">CALL OPTIONS</text>
       
       <g transform="translate(20, 45)">
         {[
-          { name: "In-The-Money (ITM)", desc: "Strike < Current", example: "$90 Call", color: "#22c55e", gain: "Has intrinsic value" },
-          { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Call", color: "#f97316", gain: "No intrinsic value" },
-          { name: "Out-of-Money (OTM)", desc: "Strike > Current", example: "$110 Call", color: "#dc2626", gain: "No intrinsic value" }
+          { name: "In-The-Money (ITM)", desc: "Strike < Current", example: "$90 Call", color: "#1FA978", gain: "Has intrinsic value" },
+          { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Call", color: "#D2754C", gain: "No intrinsic value" },
+          { name: "Out-of-Money (OTM)", desc: "Strike > Current", example: "$110 Call", color: "#C7363B", gain: "No intrinsic value" }
         ].map((item, i) => (
           <g key={i} transform={`translate(0, ${i * 35})`}>
             <circle cx="8" cy="8" r="6" fill={item.color} fillOpacity="0.3"/>
             <text x="22" y="6" fontSize="9" fontWeight="600" fill={item.color}>{item.name}</text>
-            <text x="22" y="18" fontSize="8" fill="#94a3b8">{item.desc} | {item.example}</text>
+            <text x="22" y="18" fontSize="8" fill="#A3A1A6">{item.desc} | {item.example}</text>
           </g>
         ))}
       </g>
@@ -309,19 +309,19 @@ const MoneynessSVG = () => (
     
     {/* Put Options Moneyness */}
     <g transform="translate(360, 170)">
-      <rect x="0" y="0" width="290" height="160" fill="#dc2626" fillOpacity="0.1" rx="10" stroke="#dc2626" strokeWidth="1"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#dc2626">PUT OPTIONS</text>
+      <rect x="0" y="0" width="290" height="160" fill="#C7363B" fillOpacity="0.1" rx="10" stroke="#C7363B" strokeWidth="1"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#C7363B">PUT OPTIONS</text>
       
       <g transform="translate(20, 45)">
         {[
-          { name: "In-The-Money (ITM)", desc: "Strike > Current", example: "$110 Put", color: "#22c55e", gain: "Has intrinsic value" },
-          { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Put", color: "#f97316", gain: "No intrinsic value" },
-          { name: "Out-of-Money (OTM)", desc: "Strike < Current", example: "$90 Put", color: "#dc2626", gain: "No intrinsic value" }
+          { name: "In-The-Money (ITM)", desc: "Strike > Current", example: "$110 Put", color: "#1FA978", gain: "Has intrinsic value" },
+          { name: "At-The-Money (ATM)", desc: "Strike = Current", example: "$100 Put", color: "#D2754C", gain: "No intrinsic value" },
+          { name: "Out-of-Money (OTM)", desc: "Strike < Current", example: "$90 Put", color: "#C7363B", gain: "No intrinsic value" }
         ].map((item, i) => (
           <g key={i} transform={`translate(0, ${i * 35})`}>
             <circle cx="8" cy="8" r="6" fill={item.color} fillOpacity="0.3"/>
             <text x="22" y="6" fontSize="9" fontWeight="600" fill={item.color}>{item.name}</text>
-            <text x="22" y="18" fontSize="8" fill="#94a3b8">{item.desc} | {item.example}</text>
+            <text x="22" y="18" fontSize="8" fill="#A3A1A6">{item.desc} | {item.example}</text>
           </g>
         ))}
       </g>
@@ -332,14 +332,14 @@ const MoneynessSVG = () => (
 // SVG: Intrinsic vs Time Value
 const IntrinsicTimeValueSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">Option Premium Components</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Breaking down what you pay for an option</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Breaking down what you pay for an option</text>
     
     {/* Formula */}
     <g transform="translate(100, 80)">
-      <rect x="0" y="0" width="500" height="60" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="500" height="60" fill="#232327" rx="10"/>
       <text x="250" y="38" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">
         Option Premium = Intrinsic Value + Time Value
       </text>
@@ -347,42 +347,42 @@ const IntrinsicTimeValueSVG = () => (
     
     {/* Intrinsic Value */}
     <g transform="translate(50, 160)">
-      <rect x="0" y="0" width="290" height="180" fill="#22c55e" fillOpacity="0.1" rx="12" stroke="#22c55e" strokeWidth="2"/>
-      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#22c55e">INTRINSIC VALUE</text>
-      <text x="145" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">Real, tangible value</text>
+      <rect x="0" y="0" width="290" height="180" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">INTRINSIC VALUE</text>
+      <text x="145" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Real, tangible value</text>
       
       <g transform="translate(20, 70)">
-        <rect x="0" y="0" width="250" height="90" fill="#0f172a" rx="8"/>
+        <rect x="0" y="0" width="250" height="90" fill="#151517" rx="8"/>
         <text x="125" y="20" textAnchor="middle" fontSize="10" fill="white">What the option is worth if exercised NOW</text>
         
-        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#22c55e">Call: Max(0, Stock Price - Strike)</text>
-        <text x="125" y="62" textAnchor="middle" fontSize="9" fill="#dc2626">Put: Max(0, Strike - Stock Price)</text>
+        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#1FA978">Call: Max(0, Stock Price - Strike)</text>
+        <text x="125" y="62" textAnchor="middle" fontSize="9" fill="#C7363B">Put: Max(0, Strike - Stock Price)</text>
         
-        <text x="125" y="82" textAnchor="middle" fontSize="8" fill="#94a3b8">Only ITM options have intrinsic value</text>
+        <text x="125" y="82" textAnchor="middle" fontSize="8" fill="#A3A1A6">Only ITM options have intrinsic value</text>
       </g>
     </g>
     
     {/* Time Value */}
     <g transform="translate(360, 160)">
-      <rect x="0" y="0" width="290" height="180" fill="#f97316" fillOpacity="0.1" rx="12" stroke="#f97316" strokeWidth="2"/>
-      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#f97316">TIME VALUE</text>
-      <text x="145" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">Speculative value (Extrinsic)</text>
+      <rect x="0" y="0" width="290" height="180" fill="#D2754C" fillOpacity="0.1" rx="12" stroke="#D2754C" strokeWidth="2"/>
+      <text x="145" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#D2754C">TIME VALUE</text>
+      <text x="145" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Speculative value (Extrinsic)</text>
       
       <g transform="translate(20, 70)">
-        <rect x="0" y="0" width="250" height="90" fill="#0f172a" rx="8"/>
+        <rect x="0" y="0" width="250" height="90" fill="#151517" rx="8"/>
         <text x="125" y="20" textAnchor="middle" fontSize="10" fill="white">Premium for time remaining + volatility</text>
         
-        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#f97316">Time Value = Premium - Intrinsic Value</text>
+        <text x="125" y="45" textAnchor="middle" fontSize="9" fill="#D2754C">Time Value = Premium - Intrinsic Value</text>
         
-        <text x="125" y="68" textAnchor="middle" fontSize="8" fill="#94a3b8">Decays as expiration approaches</text>
-        <text x="125" y="82" textAnchor="middle" fontSize="8" fill="#94a3b8">Higher volatility = More time value</text>
+        <text x="125" y="68" textAnchor="middle" fontSize="8" fill="#A3A1A6">Decays as expiration approaches</text>
+        <text x="125" y="82" textAnchor="middle" fontSize="8" fill="#A3A1A6">Higher volatility = More time value</text>
       </g>
     </g>
     
     {/* Example */}
     <g transform="translate(50, 350)">
-      <rect x="0" y="0" width="600" height="25" fill="#1e293b" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#94a3b8">Example: Stock at $105, $100 Call trading at $8. Intrinsic = $5, Time Value = $3</text>
+      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A3A1A6">Example: Stock at $105, $100 Call trading at $8. Intrinsic = $5, Time Value = $3</text>
     </g>
   </svg>
 );
@@ -390,57 +390,57 @@ const IntrinsicTimeValueSVG = () => (
 // SVG: American vs European Options
 const AmericanEuropeanSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="280" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#151517" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">American vs European Style Options</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">When can you exercise your option?</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">When can you exercise your option?</text>
     
     {/* American */}
     <g transform="translate(50, 80)">
-      <rect x="0" y="0" width="280" height="160" fill="#3b82f6" fillOpacity="0.1" rx="12" stroke="#3b82f6" strokeWidth="2"/>
-      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#3b82f6">AMERICAN STYLE</text>
+      <rect x="0" y="0" width="280" height="160" fill="#5A77AA" fillOpacity="0.1" rx="12" stroke="#5A77AA" strokeWidth="2"/>
+      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#5A77AA">AMERICAN STYLE</text>
       
       <g transform="translate(20, 50)">
         <text x="120" y="15" textAnchor="middle" fontSize="10" fill="white">Exercise ANY TIME before expiry</text>
         
         {/* Timeline */}
-        <line x1="20" y1="45" x2="220" y2="45" stroke="#3b82f6" strokeWidth="3"/>
-        <circle cx="20" cy="45" r="5" fill="#3b82f6"/>
-        <circle cx="220" cy="45" r="5" fill="#3b82f6"/>
-        <text x="20" y="65" textAnchor="middle" fontSize="8" fill="#94a3b8">Today</text>
-        <text x="220" y="65" textAnchor="middle" fontSize="8" fill="#94a3b8">Expiry</text>
-        <text x="120" y="38" textAnchor="middle" fontSize="8" fill="#3b82f6">Can exercise anytime</text>
+        <line x1="20" y1="45" x2="220" y2="45" stroke="#5A77AA" strokeWidth="3"/>
+        <circle cx="20" cy="45" r="5" fill="#5A77AA"/>
+        <circle cx="220" cy="45" r="5" fill="#5A77AA"/>
+        <text x="20" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Today</text>
+        <text x="220" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Expiry</text>
+        <text x="120" y="38" textAnchor="middle" fontSize="8" fill="#5A77AA">Can exercise anytime</text>
         
-        <text x="120" y="95" textAnchor="middle" fontSize="9" fill="#94a3b8">Most stock options</text>
-        <text x="120" y="108" textAnchor="middle" fontSize="9" fill="#94a3b8">More flexibility, higher premium</text>
+        <text x="120" y="95" textAnchor="middle" fontSize="9" fill="#A3A1A6">Most stock options</text>
+        <text x="120" y="108" textAnchor="middle" fontSize="9" fill="#A3A1A6">More flexibility, higher premium</text>
       </g>
     </g>
     
     {/* European */}
     <g transform="translate(370, 80)">
-      <rect x="0" y="0" width="280" height="160" fill="#a855f7" fillOpacity="0.1" rx="12" stroke="#a855f7" strokeWidth="2"/>
-      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#a855f7">EUROPEAN STYLE</text>
+      <rect x="0" y="0" width="280" height="160" fill="#8F6FC4" fillOpacity="0.1" rx="12" stroke="#8F6FC4" strokeWidth="2"/>
+      <text x="140" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#8F6FC4">EUROPEAN STYLE</text>
       
       <g transform="translate(20, 50)">
         <text x="120" y="15" textAnchor="middle" fontSize="10" fill="white">Exercise ONLY at expiry</text>
         
         {/* Timeline */}
-        <line x1="20" y1="45" x2="220" y2="45" stroke="#64748b" strokeWidth="3"/>
-        <circle cx="20" cy="45" r="5" fill="#64748b"/>
-        <circle cx="220" cy="45" r="5" fill="#a855f7"/>
-        <text x="20" y="65" textAnchor="middle" fontSize="8" fill="#94a3b8">Today</text>
-        <text x="220" y="65" textAnchor="middle" fontSize="8" fill="#94a3b8">Expiry</text>
-        <text x="220" y="38" textAnchor="middle" fontSize="8" fill="#a855f7">Exercise here only</text>
+        <line x1="20" y1="45" x2="220" y2="45" stroke="#75757D" strokeWidth="3"/>
+        <circle cx="20" cy="45" r="5" fill="#75757D"/>
+        <circle cx="220" cy="45" r="5" fill="#8F6FC4"/>
+        <text x="20" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Today</text>
+        <text x="220" y="65" textAnchor="middle" fontSize="8" fill="#A3A1A6">Expiry</text>
+        <text x="220" y="38" textAnchor="middle" fontSize="8" fill="#8F6FC4">Exercise here only</text>
         
-        <text x="120" y="95" textAnchor="middle" fontSize="9" fill="#94a3b8">Most index options (NIFTY)</text>
-        <text x="120" y="108" textAnchor="middle" fontSize="9" fill="#94a3b8">Less flexibility, lower premium</text>
+        <text x="120" y="95" textAnchor="middle" fontSize="9" fill="#A3A1A6">Most index options (NIFTY)</text>
+        <text x="120" y="108" textAnchor="middle" fontSize="9" fill="#A3A1A6">Less flexibility, lower premium</text>
       </g>
     </g>
     
     {/* Note */}
     <g transform="translate(50, 250)">
-      <rect x="0" y="0" width="600" height="25" fill="#1e293b" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#94a3b8">Note: Names refer to exercise style, not geography. Both types trade worldwide.</text>
+      <rect x="0" y="0" width="600" height="25" fill="#232327" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#A3A1A6">Note: Names refer to exercise style, not geography. Both types trade worldwide.</text>
     </g>
   </svg>
 );
@@ -540,7 +540,7 @@ const FOLesson4 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4">
+          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
             Options Mechanics
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -549,10 +549,10 @@ const FOLesson4 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 mb-10 text-white">
+        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
-            <h2 className="text-xl font-bold">Learning Objectives</h2>
+            <h2 className="text-xl font-semibold">Learning Objectives</h2>
           </div>
           <ul className="space-y-2">
             {[
@@ -576,11 +576,11 @@ const FOLesson4 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
                   <Icons.Phone className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Call vs Put Options</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Call vs Put Options</h2>
                   <p className="text-sm text-gray-500 ">The two fundamental building blocks</p>
                 </div>
               </div>
@@ -617,11 +617,11 @@ const FOLesson4 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                   <Icons.Layers className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Option Payoff Diagrams</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Option Payoff Diagrams</h2>
                   <p className="text-sm text-gray-500 ">Visualizing profit and loss at expiry</p>
                 </div>
               </div>
@@ -653,11 +653,11 @@ const FOLesson4 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
                   <Icons.Target className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Option Moneyness</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Option Moneyness</h2>
                   <p className="text-sm text-gray-500 ">ITM, ATM, and OTM explained</p>
                 </div>
               </div>
@@ -690,11 +690,11 @@ const FOLesson4 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
                   <Icons.DollarSign className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Option Premium Breakdown</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Option Premium Breakdown</h2>
                   <p className="text-sm text-gray-500 ">Understanding what you pay for</p>
                 </div>
               </div>
@@ -726,11 +726,11 @@ const FOLesson4 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
                   <Icons.ArrowRight className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Exercise Styles</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Exercise Styles</h2>
                   <p className="text-sm text-gray-500 ">American vs European options</p>
                 </div>
               </div>
@@ -755,8 +755,8 @@ const FOLesson4 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-bold mb-6">Key Takeaways</h2>
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Call = Right to BUY; Put = Right to SELL at strike price",
@@ -780,7 +780,7 @@ const FOLesson4 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-bold text-gray-900  mb-6">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -824,7 +824,7 @@ const FOLesson4 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
                 >
                   Check Answers
                 </button>
@@ -855,7 +855,7 @@ const FOLesson4 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-5')}
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
             >
               <span>Next: Options Pricing Models</span>
               <Icons.ArrowRight className="w-5 h-5" />

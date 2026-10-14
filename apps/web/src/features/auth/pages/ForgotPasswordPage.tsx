@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
 				<div className="max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-bold text-gray-900 mb-2">
+						<h1 className="text-3xl font-display font-normal text-gray-900 mb-2 tracking-[-0.015em]">
 							Reset Your Password
 						</h1>
 						<p className="text-gray-600">

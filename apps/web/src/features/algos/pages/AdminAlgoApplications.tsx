@@ -181,7 +181,7 @@ const AdminAlgoApplications = () => {
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Algo publisher applications</h1>
+              <h1 className="xt-title">Algo publisher applications</h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-slate-400">Check each submission, then approve or reject it. Your note is shown to the applicant.</p>
             </div>
             <button type="button" onClick={load} disabled={loading} className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">

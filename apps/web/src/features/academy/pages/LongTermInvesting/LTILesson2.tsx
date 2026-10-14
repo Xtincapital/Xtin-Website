@@ -8,40 +8,40 @@ import Footer from "../../../../components/Footer";
 const SnowballEffectSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Compounding: The Snowball Effect</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Growth builds on previous growth, getting larger over time</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Compounding: The Snowball Effect</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Growth builds on previous growth, getting larger over time</text>
     
     {/* Snowball rolling downhill visualization */}
     <g transform="translate(80, 70)">
       {/* Hill slope */}
-      <path d="M0 180 Q270 180 540 40" fill="none" stroke="#e2e8f0" strokeWidth="3"/>
+      <path d="M0 180 Q270 180 540 40" fill="none" stroke="#E4E1D9" strokeWidth="3"/>
       
       {/* Small snowball - start */}
-      <circle cx="30" cy="170" r="12" fill="#dbeafe" stroke="#93c5fd" strokeWidth="2"/>
-      <text x="30" y="200" textAnchor="middle" fontSize="8" fill="#1e40af">Start</text>
+      <circle cx="30" cy="170" r="12" fill="#E0E7F1" stroke="#9FB3D3" strokeWidth="2"/>
+      <text x="30" y="200" textAnchor="middle" fontSize="8" fill="#2C3F5E">Start</text>
       
       {/* Medium-small snowball */}
-      <circle cx="130" cy="160" r="18" fill="#bfdbfe" stroke="#60a5fa" strokeWidth="2"/>
-      <text x="130" y="200" textAnchor="middle" fontSize="8" fill="#1e40af">Year 5</text>
+      <circle cx="130" cy="160" r="18" fill="#C3D0E4" stroke="#7C95C4" strokeWidth="2"/>
+      <text x="130" y="200" textAnchor="middle" fontSize="8" fill="#2C3F5E">Year 5</text>
       
       {/* Medium snowball */}
-      <circle cx="250" cy="140" r="28" fill="#93c5fd" stroke="#3b82f6" strokeWidth="2"/>
-      <text x="250" y="200" textAnchor="middle" fontSize="8" fill="#1e40af">Year 10</text>
+      <circle cx="250" cy="140" r="28" fill="#9FB3D3" stroke="#5A77AA" strokeWidth="2"/>
+      <text x="250" y="200" textAnchor="middle" fontSize="8" fill="#2C3F5E">Year 10</text>
       
       {/* Large snowball */}
-      <circle cx="380" cy="105" r="42" fill="#60a5fa" stroke="#2563eb" strokeWidth="2"/>
-      <text x="380" y="200" textAnchor="middle" fontSize="8" fill="#1e40af">Year 20</text>
+      <circle cx="380" cy="105" r="42" fill="#7C95C4" stroke="#3E5C8A" strokeWidth="2"/>
+      <text x="380" y="200" textAnchor="middle" fontSize="8" fill="#2C3F5E">Year 20</text>
       
       {/* Huge snowball - end */}
-      <circle cx="510" cy="55" r="55" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2"/>
-      <text x="510" y="200" textAnchor="middle" fontSize="8" fill="#1e40af">Year 30+</text>
+      <circle cx="510" cy="55" r="55" fill="#5A77AA" stroke="#344C72" strokeWidth="2"/>
+      <text x="510" y="200" textAnchor="middle" fontSize="8" fill="#2C3F5E">Year 30+</text>
       
       {/* Dollar signs growing with snowballs */}
-      <text x="30" y="174" textAnchor="middle" fontSize="8" fill="#1e40af">$</text>
-      <text x="130" y="165" textAnchor="middle" fontSize="12" fill="#1e40af">$</text>
+      <text x="30" y="174" textAnchor="middle" fontSize="8" fill="#2C3F5E">$</text>
+      <text x="130" y="165" textAnchor="middle" fontSize="12" fill="#2C3F5E">$</text>
       <text x="250" y="147" textAnchor="middle" fontSize="18" fill="white">$</text>
       <text x="380" y="115" textAnchor="middle" fontSize="26" fill="white">$</text>
       <text x="510" y="68" textAnchor="middle" fontSize="36" fill="white">$</text>
@@ -53,56 +53,56 @@ const SnowballEffectSVG = () => (
 const LinearVsCompoundSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Linear Growth vs Compound Growth</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Same starting point, dramatically different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Linear Growth vs Compound Growth</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Same starting point, dramatically different outcomes</text>
     
     {/* Chart area */}
     <g transform="translate(80, 75)">
       {/* Grid lines */}
-      <line x1="0" y1="200" x2="540" y2="200" stroke="#e2e8f0" strokeWidth="1"/>
-      <line x1="0" y1="150" x2="540" y2="150" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="100" x2="540" y2="100" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="50" x2="540" y2="50" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="0" x2="0" y2="200" stroke="#e2e8f0" strokeWidth="1"/>
+      <line x1="0" y1="200" x2="540" y2="200" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="0" y1="150" x2="540" y2="150" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="100" x2="540" y2="100" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="50" x2="540" y2="50" stroke="#E4E1D9" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="0" x2="0" y2="200" stroke="#E4E1D9" strokeWidth="1"/>
       
       {/* Linear growth line - straight */}
-      <path d="M0 180 L540 80" fill="none" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="8"/>
+      <path d="M0 180 L540 80" fill="none" stroke="#A3A1A6" strokeWidth="2.5" strokeDasharray="8"/>
       
       {/* Compound growth curve - exponential */}
       <path d="M0 180 Q180 175 300 150 Q420 100 480 40 L540 10" 
-            fill="none" stroke="#22c55e" strokeWidth="3"/>
+            fill="none" stroke="#1FA978" strokeWidth="3"/>
       
       {/* End points */}
-      <circle cx="540" cy="80" r="6" fill="#94a3b8"/>
-      <circle cx="540" cy="10" r="8" fill="#22c55e"/>
+      <circle cx="540" cy="80" r="6" fill="#A3A1A6"/>
+      <circle cx="540" cy="10" r="8" fill="#1FA978"/>
       
       {/* Gap annotation */}
-      <line x1="550" y1="80" x2="550" y2="10" stroke="#f59e0b" strokeWidth="2"/>
-      <text x="570" y="50" fontSize="9" fill="#92400e" fontWeight="600">The Gap</text>
+      <line x1="550" y1="80" x2="550" y2="10" stroke="#B8923F" strokeWidth="2"/>
+      <text x="570" y="50" fontSize="9" fill="#654B26" fontWeight="600">The Gap</text>
       
       {/* Time axis labels */}
-      <text x="0" y="220" fontSize="8" fill="#64748b">Start</text>
-      <text x="180" y="220" textAnchor="middle" fontSize="8" fill="#64748b">Year 10</text>
-      <text x="360" y="220" textAnchor="middle" fontSize="8" fill="#64748b">Year 20</text>
-      <text x="540" y="220" textAnchor="end" fontSize="8" fill="#64748b">Year 30</text>
+      <text x="0" y="220" fontSize="8" fill="#75757D">Start</text>
+      <text x="180" y="220" textAnchor="middle" fontSize="8" fill="#75757D">Year 10</text>
+      <text x="360" y="220" textAnchor="middle" fontSize="8" fill="#75757D">Year 20</text>
+      <text x="540" y="220" textAnchor="end" fontSize="8" fill="#75757D">Year 30</text>
       
       {/* Legend */}
       <g transform="translate(350, -25)">
-        <line x1="0" y1="0" x2="20" y2="0" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="5"/>
-        <text x="28" y="4" fontSize="9" fill="#64748b">Linear (same amount added)</text>
+        <line x1="0" y1="0" x2="20" y2="0" stroke="#A3A1A6" strokeWidth="2.5" strokeDasharray="5"/>
+        <text x="28" y="4" fontSize="9" fill="#75757D">Linear (same amount added)</text>
       </g>
       <g transform="translate(350, -8)">
-        <line x1="0" y1="0" x2="20" y2="0" stroke="#22c55e" strokeWidth="3"/>
-        <text x="28" y="4" fontSize="9" fill="#166534">Compound (growth on growth)</text>
+        <line x1="0" y1="0" x2="20" y2="0" stroke="#1FA978" strokeWidth="3"/>
+        <text x="28" y="4" fontSize="9" fill="#0D543C">Compound (growth on growth)</text>
       </g>
     </g>
     
     {/* Key insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#dcfce7" rx="6" stroke="#86efac" strokeWidth="1"/>
-    <text x="350" y="302" textAnchor="middle" fontSize="10" fill="#166534">The longer the timeline, the bigger the gap between linear and compound growth.</text>
+    <rect x="100" y="285" width="500" height="25" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="1"/>
+    <text x="350" y="302" textAnchor="middle" fontSize="10" fill="#0D543C">The longer the timeline, the bigger the gap between linear and compound growth.</text>
   </svg>
 );
 
@@ -110,50 +110,50 @@ const LinearVsCompoundSVG = () => (
 const HockeyStickSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The "Hockey Stick" Moment</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Compounding feels slow, then suddenly accelerates</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The "Hockey Stick" Moment</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Compounding feels slow, then suddenly accelerates</text>
     
     {/* Chart */}
     <g transform="translate(80, 75)">
       {/* Axes */}
-      <line x1="0" y1="180" x2="540" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
+      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E1D9" strokeWidth="1"/>
       
       {/* The hockey stick curve */}
       <path d="M0 170 L80 168 L160 165 L240 158 L320 145 Q400 110 460 50 L540 10" 
-            fill="none" stroke="#22c55e" strokeWidth="3"/>
+            fill="none" stroke="#1FA978" strokeWidth="3"/>
       
       {/* Flat phase annotation */}
-      <rect x="30" y="130" width="180" height="35" fill="#fef9c3" rx="6" stroke="#fcd34d" strokeWidth="1"/>
-      <text x="120" y="148" textAnchor="middle" fontSize="9" fontWeight="600" fill="#92400e">"Feels Slow" Phase</text>
-      <text x="120" y="160" textAnchor="middle" fontSize="8" fill="#78350f">Patience is tested here</text>
+      <rect x="30" y="130" width="180" height="35" fill="#F6ECCE" rx="6" stroke="#E2C273" strokeWidth="1"/>
+      <text x="120" y="148" textAnchor="middle" fontSize="9" fontWeight="600" fill="#654B26">"Feels Slow" Phase</text>
+      <text x="120" y="160" textAnchor="middle" fontSize="8" fill="#533E22">Patience is tested here</text>
       
       {/* Acceleration phase annotation */}
-      <rect x="350" y="60" width="150" height="35" fill="#dcfce7" rx="6" stroke="#86efac" strokeWidth="1"/>
-      <text x="425" y="78" textAnchor="middle" fontSize="9" fontWeight="600" fill="#166534">"Sudden Growth" Phase</text>
-      <text x="425" y="90" textAnchor="middle" fontSize="8" fill="#14532d">Patience is rewarded</text>
+      <rect x="350" y="60" width="150" height="35" fill="#D5F2E5" rx="6" stroke="#77D3AE" strokeWidth="1"/>
+      <text x="425" y="78" textAnchor="middle" fontSize="9" fontWeight="600" fill="#0D543C">"Sudden Growth" Phase</text>
+      <text x="425" y="90" textAnchor="middle" fontSize="8" fill="#0B4532">Patience is rewarded</text>
       
       {/* Arrow pointing to hockey stick bend */}
-      <path d="M300 120 Q310 130 320 145" fill="none" stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrowOrange)"/>
-      <text x="260" y="115" fontSize="8" fill="#92400e" fontWeight="500">The bend</text>
+      <path d="M300 120 Q310 130 320 145" fill="none" stroke="#B8923F" strokeWidth="2" markerEnd="url(#arrowOrange)"/>
+      <text x="260" y="115" fontSize="8" fill="#654B26" fontWeight="500">The bend</text>
       
       {/* Time labels */}
-      <text x="80" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Early Years</text>
-      <text x="280" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Middle Years</text>
-      <text x="480" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Later Years</text>
+      <text x="80" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Early Years</text>
+      <text x="280" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Middle Years</text>
+      <text x="480" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Later Years</text>
       
       <defs>
         <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-          <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b"/>
+          <polygon points="0 0, 10 3.5, 0 7" fill="#B8923F"/>
         </marker>
       </defs>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="265" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="265" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="282" textAnchor="middle" fontSize="10" fill="white">Most people quit during the flat phase. Winners wait for the bend.</text>
   </svg>
 );
@@ -162,68 +162,68 @@ const HockeyStickSVG = () => (
 const TimeAsDriverSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Time: The Secret Ingredient</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">With compounding, time matters more than the size of contributions</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Time: The Secret Ingredient</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">With compounding, time matters more than the size of contributions</text>
     
     {/* Three scenarios */}
     <g transform="translate(50, 80)">
       {/* Person A: Started early */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="180" height="180" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Started Early</text>
+        <rect x="0" y="0" width="180" height="180" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Started Early</text>
         
         {/* Growing bar visualization */}
-        <rect x="30" y="50" width="30" height="30" fill="#86efac" rx="4"/>
-        <rect x="70" y="40" width="30" height="40" fill="#4ade80" rx="4"/>
-        <rect x="110" y="25" width="30" height="55" fill="#22c55e" rx="4"/>
+        <rect x="30" y="50" width="30" height="30" fill="#77D3AE" rx="4"/>
+        <rect x="70" y="40" width="30" height="40" fill="#3CCB97" rx="4"/>
+        <rect x="110" y="25" width="30" height="55" fill="#1FA978" rx="4"/>
         
-        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#14532d">Invested for decades</text>
+        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#0B4532">Invested for decades</text>
         
         {/* Result */}
-        <rect x="20" y="120" width="140" height="45" fill="#166534" rx="8"/>
+        <rect x="20" y="120" width="140" height="45" fill="#0D543C" rx="8"/>
         <text x="90" y="142" textAnchor="middle" fontSize="9" fill="white">Significant wealth</text>
-        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#a7f3d0">Time did the heavy lifting</text>
+        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#ABE5CC">Time did the heavy lifting</text>
       </g>
       
       {/* Person B: Started late */}
       <g transform="translate(210, 0)">
-        <rect x="0" y="0" width="180" height="180" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Started Later</text>
+        <rect x="0" y="0" width="180" height="180" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Started Later</text>
         
         {/* Smaller bars */}
-        <rect x="50" y="55" width="30" height="25" fill="#fcd34d" rx="4"/>
-        <rect x="90" y="48" width="30" height="32" fill="#fbbf24" rx="4"/>
+        <rect x="50" y="55" width="30" height="25" fill="#E2C273" rx="4"/>
+        <rect x="90" y="48" width="30" height="32" fill="#CDAA5F" rx="4"/>
         
-        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#78350f">Invested for fewer years</text>
+        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#533E22">Invested for fewer years</text>
         
         {/* Result */}
-        <rect x="20" y="120" width="140" height="45" fill="#92400e" rx="8"/>
+        <rect x="20" y="120" width="140" height="45" fill="#654B26" rx="8"/>
         <text x="90" y="142" textAnchor="middle" fontSize="9" fill="white">Moderate wealth</text>
-        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#fde68a">Less time to compound</text>
+        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#EDD89D">Less time to compound</text>
       </g>
       
       {/* Person C: Started very late */}
       <g transform="translate(420, 0)">
-        <rect x="0" y="0" width="180" height="180" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">Started Very Late</text>
+        <rect x="0" y="0" width="180" height="180" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+        <text x="90" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">Started Very Late</text>
         
         {/* Single small bar */}
-        <rect x="70" y="58" width="30" height="22" fill="#fca5a5" rx="4"/>
+        <rect x="70" y="58" width="30" height="22" fill="#F09B9B" rx="4"/>
         
-        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#991b1b">Invested for few years</text>
+        <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#842428">Invested for few years</text>
         
         {/* Result */}
-        <rect x="20" y="120" width="140" height="45" fill="#991b1b" rx="8"/>
+        <rect x="20" y="120" width="140" height="45" fill="#842428" rx="8"/>
         <text x="90" y="142" textAnchor="middle" fontSize="9" fill="white">Limited growth</text>
-        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#fecaca">Not enough time</text>
+        <text x="90" y="156" textAnchor="middle" fontSize="8" fill="#F6C3C3">Not enough time</text>
       </g>
     </g>
     
     {/* Key message */}
-    <rect x="100" y="270" width="500" height="22" fill="#059669" rx="4"/>
+    <rect x="100" y="270" width="500" height="22" fill="#12805A" rx="4"/>
     <text x="350" y="285" textAnchor="middle" fontSize="9" fill="white">The best time to start was years ago. The second best time is now.</text>
   </svg>
 );
@@ -232,75 +232,75 @@ const TimeAsDriverSVG = () => (
 const GrowthOnGrowthSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">How Compounding Actually Works</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Each layer of growth becomes part of the base for future growth</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">How Compounding Actually Works</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Each layer of growth becomes part of the base for future growth</text>
     
     {/* Stacked layers visualization */}
     <g transform="translate(100, 70)">
       {/* Year 1 */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="140" width="80" height="40" fill="#3b82f6" rx="4"/>
+        <rect x="0" y="140" width="80" height="40" fill="#5A77AA" rx="4"/>
         <text x="40" y="165" textAnchor="middle" fontSize="9" fill="white">Original</text>
-        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 1</text>
+        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Year 1</text>
       </g>
       
       {/* Year 5 */}
       <g transform="translate(120, 0)">
-        <rect x="0" y="120" width="80" height="40" fill="#3b82f6" rx="4"/>
-        <rect x="0" y="160" width="80" height="20" fill="#22c55e" rx="4"/>
+        <rect x="0" y="120" width="80" height="40" fill="#5A77AA" rx="4"/>
+        <rect x="0" y="160" width="80" height="20" fill="#1FA978" rx="4"/>
         <text x="40" y="145" textAnchor="middle" fontSize="8" fill="white">Original</text>
         <text x="40" y="175" textAnchor="middle" fontSize="7" fill="white">Growth</text>
-        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 5</text>
+        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Year 5</text>
       </g>
       
       {/* Year 10 */}
       <g transform="translate(240, 0)">
-        <rect x="0" y="90" width="80" height="40" fill="#3b82f6" rx="4"/>
-        <rect x="0" y="130" width="80" height="25" fill="#22c55e"/>
-        <rect x="0" y="155" width="80" height="25" fill="#16a34a" rx="4"/>
+        <rect x="0" y="90" width="80" height="40" fill="#5A77AA" rx="4"/>
+        <rect x="0" y="130" width="80" height="25" fill="#1FA978"/>
+        <rect x="0" y="155" width="80" height="25" fill="#12805A" rx="4"/>
         <text x="40" y="115" textAnchor="middle" fontSize="8" fill="white">Original</text>
         <text x="40" y="145" textAnchor="middle" fontSize="7" fill="white">Growth</text>
         <text x="40" y="170" textAnchor="middle" fontSize="7" fill="white">+ More</text>
-        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 10</text>
+        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Year 10</text>
       </g>
       
       {/* Year 20 */}
       <g transform="translate(360, 0)">
-        <rect x="0" y="50" width="80" height="40" fill="#3b82f6" rx="4"/>
-        <rect x="0" y="90" width="80" height="30" fill="#22c55e"/>
-        <rect x="0" y="120" width="80" height="30" fill="#16a34a"/>
-        <rect x="0" y="150" width="80" height="30" fill="#15803d" rx="4"/>
+        <rect x="0" y="50" width="80" height="40" fill="#5A77AA" rx="4"/>
+        <rect x="0" y="90" width="80" height="30" fill="#1FA978"/>
+        <rect x="0" y="120" width="80" height="30" fill="#12805A"/>
+        <rect x="0" y="150" width="80" height="30" fill="#0E6A4A" rx="4"/>
         <text x="40" y="75" textAnchor="middle" fontSize="7" fill="white">Original</text>
         <text x="40" y="108" textAnchor="middle" fontSize="6" fill="white">Growth</text>
         <text x="40" y="138" textAnchor="middle" fontSize="6" fill="white">+ More</text>
         <text x="40" y="168" textAnchor="middle" fontSize="6" fill="white">+ Even More</text>
-        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 20</text>
+        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Year 20</text>
       </g>
       
       {/* Year 30 */}
       <g transform="translate(480, 0)">
-        <rect x="0" y="10" width="80" height="35" fill="#3b82f6" rx="4"/>
-        <rect x="0" y="45" width="80" height="28" fill="#22c55e"/>
-        <rect x="0" y="73" width="80" height="28" fill="#16a34a"/>
-        <rect x="0" y="101" width="80" height="28" fill="#15803d"/>
-        <rect x="0" y="129" width="80" height="28" fill="#166534"/>
-        <rect x="0" y="157" width="80" height="23" fill="#14532d" rx="4"/>
+        <rect x="0" y="10" width="80" height="35" fill="#5A77AA" rx="4"/>
+        <rect x="0" y="45" width="80" height="28" fill="#1FA978"/>
+        <rect x="0" y="73" width="80" height="28" fill="#12805A"/>
+        <rect x="0" y="101" width="80" height="28" fill="#0E6A4A"/>
+        <rect x="0" y="129" width="80" height="28" fill="#0D543C"/>
+        <rect x="0" y="157" width="80" height="23" fill="#0B4532" rx="4"/>
         <text x="40" y="32" textAnchor="middle" fontSize="6" fill="white">Original</text>
-        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Year 30</text>
+        <text x="40" y="200" textAnchor="middle" fontSize="8" fill="#75757D">Year 30</text>
       </g>
     </g>
     
     {/* Legend */}
     <g transform="translate(100, 240)">
-      <rect x="0" y="0" width="12" height="12" fill="#3b82f6" rx="2"/>
-      <text x="18" y="10" fontSize="8" fill="#64748b">Original investment</text>
-      <rect x="130" y="0" width="12" height="12" fill="#22c55e" rx="2"/>
-      <text x="148" y="10" fontSize="8" fill="#64748b">Growth on original</text>
-      <rect x="280" y="0" width="12" height="12" fill="#15803d" rx="2"/>
-      <text x="298" y="10" fontSize="8" fill="#64748b">Growth on growth (compounding!)</text>
+      <rect x="0" y="0" width="12" height="12" fill="#5A77AA" rx="2"/>
+      <text x="18" y="10" fontSize="8" fill="#75757D">Original investment</text>
+      <rect x="130" y="0" width="12" height="12" fill="#1FA978" rx="2"/>
+      <text x="148" y="10" fontSize="8" fill="#75757D">Growth on original</text>
+      <rect x="280" y="0" width="12" height="12" fill="#0E6A4A" rx="2"/>
+      <text x="298" y="10" fontSize="8" fill="#75757D">Growth on growth (compounding!)</text>
     </g>
   </svg>
 );
@@ -309,77 +309,77 @@ const GrowthOnGrowthSVG = () => (
 const SameContributionSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Same Effort, Different Outcomes</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Starting earlier makes the same contributions go much further</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Same Effort, Different Outcomes</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Starting earlier makes the same contributions go much further</text>
     
     {/* Two scenarios side by side */}
     <g transform="translate(50, 75)">
       {/* Early starter */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="280" height="190" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-        <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Started at Age 25</text>
+        <rect x="0" y="0" width="280" height="190" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+        <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Started at Age 25</text>
         
         {/* Timeline with coins */}
         <g transform="translate(20, 50)">
-          <line x1="0" y1="30" x2="240" y2="30" stroke="#22c55e" strokeWidth="2"/>
+          <line x1="0" y1="30" x2="240" y2="30" stroke="#1FA978" strokeWidth="2"/>
           
           {/* Coins dropping in */}
-          <circle cx="20" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="60" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="100" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="140" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="180" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="220" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
+          <circle cx="20" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="60" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="100" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="140" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="180" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="220" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
           
-          <text x="0" y="55" fontSize="7" fill="#14532d">25</text>
-          <text x="120" y="55" fontSize="7" fill="#14532d">45</text>
-          <text x="230" y="55" fontSize="7" fill="#14532d">65</text>
+          <text x="0" y="55" fontSize="7" fill="#0B4532">25</text>
+          <text x="120" y="55" fontSize="7" fill="#0B4532">45</text>
+          <text x="230" y="55" fontSize="7" fill="#0B4532">65</text>
         </g>
         
         {/* Result */}
         <g transform="translate(20, 110)">
-          <text x="0" y="0" fontSize="9" fill="#14532d">40 years of compounding</text>
-          <rect x="0" y="15" width="240" height="35" fill="#166534" rx="6"/>
+          <text x="0" y="0" fontSize="9" fill="#0B4532">40 years of compounding</text>
+          <rect x="0" y="15" width="240" height="35" fill="#0D543C" rx="6"/>
           <text x="120" y="38" textAnchor="middle" fontSize="11" fill="white" fontWeight="600">Large Nest Egg</text>
         </g>
       </g>
       
       {/* Late starter */}
       <g transform="translate(320, 0)">
-        <rect x="0" y="0" width="280" height="190" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Started at Age 45</text>
+        <rect x="0" y="0" width="280" height="190" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+        <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Started at Age 45</text>
         
         {/* Timeline with coins */}
         <g transform="translate(20, 50)">
-          <line x1="0" y1="30" x2="240" y2="30" stroke="#f59e0b" strokeWidth="2"/>
+          <line x1="0" y1="30" x2="240" y2="30" stroke="#B8923F" strokeWidth="2"/>
           
           {/* Coins dropping in - fewer years */}
-          <rect x="0" y="25" width="100" height="10" fill="#e2e8f0" rx="2"/>
-          <text x="50" y="18" textAnchor="middle" fontSize="7" fill="#94a3b8">No investing</text>
+          <rect x="0" y="25" width="100" height="10" fill="#E4E1D9" rx="2"/>
+          <text x="50" y="18" textAnchor="middle" fontSize="7" fill="#A3A1A6">No investing</text>
           
-          <circle cx="120" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="160" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
-          <circle cx="200" cy="30" r="8" fill="#fbbf24" stroke="#f59e0b" strokeWidth="1"/>
+          <circle cx="120" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="160" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
+          <circle cx="200" cy="30" r="8" fill="#CDAA5F" stroke="#B8923F" strokeWidth="1"/>
           
-          <text x="0" y="55" fontSize="7" fill="#78350f">25</text>
-          <text x="120" y="55" fontSize="7" fill="#78350f">45</text>
-          <text x="230" y="55" fontSize="7" fill="#78350f">65</text>
+          <text x="0" y="55" fontSize="7" fill="#533E22">25</text>
+          <text x="120" y="55" fontSize="7" fill="#533E22">45</text>
+          <text x="230" y="55" fontSize="7" fill="#533E22">65</text>
         </g>
         
         {/* Result */}
         <g transform="translate(20, 110)">
-          <text x="0" y="0" fontSize="9" fill="#78350f">20 years of compounding</text>
-          <rect x="0" y="15" width="140" height="35" fill="#92400e" rx="6"/>
+          <text x="0" y="0" fontSize="9" fill="#533E22">20 years of compounding</text>
+          <rect x="0" y="15" width="140" height="35" fill="#654B26" rx="6"/>
           <text x="70" y="38" textAnchor="middle" fontSize="11" fill="white" fontWeight="600">Smaller Nest Egg</text>
         </g>
       </g>
     </g>
     
     {/* Key message */}
-    <rect x="100" y="270" width="500" height="22" fill="#1e293b" rx="4"/>
+    <rect x="100" y="270" width="500" height="22" fill="#232327" rx="4"/>
     <text x="350" y="285" textAnchor="middle" fontSize="9" fill="white">Same monthly effort. Different starting points. Vastly different outcomes.</text>
   </svg>
 );
@@ -388,49 +388,49 @@ const SameContributionSVG = () => (
 const PatienceMultiplierSVG = () => (
   <svg viewBox="0 0 700 240" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="240" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="240" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Patience: Your Multiplier</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Patience: Your Multiplier</text>
     
     {/* The equation visualization */}
     <g transform="translate(80, 60)">
       {/* Box 1: Your Investment */}
       <g transform="translate(0, 30)">
-        <rect x="0" y="0" width="120" height="80" fill="#dbeafe" rx="10" stroke="#93c5fd" strokeWidth="2"/>
-        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1e40af">Your</text>
-        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1e40af">Investment</text>
-        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#3b82f6">💰</text>
+        <rect x="0" y="0" width="120" height="80" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="2"/>
+        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">Your</text>
+        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">Investment</text>
+        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#5A77AA">💰</text>
       </g>
       
       {/* Plus sign */}
-      <text x="145" y="80" fontSize="24" fill="#64748b">+</text>
+      <text x="145" y="80" fontSize="24" fill="#75757D">+</text>
       
       {/* Box 2: Time */}
       <g transform="translate(170, 30)">
-        <rect x="0" y="0" width="120" height="80" fill="#fef9c3" rx="10" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">Time</text>
-        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">(Years)</text>
-        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#f59e0b">⏰</text>
+        <rect x="0" y="0" width="120" height="80" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="2"/>
+        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">Time</text>
+        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">(Years)</text>
+        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#B8923F">⏰</text>
       </g>
       
       {/* Plus sign */}
-      <text x="315" y="80" fontSize="24" fill="#64748b">+</text>
+      <text x="315" y="80" fontSize="24" fill="#75757D">+</text>
       
       {/* Box 3: Patience */}
       <g transform="translate(340, 30)">
-        <rect x="0" y="0" width="120" height="80" fill="#fce7f3" rx="10" stroke="#f9a8d4" strokeWidth="2"/>
-        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#be185d">Patience</text>
-        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#be185d">(Staying In)</text>
-        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#ec4899">🧘</text>
+        <rect x="0" y="0" width="120" height="80" fill="#ECE4F6" rx="10" stroke="#C0A9E2" strokeWidth="2"/>
+        <text x="60" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B8A">Patience</text>
+        <text x="60" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B8A">(Staying In)</text>
+        <text x="60" y="70" textAnchor="middle" fontSize="20" fill="#8F6FC4">🧘</text>
       </g>
       
       {/* Equals sign */}
-      <text x="485" y="80" fontSize="24" fill="#64748b">=</text>
+      <text x="485" y="80" fontSize="24" fill="#75757D">=</text>
       
       {/* Box 4: Result */}
       <g transform="translate(510, 20)">
-        <rect x="0" y="0" width="130" height="100" fill="#059669" rx="10"/>
+        <rect x="0" y="0" width="130" height="100" fill="#12805A" rx="10"/>
         <text x="65" y="35" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Compound</text>
         <text x="65" y="52" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Growth</text>
         <text x="65" y="80" textAnchor="middle" fontSize="26" fill="white">📈</text>
@@ -438,8 +438,8 @@ const PatienceMultiplierSVG = () => (
     </g>
     
     {/* Note */}
-    <text x="350" y="190" textAnchor="middle" fontSize="10" fill="#64748b">Remove any one ingredient and the magic weakens.</text>
-    <text x="350" y="210" textAnchor="middle" fontSize="10" fontWeight="500" fill="#166534">Patience is the hardest to maintain — and the most rewarding.</text>
+    <text x="350" y="190" textAnchor="middle" fontSize="10" fill="#75757D">Remove any one ingredient and the magic weakens.</text>
+    <text x="350" y="210" textAnchor="middle" fontSize="10" fontWeight="500" fill="#0D543C">Patience is the hardest to maintain — and the most rewarding.</text>
   </svg>
 );
 
@@ -451,15 +451,15 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#059669"/>
-        <stop offset="100%" stopColor="#0d9488"/>
+        <stop offset="0%" stopColor="#12805A"/>
+        <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
     
     <text x="350" y="40" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🌱 Key Takeaway</text>
     <text x="350" y="70" textAnchor="middle" fontSize="12" fill="white">Compounding is simple: growth builds on previous growth.</text>
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="white">But it needs time to work its magic.</text>
-    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#a7f3d0">The earlier you start, the longer time works for you.</text>
+    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#ABE5CC">The earlier you start, the longer time works for you.</text>
   </svg>
 );
 
@@ -523,7 +523,7 @@ const LTILesson2 = () => {
                 Lesson 2 of 7
               </span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">The Power of Compounding</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">The Power of Compounding</h1>
             <p className="text-gray-600 text-lg">
               Understanding how small growth, repeated over time, becomes extraordinary.
             </p>
@@ -532,7 +532,7 @@ const LTILesson2 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Compounding Feels Slow at First</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Compounding Feels Slow at First</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -554,7 +554,7 @@ const LTILesson2 = () => {
 
         {/* The Snowball Effect */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Snowball Effect</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Snowball Effect</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -573,7 +573,7 @@ const LTILesson2 = () => {
 
         {/* Core Explanation: What Compounding Means */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What Compounding Actually Means</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Compounding Actually Means</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -602,7 +602,7 @@ const LTILesson2 = () => {
 
         {/* Linear vs Compound Growth */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Linear Growth vs Compound Growth</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Linear Growth vs Compound Growth</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -625,7 +625,7 @@ const LTILesson2 = () => {
 
         {/* The Hockey Stick Moment */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Hockey Stick Moment</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Hockey Stick Moment</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -651,7 +651,7 @@ const LTILesson2 = () => {
 
         {/* Why Time Matters More Than Speed */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Time Matters More Than Speed</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Time Matters More Than Speed</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -676,7 +676,7 @@ const LTILesson2 = () => {
 
         {/* Why Early Patience Pays Off Later */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Early Patience Pays Off Later</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Early Patience Pays Off Later</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -715,7 +715,7 @@ const LTILesson2 = () => {
 
         {/* Practical Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Same Effort, Different Outcomes</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Same Effort, Different Outcomes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -743,7 +743,7 @@ const LTILesson2 = () => {
 
         {/* Patience as Multiplier */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Patience: Your Secret Multiplier</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Patience: Your Secret Multiplier</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -787,7 +787,7 @@ const LTILesson2 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of compounding concepts.</p>
           
           <div className="space-y-8">
@@ -840,10 +840,10 @@ const LTILesson2 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-teal-200" />
-            <h3 className="text-xl font-bold">Reflection Activity</h3>
+            <h3 className="text-xl font-semibold">Reflection Activity</h3>
           </div>
           <p className="text-teal-100 mb-4">
             Now that you understand compounding, consider how it changes your perspective:
@@ -865,7 +865,7 @@ const LTILesson2 = () => {
 
         {/* Lesson Summary */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Lesson Summary</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Lesson Summary</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-teal-50 rounded-xl p-4 border border-teal-200">
               <h4 className="font-semibold text-teal-800 mb-2">What We Learned</h4>
@@ -899,7 +899,7 @@ const LTILesson2 = () => {
           </Link>
           <button
             onClick={() => navigate('/learn/lti-lesson-3')}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: Time in Market vs Timing</span>
             <FaArrowRight />

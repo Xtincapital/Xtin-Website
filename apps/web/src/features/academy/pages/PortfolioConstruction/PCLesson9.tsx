@@ -60,28 +60,28 @@ const Icons = {
       {/* Before Rebalancing */}
       <g transform="translate(70, 80)">
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">Before</text>
-        <rect x="-50" y="0" width="100" height="40" fill="#3b82f6" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="0" width="100" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="0" y="25" fill="white" fontSize="14" fontWeight="bold" textAnchor="middle">Stocks 70%</text>
-        <rect x="-50" y="50" width="60" height="40" fill="#10b981" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="60" height="40" fill="#1FA978" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-20" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds</text>
         <text x="-20" y="88" fill="white" fontSize="11" textAnchor="middle">30%</text>
-        <circle cx="0" cy="140" r="8" fill="#ef4444" stroke="white" strokeWidth="2"/>
-        <text x="0" y="160" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="middle">Off Target!</text>
+        <circle cx="0" cy="140" r="8" fill="#E04848" stroke="white" strokeWidth="2"/>
+        <text x="0" y="160" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="middle">Off Target!</text>
       </g>
       {/* Arrow */}
       <g transform="translate(200, 105)">
-        <path d="M -30 0 L 20 0 L 20 -8 L 35 0 L 20 8 L 20 0 Z" fill="#8b5cf6" opacity="0.7"/>
-        <text x="2" y="-15" fill="#8b5cf6" fontSize="11" fontWeight="bold" textAnchor="middle">Rebalance</text>
+        <path d="M -30 0 L 20 0 L 20 -8 L 35 0 L 20 8 L 20 0 Z" fill="#8F6FC4" opacity="0.7"/>
+        <text x="2" y="-15" fill="#8F6FC4" fontSize="11" fontWeight="bold" textAnchor="middle">Rebalance</text>
       </g>
       {/* After Rebalancing */}
       <g transform="translate(330, 80)">
         <text x="0" y="-10" fill="currentColor" fontSize="13" fontWeight="bold" textAnchor="middle">After</text>
-        <rect x="-50" y="0" width="80" height="40" fill="#3b82f6" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="0" width="80" height="40" fill="#5A77AA" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="25" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Stocks 60%</text>
-        <rect x="-50" y="50" width="80" height="40" fill="#10b981" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
+        <rect x="-50" y="50" width="80" height="40" fill="#1FA978" opacity="0.7" stroke="white" strokeWidth="2" rx="4"/>
         <text x="-10" y="75" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Bonds 40%</text>
-        <circle cx="0" cy="140" r="8" fill="#10b981" stroke="white" strokeWidth="2"/>
-        <text x="0" y="160" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
+        <circle cx="0" cy="140" r="8" fill="#1FA978" stroke="white" strokeWidth="2"/>
+        <text x="0" y="160" fill="#1FA978" fontSize="11" fontWeight="bold" textAnchor="middle">On Target!</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Portfolio Drift & Rebalancing</text>
     </svg>
@@ -168,12 +168,12 @@ const PCLesson9 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 9 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 9 OF 12</span>
               <span className="px-3 py-1.5 bg-orange-100  text-orange-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900    bg-clip-text text-transparent mb-5 leading-tight">Portfolio Rebalancing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Portfolio Rebalancing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn when and how to restore your portfolio to its target allocation. Master the art of disciplined rebalancing while minimizing costs and taxes.</p>
           </header>
 
@@ -182,18 +182,18 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
                       <Icons.RefreshCw className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">What is Rebalancing?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">What is Rebalancing?</h2>
                       <p className="text-sm text-gray-500 ">Maintaining your intended allocation</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Rebalancing is the process of realigning your portfolio weights back to your target allocation. Over time, different asset classes earn different returns, causing your portfolio to "drift" away from its intended mix. Rebalancing restores balance.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-xl p-6 mb-6">
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
                     <h4 className="text-white font-semibold mb-4 text-center">Portfolio Drift Example</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
@@ -224,11 +224,11 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                       <Icons.Scale className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Why Rebalance?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Why Rebalance?</h2>
                       <p className="text-sm text-gray-500 ">The benefits of discipline</p>
                     </div>
                   </div>
@@ -277,11 +277,11 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
                       <Icons.TrendingUp className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Rebalancing Methods</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Methods</h2>
                       <p className="text-sm text-gray-500 ">Different approaches to restore balance</p>
                     </div>
                   </div>
@@ -344,11 +344,11 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                       <Icons.RefreshCw className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Rebalancing in Practice</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing in Practice</h2>
                       <p className="text-sm text-gray-500 ">Maintaining your target allocation</p>
                     </div>
                   </div>
@@ -417,11 +417,11 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
                       <Icons.Calendar className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Timing and Frequency</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Timing and Frequency</h2>
                       <p className="text-sm text-gray-500 ">How often should you rebalance?</p>
                     </div>
                   </div>
@@ -481,13 +481,13 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Tax-Smart Rebalancing</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Smart Rebalancing</h2>
                       <p className="text-sm text-gray-500 ">Minimize the tax impact</p>
                     </div>
                   </div>
@@ -528,11 +528,11 @@ const PCLesson9 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of rebalancing</p>
                     </div>
                   </div>
@@ -577,11 +577,11 @@ const PCLesson9 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                       Check Answers
                     </button>
                   ) : (
-                    <div className="mt-8 p-6 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl text-center">
+                    <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                       <p className="text-orange-100">{calculateScore() === quizQuestions.length ? "Excellent! You understand the discipline of rebalancing." : "Review the explanations to master rebalancing strategies."}</p>
                     </div>
@@ -594,7 +594,7 @@ const PCLesson9 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-8')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-10')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-10')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200">
               <span>Next: Tax Efficiency</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

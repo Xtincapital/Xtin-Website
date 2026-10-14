@@ -125,7 +125,7 @@ const NewsletterTour = () => {
             className="absolute rounded-2xl transition-all duration-300 pointer-events-none"
             style={{
               ...spotlight,
-              boxShadow: '0 0 0 9999px rgba(2, 6, 23, 0.72), 0 0 0 3px rgba(34, 197, 94, 0.9), 0 0 32px 6px rgba(34, 197, 94, 0.45)',
+              boxShadow: '0 0 0 9999px rgba(10, 10, 11, 0.72), 0 0 0 3px rgba(31, 169, 120, 0.9), 0 0 32px 6px rgba(31, 169, 120, 0.45)',
             }}
           />
         ) : (
@@ -153,7 +153,7 @@ const NewsletterTour = () => {
           )}
 
           <p className="text-[11px] font-bold uppercase tracking-wider text-green-600 mb-1.5">{step.eyebrow}</p>
-          <h3 className="text-lg font-extrabold text-gray-900 dark:text-slate-100 mb-2">{step.title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">{step.title}</h3>
           <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mb-5">{step.body}</p>
 
           <div className={`flex items-center gap-3 ${step.center ? 'justify-center' : 'justify-between'}`}>

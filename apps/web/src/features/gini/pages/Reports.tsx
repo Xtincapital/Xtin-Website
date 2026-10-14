@@ -315,7 +315,7 @@ export default function Reports() {
         <div className="flex items-center gap-2">
           <FileBarChart className="h-6 w-6 text-primary" />
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Reports</h1>
+            <h1 className="xt-title mb-2">Reports</h1>
             <p className="text-sm text-muted-foreground">Analyse your portfolio and download the full report as a PDF or CSV</p>
           </div>
         </div>
@@ -424,7 +424,7 @@ export default function Reports() {
                 {isLoading || !meta ? (
                   <Skeleton className="h-96 w-full" />
                 ) : (
-                  <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#e5e7eb] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
+                  <div ref={frameRef} className="w-full overflow-hidden rounded-lg border border-[#E4E1D9] bg-[#ffffff] shadow-sm" style={{ height: "auto" }}>
                     <div className="mx-auto" style={{ width: REPORT_WIDTH * scale, height: docH * scale || undefined }}>
                       <div id="report-scale-wrap" style={{ width: REPORT_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
                         <div ref={previewRef}>

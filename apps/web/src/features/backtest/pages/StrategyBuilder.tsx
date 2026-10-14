@@ -245,9 +245,9 @@ export default function StrategyBuilder() {
 
         {/* live summary */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="relative overflow-hidden rounded-2xl bg-[#0a1120] p-5 text-white shadow-xl shadow-slate-900/10">
+          <div className="relative overflow-hidden rounded-2xl bg-[#0A0A0B] p-5 text-white shadow-xl shadow-slate-900/10">
             <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-500/30 blur-3xl" />
-            <div className="relative text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">Your rule, in words</div>
+            <div className="relative xt-eyebrow">Your rule, in words</div>
             <p className="relative mt-3 text-[15px] leading-relaxed text-slate-100">{strategySentence(def)}</p>
             {error && <p className="relative mt-4 rounded-xl bg-rose-500/15 px-3 py-2 text-sm text-rose-200">{error}</p>}
             <button onClick={onSave} disabled={save.isPending} className={`${btnPrimary} relative mt-5 w-full`}>

@@ -74,7 +74,7 @@ const QRCodeGenerator = ({
           size={size}
           includeMargin={includeMargin}
           level="M" // Medium error correction — balances density and reliability
-          fgColor="#0F172A"
+          fgColor="#151517"
           bgColor="#FFFFFF"
         />
       </div>

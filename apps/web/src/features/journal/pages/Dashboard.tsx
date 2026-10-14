@@ -38,8 +38,9 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
+  Area,
+  ComposedChart,
   Line,
-  LineChart,
   ResponsiveContainer,
   XAxis,
   YAxis,
@@ -49,6 +50,10 @@ import {
   PieChart,
   Cell,
 } from "recharts";
+import { chartGrid, chartXAxis, chartYAxis, chartActiveDot, chartTooltip, chartColors } from "@/components/charts/chartTheme";
+import ChartAreaGradient from "@/components/charts/ChartAreaGradient";
+import RollingNumber from "@/components/motion/RollingNumber";
+import ProductBrand from "@/components/ProductBrand";
 import {
   Wallet,
   Receipt,
@@ -127,7 +132,10 @@ function goalCurrentValue(goal: Goal, allTime: Metrics, thisMonth: Metrics): num
   }
 }
 
-const GAUGE_COLORS = ["hsl(var(--chart-positive))", "hsl(var(--secondary))"];
+const GAUGE_COLORS = [chartColors.positive, "hsl(var(--secondary))"];
+
+/** Two-letter badge for an asset row ("NIFTY 25000 CE" → "NI"). */
+const assetMonogram = (asset: string) => (asset.replace(/[^A-Za-z]/g, "").slice(0, 2) || "—").toUpperCase();
 
 const Dashboard = () => {
   const { formatInr: formatCurrency } = useCurrency();
@@ -252,11 +260,8 @@ const Dashboard = () => {
           transition={{ duration: 0.4 }}
           className="mb-8"
         >
-          <Link to="/journal" className="brand-link mb-3 inline-flex" aria-label="Xtin Journal home">
-            <span className="brand-name-main">Xtin</span>
-            <span className="brand-name-accent">Journal</span>
-          </Link>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Dashboard</h1>
+          <ProductBrand to="/journal" name="Journal" className="mb-3" />
+          <h1 className="xt-title mb-2">Dashboard</h1>
           <p className="text-muted-foreground flex items-center gap-1.5">
             {tradesLoading ? "Loading your trading activity..." : `${metrics.totalTrades} trades logged`}
             {!tradesLoading && <CurrencyBreakdown trades={rawTrades} />}
@@ -271,7 +276,7 @@ const Dashboard = () => {
           className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-8"
         >
           {metricCards.map((card) => (
-            <Card key={card.label}>
+            <Card key={card.label} className="transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:shadow-lg">
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-xs font-medium text-muted-foreground flex items-center gap-1">
@@ -283,11 +288,11 @@ const Dashboard = () => {
                 <p
                   className={
                     card.positive === undefined
-                      ? "stat-value font-bold text-foreground"
-                      : `stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`
+                      ? "stat-value font-semibold text-foreground"
+                      : `stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`
                   }
                 >
-                  {card.value}
+                  <RollingNumber value={card.value} />
                 </p>
               </CardContent>
             </Card>
@@ -308,39 +313,32 @@ const Dashboard = () => {
             <CardContent>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={monthlyTrend} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
-                      tickLine={false}
-                    />
+                  <ComposedChart data={monthlyTrend} margin={{ top: 8, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <ChartAreaGradient id="journalTrendFill" />
+                    </defs>
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="label" {...chartXAxis} />
                     <YAxis
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={false}
-                      tickLine={false}
+                      {...chartYAxis}
                       width={56}
                       tickFormatter={(v) => formatCurrency(v, { compact: true })}
                     />
                     <Tooltip
                       formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
+                      {...chartTooltip}
                     />
+                    <Area type="monotone" dataKey="pnl" stroke="none" fill="url(#journalTrendFill)" tooltipType="none" />
                     <Line
                       type="monotone"
                       dataKey="pnl"
-                      stroke="hsl(var(--chart-positive))"
-                      strokeWidth={2.5}
+                      stroke={chartColors.positive}
+                      strokeWidth={2.25}
                       dot={false}
-                      activeDot={{ r: 4 }}
+                      activeDot={chartActiveDot}
+                      animationDuration={1100}
                     />
-                  </LineChart>
+                  </ComposedChart>
                 </ResponsiveContainer>
               </div>
             </CardContent>
@@ -364,6 +362,7 @@ const Dashboard = () => {
                       innerRadius="65%"
                       outerRadius="100%"
                       stroke="none"
+                      cornerRadius={6}
                     >
                       {gaugeData.map((entry, index) => (
                         <Cell key={entry.name} fill={GAUGE_COLORS[index % GAUGE_COLORS.length]} />
@@ -372,7 +371,7 @@ const Dashboard = () => {
                   </PieChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-3xl font-bold text-foreground">{metrics.winRate.toFixed(0)}%</span>
+                  <RollingNumber value={`${metrics.winRate.toFixed(1)}%`} className="xt-metric text-3xl text-foreground" />
                   <span className="text-xs text-muted-foreground mt-1">
                     {metrics.wins}W / {metrics.losses}L
                   </span>
@@ -410,9 +409,12 @@ const Dashboard = () => {
                 recentTrades.map((trade) => {
                   const positive = (trade.pnl ?? 0) >= 0;
                   return (
-                    <Card key={trade.id}>
+                    <Card key={trade.id} className="transition-[transform,border-color] duration-300 hover:translate-x-1 hover:border-gray-300 dark:hover:border-gray-700">
                       <CardContent className="p-4 flex items-center justify-between gap-3">
-                        <div className="min-w-0">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] border bg-secondary text-[11px] font-bold tracking-wide text-muted-foreground">
+                          {assetMonogram(trade.asset)}
+                        </span>
+                        <div className="min-w-0 flex-1">
                           <p className="font-semibold text-foreground text-sm truncate">{trade.asset}</p>
                           <p className="text-xs text-muted-foreground truncate">
                             {[trade.type, trade.market && marketLabel(trade.market)].filter(Boolean).join(" • ")}

@@ -2,111 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Journal Design System — the ORIGINAL standalone Journal app's look.
+/* Journal — layout chrome (tab bar, tab content) and the page-body rules
+   that map the React pages onto the site's shared type and card styles.
 
-   Restored from features-incoming/journal/index.html's inline <style> (the
-   `:root` palette, `.app-header`, `.tabs-container`, `.tab-button`,
-   `.tab-content`, `.section-header`, `.metric-card`, `.chart-card`,
-   `.data-table`, `.btn` rules). The Phase 9d port had swapped this for
-   FundaKaMental's palette plus Inter / Plus Jakarta Sans; this file puts the
-   original back: system font stack, brand green #00aa5b (hover #007a46),
-   slate text (#111625 / #4b5563), #f8fafc page background, #e2e8f0 borders,
-   12px cards and 8px buttons.
+   Colours, fonts and radii come from the site design system (src/index.css
+   tokens + src/styles/palette.js), so the Journal matches every other page;
+   this file only adds the Journal's own layout.
 
-   SCOPING: everything here is scoped under `.journal-scope` (tokens) and
-   `.journal-classic` (the restored chrome + page-body rules). Both classes
-   sit on the wrapper JournalLayout.tsx renders *between* the shared site
-   Navbar and Footer, so none of these rules reach the site chrome, and none
-   of the site's own global styles are changed by this file. The tokens also
-   apply to `body.journal-portals > :not(#root)` — dialogs and dropdowns,
-   which render outside that wrapper (the class is set by JournalApp). */
+   SCOPING: everything here is scoped under `.journal-scope` / `.journal-classic`
+   (the wrapper JournalLayout.tsx renders between the site Navbar and Footer)
+   and `body.journal-portals > :not(#root)` for dialogs, so none of it reaches
+   other pages. */
 
 @layer base {
+  /* Colour and type tokens come from the site (src/index.css + palette.js);
+     these raw aliases are only for the chrome rules below. */
   .journal-scope,
   body.journal-portals > :not(#root) {
-    /* Page background #f8fafc, surfaces white */
-    --background: 210 40% 98%;
-    --foreground: 225 37% 11%;
+    --jr-surface: #FFFFFF;
+    --jr-raised: #FAF9F6;
+    --jr-page: #F7F6F2;
+    --jr-border: #E4E1D9;
+    --jr-heading: #151517;
+    --jr-subheading: #151517;
+    --jr-text: #5A5A62;
+    --jr-muted: #75757D;
+    --jr-brand: #12805A;
+    --jr-brand-hover: #0E6A4A;
+    --jr-brand-tint: #EEF9F4;
+    --jr-divider: #CFCBC1;
+  }
 
-    --card: 0 0% 100%;
-    --card-foreground: 225 37% 11%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 225 37% 11%;
-
-    /* Primary: the original brand green #00aa5b */
-    --primary: 152 100% 33%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary / muted: rgba(17,22,37,0.06) on white */
-    --secondary: 220 14% 95%;
-    --secondary-foreground: 225 37% 11%;
-
-    --muted: 220 14% 95%;
-    --muted-foreground: 215 14% 34%;
-
-    /* Accent: #e1f7ec tint with #007a46 text */
-    --accent: 150 58% 93%;
-    --accent-foreground: 154 100% 24%;
-
-    /* Status colors — positive #007a46, negative #dc2626, warning #a84b2f */
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --success: 154 100% 24%;
-    --success-foreground: 0 0% 100%;
-
-    --warning: 14 56% 42%;
-    --warning-foreground: 0 0% 100%;
-
-    /* Borders and inputs: #e2e8f0 */
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 152 100% 33%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 215 14% 34%;
-    --sidebar-primary: 152 100% 33%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 150 58% 93%;
-    --sidebar-accent-foreground: 225 37% 11%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 152 100% 33%;
-
-    /* Chart colors for trading data (P&L up/down) */
-    --chart-positive: 152 100% 33%;
-    --chart-negative: 0 72% 51%;
-    --chart-neutral: 215 14% 34%;
-    --chart-1: 152 100% 33%;
-    --chart-2: 199 89% 48%;
-    --chart-3: 262 83% 58%;
-    --chart-4: 38 92% 50%;
-    --chart-5: 340 82% 52%;
-
-    --gradient-primary: linear-gradient(135deg, #00aa5b 0%, #007a46 100%);
-    --gradient-accent: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-    --gradient-hero: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-
-    /* The original's card shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-glow: 0 0 30px rgba(0, 170, 91, 0.12);
-
-    /* Raw values the chrome/body rules below use */
-    --jr-surface: #ffffff;
-    --jr-page: #f8fafc;
-    --jr-border: #e2e8f0;
-    --jr-heading: #111625;
-    --jr-subheading: #1f2937;
-    --jr-text: #4b5563;
-    --jr-brand: #00aa5b;
-    --jr-brand-hover: #007a46;
-    --jr-brand-tint: #e1f7ec;
-    --jr-divider: #cbd5e1;
+  html.dark .journal-scope,
+  html.dark body.journal-portals > :not(#root) {
+    --jr-surface: #151517;
+    --jr-raised: #1C1C1F;
+    --jr-page: #0A0A0B;
+    --jr-border: #232327;
+    --jr-heading: #EDEDEF;
+    --jr-subheading: #EDEDEF;
+    --jr-text: #A3A1A6;
+    --jr-muted: #8B8B93;
+    --jr-brand: #3CCB97;
+    --jr-brand-hover: #77D3AE;
+    --jr-brand-tint: rgba(60, 203, 151, 0.12);
+    --jr-divider: #404047;
   }
 }
 
@@ -122,8 +62,6 @@
     background-color: var(--jr-page);
     color: var(--jr-text);
     line-height: 1.5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
   }
 
   .journal-scope h1,
@@ -142,7 +80,6 @@
      No background here — the dark dialog overlay is also a body child. */
   body.journal-portals > :not(#root) {
     color: var(--jr-text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
   .journal-scope ::-webkit-scrollbar {
@@ -191,30 +128,6 @@
   margin: 0;
   color: var(--jr-text);
   font-weight: 400;
-}
-
-.journal-classic .brand-link {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.journal-classic .brand-name-main,
-.journal-classic .brand-name-accent {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-}
-
-.journal-classic .brand-name-main {
-  color: var(--jr-heading);
-}
-
-.journal-classic .brand-name-accent {
-  color: var(--jr-brand);
 }
 
 .journal-classic .header-right {
@@ -283,14 +196,15 @@
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  color: #374151;
+  border: 1px solid var(--jr-border);
+  background: var(--jr-surface);
+  color: var(--jr-text);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .journal-classic .nav-settings:hover {
-  background: #f9fafb;
+  background: var(--jr-raised);
+  color: var(--jr-heading);
 }
 
 .journal-classic .nav-settings.active {
@@ -319,16 +233,28 @@
 }
 
 .journal-classic .tab-button {
+  position: relative;
   flex: 0 0 auto;
-  padding: 12px 11px;
+  padding: 13px 11px;
   background: transparent;
   color: var(--jr-text);
   font-size: 14px;
   font-weight: 500;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
+}
+
+/* Sliding underline under the active tab (a framer-motion layoutId element
+   rendered by JournalLayout). */
+.journal-classic .tab-indicator {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--jr-brand);
 }
 
 .journal-classic .tab-button:hover {
@@ -336,9 +262,7 @@
 }
 
 .journal-classic .tab-button.active {
-  color: var(--jr-brand);
-  border-bottom-color: var(--jr-brand);
-  font-weight: 600;
+  color: var(--jr-heading);
 }
 
 .journal-classic .tab-content {
@@ -375,19 +299,31 @@
   max-width: none;
 }
 
-/* Page titles → `.section-header h2` */
+/* Page titles → the site's page-title role (.xt-title) */
 .journal-classic .journal-content h1 {
-  font-size: 18px;
-  line-height: 1.4;
-  font-weight: 600;
-  letter-spacing: normal;
-  color: var(--jr-subheading);
+  font-family: theme("fontFamily.display");
+  font-size: 2.25rem;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--jr-heading);
 }
 
-/* Section and card titles → `.chart-card h3` */
+@media (min-width: 768px) {
+  .journal-classic .journal-content h1 {
+    font-size: 2.75rem;
+  }
+}
+
+.journal-classic .journal-content h1 > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Section and card titles → the site's card-title role (.xt-card-title) */
 .journal-classic .journal-content h2,
 .journal-classic .journal-content h3 {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.4;
   font-weight: 600;
   letter-spacing: normal;
@@ -400,16 +336,17 @@
   font-weight: 600;
 }
 
-/* Metric values → `.metric-card .value` */
+/* Metric values → the site's metric role (.xt-metric) */
 .journal-classic .journal-content .text-3xl {
-  font-size: 24px;
-  line-height: 1.25;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Cards → `.metric-card` / `.chart-card` (12px radius) */
-.journal-classic .journal-content .rounded-2xl,
+/* Cards keep the site's 16px corners */
 .journal-classic .journal-content .rounded-3xl {
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
 /* Buttons and inputs → `.btn` / `.form-group input` (8px radius) */
@@ -428,25 +365,23 @@
 
 /* Tables → `.data-table` */
 .journal-classic .journal-content table thead {
-  background: var(--jr-page);
-  border-bottom: 2px solid var(--jr-border);
+  background: transparent;
+  border-bottom: 1px solid var(--jr-border);
 }
 
 .journal-classic .journal-content table th {
   padding: 10px 16px;
   height: auto;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--jr-text);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--jr-muted);
 }
 
 .journal-classic .journal-content table td {
   padding: 12px 16px;
-  font-size: 12px;
+  font-size: 13px;
   border-bottom: 1px solid var(--jr-border);
+  font-variant-numeric: tabular-nums;
 }
 
 /* A table that should fit a laptop screen without sideways scrolling (Trades). */
@@ -457,7 +392,7 @@
 }
 
 .journal-classic .journal-content table tbody tr:hover {
-  background-color: rgba(17, 22, 37, 0.06);
+  background-color: var(--jr-raised);
 }
 
 @media (max-width: 900px) {
@@ -494,13 +429,6 @@
 
   .journal-classic .tab-content {
     padding: 20px 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  .journal-classic .brand-name-main,
-  .journal-classic .brand-name-accent {
-    font-size: 18px;
   }
 }
 
@@ -571,8 +499,9 @@
 @layer utilities {
   /* Metric values: never wrap mid-number ("₹84,504.7 / 3"); the font scales with the box. */
   .journal-scope .stat-value {
-    font-size: clamp(1rem, 0.6rem + 1vw, 1.5rem);
+    font-size: clamp(1.125rem, 0.7rem + 0.9vw, 1.5rem);
     line-height: 1.3;
+    letter-spacing: -0.02em;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
@@ -582,71 +511,14 @@
   }
 }
 
-/* Dark mode — the original app had none, but the site's Navbar toggle sets
-   `html.dark`, and index.css then forces bg-white / text-gray-* dark with
-   !important. Without a matching dark palette the page body would render
-   dark text on dark cards, so the same design is mirrored in dark here. */
+/* Dark mode: colours flip through the site tokens and the --jr-* aliases
+   above; only translucent surfaces need their own dark value. */
 @layer base {
-  html.dark .journal-scope,
-  html.dark body.journal-portals > :not(#root) {
-    color-scheme: dark;
-    --background: 222 47% 8%;
-    --foreground: 220 14% 91%;
-    --card: 221 39% 11%;
-    --card-foreground: 220 14% 91%;
-    --popover: 221 39% 11%;
-    --popover-foreground: 220 14% 91%;
-    --primary: 152 100% 36%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 220 14% 91%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 218 11% 65%;
-    --accent: 152 45% 15%;
-    --accent-foreground: 152 60% 72%;
-    --destructive: 0 72% 58%;
-    --success: 152 62% 45%;
-    --warning: 25 80% 60%;
-    --border: 217 19% 24%;
-    --input: 217 19% 24%;
-    --ring: 152 100% 40%;
-    --sidebar-background: 221 39% 11%;
-    --sidebar-foreground: 218 11% 65%;
-    --sidebar-primary: 152 100% 36%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 152 45% 15%;
-    --sidebar-accent-foreground: 220 14% 91%;
-    --sidebar-border: 217 19% 24%;
-    --sidebar-ring: 152 100% 40%;
-    --chart-positive: 152 62% 45%;
-    --chart-negative: 0 72% 58%;
-    --chart-neutral: 218 11% 65%;
-    --chart-1: 152 100% 36%;
-    --gradient-accent: linear-gradient(135deg, hsl(152, 45%, 15%) 0%, hsl(221, 39%, 13%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(221, 39%, 11%) 0%, hsl(222, 47%, 8%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(221, 39%, 12%) 0%, hsl(221, 39%, 10%) 100%);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
-    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.45);
-    --shadow-glow: 0 0 30px rgba(52, 211, 153, 0.15);
-
-    --jr-surface: #111827;
-    --jr-page: #0b1220;
-    --jr-border: #374151;
-    --jr-heading: #f3f4f6;
-    --jr-subheading: #e5e7eb;
-    --jr-text: #9ca3af;
-    --jr-brand: #10b981;
-    --jr-brand-hover: #059669;
-    --jr-brand-tint: rgba(16, 185, 129, 0.12);
-    --jr-divider: #4b5563;
-  }
-
   html.dark .journal-scope .glass {
-    background-color: hsl(221 39% 11% / 0.8);
+    background-color: rgb(21 21 23 / 0.8);
   }
 
   html.dark .journal-classic .journal-content table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(255, 255, 255, 0.03);
   }
 }

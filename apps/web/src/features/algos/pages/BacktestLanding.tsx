@@ -82,7 +82,7 @@ const BacktestLanding = () => {
       {/* Subtle Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(rgba(16, 185, 129, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.4) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(31, 169, 120, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 169, 120, 0.4) 1px, transparent 1px)`,
           backgroundSize: '60px 60px'
         }} />
         <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px]" />
@@ -105,7 +105,7 @@ const BacktestLanding = () => {
                 <span className="text-sm font-medium text-emerald-700">AI-Powered Backtesting</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <h1 className="text-5xl md:text-7xl font-display font-normal mb-6 leading-tight tracking-[-0.015em]">
                 <span className="text-gray-900">Backtest any trade</span>
                 <br />
                 <span className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
@@ -138,7 +138,7 @@ const BacktestLanding = () => {
               <div className="grid grid-cols-4 gap-4">
                 {stats.map((s) => (
                   <div key={s.label}>
-                    <div className="text-2xl md:text-3xl font-bold text-gray-900">{s.value}</div>
+                    <div className="text-2xl md:text-3xl font-semibold tabular-nums tracking-[-0.02em] text-gray-900">{s.value}</div>
                     <div className="text-xs md:text-sm text-gray-500">{s.label}</div>
                   </div>
                 ))}
@@ -197,7 +197,7 @@ const BacktestLanding = () => {
       <section className="relative px-4 sm:px-6 lg:px-8 py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Everything you need to test an idea</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-normal text-gray-900 tracking-[-0.015em]">Everything you need to test an idea</h2>
             <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
               A research desk in a chat box — from first hypothesis to a report you can trust.
             </p>
@@ -219,7 +219,7 @@ const BacktestLanding = () => {
       {/* CTA */}
       <section className="relative px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-600 px-8 py-14 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-bold">Know before you trade.</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-normal tracking-[-0.015em]">Know before you trade.</h2>
           <p className="mx-auto mt-3 max-w-xl text-emerald-50">
             Sign in with your free Xtin account and backtest your first idea in under a minute — no code.
           </p>

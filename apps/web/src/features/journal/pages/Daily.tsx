@@ -47,6 +47,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { chartGrid, chartTick, chartMaxBarSize, chartTooltip } from "@/components/charts/chartTheme";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -144,7 +145,7 @@ const Daily = () => {
           className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
         >
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            <h1 className="xt-title mb-2 flex items-center gap-3">
               Daily View
               <InfoTip title="Daily view" widthClass="w-80">
                 <p>Pick a date to review that single trading day: how many trades, how much you made or lost, and which strategies worked.</p>
@@ -182,7 +183,7 @@ const Daily = () => {
                   </InfoTip>
                 </p>
                 <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
-                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.className ?? "text-foreground"}`}>{card.value}</p>
                 </button>
               </CardContent>
             </Card>
@@ -211,19 +212,14 @@ const Daily = () => {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => showDay(`${d.name} trades`, dailyTrades.filter((t) => t.type === d.name))()}>
+                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => showDay(`${d.name} trades`, dailyTrades.filter((t) => t.type === d.name))()}>
                         {typeDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
                       </Pie>
                       <Tooltip
                         formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
+                        {...chartTooltip}
                       />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
                     </PieChart>
@@ -249,32 +245,27 @@ const Daily = () => {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={strategyPnL} layout="vertical" margin={{ top: 5, right: 20, left: 0, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
+                      <CartesianGrid {...chartGrid} vertical horizontal={false} />
                       <XAxis
                         type="number"
-                        tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                        axisLine={{ stroke: "hsl(var(--border))" }}
+                        tick={chartTick}
+                        axisLine={false}
                         tickLine={false}
                         tickFormatter={(v) => formatCurrency(v, { compact: true })}
                       />
                       <YAxis
                         type="category"
                         dataKey="strategy"
-                        tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                        tick={chartTick}
                         axisLine={false}
                         tickLine={false}
                         width={100}
                       />
                       <Tooltip
                         formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
+                        {...chartTooltip}
                       />
-                      <Bar dataKey="pnl" radius={[0, 4, 4, 0]} cursor="pointer" onClick={(d) => { const st = (d as unknown as { payload: { strategy: string } }).payload.strategy; showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))(); }}>
+                      <Bar dataKey="pnl" radius={[0, 6, 6, 0]} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const st = (d as unknown as { payload: { strategy: string } }).payload.strategy; showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))(); }}>
                         {strategyPnL.map((entry) => (
                           <Cell
                             key={entry.strategy}

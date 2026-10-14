@@ -143,7 +143,7 @@ const SignupPage = () => {
 				<div className="max-w-lg mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-bold text-gray-900 mb-2">
+						<h1 className="text-3xl font-display font-normal text-gray-900 mb-2 tracking-[-0.015em]">
 							Create Your Account
 						</h1>
 						<p className="text-gray-600">
@@ -422,7 +422,7 @@ const SignupPage = () => {
 			{showVerifyModal && (
 				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 					<div className="bg-white rounded-lg p-8 max-w-md mx-4">
-						<h2 className="text-xl font-bold text-gray-900 mb-4">Verify Your Email</h2>
+						<h2 className="text-xl font-semibold text-gray-900 mb-4">Verify Your Email</h2>
 						<p className="text-gray-600 mb-6">
 							Please check your email inbox and verify your account by clicking the link we sent you.
 						</p>

@@ -1,3 +1,6 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+import { tailwindHues } from "./src/styles/palette.js";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -7,18 +10,30 @@ export default {
   ],
   theme: {
     extend: {
-      // Below: FundaKaMental's shadcn/ui design tokens (Phase 8e). These are
-      // new utility classes (border-border, bg-background, etc.) that
-      // nothing outside the fundakamental feature used before this, so
-      // merging them here is additive — no existing page references these
-      // class names. The CSS custom properties they read (--background,
-      // --border, ...) are deliberately scoped to `.fundakamental-scope` in
-      // features/fundakamental/fundakamental.css, not global :root, so the
-      // utilities only resolve to real colors inside that feature's DOM
-      // subtree. fontFamily is intentionally NOT merged here (that would
-      // change the whole site's default font) — FundaKaMental's fonts are
-      // applied only within its own scope, in fundakamental.css.
+      // shadcn utilities (bg-background, border-border, text-primary, ...)
+      // read the CSS custom properties defined once for the whole site in
+      // src/index.css (:root / html.dark), so every app shares one palette.
+
+      // One site-wide type system: Inter for everything, Instrument Serif
+      // (`font-display`) for page titles and hero numbers only.
+      fontFamily: {
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        display: ['"Instrument Serif"', "Georgia", '"Times New Roman"', "serif"],
+      },
+      // Same sizes as Tailwind's scale (no layout shift); larger sizes get
+      // slightly tighter tracking so headings read as one family.
+      fontSize: {
+        "2xl": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.015em" }],
+        "3xl": ["1.875rem", { lineHeight: "2.25rem", letterSpacing: "-0.02em" }],
+        "4xl": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
+        "5xl": ["3rem", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
+        "6xl": ["3.75rem", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
+        "7xl": ["4.5rem", { lineHeight: "1", letterSpacing: "-0.03em" }],
+      },
       colors: {
+        // Every Tailwind hue now resolves to one of 8 palette families
+        // (src/styles/palette.js).
+        ...tailwindHues,
         // Receipt printer (features/billing): a 12-step neutral scale that
         // inverts in dark mode (1 = background end, 12 = ink end). Channels
         // live in index.css as --gs-1 … --gs-12.

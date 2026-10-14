@@ -140,17 +140,17 @@ function ReportPlaceholder({ loading }: { loading: boolean }) {
       <svg aria-hidden viewBox="0 0 600 200" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 w-full opacity-60">
         <defs>
           <linearGradient id="bt-ph" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+            <stop offset="0%" stopColor="#1FA978" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#1FA978" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24 L600 200 L0 200 Z" fill="url(#bt-ph)" />
-        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#10b981" strokeWidth="2" strokeDasharray="6 6" />
+        <path d="M0 160 L40 150 L80 156 L120 130 L160 138 L200 110 L240 118 L280 92 L320 100 L360 76 L400 84 L440 58 L480 66 L520 40 L560 46 L600 24" fill="none" stroke="#1FA978" strokeWidth="2" strokeDasharray="6 6" />
       </svg>
       <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 ring-1 ring-emerald-200 dark:from-emerald-500/20 dark:to-teal-500/10 dark:ring-emerald-400/20">
         <Wand2 className="h-6 w-6 text-emerald-600 dark:text-emerald-300" />
       </span>
-      <h2 className="relative mt-5 text-xl font-bold tracking-tight">Your quant report lands here</h2>
+      <h2 className="relative mt-5 text-xl font-semibold tracking-tight">Your quant report lands here</h2>
       <p className={`relative mt-2 max-w-sm text-sm ${muted}`}>Describe a trading idea on the left. In about a second you'll know how it would have done on real history.</p>
       <ul className="relative mt-6 grid gap-2.5 text-left text-sm sm:grid-cols-2">
         {items.map(({ icon: Icon, text }) => (
@@ -355,7 +355,7 @@ export default function Playground() {
                       </div>
                       {msg.interpretation && (
                         <div className="rounded-xl border border-emerald-200/70 bg-emerald-50/60 px-3 py-2.5 text-xs leading-relaxed text-slate-600 dark:border-emerald-400/20 dark:bg-emerald-500/5 dark:text-slate-300">
-                          <div className="mb-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                          <div className="mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
                             <Sparkles className="h-3 w-3" /> What I understood
                           </div>
                           <RichText text={msg.interpretation} />
@@ -403,7 +403,7 @@ export default function Playground() {
                       onClick={() => void send(text)}
                       className="group rounded-xl border border-slate-200 bg-white p-3 text-left transition hover:-translate-y-0.5 hover:border-emerald-400 hover:shadow-md hover:shadow-emerald-600/5 dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-emerald-400/50"
                     >
-                      <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
                         <Icon className="h-3.5 w-3.5" /> {tag}
                         {pro && locked("options") && <ProBadge className="ml-auto" />}
                       </div>

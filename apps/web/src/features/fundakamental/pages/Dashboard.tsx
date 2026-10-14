@@ -300,7 +300,7 @@ const Dashboard = () => {
           className="mb-8"
         >
           <ProductBrand to="/fundakamental" name="FundaKaMental" className="mb-3" />
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">
+          <h1 className="xt-title mb-2">
             Welcome back, {displayName}
           </h1>
           <p className="text-muted-foreground">
@@ -668,16 +668,16 @@ const Dashboard = () => {
             )}
 
             <div className="rounded-2xl bg-white border border-border overflow-x-auto shadow-sm">
-              <table className="w-full">
+              <table className="w-full text-sm tabular-nums">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider py-3 px-4">
+                    <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">
                       Stock
                     </th>
-                    <th className="text-right text-[11px] font-semibold text-muted-foreground uppercase tracking-wider py-3 px-4">
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">
                       Price
                     </th>
-                    <th className="text-right text-[11px] font-semibold text-muted-foreground uppercase tracking-wider py-3 px-4">
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">
                       Change
                     </th>
                     <th className="w-10 py-3 pr-4"></th>

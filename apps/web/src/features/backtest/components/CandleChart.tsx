@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { createChart, ColorType, type IChartApi, type SeriesMarker, type Time } from "lightweight-charts";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { toUnix } from "../lib/time";
+import { canvasChartColors } from "@/components/charts/chartTheme";
 import type { BacktestTrade, Candle } from "../lib/types";
 
 /** Price candles with entry (▲/▼) and exit (●) markers. */
@@ -11,24 +12,23 @@ export default function CandleChart({ candles, trades, showTrades = true, height
 
   useEffect(() => {
     if (!ref.current) return;
-    const dark = theme === "dark";
-    const grid = dark ? "rgba(255,255,255,0.05)" : "#eef2f7";
+    const c = canvasChartColors(theme === "dark");
     const chart: IChartApi = createChart(ref.current, {
       height,
-      layout: { background: { type: ColorType.Solid, color: "transparent" }, textColor: dark ? "#94a3b8" : "#64748b", fontSize: 11 },
-      grid: { vertLines: { color: grid }, horzLines: { color: grid } },
+      layout: { background: { type: ColorType.Solid, color: "transparent" }, textColor: c.text, fontSize: 11, fontFamily: c.font },
+      grid: { vertLines: { visible: false }, horzLines: { color: c.grid } },
       rightPriceScale: { borderVisible: false },
       timeScale: { borderVisible: false, timeVisible: true },
-      crosshair: { vertLine: { labelBackgroundColor: "#0f766e" }, horzLine: { labelBackgroundColor: "#0f766e" } },
+      crosshair: { vertLine: { labelBackgroundColor: c.crosshairLabel }, horzLine: { labelBackgroundColor: c.crosshairLabel } },
     });
 
     const series = chart.addCandlestickSeries({
-      upColor: "#10b981",
-      downColor: "#f43f5e",
-      borderUpColor: "#10b981",
-      borderDownColor: "#f43f5e",
-      wickUpColor: "#10b981",
-      wickDownColor: "#f43f5e",
+      upColor: c.up,
+      downColor: c.down,
+      borderUpColor: c.up,
+      borderDownColor: c.down,
+      wickUpColor: c.up,
+      wickDownColor: c.down,
     });
 
     const seen = new Set<number>();
@@ -41,8 +41,8 @@ export default function CandleChart({ candles, trades, showTrades = true, height
     if (showTrades) {
       const markers: SeriesMarker<Time>[] = [];
       for (const t of trades) {
-        markers.push({ time: toUnix(t.entry_time), position: t.side === "BUY" ? "belowBar" : "aboveBar", color: "#0ea5e9", shape: t.side === "BUY" ? "arrowUp" : "arrowDown", text: t.side === "BUY" ? "Buy" : "Short" });
-        markers.push({ time: toUnix(t.exit_time), position: t.side === "BUY" ? "aboveBar" : "belowBar", color: t.pnl >= 0 ? "#10b981" : "#f43f5e", shape: "circle", text: `${t.pnl >= 0 ? "+" : ""}${t.pnl.toFixed(0)}` });
+        markers.push({ time: toUnix(t.entry_time), position: t.side === "BUY" ? "belowBar" : "aboveBar", color: c.marker, shape: t.side === "BUY" ? "arrowUp" : "arrowDown", text: t.side === "BUY" ? "Buy" : "Short" });
+        markers.push({ time: toUnix(t.exit_time), position: t.side === "BUY" ? "aboveBar" : "belowBar", color: t.pnl >= 0 ? c.up : c.down, shape: "circle", text: `${t.pnl >= 0 ? "+" : ""}${t.pnl.toFixed(0)}` });
       }
       markers.sort((a, b) => (a.time as number) - (b.time as number));
       series.setMarkers(markers);

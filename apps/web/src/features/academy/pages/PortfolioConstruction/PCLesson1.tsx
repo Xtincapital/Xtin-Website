@@ -65,8 +65,8 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 300" fill="none">
       <defs>
         <linearGradient id="frontierGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2"/>
-          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.3"/>
+          <stop offset="0%" stopColor="#5A77AA" stopOpacity="0.2"/>
+          <stop offset="100%" stopColor="#8F6FC4" stopOpacity="0.3"/>
         </linearGradient>
       </defs>
       {/* Axes */}
@@ -77,17 +77,17 @@ const Icons = {
       <text x="15" y="140" fill="currentColor" opacity="0.6" fontSize="14" textAnchor="middle" transform="rotate(-90 15 140)">Return (μ)</text>
       {/* Inefficient portfolios (dots) */}
       {[{x:100,y:200},{x:120,y:190},{x:150,y:180},{x:180,y:185},{x:200,y:175},{x:220,y:195},{x:250,y:170}].map((pt, i) => (
-        <circle key={`ineff-${i}`} cx={pt.x} cy={pt.y} r="4" fill="#94a3b8" opacity="0.4"/>
+        <circle key={`ineff-${i}`} cx={pt.x} cy={pt.y} r="4" fill="#A3A1A6" opacity="0.4"/>
       ))}
       {/* Efficient Frontier Curve */}
-      <path d="M 80 220 Q 150 120 320 80" stroke="#3b82f6" strokeWidth="3" fill="none"/>
+      <path d="M 80 220 Q 150 120 320 80" stroke="#5A77AA" strokeWidth="3" fill="none"/>
       <path d="M 80 220 Q 150 120 320 80 L 320 250 L 80 250 Z" fill="url(#frontierGrad)"/>
       {/* Optimal Portfolio Point */}
-      <circle cx="200" cy="130" r="8" fill="#8b5cf6" stroke="white" strokeWidth="2"/>
-      <text x="200" y="115" fill="#8b5cf6" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
+      <circle cx="200" cy="130" r="8" fill="#8F6FC4" stroke="white" strokeWidth="2"/>
+      <text x="200" y="115" fill="#8F6FC4" fontSize="12" fontWeight="bold" textAnchor="middle">Optimal</text>
       {/* Min Risk Point */}
-      <circle cx="100" cy="200" r="6" fill="#10b981" stroke="white" strokeWidth="2"/>
-      <text x="100" y="220" fill="#10b981" fontSize="11" textAnchor="middle">Min Risk</text>
+      <circle cx="100" cy="200" r="6" fill="#1FA978" stroke="white" strokeWidth="2"/>
+      <text x="100" y="220" fill="#1FA978" fontSize="11" textAnchor="middle">Min Risk</text>
     </svg>
   ),
   // Diversification Benefit
@@ -98,16 +98,16 @@ const Icons = {
         <line key={`grid-${i}`} x1="50" y1={40 + i*35} x2="370" y2={40 + i*35} stroke="currentColor" opacity="0.1" strokeWidth="1"/>
       ))}
       {/* Risk reduction curve */}
-      <path d="M 50 40 L 100 80 L 150 110 L 200 130 L 250 145 L 300 155 L 350 160" stroke="#ef4444" strokeWidth="4" fill="none" strokeLinecap="round"/>
+      <path d="M 50 40 L 100 80 L 150 110 L 200 130 L 250 145 L 300 155 L 350 160" stroke="#E04848" strokeWidth="4" fill="none" strokeLinecap="round"/>
       {/* Shaded area */}
-      <path d="M 50 40 L 100 80 L 150 110 L 200 130 L 250 145 L 300 155 L 350 160 L 350 180 L 50 180 Z" fill="#ef4444" opacity="0.1"/>
+      <path d="M 50 40 L 100 80 L 150 110 L 200 130 L 250 145 L 300 155 L 350 160 L 350 180 L 50 180 Z" fill="#E04848" opacity="0.1"/>
       {/* Data points */}
       {[{x:50,y:40},{x:100,y:80},{x:150,y:110},{x:200,y:130},{x:250,y:145},{x:300,y:155},{x:350,y:160}].map((pt, i) => (
-        <circle key={`pt-${i}`} cx={pt.x} cy={pt.y} r="5" fill="#ef4444" stroke="white" strokeWidth="2"/>
+        <circle key={`pt-${i}`} cx={pt.x} cy={pt.y} r="5" fill="#E04848" stroke="white" strokeWidth="2"/>
       ))}
       {/* Labels */}
-      <text x="50" y="30" fill="#10b981" fontSize="12" fontWeight="bold">High Risk</text>
-      <text x="350" y="195" fill="#ef4444" fontSize="12" fontWeight="bold" textAnchor="end">Low Risk</text>
+      <text x="50" y="30" fill="#1FA978" fontSize="12" fontWeight="bold">High Risk</text>
+      <text x="350" y="195" fill="#E04848" fontSize="12" fontWeight="bold" textAnchor="end">Low Risk</text>
       <text x="200" y="195" fill="currentColor" opacity="0.6" fontSize="12" textAnchor="middle">Number of Assets →</text>
       <text x="30" y="100" fill="currentColor" opacity="0.6" fontSize="11" textAnchor="middle" transform="rotate(-90 30 100)">Portfolio Risk</text>
     </svg>
@@ -193,12 +193,12 @@ const PCLesson1 = () => {
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <ModuleBadge moduleId="portfolio-construction" />
-              <span className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 1 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 1 OF 12</span>
               <span className="px-3 py-1.5 bg-blue-100  text-blue-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900    bg-clip-text text-transparent mb-5 leading-tight">Modern Portfolio Theory</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Modern Portfolio Theory</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover the mathematical framework that revolutionized investment management and earned Harry Markowitz a Nobel Prize. Learn how to think about risk and return in a portfolio context.</p>
           </header>
 
@@ -207,11 +207,11 @@ const PCLesson1 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                     <Icons.BookOpen className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Birth of Scientific Investing</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Birth of Scientific Investing</h2>
                     <p className="text-sm text-gray-500 ">Where intuition met mathematics</p>
                   </div>
                 </div>
@@ -235,11 +235,11 @@ const PCLesson1 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
                     <Icons.Award className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Father of Modern Finance</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Father of Modern Finance</h2>
                     <p className="text-sm text-gray-500 ">Harry Markowitz and his Nobel-winning framework</p>
                   </div>
                 </div>
@@ -249,7 +249,7 @@ const PCLesson1 = () => {
                     <p className="text-gray-700  leading-relaxed mb-4">In 1990, Markowitz received the Nobel Prize in Economics for work he started as a graduate student. The Nobel committee recognized that his framework fundamentally changed how we think about investment decisions.</p>
                     <p className="text-gray-700  leading-relaxed">Before MPT, the prevailing wisdom was to simply pick stocks with the highest expected returns. Markowitz showed this was dangerously incomplete.</p>
                   </div>
-                  <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-xl p-6">
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6">
                     <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Key Contributions</h4>
                     <ul className="space-y-3">
                       {["Mean-variance optimization framework", "Efficient frontier concept", "Mathematical basis for diversification", "Risk-return trade-off quantification"].map((item, i) => (
@@ -278,11 +278,11 @@ const PCLesson1 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Expected Return: The Weighted Average</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Expected Return: The Weighted Average</h2>
                     <p className="text-sm text-gray-500 ">Calculating what you might earn</p>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ const PCLesson1 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Portfolio Risk: Where Magic Happens</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Portfolio Risk: Where Magic Happens</h2>
                     <p className="text-sm text-gray-500 ">Why portfolio risk isn't just a weighted average</p>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ const PCLesson1 = () => {
                   <p className="text-sm text-center text-gray-600  mt-4">As you add more uncorrelated assets, portfolio risk decreases but never reaches zero (systematic risk remains)</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-slate-900 to-rose-950 rounded-xl p-8 mb-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-8 mb-6">
                   <div className="text-center">
                     <p className="text-rose-400 text-sm font-medium mb-3 uppercase tracking-wide">Two-Asset Portfolio Variance</p>
                     <div className="text-white text-lg md:text-xl font-mono leading-relaxed">σ²ₚ = w₁²σ₁² + w₂²σ₂² + 2w₁w₂ρ₁₂σ₁σ₂</div>
@@ -396,11 +396,11 @@ const PCLesson1 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Efficient Frontier</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Efficient Frontier</h2>
                     <p className="text-sm text-gray-500 ">The boundary of optimal portfolios</p>
                   </div>
                 </div>
@@ -427,7 +427,7 @@ const PCLesson1 = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-slate-900 to-amber-950 rounded-xl p-6 mb-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="text-center p-4 bg-white/5 rounded-lg">
                       <div className="text-amber-400 text-lg font-bold mb-2">Efficient Portfolios</div>
@@ -458,11 +458,11 @@ const PCLesson1 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of Modern Portfolio Theory</p>
                   </div>
                 </div>
@@ -507,11 +507,11 @@ const PCLesson1 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-blue-100">{calculateScore() === quizQuestions.length ? "Perfect! You've mastered MPT fundamentals." : "Review the explanations to strengthen your understanding."}</p>
                   </div>
@@ -524,7 +524,7 @@ const PCLesson1 = () => {
             <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Module Overview</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-2')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-2')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200">
               <span>Next: Risk and Return</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

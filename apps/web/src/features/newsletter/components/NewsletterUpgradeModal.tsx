@@ -101,7 +101,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
         currency: orderData.order.currency,
         name: 'Xtin Market Brief Pro',
         description: orderData.plan.label,
-        theme: { color: '#16A34A' },
+        theme: { color: '#12805A' },
         prefill: { email: user?.email || '' },
         handler: async (response) => {
           try {
@@ -159,7 +159,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/40 dark:to-yellow-900/30 text-amber-700 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
               <FaCrown /> Market Brief Pro
             </div>
-            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-slate-100 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-slate-100 mb-2">
               Every market, twice a day
             </h2>
             <p className="text-sm text-gray-500 dark:text-slate-400">

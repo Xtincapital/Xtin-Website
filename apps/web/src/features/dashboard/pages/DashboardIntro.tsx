@@ -12,7 +12,7 @@ const DashboardIntro = () => {
         {/* Hero */}
         <div className="text-center mb-16">
           <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">Dashboard</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-4 text-gray-900 dark:text-white">Everything in One Place</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-normal mt-2 mb-4 text-gray-900 dark:text-white tracking-[-0.015em]">Everything in One Place</h1>
           <p className="text-lg text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
             Your personal financial command center. Portfolio, courses, advisors, algorithms — one screen.
           </p>
@@ -35,7 +35,7 @@ const DashboardIntro = () => {
 
         {/* What It Is */}
         <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
-          <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">What Is This?</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">What Is This?</h2>
           <p className="text-gray-600 dark:text-slate-300 text-sm leading-relaxed">
             Your home screen after login. A bird's-eye view of everything you do on Xtin Capital — investments, learning, advisory sessions, algo performance, and more. No need to navigate feature by feature.
           </p>
@@ -43,7 +43,7 @@ const DashboardIntro = () => {
 
         {/* What You See */}
         <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
-          <h2 className="text-xl font-bold mb-5 text-gray-900 dark:text-white">What You'll See</h2>
+          <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">What You'll See</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[
               { name: 'Portfolio Overview', desc: 'Current value, returns, today\'s P&L, asset allocation.' },
@@ -65,7 +65,7 @@ const DashboardIntro = () => {
 
         {/* Benefits */}
         <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
-          <h2 className="text-xl font-bold mb-5 text-gray-900 dark:text-white">Why Use It</h2>
+          <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">Why Use It</h2>
           <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3">
             {[
               'Single page for all your financial data',
@@ -85,7 +85,7 @@ const DashboardIntro = () => {
 
         {/* Who It's For */}
         <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-8">
-          <h2 className="text-xl font-bold mb-5 text-gray-900 dark:text-white">Who It's For</h2>
+          <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">Who It's For</h2>
           <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3">
             {[
               'Every Xtin Capital user — it\'s the central hub',
@@ -103,7 +103,7 @@ const DashboardIntro = () => {
 
         {/* Pricing */}
         <section className="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 p-6 md:p-8 mb-16">
-          <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Pricing</h2>
+          <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Pricing</h2>
           <p className="text-gray-600 dark:text-slate-300 text-sm">
             <strong className="text-gray-900 dark:text-white">Free</strong> with every Xtin Capital account. No premium tier needed for the dashboard itself.
           </p>
@@ -111,7 +111,7 @@ const DashboardIntro = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">See your financial picture</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">See your financial picture</h2>
           <p className="text-gray-500 dark:text-slate-400 text-sm mb-6">Create your account and get your personal dashboard instantly.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/dashboard" className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-sm transition-colors">

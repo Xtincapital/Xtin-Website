@@ -37,6 +37,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize, chartActiveDot, chartTooltip } from "@/components/charts/chartTheme";
 import { Clock, Activity, Timer, Target as PeakIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -64,7 +65,7 @@ interface HourBucket {
   losses: number;
 }
 
-const SESSION_COLORS = ["rgba(251, 191, 36, 0.8)", "rgba(34, 197, 94, 0.8)", "rgba(59, 130, 246, 0.8)", "rgba(168, 85, 247, 0.8)"];
+const SESSION_COLORS = ["rgba(205, 170, 95, 0.8)", "rgba(31, 169, 120, 0.8)", "rgba(90, 119, 170, 0.8)", "rgba(143, 111, 196, 0.8)"];
 
 const Hourly = () => {
   const { formatInr: formatCurrency } = useCurrency();
@@ -216,7 +217,7 @@ const Hourly = () => {
     <JournalLayout proFeature="Hourly analysis">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             <Clock className="w-6 h-6 text-primary" />
             Hourly Analysis
             <InfoTip title="Hourly analysis" widthClass="w-80">
@@ -252,10 +253,10 @@ const Hourly = () => {
                 </div>
                 {card.onClick ? (
                   <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
-                    <p className="text-lg font-bold text-foreground">{card.value}</p>
+                    <p className="stat-value font-semibold text-foreground">{card.value}</p>
                   </button>
                 ) : (
-                  <p className="text-lg font-bold text-foreground">{card.value}</p>
+                  <p className="stat-value font-semibold text-foreground">{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -282,16 +283,16 @@ const Hourly = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis
                       dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
+                      tick={chartTick}
+                      axisLine={false}
                       tickLine={false}
                       interval={2}
                     />
                     <YAxis
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                      tick={chartTick}
                       axisLine={false}
                       tickLine={false}
                       width={56}
@@ -299,14 +300,9 @@ const Hourly = () => {
                     />
                     <Tooltip
                       formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
+                      {...chartTooltip}
                     />
-                    <Bar dataKey="pnl" radius={[3, 3, 0, 0]} cursor="pointer" onClick={(d) => showHour((d as unknown as { payload: { hour: number } }).payload.hour)}>
+                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => showHour((d as unknown as { payload: { hour: number } }).payload.hour)}>
                       {hourChartData.map((d) => (
                         <Cell key={d.hour} fill={d.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--destructive))"} />
                       ))}
@@ -330,16 +326,16 @@ const Hourly = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis
                       dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
+                      tick={chartTick}
+                      axisLine={false}
                       tickLine={false}
                       interval={2}
                     />
                     <YAxis
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                      tick={chartTick}
                       axisLine={false}
                       tickLine={false}
                       width={32}
@@ -347,12 +343,7 @@ const Hourly = () => {
                     />
                     <Tooltip
                       formatter={(value: number) => [value, "Trades"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
+                      {...chartTooltip}
                     />
                     <Line
                       type="monotone"
@@ -360,7 +351,7 @@ const Hourly = () => {
                       stroke="hsl(var(--primary))"
                       strokeWidth={2.5}
                       dot={false}
-                      activeDot={{ r: 4 }}
+                      activeDot={chartActiveDot}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -396,7 +387,8 @@ const Hourly = () => {
                         nameKey="label"
                         innerRadius="55%"
                         outerRadius="90%"
-                        stroke="none"
+                        stroke="hsl(var(--card))"
+                        strokeWidth={2}
                       >
                         {sessionChartData.map((entry, index) => (
                           <Cell key={entry.label} fill={SESSION_COLORS[index % SESSION_COLORS.length]} />
@@ -404,12 +396,7 @@ const Hourly = () => {
                       </Pie>
                       <Tooltip
                         formatter={(_value: number, _name: string, ctx: any) => [formatCurrency(ctx?.payload?.pnl ?? 0), ctx?.payload?.label]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
+                        {...chartTooltip}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -442,17 +429,17 @@ const Hourly = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis
                       dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
+                      tick={chartTick}
+                      axisLine={false}
                       tickLine={false}
                       interval={2}
                     />
                     <YAxis
                       domain={[0, 100]}
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                      tick={chartTick}
                       axisLine={false}
                       tickLine={false}
                       width={40}
@@ -460,12 +447,7 @@ const Hourly = () => {
                     />
                     <Tooltip
                       formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
+                      {...chartTooltip}
                     />
                     <Line
                       type="monotone"
@@ -473,7 +455,7 @@ const Hourly = () => {
                       stroke="hsl(var(--chart-positive))"
                       strokeWidth={2.5}
                       dot={false}
-                      activeDot={{ r: 4 }}
+                      activeDot={chartActiveDot}
                     />
                   </LineChart>
                 </ResponsiveContainer>

@@ -280,7 +280,7 @@ const NewAnalysis = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="xt-title mb-2">
             New Analysis
           </h1>
           <p className="text-muted-foreground">
@@ -302,7 +302,7 @@ const NewAnalysis = () => {
           <p className="text-sm text-muted-foreground mb-4">
             Fundakamental writes every report through your lens — the same filing, read the way <em>you</em> invest.
           </p>
-          <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">How do you invest?</Label>
+          <Label className="xt-label">How do you invest?</Label>
           <div className="flex flex-wrap gap-2 mt-2 mb-4">
             {[
               { id: "beginner", label: "New to investing" },
@@ -325,7 +325,7 @@ const NewAnalysis = () => {
               </button>
             ))}
           </div>
-          <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Your horizon</Label>
+          <Label className="xt-label">Your horizon</Label>
           <div className="flex flex-wrap gap-2 mt-2">
             {[
               { id: "long_term", label: "Long term (years)" },

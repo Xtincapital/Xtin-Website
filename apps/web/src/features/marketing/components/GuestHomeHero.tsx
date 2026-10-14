@@ -126,7 +126,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       <circle
         cx="60" cy="55" r={ORBIT_R}
         fill="none"
-        stroke="#94a3b8"
+        stroke="#A3A1A6"
         strokeOpacity="0.5"
         strokeWidth="0.5"
         strokeDasharray="3 2.5"
@@ -148,7 +148,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             key={mod.id}
             x1={x1} y1={y1}
             x2={x2} y2={y2}
-            stroke={hoveredNode === mod.id ? '#10b981' : '#94a3b8'}
+            stroke={hoveredNode === mod.id ? '#1FA978' : '#A3A1A6'}
             strokeOpacity={hoveredNode === mod.id ? 0.85 : 0.4}
             strokeWidth={hoveredNode === mod.id ? '0.45' : '0.3'}
             strokeDasharray="2.5 2"
@@ -177,12 +177,12 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       />
       <motion.div
         className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-700"
-        style={{ boxShadow: '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
+        style={{ boxShadow: '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
         animate={{
           boxShadow: [
-            '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)',
-            '0 0 0 10px rgba(16,185,129,0.04), 0 12px 40px rgba(16,185,129,0.20), 0 4px 12px rgba(0,0,0,0.08)',
-            '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 10px rgba(31, 169, 120,0.04), 0 12px 40px rgba(31, 169, 120,0.20), 0 4px 12px rgba(0,0,0,0.08)',
+            '0 0 0 6px rgba(31, 169, 120,0.06), 0 8px 32px rgba(31, 169, 120,0.14), 0 2px 8px rgba(0,0,0,0.06)',
           ],
         }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -223,8 +223,8 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(16,185,129,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(15,23,42,0.10)]'
+                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(21, 21, 23,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
@@ -249,8 +249,8 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             <motion.div
               className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(16,185,129,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(15,23,42,0.10)]'
+                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(31, 169, 120,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(21, 21, 23,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
@@ -296,7 +296,7 @@ const GuestHomeHero = () => {
               Built for modern Indian investors
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] font-bold leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] font-display font-normal leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.015em]">
               The Xtin Capital{' '}
               <span className="text-emerald-600 dark:text-emerald-400">Ecosystem</span>
             </h1>

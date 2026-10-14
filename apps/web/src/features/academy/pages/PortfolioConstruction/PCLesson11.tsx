@@ -55,8 +55,8 @@ const Icons = {
       {/* Portfolio value over time with stress */}
       <defs>
         <linearGradient id="stressGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4"/>
-          <stop offset="100%" stopColor="#ef4444" stopOpacity="0.2"/>
+          <stop offset="0%" stopColor="#5A77AA" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#E04848" stopOpacity="0.2"/>
         </linearGradient>
       </defs>
       {/* Axes */}
@@ -65,21 +65,21 @@ const Icons = {
       <text x="210" y="250" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Time →</text>
       <text x="20" y="130" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 130)">Portfolio Value</text>
       {/* Normal growth path */}
-      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#10b981" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
-      <text x="360" y="75" fill="#10b981" fontSize="11">Normal</text>
+      <path d="M 50 200 L 100 180 L 150 160 L 200 140 L 250 120 L 300 100 L 350 80" stroke="#1FA978" strokeWidth="2" strokeDasharray="5,5" opacity="0.5"/>
+      <text x="360" y="75" fill="#1FA978" fontSize="11">Normal</text>
       {/* Stress scenario path */}
-      <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130" stroke="#ef4444" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130" stroke="#E04848" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 200 L 100 180 L 150 160 L 200 190 L 250 170 L 300 150 L 350 130 L 350 220 L 50 220 Z" fill="url(#stressGrad)"/>
       {/* Stress event marker */}
-      <circle cx="200" cy="190" r="6" fill="#ef4444" stroke="white" strokeWidth="2"/>
-      <line x1="200" y1="196" x2="200" y2="230" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="3,3"/>
-      <text x="200" y="245" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="middle">Market Crash</text>
+      <circle cx="200" cy="190" r="6" fill="#E04848" stroke="white" strokeWidth="2"/>
+      <line x1="200" y1="196" x2="200" y2="230" stroke="#E04848" strokeWidth="1.5" strokeDasharray="3,3"/>
+      <text x="200" y="245" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="middle">Market Crash</text>
       {/* Drawdown annotation */}
-      <path d="M 200 160 L 200 190" stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrowDown)"/>
-      <text x="210" y="175" fill="#f59e0b" fontSize="11" fontWeight="bold">-20% DD</text>
+      <path d="M 200 160 L 200 190" stroke="#B8923F" strokeWidth="2" markerEnd="url(#arrowDown)"/>
+      <text x="210" y="175" fill="#B8923F" fontSize="11" fontWeight="bold">-20% DD</text>
       <defs>
         <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M0,0 L8,4 L0,8 L2,4 Z" fill="#f59e0b"/>
+          <path d="M0,0 L8,4 L0,8 L2,4 Z" fill="#B8923F"/>
         </marker>
       </defs>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Stress Test Scenario</text>
@@ -172,7 +172,7 @@ const PCLesson11 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900    bg-clip-text text-transparent mb-5 leading-tight">Portfolio Stress Testing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-rose-900 to-red-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Portfolio Stress Testing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn to test your portfolio against extreme scenarios before they happen. Understand scenario analysis, historical stress tests, and Monte Carlo simulation to build resilient portfolios.</p>
           </header>
 
@@ -185,14 +185,14 @@ const PCLesson11 = () => {
                       <Icons.Zap className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Why Stress Test?</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Why Stress Test?</h2>
                       <p className="text-sm text-gray-500 ">Prepare for the unexpected</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Stress testing asks "what if?" It subjects your portfolio to hypothetical adverse scenarios to understand how much you might lose in a crisis. This isn't about predicting the future - it's about preparing for it and ensuring you can stay the course when markets get difficult.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-rose-950 rounded-xl p-6 mb-6">
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
                     <h4 className="text-white font-semibold mb-4 text-center">The Value of Stress Testing</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
@@ -224,7 +224,7 @@ const PCLesson11 = () => {
                       <Icons.BarChart className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Scenario Analysis</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Scenario Analysis</h2>
                       <p className="text-sm text-gray-500 ">What-if analysis</p>
                     </div>
                   </div>
@@ -287,13 +287,13 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Historical Stress Tests</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Historical Stress Tests</h2>
                       <p className="text-sm text-gray-500 ">Learning from past crises</p>
                     </div>
                   </div>
@@ -347,18 +347,18 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                       <Icons.Activity className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Monte Carlo Simulation</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Monte Carlo Simulation</h2>
                       <p className="text-sm text-gray-500 ">Thousands of possible futures</p>
                     </div>
                   </div>
 
                   <p className="text-gray-700  leading-relaxed mb-6">Monte Carlo simulation generates thousands of random return scenarios based on statistical characteristics of your portfolio (expected returns, volatilities, correlations). It reveals the range of possible outcomes and their probabilities.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-violet-950 rounded-xl p-6 mb-6">
+                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
                     <h4 className="text-white font-semibold mb-4 text-center">How Monte Carlo Works</h4>
                     <div className="space-y-3">
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
@@ -426,11 +426,11 @@ const PCLesson11 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Taking Action on Results</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Taking Action on Results</h2>
                       <p className="text-sm text-gray-500 ">What to do with stress test findings</p>
                     </div>
                   </div>
@@ -478,7 +478,7 @@ const PCLesson11 = () => {
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                      <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of stress testing</p>
                     </div>
                   </div>

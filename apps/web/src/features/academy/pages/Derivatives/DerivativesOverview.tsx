@@ -103,12 +103,12 @@ const HeroVisualizationSVG = () => (
       
       {/* Call Option Arrow Up */}
       <g transform="translate(-15, 0)">
-        <path d="M0,15 L0,-15 M-8,-7 L0,-15 L8,-7" stroke="#22c55e" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M0,15 L0,-15 M-8,-7 L0,-15 L8,-7" stroke="#1FA978" strokeWidth="3" fill="none" strokeLinecap="round"/>
       </g>
       
       {/* Put Option Arrow Down */}
       <g transform="translate(15, 0)">
-        <path d="M0,-15 L0,15 M-8,7 L0,15 L8,7" stroke="#ef4444" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M0,-15 L0,15 M-8,7 L0,15 L8,7" stroke="#E04848" strokeWidth="3" fill="none" strokeLinecap="round"/>
       </g>
     </g>
     
@@ -153,8 +153,8 @@ const RiskWarningSVG = () => (
   <svg viewBox="0 0 700 85" className="w-full h-auto">
     <defs>
       <linearGradient id="riskGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#7f1d1d"/>
-        <stop offset="100%" stopColor="#991b1b"/>
+        <stop offset="0%" stopColor="#6B2023"/>
+        <stop offset="100%" stopColor="#842428"/>
       </linearGradient>
     </defs>
     
@@ -162,21 +162,21 @@ const RiskWarningSVG = () => (
     
     {/* Warning Icon */}
     <g transform="translate(25, 20)">
-      <polygon points="22,0 44,40 0,40" fill="none" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="22" y="30" textAnchor="middle" fontSize="18" fontWeight="700" fill="#fca5a5">!</text>
+      <polygon points="22,0 44,40 0,40" fill="none" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="22" y="30" textAnchor="middle" fontSize="18" fontWeight="700" fill="#F09B9B">!</text>
     </g>
     
     {/* Content */}
     <g transform="translate(85, 20)">
       <text x="0" y="14" fontSize="13" fontWeight="600" fill="white">Risk Disclosure</text>
-      <text x="0" y="32" fontSize="10" fill="#fecaca">Derivatives trading involves substantial risk. You can lose more than your initial investment.</text>
-      <text x="0" y="48" fontSize="10" fill="#fecaca">This is educational content only — not financial advice. 89%+ of retail traders lose money.</text>
+      <text x="0" y="32" fontSize="10" fill="#F6C3C3">Derivatives trading involves substantial risk. You can lose more than your initial investment.</text>
+      <text x="0" y="48" fontSize="10" fill="#F6C3C3">This is educational content only — not financial advice. 89%+ of retail traders lose money.</text>
     </g>
     
     {/* Warning Badge */}
     <g transform="translate(530, 30)">
-      <rect x="0" y="0" width="150" height="24" fill="#450a0a" rx="4" stroke="#dc2626" strokeWidth="1"/>
-      <text x="75" y="16" textAnchor="middle" fontSize="9" fontWeight="600" fill="#fca5a5">⚠ Trade at your own risk</text>
+      <rect x="0" y="0" width="150" height="24" fill="#3B0D0F" rx="4" stroke="#C7363B" strokeWidth="1"/>
+      <text x="75" y="16" textAnchor="middle" fontSize="9" fontWeight="600" fill="#F09B9B">⚠ Trade at your own risk</text>
     </g>
   </svg>
 );
@@ -186,12 +186,12 @@ const DerivativesContractSVG = () => (
   <svg viewBox="0 0 800 400" className="w-full h-auto">
     <defs>
       <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f97316" stopOpacity="0.2"/>
-        <stop offset="100%" stopColor="#ea580c" stopOpacity="0.1"/>
+        <stop offset="0%" stopColor="#D2754C" stopOpacity="0.2"/>
+        <stop offset="100%" stopColor="#C0623B" stopOpacity="0.1"/>
       </linearGradient>
       <linearGradient id="heroGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#f97316"/>
-        <stop offset="100%" stopColor="#dc2626"/>
+        <stop offset="0%" stopColor="#D2754C"/>
+        <stop offset="100%" stopColor="#C7363B"/>
       </linearGradient>
     </defs>
     
@@ -199,84 +199,84 @@ const DerivativesContractSVG = () => (
     
     {/* Grid */}
     {[...Array(20)].map((_, i) => (
-      <line key={`v-${i}`} x1={i * 40} y1="0" x2={i * 40} y2="400" stroke="#f97316" strokeOpacity="0.05" strokeWidth="1"/>
+      <line key={`v-${i}`} x1={i * 40} y1="0" x2={i * 40} y2="400" stroke="#D2754C" strokeOpacity="0.05" strokeWidth="1"/>
     ))}
     {[...Array(10)].map((_, i) => (
-      <line key={`h-${i}`} x1="0" y1={i * 40} x2="800" y2={i * 40} stroke="#f97316" strokeOpacity="0.05" strokeWidth="1"/>
+      <line key={`h-${i}`} x1="0" y1={i * 40} x2="800" y2={i * 40} stroke="#D2754C" strokeOpacity="0.05" strokeWidth="1"/>
     ))}
     
     {/* Underlying Asset */}
     <g transform="translate(80, 120)">
-      <rect x="0" y="0" width="180" height="160" fill="white" rx="12" stroke="#22c55e" strokeWidth="2"/>
-      <rect x="0" y="0" width="180" height="40" fill="#22c55e" rx="12" ry="12"/>
+      <rect x="0" y="0" width="180" height="160" fill="white" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="40" fill="#1FA978" rx="12" ry="12"/>
       <text x="90" y="26" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">UNDERLYING ASSET</text>
       <g transform="translate(30, 60)">
-        <rect x="0" y="0" width="120" height="30" fill="#dcfce7" rx="6"/>
-        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#166534">Stock: $150.00</text>
+        <rect x="0" y="0" width="120" height="30" fill="#D5F2E5" rx="6"/>
+        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#0D543C">Stock: $150.00</text>
       </g>
       <g transform="translate(30, 100)">
-        <rect x="0" y="0" width="120" height="30" fill="#dcfce7" rx="6"/>
-        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#166534">Real Ownership</text>
+        <rect x="0" y="0" width="120" height="30" fill="#D5F2E5" rx="6"/>
+        <text x="60" y="20" textAnchor="middle" fontSize="12" fill="#0D543C">Real Ownership</text>
       </g>
     </g>
     
     {/* Arrow 1 */}
     <g transform="translate(270, 180)">
       <line x1="0" y1="20" x2="70" y2="20" stroke="url(#heroGrad2)" strokeWidth="3"/>
-      <polygon points="70,15 85,20 70,25" fill="#f97316"/>
-      <text x="42" y="10" textAnchor="middle" fontSize="10" fill="#f97316" fontWeight="500">derives from</text>
+      <polygon points="70,15 85,20 70,25" fill="#D2754C"/>
+      <text x="42" y="10" textAnchor="middle" fontSize="10" fill="#D2754C" fontWeight="500">derives from</text>
     </g>
     
     {/* Futures Contract */}
     <g transform="translate(360, 60)">
-      <rect x="0" y="0" width="180" height="130" fill="white" rx="12" stroke="#f97316" strokeWidth="2"/>
-      <rect x="0" y="0" width="180" height="40" fill="#f97316" rx="12" ry="12"/>
+      <rect x="0" y="0" width="180" height="130" fill="white" rx="12" stroke="#D2754C" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="40" fill="#D2754C" rx="12" ry="12"/>
       <text x="90" y="26" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">FUTURES CONTRACT</text>
       <g transform="translate(15, 50)">
-        <text x="0" y="15" fontSize="11" fill="#374151">• Obligation to buy/sell</text>
-        <text x="0" y="35" fontSize="11" fill="#374151">• Fixed future price</text>
-        <text x="0" y="55" fontSize="11" fill="#374151">• Margin requirement</text>
-        <text x="0" y="75" fontSize="11" fill="#374151">• Daily settlement</text>
+        <text x="0" y="15" fontSize="11" fill="#404047">• Obligation to buy/sell</text>
+        <text x="0" y="35" fontSize="11" fill="#404047">• Fixed future price</text>
+        <text x="0" y="55" fontSize="11" fill="#404047">• Margin requirement</text>
+        <text x="0" y="75" fontSize="11" fill="#404047">• Daily settlement</text>
       </g>
     </g>
     
     {/* Options Contract */}
     <g transform="translate(360, 210)">
-      <rect x="0" y="0" width="180" height="130" fill="white" rx="12" stroke="#dc2626" strokeWidth="2"/>
-      <rect x="0" y="0" width="180" height="40" fill="#dc2626" rx="12" ry="12"/>
+      <rect x="0" y="0" width="180" height="130" fill="white" rx="12" stroke="#C7363B" strokeWidth="2"/>
+      <rect x="0" y="0" width="180" height="40" fill="#C7363B" rx="12" ry="12"/>
       <text x="90" y="26" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">OPTIONS CONTRACT</text>
       <g transform="translate(15, 50)">
-        <text x="0" y="15" fontSize="11" fill="#374151">• Right, not obligation</text>
-        <text x="0" y="35" fontSize="11" fill="#374151">• Strike price</text>
-        <text x="0" y="55" fontSize="11" fill="#374151">• Premium paid</text>
-        <text x="0" y="75" fontSize="11" fill="#374151">• Time decay</text>
+        <text x="0" y="15" fontSize="11" fill="#404047">• Right, not obligation</text>
+        <text x="0" y="35" fontSize="11" fill="#404047">• Strike price</text>
+        <text x="0" y="55" fontSize="11" fill="#404047">• Premium paid</text>
+        <text x="0" y="75" fontSize="11" fill="#404047">• Time decay</text>
       </g>
     </g>
     
     {/* Arrow 2 */}
     <g transform="translate(550, 180)">
       <line x1="0" y1="20" x2="70" y2="20" stroke="url(#heroGrad2)" strokeWidth="3"/>
-      <polygon points="70,15 85,20 70,25" fill="#dc2626"/>
-      <text x="42" y="10" textAnchor="middle" fontSize="10" fill="#dc2626" fontWeight="500">results in</text>
+      <polygon points="70,15 85,20 70,25" fill="#C7363B"/>
+      <text x="42" y="10" textAnchor="middle" fontSize="10" fill="#C7363B" fontWeight="500">results in</text>
     </g>
     
     {/* Profit/Loss */}
     <g transform="translate(640, 100)">
-      <rect x="0" y="0" width="140" height="70" fill="#dcfce7" rx="10" stroke="#22c55e" strokeWidth="2"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#166534">Profit</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#22c55e">+$5,000</text>
+      <rect x="0" y="0" width="140" height="70" fill="#D5F2E5" rx="10" stroke="#1FA978" strokeWidth="2"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#0D543C">Profit</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#1FA978">+$5,000</text>
     </g>
     <g transform="translate(640, 230)">
-      <rect x="0" y="0" width="140" height="70" fill="#fef2f2" rx="10" stroke="#dc2626" strokeWidth="2"/>
-      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">Loss</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#dc2626">-$10,000</text>
+      <rect x="0" y="0" width="140" height="70" fill="#FDF1F1" rx="10" stroke="#C7363B" strokeWidth="2"/>
+      <text x="70" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">Loss</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="20" fontWeight="700" fill="#C7363B">-$10,000</text>
     </g>
     
     {/* Warning */}
     <g transform="translate(580, 320)">
-      <rect x="0" y="0" width="200" height="50" fill="#fef3c7" rx="8" stroke="#f59e0b" strokeWidth="1"/>
-      <text x="100" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">LEVERAGE WARNING</text>
-      <text x="100" y="38" textAnchor="middle" fontSize="9" fill="#92400e">Losses can exceed initial investment</text>
+      <rect x="0" y="0" width="200" height="50" fill="#F6ECCE" rx="8" stroke="#B8923F" strokeWidth="1"/>
+      <text x="100" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">LEVERAGE WARNING</text>
+      <text x="100" y="38" textAnchor="middle" fontSize="9" fill="#654B26">Losses can exceed initial investment</text>
     </g>
   </svg>
 );
@@ -286,54 +286,54 @@ const PayoffDiagramsSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full h-auto">
     <defs>
       <linearGradient id="callGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0.3"/>
-        <stop offset="100%" stopColor="#22c55e" stopOpacity="0"/>
+        <stop offset="0%" stopColor="#1FA978" stopOpacity="0.3"/>
+        <stop offset="100%" stopColor="#1FA978" stopOpacity="0"/>
       </linearGradient>
       <linearGradient id="putGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="#ef4444" stopOpacity="0.3"/>
-        <stop offset="100%" stopColor="#ef4444" stopOpacity="0"/>
+        <stop offset="0%" stopColor="#E04848" stopOpacity="0.3"/>
+        <stop offset="100%" stopColor="#E04848" stopOpacity="0"/>
       </linearGradient>
     </defs>
     
-    <rect x="0" y="0" width="700" height="300" fill="#0f172a" rx="12"/>
+    <rect x="0" y="0" width="700" height="300" fill="#151517" rx="12"/>
     
     <g transform="translate(40, 20)">
-      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#22c55e">Long Call Option</text>
-      <line x1="30" y1="180" x2="250" y2="180" stroke="#64748b" strokeWidth="1"/>
-      <line x1="30" y1="40" x2="30" y2="180" stroke="#64748b" strokeWidth="1"/>
-      <text x="140" y="205" textAnchor="middle" fontSize="10" fill="#94a3b8">Stock Price</text>
-      <text x="15" y="110" textAnchor="middle" fontSize="10" fill="#94a3b8" transform="rotate(-90 15 110)">P/L</text>
-      <line x1="30" y1="130" x2="250" y2="130" stroke="#475569" strokeWidth="1" strokeDasharray="4"/>
-      <path d="M 30 150 L 140 150 L 220 70" stroke="#22c55e" strokeWidth="3" fill="none"/>
+      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">Long Call Option</text>
+      <line x1="30" y1="180" x2="250" y2="180" stroke="#75757D" strokeWidth="1"/>
+      <line x1="30" y1="40" x2="30" y2="180" stroke="#75757D" strokeWidth="1"/>
+      <text x="140" y="205" textAnchor="middle" fontSize="10" fill="#A3A1A6">Stock Price</text>
+      <text x="15" y="110" textAnchor="middle" fontSize="10" fill="#A3A1A6" transform="rotate(-90 15 110)">P/L</text>
+      <line x1="30" y1="130" x2="250" y2="130" stroke="#5A5A62" strokeWidth="1" strokeDasharray="4"/>
+      <path d="M 30 150 L 140 150 L 220 70" stroke="#1FA978" strokeWidth="3" fill="none"/>
       <path d="M 140 150 L 220 70 L 220 180 L 140 180 Z" fill="url(#callGrad)"/>
-      <line x1="140" y1="130" x2="140" y2="190" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4"/>
-      <text x="140" y="215" textAnchor="middle" fontSize="9" fill="#f59e0b">Strike</text>
-      <text x="80" y="165" fontSize="9" fill="#ef4444">Max Loss: Premium</text>
-      <text x="180" y="85" fontSize="9" fill="#22c55e">Unlimited Profit</text>
+      <line x1="140" y1="130" x2="140" y2="190" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
+      <text x="140" y="215" textAnchor="middle" fontSize="9" fill="#B8923F">Strike</text>
+      <text x="80" y="165" fontSize="9" fill="#E04848">Max Loss: Premium</text>
+      <text x="180" y="85" fontSize="9" fill="#1FA978">Unlimited Profit</text>
     </g>
     
     <g transform="translate(370, 20)">
-      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#ef4444">Long Put Option</text>
-      <line x1="30" y1="180" x2="250" y2="180" stroke="#64748b" strokeWidth="1"/>
-      <line x1="30" y1="40" x2="30" y2="180" stroke="#64748b" strokeWidth="1"/>
-      <text x="140" y="205" textAnchor="middle" fontSize="10" fill="#94a3b8">Stock Price</text>
-      <text x="15" y="110" textAnchor="middle" fontSize="10" fill="#94a3b8" transform="rotate(-90 15 110)">P/L</text>
-      <line x1="30" y1="130" x2="250" y2="130" stroke="#475569" strokeWidth="1" strokeDasharray="4"/>
-      <path d="M 30 70 L 110 150 L 250 150" stroke="#ef4444" strokeWidth="3" fill="none"/>
+      <text x="130" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#E04848">Long Put Option</text>
+      <line x1="30" y1="180" x2="250" y2="180" stroke="#75757D" strokeWidth="1"/>
+      <line x1="30" y1="40" x2="30" y2="180" stroke="#75757D" strokeWidth="1"/>
+      <text x="140" y="205" textAnchor="middle" fontSize="10" fill="#A3A1A6">Stock Price</text>
+      <text x="15" y="110" textAnchor="middle" fontSize="10" fill="#A3A1A6" transform="rotate(-90 15 110)">P/L</text>
+      <line x1="30" y1="130" x2="250" y2="130" stroke="#5A5A62" strokeWidth="1" strokeDasharray="4"/>
+      <path d="M 30 70 L 110 150 L 250 150" stroke="#E04848" strokeWidth="3" fill="none"/>
       <path d="M 30 70 L 110 150 L 110 180 L 30 180 Z" fill="url(#putGrad)"/>
-      <line x1="110" y1="130" x2="110" y2="190" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4"/>
-      <text x="110" y="215" textAnchor="middle" fontSize="9" fill="#f59e0b">Strike</text>
-      <text x="160" y="165" fontSize="9" fill="#ef4444">Max Loss: Premium</text>
-      <text x="50" y="85" fontSize="9" fill="#22c55e">Profit when</text>
-      <text x="50" y="97" fontSize="9" fill="#22c55e">price falls</text>
+      <line x1="110" y1="130" x2="110" y2="190" stroke="#B8923F" strokeWidth="2" strokeDasharray="4"/>
+      <text x="110" y="215" textAnchor="middle" fontSize="9" fill="#B8923F">Strike</text>
+      <text x="160" y="165" fontSize="9" fill="#E04848">Max Loss: Premium</text>
+      <text x="50" y="85" fontSize="9" fill="#1FA978">Profit when</text>
+      <text x="50" y="97" fontSize="9" fill="#1FA978">price falls</text>
     </g>
     
     <g transform="translate(150, 250)">
-      <rect x="0" y="0" width="400" height="35" fill="#1e293b" rx="8"/>
-      <circle cx="40" cy="17" r="6" fill="#22c55e"/>
-      <text x="55" y="22" fontSize="11" fill="#e2e8f0">Calls profit when price rises</text>
-      <circle cx="230" cy="17" r="6" fill="#ef4444"/>
-      <text x="245" y="22" fontSize="11" fill="#e2e8f0">Puts profit when price falls</text>
+      <rect x="0" y="0" width="400" height="35" fill="#232327" rx="8"/>
+      <circle cx="40" cy="17" r="6" fill="#1FA978"/>
+      <text x="55" y="22" fontSize="11" fill="#E4E1D9">Calls profit when price rises</text>
+      <circle cx="230" cy="17" r="6" fill="#E04848"/>
+      <text x="245" y="22" fontSize="11" fill="#E4E1D9">Puts profit when price falls</text>
     </g>
   </svg>
 );
@@ -341,64 +341,64 @@ const PayoffDiagramsSVG = () => (
 // Greeks Overview SVG
 const GreeksOverviewSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#0f172a" rx="12"/>
+    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="12"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="18" fontWeight="700" fill="white">The Option Greeks</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="12" fill="#94a3b8">Key sensitivities that determine option value</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="12" fill="#A3A1A6">Key sensitivities that determine option value</text>
     
     <g transform="translate(30, 80)">
-      <rect x="0" y="0" width="120" height="120" fill="#1e3a5f" rx="10" stroke="#3b82f6" strokeWidth="2"/>
-      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#3b82f6">Δ</text>
+      <rect x="0" y="0" width="120" height="120" fill="#232327" rx="10" stroke="#5A77AA" strokeWidth="2"/>
+      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#5A77AA">Δ</text>
       <text x="60" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Delta</text>
-      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#94a3b8">Price sensitivity</text>
-      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#94a3b8">to underlying</text>
-      <rect x="20" y="100" width="80" height="12" fill="#3b82f6" fillOpacity="0.3" rx="2"/>
-      <rect x="20" y="100" width="55" height="12" fill="#3b82f6" rx="2"/>
+      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#A3A1A6">Price sensitivity</text>
+      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#A3A1A6">to underlying</text>
+      <rect x="20" y="100" width="80" height="12" fill="#5A77AA" fillOpacity="0.3" rx="2"/>
+      <rect x="20" y="100" width="55" height="12" fill="#5A77AA" rx="2"/>
     </g>
     
     <g transform="translate(170, 80)">
-      <rect x="0" y="0" width="120" height="120" fill="#1e3a5f" rx="10" stroke="#8b5cf6" strokeWidth="2"/>
-      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#8b5cf6">Γ</text>
+      <rect x="0" y="0" width="120" height="120" fill="#232327" rx="10" stroke="#8F6FC4" strokeWidth="2"/>
+      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#8F6FC4">Γ</text>
       <text x="60" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Gamma</text>
-      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#94a3b8">Rate of change</text>
-      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#94a3b8">of delta</text>
-      <rect x="20" y="100" width="80" height="12" fill="#8b5cf6" fillOpacity="0.3" rx="2"/>
-      <rect x="20" y="100" width="40" height="12" fill="#8b5cf6" rx="2"/>
+      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#A3A1A6">Rate of change</text>
+      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#A3A1A6">of delta</text>
+      <rect x="20" y="100" width="80" height="12" fill="#8F6FC4" fillOpacity="0.3" rx="2"/>
+      <rect x="20" y="100" width="40" height="12" fill="#8F6FC4" rx="2"/>
     </g>
     
     <g transform="translate(310, 80)">
-      <rect x="0" y="0" width="120" height="120" fill="#1e3a5f" rx="10" stroke="#f97316" strokeWidth="2"/>
-      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#f97316">Θ</text>
+      <rect x="0" y="0" width="120" height="120" fill="#232327" rx="10" stroke="#D2754C" strokeWidth="2"/>
+      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#D2754C">Θ</text>
       <text x="60" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Theta</text>
-      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#94a3b8">Time decay</text>
-      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#94a3b8">(daily loss)</text>
-      <rect x="20" y="100" width="80" height="12" fill="#f97316" fillOpacity="0.3" rx="2"/>
-      <rect x="20" y="100" width="70" height="12" fill="#f97316" rx="2"/>
+      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#A3A1A6">Time decay</text>
+      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#A3A1A6">(daily loss)</text>
+      <rect x="20" y="100" width="80" height="12" fill="#D2754C" fillOpacity="0.3" rx="2"/>
+      <rect x="20" y="100" width="70" height="12" fill="#D2754C" rx="2"/>
     </g>
     
     <g transform="translate(450, 80)">
-      <rect x="0" y="0" width="120" height="120" fill="#1e3a5f" rx="10" stroke="#22c55e" strokeWidth="2"/>
-      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#22c55e">V</text>
+      <rect x="0" y="0" width="120" height="120" fill="#232327" rx="10" stroke="#1FA978" strokeWidth="2"/>
+      <text x="60" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#1FA978">V</text>
       <text x="60" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Vega</text>
-      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#94a3b8">Volatility</text>
-      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#94a3b8">sensitivity</text>
-      <rect x="20" y="100" width="80" height="12" fill="#22c55e" fillOpacity="0.3" rx="2"/>
-      <rect x="20" y="100" width="50" height="12" fill="#22c55e" rx="2"/>
+      <text x="60" y="75" textAnchor="middle" fontSize="9" fill="#A3A1A6">Volatility</text>
+      <text x="60" y="90" textAnchor="middle" fontSize="9" fill="#A3A1A6">sensitivity</text>
+      <rect x="20" y="100" width="80" height="12" fill="#1FA978" fillOpacity="0.3" rx="2"/>
+      <rect x="20" y="100" width="50" height="12" fill="#1FA978" rx="2"/>
     </g>
     
     <g transform="translate(590, 80)">
-      <rect x="0" y="0" width="80" height="120" fill="#1e3a5f" rx="10" stroke="#ec4899" strokeWidth="2"/>
-      <text x="40" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#ec4899">ρ</text>
+      <rect x="0" y="0" width="80" height="120" fill="#232327" rx="10" stroke="#8F6FC4" strokeWidth="2"/>
+      <text x="40" y="35" textAnchor="middle" fontSize="28" fontWeight="700" fill="#8F6FC4">ρ</text>
       <text x="40" y="55" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">Rho</text>
-      <text x="40" y="75" textAnchor="middle" fontSize="9" fill="#94a3b8">Interest</text>
-      <text x="40" y="90" textAnchor="middle" fontSize="9" fill="#94a3b8">rate</text>
+      <text x="40" y="75" textAnchor="middle" fontSize="9" fill="#A3A1A6">Interest</text>
+      <text x="40" y="90" textAnchor="middle" fontSize="9" fill="#A3A1A6">rate</text>
     </g>
     
     <g transform="translate(30, 220)">
-      <rect x="0" y="0" width="640" height="80" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="640" height="80" fill="#232327" rx="10"/>
       <text x="320" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="white">Why Greeks Matter</text>
-      <text x="320" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">Options do not move 1:1 with the underlying. Greeks help you understand</text>
-      <text x="320" y="68" textAnchor="middle" fontSize="10" fill="#94a3b8">exactly how your position will behave under different market conditions.</text>
+      <text x="320" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Options do not move 1:1 with the underlying. Greeks help you understand</text>
+      <text x="320" y="68" textAnchor="middle" fontSize="10" fill="#A3A1A6">exactly how your position will behave under different market conditions.</text>
     </g>
   </svg>
 );
@@ -436,7 +436,7 @@ const DerivativesOverview = () => {
         </Link>
 
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-orange-600 via-red-600 to-rose-700 rounded-3xl p-8 md:p-12 shadow-2xl shadow-orange-500/20 mb-12 overflow-hidden relative">
+        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-8 md:p-12 shadow-2xl shadow-orange-500/20 mb-12 overflow-hidden relative">
           <div className="absolute inset-0 opacity-30" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"}}></div>
           
           <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8">
@@ -453,7 +453,7 @@ const DerivativesOverview = () => {
               
               <div className="mb-3"><ModuleBadge moduleId="derivatives" /></div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal text-white mb-4 leading-tight tracking-[-0.015em]">
                 Derivatives: <br className="hidden sm:block" />Futures &amp; Options
               </h1>
               
@@ -492,7 +492,7 @@ const DerivativesOverview = () => {
 
         {/* Contract Flow Diagram */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center">Understanding Derivative Contracts</h2>
+          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.015em]">Understanding Derivative Contracts</h2>
           <DerivativesContractSVG />
         </div>
 
@@ -503,7 +503,7 @@ const DerivativesOverview = () => {
               <span className="w-10 h-10 bg-orange-100  rounded-lg flex items-center justify-center">
                 <Icons.TrendingUp className="w-5 h-5 text-orange-600" />
               </span>
-              <h3 className="text-lg font-bold text-gray-900 ">Futures Contracts</h3>
+              <h3 className="text-lg font-semibold text-gray-900 ">Futures Contracts</h3>
             </div>
             <p className="text-gray-600  text-sm leading-relaxed">
               Standardized agreements to buy or sell an asset at a predetermined price on a future date. 
@@ -516,7 +516,7 @@ const DerivativesOverview = () => {
               <span className="w-10 h-10 bg-red-100  rounded-lg flex items-center justify-center">
                 <Icons.Layers className="w-5 h-5 text-red-600" />
               </span>
-              <h3 className="text-lg font-bold text-gray-900 ">Options Contracts</h3>
+              <h3 className="text-lg font-semibold text-gray-900 ">Options Contracts</h3>
             </div>
             <p className="text-gray-600  text-sm leading-relaxed">
               Contracts giving the buyer the right, but not obligation, to buy (call) or sell (put) 
@@ -529,7 +529,7 @@ const DerivativesOverview = () => {
               <span className="w-10 h-10 bg-purple-100  rounded-lg flex items-center justify-center">
                 <Icons.Zap className="w-5 h-5 text-purple-600" />
               </span>
-              <h3 className="text-lg font-bold text-gray-900 ">Leverage</h3>
+              <h3 className="text-lg font-semibold text-gray-900 ">Leverage</h3>
             </div>
             <p className="text-gray-600  text-sm leading-relaxed">
               Derivatives allow control of large positions with small capital. While this magnifies 
@@ -542,7 +542,7 @@ const DerivativesOverview = () => {
               <span className="w-10 h-10 bg-green-100  rounded-lg flex items-center justify-center">
                 <Icons.Shield className="w-5 h-5 text-green-600" />
               </span>
-              <h3 className="text-lg font-bold text-gray-900 ">Hedging</h3>
+              <h3 className="text-lg font-semibold text-gray-900 ">Hedging</h3>
             </div>
             <p className="text-gray-600  text-sm leading-relaxed">
               The original purpose of derivatives — reducing risk exposure. Professional portfolio 
@@ -553,19 +553,19 @@ const DerivativesOverview = () => {
 
         {/* Payoff Diagrams */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center">Option Payoff Profiles</h2>
+          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.015em]">Option Payoff Profiles</h2>
           <PayoffDiagramsSVG />
         </div>
 
         {/* Greeks Overview */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-900  mb-6 text-center">The Option Greeks</h2>
+          <h2 className="text-2xl font-semibold text-gray-900  mb-6 text-center tracking-[-0.015em]">The Option Greeks</h2>
           <GreeksOverviewSVG />
         </div>
 
         {/* Course Content */}
         <div className="bg-white  rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-900  mb-2">Course Content</h2>
+          <h2 className="text-2xl font-semibold text-gray-900  mb-2 tracking-[-0.015em]">Course Content</h2>
           <p className="text-gray-600  mb-8">
             12 comprehensive lessons covering derivatives from fundamentals to advanced strategies
           </p>
@@ -584,7 +584,7 @@ const DerivativesOverview = () => {
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg ${
                     lesson.available 
-                      ? 'bg-gradient-to-br from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/30' 
+                      ? 'bg-gradient-to-br from-green-600 to-emerald-700 text-white shadow-lg shadow-orange-500/30' 
                       : 'bg-gray-300  text-gray-600 '
                   }`}>
                     {lesson.id}
@@ -612,8 +612,8 @@ const DerivativesOverview = () => {
         </div>
 
         {/* Learning Path */}
-        <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-2xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6">Recommended Learning Path</h2>
+        <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 shadow-lg mb-12">
+          <h2 className="text-2xl font-semibold text-white mb-6 tracking-[-0.015em]">Recommended Learning Path</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5">
@@ -647,7 +647,7 @@ const DerivativesOverview = () => {
           <div className="flex items-start gap-4">
             <Icons.AlertTriangle className="w-8 h-8 text-amber-600 flex-shrink-0" />
             <div>
-              <h3 className="text-xl font-bold text-amber-800  mb-2">Prerequisites</h3>
+              <h3 className="text-xl font-semibold text-amber-800  mb-2">Prerequisites</h3>
               <p className="text-amber-700  mb-4">
                 This is an advanced module. We strongly recommend completing these modules first:
               </p>
@@ -674,8 +674,8 @@ const DerivativesOverview = () => {
         </div>
 
         {/* CTA */}
-        <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl p-8 text-center text-white shadow-xl">
-          <h3 className="text-2xl font-bold mb-3">Ready to Master Derivatives?</h3>
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-center text-white shadow-xl">
+          <h3 className="text-2xl font-semibold mb-3 tracking-[-0.015em]">Ready to Master Derivatives?</h3>
           <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
             Begin your journey into the complex world of futures and options. 
             Remember: knowledge is your best protection in derivative markets.

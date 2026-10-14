@@ -61,63 +61,63 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
 const WhyDirectionMattersSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#334155">Markets Move in Directions</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#64748b">Understanding the general direction provides valuable context</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="15" fontWeight="600" fill="#404047">Markets Move in Directions</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Understanding the general direction provides valuable context</text>
     
     {/* Left - Chaos without context */}
-    <rect x="30" y="70" width="250" height="190" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-    <text x="155" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">Without Direction Context</text>
+    <rect x="30" y="70" width="250" height="190" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+    <text x="155" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">Without Direction Context</text>
     
     {/* Chaotic price movement */}
     <g transform="translate(155, 165)">
-      <rect x="-90" y="-50" width="180" height="100" fill="#ffffff" rx="8" stroke="#fecaca" strokeWidth="1"/>
+      <rect x="-90" y="-50" width="180" height="100" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Random looking movement */}
       <path 
         d="M-70 20 L-50 -10 L-30 25 L-10 -20 L10 15 L30 -25 L50 10 L70 -15" 
         fill="none" 
-        stroke="#94a3b8" 
+        stroke="#A3A1A6" 
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Question marks */}
-      <text x="-60" y="-30" fontSize="14" fill="#dc2626">?</text>
-      <text x="0" y="40" fontSize="14" fill="#dc2626">?</text>
-      <text x="50" y="-35" fontSize="14" fill="#dc2626">?</text>
+      <text x="-60" y="-30" fontSize="14" fill="#C7363B">?</text>
+      <text x="0" y="40" fontSize="14" fill="#C7363B">?</text>
+      <text x="50" y="-35" fontSize="14" fill="#C7363B">?</text>
     </g>
     
-    <text x="155" y="235" textAnchor="middle" fontSize="10" fill="#991b1b">Price movements feel random</text>
-    <text x="155" y="250" textAnchor="middle" fontSize="10" fill="#991b1b">and confusing</text>
+    <text x="155" y="235" textAnchor="middle" fontSize="10" fill="#842428">Price movements feel random</text>
+    <text x="155" y="250" textAnchor="middle" fontSize="10" fill="#842428">and confusing</text>
     
     {/* Right - Clarity with context */}
-    <rect x="320" y="70" width="250" height="190" fill="#f0fdf4" rx="12" stroke="#86efac" strokeWidth="2"/>
-    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16a34a">With Direction Context</text>
+    <rect x="320" y="70" width="250" height="190" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">With Direction Context</text>
     
     {/* Clear upward movement */}
     <g transform="translate(445, 165)">
-      <rect x="-90" y="-50" width="180" height="100" fill="#ffffff" rx="8" stroke="#bbf7d0" strokeWidth="1"/>
+      <rect x="-90" y="-50" width="180" height="100" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Clear uptrend with swings */}
       <path 
         d="M-70 30 L-50 15 L-30 25 L-10 5 L10 15 L30 -10 L50 0 L70 -25" 
         fill="none" 
-        stroke="#22c55e" 
+        stroke="#1FA978" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Upward arrow indicating direction */}
-      <path d="M80 -10 L80 -35 M72 -27 L80 -35 L88 -27" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M80 -10 L80 -35 M72 -27 L80 -35 L88 -27" stroke="#12805A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
     
-    <text x="445" y="235" textAnchor="middle" fontSize="10" fill="#166534">Direction provides structure</text>
-    <text x="445" y="250" textAnchor="middle" fontSize="10" fill="#166534">and understanding</text>
+    <text x="445" y="235" textAnchor="middle" fontSize="10" fill="#0D543C">Direction provides structure</text>
+    <text x="445" y="250" textAnchor="middle" fontSize="10" fill="#0D543C">and understanding</text>
   </svg>
 );
 
@@ -125,105 +125,105 @@ const WhyDirectionMattersSVG = () => (
 const ThreeDirectionsSVG = () => (
   <svg viewBox="0 0 640 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="640" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="640" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#334155">The Three Market Directions</text>
-    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#64748b">At any time, a market is doing one of three things</text>
+    <text x="320" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">The Three Market Directions</text>
+    <text x="320" y="48" textAnchor="middle" fontSize="11" fill="#75757D">At any time, a market is doing one of three things</text>
     
     {/* Uptrend */}
-    <rect x="25" y="70" width="185" height="230" fill="#f0fdf4" rx="12" stroke="#22c55e" strokeWidth="2"/>
-    <text x="117" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#16a34a">UPTREND</text>
-    <text x="117" y="112" textAnchor="middle" fontSize="10" fill="#15803d">Prices generally rising</text>
+    <rect x="25" y="70" width="185" height="230" fill="#EEF9F4" rx="12" stroke="#1FA978" strokeWidth="2"/>
+    <text x="117" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#12805A">UPTREND</text>
+    <text x="117" y="112" textAnchor="middle" fontSize="10" fill="#0E6A4A">Prices generally rising</text>
     
     <g transform="translate(117, 175)">
-      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#bbf7d0" strokeWidth="1"/>
+      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Uptrend line with swings */}
       <path 
         d="M-55 35 L-35 20 L-20 30 L0 10 L20 20 L35 -5 L55 -25" 
         fill="none" 
-        stroke="#22c55e" 
+        stroke="#1FA978" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Dots at swing points */}
-      <circle cx="-35" cy="20" r="4" fill="#22c55e"/>
-      <circle cx="0" cy="10" r="4" fill="#22c55e"/>
-      <circle cx="35" cy="-5" r="4" fill="#22c55e"/>
+      <circle cx="-35" cy="20" r="4" fill="#1FA978"/>
+      <circle cx="0" cy="10" r="4" fill="#1FA978"/>
+      <circle cx="35" cy="-5" r="4" fill="#1FA978"/>
     </g>
     
-    <text x="117" y="250" textAnchor="middle" fontSize="9" fill="#166534">Higher highs</text>
-    <text x="117" y="263" textAnchor="middle" fontSize="9" fill="#166534">Higher lows</text>
+    <text x="117" y="250" textAnchor="middle" fontSize="9" fill="#0D543C">Higher highs</text>
+    <text x="117" y="263" textAnchor="middle" fontSize="9" fill="#0D543C">Higher lows</text>
     
     {/* Arrow up */}
     <g transform="translate(117, 285)">
-      <path d="M0 5 L0 -8 M-6 -2 L0 -8 L6 -2" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M0 5 L0 -8 M-6 -2 L0 -8 L6 -2" stroke="#12805A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
     
     {/* Downtrend */}
-    <rect x="227" y="70" width="185" height="230" fill="#fef2f2" rx="12" stroke="#ef4444" strokeWidth="2"/>
-    <text x="320" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#dc2626">DOWNTREND</text>
-    <text x="320" y="112" textAnchor="middle" fontSize="10" fill="#b91c1c">Prices generally falling</text>
+    <rect x="227" y="70" width="185" height="230" fill="#FDF1F1" rx="12" stroke="#E04848" strokeWidth="2"/>
+    <text x="320" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#C7363B">DOWNTREND</text>
+    <text x="320" y="112" textAnchor="middle" fontSize="10" fill="#A52A2F">Prices generally falling</text>
     
     <g transform="translate(320, 175)">
-      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#fecaca" strokeWidth="1"/>
+      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Downtrend line with swings */}
       <path 
         d="M-55 -25 L-35 -10 L-20 -20 L0 5 L20 -5 L35 15 L55 35" 
         fill="none" 
-        stroke="#ef4444" 
+        stroke="#E04848" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Dots at swing points */}
-      <circle cx="-35" cy="-10" r="4" fill="#ef4444"/>
-      <circle cx="0" cy="5" r="4" fill="#ef4444"/>
-      <circle cx="35" cy="15" r="4" fill="#ef4444"/>
+      <circle cx="-35" cy="-10" r="4" fill="#E04848"/>
+      <circle cx="0" cy="5" r="4" fill="#E04848"/>
+      <circle cx="35" cy="15" r="4" fill="#E04848"/>
     </g>
     
-    <text x="320" y="250" textAnchor="middle" fontSize="9" fill="#991b1b">Lower highs</text>
-    <text x="320" y="263" textAnchor="middle" fontSize="9" fill="#991b1b">Lower lows</text>
+    <text x="320" y="250" textAnchor="middle" fontSize="9" fill="#842428">Lower highs</text>
+    <text x="320" y="263" textAnchor="middle" fontSize="9" fill="#842428">Lower lows</text>
     
     {/* Arrow down */}
     <g transform="translate(320, 285)">
-      <path d="M0 -5 L0 8 M-6 2 L0 8 L6 2" stroke="#dc2626" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M0 -5 L0 8 M-6 2 L0 8 L6 2" stroke="#C7363B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
     
     {/* Sideways */}
-    <rect x="430" y="70" width="185" height="230" fill="#fefce8" rx="12" stroke="#eab308" strokeWidth="2"/>
-    <text x="522" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#ca8a04">SIDEWAYS</text>
-    <text x="522" y="112" textAnchor="middle" fontSize="10" fill="#a16207">Prices moving in a range</text>
+    <rect x="430" y="70" width="185" height="230" fill="#FBF7EC" rx="12" stroke="#B8923F" strokeWidth="2"/>
+    <text x="522" y="95" textAnchor="middle" fontSize="13" fontWeight="600" fill="#9A7634">SIDEWAYS</text>
+    <text x="522" y="112" textAnchor="middle" fontSize="10" fill="#7C5D2B">Prices moving in a range</text>
     
     <g transform="translate(522, 175)">
-      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#fef08a" strokeWidth="1"/>
+      <rect x="-70" y="-45" width="140" height="90" fill="#ffffff" rx="8" stroke="#EDD89D" strokeWidth="1"/>
       
       {/* Sideways line bouncing between levels */}
       <path 
         d="M-55 0 L-35 -20 L-15 15 L5 -18 L25 12 L45 -15 L55 5" 
         fill="none" 
-        stroke="#eab308" 
+        stroke="#B8923F" 
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Range boundaries */}
-      <line x1="-60" y1="-22" x2="60" y2="-22" stroke="#fbbf24" strokeWidth="1" strokeDasharray="4 3"/>
-      <line x1="-60" y1="18" x2="60" y2="18" stroke="#fbbf24" strokeWidth="1" strokeDasharray="4 3"/>
+      <line x1="-60" y1="-22" x2="60" y2="-22" stroke="#CDAA5F" strokeWidth="1" strokeDasharray="4 3"/>
+      <line x1="-60" y1="18" x2="60" y2="18" stroke="#CDAA5F" strokeWidth="1" strokeDasharray="4 3"/>
     </g>
     
-    <text x="522" y="250" textAnchor="middle" fontSize="9" fill="#92400e">No clear direction</text>
-    <text x="522" y="263" textAnchor="middle" fontSize="9" fill="#92400e">Bouncing in range</text>
+    <text x="522" y="250" textAnchor="middle" fontSize="9" fill="#654B26">No clear direction</text>
+    <text x="522" y="263" textAnchor="middle" fontSize="9" fill="#654B26">Bouncing in range</text>
     
     {/* Arrow sideways */}
     <g transform="translate(522, 285)">
-      <path d="M-8 0 L8 0 M-2 -5 L-8 0 L-2 5 M2 -5 L8 0 L2 5" stroke="#ca8a04" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M-8 0 L8 0 M-2 -5 L-8 0 L-2 5 M2 -5 L8 0 L2 5" stroke="#9A7634" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
     </g>
   </svg>
 );
@@ -232,68 +232,68 @@ const ThreeDirectionsSVG = () => (
 const UptrendExplainedSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#334155">Understanding an Uptrend</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#64748b">Each swing point is higher than the previous one</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding an Uptrend</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Each swing point is higher than the previous one</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#e2e8f0" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#94a3b8">High</text>
-    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#94a3b8">Mid</text>
-    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#94a3b8">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
+    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
+    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
     
     {/* Grid lines */}
-    <line x1="60" y1="95" x2="540" y2="95" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="60" y1="180" x2="540" y2="180" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="60" y1="265" x2="540" y2="265" stroke="#f1f5f9" strokeWidth="1"/>
+    <line x1="60" y1="95" x2="540" y2="95" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="180" x2="540" y2="180" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="265" x2="540" y2="265" stroke="#EFEDE7" strokeWidth="1"/>
     
     {/* Uptrend price movement */}
     <path 
       d="M80 250 L130 200 L170 230 L230 170 L280 195 L340 130 L400 160 L470 100 L520 85" 
       fill="none" 
-      stroke="#22c55e" 
+      stroke="#1FA978" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Higher Lows - marked with circles and labels */}
-    <circle cx="80" cy="250" r="8" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2"/>
-    <text x="80" y="270" textAnchor="middle" fontSize="8" fill="#1d4ed8">Low 1</text>
+    <circle cx="80" cy="250" r="8" fill="#5A77AA" stroke="#344C72" strokeWidth="2"/>
+    <text x="80" y="270" textAnchor="middle" fontSize="8" fill="#344C72">Low 1</text>
     
-    <circle cx="170" cy="230" r="8" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2"/>
-    <text x="170" y="250" textAnchor="middle" fontSize="8" fill="#1d4ed8">Higher Low</text>
+    <circle cx="170" cy="230" r="8" fill="#5A77AA" stroke="#344C72" strokeWidth="2"/>
+    <text x="170" y="250" textAnchor="middle" fontSize="8" fill="#344C72">Higher Low</text>
     
-    <circle cx="280" cy="195" r="8" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2"/>
-    <text x="280" y="215" textAnchor="middle" fontSize="8" fill="#1d4ed8">Higher Low</text>
+    <circle cx="280" cy="195" r="8" fill="#5A77AA" stroke="#344C72" strokeWidth="2"/>
+    <text x="280" y="215" textAnchor="middle" fontSize="8" fill="#344C72">Higher Low</text>
     
-    <circle cx="400" cy="160" r="8" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2"/>
-    <text x="400" y="180" textAnchor="middle" fontSize="8" fill="#1d4ed8">Higher Low</text>
+    <circle cx="400" cy="160" r="8" fill="#5A77AA" stroke="#344C72" strokeWidth="2"/>
+    <text x="400" y="180" textAnchor="middle" fontSize="8" fill="#344C72">Higher Low</text>
     
     {/* Higher Highs - marked with circles and labels */}
-    <circle cx="130" cy="200" r="8" fill="#22c55e" stroke="#16a34a" strokeWidth="2"/>
-    <text x="130" y="190" textAnchor="middle" fontSize="8" fill="#16a34a">High 1</text>
+    <circle cx="130" cy="200" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <text x="130" y="190" textAnchor="middle" fontSize="8" fill="#12805A">High 1</text>
     
-    <circle cx="230" cy="170" r="8" fill="#22c55e" stroke="#16a34a" strokeWidth="2"/>
-    <text x="230" y="160" textAnchor="middle" fontSize="8" fill="#16a34a">Higher High</text>
+    <circle cx="230" cy="170" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <text x="230" y="160" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
-    <circle cx="340" cy="130" r="8" fill="#22c55e" stroke="#16a34a" strokeWidth="2"/>
-    <text x="340" y="120" textAnchor="middle" fontSize="8" fill="#16a34a">Higher High</text>
+    <circle cx="340" cy="130" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <text x="340" y="120" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
-    <circle cx="470" cy="100" r="8" fill="#22c55e" stroke="#16a34a" strokeWidth="2"/>
-    <text x="470" y="90" textAnchor="middle" fontSize="8" fill="#16a34a">Higher High</text>
+    <circle cx="470" cy="100" r="8" fill="#1FA978" stroke="#12805A" strokeWidth="2"/>
+    <text x="470" y="90" textAnchor="middle" fontSize="8" fill="#12805A">Higher High</text>
     
     {/* Legend */}
-    <rect x="150" y="300" width="300" height="30" fill="#f0fdf4" rx="8" stroke="#86efac" strokeWidth="1"/>
-    <circle cx="180" cy="315" r="6" fill="#22c55e"/>
-    <text x="195" y="318" fontSize="9" fill="#166534">Higher Highs</text>
-    <circle cx="310" cy="315" r="6" fill="#3b82f6"/>
-    <text x="325" y="318" fontSize="9" fill="#1e40af">Higher Lows</text>
-    <text x="420" y="318" fontSize="9" fill="#64748b">= Uptrend</text>
+    <rect x="150" y="300" width="300" height="30" fill="#EEF9F4" rx="8" stroke="#77D3AE" strokeWidth="1"/>
+    <circle cx="180" cy="315" r="6" fill="#1FA978"/>
+    <text x="195" y="318" fontSize="9" fill="#0D543C">Higher Highs</text>
+    <circle cx="310" cy="315" r="6" fill="#5A77AA"/>
+    <text x="325" y="318" fontSize="9" fill="#2C3F5E">Higher Lows</text>
+    <text x="420" y="318" fontSize="9" fill="#75757D">= Uptrend</text>
   </svg>
 );
 
@@ -301,68 +301,68 @@ const UptrendExplainedSVG = () => (
 const DowntrendExplainedSVG = () => (
   <svg viewBox="0 0 600 340" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#334155">Understanding a Downtrend</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#64748b">Each swing point is lower than the previous one</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding a Downtrend</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Each swing point is lower than the previous one</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#e2e8f0" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="220" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
     
     {/* Y-axis labels */}
-    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#94a3b8">High</text>
-    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#94a3b8">Mid</text>
-    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#94a3b8">Low</text>
+    <text x="40" y="95" textAnchor="end" fontSize="9" fill="#A3A1A6">High</text>
+    <text x="40" y="180" textAnchor="end" fontSize="9" fill="#A3A1A6">Mid</text>
+    <text x="40" y="265" textAnchor="end" fontSize="9" fill="#A3A1A6">Low</text>
     
     {/* Grid lines */}
-    <line x1="60" y1="95" x2="540" y2="95" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="60" y1="180" x2="540" y2="180" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="60" y1="265" x2="540" y2="265" stroke="#f1f5f9" strokeWidth="1"/>
+    <line x1="60" y1="95" x2="540" y2="95" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="180" x2="540" y2="180" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="60" y1="265" x2="540" y2="265" stroke="#EFEDE7" strokeWidth="1"/>
     
     {/* Downtrend price movement */}
     <path 
       d="M80 85 L130 120 L170 95 L230 150 L280 130 L340 190 L400 165 L470 220 L520 250" 
       fill="none" 
-      stroke="#ef4444" 
+      stroke="#E04848" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Lower Highs - marked with circles and labels */}
-    <circle cx="80" cy="85" r="8" fill="#f97316" stroke="#ea580c" strokeWidth="2"/>
-    <text x="80" y="78" textAnchor="middle" fontSize="8" fill="#ea580c">High 1</text>
+    <circle cx="80" cy="85" r="8" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
+    <text x="80" y="78" textAnchor="middle" fontSize="8" fill="#C0623B">High 1</text>
     
-    <circle cx="170" cy="95" r="8" fill="#f97316" stroke="#ea580c" strokeWidth="2"/>
-    <text x="170" y="88" textAnchor="middle" fontSize="8" fill="#ea580c">Lower High</text>
+    <circle cx="170" cy="95" r="8" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
+    <text x="170" y="88" textAnchor="middle" fontSize="8" fill="#C0623B">Lower High</text>
     
-    <circle cx="280" cy="130" r="8" fill="#f97316" stroke="#ea580c" strokeWidth="2"/>
-    <text x="280" y="123" textAnchor="middle" fontSize="8" fill="#ea580c">Lower High</text>
+    <circle cx="280" cy="130" r="8" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
+    <text x="280" y="123" textAnchor="middle" fontSize="8" fill="#C0623B">Lower High</text>
     
-    <circle cx="400" cy="165" r="8" fill="#f97316" stroke="#ea580c" strokeWidth="2"/>
-    <text x="400" y="158" textAnchor="middle" fontSize="8" fill="#ea580c">Lower High</text>
+    <circle cx="400" cy="165" r="8" fill="#D2754C" stroke="#C0623B" strokeWidth="2"/>
+    <text x="400" y="158" textAnchor="middle" fontSize="8" fill="#C0623B">Lower High</text>
     
     {/* Lower Lows - marked with circles and labels */}
-    <circle cx="130" cy="120" r="8" fill="#ef4444" stroke="#dc2626" strokeWidth="2"/>
-    <text x="130" y="137" textAnchor="middle" fontSize="8" fill="#dc2626">Low 1</text>
+    <circle cx="130" cy="120" r="8" fill="#E04848" stroke="#C7363B" strokeWidth="2"/>
+    <text x="130" y="137" textAnchor="middle" fontSize="8" fill="#C7363B">Low 1</text>
     
-    <circle cx="230" cy="150" r="8" fill="#ef4444" stroke="#dc2626" strokeWidth="2"/>
-    <text x="230" y="167" textAnchor="middle" fontSize="8" fill="#dc2626">Lower Low</text>
+    <circle cx="230" cy="150" r="8" fill="#E04848" stroke="#C7363B" strokeWidth="2"/>
+    <text x="230" y="167" textAnchor="middle" fontSize="8" fill="#C7363B">Lower Low</text>
     
-    <circle cx="340" cy="190" r="8" fill="#ef4444" stroke="#dc2626" strokeWidth="2"/>
-    <text x="340" y="207" textAnchor="middle" fontSize="8" fill="#dc2626">Lower Low</text>
+    <circle cx="340" cy="190" r="8" fill="#E04848" stroke="#C7363B" strokeWidth="2"/>
+    <text x="340" y="207" textAnchor="middle" fontSize="8" fill="#C7363B">Lower Low</text>
     
-    <circle cx="470" cy="220" r="8" fill="#ef4444" stroke="#dc2626" strokeWidth="2"/>
-    <text x="470" y="237" textAnchor="middle" fontSize="8" fill="#dc2626">Lower Low</text>
+    <circle cx="470" cy="220" r="8" fill="#E04848" stroke="#C7363B" strokeWidth="2"/>
+    <text x="470" y="237" textAnchor="middle" fontSize="8" fill="#C7363B">Lower Low</text>
     
     {/* Legend */}
-    <rect x="150" y="300" width="300" height="30" fill="#fef2f2" rx="8" stroke="#fca5a5" strokeWidth="1"/>
-    <circle cx="180" cy="315" r="6" fill="#f97316"/>
-    <text x="195" y="318" fontSize="9" fill="#c2410c">Lower Highs</text>
-    <circle cx="310" cy="315" r="6" fill="#ef4444"/>
-    <text x="325" y="318" fontSize="9" fill="#dc2626">Lower Lows</text>
-    <text x="420" y="318" fontSize="9" fill="#64748b">= Downtrend</text>
+    <rect x="150" y="300" width="300" height="30" fill="#FDF1F1" rx="8" stroke="#F09B9B" strokeWidth="1"/>
+    <circle cx="180" cy="315" r="6" fill="#D2754C"/>
+    <text x="195" y="318" fontSize="9" fill="#9C4D2E">Lower Highs</text>
+    <circle cx="310" cy="315" r="6" fill="#E04848"/>
+    <text x="325" y="318" fontSize="9" fill="#C7363B">Lower Lows</text>
+    <text x="420" y="318" fontSize="9" fill="#75757D">= Downtrend</text>
   </svg>
 );
 
@@ -370,49 +370,49 @@ const DowntrendExplainedSVG = () => (
 const SidewaysExplainedSVG = () => (
   <svg viewBox="0 0 600 300" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#334155">Understanding a Sideways Market</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#64748b">Price bounces between a ceiling and floor with no clear direction</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Understanding a Sideways Market</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Price bounces between a ceiling and floor with no clear direction</text>
     
     {/* Main chart area */}
-    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#e2e8f0" strokeWidth="2"/>
+    <rect x="50" y="70" width="500" height="180" fill="#ffffff" rx="12" stroke="#E4E1D9" strokeWidth="2"/>
     
     {/* Range boundaries */}
-    <line x1="70" y1="100" x2="530" y2="100" stroke="#eab308" strokeWidth="2" strokeDasharray="8 4"/>
-    <text x="545" y="103" fontSize="9" fill="#ca8a04">Ceiling</text>
+    <line x1="70" y1="100" x2="530" y2="100" stroke="#B8923F" strokeWidth="2" strokeDasharray="8 4"/>
+    <text x="545" y="103" fontSize="9" fill="#9A7634">Ceiling</text>
     
-    <line x1="70" y1="220" x2="530" y2="220" stroke="#eab308" strokeWidth="2" strokeDasharray="8 4"/>
-    <text x="545" y="223" fontSize="9" fill="#ca8a04">Floor</text>
+    <line x1="70" y1="220" x2="530" y2="220" stroke="#B8923F" strokeWidth="2" strokeDasharray="8 4"/>
+    <text x="545" y="223" fontSize="9" fill="#9A7634">Floor</text>
     
     {/* Sideways price movement */}
     <path 
       d="M80 160 L110 110 L150 200 L200 115 L250 210 L300 105 L350 195 L400 120 L450 205 L500 130 L520 160" 
       fill="none" 
-      stroke="#eab308" 
+      stroke="#B8923F" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Bounce points at ceiling */}
-    <circle cx="110" cy="110" r="6" fill="#eab308"/>
-    <circle cx="200" cy="115" r="6" fill="#eab308"/>
-    <circle cx="300" cy="105" r="6" fill="#eab308"/>
-    <circle cx="400" cy="120" r="6" fill="#eab308"/>
-    <circle cx="500" cy="130" r="6" fill="#eab308"/>
+    <circle cx="110" cy="110" r="6" fill="#B8923F"/>
+    <circle cx="200" cy="115" r="6" fill="#B8923F"/>
+    <circle cx="300" cy="105" r="6" fill="#B8923F"/>
+    <circle cx="400" cy="120" r="6" fill="#B8923F"/>
+    <circle cx="500" cy="130" r="6" fill="#B8923F"/>
     
     {/* Bounce points at floor */}
-    <circle cx="150" cy="200" r="6" fill="#eab308"/>
-    <circle cx="250" cy="210" r="6" fill="#eab308"/>
-    <circle cx="350" cy="195" r="6" fill="#eab308"/>
-    <circle cx="450" cy="205" r="6" fill="#eab308"/>
+    <circle cx="150" cy="200" r="6" fill="#B8923F"/>
+    <circle cx="250" cy="210" r="6" fill="#B8923F"/>
+    <circle cx="350" cy="195" r="6" fill="#B8923F"/>
+    <circle cx="450" cy="205" r="6" fill="#B8923F"/>
     
     {/* Annotation */}
-    <rect x="180" y="258" width="240" height="32" fill="#fefce8" rx="8" stroke="#fde047" strokeWidth="1"/>
-    <text x="300" y="275" textAnchor="middle" fontSize="10" fill="#854d0e">Also called: Range-bound, Consolidation,</text>
-    <text x="300" y="287" textAnchor="middle" fontSize="10" fill="#854d0e">or "Choppy" market</text>
+    <rect x="180" y="258" width="240" height="32" fill="#FBF7EC" rx="8" stroke="#E2C273" strokeWidth="1"/>
+    <text x="300" y="275" textAnchor="middle" fontSize="10" fill="#654B26">Also called: Range-bound, Consolidation,</text>
+    <text x="300" y="287" textAnchor="middle" fontSize="10" fill="#654B26">or "Choppy" market</text>
   </svg>
 );
 
@@ -420,59 +420,59 @@ const SidewaysExplainedSVG = () => (
 const SwingsWithinTrendsSVG = () => (
   <svg viewBox="0 0 600 320" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="320" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#334155">Markets Don't Move in Straight Lines</text>
-    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#64748b">Even in a strong trend, prices swing up and down</text>
+    <text x="300" y="28" textAnchor="middle" fontSize="16" fontWeight="600" fill="#404047">Markets Don't Move in Straight Lines</text>
+    <text x="300" y="48" textAnchor="middle" fontSize="11" fill="#75757D">Even in a strong trend, prices swing up and down</text>
     
     {/* Left - Myth */}
-    <rect x="30" y="70" width="250" height="220" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-    <text x="155" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">❌ What beginners expect</text>
+    <rect x="30" y="70" width="250" height="220" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+    <text x="155" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">❌ What beginners expect</text>
     
     <g transform="translate(155, 175)">
-      <rect x="-90" y="-60" width="180" height="120" fill="#ffffff" rx="8" stroke="#fecaca" strokeWidth="1"/>
+      <rect x="-90" y="-60" width="180" height="120" fill="#ffffff" rx="8" stroke="#F6C3C3" strokeWidth="1"/>
       
       {/* Straight line up */}
       <path 
         d="M-70 45 L70 -45" 
         fill="none" 
-        stroke="#94a3b8" 
+        stroke="#A3A1A6" 
         strokeWidth="3"
         strokeLinecap="round"
       />
       
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#991b1b">Straight line up</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#842428">Straight line up</text>
     </g>
     
     {/* Right - Reality */}
-    <rect x="320" y="70" width="250" height="220" fill="#f0fdf4" rx="12" stroke="#86efac" strokeWidth="2"/>
-    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16a34a">✓ What actually happens</text>
+    <rect x="320" y="70" width="250" height="220" fill="#EEF9F4" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+    <text x="445" y="95" textAnchor="middle" fontSize="12" fontWeight="600" fill="#12805A">✓ What actually happens</text>
     
     <g transform="translate(445, 175)">
-      <rect x="-90" y="-60" width="180" height="120" fill="#ffffff" rx="8" stroke="#bbf7d0" strokeWidth="1"/>
+      <rect x="-90" y="-60" width="180" height="120" fill="#ffffff" rx="8" stroke="#ABE5CC" strokeWidth="1"/>
       
       {/* Zigzag line trending up */}
       <path 
         d="M-70 45 L-50 25 L-35 38 L-15 15 L5 30 L25 5 L45 20 L70 -30" 
         fill="none" 
-        stroke="#22c55e" 
+        stroke="#1FA978" 
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       
       {/* Dots at turns */}
-      <circle cx="-50" cy="25" r="4" fill="#22c55e"/>
-      <circle cx="-15" cy="15" r="4" fill="#22c55e"/>
-      <circle cx="25" cy="5" r="4" fill="#22c55e"/>
+      <circle cx="-50" cy="25" r="4" fill="#1FA978"/>
+      <circle cx="-15" cy="15" r="4" fill="#1FA978"/>
+      <circle cx="25" cy="5" r="4" fill="#1FA978"/>
       
-      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#166534">Zigzag pattern trending up</text>
+      <text x="0" y="70" textAnchor="middle" fontSize="9" fill="#0D543C">Zigzag pattern trending up</text>
     </g>
     
     {/* Bottom insight */}
-    <rect x="120" y="298" width="360" height="18" fill="#e0f2fe" rx="6"/>
-    <text x="300" y="310" textAnchor="middle" fontSize="9" fill="#0369a1">These swings are natural — they don't invalidate the trend</text>
+    <rect x="120" y="298" width="360" height="18" fill="#E0E7F1" rx="6"/>
+    <text x="300" y="310" textAnchor="middle" fontSize="9" fill="#344C72">These swings are natural — they don't invalidate the trend</text>
   </svg>
 );
 
@@ -480,55 +480,55 @@ const SwingsWithinTrendsSVG = () => (
 const AssetRisingExampleSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Example: Asset in an Uptrend</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Asset in an Uptrend</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#e2e8f0" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#94a3b8">$60</text>
-    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#94a3b8">$50</text>
-    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#94a3b8">$40</text>
-    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#94a3b8">$30</text>
+    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A3A1A6">$60</text>
+    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A3A1A6">$50</text>
+    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A3A1A6">$40</text>
+    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A3A1A6">$30</text>
     
     {/* Grid */}
-    <line x1="70" y1="70" x2="530" y2="70" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="115" x2="530" y2="115" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="160" x2="530" y2="160" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="205" x2="530" y2="205" stroke="#f1f5f9" strokeWidth="1"/>
+    <line x1="70" y1="70" x2="530" y2="70" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="115" x2="530" y2="115" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="160" x2="530" y2="160" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="205" x2="530" y2="205" stroke="#EFEDE7" strokeWidth="1"/>
     
     {/* X-axis time labels */}
-    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 1</text>
-    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 2</text>
-    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 3</text>
-    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 4</text>
+    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
+    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
+    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
+    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 4</text>
     
     {/* Uptrend line */}
     <path 
       d="M90 195 L140 165 L180 180 L230 140 L280 155 L340 110 L400 125 L460 85 L510 70" 
       fill="none" 
-      stroke="#22c55e" 
+      stroke="#1FA978" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Key points */}
-    <circle cx="90" cy="195" r="5" fill="#22c55e"/>
-    <circle cx="230" cy="140" r="5" fill="#22c55e"/>
-    <circle cx="340" cy="110" r="5" fill="#22c55e"/>
-    <circle cx="510" cy="70" r="5" fill="#22c55e"/>
+    <circle cx="90" cy="195" r="5" fill="#1FA978"/>
+    <circle cx="230" cy="140" r="5" fill="#1FA978"/>
+    <circle cx="340" cy="110" r="5" fill="#1FA978"/>
+    <circle cx="510" cy="70" r="5" fill="#1FA978"/>
     
     {/* Price annotations */}
-    <text x="90" y="212" textAnchor="middle" fontSize="8" fill="#166534">$32</text>
-    <text x="510" y="62" textAnchor="middle" fontSize="8" fill="#166534">$58</text>
+    <text x="90" y="212" textAnchor="middle" fontSize="8" fill="#0D543C">$32</text>
+    <text x="510" y="62" textAnchor="middle" fontSize="8" fill="#0D543C">$58</text>
     
     {/* Bottom note */}
-    <rect x="150" y="255" width="300" height="20" fill="#dcfce7" rx="6"/>
-    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#166534">Overall direction: UP (with natural pullbacks)</text>
+    <rect x="150" y="255" width="300" height="20" fill="#D5F2E5" rx="6"/>
+    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#0D543C">Overall direction: UP (with natural pullbacks)</text>
   </svg>
 );
 
@@ -536,55 +536,55 @@ const AssetRisingExampleSVG = () => (
 const AssetFallingExampleSVG = () => (
   <svg viewBox="0 0 600 280" className="w-full max-w-2xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="600" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="600" height="280" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Example: Asset in a Downtrend</text>
+    <text x="300" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Example: Asset in a Downtrend</text>
     
     {/* Chart area */}
-    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#e2e8f0" strokeWidth="2"/>
+    <rect x="60" y="50" width="480" height="180" fill="#ffffff" rx="10" stroke="#E4E1D9" strokeWidth="2"/>
     
     {/* Y-axis */}
-    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#94a3b8">$80</text>
-    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#94a3b8">$70</text>
-    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#94a3b8">$60</text>
-    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#94a3b8">$50</text>
+    <text x="50" y="70" textAnchor="end" fontSize="9" fill="#A3A1A6">$80</text>
+    <text x="50" y="115" textAnchor="end" fontSize="9" fill="#A3A1A6">$70</text>
+    <text x="50" y="160" textAnchor="end" fontSize="9" fill="#A3A1A6">$60</text>
+    <text x="50" y="205" textAnchor="end" fontSize="9" fill="#A3A1A6">$50</text>
     
     {/* Grid */}
-    <line x1="70" y1="70" x2="530" y2="70" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="115" x2="530" y2="115" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="160" x2="530" y2="160" stroke="#f1f5f9" strokeWidth="1"/>
-    <line x1="70" y1="205" x2="530" y2="205" stroke="#f1f5f9" strokeWidth="1"/>
+    <line x1="70" y1="70" x2="530" y2="70" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="115" x2="530" y2="115" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="160" x2="530" y2="160" stroke="#EFEDE7" strokeWidth="1"/>
+    <line x1="70" y1="205" x2="530" y2="205" stroke="#EFEDE7" strokeWidth="1"/>
     
     {/* X-axis time labels */}
-    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 1</text>
-    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 2</text>
-    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 3</text>
-    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#94a3b8">Week 4</text>
+    <text x="120" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 1</text>
+    <text x="230" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 2</text>
+    <text x="340" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 3</text>
+    <text x="450" y="243" textAnchor="middle" fontSize="9" fill="#A3A1A6">Week 4</text>
     
     {/* Downtrend line */}
     <path 
       d="M90 70 L140 95 L180 80 L230 120 L280 105 L340 150 L400 135 L460 175 L510 200" 
       fill="none" 
-      stroke="#ef4444" 
+      stroke="#E04848" 
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     
     {/* Key points */}
-    <circle cx="90" cy="70" r="5" fill="#ef4444"/>
-    <circle cx="230" cy="120" r="5" fill="#ef4444"/>
-    <circle cx="340" cy="150" r="5" fill="#ef4444"/>
-    <circle cx="510" cy="200" r="5" fill="#ef4444"/>
+    <circle cx="90" cy="70" r="5" fill="#E04848"/>
+    <circle cx="230" cy="120" r="5" fill="#E04848"/>
+    <circle cx="340" cy="150" r="5" fill="#E04848"/>
+    <circle cx="510" cy="200" r="5" fill="#E04848"/>
     
     {/* Price annotations */}
-    <text x="90" y="62" textAnchor="middle" fontSize="8" fill="#dc2626">$78</text>
-    <text x="510" y="217" textAnchor="middle" fontSize="8" fill="#dc2626">$52</text>
+    <text x="90" y="62" textAnchor="middle" fontSize="8" fill="#C7363B">$78</text>
+    <text x="510" y="217" textAnchor="middle" fontSize="8" fill="#C7363B">$52</text>
     
     {/* Bottom note */}
-    <rect x="150" y="255" width="300" height="20" fill="#fee2e2" rx="6"/>
-    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#991b1b">Overall direction: DOWN (with natural bounces)</text>
+    <rect x="150" y="255" width="300" height="20" fill="#FBE1E1" rx="6"/>
+    <text x="300" y="269" textAnchor="middle" fontSize="10" fill="#842428">Overall direction: DOWN (with natural bounces)</text>
   </svg>
 );
 
@@ -634,14 +634,14 @@ const TechnicalAnalysisLesson3 = () => {
             <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
               Lesson 3 of 7
             </span>
-            <h1 className="text-3xl font-bold text-gray-800 mt-4">Trends & Market Direction</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-800 mt-4 tracking-[-0.015em]">Trends & Market Direction</h1>
             <p className="text-gray-600 mt-2">Understanding how markets move and why direction matters</p>
           </div>
         </div>
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Direction Matters</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Why Direction Matters</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -673,7 +673,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* The Three Directions */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Three Market Directions</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Three Market Directions</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -712,7 +712,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Uptrend Explanation */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Understanding Uptrends</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Uptrends</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -739,7 +739,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Downtrend Explanation */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Understanding Downtrends</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Downtrends</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -766,7 +766,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Sideways Explanation */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Understanding Sideways Markets</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Understanding Sideways Markets</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -794,7 +794,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Swings Within Trends */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Markets Don't Move in Straight Lines</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Markets Don't Move in Straight Lines</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -821,7 +821,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Practical Examples */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Practical Examples</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Practical Examples</h2>
           
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-6 border border-blue-200">
             <h3 className="text-xl font-semibold text-blue-800 mb-4">📌 Example 1: Asset in an Uptrend</h3>
@@ -877,7 +877,7 @@ const TechnicalAnalysisLesson3 = () => {
 
         {/* Quiz Section */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           {quizQuestions.map((q, index) => (
             <QuizQuestion key={index} {...q} />
           ))}
@@ -890,7 +890,7 @@ const TechnicalAnalysisLesson3 = () => {
               <FaLightbulb className="text-white text-xl" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-purple-800 mb-3">Reflection Activity</h3>
+              <h3 className="text-xl font-semibold text-purple-800 mb-3">Reflection Activity</h3>
               <div className="bg-white rounded-xl p-5 border border-purple-200">
                 <p className="text-gray-800 font-medium mb-3">
                   Take a moment to consider:
@@ -911,8 +911,8 @@ const TechnicalAnalysisLesson3 = () => {
         </div>
 
         {/* Key Takeaway */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
-          <h3 className="text-xl font-bold mb-3">🔑 Key Takeaways</h3>
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
+          <h3 className="text-xl font-semibold mb-3">🔑 Key Takeaways</h3>
           <ul className="space-y-2 text-lg">
             <li>• Markets move in three directions: up, down, or sideways</li>
             <li>• An uptrend = higher highs + higher lows</li>
@@ -934,7 +934,7 @@ const TechnicalAnalysisLesson3 = () => {
           </button>
           <button
             onClick={() => navigate('/learn/technical-analysis-lesson-4')}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl transition-colors"
           >
             <span>Next Lesson</span>
             <FaArrowRight />

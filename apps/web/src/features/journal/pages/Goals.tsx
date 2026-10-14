@@ -295,7 +295,7 @@ export default function Goals() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Goals</h1>
+            <h1 className="xt-title mb-2">Goals</h1>
             <p className="text-sm text-muted-foreground">Track targets against your logged trades</p>
           </div>
           <Button onClick={openAddDialog}>

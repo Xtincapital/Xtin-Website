@@ -35,6 +35,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Pie, PieChart, Cell, Legend, ResponsiveContainer, Tooltip } from "recharts";
+import { chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Users, UserCheck, UserMinus, Wallet, Plus, Pencil, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -73,13 +74,7 @@ const RELATIONSHIP_OPTIONS = [
 // Matches gini.css's `--chart-1`..`--chart-5` tokens (see that file's header
 // comment) — reused here instead of hardcoding hex values, per this
 // codebase's "never hardcode hex colors" convention.
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+const CHART_COLORS = chartColors.series;
 
 const FAMILY_MEMBERS_QUERY_KEY = ["gini", "family-members"] as const;
 
@@ -249,7 +244,7 @@ export default function Family() {
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Family</h1>
+            <h1 className="xt-title mb-2">Family</h1>
             <p className="text-muted-foreground">Manage your household's members and income sources</p>
           </div>
           <Button onClick={openAddDialog}>
@@ -275,7 +270,7 @@ export default function Family() {
                 {isLoading ? (
                   <Skeleton className="h-6 w-20" />
                 ) : (
-                  <p className="text-xl font-bold text-foreground">{card.value}</p>
+                  <p className="xt-metric text-foreground">{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -314,12 +309,7 @@ export default function Family() {
                     </Pie>
                     <Tooltip
                       formatter={(value: number) => formatCurrency(value)}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
+                      {...chartTooltip}
                     />
                     <Legend
                       verticalAlign="bottom"

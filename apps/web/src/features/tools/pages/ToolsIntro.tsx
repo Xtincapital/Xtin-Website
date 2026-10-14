@@ -119,10 +119,10 @@ const DotGridBg = () => (
 /* ─── Data ──────────────────────────────────────────────── */
 
 const howItWorks = [
-  { icon: Icons.calculator, title: 'Choose a Calculator', desc: 'Browse 20+ tools by category — investment, tax, retirement & more', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' },
-  { icon: Icons.cursor, title: 'Enter Your Numbers', desc: 'Simple inputs with clear labels — no financial jargon', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600' },
-  { icon: Icons.chartBar, title: 'Get Instant Results', desc: 'Precise calculations with visual charts & breakdowns', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600' },
-  { icon: Icons.save, title: 'Compare & Save', desc: 'Run multiple scenarios, save results & export as PDF', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' },
+  { icon: Icons.calculator, title: 'Choose a Calculator', desc: 'Browse 20+ tools by category — investment, tax, retirement & more', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: Icons.cursor, title: 'Enter Your Numbers', desc: 'Simple inputs with clear labels — no financial jargon', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: Icons.chartBar, title: 'Get Instant Results', desc: 'Precise calculations with visual charts & breakdowns', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
+  { icon: Icons.save, title: 'Compare & Save', desc: 'Run multiple scenarios, save results & export as PDF', color: 'bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success' },
 ];
 
 const calculatorCategories = [
@@ -222,7 +222,7 @@ const ToolsIntro = () => {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
+            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-display font-normal leading-[1.05] tracking-[-0.02em] mb-5">
               Plan your finances,
               <br />
               <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">with precision</span>
@@ -294,7 +294,7 @@ const ToolsIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Simple process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">How it works</h2>
+            <h2 className="xt-title mt-3">How it works</h2>
           </motion.div>
 
           <div className="relative">
@@ -320,7 +320,7 @@ const ToolsIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Calculator suite</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Every tool you need</h2>
+            <h2 className="xt-title mt-3">Every tool you need</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">20+ calculators organized by purpose — from your first SIP to retirement planning.</p>
           </motion.div>
 
@@ -329,7 +329,7 @@ const ToolsIntro = () => {
               <motion.div key={cat.level} variants={fadeUp} custom={ci}>
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-lg font-bold">{cat.level}</h3>
+                  <h3 className="text-lg font-semibold">{cat.level}</h3>
                 </div>
 
                 {/* Tool cards */}
@@ -366,7 +366,7 @@ const ToolsIntro = () => {
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     Featured Tool
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Xtin Gini — AI Financial Planner</h3>
+                  <h3 className="text-xl font-semibold mb-2">Xtin Gini — AI Financial Planner</h3>
                   <p className="text-green-100 text-sm max-w-md">Get personalized financial advice from our AI-powered expert. Tax planning, investment strategy & goal-based recommendations.</p>
                 </div>
                 <Link
@@ -387,7 +387,7 @@ const ToolsIntro = () => {
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">The advantage</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Why use these</h2>
+            <h2 className="xt-title mt-3">Why use these</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -413,7 +413,7 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Who it's for</h2>
+            <h2 className="xt-section">Who it's for</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -438,7 +438,7 @@ const ToolsIntro = () => {
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
             <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">100% Free. Always.</h2>
+            <h2 className="xt-title mt-3">100% Free. Always.</h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-green-600/20">

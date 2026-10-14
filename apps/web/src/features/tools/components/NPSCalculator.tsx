@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors, chartXAxis } from "@/components/charts/chartTheme";
 
 const NPSCalculator = () => {
   const [currentAge, setCurrentAge] = useState("30");
@@ -102,7 +103,7 @@ const NPSCalculator = () => {
       <Navbar />
       <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-center text-green-800 mb-4">
+          <h1 className="xt-title text-center mb-4">
             NPS Calculator
           </h1>
           <div className="text-center mb-12">
@@ -169,11 +170,11 @@ const NPSCalculator = () => {
               <div className="bg-white p-8 rounded-2xl shadow-lg">
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={chartData} margin={CHART_MARGIN}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="year" />
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="year" {...chartXAxis} />
                     <YAxis {...Y_AXIS_PROPS} />
-                    <Tooltip formatter={(value) => `₹${formatNumber(value)}`} />
-                    <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={3} dot={false} />
+                    <Tooltip {...chartTooltip} formatter={(value) => `₹${formatNumber(value)}`} />
+                    <Line type="monotone" dataKey="value" stroke={chartColors.positive} strokeWidth={3} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

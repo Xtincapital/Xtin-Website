@@ -254,7 +254,7 @@ export default function Coach() {
           className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
-            <h1 className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-foreground mb-1">
+            <h1 className="xt-title mb-2 flex items-center gap-3">
               <Sparkles className="h-6 w-6 text-primary" />
               AI Coach
             </h1>

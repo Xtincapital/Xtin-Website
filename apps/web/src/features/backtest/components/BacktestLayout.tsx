@@ -45,9 +45,9 @@ function PlanBadge() {
 const BacktestLayout = ({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) => (
   <>
     <Navbar />
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#060a13] dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0A0A0B] dark:text-slate-100">
       {/* pt-20 clears the site Navbar, which is fixed and 80px tall */}
-      <header className="relative overflow-hidden bg-[#0a1120] pt-20 text-white">
+      <header className="relative overflow-hidden bg-[#0A0A0B] pt-20 text-white">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -64,7 +64,7 @@ const BacktestLayout = ({ children, wide = false }: { children: React.ReactNode;
               </span>
               <span>
                 <span className="block text-lg font-bold leading-tight tracking-tight">
-                  Xtin <span className="bg-gradient-to-r from-emerald-300 to-teal-200 bg-clip-text text-transparent">Backtest</span>
+                  Xtin <span className="text-success">Backtest</span>
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-slate-400">
                   <FlaskConical className="h-3 w-3" /> Quant lab · test ideas on real market history
@@ -82,7 +82,7 @@ const BacktestLayout = ({ children, wide = false }: { children: React.ReactNode;
                 end={end}
                 className={({ isActive }) =>
                   `relative flex items-center gap-2 whitespace-nowrap rounded-t-xl px-4 py-2.5 text-sm font-medium transition ${
-                    isActive ? "bg-slate-50 text-slate-900 dark:bg-[#060a13] dark:text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    isActive ? "bg-slate-50 text-slate-900 dark:bg-[#0A0A0B] dark:text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`
                 }
               >

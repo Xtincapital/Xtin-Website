@@ -7,7 +7,7 @@ import { COMPANY } from '../../../constants/company';
 
 const Section = ({ title, children }) => (
   <section className="space-y-4">
-    <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
     <div className="text-gray-700 leading-7 space-y-3">{children}</div>
   </section>
 );
@@ -33,7 +33,7 @@ function AlgoTerms() {
               </svg>
               Back to Algorithms
             </Link>
-            <h1 className="text-3xl md:text-4xl font-extrabold mb-2">Algorithm Trading Terms & Conditions</h1>
+            <h1 className="text-3xl md:text-4xl font-display font-normal mb-2 tracking-[-0.015em]">Algorithm Trading Terms & Conditions</h1>
             <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
             <p className="text-gray-600">Last updated: January 13, 2026</p>
           </div>
@@ -47,7 +47,7 @@ function AlgoTerms() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl font-bold mb-2">IMPORTANT RISK DISCLOSURE</h2>
+                <h2 className="text-xl font-semibold mb-2">IMPORTANT RISK DISCLOSURE</h2>
                 <p className="text-red-100 text-sm leading-relaxed">
                   Trading in securities market involves substantial risk of loss and is not suitable for every investor. 
                   The valuation of securities may fluctuate and as a result, investors may lose more than their original investment. 

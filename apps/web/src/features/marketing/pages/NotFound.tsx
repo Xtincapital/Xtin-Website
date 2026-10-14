@@ -16,8 +16,8 @@ const NotFound = () => {
       <Navbar />
       <main id="main-content" className="min-h-screen flex items-center justify-center px-4 py-32">
         <div className="text-center max-w-md">
-          <h1 className="text-6xl font-bold text-green-600 mb-4">404</h1>
-          <h2 className="text-3xl font-bold mb-4 text-gray-900">Page Not Found</h2>
+          <h1 className="font-display text-7xl font-normal text-green-600 mb-4">404</h1>
+          <h2 className="text-3xl font-display font-normal mb-4 text-gray-900 tracking-[-0.015em]">Page Not Found</h2>
           <p className="text-gray-600 mb-8">
             The page you're looking for doesn't exist or has been moved. Let's get you back on track.
           </p>

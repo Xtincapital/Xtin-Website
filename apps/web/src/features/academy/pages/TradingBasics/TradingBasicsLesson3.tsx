@@ -264,14 +264,14 @@ const TradingBasicsLesson3 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold">
                 Lesson 3 of 7
               </span>
               <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <Icons.PnL className="w-7 h-7 text-yellow-600" />
               </span>
@@ -289,7 +289,7 @@ const TradingBasicsLesson3 = () => {
                 <Icons.Calculator className="w-6 h-6 text-yellow-600" />
               </div>
               <div>
-                <h3 className="font-bold text-yellow-900 mb-2">Trading Math is Different</h3>
+                <h3 className="font-semibold text-yellow-900 mb-2">Trading Math is Different</h3>
                 <p className="text-yellow-800">
                   "I bought at Rs. 100, sold at Rs. 105 — I made Rs. 5 profit!" Wrong. After brokerage, STT, GST, 
                   stamp duty, and other charges, your actual profit might be just Rs. 2... or even negative. 
@@ -301,7 +301,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Basic P&L Formula */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Calculator className="w-6 h-6 text-yellow-600" />
               <span>The Basic P&L Formula</span>
             </h2>
@@ -352,63 +352,63 @@ const TradingBasicsLesson3 = () => {
 
           {/* Visual: The Real P&L */}
           <div className="bg-gradient-to-br from-gray-50 to-yellow-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">But Wait... The REAL P&L</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">But Wait... The REAL P&L</h2>
             
             <svg className="w-full max-w-2xl mx-auto" viewBox="0 0 600 320" fill="none">
               {/* Title */}
-              <text x="300" y="25" textAnchor="middle" fill="#1f2937" fontSize="14" fontWeight="700">
+              <text x="300" y="25" textAnchor="middle" fill="#232327" fontSize="14" fontWeight="700">
                 Trading Rs. 50,000 and Making 4% "Profit"
               </text>
               
               {/* Left side - What you think */}
               <g transform="translate(50, 50)">
-                <rect x="0" y="0" width="200" height="240" rx="12" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                <text x="100" y="30" textAnchor="middle" fill="#166534" fontSize="12" fontWeight="700">WHAT YOU THINK</text>
+                <rect x="0" y="0" width="200" height="240" rx="12" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                <text x="100" y="30" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="700">WHAT YOU THINK</text>
                 
                 <rect x="20" y="50" width="160" height="60" rx="8" fill="white"/>
-                <text x="100" y="75" textAnchor="middle" fill="#166534" fontSize="11">Gross Profit</text>
-                <text x="100" y="95" textAnchor="middle" fill="#16a34a" fontSize="18" fontWeight="700">Rs. 2,000</text>
+                <text x="100" y="75" textAnchor="middle" fill="#0D543C" fontSize="11">Gross Profit</text>
+                <text x="100" y="95" textAnchor="middle" fill="#12805A" fontSize="18" fontWeight="700">Rs. 2,000</text>
                 
-                <text x="100" y="135" textAnchor="middle" fill="#166534" fontSize="10">Simple math:</text>
-                <text x="100" y="150" textAnchor="middle" fill="#166534" fontSize="10">Rs. 52,000 - Rs. 50,000</text>
+                <text x="100" y="135" textAnchor="middle" fill="#0D543C" fontSize="10">Simple math:</text>
+                <text x="100" y="150" textAnchor="middle" fill="#0D543C" fontSize="10">Rs. 52,000 - Rs. 50,000</text>
                 
-                <text x="100" y="180" textAnchor="middle" fill="#15803d" fontSize="13" fontWeight="600">"I made 4% profit!"</text>
+                <text x="100" y="180" textAnchor="middle" fill="#0E6A4A" fontSize="13" fontWeight="600">"I made 4% profit!"</text>
                 
-                <text x="100" y="220" textAnchor="middle" fill="#166534" fontSize="28">😊</text>
+                <text x="100" y="220" textAnchor="middle" fill="#0D543C" fontSize="28">😊</text>
               </g>
               
               {/* Arrow */}
               <g transform="translate(260, 150)">
-                <path d="M0 20 L60 20" stroke="#6b7280" strokeWidth="3" strokeDasharray="5,5"/>
-                <polygon points="60,10 80,20 60,30" fill="#6b7280"/>
-                <text x="40" y="50" textAnchor="middle" fill="#6b7280" fontSize="10">Reality</text>
+                <path d="M0 20 L60 20" stroke="#75757D" strokeWidth="3" strokeDasharray="5,5"/>
+                <polygon points="60,10 80,20 60,30" fill="#75757D"/>
+                <text x="40" y="50" textAnchor="middle" fill="#75757D" fontSize="10">Reality</text>
               </g>
               
               {/* Right side - Reality */}
               <g transform="translate(350, 50)">
-                <rect x="0" y="0" width="200" height="240" rx="12" fill="#fef2f2" stroke="#ef4444" strokeWidth="2"/>
-                <text x="100" y="30" textAnchor="middle" fill="#991b1b" fontSize="12" fontWeight="700">WHAT ACTUALLY HAPPENS</text>
+                <rect x="0" y="0" width="200" height="240" rx="12" fill="#FDF1F1" stroke="#E04848" strokeWidth="2"/>
+                <text x="100" y="30" textAnchor="middle" fill="#842428" fontSize="12" fontWeight="700">WHAT ACTUALLY HAPPENS</text>
                 
                 <rect x="20" y="50" width="160" height="120" rx="8" fill="white"/>
-                <text x="100" y="70" textAnchor="middle" fill="#991b1b" fontSize="10">Gross: Rs. 2,000</text>
-                <text x="30" y="90" textAnchor="start" fill="#dc2626" fontSize="9">- Brokerage: Rs. 40</text>
-                <text x="30" y="105" textAnchor="start" fill="#dc2626" fontSize="9">- STT: Rs. 52</text>
-                <text x="30" y="120" textAnchor="start" fill="#dc2626" fontSize="9">- Exchange fees: Rs. 15</text>
-                <text x="30" y="135" textAnchor="start" fill="#dc2626" fontSize="9">- GST: Rs. 10</text>
-                <text x="30" y="150" textAnchor="start" fill="#dc2626" fontSize="9">- Stamp duty: Rs. 8</text>
-                <text x="100" y="165" textAnchor="middle" fill="#dc2626" fontSize="11" fontWeight="700">Net: Rs. 1,875</text>
+                <text x="100" y="70" textAnchor="middle" fill="#842428" fontSize="10">Gross: Rs. 2,000</text>
+                <text x="30" y="90" textAnchor="start" fill="#C7363B" fontSize="9">- Brokerage: Rs. 40</text>
+                <text x="30" y="105" textAnchor="start" fill="#C7363B" fontSize="9">- STT: Rs. 52</text>
+                <text x="30" y="120" textAnchor="start" fill="#C7363B" fontSize="9">- Exchange fees: Rs. 15</text>
+                <text x="30" y="135" textAnchor="start" fill="#C7363B" fontSize="9">- GST: Rs. 10</text>
+                <text x="30" y="150" textAnchor="start" fill="#C7363B" fontSize="9">- Stamp duty: Rs. 8</text>
+                <text x="100" y="165" textAnchor="middle" fill="#C7363B" fontSize="11" fontWeight="700">Net: Rs. 1,875</text>
                 
-                <text x="100" y="195" textAnchor="middle" fill="#b91c1c" fontSize="12" fontWeight="600">"Actual profit: 3.75%"</text>
-                <text x="100" y="210" textAnchor="middle" fill="#991b1b" fontSize="10">Lost 6.25% to charges!</text>
+                <text x="100" y="195" textAnchor="middle" fill="#A52A2F" fontSize="12" fontWeight="600">"Actual profit: 3.75%"</text>
+                <text x="100" y="210" textAnchor="middle" fill="#842428" fontSize="10">Lost 6.25% to charges!</text>
                 
-                <text x="100" y="230" textAnchor="middle" fill="#991b1b" fontSize="20">😐</text>
+                <text x="100" y="230" textAnchor="middle" fill="#842428" fontSize="20">😐</text>
               </g>
             </svg>
           </div>
 
           {/* Hidden Costs Breakdown */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.Hidden className="w-6 h-6 text-yellow-600" />
               <span>The Hidden Costs of Every Trade</span>
             </h2>
@@ -479,7 +479,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* The Breakeven Reality */}
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-6 mb-8 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <Icons.Breakeven className="w-6 h-6 text-amber-600" />
               <span>The Breakeven Reality</span>
             </h2>
@@ -529,7 +529,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Net P&L Formula */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Calculator className="w-6 h-6 text-yellow-600" />
               <span>The REAL P&L Formula</span>
             </h2>
@@ -564,7 +564,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Intraday vs Delivery Cost Comparison */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-8 border border-blue-200">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">Intraday vs Delivery: Cost Comparison</h2>
+            <h2 className="text-xl font-semibold text-blue-900 mb-4">Intraday vs Delivery: Cost Comparison</h2>
             
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white rounded-xl overflow-hidden">
@@ -610,7 +610,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Where Your Money Goes</span>
             </h2>
@@ -673,7 +673,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 mb-10 border border-yellow-200">
-            <h2 className="text-xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-yellow-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-yellow-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -715,7 +715,7 @@ const TradingBasicsLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -773,7 +773,7 @@ const TradingBasicsLesson3 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-4')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-yellow-600 hover:to-amber-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span>Next: Risk & Stop Loss</span>
               <FaArrowRight className="text-sm" />

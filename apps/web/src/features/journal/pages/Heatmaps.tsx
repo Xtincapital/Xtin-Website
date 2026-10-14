@@ -249,7 +249,7 @@ const Heatmaps = () => {
     <JournalLayout proFeature="Heatmaps">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             <Flame className="w-6 h-6 text-primary" />
             Heatmaps
             <InfoTip title="What is a heatmap?" widthClass="w-80">
@@ -410,12 +410,12 @@ const Heatmaps = () => {
                       })
                     }
                     className="rounded-lg p-3 flex flex-col items-center justify-center text-center min-h-[84px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                    style={{ backgroundColor: getHeatmapColor(stat.pnl, monthlyMaxAbs) }}
+                    style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, monthlyMaxAbs) : "hsl(var(--muted) / 0.5)" }}
                     title={`${MONTH_NAMES[idx]} • ${stat.trades} trade${stat.trades === 1 ? "" : "s"}\nP&L: ${shortCurrency(stat.pnl)}${stat.trades ? "\nClick to see these trades" : ""}`}
                   >
-                    <span className="text-xs font-semibold text-black/70">{MONTH_NAMES[idx]}</span>
-                    <strong className="text-sm text-black/90">{shortCurrency(stat.pnl)}</strong>
-                    <span className="text-[10px] text-black/60">
+                    <span className="text-xs font-semibold text-muted-foreground">{MONTH_NAMES[idx]}</span>
+                    <strong className="text-sm text-foreground">{shortCurrency(stat.pnl)}</strong>
+                    <span className="text-[11px] text-muted-foreground">
                       {stat.trades} trade{stat.trades === 1 ? "" : "s"}
                     </span>
                   </button>
@@ -465,11 +465,11 @@ const Heatmaps = () => {
                               disabled={stat.trades === 0}
                               onClick={() => setDrill({ title: `${day}, ${session}`, subtitle: "Day of week × session", trades: stat.list })}
                               className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                              style={{ backgroundColor: getHeatmapColor(stat.pnl, weekdayMaxAbs) }}
+                              style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, weekdayMaxAbs) : "hsl(var(--muted) / 0.5)" }}
                               title={`${day} • ${session}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
-                              <strong className="text-sm text-black/90">{stat.trades}</strong>
-                              <span className="text-[10px] text-black/60">{shortCurrency(stat.pnl)}</span>
+                              <strong className="text-sm text-foreground">{stat.trades}</strong>
+                              <span className="text-[11px] text-muted-foreground">{shortCurrency(stat.pnl)}</span>
                             </button>
                           );
                         })}
@@ -524,11 +524,11 @@ const Heatmaps = () => {
                               disabled={stat.trades === 0}
                               onClick={() => setDrill({ title: `${formatHourDisplay(hour)}, ${marketLabel(market)}`, subtitle: "Hour × market", trades: stat.list })}
                               className="rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[64px] transition-transform enabled:hover:scale-[1.03] enabled:cursor-pointer disabled:cursor-default"
-                              style={{ backgroundColor: getHeatmapColor(stat.pnl, hourMarketMaxAbs) }}
+                              style={{ backgroundColor: stat.trades ? getHeatmapColor(stat.pnl, hourMarketMaxAbs) : "hsl(var(--muted) / 0.5)" }}
                               title={`${formatHourDisplay(hour)} • ${market}\nP&L: ${shortCurrency(stat.pnl)}\nTrades: ${stat.trades}${stat.trades ? "\nClick to see these trades" : ""}`}
                             >
-                              <strong className="text-sm text-black/90">{stat.trades}</strong>
-                              <span className="text-[10px] text-black/60">{shortCurrency(stat.pnl)}</span>
+                              <strong className="text-sm text-foreground">{stat.trades}</strong>
+                              <span className="text-[11px] text-muted-foreground">{shortCurrency(stat.pnl)}</span>
                             </button>
                           );
                         })}
@@ -578,12 +578,12 @@ function MetricCard({
         </div>
         {onClick ? (
           <button type="button" onClick={onClick} className="block w-full text-left cursor-pointer">
-            <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className={`stat-value font-semibold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
             <p className="text-xs text-muted-foreground mt-1">{sub} · view trades</p>
           </button>
         ) : (
           <>
-            <p className={`stat-value font-bold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
+            <p className={`stat-value font-semibold ${positive ? "text-success" : "text-destructive"}`}>{value}</p>
             <p className="text-xs text-muted-foreground mt-1">{sub}</p>
           </>
         )}

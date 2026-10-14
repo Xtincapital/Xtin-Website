@@ -281,7 +281,7 @@ const TradingBasicsLesson4 = () => {
                 Critical
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-rose-200 rounded-xl shadow-sm">
                 <Icons.StopLoss className="w-7 h-7 text-red-600" />
               </span>
@@ -299,7 +299,7 @@ const TradingBasicsLesson4 = () => {
                 <Icons.Risk className="w-6 h-6 text-red-600" />
               </div>
               <div>
-                <h3 className="font-bold text-red-900 mb-2">One Big Loss Can Wipe Out Months of Profit</h3>
+                <h3 className="font-semibold text-red-900 mb-2">One Big Loss Can Wipe Out Months of Profit</h3>
                 <p className="text-red-800">
                   You can be right 9 out of 10 times, make small profits each time. Then lose it all (and more) 
                   on the 10th trade because you didn't use a stop loss. Risk management isn't optional — 
@@ -311,61 +311,61 @@ const TradingBasicsLesson4 = () => {
 
           {/* Visual: The Math of Losses */}
           <div className="bg-gradient-to-br from-gray-50 to-red-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">The Scary Math of Losses</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">The Scary Math of Losses</h2>
             
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 600 280" fill="none">
-              <text x="300" y="25" textAnchor="middle" fill="#1f2937" fontSize="13" fontWeight="700">
+              <text x="300" y="25" textAnchor="middle" fill="#232327" fontSize="13" fontWeight="700">
                 How Much Gain You Need to Recover from a Loss
               </text>
               
               {/* Left bars - Losses */}
               <g transform="translate(50, 50)">
-                <text x="0" y="15" fill="#991b1b" fontSize="12" fontWeight="600">Loss</text>
+                <text x="0" y="15" fill="#842428" fontSize="12" fontWeight="600">Loss</text>
                 
-                <rect x="0" y="25" width="40" height="30" rx="4" fill="#fee2e2"/>
-                <text x="20" y="47" textAnchor="middle" fill="#991b1b" fontSize="11" fontWeight="600">10%</text>
+                <rect x="0" y="25" width="40" height="30" rx="4" fill="#FBE1E1"/>
+                <text x="20" y="47" textAnchor="middle" fill="#842428" fontSize="11" fontWeight="600">10%</text>
                 
-                <rect x="0" y="65" width="60" height="30" rx="4" fill="#fecaca"/>
-                <text x="30" y="87" textAnchor="middle" fill="#991b1b" fontSize="11" fontWeight="600">20%</text>
+                <rect x="0" y="65" width="60" height="30" rx="4" fill="#F6C3C3"/>
+                <text x="30" y="87" textAnchor="middle" fill="#842428" fontSize="11" fontWeight="600">20%</text>
                 
-                <rect x="0" y="105" width="90" height="30" rx="4" fill="#fca5a5"/>
-                <text x="45" y="127" textAnchor="middle" fill="#991b1b" fontSize="11" fontWeight="600">30%</text>
+                <rect x="0" y="105" width="90" height="30" rx="4" fill="#F09B9B"/>
+                <text x="45" y="127" textAnchor="middle" fill="#842428" fontSize="11" fontWeight="600">30%</text>
                 
-                <rect x="0" y="145" width="120" height="30" rx="4" fill="#f87171"/>
-                <text x="60" y="167" textAnchor="middle" fill="#7f1d1d" fontSize="11" fontWeight="600">50%</text>
+                <rect x="0" y="145" width="120" height="30" rx="4" fill="#F26B6B"/>
+                <text x="60" y="167" textAnchor="middle" fill="#6B2023" fontSize="11" fontWeight="600">50%</text>
                 
-                <rect x="0" y="185" width="150" height="30" rx="4" fill="#dc2626"/>
+                <rect x="0" y="185" width="150" height="30" rx="4" fill="#C7363B"/>
                 <text x="75" y="207" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="600">75%</text>
               </g>
               
               {/* Arrow */}
               <g transform="translate(220, 140)">
-                <path d="M0 0 L60 0" stroke="#6b7280" strokeWidth="3"/>
-                <polygon points="60,-8 80,0 60,8" fill="#6b7280"/>
-                <text x="40" y="-15" textAnchor="middle" fill="#6b7280" fontSize="10" fontWeight="600">Needs</text>
+                <path d="M0 0 L60 0" stroke="#75757D" strokeWidth="3"/>
+                <polygon points="60,-8 80,0 60,8" fill="#75757D"/>
+                <text x="40" y="-15" textAnchor="middle" fill="#75757D" fontSize="10" fontWeight="600">Needs</text>
               </g>
               
               {/* Right bars - Required gains */}
               <g transform="translate(310, 50)">
-                <text x="0" y="15" fill="#166534" fontSize="12" fontWeight="600">Gain Needed</text>
+                <text x="0" y="15" fill="#0D543C" fontSize="12" fontWeight="600">Gain Needed</text>
                 
-                <rect x="0" y="25" width="45" height="30" rx="4" fill="#dcfce7"/>
-                <text x="22" y="47" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="600">11%</text>
+                <rect x="0" y="25" width="45" height="30" rx="4" fill="#D5F2E5"/>
+                <text x="22" y="47" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">11%</text>
                 
-                <rect x="0" y="65" width="70" height="30" rx="4" fill="#bbf7d0"/>
-                <text x="35" y="87" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="600">25%</text>
+                <rect x="0" y="65" width="70" height="30" rx="4" fill="#ABE5CC"/>
+                <text x="35" y="87" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">25%</text>
                 
-                <rect x="0" y="105" width="120" height="30" rx="4" fill="#86efac"/>
-                <text x="60" y="127" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="600">43%</text>
+                <rect x="0" y="105" width="120" height="30" rx="4" fill="#77D3AE"/>
+                <text x="60" y="127" textAnchor="middle" fill="#0D543C" fontSize="11" fontWeight="600">43%</text>
                 
-                <rect x="0" y="145" width="200" height="30" rx="4" fill="#4ade80"/>
-                <text x="100" y="167" textAnchor="middle" fill="#052e16" fontSize="11" fontWeight="600">100%</text>
+                <rect x="0" y="145" width="200" height="30" rx="4" fill="#3CCB97"/>
+                <text x="100" y="167" textAnchor="middle" fill="#052A1E" fontSize="11" fontWeight="600">100%</text>
                 
-                <rect x="0" y="185" width="270" height="30" rx="4" fill="#16a34a"/>
+                <rect x="0" y="185" width="270" height="30" rx="4" fill="#12805A"/>
                 <text x="135" y="207" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="600">300%</text>
               </g>
               
-              <text x="300" y="260" textAnchor="middle" fill="#991b1b" fontSize="11" fontWeight="600">
+              <text x="300" y="260" textAnchor="middle" fill="#842428" fontSize="11" fontWeight="600">
                 A 50% loss needs 100% gain just to break even!
               </text>
             </svg>
@@ -391,7 +391,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* What is a Stop Loss */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.StopLoss className="w-6 h-6 text-red-600" />
               <span>What is a Stop Loss?</span>
             </h2>
@@ -431,7 +431,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Types of Risk */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Three Types of Risk You Must Manage</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 tracking-[-0.015em]">Three Types of Risk You Must Manage</h2>
 
             <div className="space-y-4">
               <RiskCard
@@ -474,7 +474,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* The 2% Rule */}
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-8 border-2 border-green-300">
-            <h2 className="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
               <Icons.Checklist className="w-6 h-6 text-green-600" />
               <span>The Golden 2% Rule</span>
             </h2>
@@ -528,7 +528,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Risk-Reward Ratio */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.RiskReward className="w-6 h-6 text-red-600" />
               <span>Risk-Reward Ratio</span>
             </h2>
@@ -582,7 +582,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Common Stop Loss Mistakes */}
           <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-2xl p-6 mb-8 border-2 border-red-200">
-            <h2 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-red-900 mb-4 flex items-center gap-2">
               <Icons.Warning className="w-6 h-6 text-red-600" />
               <span>Common Stop Loss Mistakes (Avoid These!)</span>
             </h2>
@@ -632,7 +632,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Why Most Indian Traders Ignore Stop Losses</span>
             </h2>
@@ -693,7 +693,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-2xl p-6 mb-10 border border-red-200">
-            <h2 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-red-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-red-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -735,7 +735,7 @@ const TradingBasicsLesson4 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-red-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>

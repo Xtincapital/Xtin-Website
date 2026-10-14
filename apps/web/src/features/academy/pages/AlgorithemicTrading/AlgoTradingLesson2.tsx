@@ -112,11 +112,11 @@ const AlgoTradingLesson2 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-full text-sm font-bold">Lesson 2 of 9</span>
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 2 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
                 <Icons.Architecture className="w-8 h-8 text-white"/>
               </span>
               Trading System Architecture
@@ -128,7 +128,7 @@ const AlgoTradingLesson2 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-violet-50 to-purple-50   rounded-2xl p-6 mb-10 border border-violet-200 ">
-            <h2 className="font-bold text-violet-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-violet-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-violet-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -147,14 +147,14 @@ const AlgoTradingLesson2 = () => {
             
             {/* Intro */}
             <div className="bg-gradient-to-r from-amber-50 to-orange-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-900  mb-3 text-lg">Think of it Like a Factory</h3>
+              <h3 className="font-semibold text-amber-900  mb-3 text-lg">Think of it Like a Factory</h3>
               <p className="text-amber-800 ">
                 Every manufacturing plant has raw materials coming in, machines processing them, and finished products going out. 
                 A trading system works the same way: <strong>market data comes in</strong>, <strong>logic processes it</strong>, and <strong>orders go out</strong>.
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-indigo-100  rounded-xl flex items-center justify-center">
                 <Icons.Architecture className="w-5 h-5 text-indigo-600 "/>
               </span>
@@ -162,80 +162,80 @@ const AlgoTradingLesson2 = () => {
             </h2>
 
             {/* System Architecture SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-2xl p-6 mb-10 border border-indigo-800/50 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-indigo-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 380" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="15" fontWeight="700">TRADING SYSTEM ARCHITECTURE</text>
-                <text x="350" y="45" textAnchor="middle" fill="#94a3b8" fontSize="10">Data flows left to right through each component</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="15" fontWeight="700">TRADING SYSTEM ARCHITECTURE</text>
+                <text x="350" y="45" textAnchor="middle" fill="#A3A1A6" fontSize="10">Data flows left to right through each component</text>
 
                 {/* Component 1: Data Handler */}
                 <g transform="translate(20, 70)">
-                  <rect x="0" y="0" width="120" height="100" rx="10" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
-                  <circle cx="60" cy="30" r="15" fill="#3b82f6"/>
+                  <rect x="0" y="0" width="120" height="100" rx="10" fill="#232327" stroke="#5A77AA" strokeWidth="2"/>
+                  <circle cx="60" cy="30" r="15" fill="#5A77AA"/>
                   <text x="60" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">1</text>
-                  <text x="60" y="60" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="600">DATA</text>
-                  <text x="60" y="75" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="600">HANDLER</text>
-                  <text x="60" y="92" textAnchor="middle" fill="#64748b" fontSize="8">Receives market data</text>
+                  <text x="60" y="60" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">DATA</text>
+                  <text x="60" y="75" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">HANDLER</text>
+                  <text x="60" y="92" textAnchor="middle" fill="#75757D" fontSize="8">Receives market data</text>
                 </g>
 
                 {/* Arrow 1 */}
-                <path d="M145 120 L175 120" stroke="#475569" strokeWidth="2" markerEnd="url(#arrow)"/>
+                <path d="M145 120 L175 120" stroke="#5A5A62" strokeWidth="2" markerEnd="url(#arrow)"/>
 
                 {/* Component 2: Signal Generator */}
                 <g transform="translate(160, 70)">
-                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
-                  <circle cx="80" cy="30" r="15" fill="#8b5cf6"/>
+                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#232327" stroke="#8F6FC4" strokeWidth="2"/>
+                  <circle cx="80" cy="30" r="15" fill="#8F6FC4"/>
                   <text x="80" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">2</text>
-                  <text x="80" y="60" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="600">SIGNAL</text>
-                  <text x="80" y="75" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="600">GENERATOR</text>
-                  <text x="80" y="92" textAnchor="middle" fill="#64748b" fontSize="8">Creates trade signals</text>
+                  <text x="80" y="60" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">SIGNAL</text>
+                  <text x="80" y="75" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">GENERATOR</text>
+                  <text x="80" y="92" textAnchor="middle" fill="#75757D" fontSize="8">Creates trade signals</text>
                 </g>
 
                 {/* Arrow 2 */}
-                <path d="M305 120 L335 120" stroke="#475569" strokeWidth="2"/>
+                <path d="M305 120 L335 120" stroke="#5A5A62" strokeWidth="2"/>
 
                 {/* Component 3: Risk Manager */}
                 <g transform="translate(320, 70)">
-                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#1e293b" stroke="#f43f5e" strokeWidth="2"/>
-                  <circle cx="80" cy="30" r="15" fill="#f43f5e"/>
+                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#232327" stroke="#E04848" strokeWidth="2"/>
+                  <circle cx="80" cy="30" r="15" fill="#E04848"/>
                   <text x="80" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">3</text>
-                  <text x="80" y="60" textAnchor="middle" fill="#fda4af" fontSize="11" fontWeight="600">RISK</text>
-                  <text x="80" y="75" textAnchor="middle" fill="#fda4af" fontSize="11" fontWeight="600">MANAGER</text>
-                  <text x="80" y="92" textAnchor="middle" fill="#64748b" fontSize="8">Validates & sizes</text>
+                  <text x="80" y="60" textAnchor="middle" fill="#F09B9B" fontSize="11" fontWeight="600">RISK</text>
+                  <text x="80" y="75" textAnchor="middle" fill="#F09B9B" fontSize="11" fontWeight="600">MANAGER</text>
+                  <text x="80" y="92" textAnchor="middle" fill="#75757D" fontSize="8">Validates & sizes</text>
                 </g>
 
                 {/* Arrow 3 */}
-                <path d="M465 120 L495 120" stroke="#475569" strokeWidth="2"/>
+                <path d="M465 120 L495 120" stroke="#5A5A62" strokeWidth="2"/>
 
                 {/* Component 4: Execution Engine */}
                 <g transform="translate(480, 70)">
-                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#1e293b" stroke="#22c55e" strokeWidth="2"/>
-                  <circle cx="80" cy="30" r="15" fill="#22c55e"/>
+                  <rect x="20" y="0" width="120" height="100" rx="10" fill="#232327" stroke="#1FA978" strokeWidth="2"/>
+                  <circle cx="80" cy="30" r="15" fill="#1FA978"/>
                   <text x="80" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">4</text>
-                  <text x="80" y="60" textAnchor="middle" fill="#86efac" fontSize="11" fontWeight="600">EXECUTION</text>
-                  <text x="80" y="75" textAnchor="middle" fill="#86efac" fontSize="11" fontWeight="600">ENGINE</text>
-                  <text x="80" y="92" textAnchor="middle" fill="#64748b" fontSize="8">Sends orders</text>
+                  <text x="80" y="60" textAnchor="middle" fill="#77D3AE" fontSize="11" fontWeight="600">EXECUTION</text>
+                  <text x="80" y="75" textAnchor="middle" fill="#77D3AE" fontSize="11" fontWeight="600">ENGINE</text>
+                  <text x="80" y="92" textAnchor="middle" fill="#75757D" fontSize="8">Sends orders</text>
                 </g>
 
                 {/* Component 5: Monitor (bottom) */}
                 <g transform="translate(150, 200)">
-                  <rect x="0" y="0" width="400" height="80" rx="10" fill="#1e293b" stroke="#f59e0b" strokeWidth="2"/>
-                  <circle cx="40" cy="40" r="15" fill="#f59e0b"/>
+                  <rect x="0" y="0" width="400" height="80" rx="10" fill="#232327" stroke="#B8923F" strokeWidth="2"/>
+                  <circle cx="40" cy="40" r="15" fill="#B8923F"/>
                   <text x="40" y="45" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">5</text>
-                  <text x="200" y="35" textAnchor="middle" fill="#fcd34d" fontSize="12" fontWeight="600">MONITORING & LOGGING</text>
-                  <text x="200" y="55" textAnchor="middle" fill="#64748b" fontSize="9">Tracks performance • Records all activity • Sends alerts • Enables debugging</text>
+                  <text x="200" y="35" textAnchor="middle" fill="#E2C273" fontSize="12" fontWeight="600">MONITORING & LOGGING</text>
+                  <text x="200" y="55" textAnchor="middle" fill="#75757D" fontSize="9">Tracks performance • Records all activity • Sends alerts • Enables debugging</text>
                 </g>
 
                 {/* Connection lines to monitor */}
-                <path d="M80 175 L80 200 L150 200" stroke="#475569" strokeWidth="1.5" strokeDasharray="4,2" fill="none"/>
-                <path d="M240 175 L240 200" stroke="#475569" strokeWidth="1.5" strokeDasharray="4,2"/>
-                <path d="M400 175 L400 200" stroke="#475569" strokeWidth="1.5" strokeDasharray="4,2"/>
-                <path d="M560 175 L560 200 L550 200" stroke="#475569" strokeWidth="1.5" strokeDasharray="4,2" fill="none"/>
+                <path d="M80 175 L80 200 L150 200" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4,2" fill="none"/>
+                <path d="M240 175 L240 200" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4,2"/>
+                <path d="M400 175 L400 200" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4,2"/>
+                <path d="M560 175 L560 200 L550 200" stroke="#5A5A62" strokeWidth="1.5" strokeDasharray="4,2" fill="none"/>
 
                 {/* Legend */}
                 <g transform="translate(150, 310)">
-                  <rect x="0" y="0" width="400" height="50" rx="8" fill="#0f172a" stroke="#334155" strokeWidth="1"/>
-                  <text x="200" y="20" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="600">DATA FLOW</text>
-                  <text x="200" y="38" textAnchor="middle" fill="#64748b" fontSize="9">Market Data → Signals → Risk Check → Orders → Exchange</text>
+                  <rect x="0" y="0" width="400" height="50" rx="8" fill="#151517" stroke="#404047" strokeWidth="1"/>
+                  <text x="200" y="20" textAnchor="middle" fill="#A3A1A6" fontSize="10" fontWeight="600">DATA FLOW</text>
+                  <text x="200" y="38" textAnchor="middle" fill="#75757D" fontSize="9">Market Data → Signals → Risk Check → Orders → Exchange</text>
                 </g>
               </svg>
             </div>
@@ -285,7 +285,7 @@ const AlgoTradingLesson2 = () => {
             </div>
 
             {/* Institutional vs Retail */}
-            <h2 className="text-2xl font-bold mb-4">Institutional vs Retail Systems</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Institutional vs Retail Systems</h2>
             <div className="overflow-x-auto mb-10">
               <table className="w-full text-sm">
                 <thead>
@@ -315,7 +315,7 @@ const AlgoTradingLesson2 = () => {
 
             {/* Key Takeaways */}
             <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
@@ -333,7 +333,7 @@ const AlgoTradingLesson2 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which component acts as the 'gatekeeper' that validates signals before execution?"
               options={["Data Handler", "Signal Generator", "Risk Manager", "Execution Engine"]}
@@ -355,7 +355,7 @@ const AlgoTradingLesson2 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Foundations
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-3')}
-              className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
               Next: Strategy Development<FaArrowRight/>
             </button>
           </div>

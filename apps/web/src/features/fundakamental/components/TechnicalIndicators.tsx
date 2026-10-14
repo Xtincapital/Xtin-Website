@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp, TrendingDown, Activity, AlertCircle } from "lucide-react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { chartGrid, chartXAxis, chartYAxis, chartTooltip, chartColors, chartActiveDot } from "@/components/charts/chartTheme";
 import { api } from "../lib/api";
 
 interface TechnicalIndicatorsProps {
@@ -205,14 +206,14 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="date" tick={{ fontSize: 11 }} minTickGap={40} tickFormatter={(d) => String(d).slice(0, 7)} />
-                <YAxis tick={{ fontSize: 11 }} domain={["auto", "auto"]} width={60} tickFormatter={(v) => `${cur}${Math.round(v)}`} />
-                <Tooltip formatter={(v: number) => fmt(v)} labelFormatter={(d) => String(d).slice(0, 10)} />
-                <Legend />
-                <Line type="monotone" dataKey="Price" stroke="#16a34a" dot={false} strokeWidth={2} />
-                <Line type="monotone" dataKey="20-day avg" stroke="#2563eb" dot={false} strokeWidth={1.5} />
-                <Line type="monotone" dataKey="50-day avg" stroke="#f59e0b" dot={false} strokeWidth={1.5} />
+                <CartesianGrid {...chartGrid} />
+                <XAxis dataKey="date" {...chartXAxis} minTickGap={40} tickFormatter={(d) => String(d).slice(0, 7)} />
+                <YAxis {...chartYAxis} domain={["auto", "auto"]} width={60} tickFormatter={(v) => `${cur}${Math.round(v)}`} />
+                <Tooltip {...chartTooltip} formatter={(v: number) => fmt(v)} labelFormatter={(d) => String(d).slice(0, 10)} />
+                <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} iconType="plainline" />
+                <Line type="monotone" dataKey="Price" stroke={chartColors.positive} dot={false} strokeWidth={2.25} activeDot={chartActiveDot} />
+                <Line type="monotone" dataKey="20-day avg" stroke={chartColors.series[2]} dot={false} strokeWidth={1.5} />
+                <Line type="monotone" dataKey="50-day avg" stroke={chartColors.series[1]} dot={false} strokeWidth={1.5} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -253,7 +254,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.sma_20) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">20-day average</div>
-              <div className="text-2xl font-bold">{fmt(indicators.sma_20)}</div>
+              <div className="xt-metric">{fmt(indicators.sma_20)}</div>
               {vsAverage(indicators.sma_20)}
             </div>
           )}
@@ -261,14 +262,14 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.sma_50) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">50-day average</div>
-              <div className="text-2xl font-bold">{fmt(indicators.sma_50)}</div>
+              <div className="xt-metric">{fmt(indicators.sma_50)}</div>
               {vsAverage(indicators.sma_50)}
             </div>
           )}
 
           <div className="border rounded-lg p-3">
             <div className="text-sm text-muted-foreground mb-1">200-day average</div>
-            <div className="text-2xl font-bold">{fmt(indicators.sma_200)}</div>
+            <div className="xt-metric">{fmt(indicators.sma_200)}</div>
             {isNum(indicators.sma_200) ? vsAverage(indicators.sma_200) : <div className="text-xs text-muted-foreground">Needs 1 year or more of history</div>}
           </div>
 
@@ -289,7 +290,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.stoch_k) && isNum(indicators.stoch_d) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">Stochastic (%K / %D)</div>
-              <div className="text-2xl font-bold">
+              <div className="xt-metric">
                 {indicators.stoch_k.toFixed(0)} / {indicators.stoch_d.toFixed(0)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">
@@ -301,7 +302,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.atr) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">Average true range (14)</div>
-              <div className="text-2xl font-bold">{fmt(indicators.atr)}</div>
+              <div className="xt-metric">{fmt(indicators.atr)}</div>
               <div className="text-xs text-muted-foreground mt-1">Typical daily move ({((indicators.atr / price) * 100).toFixed(1)}% of price)</div>
             </div>
           )}

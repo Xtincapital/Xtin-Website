@@ -12,12 +12,12 @@ import type { ReportMeta } from "@/lib/reportMeta";
 export const REPORT_WIDTH = 794; // px — A4 at 96dpi
 
 const C = {
-  navy: "#0b1f3a", navy2: "#16335c", gold: "#b8892b", goldSoft: "#f6edd8",
-  ink: "#111827", mute: "#6b7280", line: "#e5e7eb", soft: "#f8fafc",
-  good: "#15803d", warn: "#b45309", bad: "#b91c1c",
+  navy: "#151517", navy2: "#232327", gold: "#9A7634", goldSoft: "#F6ECCE",
+  ink: "#151517", mute: "#75757D", line: "#E4E1D9", soft: "#F7F6F2",
+  good: "#0E6A4A", warn: "#7C5D2B", bad: "#A52A2F",
 };
-const serif = 'Georgia, "Times New Roman", serif';
-const sans = '-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+const serif = '"Instrument Serif", Georgia, "Times New Roman", serif';
+const sans = 'Inter, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 
 export interface ReportData {
   clientName: string;
@@ -40,7 +40,7 @@ export interface ReportData {
   isSample: boolean;
 }
 
-const BAR_COLORS = [C.navy, C.gold, "#2563eb", "#0d9488", "#7c3aed", "#db2777", "#64748b"];
+const BAR_COLORS = [C.navy, C.gold, "#3E5C8A", "#2A8C9A", "#7A5BA6", "#7A5BA6", "#75757D"];
 
 export function ratioRating(kind: "debt" | "emi" | "growth" | "goals", v: number): { label: string; color: string } {
   const pick = (good: boolean, ok: boolean) => (good ? { label: "Healthy", color: C.good } : ok ? { label: "Watch", color: C.warn } : { label: "Needs attention", color: C.bad });
@@ -115,25 +115,25 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           <Monogram size={56} />
           <div>
             <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 700, letterSpacing: 3 }}>XTIN CAPITAL</div>
-            <div style={{ fontSize: 10, letterSpacing: 2, color: "#d9b66a", marginTop: 2 }}>GINI · FAMILY FINANCIAL PLANNING</div>
+            <div style={{ fontSize: 10, letterSpacing: 2, color: "#CDAA5F", marginTop: 2 }}>GINI · FAMILY FINANCIAL PLANNING</div>
           </div>
-          <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 10, lineHeight: 1.6, color: "#c7d2e3" }}>
+          <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 10, lineHeight: 1.6, color: "#CFCBC1" }}>
             <div>Report No.</div>
             <div style={{ fontSize: 13, color: "#ffffff", fontWeight: 700, letterSpacing: 1 }}>{meta.reportNo}</div>
           </div>
         </div>
         <div style={{ fontFamily: serif, fontSize: 34, fontWeight: 700, marginTop: 34, lineHeight: 1.15 }}>Financial Planning Report</div>
-        <div style={{ fontSize: 13, color: "#c7d2e3", marginTop: 6 }}>A consolidated view of net worth, cash flow and goals</div>
+        <div style={{ fontSize: 13, color: "#CFCBC1", marginTop: 6 }}>A consolidated view of net worth, cash flow and goals</div>
         <div style={{ display: "flex", gap: 36, marginTop: 26, fontSize: 11 }}>
-          <div><div style={{ color: "#d9b66a", letterSpacing: 1.2, fontSize: 9 }}>PREPARED FOR</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{d.clientName}</div><div style={{ color: "#c7d2e3", marginTop: 2 }}>{d.clientEmail}</div></div>
-          <div><div style={{ color: "#d9b66a", letterSpacing: 1.2, fontSize: 9 }}>DATE ISSUED</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{dateStr}</div><div style={{ color: "#c7d2e3", marginTop: 2 }}>{timeStr}</div></div>
-          <div><div style={{ color: "#d9b66a", letterSpacing: 1.2, fontSize: 9 }}>PREPARED BY</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>Gini Planning Engine</div><div style={{ color: "#c7d2e3", marginTop: 2 }}>Xtin Capital Research</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED FOR</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{d.clientName}</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>{d.clientEmail}</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>DATE ISSUED</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>{dateStr}</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>{timeStr}</div></div>
+          <div><div style={{ color: "#CDAA5F", letterSpacing: 1.2, fontSize: 9 }}>PREPARED BY</div><div style={{ fontSize: 16, fontFamily: serif, marginTop: 3 }}>Gini Planning Engine</div><div style={{ color: "#CFCBC1", marginTop: 2 }}>Xtin Capital Research</div></div>
         </div>
       </div>
 
       {d.isSample && (
         <Block style={{ marginTop: 14 }}>
-          <div style={{ background: "#fef3c7", border: "1px solid #f59e0b", color: "#92400e", borderRadius: 6, padding: "8px 12px", fontSize: 11 }}>
+          <div style={{ background: "#F6ECCE", border: "1px solid #B8923F", color: "#654B26", borderRadius: 6, padding: "8px 12px", fontSize: 11 }}>
             <strong>Illustrative data.</strong> This copy was generated from sample figures, not your own records.
           </div>
         </Block>
@@ -152,7 +152,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           <Kpi label="Monthly EMIs" value={m(d.monthlyEmi)} tone={C.warn} />
           <Kpi label="Net monthly cash flow" value={m(d.monthlyCashFlow)} tone={d.monthlyCashFlow >= 0 ? C.good : C.bad} />
         </div>
-        <p style={{ fontSize: 12, lineHeight: 1.65, color: "#374151", marginTop: 14 }}>
+        <p style={{ fontSize: 12, lineHeight: 1.65, color: "#404047", marginTop: 14 }}>
           {d.preparedFor.length > 1 ? `This report covers the ${d.clientName} household (${d.preparedFor.join(", ")}). ` : `This report covers ${d.clientName}'s finances. `}
           Net worth stands at <strong>{m(d.netWorth)}</strong>, with {m(d.totalAssets)} in assets against {m(d.totalLiabilities)} in liabilities.
           {d.monthlyIncome > 0 && <> After EMIs, the household keeps <strong>{m(d.monthlyCashFlow)}</strong> a month of recorded income. </>}
@@ -249,7 +249,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
                 <span style={{ marginLeft: "auto", fontWeight: 700, color }}>{g.progressPct.toFixed(0)}% funded</span>
               </div>
               <div style={{ height: 7, background: C.line, borderRadius: 4, margin: "8px 0" }}><div style={{ width: `${Math.min(100, g.progressPct)}%`, height: 7, background: color, borderRadius: 4 }} /></div>
-              <div style={{ display: "flex", fontSize: 11, color: "#374151", gap: 24 }}>
+              <div style={{ display: "flex", fontSize: 11, color: "#404047", gap: 24 }}>
                 <span>Target year: <strong>{g.targetYear ?? "—"}</strong></span>
                 <span>Inflation-adjusted cost: <strong>{m(g.futureValue)}</strong></span>
                 <span>Saved so far: <strong>{m(g.saved)}</strong></span>
@@ -280,7 +280,7 @@ export default function ReportDocument({ d, meta, qr }: { d: ReportData; meta: R
           <Monogram size={46} />
           <div style={{ flex: 1 }}>
             <div style={{ fontFamily: serif, fontSize: 14, fontWeight: 700, color: C.navy }}>Report authenticity</div>
-            <div style={{ fontSize: 11, color: "#374151", lineHeight: 1.6, marginTop: 4 }}>
+            <div style={{ fontSize: 11, color: "#404047", lineHeight: 1.6, marginTop: 4 }}>
               Issued to <strong>{d.clientName}</strong> on {dateStr} at {timeStr} by the Gini Planning Engine, Xtin Capital.
               The fingerprint below is computed from the figures in this report; if any number is changed, the fingerprint no longer matches the original.
             </div>

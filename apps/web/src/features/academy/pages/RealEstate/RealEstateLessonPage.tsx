@@ -78,14 +78,14 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               {lesson.num === 1 && <ModuleBadge moduleId="real-estate" />}
-              <span className="px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson {lesson.num} of {realEstateLessons.length}
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
                 {lesson.duration} read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-indigo-600" />
               </span>
@@ -95,7 +95,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           </div>
 
           <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6 mb-10 border border-indigo-200 shadow-sm">
-            <h2 className="font-bold text-indigo-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-indigo-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
                 <TargetIcon className="w-5 h-5 text-indigo-600" />
               </span>
@@ -114,7 +114,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">
                     {paragraph}
@@ -150,7 +150,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
           </div>
 
           <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 border border-indigo-200 shadow-sm mt-12">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <BrainIcon className="w-6 h-6 text-indigo-600" />
               <span>Quick Check</span>
             </h2>
@@ -209,9 +209,9 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl p-6 mt-10 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 mt-10 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-            <h2 className="font-bold text-xl mb-3 flex items-center gap-2 relative z-10">
+            <h2 className="font-semibold text-xl mb-3 flex items-center gap-2 relative z-10">
               <BookOpenIcon className="w-6 h-6" />
               Key Takeaway
             </h2>
@@ -228,7 +228,7 @@ const RealEstateLessonPage = ({ lessonNumber }) => {
             </button>
             <button
               onClick={() => navigate(nextPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition-all"
             >
               <span>{lesson.num === realEstateLessons.length ? "Finish Module" : `Next: Lesson ${lesson.num + 1}`}</span>
               <FaArrowRight />

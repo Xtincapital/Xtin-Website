@@ -573,7 +573,7 @@ const StockScanner = () => {
           className="mb-8"
         >
           <div className="flex items-center gap-2 mb-2">
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="xt-title mb-2">
               Stock Scanner
             </h1>
             <span className="px-2 py-1 rounded bg-warning/10 text-amber-700 text-xs font-medium flex items-center gap-1">
@@ -596,7 +596,7 @@ const StockScanner = () => {
           className="mb-6"
         >
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-sm font-bold uppercase tracking-wide text-muted-foreground">Market</span>
+            <span className="xt-label">Market</span>
             <div className="inline-flex rounded-xl border border-border overflow-hidden">
               {([
                 { id: "india", label: "🇮🇳 India (NSE)" },
@@ -626,7 +626,7 @@ const StockScanner = () => {
         >
           <div className="flex items-center gap-2 mb-3">
             <Sparkles className="w-4 h-4 text-primary" />
-            <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">
+            <h2 className="xt-label">
               Start with a proven screen
             </h2>
           </div>
@@ -852,17 +852,17 @@ const StockScanner = () => {
             </div>
           )}
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full text-sm tabular-nums">
               <thead>
                 <tr className="border-b border-border bg-secondary/30">
-                  <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">
+                  <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">
                     Company
                   </th>
-                  <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">
+                  <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">
                     Sector
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("price")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -871,7 +871,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("marketCap")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -880,7 +880,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("peRatio")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -889,7 +889,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("revenueGrowth")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -898,7 +898,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("profitMargin")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -907,7 +907,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("matchScore")}
                   >
                     <span className="flex items-center justify-end gap-1">

@@ -63,6 +63,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { chartGrid, chartColors } from "@/components/charts/chartTheme";
 import { ArrowRight, Baby, GraduationCap, HeartHandshake, PiggyBank, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,14 +105,8 @@ function num(value: string, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-// Matches gini.css's `--chart-1`..`--chart-5` tokens, same as Family.tsx.
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+// The site's shared categorical series (components/charts/chartTheme.ts), same as Family.tsx.
+const CHART_COLORS = chartColors.series;
 
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; title: string; subtitle: string }) {
   return (
@@ -132,7 +127,7 @@ function ResultGrid({ items }: { items: { label: string; value: string; hint?: s
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
         <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{item.label}</p>
+          <p className="xt-label">{item.label}</p>
           <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
           {item.hint && <p className="mt-0.5 text-xs text-muted-foreground">{item.hint}</p>}
         </div>
@@ -330,8 +325,8 @@ export default function FamilyPlanning() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">Family milestones</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Family Planning Mode</h1>
+          <span className="xt-eyebrow">Family milestones</span>
+          <h1 className="xt-title mb-2">Family Planning Mode</h1>
           <p className="text-muted-foreground">
             Plan for life's major family costs. Figures update as you type; every monthly saving assumes a {PLAN_RETURN}% yearly return.
           </p>
@@ -478,7 +473,7 @@ export default function FamilyPlanning() {
                 {eduChartData.length > 0 && (
                   <ChartContainer config={eduChartConfig} className="h-72 w-full">
                     <BarChart data={eduChartData}>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
                       <YAxis tickLine={false} axisLine={false} fontSize={12} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <ChartTooltip
@@ -667,7 +662,7 @@ export default function FamilyPlanning() {
                   </p>
                   <ChartContainer config={ROADMAP_CHART_CONFIG} className="h-80 w-full">
                     <LineChart data={roadmap.points}>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="t"
                         type="number"

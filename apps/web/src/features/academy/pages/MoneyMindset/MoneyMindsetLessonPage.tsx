@@ -91,7 +91,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
                 Habit Building
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <LessonIcon className="w-7 h-7 text-rose-600" />
               </span>
@@ -101,7 +101,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
           </div>
 
           <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6 mb-10 border border-rose-200 shadow-sm">
-            <h2 className="font-bold text-rose-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-rose-900 mb-4 flex items-center gap-3">
               <TargetIcon className="w-5 h-5 text-rose-600" />
               <span>After this lesson, you will know:</span>
             </h2>
@@ -118,7 +118,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">{paragraph}</p>
                 ))}
@@ -150,7 +150,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
           </div>
 
           <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-200 shadow-sm mt-12">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <BrainIcon className="w-6 h-6 text-rose-600" />
               <span>Quick Check</span>
             </h2>
@@ -196,7 +196,7 @@ const MoneyMindsetLessonPage = ({ lessonNumber }) => {
           </div>
 
           <div className="bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl p-6 mt-10 text-white">
-            <h2 className="font-bold text-xl mb-3 flex items-center gap-2">
+            <h2 className="font-semibold text-xl mb-3 flex items-center gap-2">
               <BookOpenIcon className="w-6 h-6" />
               Key Takeaway
             </h2>

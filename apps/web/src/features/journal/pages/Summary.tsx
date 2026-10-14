@@ -44,6 +44,7 @@ import {
   Legend,
   Cell,
 } from "recharts";
+import { chartGrid, chartTick, chartTooltip, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import {
   Receipt,
   Wallet,
@@ -326,7 +327,7 @@ const Summary = () => {
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Metrics
             <InfoTip title="Performance metrics" widthClass="w-80">
               <p>One page with the numbers professional traders use to judge their results: how often you win, how big wins and losses are, and how risky your equity curve has been.</p>
@@ -360,10 +361,10 @@ const Summary = () => {
                 </div>
                 {card.onClick ? (
                   <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
-                    <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                    <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
                   </button>
                 ) : (
-                  <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -386,7 +387,7 @@ const Summary = () => {
                     </p>
                     <card.icon className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <p className={`stat-value font-bold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.positive ? "text-success" : "text-destructive"}`}>{card.value}</p>
                   <p className="text-xs text-muted-foreground mt-1">{card.sub}</p>
                 </CardContent>
               </Card>
@@ -417,14 +418,14 @@ const Summary = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Trading type", tradesOfType(String(d.name)))()}>
+                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Trading type", tradesOfType(String(d.name)))()}>
                         {typeDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
                       </Pie>
                       <Tooltip
                         formatter={(value: number, name: string) => [`${value} trades`, name]}
-                        contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }}
+                        {...chartTooltip}
                       />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
                     </PieChart>
@@ -450,14 +451,14 @@ const Summary = () => {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={marketDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Market", tradesOfMarket(String(d.name)))()}>
+                      <Pie data={marketDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="hsl(var(--card))" strokeWidth={2} cursor="pointer" onClick={(d) => show(`${d.name} trades`, "Market", tradesOfMarket(String(d.name)))()}>
                         {marketDistribution.map((entry, index) => (
                           <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                         ))}
                       </Pie>
                       <Tooltip
                         formatter={(value: number, name: string) => [`${value} trades`, name]}
-                        contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }}
+                        {...chartTooltip}
                       />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
                     </PieChart>
@@ -480,11 +481,11 @@ const Summary = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={pnlByType} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="type" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const t = (d as unknown as { payload: { type: string } }).payload.type; show(`${t} trades`, "Trading type", tradesOfType(t))(); }}>
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="type" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
+                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const t = (d as unknown as { payload: { type: string } }).payload.type; show(`${t} trades`, "Trading type", tradesOfType(t))(); }}>
                       {pnlByType.map((entry) => (
                         <Cell key={entry.type} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                       ))}
@@ -508,11 +509,11 @@ const Summary = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={pnlByMarket} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="market" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const m = (d as unknown as { payload: { market: string } }).payload.market; show(`${m} trades`, "Market", tradesOfMarket(m))(); }}>
+                    <CartesianGrid {...chartGrid} />
+                    <XAxis dataKey="market" tick={chartTick} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
+                    <YAxis tick={chartTick} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} {...chartTooltip} />
+                    <Bar dataKey="pnl" radius={chartBarRadius} maxBarSize={chartMaxBarSize} cursor="pointer" onClick={(d) => { const m = (d as unknown as { payload: { market: string } }).payload.market; show(`${m} trades`, "Market", tradesOfMarket(m))(); }}>
                       {pnlByMarket.map((entry) => (
                         <Cell key={entry.market} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
                       ))}

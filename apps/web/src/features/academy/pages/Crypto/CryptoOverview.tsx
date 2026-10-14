@@ -55,7 +55,7 @@ const CryptoOverview = () => {
 
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Advanced Module
               </span>
               <span className="px-3 py-1.5 bg-yellow-100 text-yellow-800 rounded-full text-sm flex items-center gap-1.5">
@@ -71,7 +71,7 @@ const CryptoOverview = () => {
             </div>
 
             <div className="mb-3"><ModuleBadge moduleId="crypto" /></div>
-<h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+<h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-xl shadow-sm">
                 <ShieldIcon className="w-7 h-7 text-yellow-700" />
               </span>
@@ -86,7 +86,7 @@ const CryptoOverview = () => {
           <div className="bg-gradient-to-br from-white to-yellow-50 rounded-3xl p-8 mb-10 border border-yellow-100 shadow-lg">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Understand before exposure.</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Understand before exposure.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   Crypto combines technology, markets, security, tax, and psychology. The goal here is
                   to help you understand the system deeply enough to avoid hype-driven mistakes.
@@ -107,7 +107,7 @@ const CryptoOverview = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-2xl p-6 text-white shadow-xl">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 text-white shadow-xl">
                 <ShieldIcon className="w-12 h-12 text-white/90 mb-4" />
                 <p className="text-sm uppercase tracking-wide text-yellow-100 font-semibold mb-2">Core principle</p>
                 <p className="text-2xl font-bold leading-tight mb-3">
@@ -122,7 +122,7 @@ const CryptoOverview = () => {
           </div>
 
           <div className="bg-gradient-to-r from-red-50 to-amber-50 rounded-2xl p-6 mb-10 border border-red-200">
-            <h2 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-red-900 mb-4 flex items-center gap-2">
               <TargetIcon className="w-6 h-6 text-red-600" />
               <span>After This Module, You Will:</span>
             </h2>
@@ -144,7 +144,7 @@ const CryptoOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-yellow-700" />
               <span>Your Learning Path</span>
             </h2>
@@ -171,7 +171,7 @@ const CryptoOverview = () => {
                             {lesson.duration}
                           </span>
                         </div>
-                        <h3 className="font-bold text-gray-900 text-lg">{lesson.title}</h3>
+                        <h3 className="font-semibold text-gray-900 text-lg">{lesson.title}</h3>
                         <p className="text-sm text-gray-500">{lesson.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center group-hover:bg-yellow-500 transition-colors">
@@ -187,23 +187,23 @@ const CryptoOverview = () => {
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             <div className="bg-yellow-50 rounded-2xl p-5 border border-yellow-200">
               <KeyIcon className="w-7 h-7 text-yellow-700 mb-3" />
-              <h3 className="font-bold text-yellow-900 mb-1">Technology first</h3>
+              <h3 className="font-semibold text-yellow-900 mb-1">Technology first</h3>
               <p className="text-sm text-yellow-800">Learn the system before thinking about assets.</p>
             </div>
             <div className="bg-red-50 rounded-2xl p-5 border border-red-200">
               <WarningIcon className="w-7 h-7 text-red-600 mb-3" />
-              <h3 className="font-bold text-red-900 mb-1">Risk explicit</h3>
+              <h3 className="font-semibold text-red-900 mb-1">Risk explicit</h3>
               <p className="text-sm text-red-700">Volatility, scams, custody, and tax are central.</p>
             </div>
             <div className="bg-indigo-50 rounded-2xl p-5 border border-indigo-200">
               <BankIcon className="w-7 h-7 text-indigo-600 mb-3" />
-              <h3 className="font-bold text-indigo-900 mb-1">India aware</h3>
+              <h3 className="font-semibold text-indigo-900 mb-1">India aware</h3>
               <p className="text-sm text-indigo-700">Tax, TDS, records, and regulation are covered.</p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-amber-600 to-amber-700 rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-bold mb-2">Ready to Learn Crypto Safely?</h3>
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white text-center">
+            <h3 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Ready to Learn Crypto Safely?</h3>
             <p className="text-yellow-100 mb-6">Start with what crypto really is before touching wallets or exchanges.</p>
             <button
               onClick={() => navigate("/learn/crypto-lesson-1")}

@@ -53,7 +53,7 @@ export default function Technicals() {
       <div className="p-6 md:p-8 max-w-6xl mx-auto space-y-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-3xl font-bold text-foreground">Technical Indicators</h1>
+            <h1 className="xt-title mb-2">Technical Indicators</h1>
             <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">PRO</span>
           </div>
           <p className="text-muted-foreground max-w-2xl">

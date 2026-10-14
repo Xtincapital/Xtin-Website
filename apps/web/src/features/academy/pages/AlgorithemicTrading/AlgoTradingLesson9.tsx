@@ -112,11 +112,11 @@ const AlgoTradingLesson9 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-full text-sm font-bold">Lesson 9 of 9 • Final</span>
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 9 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
                 <Icons.Api className="w-8 h-8 text-white"/>
               </span>
               Broker APIs & Integration
@@ -128,7 +128,7 @@ const AlgoTradingLesson9 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-            <h2 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -147,7 +147,7 @@ const AlgoTradingLesson9 = () => {
             
             {/* Warning Banner */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-red-900  mb-3 text-lg flex items-center gap-2">
                 <Icons.Warning className="w-5 h-5"/> Important Disclaimer
               </h3>
               <p className="text-red-800 ">
@@ -157,7 +157,7 @@ const AlgoTradingLesson9 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">How Broker APIs Work</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">How Broker APIs Work</h2>
             <p className="text-gray-700  mb-6">
               Broker APIs let your code communicate with the exchange through the broker's servers. Here's the flow:
             </p>
@@ -165,66 +165,66 @@ const AlgoTradingLesson9 = () => {
             {/* API Flow SVG */}
             <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-emerald-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">BROKER API FLOW</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">BROKER API FLOW</text>
 
                 {/* Your Algorithm */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#3b82f6" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#5A77AA" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">YOUR</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ALGORITHM</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#bfdbfe" fontSize="8">Python/Node.js</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#C3D0E4" fontSize="8">Python/Node.js</text>
                 </g>
 
                 {/* Arrow 1 */}
                 <g transform="translate(170, 90)">
-                  <path d="M0 10 L60 10" stroke="#6ee7b7" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#6ee7b7"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#6ee7b7" fontSize="8">REST/WebSocket</text>
+                  <path d="M0 10 L60 10" stroke="#77D3AE" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#77D3AE"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#77D3AE" fontSize="8">REST/WebSocket</text>
                 </g>
 
                 {/* Broker API */}
                 <g transform="translate(240, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#8b5cf6" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#8F6FC4" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">BROKER</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">API SERVER</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#c4b5fd" fontSize="8">Zerodha/Upstox</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#C0A9E2" fontSize="8">Zerodha/Upstox</text>
                 </g>
 
                 {/* Arrow 2 */}
                 <g transform="translate(380, 90)">
-                  <path d="M0 10 L60 10" stroke="#6ee7b7" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#6ee7b7"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#6ee7b7" fontSize="8">FIX Protocol</text>
+                  <path d="M0 10 L60 10" stroke="#77D3AE" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#77D3AE"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#77D3AE" fontSize="8">FIX Protocol</text>
                 </g>
 
                 {/* Exchange */}
                 <g transform="translate(450, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#22c55e" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#1FA978" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">EXCHANGE</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">(NSE/BSE)</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#bbf7d0" fontSize="8">Order matching</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#ABE5CC" fontSize="8">Order matching</text>
                 </g>
 
                 {/* Return flow */}
-                <path d="M515 150 L515 180 L95 180 L95 150" stroke="#fcd34d" strokeWidth="2" strokeDasharray="5,5" fill="none"/>
-                <text x="305" y="200" textAnchor="middle" fill="#fcd34d" fontSize="9">Order confirmations, market data, fills</text>
+                <path d="M515 150 L515 180 L95 180 L95 150" stroke="#E2C273" strokeWidth="2" strokeDasharray="5,5" fill="none"/>
+                <text x="305" y="200" textAnchor="middle" fill="#E2C273" fontSize="9">Order confirmations, market data, fills</text>
 
                 {/* Two API Types */}
                 <g transform="translate(50, 220)">
-                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#1e293b"/>
-                  <text x="140" y="18" textAnchor="middle" fill="#93c5fd" fontSize="10" fontWeight="600">REST API</text>
-                  <text x="140" y="35" textAnchor="middle" fill="#64748b" fontSize="8">Request-response • Orders, account info</text>
+                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#232327"/>
+                  <text x="140" y="18" textAnchor="middle" fill="#9FB3D3" fontSize="10" fontWeight="600">REST API</text>
+                  <text x="140" y="35" textAnchor="middle" fill="#75757D" fontSize="8">Request-response • Orders, account info</text>
                 </g>
                 <g transform="translate(370, 220)">
-                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#1e293b"/>
-                  <text x="140" y="18" textAnchor="middle" fill="#86efac" fontSize="10" fontWeight="600">WebSocket</text>
-                  <text x="140" y="35" textAnchor="middle" fill="#64748b" fontSize="8">Real-time stream • Price ticks, order updates</text>
+                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#232327"/>
+                  <text x="140" y="18" textAnchor="middle" fill="#77D3AE" fontSize="10" fontWeight="600">WebSocket</text>
+                  <text x="140" y="35" textAnchor="middle" fill="#75757D" fontSize="8">Real-time stream • Price ticks, order updates</text>
                 </g>
               </svg>
             </div>
 
             {/* Indian Broker APIs */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Link className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -273,7 +273,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Authentication */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-amber-100  rounded-xl flex items-center justify-center">
                 <Icons.Lock className="w-5 h-5 text-amber-600 "/>
               </span>
@@ -286,7 +286,7 @@ const AlgoTradingLesson9 = () => {
 
             {/* Auth Flow */}
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-800  mb-4">Typical Login Flow</h3>
+              <h3 className="font-semibold text-amber-800  mb-4">Typical Login Flow</h3>
               <div className="space-y-3">
                 {[
                   { step: "1", title: "Redirect to Broker Login", desc: "User logs in via broker's website" },
@@ -310,7 +310,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* API Capabilities */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Code className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -347,7 +347,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Code Example */}
-            <h2 className="text-2xl font-bold mb-4">Conceptual Code Structure</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Conceptual Code Structure</h2>
             <p className="text-gray-700  mb-4">
               Here's what a typical trading script structure looks like (pseudocode):
             </p>
@@ -394,7 +394,7 @@ kite_ticker.connect()`}
 
             {/* Rate Limits */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-red-800  mb-4 flex items-center gap-3">
                 <Icons.Warning className="w-5 h-5"/> Rate Limits & Best Practices
               </h3>
               <div className="space-y-3">
@@ -418,7 +418,7 @@ kite_ticker.connect()`}
 
             {/* Getting Started */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50   rounded-2xl p-6 mb-10 border border-blue-200 ">
-              <h3 className="font-bold text-blue-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-blue-800  mb-4 flex items-center gap-3">
                 <Icons.Zap className="w-5 h-5"/> Getting Started Checklist
               </h3>
               <ol className="space-y-2">
@@ -442,7 +442,7 @@ kite_ticker.connect()`}
 
             {/* Key Takeaways */}
             <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
@@ -462,7 +462,7 @@ kite_ticker.connect()`}
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What is the main difference between REST API and WebSocket?"
               options={["REST is free, WebSocket is paid", "REST is request-response, WebSocket is real-time streaming", "REST is for orders, WebSocket is for data only", "There is no difference"]}
@@ -485,7 +485,7 @@ kite_ticker.connect()`}
             {/* Completion Banner */}
             <div className="bg-gradient-to-r from-amber-100 to-yellow-100   rounded-2xl p-8 mb-10 border-2 border-amber-400  text-center">
               <FaTrophy className="w-16 h-16 text-amber-500 mx-auto mb-4"/>
-              <h2 className="text-2xl font-bold text-amber-900  mb-2">🎉 Congratulations!</h2>
+              <h2 className="text-2xl font-semibold text-amber-900  mb-2 tracking-[-0.015em]">🎉 Congratulations!</h2>
               <p className="text-amber-800  mb-4">
                 You've completed the entire <strong>Algorithmic Trading Module</strong>! 
                 You now understand the full journey from strategy concept to live deployment.
@@ -516,7 +516,7 @@ kite_ticker.connect()`}
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Data Management
             </button>
             <button onClick={() => navigate('/learn/algorithmic-trading')}
-              className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
               <FaTrophy className="mr-1"/> Back to Module Overview
             </button>
           </div>

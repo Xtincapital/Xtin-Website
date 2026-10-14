@@ -127,7 +127,7 @@ class BundleSubscriptionService {
         contact: prefill?.contact || '',
       },
       theme: {
-        color: '#059669',
+        color: '#12805A',
       },
       handler,
       modal: {

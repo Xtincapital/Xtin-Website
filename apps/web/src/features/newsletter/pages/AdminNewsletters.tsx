@@ -134,7 +134,7 @@ const AdminNewsletters = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-900 px-4">
         <div className="max-w-md rounded-2xl border border-red-200 bg-white p-8 text-center shadow-lg dark:border-red-900/50 dark:bg-slate-800">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Access Denied</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Access Denied</h2>
           <p className="mt-2 text-gray-500 dark:text-slate-400">You are not authorized to send newsletters.</p>
           <p className="mt-4 text-xs text-gray-400 dark:text-slate-500">Logged in as: {user.email}</p>
         </div>
@@ -150,7 +150,7 @@ const AdminNewsletters = () => {
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">Newsletters</h1>
+              <h1 className="text-3xl font-display font-normal text-gray-900 dark:text-slate-100 tracking-[-0.015em]">Newsletters</h1>
               <p className="mt-2 text-gray-600 dark:text-slate-400">
                 Send each edition yourself. Each run writes India, US and Global versions and emails the subscribers who get them.
               </p>

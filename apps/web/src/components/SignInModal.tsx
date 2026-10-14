@@ -100,7 +100,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">{headline || 'Sign In Required'}</h2>
+            <h2 className="text-2xl font-semibold text-gray-900">{headline || 'Sign In Required'}</h2>
             <p className="text-gray-600 mt-2">
               {description || (targetToolPath?.startsWith('/learn') 
                 ? 'Please sign in to access this learning module'

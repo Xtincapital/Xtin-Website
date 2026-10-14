@@ -107,7 +107,7 @@ const PersonalFinanceLesson5 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson 5 of 9
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm flex items-center gap-1">
@@ -118,7 +118,7 @@ const PersonalFinanceLesson5 = () => {
                 8 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-200 rounded-xl shadow-sm">
                 <BankIcon className="w-7 h-7 text-emerald-600" />
               </span>
@@ -131,7 +131,7 @@ const PersonalFinanceLesson5 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
                 <TargetIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson5 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">What is a Bank?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Bank?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">bank</strong> is a safe place to keep your money. Instead of storing cash at home (risky!), you deposit it in a bank where it's protected.
@@ -186,7 +186,7 @@ const PersonalFinanceLesson5 = () => {
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">What is a Savings Account?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Savings Account?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">savings account</strong> is the most common type of bank account. You deposit money, the bank keeps it safe, and pays you a small reward called <strong className="text-emerald-600">interest</strong>.
@@ -204,54 +204,54 @@ const PersonalFinanceLesson5 = () => {
 
             {/* SVG Diagram - How Banking Works */}
             <div className="bg-white rounded-3xl p-8 mb-10 border border-gray-100 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">How Banking Works</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">How Banking Works</h3>
               <svg className="w-full max-w-lg mx-auto" viewBox="0 0 500 200" fill="none">
                 {/* Person icon */}
                 <g transform="translate(50, 60)">
-                  <circle cx="30" cy="25" r="20" fill="#818cf8" stroke="#6366f1" strokeWidth="2"/>
-                  <path d="M30 50 L30 80 M15 60 L45 60 M30 80 L15 110 M30 80 L45 110" stroke="#6366f1" strokeWidth="3" strokeLinecap="round"/>
-                  <text x="30" y="130" textAnchor="middle" fill="#4338ca" fontSize="12" fontWeight="bold">YOU</text>
+                  <circle cx="30" cy="25" r="20" fill="#A88BD9" stroke="#8F6FC4" strokeWidth="2"/>
+                  <path d="M30 50 L30 80 M15 60 L45 60 M30 80 L15 110 M30 80 L45 110" stroke="#8F6FC4" strokeWidth="3" strokeLinecap="round"/>
+                  <text x="30" y="130" textAnchor="middle" fill="#654B8A" fontSize="12" fontWeight="bold">YOU</text>
                 </g>
                 
                 {/* Arrow 1: Deposit */}
                 <g transform="translate(110, 85)">
-                  <path d="M0 20 L60 20" stroke="#10b981" strokeWidth="3" markerEnd="url(#arrowGreen)"/>
-                  <text x="30" y="10" textAnchor="middle" fill="#059669" fontSize="11" fontWeight="600">Deposit</text>
-                  <text x="30" y="45" textAnchor="middle" fill="#059669" fontSize="10">$1,000</text>
+                  <path d="M0 20 L60 20" stroke="#1FA978" strokeWidth="3" markerEnd="url(#arrowGreen)"/>
+                  <text x="30" y="10" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="600">Deposit</text>
+                  <text x="30" y="45" textAnchor="middle" fill="#12805A" fontSize="10">$1,000</text>
                 </g>
                 
                 {/* Bank building */}
                 <g transform="translate(190, 40)">
-                  <rect x="0" y="40" width="120" height="80" rx="8" fill="#e0e7ff" stroke="#6366f1" strokeWidth="2"/>
-                  <polygon points="60,10 0,45 120,45" fill="#c7d2fe" stroke="#6366f1" strokeWidth="2"/>
-                  <rect x="20" y="60" width="25" height="35" rx="4" fill="#6366f1"/>
-                  <rect x="75" y="60" width="25" height="35" rx="4" fill="#6366f1"/>
-                  <rect x="48" y="80" width="25" height="40" rx="4" fill="#4f46e5"/>
-                  <circle cx="60" cy="25" r="8" fill="#fbbf24"/>
-                  <text x="60" y="29" textAnchor="middle" fill="#92400e" fontSize="10" fontWeight="bold">$</text>
-                  <text x="60" y="145" textAnchor="middle" fill="#4338ca" fontSize="12" fontWeight="bold">BANK</text>
+                  <rect x="0" y="40" width="120" height="80" rx="8" fill="#ECE4F6" stroke="#8F6FC4" strokeWidth="2"/>
+                  <polygon points="60,10 0,45 120,45" fill="#D9CBEE" stroke="#8F6FC4" strokeWidth="2"/>
+                  <rect x="20" y="60" width="25" height="35" rx="4" fill="#8F6FC4"/>
+                  <rect x="75" y="60" width="25" height="35" rx="4" fill="#8F6FC4"/>
+                  <rect x="48" y="80" width="25" height="40" rx="4" fill="#7A5BA6"/>
+                  <circle cx="60" cy="25" r="8" fill="#CDAA5F"/>
+                  <text x="60" y="29" textAnchor="middle" fill="#654B26" fontSize="10" fontWeight="bold">$</text>
+                  <text x="60" y="145" textAnchor="middle" fill="#654B8A" fontSize="12" fontWeight="bold">BANK</text>
                 </g>
                 
                 {/* Arrow 2: Interest + Balance */}
                 <g transform="translate(330, 85)">
-                  <path d="M0 20 L60 20" stroke="#8b5cf6" strokeWidth="3"/>
-                  <polygon points="60,20 50,14 50,26" fill="#8b5cf6"/>
-                  <text x="30" y="10" textAnchor="middle" fill="#7c3aed" fontSize="11" fontWeight="600">+ Interest</text>
-                  <text x="30" y="45" textAnchor="middle" fill="#7c3aed" fontSize="10">$1,020</text>
+                  <path d="M0 20 L60 20" stroke="#8F6FC4" strokeWidth="3"/>
+                  <polygon points="60,20 50,14 50,26" fill="#8F6FC4"/>
+                  <text x="30" y="10" textAnchor="middle" fill="#7A5BA6" fontSize="11" fontWeight="600">+ Interest</text>
+                  <text x="30" y="45" textAnchor="middle" fill="#7A5BA6" fontSize="10">$1,020</text>
                 </g>
                 
                 {/* Growing money */}
                 <g transform="translate(400, 55)">
-                  <rect x="0" y="20" width="70" height="70" rx="12" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                  <text x="35" y="55" textAnchor="middle" fill="#16a34a" fontSize="22" fontWeight="bold">$$$</text>
-                  <text x="35" y="72" textAnchor="middle" fill="#15803d" fontSize="11" fontWeight="bold">GROWS!</text>
-                  <text x="35" y="115" textAnchor="middle" fill="#166534" fontSize="12" fontWeight="bold">YOUR $$$</text>
+                  <rect x="0" y="20" width="70" height="70" rx="12" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                  <text x="35" y="55" textAnchor="middle" fill="#12805A" fontSize="22" fontWeight="bold">$$$</text>
+                  <text x="35" y="72" textAnchor="middle" fill="#0E6A4A" fontSize="11" fontWeight="bold">GROWS!</text>
+                  <text x="35" y="115" textAnchor="middle" fill="#0D543C" fontSize="12" fontWeight="bold">YOUR $$$</text>
                 </g>
                 
                 {/* Arrow definitions */}
                 <defs>
                   <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#10b981"/>
+                    <polygon points="0 0, 10 3, 0 6" fill="#1FA978"/>
                   </marker>
                 </defs>
               </svg>
@@ -264,7 +264,7 @@ const PersonalFinanceLesson5 = () => {
             {/* Real Life Example */}
             <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 relative overflow-hidden">
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-emerald-200/30 rounded-full"></div>
-              <h3 className="font-bold text-emerald-900 mb-4 flex items-center gap-2 relative z-10">
+              <h3 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2 relative z-10">
                 <span className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                   <CoinsIcon className="w-5 h-5 text-emerald-600" />
                 </span>
@@ -325,7 +325,7 @@ const PersonalFinanceLesson5 = () => {
 
             {/* India-specific Note */}
             <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 mb-10 border border-orange-200">
-              <h3 className="font-bold text-orange-900 mb-4 flex items-center gap-2">
+              <h3 className="font-semibold text-orange-900 mb-4 flex items-center gap-2">
                 <svg className="w-6 h-6 text-orange-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
                   <path d="M8 8L16 8M8 12H14M8 16H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -371,8 +371,8 @@ const PersonalFinanceLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>
               Quick Quiz
@@ -409,7 +409,7 @@ const PersonalFinanceLesson5 = () => {
 
           {/* Mini Activity */}
           <div className="mt-12 bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-200">
-            <h2 className="text-xl font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                 <ClipboardIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -445,10 +445,10 @@ const PersonalFinanceLesson5 = () => {
           </div>
 
           {/* Key Takeaway */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 rounded-2xl p-6 text-white relative overflow-hidden">
+          <div className="mt-12 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            <h3 className="font-bold text-lg mb-2 relative z-10 flex items-center gap-2">
+            <h3 className="font-semibold text-lg mb-2 relative z-10 flex items-center gap-2">
               <BoltIcon className="w-5 h-5" />
               <span>Key Takeaway</span>
             </h3>
@@ -468,7 +468,7 @@ const PersonalFinanceLesson5 = () => {
             </button>
             <button 
               onClick={() => navigate('/learn/personal-finance-lesson-6')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
             >
               <span>Next: Credit Basics</span>
               <FaArrowRight />

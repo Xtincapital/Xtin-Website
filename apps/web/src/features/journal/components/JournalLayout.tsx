@@ -21,6 +21,7 @@
 // (Dashboard), like every other page.
 import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Settings as SettingsIcon } from "lucide-react";
@@ -94,8 +95,19 @@ const JournalLayout = ({ children, proFeature }: JournalLayoutProps) => {
                 end={tab.end}
                 className={({ isActive }) => (isActive ? "tab-button active" : "tab-button")}
               >
-                {tab.name}
-                {tab.pro && planFetched && <ProIcon unlocked={isPro} className="tab-lock" />}
+                {({ isActive }) => (
+                  <>
+                    {tab.name}
+                    {tab.pro && planFetched && <ProIcon unlocked={isPro} className="tab-lock" />}
+                    {isActive && (
+                      <motion.span
+                        layoutId="journal-tab-indicator"
+                        className="tab-indicator"
+                        transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>

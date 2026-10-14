@@ -104,7 +104,7 @@ const FundakamentalIntro = () => {
               </div>
 
               {/* Title */}
-              <h1 className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
+              <h1 className="mb-6 font-display text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.02] tracking-[-0.02em] text-slate-900 dark:text-white">
                 Research Companies with{' '}
                 <span className="text-green-600 dark:text-emerald-400">Clear Data &amp; AI</span>
               </h1>
@@ -169,7 +169,7 @@ const FundakamentalIntro = () => {
         {/* How it works */}
         <section className="px-6 py-16 md:px-12 lg:px-24 border-t border-slate-200/60 dark:border-slate-800">
           <div className="mx-auto max-w-7xl">
-            <h2 className="mb-10 text-center text-3xl font-extrabold text-slate-900 dark:text-white">How it works</h2>
+            <h2 className="mb-10 text-center font-display text-4xl font-normal tracking-[-0.01em] text-slate-900 dark:text-white">How it works</h2>
             <div className="grid gap-6 md:grid-cols-3">
               {steps.map(({ title, description, Icon }, i) => (
                 <div key={title} className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700/60 dark:bg-slate-900">
@@ -187,7 +187,7 @@ const FundakamentalIntro = () => {
 
         {/* Feature Grid Section */}
         <section className="px-6 py-16 md:px-12 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
-          <h2 className="mb-10 text-center text-3xl font-extrabold text-slate-900 dark:text-white">Everything you need to research a stock</h2>
+          <h2 className="mb-10 text-center font-display text-4xl font-normal tracking-[-0.01em] text-slate-900 dark:text-white">Everything you need to research a stock</h2>
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map(({ title, description, Icon }) => (
               <article key={title} className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/60 hover:border-green-300 dark:hover:border-emerald-500 transition-all duration-300">
@@ -204,7 +204,7 @@ const FundakamentalIntro = () => {
         {/* Free vs Pro */}
         <section className="px-6 py-16 md:px-12 lg:px-24 border-t border-slate-200/60 dark:border-slate-800">
           <div className="mx-auto max-w-4xl">
-            <h2 className="mb-2 text-center text-3xl font-extrabold text-slate-900 dark:text-white">Start free. Upgrade when it pays off.</h2>
+            <h2 className="mb-2 text-center font-display text-4xl font-normal tracking-[-0.01em] text-slate-900 dark:text-white">Start free. Upgrade when it pays off.</h2>
             <p className="mb-10 text-center text-slate-600 dark:text-slate-400">No card needed to begin.</p>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-700/60 dark:bg-slate-900">

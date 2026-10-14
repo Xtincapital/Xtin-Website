@@ -95,7 +95,7 @@ export default function ConditionGroupEditor({ group, onChange, emptyText }: { g
       <div className="space-y-2">
         {group.conditions.map((c, i) => (
           <div key={i}>
-            {i > 0 && <div className="my-1 pl-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">{group.match === "any" ? "or" : "and"}</div>}
+            {i > 0 && <div className="my-1 pl-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">{group.match === "any" ? "or" : "and"}</div>}
             <div className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/70 p-2.5 dark:border-white/10 dark:bg-white/[0.02]">
               <OperandEditor operand={c.left} onChange={(left) => onChange({ ...group, conditions: group.conditions.map((x, j) => (j === i ? { ...c, left } : x)) })} />
               <select

@@ -250,7 +250,7 @@ const MistakeCard = ({ number, title, icon: Icon, description, wrongWay, rightWa
         </div>
         <div>
           <span className={`text-xs font-semibold text-${color}-600 uppercase tracking-wide`}>Mistake #{number}</span>
-          <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
         </div>
       </div>
       
@@ -399,7 +399,7 @@ const StockMarketLesson7 = () => {
                 Module Complete!
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Warning className="w-7 h-7 text-rose-600" />
               </span>
@@ -417,7 +417,7 @@ const StockMarketLesson7 = () => {
                 <Icons.Question className="w-6 h-6 text-rose-600" />
               </div>
               <div>
-                <h3 className="font-bold text-rose-900 mb-2">Why Learn About Mistakes?</h3>
+                <h3 className="font-semibold text-rose-900 mb-2">Why Learn About Mistakes?</h3>
                 <p className="text-rose-800">
                   Smart investors learn from their own mistakes. Wise investors learn from others' mistakes 
                   and avoid them altogether! These 8 mistakes have cost Indian investors crores of rupees. 
@@ -429,37 +429,37 @@ const StockMarketLesson7 = () => {
 
           {/* Visual: The Cost of Mistakes */}
           <div className="bg-gradient-to-br from-gray-50 to-rose-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">The Real Cost of These Mistakes</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">The Real Cost of These Mistakes</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 200" fill="none">
               {/* Background */}
-              <rect x="20" y="20" width="660" height="160" rx="12" fill="#fef2f2" stroke="#fca5a5" strokeWidth="2"/>
+              <rect x="20" y="20" width="660" height="160" rx="12" fill="#FDF1F1" stroke="#F09B9B" strokeWidth="2"/>
               
               {/* Title */}
-              <text x="350" y="50" textAnchor="middle" fill="#991b1b" fontSize="14" fontWeight="700">
+              <text x="350" y="50" textAnchor="middle" fill="#842428" fontSize="14" fontWeight="700">
                 What Indian Investors Lost Due to Common Mistakes
               </text>
               
               {/* Stats */}
               <g transform="translate(60, 75)">
-                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#fecaca" strokeWidth="2"/>
-                <text x="75" y="30" textAnchor="middle" fill="#dc2626" fontSize="20" fontWeight="bold">89%</text>
-                <text x="75" y="50" textAnchor="middle" fill="#7f1d1d" fontSize="10">F&O traders</text>
-                <text x="75" y="65" textAnchor="middle" fill="#7f1d1d" fontSize="10">lost money in FY23</text>
+                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#F6C3C3" strokeWidth="2"/>
+                <text x="75" y="30" textAnchor="middle" fill="#C7363B" fontSize="20" fontWeight="bold">89%</text>
+                <text x="75" y="50" textAnchor="middle" fill="#6B2023" fontSize="10">F&O traders</text>
+                <text x="75" y="65" textAnchor="middle" fill="#6B2023" fontSize="10">lost money in FY23</text>
               </g>
               
               <g transform="translate(275, 75)">
-                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#fecaca" strokeWidth="2"/>
-                <text x="75" y="30" textAnchor="middle" fill="#dc2626" fontSize="18" fontWeight="bold">Rs.1.1L</text>
-                <text x="75" y="50" textAnchor="middle" fill="#7f1d1d" fontSize="10">Average loss per</text>
-                <text x="75" y="65" textAnchor="middle" fill="#7f1d1d" fontSize="10">F&O trader</text>
+                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#F6C3C3" strokeWidth="2"/>
+                <text x="75" y="30" textAnchor="middle" fill="#C7363B" fontSize="18" fontWeight="bold">Rs.1.1L</text>
+                <text x="75" y="50" textAnchor="middle" fill="#6B2023" fontSize="10">Average loss per</text>
+                <text x="75" y="65" textAnchor="middle" fill="#6B2023" fontSize="10">F&O trader</text>
               </g>
               
               <g transform="translate(490, 75)">
-                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#fecaca" strokeWidth="2"/>
-                <text x="75" y="30" textAnchor="middle" fill="#dc2626" fontSize="18" fontWeight="bold">Rs.52,000Cr</text>
-                <text x="75" y="50" textAnchor="middle" fill="#7f1d1d" fontSize="10">Total losses by retail</text>
-                <text x="75" y="65" textAnchor="middle" fill="#7f1d1d" fontSize="10">traders in FY22-23</text>
+                <rect x="0" y="0" width="150" height="80" rx="8" fill="white" stroke="#F6C3C3" strokeWidth="2"/>
+                <text x="75" y="30" textAnchor="middle" fill="#C7363B" fontSize="18" fontWeight="bold">Rs.52,000Cr</text>
+                <text x="75" y="50" textAnchor="middle" fill="#6B2023" fontSize="10">Total losses by retail</text>
+                <text x="75" y="65" textAnchor="middle" fill="#6B2023" fontSize="10">traders in FY22-23</text>
               </g>
             </svg>
             
@@ -470,7 +470,7 @@ const StockMarketLesson7 = () => {
 
           {/* All 8 Mistakes */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <Icons.Warning className="w-6 h-6 text-rose-600" />
               </span>
@@ -484,7 +484,7 @@ const StockMarketLesson7 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Biggest Retail Investor Disasters</span>
             </h2>
@@ -526,7 +526,7 @@ const StockMarketLesson7 = () => {
 
           {/* How to Protect Yourself */}
           <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-10 border border-green-200">
-            <h2 className="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-green-900 mb-4 flex items-center gap-2">
               <Icons.Shield className="w-6 h-6 text-green-600" />
               <span>How to Protect Yourself</span>
             </h2>
@@ -586,7 +586,7 @@ const StockMarketLesson7 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-rose-50 to-red-50 rounded-2xl p-6 mb-10 border border-rose-200">
-            <h2 className="text-xl font-bold text-rose-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-rose-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-rose-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -628,7 +628,7 @@ const StockMarketLesson7 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-rose-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -675,12 +675,12 @@ const StockMarketLesson7 = () => {
           </div>
 
           {/* Module Completion */}
-          <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-8 mb-10 text-white">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 mb-10 text-white">
             <div className="text-center">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Icons.Celebration className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Module {getModuleInfo("stock-market")?.number} Complete!</h2>
+              <h2 className="text-2xl font-semibold mb-2 tracking-[-0.015em]">Module {getModuleInfo("stock-market")?.number} Complete!</h2>
               <p className="text-white/90 mb-4">
                 Congratulations! You've completed Stock Market Basics. You now understand how the stock market works, 
                 what shares are, how trading happens, market indices, price movements, investing vs trading, and common mistakes to avoid.

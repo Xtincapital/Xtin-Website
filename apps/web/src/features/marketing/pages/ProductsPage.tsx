@@ -23,56 +23,48 @@ const ProductsPage = () => {
       description: 'Automated trading strategies with backtested performance.',
       path: '/algos',
       Icon: BarChart3,
-      accent: 'text-emerald-600 bg-emerald-50 border-emerald-100',
     },
     {
       title: 'Backtest',
       description: 'Backtest any strategy by chatting with AI — no code, real data.',
       path: '/backtest',
       Icon: FlaskConical,
-      accent: 'text-teal-600 bg-teal-50 border-teal-100',
     },
     {
       title: 'Tools',
       description: '20+ financial calculators for investments, tax, and planning.',
       path: '/tools',
       Icon: Calculator,
-      accent: 'text-pink-600 bg-pink-50 border-pink-100',
     },
     {
       title: 'Learn',
       description: 'Structured learning paths from basics to advanced topics.',
       path: '/learn',
       Icon: BookOpen,
-      accent: 'text-cyan-600 bg-cyan-50 border-cyan-100',
     },
     {
       title: 'Fundakamental',
       description: 'Company research, AI reports, watchlists, and stock analysis.',
       path: '/fundakamental',
       Icon: FileSearch,
-      accent: 'text-lime-700 bg-lime-50 border-lime-100',
     },
     {
       title: 'Gini AI',
       description: 'AI-assisted finance guidance and investing support.',
       path: '/gini',
       Icon: Bot,
-      accent: 'text-violet-600 bg-violet-50 border-violet-100',
     },
     {
       title: 'Journal',
       description: 'Trading journal and market notes for disciplined decisions.',
       path: '/journal',
       Icon: NotebookPen,
-      accent: 'text-orange-600 bg-orange-50 border-orange-100',
     },
     {
       title: 'Newsletter',
       description: 'AI-curated market insights with plain-language analysis.',
       path: '/newsletter',
       Icon: Newspaper,
-      accent: 'text-purple-600 bg-purple-50 border-purple-100',
     },
   ];
 
@@ -82,8 +74,8 @@ const ProductsPage = () => {
       <main id="main-content" className="pt-28 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-5xl mx-auto">
           <div className="mb-10 max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-600 mb-3">Xtin Capital Suite</p>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Products</h1>
+            <p className="xt-eyebrow mb-3">Xtin Capital Suite</p>
+            <h1 className="xt-title mb-4">Products</h1>
             <p className="text-gray-600">Explore each product and open its dedicated workspace.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -97,7 +89,7 @@ const ProductsPage = () => {
                   </div>
 
                   <div className="flex flex-1 items-center justify-center">
-                    <span className={`inline-flex h-24 w-24 items-center justify-center rounded-2xl border ${item.accent}`}>
+                    <span className="inline-flex h-24 w-24 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15 text-primary dark:text-success transition-transform duration-300 group-hover:scale-105">
                       <item.Icon className="h-12 w-12" strokeWidth={1.7} />
                     </span>
                   </div>
@@ -109,7 +101,7 @@ const ProductsPage = () => {
                 </div>
               );
 
-              const cardClasses = "group aspect-square rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500";
+              const cardClasses = "group aspect-square rounded-2xl border border-border bg-card p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500";
 
               return (
                 <Link

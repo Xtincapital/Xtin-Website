@@ -107,7 +107,7 @@ const PersonalFinanceLesson3 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
                 Lesson 3 of 9
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm flex items-center gap-1">
@@ -118,7 +118,7 @@ const PersonalFinanceLesson3 = () => {
                 10 min read
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-green-200 rounded-xl shadow-sm">
                 <ChartBarIcon className="w-7 h-7 text-emerald-600" />
               </span>
@@ -131,7 +131,7 @@ const PersonalFinanceLesson3 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
                 <TargetIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -156,7 +156,7 @@ const PersonalFinanceLesson3 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">What is a Budget?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">What is a Budget?</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               A <strong className="text-gray-900">budget</strong> is simply a plan for your money. Before you spend, you decide where each dollar should go. No surprises at the end of the month!
@@ -190,16 +190,16 @@ const PersonalFinanceLesson3 = () => {
 
             {/* SVG Diagram - Donut Chart */}
             <div className="bg-white rounded-3xl p-8 mb-10 border border-gray-100 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">The 50-30-20 Split</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">The 50-30-20 Split</h3>
               <svg className="w-full max-w-md mx-auto" viewBox="0 0 400 300" fill="none">
                 {/* Background circle */}
-                <circle cx="150" cy="150" r="100" fill="#f3f4f6"/>
+                <circle cx="150" cy="150" r="100" fill="#EFEDE7"/>
                 
                 {/* 50% Needs - Green (starts at top, goes clockwise) */}
                 <path 
                   d="M150 50 A100 100 0 0 1 150 250" 
                   fill="none" 
-                  stroke="#10b981" 
+                  stroke="#1FA978" 
                   strokeWidth="40"
                   strokeLinecap="round"
                 />
@@ -208,7 +208,7 @@ const PersonalFinanceLesson3 = () => {
                 <path 
                   d="M150 250 A100 100 0 0 1 63.4 100" 
                   fill="none" 
-                  stroke="#8b5cf6" 
+                  stroke="#8F6FC4" 
                   strokeWidth="40"
                 />
                 
@@ -216,7 +216,7 @@ const PersonalFinanceLesson3 = () => {
                 <path 
                   d="M63.4 100 A100 100 0 0 1 150 50" 
                   fill="none" 
-                  stroke="#3b82f6" 
+                  stroke="#5A77AA" 
                   strokeWidth="40"
                 />
                 
@@ -224,21 +224,21 @@ const PersonalFinanceLesson3 = () => {
                 <circle cx="150" cy="150" r="60" fill="white"/>
                 
                 {/* Center text */}
-                <text x="150" y="145" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="bold">YOUR</text>
-                <text x="150" y="165" textAnchor="middle" fill="#374151" fontSize="14" fontWeight="bold">INCOME</text>
+                <text x="150" y="145" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="bold">YOUR</text>
+                <text x="150" y="165" textAnchor="middle" fill="#404047" fontSize="14" fontWeight="bold">INCOME</text>
                 
                 {/* Labels - moved further right with more space */}
                 <g transform="translate(280, 100)">
-                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#10b981"/>
-                  <text x="24" y="13" fill="#065f46" fontSize="13" fontWeight="600">50% Needs</text>
+                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#1FA978"/>
+                  <text x="24" y="13" fill="#0D543C" fontSize="13" fontWeight="600">50% Needs</text>
                 </g>
                 <g transform="translate(280, 130)">
-                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#8b5cf6"/>
-                  <text x="24" y="13" fill="#5b21b6" fontSize="13" fontWeight="600">30% Wants</text>
+                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#8F6FC4"/>
+                  <text x="24" y="13" fill="#533F70" fontSize="13" fontWeight="600">30% Wants</text>
                 </g>
                 <g transform="translate(280, 160)">
-                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#3b82f6"/>
-                  <text x="24" y="13" fill="#1e40af" fontSize="13" fontWeight="600">20% Savings</text>
+                  <rect x="0" y="0" width="16" height="16" rx="4" fill="#5A77AA"/>
+                  <text x="24" y="13" fill="#2C3F5E" fontSize="13" fontWeight="600">20% Savings</text>
                 </g>
               </svg>
               <p className="text-center text-gray-500 text-sm mt-6 flex items-center justify-center gap-2">
@@ -250,7 +250,7 @@ const PersonalFinanceLesson3 = () => {
             {/* Real Life Example */}
             <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl p-6 mb-10 border border-teal-200 relative overflow-hidden">
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-teal-200/30 rounded-full"></div>
-              <h3 className="font-bold text-teal-900 mb-4 flex items-center gap-2 relative z-10">
+              <h3 className="font-semibold text-teal-900 mb-4 flex items-center gap-2 relative z-10">
                 <span className="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center">
                   <DollarIcon className="w-5 h-5 text-teal-600" />
                 </span>
@@ -313,8 +313,8 @@ const PersonalFinanceLesson3 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <BrainIcon className="w-6 h-6 text-white" />
               </span>
               Quick Quiz
@@ -351,7 +351,7 @@ const PersonalFinanceLesson3 = () => {
 
           {/* Mini Activity */}
           <div className="mt-12 bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-6 border border-violet-200">
-            <h2 className="text-xl font-bold text-violet-900 mb-4 flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-violet-900 mb-4 flex items-center gap-3">
               <span className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center">
                 <CalculatorIcon className="w-5 h-5 text-violet-600" />
               </span>
@@ -396,10 +396,10 @@ const PersonalFinanceLesson3 = () => {
           </div>
 
           {/* Key Takeaway */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 rounded-2xl p-6 text-white relative overflow-hidden">
+          <div className="mt-12 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            <h3 className="font-bold text-lg mb-2 relative z-10 flex items-center gap-2">
+            <h3 className="font-semibold text-lg mb-2 relative z-10 flex items-center gap-2">
               <BoltIcon className="w-5 h-5" />
               <span>Key Takeaway</span>
             </h3>
@@ -419,7 +419,7 @@ const PersonalFinanceLesson3 = () => {
             </button>
             <button 
               onClick={() => navigate('/learn/personal-finance-lesson-4')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
             >
               <span>Next: Savings & Emergency Fund</span>
               <FaArrowRight />

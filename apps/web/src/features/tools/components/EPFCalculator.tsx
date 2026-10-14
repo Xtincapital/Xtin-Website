@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors, chartXAxis } from "@/components/charts/chartTheme";
 
 const EPFCalculator = () => {
   const [basicMonthlySalary, setBasicMonthlySalary] = useState("30,000");
@@ -86,7 +87,7 @@ const EPFCalculator = () => {
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-green-600">
+          <h1 className="xt-title text-center mb-4">
             EPF Calculator
           </h1>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -176,14 +177,14 @@ const EPFCalculator = () => {
             <div className="bg-white shadow-lg rounded-xl p-9">
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData} margin={CHART_MARGIN}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="year" />
+                  <CartesianGrid {...chartGrid} />
+                  <XAxis dataKey="year" {...chartXAxis} />
                   <YAxis {...Y_AXIS_PROPS} />
-                  <Tooltip formatter={(value) => formatCurrency(value)} />
+                  <Tooltip {...chartTooltip} formatter={(value) => formatCurrency(value)} />
                   <Line
                     type="monotone"
                     dataKey="value"
-                    stroke="#10B981"
+                    stroke={chartColors.positive}
                     strokeWidth={3}
                     dot={{ r: 5 }}
                   />

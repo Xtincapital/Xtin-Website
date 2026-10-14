@@ -409,7 +409,7 @@ export default function Goals() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Financial Goals</h1>
+            <h1 className="xt-title mb-2">Financial Goals</h1>
             <p className="text-sm text-muted-foreground">Plan and track your financial objectives</p>
           </div>
           <Button onClick={openAddDialog}>

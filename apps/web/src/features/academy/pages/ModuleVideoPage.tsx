@@ -249,7 +249,7 @@ const ModuleVideoPage = () => {
             <span className="inline-block mb-2 px-2.5 py-1 bg-green-100 dark:bg-emerald-900/40 text-green-700 dark:text-emerald-300 text-[11px] font-bold rounded-full uppercase tracking-wider">
               Module {course.number} · Lesson 1 free
             </span>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">{course.name}</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-900 dark:text-slate-100 tracking-[-0.015em]">{course.name}</h1>
             <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">{course.description}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -281,7 +281,7 @@ const ModuleVideoPage = () => {
                     {locked ? `Unlock all ${total} lessons in this module with Pro.` : soon ? 'This lesson is being recorded.' : ''}
                   </p>
                   {locked && (
-                    <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-lg font-semibold text-sm">
+                    <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-lg font-semibold text-sm">
                       <FaCrown className="text-xs" /> Unlock with Pro
                     </button>
                   )}
@@ -292,7 +292,7 @@ const ModuleVideoPage = () => {
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs text-gray-400 dark:text-slate-500">Lesson {lesson} of {total}{lesson === 1 ? ' · Free' : ''}</p>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-slate-100">{course.lessons[lesson - 1]}</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{course.lessons[lesson - 1]}</h2>
               </div>
               <button
                 onClick={() => toggleDone(lesson)}
@@ -307,7 +307,7 @@ const ModuleVideoPage = () => {
               <div className="mt-6 rounded-2xl border border-green-200 dark:border-emerald-900/50 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-emerald-950/40 dark:to-slate-900 p-5">
                 <p className="font-bold text-gray-900 dark:text-slate-100">Lesson 1 free, {total - 1} more with Pro.</p>
                 <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Every lesson in this module, plus all 20 text modules and certificates.</p>
-                <button onClick={unlock} className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-lg font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all">
+                <button onClick={unlock} className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-lg font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all">
                   <FaCrown className="text-xs" /> {unlockLabel}
                 </button>
               </div>

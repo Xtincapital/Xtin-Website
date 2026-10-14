@@ -56,6 +56,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -233,7 +234,7 @@ export default function Retirement() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Retirement Calculator</h1>
+          <h1 className="xt-title mb-2">Retirement Calculator</h1>
           <p className="text-muted-foreground">Plan for a comfortable retirement</p>
         </motion.div>
 
@@ -359,22 +360,22 @@ export default function Retirement() {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Corpus Needed at Retirement</p>
-                    <p className="mt-1 text-xl font-bold text-foreground">{formatCurrency(result.corpusNeeded)}</p>
+                    <p className="xt-label">Corpus Needed at Retirement</p>
+                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(result.corpusNeeded)}</p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Projected Corpus at Retirement</p>
-                    <p className="mt-1 text-xl font-bold text-foreground">{formatCurrency(result.projectedCorpus)}</p>
+                    <p className="xt-label">Projected Corpus at Retirement</p>
+                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(result.projectedCorpus)}</p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Surplus / Shortfall</p>
+                    <p className="xt-label">Surplus / Shortfall</p>
                     <p className={cn("mt-1 text-xl font-bold", result.surplus >= 0 ? "text-success" : "text-destructive")}>
                       {formatCurrency(result.surplus)}
                     </p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Years Corpus Will Last</p>
-                    <p className="mt-1 text-xl font-bold text-foreground">{result.yearsLast} years</p>
+                    <p className="xt-label">Years Corpus Will Last</p>
+                    <p className="mt-1 xt-metric text-foreground">{result.yearsLast} years</p>
                   </div>
                 </div>
 
@@ -389,16 +390,16 @@ export default function Retirement() {
                             <stop offset="95%" stopColor="hsl(var(--chart-positive))" stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                        <CartesianGrid {...chartGrid} />
                         <XAxis
                           dataKey="year"
                           tickFormatter={(v) => `Yr ${v}`}
-                          tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
-                          axisLine={{ stroke: "hsl(var(--border))" }}
+                          tick={chartTick}
+                          axisLine={false}
                           tickLine={false}
                         />
                         <YAxis
-                          tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                          tick={chartTick}
                           axisLine={false}
                           tickLine={false}
                           width={64}
@@ -407,12 +408,7 @@ export default function Retirement() {
                         <Tooltip
                           formatter={(value: number) => formatCurrency(value)}
                           labelFormatter={(label) => `Year ${label}`}
-                          contentStyle={{
-                            background: "hsl(var(--popover))",
-                            border: "1px solid hsl(var(--border))",
-                            borderRadius: 8,
-                            fontSize: 12,
-                          }}
+                          {...chartTooltip}
                         />
                         <Area
                           type="monotone"

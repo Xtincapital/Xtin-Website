@@ -50,11 +50,11 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
               You finished the free preview of {title}
             </div>
 
-            <div className="w-16 h-16 mx-auto mb-5 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30">
+            <div className="w-16 h-16 mx-auto mb-5 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30">
               <FaCrown className="text-white text-2xl" />
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-3">
+            <h1 className="text-2xl md:text-3xl font-display font-normal mb-3 tracking-[-0.015em]">
               {remaining} more lesson{remaining === 1 ? '' : 's'} are waiting in this course
             </h1>
             <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
@@ -87,7 +87,7 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
 
             <button
               onClick={() => setShowUpgrade(true)}
-              className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/35 transition-all duration-300 flex items-center justify-center gap-2 mb-3"
+              className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/35 transition-all duration-300 flex items-center justify-center gap-2 mb-3"
             >
               <FaPlayCircle />
               Continue this course — from {formatLearnPrice(pricing.yearly, pricing)}/year

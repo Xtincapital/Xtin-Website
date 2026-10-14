@@ -204,7 +204,7 @@ const AdminCertificates = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0 0v2m0-2h2m-2 0H10m9.364-7.364A9 9 0 1112 3a9 9 0 017.364 4.636z" />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Access Denied</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Access Denied</h2>
           <p className="mt-2 text-gray-500 dark:text-slate-400">
             You are not authorized to access the certificate admin panel.
           </p>
@@ -225,7 +225,7 @@ const AdminCertificates = () => {
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">
+            <h1 className="text-3xl font-display font-normal text-gray-900 dark:text-slate-100 tracking-[-0.015em]">
               Certificate Management
             </h1>
             <p className="mt-2 text-gray-600 dark:text-slate-400">
@@ -237,7 +237,7 @@ const AdminCertificates = () => {
             {/* LEFT COLUMN: Form */}
             <div className="lg:col-span-1">
               <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-slate-100">
+                <h2 className="mb-6 text-xl font-semibold text-gray-900 dark:text-slate-100">
                   Generate Certificate
                 </h2>
 

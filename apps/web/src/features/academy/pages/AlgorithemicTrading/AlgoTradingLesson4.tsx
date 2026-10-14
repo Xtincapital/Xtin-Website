@@ -104,11 +104,11 @@ const AlgoTradingLesson4 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full text-sm font-bold">Lesson 4 of 9</span>
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-bold">Lesson 4 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl shadow-lg">
+            <h1 className="text-3xl md:text-4xl font-display font-normal mb-4 flex items-center gap-4 tracking-[-0.015em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl shadow-lg">
                 <Icons.Backtest className="w-8 h-8 text-white"/>
               </span>
               Backtesting & Optimization
@@ -120,7 +120,7 @@ const AlgoTradingLesson4 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-blue-50 to-cyan-50   rounded-2xl p-6 mb-10 border border-blue-200 ">
-            <h2 className="font-bold text-blue-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-blue-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -139,7 +139,7 @@ const AlgoTradingLesson4 = () => {
             
             {/* Intro */}
             <div className="bg-gradient-to-r from-amber-50 to-orange-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-amber-900  mb-3 text-lg flex items-center gap-2">
                 <Icons.Lightbulb className="w-5 h-5"/> The Most Important Skill
               </h3>
               <p className="text-amber-800 ">
@@ -148,80 +148,80 @@ const AlgoTradingLesson4 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">What is Backtesting?</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">What is Backtesting?</h2>
             <p className="text-gray-700  mb-6">
               Backtesting is the process of applying your trading rules to historical market data to see how they would have performed. 
               It's your strategy's "time machine" — testing ideas without risking real money.
             </p>
 
             {/* Backtesting Flow SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-blue-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">THE BACKTESTING PROCESS</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">THE BACKTESTING PROCESS</text>
 
                 {/* Step 1: Historical Data */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
-                  <circle cx="70" cy="25" r="15" fill="#3b82f6"/>
+                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#232327" stroke="#5A77AA" strokeWidth="2"/>
+                  <circle cx="70" cy="25" r="15" fill="#5A77AA"/>
                   <text x="70" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">1</text>
-                  <text x="70" y="55" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="600">HISTORICAL</text>
-                  <text x="70" y="70" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="600">DATA</text>
-                  <text x="70" y="85" textAnchor="middle" fill="#64748b" fontSize="8">Past prices & events</text>
+                  <text x="70" y="55" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">HISTORICAL</text>
+                  <text x="70" y="70" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">DATA</text>
+                  <text x="70" y="85" textAnchor="middle" fill="#75757D" fontSize="8">Past prices & events</text>
                 </g>
 
                 {/* Arrow */}
-                <path d="M175 105 L210 105" stroke="#475569" strokeWidth="2" markerEnd="url(#arrow)"/>
-                <text x="193" y="95" textAnchor="middle" fill="#64748b" fontSize="8">+</text>
+                <path d="M175 105 L210 105" stroke="#5A5A62" strokeWidth="2" markerEnd="url(#arrow)"/>
+                <text x="193" y="95" textAnchor="middle" fill="#75757D" fontSize="8">+</text>
 
                 {/* Step 2: Strategy Rules */}
                 <g transform="translate(215, 60)">
-                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
-                  <circle cx="70" cy="25" r="15" fill="#8b5cf6"/>
+                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#232327" stroke="#8F6FC4" strokeWidth="2"/>
+                  <circle cx="70" cy="25" r="15" fill="#8F6FC4"/>
                   <text x="70" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">2</text>
-                  <text x="70" y="55" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="600">STRATEGY</text>
-                  <text x="70" y="70" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="600">RULES</text>
-                  <text x="70" y="85" textAnchor="middle" fill="#64748b" fontSize="8">Your trading logic</text>
+                  <text x="70" y="55" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">STRATEGY</text>
+                  <text x="70" y="70" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">RULES</text>
+                  <text x="70" y="85" textAnchor="middle" fill="#75757D" fontSize="8">Your trading logic</text>
                 </g>
 
                 {/* Arrow */}
-                <path d="M360 105 L395 105" stroke="#475569" strokeWidth="2"/>
-                <text x="378" y="95" textAnchor="middle" fill="#64748b" fontSize="8">=</text>
+                <path d="M360 105 L395 105" stroke="#5A5A62" strokeWidth="2"/>
+                <text x="378" y="95" textAnchor="middle" fill="#75757D" fontSize="8">=</text>
 
                 {/* Step 3: Simulated Trades */}
                 <g transform="translate(400, 60)">
-                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#1e293b" stroke="#f59e0b" strokeWidth="2"/>
-                  <circle cx="70" cy="25" r="15" fill="#f59e0b"/>
+                  <rect x="0" y="0" width="140" height="90" rx="12" fill="#232327" stroke="#B8923F" strokeWidth="2"/>
+                  <circle cx="70" cy="25" r="15" fill="#B8923F"/>
                   <text x="70" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">3</text>
-                  <text x="70" y="55" textAnchor="middle" fill="#fcd34d" fontSize="11" fontWeight="600">SIMULATED</text>
-                  <text x="70" y="70" textAnchor="middle" fill="#fcd34d" fontSize="11" fontWeight="600">TRADES</text>
-                  <text x="70" y="85" textAnchor="middle" fill="#64748b" fontSize="8">What would happen</text>
+                  <text x="70" y="55" textAnchor="middle" fill="#E2C273" fontSize="11" fontWeight="600">SIMULATED</text>
+                  <text x="70" y="70" textAnchor="middle" fill="#E2C273" fontSize="11" fontWeight="600">TRADES</text>
+                  <text x="70" y="85" textAnchor="middle" fill="#75757D" fontSize="8">What would happen</text>
                 </g>
 
                 {/* Arrow */}
-                <path d="M545 105 L580 105" stroke="#475569" strokeWidth="2"/>
+                <path d="M545 105 L580 105" stroke="#5A5A62" strokeWidth="2"/>
 
                 {/* Step 4: Results */}
                 <g transform="translate(555, 60)">
-                  <rect x="0" y="0" width="120" height="90" rx="12" fill="#1e293b" stroke="#22c55e" strokeWidth="2"/>
-                  <circle cx="60" cy="25" r="15" fill="#22c55e"/>
+                  <rect x="0" y="0" width="120" height="90" rx="12" fill="#232327" stroke="#1FA978" strokeWidth="2"/>
+                  <circle cx="60" cy="25" r="15" fill="#1FA978"/>
                   <text x="60" y="30" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">4</text>
-                  <text x="60" y="55" textAnchor="middle" fill="#86efac" fontSize="11" fontWeight="600">RESULTS</text>
-                  <text x="60" y="70" textAnchor="middle" fill="#86efac" fontSize="11" fontWeight="600">& METRICS</text>
-                  <text x="60" y="85" textAnchor="middle" fill="#64748b" fontSize="8">Performance data</text>
+                  <text x="60" y="55" textAnchor="middle" fill="#77D3AE" fontSize="11" fontWeight="600">RESULTS</text>
+                  <text x="60" y="70" textAnchor="middle" fill="#77D3AE" fontSize="11" fontWeight="600">& METRICS</text>
+                  <text x="60" y="85" textAnchor="middle" fill="#75757D" fontSize="8">Performance data</text>
                 </g>
 
                 {/* Warning Box */}
                 <g transform="translate(100, 180)">
-                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#1e293b" stroke="#f43f5e" strokeWidth="2"/>
-                  <text x="250" y="25" textAnchor="middle" fill="#fda4af" fontSize="11" fontWeight="600">⚠️ CRITICAL WARNING</text>
-                  <text x="250" y="45" textAnchor="middle" fill="#94a3b8" fontSize="9">Good backtest results ≠ Good future results</text>
-                  <text x="250" y="60" textAnchor="middle" fill="#64748b" fontSize="9">The past does not guarantee the future. Always validate properly.</text>
+                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#232327" stroke="#E04848" strokeWidth="2"/>
+                  <text x="250" y="25" textAnchor="middle" fill="#F09B9B" fontSize="11" fontWeight="600">⚠️ CRITICAL WARNING</text>
+                  <text x="250" y="45" textAnchor="middle" fill="#A3A1A6" fontSize="9">Good backtest results ≠ Good future results</text>
+                  <text x="250" y="60" textAnchor="middle" fill="#75757D" fontSize="9">The past does not guarantee the future. Always validate properly.</text>
                 </g>
               </svg>
             </div>
 
             {/* The Overfitting Problem */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Warning className="w-5 h-5 text-red-600 "/>
               </span>
@@ -245,12 +245,12 @@ const AlgoTradingLesson4 = () => {
                     <text x="110" y="25" textAnchor="middle" className="fill-emerald-700 " fontSize="10" fontWeight="600">✓ GOOD FIT</text>
                     
                     {/* Simple trend line */}
-                    <path d="M30 110 Q110 50 190 80" stroke="#22c55e" strokeWidth="3" fill="none"/>
+                    <path d="M30 110 Q110 50 190 80" stroke="#1FA978" strokeWidth="3" fill="none"/>
                     
                     {/* Data points */}
-                    <circle cx="40" cy="105" r="4" fill="#3b82f6"/><circle cx="70" cy="85" r="4" fill="#3b82f6"/>
-                    <circle cx="100" cy="65" r="4" fill="#3b82f6"/><circle cx="130" cy="70" r="4" fill="#3b82f6"/>
-                    <circle cx="160" cy="75" r="4" fill="#3b82f6"/><circle cx="190" cy="80" r="4" fill="#3b82f6"/>
+                    <circle cx="40" cy="105" r="4" fill="#5A77AA"/><circle cx="70" cy="85" r="4" fill="#5A77AA"/>
+                    <circle cx="100" cy="65" r="4" fill="#5A77AA"/><circle cx="130" cy="70" r="4" fill="#5A77AA"/>
+                    <circle cx="160" cy="75" r="4" fill="#5A77AA"/><circle cx="190" cy="80" r="4" fill="#5A77AA"/>
                     
                     <text x="110" y="135" textAnchor="middle" className="fill-emerald-600 " fontSize="8">Captures the trend, ignores noise</text>
                   </g>
@@ -262,12 +262,12 @@ const AlgoTradingLesson4 = () => {
                     
                     {/* Complex curve hitting every point */}
                     <path d="M30 105 Q45 105 50 85 Q55 65 70 85 Q85 105 100 65 Q115 25 130 70 Q145 115 160 75 Q175 35 190 80" 
-                          stroke="#dc2626" strokeWidth="3" fill="none"/>
+                          stroke="#C7363B" strokeWidth="3" fill="none"/>
                     
                     {/* Same data points */}
-                    <circle cx="40" cy="105" r="4" fill="#3b82f6"/><circle cx="70" cy="85" r="4" fill="#3b82f6"/>
-                    <circle cx="100" cy="65" r="4" fill="#3b82f6"/><circle cx="130" cy="70" r="4" fill="#3b82f6"/>
-                    <circle cx="160" cy="75" r="4" fill="#3b82f6"/><circle cx="190" cy="80" r="4" fill="#3b82f6"/>
+                    <circle cx="40" cy="105" r="4" fill="#5A77AA"/><circle cx="70" cy="85" r="4" fill="#5A77AA"/>
+                    <circle cx="100" cy="65" r="4" fill="#5A77AA"/><circle cx="130" cy="70" r="4" fill="#5A77AA"/>
+                    <circle cx="160" cy="75" r="4" fill="#5A77AA"/><circle cx="190" cy="80" r="4" fill="#5A77AA"/>
                     
                     <text x="110" y="135" textAnchor="middle" className="fill-red-600 " fontSize="8">Fits perfectly but won't generalize</text>
                   </g>
@@ -276,7 +276,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* Signs of Overfitting */}
-            <h3 className="text-xl font-bold mb-4">Signs Your Strategy is Overfit</h3>
+            <h3 className="text-xl font-semibold mb-4">Signs Your Strategy is Overfit</h3>
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {[
                 { title: "Too Many Parameters", desc: "More than 5-7 parameters is usually a red flag" },
@@ -292,7 +292,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* The Solution: Walk-Forward Analysis */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-emerald-100  rounded-xl flex items-center justify-center">
                 <Icons.Chart className="w-5 h-5 text-emerald-600 "/>
               </span>
@@ -307,55 +307,55 @@ const AlgoTradingLesson4 = () => {
             {/* Walk-Forward SVG */}
             <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-emerald-800/50 shadow-xl">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 300" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">WALK-FORWARD ANALYSIS</text>
-                <text x="350" y="45" textAnchor="middle" fill="#94a3b8" fontSize="10">Optimize → Test → Move Forward → Repeat</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">WALK-FORWARD ANALYSIS</text>
+                <text x="350" y="45" textAnchor="middle" fill="#A3A1A6" fontSize="10">Optimize → Test → Move Forward → Repeat</text>
 
                 {/* Timeline */}
-                <line x1="50" y1="100" x2="650" y2="100" stroke="#475569" strokeWidth="3"/>
-                <text x="50" y="90" fill="#64748b" fontSize="9">2018</text>
-                <text x="200" y="90" fill="#64748b" fontSize="9">2019</text>
-                <text x="350" y="90" fill="#64748b" fontSize="9">2020</text>
-                <text x="500" y="90" fill="#64748b" fontSize="9">2021</text>
-                <text x="630" y="90" fill="#64748b" fontSize="9">2022</text>
+                <line x1="50" y1="100" x2="650" y2="100" stroke="#5A5A62" strokeWidth="3"/>
+                <text x="50" y="90" fill="#75757D" fontSize="9">2018</text>
+                <text x="200" y="90" fill="#75757D" fontSize="9">2019</text>
+                <text x="350" y="90" fill="#75757D" fontSize="9">2020</text>
+                <text x="500" y="90" fill="#75757D" fontSize="9">2021</text>
+                <text x="630" y="90" fill="#75757D" fontSize="9">2022</text>
 
                 {/* Window 1 */}
                 <g transform="translate(50, 120)">
-                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#22c55e"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#1FA978"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
                 {/* Window 2 */}
                 <g transform="translate(130, 160)">
-                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#22c55e"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#1FA978"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
                 {/* Window 3 */}
                 <g transform="translate(210, 200)">
-                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="0" y="0" width="200" height="30" rx="4" fill="#5A77AA" opacity="0.7"/>
                   <text x="100" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">IN-SAMPLE (Optimize)</text>
-                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#22c55e"/>
+                  <rect x="200" y="0" width="80" height="30" rx="4" fill="#1FA978"/>
                   <text x="240" y="20" textAnchor="middle" fill="white" fontSize="9" fontWeight="600">TEST</text>
                 </g>
 
                 {/* Legend */}
                 <g transform="translate(480, 140)">
-                  <rect x="0" y="0" width="160" height="80" rx="8" fill="#0f172a" stroke="#334155"/>
-                  <rect x="15" y="15" width="20" height="12" rx="2" fill="#3b82f6"/>
-                  <text x="45" y="25" fill="#94a3b8" fontSize="9">Training Period</text>
-                  <rect x="15" y="35" width="20" height="12" rx="2" fill="#22c55e"/>
-                  <text x="45" y="45" fill="#94a3b8" fontSize="9">Testing Period</text>
-                  <text x="80" y="68" textAnchor="middle" fill="#64748b" fontSize="8">Results must be consistent</text>
+                  <rect x="0" y="0" width="160" height="80" rx="8" fill="#151517" stroke="#404047"/>
+                  <rect x="15" y="15" width="20" height="12" rx="2" fill="#5A77AA"/>
+                  <text x="45" y="25" fill="#A3A1A6" fontSize="9">Training Period</text>
+                  <rect x="15" y="35" width="20" height="12" rx="2" fill="#1FA978"/>
+                  <text x="45" y="45" fill="#A3A1A6" fontSize="9">Testing Period</text>
+                  <text x="80" y="68" textAnchor="middle" fill="#75757D" fontSize="8">Results must be consistent</text>
                 </g>
               </svg>
             </div>
 
             {/* Key Metrics */}
-            <h2 className="text-2xl font-bold mb-4">Key Performance Metrics</h2>
+            <h2 className="text-2xl font-semibold mb-4 tracking-[-0.015em]">Key Performance Metrics</h2>
             <p className="text-gray-700  mb-6">
               Don't just look at total profit. These metrics give you a complete picture of strategy performance:
             </p>
@@ -385,7 +385,7 @@ const AlgoTradingLesson4 = () => {
 
             {/* Common Mistakes */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-red-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center"><Icons.Warning className="w-5 h-5 text-white"/></span>
                 Common Backtesting Mistakes
               </h3>
@@ -409,7 +409,7 @@ const AlgoTradingLesson4 = () => {
 
             {/* Key Takeaways */}
             <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-emerald-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
@@ -428,7 +428,7 @@ const AlgoTradingLesson4 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What is overfitting in the context of backtesting?"
               options={["When your strategy is too simple", "When your strategy fits historical data too perfectly and fails on new data", "When you test on too much data", "When transaction costs are too high"]}
@@ -456,7 +456,7 @@ const AlgoTradingLesson4 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Strategy Development
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-5')}
-              className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
               Next: Risk Management<FaArrowRight/>
             </button>
           </div>

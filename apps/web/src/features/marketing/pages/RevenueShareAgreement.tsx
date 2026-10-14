@@ -16,7 +16,7 @@ function RevenueShareAgreement() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">Revenue Share Agreement</h1>
+          <h1 className="xt-title mb-3">Revenue Share Agreement</h1>
           <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">

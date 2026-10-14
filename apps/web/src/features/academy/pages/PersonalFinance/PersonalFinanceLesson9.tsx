@@ -111,7 +111,7 @@ const PersonalFinanceLesson9 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-full text-sm font-semibold shadow-sm">
                 Lesson 9 of 9
               </span>
               <span className="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold flex items-center gap-1.5">
@@ -119,7 +119,7 @@ const PersonalFinanceLesson9 = () => {
                 Final Lesson!
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-amber-100 to-red-200 rounded-xl shadow-sm">
                 <WarningIcon className="w-7 h-7 text-red-600" />
               </span>
@@ -132,7 +132,7 @@ const PersonalFinanceLesson9 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-lg shadow-sm">
                 <TargetIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -157,7 +157,7 @@ const PersonalFinanceLesson9 = () => {
           {/* Main Content */}
           <div className="prose prose-lg max-w-none">
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Money Mistakes Happen</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">Why Money Mistakes Happen</h2>
             
             <p className="text-gray-600 leading-relaxed mb-6">
               <strong className="text-gray-900">Everyone makes money mistakes</strong> — especially when starting out. Nobody teaches us about money in school, so we learn through trial and error. The good news? Recognizing these mistakes early helps you avoid them and build better habits!
@@ -174,7 +174,7 @@ const PersonalFinanceLesson9 = () => {
             </div>
 
             {/* Common Mistakes */}
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">6 Common Beginner Mistakes</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 tracking-[-0.015em]">6 Common Beginner Mistakes</h2>
             
             <div className="space-y-4 mb-10">
               <div className="bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-5 border border-red-200">
@@ -264,95 +264,95 @@ const PersonalFinanceLesson9 = () => {
 
             {/* SVG Diagram - Mistake Loop vs Smart Money Loop */}
             <div className="bg-white rounded-3xl p-8 mb-10 border border-gray-100 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 text-center">Mistake Loop vs Smart Money Loop</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6 text-center">Mistake Loop vs Smart Money Loop</h3>
               <svg className="w-full max-w-2xl mx-auto" viewBox="0 0 600 280" fill="none">
                 {/* Left Side - Mistake Loop */}
                 <g transform="translate(20, 20)">
-                  <text x="110" y="15" textAnchor="middle" fill="#dc2626" fontSize="14" fontWeight="bold">✖ MISTAKE LOOP</text>
+                  <text x="110" y="15" textAnchor="middle" fill="#C7363B" fontSize="14" fontWeight="bold">✖ MISTAKE LOOP</text>
                   
                   {/* Circular arrows */}
-                  <circle cx="110" cy="130" r="90" fill="none" stroke="#fecaca" strokeWidth="8" strokeDasharray="20 10"/>
+                  <circle cx="110" cy="130" r="90" fill="none" stroke="#F6C3C3" strokeWidth="8" strokeDasharray="20 10"/>
                   
                   {/* Earn */}
                   <g transform="translate(75, 35)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#dc2626" fontSize="11" fontWeight="bold">Earn $</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#C7363B" fontSize="11" fontWeight="bold">Earn $</text>
                   </g>
                   
                   {/* Overspend */}
                   <g transform="translate(155, 100)">
-                    <rect x="0" y="0" width="80" height="40" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                    <text x="40" y="25" textAnchor="middle" fill="#dc2626" fontSize="11" fontWeight="bold">Overspend</text>
+                    <rect x="0" y="0" width="80" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                    <text x="40" y="25" textAnchor="middle" fill="#C7363B" fontSize="11" fontWeight="bold">Overspend</text>
                   </g>
                   
                   {/* Debt */}
                   <g transform="translate(75, 175)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#dc2626" fontSize="11" fontWeight="bold">Debt</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#C7363B" fontSize="11" fontWeight="bold">Debt</text>
                   </g>
                   
                   {/* Stress */}
                   <g transform="translate(-15, 100)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#dc2626" fontSize="11" fontWeight="bold">Stress</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#C7363B" fontSize="11" fontWeight="bold">Stress</text>
                   </g>
                   
                   {/* Arrows */}
-                  <path d="M145 65 Q180 80 185 100" stroke="#ef4444" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
-                  <path d="M185 145 Q180 170 145 190" stroke="#ef4444" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
-                  <path d="M75 195 Q40 180 35 145" stroke="#ef4444" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
-                  <path d="M35 100 Q40 70 75 55" stroke="#ef4444" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
+                  <path d="M145 65 Q180 80 185 100" stroke="#E04848" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
+                  <path d="M185 145 Q180 170 145 190" stroke="#E04848" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
+                  <path d="M75 195 Q40 180 35 145" stroke="#E04848" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
+                  <path d="M35 100 Q40 70 75 55" stroke="#E04848" strokeWidth="2" fill="none" markerEnd="url(#arrowRed)"/>
                 </g>
                 
                 {/* Center divider */}
-                <line x1="300" y1="30" x2="300" y2="250" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5 5"/>
-                <text x="300" y="270" textAnchor="middle" fill="#6b7280" fontSize="12" fontWeight="bold">VS</text>
+                <line x1="300" y1="30" x2="300" y2="250" stroke="#E4E1D9" strokeWidth="2" strokeDasharray="5 5"/>
+                <text x="300" y="270" textAnchor="middle" fill="#75757D" fontSize="12" fontWeight="bold">VS</text>
                 
                 {/* Right Side - Smart Money Loop */}
                 <g transform="translate(330, 20)">
-                  <text x="120" y="15" textAnchor="middle" fill="#16a34a" fontSize="14" fontWeight="bold">✔ SMART MONEY LOOP</text>
+                  <text x="120" y="15" textAnchor="middle" fill="#12805A" fontSize="14" fontWeight="bold">✔ SMART MONEY LOOP</text>
                   
                   {/* Circular arrows */}
-                  <circle cx="120" cy="130" r="90" fill="none" stroke="#bbf7d0" strokeWidth="8" strokeDasharray="20 10"/>
+                  <circle cx="120" cy="130" r="90" fill="none" stroke="#ABE5CC" strokeWidth="8" strokeDasharray="20 10"/>
                   
                   {/* Earn */}
                   <g transform="translate(85, 35)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#16a34a" fontSize="11" fontWeight="bold">Earn $</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Earn $</text>
                   </g>
                   
                   {/* Budget */}
                   <g transform="translate(165, 100)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#16a34a" fontSize="11" fontWeight="bold">Budget</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Budget</text>
                   </g>
                   
                   {/* Save */}
                   <g transform="translate(85, 175)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#16a34a" fontSize="11" fontWeight="bold">Save</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Save</text>
                   </g>
                   
                   {/* Grow */}
                   <g transform="translate(5, 100)">
-                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                    <text x="35" y="25" textAnchor="middle" fill="#16a34a" fontSize="11" fontWeight="bold">Grow</text>
+                    <rect x="0" y="0" width="70" height="40" rx="8" fill="#D5F2E5" stroke="#1FA978" strokeWidth="2"/>
+                    <text x="35" y="25" textAnchor="middle" fill="#12805A" fontSize="11" fontWeight="bold">Grow</text>
                   </g>
                   
                   {/* Arrows */}
-                  <path d="M155 65 Q190 80 195 100" stroke="#22c55e" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M195 145 Q190 170 155 190" stroke="#22c55e" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M85 195 Q50 180 45 145" stroke="#22c55e" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
-                  <path d="M45 100 Q50 70 85 55" stroke="#22c55e" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M155 65 Q190 80 195 100" stroke="#1FA978" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M195 145 Q190 170 155 190" stroke="#1FA978" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M85 195 Q50 180 45 145" stroke="#1FA978" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
+                  <path d="M45 100 Q50 70 85 55" stroke="#1FA978" strokeWidth="2" fill="none" markerEnd="url(#arrowGreen)"/>
                 </g>
                 
                 {/* Arrow markers */}
                 <defs>
                   <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#ef4444"/>
+                    <polygon points="0 0, 10 3, 0 6" fill="#E04848"/>
                   </marker>
                   <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                    <polygon points="0 0, 10 3, 0 6" fill="#22c55e"/>
+                    <polygon points="0 0, 10 3, 0 6" fill="#1FA978"/>
                   </marker>
                 </defs>
               </svg>
@@ -367,7 +367,7 @@ const PersonalFinanceLesson9 = () => {
             {/* Real Life Example */}
             <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 mb-10 border border-emerald-200 relative overflow-hidden">
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-emerald-200/30 rounded-full"></div>
-              <h3 className="font-bold text-emerald-900 mb-4 flex items-center gap-2 relative z-10">
+              <h3 className="font-semibold text-emerald-900 mb-4 flex items-center gap-2 relative z-10">
                 <span className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                   <BookOpenIcon className="w-5 h-5 text-emerald-600" />
                 </span>
@@ -419,8 +419,8 @@ const PersonalFinanceLesson9 = () => {
 
           {/* Quiz Section */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
+              <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <PencilIcon className="w-6 h-6 text-white" />
               </span>
               Quick Quiz
@@ -457,7 +457,7 @@ const PersonalFinanceLesson9 = () => {
 
           {/* Reflection Activity */}
           <div className="mt-12 bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border border-emerald-200">
-            <h2 className="text-xl font-bold text-emerald-900 mb-4 flex items-center gap-3">
+            <h2 className="text-xl font-semibold text-emerald-900 mb-4 flex items-center gap-3">
               <span className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
                 <SearchIcon className="w-5 h-5 text-emerald-600" />
               </span>
@@ -502,7 +502,7 @@ const PersonalFinanceLesson9 = () => {
           </div>
 
           {/* Module Completion */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-8 text-white relative overflow-hidden">
+          <div className="mt-12 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
             
@@ -510,7 +510,7 @@ const PersonalFinanceLesson9 = () => {
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaTrophy className="text-4xl text-yellow-300" />
               </div>
-              <h3 className="font-bold text-2xl mb-2 flex items-center justify-center gap-2">
+              <h3 className="font-semibold text-2xl mb-2 flex items-center justify-center gap-2 tracking-[-0.015em]">
                 <CelebrationIcon className="w-7 h-7 text-yellow-300" />
                 Congratulations!
               </h3>
@@ -526,9 +526,9 @@ const PersonalFinanceLesson9 = () => {
           </div>
 
           {/* Key Takeaway */}
-          <div className="mt-8 bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 rounded-2xl p-6 text-white relative overflow-hidden">
+          <div className="mt-8 bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-6 text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <h3 className="font-bold text-lg mb-2 relative z-10 flex items-center gap-2">
+            <h3 className="font-semibold text-lg mb-2 relative z-10 flex items-center gap-2">
               <BoltIcon className="w-5 h-5" />
               Final Takeaway
             </h3>
@@ -548,7 +548,7 @@ const PersonalFinanceLesson9 = () => {
             </button>
             <button 
               onClick={() => navigate('/learn')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-500/25 transition-all"
             >
               <FaTrophy className="text-yellow-300" />
               <span>Back to Learn</span>

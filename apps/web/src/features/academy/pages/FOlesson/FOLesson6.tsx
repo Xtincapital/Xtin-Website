@@ -73,19 +73,19 @@ const DeltaConceptSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
     <defs>
       <linearGradient id="deltaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#0f172a"/>
-        <stop offset="100%" stopColor="#1e3a5f"/>
+        <stop offset="0%" stopColor="#151517"/>
+        <stop offset="100%" stopColor="#232327"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="380" fill="url(#deltaGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">DELTA (Δ)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Rate of change in option price relative to underlying price change</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Rate of change in option price relative to underlying price change</text>
     
     {/* Formula */}
     <g transform="translate(150, 75)">
-      <rect x="0" y="0" width="400" height="50" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="400" height="50" fill="#232327" rx="10"/>
       <text x="200" y="32" textAnchor="middle" fontSize="16" fontWeight="600" fill="white">Δ = ∂C/∂S = Change in Option Price / Change in Stock Price</text>
     </g>
     
@@ -95,34 +95,34 @@ const DeltaConceptSVG = () => (
       
       {/* Call Options */}
       <g transform="translate(0, 20)">
-        <rect x="0" y="0" width="290" height="100" fill="#22c55e" fillOpacity="0.15" rx="10" stroke="#22c55e" strokeWidth="1"/>
-        <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#22c55e">CALL OPTIONS</text>
+        <rect x="0" y="0" width="290" height="100" fill="#1FA978" fillOpacity="0.15" rx="10" stroke="#1FA978" strokeWidth="1"/>
+        <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#1FA978">CALL OPTIONS</text>
         <text x="145" y="50" textAnchor="middle" fontSize="11" fill="white">Delta range: 0 to +1.00</text>
-        <text x="145" y="70" textAnchor="middle" fontSize="10" fill="#94a3b8">Deep ITM call → Delta ≈ +1.00</text>
-        <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#94a3b8">ATM call → Delta ≈ +0.50</text>
+        <text x="145" y="70" textAnchor="middle" fontSize="10" fill="#A3A1A6">Deep ITM call → Delta ≈ +1.00</text>
+        <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A3A1A6">ATM call → Delta ≈ +0.50</text>
       </g>
       
       {/* Put Options */}
       <g transform="translate(310, 20)">
-        <rect x="0" y="0" width="290" height="100" fill="#dc2626" fillOpacity="0.15" rx="10" stroke="#dc2626" strokeWidth="1"/>
-        <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#dc2626">PUT OPTIONS</text>
+        <rect x="0" y="0" width="290" height="100" fill="#C7363B" fillOpacity="0.15" rx="10" stroke="#C7363B" strokeWidth="1"/>
+        <text x="145" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#C7363B">PUT OPTIONS</text>
         <text x="145" y="50" textAnchor="middle" fontSize="11" fill="white">Delta range: -1.00 to 0</text>
-        <text x="145" y="70" textAnchor="middle" fontSize="10" fill="#94a3b8">Deep ITM put → Delta ≈ -1.00</text>
-        <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#94a3b8">ATM put → Delta ≈ -0.50</text>
+        <text x="145" y="70" textAnchor="middle" fontSize="10" fill="#A3A1A6">Deep ITM put → Delta ≈ -1.00</text>
+        <text x="145" y="85" textAnchor="middle" fontSize="10" fill="#A3A1A6">ATM put → Delta ≈ -0.50</text>
       </g>
     </g>
     
     {/* Interpretation */}
     <g transform="translate(50, 280)">
-      <rect x="0" y="0" width="600" height="85" fill="#1e293b" rx="10"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#f97316">PRACTICAL INTERPRETATION</text>
+      <rect x="0" y="0" width="600" height="85" fill="#232327" rx="10"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill="#D2754C">PRACTICAL INTERPRETATION</text>
       
       <g transform="translate(20, 40)">
-        <circle cx="8" cy="8" r="4" fill="#22c55e"/>
+        <circle cx="8" cy="8" r="4" fill="#1FA978"/>
         <text x="20" y="12" fontSize="10" fill="white">Delta of 0.60 means: For every $1 stock moves, option moves ~$0.60</text>
       </g>
       <g transform="translate(20, 60)">
-        <circle cx="8" cy="8" r="4" fill="#3b82f6"/>
+        <circle cx="8" cy="8" r="4" fill="#5A77AA"/>
         <text x="20" y="12" fontSize="10" fill="white">Also approximates probability of finishing ITM (60 delta ≈ 60% probability)</text>
       </g>
     </g>
@@ -132,57 +132,57 @@ const DeltaConceptSVG = () => (
 // SVG: Delta Curve
 const DeltaCurveSVG = () => (
   <svg viewBox="0 0 700 350" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="350" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="350" fill="#151517" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Delta vs Stock Price (S-Curve)</text>
     
     {/* Chart Area */}
     <g transform="translate(80, 60)">
       {/* Axes */}
-      <line x1="0" y1="230" x2="540" y2="230" stroke="#475569" strokeWidth="1"/>
-      <line x1="270" y1="0" x2="270" y2="230" stroke="#475569" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="230" x2="540" y2="230" stroke="#5A5A62" strokeWidth="1"/>
+      <line x1="270" y1="0" x2="270" y2="230" stroke="#5A5A62" strokeWidth="1" strokeDasharray="4"/>
       
       {/* Y-axis labels */}
-      <text x="-10" y="10" textAnchor="end" fontSize="10" fill="#94a3b8">+1.00</text>
-      <text x="-10" y="115" textAnchor="end" fontSize="10" fill="#94a3b8">+0.50</text>
-      <text x="-10" y="230" textAnchor="end" fontSize="10" fill="#94a3b8">0</text>
+      <text x="-10" y="10" textAnchor="end" fontSize="10" fill="#A3A1A6">+1.00</text>
+      <text x="-10" y="115" textAnchor="end" fontSize="10" fill="#A3A1A6">+0.50</text>
+      <text x="-10" y="230" textAnchor="end" fontSize="10" fill="#A3A1A6">0</text>
       
       {/* X-axis labels */}
-      <text x="0" y="250" textAnchor="middle" fontSize="10" fill="#94a3b8">Deep OTM</text>
-      <text x="270" y="250" textAnchor="middle" fontSize="10" fill="#f97316">ATM</text>
-      <text x="540" y="250" textAnchor="middle" fontSize="10" fill="#94a3b8">Deep ITM</text>
+      <text x="0" y="250" textAnchor="middle" fontSize="10" fill="#A3A1A6">Deep OTM</text>
+      <text x="270" y="250" textAnchor="middle" fontSize="10" fill="#D2754C">ATM</text>
+      <text x="540" y="250" textAnchor="middle" fontSize="10" fill="#A3A1A6">Deep ITM</text>
       
       {/* Delta Curve for Call */}
       <path 
         d="M 0 220 C 60 218, 130 210, 180 180 C 230 140, 260 115, 270 115 C 280 115, 310 90, 360 50 C 410 20, 480 8, 540 5"
-        fill="none" stroke="#22c55e" strokeWidth="3"
+        fill="none" stroke="#1FA978" strokeWidth="3"
       />
       
       {/* ATM point */}
-      <circle cx="270" cy="115" r="6" fill="#f97316"/>
-      <text x="290" y="110" fontSize="9" fill="#f97316">ATM (Δ ≈ 0.50)</text>
+      <circle cx="270" cy="115" r="6" fill="#D2754C"/>
+      <text x="290" y="110" fontSize="9" fill="#D2754C">ATM (Δ ≈ 0.50)</text>
       
       {/* Annotations */}
       <g transform="translate(30, 200)">
-        <rect x="0" y="0" width="80" height="20" fill="#dc2626" fillOpacity="0.2" rx="4"/>
-        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#dc2626">Low Delta</text>
+        <rect x="0" y="0" width="80" height="20" fill="#C7363B" fillOpacity="0.2" rx="4"/>
+        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#C7363B">Low Delta</text>
       </g>
       
       <g transform="translate(230, 40)">
-        <rect x="0" y="0" width="80" height="20" fill="#f97316" fillOpacity="0.2" rx="4"/>
-        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#f97316">Highest Gamma</text>
+        <rect x="0" y="0" width="80" height="20" fill="#D2754C" fillOpacity="0.2" rx="4"/>
+        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#D2754C">Highest Gamma</text>
       </g>
       
       <g transform="translate(430, 10)">
-        <rect x="0" y="0" width="80" height="20" fill="#22c55e" fillOpacity="0.2" rx="4"/>
-        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#22c55e">High Delta</text>
+        <rect x="0" y="0" width="80" height="20" fill="#1FA978" fillOpacity="0.2" rx="4"/>
+        <text x="40" y="14" textAnchor="middle" fontSize="8" fill="#1FA978">High Delta</text>
       </g>
     </g>
     
     {/* Key insight */}
     <g transform="translate(80, 310)">
-      <rect x="0" y="0" width="540" height="30" fill="#1e293b" rx="6"/>
-      <text x="270" y="20" textAnchor="middle" fontSize="10" fill="#94a3b8">The S-curve shows delta is most sensitive (changes fastest) when ATM - this is where Gamma is highest</text>
+      <rect x="0" y="0" width="540" height="30" fill="#232327" rx="6"/>
+      <text x="270" y="20" textAnchor="middle" fontSize="10" fill="#A3A1A6">The S-curve shows delta is most sensitive (changes fastest) when ATM - this is where Gamma is highest</text>
     </g>
   </svg>
 );
@@ -190,22 +190,22 @@ const DeltaCurveSVG = () => (
 // SVG: Gamma Concept
 const GammaConceptSVG = () => (
   <svg viewBox="0 0 700 360" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="360" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="360" fill="#151517" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">GAMMA (Γ)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Rate of change of Delta - measures Delta&apos;s sensitivity</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A3A1A6">Rate of change of Delta - measures Delta&apos;s sensitivity</text>
     
     {/* Formula */}
     <g transform="translate(150, 75)">
-      <rect x="0" y="0" width="400" height="50" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="400" height="50" fill="#232327" rx="10"/>
       <text x="200" y="32" textAnchor="middle" fontSize="16" fontWeight="600" fill="white">Γ = ∂Δ/∂S = ∂²C/∂S² (Second Derivative)</text>
     </g>
     
     {/* Core Concept */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="600" height="80" fill="#a855f7" fillOpacity="0.15" rx="10" stroke="#a855f7" strokeWidth="1"/>
+      <rect x="0" y="0" width="600" height="80" fill="#8F6FC4" fillOpacity="0.15" rx="10" stroke="#8F6FC4" strokeWidth="1"/>
       
-      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#a855f7">GAMMA TELLS YOU HOW FAST DELTA CHANGES</text>
+      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#8F6FC4">GAMMA TELLS YOU HOW FAST DELTA CHANGES</text>
       
       <g transform="translate(30, 40)">
         <text x="0" y="15" fontSize="10" fill="white">• High Gamma = Delta changes quickly with stock movement</text>
@@ -219,15 +219,15 @@ const GammaConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         {[
-          { label: "Deep OTM", gamma: "Low", color: "#3b82f6", desc: "Delta near 0, changes slowly" },
-          { label: "ATM", gamma: "HIGHEST", color: "#f97316", desc: "Maximum sensitivity zone" },
-          { label: "Deep ITM", gamma: "Low", color: "#22c55e", desc: "Delta near 1, changes slowly" }
+          { label: "Deep OTM", gamma: "Low", color: "#5A77AA", desc: "Delta near 0, changes slowly" },
+          { label: "ATM", gamma: "HIGHEST", color: "#D2754C", desc: "Maximum sensitivity zone" },
+          { label: "Deep ITM", gamma: "Low", color: "#1FA978", desc: "Delta near 1, changes slowly" }
         ].map((item, i) => (
           <g key={i} transform={`translate(${i * 200}, 0)`}>
             <rect x="0" y="0" width="190" height="75" fill={item.color} fillOpacity="0.15" rx="8" stroke={item.color} strokeWidth="1"/>
             <text x="95" y="22" textAnchor="middle" fontSize="11" fontWeight="600" fill={item.color}>{item.label}</text>
             <text x="95" y="42" textAnchor="middle" fontSize="14" fontWeight="700" fill="white">Gamma: {item.gamma}</text>
-            <text x="95" y="62" textAnchor="middle" fontSize="9" fill="#94a3b8">{item.desc}</text>
+            <text x="95" y="62" textAnchor="middle" fontSize="9" fill="#A3A1A6">{item.desc}</text>
           </g>
         ))}
       </g>
@@ -238,50 +238,50 @@ const GammaConceptSVG = () => (
 // SVG: Gamma Risk
 const GammaRiskSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#151517" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Gamma Risk: Long vs Short</text>
     
     {/* Long Gamma */}
     <g transform="translate(40, 60)">
-      <rect x="0" y="0" width="300" height="200" fill="#22c55e" fillOpacity="0.1" rx="12" stroke="#22c55e" strokeWidth="2"/>
-      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#22c55e">LONG GAMMA</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">(Option Buyers)</text>
+      <rect x="0" y="0" width="300" height="200" fill="#1FA978" fillOpacity="0.1" rx="12" stroke="#1FA978" strokeWidth="2"/>
+      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#1FA978">LONG GAMMA</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">(Option Buyers)</text>
       
       <g transform="translate(20, 70)">
         <text x="0" y="0" fontSize="10" fill="white">Benefits:</text>
-        <text x="0" y="18" fontSize="9" fill="#94a3b8">• Delta grows as trade goes your way</text>
-        <text x="0" y="34" fontSize="9" fill="#94a3b8">• Delta shrinks as trade goes against you</text>
-        <text x="0" y="50" fontSize="9" fill="#94a3b8">• &quot;Convexity&quot; - profits accelerate</text>
+        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Delta grows as trade goes your way</text>
+        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Delta shrinks as trade goes against you</text>
+        <text x="0" y="50" fontSize="9" fill="#A3A1A6">• &quot;Convexity&quot; - profits accelerate</text>
         
         <text x="0" y="75" fontSize="10" fill="white">Downside:</text>
-        <text x="0" y="93" fontSize="9" fill="#94a3b8">• Pay for this via time decay (Theta)</text>
-        <text x="0" y="109" fontSize="9" fill="#94a3b8">• Need movement to profit</text>
+        <text x="0" y="93" fontSize="9" fill="#A3A1A6">• Pay for this via time decay (Theta)</text>
+        <text x="0" y="109" fontSize="9" fill="#A3A1A6">• Need movement to profit</text>
       </g>
     </g>
     
     {/* Short Gamma */}
     <g transform="translate(360, 60)">
-      <rect x="0" y="0" width="300" height="200" fill="#dc2626" fillOpacity="0.1" rx="12" stroke="#dc2626" strokeWidth="2"/>
-      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#dc2626">SHORT GAMMA</text>
-      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">(Option Sellers)</text>
+      <rect x="0" y="0" width="300" height="200" fill="#C7363B" fillOpacity="0.1" rx="12" stroke="#C7363B" strokeWidth="2"/>
+      <text x="150" y="30" textAnchor="middle" fontSize="14" fontWeight="600" fill="#C7363B">SHORT GAMMA</text>
+      <text x="150" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">(Option Sellers)</text>
       
       <g transform="translate(20, 70)">
         <text x="0" y="0" fontSize="10" fill="white">Benefits:</text>
-        <text x="0" y="18" fontSize="9" fill="#94a3b8">• Collect premium (Theta profit)</text>
-        <text x="0" y="34" fontSize="9" fill="#94a3b8">• Profit from stable markets</text>
+        <text x="0" y="18" fontSize="9" fill="#A3A1A6">• Collect premium (Theta profit)</text>
+        <text x="0" y="34" fontSize="9" fill="#A3A1A6">• Profit from stable markets</text>
         
         <text x="0" y="59" fontSize="10" fill="white">Risks:</text>
-        <text x="0" y="77" fontSize="9" fill="#dc2626">• Delta works against you in both directions</text>
-        <text x="0" y="93" fontSize="9" fill="#dc2626">• Losses can accelerate quickly</text>
-        <text x="0" y="109" fontSize="9" fill="#dc2626">• &quot;Picking up pennies in front of steamroller&quot;</text>
+        <text x="0" y="77" fontSize="9" fill="#C7363B">• Delta works against you in both directions</text>
+        <text x="0" y="93" fontSize="9" fill="#C7363B">• Losses can accelerate quickly</text>
+        <text x="0" y="109" fontSize="9" fill="#C7363B">• &quot;Picking up pennies in front of steamroller&quot;</text>
       </g>
     </g>
     
     {/* Bottom Warning */}
     <g transform="translate(50, 275)">
-      <rect x="0" y="0" width="600" height="35" fill="#f97316" fillOpacity="0.15" rx="8"/>
-      <text x="300" y="22" textAnchor="middle" fontSize="10" fill="#f97316">Short Gamma near expiration is extremely dangerous - small moves cause large delta swings. This is &quot;gamma risk.&quot;</text>
+      <rect x="0" y="0" width="600" height="35" fill="#D2754C" fillOpacity="0.15" rx="8"/>
+      <text x="300" y="22" textAnchor="middle" fontSize="10" fill="#D2754C">Short Gamma near expiration is extremely dangerous - small moves cause large delta swings. This is &quot;gamma risk.&quot;</text>
     </g>
   </svg>
 );
@@ -289,22 +289,22 @@ const GammaRiskSVG = () => (
 // SVG: Delta Hedging
 const DeltaHedgingSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#151517" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Delta Hedging in Practice</text>
-    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#94a3b8">Maintaining delta-neutral positions</text>
+    <text x="350" y="50" textAnchor="middle" fontSize="10" fill="#A3A1A6">Maintaining delta-neutral positions</text>
     
     {/* Example Scenario */}
     <g transform="translate(50, 70)">
-      <rect x="0" y="0" width="600" height="130" fill="#1e293b" rx="10"/>
-      <text x="300" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#3b82f6">EXAMPLE: Delta Hedging a Short Call</text>
+      <rect x="0" y="0" width="600" height="130" fill="#232327" rx="10"/>
+      <text x="300" y="25" textAnchor="middle" fontSize="12" fontWeight="600" fill="#5A77AA">EXAMPLE: Delta Hedging a Short Call</text>
       
       <g transform="translate(20, 45)">
         <text x="0" y="0" fontSize="10" fill="white">Position: Short 10 Call contracts (100 shares each) with Delta = 0.50</text>
-        <text x="0" y="20" fontSize="10" fill="#94a3b8">Total Delta exposure: -10 × 100 × 0.50 = -500 deltas</text>
-        <text x="0" y="40" fontSize="10" fill="#94a3b8">This means you need +500 deltas to be neutral</text>
-        <text x="0" y="65" fontSize="10" fill="#22c55e">Hedge: Buy 500 shares of underlying stock (+500 deltas)</text>
-        <text x="0" y="85" fontSize="10" fill="#f97316">Net Position: -500 + 500 = 0 deltas (Delta Neutral)</text>
+        <text x="0" y="20" fontSize="10" fill="#A3A1A6">Total Delta exposure: -10 × 100 × 0.50 = -500 deltas</text>
+        <text x="0" y="40" fontSize="10" fill="#A3A1A6">This means you need +500 deltas to be neutral</text>
+        <text x="0" y="65" fontSize="10" fill="#1FA978">Hedge: Buy 500 shares of underlying stock (+500 deltas)</text>
+        <text x="0" y="85" fontSize="10" fill="#D2754C">Net Position: -500 + 500 = 0 deltas (Delta Neutral)</text>
       </g>
     </g>
     
@@ -318,11 +318,11 @@ const DeltaHedgingSVG = () => (
           { scenario: "Stock falls $5", delta: "0.40", action: "Buy back 100 shares", reason: "Less negative delta from calls" }
         ].map((item, i) => (
           <g key={i} transform={`translate(0, ${i * 60})`}>
-            <rect x="0" y="0" width="600" height="50" fill={i === 0 ? "#22c55e" : "#dc2626"} fillOpacity="0.1" rx="8"/>
-            <text x="20" y="18" fontSize="10" fontWeight="600" fill={i === 0 ? "#22c55e" : "#dc2626"}>{item.scenario}</text>
+            <rect x="0" y="0" width="600" height="50" fill={i === 0 ? "#1FA978" : "#C7363B"} fillOpacity="0.1" rx="8"/>
+            <text x="20" y="18" fontSize="10" fontWeight="600" fill={i === 0 ? "#1FA978" : "#C7363B"}>{item.scenario}</text>
             <text x="180" y="18" fontSize="10" fill="white">New Δ: {item.delta}</text>
             <text x="300" y="18" fontSize="10" fill="white">{item.action}</text>
-            <text x="20" y="38" fontSize="9" fill="#94a3b8">{item.reason}</text>
+            <text x="20" y="38" fontSize="9" fill="#A3A1A6">{item.reason}</text>
           </g>
         ))}
       </g>
@@ -330,8 +330,8 @@ const DeltaHedgingSVG = () => (
     
     {/* Key Note */}
     <g transform="translate(50, 345)">
-      <rect x="0" y="0" width="600" height="25" fill="#a855f7" fillOpacity="0.15" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#a855f7">Gamma determines how often you need to rebalance. High gamma = frequent adjustments = higher transaction costs.</text>
+      <rect x="0" y="0" width="600" height="25" fill="#8F6FC4" fillOpacity="0.15" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#8F6FC4">Gamma determines how often you need to rebalance. High gamma = frequent adjustments = higher transaction costs.</text>
     </g>
   </svg>
 );
@@ -431,7 +431,7 @@ const FOLesson6 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4">
+          <h1 className="text-3xl md:text-4xl font-display font-normal text-gray-900  mb-4 tracking-[-0.015em]">
             The Greeks Part 1: Delta & Gamma
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -440,10 +440,10 @@ const FOLesson6 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 mb-10 text-white">
+        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-6 mb-10 text-white">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
-            <h2 className="text-xl font-bold">Learning Objectives</h2>
+            <h2 className="text-xl font-semibold">Learning Objectives</h2>
           </div>
           <ul className="space-y-2">
             {[
@@ -467,11 +467,11 @@ const FOLesson6 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
                   <Icons.TrendingUp className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Delta</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Understanding Delta</h2>
                   <p className="text-sm text-gray-500 ">Your directional exposure measure</p>
                 </div>
               </div>
@@ -504,11 +504,11 @@ const FOLesson6 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">The Delta S-Curve</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Delta S-Curve</h2>
                   <p className="text-sm text-gray-500 ">How delta changes with stock price</p>
                 </div>
               </div>
@@ -540,11 +540,11 @@ const FOLesson6 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
                   <Icons.Zap className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Gamma</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Understanding Gamma</h2>
                   <p className="text-sm text-gray-500 ">The rate of change of Delta</p>
                 </div>
               </div>
@@ -575,7 +575,7 @@ const FOLesson6 = () => {
                   <Icons.Layers className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Long Gamma vs Short Gamma</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Long Gamma vs Short Gamma</h2>
                   <p className="text-sm text-gray-500 ">The fundamental options trade-off</p>
                 </div>
               </div>
@@ -608,11 +608,11 @@ const FOLesson6 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
                   <Icons.Compass className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Delta Hedging</h2>
+                  <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Delta Hedging</h2>
                   <p className="text-sm text-gray-500 ">Managing directional risk</p>
                 </div>
               </div>
@@ -646,8 +646,8 @@ const FOLesson6 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-bold mb-6">Key Takeaways</h2>
+            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-8 text-white">
+              <h2 className="text-2xl font-semibold mb-6 tracking-[-0.015em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Delta measures price sensitivity and approximates ITM probability",
@@ -671,7 +671,7 @@ const FOLesson6 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-bold text-gray-900  mb-6">Knowledge Check</h2>
+              <h2 className="text-2xl font-semibold text-gray-900  mb-6 tracking-[-0.015em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -715,7 +715,7 @@ const FOLesson6 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
                 >
                   Check Answers
                 </button>
@@ -746,7 +746,7 @@ const FOLesson6 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-7')}
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
             >
               <span>Next: The Greeks Part 2</span>
               <Icons.ArrowRight className="w-5 h-5" />

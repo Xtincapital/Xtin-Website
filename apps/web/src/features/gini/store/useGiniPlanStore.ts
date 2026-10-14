@@ -329,7 +329,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "Xtin Gini Pro",
         description: orderRes.plan?.label || "Gini Pro subscription",
-        theme: { color: "#16a34a" },
+        theme: { color: "#12805A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {
@@ -400,7 +400,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
         currency: orderRes.order.currency,
         name: "Xtin Gini — AI tokens",
         description: orderRes.package?.label || "AI token pack",
-        theme: { color: "#16a34a" },
+        theme: { color: "#12805A" },
         prefill: { email: authUser.email || "" },
         handler: async (response: any) => {
           try {

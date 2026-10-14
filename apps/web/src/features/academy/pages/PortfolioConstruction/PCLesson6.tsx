@@ -68,7 +68,7 @@ const Icons = {
   FactorChart: ({ className = "w-full h-56" }) => (
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
-        {['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'].map((color, i) => (
+        {['#5A77AA', '#1FA978', '#B8923F', '#8F6FC4', '#E04848'].map((color, i) => (
           <linearGradient key={`fGrad-${i}`} id={`factorGrad${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor={color} stopOpacity="0.8"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.4"/>
@@ -89,8 +89,8 @@ const Icons = {
         </g>
       ))}
       {/* Reference line */}
-      <line x1="50" y1="150" x2="370" y2="150" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.5"/>
-      <text x="365" y="145" fill="#94a3b8" fontSize="10" textAnchor="end">Market</text>
+      <line x1="50" y1="150" x2="370" y2="150" stroke="#A3A1A6" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.5"/>
+      <text x="365" y="145" fill="#A3A1A6" fontSize="10" textAnchor="end">Market</text>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Historical Factor Outperformance</text>
     </svg>
   )
@@ -174,12 +174,12 @@ const PCLesson6 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 6 OF 12</span>
+              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xs font-bold rounded-full shadow-sm">LESSON 6 OF 12</span>
               <span className="px-3 py-1.5 bg-violet-100  text-violet-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-violet-900 to-purple-900    bg-clip-text text-transparent mb-5 leading-tight">Factor Investing</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-normal bg-gradient-to-r from-gray-900 via-violet-900 to-purple-900    bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.015em]">Factor Investing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover the systematic drivers of investment returns. Learn about value, momentum, size, quality, and other factors that have historically delivered premiums—and understand their risks.</p>
           </header>
 
@@ -188,18 +188,18 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
                     <Icons.Layers className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">What Are Factors?</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">What Are Factors?</h2>
                     <p className="text-sm text-gray-500 ">The building blocks of returns</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700  leading-relaxed mb-6">Factors are <strong className="text-gray-900 ">systematic characteristics that explain differences in investment returns</strong>. Rather than picking individual stocks, factor investing targets specific attributes that have historically delivered excess returns across markets and time periods.</p>
                 
-                <div className="bg-gradient-to-br from-slate-900 to-violet-950 rounded-xl p-8 mb-6">
+                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-8 mb-6">
                   <h4 className="text-white font-semibold mb-4 text-center">The Factor Revolution</h4>
                   <div className="grid md:grid-cols-3 gap-4 text-center">
                     <div className="bg-white/5 rounded-lg p-4">
@@ -232,11 +232,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
                     <Icons.Percent className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Value Factor</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Value Factor</h2>
                     <p className="text-sm text-gray-500 ">Buying stocks on sale</p>
                   </div>
                 </div>
@@ -275,11 +275,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
                     <Icons.Zap className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Momentum Factor</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">The Momentum Factor</h2>
                     <p className="text-sm text-gray-500 ">Trends tend to continue</p>
                   </div>
                 </div>
@@ -313,11 +313,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
                     <Icons.TrendingUp className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Factor Performance Analysis</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Factor Performance Analysis</h2>
                     <p className="text-sm text-gray-500 ">Historical factor premiums</p>
                   </div>
                 </div>
@@ -391,11 +391,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
                     <Icons.Box className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Size, Quality, and Other Factors</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Size, Quality, and Other Factors</h2>
                     <p className="text-sm text-gray-500 ">Completing the factor toolkit</p>
                   </div>
                 </div>
@@ -455,7 +455,7 @@ const PCLesson6 = () => {
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Implementing Factor Strategies</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Implementing Factor Strategies</h2>
                     <p className="text-sm text-gray-500 ">Practical approaches</p>
                   </div>
                 </div>
@@ -514,11 +514,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
                     <Icons.Award className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Factor Investing Challenges</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Factor Investing Challenges</h2>
                     <p className="text-sm text-gray-500 ">Risks and limitations</p>
                   </div>
                 </div>
@@ -552,11 +552,11 @@ const PCLesson6 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
+                  <span className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-semibold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of factor investing</p>
                   </div>
                 </div>
@@ -601,11 +601,11 @@ const PCLesson6 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-violet-600 to-purple-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-700 rounded-xl text-center">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-violet-100">{calculateScore() === quizQuestions.length ? "Excellent! You've mastered factor investing fundamentals." : "Review the explanations to strengthen your understanding."}</p>
                   </div>
@@ -618,7 +618,7 @@ const PCLesson6 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-5')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous: Tactical Asset Allocation</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-7')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-7')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-200">
               <span>Next: Portfolio Optimization</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

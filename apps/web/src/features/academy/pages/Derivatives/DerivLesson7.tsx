@@ -8,47 +8,47 @@ import Footer from "../../../../components/Footer";
 const OptionalNotRequiredSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Derivatives Are Optional, Not Required</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">You can build wealth without ever touching derivatives</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Derivatives Are Optional, Not Required</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">You can build wealth without ever touching derivatives</text>
     
     {/* Two paths visualization */}
     <g transform="translate(50, 75)">
       {/* Path 1: Without derivatives */}
-      <rect x="0" y="0" width="280" height="140" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">Path A: Without Derivatives</text>
+      <rect x="0" y="0" width="280" height="140" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">Path A: Without Derivatives</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="85" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#374151">Index funds, stocks, bonds, real estate</text>
-        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#374151">Time in market, compound growth</text>
-        <line x1="20" y1="45" x2="230" y2="45" stroke="#e5e7eb" strokeWidth="1"/>
-        <text x="125" y="60" textAnchor="middle" fontSize="8" fill="#166534">✓ Proven path to wealth</text>
-        <text x="125" y="75" textAnchor="middle" fontSize="8" fill="#166534">✓ Lower complexity</text>
-        <text x="125" y="88" textAnchor="middle" fontSize="8" fill="#166534">✓ Most successful investors use this</text>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047">Index funds, stocks, bonds, real estate</text>
+        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#404047">Time in market, compound growth</text>
+        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E1D9" strokeWidth="1"/>
+        <text x="125" y="60" textAnchor="middle" fontSize="8" fill="#0D543C">✓ Proven path to wealth</text>
+        <text x="125" y="75" textAnchor="middle" fontSize="8" fill="#0D543C">✓ Lower complexity</text>
+        <text x="125" y="88" textAnchor="middle" fontSize="8" fill="#0D543C">✓ Most successful investors use this</text>
       </g>
     </g>
     
     <g transform="translate(370, 75)">
       {/* Path 2: With derivatives */}
-      <rect x="0" y="0" width="280" height="140" fill="#fef3c7" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">Path B: With Derivatives</text>
+      <rect x="0" y="0" width="280" height="140" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">Path B: With Derivatives</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="85" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#374151">Futures, options, other derivatives</text>
-        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#374151">Active trading, complex strategies</text>
-        <line x1="20" y1="45" x2="230" y2="45" stroke="#e5e7eb" strokeWidth="1"/>
-        <text x="125" y="60" textAnchor="middle" fontSize="8" fill="#92400e">⚠️ Requires significant expertise</text>
-        <text x="125" y="75" textAnchor="middle" fontSize="8" fill="#92400e">⚠️ Most beginners lose money</text>
-        <text x="125" y="88" textAnchor="middle" fontSize="8" fill="#92400e">⚠️ Optional, not necessary</text>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047">Futures, options, other derivatives</text>
+        <text x="125" y="35" textAnchor="middle" fontSize="8" fill="#404047">Active trading, complex strategies</text>
+        <line x1="20" y1="45" x2="230" y2="45" stroke="#E4E1D9" strokeWidth="1"/>
+        <text x="125" y="60" textAnchor="middle" fontSize="8" fill="#654B26">⚠️ Requires significant expertise</text>
+        <text x="125" y="75" textAnchor="middle" fontSize="8" fill="#654B26">⚠️ Most beginners lose money</text>
+        <text x="125" y="88" textAnchor="middle" fontSize="8" fill="#654B26">⚠️ Optional, not necessary</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="225" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="225" width="500" height="25" fill="#232327" rx="6"/>
     <text x="350" y="242" textAnchor="middle" fontSize="9" fill="white">Warren Buffett, the world's most successful investor, rarely uses derivatives for speculation.</text>
   </svg>
 );
@@ -57,82 +57,82 @@ const OptionalNotRequiredSVG = () => (
 const WhatDemandsSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">What Derivatives Demand From You</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">These aren't suggestions — they're requirements for survival</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">What Derivatives Demand From You</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">These aren't suggestions — they're requirements for survival</text>
     
     {/* Requirement 1: Knowledge */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="190" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">📚 Deep Knowledge</text>
+      <rect x="0" y="0" width="190" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">📚 Deep Knowledge</text>
       
       <g transform="translate(10, 40)">
         <rect x="0" y="0" width="170" height="145" fill="white" rx="8"/>
-        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500">You need to understand:</text>
+        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#404047" fontWeight="500">You need to understand:</text>
         
-        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#64748b">• How the specific product works</text>
-        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#64748b">• How pricing is determined</text>
-        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#64748b">• What affects value</text>
-        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#64748b">• When you can lose everything</text>
-        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#64748b">• Market mechanics</text>
+        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#75757D">• How the specific product works</text>
+        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#75757D">• How pricing is determined</text>
+        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#75757D">• What affects value</text>
+        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#75757D">• When you can lose everything</text>
+        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#75757D">• Market mechanics</text>
         
-        <line x1="15" y1="105" x2="155" y2="105" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="15" y1="105" x2="155" y2="105" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#dc2626" fontWeight="500">This takes months to years</text>
-        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#dc2626">of serious study</text>
+        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#C7363B" fontWeight="500">This takes months to years</text>
+        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#C7363B">of serious study</text>
       </g>
     </g>
     
     {/* Requirement 2: Discipline */}
     <g transform="translate(255, 75)">
-      <rect x="0" y="0" width="190" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">🎯 Iron Discipline</text>
+      <rect x="0" y="0" width="190" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">🎯 Iron Discipline</text>
       
       <g transform="translate(10, 40)">
         <rect x="0" y="0" width="170" height="145" fill="white" rx="8"/>
-        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500">You need ability to:</text>
+        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#404047" fontWeight="500">You need ability to:</text>
         
-        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#64748b">• Follow rules when losing</text>
-        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#64748b">• Cut losses without hesitation</text>
-        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#64748b">• Not chase losing trades</text>
-        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#64748b">• Stay calm under pressure</text>
-        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#64748b">• Walk away from FOMO</text>
+        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#75757D">• Follow rules when losing</text>
+        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#75757D">• Cut losses without hesitation</text>
+        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#75757D">• Not chase losing trades</text>
+        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#75757D">• Stay calm under pressure</text>
+        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#75757D">• Walk away from FOMO</text>
         
-        <line x1="15" y1="105" x2="155" y2="105" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="15" y1="105" x2="155" y2="105" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#dc2626" fontWeight="500">Most people overestimate</text>
-        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#dc2626">their discipline</text>
+        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#C7363B" fontWeight="500">Most people overestimate</text>
+        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#C7363B">their discipline</text>
       </g>
     </g>
     
     {/* Requirement 3: Risk Tolerance */}
     <g transform="translate(460, 75)">
-      <rect x="0" y="0" width="190" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">💸 Financial Cushion</text>
+      <rect x="0" y="0" width="190" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="95" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">💸 Financial Cushion</text>
       
       <g transform="translate(10, 40)">
         <rect x="0" y="0" width="170" height="145" fill="white" rx="8"/>
-        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500">You need to have:</text>
+        <text x="85" y="18" textAnchor="middle" fontSize="8" fill="#404047" fontWeight="500">You need to have:</text>
         
-        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#64748b">• Money you can lose 100%</text>
-        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#64748b">• No impact on lifestyle</text>
-        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#64748b">• Emergency fund secure</text>
-        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#64748b">• Long-term savings untouched</text>
-        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#64748b">• No borrowed money</text>
+        <text x="85" y="38" textAnchor="middle" fontSize="7" fill="#75757D">• Money you can lose 100%</text>
+        <text x="85" y="52" textAnchor="middle" fontSize="7" fill="#75757D">• No impact on lifestyle</text>
+        <text x="85" y="66" textAnchor="middle" fontSize="7" fill="#75757D">• Emergency fund secure</text>
+        <text x="85" y="80" textAnchor="middle" fontSize="7" fill="#75757D">• Long-term savings untouched</text>
+        <text x="85" y="94" textAnchor="middle" fontSize="7" fill="#75757D">• No borrowed money</text>
         
-        <line x1="15" y1="105" x2="155" y2="105" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="15" y1="105" x2="155" y2="105" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#dc2626" fontWeight="500">If you're trading money</text>
-        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#dc2626">you need, you'll lose it</text>
+        <text x="85" y="120" textAnchor="middle" fontSize="7" fill="#C7363B" fontWeight="500">If you're trading money</text>
+        <text x="85" y="134" textAnchor="middle" fontSize="7" fill="#C7363B">you need, you'll lose it</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="290" width="500" height="40" fill="#dc2626" rx="6"/>
+    <rect x="100" y="290" width="500" height="40" fill="#C7363B" rx="6"/>
     <text x="350" y="307" textAnchor="middle" fontSize="9" fill="white">Missing ANY of these requirements dramatically increases your odds of losing money.</text>
-    <text x="350" y="322" textAnchor="middle" fontSize="8" fill="#fecaca">Be honest with yourself about whether you truly meet all three.</text>
+    <text x="350" y="322" textAnchor="middle" fontSize="8" fill="#F6C3C3">Be honest with yourself about whether you truly meet all three.</text>
   </svg>
 );
 
@@ -140,56 +140,56 @@ const WhatDemandsSVG = () => (
 const CuriosityVsReadinessSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Curiosity vs. Readiness</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Being interested is not the same as being prepared</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Curiosity vs. Readiness</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Being interested is not the same as being prepared</text>
     
     {/* Curiosity side */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="280" height="170" fill="#e0f2fe" rx="12" stroke="#7dd3fc" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0369a1">🔍 Curiosity</text>
+      <rect x="0" y="0" width="280" height="170" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#344C72">🔍 Curiosity</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="115" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500">Signs you're curious:</text>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047" fontWeight="500">Signs you're curious:</text>
         
-        <text x="125" y="38" textAnchor="middle" fontSize="7" fill="#64748b">"I want to understand how derivatives work"</text>
-        <text x="125" y="52" textAnchor="middle" fontSize="7" fill="#64748b">"This sounds interesting"</text>
-        <text x="125" y="66" textAnchor="middle" fontSize="7" fill="#64748b">"I've heard people make money with options"</text>
+        <text x="125" y="38" textAnchor="middle" fontSize="7" fill="#75757D">"I want to understand how derivatives work"</text>
+        <text x="125" y="52" textAnchor="middle" fontSize="7" fill="#75757D">"This sounds interesting"</text>
+        <text x="125" y="66" textAnchor="middle" fontSize="7" fill="#75757D">"I've heard people make money with options"</text>
         
-        <line x1="20" y1="78" x2="230" y2="78" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="78" x2="230" y2="78" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="125" y="95" textAnchor="middle" fontSize="7" fill="#0369a1">Curiosity is healthy — keep learning</text>
-        <text x="125" y="108" textAnchor="middle" fontSize="7" fill="#0369a1">But curiosity ≠ readiness to trade</text>
+        <text x="125" y="95" textAnchor="middle" fontSize="7" fill="#344C72">Curiosity is healthy — keep learning</text>
+        <text x="125" y="108" textAnchor="middle" fontSize="7" fill="#344C72">But curiosity ≠ readiness to trade</text>
       </g>
     </g>
     
     {/* Readiness side */}
     <g transform="translate(370, 75)">
-      <rect x="0" y="0" width="280" height="170" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">✓ Readiness</text>
+      <rect x="0" y="0" width="280" height="170" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="10" fontWeight="600" fill="#0D543C">✓ Readiness</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="250" height="115" fill="white" rx="8"/>
-        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#374151" fontWeight="500">Signs you might be ready:</text>
+        <text x="125" y="18" textAnchor="middle" fontSize="8" fill="#404047" fontWeight="500">Signs you might be ready:</text>
         
-        <text x="125" y="38" textAnchor="middle" fontSize="7" fill="#64748b">"I've studied for 6+ months"</text>
-        <text x="125" y="52" textAnchor="middle" fontSize="7" fill="#64748b">"I've paper traded extensively"</text>
-        <text x="125" y="66" textAnchor="middle" fontSize="7" fill="#64748b">"I have a specific purpose (hedging)"</text>
+        <text x="125" y="38" textAnchor="middle" fontSize="7" fill="#75757D">"I've studied for 6+ months"</text>
+        <text x="125" y="52" textAnchor="middle" fontSize="7" fill="#75757D">"I've paper traded extensively"</text>
+        <text x="125" y="66" textAnchor="middle" fontSize="7" fill="#75757D">"I have a specific purpose (hedging)"</text>
         
-        <line x1="20" y1="78" x2="230" y2="78" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="78" x2="230" y2="78" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="125" y="95" textAnchor="middle" fontSize="7" fill="#166534">Even then, start very small</text>
-        <text x="125" y="108" textAnchor="middle" fontSize="7" fill="#166534">And expect to make mistakes</text>
+        <text x="125" y="95" textAnchor="middle" fontSize="7" fill="#0D543C">Even then, start very small</text>
+        <text x="125" y="108" textAnchor="middle" fontSize="7" fill="#0D543C">And expect to make mistakes</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="255" width="500" height="35" fill="#1e293b" rx="6"/>
+    <rect x="100" y="255" width="500" height="35" fill="#232327" rx="6"/>
     <text x="350" y="270" textAnchor="middle" fontSize="9" fill="white">Most people who trade derivatives are curious but not ready.</text>
-    <text x="350" y="285" textAnchor="middle" fontSize="8" fill="#94a3b8">That's a large part of why most people lose money.</text>
+    <text x="350" y="285" textAnchor="middle" fontSize="8" fill="#A3A1A6">That's a large part of why most people lose money.</text>
   </svg>
 );
 
@@ -197,47 +197,47 @@ const CuriosityVsReadinessSVG = () => (
 const SelfTestSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The Honest Self-Test</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Can you honestly answer "Yes" to ALL of these?</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">The Honest Self-Test</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Can you honestly answer "Yes" to ALL of these?</text>
     
     {/* Test questions */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="600" height="215" fill="white" rx="10" stroke="#e5e7eb" strokeWidth="1"/>
+      <rect x="0" y="0" width="600" height="215" fill="white" rx="10" stroke="#E4E1D9" strokeWidth="1"/>
       
       <g transform="translate(30, 25)">
-        <circle cx="12" cy="0" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="4" textAnchor="middle" fontSize="10" fill="#f59e0b">1</text>
-        <text x="35" y="4" fontSize="9" fill="#374151">"I can explain how futures/options pricing works without looking it up."</text>
+        <circle cx="12" cy="0" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="4" textAnchor="middle" fontSize="10" fill="#B8923F">1</text>
+        <text x="35" y="4" fontSize="9" fill="#404047">"I can explain how futures/options pricing works without looking it up."</text>
         
-        <circle cx="12" cy="35" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="39" textAnchor="middle" fontSize="10" fill="#f59e0b">2</text>
-        <text x="35" y="39" fontSize="9" fill="#374151">"I've paper traded for at least 6 months and tracked my results honestly."</text>
+        <circle cx="12" cy="35" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="39" textAnchor="middle" fontSize="10" fill="#B8923F">2</text>
+        <text x="35" y="39" fontSize="9" fill="#404047">"I've paper traded for at least 6 months and tracked my results honestly."</text>
         
-        <circle cx="12" cy="70" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="74" textAnchor="middle" fontSize="10" fill="#f59e0b">3</text>
-        <text x="35" y="74" fontSize="9" fill="#374151">"I have money set aside that I could lose 100% without impacting my life."</text>
+        <circle cx="12" cy="70" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="74" textAnchor="middle" fontSize="10" fill="#B8923F">3</text>
+        <text x="35" y="74" fontSize="9" fill="#404047">"I have money set aside that I could lose 100% without impacting my life."</text>
         
-        <circle cx="12" cy="105" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="109" textAnchor="middle" fontSize="10" fill="#f59e0b">4</text>
-        <text x="35" y="109" fontSize="9" fill="#374151">"I have a specific purpose beyond 'making money' — like hedging existing positions."</text>
+        <circle cx="12" cy="105" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="109" textAnchor="middle" fontSize="10" fill="#B8923F">4</text>
+        <text x="35" y="109" fontSize="9" fill="#404047">"I have a specific purpose beyond 'making money' — like hedging existing positions."</text>
         
-        <circle cx="12" cy="140" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="144" textAnchor="middle" fontSize="10" fill="#f59e0b">5</text>
-        <text x="35" y="144" fontSize="9" fill="#374151">"I can walk away from a trade emotionally — I won't chase losses."</text>
+        <circle cx="12" cy="140" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="144" textAnchor="middle" fontSize="10" fill="#B8923F">5</text>
+        <text x="35" y="144" fontSize="9" fill="#404047">"I can walk away from a trade emotionally — I won't chase losses."</text>
         
-        <circle cx="12" cy="175" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1"/>
-        <text x="12" y="179" textAnchor="middle" fontSize="10" fill="#f59e0b">6</text>
-        <text x="35" y="179" fontSize="9" fill="#374151">"I accept that I will likely lose money, especially at first, and I'm okay with that."</text>
+        <circle cx="12" cy="175" r="10" fill="#F6ECCE" stroke="#B8923F" strokeWidth="1"/>
+        <text x="12" y="179" textAnchor="middle" fontSize="10" fill="#B8923F">6</text>
+        <text x="35" y="179" fontSize="9" fill="#404047">"I accept that I will likely lose money, especially at first, and I'm okay with that."</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="100" y="300" width="500" height="30" fill="#dc2626" rx="6"/>
+    <rect x="100" y="300" width="500" height="30" fill="#C7363B" rx="6"/>
     <text x="350" y="315" textAnchor="middle" fontSize="9" fill="white">If you can't honestly say "Yes" to ALL six, you're not ready — and that's okay.</text>
-    <text x="350" y="328" textAnchor="middle" fontSize="8" fill="#fecaca">Most successful investors never use derivatives at all.</text>
+    <text x="350" y="328" textAnchor="middle" fontSize="8" fill="#F6C3C3">Most successful investors never use derivatives at all.</text>
   </svg>
 );
 
@@ -245,74 +245,74 @@ const SelfTestSVG = () => (
 const GlobalExampleSVG = () => (
   <svg viewBox="0 0 700 400" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="400" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="400" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Two Different Journeys: Sarah vs. David</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Both started with $100,000 — different approaches, different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">Two Different Journeys: Sarah vs. David</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">Both started with $100,000 — different approaches, different outcomes</text>
     
     {/* Sarah - No derivatives */}
     <g transform="translate(50, 75)">
-      <rect x="0" y="0" width="290" height="270" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">Sarah: No Derivatives</text>
+      <rect x="0" y="0" width="290" height="270" fill="#D5F2E5" rx="12" stroke="#77D3AE" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#0D543C">Sarah: No Derivatives</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="260" height="215" fill="white" rx="8"/>
         
-        <text x="130" y="22" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="500">The Approach</text>
-        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#374151">Index funds + dividend stocks</text>
-        <text x="130" y="55" textAnchor="middle" fontSize="8" fill="#374151">Long-term buy and hold</text>
+        <text x="130" y="22" textAnchor="middle" fontSize="9" fill="#0D543C" fontWeight="500">The Approach</text>
+        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#404047">Index funds + dividend stocks</text>
+        <text x="130" y="55" textAnchor="middle" fontSize="8" fill="#404047">Long-term buy and hold</text>
         
-        <line x1="20" y1="68" x2="240" y2="68" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="68" x2="240" y2="68" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="85" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="500">10 Years Later</text>
-        <text x="130" y="102" textAnchor="middle" fontSize="8" fill="#374151">$100,000 → $250,000</text>
-        <text x="130" y="117" textAnchor="middle" fontSize="8" fill="#374151">Average 9.6% annual return</text>
+        <text x="130" y="85" textAnchor="middle" fontSize="9" fill="#0D543C" fontWeight="500">10 Years Later</text>
+        <text x="130" y="102" textAnchor="middle" fontSize="8" fill="#404047">$100,000 → $250,000</text>
+        <text x="130" y="117" textAnchor="middle" fontSize="8" fill="#404047">Average 9.6% annual return</text>
         
-        <line x1="20" y1="130" x2="240" y2="130" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="130" x2="240" y2="130" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="147" textAnchor="middle" fontSize="9" fill="#166534" fontWeight="500">The Experience</text>
-        <text x="130" y="165" textAnchor="middle" fontSize="8" fill="#374151">Low stress, minimal time spent</text>
-        <text x="130" y="180" textAnchor="middle" fontSize="8" fill="#374151">Slept well during market crashes</text>
-        <text x="130" y="195" textAnchor="middle" fontSize="8" fill="#374151">Never panicked, just held</text>
+        <text x="130" y="147" textAnchor="middle" fontSize="9" fill="#0D543C" fontWeight="500">The Experience</text>
+        <text x="130" y="165" textAnchor="middle" fontSize="8" fill="#404047">Low stress, minimal time spent</text>
+        <text x="130" y="180" textAnchor="middle" fontSize="8" fill="#404047">Slept well during market crashes</text>
+        <text x="130" y="195" textAnchor="middle" fontSize="8" fill="#404047">Never panicked, just held</text>
         
-        <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Result: +$150,000 gain</text>
+        <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#0D543C" fontWeight="600">Result: +$150,000 gain</text>
       </g>
     </g>
     
     {/* David - Derivatives */}
     <g transform="translate(360, 75)">
-      <rect x="0" y="0" width="290" height="270" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">David: Derivatives Trading</text>
+      <rect x="0" y="0" width="290" height="270" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="145" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">David: Derivatives Trading</text>
       
       <g transform="translate(15, 40)">
         <rect x="0" y="0" width="260" height="215" fill="white" rx="8"/>
         
-        <text x="130" y="22" textAnchor="middle" fontSize="9" fill="#dc2626" fontWeight="500">The Approach</text>
-        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#374151">Options trading for "better returns"</text>
-        <text x="130" y="55" textAnchor="middle" fontSize="8" fill="#374151">Frequent trading, leverage</text>
+        <text x="130" y="22" textAnchor="middle" fontSize="9" fill="#C7363B" fontWeight="500">The Approach</text>
+        <text x="130" y="40" textAnchor="middle" fontSize="8" fill="#404047">Options trading for "better returns"</text>
+        <text x="130" y="55" textAnchor="middle" fontSize="8" fill="#404047">Frequent trading, leverage</text>
         
-        <line x1="20" y1="68" x2="240" y2="68" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="68" x2="240" y2="68" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="85" textAnchor="middle" fontSize="9" fill="#dc2626" fontWeight="500">10 Years Later</text>
-        <text x="130" y="102" textAnchor="middle" fontSize="8" fill="#374151">$100,000 → $35,000</text>
-        <text x="130" y="117" textAnchor="middle" fontSize="8" fill="#374151">Average -10% annual loss</text>
+        <text x="130" y="85" textAnchor="middle" fontSize="9" fill="#C7363B" fontWeight="500">10 Years Later</text>
+        <text x="130" y="102" textAnchor="middle" fontSize="8" fill="#404047">$100,000 → $35,000</text>
+        <text x="130" y="117" textAnchor="middle" fontSize="8" fill="#404047">Average -10% annual loss</text>
         
-        <line x1="20" y1="130" x2="240" y2="130" stroke="#e5e7eb" strokeWidth="1"/>
+        <line x1="20" y1="130" x2="240" y2="130" stroke="#E4E1D9" strokeWidth="1"/>
         
-        <text x="130" y="147" textAnchor="middle" fontSize="9" fill="#dc2626" fontWeight="500">The Experience</text>
-        <text x="130" y="165" textAnchor="middle" fontSize="8" fill="#374151">High stress, constant monitoring</text>
-        <text x="130" y="180" textAnchor="middle" fontSize="8" fill="#374151">Sleepless nights, anxiety</text>
-        <text x="130" y="195" textAnchor="middle" fontSize="8" fill="#374151">Years of trying to "recover"</text>
+        <text x="130" y="147" textAnchor="middle" fontSize="9" fill="#C7363B" fontWeight="500">The Experience</text>
+        <text x="130" y="165" textAnchor="middle" fontSize="8" fill="#404047">High stress, constant monitoring</text>
+        <text x="130" y="180" textAnchor="middle" fontSize="8" fill="#404047">Sleepless nights, anxiety</text>
+        <text x="130" y="195" textAnchor="middle" fontSize="8" fill="#404047">Years of trying to "recover"</text>
         
-        <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#dc2626" fontWeight="600">Result: -$65,000 loss</text>
+        <text x="130" y="215" textAnchor="middle" fontSize="8" fill="#C7363B" fontWeight="600">Result: -$65,000 loss</text>
       </g>
     </g>
     
     {/* Bottom insight */}
-    <rect x="50" y="355" width="600" height="35" fill="#1e293b" rx="6"/>
+    <rect x="50" y="355" width="600" height="35" fill="#232327" rx="6"/>
     <text x="350" y="370" textAnchor="middle" fontSize="9" fill="white">Both are common outcomes. David isn't stupid — he just chose a harder path he wasn't prepared for.</text>
-    <text x="350" y="385" textAnchor="middle" fontSize="8" fill="#94a3b8">The difference in outcomes: $215,000 over 10 years. Simplicity often wins.</text>
+    <text x="350" y="385" textAnchor="middle" fontSize="8" fill="#A3A1A6">The difference in outcomes: $215,000 over 10 years. Simplicity often wins.</text>
   </svg>
 );
 
@@ -320,65 +320,65 @@ const GlobalExampleSVG = () => (
 const DecisionFrameworkSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F7F6F2" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">A Simple Decision Framework</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">How to think about whether derivatives are right for you</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#404047">A Simple Decision Framework</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#75757D">How to think about whether derivatives are right for you</text>
     
     {/* Flowchart */}
     <g transform="translate(50, 75)">
       {/* Question 1 */}
-      <rect x="200" y="0" width="200" height="40" fill="#e0f2fe" rx="8" stroke="#0369a1" strokeWidth="2"/>
-      <text x="300" y="25" textAnchor="middle" fontSize="9" fill="#0369a1">Do you have a specific purpose?</text>
+      <rect x="200" y="0" width="200" height="40" fill="#E0E7F1" rx="8" stroke="#344C72" strokeWidth="2"/>
+      <text x="300" y="25" textAnchor="middle" fontSize="9" fill="#344C72">Do you have a specific purpose?</text>
       
       {/* Arrows */}
-      <line x1="250" y1="40" x2="150" y2="70" stroke="#64748b" strokeWidth="1.5" markerEnd="url(#arrowhead)"/>
-      <line x1="350" y1="40" x2="450" y2="70" stroke="#64748b" strokeWidth="1.5" markerEnd="url(#arrowhead)"/>
-      <text x="185" y="52" fontSize="8" fill="#64748b">No</text>
-      <text x="405" y="52" fontSize="8" fill="#64748b">Yes</text>
+      <line x1="250" y1="40" x2="150" y2="70" stroke="#75757D" strokeWidth="1.5" markerEnd="url(#arrowhead)"/>
+      <line x1="350" y1="40" x2="450" y2="70" stroke="#75757D" strokeWidth="1.5" markerEnd="url(#arrowhead)"/>
+      <text x="185" y="52" fontSize="8" fill="#75757D">No</text>
+      <text x="405" y="52" fontSize="8" fill="#75757D">Yes</text>
       
       {/* No branch */}
-      <rect x="50" y="70" width="200" height="35" fill="#dcfce7" rx="8"/>
-      <text x="150" y="92" textAnchor="middle" fontSize="8" fill="#166534">Simpler investments are better</text>
+      <rect x="50" y="70" width="200" height="35" fill="#D5F2E5" rx="8"/>
+      <text x="150" y="92" textAnchor="middle" fontSize="8" fill="#0D543C">Simpler investments are better</text>
       
       {/* Yes branch - Question 2 */}
-      <rect x="350" y="70" width="200" height="40" fill="#e0f2fe" rx="8" stroke="#0369a1" strokeWidth="2"/>
-      <text x="450" y="92" textAnchor="middle" fontSize="9" fill="#0369a1">Have you studied deeply?</text>
+      <rect x="350" y="70" width="200" height="40" fill="#E0E7F1" rx="8" stroke="#344C72" strokeWidth="2"/>
+      <text x="450" y="92" textAnchor="middle" fontSize="9" fill="#344C72">Have you studied deeply?</text>
       
       {/* More arrows */}
-      <line x1="400" y1="110" x2="350" y2="140" stroke="#64748b" strokeWidth="1.5"/>
-      <line x1="500" y1="110" x2="550" y2="140" stroke="#64748b" strokeWidth="1.5"/>
-      <text x="360" y="122" fontSize="8" fill="#64748b">No</text>
-      <text x="535" y="122" fontSize="8" fill="#64748b">Yes</text>
+      <line x1="400" y1="110" x2="350" y2="140" stroke="#75757D" strokeWidth="1.5"/>
+      <line x1="500" y1="110" x2="550" y2="140" stroke="#75757D" strokeWidth="1.5"/>
+      <text x="360" y="122" fontSize="8" fill="#75757D">No</text>
+      <text x="535" y="122" fontSize="8" fill="#75757D">Yes</text>
       
       {/* No - keep learning */}
-      <rect x="250" y="140" width="200" height="35" fill="#fef3c7" rx="8"/>
-      <text x="350" y="162" textAnchor="middle" fontSize="8" fill="#92400e">Keep learning, not ready yet</text>
+      <rect x="250" y="140" width="200" height="35" fill="#F6ECCE" rx="8"/>
+      <text x="350" y="162" textAnchor="middle" fontSize="8" fill="#654B26">Keep learning, not ready yet</text>
       
       {/* Yes branch - Question 3 */}
-      <rect x="450" y="140" width="200" height="40" fill="#e0f2fe" rx="8" stroke="#0369a1" strokeWidth="2"/>
-      <text x="550" y="162" textAnchor="middle" fontSize="9" fill="#0369a1">Can you afford 100% loss?</text>
+      <rect x="450" y="140" width="200" height="40" fill="#E0E7F1" rx="8" stroke="#344C72" strokeWidth="2"/>
+      <text x="550" y="162" textAnchor="middle" fontSize="9" fill="#344C72">Can you afford 100% loss?</text>
       
       {/* Final arrows */}
-      <line x1="500" y1="180" x2="450" y2="210" stroke="#64748b" strokeWidth="1.5"/>
-      <line x1="600" y1="180" x2="600" y2="210" stroke="#64748b" strokeWidth="1.5"/>
-      <text x="460" y="192" fontSize="8" fill="#64748b">No</text>
-      <text x="615" y="192" fontSize="8" fill="#64748b">Yes</text>
+      <line x1="500" y1="180" x2="450" y2="210" stroke="#75757D" strokeWidth="1.5"/>
+      <line x1="600" y1="180" x2="600" y2="210" stroke="#75757D" strokeWidth="1.5"/>
+      <text x="460" y="192" fontSize="8" fill="#75757D">No</text>
+      <text x="615" y="192" fontSize="8" fill="#75757D">Yes</text>
       
       {/* No - not ready */}
-      <rect x="350" y="210" width="200" height="35" fill="#fef2f2" rx="8"/>
-      <text x="450" y="232" textAnchor="middle" fontSize="8" fill="#dc2626">Don't risk money you need</text>
+      <rect x="350" y="210" width="200" height="35" fill="#FDF1F1" rx="8"/>
+      <text x="450" y="232" textAnchor="middle" fontSize="8" fill="#C7363B">Don't risk money you need</text>
       
       {/* Yes - maybe proceed */}
-      <rect x="500" y="210" width="150" height="50" fill="#fef3c7" rx="8" stroke="#f59e0b" strokeWidth="2"/>
-      <text x="575" y="230" textAnchor="middle" fontSize="8" fill="#92400e">Consider starting very small</text>
-      <text x="575" y="245" textAnchor="middle" fontSize="7" fill="#92400e">and expect to make mistakes</text>
+      <rect x="500" y="210" width="150" height="50" fill="#F6ECCE" rx="8" stroke="#B8923F" strokeWidth="2"/>
+      <text x="575" y="230" textAnchor="middle" fontSize="8" fill="#654B26">Consider starting very small</text>
+      <text x="575" y="245" textAnchor="middle" fontSize="7" fill="#654B26">and expect to make mistakes</text>
     </g>
     
     <defs>
       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+        <polygon points="0 0, 10 3.5, 0 7" fill="#75757D"/>
       </marker>
     </defs>
   </svg>
@@ -392,24 +392,24 @@ const ModuleCompletionSVG = () => (
     
     <defs>
       <linearGradient id="completionGradDeriv" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#166534"/>
-        <stop offset="100%" stopColor="#14532d"/>
+        <stop offset="0%" stopColor="#0D543C"/>
+        <stop offset="100%" stopColor="#0B4532"/>
       </linearGradient>
     </defs>
     
     <text x="350" y="35" textAnchor="middle" fontSize="14" fontWeight="600" fill="white">🎓 Congratulations on Completing This Module</text>
-    <text x="350" y="60" textAnchor="middle" fontSize="11" fill="#dcfce7">You now understand derivatives better than most people who trade them.</text>
+    <text x="350" y="60" textAnchor="middle" fontSize="11" fill="#D5F2E5">You now understand derivatives better than most people who trade them.</text>
     
     <g transform="translate(100, 80)">
       <rect x="0" y="0" width="500" height="90" fill="white" fillOpacity="0.15" rx="8"/>
       
       <text x="250" y="25" textAnchor="middle" fontSize="10" fill="white" fontWeight="500">What you've learned:</text>
-      <text x="250" y="45" textAnchor="middle" fontSize="9" fill="#dcfce7">✓ What derivatives are and how they work</text>
-      <text x="250" y="62" textAnchor="middle" fontSize="9" fill="#dcfce7">✓ Why they're risky and why most beginners lose</text>
-      <text x="250" y="79" textAnchor="middle" fontSize="9" fill="#dcfce7">✓ How to decide if they're right for you (probably not)</text>
+      <text x="250" y="45" textAnchor="middle" fontSize="9" fill="#D5F2E5">✓ What derivatives are and how they work</text>
+      <text x="250" y="62" textAnchor="middle" fontSize="9" fill="#D5F2E5">✓ Why they're risky and why most beginners lose</text>
+      <text x="250" y="79" textAnchor="middle" fontSize="9" fill="#D5F2E5">✓ How to decide if they're right for you (probably not)</text>
     </g>
     
-    <text x="350" y="190" textAnchor="middle" fontSize="9" fill="#86efac">This awareness may save you from costly mistakes. That's the real value.</text>
+    <text x="350" y="190" textAnchor="middle" fontSize="9" fill="#77D3AE">This awareness may save you from costly mistakes. That's the real value.</text>
   </svg>
 );
 
@@ -417,19 +417,19 @@ const ModuleCompletionSVG = () => (
 const FinalWarningSVG = () => (
   <svg viewBox="0 0 700 100" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="100" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
+    <rect x="0" y="0" width="700" height="100" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
     
     {/* Warning icon */}
     <g transform="translate(30, 35)">
-      <polygon points="15,0 30,26 0,26" fill="#dc2626"/>
+      <polygon points="15,0 30,26 0,26" fill="#C7363B"/>
       <text x="15" y="20" textAnchor="middle" fontSize="14" fontWeight="bold" fill="white">!</text>
     </g>
     
     {/* Text */}
-    <text x="80" y="35" fontSize="11" fontWeight="600" fill="#dc2626">Final Reminder: This Module Doesn't Prepare You to Trade</text>
-    <text x="80" y="55" fontSize="9" fill="#991b1b">You've learned awareness — not execution. If you decide to explore derivatives further,</text>
-    <text x="80" y="72" fontSize="9" fill="#991b1b">you'll need months more study, paper trading practice, and ideally professional guidance.</text>
-    <text x="80" y="90" fontSize="8" fill="#b91c1c">There are no shortcuts, and anyone telling you otherwise is likely trying to sell you something.</text>
+    <text x="80" y="35" fontSize="11" fontWeight="600" fill="#C7363B">Final Reminder: This Module Doesn't Prepare You to Trade</text>
+    <text x="80" y="55" fontSize="9" fill="#842428">You've learned awareness — not execution. If you decide to explore derivatives further,</text>
+    <text x="80" y="72" fontSize="9" fill="#842428">you'll need months more study, paper trading practice, and ideally professional guidance.</text>
+    <text x="80" y="90" fontSize="8" fill="#A52A2F">There are no shortcuts, and anyone telling you otherwise is likely trying to sell you something.</text>
   </svg>
 );
 
@@ -492,7 +492,7 @@ const DerivLesson7 = () => {
                 Lesson 7 of 7 – Final Lesson
               </span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Should You Explore Derivatives?</h1>
+            <h1 className="text-3xl font-display font-normal text-gray-800 mb-2 tracking-[-0.015em]">Should You Explore Derivatives?</h1>
             <p className="text-gray-600 text-lg">
               Helping you decide if derivatives fit your goals.
             </p>
@@ -506,7 +506,7 @@ const DerivLesson7 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Final Question</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Final Question</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -530,7 +530,7 @@ const DerivLesson7 = () => {
 
         {/* What Derivatives Demand */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What Derivatives Demand</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">What Derivatives Demand</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -548,7 +548,7 @@ const DerivLesson7 = () => {
 
         {/* Curiosity vs Readiness */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Curiosity vs. Readiness</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Curiosity vs. Readiness</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -566,7 +566,7 @@ const DerivLesson7 = () => {
 
         {/* Self-Test */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Honest Self-Test</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">The Honest Self-Test</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -589,7 +589,7 @@ const DerivLesson7 = () => {
 
         {/* Global Example */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Two Different Journeys</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">Two Different Journeys</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -613,7 +613,7 @@ const DerivLesson7 = () => {
 
         {/* Decision Framework */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">A Decision Framework</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">A Decision Framework</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed">
@@ -649,7 +649,7 @@ const DerivLesson7 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Final Knowledge Check</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 tracking-[-0.015em]">📝 Final Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding before completing the module.</p>
           
           <div className="space-y-8">
@@ -702,10 +702,10 @@ const DerivLesson7 = () => {
         </div>
 
         {/* Reflection */}
-        <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl p-8 shadow-lg mb-8 text-white">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-amber-200" />
-            <h3 className="text-xl font-bold">Final Reflection</h3>
+            <h3 className="text-xl font-semibold">Final Reflection</h3>
           </div>
           <div className="bg-white/20 rounded-xl p-5">
             <p className="text-white font-medium mb-3">Take a moment to consider:</p>
@@ -724,7 +724,7 @@ const DerivLesson7 = () => {
 
         {/* Module Summary */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Module Complete</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Module Complete</h3>
           <div className="bg-green-50 rounded-xl p-6 border border-green-200 mb-6">
             <h4 className="font-semibold text-green-800 mb-3">What You've Learned in This Module:</h4>
             <ul className="text-green-700 space-y-2">

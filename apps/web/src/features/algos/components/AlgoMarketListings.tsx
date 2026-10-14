@@ -15,7 +15,7 @@ function AlgoCard({ algo }: { algo: MarketAlgo }) {
     <article className="flex flex-col bg-white rounded-xl border border-gray-200 shadow-sm p-6">
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="min-w-0">
-          <h3 className="text-xl font-bold text-gray-900 break-words">{algo.algo_name}</h3>
+          <h3 className="text-xl font-semibold text-gray-900 break-words">{algo.algo_name}</h3>
           <p className="text-sm text-gray-500">by {algo.applicant_name}</p>
         </div>
         <span className="shrink-0 rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-xs font-semibold">Approved</span>
@@ -43,7 +43,7 @@ function AlgoCard({ algo }: { algo: MarketAlgo }) {
       </button>
       <div className="mt-auto pt-5 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100">
         <div>
-          <div className="text-2xl font-bold text-gray-900">₹{Number(algo.expected_price).toLocaleString('en-IN')}</div>
+          <div className="xt-metric text-gray-900 dark:text-white">₹{Number(algo.expected_price).toLocaleString('en-IN')}</div>
           <div className="text-xs text-gray-500">Publisher's listed price</div>
           <ApproxPrice inr={Number(algo.expected_price)} className="text-gray-500" />
         </div>
