@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from 'react-router-dom';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // ============================================
 // TAX LESSON 2: TAXES ON INCOME VS INVESTMENTS
@@ -634,8 +633,7 @@ const TaxLesson2 = () => {
   ];
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="TaxBasics" lessonNumber={2}>
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 pt-16">
       {/* Header */}
       <div className="text-white py-12 bg-brand-fill">
@@ -883,8 +881,7 @@ const TaxLesson2 = () => {
         </section>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

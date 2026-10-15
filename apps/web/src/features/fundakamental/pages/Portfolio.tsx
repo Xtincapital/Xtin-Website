@@ -36,6 +36,9 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import ProductBrand from "@/components/ProductBrand";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ICON_TILE, H2, H2_ICON, BTN } from "../lib/ui";
 import { getRates, convert } from "@/lib/region";
 import { currencySymbol, type Currency } from "../lib/currency";
 import useRegion from "@/hooks/useRegion";
@@ -126,7 +129,7 @@ interface PortfolioSummary {
 }
 
 const ASSET_META: Record<AssetType, { label: string; emoji: string; badge: string }> = {
-  stock: { label: "Stock", emoji: "📈", badge: "bg-primary/10 text-brand" },
+  stock: { label: "Stock", emoji: "📈", badge: "bg-brand-soft text-brand" },
   gold: { label: "Gold", emoji: "🪙", badge: "bg-amber-100 text-amber-700" },
   cash: { label: "Cash", emoji: "💵", badge: "bg-brand-soft text-brand" },
   other: { label: "Other", emoji: "📦", badge: "bg-slate-100 text-slate-600" },
@@ -492,8 +495,13 @@ const Portfolio = () => {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-muted-foreground">Loading portfolio...</div>
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6" aria-busy="true" aria-label="Loading portfolio">
+          <Skeleton className="h-4 w-36" />
+          <Skeleton className="h-11 w-72 max-w-full" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-[124px] rounded-2xl" />)}
+          </div>
+          <Skeleton className="h-80 rounded-2xl" />
         </div>
       </DashboardLayout>
     );
@@ -503,7 +511,7 @@ const Portfolio = () => {
     return (
       <DashboardLayout>
         <div className="flex flex-col items-center justify-center h-[80vh] gap-4 text-center px-6">
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl bg-brand-soft flex items-center justify-center">
             <Briefcase className="w-8 h-8 text-brand" />
           </div>
           <h2 className="text-2xl font-bold text-foreground">Your whole net worth, one page</h2>
@@ -514,7 +522,7 @@ const Portfolio = () => {
           <Button
             onClick={handleCreatePortfolio}
             disabled={creating}
-            className="bg-primary text-white hover:bg-primary/90 gap-2 mt-2"
+            className={`${BTN} gap-2 mt-2`}
             size="lg"
           >
             <Plus className="w-4 h-4" />
@@ -529,8 +537,9 @@ const Portfolio = () => {
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="fk-hello pt-2 flex items-end justify-between flex-wrap gap-4">
           <div>
+            <ProductBrand to="/fundakamental" name="FundaKaMental" className="mb-3" />
             <h1 className="xt-title mb-2">
               {selectedPortfolio.name}
             </h1>
@@ -552,7 +561,7 @@ const Portfolio = () => {
 
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
-                <Button className="bg-primary text-white hover:bg-primary/90 gap-2">
+                <Button className={`${BTN} gap-2`}>
                   <Plus className="w-4 h-4" />
                   Add Investment
                 </Button>
@@ -574,7 +583,7 @@ const Portfolio = () => {
                       className={`p-3 rounded-xl border text-center transition-all ${
                         form.asset_type === t
                           ? "border-primary bg-primary/5 shadow-sm"
-                          : "border-border hover:border-primary/40"
+                          : "border-border hover:border-brand-line"
                       }`}
                     >
                       <div className="text-xl">{ASSET_META[t].emoji}</div>
@@ -723,12 +732,12 @@ const Portfolio = () => {
                   )}
 
                   {existingHolding && (
-                    <p className="text-xs rounded-lg bg-amber-50 border border-amber-200 text-amber-800 p-2">
+                    <p className="text-xs rounded-lg bg-warning/10 border border-warning/30 text-warning p-2">
                       You already hold {existingHolding.company_name || existingHolding.ticker}. Saving replaces its quantity and
                       buy price with these numbers (it doesn't add to them) — enter your new total holding and average price.
                     </p>
                   )}
-                  <Button onClick={handleAddHolding} disabled={saving} className="w-full bg-primary text-white hover:bg-primary/90">
+                  <Button onClick={handleAddHolding} disabled={saving} className="w-full bg-brand-fill text-white hover:bg-brand-hover">
                     {saving ? "Saving..." : existingHolding ? "Update Holding" : "Add to Portfolio"}
                   </Button>
                 </div>
@@ -741,10 +750,10 @@ const Portfolio = () => {
         {summary && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-              <Card className="p-6">
+              <Card className="shadow-none p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Total Value</span>
-                  <DollarSign className="w-4 h-4 text-brand" />
+                  <span className="xt-label">Total Value</span>
+                  <span className={`${ICON_TILE} !h-8 !w-8 !rounded-lg`}><DollarSign className="w-4 h-4" /></span>
                 </div>
                 <div className="xt-metric text-foreground">
                   {fmt(computed.value)}
@@ -757,13 +766,13 @@ const Portfolio = () => {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-              <Card className="p-6">
+              <Card className="shadow-none p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Total Return</span>
+                  <span className="xt-label">Total Return</span>
                   {computed.gain >= 0 ? (
-                    <TrendingUp className="w-4 h-4 text-brand" />
+                    <span className={`${ICON_TILE} !h-8 !w-8 !rounded-lg`}><TrendingUp className="w-4 h-4" /></span>
                   ) : (
-                    <TrendingDown className="w-4 h-4 text-destructive" />
+                    <span className={`${ICON_TILE} !h-8 !w-8 !rounded-lg !bg-destructive/10 !text-destructive`}><TrendingDown className="w-4 h-4" /></span>
                   )}
                 </div>
                 <div className={`text-2xl font-bold ${computed.gain >= 0 ? "text-brand" : "text-destructive"}`}>
@@ -776,10 +785,10 @@ const Portfolio = () => {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-              <Card className="p-6">
+              <Card className="shadow-none p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">CAGR</span>
-                  <Activity className="w-4 h-4 text-brand" />
+                  <span className="xt-label">CAGR</span>
+                  <span className={`${ICON_TILE} !h-8 !w-8 !rounded-lg`}><Activity className="w-4 h-4" /></span>
                 </div>
                 {cagr !== null ? (
                   <>
@@ -802,19 +811,29 @@ const Portfolio = () => {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-              <Card className="p-6">
+              <Card className="shadow-none p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">Allocation</span>
-                  <PieChart className="w-4 h-4 text-brand" />
+                  <span className="xt-label">Allocation</span>
+                  <span className={`${ICON_TILE} !h-8 !w-8 !rounded-lg`}><PieChart className="w-4 h-4" /></span>
                 </div>
                 {computed.allocation.length > 0 ? (
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {computed.allocation.slice(0, 4).map((a) => (
-                      <div key={a.asset_type} className="flex items-center justify-between text-sm">
-                        <span className="text-foreground capitalize">
-                          {ASSET_META[a.asset_type as AssetType]?.emoji} {a.asset_type}
-                        </span>
-                        <span className="font-semibold text-foreground">{a.pct}%</span>
+                      <div key={a.asset_type}>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-foreground capitalize">
+                            {ASSET_META[a.asset_type as AssetType]?.emoji} {a.asset_type}
+                          </span>
+                          <span className="font-bold tabular-nums text-foreground">{a.pct}%</span>
+                        </div>
+                        <div className="mt-1 h-1 overflow-hidden rounded-full bg-secondary">
+                          <motion.div
+                            className="h-full rounded-full bg-brand-fill"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${a.pct}%` }}
+                            transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -831,10 +850,10 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="rounded-2xl bg-white border border-border overflow-hidden"
+          className="rounded-2xl bg-card border border-border overflow-hidden"
         >
-          <div className="p-4 border-b border-border flex items-center justify-between">
-            <h2 className="font-semibold text-foreground">Holdings</h2>
+          <div className="px-5 py-4 border-b border-border flex flex-wrap items-center justify-between gap-2">
+            <h2 className={`${H2} !mb-0`}><Briefcase className={H2_ICON} />Holdings</h2>
             <span className="text-xs text-muted-foreground">
               Prices refresh on load · rows in each asset's native currency
               {computed.mixed && (
@@ -845,12 +864,12 @@ const Portfolio = () => {
 
           {holdings.length === 0 ? (
             <div className="p-12 text-center">
-              <div className="text-4xl mb-3">🗂️</div>
-              <p className="font-semibold text-foreground mb-1">Nothing here yet</p>
+              <div className={`${ICON_TILE} !h-12 !w-12 mx-auto mb-4`}><Briefcase className="w-6 h-6" /></div>
+              <p className="text-lg font-bold text-foreground mb-1">Nothing here yet</p>
               <p className="text-sm text-muted-foreground mb-4">
                 Add your first investment — a stock, your gold, even the cash in your bank.
               </p>
-              <Button onClick={() => setShowAddDialog(true)} className="bg-primary text-white hover:bg-primary/90 gap-2">
+              <Button onClick={() => setShowAddDialog(true)} className={`${BTN} gap-2`}>
                 <Plus className="w-4 h-4" /> Add Investment
               </Button>
             </div>
@@ -858,14 +877,14 @@ const Portfolio = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-sm tabular-nums">
                 <thead>
-                  <tr className="border-b border-border bg-secondary/30">
-                    <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">Asset</th>
-                    <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">Type</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Quantity</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Avg Cost</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Current Price</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Value</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Gain/Loss</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Asset</th>
+                    <th className="text-left text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Type</th>
+                    <th className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Quantity</th>
+                    <th className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Avg Cost</th>
+                    <th className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Current Price</th>
+                    <th className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Value</th>
+                    <th className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">Gain/Loss</th>
                     <th className="py-3 px-2"></th>
                   </tr>
                 </thead>
@@ -875,33 +894,33 @@ const Portfolio = () => {
                     const meta = ASSET_META[atype];
                     const hc = holdingCurrency(holding);
                     return (
-                      <tr key={holding.id} className="border-b border-border/50 last:border-0 hover:bg-secondary/50 transition-colors">
-                        <td className="py-4 px-4">
+                      <tr key={holding.id} className="border-b border-border last:border-0 hover:bg-secondary/60 transition-colors">
+                        <td className="py-3.5 px-4">
                           <p className="font-semibold text-foreground">{holding.company_name || holding.ticker}</p>
                           {(atype === "stock" || (atype === "gold" && holding.live_ticker)) && (
                             <p className="text-xs text-muted-foreground">{atype === "stock" ? holding.ticker : holding.live_ticker}</p>
                           )}
                         </td>
-                        <td className="py-4 px-4">
+                        <td className="py-3.5 px-4">
                           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${meta.badge}`}>
                             {meta.emoji} {meta.label}
                           </span>
                         </td>
-                        <td className="py-4 px-4 text-right text-foreground">
+                        <td className="py-3.5 px-4 text-right text-foreground">
                           {atype === "cash" ? "—" : formatQty(holding.quantity)}
                         </td>
-                        <td className="py-4 px-4 text-right text-foreground">
+                        <td className="py-3.5 px-4 text-right text-foreground">
                           {atype === "cash" ? "—" : fmtIn(holding.avg_cost_basis, hc)}
                         </td>
-                        <td className="py-4 px-4 text-right text-foreground">
+                        <td className="py-3.5 px-4 text-right text-foreground">
                           {atype === "cash" ? "—" : holding.current_price ? fmtIn(holding.current_price, hc) : "–"}
                         </td>
-                        <td className="py-4 px-4 text-right font-medium text-foreground">
+                        <td className="py-3.5 px-4 text-right font-medium text-foreground">
                           {holding.current_value !== undefined && holding.current_value !== null
                             ? fmtIn(holding.current_value, hc)
                             : "–"}
                         </td>
-                        <td className="py-4 px-4 text-right">
+                        <td className="py-3.5 px-4 text-right">
                           {atype !== "cash" && holding.gain_loss !== undefined && holding.gain_loss !== null ? (
                             <div>
                               <div className={`font-medium ${holding.gain_loss >= 0 ? "text-brand" : "text-destructive"}`}>

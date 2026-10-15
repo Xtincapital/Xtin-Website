@@ -37,7 +37,7 @@
 // to that template.
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import { chartGrid, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import { toast } from "sonner";
 import { Download, Landmark, Pencil, Plus, Scale, Trash2, Upload, Wallet } from "lucide-react";
@@ -68,7 +68,9 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 import { cn } from "@/lib/utils";
 import { api } from "../lib/api";
 import type { Asset, AssetInput, AssetOwnershipType, FamilyMember, Liability, LiabilityInput } from "../lib/api";
+import { JDonut } from "@/features/journal/components/JournalCharts";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
 import ImportHoldingsDialog from "../components/ImportHoldingsDialog";
 
 // Verbatim from features-incoming/gini/index.html's #assetCategory select
@@ -94,14 +96,6 @@ const LIABILITY_TYPES = ["Home Loan", "Car Loan", "Personal Loan", "Credit Card"
 const OWNERSHIP_TYPES: AssetOwnershipType[] = ["Individual", "Joint", "Trust"];
 
 const NO_OWNER = "__none__";
-
-const CHART_PALETTE = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
 
 // Values are saved in rupees and shown in the selected currency.
 const formatCurrency = (value: number | null | undefined) => formatFromInr(value ?? 0, { maxDecimals: 0 });
@@ -386,13 +380,6 @@ export default function NetWorth() {
     return Array.from(byCategory.entries()).map(([category, value]) => ({ category, value }));
   }, [assets]);
 
-  const allocationConfig = useMemo(() => {
-    const cfg: ChartConfig = {};
-    allocationData.forEach((d, i) => {
-      cfg[d.category] = { label: d.category, color: CHART_PALETTE[i % CHART_PALETTE.length] };
-    });
-    return cfg;
-  }, [allocationData]);
 
   const comparisonData = useMemo(
     () => [
@@ -495,11 +482,8 @@ export default function NetWorth() {
 
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div>
-          <h1 className="xt-title mb-2">Net Worth Calculator</h1>
-          <p className="text-sm text-muted-foreground">Track your assets and liabilities</p>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader title="Net Worth Calculator" subtitle="Track your assets and liabilities" />
 
         {/* Assets */}
         <Card>
@@ -527,7 +511,7 @@ export default function NetWorth() {
             {assetsQuery.isLoading ? (
               <Skeleton className="h-32 w-full" />
             ) : (
-              <div className="rounded-md border overflow-x-auto">
+              <div className="rounded-xl border overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -576,7 +560,7 @@ export default function NetWorth() {
                 </Table>
               </div>
             )}
-            <div className="flex items-center justify-between rounded-lg bg-secondary px-4 py-3">
+            <div className="flex items-center justify-between rounded-xl bg-secondary/60 px-4 py-3">
               <span className="text-sm font-medium text-muted-foreground">Total Assets</span>
               <strong className="text-lg">{formatCurrency(totalAssets)}</strong>
             </div>
@@ -609,7 +593,7 @@ export default function NetWorth() {
             {liabilitiesQuery.isLoading ? (
               <Skeleton className="h-32 w-full" />
             ) : (
-              <div className="rounded-md border overflow-x-auto">
+              <div className="rounded-xl border overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -665,7 +649,7 @@ export default function NetWorth() {
                 </Table>
               </div>
             )}
-            <div className="flex items-center justify-between rounded-lg bg-secondary px-4 py-3">
+            <div className="flex items-center justify-between rounded-xl bg-secondary/60 px-4 py-3">
               <span className="text-sm font-medium text-muted-foreground">Total Liabilities</span>
               <strong className="text-lg">{formatCurrency(totalLiabilities)}</strong>
             </div>
@@ -680,17 +664,17 @@ export default function NetWorth() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-lg border p-4">
+              <div className="rounded-2xl border bg-secondary/40 p-4">
                 <p className="xt-label">Total Assets</p>
                 <p className="mt-1 xt-metric text-brand">{formatCurrency(totalAssets)}</p>
               </div>
-              <div className="rounded-lg border p-4">
+              <div className="rounded-2xl border bg-secondary/40 p-4">
                 <p className="xt-label">Total Liabilities</p>
                 <p className="mt-1 xt-metric text-destructive">{formatCurrency(totalLiabilities)}</p>
               </div>
-              <div className="rounded-lg border p-4">
+              <div className="rounded-2xl border bg-secondary/40 p-4">
                 <p className="xt-label">Net Worth</p>
-                <p className={cn("mt-1 text-xl font-bold", netWorth >= 0 ? "text-brand" : "text-destructive")}>
+                <p className={cn("mt-1 xt-metric", netWorth >= 0 ? "text-brand" : "text-destructive")}>
                   {formatCurrency(netWorth)}
                 </p>
               </div>
@@ -704,16 +688,13 @@ export default function NetWorth() {
                     Add assets to see allocation
                   </div>
                 ) : (
-                  <ChartContainer config={allocationConfig} className="h-[240px] w-full">
-                    <PieChart>
-                      <ChartTooltip content={(props: any) => <ChartTooltipContent {...props} nameKey="category" hideLabel />} />
-                      <Pie data={allocationData} dataKey="value" nameKey="category" innerRadius={50} outerRadius={90} strokeWidth={2}>
-                        {allocationData.map((entry, index) => (
-                          <Cell key={entry.category} fill={CHART_PALETTE[index % CHART_PALETTE.length]} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ChartContainer>
+                  <JDonut
+                    data={allocationData.map((d) => ({ label: d.category, value: d.value }))}
+                    centerLabel="total assets"
+                    centerValue={formatFromInr(totalAssets, { compact: true })}
+                    legendValue={(d) => formatFromInr(d.value, { compact: true })}
+                    ariaLabel="Asset allocation by category"
+                  />
                 )}
               </div>
               <div>

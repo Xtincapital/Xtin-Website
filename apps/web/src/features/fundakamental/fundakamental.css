@@ -180,3 +180,24 @@
     background-color: rgb(31 31 31 / 0.8);
   }
 }
+
+/* Home header — faint grid that fades out from the greeting */
+@layer components {
+  .fundakamental-scope .fk-hello {
+    position: relative;
+    isolation: isolate;
+  }
+  .fundakamental-scope .fk-hello::before {
+    content: "";
+    position: absolute;
+    inset: -2rem 0 -1rem 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.7) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.7) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: radial-gradient(ellipse 55% 95% at 18% 35%, #000 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 55% 95% at 18% 35%, #000 25%, transparent 75%);
+    pointer-events: none;
+  }
+}

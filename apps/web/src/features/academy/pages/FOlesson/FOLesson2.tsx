@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from "react-router-dom";
 
 // SVG Icons
@@ -524,8 +523,7 @@ const FOLesson2 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-orange-50  ">
-      <Navbar />
+    <StudyShell module="FOlesson" lessonNumber={2}>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8">
         {/* Header */}
@@ -873,9 +871,7 @@ const FOLesson2 = () => {
           </div>
         </div>
       </div>
-      
-      <Footer />
-    </div>
+    </StudyShell>
   );
 };
 

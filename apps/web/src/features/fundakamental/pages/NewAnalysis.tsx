@@ -36,6 +36,8 @@ import { usePlanStore } from "../store/usePlanStore";
 import useRegion from "@/hooks/useRegion";
 import { popularTickers } from "../lib/currency";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import PageHeader from "../components/PageHeader";
+import { CARD_P, H2, H2_ICON, CHIP, CHIP_ON, INPUT, BTN } from "../lib/ui";
 import CompanySearchResults from "../components/CompanySearchResults";
 import FileProcessingStatus from "../components/FileProcessingStatus";
 import { Button } from "@/components/ui/button";
@@ -48,6 +50,7 @@ import {
   X,
   ArrowRight,
   Sparkles,
+  Check,
 } from "lucide-react";
 import { AnalysisIllustration } from "../components/brand/Illustrations";
 import { api } from "../lib/api";
@@ -273,30 +276,20 @@ const NewAnalysis = () => {
   return (
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-4xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <h1 className="xt-title mb-2">
-            New Analysis
-          </h1>
-          <p className="text-muted-foreground">
-            Upload financial statements and we'll write the report the way you invest
-          </p>
-        </motion.div>
+        <PageHeader
+          title="New Analysis"
+          subtitle="Upload financial statements and we'll write the report the way you invest."
+        />
 
         {/* Personalization — tailor the analysis to the investor */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="rounded-2xl bg-white border border-border p-6 mb-6"
+          className={`${CARD_P} mb-6`}
         >
-          <h2 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-brand" />
+          <h2 className={`${H2} !mb-1`}>
+            <Sparkles className={H2_ICON} />
             Tailor this analysis to you
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
@@ -315,11 +308,8 @@ const NewAnalysis = () => {
               <button
                 key={s.id}
                 onClick={() => setInvestorStyle(s.id)}
-                className={`px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                  investorStyle === s.id
-                    ? "bg-primary text-white border-primary"
-                    : "bg-white text-muted-foreground border-border hover:border-primary/50"
-                }`}
+                className={`${CHIP} !h-9 !px-3.5 !text-sm ${investorStyle === s.id ? CHIP_ON : "!text-muted-foreground"}`}
+                aria-pressed={investorStyle === s.id}
               >
                 {s.label}
               </button>
@@ -335,11 +325,8 @@ const NewAnalysis = () => {
               <button
                 key={h.id}
                 onClick={() => setHorizon(h.id)}
-                className={`px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                  horizon === h.id
-                    ? "bg-primary text-white border-primary"
-                    : "bg-white text-muted-foreground border-border hover:border-primary/50"
-                }`}
+                className={`${CHIP} !h-9 !px-3.5 !text-sm ${horizon === h.id ? CHIP_ON : "!text-muted-foreground"}`}
+                aria-pressed={horizon === h.id}
               >
                 {h.label}
               </button>
@@ -352,10 +339,10 @@ const NewAnalysis = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl bg-white border border-border p-6 mb-6"
+          className={`${CARD_P} mb-6`}
         >
-          <h2 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
-            <Search className="w-5 h-5 text-brand" />
+          <h2 className={`${H2} !mb-1`}>
+            <Search className="w-4 h-4 text-brand" />
             Search Public Company
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
@@ -368,7 +355,7 @@ const NewAnalysis = () => {
               placeholder="Enter company name or ticker symbol..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 bg-secondary border-border"
+              className={`pl-10 !h-12 text-base ${INPUT}`}
             />
           </div>
 
@@ -380,9 +367,9 @@ const NewAnalysis = () => {
                 <button
                   key={ticker}
                   onClick={() => setSearchQuery(ticker)}
-                  className="px-3 py-1.5 rounded-full bg-secondary text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
+                  className={CHIP}
                 >
-                  {ticker}
+                  {ticker.replace(/\.(NS|BO)$/i, "")}
                 </button>
               ))}
             </div>
@@ -417,7 +404,7 @@ const NewAnalysis = () => {
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-4 text-muted-foreground">
+            <span className="bg-background px-4 font-bold tracking-wide text-muted-foreground">
               Or upload documents
             </span>
           </div>
@@ -428,20 +415,20 @@ const NewAnalysis = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-2xl bg-white border border-border p-6"
+          className={CARD_P}
         >
-          <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Upload className="w-5 h-5 text-brand" />
+          <h2 className={H2}>
+            <Upload className="w-4 h-4 text-brand" />
             Upload Financial Statements
           </h2>
 
           {!selectedFile ? (
             <label
               htmlFor="file-upload"
-              className={`block border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-colors ${
+              className={`block border-[1.5px] border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors ${
                 dragActive
-                  ? "border-primary bg-accent/30"
-                  : "border-border hover:border-primary/50"
+                  ? "border-brand bg-brand-soft"
+                  : "border-border bg-secondary/40 hover:border-brand hover:bg-brand-soft"
               }`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -449,15 +436,17 @@ const NewAnalysis = () => {
               onDrop={handleDrop}
             >
               <AnalysisIllustration size={160} className="mx-auto mb-4" />
-              <p className="text-foreground font-medium mb-2">
-                Drag & drop files here
-              </p>
-              <p className="text-sm text-muted-foreground mb-4">
-                or click to browse
+              <p className="text-foreground mb-1">
+                <b>Drag & drop files here</b> or click to browse
               </p>
               <p className="text-xs text-muted-foreground">
-                Supports PDF, Excel (.xlsx, .xls), CSV • Max 25MB
+                Annual reports, quarterly results, balance sheets · max 25 MB
               </p>
+              <div className="mt-3 flex justify-center gap-1.5">
+                {["PDF", "XLSX", "XLS", "CSV"].map((f) => (
+                  <span key={f} className="rounded border border-border bg-card px-1.5 py-px font-mono text-[10px] text-muted-foreground">{f}</span>
+                ))}
+              </div>
               <input
                 id="file-upload"
                 type="file"
@@ -475,14 +464,14 @@ const NewAnalysis = () => {
               steps={processingSteps}
             />
           ) : (
-            <div className="p-6 rounded-xl bg-secondary/50 border border-border">
+            <div className="p-5 rounded-xl bg-card border border-brand-line">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-brand-soft flex items-center justify-center flex-none">
                   <FileText className="w-6 h-6 text-brand" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="font-medium text-foreground">
+                    <p className="font-bold text-foreground truncate">
                       {selectedFile.name}
                     </p>
                     {!isProcessing && (
@@ -514,7 +503,7 @@ const NewAnalysis = () => {
 
                   <Button
                     onClick={() => handleAnalyze()}
-                    className="bg-primary text-white hover:bg-primary/90 gap-2"
+                    className={`${BTN} gap-2`}
                   >
                     Start Analysis
                     <ArrowRight className="w-4 h-4" />
@@ -524,15 +513,22 @@ const NewAnalysis = () => {
             </div>
           )}
 
-          <div className="mt-6 p-4 rounded-lg bg-secondary/30 border border-border">
-            <h3 className="text-base font-bold text-foreground mb-2">
-              Supported Documents
-            </h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Annual Reports (10-K, 20-F)</li>
-              <li>• Quarterly Reports (10-Q)</li>
-              <li>• Income Statements, Balance Sheets, Cash Flow Statements</li>
-              <li>• Investor Presentations with Financial Data</li>
+          <div className="mt-6 border-t border-border pt-5">
+            <h3 className="xt-label mb-3">Supported documents</h3>
+            <ul className="grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
+              {[
+                "Annual reports (10-K, 20-F)",
+                "Quarterly reports (10-Q)",
+                "Income statements, balance sheets, cash flow",
+                "Investor presentations with financial data",
+              ].map((d) => (
+                <li key={d} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-md bg-brand-soft text-brand">
+                    <Check className="h-3 w-3" strokeWidth={3} />
+                  </span>
+                  {d}
+                </li>
+              ))}
             </ul>
           </div>
         </motion.div>

@@ -63,7 +63,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { chartGrid, chartColors } from "@/components/charts/chartTheme";
+import { chartActiveDot, chartBarRadius, chartGrid, chartColors, chartMaxBarSize, chartTick } from "@/components/charts/chartTheme";
 import { ArrowRight, Baby, GraduationCap, HeartHandshake, PiggyBank, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,8 +74,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import { ChartContainer, ChartTooltip, type ChartConfig } from "@/components/ui/chart";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ScoreRing } from "../components/GiniCharts";
+import { CARD, ICON_TILE, PRO_TAG } from "../lib/ui";
 import { api } from "../lib/api";
 import {
   DEFAULT_EDU_COSTS,
@@ -111,8 +116,8 @@ const CHART_COLORS = chartColors.series;
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; title: string; subtitle: string }) {
   return (
     <CardHeader className="flex flex-row items-start gap-3 space-y-0">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent text-brand">
-        <Icon className="h-4.5 w-4.5" />
+      <span className={ICON_TILE}>
+        <Icon className="h-[18px] w-[18px]" />
       </span>
       <div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -122,14 +127,39 @@ function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; tit
   );
 }
 
-function ResultGrid({ items }: { items: { label: string; value: string; hint?: string }[] }) {
+interface ResultItem {
+  label: string;
+  value: string;
+  hint?: string;
+  /** Brand-soft finish for the figure that answers the section. */
+  highlight?: boolean;
+  /** Colour class for the value (e.g. text-destructive). */
+  tone?: string;
+  /** 0–100: shows a ScoreRing beside the value. */
+  ring?: number;
+}
+
+const GOLD_TEXT = "text-[var(--pro-gold-deep)] dark:text-[var(--pro-gold)]";
+
+function ResultGrid({ items }: { items: ResultItem[] }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
-        <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
-          <p className="xt-label">{item.label}</p>
-          <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
-          {item.hint && <p className="mt-0.5 text-xs text-muted-foreground">{item.hint}</p>}
+        <div
+          key={item.label}
+          className={cn(
+            "flex items-center justify-between gap-3 rounded-2xl border p-4",
+            item.highlight ? "border-brand-line bg-brand-soft" : "bg-secondary/40",
+          )}
+        >
+          <div className="min-w-0">
+            <p className="xt-label">{item.label}</p>
+            <p className={cn("mt-1 text-lg font-bold tabular-nums tracking-[-0.01em]", item.tone ?? (item.highlight ? "text-brand" : "text-foreground"))}>
+              {/\s/.test(item.value) ? item.value : <RollingNumber value={item.value} />}
+            </p>
+            {item.hint && <p className="mt-0.5 text-xs text-muted-foreground">{item.hint}</p>}
+          </div>
+          {item.ring != null && <ScoreRing value={item.ring} size={44} className="flex-none" />}
         </div>
       ))}
     </div>
@@ -324,28 +354,27 @@ export default function FamilyPlanning() {
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
-        <div className="flex flex-col gap-1">
-          <span className="xt-eyebrow">Family milestones</span>
-          <h1 className="xt-title mb-2">Family Planning Mode</h1>
-          <p className="text-muted-foreground">
-            Plan for life's major family costs. Figures update as you type; every monthly saving assumes a {PLAN_RETURN}% yearly return.
-          </p>
-        </div>
+        <PageHeader
+          title="Family Planning Mode"
+          subtitle={`Plan for life's major family costs. Figures update as you type; every monthly saving assumes a ${PLAN_RETURN}% yearly return.`}
+        />
 
-        <Card className="border-primary/20 bg-gradient-primary text-primary-foreground">
-          <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className={`${CARD} border-brand-line bg-brand-soft`}>
+          <div className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h3 className="font-bold">Advanced Family Planning</h3>
-              <p className="text-sm text-primary-foreground/80">Access dual retirement, elder care, education timeline, tax optimization &amp; more</p>
+              <h3 className="flex items-center gap-2 font-bold text-foreground">
+                Advanced Family Planning <span className={PRO_TAG}>PRO</span>
+              </h3>
+              <p className="mt-0.5 text-sm text-muted-foreground">Access dual retirement, elder care, education timeline, tax optimization &amp; more</p>
             </div>
-            <Button asChild variant="secondary" className="shrink-0">
+            <Button asChild className="shrink-0">
               <Link to="/gini/family-advanced">
                 Open Advanced Tools
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Family Snapshot — from the Family page */}
         <Card>
@@ -390,6 +419,7 @@ export default function FamilyPlanning() {
                   label: "Monthly SIP for birth costs",
                   value: num(childForm.yearsToBirth) > 0 ? money(newChild.monthlySIP) : "Due now",
                   hint: "Childcare after that comes from monthly income",
+                  highlight: true,
                 },
                 { label: "First 5 years in total", value: money(newChild.fiveYearTotal) },
               ]}
@@ -408,7 +438,7 @@ export default function FamilyPlanning() {
             {isLoading ? (
               <Skeleton className="h-24 w-full" />
             ) : children.length === 0 ? (
-              <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+              <div className="rounded-[18px] border border-dashed p-4 text-sm text-muted-foreground">
                 No children on your Family page yet. Add a child there (relationship "Child") to plan their education here.
               </div>
             ) : (
@@ -418,7 +448,7 @@ export default function FamilyPlanning() {
                     const costs = eduCosts(child.id);
                     const finished = (stage: (typeof EDU_STAGES)[number]) => child.age != null && child.age >= stage.startAge + stage.years;
                     return (
-                      <div key={child.id} className="rounded-xl border bg-accent/30 p-4">
+                      <div key={child.id} className="rounded-2xl border bg-secondary/40 p-4">
                         <p className="mb-1 text-sm font-semibold text-foreground">
                           {child.name} <span className="font-normal text-muted-foreground">— Age {child.age ?? "not set"}</span>
                         </p>
@@ -465,7 +495,7 @@ export default function FamilyPlanning() {
                   items={[
                     { label: "Total still to pay", value: money(education.totalCost), hint: "In the rupees of each year it's paid" },
                     { label: "Due this year", value: money(education.dueThisYear), hint: "From current savings" },
-                    { label: "Monthly SIP needed", value: money(education.monthlySIP), hint: `For all future years, at ${PLAN_RETURN}%` },
+                    { label: "Monthly SIP needed", value: money(education.monthlySIP), hint: `For all future years, at ${PLAN_RETURN}%`, highlight: true },
                     { label: "Last payment", value: education.payments.length ? String(Math.max(...education.payments.map((p) => p.calendarYear))) : "—" },
                   ]}
                 />
@@ -474,24 +504,32 @@ export default function FamilyPlanning() {
                   <ChartContainer config={eduChartConfig} className="h-72 w-full">
                     <BarChart data={eduChartData}>
                       <CartesianGrid {...chartGrid} />
-                      <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
-                      <YAxis tickLine={false} axisLine={false} fontSize={12} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                      <XAxis dataKey="year" tickLine={false} axisLine={false} tick={chartTick} />
+                      <YAxis tickLine={false} axisLine={false} tick={chartTick} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <ChartTooltip
                         content={({ active, payload, label }: any) =>
                           active && payload?.length ? (
-                            <div className="rounded-lg border bg-background px-3 py-2 text-xs shadow-md">
+                            <div className="rounded-xl border bg-popover px-3 py-2 text-xs shadow-lg">
                               <p className="mb-1 font-medium">{label}</p>
                               {payload.map((item: any) => (
                                 <p key={item.dataKey}>
-                                  {eduChartConfig[item.dataKey]?.label}: <span className="font-medium">{money(Number(item.value))}</span>
+                                  {eduChartConfig[item.dataKey]?.label}: <span className="font-bold tabular-nums">{money(Number(item.value))}</span>
                                 </p>
                               ))}
                             </div>
                           ) : null
                         }
                       />
-                      {children.map((c) => (
-                        <Bar key={c.id} dataKey={c.id} stackId="edu" fill={`var(--color-${c.id})`} />
+                      {children.map((c, i) => (
+                        <Bar
+                          key={c.id}
+                          dataKey={c.id}
+                          stackId="edu"
+                          fill={`var(--color-${c.id})`}
+                          maxBarSize={chartMaxBarSize}
+                          // Round only the top of each stack.
+                          radius={i === children.length - 1 ? chartBarRadius : undefined}
+                        />
                       ))}
                     </BarChart>
                   </ChartContainer>
@@ -533,7 +571,7 @@ export default function FamilyPlanning() {
               items={[
                 { label: "One wedding then", value: money(weddings.futureWeddingCost) },
                 { label: "All weddings", value: money(weddings.totalCost) },
-                { label: "Monthly SIP needed", value: money(weddings.monthlySIP), hint: `At ${PLAN_RETURN}% a year` },
+                { label: "Monthly SIP needed", value: money(weddings.monthlySIP), hint: `At ${PLAN_RETURN}% a year`, highlight: true },
               ]}
             />
           </CardContent>
@@ -576,7 +614,11 @@ export default function FamilyPlanning() {
                 { label: "Health cover gap", value: money(insurance.healthGap) },
                 { label: "Life cover needed", value: money(insurance.recommendedLife), hint: "10 × annual income" },
                 { label: "Life cover gap", value: money(insurance.lifeGap) },
-                { label: "Protection status", value: insurance.statusLabel },
+                {
+                  label: "Protection status",
+                  value: insurance.statusLabel,
+                  tone: insurance.status === "critical" ? "text-destructive" : insurance.status === "moderate" ? GOLD_TEXT : "text-brand",
+                },
               ]}
             />
           </CardContent>
@@ -628,7 +670,7 @@ export default function FamilyPlanning() {
                 { label: "Target fund", value: money(emergency.targetFund) },
                 { label: "Still needed", value: money(emergency.gap) },
                 { label: "Monthly saving", value: money(emergency.monthlySavings) },
-                { label: "Progress", value: `${emergency.progress.toFixed(1)}%` },
+                { label: "Progress", value: `${emergency.progress.toFixed(1)}%`, ring: emergency.progress },
               ]}
             />
           </CardContent>
@@ -645,9 +687,9 @@ export default function FamilyPlanning() {
                 <ResultGrid
                   items={[
                     { label: "Total to pay", value: money(roadmap.totalCost), hint: "In the rupees of each year it's paid" },
-                    { label: "Monthly saving now", value: money(roadmap.monthlyNow), hint: "Falls as each cost is paid" },
+                    { label: "Monthly saving now", value: money(roadmap.monthlyNow), hint: "Falls as each cost is paid", highlight: true },
                     { label: "Due this year", value: money(roadmap.dueNow), hint: "From current savings" },
-                    { label: "Readiness", value: `${readiness.toFixed(0)}%` },
+                    { label: "Readiness", value: `${readiness.toFixed(0)}%`, ring: readiness },
                   ]}
                 />
                 <p className="text-xs text-muted-foreground">
@@ -671,9 +713,9 @@ export default function FamilyPlanning() {
                         tickFormatter={(t) => String(CURRENT_YEAR + t)}
                         tickLine={false}
                         axisLine={false}
-                        fontSize={12}
+                        tick={chartTick}
                       />
-                      <YAxis tickLine={false} axisLine={false} fontSize={12} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                      <YAxis tickLine={false} axisLine={false} tick={chartTick} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <ChartTooltip
                         cursor={{ stroke: "hsl(var(--muted-foreground))", strokeDasharray: "3 3" }}
                         content={({ active, payload }: any) => {
@@ -683,7 +725,7 @@ export default function FamilyPlanning() {
                           const before = roadmap.points.find((x) => x.t === p.t && !x.paid) ?? p;
                           const after = p.paid ? p : roadmap.points.find((x) => x.t === p.t && x.paid);
                           return (
-                            <div className="w-64 space-y-1.5 rounded-lg border bg-background px-3 py-2.5 text-xs shadow-md">
+                            <div className="w-64 space-y-1.5 rounded-xl border bg-popover px-3 py-2.5 text-xs shadow-lg">
                               <div className="flex items-baseline justify-between gap-2">
                                 <p className="text-sm font-bold">{p.year}</p>
                                 <p className="text-muted-foreground">{p.t === 0 ? "Today" : `${p.t} year${p.t === 1 ? "" : "s"} from now`}</p>
@@ -736,14 +778,14 @@ export default function FamilyPlanning() {
                         type="linear"
                         dataKey="balance"
                         stroke="var(--color-balance)"
-                        strokeWidth={2}
+                        strokeWidth={2.5}
                         isAnimationActive={false}
-                        activeDot={{ r: 6, strokeWidth: 2, stroke: "hsl(var(--background))" }}
+                        activeDot={chartActiveDot}
                         dot={(props: any) =>
                           props.payload?.paid ? (
-                            <circle key={props.key} cx={props.cx} cy={props.cy} r={4.5} fill="hsl(var(--destructive))" stroke="hsl(var(--background))" strokeWidth={1.5} />
+                            <circle key={props.key} cx={props.cx} cy={props.cy} r={4.5} fill="hsl(var(--destructive))" stroke="hsl(var(--card))" strokeWidth={1.5} />
                           ) : (
-                            <circle key={props.key} cx={props.cx} cy={props.cy} r={3.5} fill="var(--color-balance)" stroke="hsl(var(--background))" strokeWidth={1.5} />
+                            <circle key={props.key} cx={props.cx} cy={props.cy} r={3.5} fill="var(--color-balance)" stroke="hsl(var(--card))" strokeWidth={1.5} />
                           )
                         }
                       />
@@ -755,12 +797,16 @@ export default function FamilyPlanning() {
                   <h4 className="mb-2 text-base font-bold text-foreground">Key milestones</h4>
                   <div className="space-y-2">
                     {milestones.map((m) => (
-                      <div key={`${m.year}-${m.label}`} className="flex items-center justify-between gap-3 rounded-lg border-l-4 border-primary bg-accent/30 p-3">
+                      <div
+                        key={`${m.year}-${m.label}`}
+                        className="relative flex items-center justify-between gap-3 overflow-hidden rounded-xl border bg-secondary/40 py-3 pl-4 pr-3 transition-colors hover:bg-secondary/70"
+                      >
+                        <span className="absolute inset-y-2 left-0 w-[3px] rounded-r-full bg-brand-fill" aria-hidden="true" />
                         <div>
-                          <span className="text-sm font-bold text-brand">{m.year}</span>
+                          <span className="text-sm font-bold tabular-nums text-brand">{m.year}</span>
                           <p className="text-sm text-foreground">{m.label}</p>
                         </div>
-                        <div className="text-sm font-semibold text-foreground">{money(m.amount)}</div>
+                        <div className="text-sm font-semibold tabular-nums text-foreground">{money(m.amount)}</div>
                       </div>
                     ))}
                   </div>

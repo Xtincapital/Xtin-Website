@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Bell, BellOff, Check, CheckCheck, Plus, Trash2, TrendingDown, TrendingUp } from "lucide-react";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import PageHeader from "../components/PageHeader";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CARD, H2, H2_ICON, BTN, INPUT } from "../lib/ui";
 import { Button } from "@/components/ui/button";
 import AmountInput from "@/components/ui/amount-input";
 import { Input } from "@/components/ui/input";
@@ -141,22 +144,25 @@ export default function Alerts() {
   return (
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
-        <div>
-          <h1 className="xt-title mb-2">Alerts</h1>
-          <p className="text-muted-foreground mt-1">
+        <PageHeader
+          title="Alerts"
+          className="mb-0"
+          subtitle={
+            <>
             Get notified here when a stock reaches your price. Targets you set in your{" "}
             <Link to="/fundakamental/watchlist" className="text-brand font-medium hover:underline">
               Watchlist
             </Link>{" "}
             become alerts automatically. Prices are checked about every 15 minutes.
-          </p>
-        </div>
+            </>
+          }
+        />
 
         {/* Notifications */}
-        <section className="rounded-2xl bg-white border border-border">
-          <div className="p-4 border-b border-border flex items-center justify-between gap-3">
-            <h2 className="font-semibold text-foreground flex items-center gap-2">
-              <Bell className="w-4 h-4 text-brand" /> Notifications
+        <section className={CARD}>
+          <div className="px-5 py-4 border-b border-border flex items-center justify-between gap-3">
+            <h2 className={`${H2} !mb-0`}>
+              <Bell className={H2_ICON} /> Notifications
               {unreadCount > 0 && (
                 <span className="px-2 py-0.5 rounded-full bg-red-500 text-white text-xs font-bold">{unreadCount} new</span>
               )}
@@ -168,7 +174,9 @@ export default function Alerts() {
             )}
           </div>
           {loading ? (
-            <p className="p-6 text-sm text-muted-foreground">Loading…</p>
+            <div className="space-y-3 p-5" aria-busy="true">
+              {[0, 1, 2].map((i) => <Skeleton key={i} className="h-12 rounded-xl" />)}
+            </div>
           ) : notifications.length === 0 ? (
             <p className="p-6 text-sm text-muted-foreground">No notifications yet. You'll see one here when a stock hits your target.</p>
           ) : (
@@ -176,8 +184,8 @@ export default function Alerts() {
               {notifications.map((n) => {
                 const up = n.data?.condition === "above";
                 return (
-                  <li key={n.id} className={`flex items-start gap-3 p-4 ${n.is_read ? "" : "bg-primary/5"}`}>
-                    <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${up ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-700"}`}>
+                  <li key={n.id} className={`flex items-start gap-3 px-5 py-4 transition-colors hover:bg-secondary/60 ${n.is_read ? "" : "bg-brand-soft"}`}>
+                    <div className={`mt-0.5 w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${up ? "bg-brand-soft text-brand" : "bg-warning/10 text-warning"}`}>
                       {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -201,14 +209,14 @@ export default function Alerts() {
         </section>
 
         {/* New alert */}
-        <section className="rounded-2xl bg-white border border-border p-5">
-          <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Plus className="w-4 h-4 text-brand" /> New price alert
+        <section className={`${CARD} p-5 md:p-6`}>
+          <h2 className={H2}>
+            <Plus className={H2_ICON} /> New price alert
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_10rem_10rem_auto] gap-3 items-end">
             <div>
               <Label htmlFor="alert-ticker">Ticker</Label>
-              <Input id="alert-ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} placeholder="RELIANCE.NS · AAPL" className="uppercase" />
+              <Input id="alert-ticker" value={ticker} onChange={(e) => setTicker(e.target.value)} placeholder="RELIANCE.NS · AAPL" className={`uppercase ${INPUT} !h-10`} />
             </div>
             <div>
               <Label htmlFor="alert-condition">When price goes</Label>
@@ -226,35 +234,37 @@ export default function Alerts() {
               <Label htmlFor="alert-target">Target price</Label>
               <AmountInput id="alert-target" min={0} symbol={isIndian(ticker) ? "₹" : "$"} indian={isIndian(ticker)} value={target} onChange={(e) => setTarget(e.target.value)} placeholder="1500" />
             </div>
-            <Button onClick={createAlert} disabled={creating} className="bg-primary text-white hover:bg-primary/90">
+            <Button onClick={createAlert} disabled={creating} className={`${BTN} h-10 rounded-xl`}>
               {creating ? "Adding…" : "Add alert"}
             </Button>
           </div>
         </section>
 
         {/* Alerts list */}
-        <section className="rounded-2xl bg-white border border-border overflow-hidden">
-          <div className="p-4 border-b border-border">
-            <h2 className="font-semibold text-foreground">Your price alerts</h2>
+        <section className={`${CARD} overflow-hidden`}>
+          <div className="px-5 py-4 border-b border-border">
+            <h2 className={`${H2} !mb-0`}><Bell className={H2_ICON} />Your price alerts</h2>
           </div>
           {loading ? (
-            <p className="p-6 text-sm text-muted-foreground">Loading…</p>
+            <div className="space-y-3 p-5" aria-busy="true">
+              {[0, 1, 2].map((i) => <Skeleton key={i} className="h-12 rounded-xl" />)}
+            </div>
           ) : alerts.length === 0 ? (
             <p className="p-6 text-sm text-muted-foreground">No alerts yet. Add one above, or set a target on a Watchlist stock.</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm tabular-nums">
                 <thead>
-                  <tr className="border-b border-border bg-secondary/30 text-xs uppercase tracking-wider text-muted-foreground">
-                    <th className="text-left py-3 px-4 font-medium">Stock</th>
-                    <th className="text-left py-3 px-4 font-medium">Alert when</th>
-                    <th className="text-left py-3 px-4 font-medium">Status</th>
+                  <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
+                    <th className="text-left py-3 px-4 font-bold">Stock</th>
+                    <th className="text-left py-3 px-4 font-bold">Alert when</th>
+                    <th className="text-left py-3 px-4 font-bold">Status</th>
                     <th className="py-3 px-4" />
                   </tr>
                 </thead>
                 <tbody>
                   {alerts.map((a) => (
-                    <tr key={a.id} className="border-b border-border/50 last:border-0">
+                    <tr key={a.id} className="border-b border-border last:border-0 transition-colors hover:bg-secondary/60">
                       <td className="py-3 px-4 font-semibold text-foreground">{a.ticker}</td>
                       <td className="py-3 px-4 text-foreground">
                         {a.condition === "above" ? "At or above" : "At or below"} {money(a.ticker, a.target_price)}
@@ -262,7 +272,7 @@ export default function Alerts() {
                       </td>
                       <td className="py-3 px-4">
                         {a.is_active ? (
-                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-brand">Watching</span>
+                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-brand-soft text-brand">Watching</span>
                         ) : a.triggered_at ? (
                           <span className="text-xs font-semibold px-2 py-1 rounded-full bg-brand-soft text-brand">
                             Hit {money(a.ticker, a.triggered_price)} · {when(a.triggered_at)}

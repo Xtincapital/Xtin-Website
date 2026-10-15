@@ -23,6 +23,9 @@ import { motion } from "framer-motion";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import PageHeader from "../components/PageHeader";
+import { CARD, INPUT, BTN, ICON_TILE } from "../lib/ui";
+import { scorePill, healthLabel, tickerTile } from "../lib/score";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -46,8 +49,6 @@ import {
 import {
   Search,
   Clock,
-  TrendingUp,
-  TrendingDown,
   Download,
   Trash2,
   FileText,
@@ -169,44 +170,19 @@ const History = () => {
     }
   };
 
-  const scoreChip = (score: number) => {
-    const s = score.toFixed(1);
-    if (score >= 7) {
-      return (
-        <div className="flex items-center gap-1 px-2 py-1 rounded bg-success/10 text-brand">
-          <TrendingUp className="w-4 h-4" />
-          <span className="font-semibold text-sm">{s}/10</span>
-        </div>
-      );
-    }
-    if (score >= 5) {
-      return (
-        <div className="flex items-center gap-1 px-2 py-1 rounded bg-amber-100 text-amber-700">
-          <span className="font-semibold text-sm">{s}/10</span>
-        </div>
-      );
-    }
-    return (
-      <div className="flex items-center gap-1 px-2 py-1 rounded bg-destructive/10 text-destructive">
-        <TrendingDown className="w-4 h-4" />
-        <span className="font-semibold text-sm">{s}/10</span>
-      </div>
-    );
-  };
+  const scoreChip = (score: number) => (
+    <div className="flex flex-col items-end gap-1">
+      <span className="text-xl font-bold leading-none tabular-nums text-foreground">
+        {score.toFixed(1)}<span className="text-xs font-medium text-muted-foreground">/10</span>
+      </span>
+      <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${scorePill(score)}`}>{healthLabel(score)}</span>
+    </div>
+  );
 
   return (
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <h1 className="xt-title mb-2">Report History</h1>
-          <p className="text-muted-foreground">Access all your past analysis reports</p>
-        </motion.div>
+        <PageHeader title="Report History" subtitle="Every analysis you've run, newest first. Open, download or tidy them up." />
 
         {/* Search & Sort */}
         <motion.div
@@ -222,11 +198,11 @@ const History = () => {
               placeholder="Search reports..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-white border-border"
+              className={`pl-10 ${INPUT}`}
             />
           </div>
           <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-            <SelectTrigger className="w-full sm:w-48 bg-white border-border">
+            <SelectTrigger className="w-full sm:w-48 h-11 rounded-xl bg-card border-border">
               <SelectValue placeholder="Sort" />
             </SelectTrigger>
             <SelectContent>
@@ -241,7 +217,7 @@ const History = () => {
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="p-5 rounded-2xl bg-white border border-border shadow-sm">
+              <div key={i} className={`${CARD} p-5`}>
                 <div className="flex items-start justify-between mb-4">
                   <div className="space-y-2">
                     <Skeleton className="h-5 w-40" />
@@ -261,9 +237,11 @@ const History = () => {
 
         {/* Error */}
         {!loading && error && (
-          <div className="text-center py-16 bg-white rounded-2xl border border-border">
-            <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Something went wrong</h3>
+          <div className={`${CARD} text-center py-16 px-6`}>
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-destructive/10 text-destructive mx-auto mb-4">
+              <FileText className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-foreground mb-2">Couldn't load your reports</h3>
             <p className="text-muted-foreground mb-4">{error}</p>
             <Button
               onClick={async () => {
@@ -271,7 +249,7 @@ const History = () => {
                 await loadReports(0);
                 setLoading(false);
               }}
-              className="bg-primary text-white hover:bg-primary/90"
+              className={BTN}
             >
               Retry
             </Button>
@@ -280,16 +258,16 @@ const History = () => {
 
         {/* Empty (no reports at all) */}
         {!loading && !error && total === 0 && (
-          <div className="text-center py-16 bg-white rounded-2xl border border-border">
-            <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-7 h-7 text-brand" />
+          <div className={`${CARD} text-center py-16 px-6`}>
+            <div className={`${ICON_TILE} !h-12 !w-12 mx-auto mb-4`}>
+              <FileText className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">No reports yet</h3>
+            <h3 className="text-lg font-bold text-foreground mb-2">No reports yet</h3>
             <p className="text-muted-foreground mb-5">
               Analyze your first company and it'll show up here.
             </p>
             <Link to="/fundakamental/analyze">
-              <Button className="bg-primary text-white hover:bg-primary/90">
+              <Button className={BTN}>
                 Create your first analysis
               </Button>
             </Link>
@@ -311,14 +289,17 @@ const History = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: Math.min(0.05 * index, 0.4) }}
-                    className="group p-5 rounded-2xl bg-white border border-border hover:border-primary/50 transition-all duration-300 shadow-sm"
+                    className={`group ${CARD} p-5 transition-colors hover:border-brand-line`}
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">{report.company}</h3>
+                    <div className="flex items-start justify-between gap-3 mb-4">
+                      <div className="grid h-11 w-11 flex-none place-items-center rounded-xl border border-border bg-secondary text-[11px] font-extrabold tracking-tight text-foreground">
+                        {tickerTile(report.ticker, report.company)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-foreground mb-1 truncate">{report.company}</h3>
                         <div className="flex items-center gap-2 flex-wrap">
                           {report.ticker && !/^n\/?a$/i.test(report.ticker.trim()) && (
-                            <span className="px-2 py-0.5 rounded-full bg-accent/30 text-xs text-brand font-medium">
+                            <span className="text-xs font-semibold text-foreground">
                               {report.ticker}
                             </span>
                           )}
@@ -329,11 +310,11 @@ const History = () => {
                         </div>
                       </div>
                       {isProcessing ? (
-                        <span className="px-2 py-1 rounded bg-amber-100 text-amber-700 text-xs font-semibold animate-pulse">
+                        <span className="rounded-full px-2.5 py-1 bg-warning/10 text-warning text-xs font-semibold animate-pulse">
                           Processing…
                         </span>
                       ) : isFailed ? (
-                        <span className="px-2 py-1 rounded bg-destructive/10 text-destructive text-xs font-semibold">
+                        <span className="rounded-full px-2.5 py-1 bg-destructive/10 text-destructive text-xs font-semibold">
                           Failed
                         </span>
                       ) : (
@@ -341,7 +322,7 @@ const History = () => {
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 border-t border-border pt-3">
                       {isFailed ? (
                         <div className="flex-1 text-xs text-muted-foreground">
                           Analysis didn't complete.
@@ -355,7 +336,7 @@ const History = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="w-full"
+                            className="w-full rounded-lg font-bold group-hover:border-brand-line group-hover:text-brand"
                             disabled={isProcessing}
                           >
                             View Report
@@ -398,8 +379,8 @@ const History = () => {
             {/* No search matches */}
             {visibleReports.length === 0 && (
               <div className="text-center py-12">
-                <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No reports found</h3>
+                <Search className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-foreground mb-2">No reports match "{searchQuery}"</h3>
                 <p className="text-muted-foreground">
                   Try a different search term or create a new analysis
                 </p>

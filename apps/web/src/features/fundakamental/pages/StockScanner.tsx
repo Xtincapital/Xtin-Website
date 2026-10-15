@@ -26,6 +26,8 @@ import { motion } from "framer-motion";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import PageHeader from "../components/PageHeader";
+import { CARD_P, H2, H2_ICON, BTN } from "../lib/ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -565,28 +567,17 @@ const StockScanner = () => {
   return (
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <h1 className="xt-title mb-2">
-              Stock Scanner
-            </h1>
-            <span className="px-2 py-1 rounded bg-warning/10 text-amber-700 text-xs font-medium flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              Premium
-            </span>
-          </div>
-          <p className="text-muted-foreground max-w-2xl">
-            A stock screener sifts through thousands of companies and surfaces only the ones
-            that match what <em>you</em> care about — cheap, fast-growing, high-quality, or
-            high-dividend. Pick a ready-made screen below, or build your own.
-          </p>
-        </motion.div>
+        <PageHeader
+          title="Stock Scanner"
+          pro
+          subtitle={
+            <>
+              A stock screener sifts through thousands of companies and surfaces only the ones
+              that match what <em>you</em> care about — cheap, fast-growing, high-quality, or
+              high-dividend. Pick a ready-made screen below, or build your own.
+            </>
+          }
+        />
 
         {/* Market selector — pick the universe first */}
         <motion.div
@@ -597,7 +588,7 @@ const StockScanner = () => {
         >
           <div className="flex items-center gap-3 flex-wrap">
             <span className="xt-label">Market</span>
-            <div className="inline-flex rounded-xl border border-border overflow-hidden">
+            <div className="inline-flex gap-0.5 rounded-xl border border-border bg-secondary p-[3px]">
               {([
                 { id: "india", label: "🇮🇳 India (NSE)" },
                 { id: "us", label: "🇺🇸 United States" },
@@ -605,8 +596,9 @@ const StockScanner = () => {
                 <button
                   key={m.id}
                   onClick={() => { setMarket(m.id); setMarketTouched(true); setActivePreset(null); }}
-                  className={`px-4 py-2 text-sm font-semibold transition-colors ${
-                    market === m.id ? "bg-primary text-white" : "bg-white text-muted-foreground hover:bg-secondary"
+                  aria-pressed={market === m.id}
+                  className={`h-8 rounded-lg px-3.5 text-sm font-semibold transition-colors ${
+                    market === m.id ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {m.label}
@@ -635,10 +627,11 @@ const StockScanner = () => {
               <button
                 key={preset.id}
                 onClick={() => applyPreset(preset)}
-                className={`text-left p-4 rounded-2xl border transition-all ${
+                aria-pressed={activePreset === preset.id}
+                className={`text-left p-4 rounded-2xl border transition-colors ${
                   activePreset === preset.id
-                    ? "border-primary bg-primary/5 shadow-sm"
-                    : "border-border bg-white hover:border-primary/40 hover:shadow-sm"
+                    ? "border-brand bg-brand-soft"
+                    : "border-border bg-card hover:border-brand-line"
                 }`}
               >
                 <div className="text-2xl mb-2">{preset.emoji}</div>
@@ -655,11 +648,11 @@ const StockScanner = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="rounded-2xl bg-white border border-border p-6 mb-6"
+          className={`${CARD_P} mb-6`}
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-              <Filter className="w-5 h-5 text-brand" />
+            <h2 className={`${H2} !mb-0`}>
+              <Filter className={H2_ICON} />
               Filter Criteria
             </h2>
             <Button variant="outline" size="sm" onClick={addFilter} className="gap-2">
@@ -672,13 +665,13 @@ const StockScanner = () => {
             {filters.map((filter) => (
               <div
                 key={filter.id}
-                className="flex flex-wrap items-center gap-2 sm:gap-3 p-3 rounded-lg bg-secondary/50"
+                className="flex flex-wrap items-center gap-2 sm:gap-3 p-3 rounded-xl border border-border bg-secondary/40"
               >
                 <Select
                   value={filter.field}
                   onValueChange={(v) => updateFilter(filter.id, "field", v)}
                 >
-                  <SelectTrigger className="w-52 bg-background">
+                  <SelectTrigger className="w-52 rounded-lg bg-card">
                     <SelectValue placeholder="Select criteria" />
                   </SelectTrigger>
                   <SelectContent className="max-h-80">
@@ -704,7 +697,7 @@ const StockScanner = () => {
                       value={filter.value}
                       onValueChange={(v) => updateFilter(filter.id, "value", v)}
                     >
-                      <SelectTrigger className="w-48 bg-background">
+                      <SelectTrigger className="w-48 rounded-lg bg-card">
                         <SelectValue placeholder="Select sector" />
                       </SelectTrigger>
                       <SelectContent>
@@ -722,7 +715,7 @@ const StockScanner = () => {
                       value={filter.operator}
                       onValueChange={(v) => updateFilter(filter.id, "operator", v)}
                     >
-                      <SelectTrigger className="w-20 bg-background">
+                      <SelectTrigger className="w-20 rounded-lg bg-card">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -741,7 +734,7 @@ const StockScanner = () => {
                       onChange={(e) =>
                         updateFilter(filter.id, "value", e.target.value)
                       }
-                      className="w-32 flex-1 min-w-[8rem] sm:flex-none bg-background"
+                      className="w-32 flex-1 min-w-[8rem] sm:flex-none rounded-lg bg-card"
                     />
                   </>
                 )}
@@ -758,12 +751,12 @@ const StockScanner = () => {
           </div>
 
           <div className="flex items-center gap-3 mt-6 flex-wrap">
-            <Button onClick={runScan} className="bg-primary text-white hover:bg-primary/90 gap-2" disabled={isScanning}>
+            <Button onClick={runScan} className={`${BTN} gap-2`} disabled={isScanning}>
               {isPro ? <Play className="w-4 h-4" /> : <Lock className="w-4 h-4 pro-gold-text" />}
               {isScanning ? "Scanning..." : isPro ? "Run Scan" : "Run Scan on Live Data"}
             </Button>
             {!isPro && (
-              <span className="text-xs font-extrabold px-2 py-1 rounded bg-gradient-to-br from-amber-500 to-amber-600 text-white">
+              <span className="pro-gold-bg text-xs font-bold tracking-wide px-1.5 py-0.5 rounded">
                 PRO
               </span>
             )}
@@ -786,7 +779,7 @@ const StockScanner = () => {
                 <button
                   key={screen.id}
                   onClick={() => loadSavedScreen(screen)}
-                  className="px-3 py-1 rounded-full bg-secondary text-xs font-medium text-foreground hover:bg-primary/10"
+                  className="inline-flex h-8 items-center rounded-full border border-border bg-card px-3 text-xs font-semibold text-foreground transition-colors hover:border-brand-line hover:bg-brand-soft"
                 >
                   {screen.name}
                 </button>
@@ -805,15 +798,15 @@ const StockScanner = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-2xl bg-white border border-border overflow-hidden"
+          className="rounded-2xl bg-card border border-border overflow-hidden"
         >
-          <div className="p-4 border-b border-border flex items-center justify-between gap-3 flex-wrap">
+          <div className="px-5 py-4 border-b border-border flex items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-2">
-              <h2 className="font-semibold text-foreground">
+              <h2 className={`${H2} !mb-0`}>
                 {isPro ? `Results (${results.length} matches)` : "Sample results"}
               </h2>
               {!isPro && (
-                <span className="text-xs font-semibold text-amber-600 bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
+                <span className="text-xs font-semibold text-warning bg-warning/10 border border-warning/30 rounded-full px-2 py-0.5">
                   Preview — live results are Pro
                 </span>
               )}
@@ -833,7 +826,7 @@ const StockScanner = () => {
           {/* Free-tier value banner: they see a real taste, then the unlock */}
           {!isPro && (
             <div
-              className="px-4 py-3 bg-primary/5 border-b border-primary/15 flex items-center gap-3 cursor-pointer hover:bg-primary/10 transition-colors"
+              className="px-5 py-3 bg-brand-soft border-b border-brand-line flex items-center gap-3 cursor-pointer hover:border-brand transition-colors"
               onClick={() => usePlanStore.getState().openUpgrade("screener")}
             >
               <Sparkles className="w-4 h-4 text-brand flex-shrink-0" />
@@ -846,7 +839,7 @@ const StockScanner = () => {
           )}
 
           {isPro && isSampleUniverse && (
-            <div className="px-4 py-3 bg-amber-50 border-b border-amber-200 text-sm text-amber-800">
+            <div className="px-5 py-3 bg-warning/10 border-b border-warning/30 text-sm text-warning">
               Showing a limited set of companies while our live market data refreshes. Results will cover the full
               market shortly.
             </div>
@@ -854,15 +847,15 @@ const StockScanner = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm tabular-nums">
               <thead>
-                <tr className="border-b border-border bg-secondary/30">
-                  <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">
+                <tr className="border-b border-border">
+                  <th className="text-left text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">
                     Company
                   </th>
-                  <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">
+                  <th className="text-left text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4">
                     Sector
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("price")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -871,7 +864,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("marketCap")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -880,7 +873,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("peRatio")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -889,7 +882,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("revenueGrowth")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -898,7 +891,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("profitMargin")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -907,7 +900,7 @@ const StockScanner = () => {
                     </span>
                   </th>
                   <th
-                    className="text-right text-xs font-medium text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
+                    className="text-right text-xs font-bold uppercase tracking-wide text-muted-foreground py-3 px-4 cursor-pointer hover:text-foreground"
                     onClick={() => handleSort("matchScore")}
                   >
                     <span className="flex items-center justify-end gap-1">
@@ -930,9 +923,9 @@ const StockScanner = () => {
                     key={stock.ticker}
                     onClick={() => navigate(`/fundakamental/analyze?ticker=${encodeURIComponent(stock.ticker)}&name=${encodeURIComponent(stock.company || stock.ticker)}`)}
                     title={`Analyse ${stock.company || stock.ticker}`}
-                    className="border-b border-border/50 last:border-0 hover:bg-secondary/50 transition-colors cursor-pointer"
+                    className="border-b border-border last:border-0 hover:bg-secondary/60 transition-colors cursor-pointer"
                   >
-                    <td className="py-4 px-4">
+                    <td className="py-3.5 px-4">
                       <div>
                         <p className="font-semibold text-foreground">
                           {stock.ticker}
@@ -942,21 +935,21 @@ const StockScanner = () => {
                         </p>
                       </div>
                     </td>
-                    <td className="py-4 px-4">
-                      <span className="px-2 py-1 rounded-full bg-accent/30 text-xs text-brand font-medium">
+                    <td className="py-3.5 px-4">
+                      <span className="rounded-lg border border-border bg-secondary px-2 py-0.5 text-xs font-semibold text-foreground">
                         {stock.sector}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-right text-foreground">
+                    <td className="py-3.5 px-4 text-right text-foreground">
                       {Number(stock.price) > 0 ? `${priceSymbol}${Number(stock.price).toFixed(2)}` : "—"}
                     </td>
-                    <td className="py-4 px-4 text-right text-foreground">
+                    <td className="py-3.5 px-4 text-right text-foreground">
                       {stock.marketCap}
                     </td>
-                    <td className="py-4 px-4 text-right text-foreground">
+                    <td className="py-3.5 px-4 text-right text-foreground">
                       {stock.peRatio ? `${Number(stock.peRatio).toFixed(1)}x` : "—"}
                     </td>
-                    <td className="py-4 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <span
                         className={`flex items-center justify-end gap-1 ${
                           stock.revenueGrowth >= 0
@@ -972,10 +965,10 @@ const StockScanner = () => {
                         {Number(stock.revenueGrowth).toFixed(1)}%
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-right text-foreground">
+                    <td className="py-3.5 px-4 text-right text-foreground">
                       {Number(stock.profitMargin).toFixed(1)}%
                     </td>
-                    <td className="py-4 px-4 text-right">
+                    <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-3">
                         <div className="w-20 space-y-1">
                           <div className="w-full h-2 rounded-full bg-secondary overflow-hidden">
@@ -1036,7 +1029,7 @@ const StockScanner = () => {
               placeholder="Cheap quality banks"
             />
           </div>
-          <Button onClick={handleSaveScreen} disabled={savingScreen} className="w-full bg-primary text-white hover:bg-primary/90">
+          <Button onClick={handleSaveScreen} disabled={savingScreen} className={`w-full ${BTN}`}>
             {savingScreen ? "Saving…" : "Save screen"}
           </Button>
         </DialogContent>

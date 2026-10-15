@@ -36,8 +36,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Link } from "react-router-dom";
 import { ArrowRight, PieChart as PieChartIcon, ShieldQuestion, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,12 +46,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { JDonut } from "@/features/journal/components/JournalCharts";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
 import { api } from "../lib/api";
-
-// Matches gini.css's `--chart-1`..`--chart-5` tokens (same palette as
-// Dashboard.tsx/NetWorth.tsx).
-const CHART_COLORS = chartColors.series;
 
 type RiskTolerance = "Conservative" | "Moderate" | "Aggressive";
 
@@ -135,10 +131,7 @@ export default function Portfolio() {
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="xt-title mb-2">Portfolio Analyzer</h1>
-          <p className="text-muted-foreground">Analyze your investment portfolio</p>
-        </motion.div>
+        <PageHeader title="Portfolio Analyzer" subtitle="Analyze your investment portfolio" />
 
         {/* Current Portfolio Analysis */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
@@ -151,7 +144,7 @@ export default function Portfolio() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="rounded-lg border p-4">
+                <div className="rounded-2xl border bg-secondary/40 p-4">
                   <p className="xt-label">Weighted Avg Return</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-20 mt-1" />
@@ -159,7 +152,7 @@ export default function Portfolio() {
                     <p className="mt-1 xt-metric text-foreground">{weightedReturn.toFixed(2)}%</p>
                   )}
                 </div>
-                <div className="rounded-lg border p-4">
+                <div className="rounded-2xl border bg-secondary/40 p-4">
                   <p className="xt-label">Total Portfolio Value</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-28 mt-1" />
@@ -167,7 +160,7 @@ export default function Portfolio() {
                     <p className="mt-1 xt-metric text-foreground">{formatCurrency(totalValue)}</p>
                   )}
                 </div>
-                <div className="rounded-lg border p-4">
+                <div className="rounded-2xl border bg-secondary/40 p-4">
                   <p className="xt-label">Asset Classes</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-10 mt-1" />
@@ -191,37 +184,15 @@ export default function Portfolio() {
                 </div>
               ) : (
                 <>
-                  <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={chartData}
-                          dataKey="value"
-                          nameKey="name"
-                          cx="50%"
-                          cy="50%"
-                          innerRadius="55%"
-                          outerRadius="85%"
-                          stroke="none"
-                        >
-                          {chartData.map((entry, index) => (
-                            <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          formatter={(value: number) => formatCurrency(value)}
-                          {...chartTooltip}
-                        />
-                        <Legend
-                          verticalAlign="bottom"
-                          wrapperStyle={{ fontSize: 12 }}
-                          formatter={(value) => <span className="text-muted-foreground">{value}</span>}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
+                  <JDonut
+                    data={chartData.map((d) => ({ label: d.name, value: d.value }))}
+                    centerLabel="total value"
+                    centerValue={formatCurrency(chartData.reduce((a, d) => a + d.value, 0), { compact: true })}
+                    legendValue={(d) => formatCurrency(d.value, { compact: true })}
+                    ariaLabel="Portfolio allocation by asset class"
+                  />
 
-                  <div className="rounded-md border overflow-x-auto">
+                  <div className="rounded-xl border overflow-x-auto">
                     <Table>
                       <TableHeader>
                         <TableRow>

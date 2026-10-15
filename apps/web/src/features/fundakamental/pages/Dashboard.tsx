@@ -41,12 +41,12 @@ import { useMarketData } from "../hooks/use-market-data";
 import useRegion from "@/hooks/useRegion";
 import { popularTickers } from "../lib/currency";
 import ApproxAmount from "@/components/ApproxAmount";
+import { scoreTone, scorePill, healthLabel, tickerTile } from "../lib/score";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import {
   Search,
   Upload,
   FileText,
-  TrendingUp,
-  TrendingDown,
   Clock,
   ArrowRight,
   Plus,
@@ -94,6 +94,7 @@ const Dashboard = () => {
   const [reports, setReports] = useState<any[]>([]);
   const [loadingReports, setLoadingReports] = useState(true);
   const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   // Seeded once per user; after that the list is exactly what they kept,
@@ -200,9 +201,9 @@ const Dashboard = () => {
   useEffect(() => {
     if (quickAccessList.length > 0) {
       const tickers = quickAccessList.map((item) => item.ticker);
-      subscribe(tickers);
+      subscribe([...tickers, ...popularTickers(region as any)]);
     }
-  }, [quickAccessList, subscribe]);
+  }, [quickAccessList, subscribe, region]);
 
   // Fetch initial prices from DB cache on mount
   useEffect(() => {
@@ -232,6 +233,18 @@ const Dashboard = () => {
   };
 
   // Close search results when clicking outside
+  // ⌘K / Ctrl+K jumps to company search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -297,14 +310,14 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-8"
+          className="fk-hello mb-8 pt-2"
         >
           <ProductBrand to="/fundakamental" name="FundaKaMental" className="mb-3" />
           <h1 className="xt-title mb-2">
             Welcome back, {displayName}
           </h1>
           <p className="text-muted-foreground">
-            Ready to analyze some financials?
+            Ready to analyse some financials? Search a listed company or drop in a statement.
           </p>
         </motion.div>
 
@@ -316,7 +329,7 @@ const Dashboard = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8"
         >
           {/* Search Company */}
-          <div className="p-6 rounded-2xl bg-white border border-border shadow-sm" data-tour="search-company">
+          <div className="p-6 rounded-2xl bg-card border border-border" data-tour="search-company">
             <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
               <Search className="w-4 h-4 text-brand" />
               Search Company
@@ -328,6 +341,7 @@ const Dashboard = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               )}
               <Input
+                ref={searchInputRef}
                 type="text"
                 placeholder="Company name or ticker..."
                 value={searchQuery}
@@ -336,13 +350,16 @@ const Dashboard = () => {
                   setIsSearchFocused(true);
                 }}
                 onFocus={() => setIsSearchFocused(true)}
-                className="pl-10 h-11 bg-secondary/50 border-border rounded-xl focus-visible:ring-primary/20"
+                className="pl-10 pr-16 h-12 text-base bg-secondary/50 border-border rounded-xl focus-visible:ring-brand/20 focus-visible:border-brand"
                 disabled={!!analyzingTicker}
               />
+              <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center rounded-md border border-border bg-card px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground">
+                ⌘K
+              </kbd>
 
               {/* Search Results Dropdown */}
               {isSearchFocused && searchQuery.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-md shadow-lg border border-border z-50 max-h-[400px] overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-card rounded-md shadow-lg border border-border z-50 max-h-[400px] overflow-y-auto">
                   <div className="p-2">
                     <CompanySearchResults
                       query={searchQuery}
@@ -353,23 +370,38 @@ const Dashboard = () => {
               )}
             </div>
             <div className="flex flex-wrap gap-2 mt-4">
-              {popularTickers(region as any).map((ticker) => (
-                <button
-                  key={ticker}
-                  onClick={() => {
-                    setSearchQuery(ticker);
-                    setIsSearchFocused(true);
-                  }}
-                  className="px-3 py-1.5 rounded-full bg-accent text-xs font-medium text-brand hover:bg-primary/10 transition-colors"
-                >
-                  {ticker}
-                </button>
-              ))}
+              {popularTickers(region as any).map((ticker) => {
+                const change = prices.get(ticker.toUpperCase())?.change_percent;
+                return (
+                  <button
+                    key={ticker}
+                    onClick={() => {
+                      setSearchQuery(ticker);
+                      setIsSearchFocused(true);
+                    }}
+                    className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-xs font-semibold text-foreground transition-colors hover:border-brand-line hover:bg-brand-soft"
+                  >
+                    {ticker.replace(/\.(NS|BO)$/i, "")}
+                    {change != null && (
+                      // Re-keyed on every tick so the soft flash replays when the price moves
+                      <motion.span
+                        key={change}
+                        initial={{ backgroundColor: "var(--brand-soft)" }}
+                        animate={{ backgroundColor: "rgba(0,0,0,0)" }}
+                        transition={{ duration: 0.9 }}
+                        className={`rounded px-1 tabular-nums ${change >= 0 ? "text-brand" : "text-destructive"}`}
+                      >
+                        {change >= 0 ? "+" : "−"}{Math.abs(change).toFixed(2)}%
+                      </motion.span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Upload */}
-          <div className="p-6 rounded-2xl bg-white border border-border shadow-sm" data-tour="upload-report">
+          <div className="p-6 rounded-2xl bg-card border border-border" data-tour="upload-report">
             <h2 className="text-base font-bold text-foreground mb-4 flex items-center gap-2">
               <Upload className="w-4 h-4 text-brand" />
               Upload Financial Statements
@@ -382,19 +414,26 @@ const Dashboard = () => {
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer bg-accent/30 ${
-                  dragActive ? "border-primary bg-accent/50" : "border-border hover:border-primary/40"
+                className={`flex items-center gap-4 border-[1.5px] border-dashed rounded-xl p-6 transition-colors cursor-pointer ${
+                  dragActive ? "border-brand bg-brand-soft" : "border-border bg-secondary/50 hover:border-brand hover:bg-brand-soft"
                 }`}
               >
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <Plus className="w-5 h-5 text-brand" />
+                <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center shrink-0">
+                  <Upload className="w-5 h-5 text-brand" />
                 </div>
-                <p className="text-sm text-muted-foreground mb-1">
-                  Drag & drop files here or click to browse
-                </p>
-                <p className="text-xs text-muted-foreground/70">
-                  Supports PDF, Excel, CSV (max 25MB)
-                </p>
+                <div className="min-w-0">
+                  <p className="text-sm text-foreground">
+                    <b>Drag & drop files here</b> or click to browse
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Annual reports, quarterly results, balance sheets · max 25 MB
+                  </p>
+                  <div className="flex gap-1.5 mt-2">
+                    {["PDF", "XLSX", "CSV"].map((f) => (
+                      <span key={f} className="rounded border border-border px-1.5 py-px font-mono text-[10px] text-muted-foreground">{f}</span>
+                    ))}
+                  </div>
+                </div>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -406,7 +445,7 @@ const Dashboard = () => {
             ) : (
               <div className="p-4 rounded-xl bg-secondary/50 border border-border">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-brand-soft flex items-center justify-center shrink-0">
                     <FileText className="w-5 h-5 text-brand" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -428,7 +467,7 @@ const Dashboard = () => {
                     <Button
                       onClick={handleUploadRedirect}
                       size="sm"
-                      className="bg-primary text-white hover:bg-primary/90 gap-1.5 text-xs h-8"
+                      className="bg-brand-fill text-white hover:bg-brand-hover gap-1.5 text-xs h-8"
                     >
                       Upload & Analyze
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -462,83 +501,101 @@ const Dashboard = () => {
               </Link>
             </div>
 
-            <div className="space-y-3">
+            <div className="rounded-2xl bg-card border border-border p-2">
               {loadingReports ? (
-                <div className="text-center py-12 bg-white rounded-2xl border border-border">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto text-brand"></div>
-                  <p className="mt-4 text-xs text-muted-foreground">Loading recent reports...</p>
+                <div className="space-y-1 p-1" aria-busy="true">
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className="flex items-center gap-3 p-3">
+                      <div className="h-11 w-11 rounded-xl bg-secondary animate-pulse" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-3.5 w-40 rounded bg-secondary animate-pulse" />
+                        <div className="h-3 w-24 rounded bg-secondary animate-pulse" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : reports.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-2xl border border-border">
+                <div className="text-center py-12">
                   <p className="text-muted-foreground text-sm mb-4">No reports generated yet.</p>
                   <Link to="/fundakamental/analyze">
-                    <Button size="sm" className="bg-primary text-white hover:bg-primary/90">Create Your First Analysis</Button>
+                    <Button size="sm" className="bg-brand-fill text-white hover:bg-brand-hover">Create Your First Analysis</Button>
                   </Link>
                 </div>
               ) : (
                 reports.map((report, index) => {
                   const done = report.status === "completed";
                   const failed = report.status === "failed";
-                  return (
-                  <motion.div
-                    key={report.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.05 * index }}
-                  >
+                  const tone = scoreTone(report.score);
+                  const pill = scorePill(report.score);
+                  const label = healthLabel(report.score);
+                  const short = tickerTile(report.ticker, report.company);
+                  const row = (
                     <Link
                       to={done ? `/fundakamental/report/${report.id}` : "/fundakamental/history"}
-                      className="block p-5 rounded-2xl bg-white border border-border hover:border-primary/30 hover:shadow-md transition-all duration-300"
+                      className={`grid grid-cols-[44px_minmax(0,1fr)_auto] sm:grid-cols-[44px_minmax(0,1fr)_auto_auto] items-center gap-3.5 rounded-xl p-3 transition-colors hover:bg-secondary ${
+                        index > 0 ? "border-t border-border" : ""
+                      }`}
                     >
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-bold text-foreground text-base">
-                              {report.company}
-                            </h3>
-                            {hasTicker(report.ticker) && (
-                              <span className="px-2 py-0.5 rounded-full bg-secondary text-xs text-muted-foreground font-medium">
-                                {report.ticker}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {report.date}
-                          </p>
-                        </div>
-                        {!done ? (
-                          <span
-                            className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                              failed ? "bg-destructive/10 text-destructive" : "bg-amber-100 text-amber-700 animate-pulse"
-                            }`}
-                          >
-                            {failed ? "Failed" : "Processing…"}
+                      <div className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-secondary text-[11px] font-extrabold tracking-tight text-foreground">
+                        {short}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="truncate font-bold text-foreground">{report.company}</p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {hasTicker(report.ticker) ? `${report.ticker} · ` : ""}{report.date}
+                        </p>
+                      </div>
+                      {done ? (
+                        <>
+                          <span className="hidden sm:block text-right text-lg font-bold tabular-nums text-foreground">
+                            {report.score.toFixed(1)}<span className="text-xs font-medium text-muted-foreground">/10</span>
                           </span>
-                        ) : (
-                        <div
-                          className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                            report.trend === "up"
-                              ? "bg-primary/10 text-brand"
-                              : report.trend === "flat"
-                              ? "bg-amber-100 text-amber-700"
-                              : "bg-destructive/10 text-destructive"
+                          <span className={`rounded-full px-2.5 py-1 text-xs font-bold whitespace-nowrap ${pill}`}>{label}</span>
+                        </>
+                      ) : (
+                        <span
+                          className={`col-span-1 sm:col-span-2 justify-self-end rounded-full px-2.5 py-1 text-xs font-semibold ${
+                            failed ? "bg-destructive/10 text-destructive" : "bg-warning/10 text-warning animate-pulse"
                           }`}
                         >
-                          {report.trend === "up" ? (
-                            <TrendingUp className="w-3.5 h-3.5" />
-                          ) : report.trend === "down" ? (
-                            <TrendingDown className="w-3.5 h-3.5" />
-                          ) : null}
-                          {report.score.toFixed(1)}/10
-                        </div>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground line-clamp-2">
-                        {done ? report.summary : failed ? "This analysis didn't complete. Run it again from New Analysis." : "Your report is being written…"}
-                      </p>
+                          {failed ? "Failed" : "Processing…"}
+                        </span>
+                      )}
                     </Link>
-                  </motion.div>
+                  );
+                  return (
+                    <motion.div
+                      key={report.id}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.05 * index }}
+                    >
+                      {done ? (
+                        <HoverCard openDelay={250} closeDelay={80}>
+                          <HoverCardTrigger asChild>{row}</HoverCardTrigger>
+                          <HoverCardContent side="right" align="start" className="w-72 rounded-2xl p-4">
+                            <div className="mb-3 flex items-center gap-3">
+                              <div
+                                className={`grid h-12 w-12 flex-none place-items-center rounded-full ${tone}`}
+                                style={{ background: `conic-gradient(currentColor ${report.score * 10}%, hsl(var(--border)) 0)` }}
+                              >
+                                <span className="grid h-[38px] w-[38px] place-items-center rounded-full bg-popover text-sm font-bold tabular-nums text-foreground">
+                                  {report.score.toFixed(1)}
+                                </span>
+                              </div>
+                              <div className="min-w-0">
+                                <p className="truncate font-bold text-foreground">{report.company}</p>
+                                <p className="text-xs text-muted-foreground">Analysed {report.date}</p>
+                              </div>
+                            </div>
+                            <p className="line-clamp-4 text-sm leading-relaxed text-muted-foreground">{report.summary}</p>
+                            <p className="mt-3 text-xs font-semibold text-brand">Open report →</p>
+                          </HoverCardContent>
+                        </HoverCard>
+                      ) : (
+                        row
+                      )}
+                    </motion.div>
                   );
                 })
               )}
@@ -578,7 +635,7 @@ const Dashboard = () => {
                     placeholder="Search company or ticker..."
                     value={companySearchQuery}
                     onChange={(e) => setCompanySearchQuery(e.target.value)}
-                    className="h-9 bg-white"
+                    className="h-9 bg-card"
                   />
                   <Button
                     variant="ghost"
@@ -593,7 +650,7 @@ const Dashboard = () => {
                   </Button>
                 </div>
                 {companySearchQuery && (
-                  <div className="mt-2 bg-white rounded-xl border border-border shadow-md max-h-[220px] overflow-y-auto p-1.5 z-50">
+                  <div className="mt-2 bg-card rounded-xl border border-border shadow-md max-h-[220px] overflow-y-auto p-1.5 z-50">
                     {loadingQuickAccessSearch ? (
                       <div className="flex items-center justify-center py-6 text-xs text-muted-foreground">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary mr-2"></div>
@@ -645,7 +702,7 @@ const Dashboard = () => {
                               className="flex items-center justify-between p-2 hover:bg-accent/40 rounded-lg cursor-pointer transition-colors"
                             >
                               <div className="flex items-center gap-2 min-w-0">
-                                <span className="px-2 py-0.5 rounded bg-primary/10 text-brand text-xs font-semibold shrink-0">
+                                <span className="px-2 py-0.5 rounded bg-brand-soft text-brand text-xs font-semibold shrink-0">
                                   {company.ticker}
                                 </span>
                                 <span className="text-xs font-medium text-foreground truncate">
@@ -667,7 +724,7 @@ const Dashboard = () => {
               </div>
             )}
 
-            <div className="rounded-2xl bg-white border border-border overflow-x-auto shadow-sm">
+            <div className="rounded-2xl bg-card border border-border overflow-x-auto">
               <table className="w-full text-sm tabular-nums">
                 <thead>
                   <tr className="border-b border-border">

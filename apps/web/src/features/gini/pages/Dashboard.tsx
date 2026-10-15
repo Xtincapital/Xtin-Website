@@ -14,10 +14,10 @@
 // Reproduced from the original:
 //   - KPI tiles: Net Worth (dashNetWorth), Goals count (dashGoalsCount),
 //     Health Score (dashHealthScore), Total Liabilities (dashLiabilities).
-//   - Asset Allocation chart (dashAssetChart) — pie of asset value by
-//     `category`.
-//   - Goals Progress chart (dashGoalsChart) — bar of `saved` vs
-//     `current_cost` (inflation-adjusted to `target_year`) per goal.
+//   - Asset Allocation chart (dashAssetChart) — donut of asset value by
+//     `category` (shared JDonut, linked hover legend).
+//   - Goals Progress (dashGoalsChart) — one progress bar per goal, `saved`
+//     vs `current_cost` inflation-adjusted to `target_year`.
 //   - A welcome/empty state for brand-new users (no family/assets/goals
 //     yet), replacing the original's `dashboardOnboarding` checklist widget
 //     with a lighter single card pointing at the three real household
@@ -39,32 +39,17 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Wallet, Target, HeartPulse, CreditCard, Users, PiggyBank, ArrowRight, Sparkles } from "lucide-react";
 import RollingNumber from "@/components/motion/RollingNumber";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import ProductBrand from "@/components/ProductBrand";
+import { JDonut } from "@/features/journal/components/JournalCharts";
+import PageHeader from "../components/PageHeader";
+import { ProgressRow, ScoreRing, SplitBar } from "../components/GiniCharts";
+import { CARD, CARD_LIFT, CHIP_DOWN, CHIP_GOLD, CHIP_UP, LABEL } from "../lib/ui";
 import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
-
-// The site's shared categorical series (components/charts/chartTheme.ts).
-const CHART_COLORS = chartColors.series;
 
 /** Simple compound-inflation future value — mirrors the original's
  *  `utils.calculateFutureValue(currentCost, inflationPct, years)`. */
@@ -96,7 +81,7 @@ export default function Dashboard() {
 
   const isLoading = membersLoading || assetsLoading || liabilitiesLoading || goalsLoading;
 
-  const { totalLiabilities, netWorth, healthScore, assetChartData, goalsChartData } = useMemo(() => {
+  const { totalAssets, totalLiabilities, netWorth, healthScore, assetChartData, goalsChartData } = useMemo(() => {
     const totalAssetsValue = assets.reduce((sum, a) => sum + (a.value || 0), 0);
     const totalLiabilitiesValue = liabilities.reduce((sum, l) => sum + (l.amount || 0), 0);
     const netWorthValue = totalAssetsValue - totalLiabilitiesValue;
@@ -154,81 +139,61 @@ export default function Dashboard() {
 
   const isBrandNew = !isLoading && members.length === 0 && assets.length === 0 && goals.length === 0;
 
-  const kpiCards = [
-    {
-      label: "Net Worth",
-      value: formatCurrency(netWorth),
-      positive: netWorth >= 0,
-      icon: Wallet,
-    },
-    {
-      label: "Goals",
-      value: goals.length.toLocaleString(),
-      icon: Target,
-    },
-    {
-      label: "Health Score",
-      value: `${Math.round(healthScore)}%`,
-      positive: healthScore >= 60,
-      icon: HeartPulse,
-    },
-    {
-      label: "Total Liabilities",
-      value: formatCurrency(totalLiabilities),
-      positive: false,
-      icon: CreditCard,
-    },
-  ];
+  // A goal counts as behind when it's due within 3 years and under half funded.
+  const currentYear = new Date().getFullYear();
+  const goalRows = goals.map((g, i) => {
+    const row = goalsChartData[i];
+    const percent = row.target > 0 ? (row.saved / row.target) * 100 : 0;
+    const yearsLeft = (g.target_year ?? currentYear) - currentYear;
+    return { ...row, year: g.target_year, percent, behind: percent < 100 && yearsLeft <= 3 && percent < 50 };
+  });
+  const behindCount = goalRows.filter((g) => g.behind).length;
+  const debtRatio = totalAssets > 0 ? (totalLiabilities / totalAssets) * 100 : 0;
 
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <ProductBrand to="/gini" name="Gini" className="mb-3" />
-          <h1 className="xt-title mb-2">Dashboard</h1>
-          <p className="text-muted-foreground">
-            {isLoading ? "Loading your household's financial picture..." : "Your household's financial picture at a glance"}
-          </p>
-        </motion.div>
+        <PageHeader
+          title="Dashboard"
+          subtitle={isLoading ? "Loading your household's financial picture..." : "Your household's financial picture at a glance"}
+        />
 
         {isBrandNew && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-            <Card className="bg-gradient-accent border-primary/10">
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-start gap-4">
-                  <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-primary flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-primary-foreground" />
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-lg font-bold text-foreground mb-1">Welcome to Gini</h2>
-                    <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
-                      Set up your household to unlock net worth tracking, goal projections, and personalized
-                      insights. Start with these three steps.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Button asChild size="sm">
-                        <Link to="/gini/family">
-                          <Users className="mr-2 h-4 w-4" />
-                          Add family members
-                        </Link>
-                      </Button>
-                      <Button asChild size="sm" variant="outline">
-                        <Link to="/gini/networth">
-                          <PiggyBank className="mr-2 h-4 w-4" />
-                          Add assets &amp; liabilities
-                        </Link>
-                      </Button>
-                      <Button asChild size="sm" variant="outline">
-                        <Link to="/gini/goals">
-                          <Target className="mr-2 h-4 w-4" />
-                          Set a goal
-                        </Link>
-                      </Button>
-                    </div>
+            <div className={`${CARD} border-brand-line bg-brand-soft p-6 md:p-8`}>
+              <div className="flex items-start gap-4">
+                <span className="flex-shrink-0 w-11 h-11 rounded-xl bg-brand-fill flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-lg font-bold text-foreground mb-1">Welcome to Gini</h2>
+                  <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
+                    Set up your household to unlock net worth tracking, goal projections, and personalized
+                    insights. Start with these three steps.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <Button asChild size="sm">
+                      <Link to="/gini/family">
+                        <Users className="mr-2 h-4 w-4" />
+                        Add family members
+                      </Link>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
+                      <Link to="/gini/networth">
+                        <PiggyBank className="mr-2 h-4 w-4" />
+                        Add assets &amp; liabilities
+                      </Link>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
+                      <Link to="/gini/goals">
+                        <Target className="mr-2 h-4 w-4" />
+                        Set a goal
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </motion.div>
         )}
 
@@ -237,34 +202,38 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-1 min-[460px]:grid-cols-2 lg:grid-cols-4 gap-4 mb-3"
         >
-          {kpiCards.map((card) => (
-            <Card key={card.label} className="transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-              <CardContent className="p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
-                  <card.icon className="w-3.5 h-3.5 text-muted-foreground" />
-                </div>
-                {isLoading ? (
-                  <Skeleton className="h-7 w-24" />
-                ) : (
-                  <p
-                    className={
-                      card.positive === undefined
-                        ? "xt-metric text-foreground"
-                        : `xt-metric ${card.positive ? "text-brand" : "text-destructive"}`
-                    }
-                  >
-                    <RollingNumber value={String(card.value)} />
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+          <KpiTile label="Net Worth" icon={Wallet} loading={isLoading}
+            value={formatCurrency(netWorth)} tone={netWorth >= 0 ? "default" : "down"}
+            foot={
+              <div className="w-full">
+                <SplitBar a={totalAssets} b={totalLiabilities} className="mb-2" />
+                <span>Assets {formatCurrency(totalAssets, { compact: true })}</span>
+              </div>
+            }
+          />
+          <KpiTile label="Goals" icon={Target} loading={isLoading} value={goals.length.toLocaleString()}
+            foot={
+              goals.length === 0 ? <span>No goals yet</span> : (
+                <>
+                  <span className={CHIP_UP}>{goals.length - behindCount} on track</span>
+                  {behindCount > 0 && <span className={CHIP_GOLD}>{behindCount} behind</span>}
+                </>
+              )
+            }
+          />
+          <KpiTile label="Health Score" icon={HeartPulse} loading={isLoading} value={`${Math.round(healthScore)}%`}
+            foot={<><span className={healthScore >= 60 ? CHIP_UP : CHIP_GOLD}>{healthScore >= 60 ? "Good" : "Needs work"}</span>out of 100</>}
+            corner={<ScoreRing value={healthScore} />}
+          />
+          <KpiTile label="Total Liabilities" icon={CreditCard} loading={isLoading}
+            value={formatCurrency(totalLiabilities)} tone={totalLiabilities > 0 ? "down" : "default"}
+            foot={<><span className={debtRatio < 50 ? CHIP_UP : CHIP_DOWN}>{debtRatio.toFixed(1)}%</span>of assets</>}
+          />
         </motion.div>
         {!isLoading && (
-          <p className="text-xs text-muted-foreground -mt-6 mb-8">
+          <p className="text-xs text-muted-foreground mb-8">
             Health Score is a lightweight, client-side approximation based on income coverage, debt-to-asset ratio
             and goal funding — not a substitute for financial advice.
           </p>
@@ -275,109 +244,102 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-5"
         >
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Asset Allocation</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {isLoading ? (
-                <Skeleton className="h-64 w-full" />
-              ) : assetChartData.length === 0 ? (
-                <div className="h-64 flex flex-col items-center justify-center text-center text-sm text-muted-foreground gap-3">
-                  <p>No assets logged yet.</p>
-                  <Button asChild size="sm" variant="outline">
-                    <Link to="/gini/networth">
-                      Add an asset
-                      <ArrowRight className="ml-2 h-3.5 w-3.5" />
-                    </Link>
-                  </Button>
-                </div>
-              ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={assetChartData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        innerRadius="55%"
-                        outerRadius="85%"
-                        stroke="none"
-                      >
-                        {assetChartData.map((entry, index) => (
-                          <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number) => formatCurrency(value)}
-                        {...chartTooltip}
-                      />
-                      <Legend
-                        verticalAlign="bottom"
-                        wrapperStyle={{ fontSize: 12 }}
-                        formatter={(value) => <span className="text-muted-foreground">{value}</span>}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <section className={`${CARD} flex flex-col p-5 md:p-6`}>
+            <div className="mb-5 flex items-baseline justify-between gap-3">
+              <h3 className="text-lg font-bold">Asset Allocation</h3>
+              {totalAssets > 0 && <span className="text-xs tabular-nums text-muted-foreground">{formatCurrency(totalAssets, { compact: true })} total</span>}
+            </div>
+            {isLoading ? (
+              <Skeleton className="h-56 w-full" />
+            ) : assetChartData.length === 0 ? (
+              <EmptyState text="No assets logged yet." to="/gini/networth" cta="Add an asset" />
+            ) : (
+              <div className="my-auto">
+              <JDonut
+                data={assetChartData.map((d) => ({ label: d.name, value: d.value }))}
+                centerLabel="total assets"
+                centerValue={formatCurrency(totalAssets, { compact: true })}
+                legendValue={(d) => formatCurrency(d.value, { compact: true })}
+                ariaLabel="Asset allocation by category"
+              />
+              </div>
+            )}
+          </section>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Goals Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {isLoading ? (
-                <Skeleton className="h-64 w-full" />
-              ) : goalsChartData.length === 0 ? (
-                <div className="h-64 flex flex-col items-center justify-center text-center text-sm text-muted-foreground gap-3">
-                  <p>No goals set yet.</p>
-                  <Button asChild size="sm" variant="outline">
-                    <Link to="/gini/goals">
-                      Set a goal
-                      <ArrowRight className="ml-2 h-3.5 w-3.5" />
-                    </Link>
-                  </Button>
-                </div>
-              ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={goalsChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                      <CartesianGrid {...chartGrid} />
-                      <XAxis
-                        dataKey="name"
-                        tick={chartTick}
-                        axisLine={false}
-                        tickLine={false}
-                      />
-                      <YAxis
-                        tick={chartTick}
-                        axisLine={false}
-                        tickLine={false}
-                        width={56}
-                        tickFormatter={(v) => formatCurrency(v, { compact: true })}
-                      />
-                      <Tooltip
-                        formatter={(value: number) => formatCurrency(value)}
-                        {...chartTooltip}
-                      />
-                      <Legend wrapperStyle={{ fontSize: 12 }} />
-                      <Bar dataKey="saved" name="Saved" fill="hsl(var(--chart-positive))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
-                      <Bar dataKey="target" name="Target" fill="hsl(var(--muted-foreground))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <section className={`${CARD} p-5 md:p-6`}>
+            <div className="mb-5 flex items-baseline justify-between gap-3">
+              <h3 className="text-lg font-bold">Goals Progress</h3>
+              <span className="text-xs text-muted-foreground">saved vs inflation-adjusted target</span>
+            </div>
+            {isLoading ? (
+              <Skeleton className="h-56 w-full" />
+            ) : goalRows.length === 0 ? (
+              <EmptyState text="No goals set yet." to="/gini/goals" cta="Set a goal" />
+            ) : (
+              <div className="flex flex-col gap-4">
+                {goalRows.map((g, i) => (
+                  <ProgressRow
+                    key={`${g.name}-${i}`}
+                    name={g.name}
+                    meta={g.year ? `by ${g.year}` : undefined}
+                    saved={formatCurrency(g.saved, { compact: true })}
+                    target={formatCurrency(g.target, { compact: true })}
+                    percent={g.percent}
+                    behind={g.behind}
+                    delay={0.15 + i * 0.08}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
         </motion.div>
       </div>
     </GiniLayout>
+  );
+}
+
+function EmptyState({ text, to, cta }: { text: string; to: string; cta: string }) {
+  return (
+    <div className="h-56 flex flex-col items-center justify-center text-center text-sm text-muted-foreground gap-3">
+      <p>{text}</p>
+      <Button asChild size="sm" variant="outline">
+        <Link to={to}>
+          {cta}
+          <ArrowRight className="ml-2 h-3.5 w-3.5" />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+interface KpiTileProps {
+  label: string;
+  icon: typeof Wallet;
+  value: string;
+  loading: boolean;
+  tone?: "default" | "down";
+  foot?: React.ReactNode;
+  corner?: React.ReactNode;
+}
+
+function KpiTile({ label, icon: Icon, value, loading, tone = "default", foot, corner }: KpiTileProps) {
+  return (
+    <div className={`${CARD_LIFT} relative overflow-hidden p-5`}>
+      <div className="flex items-center justify-between">
+        <p className={LABEL}>{label}</p>
+        <Icon className="w-4 h-4 text-muted-foreground" />
+      </div>
+      {loading ? (
+        <Skeleton className="mt-3 mb-2 h-8 w-28" />
+      ) : (
+        <p className={`mt-3 mb-2.5 text-[28px] font-bold leading-none tabular-nums tracking-[-0.01em] ${tone === "down" ? "text-destructive" : "text-foreground"}`}>
+          <RollingNumber value={value} />
+        </p>
+      )}
+      {foot && <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">{foot}</div>}
+      {corner && <div className="absolute right-4 bottom-4">{corner}</div>}
+    </div>
   );
 }

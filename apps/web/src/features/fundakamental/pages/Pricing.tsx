@@ -118,14 +118,13 @@ export default function Pricing() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-7xl w-full mx-auto px-4 py-24 bg-white/50 min-h-screen">
+      <div className="fk-hello max-w-7xl w-full mx-auto p-6 md:p-8 md:pt-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <span className="xt-eyebrow">
             Pricing
@@ -146,25 +145,24 @@ export default function Pricing() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative rounded-2xl p-8 bg-white ${
+              className={`relative flex flex-col rounded-2xl p-7 bg-card ${
                 plan.popular
-                  ? "border-2 border-primary shadow-lg"
+                  ? "border-2 border-brand ring-4 ring-brand-soft"
                   : "border border-border"
               }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-white text-sm font-medium flex items-center gap-1 w-max">
-                  <Sparkles className="w-4 h-4" />
-                  Most Popular
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-brand-fill text-white text-xs font-bold uppercase tracking-wide flex items-center gap-1.5 w-max">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Most popular
                 </div>
               )}
 
               {/* Plan Header */}
-              <div className="text-center mb-8">
+              <div className="text-center mb-7 pb-7 border-b border-border">
                 <h3 className="text-xl font-bold text-foreground mb-2">
                   {plan.name}
                 </h3>
@@ -172,7 +170,7 @@ export default function Pricing() {
                   {plan.description}
                 </p>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold text-foreground">
+                  <span className="text-5xl font-bold tracking-tight tabular-nums text-foreground">
                     {plan.price}
                   </span>
                   <span className="text-muted-foreground">{plan.period}</span>
@@ -183,10 +181,10 @@ export default function Pricing() {
               </div>
 
               {/* Features */}
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
+                    <span className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-md bg-brand-soft text-brand"><Check className="h-3 w-3" strokeWidth={3} /></span>
                     <span className="text-sm text-muted-foreground">
                       {feature}
                     </span>
@@ -197,10 +195,10 @@ export default function Pricing() {
               {/* CTA */}
               <Button
                 onClick={() => handleCta(plan.name)}
-                className={`w-full rounded-full ${
+                className={`w-full rounded-xl font-bold ${
                   plan.popular
-                    ? "bg-primary hover:bg-primary/90 text-white"
-                    : "bg-secondary hover:bg-secondary/80 text-foreground"
+                    ? "bg-brand-fill hover:bg-brand-hover text-white"
+                    : "bg-card border border-border hover:border-brand-line hover:bg-brand-soft text-foreground"
                 }`}
                 size="lg"
               >

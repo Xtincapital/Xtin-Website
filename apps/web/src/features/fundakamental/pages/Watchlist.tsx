@@ -38,6 +38,10 @@ import { Plus, Trash2, TrendingUp, TrendingDown, Target, AlertCircle, Eye, BarCh
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api';
 import DashboardLayout from '../components/dashboard/DashboardLayout';
+import ProductBrand from "@/components/ProductBrand";
+import StatTile from "../components/StatTile";
+import { TABLE_FX } from "../lib/ui";
+import { Skeleton } from "@/components/ui/skeleton";
 import ApproxAmount from "@/components/ApproxAmount";
 
 interface Watchlist {
@@ -406,11 +410,13 @@ export default function Watchlist() {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center h-[60vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-4 text-muted-foreground">Loading watchlists...</p>
+        <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6" aria-busy="true" aria-label="Loading watchlists">
+          <Skeleton className="h-4 w-36" />
+          <Skeleton className="h-11 w-72 max-w-full" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-[108px] rounded-2xl" />)}
           </div>
+          <Skeleton className="h-80 rounded-2xl" />
         </div>
       </DashboardLayout>
     );
@@ -420,10 +426,11 @@ export default function Watchlist() {
     <DashboardLayout>
     <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="fk-hello pt-2 flex flex-wrap justify-between items-end gap-4">
         <div>
-          <h1 className="xt-title mb-2">Watchlist Manager</h1>
-          <p className="text-muted-foreground">Track stocks and set price targets</p>
+          <ProductBrand to="/fundakamental" name="FundaKaMental" className="mb-3" />
+          <h1 className="xt-title">Watchlist Manager</h1>
+          <p className="mt-2 text-muted-foreground">Track stocks, set price targets and see how far each one has to go.</p>
         </div>
 
         <div className="flex gap-2">
@@ -701,76 +708,42 @@ export default function Watchlist() {
 
       {/* Summary Cards */}
       {summary && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Items</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <Eye className="w-5 h-5 text-brand" />
-                <p className="xt-metric">{summary.total_items}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Avg Change Since Added</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {/* Needs at least one stock with a recorded add price; 0.00% there was misleading. */}
-              {!summary.best_performer ? (
-                <p className="xt-metric text-muted-foreground" title="No add price was recorded for these stocks">—</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatTile label="Stocks tracked" icon={Eye} value={summary.total_items} />
+          {/* Avg change needs at least one stock with a recorded add price; 0.00% there was misleading. */}
+          <StatTile
+            label="Avg change since added"
+            icon={summary.best_performer && summary.avg_change_pct < 0 ? TrendingDown : TrendingUp}
+            tone={!summary.best_performer ? "text-muted-foreground" : summary.avg_change_pct >= 0 ? "text-brand" : "text-destructive"}
+            value={
+              !summary.best_performer ? (
+                <span title="No add price was recorded for these stocks">—</span>
               ) : (
-              <div className="flex items-center gap-2">
-                {summary.avg_change_pct >= 0 ? (
-                  <TrendingUp className="w-5 h-5 text-brand" />
-                ) : (
-                  <TrendingDown className="w-5 h-5 text-destructive" />
-                )}
-                <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-brand' : 'text-destructive'}`}>
-                  {(summary.avg_change_pct ?? 0) >= 0 ? '+' : ''}{(summary.avg_change_pct ?? 0).toFixed(2)}%
-                </p>
-              </div>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Targets Hit</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <Target className="w-5 h-5 text-brand" />
-                <p className="xt-metric">{summary.targets_hit}</p>
-                {summary.targets_near > 0 && (
-                  <Badge variant="secondary">{summary.targets_near} near</Badge>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Tracked Value</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-brand" />
-                <p className="xt-metric">
-                  {trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}
-                  {trackedValueSymbol && <ApproxAmount inline amount={summary.tracked_value} from={trackedValueSymbol === '₹' ? 'INR' : 'USD'} className="text-sm" />}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+                `${(summary.avg_change_pct ?? 0) >= 0 ? "+" : ""}${(summary.avg_change_pct ?? 0).toFixed(2)}%`
+              )
+            }
+          />
+          <StatTile
+            label="Targets hit"
+            icon={Target}
+            value={summary.targets_hit}
+            hint={summary.targets_near > 0 ? `${summary.targets_near} close to target` : undefined}
+          />
+          <StatTile
+            label="Tracked value"
+            icon={BarChart3}
+            value={
+              <>
+                {trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}
+                {trackedValueSymbol && <ApproxAmount inline amount={summary.tracked_value} from={trackedValueSymbol === '₹' ? 'INR' : 'USD'} className="text-sm" />}
+              </>
+            }
+          />
         </div>
       )}
 
       {/* Items Table */}
-      <Card>
+      <Card className="shadow-none">
         <CardHeader>
           <CardTitle>
             {currentWatchlist?.name || 'Watchlist Items'}
@@ -802,7 +775,7 @@ export default function Watchlist() {
               )}
             </div>
           ) : (
-            <Table>
+            <Table className={TABLE_FX}>
               <TableHeader>
                 <TableRow>
                   <TableHead>Ticker</TableHead>

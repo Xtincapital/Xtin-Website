@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaSeedling, FaCheckCircle, FaTimesCircle, FaLightbulb, FaTrophy } from 'react-icons/fa';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // SVG 1: Mindset as the Foundation
 const MindsetFoundationSVG = () => (
@@ -520,8 +519,7 @@ const LTILesson7 = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="LongTermInvesting" lessonNumber={7}>
     <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -879,8 +877,7 @@ const LTILesson7 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

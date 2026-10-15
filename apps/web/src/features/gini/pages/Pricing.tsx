@@ -19,11 +19,12 @@
 // per ../components/ProGate.tsx which links here).
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles, Coins, Loader2, CreditCard } from "lucide-react";
 import useRegion from "@/hooks/useRegion";
 import GiniLayout from "../components/GiniLayout";
+import { CHIP_GOLD, CHIP_UP, PRO_TAG } from "../lib/ui";
 import {
   useGiniPlanStore,
   PRO_PLANS,
@@ -102,9 +103,7 @@ export default function Pricing() {
     <GiniLayout>
       <div className="mx-auto max-w-5xl space-y-10 p-6">
         <div className="space-y-2 text-center">
-          <Badge variant="secondary" className="mx-auto w-fit">
-            Xtin Gini Plans
-          </Badge>
+          <span className={`${CHIP_UP} mx-auto`}>Xtin Gini Plans</span>
           <h1 className="xt-title mb-2">
             {isPro ? "You're on Gini Pro" : "Plan your family's future with confidence"}
           </h1>
@@ -121,11 +120,11 @@ export default function Pricing() {
             <div>
               <p className="xt-label">Plan</p>
               <div className="mt-1 flex items-center gap-2">
-                <span className="text-lg font-semibold">{isPro ? "Pro" : "Free"}</span>
+                <span className="text-[22px] font-bold leading-tight">{isPro ? "Pro" : "Free"}</span>
                 {isPro && (
-                  <Badge className="gap-1">
-                    <Sparkles className="h-3 w-3" /> Active
-                  </Badge>
+                  <span className={`${PRO_TAG} inline-flex items-center gap-1`}>
+                    <Sparkles className="h-3 w-3" /> ACTIVE
+                  </span>
                 )}
               </div>
               {isPro && validUntil && <p className="mt-1 text-sm text-muted-foreground">Active until {formatDate(validUntil)}</p>}
@@ -135,7 +134,9 @@ export default function Pricing() {
                 <p className="xt-label flex items-center gap-1.5">
                   <Coins className="h-3.5 w-3.5" /> AI tokens
                 </p>
-                <span className="text-sm font-bold">{wallet ? formatTokens(wallet.token_balance) : "-"}</span>
+                <span className="text-[22px] font-bold leading-tight tabular-nums">
+                  {wallet ? <RollingNumber value={formatTokens(wallet.token_balance)} /> : "-"}
+                </span>
               </div>
             </div>
           </CardContent>
@@ -157,7 +158,7 @@ export default function Pricing() {
               <CardHeader>
                 <CardTitle>Free</CardTitle>
                 <CardDescription>Every core planning tool, free forever.</CardDescription>
-                <p className="pt-2 text-3xl font-bold">
+                <p className="pt-2 text-3xl font-bold tabular-nums">
                   {symbol}0<span className="text-sm font-normal text-muted-foreground">/forever</span>
                 </p>
               </CardHeader>
@@ -178,19 +179,22 @@ export default function Pricing() {
               </CardFooter>
             </Card>
 
-            <Card className="border-primary/40 shadow-md">
+            <Card className="relative border-[color-mix(in_srgb,var(--pro-gold)_65%,transparent)] shadow-sm">
+              <span className="pro-gold-bg absolute inset-x-6 top-0 h-[3px] rounded-b-full" aria-hidden="true" />
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-1.5">
-                    Pro <Sparkles className="h-4 w-4 text-brand" />
+                    Pro <span className={PRO_TAG}>PRO</span>
                   </CardTitle>
-                  <Badge>Most popular</Badge>
+                  <span className={CHIP_GOLD}>
+                    <Sparkles className="mr-1 h-3 w-3" />
+                    Most popular
+                  </span>
                 </div>
                 <CardDescription>The full advanced planning suite</CardDescription>
                 <div className="pt-2">
-                  <p className="text-3xl font-bold">
-                    {symbol}
-                    {effMonthly}
+                  <p className="text-3xl font-bold tabular-nums">
+                    <RollingNumber value={`${symbol}${effMonthly}`} />
                     <span className="text-sm font-normal text-muted-foreground">/mo</span>
                     <span className="ml-2 text-base font-normal text-muted-foreground line-through">
                       {symbol}
@@ -246,13 +250,13 @@ export default function Pricing() {
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {aiPackages.map((pack) => (
-              <Card key={pack.id} className={pack.id === "ai_1000" ? "border-primary/40 shadow-md" : undefined}>
+              <Card key={pack.id} className={pack.id === "ai_1000" ? "border-brand-line bg-brand-soft" : undefined}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg">{pack.label}</CardTitle>
-                    {pack.id === "ai_1000" && <Badge variant="secondary">Best value</Badge>}
+                    {pack.id === "ai_1000" && <span className={CHIP_UP}>Best value</span>}
                   </div>
-                  <p className="pt-1 text-2xl font-bold">
+                  <p className="pt-1 text-2xl font-bold tabular-nums">
                     ₹{pack.amount_inr}
                     <span className="text-sm font-normal text-muted-foreground"> one time</span>
                   </p>
@@ -289,7 +293,7 @@ export default function Pricing() {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 brand-on-dark">
             <Card className="mx-4 max-w-sm text-center">
               <CardContent className="space-y-2 p-8">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                <div className="pro-gold-bg mx-auto flex h-12 w-12 items-center justify-center rounded-full">
                   <Sparkles className="h-6 w-6" />
                 </div>
                 <h3 className="text-lg font-semibold">Welcome to Gini Pro</h3>

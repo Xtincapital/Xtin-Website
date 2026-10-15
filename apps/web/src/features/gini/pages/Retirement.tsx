@@ -56,7 +56,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
+import { chartActiveDot, chartAnimation, chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -64,9 +64,13 @@ import { Input } from "@/components/ui/input";
 import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ScoreRing } from "../components/GiniCharts";
+import { CHIP_DOWN, CHIP_GOLD, CHIP_UP } from "../lib/ui";
 import { api } from "../lib/api";
 
 /** SIP future-value annuity factor — verbatim port of `utils.sipFVFactor`,
@@ -213,6 +217,9 @@ export default function Retirement() {
   const existingCorpusValue = existingCorpusInput ?? String(netWorth);
 
   const [result, setResult] = useState<RetirementResult | null>(null);
+  // Years in retirement the result was calculated for (life expectancy − retirement age).
+  const [yearsNeeded, setYearsNeeded] = useState(0);
+  const fundedPct = result && result.corpusNeeded > 0 ? Math.min(100, (result.projectedCorpus / result.corpusNeeded) * 100) : 100;
 
   function handleCalculate() {
     const parsed = {
@@ -228,15 +235,13 @@ export default function Retirement() {
       preReturn: parseFloat(preReturn) || 0,
     };
     setResult(calculateRetirement(parsed));
+    setYearsNeeded(Math.max(0, parsed.lifeExpectancy - parsed.retirementAge));
   }
 
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="xt-title mb-2">Retirement Calculator</h1>
-          <p className="text-muted-foreground">Plan for a comfortable retirement</p>
-        </motion.div>
+        <PageHeader title="Retirement Calculator" subtitle="Plan for a comfortable retirement" />
 
         {/* Planning inputs */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
@@ -359,35 +364,49 @@ export default function Retirement() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border bg-secondary/40 p-4">
                     <p className="xt-label">Corpus Needed at Retirement</p>
-                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(result.corpusNeeded)}</p>
+                    <p className="mt-1 xt-metric text-foreground"><RollingNumber value={formatCurrency(result.corpusNeeded)} /></p>
                   </div>
-                  <div className="rounded-lg border p-4">
+                  <div className="relative rounded-2xl border border-brand-line bg-brand-soft p-4">
                     <p className="xt-label">Projected Corpus at Retirement</p>
-                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(result.projectedCorpus)}</p>
+                    <p className="mt-1 xt-metric text-foreground"><RollingNumber value={formatCurrency(result.projectedCorpus)} /></p>
+                    <p className="mt-1 pr-10 text-xs tabular-nums text-muted-foreground">{fundedPct.toFixed(0)}% of what you need</p>
+                    <ScoreRing value={fundedPct} size={36} className="absolute bottom-3.5 right-3.5" />
                   </div>
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border bg-secondary/40 p-4">
                     <p className="xt-label">Surplus / Shortfall</p>
-                    <p className={cn("mt-1 text-xl font-bold", result.surplus >= 0 ? "text-brand" : "text-destructive")}>
-                      {formatCurrency(result.surplus)}
+                    <p className={cn("mt-1 xt-metric", result.surplus >= 0 ? "text-brand" : "text-destructive")}>
+                      <RollingNumber value={formatCurrency(result.surplus)} />
                     </p>
+                    <span className={cn("mt-2", result.surplus >= 0 ? CHIP_UP : CHIP_DOWN)}>{result.surplus >= 0 ? "Surplus" : "Shortfall"}</span>
                   </div>
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border bg-secondary/40 p-4">
                     <p className="xt-label">Years Corpus Will Last</p>
-                    <p className="mt-1 xt-metric text-foreground">{result.yearsLast} years</p>
+                    <p className="mt-1 xt-metric text-foreground"><RollingNumber value={String(result.yearsLast)} /> years</p>
+                    {yearsNeeded > 0 && (
+                      <span className={cn("mt-2", result.yearsLast >= yearsNeeded ? CHIP_UP : CHIP_GOLD)}>
+                        {result.yearsLast >= yearsNeeded ? "Covers" : "Short of"} {yearsNeeded} years needed
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-base font-semibold text-muted-foreground mb-2">Corpus Depletion Curve</h4>
+                  <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h4 className="text-base font-semibold text-muted-foreground">Corpus Depletion Curve</h4>
+                    <p className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-[3px] bg-brand-fill" />Retirement corpus</span>
+                      <span className="inline-flex items-center gap-1.5"><i className="h-0.5 w-3.5 rounded-full bg-destructive" />Annual expenses</span>
+                    </p>
+                  </div>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
                       <ComposedChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                         <defs>
                           <linearGradient id="retirementCorpusFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="hsl(var(--chart-positive))" stopOpacity={0.3} />
-                            <stop offset="95%" stopColor="hsl(var(--chart-positive))" stopOpacity={0} />
+                            <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.28} />
+                            <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid {...chartGrid} />
@@ -414,9 +433,11 @@ export default function Retirement() {
                           type="monotone"
                           dataKey="corpus"
                           name="Retirement corpus"
-                          stroke="hsl(var(--chart-positive))"
+                          stroke="hsl(var(--chart-1))"
                           fill="url(#retirementCorpusFill)"
-                          strokeWidth={2}
+                          strokeWidth={2.5}
+                          activeDot={chartActiveDot}
+                          {...chartAnimation}
                         />
                         <Line
                           type="monotone"
@@ -426,6 +447,8 @@ export default function Retirement() {
                           strokeWidth={2}
                           strokeDasharray="5 4"
                           dot={false}
+                          activeDot={chartActiveDot}
+                          {...chartAnimation}
                         />
                       </ComposedChart>
                     </ResponsiveContainer>

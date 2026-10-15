@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from 'react-router-dom';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // ============================================
 // TAX LESSON 4: LONG-TERM VS SHORT-TERM TAXES
@@ -636,8 +635,7 @@ const TaxLesson4 = () => {
   ];
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="TaxBasics" lessonNumber={4}>
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 pt-16">
       {/* Header */}
       <div className="text-white py-12 bg-brand-fill">
@@ -885,8 +883,7 @@ const TaxLesson4 = () => {
         </section>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

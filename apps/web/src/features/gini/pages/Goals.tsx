@@ -49,7 +49,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Pencil, Plus, Target, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import MoneyInput from "@/components/MoneyInput";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -67,13 +67,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { api } from "../lib/api";
 import type { FamilyMember, Goal, GoalInput } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ProgressRow } from "../components/GiniCharts";
+import { CARD_LIFT, CHIP_DOWN, CHIP_GOLD, CHIP_MUTED, CHIP_UP, ICON_TILE } from "../lib/ui";
 import GoalCategoryQuestions, { NO_MEMBER } from "../components/GoalCategoryQuestions";
 import {
   GOAL_CATEGORIES,
@@ -108,10 +109,8 @@ function memberLabel(member: FamilyMember) {
   return member.relationship ? `${member.name} (${member.relationship})` : member.name;
 }
 
-function priorityVariant(priority: string | null): "default" | "secondary" | "outline" {
-  if (priority === "High") return "default";
-  if (priority === "Medium") return "secondary";
-  return "outline";
+function priorityChip(priority: string | null): string {
+  return priority === "High" ? CHIP_UP : CHIP_MUTED;
 }
 
 // Mirrors services/api/modules/gini/financialSnapshot.ts's goal loop
@@ -158,10 +157,10 @@ function projectGoal(goal: Goal): GoalProjection {
 }
 
 function goalStatus(progressPercent: number): { label: string; className: string } {
-  if (progressPercent >= 100) return { label: "Goal Completed", className: "text-brand" };
-  if (progressPercent >= 60) return { label: "On Track", className: "text-blue-600 dark:text-blue-400" };
-  if (progressPercent >= 30) return { label: "Needs Attention", className: "text-warning" };
-  return { label: "Critical", className: "text-destructive" };
+  if (progressPercent >= 100) return { label: "Goal Completed", className: CHIP_UP };
+  if (progressPercent >= 60) return { label: "On Track", className: CHIP_UP };
+  if (progressPercent >= 30) return { label: "Needs Attention", className: CHIP_GOLD };
+  return { label: "Critical", className: CHIP_DOWN };
 }
 
 interface GoalFormState {
@@ -406,17 +405,17 @@ export default function Goals() {
 
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="xt-title mb-2">Financial Goals</h1>
-            <p className="text-sm text-muted-foreground">Plan and track your financial objectives</p>
-          </div>
-          <Button onClick={openAddDialog}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Goal
-          </Button>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader
+          title="Financial Goals"
+          subtitle="Plan and track your financial objectives"
+          actions={
+            <Button onClick={openAddDialog}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Goal
+            </Button>
+          }
+        />
 
         {goalsQuery.isLoading ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -427,7 +426,7 @@ export default function Goals() {
         ) : goalsList.length === 0 ? (
           <Card>
             <CardContent className="flex flex-col items-center justify-center gap-2 py-16 text-center text-muted-foreground">
-              <Target className="h-8 w-8" />
+              <span className={ICON_TILE}><Target className="h-5 w-5" /></span>
               <p>No goals added yet. Click "Add Goal" to start planning.</p>
             </CardContent>
           </Card>
@@ -439,21 +438,21 @@ export default function Goals() {
               const assignedMember = goal.assigned_to ? familyMembers.find((m) => m.id === goal.assigned_to) : null;
 
               return (
-                <Card key={goal.id}>
-                  <CardHeader className="flex flex-row items-start justify-between space-y-0">
-                    <div className="space-y-1">
+                <div key={goal.id} className={`${CARD_LIFT} flex flex-col`}>
+                  <div className="flex items-start justify-between gap-3 p-5 pb-3">
+                    <div className="min-w-0 space-y-1">
                       <div className="flex flex-wrap items-center gap-1.5">
-                        <CardTitle className="text-lg">{goal.name}</CardTitle>
-                        {assignedMember && <Badge variant="secondary">For: {assignedMember.name}</Badge>}
+                        <h3 className="text-lg font-bold leading-tight text-foreground">{goal.name}</h3>
+                        {assignedMember && <span className={CHIP_MUTED}>For: {assignedMember.name}</span>}
                       </div>
                       <p className="text-xs text-muted-foreground">
                         {[goal.category || "Uncategorized", detailsSummary(goal.category, goal.details)].filter(Boolean).join(" · ")}
                       </p>
                     </div>
-                    {goal.priority && <Badge variant={priorityVariant(goal.priority)}>{goal.priority}</Badge>}
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm">
+                    {goal.priority && <span className={cn("shrink-0", priorityChip(goal.priority))}>{goal.priority}</span>}
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3.5 px-5 pb-4">
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-sm tabular-nums">
                       <span className="text-muted-foreground">Target Year</span>
                       <span className="text-right font-medium">{goal.target_year ?? "-"}</span>
                       <span className="text-muted-foreground">Years Remaining</span>
@@ -472,17 +471,20 @@ export default function Goals() {
                       )}
                     </div>
 
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>Progress</span>
-                        <span>{projection.progressPercent.toFixed(1)}%</span>
-                      </div>
-                      <Progress value={projection.progressPercent} />
+                    <div className="text-sm">
+                      <ProgressRow
+                        name="Progress"
+                        saved={`${projection.progressPercent.toFixed(1)}%`}
+                        target="100%"
+                        percent={projection.progressPercent}
+                        // Same "behind" rule as the Dashboard: due within 3 years and under half funded.
+                        behind={projection.progressPercent < 50 && projection.yearsRemaining != null && projection.yearsRemaining <= 3}
+                      />
                     </div>
 
-                    <div className={cn("text-sm font-medium", status.className)}>{status.label}</div>
+                    <div><span className={status.className}>{status.label}</span></div>
 
-                    <div className="flex justify-end gap-1 pt-1">
+                    <div className="mt-auto flex justify-end gap-1 border-t pt-2">
                       <Button variant="ghost" size="icon" onClick={() => openEditDialog(goal)} aria-label="Edit goal">
                         <Pencil className="h-4 w-4" />
                       </Button>
@@ -490,8 +492,8 @@ export default function Goals() {
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               );
             })}
           </div>

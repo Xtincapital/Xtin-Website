@@ -1,8 +1,8 @@
-// Ported verbatim from features-incoming/fundakamental/src/components/FileProcessingStatus.tsx.
-// No import changes needed — this component only depends on framer-motion
-// and lucide-react, neither of which has a project-specific path.
+// Upload → analysis progress card (New Analysis). Same props as the ported
+// original; restyled to the approved step list: spinning ring for the
+// running step, solid green check when done, one slim overall bar.
 import { motion } from "framer-motion";
-import { CheckCircle, Loader2, Clock } from "lucide-react";
+import { Check, FileText } from "lucide-react";
 
 interface ProcessingStep {
   name: string;
@@ -18,6 +18,15 @@ interface FileProcessingStatusProps {
   steps: ProcessingStep[];
 }
 
+const statusLine = (p: number) =>
+  p >= 100
+    ? "Analysis complete. Opening your report…"
+    : p >= 75
+    ? "Almost there. Writing the report…"
+    : p >= 50
+    ? "Analysing the financial data…"
+    : "Reading and processing the document…";
+
 const FileProcessingStatus = ({
   fileName,
   fileSize,
@@ -25,123 +34,68 @@ const FileProcessingStatus = ({
   overallProgress,
   steps,
 }: FileProcessingStatusProps) => {
-  const getMBSize = () => (fileSize / 1024 / 1024).toFixed(2);
+  const size = fileSize < 1024 * 1024 ? `${Math.max(1, Math.round(fileSize / 1024))} KB` : `${(fileSize / 1024 / 1024).toFixed(2)} MB`;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-6 rounded-xl bg-gradient-to-br from-primary/5 to-secondary/30 border border-primary/20"
+      className="rounded-xl border border-brand-line bg-card p-5"
+      aria-live="polite"
     >
-      {/* Header */}
-      <div className="mb-6">
-        <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-          {isProcessing ? (
-            <Loader2 className="w-4 h-4 animate-spin text-brand" />
-          ) : (
-            <CheckCircle className="w-4 h-4 text-brand" />
-          )}
-          Processing: {fileName}
-        </h3>
-        <p className="text-xs text-muted-foreground">
-          {getMBSize()} MB • {isProcessing ? "In progress" : "Completed"}
-        </p>
+      <div className="mb-3 flex items-center gap-3">
+        <span className="grid h-10 w-10 flex-none place-items-center rounded-xl bg-brand-soft text-brand">
+          <FileText className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-bold text-foreground">{fileName}</p>
+          <p className="text-xs text-muted-foreground">
+            {size} · {isProcessing ? "In progress" : "Completed"}
+          </p>
+        </div>
+        <span className="text-sm font-bold tabular-nums text-foreground">{Math.round(overallProgress)}%</span>
       </div>
 
-      {/* Overall Progress Bar */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-medium text-muted-foreground">
-            Overall Progress
-          </span>
-          <span className="text-xs font-semibold text-foreground">
-            {Math.round(overallProgress)}%
-          </span>
-        </div>
-        <div className="w-full h-2 bg-background rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${overallProgress}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="h-full bg-gradient-to-r from-primary to-accent"
-          />
-        </div>
+      <div className="mb-5 h-1 w-full overflow-hidden rounded-full bg-secondary">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${overallProgress}%` }}
+          transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+          className="h-full rounded-full bg-brand-fill"
+        />
       </div>
 
-      {/* Processing Steps */}
-      <div className="space-y-3">
+      <ol className="space-y-3">
         {steps.map((step, index) => (
-          <motion.div
+          <motion.li
             key={index}
-            initial={{ opacity: 0, x: -10 }}
+            initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="flex items-start gap-3"
+            transition={{ delay: index * 0.08 }}
+            className={`flex items-center gap-3 text-sm ${
+              step.status === "pending" ? "text-muted-foreground" : "text-foreground"
+            } ${step.status === "processing" ? "font-semibold" : ""}`}
           >
-            {/* Status Icon */}
-            <div className="flex-shrink-0 mt-1">
-              {step.status === "completed" ? (
-                <CheckCircle className="w-4 h-4 text-brand" />
-              ) : step.status === "processing" ? (
-                <Loader2 className="w-4 h-4 text-brand animate-spin" />
-              ) : (
-                <Clock className="w-4 h-4 text-muted-foreground/50" />
-              )}
-            </div>
-
-            {/* Step Info */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-1">
-                <p
-                  className={`text-sm font-medium ${
-                    step.status === "completed"
-                      ? "text-brand"
-                      : step.status === "processing"
-                      ? "text-brand"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {step.name}
-                </p>
-                {step.progress !== undefined && (
-                  <span className="text-xs text-muted-foreground">
-                    {Math.round(step.progress)}%
-                  </span>
-                )}
-              </div>
-
-              {/* Step Progress Bar */}
-              {step.status !== "pending" && step.progress !== undefined && (
-                <div className="w-full h-1.5 bg-background rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${step.progress}%` }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className={`h-full ${
-                      step.status === "completed"
-                        ? "bg-success"
-                        : "bg-primary"
-                    }`}
-                  />
-                </div>
-              )}
-            </div>
-          </motion.div>
+            {step.status === "completed" ? (
+              <span className="grid h-5 w-5 flex-none place-items-center rounded-full bg-brand-fill text-white">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
+            ) : step.status === "processing" ? (
+              <span className="h-5 w-5 flex-none animate-spin rounded-full border-2 border-brand border-t-transparent" />
+            ) : (
+              <span className="h-5 w-5 flex-none rounded-full border-2 border-border" />
+            )}
+            <span className="flex-1">{step.name}</span>
+            {step.status === "processing" && step.progress !== undefined && (
+              <span className="text-xs tabular-nums text-muted-foreground">{Math.round(step.progress)}%</span>
+            )}
+          </motion.li>
         ))}
-      </div>
+      </ol>
 
-      {/* Status Message */}
-      <div className="mt-4 pt-4 border-t border-border/50">
-        <p className="text-xs text-muted-foreground text-center">
-          {overallProgress >= 100
-            ? "✓ Analysis complete! Generating final report..."
-            : overallProgress >= 75
-            ? "Almost there! Generating report..."
-            : overallProgress >= 50
-            ? "Analyzing financial data..."
-            : "Extracting and processing document..."}
-        </p>
-      </div>
+      <p className="mt-4 border-t border-border pt-3 text-center text-xs text-muted-foreground">
+        {statusLine(overallProgress)}
+      </p>
     </motion.div>
   );
 };

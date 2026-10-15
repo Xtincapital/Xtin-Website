@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
 import ModuleBadge from "../../components/ModuleBadge";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -429,8 +428,7 @@ const RiskLesson1 = () => {
   ];
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="RiskManagement" lessonNumber={1}>
     <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -706,8 +704,7 @@ const RiskLesson1 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

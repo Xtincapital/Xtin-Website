@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { moduleLabel } from "../../../../constants/learningModules";
@@ -220,10 +219,9 @@ const TradingBasicsLesson6 = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-white to-rose-50/30 text-gray-900 min-h-screen flex flex-col font-sans">
-      <Navbar />
+    <StudyShell module="TradingBasics" lessonNumber={6}>
 
-      <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
+      <div>
         <div className="max-w-4xl mx-auto">
           
           {/* Breadcrumb Navigation */}
@@ -736,10 +734,8 @@ const TradingBasicsLesson6 = () => {
           </div>
 
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </StudyShell>
   );
 };
 

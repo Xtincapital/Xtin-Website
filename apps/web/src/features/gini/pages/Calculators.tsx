@@ -33,20 +33,23 @@
 //
 // Charts: EMI's "Principal vs Interest" and SIP's "Investment Growth"
 // sub-headings (index.html ~1842-1846, ~1899-1904) are reproduced as
-// recharts pie charts (matching NetWorth.tsx's established chart style via
-// `@/components/ui/chart`) instead of the original's Chart.js pie/doughnut.
+// donuts on the shared JDonut (same as NetWorth.tsx's allocation chart)
+// instead of the original's Chart.js pie/doughnut.
 // Inflation has no chart in the original — none added here either.
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { formatFromInr } from "@/lib/region";
 import { useMemo, useState } from "react";
-import { Pie, PieChart, Cell } from "recharts";
 import { Banknote, Percent, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import RollingNumber from "@/components/motion/RollingNumber";
+import { JDonut } from "@/features/journal/components/JournalCharts";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ScoreRing } from "../components/GiniCharts";
+import { cn } from "@/lib/utils";
 
 // See header comment — mirrors app.js's own default (line 1675).
 const SIP_TIMING: "due" | "ordinary" = "due";
@@ -134,27 +137,51 @@ function CalculateButton({ onClick }: { onClick: () => void }) {
   );
 }
 
-function ResultTile({ label, value, className }: { label: string; value: string; className?: string }) {
+/** Result figure. `highlight` gives the headline tile the brand-soft finish. */
+function ResultTile({
+  label,
+  value,
+  className,
+  highlight,
+  corner,
+}: {
+  label: string;
+  value: string;
+  className?: string;
+  highlight?: boolean;
+  corner?: React.ReactNode;
+}) {
   return (
-    <div className="rounded-lg border p-4">
-      <p className="xt-label">{label}</p>
-      <p className={className ? `mt-1 text-xl font-bold ${className}` : "mt-1 text-xl font-bold"}>{value}</p>
+    <div
+      className={cn(
+        "flex items-center justify-between gap-3 rounded-2xl border p-4",
+        highlight ? "border-brand-line bg-brand-soft" : "bg-secondary/40",
+      )}
+    >
+      <div className="min-w-0">
+        <p className="xt-label">{label}</p>
+        <p className={cn("mt-1 xt-metric", className ?? "text-foreground")}>
+          <RollingNumber value={value} />
+        </p>
+      </div>
+      {corner}
     </div>
   );
 }
 
-function BreakdownPie({ config, data }: { config: ChartConfig; data: { name: string; value: number }[] }) {
+/** Two-part breakdown donut (shared JDonut, linked hover legend). */
+function BreakdownDonut({ data, centerLabel, centerValue, ariaLabel }: { data: { name: string; value: number }[]; centerLabel: string; centerValue: string; ariaLabel: string }) {
   return (
-    <ChartContainer config={config} className="h-[220px] w-full">
-      <PieChart>
-        <ChartTooltip content={(props: any) => <ChartTooltipContent {...props} nameKey="name" hideLabel />} />
-        <Pie data={data} dataKey="value" nameKey="name" innerRadius={50} outerRadius={85} strokeWidth={2}>
-          {data.map((entry, index) => (
-            <Cell key={entry.name} fill={CHART_PALETTE[index % CHART_PALETTE.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ChartContainer>
+    <div className="mx-auto max-w-xl">
+      <JDonut
+        data={data.map((d) => ({ label: d.name, value: d.value }))}
+        colors={CHART_PALETTE}
+        centerLabel={centerLabel}
+        centerValue={centerValue}
+        legendValue={(d) => formatCompact(d.value)}
+        ariaLabel={ariaLabel}
+      />
+    </div>
   );
 }
 
@@ -175,11 +202,6 @@ function EMICalculator() {
     const totalInterest = totalAmount - applied.loanAmount;
     return { emi, totalAmount, totalInterest, loanAmount: applied.loanAmount };
   }, [applied]);
-
-  const chartConfig: ChartConfig = {
-    Principal: { label: "Principal", color: CHART_PALETTE[0] },
-    Interest: { label: "Interest", color: CHART_PALETTE[1] },
-  };
 
   return (
     <Card>
@@ -222,19 +244,21 @@ function EMICalculator() {
         {result ? (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-brand" />
+              <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-brand" highlight />
               <ResultTile label="Total Interest" value={formatCurrency(result.totalInterest)} />
               <ResultTile label="Total Amount" value={formatCurrency(result.totalAmount)} />
             </div>
 
             <div>
               <h4 className="mb-2 text-base font-semibold text-muted-foreground">Principal vs Interest</h4>
-              <BreakdownPie
-                config={chartConfig}
+              <BreakdownDonut
                 data={[
                   { name: "Principal", value: result.loanAmount },
                   { name: "Interest", value: Math.max(result.totalInterest, 0) },
                 ]}
+                centerLabel="total paid"
+                centerValue={formatCompact(result.totalAmount)}
+                ariaLabel="Principal versus interest"
               />
             </div>
           </>
@@ -263,11 +287,6 @@ function SIPCalculator() {
     const returns = maturityValue - invested;
     return { maturityValue, invested, returns };
   }, [applied]);
-
-  const chartConfig: ChartConfig = {
-    Invested: { label: "Invested Amount", color: CHART_PALETTE[0] },
-    Returns: { label: "Returns", color: CHART_PALETTE[1] },
-  };
 
   return (
     <Card>
@@ -312,17 +331,19 @@ function SIPCalculator() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <ResultTile label="Total Invested" value={formatCurrency(result.invested)} />
               <ResultTile label="Expected Returns" value={formatCurrency(result.returns)} className="text-brand" />
-              <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-brand" />
+              <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-brand" highlight />
             </div>
 
             <div>
               <h4 className="mb-2 text-base font-semibold text-muted-foreground">Investment Growth</h4>
-              <BreakdownPie
-                config={chartConfig}
+              <BreakdownDonut
                 data={[
                   { name: "Invested", value: result.invested },
                   { name: "Returns", value: Math.max(result.returns, 0) },
                 ]}
+                centerLabel="maturity value"
+                centerValue={formatCompact(result.maturityValue)}
+                ariaLabel="Invested amount versus returns"
               />
             </div>
           </>
@@ -393,9 +414,13 @@ function InflationCalculator() {
 
         {result ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-brand" />
+            <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-brand" highlight />
             <ResultTile label="Purchasing Power Loss" value={formatCurrency(result.loss)} className="text-destructive" />
-            <ResultTile label="Purchasing Power Retained" value={formatPercent(result.retained)} />
+            <ResultTile
+              label="Purchasing Power Retained"
+              value={formatPercent(result.retained)}
+              corner={<ScoreRing value={result.retained} size={48} className="flex-none" />}
+            />
           </div>
         ) : (
           <p className="text-sm text-muted-foreground">Set your values and press Calculate to see the result.</p>
@@ -410,11 +435,8 @@ export default function Calculators() {
   useCurrency();
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div>
-          <h1 className="xt-title mb-2">Financial Calculators</h1>
-          <p className="text-sm text-muted-foreground">Quick calculation tools for EMI, SIP, and inflation</p>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader title="Financial Calculators" subtitle="Quick calculation tools for EMI, SIP, and inflation" />
 
         <Tabs defaultValue="emi">
           <TabsList>

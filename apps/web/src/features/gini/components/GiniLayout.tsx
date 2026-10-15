@@ -48,7 +48,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatWidget from "./ChatWidget";
-import { ProIcon } from "@/components/ProMark";
+import { PRO_TAG } from "../lib/ui";
 import GiniSampleBar from "./GiniSampleBar";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
 
@@ -162,7 +162,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
           animate={{ width: collapsed ? 76 : 260 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "fixed left-0 top-20 bottom-0 z-40 shrink-0 bg-card border-r border-border flex flex-col transition-transform duration-200",
+            "fixed left-0 top-20 bottom-0 z-40 shrink-0 bg-card lg:bg-secondary/40 border-r border-border flex flex-col transition-transform duration-200",
             "lg:sticky lg:top-20 lg:bottom-auto lg:h-[calc(100vh-5rem)] lg:self-start lg:z-10 lg:translate-x-0",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
@@ -172,7 +172,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
             {navSections.map((section) => (
               <div key={section.label}>
                 {!collapsed && (
-                  <div className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
+                  <div className="px-3 mb-1.5 text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
                     {section.label}
                   </div>
                 )}
@@ -186,8 +186,8 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 relative group",
                           isActive
-                            ? "text-foreground font-semibold"
-                            : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
+                            ? "text-foreground font-bold"
+                            : "text-muted-foreground font-medium hover:text-foreground"
                         )}
                         title={collapsed ? item.name : undefined}
                       >
@@ -195,13 +195,17 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                         {isActive && (
                           <motion.span
                             layoutId="gini-nav-active"
-                            className="absolute inset-0 -z-0 rounded-xl bg-accent"
-                            transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                            className="absolute inset-0 -z-0 rounded-xl border border-border bg-card shadow-[0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.18)] before:absolute before:-left-px before:top-2.5 before:bottom-2.5 before:w-[3px] before:rounded-full before:bg-brand-fill"
+                            transition={{ type: "spring", stiffness: 420, damping: 30 }}
                           />
                         )}
                         <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-brand dark:text-brand")} />
                         {!collapsed && <span className="relative text-sm">{item.name}</span>}
-                        {!collapsed && item.pro && planFetched && <ProIcon unlocked={isPro} className="relative w-3.5 h-3.5 ml-auto" />}
+                        {!collapsed && item.pro && planFetched && (
+                          <span className={cn("relative ml-auto", PRO_TAG)} title={isPro ? "Pro feature (unlocked)" : "Pro feature"}>
+                            PRO
+                          </span>
+                        )}
                       </Link>
                     );
                   })}

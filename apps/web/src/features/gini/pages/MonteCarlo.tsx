@@ -52,7 +52,7 @@ import { formatFromInr } from "@/lib/region";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import { Dices } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -65,6 +65,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { api } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ScoreRing } from "../components/GiniCharts";
+import RollingNumber from "@/components/motion/RollingNumber";
 import ProGate from "../components/ProGate";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
 import { investableAssets } from "../lib/investable";
@@ -107,7 +110,7 @@ interface MCResults {
   best: number;
   worst: number;
   target: number;
-  histogram: { label: string; count: number }[];
+  histogram: { label: string; count: number; start: number }[];
 }
 
 // monteCarlo.runSimulation + renderDistribution's histogram binning
@@ -191,17 +194,17 @@ function runMonteCarloSimulation(params: {
   const max = results[results.length - 1];
   const binSize = (max - min) / HISTOGRAM_BINS;
 
-  let histogram: { label: string; count: number }[];
+  let histogram: { label: string; count: number; start: number }[];
   if (!Number.isFinite(binSize) || binSize === 0) {
     // See header comment — every trial landed on (near) the same value.
-    histogram = [{ label: formatCompact(min), count: results.length }];
+    histogram = [{ label: formatCompact(min), count: results.length, start: min }];
   } else {
     const bins = new Array(HISTOGRAM_BINS).fill(0);
     results.forEach((value) => {
       const idx = Math.min(Math.floor((value - min) / binSize), HISTOGRAM_BINS - 1);
       bins[idx]++;
     });
-    histogram = bins.map((count, i) => ({ label: formatCompact(min + i * binSize), count }));
+    histogram = bins.map((count, i) => ({ label: formatCompact(min + i * binSize), count, start: min + i * binSize }));
   }
 
   return { probability, median, best: percentile90, worst: percentile10, target, histogram };
@@ -293,11 +296,8 @@ export default function MonteCarlo() {
 
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div>
-          <h1 className="xt-title mb-2">Monte Carlo Simulation</h1>
-          <p className="text-sm text-muted-foreground">Analyze probability of achieving your goals</p>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader title="Monte Carlo Simulation" subtitle="Analyze probability of achieving your goals" pro />
 
         <ProGate feature="Monte Carlo Simulations" isPro={isPro()} loading={!fetched}>
           <div className="space-y-6">
@@ -421,30 +421,37 @@ export default function MonteCarlo() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="rounded-lg border-2 border-success/30 bg-success/10 p-4">
-                      <p className="xt-label">
-                        Probability of Success
-                      </p>
-                      <p className="mt-1 xt-metric text-brand">{results.probability.toFixed(1)}%</p>
+                    <div className="flex items-center justify-between gap-3 rounded-2xl border border-brand-line bg-brand-soft p-4">
+                      <div>
+                        <p className="xt-label">Probability of Success</p>
+                        <p className="mt-1 xt-metric text-brand">
+                          <RollingNumber value={`${results.probability.toFixed(1)}%`} />
+                        </p>
+                      </div>
+                      <ScoreRing value={results.probability} size={48} />
                     </div>
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">Median Outcome</p>
                       <p className="mt-1 xt-metric">{formatCompact(results.median)}</p>
                     </div>
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">
                         Best Case (90th %ile)
                       </p>
                       <p className="mt-1 xt-metric text-brand">{formatCompact(results.best)}</p>
                     </div>
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">
                         Worst Case (10th %ile)
                       </p>
                       <p className="mt-1 xt-metric text-destructive">{formatCompact(results.worst)}</p>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground">Target: {formatCurrency(results.target)}</p>
+                  <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                    <span>Target: <b className="font-semibold text-foreground tabular-nums">{formatCurrency(results.target)}</b></span>
+                    <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-[3px] bg-brand-fill" />Reaches target</span>
+                    <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-[3px] bg-[var(--pro-gold)]" />Falls short</span>
+                  </p>
 
                   <div>
                     <h4 className="mb-2 text-base font-semibold text-muted-foreground">Outcome Distribution</h4>
@@ -460,7 +467,11 @@ export default function MonteCarlo() {
                         />
                         <YAxis tickLine={false} axisLine={false} width={40} />
                         <ChartTooltip content={(props: any) => <ChartTooltipContent {...props} hideLabel />} />
-                        <Bar dataKey="count" fill="hsl(var(--chart-1))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
+                        <Bar dataKey="count" radius={chartBarRadius} maxBarSize={chartMaxBarSize}>
+                          {results.histogram.map((bin) => (
+                            <Cell key={bin.label} fill={bin.start >= results.target ? "hsl(var(--chart-1))" : "var(--pro-gold)"} />
+                          ))}
+                        </Bar>
                       </BarChart>
                     </ChartContainer>
                   </div>

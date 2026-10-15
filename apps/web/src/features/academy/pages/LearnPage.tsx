@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import RollingNumber from "../../../components/motion/RollingNumber";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -55,75 +57,11 @@ const DIFFICULTY_LABELS = {
 };
 const DIFFICULTY_BAR = {
   [DIFFICULTY_LEVELS.BEGINNER]: { text: 'text-brand', bar: 'bg-brand-fill' },
-  [DIFFICULTY_LEVELS.INTERMEDIATE]: { text: 'text-blue-600', bar: 'from-blue-500 to-indigo-400' },
-  [DIFFICULTY_LEVELS.ADVANCED]: { text: 'text-purple-600', bar: 'from-purple-500 to-pink-400' },
+  [DIFFICULTY_LEVELS.INTERMEDIATE]: { text: 'text-blue-600 dark:text-blue-400', bar: 'bg-blue-500' },
+  [DIFFICULTY_LEVELS.ADVANCED]: { text: 'text-purple-600 dark:text-purple-400', bar: 'bg-purple-500' },
 };
 
 // SVG Background Components
-const FinanceGraphSVG = () => (
-  <svg className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 opacity-10" viewBox="0 0 400 400" fill="none">
-    {/* Growth line */}
-    <path d="M50 320 L100 280 L150 290 L200 220 L250 200 L300 140 L350 80" stroke="currentColor" strokeWidth="3" className="text-brand" strokeLinecap="round" strokeLinejoin="round" />
-    <circle cx="350" cy="80" r="8" className="fill-brand" />
-    {/* Pie chart */}
-    <circle cx="320" cy="280" r="50" className="fill-brand/10 stroke-brand" strokeWidth="2" />
-    <path d="M320 280 L320 230 A50 50 0 0 1 360 260 Z" className="fill-brand/30" />
-    <path d="M320 280 L360 260 A50 50 0 0 1 340 325 Z" className="fill-blue-500/30" />
-    {/* Bar chart */}
-    <rect x="60" y="280" width="20" height="60" rx="4" className="fill-brand/30" />
-    <rect x="90" y="250" width="20" height="90" rx="4" className="fill-blue-500/30" />
-    <rect x="120" y="220" width="20" height="120" rx="4" className="fill-brand/40" />
-    <rect x="150" y="260" width="20" height="80" rx="4" className="fill-brand/30" />
-    {/* Currency symbols */}
-    <text x="200" y="320" className="fill-brand/20" fontSize="40" fontWeight="bold">₹</text>
-    <text x="260" y="350" className="fill-blue-600/15" fontSize="30" fontWeight="bold">$</text>
-  </svg>
-);
-
-const FloatingShapesSVG = () => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {/* Floating circles */}
-    <div className="absolute top-20 left-10 w-32 h-32 bg-brand-soft rounded-full blur-2xl animate-pulse"></div>
-    <div className="absolute top-40 right-20 w-48 h-48 bg-brand-soft rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-    <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-brand-soft rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-
-    {/* Grid pattern */}
-    <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grid)" className="text-gray-900" />
-    </svg>
-  </div>
-);
-
-const HeroDecorSVG = () => (
-  <svg className="absolute left-0 top-0 w-full h-full pointer-events-none" viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice">
-    {/* Gradient definitions */}
-    <defs>
-      <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#16A34A" stopOpacity="0.1" />
-        <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
-      </linearGradient>
-      <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#16A34A" stopOpacity="0" />
-        <stop offset="50%" stopColor="#16A34A" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-
-    {/* Abstract shapes */}
-    <circle cx="100" cy="100" r="200" fill="url(#greenGradient)" />
-    <circle cx="1100" cy="500" r="250" fill="url(#greenGradient)" />
-
-    {/* Decorative lines */}
-    <path d="M0 400 Q300 350 600 400 T1200 350" stroke="url(#lineGradient)" strokeWidth="2" fill="none" />
-    <path d="M0 450 Q300 400 600 450 T1200 400" stroke="url(#lineGradient)" strokeWidth="1" fill="none" />
-  </svg>
-);
-
 const WalletSVG = ({ className }) => (
   <svg className={className} viewBox="0 0 64 64" fill="none">
     <rect x="8" y="16" width="48" height="36" rx="6" className="fill-brand/20 stroke-brand" strokeWidth="2" />
@@ -365,6 +303,20 @@ const LearnPage = () => {
   }, [progress]);
 
   const totalDone = levelProgress.reduce((s, l) => s + l.done, 0);
+  const totalLessons = levelProgress.reduce((s, l) => s + l.total, 0);
+  const overallPct = totalLessons ? Math.round((totalDone / totalLessons) * 100) : 0;
+
+  // Last 7 days, oldest first: did the learner finish a lesson that day?
+  const week = useMemo(() => {
+    const days = new Set();
+    Object.values(progress || {}).forEach((lessons) =>
+      (lessons || []).forEach((l) => l.completed_at && days.add(new Date(l.completed_at).toDateString())));
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(); d.setDate(d.getDate() - (6 - i));
+      return days.has(d.toDateString());
+    });
+  }, [progress]);
+  const streak = (() => { let n = 0; for (let i = 6; i >= 0 && week[i]; i--) n++; return n; })();
 
   // "Continue where you left off" — most recent completion → its next lesson.
   const continueTarget = useMemo(() => {
@@ -523,9 +475,7 @@ const LearnPage = () => {
 
       {/* Premium Hero Section */}
       <section className="relative py-24 px-6 md:px-12 lg:px-24 mt-16 overflow-hidden">
-        <HeroDecorSVG />
-        <FloatingShapesSVG />
-        <FinanceGraphSVG />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 [background-image:radial-gradient(#E4E4EA_1px,transparent_1px)] dark:[background-image:radial-gradient(#373A41_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_70%_40%,#000_20%,transparent_75%)]" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -541,8 +491,12 @@ const LearnPage = () => {
 
               <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-6 tracking-[-0.025em]">
                 Build Your
-                <span className="block text-brand">
+                <span className="relative block w-fit text-brand">
                   Financial Future
+                  <svg aria-hidden="true" viewBox="0 0 300 12" preserveAspectRatio="none" className="hidden sm:block absolute -bottom-1 left-0 h-3 w-full">
+                    <motion.path d="M2 9 C 80 2, 200 2, 298 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-50"
+                      initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.1, delay: 0.3, ease: 'easeOut' }} />
+                  </svg>
                 </span>
               </h1>
 
@@ -578,18 +532,23 @@ const LearnPage = () => {
             <div className="relative hidden lg:block">
               <div className="relative">
                 {/* Main card — REAL progress, not decoration */}
-                <div data-learn-tour="hero-journey" className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/40 p-8 border border-gray-100 dark:border-slate-700">
-                  <div className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl opacity-20 blur-xl bg-brand-fill"></div>
-
+                <div data-learn-tour="hero-journey" className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-[0_1px_2px_rgba(0,0,0,0.05),0_12px_32px_-12px_rgba(0,0,0,0.16)] dark:shadow-black/40 p-7 border border-gray-100 dark:border-slate-700">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-brand-fill">
-                      <FaGraduationCap className="text-white text-2xl" />
+                    {/* Overall progress ring */}
+                    <div className="relative w-16 h-16 shrink-0">
+                      <svg viewBox="0 0 64 64" className="w-16 h-16 -rotate-90">
+                        <circle cx="32" cy="32" r="27" fill="none" strokeWidth="7" className="stroke-gray-100 dark:stroke-slate-700" />
+                        <motion.circle cx="32" cy="32" r="27" fill="none" strokeWidth="7" strokeLinecap="round" className="stroke-brand-fill"
+                          initial={{ pathLength: 0 }} animate={{ pathLength: Math.max(overallPct, totalDone > 0 ? 3 : 0) / 100 }}
+                          transition={{ duration: 1.3, ease: [0.2, 0.8, 0.2, 1] }} />
+                      </svg>
+                      <span className="absolute inset-0 grid place-items-center text-sm font-bold tabular-nums">{overallPct}%</span>
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-slate-100">Your Finance Journey</h3>
                       <p className="text-sm text-gray-500 dark:text-slate-400">
                         {totalDone > 0
-                          ? `${totalDone} lesson${totalDone === 1 ? '' : 's'} completed — keep going!`
+                          ? `${totalDone} of ${totalLessons} lessons done · keep going`
                           : 'Finish your first lesson to light this up'}
                       </p>
                     </div>
@@ -607,7 +566,7 @@ const LearnPage = () => {
                         </div>
                         <div className="h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                           <div
-                            className={`h-full bg-gradient-to-r ${DIFFICULTY_BAR[level].bar} rounded-full transition-all duration-700`}
+                            className={`h-full ${DIFFICULTY_BAR[level].bar} rounded-full transition-[width] duration-1000 ease-out`}
                             style={{ width: `${Math.max(pct, done > 0 ? 4 : 0)}%` }}
                           ></div>
                         </div>
@@ -619,28 +578,46 @@ const LearnPage = () => {
                   {continueTarget && !continueTarget.finished && (
                     <button
                       onClick={() => navigate(continueTarget.path)}
-                      className="mt-6 w-full flex items-center justify-between px-4 py-3 bg-brand-soft dark:bg-brand-soft hover:bg-brand-soft dark:hover:bg-brand-hover rounded-xl transition-colors group/cont"
+                      className="mt-6 w-full flex items-center gap-3 p-3 bg-brand-soft border border-brand-line rounded-2xl text-left group/cont"
                     >
-                      <span className="text-sm font-semibold text-brand dark:text-brand text-left">
-                        Continue: {continueTarget.module.title} — Lesson {continueTarget.nextLesson}
+                      <span className="w-14 h-10 shrink-0 rounded-lg bg-brand-fill grid place-items-center text-white">
+                        <FaPlayCircle />
                       </span>
-                      <FaPlayCircle className="text-brand group-hover/cont:scale-110 transition-transform" />
+                      <span className="min-w-0">
+                        <span className="block text-xs text-gray-500 dark:text-slate-400">Up next · {continueTarget.module.title}</span>
+                        <span className="block text-sm font-bold text-gray-900 dark:text-slate-100">Lesson {continueTarget.nextLesson}</span>
+                      </span>
+                      <span className="ml-auto w-8 h-8 shrink-0 rounded-full bg-brand-fill text-white grid place-items-center group-hover/cont:scale-110 transition-transform">
+                        <FaArrowRight className="text-xs" />
+                      </span>
                     </button>
+                  )}
+
+                  {/* Last 7 days of learning */}
+                  {user && (
+                    <div className="mt-5 flex items-center gap-1.5 text-xs text-gray-500 dark:text-slate-400">
+                      {week.map((on, i) => (
+                        <span key={i} className={`w-[18px] h-[18px] rounded-[5px] border ${on ? 'bg-brand-fill border-transparent' : 'bg-gray-50 dark:bg-slate-800 border-gray-200 dark:border-slate-700'}`} />
+                      ))}
+                      <span className="ml-1.5">
+                        {streak > 0 ? <><b className="text-gray-900 dark:text-slate-100">{streak}-day</b> streak</> : 'Last 7 days'}
+                      </span>
+                    </div>
                   )}
                 </div>
 
                 {/* Floating badges */}
-                <div className="absolute -left-12 top-1/4 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-slate-700 animate-bounce" style={{ animationDuration: '3s' }}>
+                <motion.div className="absolute -left-16 top-1/4 bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-3.5 border border-gray-100 dark:border-slate-700" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0 }}>
                   <WalletSVG className="w-12 h-12" />
-                </div>
+                </motion.div>
 
-                <div className="absolute -right-12 top-1/4 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-slate-700 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+                <motion.div className="absolute -right-16 top-1/4 bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-3.5 border border-gray-100 dark:border-slate-700" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}>
                   <PiggyBankSVG className="w-12 h-12" />
-                </div>
+                </motion.div>
 
-                <div className="absolute right-1/4 -top-8 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-slate-700 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+                <motion.div className="absolute right-1/4 -top-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-3.5 border border-gray-100 dark:border-slate-700" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}>
                   <CertificateSVG className="w-12 h-12" />
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -648,16 +625,18 @@ const LearnPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-950 border-y border-gray-100 dark:border-slate-800">
+      <section className="px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-950 border-y border-gray-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
-                <div className={`inline-flex items-center justify-center w-14 h-14 ${stat.bg} rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <stat.icon className={`text-2xl ${stat.color}`} />
+              <div key={index} className={`py-7 px-5 flex items-center gap-4 border-gray-100 dark:border-slate-800 ${index % 2 ? 'border-l' : ''} ${index === 2 ? 'md:border-l' : ''} ${index > 1 ? 'border-t md:border-t-0' : ''}`}>
+                <div className={`hidden sm:flex items-center justify-center w-11 h-11 shrink-0 ${stat.bg} rounded-xl`}>
+                  <stat.icon className={`text-lg ${stat.color}`} />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-slate-100 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-500 dark:text-slate-400">{stat.label}</div>
+                <div>
+                  <RollingNumber value={stat.value} className="block text-3xl font-bold text-gray-900 dark:text-slate-100 tracking-[-0.03em]" />
+                  <div className="text-sm text-gray-500 dark:text-slate-400">{stat.label}</div>
+                </div>
               </div>
             ))}
           </div>
@@ -666,17 +645,6 @@ const LearnPage = () => {
 
       {/* Learning Modules - Compact Grid */}
       <section id="modules" className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 pointer-events-none opacity-30">
-          <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="moduleGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1" fill="#16A34A" opacity="0.3" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#moduleGrid)" />
-          </svg>
-        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
@@ -697,44 +665,31 @@ const LearnPage = () => {
 
           {/* Difficulty Level Switcher */}
           <div className="flex justify-center mb-12">
-            <div data-learn-tour="difficulty-switcher" className="inline-flex max-w-full bg-white dark:bg-slate-800 rounded-2xl p-1.5 shadow-lg shadow-gray-200/50 dark:shadow-black/30 border border-gray-100 dark:border-slate-700">
-              <button
-                onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.BEGINNER)}
-                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER
-                  ? 'text-white shadow-md shadow-brand/30 bg-brand-fill'
-                  : 'text-gray-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand hover:bg-brand-soft dark:hover:bg-brand-hover'
-                  }`}
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 3L4 9v12h16V9l-8-6z" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M9 21V12h6v9" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Beginner
-              </button>
-              <button
-                onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.INTERMEDIATE)}
-                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.INTERMEDIATE
-                  ? 'text-white shadow-md shadow-blue-500/30 bg-brand-fill'
-                  : 'text-gray-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30'
-                  }`}
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 12h4l3-9 4 18 3-9h4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Intermediate
-              </button>
-              <button
-                onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.ADVANCED)}
-                className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.ADVANCED
-                  ? 'text-white shadow-md shadow-purple-500/30 bg-brand-fill'
-                  : 'text-gray-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30'
-                  }`}
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Advanced
-              </button>
+            <div data-learn-tour="difficulty-switcher" className="relative inline-flex max-w-full overflow-x-auto bg-white dark:bg-slate-800 rounded-2xl p-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_8px_24px_-12px_rgba(0,0,0,0.14)] border border-gray-100 dark:border-slate-700">
+              {[
+                { level: DIFFICULTY_LEVELS.BEGINNER, label: 'Beginner', pill: 'bg-brand-fill', icon: <><path d="M12 3L4 9v12h16V9l-8-6z" strokeLinecap="round" strokeLinejoin="round" /><path d="M9 21V12h6v9" strokeLinecap="round" strokeLinejoin="round" /></> },
+                { level: DIFFICULTY_LEVELS.INTERMEDIATE, label: 'Intermediate', pill: 'bg-blue-600', icon: <path d="M3 12h4l3-9 4 18 3-9h4" strokeLinecap="round" strokeLinejoin="round" /> },
+                { level: DIFFICULTY_LEVELS.ADVANCED, label: 'Advanced', pill: 'bg-purple-600', icon: <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" strokeLinecap="round" strokeLinejoin="round" /> },
+              ].map(({ level, label, pill, icon }) => {
+                const active = selectedDifficulty === level;
+                const count = MODULES_CONFIG.filter((m) => m.difficulty === level).length;
+                return (
+                  <button
+                    key={level}
+                    onClick={() => setSelectedDifficulty(level)}
+                    aria-pressed={active}
+                    className={`relative px-2.5 sm:px-5 py-2.5 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 ${active ? 'text-white' : 'text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white'}`}
+                  >
+                    {active && (
+                      <motion.span layoutId="learn-level-pill" className={`absolute inset-0 rounded-xl ${pill} transition-colors duration-300`}
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }} />
+                    )}
+                    <svg className="relative w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">{icon}</svg>
+                    <span className="relative">{label}</span>
+                    <span className="relative hidden sm:inline text-[11px] tabular-nums opacity-70">{count}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -775,15 +730,20 @@ const LearnPage = () => {
                 <div
                   key={module.id}
                   onClick={() => module.available && module.path && handleModuleAccess(module.path)}
-                  className={`group bg-white dark:bg-slate-900 rounded-2xl p-6 border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col ${module.available ? `cursor-pointer ${colors.border}` : 'opacity-75 cursor-not-allowed border-gray-100 dark:border-slate-700'
+                  onPointerMove={(e) => {
+                    const r = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+                    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+                  }}
+                  className={`group bg-white dark:bg-slate-900 rounded-2xl p-6 border hover:shadow-[0_1px_2px_rgba(0,0,0,0.05),0_12px_28px_-12px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col ${module.available ? `cursor-pointer ${colors.border}` : 'opacity-75 cursor-not-allowed border-gray-100 dark:border-slate-700'
                     }`}
                 >
-                  {/* Gradient accent */}
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
+                  {/* Cursor spotlight */}
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 [background:radial-gradient(260px_circle_at_var(--mx,50%)_var(--my,0%),rgb(var(--brand)/0.10),transparent_70%)]" />
 
                   {/* Icon + completion mark */}
                   <div className="flex items-start justify-between">
-                    <div className={`w-14 h-14 bg-gradient-to-br ${colors.bg} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <div className={`w-14 h-14 bg-gradient-to-br ${colors.bg} rounded-xl flex items-center justify-center mb-4 transition-transform`}>
                       {IconComponent && <IconComponent className={`w-7 h-7 ${colors.text}`} />}
                     </div>
                     {finished && (
@@ -820,7 +780,7 @@ const LearnPage = () => {
                         <span className="font-semibold text-brand">{pct}%</span>
                       </div>
                       <div className="h-1.5 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full bg-gradient-to-r ${colors.gradient} rounded-full`} style={{ width: `${pct}%` }}></div>
+                        <div className="h-full bg-brand-fill rounded-full" style={{ width: `${pct}%` }}></div>
                       </div>
                     </div>
                   )}

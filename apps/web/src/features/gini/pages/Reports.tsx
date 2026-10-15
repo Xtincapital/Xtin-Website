@@ -18,8 +18,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ScoreRing } from "../components/GiniCharts";
 import { api } from "../lib/api";
 import { downloadTextFile } from "@/lib/uploadFile";
 import { buildGiniCsv } from "../lib/giniDataCsv";
@@ -132,6 +136,7 @@ export default function Reports() {
       goalRows,
     };
   }, [assets, liabilities, goals, members]);
+  const goalsFundedPct = summary.goalRows.length ? summary.goalRows.reduce((s, g) => s + g.progressPct, 0) / summary.goalRows.length : 0;
 
   async function handleAnalyse() {
     setAnalysis("analysing");
@@ -311,19 +316,13 @@ export default function Reports() {
 
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div className="flex items-center gap-2">
-          <FileBarChart className="h-6 w-6 text-brand" />
-          <div>
-            <h1 className="xt-title mb-2">Reports</h1>
-            <p className="text-sm text-muted-foreground">Analyse your portfolio and download the full report as a PDF or CSV</p>
-          </div>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader title="Reports" subtitle="Analyse your portfolio and download the full report as a PDF or CSV" />
 
         {analysis !== "done" ? (
           <Card>
             <CardContent className="flex flex-col items-center px-6 py-10 text-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-brand">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand ring-1 ring-inset ring-[var(--brand-line)]">
                 {analysis === "analysing" ? <Loader2 className="h-7 w-7 animate-spin" /> : <ScanSearch className="h-7 w-7" />}
               </span>
               {analysis === "analysing" ? (
@@ -396,19 +395,31 @@ export default function Reports() {
               <CardContent>
                 <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
                   {[
-                    { label: "Net worth", value: formatCurrency(summary.netWorth) },
+                    { label: "Net worth", value: formatCurrency(summary.netWorth), tone: summary.netWorth < 0 ? "text-destructive" : undefined },
                     { label: "Risk profile", value: summary.riskLabel, sub: summary.totalAssets > 0 ? `${summary.growthPct.toFixed(0)}% in growth assets` : undefined },
                     { label: "Monthly cash flow", value: formatCurrency(summary.monthlyCashFlow), sub: summary.monthlyIncome > 0 ? "after EMIs" : "add family income" },
                     {
                       label: "Goals funded",
-                      value: summary.goalRows.length ? `${(summary.goalRows.reduce((s, g) => s + g.progressPct, 0) / summary.goalRows.length).toFixed(0)}%` : "—",
+                      value: summary.goalRows.length ? `${goalsFundedPct.toFixed(0)}%` : "—",
                       sub: summary.goalRows.length ? `average of ${summary.goalRows.length} goal${summary.goalRows.length === 1 ? "" : "s"}` : "no goals yet",
+                      ring: summary.goalRows.length ? goalsFundedPct : undefined,
                     },
-                  ].map((t) => (
-                    <div key={t.label} className="rounded-lg border border-border p-3">
-                      <div className="text-xs text-muted-foreground">{t.label}</div>
-                      <div className="mt-1 text-lg font-semibold tabular-nums">{t.value}</div>
-                      {t.sub && <div className="text-xs text-muted-foreground">{t.sub}</div>}
+                  ].map((t: { label: string; value: string; sub?: string; tone?: string; ring?: number }, i) => (
+                    <div
+                      key={t.label}
+                      className={cn(
+                        "flex items-center justify-between gap-3 rounded-2xl border p-4",
+                        i === 0 ? "border-brand-line bg-brand-soft" : "bg-secondary/40",
+                      )}
+                    >
+                      <div className="min-w-0">
+                        <div className="xt-label">{t.label}</div>
+                        <div className={cn("mt-1 text-[22px] font-bold leading-tight tabular-nums tracking-[-0.01em]", t.tone ?? "text-foreground")}>
+                          {/\s/.test(t.value) ? t.value : <RollingNumber value={t.value} />}
+                        </div>
+                        {t.sub && <div className="mt-0.5 text-xs text-muted-foreground">{t.sub}</div>}
+                      </div>
+                      {t.ring != null && <ScoreRing value={t.ring} size={44} className="flex-none" />}
                     </div>
                   ))}
                 </div>

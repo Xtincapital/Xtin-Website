@@ -14,21 +14,21 @@ const NotFound = () => {
 
   return (
     <DashboardLayout>
-      <div className="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center bg-background px-6 py-12">
+      <div className="fk-hello flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center px-6 py-12">
         <EmptyStateIllustration size={220} className="mb-8" />
 
-        <h1 className="text-5xl md:text-6xl font-display font-bold text-brand mb-3">404</h1>
-        <p className="text-xl text-foreground font-semibold mb-2">Page not found</p>
+        <p className="xt-eyebrow mb-2">Error 404</p>
+        <h1 className="xt-title mb-3 text-center">Page not found</h1>
         <p className="text-muted-foreground mb-8 text-center max-w-sm">
-          The page you're looking for doesn't exist or has been moved.
+          This FundaKaMental page doesn't exist or has moved. Head back to Home to search a company or open a report.
         </p>
 
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="gap-2 rounded-full" onClick={() => window.history.back()}>
+          <Button variant="outline" className="gap-2 rounded-xl font-bold" onClick={() => window.history.back()}>
             <ArrowLeft className="w-4 h-4" /> Go Back
           </Button>
           <Link to="/fundakamental">
-            <Button className="gap-2 rounded-full bg-primary hover:bg-primary/90 text-white">
+            <Button className="gap-2 rounded-xl font-bold bg-brand-fill hover:bg-brand-hover text-white">
               <Home className="w-4 h-4" /> Home
             </Button>
           </Link>

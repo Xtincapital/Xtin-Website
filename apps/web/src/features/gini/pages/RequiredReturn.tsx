@@ -50,6 +50,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { api } from "../lib/api";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
 import ProGate from "../components/ProGate";
 import SliderNumberField from "../components/SliderNumberField";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
@@ -254,11 +255,8 @@ export default function RequiredReturn() {
 
   return (
     <GiniLayout>
-      <div className="space-y-6 p-6">
-        <div>
-          <h1 className="xt-title mb-2">Required Return Calculator</h1>
-          <p className="text-sm text-muted-foreground">Determine the return needed to achieve all your goals</p>
-        </div>
+      <div className="space-y-6 p-6 md:p-8 max-w-7xl mx-auto">
+        <PageHeader title="Required Return Calculator" subtitle="Determine the return needed to achieve all your goals" pro />
 
         <ProGate feature="Required Return Analysis" isPro={isPro()} loading={!fetched}>
           <div className="space-y-6">
@@ -332,13 +330,13 @@ export default function RequiredReturn() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">
                         Total Future Corpus Needed
                       </p>
                       <p className="mt-1 xt-metric">{formatCurrency(results.totalNeeded)}</p>
                     </div>
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">
                         Projected Corpus (at expected return)
                       </p>
@@ -350,7 +348,7 @@ export default function RequiredReturn() {
                       </p>
                       <p className="mt-1 xt-metric text-brand">{formatPercent(results.requiredReturnRate)}</p>
                     </div>
-                    <div className="rounded-lg border p-4">
+                    <div className="rounded-2xl border bg-secondary/40 p-4">
                       <p className="xt-label">Gap</p>
                       <p className={cn("mt-1 text-xl font-bold", results.gap > 0 ? "text-destructive" : "text-brand")}>
                         {results.gap > 0 ? "+" : ""}

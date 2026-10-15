@@ -36,6 +36,7 @@
 // conversations are also saved server-side (services/api/modules/ai/chatHistory.ts)
 // and listed under the History button; free users see the Pro upsell there.
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { X, Send, Loader2, Coins, HeartPulse, Target, ArrowRight, PieChart, History, MessageSquarePlus } from "lucide-react";
 import AiLauncher from "@/components/AiLauncher";
@@ -187,9 +188,9 @@ export default function ChatWidget() {
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close Gini AI Chat"
-          className="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-300 to-amber-300 p-[1.5px] shadow-[0_10px_30px_-6px_rgba(19, 20, 23,0.55)] transition-transform hover:scale-105"
+          className="fixed bottom-6 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-background shadow-[0_10px_30px_-10px_rgb(0_0_0/0.55)] transition-transform hover:scale-105 active:scale-95"
         >
-          <span className="flex h-full w-full items-center justify-center rounded-full bg-[#131417] text-white brand-on-dark"><X className="h-6 w-6" /></span>
+          <X className="h-6 w-6" />
         </button>
       ) : (
         <AiLauncher label="Ask Gini" sub="Your AI planner" onClick={() => setOpen(true)} />
@@ -197,16 +198,25 @@ export default function ChatWidget() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 flex h-[560px] w-[380px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92, y: 10, filter: "blur(6px)" }}
+          animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ type: "spring", stiffness: 380, damping: 28 }}
+          style={{ transformOrigin: "bottom right" }}
+          className="fixed bottom-24 right-6 z-50 flex h-[560px] w-[380px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[20px] border border-border bg-card shadow-[0_30px_60px_-20px_rgb(0_0_0/0.4)]"
+        >
           {/* Header */}
-          <div className="flex items-start justify-between gap-2 border-b border-border bg-primary px-4 py-3 text-primary-foreground">
+          <div className="flex items-start justify-between gap-2 border-b border-border px-4 py-3">
+            <div className="flex min-w-0 items-start gap-2.5">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-brand-fill text-sm font-bold text-white">G</span>
             <div className="min-w-0">
-              <p className="font-semibold leading-tight">Gini</p>
-              <p className="text-xs text-primary-foreground/70">Your Financial Advisor</p>
-              <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium">
+              <p className="font-bold leading-tight text-foreground">Gini</p>
+              <p className="text-xs text-muted-foreground">Your Financial Advisor</p>
+              <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-brand tabular-nums">
                 <Coins className="h-3 w-3" />
                 {wallet ? `${formatTokens(wallet.token_balance)} AI tokens left` : "Loading tokens…"}
               </span>
+            </div>
             </div>
             <div className="flex shrink-0 items-center gap-1">
               <button
@@ -216,8 +226,8 @@ export default function ChatWidget() {
                 aria-label="Saved chats"
                 aria-pressed={view === "history"}
                 className={cn(
-                  "rounded-md p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground",
-                  view === "history" && "bg-white/15 text-primary-foreground"
+                  "rounded-lg p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground",
+                  view === "history" && "bg-secondary text-foreground"
                 )}
               >
                 <History className="h-4 w-4" />
@@ -227,7 +237,7 @@ export default function ChatWidget() {
                 onClick={handleNewChat}
                 title="New chat"
                 aria-label="Start a new chat"
-                className="rounded-md p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
+                className="rounded-lg p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
               >
                 <MessageSquarePlus className="h-4 w-4" />
               </button>
@@ -236,7 +246,7 @@ export default function ChatWidget() {
                 onClick={() => setOpen(false)}
                 title="Close"
                 aria-label="Close chat window"
-                className="rounded-md p-1.5 text-primary-foreground/80 hover:bg-white/10 hover:text-primary-foreground"
+                className="rounded-lg p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -258,7 +268,7 @@ export default function ChatWidget() {
                 type="button"
                 disabled={sending || blocked}
                 onClick={() => sendMessage(qa.prompt)}
-                className="flex items-center gap-1 rounded-full border border-border bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-brand-line hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <qa.icon className="h-3 w-3" />
                 {qa.label}
@@ -273,15 +283,15 @@ export default function ChatWidget() {
                 <div
                   className={cn(
                     "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                    m.role === "user" ? "bg-secondary text-secondary-foreground" : "bg-primary text-primary-foreground"
+                    m.role === "user" ? "bg-secondary text-secondary-foreground" : "bg-brand-fill text-white"
                   )}
                 >
                   {m.role === "user" ? "U" : "G"}
                 </div>
                 <div
                   className={cn(
-                    "max-w-[78%] rounded-2xl px-3 py-2 text-sm leading-relaxed",
-                    m.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                    "max-w-[78%] rounded-2xl px-3 py-2 text-sm leading-relaxed animate-in fade-in slide-in-from-bottom-1 duration-300",
+                    m.role === "user" ? "rounded-tr-[4px] bg-brand-fill text-white" : "rounded-tl-[4px] bg-secondary text-secondary-foreground"
                   )}
                 >
                   {m.pending ? (
@@ -312,7 +322,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-border p-2.5">
+          <form onSubmit={handleSubmit} className="mx-3 mb-3 flex items-center gap-2 rounded-[14px] border border-border bg-background p-1.5 pl-1 transition-colors focus-within:border-brand-line">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -320,15 +330,15 @@ export default function ChatWidget() {
               disabled={sending || blocked}
               autoComplete="off"
               aria-label="Chat message input"
-              className="h-9"
+              className="h-9 border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
             />
-            <Button type="submit" size="icon" className="h-9 w-9 shrink-0" disabled={sending || blocked || !input.trim()} aria-label="Send message">
+            <Button type="submit" size="icon" className="h-9 w-9 shrink-0 rounded-[10px] bg-brand-fill text-white hover:bg-brand-hover" disabled={sending || blocked || !input.trim()} aria-label="Send message">
               {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
           </form>
           </>
           )}
-        </div>
+        </motion.div>
       )}
     </>
   );

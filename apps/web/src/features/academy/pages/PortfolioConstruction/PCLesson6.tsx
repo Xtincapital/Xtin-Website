@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
+import StudyShell from "../../components/StudyShell";
 import { useNavigate } from "react-router-dom";
 
 const Icons = {
@@ -161,10 +160,9 @@ const PCLesson6 = () => {
   const calculateScore = () => quizQuestions.filter(q => quizAnswers[q.id] === q.correct).length;
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 via-white to-violet-50/30    text-gray-900  min-h-screen flex flex-col font-sans">
-      <Navbar />
+    <StudyShell module="PortfolioConstruction" lessonNumber={6}>
       
-      <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
+      <div>
         <div className="max-w-4xl mx-auto">
           
           <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 text-gray-500 hover:text-violet-600  transition-colors mb-8 group">
@@ -623,9 +621,8 @@ const PCLesson6 = () => {
             </button>
           </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </StudyShell>
   );
 };
 

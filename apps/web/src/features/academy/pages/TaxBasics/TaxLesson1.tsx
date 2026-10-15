@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaTimesCircle, FaLightbulb, FaFileInvoiceDollar } from 'react-icons/fa';
 import ModuleBadge from "../../components/ModuleBadge";
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // SVG 1: What Are Taxes - Simple Definition
 const WhatAreTaxesSVG = () => (
@@ -430,8 +429,7 @@ const TaxLesson1 = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="TaxBasics" lessonNumber={1}>
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -719,8 +717,7 @@ const TaxLesson1 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

@@ -19,6 +19,8 @@ const FundakamentalApp = lazy(loadFundakamentalApp);
 
 const AboutPage = lazy(() => import('./features/marketing/pages/AboutPage'));
 const ProductsPage = lazy(() => import('./features/marketing/pages/ProductsPage'));
+// Standalone preview of the new signed-in Platform home (not linked anywhere yet).
+const PlatformHome = lazy(() => import('./features/platform/pages/PlatformHome'));
 const AlgorithmsIntro = lazy(() => import('./features/algos/pages/AlgorithmsIntro'));
 const DashboardIntro = lazy(() => import('./features/dashboard/pages/DashboardIntro'));
 const ModuleVideoPage = lazy(() => import('./features/academy/pages/ModuleVideoPage'));
@@ -645,6 +647,7 @@ function App() {
         <Route path="/backtest/app/*" element={<ProtectedPageRoute><BacktestApp /></ProtectedPageRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/platform-preview" element={<ProtectedPageRoute><PlatformHome /></ProtectedPageRoute>} />
         <Route path="/intro/algorithms" element={<AlgorithmsIntro />} />
         <Route path="/intro/dashboard" element={<DashboardIntro />} />
         <Route path="/intro/learn" element={<LearnIntro />} />

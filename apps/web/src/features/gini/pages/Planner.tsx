@@ -67,7 +67,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
+import { chartActiveDot, chartAnimation, chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
 import { ArrowRight, Target, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -77,10 +77,12 @@ import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { CHIP_DOWN, CHIP_GOLD, CHIP_UP } from "../lib/ui";
 import { api } from "../lib/api";
 import { investableAssets } from "../lib/investable";
 
@@ -213,13 +215,18 @@ export default function Planner() {
       .filter((g) => g.year >= 0 && g.year <= base.years);
   }, [goals, base, currentYear]);
 
+  // A goal is funded when the projected corpus at its year (nearest sampled
+  // year) covers its inflation-adjusted target.
+  function goalFunded(g: { year: number; target: number }) {
+    if (!base) return false;
+    const point = base.chartData.find((d) => d.year === g.year) ?? base.chartData[base.chartData.length - 1];
+    return point.corpus >= g.target;
+  }
+
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="xt-title mb-2">Goal Planner &amp; Projections</h1>
-          <p className="text-muted-foreground">Project your wealth and test scenarios</p>
-        </motion.div>
+        <PageHeader title="Goal Planner & Projections" subtitle="Project your wealth and test scenarios" />
 
         {/* Planning inputs */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
@@ -293,19 +300,26 @@ export default function Planner() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border border-brand-line bg-brand-soft p-4">
                     <p className="xt-label">
                       Projected Corpus at Retirement
                     </p>
-                    <p className="mt-1 xt-metric text-brand">{formatCurrency(base.projectedCorpus)}</p>
+                    <p className="mt-1 xt-metric text-brand"><RollingNumber value={formatCurrency(base.projectedCorpus)} /></p>
+                    <p className="mt-2 text-xs text-muted-foreground">in {base.years} years at {base.returnRate}% a year</p>
                   </div>
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border bg-secondary/40 p-4">
                     <p className="xt-label">Total Amount Invested</p>
-                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(base.totalInvested)}</p>
+                    <p className="mt-1 xt-metric text-foreground"><RollingNumber value={formatCurrency(base.totalInvested)} /></p>
                   </div>
-                  <div className="rounded-lg border p-4">
+                  <div className="rounded-2xl border bg-secondary/40 p-4">
                     <p className="xt-label">Total Returns Generated</p>
-                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(base.totalReturns)}</p>
+                    <p className="mt-1 xt-metric text-foreground"><RollingNumber value={formatCurrency(base.totalReturns)} /></p>
+                    {base.totalInvested > 0 && (
+                      <span className={`mt-2 ${base.totalReturns >= 0 ? CHIP_UP : CHIP_DOWN}`}>
+                        {base.totalReturns >= 0 ? "+" : ""}
+                        {((base.totalReturns / base.totalInvested) * 100).toFixed(0)}% on invested
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -316,8 +330,8 @@ export default function Planner() {
                       <AreaChart data={base.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                         <defs>
                           <linearGradient id="plannerCorpusFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.35} />
-                            <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
+                            <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.28} />
+                            <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
                           </linearGradient>
                         </defs>
                         <CartesianGrid {...chartGrid} />
@@ -346,6 +360,17 @@ export default function Planner() {
                           name="Projected Wealth"
                           stroke="hsl(var(--chart-1))"
                           fill="url(#plannerCorpusFill)"
+                          strokeWidth={2.5}
+                          activeDot={chartActiveDot}
+                          {...chartAnimation}
+                        />
+                        {/* Endpoint dot on the retirement-year corpus. */}
+                        <ReferenceDot
+                          x={base.chartData[base.chartData.length - 1].year}
+                          y={base.chartData[base.chartData.length - 1].corpus}
+                          r={5}
+                          fill="hsl(var(--chart-1))"
+                          stroke="hsl(var(--card))"
                           strokeWidth={2}
                         />
                         {goalMarkers.map((g, i) => (
@@ -354,8 +379,8 @@ export default function Planner() {
                             x={g.year}
                             y={g.target}
                             r={5}
-                            fill="hsl(var(--chart-positive))"
-                            stroke="hsl(var(--background))"
+                            fill={goalFunded(g) ? "hsl(var(--chart-1))" : "var(--pro-gold)"}
+                            stroke="hsl(var(--card))"
                             strokeWidth={2}
                             // Name each dot; alternate above/below so neighbouring goals don't overlap.
                             label={{
@@ -371,9 +396,10 @@ export default function Planner() {
                     </ResponsiveContainer>
                   </div>
                   {goalMarkers.length > 0 && (
-                    <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <span className="inline-block h-2.5 w-2.5 rounded-full bg-[hsl(var(--chart-positive))]" />
-                      Each dot marks a goal's target amount in its target year.
+                    <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                      <span>Each dot marks a goal's target amount in its target year.</span>
+                      <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-full bg-brand-fill" />On track</span>
+                      <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-full bg-[var(--pro-gold)]" />Shortfall</span>
                     </p>
                   )}
                 </div>
@@ -386,20 +412,15 @@ export default function Planner() {
                     </h4>
                     <div className="space-y-1.5">
                       {goalMarkers.map((g) => {
-                        // Interpolate the projected corpus at the goal's year from
-                        // the yearly chart data (nearest sampled year).
-                        const point = base.chartData.find((d) => d.year === g.year) ?? base.chartData[base.chartData.length - 1];
-                        const funded = point.corpus >= g.target;
+                        const funded = goalFunded(g);
                         return (
-                          <div key={g.name} className="flex items-center justify-between rounded-lg border px-3 py-2 text-sm">
-                            <span className="text-foreground">
-                              {g.name} <span className="text-muted-foreground">(Year {g.year})</span>
+                          <div key={g.name} className="flex items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-sm transition-colors hover:bg-secondary/60">
+                            <span className="min-w-0 truncate font-semibold text-foreground">
+                              {g.name} <span className="text-xs font-medium text-muted-foreground">Year {g.year}</span>
                             </span>
-                            <span className="flex items-center gap-2">
-                              <span className="text-muted-foreground">{formatCurrency(g.target)}</span>
-                              <Badge variant={funded ? "default" : "destructive"} className={cn(funded && "bg-success text-success-foreground")}>
-                                {funded ? "On track" : "Shortfall"}
-                              </Badge>
+                            <span className="flex shrink-0 items-center gap-2">
+                              <span className="tabular-nums text-muted-foreground">{formatCurrency(g.target)}</span>
+                              <span className={funded ? CHIP_UP : CHIP_GOLD}>{funded ? "On track" : "Shortfall"}</span>
                             </span>
                           </div>
                         );
@@ -413,7 +434,7 @@ export default function Planner() {
         )}
 
         {!base && !isLoading && goals.length === 0 && (
-          <div className="mb-6 flex items-center justify-between rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-dashed p-4 text-sm text-muted-foreground">
             <span>No goals set yet — add some to see them plotted against your projection.</span>
             <Button asChild size="sm" variant="outline">
               <Link to="/gini/goals">
@@ -486,18 +507,20 @@ export default function Planner() {
                 </div>
               </div>
 
-              <div className="rounded-lg bg-secondary p-5 text-center">
-                <h4 className="text-base font-semibold text-muted-foreground mb-1">Adjusted Projection</h4>
+              <div className={cn("rounded-2xl border p-5 text-center transition-colors", base ? "border-brand-line bg-brand-soft" : "bg-secondary/40")}>
+                <h4 className="xt-label mb-2">Adjusted Projection</h4>
                 {!base ? (
                   <p className="text-sm text-muted-foreground">Calculate a projection above to explore scenarios.</p>
                 ) : (
                   <>
-                    <div className="text-2xl font-bold text-foreground">{formatCurrency(scenario!.adjustedCorpus)}</div>
-                    <div className={cn("text-sm font-medium mt-1", scenario!.change >= 0 ? "text-brand" : "text-destructive")}>
+                    <div className="text-[28px] font-bold leading-none tabular-nums tracking-[-0.01em] text-foreground">
+                      <RollingNumber value={formatCurrency(scenario!.adjustedCorpus)} />
+                    </div>
+                    <span className={cn("mt-3", scenario!.change >= 0 ? CHIP_UP : CHIP_DOWN)}>
                       {scenario!.change >= 0 ? "↑ " : "↓ "}
                       {formatCurrency(Math.abs(scenario!.change))} ({scenario!.change >= 0 ? "+" : ""}
                       {scenario!.changePercent.toFixed(1)}%)
-                    </div>
+                    </span>
                   </>
                 )}
               </div>

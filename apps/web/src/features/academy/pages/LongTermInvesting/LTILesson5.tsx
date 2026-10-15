@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaSeedling, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // SVG 1: The Single Basket Problem
 const SingleBasketSVG = () => (
@@ -516,8 +515,7 @@ const LTILesson5 = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="LongTermInvesting" lessonNumber={5}>
     <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -872,8 +870,7 @@ const LTILesson5 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

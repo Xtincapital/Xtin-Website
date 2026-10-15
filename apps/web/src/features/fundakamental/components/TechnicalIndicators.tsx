@@ -90,7 +90,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
   if (loading) {
     return (
-      <Card className="p-6">
+      <Card className="shadow-none p-6">
         <Skeleton className="h-8 w-48 mb-4" />
         <Skeleton className="h-48 w-full" />
       </Card>
@@ -99,7 +99,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
   if (error || !indicators || !signals) {
     return (
-      <Card className="p-6 flex items-start gap-3">
+      <Card className="shadow-none p-6 flex items-start gap-3">
         <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
         <div>
           <p className="font-medium text-foreground">No technical data for {ticker}</p>
@@ -139,7 +139,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
   return (
     <div className="space-y-4">
       {/* Overall Signal */}
-      <Card className="p-6">
+      <Card className="shadow-none p-6">
         <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
           <div>
             <h3 className="text-lg font-semibold">Technical signal</h3>
@@ -201,7 +201,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
       {/* Chart */}
       {chartData.length > 0 && (
-        <Card className="p-6">
+        <Card className="shadow-none p-6">
           <h3 className="text-lg font-semibold mb-4">Price and moving averages</h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
@@ -221,14 +221,14 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
       )}
 
       {/* Key Indicators */}
-      <Card className="p-6">
+      <Card className="shadow-none p-6">
         <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <Activity className="h-5 w-5" /> Key indicators
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {isNum(indicators.rsi) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">RSI (14)</div>
               <div className={`text-2xl font-bold ${indicators.rsi < 30 ? "text-brand" : indicators.rsi > 70 ? "text-red-600" : "text-foreground"}`}>
                 {indicators.rsi.toFixed(1)}
@@ -240,7 +240,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           )}
 
           {isNum(indicators.macd) && isNum(indicators.macd_signal) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">MACD</div>
               <div className={`text-2xl font-bold ${indicators.macd > indicators.macd_signal ? "text-brand" : "text-red-600"}`}>
                 {indicators.macd.toFixed(2)}
@@ -252,7 +252,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           )}
 
           {isNum(indicators.sma_20) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">20-day average</div>
               <div className="xt-metric">{fmt(indicators.sma_20)}</div>
               {vsAverage(indicators.sma_20)}
@@ -260,21 +260,21 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           )}
 
           {isNum(indicators.sma_50) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">50-day average</div>
               <div className="xt-metric">{fmt(indicators.sma_50)}</div>
               {vsAverage(indicators.sma_50)}
             </div>
           )}
 
-          <div className="border rounded-lg p-3">
+          <div className="rounded-xl border border-border bg-secondary/50 p-4">
             <div className="text-sm text-muted-foreground mb-1">200-day average</div>
             <div className="xt-metric">{fmt(indicators.sma_200)}</div>
             {isNum(indicators.sma_200) ? vsAverage(indicators.sma_200) : <div className="text-xs text-muted-foreground">Needs 1 year or more of history</div>}
           </div>
 
           {isNum(indicators.bb_upper) && isNum(indicators.bb_lower) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">Bollinger Bands</div>
               <div className="text-xs space-y-1">
                 <div>Upper: {fmt(indicators.bb_upper)}</div>
@@ -288,7 +288,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           )}
 
           {isNum(indicators.stoch_k) && isNum(indicators.stoch_d) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">Stochastic (%K / %D)</div>
               <div className="xt-metric">
                 {indicators.stoch_k.toFixed(0)} / {indicators.stoch_d.toFixed(0)}
@@ -300,7 +300,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           )}
 
           {isNum(indicators.atr) && (
-            <div className="border rounded-lg p-3">
+            <div className="rounded-xl border border-border bg-secondary/50 p-4">
               <div className="text-sm text-muted-foreground mb-1">Average true range (14)</div>
               <div className="xt-metric">{fmt(indicators.atr)}</div>
               <div className="text-xs text-muted-foreground mt-1">Typical daily move ({((indicators.atr / price) * 100).toFixed(1)}% of price)</div>

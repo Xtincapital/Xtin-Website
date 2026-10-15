@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // SVG 1: The Statistics Reality
 const StatisticsRealitySVG = () => (
@@ -466,8 +465,7 @@ const DerivLesson5 = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="Derivatives" lessonNumber={5}>
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -768,8 +766,7 @@ const DerivLesson5 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

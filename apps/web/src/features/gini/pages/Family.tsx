@@ -34,8 +34,6 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Pie, PieChart, Cell, Legend, ResponsiveContainer, Tooltip } from "recharts";
-import { chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Users, UserCheck, UserMinus, Wallet, Plus, Pencil, Trash2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -58,7 +56,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { JDonut } from "@/features/journal/components/JournalCharts";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
 import { api } from "../lib/api";
 import type { FamilyMember, FamilyMemberInput } from "../lib/api";
 
@@ -70,11 +70,6 @@ const RELATIONSHIP_OPTIONS = [
   { value: "Sibling", label: "Sibling" },
   { value: "Other", label: "Other Dependent" },
 ];
-
-// Matches gini.css's `--chart-1`..`--chart-5` tokens (see that file's header
-// comment) — reused here instead of hardcoding hex values, per this
-// codebase's "never hardcode hex colors" convention.
-const CHART_COLORS = chartColors.series;
 
 const FAMILY_MEMBERS_QUERY_KEY = ["gini", "family-members"] as const;
 
@@ -242,16 +237,16 @@ export default function Family() {
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="xt-title mb-2">Family</h1>
-            <p className="text-muted-foreground">Manage your household's members and income sources</p>
-          </div>
-          <Button onClick={openAddDialog}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Member
-          </Button>
-        </div>
+        <PageHeader
+          title="Family"
+          subtitle="Manage your household's members and income sources"
+          actions={
+            <Button onClick={openAddDialog}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Member
+            </Button>
+          }
+        />
 
         {/* Household Overview */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -290,34 +285,14 @@ export default function Family() {
                 No earner income yet. Add an earning member to see the breakdown.
               </div>
             ) : (
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={incomeChartData}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      innerRadius="55%"
-                      outerRadius="85%"
-                      stroke="none"
-                    >
-                      {incomeChartData.map((entry, index) => (
-                        <Cell key={entry.name} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value: number) => formatCurrency(value)}
-                      {...chartTooltip}
-                    />
-                    <Legend
-                      verticalAlign="bottom"
-                      wrapperStyle={{ fontSize: 12 }}
-                      formatter={(value) => <span className="text-muted-foreground">{value}</span>}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="max-w-2xl">
+              <JDonut
+                data={incomeChartData.map((d) => ({ label: d.name, value: d.value }))}
+                centerLabel="household income"
+                centerValue={formatCurrency(incomeChartData.reduce((a, d) => a + d.value, 0), { compact: true })}
+                legendValue={(d) => formatCurrency(d.value, { compact: true })}
+                ariaLabel="Income contribution by member"
+              />
               </div>
             )}
           </CardContent>

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
-import { FaArrowLeft, FaCheckCircle, FaCrown, FaLink, FaLock, FaPlayCircle, FaRegCircle, FaShareAlt, FaWhatsapp } from 'react-icons/fa';
+import { FaCheckCircle, FaChevronRight, FaCrown, FaLink, FaLock, FaPlayCircle, FaRegCircle, FaShareAlt, FaWhatsapp } from 'react-icons/fa';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
@@ -82,6 +83,10 @@ const writeProgress = (p: WatchProgress) => {
   try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch { /* ignore */ }
 };
 const LEAD_KEY = 'xtin_watch_lead_v1';
+const NOTES_KEY = 'xtin_watch_notes_v1';
+const readNotes = (): Record<string, string> => {
+  try { return JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch { return {}; }
+};
 
 const ModuleVideoPage = () => {
   const { slug } = useParams();
@@ -100,6 +105,8 @@ const ModuleVideoPage = () => {
   const [progress, setProgress] = useState<WatchProgress>(readProgress);
   const [autoplay, setAutoplay] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [tab, setTab] = useState<'overview' | 'notes'>('overview');
+  const [notes, setNotes] = useState<Record<string, string>>(readNotes);
   const [leadEmail, setLeadEmail] = useState('');
   const [leadState, setLeadState] = useState<'idle' | 'busy' | 'done' | 'error'>(() => {
     try { return localStorage.getItem(LEAD_KEY) ? 'done' : 'idle'; } catch { return 'idle'; }
@@ -183,6 +190,16 @@ const ModuleVideoPage = () => {
     if (nextN <= total && hasVideo(nextN) && pro) selectLesson(nextN, true);
   };
 
+  const noteKey = `${slug}:${lesson}`;
+  const saveNote = (text: string) => {
+    setNotes((m) => {
+      const next = { ...m, [noteKey]: text };
+      if (!text) delete next[noteKey];
+      try { localStorage.setItem(NOTES_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+      return next;
+    });
+  };
+
   const unlock = () => (user ? setShowUpgrade(true) : setShowSignIn(true));
 
   const shareUrl = `${window.location.origin}${watchPath(slug)}`;
@@ -239,96 +256,182 @@ const ModuleVideoPage = () => {
       />
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <Link to="/learn" className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-brand mb-4">
-          <FaArrowLeft className="text-xs" /> All courses
-        </Link>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-slate-400 mb-5">
+          <Link to="/learn" className="hover:text-brand">Learn</Link>
+          <FaChevronRight className="text-[10px] opacity-60" />
+          <span>Module {course.number}</span>
+          <FaChevronRight className="text-[10px] opacity-60" />
+          <span>{course.name}</span>
+          <FaChevronRight className="text-[10px] opacity-60" />
+          <span className="font-bold text-gray-900 dark:text-slate-100">Lesson {lesson}</span>
+        </nav>
 
-        <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-          <div>
-            <span className="inline-block mb-2 px-2.5 py-1 bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-bold rounded-full uppercase tracking-wider">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+          <div className="min-w-0">
+            <span className="inline-flex items-center gap-2 mb-3 px-3 py-1 bg-brand-soft border border-brand-line text-brand text-xs font-bold rounded-full uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-fill" />
               Module {course.number} · Lesson 1 free
             </span>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">{course.name}</h1>
             <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">{course.description}</p>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={nativeShare} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-700 text-sm font-medium text-gray-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800">
+            <button onClick={nativeShare} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-bold text-gray-700 dark:text-slate-200 hover:border-brand-line transition-colors">
               <FaShareAlt className="text-xs" /> Share
             </button>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
               target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"
-              className="p-2.5 rounded-lg border border-gray-200 dark:border-slate-700 text-brand hover:bg-white dark:hover:bg-slate-800"
+              className="p-2.5 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-brand hover:border-brand-line transition-colors"
             ><FaWhatsapp /></a>
-            <button onClick={copyLink} aria-label="Copy link" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-700 text-sm text-gray-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800">
-              <FaLink className="text-xs" /> {copied ? 'Copied!' : 'Copy link'}
+            <button onClick={copyLink} aria-label="Copy link" className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border text-sm font-bold transition-colors ${copied ? 'bg-brand-soft border-brand-line text-brand' : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-200 hover:border-brand-line'}`}>
+              {copied ? <FaCheckCircle className="text-xs" /> : <FaLink className="text-xs" />} {copied ? 'Copied' : 'Copy link'}
             </button>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-6">
           {/* Player + details */}
-          <div className="lg:col-span-2">
-            <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-xl flex items-center justify-center brand-on-dark">
+          <div className="min-w-0">
+            <div className="relative aspect-video bg-black rounded-[18px] overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05),0_16px_40px_-16px_rgba(0,0,0,0.35)] brand-on-dark">
               {videoId && !locked && !soon ? (
                 <YouTubePlayer videoId={videoId} autoplay={autoplay} onEnded={onEnded} />
               ) : (
-                <div className="text-center text-white/80 px-6">
-                  {locked ? <FaLock className="mx-auto mb-3 text-2xl" /> : <FaPlayCircle className="mx-auto mb-3 text-3xl" />}
-                  <p className="font-semibold">{locked ? 'Academy Pro lesson' : soon ? 'Video coming soon' : 'Loading…'}</p>
-                  <p className="text-xs mt-1 text-white/60">
-                    {locked ? `Unlock all ${total} lessons in this module with Pro.` : soon ? 'This lesson is being recorded.' : ''}
-                  </p>
-                  {locked && (
-                    <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg font-semibold text-sm bg-brand-fill">
-                      <FaCrown className="text-xs" /> Unlock with Pro
-                    </button>
-                  )}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#052E16] to-[#0B1F14]">
+                  {/* Chart-paper grid */}
+                  <div aria-hidden="true" className="absolute inset-0 [background-image:linear-gradient(rgba(134,239,172,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(134,239,172,0.07)_1px,transparent_1px)] [background-size:40px_40px]" />
+                  <div className="absolute left-4 top-3.5 sm:left-6 sm:top-6 max-w-[75%]">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-green-300">Lesson {String(lesson).padStart(2, '0')}</p>
+                    <p className="mt-1 text-base sm:text-2xl font-bold text-white leading-tight line-clamp-1 sm:line-clamp-2">{course.lessons[lesson - 1]}</p>
+                  </div>
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="text-center text-white px-6 mt-8 sm:mt-10">
+                      <span className="mx-auto mb-2 sm:mb-4 w-12 h-12 sm:w-[76px] sm:h-[76px] rounded-full grid place-items-center bg-white/15 border border-white/30 backdrop-blur-md">
+                        {locked ? <FaLock className="text-xl" /> : <FaPlayCircle className={`text-2xl ${soon ? '' : 'animate-pulse'}`} />}
+                      </span>
+                      <p className="font-bold">{locked ? 'Academy Pro lesson' : soon ? 'Video coming soon' : 'Loading…'}</p>
+                      <p className="hidden sm:block text-xs mt-1 text-white/60">
+                        {locked ? `Unlock all ${total} lessons in this module with Pro.` : soon ? 'This lesson is being recorded.' : ''}
+                      </p>
+                      {locked && (
+                        <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm pro-gold-bg">
+                          <FaCrown className="text-xs" /> Unlock with Pro
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs text-gray-400 dark:text-slate-500">Lesson {lesson} of {total}{lesson === 1 ? ' · Free' : ''}</p>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{course.lessons[lesson - 1]}</h2>
+            <div className="mt-5 flex flex-wrap items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 tracking-[-0.02em]">{course.lessons[lesson - 1]}</h2>
+                <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
+                  {course.name} · Lesson {lesson} of {total}{lesson === 1 ? ' · Free' : ''}
+                </p>
               </div>
-              <button
-                onClick={() => toggleDone(lesson)}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800"
-              >
-                {done.includes(lesson) ? <FaCheckCircle className="text-brand" /> : <FaRegCircle className="text-gray-400" />}
-                {done.includes(lesson) ? 'Watched' : 'Mark as watched'}
-              </button>
+              <div className="flex items-center gap-2">
+                {lesson < total && (
+                  <button
+                    onClick={() => selectLesson(lesson + 1)}
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-bold text-gray-700 dark:text-slate-200 hover:border-brand-line transition-colors"
+                  >
+                    Next lesson <FaChevronRight className="text-[10px]" />
+                  </button>
+                )}
+                <button
+                  onClick={() => toggleDone(lesson)}
+                  aria-pressed={done.includes(lesson)}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-bold border transition-colors ${done.includes(lesson) ? 'bg-brand-soft border-brand-line text-brand' : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-200 hover:border-brand-line'}`}
+                >
+                  {done.includes(lesson) ? <FaCheckCircle /> : <FaRegCircle className="text-gray-400" />}
+                  {done.includes(lesson) ? 'Watched' : 'Mark as watched'}
+                </button>
+              </div>
+            </div>
+
+            {/* Tabs */}
+            <div role="tablist" className="mt-6 flex gap-1 border-b border-gray-200 dark:border-slate-700">
+              {([['overview', 'Overview'], ['notes', 'My notes']] as const).map(([id, label]) => (
+                <button
+                  key={id}
+                  role="tab"
+                  aria-selected={tab === id}
+                  onClick={() => setTab(id)}
+                  className={`relative px-4 py-2.5 text-sm font-bold transition-colors ${tab === id ? 'text-gray-900 dark:text-slate-100' : 'text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100'}`}
+                >
+                  {label}
+                  {id === 'notes' && notes[noteKey] && <span className="ml-1.5 inline-block w-1.5 h-1.5 rounded-full bg-brand-fill align-middle" />}
+                  {tab === id && <motion.span layoutId="watch-tab-line" className="absolute left-0 right-0 -bottom-px h-0.5 bg-brand-fill" />}
+                </button>
+              ))}
+            </div>
+            <div className="pt-5">
+              {tab === 'overview' ? (
+                <div className="grid sm:grid-cols-3 gap-3">
+                  <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-800/60 border border-gray-100 dark:border-slate-700">
+                    <div className="text-2xl font-bold text-brand tabular-nums">{total}</div>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Video lessons in this module</p>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-800/60 border border-gray-100 dark:border-slate-700">
+                    <div className="text-2xl font-bold text-brand tabular-nums">{doneCount}/{total}</div>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Lessons you've watched</p>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-800/60 border border-gray-100 dark:border-slate-700">
+                    <div className="text-2xl font-bold text-brand">{pro ? 'Pro' : 'Free'}</div>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">{pro ? 'Every lesson unlocked' : 'Lesson 1 is free to watch'}</p>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <label htmlFor="watch-note" className="sr-only">Notes for this lesson</label>
+                  <textarea
+                    id="watch-note"
+                    value={notes[noteKey] || ''}
+                    onChange={(e) => saveNote(e.target.value)}
+                    placeholder={`Notes for “${course.lessons[lesson - 1]}”`}
+                    className="w-full min-h-[120px] rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 text-sm text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand/40 resize-y"
+                  />
+                  <p className="text-xs text-gray-400 dark:text-slate-500 mt-1.5">Saved on this device as you type.</p>
+                </div>
+              )}
             </div>
 
             {!pro && (
-              <div className="mt-6 rounded-2xl border border-brand-line dark:border-brand/50 p-5 bg-brand-soft">
-                <p className="font-bold text-gray-900 dark:text-slate-100">Lesson 1 free, {total - 1} more with Pro.</p>
-                <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Every lesson in this module, plus all 20 text modules and certificates.</p>
-                <button onClick={unlock} className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 text-white rounded-lg font-semibold text-sm shadow-lg shadow-brand/25 hover:shadow-xl transition-all bg-brand-fill">
-                  <FaCrown className="text-xs" /> {unlockLabel}
-                </button>
+              <div className="relative mt-8 overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-[#052E16] via-[#14532D] to-[#166534] text-green-50 brand-on-dark">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[radial-gradient(closest-side,rgba(205,170,95,0.3),transparent)]" />
+                <div className="relative flex flex-wrap items-center justify-between gap-5">
+                  <div className="max-w-md">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.1em] pro-gold-text">Academy Pro</p>
+                    <p className="mt-2 text-2xl font-bold text-white">Lesson 1 free, {total - 1} more with Pro.</p>
+                    <p className="text-sm text-green-200 mt-1.5">Every lesson in this module, plus all 20 text modules and certificates.</p>
+                  </div>
+                  <button onClick={unlock} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm pro-gold-bg shadow-lg hover:-translate-y-0.5 transition-transform">
+                    <FaCrown className="text-xs" /> {unlockLabel}
+                  </button>
+                </div>
               </div>
             )}
 
             {!pro && leadState !== 'done' && (
               <form onSubmit={submitLead} className="mt-4 rounded-2xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
-                <p className="font-semibold text-gray-900 dark:text-slate-100">Get new lessons by email</p>
+                <p className="font-bold text-gray-900 dark:text-slate-100">Get new lessons by email</p>
                 <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">We'll tell you when the next {course.name} lessons go live. No spam.</p>
                 <div className="mt-3 flex flex-col sm:flex-row gap-2">
                   <input
                     type="email" required placeholder="you@email.com"
                     value={leadEmail || user?.email || ''}
                     onChange={(e) => setLeadEmail(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand/50"
+                    className="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand/40"
                   />
-                  <button type="submit" disabled={leadState === 'busy'} className="px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-slate-700 text-white font-medium text-sm disabled:opacity-60 brand-on-dark">
+                  <button type="submit" disabled={leadState === 'busy'} className="px-5 py-2.5 rounded-xl bg-brand-fill hover:bg-brand-hover text-white font-bold text-sm disabled:opacity-60 transition-colors">
                     {leadState === 'busy' ? 'Saving…' : 'Notify me'}
                   </button>
                 </div>
-                {leadState === 'error' && <p className="text-xs text-red-600 mt-2">Couldn't save that — please try again.</p>}
+                {leadState === 'error' && <p className="text-xs text-red-600 mt-2">Couldn't save that. Check the address and try again.</p>}
               </form>
             )}
             {!pro && leadState === 'done' && (
@@ -339,38 +442,46 @@ const ModuleVideoPage = () => {
           </div>
 
           {/* Lesson list */}
-          <aside className="lg:col-span-1">
+          <aside className="lg:sticky lg:top-24 lg:self-start">
             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden">
-              <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
-                <span className="font-semibold text-gray-900 dark:text-slate-100 text-sm">Lessons</span>
-                <span className="text-xs text-gray-500 dark:text-slate-400">{doneCount}/{total} watched</span>
+              <div className="p-4 border-b border-gray-100 dark:border-slate-700">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-brand">Course</p>
+                <p className="mt-1 font-bold text-gray-900 dark:text-slate-100">{course.name}</p>
+                <div className="mt-3 flex items-center gap-3">
+                  <div className="flex-1 h-1.5 rounded-full bg-gray-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-brand-fill rounded-full transition-[width] duration-700" style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} />
+                  </div>
+                  <span className="text-xs font-bold text-gray-500 dark:text-slate-400 tabular-nums">{doneCount}/{total}</span>
+                </div>
               </div>
-              <div className="h-1 bg-gray-100 dark:bg-slate-800">
-                <div className="h-full bg-brand-fill transition-all" style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} />
-              </div>
-              <ul className="divide-y divide-gray-100 dark:divide-slate-800 max-h-[32rem] overflow-y-auto">
+              <ul className="p-2 max-h-[32rem] overflow-y-auto">
                 {course.lessons.map((title, i) => {
                   const n = i + 1;
                   const isPlayable = hasVideo(n) && (n === 1 || pro);
+                  const isDone = done.includes(n);
+                  const current = n === lesson;
+                  const isLocked = !isPlayable && hasVideo(n);
                   return (
                     <li key={n}>
                       <button
                         onClick={() => selectLesson(n)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm transition-colors ${n === lesson ? 'bg-brand-soft dark:bg-brand-soft' : 'hover:bg-gray-50 dark:hover:bg-slate-800'}`}
+                        aria-current={current ? 'true' : undefined}
+                        className={`w-full flex items-center gap-3 p-2.5 rounded-xl text-left text-sm transition-colors ${current ? 'bg-brand-soft ring-1 ring-brand-line' : 'hover:bg-gray-50 dark:hover:bg-slate-800'} ${isLocked && !current ? 'opacity-60' : ''}`}
                       >
-                        <span className="w-5 text-xs font-bold text-gray-400 dark:text-slate-500">{n}</span>
-                        <span className="flex-1 text-gray-800 dark:text-slate-200 line-clamp-2">{title}</span>
-                        {done.includes(n) ? (
-                          <FaCheckCircle className="text-brand shrink-0" />
-                        ) : n === 1 ? (
-                          <span className="text-xs font-bold text-brand dark:text-brand">FREE</span>
-                        ) : !hasVideo(n) ? (
-                          <span className="text-xs font-semibold text-gray-400 dark:text-slate-500">SOON</span>
-                        ) : isPlayable ? (
+                        <span className={`w-7 h-7 shrink-0 rounded-full grid place-items-center text-[11px] font-bold tabular-nums border-[1.5px] ${isDone ? 'bg-brand-fill border-transparent text-white' : current ? 'border-brand text-brand' : 'border-gray-200 dark:border-slate-600 text-gray-400 dark:text-slate-500'}`}>
+                          {isDone ? <FaCheckCircle className="text-xs" /> : String(n).padStart(2, '0')}
+                        </span>
+                        <span className="flex-1 min-w-0">
+                          <span className="block font-bold text-gray-800 dark:text-slate-200 leading-snug line-clamp-2">{title}</span>
+                          <span className="block text-xs text-gray-500 dark:text-slate-400">
+                            {n === 1 ? 'Free' : !hasVideo(n) ? 'Coming soon' : isPlayable ? 'Video' : 'Pro'}
+                          </span>
+                        </span>
+                        {current && isPlayable ? (
                           <FaPlayCircle className="text-brand shrink-0" />
-                        ) : (
-                          <FaLock className="text-xs text-gray-400 dark:text-slate-500 shrink-0" />
-                        )}
+                        ) : isLocked ? (
+                          <FaLock className="text-xs pro-gold-text shrink-0" />
+                        ) : null}
                       </button>
                     </li>
                   );

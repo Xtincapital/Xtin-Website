@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import StudyShell from "../../components/StudyShell";
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight, FaExclamationTriangle, FaCheckCircle, FaTimesCircle, FaLightbulb } from 'react-icons/fa';
-import Navbar from "../../../../components/Navbar";
-import Footer from "../../../../components/Footer";
 
 // SVG 1: Why Derivatives Are Risky
 const WhyRiskySVG = () => (
@@ -491,8 +490,7 @@ const DerivLesson4 = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <StudyShell module="Derivatives" lessonNumber={4}>
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -797,8 +795,7 @@ const DerivLesson4 = () => {
         </div>
       </div>
     </div>
-      <Footer />
-    </>
+    </StudyShell>
   );
 };
 

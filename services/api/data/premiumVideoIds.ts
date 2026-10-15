@@ -28,6 +28,13 @@ export const PREMIUM_VIDEO_IDS: Record<string, Record<number, string | null>> = 
         5: "TL7BtLIROxc",
         6: "pgzknuHVmdU",
         7: "5ZWmxp9fFDE",
+        8: "BHCGe8B3SDw",
+        9: "67xSlwJXRrw",
+        10: "IKYclgELQh0",
+        11: "O2EKf7vuOns",
+        12: "1eEuYrrQBGg",
+        13: "OdukJbCDqhs",
+        14: "woxvMD8IdfE",
     },
     "tax-planning": {
         // 2: "xxxxxxxxxxx",

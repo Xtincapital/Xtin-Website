@@ -120,14 +120,14 @@ const FundakamentalIntro = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/fundakamental"
-                  className="bg-brand-fill hover:bg-brand-hover text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-brand/25 flex items-center justify-center gap-2"
+                  className="bg-brand-fill hover:bg-brand-hover text-white font-bold px-8 py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Try Fundakamental free</span>
                   <ArrowRight className="h-5 w-5" />
                 </Link>
                 <Link
                   to="/products"
-                  className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 hover:border-brand-line dark:hover:border-brand text-slate-700 dark:text-slate-200 font-semibold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                  className="bg-card border border-border hover:border-brand-line hover:bg-brand-soft text-foreground font-bold px-8 py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
                   View Products
                 </Link>
@@ -135,7 +135,7 @@ const FundakamentalIntro = () => {
             </div>
 
             {/* Research Card Preview */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/10 dark:border-slate-800 dark:bg-slate-900">
+            <div className="rounded-2xl border border-border bg-card p-6 ring-8 ring-brand-soft">
               <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-5 dark:border-slate-800">
                 <div className="flex items-center gap-3">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand dark:bg-brand-fill/40 dark:text-brand border border-brand-line dark:border-brand-line">
@@ -157,8 +157,8 @@ const FundakamentalIntro = () => {
                   ['Debt profile', 'Falling each year'],
                   ['Watchlist signal', 'Near your buy target'],
                 ].map(([item, value]) => (
-                  <div key={item} className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-950/50">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">{item}</p>
+                  <div key={item} className="rounded-xl border border-border bg-secondary/50 p-4">
+                    <p className="xt-label">{item}</p>
                     <p className="mt-2 font-bold text-slate-900 dark:text-slate-100">{value}</p>
                   </div>
                 ))}
@@ -173,7 +173,7 @@ const FundakamentalIntro = () => {
             <h2 className="text-3xl md:text-4xl mb-10 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">How it works</h2>
             <div className="grid gap-6 md:grid-cols-3">
               {steps.map(({ title, description, Icon }, i) => (
-                <div key={title} className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700/60 dark:bg-slate-900">
+                <div key={title} className="rounded-2xl border border-border bg-card p-6 transition-colors hover:border-brand-line">
                   <div className="mb-4 flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-fill text-sm font-bold text-white">{i + 1}</span>
                     <Icon className="h-5 w-5 text-brand dark:text-brand" />
@@ -187,12 +187,12 @@ const FundakamentalIntro = () => {
         </section>
 
         {/* Feature Grid Section */}
-        <section className="px-6 py-16 md:px-12 lg:px-24 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
+        <section className="px-6 py-16 md:px-12 lg:px-24 bg-card border-t border-slate-200/60 dark:border-slate-800">
           <h2 className="text-3xl md:text-4xl mb-10 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">Everything you need to research a stock</h2>
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map(({ title, description, Icon }) => (
-              <article key={title} className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/60 hover:border-brand-line dark:hover:border-brand transition-all duration-300">
-                <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white dark:bg-slate-800 text-brand dark:text-brand border border-slate-100 dark:border-slate-700 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
+              <article key={title} className="group p-8 bg-secondary/50 rounded-2xl border border-border hover:border-brand-line transition-colors duration-300">
+                <span className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-brand transition-transform duration-300 group-hover:-translate-y-0.5">
                   <Icon className="h-6 w-6" />
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
@@ -208,32 +208,32 @@ const FundakamentalIntro = () => {
             <h2 className="text-3xl md:text-4xl mb-2 text-center font-display font-bold tracking-[-0.025em] text-slate-900 dark:text-white">Start free. Upgrade when it pays off.</h2>
             <p className="mb-10 text-center text-slate-600 dark:text-slate-400">No card needed to begin.</p>
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-8 dark:border-slate-700/60 dark:bg-slate-900">
+              <div className="rounded-2xl border border-border bg-card p-8">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">Free</h3>
-                <p className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white">{formatPrice(0, bp.currency)}</p>
+                <p className="mt-2 text-4xl font-extrabold tabular-nums text-slate-900 dark:text-white">{formatPrice(0, bp.currency)}</p>
                 <ul className="mt-6 space-y-3">
                   {freeFeatures.map((f) => (
-                    <li key={f} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{f}</li>
+                    <li key={f} className="flex gap-2.5 text-sm text-slate-700 dark:text-slate-300"><span className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-md bg-brand-soft text-brand"><Check className="h-3 w-3" strokeWidth={3} /></span>{f}</li>
                   ))}
                 </ul>
-                <Link to="/fundakamental" className="mt-8 block rounded-xl border-2 border-slate-200 py-3 text-center font-semibold text-slate-700 transition hover:border-brand-line dark:border-slate-700 dark:text-slate-200">
+                <Link to="/fundakamental" className="mt-8 block rounded-xl border border-border py-3 text-center font-bold text-foreground transition-colors hover:border-brand-line hover:bg-brand-soft">
                   Get started
                 </Link>
               </div>
-              <div className="relative rounded-2xl border-2 border-brand bg-white p-8 shadow-xl shadow-brand/10 dark:bg-slate-900">
-                <span className="absolute -top-3 left-8 rounded-full bg-brand-fill px-3 py-1 text-xs font-bold text-white">Most popular</span>
+              <div className="relative rounded-2xl border-2 border-brand bg-card p-8 ring-4 ring-brand-soft">
+                <span className="absolute -top-3 left-8 rounded-full bg-brand-fill px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">Most popular</span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">Pro</h3>
-                <p className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white">
+                <p className="mt-2 text-4xl font-extrabold tabular-nums text-slate-900 dark:text-white">
                   {formatPrice(bp.monthly, bp.currency)}
                   <span className="text-base font-medium text-slate-500">/month</span>
                 </p>
                 <p className="text-sm text-slate-500">or {formatPrice(bp.yearly, bp.currency)}/year</p>
                 <ul className="mt-6 space-y-3">
                   {proFeatures.map((f) => (
-                    <li key={f} className="flex gap-2 text-sm text-slate-700 dark:text-slate-300"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{f}</li>
+                    <li key={f} className="flex gap-2.5 text-sm text-slate-700 dark:text-slate-300"><span className="mt-0.5 grid h-5 w-5 flex-none place-items-center rounded-md bg-brand-soft text-brand"><Check className="h-3 w-3" strokeWidth={3} /></span>{f}</li>
                   ))}
                 </ul>
-                <Link to="/fundakamental/pricing" className="mt-8 block rounded-xl bg-brand-fill py-3 text-center font-semibold text-white shadow-lg shadow-brand/25 transition hover:bg-brand-hover">
+                <Link to="/fundakamental/pricing" className="mt-8 block rounded-xl bg-brand-fill py-3 text-center font-bold text-white transition-colors hover:bg-brand-hover">
                   Go Pro
                 </Link>
               </div>

@@ -94,7 +94,7 @@
   }
 
   .gini-scope .data-table th {
-    @apply text-left font-medium text-muted-foreground text-xs py-3 px-4 border-b border-border;
+    @apply text-left font-bold uppercase tracking-[0.06em] text-muted-foreground text-xs py-3 px-4 border-b border-border;
   }
 
   .gini-scope .data-table td {
@@ -115,6 +115,30 @@
 
   .gini-scope .status-pill {
     @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+/* Approved concept finish (2026-10-15): every shadcn Card in Gini is a
+   flat hairline surface with an 18px radius; hover lift is opt-in. */
+@layer components {
+  /* Attribute selectors: a bare .bg-card here would make Tailwind's
+     @apply bg-card (xtin-card above) circular. */
+  .gini-scope [class~="bg-card"][class~="shadow-sm"],
+  body.gini-portals [class~="bg-card"][class~="shadow-sm"] {
+    border-radius: 18px;
+    box-shadow: none;
+  }
+
+  .gini-scope thead th {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .gini-scope .xt-metric {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
   }
 }
 

@@ -36,6 +36,8 @@ import { motion } from "framer-motion";
 // TODO: not yet ported — source:
 // features-incoming/fundakamental/src/components/dashboard/DashboardLayout.tsx
 import DashboardLayout from "../components/dashboard/DashboardLayout";
+import PageHeader from "../components/PageHeader";
+import { CARD_P, INPUT, BTN } from "../lib/ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -231,16 +233,7 @@ const Settings = () => {
   return (
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-4xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <h1 className="xt-title mb-2">Settings</h1>
-          <p className="text-muted-foreground">Manage your account preferences</p>
-        </motion.div>
+        <PageHeader title="Settings" subtitle="Your profile, plan, report preferences and password." />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -248,7 +241,7 @@ const Settings = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <Tabs defaultValue="profile" className="space-y-6">
-            <TabsList className="bg-secondary/50 p-1 rounded-xl max-w-full justify-start overflow-x-auto">
+            <TabsList className="bg-secondary border border-border p-[3px] rounded-xl max-w-full justify-start overflow-x-auto">
               <TabsTrigger value="profile" className="gap-2">
                 <User className="w-4 h-4" />
                 Profile
@@ -269,13 +262,13 @@ const Settings = () => {
 
             {/* Profile Tab */}
             <TabsContent value="profile" className="space-y-6">
-              <div className="rounded-2xl bg-white border border-border p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-6">
+              <div className={CARD_P}>
+                <h2 className="text-base font-bold text-foreground mb-5">
                   Profile Information
                 </h2>
                 <div className="grid gap-6">
                   <div className="flex items-center gap-6">
-                    <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-2xl font-bold text-primary-foreground">
+                    <div className="w-20 h-20 rounded-full bg-brand-fill flex items-center justify-center text-2xl font-bold text-white ring-4 ring-brand-soft">
                       {initials(displayName)}
                     </div>
                     <div>
@@ -296,7 +289,7 @@ const Settings = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         maxLength={80}
-                        className="bg-secondary border-border"
+                        className={INPUT}
                       />
                       {nameChanged && !nameValid && (
                         <p className="text-xs text-destructive">Enter your first and last name.</p>
@@ -309,7 +302,7 @@ const Settings = () => {
                         type="email"
                         value={user?.email || ""}
                         disabled
-                        className="bg-secondary border-border"
+                        className={INPUT}
                       />
                       <p className="text-xs text-muted-foreground">
                         Email is your login and can't be changed here.
@@ -320,7 +313,7 @@ const Settings = () => {
                   <Button
                     onClick={handleSaveProfile}
                     disabled={!nameChanged || !nameValid || savingProfile}
-                    className="w-fit bg-primary text-white hover:bg-primary/90 gap-2"
+                    className={`w-fit ${BTN} gap-2`}
                   >
                     {savingProfile && <Loader2 className="w-4 h-4 animate-spin" />}
                     {savingProfile ? "Saving…" : "Save Changes"}
@@ -331,10 +324,10 @@ const Settings = () => {
 
             {/* Subscription Tab */}
             <TabsContent value="subscription" className="space-y-6">
-              <div className="rounded-2xl bg-white border border-border p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-6">Current Plan</h2>
+              <div className={CARD_P}>
+                <h2 className="text-base font-bold text-foreground mb-5">Current Plan</h2>
 
-                <div className="p-4 rounded-lg bg-secondary/50 border border-border mb-6">
+                <div className="p-5 rounded-xl bg-secondary/50 border border-border mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <p className="font-semibold text-foreground">
@@ -370,7 +363,7 @@ const Settings = () => {
 
                 {/* AI tokens */}
                 {wallet && (
-                  <div className="p-4 rounded-lg border border-border mb-6">
+                  <div className="p-5 rounded-xl border border-border mb-6">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
                         <Coins className="w-4 h-4 text-brand" /> AI tokens
@@ -381,7 +374,7 @@ const Settings = () => {
                     </div>
                     <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-primary transition-all"
+                        className="h-full rounded-full bg-brand-fill transition-all"
                         style={{ width: `${walletPct}%` }}
                       />
                     </div>
@@ -395,10 +388,10 @@ const Settings = () => {
                 )}
 
                 {isPro ? (
-                  <div className="p-4 rounded-lg bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+                  <div className="p-5 rounded-xl bg-brand-soft border border-brand-line">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                        <Sparkles className="w-5 h-5 text-primary-foreground" />
+                      <div className="w-10 h-10 rounded-xl bg-brand-fill flex items-center justify-center flex-none">
+                        <Sparkles className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground">
@@ -411,10 +404,10 @@ const Settings = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="p-4 rounded-lg bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+                  <div className="p-5 rounded-xl bg-brand-soft border border-brand-line">
                     <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                        <Sparkles className="w-5 h-5 text-primary-foreground" />
+                      <div className="w-10 h-10 rounded-xl bg-brand-fill flex items-center justify-center flex-none">
+                        <Sparkles className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
                         <h3 className="font-semibold text-foreground mb-1">
@@ -442,7 +435,7 @@ const Settings = () => {
                         </ul>
                         <Button
                           onClick={() => openUpgrade("general")}
-                          className="bg-primary text-white hover:bg-primary/90"
+                          className={`${BTN}`}
                         >
                           Upgrade — {formatPrice(bp.monthly, bp.currency)}/month
                         </Button>
@@ -458,8 +451,8 @@ const Settings = () => {
 
             {/* Preferences Tab */}
             <TabsContent value="preferences" className="space-y-6">
-              <div className="rounded-2xl bg-white border border-border p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-6">Preferences</h2>
+              <div className={CARD_P}>
+                <h2 className="text-base font-bold text-foreground mb-5">Preferences</h2>
                 <div className="space-y-6">
                   <div className="flex items-center justify-between gap-4">
                     <div>
@@ -478,7 +471,7 @@ const Settings = () => {
                         value={prefStyle}
                         onValueChange={(v) => savePref("fk_pref_style", v, setPrefStyle)}
                       >
-                        <SelectTrigger className="bg-secondary border-border">
+                        <SelectTrigger className={INPUT}>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -496,7 +489,7 @@ const Settings = () => {
                         value={prefHorizon}
                         onValueChange={(v) => savePref("fk_pref_horizon", v, setPrefHorizon)}
                       >
-                        <SelectTrigger className="bg-secondary border-border">
+                        <SelectTrigger className={INPUT}>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -518,15 +511,15 @@ const Settings = () => {
 
             {/* Security Tab */}
             <TabsContent value="security" className="space-y-6">
-              <div className="rounded-2xl bg-white border border-border p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-6">
+              <div className={CARD_P}>
+                <h2 className="text-base font-bold text-foreground mb-5">
                   Security Settings
                 </h2>
 
                 <div className="space-y-6">
                   <div>
                     <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
-                      <Key className="w-4 h-4" />
+                      <Key className="w-4 h-4 text-brand" />
                       Change Password
                     </h3>
                     <div className="space-y-4 max-w-md">
@@ -537,7 +530,7 @@ const Settings = () => {
                           type="password"
                           value={currentPassword}
                           onChange={(e) => setCurrentPassword(e.target.value)}
-                          className="bg-secondary border-border"
+                          className={INPUT}
                         />
                       </div>
                       <div className="space-y-2">
@@ -547,7 +540,7 @@ const Settings = () => {
                           type="password"
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
-                          className="bg-secondary border-border"
+                          className={INPUT}
                         />
                       </div>
                       <div className="space-y-2">
@@ -557,7 +550,7 @@ const Settings = () => {
                           type="password"
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          className="bg-secondary border-border"
+                          className={INPUT}
                         />
                       </div>
                       <Button

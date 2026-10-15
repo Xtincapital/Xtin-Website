@@ -46,7 +46,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-import { chartGrid, chartBarRadius, chartMaxBarSize, chartColors } from "@/components/charts/chartTheme";
+import { chartActiveDot, chartGrid, chartBarRadius, chartMaxBarSize, chartColors, chartTick } from "@/components/charts/chartTheme";
 import {
   Landmark,
   HeartHandshake,
@@ -63,7 +63,6 @@ import { Input } from "@/components/ui/input";
 import MoneyInput from "@/components/MoneyInput";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -79,8 +78,13 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { cn } from "@/lib/utils";
 import GiniLayout from "../components/GiniLayout";
+import PageHeader from "../components/PageHeader";
+import { ProgressRow } from "../components/GiniCharts";
+import { CHIP_DOWN, CHIP_MUTED } from "../lib/ui";
 import ProGate from "../components/ProGate";
 import { useGiniPlanStore } from "../store/useGiniPlanStore";
 import { api } from "../lib/api";
@@ -131,18 +135,28 @@ const ELDER_CARE_KEY = ["gini", "elder-care"] as const;
 const EDUCATION_PLANS_KEY = ["gini", "education-plans"] as const;
 const TAX_OPTIMIZATION_KEY = ["gini", "tax-optimization"] as const;
 
-function ResultGrid({ items }: { items: { label: string; value: string }[] }) {
+/** Result tiles; `highlight` gives the headline figure the brand-soft finish. */
+function ResultGrid({ items }: { items: { label: string; value: string; highlight?: boolean }[] }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
-        <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
+        <div
+          key={item.label}
+          className={cn("rounded-2xl border p-4", item.highlight ? "border-brand-line bg-brand-soft" : "bg-secondary/40")}
+        >
           <p className="xt-label">{item.label}</p>
-          <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
+          <p className={cn("mt-1 text-lg font-bold tabular-nums tracking-[-0.01em]", item.highlight ? "text-brand" : "text-foreground")}>
+            {/\s/.test(item.value) ? item.value : <RollingNumber value={item.value} />}
+          </p>
         </div>
       ))}
     </div>
   );
 }
+
+/** Plan row with the brand-green left tick (elder care, education). */
+const PLAN_ROW = "relative overflow-hidden rounded-2xl border bg-secondary/40 p-4 pl-5 transition-colors hover:bg-secondary/70";
+const PLAN_TICK = "absolute inset-y-3 left-0 w-[3px] rounded-r-full bg-brand-fill";
 
 // ─────────────────────────────────────────────────────────────────────────
 // Dual Retirement — app.js `dualRetirement.calculate`/`renderTimeline`
@@ -198,7 +212,7 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
         {isLoading ? (
           <Skeleton className="h-72 w-full" />
         ) : earners.length < 2 ? (
-          <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+          <div className="rounded-[18px] border border-dashed p-4 text-sm text-muted-foreground">
             Add at least 2 earning family members with age, retirement age, and life expectancy set (on the Family
             page) to see a dual retirement timeline.
           </div>
@@ -208,8 +222,8 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
             <ChartContainer config={chartConfig} className="h-96 w-full">
               <LineChart data={chartData}>
                 <CartesianGrid {...chartGrid} />
-                <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
-                <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                <XAxis dataKey="year" tickLine={false} axisLine={false} tick={chartTick} />
+                <YAxis tickLine={false} axisLine={false} tick={chartTick} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
                   content={(props: any) => (
                     <ChartTooltipContent {...props} formatter={(v: any) => formatCurrency(Number(v))} />
@@ -222,8 +236,9 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
                     dataKey={e.id}
                     name={e.name}
                     stroke={CHART_COLORS[i % CHART_COLORS.length]}
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                     dot={false}
+                    activeDot={chartActiveDot}
                     connectNulls={false}
                   />
                 ))}
@@ -372,16 +387,17 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
               // client-side `lifeExpectancy - member.age`.
               const totalRequired = (plan.monthly_support || 0) * 12 * yearsRemaining + (plan.medical_reserve || 0);
               return (
-                <div key={plan.id} className="rounded-lg border-l-4 border-primary bg-accent/30 p-4">
+                <div key={plan.id} className={PLAN_ROW}>
+                  <span className={PLAN_TICK} aria-hidden="true" />
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <h4 className="font-semibold text-foreground">{member?.name || "Unknown member"}</h4>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-1 text-sm tabular-nums text-muted-foreground">
                         Monthly Support: {formatCurrency(plan.monthly_support || 0)} | Medical Reserve:{" "}
                         {formatCurrency(plan.medical_reserve || 0)}
                       </p>
-                      <p className="mt-1 text-sm text-foreground">
-                        <strong>Total Required:</strong> {formatCurrency(totalRequired)} (over {yearsRemaining} years)
+                      <p className="mt-1 text-sm tabular-nums text-foreground">
+                        <strong>Total Required:</strong> <b className="text-brand">{formatCurrency(totalRequired)}</b> (over {yearsRemaining} years)
                       </p>
                     </div>
                     <div className="flex shrink-0 gap-1">
@@ -668,7 +684,8 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
               const yearsRemaining = plan.years_remaining ?? 0;
               const requiredMonthly = yearsRemaining > 0 ? calculateRequiredSIP(cost - saved, 12, yearsRemaining) : 0;
               return (
-                <div key={plan.id} className="rounded-lg bg-accent/30 p-4">
+                <div key={plan.id} className={PLAN_ROW}>
+                  <span className={PLAN_TICK} aria-hidden="true" />
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <h4 className="font-semibold text-foreground">
@@ -693,16 +710,18 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
                       </Button>
                     </div>
                   </div>
-                  <div className="mt-3 space-y-1.5">
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Cost: {formatCurrency(cost)}</span>
-                      <span>
-                        Saved: {formatCurrency(saved)} ({progress.toFixed(1)}%)
-                      </span>
-                    </div>
-                    <Progress value={progress} />
+                  <div className="mt-3 text-sm">
+                    <ProgressRow
+                      name="Saved"
+                      meta={`${progress.toFixed(1)}% of cost`}
+                      saved={formatCurrency(saved)}
+                      target={formatCurrency(cost)}
+                      percent={progress}
+                      // Same "behind" rule as the Dashboard: due within 3 years and under half funded.
+                      behind={progress < 50 && yearsRemaining <= 3}
+                    />
                   </div>
-                  <p className="mt-2 text-sm text-foreground">
+                  <p className="mt-2 text-sm tabular-nums text-foreground">
                     <strong>Monthly SIP Required:</strong> {formatCurrency(requiredMonthly)}
                     {plan.ppf_account ? ` | PPF A/c: ${plan.ppf_account}` : ""}
                   </p>
@@ -718,14 +737,14 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
             <ChartContainer config={chartConfig} className="h-72 w-full">
               <BarChart data={chartData}>
                 <CartesianGrid {...chartGrid} />
-                <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={11} />
-                <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
+                <XAxis dataKey="name" tickLine={false} axisLine={false} tick={chartTick} />
+                <YAxis tickLine={false} axisLine={false} tick={chartTick} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
                   content={(props: any) => (
                     <ChartTooltipContent {...props} formatter={(v: any) => formatCurrency(Number(v))} />
                   )}
                 />
-                <Bar dataKey="saved" stackId="a" fill="var(--color-saved)" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="saved" stackId="a" fill="var(--color-saved)" radius={[0, 0, 0, 0]} maxBarSize={chartMaxBarSize} />
                 <Bar dataKey="required" stackId="a" fill="var(--color-required)" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
               </BarChart>
             </ChartContainer>
@@ -958,7 +977,7 @@ function TaxOptimizationTab() {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <h4 className="text-base font-semibold text-foreground">Section 80C</h4>
-                <span className={`text-xs ${total80C > SECTION_80C_CAP ? "text-destructive" : "text-muted-foreground"}`}>
+                <span className={total80C > SECTION_80C_CAP ? CHIP_DOWN : CHIP_MUTED}>
                   {formatCurrency(total80C)} of {formatCurrency(SECTION_80C_CAP)} cap
                 </span>
               </div>
@@ -1207,7 +1226,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
           {depResults && (
             <ResultGrid
               items={[
-                { label: "Monthly Cost", value: formatCurrency(depResults.monthlyCost) },
+                { label: "Monthly Cost", value: formatCurrency(depResults.monthlyCost), highlight: true },
                 { label: "Annual Cost", value: formatCurrency(depResults.annualCost) },
                 { label: `Total Cost (${depResults.years} years)`, value: formatCurrency(depResults.totalCost) },
                 { label: "Inflation-Adjusted", value: formatCurrency(depResults.inflationAdjusted) },
@@ -1238,7 +1257,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
               <ResultGrid
                 items={[
                   { label: "Minimum Coverage", value: formatCurrency(insuranceResults.baseCoverage) },
-                  { label: "Recommended Coverage", value: formatCurrency(insuranceResults.recommendedCoverage) },
+                  { label: "Recommended Coverage", value: formatCurrency(insuranceResults.recommendedCoverage), highlight: true },
                   { label: "Estimated Annual Premium", value: formatCurrency(insuranceResults.annualPremium) },
                   { label: "Monthly Premium", value: formatCurrency(Math.round(insuranceResults.annualPremium / 12)) },
                 ]}
@@ -1271,7 +1290,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
               </p>
               <ResultGrid
                 items={[
-                  { label: `Recommended Fund (${emergencyResults.adjustedMonths} months)`, value: formatCurrency(emergencyResults.recommendedFund) },
+                  { label: `Recommended Fund (${emergencyResults.adjustedMonths} months)`, value: formatCurrency(emergencyResults.recommendedFund), highlight: true },
                   {
                     label: `Conservative Fund (${emergencyResults.adjustedMonths + 3} months)`,
                     value: formatCurrency(emergencyResults.conservativeFund),
@@ -1301,11 +1320,7 @@ export default function FamilyAdvanced() {
   return (
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
-        <div className="flex flex-col gap-1">
-          <span className="xt-eyebrow">Advanced tools</span>
-          <h1 className="xt-title mb-2">Advanced Family Planning</h1>
-          <p className="text-muted-foreground">Dual retirement, elder care, children's education, and tax optimization</p>
-        </div>
+        <PageHeader pro title="Advanced Family Planning" subtitle="Dual retirement, elder care, children's education, and tax optimization" />
 
         <ProGate feature="Advanced Family Planning" isPro={isPro()} loading={!fetched}>
           <Tabs defaultValue="dual-retirement" className="space-y-6">
