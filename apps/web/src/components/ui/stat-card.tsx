@@ -18,7 +18,7 @@ export const StatCard = ({
   className,
 }: StatCardProps) => {
   const trendColor = {
-    up: "text-success",
+    up: "text-brand",
     down: "text-destructive",
     neutral: "text-muted-foreground",
   };

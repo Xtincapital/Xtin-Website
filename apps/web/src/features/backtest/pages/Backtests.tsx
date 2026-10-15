@@ -11,8 +11,8 @@ import { btnGhost, btnPrimary, card, muted } from "../lib/styles";
 function Stat({ icon: Icon, label, value, tone }: { icon: typeof Trophy; label: string; value: string; tone?: string }) {
   return (
     <div className={`${card} flex items-center gap-3 p-4`}>
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-500/10">
-        <Icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft dark:bg-brand-soft">
+        <Icon className="h-5 w-5 text-brand dark:text-brand" />
       </span>
       <div>
         <div className={`text-xs ${muted}`}>{label}</div>
@@ -61,13 +61,13 @@ export default function Backtests() {
           <div className="mb-5 grid gap-3 sm:grid-cols-3">
             <Stat icon={HistoryIcon} label="Runs" value={`${data.length}`} />
             <Stat icon={TrendingUp} label="Profitable" value={done.length ? `${profitable}/${done.length}` : "—"} />
-            <Stat icon={Trophy} label="Best return" value={best === null ? "—" : `${best >= 0 ? "+" : ""}${best.toFixed(2)}%`} tone={best !== null && best >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"} />
+            <Stat icon={Trophy} label="Best return" value={best === null ? "—" : `${best >= 0 ? "+" : ""}${best.toFixed(2)}%`} tone={best !== null && best >= 0 ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"} />
           </div>
 
           <div className={`${card} overflow-hidden`}>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className={`bg-slate-50 text-left text-[11px] uppercase tracking-wider dark:bg-white/[0.03] ${muted}`}>
+                <thead className={`bg-slate-50 text-left text-xs uppercase tracking-wider dark:bg-white/[0.03] ${muted}`}>
                   <tr>
                     <th className="px-5 py-3 font-semibold">Strategy</th>
                     <th className="px-3 py-3 font-semibold">Window</th>
@@ -87,14 +87,14 @@ export default function Backtests() {
                       <tr key={b.id} className="group border-t border-slate-100 transition hover:bg-slate-50/70 dark:border-white/5 dark:hover:bg-white/[0.03]">
                         <td className="px-5 py-3.5">
                           <div className="font-semibold">{b.strategy_name}</div>
-                          <div className={`text-[11px] ${muted}`}>{new Date(b.created_at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
+                          <div className={`text-xs ${muted}`}>{new Date(b.created_at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</div>
                         </td>
                         <td className={`px-3 py-3.5 text-xs ${muted}`}>
                           {b.start_date} → {b.end_date}
                         </td>
                         <td className="px-3 py-3.5 text-right">
                           {ok ? (
-                            <span className={`rounded-lg px-2 py-1 text-xs font-bold ${ret >= 0 ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
+                            <span className={`rounded-lg px-2 py-1 text-xs font-bold ${ret >= 0 ? "bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
                               {ret >= 0 ? "+" : ""}
                               {ret.toFixed(2)}%
                             </span>
@@ -108,7 +108,7 @@ export default function Backtests() {
                           {m ? (
                             <div className="flex items-center gap-2">
                               <div className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
-                                <div className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-500" style={{ width: `${Math.min(100, m.win_rate)}%` }} />
+                                <div className="h-full rounded-full bg-brand-fill" style={{ width: `${Math.min(100, m.win_rate)}%` }} />
                               </div>
                               <span className="text-xs">{m.win_rate.toFixed(0)}%</span>
                             </div>
@@ -120,7 +120,7 @@ export default function Backtests() {
                         <td className="px-3 py-3.5 text-right text-rose-600 dark:text-rose-400">{m ? `−${Math.abs(m.max_drawdown_pct).toFixed(1)}%` : "—"}</td>
                         <td className="whitespace-nowrap px-5 py-3.5 text-right">
                           {ok && (
-                            <Link to={`/backtest/app/history/${b.id}`} className="inline-flex items-center gap-0.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-500/10">
+                            <Link to={`/backtest/app/history/${b.id}`} className="inline-flex items-center gap-0.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-brand hover:bg-brand-soft dark:text-brand dark:hover:bg-brand-hover">
                               Report <ChevronRight className="h-3.5 w-3.5" />
                             </Link>
                           )}

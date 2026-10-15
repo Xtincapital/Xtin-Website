@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowRight, Send } from 'lucide-react';
 
 /* ─── 9 modules evenly spaced (40° apart) on a circle of radius 39 around center (50,50) ─── */
 const modules: {
@@ -19,7 +20,7 @@ const modules: {
     label: 'Algo Trading',
     tag: 'Trading',
     link: '/intro/algorithms',
-    iconBg: 'from-emerald-400 to-green-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -45,7 +46,7 @@ const modules: {
     label: 'Fundakamental',
     tag: 'Research',
     link: '/intro/fundakamental',
-    iconBg: 'from-lime-400 to-emerald-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.52l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -71,7 +72,7 @@ const modules: {
     label: 'Learn',
     tag: 'Courses',
     link: '/intro/learn',
-    iconBg: 'from-teal-400 to-emerald-500',
+    iconBg: 'bg-brand-fill',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
@@ -116,21 +117,48 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
     animate={mounted ? { opacity: 1, scale: 1 } : {}}
     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
   >
+    <style>{`
+      @keyframes eco-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+      .eco-float { animation: eco-float 6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .eco-float { animation: none; } }
+    `}</style>
     {/* ── SVG layer: dashed orbit ring + straight spoke lines ── */}
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-0"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid meet"
     >
-      {/* Single large dashed orbit boundary — shifted right */}
+      <defs>
+        <radialGradient id="eco-glow" cx="60" cy="55" r="42" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="rgb(22 163 74)" stopOpacity="0.14" />
+          <stop offset="0.7" stopColor="rgb(22 163 74)" stopOpacity="0.04" />
+          <stop offset="1" stopColor="rgb(22 163 74)" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="eco-ring" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="rgb(22 163 74)" stopOpacity="0.75" />
+          <stop offset="0.5" stopColor="#A0A3AA" stopOpacity="0.35" />
+          <stop offset="1" stopColor="rgb(22 163 74)" stopOpacity="0.75" />
+        </linearGradient>
+      </defs>
+      <circle cx="60" cy="55" r={ORBIT_R + 3} fill="url(#eco-glow)" />
+      <circle cx="60" cy="55" r={ORBIT_R + 8} fill="none" stroke="rgb(22 163 74)" strokeOpacity="0.07" strokeWidth="0.35" />
       <circle
         cx="60" cy="55" r={ORBIT_R}
         fill="none"
-        stroke="#94a3b8"
-        strokeOpacity="0.5"
+        stroke="url(#eco-ring)"
         strokeWidth="0.5"
         strokeDasharray="3 2.5"
       />
+      {[0, 4.6, 9.2].map((delay) => (
+        <circle key={delay} r="0.95" fill="rgb(22 163 74)">
+          <animateMotion
+            dur="14s"
+            begin={`${delay}s`}
+            repeatCount="indefinite"
+            path={`M ${60 + ORBIT_R} 55 a ${ORBIT_R} ${ORBIT_R} 0 1 0 ${-ORBIT_R * 2} 0 a ${ORBIT_R} ${ORBIT_R} 0 1 0 ${ORBIT_R * 2} 0`}
+          />
+        </circle>
+      ))}
 
       {/* Straight dashed spokes: center node edge → card edge */}
       {modules.map((mod, i) => {
@@ -148,7 +176,7 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
             key={mod.id}
             x1={x1} y1={y1}
             x2={x2} y2={y2}
-            stroke={hoveredNode === mod.id ? '#10b981' : '#94a3b8'}
+            stroke={hoveredNode === mod.id ? '#16A34A' : '#A0A3AA'}
             strokeOpacity={hoveredNode === mod.id ? 0.85 : 0.4}
             strokeWidth={hoveredNode === mod.id ? '0.45' : '0.3'}
             strokeDasharray="2.5 2"
@@ -163,6 +191,22 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
           </line>
         );
       })}
+
+      {/* Small pulses travelling hub → card along each spoke */}
+      {modules.map((mod, i) => {
+        const dx = mod.x - 50;
+        const dy = mod.y - 50;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / dist;
+        const uy = dy / dist;
+        const path = `M ${(60 + 12 * ux).toFixed(2)} ${(55 + 12 * uy).toFixed(2)} L ${(mod.x - 9 * ux + 10).toFixed(2)} ${(mod.y - 9 * uy + 5).toFixed(2)}`;
+        return (
+          <circle key={`pulse-${mod.id}`} r="0.7" fill="rgb(22 163 74)" opacity="0">
+            <animateMotion dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" path={path} />
+            <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.15;0.8;1" dur="3.2s" begin={`${i * 0.45}s`} repeatCount="indefinite" />
+          </circle>
+        );
+      })}
     </svg>
 
     {/* ── Center node ── */}
@@ -171,18 +215,25 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
       style={{ left: '60%', top: '55%', transform: 'translate(-50%, -50%)' }}
     >
       <motion.div
-        className="absolute inset-0 -m-5 rounded-full border border-emerald-200/60 dark:border-emerald-700/50"
+        className="absolute inset-0 -m-5 rounded-full border border-brand-line dark:border-brand/50"
         animate={{ scale: [1, 1.22, 1], opacity: [0.45, 0, 0.45] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-700"
-        style={{ boxShadow: '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
+        aria-hidden="true"
+        className="absolute -inset-[3px] rounded-full opacity-80"
+        style={{ background: 'conic-gradient(from 0deg, rgb(var(--brand) / 0.9), transparent 35%, rgb(var(--brand) / 0.35) 60%, transparent 80%, rgb(var(--brand) / 0.9))' }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+      />
+      <motion.div
+        className="relative w-20 h-20 min-[420px]:w-24 min-[420px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-white dark:bg-slate-900 border border-brand-line dark:border-slate-700"
+        style={{ boxShadow: '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)' }}
         animate={{
           boxShadow: [
-            '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)',
-            '0 0 0 10px rgba(16,185,129,0.04), 0 12px 40px rgba(16,185,129,0.20), 0 4px 12px rgba(0,0,0,0.08)',
-            '0 0 0 6px rgba(16,185,129,0.06), 0 8px 32px rgba(16,185,129,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)',
+            '0 0 0 10px rgba(22, 163, 74,0.04), 0 12px 40px rgba(22, 163, 74,0.20), 0 4px 12px rgba(0,0,0,0.08)',
+            '0 0 0 6px rgba(22, 163, 74,0.06), 0 8px 32px rgba(22, 163, 74,0.14), 0 2px 8px rgba(0,0,0,0.06)',
           ],
         }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -192,13 +243,13 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         <Link
           to="/intro/dashboard"
           aria-label="Xtin Capital dashboard — everything in one place"
-          className="absolute inset-0 rounded-full flex items-center justify-center text-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          className="absolute inset-0 rounded-full flex items-center justify-center text-center select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
         >
           <span>
             <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-slate-100 leading-none">
               Xtin
             </span>
-            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-emerald-500 dark:text-emerald-400 leading-none mt-0.5">
+            <span className="block text-base min-[420px]:text-lg sm:text-xl md:text-2xl font-bold text-brand dark:text-brand leading-none mt-0.5">
               Capital
             </span>
           </span>
@@ -218,27 +269,28 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         onMouseEnter={() => setHoveredNode(mod.id)}
         onMouseLeave={() => setHoveredNode(null)}
       >
+        <div className="eco-float" style={{ animationDelay: `${-i * 0.9}s` }}>
         {mod.isExternal ? (
           <a href={mod.link} target="_blank" rel="noopener noreferrer" className="block focus:outline-none">
             <motion.div
-              className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
+              className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(16,185,129,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(15,23,42,0.10)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(22, 163, 74,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
             >
               <div
-                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}
               >
                 {mod.icon}
               </div>
               <div className="hidden sm:flex flex-col justify-center ml-2.5 mr-1.5 min-w-0">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
                   {mod.tag}
                 </span>
-                <span className="text-[13px] font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
                   {mod.label}
                 </span>
               </div>
@@ -247,30 +299,31 @@ const EcosystemDiagram = ({ hoveredNode, setHoveredNode, mounted }) => (
         ) : (
           <Link to={mod.link} className="block focus:outline-none">
             <motion.div
-              className={`flex items-center bg-white dark:bg-slate-900 rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
+              className={`flex items-center bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border transition-colors duration-200 p-2 sm:p-2.5 ${
                 hoveredNode === mod.id
-                  ? 'border-emerald-300 dark:border-emerald-500 shadow-[0_6px_24px_rgba(16,185,129,0.18)]'
-                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(15,23,42,0.10)]'
+                  ? 'border-brand-line dark:border-brand shadow-[0_6px_24px_rgba(22, 163, 74,0.18)]'
+                  : 'border-slate-100 dark:border-slate-700 shadow-[0_4px_18px_rgba(31, 31, 31,0.10)]'
               }`}
               whileHover={{ scale: 1.06, y: -3 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
             >
               <div
-                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}
               >
                 {mod.icon}
               </div>
               <div className="hidden sm:flex flex-col justify-center ml-2.5 mr-1.5 min-w-0">
-                <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
+                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500 leading-none mb-[3px] whitespace-nowrap">
                   {mod.tag}
                 </span>
-                <span className="text-[13px] font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
+                <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight whitespace-nowrap">
                   {mod.label}
                 </span>
               </div>
             </motion.div>
           </Link>
         )}
+        </div>
       </motion.div>
     ))}
   </motion.div>
@@ -286,19 +339,32 @@ const GuestHomeHero = () => {
 
   return (
     <section className="relative bg-white dark:bg-slate-950 py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 mt-16 overflow-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 -top-24 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-brand-soft opacity-80 blur-[110px]" />
+        <div className="absolute right-[-8%] top-1/3 h-[420px] w-[420px] rounded-full bg-brand-fill/10 blur-[100px]" />
+        <div className="absolute inset-0 text-brand opacity-[0.14] [background-image:radial-gradient(currentColor_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_60%_30%,#000,transparent_70%)]" />
+      </div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-[0.78fr_1.22fr] gap-8 md:gap-10 xl:gap-12 items-center">
 
           {/* ── Left: text ── */}
           <div className="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 dark:border-emerald-700/50 bg-emerald-50 dark:bg-emerald-900/25 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-4 sm:mb-5">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-line dark:border-brand/50 bg-brand-soft dark:bg-brand-soft px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs sm:text-xs font-semibold text-brand dark:text-brand mb-4 sm:mb-5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-fill opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-fill" />
+              </span>
               Built for modern Indian investors
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.85rem] font-bold leading-[1.08] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-display font-bold leading-[1.06] text-gray-950 dark:text-slate-100 mb-3 sm:mb-4 max-w-xl tracking-[-0.025em]">
               The Xtin Capital{' '}
-              <span className="text-emerald-600 dark:text-emerald-400">Ecosystem</span>
+              <span className="relative whitespace-nowrap text-brand dark:text-brand">
+                Ecosystem
+                <svg aria-hidden="true" viewBox="0 0 200 12" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-2.5 w-full" fill="none">
+                  <path d="M2 8 C45 2 115 2 198 7" stroke="rgb(var(--brand-fill))" strokeWidth="3.5" strokeLinecap="round" opacity="0.85" />
+                </svg>
+              </span>
             </h1>
             <p className="text-gray-600 dark:text-slate-300 text-sm sm:text-base md:text-lg leading-6 sm:leading-7 mb-5 sm:mb-6 max-w-xl">
               Invest, learn, and grow with algo trading, AI tools, and structured
@@ -312,15 +378,17 @@ const GuestHomeHero = () => {
                 href="https://t.me/MarketXtin"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-emerald-600/15 transition"
+                className="inline-flex items-center justify-center bg-brand-fill hover:bg-brand-hover text-white font-semibold px-6 py-3 rounded-lg shadow-lg shadow-brand/25 transition hover:-translate-y-0.5 hover:shadow-xl gap-2"
               >
+                <Send className="h-4 w-4" />
                 Join Telegram Community
               </a>
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-emerald-700 dark:hover:text-emerald-300 font-semibold px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-brand dark:hover:border-brand bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-brand dark:hover:text-brand font-semibold px-6 py-3 rounded-lg transition hover:-translate-y-0.5 hover:shadow-md gap-2 group"
               >
                 Get Started
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
@@ -332,10 +400,10 @@ const GuestHomeHero = () => {
                   to={mod.link}
                   className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-100 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm p-3 active:scale-95 transition-transform"
                 >
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${mod.iconBg} flex items-center justify-center text-white flex-shrink-0`}>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br from-brand-fill to-brand-hover ring-1 ring-white/25 shadow-md shadow-brand/30 flex items-center justify-center text-white flex-shrink-0`}>
                     {mod.icon}
                   </div>
-                  <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight whitespace-nowrap">
+                  <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight whitespace-nowrap">
                     {mod.label}
                   </span>
                 </Link>
@@ -344,8 +412,8 @@ const GuestHomeHero = () => {
 
             <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center lg:justify-start text-sm font-medium text-gray-500 dark:text-slate-400">
               {['India Focused', 'Free Tools', 'AI-Powered'].map((label) => (
-                <span key={label} className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <span key={label} className="flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/60 px-3 py-1">
+                  <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                   {label}
@@ -355,7 +423,7 @@ const GuestHomeHero = () => {
           </div>
 
           {/* ── Right: ecosystem diagram (desktop only) ── */}
-          <div className="hidden lg:flex justify-end items-center min-w-0 overflow-visible">
+          <div className="hidden lg:flex justify-end items-center min-w-0 overflow-visible lg:pr-10 xl:pr-14">
             <EcosystemDiagram
               hoveredNode={hoveredNode}
               setHoveredNode={setHoveredNode}

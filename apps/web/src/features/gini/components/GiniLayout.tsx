@@ -152,14 +152,17 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
     <>
       <Navbar />
       {/* pt-20 clears the fixed site Navbar */}
-      <div className="gini-scope pt-20 min-h-screen bg-background flex">
+      <div
+        className="gini-scope pt-20 min-h-screen bg-background flex"
+        style={{ "--sb": collapsed ? "76px" : "260px" } as React.CSSProperties}
+      >
         {/* Sidebar — sticky under the Navbar on desktop, a drawer below lg */}
         <motion.aside
           initial={false}
           animate={{ width: collapsed ? 76 : 260 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "fixed left-0 top-20 bottom-0 z-40 shrink-0 bg-white border-r border-border flex flex-col transition-transform duration-200",
+            "fixed left-0 top-20 bottom-0 z-40 shrink-0 bg-card border-r border-border flex flex-col transition-transform duration-200",
             "lg:sticky lg:top-20 lg:bottom-auto lg:h-[calc(100vh-5rem)] lg:self-start lg:z-10 lg:translate-x-0",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
@@ -169,7 +172,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
             {navSections.map((section) => (
               <div key={section.label}>
                 {!collapsed && (
-                  <div className="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
+                  <div className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground/70">
                     {section.label}
                   </div>
                 )}
@@ -181,16 +184,24 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
                         key={item.href}
                         to={item.href}
                         className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 relative group",
+                          "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200 relative group",
                           isActive
-                            ? "bg-accent text-primary font-semibold"
-                            : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                            ? "text-foreground font-semibold"
+                            : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
                         )}
                         title={collapsed ? item.name : undefined}
                       >
-                        <item.icon className={cn("w-[18px] h-[18px] flex-shrink-0", isActive && "text-primary")} />
-                        {!collapsed && <span className="text-sm">{item.name}</span>}
-                        {!collapsed && item.pro && planFetched && <ProIcon unlocked={isPro} className="w-3.5 h-3.5 ml-auto" />}
+                        {/* Sliding highlight behind the active item */}
+                        {isActive && (
+                          <motion.span
+                            layoutId="gini-nav-active"
+                            className="absolute inset-0 -z-0 rounded-xl bg-accent"
+                            transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                          />
+                        )}
+                        <item.icon className={cn("relative w-[18px] h-[18px] flex-shrink-0", isActive && "text-brand dark:text-brand")} />
+                        {!collapsed && <span className="relative text-sm">{item.name}</span>}
+                        {!collapsed && item.pro && planFetched && <ProIcon unlocked={isPro} className="relative w-3.5 h-3.5 ml-auto" />}
                       </Link>
                     );
                   })}
@@ -202,7 +213,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
           {/* Collapse Button */}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="absolute -right-3 top-6 w-6 h-6 rounded-full bg-white border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
+            className="absolute -right-3 top-6 w-6 h-6 rounded-full bg-card border border-border hidden lg:flex items-center justify-center hover:bg-accent transition-colors shadow-sm"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {collapsed ? (
@@ -222,9 +233,15 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0">
+        {/* Page content sits in the site's centred column (same edges as the
+            nav, Tools and Learn) while the sidebar stays on the screen edge.
+            Padding % is relative to the full-width row; below ~1800px the
+            column would run under the sidebar, so it starts 2rem after it.
+            The layout owns the side margins, so pages drop their own (px-0)
+            on desktop and every page's text lines up with the nav. */}
+        <main className="flex-1 min-w-0 lg:pl-[max(2rem,calc((100%_-_80rem)/2_-_var(--sb)))] lg:pr-[max(2rem,calc((100%_-_80rem)/2))] lg:[&>*]:!px-0">
           {/* Mobile bar — opens the sidebar drawer */}
-          <div className="lg:hidden sticky top-20 z-20 h-14 flex items-center gap-3 px-4 bg-white border-b border-border">
+          <div className="lg:hidden sticky top-20 z-20 h-14 flex items-center gap-3 px-4 bg-card border-b border-border">
             <button
               onClick={() => setMobileOpen(true)}
               className="p-2 -ml-2 rounded-lg text-foreground hover:bg-accent transition-colors"
@@ -232,7 +249,7 @@ const GiniLayout = ({ children }: GiniLayoutProps) => {
             >
               <Menu className="w-5 h-5" />
             </button>
-            <Link to="/gini" className="text-base font-semibold text-gray-900">
+            <Link to="/gini" className="text-base font-semibold text-foreground">
               Gini
             </Link>
           </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { LegalHeader } from '../components/PageArt';
+import { FileText } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
@@ -25,11 +27,9 @@ function Terms() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">Terms of Service</h1>
-          <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
-          <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
+          <LegalHeader Icon={FileText} title="Terms of Service" entity="XTIN SERVICES LLP (LLP ID: ACR-9371)" updated="Nov 2, 2025" />
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             <Section title="1. Acceptance of Terms">
               <p>
                 By creating an account, signing in, or using our website, tools, or services, you agree to be bound by these Terms of Service. If you do not agree, do not use the Platform.
@@ -66,7 +66,7 @@ function Terms() {
 
             <Section title="6. Subscriptions and Payments">
               <p>
-                Paid plans are one‑time payments for a fixed period and do not renew automatically. Prices include applicable taxes unless stated otherwise. Refunds and cancellations are governed by our <Link to="/refund-policy" className="text-green-600 hover:text-green-700 font-medium">Refund &amp; Cancellation Policy</Link>, and delivery by our <Link to="/shipping-policy" className="text-green-600 hover:text-green-700 font-medium">Shipping &amp; Delivery Policy</Link>.
+                Paid plans are one‑time payments for a fixed period and do not renew automatically. Prices include applicable taxes unless stated otherwise. Refunds and cancellations are governed by our <Link to="/refund-policy" className="text-brand hover:text-brand font-medium">Refund &amp; Cancellation Policy</Link>, and delivery by our <Link to="/shipping-policy" className="text-brand hover:text-brand font-medium">Shipping &amp; Delivery Policy</Link>.
               </p>
             </Section>
 
@@ -102,7 +102,7 @@ function Terms() {
 
             <Section title="12. Contact">
               <p>
-                Questions? Email us at <a href={`mailto:${COMPANY.supportEmail}`} className="text-green-600 hover:text-green-700 font-medium">{COMPANY.supportEmail}</a> or call <a className="text-green-600 hover:text-green-700 font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>.
+                Questions? Email us at <a href={`mailto:${COMPANY.supportEmail}`} className="text-brand hover:text-brand font-medium">{COMPANY.supportEmail}</a> or call <a className="text-brand hover:text-brand font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>.
               </p>
             </Section>
           </div>

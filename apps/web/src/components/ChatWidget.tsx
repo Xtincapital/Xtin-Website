@@ -68,52 +68,52 @@ function ChatWidget() {
     () =>
       isDark
         ? {
-            launcherBg: '#14532d',
-            launcherText: '#f8fafc',
-            panelBg: '#111827',
-            panelBorder: '#374151',
-            panelHeaderBg: '#0b1220',
-            panelHeaderMuted: '#94a3b8',
-            panelBodyBg: '#0f172a',
-            bubbleUser: '#1d4ed8',
-            bubbleAssistant: '#1f2937',
-            bubbleText: '#e5e7eb',
-            label: '#9ca3af',
-            subtle: '#0f172a',
-            codeBg: '#020617',
-            codeText: '#cbd5e1',
-            inlineCodeBg: '#334155',
-            tableHeader: '#1e293b',
-            tableBorder: '#475569',
-            quoteBorder: '#475569',
-            link: '#60a5fa',
-            actionBg: '#0b1220',
-            actionText: '#f8fafc',
-            footerBg: '#0b1220',
+            launcherBg: '#16A34A',
+            launcherText: '#F5F5F7',
+            panelBg: '#1F1F1F',
+            panelBorder: '#373A41',
+            panelHeaderBg: '#131417',
+            panelHeaderMuted: '#A0A3AA',
+            panelBodyBg: '#1F1F1F',
+            bubbleUser: '#344C72',
+            bubbleAssistant: '#2A2A2C',
+            bubbleText: '#E4E4EA',
+            label: '#A0A3AA',
+            subtle: '#1F1F1F',
+            codeBg: '#131417',
+            codeText: '#CFD0D3',
+            inlineCodeBg: '#373A41',
+            tableHeader: '#2A2A2C',
+            tableBorder: '#555A63',
+            quoteBorder: '#555A63',
+            link: '#7C95C4',
+            actionBg: '#131417',
+            actionText: '#F5F5F7',
+            footerBg: '#131417',
           }
         : {
-            launcherBg: '#0F172A',
+            launcherBg: '#1F1F1F',
             launcherText: '#ffffff',
             panelBg: '#ffffff',
-            panelBorder: '#e5e7eb',
-            panelHeaderBg: '#f8fafc',
-            panelHeaderMuted: '#64748b',
+            panelBorder: '#E4E4EA',
+            panelHeaderBg: '#F5F5F7',
+            panelHeaderMuted: '#717680',
             panelBodyBg: '#ffffff',
-            bubbleUser: '#eef2ff',
-            bubbleAssistant: '#f1f5f9',
-            bubbleText: '#111827',
-            label: '#64748b',
-            subtle: '#f1f5f9',
-            codeBg: '#1e293b',
-            codeText: '#e2e8f0',
-            inlineCodeBg: '#e2e8f0',
-            tableHeader: '#e2e8f0',
-            tableBorder: '#cbd5e1',
-            quoteBorder: '#cbd5e1',
-            link: '#3b82f6',
-            actionBg: '#0F172A',
+            bubbleUser: '#F6F2FB',
+            bubbleAssistant: '#EEEEF1',
+            bubbleText: '#1F1F1F',
+            label: '#717680',
+            subtle: '#EEEEF1',
+            codeBg: '#2A2A2C',
+            codeText: '#E4E4EA',
+            inlineCodeBg: '#E4E4EA',
+            tableHeader: '#E4E4EA',
+            tableBorder: '#CFD0D3',
+            quoteBorder: '#CFD0D3',
+            link: '#5A77AA',
+            actionBg: '#1F1F1F',
             actionText: '#ffffff',
-            footerBg: '#fafafa',
+            footerBg: '#F5F5F7',
           },
     [isDark],
   );
@@ -296,7 +296,7 @@ function ChatWidget() {
               <div style={{ fontSize: 12, color: palette.panelHeaderMuted }}>
                 Your smart financial friend
                 {messages.length > 1 && (
-                  <span style={{ marginLeft: 8, color: '#10b981', fontWeight: 500 }}>
+                  <span style={{ marginLeft: 8, color: '#16A34A', fontWeight: 500 }}>
                     • {messages.length - 1} messages
                   </span>
                 )}
@@ -363,7 +363,7 @@ function ChatWidget() {
                             border: `1px solid ${palette.tableBorder}`,
                             padding: '8px', 
                             textAlign: 'left',
-                            fontWeight: 600,
+                            fontWeight: 700,
                           }} {...props} />
                         ),
                         td: ({node, ...props}) => (
@@ -377,10 +377,10 @@ function ChatWidget() {
                           <h1 style={{ fontSize: '18px', fontWeight: 700, margin: '16px 0 8px 0', color: palette.bubbleText }} {...props} />
                         ),
                         h2: ({node, ...props}) => (
-                          <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '14px 0 6px 0', color: palette.bubbleText }} {...props} />
+                          <h2 style={{ fontSize: '16px', fontWeight: 700, margin: '14px 0 6px 0', color: palette.bubbleText }} {...props} />
                         ),
                         h3: ({node, ...props}) => (
-                          <h3 style={{ fontSize: '14px', fontWeight: 600, margin: '12px 0 6px 0', color: palette.bubbleText }} {...props} />
+                          <h3 style={{ fontSize: '14px', fontWeight: 700, margin: '12px 0 6px 0', color: palette.bubbleText }} {...props} />
                         ),
                         // Style lists
                         ul: ({node, ...props}) => (
@@ -449,7 +449,7 @@ function ChatWidget() {
               onKeyDown={onKey}
               placeholder="Ask about markets, tools, or our platform..."
               rows={2}
-              style={{ width: '100%', borderRadius: 8, border: `1px solid ${palette.panelBorder}`, padding: 8, resize: 'none', fontFamily: 'system-ui, -apple-system, sans-serif', background: palette.panelBg, color: palette.bubbleText }}
+              style={{ width: '100%', borderRadius: 8, border: `1px solid ${palette.panelBorder}`, padding: 8, resize: 'none', fontFamily: 'inherit', background: palette.panelBg, color: palette.bubbleText }}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
               <button onClick={sendMessage} disabled={loading} style={{ background: palette.actionBg, color: palette.actionText, border: 'none', borderRadius: 8, padding: '8px 12px', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.6 : 1 }}>

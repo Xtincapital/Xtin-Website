@@ -34,30 +34,17 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { CalendarClock } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JDonut } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
-import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 
-const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx/Monthly.tsx's
 // own local copy (see those files' header comments for why only this
@@ -126,12 +113,12 @@ const Daily = () => {
     {
       label: "Daily P&L",
       info: "Your total profit or loss for the day, after fees.",
-      value: formatCurrency(metrics.totalPnL),
-      className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      value: signedMoney(formatCurrency, metrics.totalPnL),
+      className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showDay("All trades", dailyTrades),
     },
     { label: "Wins / Losses", info: "How many of the day's trades made money, and how many lost money. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showDay("Winning trades", dayWins) },
-    { label: "Win Rate", info: "The percentage of the day's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showDay("Winning trades", dayWins) },
+    { label: "Win Rate", info: "The percentage of the day's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-brand", onClick: showDay("Winning trades", dayWins) },
   ];
 
   return (
@@ -144,7 +131,7 @@ const Daily = () => {
           className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
         >
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+            <h1 className="xt-title mb-2 flex items-center gap-3">
               Daily View
               <InfoTip title="Daily view" widthClass="w-80">
                 <p>Pick a date to review that single trading day: how many trades, how much you made or lost, and which strategies worked.</p>
@@ -182,7 +169,7 @@ const Daily = () => {
                   </InfoTip>
                 </p>
                 <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
-                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.className ?? "text-foreground"}`}>{card.value}</p>
                 </button>
               </CardContent>
             </Card>
@@ -197,7 +184,7 @@ const Daily = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Type Distribution
                 <InfoTip title="Type distribution">
                   <p>How the day's trades split between trading styles (scalping, intraday, swing, ...). Click a slice to list those trades.</p>
@@ -208,34 +195,22 @@ const Daily = () => {
               {typeDistribution.length === 0 ? (
                 <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades this day</div>
               ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={typeDistribution} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius="80%" stroke="none" cursor="pointer" onClick={(d) => showDay(`${d.name} trades`, dailyTrades.filter((t) => t.type === d.name))()}>
-                        {typeDistribution.map((entry, index) => (
-                          <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
-                      />
-                      <Legend wrapperStyle={{ fontSize: 12 }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+                <JDonut
+                  data={typeDistribution.map((d) => ({ label: d.name, value: d.value }))}
+                  centerLabel="trades"
+                  ariaLabel="Type distribution"
+                  onSelect={(i) => {
+                    const name = typeDistribution[i].name;
+                    showDay(`${name} trades`, dailyTrades.filter((t) => t.type === name))();
+                  }}
+                />
               )}
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Performance
                 <InfoTip title="Strategy performance">
                   <p>Profit or loss per strategy for this day. Trades without a strategy are grouped as &quot;Unspecified&quot;. Click a bar to list its trades.</p>
@@ -246,45 +221,16 @@ const Daily = () => {
               {strategyPnL.length === 0 ? (
                 <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">No trades this day</div>
               ) : (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={strategyPnL} layout="vertical" margin={{ top: 5, right: 20, left: 0, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                      <XAxis
-                        type="number"
-                        tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                        axisLine={{ stroke: "hsl(var(--border))" }}
-                        tickLine={false}
-                        tickFormatter={(v) => formatCurrency(v, { compact: true })}
-                      />
-                      <YAxis
-                        type="category"
-                        dataKey="strategy"
-                        tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                        axisLine={false}
-                        tickLine={false}
-                        width={100}
-                      />
-                      <Tooltip
-                        formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
-                      />
-                      <Bar dataKey="pnl" radius={[0, 4, 4, 0]} cursor="pointer" onClick={(d) => { const st = (d as unknown as { payload: { strategy: string } }).payload.strategy; showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))(); }}>
-                        {strategyPnL.map((entry) => (
-                          <Cell
-                            key={entry.strategy}
-                            fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"}
-                          />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <JBarChart
+                  data={strategyPnL.map((d) => ({ label: d.strategy, value: d.pnl }))}
+                  formatAxis={(v) => formatCurrency(v, { compact: true })}
+                  formatValue={(v) => signedMoney(formatCurrency, v)}
+                  ariaLabel="Strategy performance for this day"
+                  onBarClick={(i) => {
+                    const st = strategyPnL[i].strategy;
+                    showDay(`${st} trades`, dailyTrades.filter((t) => (t.strategy || "Unspecified") === st))();
+                  }}
+                />
               )}
             </CardContent>
           </Card>

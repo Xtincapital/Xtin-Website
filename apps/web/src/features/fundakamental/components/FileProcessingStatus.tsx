@@ -37,9 +37,9 @@ const FileProcessingStatus = ({
       <div className="mb-6">
         <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
           {isProcessing ? (
-            <Loader2 className="w-4 h-4 animate-spin text-primary" />
+            <Loader2 className="w-4 h-4 animate-spin text-brand" />
           ) : (
-            <CheckCircle className="w-4 h-4 text-success" />
+            <CheckCircle className="w-4 h-4 text-brand" />
           )}
           Processing: {fileName}
         </h3>
@@ -81,9 +81,9 @@ const FileProcessingStatus = ({
             {/* Status Icon */}
             <div className="flex-shrink-0 mt-1">
               {step.status === "completed" ? (
-                <CheckCircle className="w-4 h-4 text-success" />
+                <CheckCircle className="w-4 h-4 text-brand" />
               ) : step.status === "processing" ? (
-                <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                <Loader2 className="w-4 h-4 text-brand animate-spin" />
               ) : (
                 <Clock className="w-4 h-4 text-muted-foreground/50" />
               )}
@@ -95,9 +95,9 @@ const FileProcessingStatus = ({
                 <p
                   className={`text-sm font-medium ${
                     step.status === "completed"
-                      ? "text-success"
+                      ? "text-brand"
                       : step.status === "processing"
-                      ? "text-primary"
+                      ? "text-brand"
                       : "text-muted-foreground"
                   }`}
                 >

@@ -119,7 +119,7 @@ function SliderField({
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">{label}</span>
-        <span className="text-sm font-semibold text-primary">{displayValue}</span>
+        <span className="text-sm font-semibold text-brand">{displayValue}</span>
       </div>
       <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => onChange(v[0])} />
     </div>
@@ -137,7 +137,7 @@ function CalculateButton({ onClick }: { onClick: () => void }) {
 function ResultTile({ label, value, className }: { label: string; value: string; className?: string }) {
   return (
     <div className="rounded-lg border p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="xt-label">{label}</p>
       <p className={className ? `mt-1 text-xl font-bold ${className}` : "mt-1 text-xl font-bold"}>{value}</p>
     </div>
   );
@@ -222,13 +222,13 @@ function EMICalculator() {
         {result ? (
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-primary" />
+              <ResultTile label="Monthly EMI" value={formatCurrency(result.emi)} className="text-brand" />
               <ResultTile label="Total Interest" value={formatCurrency(result.totalInterest)} />
               <ResultTile label="Total Amount" value={formatCurrency(result.totalAmount)} />
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Principal vs Interest</h4>
+              <h4 className="mb-2 text-base font-semibold text-muted-foreground">Principal vs Interest</h4>
               <BreakdownPie
                 config={chartConfig}
                 data={[
@@ -311,12 +311,12 @@ function SIPCalculator() {
           <>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <ResultTile label="Total Invested" value={formatCurrency(result.invested)} />
-              <ResultTile label="Expected Returns" value={formatCurrency(result.returns)} className="text-success" />
-              <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-primary" />
+              <ResultTile label="Expected Returns" value={formatCurrency(result.returns)} className="text-brand" />
+              <ResultTile label="Maturity Value" value={formatCurrency(result.maturityValue)} className="text-brand" />
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Investment Growth</h4>
+              <h4 className="mb-2 text-base font-semibold text-muted-foreground">Investment Growth</h4>
               <BreakdownPie
                 config={chartConfig}
                 data={[
@@ -393,7 +393,7 @@ function InflationCalculator() {
 
         {result ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-primary" />
+            <ResultTile label="Future Value Needed" value={formatCurrency(result.futureValue)} className="text-brand" />
             <ResultTile label="Purchasing Power Loss" value={formatCurrency(result.loss)} className="text-destructive" />
             <ResultTile label="Purchasing Power Retained" value={formatPercent(result.retained)} />
           </div>
@@ -412,7 +412,7 @@ export default function Calculators() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Financial Calculators</h1>
+          <h1 className="xt-title mb-2">Financial Calculators</h1>
           <p className="text-sm text-muted-foreground">Quick calculation tools for EMI, SIP, and inflation</p>
         </div>
 

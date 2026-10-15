@@ -48,12 +48,12 @@ import {
 /* ---------- small building blocks ---------- */
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</h3>;
+  return <h3 className="mb-3 text-base font-semibold uppercase tracking-[0.08em] text-muted-foreground">{children}</h3>;
 }
 
 function FieldLabel({ htmlFor, required, children }: { htmlFor?: string; required?: boolean; children: React.ReactNode }) {
   return (
-    <Label htmlFor={htmlFor} className="text-[13px] font-medium text-foreground">
+    <Label htmlFor={htmlFor} className="text-sm font-medium text-foreground">
       {children}
       {required && <span className="ml-0.5 text-red-500" aria-hidden="true">*</span>}
     </Label>
@@ -103,7 +103,7 @@ function ChoiceChips({
               className={cn(
                 "inline-flex h-8 items-center rounded-md border px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 selected
-                  ? "border-primary bg-primary/10 font-medium text-primary"
+                  ? "border-primary bg-primary/10 font-medium text-brand"
                   : "border-input bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
               )}
             >
@@ -127,7 +127,7 @@ function MoneyInput({
 function Stat({ label, children, hint }: { label: string; children: React.ReactNode; hint?: React.ReactNode }) {
   return (
     <div className="min-w-0 space-y-1 px-4 py-3">
-      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
       <div className="truncate text-base font-semibold tabular-nums">{children}</div>
       {hint}
     </div>
@@ -319,7 +319,7 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
       <DialogContent className="flex max-h-[92vh] max-w-3xl flex-col gap-0 overflow-hidden p-0">
         <DialogHeader className="space-y-1 border-b px-6 pb-4 pt-5 text-left">
           <DialogTitle className="text-lg font-semibold tracking-tight">{title}</DialogTitle>
-          <DialogDescription className="text-[13px]">
+          <DialogDescription className="text-sm">
             Fields marked <span className="text-red-500">*</span> are required. Everything else is optional.
           </DialogDescription>
         </DialogHeader>
@@ -431,7 +431,7 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
                         className={cn(
                           "inline-flex h-10 items-center justify-center gap-1.5 rounded-md border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           !selected && "border-input bg-background text-muted-foreground hover:text-foreground",
-                          selected && side === "buy" && "border-emerald-600 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
+                          selected && side === "buy" && "border-brand bg-brand-soft text-brand dark:bg-brand-fill/40 dark:text-brand",
                           selected && side === "sell" && "border-red-600 bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-400"
                         )}
                       >
@@ -499,7 +499,7 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
                   {pnlValue == null ? (
                     <span className="text-sm font-normal text-muted-foreground">Open position</span>
                   ) : (
-                    <span className={pnlValue >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}>
+                    <span className={pnlValue >= 0 ? "text-brand dark:text-brand" : "text-red-600 dark:text-red-400"}>
                       {pnlValue > 0 ? "+" : ""}
                       {formatMoney(pnlValue, form.currency)}
                     </span>
@@ -567,9 +567,9 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
                         aria-label={rest.join(" ")}
                         onClick={() => setField("emotion", e.value)}
                         className={cn(
-                          "flex flex-col items-center gap-1 rounded-md border px-1 py-2 text-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          "flex flex-col items-center gap-1 rounded-md border px-1 py-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           selected
-                            ? "border-primary bg-primary/10 font-medium text-primary"
+                            ? "border-primary bg-primary/10 font-medium text-brand"
                             : "border-input bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
                         )}
                       >
@@ -701,7 +701,7 @@ export default function TradeFormDialog({ request, onClose, strategyOptions, onS
             ) : missing.length > 0 ? (
               <>Still needed: {missing.join(", ")}.</>
             ) : (
-              <span className="text-emerald-600 dark:text-emerald-400">Ready to save.</span>
+              <span className="text-brand dark:text-brand">Ready to save.</span>
             )}
           </p>
           <div className="grid grid-cols-2 gap-2 sm:flex">

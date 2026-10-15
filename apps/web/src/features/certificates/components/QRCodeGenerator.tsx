@@ -74,7 +74,7 @@ const QRCodeGenerator = ({
           size={size}
           includeMargin={includeMargin}
           level="M" // Medium error correction — balances density and reliability
-          fgColor="#0F172A"
+          fgColor="#1F1F1F"
           bgColor="#FFFFFF"
         />
       </div>
@@ -90,7 +90,7 @@ const QRCodeGenerator = ({
       {/* Download Button */}
       <button
         onClick={handleDownload}
-        className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600"
+        className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 brand-on-dark"
       >
         <svg
           className="h-4 w-4"

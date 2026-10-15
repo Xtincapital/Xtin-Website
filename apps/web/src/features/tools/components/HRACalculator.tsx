@@ -70,11 +70,11 @@ const HRACalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             HRA Calculator
           </h1>
           <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -193,7 +193,7 @@ const HRACalculator = () => {
                       }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-l-md ${
                         cityType === "metro"
-                          ? "bg-green-600 text-white"
+                          ? "bg-brand-fill text-white"
                           : "bg-gray-200 text-gray-700"
                       }`}
                     >
@@ -205,7 +205,7 @@ const HRACalculator = () => {
                       }}
                       className={`flex-1 px-4 py-2 text-sm font-medium rounded-r-md ${
                         cityType === "non-metro"
-                          ? "bg-green-600 text-white"
+                          ? "bg-brand-fill text-white"
                           : "bg-gray-200 text-gray-700"
                       }`}
                     >
@@ -216,7 +216,7 @@ const HRACalculator = () => {
               </div>
               <button
                 onClick={() => calculateHRA()}
-                className="w-full mt-8 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full mt-8 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate
               </button>
@@ -224,17 +224,17 @@ const HRACalculator = () => {
 
             {/* Right Side: Results */}
             <div className="bg-white shadow-md rounded-xl p-6 flex flex-col justify-center">
-              <div className="mt-8 bg-green-50 p-6 rounded-lg">
+              <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                 <div className="flex justify-between items-center">
                   <p className="text-lg font-medium">Exempted HRA</p>
-                  <p className="text-2xl font-bold text-green-700">
+                  <p className="text-2xl font-bold text-brand">
                     ₹{formatNumber(exemptedHRA)}
                   </p>
                 </div>
                 <hr className="my-4" />
                 <div className="flex justify-between items-center">
                   <p className="text-lg font-medium">Taxable HRA</p>
-                  <p className="text-2xl font-bold text-green-700">
+                  <p className="text-2xl font-bold text-brand">
                     ₹{formatNumber(taxableHRA)}
                   </p>
                 </div>

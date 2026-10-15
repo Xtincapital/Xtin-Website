@@ -11,7 +11,7 @@ const CertificateQRModal = ({ certificateId, onClose }) => {
   if (!certificateId) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 brand-on-dark">
       <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900">
         {/* Close button */}
         <button
@@ -25,7 +25,7 @@ const CertificateQRModal = ({ certificateId, onClose }) => {
 
         {/* Header */}
         <div className="mb-6 text-center">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">
             Certificate QR Code
           </h3>
           <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">

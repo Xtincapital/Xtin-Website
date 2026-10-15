@@ -202,17 +202,17 @@ const TradingBasicsOverview = () => {
 
   const colorClasses = {
     amber: {
-      bg: "bg-gradient-to-br from-amber-500 to-orange-600",
+      bg: "bg-brand-fill",
       light: "bg-amber-50 border-amber-200",
       text: "text-amber-600"
     },
     orange: {
-      bg: "bg-gradient-to-br from-orange-500 to-red-500",
+      bg: "bg-brand-fill",
       light: "bg-orange-50 border-orange-200",
       text: "text-orange-600"
     },
     yellow: {
-      bg: "bg-gradient-to-br from-yellow-500 to-amber-500",
+      bg: "bg-brand-fill",
       light: "bg-yellow-50 border-yellow-200",
       text: "text-yellow-600"
     },
@@ -222,7 +222,7 @@ const TradingBasicsOverview = () => {
       text: "text-red-600"
     },
     purple: {
-      bg: "bg-gradient-to-br from-purple-500 to-violet-600",
+      bg: "bg-brand-fill",
       light: "bg-purple-50 border-purple-200",
       text: "text-purple-600"
     },
@@ -232,7 +232,7 @@ const TradingBasicsOverview = () => {
       text: "text-rose-600"
     },
     indigo: {
-      bg: "bg-gradient-to-br from-indigo-500 to-blue-600",
+      bg: "bg-brand-fill",
       light: "bg-indigo-50 border-indigo-200",
       text: "text-indigo-600"
     }
@@ -272,7 +272,7 @@ const TradingBasicsOverview = () => {
           </button>
 
           {/* Module Header */}
-          <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-3xl p-8 md:p-10 mb-10 text-white relative overflow-hidden">
+          <div className="rounded-3xl p-8 md:p-10 mb-10 text-white relative overflow-hidden bg-brand-fill">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -294,7 +294,7 @@ const TradingBasicsOverview = () => {
                 </span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">Trading Basics</h1>
+              <h1 className="text-4xl md:text-5xl font-display font-bold mb-3 tracking-[-0.025em]">Trading Basics</h1>
               <p className="text-white/90 text-lg mb-6 max-w-2xl">
                 Understand trading before you risk real money. This module focuses on awareness, 
                 not strategies — so you can make an informed decision about whether trading is right for you.
@@ -324,7 +324,7 @@ const TradingBasicsOverview = () => {
                 <Icons.Warning className="w-6 h-6 text-red-600" />
               </div>
               <div>
-                <h3 className="font-bold text-red-900 mb-2">Important: Read Before Starting</h3>
+                <h3 className="font-semibold text-red-900 mb-2">Important: Read Before Starting</h3>
                 <p className="text-red-800 mb-3">
                   This module is about <strong>awareness</strong>, not teaching you how to trade. 
                   SEBI data shows 89% of F&O traders in India lost money in 2022-23, with average losses of Rs. 1.1 lakh.
@@ -339,7 +339,7 @@ const TradingBasicsOverview = () => {
 
           {/* What You'll Learn */}
           <div className="bg-white rounded-2xl p-6 md:p-8 mb-10 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
               <Icons.Target className="w-6 h-6 text-amber-600" />
               <span>What You'll Learn</span>
             </h2>
@@ -358,14 +358,14 @@ const TradingBasicsOverview = () => {
           {/* Module Progress */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xl font-bold text-gray-900">Module Progress</h2>
+              <h2 className="text-xl font-semibold text-gray-900">Module Progress</h2>
               <span className="text-sm text-gray-500">
                 {availableLessons} of {lessons.length} lessons available
               </span>
             </div>
             <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500"
+                className="h-full transition-all duration-500 bg-brand-fill"
                 style={{ width: `${(availableLessons / lessons.length) * 100}%` }}
               />
             </div>
@@ -447,79 +447,79 @@ const TradingBasicsOverview = () => {
 
           {/* Visual: Trading vs Investing */}
           <div className="bg-gradient-to-br from-gray-50 to-amber-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Trading vs Investing: Know the Difference</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Trading vs Investing: Know the Difference</h3>
             <svg className="w-full max-w-2xl mx-auto" viewBox="0 0 600 200" fill="none">
               {/* Investing Side */}
               <g transform="translate(30, 20)">
-                <rect x="0" y="0" width="240" height="160" rx="12" fill="#ecfdf5" stroke="#22c55e" strokeWidth="2"/>
-                <text x="120" y="30" textAnchor="middle" fill="#166534" fontSize="14" fontWeight="700">INVESTING</text>
+                <rect x="0" y="0" width="240" height="160" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="120" y="30" textAnchor="middle" fill="#16A34A" fontSize="14" fontWeight="700">INVESTING</text>
                 
                 {/* Long steady line */}
-                <path d="M30 120 Q70 110 110 100 Q150 90 190 70 L220 60" stroke="#22c55e" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                <circle cx="30" cy="120" r="5" fill="#22c55e"/>
-                <circle cx="220" cy="60" r="7" fill="#22c55e"/>
+                <path d="M30 120 Q70 110 110 100 Q150 90 190 70 L220 60" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                <circle cx="30" cy="120" r="5" fill="#16A34A"/>
+                <circle cx="220" cy="60" r="7" fill="#16A34A"/>
                 
-                <text x="120" y="145" textAnchor="middle" fill="#15803d" fontSize="10">Years to Decades</text>
-                <text x="120" y="90" textAnchor="middle" fill="#166534" fontSize="9">Slow & Steady Growth</text>
+                <text x="120" y="145" textAnchor="middle" fill="#16A34A" fontSize="10">Years to Decades</text>
+                <text x="120" y="90" textAnchor="middle" fill="#16A34A" fontSize="9">Slow & Steady Growth</text>
               </g>
 
               {/* VS Circle */}
               <g transform="translate(280, 75)">
-                <circle cx="20" cy="25" r="22" fill="#f3f4f6" stroke="#d1d5db" strokeWidth="2"/>
-                <text x="20" y="31" textAnchor="middle" fill="#374151" fontSize="12" fontWeight="700">VS</text>
+                <circle cx="20" cy="25" r="22" fill="#EEEEF1" stroke="#CFD0D3" strokeWidth="2"/>
+                <text x="20" y="31" textAnchor="middle" fill="#373A41" fontSize="12" fontWeight="700">VS</text>
               </g>
 
               {/* Trading Side */}
               <g transform="translate(330, 20)">
-                <rect x="0" y="0" width="240" height="160" rx="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-                <text x="120" y="30" textAnchor="middle" fill="#92400e" fontSize="14" fontWeight="700">TRADING</text>
+                <rect x="0" y="0" width="240" height="160" rx="12" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2"/>
+                <text x="120" y="30" textAnchor="middle" fill="#654B26" fontSize="14" fontWeight="700">TRADING</text>
                 
                 {/* Volatile zigzag line */}
-                <path d="M20 90 L50 60 L80 100 L110 50 L140 85 L170 40 L200 70 L220 55" stroke="#f59e0b" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="50" cy="60" r="4" fill="#22c55e"/>
-                <circle cx="110" cy="50" r="4" fill="#ef4444"/>
-                <circle cx="170" cy="40" r="4" fill="#22c55e"/>
+                <path d="M20 90 L50 60 L80 100 L110 50 L140 85 L170 40 L200 70 L220 55" stroke="#B8923F" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="50" cy="60" r="4" fill="#16A34A"/>
+                <circle cx="110" cy="50" r="4" fill="#E04848"/>
+                <circle cx="170" cy="40" r="4" fill="#16A34A"/>
                 
-                <text x="120" y="145" textAnchor="middle" fill="#b45309" fontSize="10">Minutes to Weeks</text>
-                <text x="120" y="120" textAnchor="middle" fill="#92400e" fontSize="9">Frequent Buy/Sell Decisions</text>
+                <text x="120" y="145" textAnchor="middle" fill="#7C5D2B" fontSize="10">Minutes to Weeks</text>
+                <text x="120" y="120" textAnchor="middle" fill="#654B26" fontSize="9">Frequent Buy/Sell Decisions</text>
               </g>
             </svg>
           </div>
 
           {/* Visual: Risk Spectrum */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Where Trading Sits on the Risk Spectrum</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Where Trading Sits on the Risk Spectrum</h3>
             <svg className="w-full max-w-2xl mx-auto" viewBox="0 0 600 120" fill="none">
               {/* Gradient Bar */}
               <defs>
                 <linearGradient id="riskGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#22c55e"/>
-                  <stop offset="40%" stopColor="#eab308"/>
-                  <stop offset="70%" stopColor="#f97316"/>
-                  <stop offset="100%" stopColor="#ef4444"/>
+                  <stop offset="0%" stopColor="#16A34A"/>
+                  <stop offset="40%" stopColor="#B8923F"/>
+                  <stop offset="70%" stopColor="#D2754C"/>
+                  <stop offset="100%" stopColor="#E04848"/>
                 </linearGradient>
               </defs>
               <rect x="50" y="30" width="500" height="20" rx="10" fill="url(#riskGradient)"/>
               
               {/* Labels */}
-              <text x="90" y="70" textAnchor="middle" fill="#166534" fontSize="10" fontWeight="600">Savings</text>
-              <text x="90" y="85" textAnchor="middle" fill="#166534" fontSize="8">Low Risk</text>
+              <text x="90" y="70" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Savings</text>
+              <text x="90" y="85" textAnchor="middle" fill="#16A34A" fontSize="8">Low Risk</text>
               
-              <text x="220" y="70" textAnchor="middle" fill="#ca8a04" fontSize="10" fontWeight="600">Investing</text>
-              <text x="220" y="85" textAnchor="middle" fill="#ca8a04" fontSize="8">Moderate</text>
+              <text x="220" y="70" textAnchor="middle" fill="#9A7634" fontSize="10" fontWeight="600">Investing</text>
+              <text x="220" y="85" textAnchor="middle" fill="#9A7634" fontSize="8">Moderate</text>
               
-              <text x="380" y="70" textAnchor="middle" fill="#ea580c" fontSize="10" fontWeight="600">Trading</text>
-              <text x="380" y="85" textAnchor="middle" fill="#ea580c" fontSize="8">Higher Risk</text>
+              <text x="380" y="70" textAnchor="middle" fill="#C0623B" fontSize="10" fontWeight="600">Trading</text>
+              <text x="380" y="85" textAnchor="middle" fill="#C0623B" fontSize="8">Higher Risk</text>
               
-              <text x="510" y="70" textAnchor="middle" fill="#dc2626" fontSize="10" fontWeight="600">Speculation</text>
-              <text x="510" y="85" textAnchor="middle" fill="#dc2626" fontSize="8">Highest Risk</text>
+              <text x="510" y="70" textAnchor="middle" fill="#C7363B" fontSize="10" fontWeight="600">Speculation</text>
+              <text x="510" y="85" textAnchor="middle" fill="#C7363B" fontSize="8">Highest Risk</text>
               
               {/* Arrow pointing to Trading */}
-              <polygon points="380,25 375,15 385,15" fill="#64748b"/>
-              <text x="380" y="10" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="600">This Module</text>
+              <polygon points="380,25 375,15 385,15" fill="#717680"/>
+              <text x="380" y="10" textAnchor="middle" fill="#717680" fontSize="9" fontWeight="600">This Module</text>
               
               {/* Note */}
-              <text x="300" y="110" textAnchor="middle" fill="#64748b" fontSize="9" fontStyle="italic">
+              <text x="300" y="110" textAnchor="middle" fill="#717680" fontSize="9" fontStyle="italic">
                 Higher potential reward = Higher potential loss
               </text>
             </svg>
@@ -527,7 +527,7 @@ const TradingBasicsOverview = () => {
 
           {/* Prerequisites */}
           <div className="bg-amber-50 rounded-2xl p-6 border border-amber-200">
-            <h3 className="font-bold text-amber-900 mb-3">Prerequisites</h3>
+            <h3 className="font-semibold text-amber-900 mb-3">Prerequisites</h3>
             <p className="text-amber-800 mb-3">
               Before diving into trading concepts, make sure you've completed:
             </p>

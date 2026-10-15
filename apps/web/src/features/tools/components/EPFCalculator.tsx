@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors, chartXAxis } from "@/components/charts/chartTheme";
 
 const EPFCalculator = () => {
   const [basicMonthlySalary, setBasicMonthlySalary] = useState("30,000");
@@ -82,11 +83,11 @@ const EPFCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-green-600">
+          <h1 className="xt-title text-center mb-4">
             EPF Calculator
           </h1>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -168,7 +169,7 @@ const EPFCalculator = () => {
               </div>
               <button
                 onClick={calculateEPF}
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white font-bold py-3 rounded-lg transition"
               >
                 Calculate
               </button>
@@ -176,14 +177,14 @@ const EPFCalculator = () => {
             <div className="bg-white shadow-lg rounded-xl p-9">
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData} margin={CHART_MARGIN}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="year" />
+                  <CartesianGrid {...chartGrid} />
+                  <XAxis dataKey="year" {...chartXAxis} />
                   <YAxis {...Y_AXIS_PROPS} />
-                  <Tooltip formatter={(value) => formatCurrency(value)} />
+                  <Tooltip {...chartTooltip} formatter={(value) => formatCurrency(value)} />
                   <Line
                     type="monotone"
                     dataKey="value"
-                    stroke="#10B981"
+                    stroke={chartColors.positive}
                     strokeWidth={3}
                     dot={{ r: 5 }}
                   />
@@ -201,9 +202,9 @@ const EPFCalculator = () => {
                 <hr className="my-4" />
                 <div className="flex justify-between text-xl">
                   <span className="font-semibold text-gray-700">Maturity Value</span>
-                  <span className="font-extrabold text-green-600">{formatCurrency(maturityValue)}</span>
+                  <span className="font-extrabold text-brand">{formatCurrency(maturityValue)}</span>
                 </div>
-                <div className="text-center text-base text-black-800 bg-green-100 p-4 rounded-lg mt-4">
+                <div className="text-center text-base text-black-800 bg-brand-soft p-4 rounded-lg mt-4">
                   <p>
                     Contributions of {formatCurrency((parseFloat(snap.basicMonthlySalary.replace(/,/g, "")) * Number(snap.employeeContribution)) / 100)} (employee) + {formatCurrency((parseFloat(snap.basicMonthlySalary.replace(/,/g, "")) * Number(snap.employerContribution)) / 100)} (employer) per month for {snap.numberOfYears} years at {snap.epfInterestRate}% p.a.
                   </p>

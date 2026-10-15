@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const GratuityCalculator = () => {
   const [monthlySalary, setMonthlySalary] = useState("50,000");
@@ -56,17 +57,17 @@ const GratuityCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             Gratuity Calculator
           </h1>
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
               What is Gratuity?
             </button>
@@ -82,7 +83,7 @@ const GratuityCalculator = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="gratuity-last-drawn-monthly-salary" className="block text-sm font-medium text-gray-700 mb-1">
                   Last Drawn Monthly Salary (Basic + DA)
@@ -123,16 +124,16 @@ const GratuityCalculator = () => {
               )}
               <button
                 onClick={calculateGratuity}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate Gratuity
               </button>
 
               {gratuity && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg text-center">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg text-center">
                   <p className="text-xl font-medium">
                     Gratuity Amount:{" "}
-                    <span className="text-green-700 text-2xl">
+                    <span className="text-brand text-2xl">
                       ₹{gratuity}
                     </span>
                   </p>
@@ -141,12 +142,12 @@ const GratuityCalculator = () => {
             </div>
             <div className="bg-white shadow-md rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">Growth Over Time</h2>
+                <h2 className="xt-section">Growth Over Time</h2>
               </div>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={450}>
                     <LineChart data={chartData} margin={CHART_MARGIN}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="year" {...X_AXIS_PROPS}
                         label={{
@@ -156,11 +157,11 @@ const GratuityCalculator = () => {
                         }}
                       />
                       <YAxis {...Y_AXIS_PROPS} />
-                      <Tooltip />
+                      <Tooltip {...chartTooltip} />
                       <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#16a34a"
+                        stroke={chartColors.positive}
                         strokeWidth={3}
                         dot
                       />

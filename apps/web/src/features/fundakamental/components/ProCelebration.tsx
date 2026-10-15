@@ -13,12 +13,12 @@ export default function ProCelebration() {
   if (!celebrating) return null;
 
   return (
-    <div className="fixed inset-0 z-[10090] flex items-center justify-center bg-gray-900/95 backdrop-blur-sm animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-[10090] flex items-center justify-center bg-gray-900/95 backdrop-blur-sm animate-in fade-in duration-300 brand-on-dark">
       <div className="text-center text-white px-6">
-        <div className="mx-auto mb-5 w-20 h-20 rounded-3xl bg-primary/20 border border-primary/40 flex items-center justify-center shadow-[0_0_60px_rgba(22,163,74,0.4)]">
-          <Sparkles className="w-9 h-9 text-primary" />
+        <div className="mx-auto mb-5 w-20 h-20 rounded-3xl bg-primary/20 border border-primary/40 flex items-center justify-center shadow-[0_0_60px_rgba(22, 163, 74,0.4)]">
+          <Sparkles className="w-9 h-9 text-brand" />
         </div>
-        <h2 className="text-3xl font-bold mb-2">Welcome to Pro</h2>
+        <h2 className="text-3xl md:text-4xl font-display font-bold mb-2 tracking-[-0.025em]">Welcome to Pro</h2>
         <p className="text-white/70">
           Every tool is unlocked. Time to research like an institution.
         </p>

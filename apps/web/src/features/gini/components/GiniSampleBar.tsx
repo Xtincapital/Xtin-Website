@@ -30,7 +30,7 @@ const GiniSampleBar = () => {
   if (active) return bar("banner");
 
   return (
-    <div className="flex flex-wrap justify-end gap-2 px-4 py-2 bg-white border-b border-gray-200">
+    <div className="flex flex-wrap justify-end gap-2 px-4 py-2 bg-card border-b border-border">
       <GiniDataControls />
       {bar("button")}
     </div>

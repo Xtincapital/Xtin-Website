@@ -66,7 +66,7 @@ export default function TradeDrilldown({ request, onClose }: { request: Drilldow
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 truncate text-sm font-semibold text-foreground">
                         {trade.asset}
-                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-1.5 py-0 text-[10px] uppercase">
+                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-1.5 py-0 text-xs uppercase">
                           {trade.buy_sell || "buy"}
                         </Badge>
                       </div>
@@ -81,7 +81,7 @@ export default function TradeDrilldown({ request, onClose }: { request: Drilldow
                       </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-2">
-                      <span className={cn("flex items-center gap-1 text-sm font-semibold tabular-nums", trade.pnl == null ? "text-muted-foreground" : positive ? "text-success" : "text-destructive")}>
+                      <span className={cn("flex items-center gap-1 text-sm font-semibold tabular-nums", trade.pnl == null ? "text-muted-foreground" : positive ? "text-brand" : "text-destructive")}>
                         {trade.pnl == null ? null : positive ? <TrendingUp className="h-3.5 w-3.5" /> : <TrendingDown className="h-3.5 w-3.5" />}
                         {trade.pnl == null ? "Open" : formatInr(trade.pnl, { maxDecimals: 2 })}
                       </span>
@@ -106,8 +106,8 @@ export default function TradeDrilldown({ request, onClose }: { request: Drilldow
 function Summary({ label, value, tone }: { label: string; value: string; tone?: "good" | "bad" }) {
   return (
     <div className="min-w-0">
-      <p className="text-[11px] text-muted-foreground">{label}</p>
-      <p className={cn("truncate text-sm font-bold tabular-nums", tone === "good" && "text-success", tone === "bad" && "text-destructive")}>{value}</p>
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className={cn("truncate text-sm font-bold tabular-nums", tone === "good" && "text-brand", tone === "bad" && "text-destructive")}>{value}</p>
     </div>
   );
 }

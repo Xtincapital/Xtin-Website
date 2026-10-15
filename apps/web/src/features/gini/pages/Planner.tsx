@@ -67,6 +67,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { chartGrid, chartTick, chartTooltip } from "@/components/charts/chartTheme";
 import { ArrowRight, Target, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -216,7 +217,7 @@ export default function Planner() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Goal Planner &amp; Projections</h1>
+          <h1 className="xt-title mb-2">Goal Planner &amp; Projections</h1>
           <p className="text-muted-foreground">Project your wealth and test scenarios</p>
         </motion.div>
 
@@ -224,8 +225,8 @@ export default function Planner() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-primary" />
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-brand" />
                 Planning Inputs
               </CardTitle>
             </CardHeader>
@@ -288,28 +289,28 @@ export default function Planner() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
             <Card className="mb-6">
               <CardHeader>
-                <CardTitle className="text-base">Wealth Projection</CardTitle>
+                <CardTitle className="text-lg">Wealth Projection</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    <p className="xt-label">
                       Projected Corpus at Retirement
                     </p>
-                    <p className="mt-1 text-xl font-bold text-success">{formatCurrency(base.projectedCorpus)}</p>
+                    <p className="mt-1 xt-metric text-brand">{formatCurrency(base.projectedCorpus)}</p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Total Amount Invested</p>
-                    <p className="mt-1 text-xl font-bold text-foreground">{formatCurrency(base.totalInvested)}</p>
+                    <p className="xt-label">Total Amount Invested</p>
+                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(base.totalInvested)}</p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Total Returns Generated</p>
-                    <p className="mt-1 text-xl font-bold text-foreground">{formatCurrency(base.totalReturns)}</p>
+                    <p className="xt-label">Total Returns Generated</p>
+                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(base.totalReturns)}</p>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-muted-foreground mb-2">Wealth Growth Over Time</h4>
+                  <h4 className="text-base font-semibold text-muted-foreground mb-2">Wealth Growth Over Time</h4>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={base.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -319,16 +320,16 @@ export default function Planner() {
                             <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                        <CartesianGrid {...chartGrid} />
                         <XAxis
                           dataKey="year"
                           tickFormatter={(v) => `Yr ${v}`}
-                          tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
-                          axisLine={{ stroke: "hsl(var(--border))" }}
+                          tick={chartTick}
+                          axisLine={false}
                           tickLine={false}
                         />
                         <YAxis
-                          tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                          tick={chartTick}
                           axisLine={false}
                           tickLine={false}
                           width={64}
@@ -337,12 +338,7 @@ export default function Planner() {
                         <Tooltip
                           formatter={(value: number) => formatCurrency(value)}
                           labelFormatter={(label) => `Year ${label}`}
-                          contentStyle={{
-                            background: "hsl(var(--popover))",
-                            border: "1px solid hsl(var(--border))",
-                            borderRadius: 8,
-                            fontSize: 12,
-                          }}
+                          {...chartTooltip}
                         />
                         <Area
                           type="monotone"
@@ -366,7 +362,7 @@ export default function Planner() {
                               value: g.name,
                               position: i % 2 === 0 ? "top" : "bottom",
                               fontSize: 11,
-                              fontWeight: 600,
+                              fontWeight: 700,
                               fill: "hsl(var(--foreground))",
                             }}
                           />
@@ -384,7 +380,7 @@ export default function Planner() {
 
                 {goalMarkers.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center gap-1.5">
+                    <h4 className="text-base font-semibold text-muted-foreground mb-2 flex items-center gap-1.5">
                       <Target className="h-3.5 w-3.5" />
                       Goals within this horizon
                     </h4>
@@ -432,7 +428,7 @@ export default function Planner() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">What-If Scenarios</CardTitle>
+              <CardTitle className="text-lg">What-If Scenarios</CardTitle>
               <p className="text-sm text-muted-foreground">Adjust the sliders to see how changes impact your projections</p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -491,13 +487,13 @@ export default function Planner() {
               </div>
 
               <div className="rounded-lg bg-secondary p-5 text-center">
-                <h4 className="text-sm font-semibold text-muted-foreground mb-1">Adjusted Projection</h4>
+                <h4 className="text-base font-semibold text-muted-foreground mb-1">Adjusted Projection</h4>
                 {!base ? (
                   <p className="text-sm text-muted-foreground">Calculate a projection above to explore scenarios.</p>
                 ) : (
                   <>
                     <div className="text-2xl font-bold text-foreground">{formatCurrency(scenario!.adjustedCorpus)}</div>
-                    <div className={cn("text-sm font-medium mt-1", scenario!.change >= 0 ? "text-success" : "text-destructive")}>
+                    <div className={cn("text-sm font-medium mt-1", scenario!.change >= 0 ? "text-brand" : "text-destructive")}>
                       {scenario!.change >= 0 ? "↑ " : "↓ "}
                       {formatCurrency(Math.abs(scenario!.change))} ({scenario!.change >= 0 ? "+" : ""}
                       {scenario!.changePercent.toFixed(1)}%)

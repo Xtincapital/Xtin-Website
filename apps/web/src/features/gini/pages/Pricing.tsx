@@ -105,7 +105,7 @@ export default function Pricing() {
           <Badge variant="secondary" className="mx-auto w-fit">
             Xtin Gini Plans
           </Badge>
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="xt-title mb-2">
             {isPro ? "You're on Gini Pro" : "Plan your family's future with confidence"}
           </h1>
           <p className="mx-auto max-w-xl text-sm text-muted-foreground">
@@ -119,7 +119,7 @@ export default function Pricing() {
         <Card>
           <CardContent className="grid gap-6 p-6 sm:grid-cols-2">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Plan</p>
+              <p className="xt-label">Plan</p>
               <div className="mt-1 flex items-center gap-2">
                 <span className="text-lg font-semibold">{isPro ? "Pro" : "Free"}</span>
                 {isPro && (
@@ -132,7 +132,7 @@ export default function Pricing() {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <p className="xt-label flex items-center gap-1.5">
                   <Coins className="h-3.5 w-3.5" /> AI tokens
                 </p>
                 <span className="text-sm font-bold">{wallet ? formatTokens(wallet.token_balance) : "-"}</span>
@@ -182,7 +182,7 @@ export default function Pricing() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center gap-1.5">
-                    Pro <Sparkles className="h-4 w-4 text-primary" />
+                    Pro <Sparkles className="h-4 w-4 text-brand" />
                   </CardTitle>
                   <Badge>Most popular</Badge>
                 </div>
@@ -208,7 +208,7 @@ export default function Pricing() {
                 <ul className="space-y-2 text-sm">
                   {PRO_FEATURES.map((f) => (
                     <li key={f} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -249,7 +249,7 @@ export default function Pricing() {
               <Card key={pack.id} className={pack.id === "ai_1000" ? "border-primary/40 shadow-md" : undefined}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">{pack.label}</CardTitle>
+                    <CardTitle className="text-lg">{pack.label}</CardTitle>
                     {pack.id === "ai_1000" && <Badge variant="secondary">Best value</Badge>}
                   </div>
                   <p className="pt-1 text-2xl font-bold">
@@ -263,7 +263,7 @@ export default function Pricing() {
                   <ul className="space-y-2 text-sm">
                     {(PACK_FEATURES[pack.id as AiPackageId] || []).map((f) => (
                       <li key={f} className="flex items-start gap-2">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                         <span>{f}</span>
                       </li>
                     ))}
@@ -286,7 +286,7 @@ export default function Pricing() {
         </section>
 
         {celebrating && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 brand-on-dark">
             <Card className="mx-4 max-w-sm text-center">
               <CardContent className="space-y-2 p-8">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">

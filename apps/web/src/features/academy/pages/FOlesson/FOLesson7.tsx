@@ -73,27 +73,27 @@ const ThetaConceptSVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
     <defs>
       <linearGradient id="thetaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#0f172a"/>
-        <stop offset="100%" stopColor="#1e3a5f"/>
+        <stop offset="0%" stopColor="#1F1F1F"/>
+        <stop offset="100%" stopColor="#2A2A2C"/>
       </linearGradient>
     </defs>
     
     <rect x="0" y="0" width="700" height="380" fill="url(#thetaGrad)" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">THETA (Θ)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Time decay - the daily erosion of option value</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Time decay - the daily erosion of option value</text>
     
     {/* Formula */}
     <g transform="translate(150, 75)">
-      <rect x="0" y="0" width="400" height="50" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="400" height="50" fill="#2A2A2C" rx="10"/>
       <text x="200" y="32" textAnchor="middle" fontSize="16" fontWeight="600" fill="white">Θ = ∂C/∂t = Change in Option Price / 1 Day Passage</text>
     </g>
     
     {/* Core Concept */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="600" height="90" fill="#dc2626" fillOpacity="0.15" rx="10" stroke="#dc2626" strokeWidth="1"/>
+      <rect x="0" y="0" width="600" height="90" fill="#C7363B" fillOpacity="0.15" rx="10" stroke="#C7363B" strokeWidth="1"/>
       
-      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#dc2626">THETA IS ALWAYS NEGATIVE FOR LONG OPTIONS</text>
+      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#C7363B">THETA IS ALWAYS NEGATIVE FOR LONG OPTIONS</text>
       
       <g transform="translate(30, 45)">
         <text x="0" y="0" fontSize="10" fill="white">• All options lose value as time passes (time value erodes)</text>
@@ -108,25 +108,25 @@ const ThetaConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         <g>
-          <rect x="0" y="0" width="290" height="65" fill="#dc2626" fillOpacity="0.15" rx="8" stroke="#dc2626" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">LONG OPTIONS (Buyer)</text>
+          <rect x="0" y="0" width="290" height="65" fill="#C7363B" fillOpacity="0.15" rx="8" stroke="#C7363B" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">LONG OPTIONS (Buyer)</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Negative Theta</text>
-          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#94a3b8">Time decay works against you</text>
+          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Time decay works against you</text>
         </g>
         
         <g transform="translate(310, 0)">
-          <rect x="0" y="0" width="290" height="65" fill="#22c55e" fillOpacity="0.15" rx="8" stroke="#22c55e" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#22c55e">SHORT OPTIONS (Seller)</text>
+          <rect x="0" y="0" width="290" height="65" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">SHORT OPTIONS (Seller)</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Theta</text>
-          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#94a3b8">Time decay works for you</text>
+          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Time decay works for you</text>
         </g>
       </g>
     </g>
     
     {/* Bottom note */}
     <g transform="translate(50, 350)">
-      <rect x="0" y="0" width="600" height="22" fill="#1e293b" rx="6"/>
-      <text x="300" y="15" textAnchor="middle" fontSize="9" fill="#f97316">Theta is highest for ATM options near expiration. Weekends count - Friday&apos;s close to Monday&apos;s open sees 2-3 days of decay.</text>
+      <rect x="0" y="0" width="600" height="22" fill="#2A2A2C" rx="6"/>
+      <text x="300" y="15" textAnchor="middle" fontSize="9" fill="#D2754C">Theta is highest for ATM options near expiration. Weekends count - Friday&apos;s close to Monday&apos;s open sees 2-3 days of decay.</text>
     </g>
   </svg>
 );
@@ -134,61 +134,61 @@ const ThetaConceptSVG = () => (
 // SVG: Theta Decay Curve
 const ThetaDecaySVG = () => (
   <svg viewBox="0 0 700 320" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="320" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Time Value Decay - Non-Linear</text>
     
     {/* Chart */}
     <g transform="translate(80, 60)">
       {/* Axes */}
-      <line x1="0" y1="200" x2="540" y2="200" stroke="#475569" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="200" stroke="#475569" strokeWidth="1"/>
+      <line x1="0" y1="200" x2="540" y2="200" stroke="#555A63" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="200" stroke="#555A63" strokeWidth="1"/>
       
       {/* Y-axis label */}
-      <text x="-30" y="100" textAnchor="middle" fontSize="10" fill="#94a3b8" transform="rotate(-90, -30, 100)">Time Value</text>
+      <text x="-30" y="100" textAnchor="middle" fontSize="10" fill="#A0A3AA" transform="rotate(-90, -30, 100)">Time Value</text>
       
       {/* X-axis labels */}
-      <text x="0" y="220" textAnchor="middle" fontSize="9" fill="#94a3b8">90</text>
-      <text x="135" y="220" textAnchor="middle" fontSize="9" fill="#94a3b8">60</text>
-      <text x="270" y="220" textAnchor="middle" fontSize="9" fill="#94a3b8">45</text>
-      <text x="405" y="220" textAnchor="middle" fontSize="9" fill="#94a3b8">30</text>
-      <text x="473" y="220" textAnchor="middle" fontSize="9" fill="#f97316">14</text>
-      <text x="540" y="220" textAnchor="middle" fontSize="9" fill="#dc2626">0</text>
-      <text x="270" y="240" textAnchor="middle" fontSize="10" fill="#94a3b8">Days to Expiration</text>
+      <text x="0" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">90</text>
+      <text x="135" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">60</text>
+      <text x="270" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">45</text>
+      <text x="405" y="220" textAnchor="middle" fontSize="9" fill="#A0A3AA">30</text>
+      <text x="473" y="220" textAnchor="middle" fontSize="9" fill="#D2754C">14</text>
+      <text x="540" y="220" textAnchor="middle" fontSize="9" fill="#C7363B">0</text>
+      <text x="270" y="240" textAnchor="middle" fontSize="10" fill="#A0A3AA">Days to Expiration</text>
       
       {/* Decay Curve */}
       <path 
         d="M 0 30 C 100 40, 200 55, 270 80 C 340 110, 400 140, 450 160 C 480 175, 510 190, 540 200"
-        fill="none" stroke="#dc2626" strokeWidth="3"
+        fill="none" stroke="#C7363B" strokeWidth="3"
       />
       
       {/* Shaded danger zone */}
       <path 
         d="M 430 160 C 480 175, 510 190, 540 200 L 540 200 L 430 200 Z"
-        fill="#dc2626" fillOpacity="0.2"
+        fill="#C7363B" fillOpacity="0.2"
       />
       
       {/* Annotations */}
       <g transform="translate(50, 20)">
-        <rect x="0" y="0" width="150" height="30" fill="#22c55e" fillOpacity="0.2" rx="4"/>
-        <text x="75" y="20" textAnchor="middle" fontSize="9" fill="#22c55e">Gradual decay - time to adjust</text>
+        <rect x="0" y="0" width="150" height="30" fill="#16A34A" fillOpacity="0.2" rx="4"/>
+        <text x="75" y="20" textAnchor="middle" fontSize="9" fill="#16A34A">Gradual decay - time to adjust</text>
       </g>
       
       <g transform="translate(350, 120)">
-        <rect x="0" y="0" width="180" height="45" fill="#dc2626" fillOpacity="0.2" rx="4"/>
-        <text x="90" y="17" textAnchor="middle" fontSize="9" fill="#dc2626">Accelerated decay!</text>
-        <text x="90" y="35" textAnchor="middle" fontSize="8" fill="#94a3b8">Final 2-3 weeks most dangerous</text>
+        <rect x="0" y="0" width="180" height="45" fill="#C7363B" fillOpacity="0.2" rx="4"/>
+        <text x="90" y="17" textAnchor="middle" fontSize="9" fill="#C7363B">Accelerated decay!</text>
+        <text x="90" y="35" textAnchor="middle" fontSize="8" fill="#A0A3AA">Final 2-3 weeks most dangerous</text>
       </g>
       
       {/* 30 DTE marker */}
-      <line x1="405" y1="0" x2="405" y2="200" stroke="#f97316" strokeWidth="1" strokeDasharray="4"/>
-      <text x="405" y="-8" textAnchor="middle" fontSize="8" fill="#f97316">30 DTE</text>
+      <line x1="405" y1="0" x2="405" y2="200" stroke="#D2754C" strokeWidth="1" strokeDasharray="4"/>
+      <text x="405" y="-8" textAnchor="middle" fontSize="8" fill="#D2754C">30 DTE</text>
     </g>
     
     {/* Key Insight */}
     <g transform="translate(80, 285)">
-      <rect x="0" y="0" width="540" height="25" fill="#1e293b" rx="6"/>
-      <text x="270" y="17" textAnchor="middle" fontSize="9" fill="#94a3b8">Theta accelerates exponentially. Many traders roll or close positions before 21 DTE to avoid rapid decay.</text>
+      <rect x="0" y="0" width="540" height="25" fill="#2A2A2C" rx="6"/>
+      <text x="270" y="17" textAnchor="middle" fontSize="9" fill="#A0A3AA">Theta accelerates exponentially. Many traders roll or close positions before 21 DTE to avoid rapid decay.</text>
     </g>
   </svg>
 );
@@ -196,22 +196,22 @@ const ThetaDecaySVG = () => (
 // SVG: Vega Concept
 const VegaConceptSVG = () => (
   <svg viewBox="0 0 700 360" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="360" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="360" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">VEGA (ν)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Sensitivity to changes in implied volatility</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Sensitivity to changes in implied volatility</text>
     
     {/* Formula */}
     <g transform="translate(150, 75)">
-      <rect x="0" y="0" width="400" height="50" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="400" height="50" fill="#2A2A2C" rx="10"/>
       <text x="200" y="32" textAnchor="middle" fontSize="16" fontWeight="600" fill="white">ν = ∂C/∂σ = Change in Option Price / 1% IV Change</text>
     </g>
     
     {/* Core Concept */}
     <g transform="translate(50, 145)">
-      <rect x="0" y="0" width="600" height="90" fill="#a855f7" fillOpacity="0.15" rx="10" stroke="#a855f7" strokeWidth="1"/>
+      <rect x="0" y="0" width="600" height="90" fill="#8F6FC4" fillOpacity="0.15" rx="10" stroke="#8F6FC4" strokeWidth="1"/>
       
-      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#a855f7">VEGA IS ALWAYS POSITIVE FOR LONG OPTIONS</text>
+      <text x="300" y="25" textAnchor="middle" fontSize="13" fontWeight="600" fill="#8F6FC4">VEGA IS ALWAYS POSITIVE FOR LONG OPTIONS</text>
       
       <g transform="translate(30, 45)">
         <text x="0" y="0" fontSize="10" fill="white">• Higher IV = Higher option prices (both calls and puts)</text>
@@ -226,17 +226,17 @@ const VegaConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         <g>
-          <rect x="0" y="0" width="290" height="65" fill="#22c55e" fillOpacity="0.15" rx="8" stroke="#22c55e" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#22c55e">LONG OPTIONS</text>
+          <rect x="0" y="0" width="290" height="65" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">LONG OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Vega (Long Volatility)</text>
-          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#94a3b8">Profit when IV increases</text>
+          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Profit when IV increases</text>
         </g>
         
         <g transform="translate(310, 0)">
-          <rect x="0" y="0" width="290" height="65" fill="#dc2626" fillOpacity="0.15" rx="8" stroke="#dc2626" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">SHORT OPTIONS</text>
+          <rect x="0" y="0" width="290" height="65" fill="#C7363B" fillOpacity="0.15" rx="8" stroke="#C7363B" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">SHORT OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Negative Vega (Short Volatility)</text>
-          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#94a3b8">Profit when IV decreases</text>
+          <text x="145" y="58" textAnchor="middle" fontSize="9" fill="#A0A3AA">Profit when IV decreases</text>
         </g>
       </g>
     </g>
@@ -246,14 +246,14 @@ const VegaConceptSVG = () => (
 // SVG: Rho Concept
 const RhoConceptSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="280" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="35" textAnchor="middle" fontSize="20" fontWeight="700" fill="white">RHO (ρ)</text>
-    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#94a3b8">Sensitivity to changes in interest rates</text>
+    <text x="350" y="55" textAnchor="middle" fontSize="11" fill="#A0A3AA">Sensitivity to changes in interest rates</text>
     
     {/* Formula */}
     <g transform="translate(150, 75)">
-      <rect x="0" y="0" width="400" height="50" fill="#1e293b" rx="10"/>
+      <rect x="0" y="0" width="400" height="50" fill="#2A2A2C" rx="10"/>
       <text x="200" y="32" textAnchor="middle" fontSize="16" fontWeight="600" fill="white">ρ = ∂C/∂r = Change in Option Price / 1% Rate Change</text>
     </g>
     
@@ -263,25 +263,25 @@ const RhoConceptSVG = () => (
       
       <g transform="translate(0, 20)">
         <g>
-          <rect x="0" y="0" width="290" height="70" fill="#22c55e" fillOpacity="0.15" rx="8" stroke="#22c55e" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#22c55e">CALL OPTIONS</text>
+          <rect x="0" y="0" width="290" height="70" fill="#16A34A" fillOpacity="0.15" rx="8" stroke="#16A34A" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">CALL OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Positive Rho</text>
-          <text x="145" y="60" textAnchor="middle" fontSize="9" fill="#94a3b8">Rising rates increase call values</text>
+          <text x="145" y="60" textAnchor="middle" fontSize="9" fill="#A0A3AA">Rising rates increase call values</text>
         </g>
         
         <g transform="translate(310, 0)">
-          <rect x="0" y="0" width="290" height="70" fill="#dc2626" fillOpacity="0.15" rx="8" stroke="#dc2626" strokeWidth="1"/>
-          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#dc2626">PUT OPTIONS</text>
+          <rect x="0" y="0" width="290" height="70" fill="#C7363B" fillOpacity="0.15" rx="8" stroke="#C7363B" strokeWidth="1"/>
+          <text x="145" y="22" textAnchor="middle" fontSize="12" fontWeight="600" fill="#C7363B">PUT OPTIONS</text>
           <text x="145" y="42" textAnchor="middle" fontSize="11" fill="white">Negative Rho</text>
-          <text x="145" y="60" textAnchor="middle" fontSize="9" fill="#94a3b8">Rising rates decrease put values</text>
+          <text x="145" y="60" textAnchor="middle" fontSize="9" fill="#A0A3AA">Rising rates decrease put values</text>
         </g>
       </g>
     </g>
     
     {/* Note */}
     <g transform="translate(50, 245)">
-      <rect x="0" y="0" width="600" height="25" fill="#3b82f6" fillOpacity="0.15" rx="6"/>
-      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#3b82f6">Rho is typically the least important Greek for short-term options. Matters more for LEAPS (1+ year options).</text>
+      <rect x="0" y="0" width="600" height="25" fill="#5A77AA" fillOpacity="0.15" rx="6"/>
+      <text x="300" y="17" textAnchor="middle" fontSize="9" fill="#5A77AA">Rho is typically the least important Greek for short-term options. Matters more for LEAPS (1+ year options).</text>
     </g>
   </svg>
 );
@@ -289,13 +289,13 @@ const RhoConceptSVG = () => (
 // SVG: Greeks Summary
 const GreeksSummarySVG = () => (
   <svg viewBox="0 0 700 380" className="w-full h-auto">
-    <rect x="0" y="0" width="700" height="380" fill="#0f172a" rx="16"/>
+    <rect x="0" y="0" width="700" height="380" fill="#1F1F1F" rx="16"/>
     
     <text x="350" y="30" textAnchor="middle" fontSize="16" fontWeight="700" fill="white">Complete Greeks Summary</text>
     
     {/* Table Header */}
     <g transform="translate(40, 55)">
-      <rect x="0" y="0" width="620" height="35" fill="#1e293b" rx="6"/>
+      <rect x="0" y="0" width="620" height="35" fill="#2A2A2C" rx="6"/>
       <text x="70" y="23" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">GREEK</text>
       <text x="180" y="23" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">MEASURES</text>
       <text x="310" y="23" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">LONG OPTION</text>
@@ -306,11 +306,11 @@ const GreeksSummarySVG = () => (
     {/* Data Rows */}
     <g transform="translate(40, 95)">
       {[
-        { greek: "Delta (Δ)", measures: "Stock Price", long: "0 to +1 (call)", short: "0 to -1 (call)", highest: "Deep ITM", color: "#22c55e" },
-        { greek: "Gamma (Γ)", measures: "Delta Change", long: "Positive", short: "Negative", highest: "ATM, near expiry", color: "#a855f7" },
-        { greek: "Theta (Θ)", measures: "Time Decay", long: "Negative", short: "Positive", highest: "ATM, near expiry", color: "#dc2626" },
-        { greek: "Vega (ν)", measures: "IV Change", long: "Positive", short: "Negative", highest: "ATM, long dated", color: "#3b82f6" },
-        { greek: "Rho (ρ)", measures: "Interest Rate", long: "+ (call), - (put)", short: "- (call), + (put)", highest: "Deep ITM, LEAPS", color: "#f97316" }
+        { greek: "Delta (Δ)", measures: "Stock Price", long: "0 to +1 (call)", short: "0 to -1 (call)", highest: "Deep ITM", color: "#16A34A" },
+        { greek: "Gamma (Γ)", measures: "Delta Change", long: "Positive", short: "Negative", highest: "ATM, near expiry", color: "#8F6FC4" },
+        { greek: "Theta (Θ)", measures: "Time Decay", long: "Negative", short: "Positive", highest: "ATM, near expiry", color: "#C7363B" },
+        { greek: "Vega (ν)", measures: "IV Change", long: "Positive", short: "Negative", highest: "ATM, long dated", color: "#5A77AA" },
+        { greek: "Rho (ρ)", measures: "Interest Rate", long: "+ (call), - (put)", short: "- (call), + (put)", highest: "Deep ITM, LEAPS", color: "#D2754C" }
       ].map((row, i) => (
         <g key={i} transform={`translate(0, ${i * 55})`}>
           <rect x="0" y="0" width="620" height="50" fill={row.color} fillOpacity="0.1" rx="6"/>
@@ -318,15 +318,15 @@ const GreeksSummarySVG = () => (
           <text x="180" y="20" textAnchor="middle" fontSize="10" fill="white">{row.measures}</text>
           <text x="310" y="20" textAnchor="middle" fontSize="10" fill="white">{row.long}</text>
           <text x="440" y="20" textAnchor="middle" fontSize="10" fill="white">{row.short}</text>
-          <text x="560" y="20" textAnchor="middle" fontSize="9" fill="#94a3b8">{row.highest}</text>
+          <text x="560" y="20" textAnchor="middle" fontSize="9" fill="#A0A3AA">{row.highest}</text>
         </g>
       ))}
     </g>
     
     {/* Key Relationship */}
     <g transform="translate(40, 345)">
-      <rect x="0" y="0" width="620" height="25" fill="#f97316" fillOpacity="0.15" rx="6"/>
-      <text x="310" y="17" textAnchor="middle" fontSize="9" fill="#f97316">Core Tradeoff: Long options have positive gamma and vega but negative theta. Short options are the opposite.</text>
+      <rect x="0" y="0" width="620" height="25" fill="#D2754C" fillOpacity="0.15" rx="6"/>
+      <text x="310" y="17" textAnchor="middle" fontSize="9" fill="#D2754C">Core Tradeoff: Long options have positive gamma and vega but negative theta. Short options are the opposite.</text>
     </g>
   </svg>
 );
@@ -426,7 +426,7 @@ const FOLesson7 = () => {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900  mb-4">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-[-0.025em]">
             The Greeks Part 2: Theta, Vega & Rho
           </h1>
           <p className="text-lg text-gray-600 ">
@@ -435,10 +435,10 @@ const FOLesson7 = () => {
         </div>
 
         {/* Learning Objectives */}
-        <div className="bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 mb-10 text-white">
+        <div className="rounded-2xl p-6 mb-10 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <Icons.Target className="w-6 h-6" />
-            <h2 className="text-xl font-bold">Learning Objectives</h2>
+            <h2 className="text-xl font-semibold">Learning Objectives</h2>
           </div>
           <ul className="space-y-2">
             {[
@@ -466,7 +466,7 @@ const FOLesson7 = () => {
                   <Icons.Watch className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Theta</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Theta</h2>
                   <p className="text-sm text-gray-500 ">The daily cost of holding options</p>
                 </div>
               </div>
@@ -499,11 +499,11 @@ const FOLesson7 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.TrendingDown className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Non-Linear Decay</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Non-Linear Decay</h2>
                   <p className="text-sm text-gray-500 ">Why the final weeks are critical</p>
                 </div>
               </div>
@@ -523,8 +523,8 @@ const FOLesson7 = () => {
                     Buy more time than you think you need.
                   </p>
                 </div>
-                <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                  <h4 className="font-bold text-green-800  mb-2">For Option Sellers</h4>
+                <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                  <h4 className="font-bold text-brand  mb-2">For Option Sellers</h4>
                   <p className="text-gray-700  text-sm">
                     Maximum theta collection in final weeks, but also maximum gamma risk. 
                     Many sellers target 30-45 DTE for balance of theta/gamma.
@@ -538,11 +538,11 @@ const FOLesson7 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                   <Icons.Activity className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Vega</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Vega</h2>
                   <p className="text-sm text-gray-500 ">Your volatility exposure</p>
                 </div>
               </div>
@@ -574,11 +574,11 @@ const FOLesson7 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                   <Icons.Percent className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Rho</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Rho</h2>
                   <p className="text-sm text-gray-500 ">Interest rate sensitivity</p>
                 </div>
               </div>
@@ -606,11 +606,11 @@ const FOLesson7 = () => {
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
               <div className="flex items-start gap-4 mb-6">
-                <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                   <Icons.Sunrise className="w-6 h-6 text-white"/>
                 </span>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900  mb-1">The Complete Picture</h2>
+                  <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Complete Picture</h2>
                   <p className="text-sm text-gray-500 ">All five Greeks at a glance</p>
                 </div>
               </div>
@@ -637,8 +637,8 @@ const FOLesson7 = () => {
 
           {/* Key Takeaways */}
           <section>
-            <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-bold mb-6">Key Takeaways</h2>
+            <div className="rounded-2xl p-8 text-white bg-brand-fill">
+              <h2 className="text-2xl font-bold mb-6 tracking-[-0.025em]">Key Takeaways</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Theta is always negative for long options - you pay daily rent for time value",
@@ -662,7 +662,7 @@ const FOLesson7 = () => {
           {/* Quiz Section */}
           <section>
             <div className="bg-white  rounded-2xl p-8 shadow-sm border border-gray-100 ">
-              <h2 className="text-2xl font-bold text-gray-900  mb-6">Knowledge Check</h2>
+              <h2 className="text-2xl font-bold text-gray-900  mb-6 tracking-[-0.025em]">Knowledge Check</h2>
               
               <div className="space-y-8">
                 {quizQuestions.map((q) => (
@@ -677,11 +677,11 @@ const FOLesson7 = () => {
                             quizAnswers[q.id] === idx
                               ? showResults
                                 ? idx === q.correct
-                                  ? 'border-green-500 bg-green-50 '
+                                  ? 'border-brand bg-brand-soft '
                                   : 'border-red-500 bg-red-50 '
                                 : 'border-orange-500 bg-orange-50 '
                               : showResults && idx === q.correct
-                                ? 'border-green-500 bg-green-50 '
+                                ? 'border-brand bg-brand-soft '
                                 : 'border-gray-200  hover:border-gray-300 '
                           }`}
                         >
@@ -692,7 +692,7 @@ const FOLesson7 = () => {
                     {showResults && (
                       <div className={`mt-4 p-4 rounded-lg ${
                         quizAnswers[q.id] === q.correct
-                          ? 'bg-green-100  text-green-800 '
+                          ? 'bg-brand-soft  text-brand '
                           : 'bg-red-100  text-red-800 '
                       }`}>
                         <p className="text-sm">{q.explanation}</p>
@@ -706,7 +706,7 @@ const FOLesson7 = () => {
                 <button
                   onClick={() => setShowResults(true)}
                   disabled={Object.keys(quizAnswers).length < quizQuestions.length}
-                  className="mt-6 w-full py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-red-700 transition-all"
+                  className="mt-6 w-full py-3 text-white font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all bg-brand-fill hover:bg-brand-hover"
                 >
                   Check Answers
                 </button>
@@ -737,7 +737,7 @@ const FOLesson7 = () => {
             
             <button
               onClick={() => navigate('/learn/derivatives/lesson-8')}
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-red-700 transition-all"
+              className="flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Volatility Analysis</span>
               <Icons.ArrowRight className="w-5 h-5" />

@@ -8,21 +8,21 @@ import { generateCertificatePdf } from '../utils/certificatePdf';
 const LEVEL_META = {
   [DIFFICULTY_LEVELS.BEGINNER]: {
     label: 'Beginner',
-    badgeBg: 'bg-emerald-100',
-    badgeText: 'text-emerald-600',
-    buttonBg: 'bg-gradient-to-r from-emerald-600 to-green-600',
+    badgeBg: 'bg-brand-soft',
+    badgeText: 'text-brand',
+    buttonBg: 'bg-brand-fill',
   },
   [DIFFICULTY_LEVELS.INTERMEDIATE]: {
     label: 'Intermediate',
     badgeBg: 'bg-blue-100',
     badgeText: 'text-blue-600',
-    buttonBg: 'bg-gradient-to-r from-blue-600 to-indigo-600',
+    buttonBg: 'bg-brand-fill',
   },
   [DIFFICULTY_LEVELS.ADVANCED]: {
     label: 'Advanced',
     badgeBg: 'bg-purple-100',
     badgeText: 'text-purple-600',
-    buttonBg: 'bg-gradient-to-r from-purple-600 to-indigo-600',
+    buttonBg: 'bg-brand-fill',
   },
 };
 

@@ -15,7 +15,7 @@ export function ProPill({ className, label = "Pro" }: { className?: string; labe
   return (
     <span
       className={cn(
-        "pro-gold-bg inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-extrabold uppercase leading-none tracking-wider",
+        "pro-gold-bg inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-extrabold uppercase leading-none tracking-wider",
         className,
       )}
     >

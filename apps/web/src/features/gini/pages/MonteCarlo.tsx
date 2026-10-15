@@ -53,6 +53,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize } from "@/components/charts/chartTheme";
 import { Dices } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -294,7 +295,7 @@ export default function MonteCarlo() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Monte Carlo Simulation</h1>
+          <h1 className="xt-title mb-2">Monte Carlo Simulation</h1>
           <p className="text-sm text-muted-foreground">Analyze probability of achieving your goals</p>
         </div>
 
@@ -302,7 +303,7 @@ export default function MonteCarlo() {
           <div className="space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-2 space-y-0">
-                <Dices className="h-5 w-5 text-primary" />
+                <Dices className="h-5 w-5 text-brand" />
                 <CardTitle>Simulation Parameters</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -421,45 +422,45 @@ export default function MonteCarlo() {
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="rounded-lg border-2 border-success/30 bg-success/10 p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Probability of Success
                       </p>
-                      <p className="mt-1 text-xl font-bold text-success">{results.probability.toFixed(1)}%</p>
+                      <p className="mt-1 xt-metric text-brand">{results.probability.toFixed(1)}%</p>
                     </div>
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Median Outcome</p>
-                      <p className="mt-1 text-xl font-bold">{formatCompact(results.median)}</p>
+                      <p className="xt-label">Median Outcome</p>
+                      <p className="mt-1 xt-metric">{formatCompact(results.median)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Best Case (90th %ile)
                       </p>
-                      <p className="mt-1 text-xl font-bold text-success">{formatCompact(results.best)}</p>
+                      <p className="mt-1 xt-metric text-brand">{formatCompact(results.best)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Worst Case (10th %ile)
                       </p>
-                      <p className="mt-1 text-xl font-bold text-destructive">{formatCompact(results.worst)}</p>
+                      <p className="mt-1 xt-metric text-destructive">{formatCompact(results.worst)}</p>
                     </div>
                   </div>
                   <p className="text-xs text-muted-foreground">Target: {formatCurrency(results.target)}</p>
 
                   <div>
-                    <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Outcome Distribution</h4>
+                    <h4 className="mb-2 text-base font-semibold text-muted-foreground">Outcome Distribution</h4>
                     <ChartContainer config={chartConfig} className="h-[280px] w-full">
                       <BarChart data={results.histogram}>
-                        <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                        <CartesianGrid {...chartGrid} />
                         <XAxis
                           dataKey="label"
                           tickLine={false}
                           axisLine={false}
                           interval="preserveStartEnd"
-                          tick={{ fontSize: 11 }}
+                          tick={chartTick}
                         />
                         <YAxis tickLine={false} axisLine={false} width={40} />
                         <ChartTooltip content={(props: any) => <ChartTooltipContent {...props} hideLabel />} />
-                        <Bar dataKey="count" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="count" fill="hsl(var(--chart-1))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
                       </BarChart>
                     </ChartContainer>
                   </div>

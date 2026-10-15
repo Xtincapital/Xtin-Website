@@ -123,7 +123,7 @@ const SubstackArticle = () => {
         {/* Back link */}
         <Link
           to="/newsletter"
-          className="inline-flex items-center gap-2 text-sm font-medium text-green-600 dark:text-emerald-300 hover:gap-3 transition-all mb-8"
+          className="inline-flex items-center gap-2 text-sm font-medium text-brand dark:text-brand hover:gap-3 transition-all mb-8"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -134,7 +134,7 @@ const SubstackArticle = () => {
         {/* Header */}
         {article && (
           <header className="mb-8">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-gray-900 dark:text-slate-100 mb-4">
+            <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight tracking-[-0.025em] text-gray-900 dark:text-slate-100 mb-4">
               {article.title}
             </h1>
             {article.subtitle && (
@@ -158,7 +158,7 @@ const SubstackArticle = () => {
         {/* Body */}
         {loading && !article?.bodyHtml ? (
           <div className="flex justify-center items-center py-20">
-            <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+            <div className="w-12 h-12 border-4 border-brand-line border-t-brand rounded-full animate-spin" />
           </div>
         ) : error ? (
           <div className="text-center py-16">
@@ -168,7 +168,7 @@ const SubstackArticle = () => {
                 href={article.canonicalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-fill text-white font-medium hover:bg-brand-hover transition-all"
               >
                 Read on Substack
               </a>
@@ -182,7 +182,7 @@ const SubstackArticle = () => {
               dangerouslySetInnerHTML={{ __html: safeHtml }}
             />
             {article.truncated && (
-              <div className="mt-10 p-6 rounded-2xl bg-green-50 dark:bg-emerald-950/30 border border-green-100 dark:border-emerald-800/40 text-center">
+              <div className="mt-10 p-6 rounded-2xl bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-center">
                 <p className="text-gray-700 dark:text-slate-200 mb-4">
                   This is a paid post. Continue reading the full article on Substack.
                 </p>
@@ -190,7 +190,7 @@ const SubstackArticle = () => {
                   href={article.canonicalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold hover:from-green-700 hover:to-emerald-700 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold transition-all bg-brand-fill"
                 >
                   Read full article on Substack
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -213,7 +213,7 @@ const SubstackArticle = () => {
               href={article.canonicalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-green-600 dark:text-emerald-300 font-medium hover:underline"
+              className="inline-flex items-center gap-2 text-brand dark:text-brand font-medium hover:underline"
             >
               View original on Substack
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,9 +229,9 @@ const SubstackArticle = () => {
         className="bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-950 border-t border-gray-100 dark:border-slate-800"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-2xl text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-slate-100 mb-3">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-3 tracking-[-0.025em]">
             Get more from{' '}
-            <a href="https://www.xtincapital.com" className="text-green-600 dark:text-emerald-300 hover:underline">
+            <a href="https://www.xtincapital.com" className="text-brand dark:text-brand hover:underline">
               Xtin Capital
             </a>
           </h2>
@@ -244,7 +244,7 @@ const SubstackArticle = () => {
               id="substack-subscribe-email"
               type="email"
               placeholder="Enter your email address"
-              className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 border-0 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+              className="flex-1 px-5 py-3.5 rounded-xl bg-gray-50 dark:bg-slate-800 border-0 text-gray-900 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand transition-all"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
@@ -252,7 +252,7 @@ const SubstackArticle = () => {
             <button
               onClick={handleSubscribe}
               disabled={subLoading}
-              className={`px-7 py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-xl shadow transition-all duration-300 whitespace-nowrap ${
+              className={`px-7 py-3.5 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl shadow transition-all duration-300 whitespace-nowrap ${
                 subLoading ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'
               }`}
             >
@@ -263,7 +263,7 @@ const SubstackArticle = () => {
             <div className={`mt-4 p-3 rounded-lg text-sm font-medium inline-block ${
               subError
                 ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
-                : 'bg-green-50 dark:bg-emerald-900/20 text-green-600 dark:text-emerald-300'
+                : 'bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand'
             }`}>
               {subError ? subMessage : '🎉 ' + subMessage}
             </div>
@@ -276,9 +276,9 @@ const SubstackArticle = () => {
         .substack-content {
           font-size: 1.125rem;
           line-height: 1.8;
-          color: #374151;
+          color: #373A41;
         }
-        .dark .substack-content { color: #cbd5e1; }
+        .dark .substack-content { color: #CFD0D3; }
         .substack-content p { margin: 0 0 1.5rem; }
         .substack-content h1,
         .substack-content h2,
@@ -287,21 +287,21 @@ const SubstackArticle = () => {
           font-weight: 700;
           line-height: 1.3;
           margin: 2.5rem 0 1rem;
-          color: #111827;
+          color: #1F1F1F;
         }
         .dark .substack-content h1,
         .dark .substack-content h2,
         .dark .substack-content h3,
-        .dark .substack-content h4 { color: #f1f5f9; }
+        .dark .substack-content h4 { color: #EEEEF1; }
         .substack-content h1 { font-size: 1.875rem; }
         .substack-content h2 { font-size: 1.5rem; }
         .substack-content h3 { font-size: 1.25rem; }
         .substack-content a {
-          color: #059669;
+          color: #16A34A;
           text-decoration: underline;
           text-underline-offset: 2px;
         }
-        .substack-content a:hover { color: #047857; }
+        .substack-content a:hover { color: #16A34A; }
         .substack-content img,
         .substack-content .image2,
         .substack-content figure img {
@@ -315,26 +315,26 @@ const SubstackArticle = () => {
         .substack-content figcaption {
           text-align: center;
           font-size: 0.875rem;
-          color: #6b7280;
+          color: #717680;
           margin-top: 0.5rem;
         }
         .substack-content blockquote {
-          border-left: 4px solid #059669;
+          border-left: 4px solid #16A34A;
           padding-left: 1.25rem;
           margin: 1.5rem 0;
           font-style: italic;
-          color: #4b5563;
+          color: #555A63;
         }
-        .dark .substack-content blockquote { color: #94a3b8; }
+        .dark .substack-content blockquote { color: #A0A3AA; }
         .substack-content ul,
         .substack-content ol { margin: 0 0 1.5rem 1.5rem; }
         .substack-content li { margin-bottom: 0.5rem; }
         .substack-content hr {
           border: none;
-          border-top: 1px solid #e5e7eb;
+          border-top: 1px solid #E4E4EA;
           margin: 2.5rem 0;
         }
-        .dark .substack-content hr { border-top-color: #334155; }
+        .dark .substack-content hr { border-top-color: #373A41; }
         .substack-content .button:not(.primary),
         .substack-content .subscribe-widget { display: none; }
         /* Substack's in-article "Type your email…" widget — highlighted so it gets noticed */
@@ -342,13 +342,13 @@ const SubstackArticle = () => {
         .substack-content .subscription-widget {
           padding: 1.5rem;
           border-radius: 1rem;
-          background: #f0fdf4;
-          border: 2px solid #22c55e;
-          box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18), 0 10px 25px -8px rgba(22, 163, 74, 0.35);
+          background: #F0FDF4;
+          border: 2px solid #16A34A;
+          box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18), 0 10px 25px -8px rgba(22, 163, 74, 0.35);
         }
-        .dark .substack-content .subscription-widget { background: rgba(16, 185, 129, 0.08); border-color: #10b981; }
-        .substack-content .subscription-widget .cta-caption { margin: 0 0 1rem; font-weight: 600; color: #14532d; }
-        .dark .substack-content .subscription-widget .cta-caption { color: #d1fae5; }
+        .dark .substack-content .subscription-widget { background: rgba(22, 163, 74, 0.08); border-color: #16A34A; }
+        .substack-content .subscription-widget .cta-caption { margin: 0 0 1rem; font-weight: 600; color: #16A34A; }
+        .dark .substack-content .subscription-widget .cta-caption { color: #F0FDF4; }
         .substack-content .subscription-widget-subscribe {
           display: flex;
           flex-wrap: wrap;
@@ -360,12 +360,12 @@ const SubstackArticle = () => {
           padding: 0.85rem 1.1rem;
           font-size: 1rem;
           border-radius: 0.75rem;
-          border: 1px solid #86efac;
+          border: 1px solid #16A34A;
           background: #ffffff;
-          color: #111827;
+          color: #1F1F1F;
           outline: none;
         }
-        .substack-content .subscription-widget .email-input:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.35); }
+        .substack-content .subscription-widget .email-input:focus { border-color: #16A34A; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.35); }
         .substack-content .subscription-widget .button.primary {
           display: inline-block;
           padding: 0.85rem 1.6rem;
@@ -374,22 +374,22 @@ const SubstackArticle = () => {
           font-weight: 700;
           font-size: 1rem;
           color: #ffffff;
-          background: linear-gradient(90deg, #16a34a, #059669);
+          background: linear-gradient(90deg, #16A34A, #16A34A);
           cursor: pointer;
         }
         .substack-content .subscription-widget .button.primary:disabled { opacity: 0.6; cursor: wait; }
         .substack-content .subscription-widget .fake-input-wrapper { display: none; }
         .substack-content .xtin-widget-note { margin: 0.75rem 0 0; font-size: 0.9rem; font-weight: 600; }
-        .substack-content .xtin-widget-note[data-state="ok"] { color: #15803d; }
-        .substack-content .xtin-widget-note[data-state="error"] { color: #dc2626; }
+        .substack-content .xtin-widget-note[data-state="ok"] { color: #16A34A; }
+        .substack-content .xtin-widget-note[data-state="error"] { color: #C7363B; }
         .substack-content pre {
-          background: #f3f4f6;
+          background: #EEEEF1;
           padding: 1rem;
           border-radius: 0.5rem;
           overflow-x: auto;
           margin: 1.5rem 0;
         }
-        .dark .substack-content pre { background: #1e293b; }
+        .dark .substack-content pre { background: #2A2A2C; }
       `}</style>
 
       <Footer />

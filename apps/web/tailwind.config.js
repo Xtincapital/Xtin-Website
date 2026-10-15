@@ -1,3 +1,6 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+import { tailwindHues } from "./src/styles/palette.js";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -7,18 +10,53 @@ export default {
   ],
   theme: {
     extend: {
-      // Below: FundaKaMental's shadcn/ui design tokens (Phase 8e). These are
-      // new utility classes (border-border, bg-background, etc.) that
-      // nothing outside the fundakamental feature used before this, so
-      // merging them here is additive — no existing page references these
-      // class names. The CSS custom properties they read (--background,
-      // --border, ...) are deliberately scoped to `.fundakamental-scope` in
-      // features/fundakamental/fundakamental.css, not global :root, so the
-      // utilities only resolve to real colors inside that feature's DOM
-      // subtree. fontFamily is intentionally NOT merged here (that would
-      // change the whole site's default font) — FundaKaMental's fonts are
-      // applied only within its own scope, in fundakamental.css.
+      // shadcn utilities (bg-background, border-border, text-primary, ...)
+      // read the CSS custom properties defined once for the whole site in
+      // src/index.css (:root / html.dark), so every app shares one palette.
+
+      // One site-wide type system: Plus Jakarta Sans for letters, Inter Tight
+      // for numbers. "Inter Tight" is loaded as a digits-only subset (see
+      // index.html), so listing it first only affects 0-9 and ₹ $ % + − . ,
+      // `font-display` (page titles) uses the same pair at a heavier weight.
+      fontFamily: {
+        sans: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
+        display: ['"Inter Tight"', '"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
+      },
+      // One type scale for the whole site: 12 · 14 · 16 · 18 · 24 · 32 · 40 · 48 · 60.
+      // Tailwind's in-between steps snap onto it (xl = lg, 6xl/7xl = 5xl), so
+      // every page draws from the same nine sizes (60 is for hero headlines).
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.125rem", { lineHeight: "1.75rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.015em" }],
+        "3xl": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
+        "4xl": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
+        "5xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
+        "6xl": ["3.75rem", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
+        "7xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.025em" }],
+      },
+      // Plus Jakarta Sans at 700 for everything that labels or leads —
+      // headings, card titles, labels, buttons, key figures (semibold and
+      // bold are both 700) — and 400/500 for body text.
+      fontWeight: {
+        thin: "400", extralight: "400", light: "400", normal: "400",
+        medium: "500", semibold: "700", bold: "700", extrabold: "700", black: "700",
+      },
       colors: {
+        // Every Tailwind hue now resolves to one of 8 palette families
+        // (src/styles/palette.js).
+        ...tailwindHues,
+        // The one site green, by role (values per theme live in index.css).
+        brand: {
+          DEFAULT: "rgb(var(--brand) / <alpha-value>)",
+          fill: "rgb(var(--brand-fill) / <alpha-value>)",
+          hover: "rgb(var(--brand-fill-hover) / <alpha-value>)",
+          soft: "var(--brand-soft)",
+          line: "var(--brand-line)",
+        },
         // Receipt printer (features/billing): a 12-step neutral scale that
         // inverts in dark mode (1 = background end, 12 = ink end). Channels
         // live in index.css as --gs-1 … --gs-12.

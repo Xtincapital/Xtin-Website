@@ -54,10 +54,10 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 300" fill="none">
       {/* Grid cells with different correlations */}
       {[
-        [{v:1,c:'#10b981'},{v:0.3,c:'#3b82f6'},{v:-0.2,c:'#8b5cf6'},{v:0.1,c:'#60a5fa'}],
-        [{v:0.3,c:'#3b82f6'},{v:1,c:'#10b981'},{v:0.5,c:'#34d399'},{v:0.2,c:'#3b82f6'}],
-        [{v:-0.2,c:'#8b5cf6'},{v:0.5,c:'#34d399'},{v:1,c:'#10b981'},{v:-0.1,c:'#a78bfa'}],
-        [{v:0.1,c:'#60a5fa'},{v:0.2,c:'#3b82f6'},{v:-0.1,c:'#a78bfa'},{v:1,c:'#10b981'}]
+        [{v:1,c:'#16A34A'},{v:0.3,c:'#5A77AA'},{v:-0.2,c:'#8F6FC4'},{v:0.1,c:'#7C95C4'}],
+        [{v:0.3,c:'#5A77AA'},{v:1,c:'#16A34A'},{v:0.5,c:'#16A34A'},{v:0.2,c:'#5A77AA'}],
+        [{v:-0.2,c:'#8F6FC4'},{v:0.5,c:'#16A34A'},{v:1,c:'#16A34A'},{v:-0.1,c:'#A88BD9'}],
+        [{v:0.1,c:'#7C95C4'},{v:0.2,c:'#5A77AA'},{v:-0.1,c:'#A88BD9'},{v:1,c:'#16A34A'}]
       ].map((row, i) => (
         row.map((cell, j) => (
           <g key={`${i}-${j}`}>
@@ -76,11 +76,11 @@ const Icons = {
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Asset Correlation Matrix</text>
       {/* Legend */}
       <g transform="translate(120, 260)">
-        <rect x="0" y="0" width="40" height="15" fill="#8b5cf6" opacity="0.6" rx="2"/>
+        <rect x="0" y="0" width="40" height="15" fill="#8F6FC4" opacity="0.6" rx="2"/>
         <text x="45" y="11" fill="currentColor" fontSize="10">Negative</text>
-        <rect x="100" y="0" width="40" height="15" fill="#3b82f6" opacity="0.6" rx="2"/>
+        <rect x="100" y="0" width="40" height="15" fill="#5A77AA" opacity="0.6" rx="2"/>
         <text x="145" y="11" fill="currentColor" fontSize="10">Low</text>
-        <rect x="190" y="0" width="40" height="15" fill="#10b981" opacity="0.6" rx="2"/>
+        <rect x="190" y="0" width="40" height="15" fill="#16A34A" opacity="0.6" rx="2"/>
         <text x="235" y="11" fill="currentColor" fontSize="10">High</text>
       </g>
     </svg>
@@ -152,25 +152,25 @@ const PCLesson8 = () => {
   const calculateScore = () => quizQuestions.filter(q => quizAnswers[q.id] === q.correct).length;
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 via-white to-emerald-50/30    text-gray-900  min-h-screen flex flex-col font-sans">
+    <div className="text-gray-900 min-h-screen flex flex-col font-sans">
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           
-          <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 text-gray-500 hover:text-emerald-600  transition-colors mb-8 group">
+          <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 text-gray-500 hover:text-brand  transition-colors mb-8 group">
             <Icons.ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform"/>
             <span className="text-sm font-medium">Back to Portfolio Construction</span>
           </button>
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 8 OF 12</span>
-              <span className="px-3 py-1.5 bg-emerald-100  text-emerald-700  rounded-full text-xs font-medium flex items-center gap-1.5">
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 8 OF 12</span>
+              <span className="px-3 py-1.5 bg-brand-soft  text-brand  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-900 to-teal-900    bg-clip-text text-transparent mb-5 leading-tight">Diversification Mastery</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 leading-tight tracking-[-0.025em] text-brand">Diversification Mastery</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Discover why diversification is called the "only free lunch in investing." Learn to build portfolios that reduce risk without sacrificing returns through true diversification across assets and geography.</p>
           </header>
 
@@ -179,37 +179,37 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.Layers className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">The Free Lunch of Finance</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Free Lunch of Finance</h2>
                       <p className="text-sm text-gray-500 ">Why diversification matters</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Harry Markowitz famously called diversification "the only free lunch in investing." Unlike most financial decisions that involve trade-offs, proper diversification allows you to reduce portfolio risk without proportionally reducing expected returns.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">The Mathematics of Diversification</h4>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <div className="text-emerald-400 text-sm mb-2">Single Stock</div>
+                        <div className="text-brand text-sm mb-2">Single Stock</div>
                         <div className="text-white text-lg font-mono">σp = σ</div>
                         <div className="text-gray-400 text-xs mt-2">Full volatility exposure</div>
                       </div>
                       <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <div className="text-emerald-400 text-sm mb-2">N Uncorrelated Stocks</div>
+                        <div className="text-brand text-sm mb-2">N Uncorrelated Stocks</div>
                         <div className="text-white text-lg font-mono">σp = σ / sqrt(N)</div>
                         <div className="text-gray-400 text-xs mt-2">Risk decreases with sqrt(N)</div>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-emerald-800 text-center">
+                    <div className="mt-4 pt-4 border-t border-brand text-center">
                       <span className="text-gray-400 text-xs">With 25 uncorrelated assets of equal volatility, portfolio risk is just 20% of single-asset risk</span>
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-xl p-6 border-l-4 border-emerald-500">
+                  <div className="rounded-xl p-6 border-l-4 border-brand bg-brand-soft">
                     <h4 className="font-bold text-gray-900  mb-2">The Core Insight</h4>
                     <p className="text-gray-700  text-sm">When assets don't move in lockstep, losses in some are offset by gains in others. This smoothing effect reduces volatility without reducing average returns. That's the free lunch - less risk, same expected reward.</p>
                   </div>
@@ -218,11 +218,11 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-500/20 bg-brand-fill">
                       <Icons.Grid className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">True vs. Naive Diversification</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">True vs. Naive Diversification</h2>
                       <p className="text-sm text-gray-500 ">Quantity is not quality</p>
                     </div>
                   </div>
@@ -245,18 +245,18 @@ const PCLesson8 = () => {
                       </div>
                     </div>
 
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-3 flex items-center gap-2">
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3 flex items-center gap-2">
                         <Icons.CheckCircle className="w-5 h-5"/> True Diversification
                       </h4>
                       <ul className="text-sm text-gray-700  space-y-2">
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"/>Different asset classes</li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"/>Multiple geographies</li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"/>Different risk factors</li>
-                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"/>Various economic sensitivities</li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>Different asset classes</li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>Multiple geographies</li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>Different risk factors</li>
+                        <li className="flex items-start gap-2"><span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1.5 flex-shrink-0"/>Various economic sensitivities</li>
                       </ul>
-                      <div className="mt-4 p-3 bg-emerald-100  rounded-lg">
-                        <p className="text-xs text-emerald-700 ">Low correlations provide genuine risk reduction.</p>
+                      <div className="mt-4 p-3 bg-brand-soft  rounded-lg">
+                        <p className="text-xs text-brand ">Low correlations provide genuine risk reduction.</p>
                       </div>
                     </div>
                   </div>
@@ -265,7 +265,7 @@ const PCLesson8 = () => {
                     <h4 className="font-bold text-gray-900  mb-4">Diversification Dimensions</h4>
                     <div className="grid md:grid-cols-3 gap-4 text-sm">
                       <div className="p-4 bg-white  rounded-lg">
-                        <h5 className="font-semibold text-emerald-700  mb-2">Asset Class</h5>
+                        <h5 className="font-semibold text-brand  mb-2">Asset Class</h5>
                         <p className="text-gray-600 ">Stocks, bonds, real estate, commodities</p>
                       </div>
                       <div className="p-4 bg-white  rounded-lg">
@@ -295,32 +295,32 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M18 20V10M12 20V4M6 20v-6"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Understanding Correlation</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Understanding Correlation</h2>
                       <p className="text-sm text-gray-500 ">The key to diversification</p>
                     </div>
                   </div>
 
                   <p className="text-gray-700  leading-relaxed mb-6">Correlation measures how two assets move relative to each other. It ranges from -1 (perfectly opposite) to +1 (perfectly together). Lower correlations mean better diversification benefits.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">Correlation Spectrum</h4>
                     <div className="relative">
-                      <div className="h-3 bg-gradient-to-r from-emerald-500 via-yellow-500 to-red-500 rounded-full"/>
+                      <div className="h-3 rounded-full bg-brand-fill"/>
                       <div className="flex justify-between mt-2 text-xs">
-                        <span className="text-emerald-400">-1.0<br/>Perfect hedge</span>
+                        <span className="text-brand">-1.0<br/>Perfect hedge</span>
                         <span className="text-yellow-400">0<br/>Uncorrelated</span>
                         <span className="text-red-400">+1.0<br/>Perfect correlation</span>
                       </div>
                     </div>
                     <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                      <div className="p-3 bg-emerald-900/40 rounded-lg">
-                        <div className="text-emerald-400 font-bold">Negative</div>
+                      <div className="p-3 bg-brand-fill/40 rounded-lg">
+                        <div className="text-brand font-bold">Negative</div>
                         <div className="text-gray-400 text-xs mt-1">Maximum diversification benefit</div>
                       </div>
                       <div className="p-3 bg-yellow-900/40 rounded-lg">
@@ -374,17 +374,17 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                       <Icons.Grid className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Asset Correlation Analysis</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Asset Correlation Analysis</h2>
                       <p className="text-sm text-gray-500 ">Understanding asset relationships</p>
                     </div>
                   </div>
                   
                   {/* Visual: Correlation Heatmap */}
-                  <div className="bg-gradient-to-br from-gray-900 to-cyan-950 rounded-2xl p-8 mb-6 shadow-lg">
+                  <div className="bg-gradient-to-br from-gray-900 to-cyan-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                     <h4 className="text-white font-bold mb-4 text-center">Visual: Asset Correlation Matrix</h4>
                     <Icons.CorrelationHeatmap className="w-full h-64"/>
                     <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
@@ -441,21 +441,21 @@ const PCLesson8 = () => {
                         </li>
                       </ul>
                     </div>
-                    <div className="bg-green-50  rounded-xl p-6 border border-green-200 ">
-                      <h4 className="font-bold text-green-800  mb-3">Sector Diversification</h4>
+                    <div className="bg-brand-soft  rounded-xl p-6 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">Sector Diversification</h4>
                       <p className="text-sm text-gray-600  mb-3">Nifty 50 is heavily weighted to financials (~35%). Diversify across:</p>
                       <div className="space-y-2 text-xs">
-                        <div className="bg-green-100  rounded-lg p-2">
-                          <span className="font-medium text-green-900 ">IT (15%):</span>
-                          <span className="text-green-700  ml-1">Export earnings, rupee hedge</span>
+                        <div className="bg-brand-soft  rounded-lg p-2">
+                          <span className="font-medium text-brand ">IT (15%):</span>
+                          <span className="text-brand  ml-1">Export earnings, rupee hedge</span>
                         </div>
-                        <div className="bg-green-100  rounded-lg p-2">
-                          <span className="font-medium text-green-900 ">FMCG (10%):</span>
-                          <span className="text-green-700  ml-1">Defensive, rural consumption</span>
+                        <div className="bg-brand-soft  rounded-lg p-2">
+                          <span className="font-medium text-brand ">FMCG (10%):</span>
+                          <span className="text-brand  ml-1">Defensive, rural consumption</span>
                         </div>
-                        <div className="bg-green-100  rounded-lg p-2">
-                          <span className="font-medium text-green-900 ">Pharma (10%):</span>
-                          <span className="text-green-700  ml-1">Healthcare demand, exports</span>
+                        <div className="bg-brand-soft  rounded-lg p-2">
+                          <span className="font-medium text-brand ">Pharma (10%):</span>
+                          <span className="text-brand  ml-1">Healthcare demand, exports</span>
                         </div>
                       </div>
                     </div>
@@ -472,11 +472,11 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                       <Icons.Globe className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Global Diversification</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Global Diversification</h2>
                       <p className="text-sm text-gray-500 ">Beyond your home market</p>
                     </div>
                   </div>
@@ -508,12 +508,12 @@ const PCLesson8 = () => {
                     <h4 className="font-bold text-gray-900  mb-4">Benefits vs. Challenges</h4>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <h5 className="text-sm font-semibold text-emerald-700  mb-3">Benefits</h5>
+                        <h5 className="text-sm font-semibold text-brand  mb-3">Benefits</h5>
                         <ul className="text-sm text-gray-700  space-y-2">
-                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Access to different economic cycles</li>
-                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Exposure to sectors underrepresented at home</li>
-                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Potential for higher returns in EM</li>
-                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Currency diversification</li>
+                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Access to different economic cycles</li>
+                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Exposure to sectors underrepresented at home</li>
+                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Potential for higher returns in EM</li>
+                          <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Currency diversification</li>
                         </ul>
                       </div>
                       <div>
@@ -541,7 +541,7 @@ const PCLesson8 = () => {
                       <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Limits and Common Mistakes</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Limits and Common Mistakes</h2>
                       <p className="text-sm text-gray-500 ">What diversification cannot do</p>
                     </div>
                   </div>
@@ -572,7 +572,7 @@ const PCLesson8 = () => {
                     <h4 className="font-bold text-gray-900  mb-4">Diversification Done Right</h4>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="p-4 bg-white  rounded-lg">
-                        <h5 className="font-semibold text-emerald-700  mb-2">Focus On</h5>
+                        <h5 className="font-semibold text-brand  mb-2">Focus On</h5>
                         <ul className="text-sm text-gray-700  space-y-1">
                           <li>Asset class diversification first</li>
                           <li>Low correlation, not just quantity</li>
@@ -596,11 +596,11 @@ const PCLesson8 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of diversification</p>
                     </div>
                   </div>
@@ -619,16 +619,16 @@ const PCLesson8 = () => {
                             return (
                               <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                                 className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                  ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                   ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
-                                  ${isSelected && !showResults ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${isSelected && !showResults ? 'border-brand bg-brand-soft ' : ''}
                                   ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
                                   ${showResults ? 'cursor-default' : 'cursor-pointer'}`}>
-                                <span className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-gray-300  text-gray-500'}`}>
+                                <span className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? 'border-brand bg-brand-fill text-white' : 'border-gray-300  text-gray-500'}`}>
                                   {String.fromCharCode(65 + oIdx)}
                                 </span>
                                 <span className="flex-1 text-gray-700 ">{option}</span>
-                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                                 {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                               </button>
                             );
@@ -645,13 +645,13 @@ const PCLesson8 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-brand/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                       Check Answers
                     </button>
                   ) : (
-                    <div className="mt-8 p-6 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl text-center">
+                    <div className="mt-8 p-6 rounded-xl text-center bg-brand-fill">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
-                      <p className="text-emerald-100">{calculateScore() === quizQuestions.length ? "Perfect! You understand the art and science of diversification." : "Review the explanations to master diversification concepts."}</p>
+                      <p className="text-white/85">{calculateScore() === quizQuestions.length ? "Perfect! You understand the art and science of diversification." : "Review the explanations to master diversification concepts."}</p>
                     </div>
                   )}
                 </div>
@@ -662,7 +662,7 @@ const PCLesson8 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-7')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-9')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-9')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-brand/25 transition-all duration-200 bg-brand-fill">
               <span>Next: Rebalancing</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

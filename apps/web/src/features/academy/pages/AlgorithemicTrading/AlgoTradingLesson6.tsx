@@ -62,15 +62,15 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
           let bg = "bg-gray-50  hover:bg-amber-50 ", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-amber-100  text-amber-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-amber-100  text-amber-600'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -78,7 +78,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -107,11 +107,11 @@ const AlgoTradingLesson6 = () => {
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-full text-sm font-bold">Lesson 6 of 9</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 6 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">15 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Zap className="w-8 h-8 text-white"/>
               </span>
               Execution & Order Types
@@ -123,7 +123,7 @@ const AlgoTradingLesson6 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-            <h2 className="font-bold text-amber-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-amber-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -142,7 +142,7 @@ const AlgoTradingLesson6 = () => {
             
             {/* Intro */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-red-900  mb-3 text-lg flex items-center gap-2">
                 <Icons.Warning className="w-5 h-5"/> The Execution Gap
               </h3>
               <p className="text-red-800 ">
@@ -152,76 +152,76 @@ const AlgoTradingLesson6 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">Order Types: Your Execution Toolkit</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">Order Types: Your Execution Toolkit</h2>
             <p className="text-gray-700  mb-6">
               Different order types serve different purposes. Understanding when to use each is crucial for efficient execution.
             </p>
 
             {/* Order Types SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-amber-950 rounded-2xl p-6 mb-10 border border-amber-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-amber-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 380" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">ORDER TYPES COMPARISON</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">ORDER TYPES COMPARISON</text>
 
                 {/* Market Order */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#1e293b" stroke="#22c55e" strokeWidth="2"/>
-                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#22c55e"/>
-                  <rect x="0" y="23" width="300" height="12" fill="#22c55e"/>
+                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#16A34A"/>
+                  <rect x="0" y="23" width="300" height="12" fill="#16A34A"/>
                   <text x="150" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">MARKET ORDER</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#86efac" fontSize="10">"Execute NOW at best available price"</text>
+                  <text x="150" y="60" textAnchor="middle" fill="#16A34A" fontSize="10">"Execute NOW at best available price"</text>
                   
-                  <text x="20" y="85" fill="#94a3b8" fontSize="9">✓ Guaranteed execution</text>
-                  <text x="20" y="100" fill="#94a3b8" fontSize="9">✓ Instant fill</text>
-                  <text x="20" y="115" fill="#fca5a5" fontSize="9">✗ No price control</text>
-                  <text x="20" y="130" fill="#fca5a5" fontSize="9">✗ Can slip in volatile markets</text>
+                  <text x="20" y="85" fill="#A0A3AA" fontSize="9">✓ Guaranteed execution</text>
+                  <text x="20" y="100" fill="#A0A3AA" fontSize="9">✓ Instant fill</text>
+                  <text x="20" y="115" fill="#F09B9B" fontSize="9">✗ No price control</text>
+                  <text x="20" y="130" fill="#F09B9B" fontSize="9">✗ Can slip in volatile markets</text>
                 </g>
 
                 {/* Limit Order */}
                 <g transform="translate(370, 50)">
-                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
-                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#3b82f6"/>
-                  <rect x="0" y="23" width="300" height="12" fill="#3b82f6"/>
+                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#5A77AA" strokeWidth="2"/>
+                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#5A77AA"/>
+                  <rect x="0" y="23" width="300" height="12" fill="#5A77AA"/>
                   <text x="150" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">LIMIT ORDER</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#93c5fd" fontSize="10">"Execute ONLY at this price or better"</text>
+                  <text x="150" y="60" textAnchor="middle" fill="#9FB3D3" fontSize="10">"Execute ONLY at this price or better"</text>
                   
-                  <text x="20" y="85" fill="#94a3b8" fontSize="9">✓ Price control</text>
-                  <text x="20" y="100" fill="#94a3b8" fontSize="9">✓ No slippage if filled</text>
-                  <text x="20" y="115" fill="#fca5a5" fontSize="9">✗ May not execute</text>
-                  <text x="20" y="130" fill="#fca5a5" fontSize="9">✗ Can miss opportunities</text>
+                  <text x="20" y="85" fill="#A0A3AA" fontSize="9">✓ Price control</text>
+                  <text x="20" y="100" fill="#A0A3AA" fontSize="9">✓ No slippage if filled</text>
+                  <text x="20" y="115" fill="#F09B9B" fontSize="9">✗ May not execute</text>
+                  <text x="20" y="130" fill="#F09B9B" fontSize="9">✗ Can miss opportunities</text>
                 </g>
 
                 {/* Stop Order */}
                 <g transform="translate(30, 210)">
-                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#1e293b" stroke="#f59e0b" strokeWidth="2"/>
-                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#f59e0b"/>
-                  <rect x="0" y="23" width="300" height="12" fill="#f59e0b"/>
+                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#B8923F" strokeWidth="2"/>
+                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#B8923F"/>
+                  <rect x="0" y="23" width="300" height="12" fill="#B8923F"/>
                   <text x="150" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">STOP ORDER</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#fcd34d" fontSize="10">"Become market order when price hits X"</text>
+                  <text x="150" y="60" textAnchor="middle" fill="#E2C273" fontSize="10">"Become market order when price hits X"</text>
                   
-                  <text x="20" y="85" fill="#94a3b8" fontSize="9">✓ Automatic protection</text>
-                  <text x="20" y="100" fill="#94a3b8" fontSize="9">✓ Works while you sleep</text>
-                  <text x="20" y="115" fill="#fca5a5" fontSize="9">✗ Can be triggered by spikes</text>
-                  <text x="20" y="130" fill="#fca5a5" fontSize="9">✗ Slippage after trigger</text>
+                  <text x="20" y="85" fill="#A0A3AA" fontSize="9">✓ Automatic protection</text>
+                  <text x="20" y="100" fill="#A0A3AA" fontSize="9">✓ Works while you sleep</text>
+                  <text x="20" y="115" fill="#F09B9B" fontSize="9">✗ Can be triggered by spikes</text>
+                  <text x="20" y="130" fill="#F09B9B" fontSize="9">✗ Slippage after trigger</text>
                 </g>
 
                 {/* Stop-Limit Order */}
                 <g transform="translate(370, 210)">
-                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
-                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#8b5cf6"/>
-                  <rect x="0" y="23" width="300" height="12" fill="#8b5cf6"/>
+                  <rect x="0" y="0" width="300" height="140" rx="12" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
+                  <rect x="0" y="0" width="300" height="35" rx="12" fill="#8F6FC4"/>
+                  <rect x="0" y="23" width="300" height="12" fill="#8F6FC4"/>
                   <text x="150" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">STOP-LIMIT ORDER</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#c4b5fd" fontSize="10">"Limit order when price hits trigger"</text>
+                  <text x="150" y="60" textAnchor="middle" fill="#C0A9E2" fontSize="10">"Limit order when price hits trigger"</text>
                   
-                  <text x="20" y="85" fill="#94a3b8" fontSize="9">✓ Price control + automation</text>
-                  <text x="20" y="100" fill="#94a3b8" fontSize="9">✓ Best of both worlds</text>
-                  <text x="20" y="115" fill="#fca5a5" fontSize="9">✗ Complex to set up</text>
-                  <text x="20" y="130" fill="#fca5a5" fontSize="9">✗ May not fill in fast markets</text>
+                  <text x="20" y="85" fill="#A0A3AA" fontSize="9">✓ Price control + automation</text>
+                  <text x="20" y="100" fill="#A0A3AA" fontSize="9">✓ Best of both worlds</text>
+                  <text x="20" y="115" fill="#F09B9B" fontSize="9">✗ Complex to set up</text>
+                  <text x="20" y="130" fill="#F09B9B" fontSize="9">✗ May not fill in fast markets</text>
                 </g>
               </svg>
             </div>
 
             {/* When to Use Each */}
-            <h2 className="text-2xl font-bold mb-4">When to Use Each Order Type</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">When to Use Each Order Type</h2>
             <div className="grid gap-4 mb-10">
               {[
                 { type: "Market Order", when: "Urgent exits, stop losses, highly liquid stocks", color: "emerald" },
@@ -229,7 +229,7 @@ const AlgoTradingLesson6 = () => {
                 { type: "Stop Order", when: "Automated stop losses, breakout entries", color: "amber" },
                 { type: "Stop-Limit", when: "Important exits where you need price control", color: "violet" }
               ].map((item) => {
-                const colors = { emerald: "border-emerald-500 bg-emerald-50 ", blue: "border-blue-500 bg-blue-50 ",
+                const colors = { emerald: "border-brand bg-brand-soft ", blue: "border-blue-500 bg-blue-50 ",
                   amber: "border-amber-500 bg-amber-50 ", violet: "border-violet-500 bg-violet-50 " };
                 return (
                   <div key={item.type} className={`rounded-xl p-4 border-l-4 ${colors[item.color]}`}>
@@ -241,7 +241,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* Slippage */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.Warning className="w-5 h-5 text-red-600 "/>
               </span>
@@ -255,7 +255,7 @@ const AlgoTradingLesson6 = () => {
 
             {/* Slippage Causes */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-8 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4">Causes of Slippage</h3>
+              <h3 className="font-semibold text-red-800  mb-4">Causes of Slippage</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {[
                   { cause: "Low Liquidity", desc: "Not enough buyers/sellers at your price" },
@@ -272,7 +272,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* TWAP and VWAP */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Clock className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -284,56 +284,56 @@ const AlgoTradingLesson6 = () => {
             </p>
 
             {/* TWAP vs VWAP SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-violet-950 rounded-2xl p-6 mb-10 border border-violet-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-violet-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">TWAP vs VWAP EXECUTION</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">TWAP vs VWAP EXECUTION</text>
 
                 {/* TWAP */}
                 <g transform="translate(30, 50)">
-                  <rect x="0" y="0" width="310" height="240" rx="12" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
-                  <text x="155" y="30" textAnchor="middle" fill="#93c5fd" fontSize="12" fontWeight="700">TWAP</text>
-                  <text x="155" y="48" textAnchor="middle" fill="#64748b" fontSize="9">Time-Weighted Average Price</text>
+                  <rect x="0" y="0" width="310" height="240" rx="12" fill="#2A2A2C" stroke="#5A77AA" strokeWidth="2"/>
+                  <text x="155" y="30" textAnchor="middle" fill="#9FB3D3" fontSize="12" fontWeight="700">TWAP</text>
+                  <text x="155" y="48" textAnchor="middle" fill="#717680" fontSize="9">Time-Weighted Average Price</text>
                   
                   {/* Visual - equal slices */}
                   <g transform="translate(30, 70)">
-                    <rect x="0" y="0" width="50" height="60" fill="#3b82f6" opacity="0.7" rx="4"/>
-                    <rect x="60" y="0" width="50" height="60" fill="#3b82f6" opacity="0.7" rx="4"/>
-                    <rect x="120" y="0" width="50" height="60" fill="#3b82f6" opacity="0.7" rx="4"/>
-                    <rect x="180" y="0" width="50" height="60" fill="#3b82f6" opacity="0.7" rx="4"/>
-                    <text x="125" y="80" textAnchor="middle" fill="#64748b" fontSize="8">Equal orders over time</text>
+                    <rect x="0" y="0" width="50" height="60" fill="#5A77AA" opacity="0.7" rx="4"/>
+                    <rect x="60" y="0" width="50" height="60" fill="#5A77AA" opacity="0.7" rx="4"/>
+                    <rect x="120" y="0" width="50" height="60" fill="#5A77AA" opacity="0.7" rx="4"/>
+                    <rect x="180" y="0" width="50" height="60" fill="#5A77AA" opacity="0.7" rx="4"/>
+                    <text x="125" y="80" textAnchor="middle" fill="#717680" fontSize="8">Equal orders over time</text>
                   </g>
                   
-                  <text x="155" y="175" textAnchor="middle" fill="#94a3b8" fontSize="9">📋 How it works:</text>
-                  <text x="155" y="195" textAnchor="middle" fill="#94a3b8" fontSize="8">Split order into equal parts</text>
-                  <text x="155" y="210" textAnchor="middle" fill="#94a3b8" fontSize="8">Execute at regular intervals</text>
-                  <text x="155" y="230" textAnchor="middle" fill="#86efac" fontSize="8">✓ Best for: Low-volume stocks</text>
+                  <text x="155" y="175" textAnchor="middle" fill="#A0A3AA" fontSize="9">📋 How it works:</text>
+                  <text x="155" y="195" textAnchor="middle" fill="#A0A3AA" fontSize="8">Split order into equal parts</text>
+                  <text x="155" y="210" textAnchor="middle" fill="#A0A3AA" fontSize="8">Execute at regular intervals</text>
+                  <text x="155" y="230" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Best for: Low-volume stocks</text>
                 </g>
 
                 {/* VWAP */}
                 <g transform="translate(360, 50)">
-                  <rect x="0" y="0" width="310" height="240" rx="12" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
-                  <text x="155" y="30" textAnchor="middle" fill="#c4b5fd" fontSize="12" fontWeight="700">VWAP</text>
-                  <text x="155" y="48" textAnchor="middle" fill="#64748b" fontSize="9">Volume-Weighted Average Price</text>
+                  <rect x="0" y="0" width="310" height="240" rx="12" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
+                  <text x="155" y="30" textAnchor="middle" fill="#C0A9E2" fontSize="12" fontWeight="700">VWAP</text>
+                  <text x="155" y="48" textAnchor="middle" fill="#717680" fontSize="9">Volume-Weighted Average Price</text>
                   
                   {/* Visual - varying slices */}
                   <g transform="translate(30, 70)">
-                    <rect x="0" y="30" width="50" height="30" fill="#8b5cf6" opacity="0.7" rx="4"/>
-                    <rect x="60" y="10" width="50" height="50" fill="#8b5cf6" opacity="0.7" rx="4"/>
-                    <rect x="120" y="0" width="50" height="60" fill="#8b5cf6" opacity="0.7" rx="4"/>
-                    <rect x="180" y="25" width="50" height="35" fill="#8b5cf6" opacity="0.7" rx="4"/>
-                    <text x="125" y="80" textAnchor="middle" fill="#64748b" fontSize="8">More when volume is high</text>
+                    <rect x="0" y="30" width="50" height="30" fill="#8F6FC4" opacity="0.7" rx="4"/>
+                    <rect x="60" y="10" width="50" height="50" fill="#8F6FC4" opacity="0.7" rx="4"/>
+                    <rect x="120" y="0" width="50" height="60" fill="#8F6FC4" opacity="0.7" rx="4"/>
+                    <rect x="180" y="25" width="50" height="35" fill="#8F6FC4" opacity="0.7" rx="4"/>
+                    <text x="125" y="80" textAnchor="middle" fill="#717680" fontSize="8">More when volume is high</text>
                   </g>
                   
-                  <text x="155" y="175" textAnchor="middle" fill="#94a3b8" fontSize="9">📋 How it works:</text>
-                  <text x="155" y="195" textAnchor="middle" fill="#94a3b8" fontSize="8">Match execution to market volume</text>
-                  <text x="155" y="210" textAnchor="middle" fill="#94a3b8" fontSize="8">More shares when volume is higher</text>
-                  <text x="155" y="230" textAnchor="middle" fill="#86efac" fontSize="8">✓ Best for: High-volume stocks</text>
+                  <text x="155" y="175" textAnchor="middle" fill="#A0A3AA" fontSize="9">📋 How it works:</text>
+                  <text x="155" y="195" textAnchor="middle" fill="#A0A3AA" fontSize="8">Match execution to market volume</text>
+                  <text x="155" y="210" textAnchor="middle" fill="#A0A3AA" fontSize="8">More shares when volume is higher</text>
+                  <text x="155" y="230" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Best for: High-volume stocks</text>
                 </g>
               </svg>
             </div>
 
             {/* Market Microstructure */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Layers className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -346,11 +346,11 @@ const AlgoTradingLesson6 = () => {
 
             {/* Order Book Visual */}
             <div className="bg-white  rounded-2xl p-6 mb-8 border border-gray-200 ">
-              <h3 className="font-bold text-gray-900  mb-4">The Order Book</h3>
+              <h3 className="font-semibold text-gray-900  mb-4">The Order Book</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {/* Bid Side */}
-                <div className="bg-emerald-50  rounded-xl p-4 border border-emerald-200 ">
-                  <h4 className="font-bold text-emerald-700  mb-3">BID (Buyers)</h4>
+                <div className="bg-brand-soft  rounded-xl p-4 border border-brand-line ">
+                  <h4 className="font-bold text-brand  mb-3">BID (Buyers)</h4>
                   <div className="space-y-2 font-mono text-sm">
                     {[
                       { price: "₹100.50", qty: "500" },
@@ -358,12 +358,12 @@ const AlgoTradingLesson6 = () => {
                       { price: "₹100.40", qty: "800" },
                       { price: "₹100.35", qty: "2,000" }
                     ].map((row, i) => (
-                      <div key={i} className="flex justify-between text-emerald-700 ">
+                      <div key={i} className="flex justify-between text-brand ">
                         <span>{row.price}</span><span>{row.qty}</span>
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs text-emerald-600  mt-3">Willing to buy at these prices</p>
+                  <p className="text-xs text-brand  mt-3">Willing to buy at these prices</p>
                 </div>
 
                 {/* Ask Side */}
@@ -394,9 +394,9 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* Best Practices */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Lightbulb className="w-5 h-5 text-white"/></span>
+            <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Lightbulb className="w-5 h-5 text-white"/></span>
                 Execution Best Practices
               </h3>
               <ul className="space-y-3">
@@ -409,10 +409,10 @@ const AlgoTradingLesson6 = () => {
                   { tip: "Account for slippage in backtests", desc: "Add 0.05-0.1% per trade to be realistic" }
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/>
+                    <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/>
                     <div>
-                      <span className="font-semibold text-emerald-700 ">{item.tip}:</span>
-                      <span className="text-emerald-600  ml-1">{item.desc}</span>
+                      <span className="font-semibold text-brand ">{item.tip}:</span>
+                      <span className="text-brand  ml-1">{item.desc}</span>
                     </div>
                   </li>
                 ))}
@@ -421,7 +421,7 @@ const AlgoTradingLesson6 = () => {
 
             {/* Key Takeaways */}
             <div className="bg-gradient-to-r from-amber-50 to-orange-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-amber-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
@@ -440,7 +440,7 @@ const AlgoTradingLesson6 = () => {
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="Which order type guarantees execution but NOT the price?"
               options={["Limit Order", "Market Order", "Stop-Limit Order", "None of these"]}
@@ -468,7 +468,7 @@ const AlgoTradingLesson6 = () => {
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Risk Management
             </button>
             <button onClick={() => navigate('/learn/algo-trading-lesson-7')}
-              className="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all bg-brand-fill">
               Next: Live Trading<FaArrowRight/>
             </button>
           </div>

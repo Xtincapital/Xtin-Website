@@ -73,7 +73,7 @@ export default function RunBacktest() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className={`${card} p-5 sm:p-6`}>
           <div className="flex items-center gap-2 font-semibold">
-            <CalendarRange className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Test window
+            <CalendarRange className="h-4 w-4 text-brand dark:text-brand" /> Test window
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {PERIODS.map((p) => {
@@ -92,7 +92,7 @@ export default function RunBacktest() {
                     setStartDate(isoDaysAgo(p.days));
                     setEndDate(isoDaysAgo(0));
                   }}
-                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold transition aria-disabled:opacity-60 ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
+                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold transition aria-disabled:opacity-60 ${activePeriod === p.label ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"} brand-on-dark`}
                 >
                   {p.label}
                   {lockedPeriod && <ProBadge />}
@@ -112,7 +112,7 @@ export default function RunBacktest() {
           </div>
 
           <div className="mt-6 flex items-center gap-2 font-semibold">
-            <Wallet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Starting capital
+            <Wallet className="h-4 w-4 text-brand dark:text-brand" /> Starting capital
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
             {CAPITALS.map((c) => (
@@ -120,7 +120,7 @@ export default function RunBacktest() {
                 key={c}
                 type="button"
                 onClick={() => setCapital(c)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold tabular-nums transition ${capital === c ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"}`}
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold tabular-nums transition ${capital === c ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"} brand-on-dark`}
               >
                 {inr(c)}
               </button>
@@ -132,7 +132,7 @@ export default function RunBacktest() {
         <aside className="space-y-4">
           <div className={`${card} p-5`}>
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <Database className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Data
+              <Database className="h-4 w-4 text-brand dark:text-brand" /> Data
             </div>
             {inst && (
               <div className="mt-3 flex flex-wrap gap-1.5">

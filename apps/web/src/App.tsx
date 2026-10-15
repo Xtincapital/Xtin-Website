@@ -329,7 +329,7 @@ import { RouteMetaFallback } from './components/SEO';
 // Fallback shown while a lazy-loaded route chunk is fetched.
 const RouteLoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600" />
+    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand" />
   </div>
 );
 
@@ -379,7 +379,7 @@ function App() {
         <Route path="/tools/step-up-sip" element={<ProtectedPageRoute><StepUpSIPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/swp" element={<ProtectedPageRoute><SWPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/real-estate-investment" element={<ProtectedPageRoute><RealEstateCalculator /></ProtectedPageRoute>} />
-        <Route path="/learn/watch/:slug" element={<ModuleVideoPage />} />
+        <Route path="/learn/watch/:slug" element={<ProtectedPageRoute><ModuleVideoPage /></ProtectedPageRoute>} />
         <Route path="/learn" element={<ProtectedPageRoute><LearnPage /></ProtectedPageRoute>} />
         <Route path="/learn/personal-finance-basics" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
         <Route path="/learn/personal-finance-lesson-1" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
@@ -602,8 +602,8 @@ function App() {
         <Route path="/learn/estate-planning-lesson-10" element={<ProtectedModuleRoute><EstatePlanningLesson10 /></ProtectedModuleRoute>} />
         <Route path="/learn/estate-planning-lesson-11" element={<ProtectedModuleRoute><EstatePlanningLesson11 /></ProtectedModuleRoute>} />
         <Route path="/learn/estate-planning-lesson-12" element={<ProtectedModuleRoute><EstatePlanningLesson12 /></ProtectedModuleRoute>} />
-        <Route path="/courses/:courseId" element={<CourseDetail />} />
-        <Route path="/courses/:courseId/purchase" element={<PurchasePage />} />
+        <Route path="/courses/:courseId" element={<ProtectedPageRoute><CourseDetail /></ProtectedPageRoute>} />
+        <Route path="/courses/:courseId/purchase" element={<ProtectedPageRoute><PurchasePage /></ProtectedPageRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />

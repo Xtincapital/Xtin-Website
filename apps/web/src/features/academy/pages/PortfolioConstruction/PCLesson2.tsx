@@ -69,31 +69,31 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
         <linearGradient id="bellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4"/>
-          <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.1"/>
+          <stop offset="0%" stopColor="#5A77AA" stopOpacity="0.4"/>
+          <stop offset="100%" stopColor="#8F6FC4" stopOpacity="0.1"/>
         </linearGradient>
       </defs>
       {/* Axes */}
       <line x1="40" y1="200" x2="360" y2="200" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
       {/* Bell curve path */}
-      <path d="M 40 200 Q 80 180, 120 120 T 200 50 T 280 120 Q 320 180, 360 200" stroke="#3b82f6" strokeWidth="3" fill="url(#bellGrad)"/>
+      <path d="M 40 200 Q 80 180, 120 120 T 200 50 T 280 120 Q 320 180, 360 200" stroke="#5A77AA" strokeWidth="3" fill="url(#bellGrad)"/>
       {/* Mean line */}
-      <line x1="200" y1="50" x2="200" y2="210" stroke="#10b981" strokeWidth="2" strokeDasharray="5,5"/>
-      <text x="200" y="230" fill="#10b981" fontSize="12" fontWeight="bold" textAnchor="middle">μ (Mean)</text>
+      <line x1="200" y1="50" x2="200" y2="210" stroke="#16A34A" strokeWidth="2" strokeDasharray="5,5"/>
+      <text x="200" y="230" fill="#16A34A" fontSize="12" fontWeight="bold" textAnchor="middle">μ (Mean)</text>
       {/* Standard deviation markers */}
-      <line x1="130" y1="190" x2="130" y2="205" stroke="#ef4444" strokeWidth="2"/>
-      <line x1="270" y1="190" x2="270" y2="205" stroke="#ef4444" strokeWidth="2"/>
-      <path d="M 130 197 L 200 197" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrowRed)"/>
-      <path d="M 200 197 L 270 197" stroke="#ef4444" strokeWidth="1.5" markerEnd="url(#arrowRed)"/>
-      <text x="165" y="220" fill="#ef4444" fontSize="11" textAnchor="middle">σ</text>
-      <text x="235" y="220" fill="#ef4444" fontSize="11" textAnchor="middle">σ</text>
+      <line x1="130" y1="190" x2="130" y2="205" stroke="#E04848" strokeWidth="2"/>
+      <line x1="270" y1="190" x2="270" y2="205" stroke="#E04848" strokeWidth="2"/>
+      <path d="M 130 197 L 200 197" stroke="#E04848" strokeWidth="1.5" markerEnd="url(#arrowRed)"/>
+      <path d="M 200 197 L 270 197" stroke="#E04848" strokeWidth="1.5" markerEnd="url(#arrowRed)"/>
+      <text x="165" y="220" fill="#E04848" fontSize="11" textAnchor="middle">σ</text>
+      <text x="235" y="220" fill="#E04848" fontSize="11" textAnchor="middle">σ</text>
       {/* Labels */}
       <text x="200" y="30" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Return Distribution</text>
       {/* Percentages */}
       <text x="200" y="130" fill="currentColor" opacity="0.5" fontSize="11" textAnchor="middle">68% within ±1σ</text>
       <defs>
         <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L0,6 L9,3 z" fill="#ef4444"/>
+          <path d="M0,0 L0,6 L9,3 z" fill="#E04848"/>
         </marker>
       </defs>
     </svg>
@@ -102,17 +102,17 @@ const Icons = {
   RiskBreakdown: ({ className = "w-full h-48" }) => (
     <svg className={className} viewBox="0 0 400 200" fill="none">
       {/* Total Risk Bar */}
-      <rect x="50" y="40" width="300" height="50" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" strokeWidth="2" rx="4"/>
+      <rect x="50" y="40" width="300" height="50" fill="#5A77AA" opacity="0.3" stroke="#5A77AA" strokeWidth="2" rx="4"/>
       <text x="200" y="70" fill="currentColor" fontSize="14" fontWeight="bold" textAnchor="middle">TOTAL RISK</text>
       {/* Systematic Risk */}
-      <rect x="50" y="120" width="200" height="40" fill="#ef4444" opacity="0.6" stroke="#ef4444" strokeWidth="2" rx="4"/>
+      <rect x="50" y="120" width="200" height="40" fill="#E04848" opacity="0.6" stroke="#E04848" strokeWidth="2" rx="4"/>
       <text x="150" y="145" fill="white" fontSize="13" fontWeight="bold" textAnchor="middle">Systematic Risk</text>
-      <text x="150" y="180" fill="#ef4444" fontSize="11" textAnchor="middle">Cannot Diversify</text>
+      <text x="150" y="180" fill="#E04848" fontSize="11" textAnchor="middle">Cannot Diversify</text>
       {/* Unsystematic Risk */}
-      <rect x="260" y="120" width="90" height="40" fill="#10b981" opacity="0.6" stroke="#10b981" strokeWidth="2" rx="4"/>
+      <rect x="260" y="120" width="90" height="40" fill="#16A34A" opacity="0.6" stroke="#16A34A" strokeWidth="2" rx="4"/>
       <text x="305" y="138" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle">Unsystematic</text>
       <text x="305" y="152" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle">Risk</text>
-      <text x="305" y="180" fill="#10b981" fontSize="11" textAnchor="middle">Can Diversify!</text>
+      <text x="305" y="180" fill="#16A34A" fontSize="11" textAnchor="middle">Can Diversify!</text>
       {/* Arrows */}
       <path d="M 200 100 L 150 110" stroke="currentColor" strokeWidth="1.5" opacity="0.4" markerEnd="url(#arrow)"/>
       <path d="M 200 100 L 305 110" stroke="currentColor" strokeWidth="1.5" opacity="0.4" markerEnd="url(#arrow)"/>
@@ -132,23 +132,23 @@ const Icons = {
       <text x="210" y="230" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Risk (Volatility)</text>
       <text x="20" y="120" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 120)">Return</text>
       {/* Risk-free rate line */}
-      <line x1="50" y1="190" x2="370" y2="190" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <text x="370" y="185" fill="#94a3b8" fontSize="11" textAnchor="end">Risk-Free Rate</text>
+      <line x1="50" y1="190" x2="370" y2="190" stroke="#A0A3AA" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <text x="370" y="185" fill="#A0A3AA" fontSize="11" textAnchor="end">Risk-Free Rate</text>
       {/* Three portfolios */}
       {/* Low Sharpe */}
-      <circle cx="150" cy="160" r="8" fill="#ef4444" stroke="white" strokeWidth="2"/>
-      <line x1="50" y1="190" x2="150" y2="160" stroke="#ef4444" strokeWidth="2" strokeDasharray="3,3" opacity="0.4"/>
-      <text x="150" y="150" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="middle">Low SR</text>
+      <circle cx="150" cy="160" r="8" fill="#E04848" stroke="white" strokeWidth="2"/>
+      <line x1="50" y1="190" x2="150" y2="160" stroke="#E04848" strokeWidth="2" strokeDasharray="3,3" opacity="0.4"/>
+      <text x="150" y="150" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="middle">Low SR</text>
       {/* Medium Sharpe */}
-      <circle cx="220" cy="120" r="8" fill="#f59e0b" stroke="white" strokeWidth="2"/>
-      <line x1="50" y1="190" x2="220" y2="120" stroke="#f59e0b" strokeWidth="2" strokeDasharray="3,3" opacity="0.4"/>
-      <text x="220" y="110" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">Med SR</text>
+      <circle cx="220" cy="120" r="8" fill="#B8923F" stroke="white" strokeWidth="2"/>
+      <line x1="50" y1="190" x2="220" y2="120" stroke="#B8923F" strokeWidth="2" strokeDasharray="3,3" opacity="0.4"/>
+      <text x="220" y="110" fill="#B8923F" fontSize="11" fontWeight="bold" textAnchor="middle">Med SR</text>
       {/* High Sharpe */}
-      <circle cx="250" cy="70" r="8" fill="#10b981" stroke="white" strokeWidth="2"/>
-      <line x1="50" y1="190" x2="250" y2="70" stroke="#10b981" strokeWidth="2.5" opacity="0.6"/>
-      <text x="250" y="60" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">High SR ★</text>
+      <circle cx="250" cy="70" r="8" fill="#16A34A" stroke="white" strokeWidth="2"/>
+      <line x1="50" y1="190" x2="250" y2="70" stroke="#16A34A" strokeWidth="2.5" opacity="0.6"/>
+      <text x="250" y="60" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">High SR ★</text>
       {/* Legend */}
-      <text x="200" y="25" fill="#10b981" fontSize="12" fontWeight="bold" textAnchor="middle">Steeper slope = Better Sharpe Ratio</text>
+      <text x="200" y="25" fill="#16A34A" fontSize="12" fontWeight="bold" textAnchor="middle">Steeper slope = Better Sharpe Ratio</text>
     </svg>
   )
 };
@@ -236,7 +236,7 @@ const PCLesson2 = () => {
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900    bg-clip-text text-transparent mb-5 leading-tight">Risk and Return Deep Dive</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-rose-900 to-red-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Risk and Return Deep Dive</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the fundamental concepts of investment risk. Understand different risk types, how to measure them, and why the risk-return relationship drives all investment decisions.</p>
           </header>
 
@@ -249,18 +249,18 @@ const PCLesson2 = () => {
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Risk-Return Trade-Off</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Risk-Return Trade-Off</h2>
                     <p className="text-sm text-gray-500 ">The fundamental law of investing</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700  leading-relaxed mb-6">Every investment decision involves a trade-off between risk and return. This isn't just theory—it's backed by decades of data across every asset class. <strong className="text-gray-900 ">Higher expected returns require accepting higher risk.</strong></p>
                 
-                <div className="bg-gradient-to-br from-slate-900 to-rose-950 rounded-xl p-8 mb-6">
+                <div className="rounded-xl p-8 mb-6 bg-brand-fill">
                   <h4 className="text-white font-semibold mb-4 text-center">Historical Risk-Return Relationship (1928-2023)</h4>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div className="bg-white/5 rounded-lg p-4">
-                      <div className="text-emerald-400 font-bold text-xl mb-1">3.3%</div>
+                      <div className="text-brand font-bold text-xl mb-1">3.3%</div>
                       <div className="text-gray-400 text-sm">T-Bills Return</div>
                       <div className="text-gray-500 text-xs mt-1">Risk: 3.1%</div>
                     </div>
@@ -292,11 +292,11 @@ const PCLesson2 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Systematic vs. Unsystematic Risk</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Systematic vs. Unsystematic Risk</h2>
                     <p className="text-sm text-gray-500 ">Understanding what you can and cannot diversify</p>
                   </div>
                 </div>
@@ -304,7 +304,7 @@ const PCLesson2 = () => {
                 <p className="text-gray-700  leading-relaxed mb-6">Not all risk is created equal. The distinction between systematic and unsystematic risk is crucial for portfolio construction because it determines what diversification can achieve.</p>
 
                 {/* Visual: Risk Breakdown */}
-                <div className="bg-gradient-to-br from-gray-900 to-blue-950 rounded-2xl p-8 mb-6 shadow-lg">
+                <div className="bg-gradient-to-br from-gray-900 to-blue-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                   <h4 className="text-white font-bold mb-4 text-center">Visual: Total Risk Decomposition</h4>
                   <Icons.RiskBreakdown className="w-full h-48"/>
                   <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
@@ -313,7 +313,7 @@ const PCLesson2 = () => {
                       <span className="text-gray-300">Systematic (Market) Risk</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-brand-fill"></div>
                       <span className="text-gray-300">Unsystematic (Diversifiable) Risk</span>
                     </div>
                   </div>
@@ -337,21 +337,21 @@ const PCLesson2 = () => {
                       <p className="text-xs text-red-700  font-medium">⚠️ Cannot be eliminated through diversification</p>
                     </div>
                   </div>
-                  <div className="bg-emerald-50  rounded-xl p-6 border border-emerald-200 ">
-                    <h4 className="font-bold text-emerald-800  mb-3 flex items-center gap-2">
-                      <span className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white text-sm">U</span>
+                  <div className="bg-brand-soft  rounded-xl p-6 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-3 flex items-center gap-2">
+                      <span className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center text-white text-sm">U</span>
                       Unsystematic Risk
                     </h4>
                     <p className="text-sm text-gray-600  mb-3">Also called specific risk or diversifiable risk. Affects individual companies or industries.</p>
                     <ul className="text-sm space-y-2">
                       {["CEO departure", "Product recalls", "Lawsuits", "Labor strikes", "Competitive disruption"].map((item, i) => (
                         <li key={i} className="flex items-center gap-2 text-gray-700 ">
-                          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"/>{item}
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full"/>{item}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-4 pt-4 border-t border-emerald-200 ">
-                      <p className="text-xs text-emerald-700  font-medium">✓ CAN be eliminated through diversification</p>
+                    <div className="mt-4 pt-4 border-t border-brand-line ">
+                      <p className="text-xs text-brand  font-medium">✓ CAN be eliminated through diversification</p>
                     </div>
                   </div>
                 </div>
@@ -366,11 +366,11 @@ const PCLesson2 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                     <Icons.Activity className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Measuring Risk: Standard Deviation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Measuring Risk: Standard Deviation</h2>
                     <p className="text-sm text-gray-500 ">The most common risk metric explained</p>
                   </div>
                 </div>
@@ -378,7 +378,7 @@ const PCLesson2 = () => {
                 <p className="text-gray-700  leading-relaxed mb-6">Standard deviation measures volatility—how much returns fluctuate around their average. Higher standard deviation means more unpredictable returns, which most investors perceive as higher risk.</p>
 
                 {/* Visual: Normal Distribution / Bell Curve */}
-                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg">
+                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                   <h4 className="text-white font-bold mb-4 text-center">Visual: Return Distribution & Standard Deviation</h4>
                   <Icons.BellCurve className="w-full h-56"/>
                   <div className="mt-4 text-center text-sm text-gray-300">
@@ -386,7 +386,7 @@ const PCLesson2 = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-slate-900 to-blue-950 rounded-xl p-8 mb-6">
+                <div className="rounded-xl p-8 mb-6 bg-brand-fill">
                   <div className="text-center">
                     <p className="text-blue-400 text-sm font-medium mb-3 uppercase tracking-wide">Standard Deviation Formula</p>
                     <div className="text-white text-xl md:text-2xl font-mono">σ = √[Σ(Rᵢ - R̄)² / (n-1)]</div>
@@ -398,7 +398,7 @@ const PCLesson2 = () => {
                   <h4 className="font-bold text-gray-900  mb-4">What Standard Deviation Tells Us</h4>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <span className="w-16 text-center py-1 bg-emerald-100  text-emerald-700  rounded font-medium text-sm">68%</span>
+                      <span className="w-16 text-center py-1 bg-brand-soft  text-brand  rounded font-medium text-sm">68%</span>
                       <p className="text-gray-700  text-sm">of returns fall within ±1 standard deviation of the mean</p>
                     </div>
                     <div className="flex items-start gap-4">
@@ -413,8 +413,8 @@ const PCLesson2 = () => {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div className="bg-emerald-50  rounded-lg p-4 text-center border border-emerald-200 ">
-                    <div className="text-2xl font-bold text-emerald-600 ">5-8%</div>
+                  <div className="bg-brand-soft  rounded-lg p-4 text-center border border-brand-line ">
+                    <div className="text-2xl font-bold text-brand ">5-8%</div>
                     <div className="text-sm text-gray-600 ">Bond Funds</div>
                   </div>
                   <div className="bg-amber-50  rounded-lg p-4 text-center border border-amber-200 ">
@@ -432,11 +432,11 @@ const PCLesson2 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Sharpe Ratio</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">The Sharpe Ratio</h2>
                     <p className="text-sm text-gray-500 ">Measuring risk-adjusted returns</p>
                   </div>
                 </div>
@@ -444,7 +444,7 @@ const PCLesson2 = () => {
                 <p className="text-gray-700  leading-relaxed mb-6">Developed by Nobel laureate William Sharpe, this ratio answers a crucial question: <strong className="text-gray-900 ">how much extra return are you getting for each unit of risk taken?</strong></p>
 
                 {/* Visual: Sharpe Ratio Comparison */}
-                <div className="bg-gradient-to-br from-gray-900 to-green-950 rounded-2xl p-8 mb-6 shadow-lg">
+                <div className="rounded-2xl p-8 mb-6 shadow-lg bg-brand-fill">
                   <h4 className="text-white font-bold mb-4 text-center">Visual: Comparing Sharpe Ratios</h4>
                   <Icons.SharpeRatioChart className="w-full h-56"/>
                   <div className="mt-4 text-center text-sm text-gray-300">
@@ -452,7 +452,7 @@ const PCLesson2 = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-slate-900 to-amber-950 rounded-xl p-8 mb-6">
+                <div className="rounded-xl p-8 mb-6 bg-brand-fill">
                   <div className="text-center">
                     <p className="text-amber-400 text-sm font-medium mb-3 uppercase tracking-wide">Sharpe Ratio</p>
                     <div className="text-white text-2xl md:text-3xl font-mono">SR = (Rₚ - Rƒ) / σₚ</div>
@@ -475,8 +475,8 @@ const PCLesson2 = () => {
                       <div className="font-bold text-amber-600 ">0 - 1</div>
                       <div className="text-xs text-gray-600 ">Adequate</div>
                     </div>
-                    <div className="text-center p-3 bg-emerald-100  rounded-lg">
-                      <div className="font-bold text-emerald-600 ">1 - 2</div>
+                    <div className="text-center p-3 bg-brand-soft  rounded-lg">
+                      <div className="font-bold text-brand ">1 - 2</div>
                       <div className="text-xs text-gray-600 ">Good</div>
                     </div>
                     <div className="text-center p-3 bg-blue-100  rounded-lg">
@@ -501,11 +501,11 @@ const PCLesson2 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                     <Icons.Shield className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Beyond Standard Deviation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Beyond Standard Deviation</h2>
                     <p className="text-sm text-gray-500 ">Advanced risk measures</p>
                   </div>
                 </div>
@@ -548,11 +548,11 @@ const PCLesson2 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of risk and return</p>
                   </div>
                 </div>
@@ -571,7 +571,7 @@ const PCLesson2 = () => {
                           return (
                             <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                               className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                 ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                 ${isSelected && !showResults ? 'border-rose-500 bg-rose-50 ' : ''}
                                 ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -580,7 +580,7 @@ const PCLesson2 = () => {
                                 {String.fromCharCode(65 + oIdx)}
                               </span>
                               <span className="flex-1 text-gray-700 ">{option}</span>
-                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                               {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                             </button>
                           );

@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { Mail } from "lucide-react";
+import { PageBackdrop, AuthHero } from "../../marketing/components/PageArt";
 import authService from "../../../services/authService";
 
 const ForgotPasswordPage = () => {
@@ -42,11 +44,13 @@ const ForgotPasswordPage = () => {
 			<Navbar />
 
 			{/* Main Content */}
-			<section className="relative bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
-				<div className="max-w-md mx-auto">
+			<section className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
+				<PageBackdrop />
+				<div className="relative max-w-md mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-bold text-gray-900 mb-2">
+						<AuthHero variant="forgot" />
+						<h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-2 tracking-[-0.025em]">
 							Reset Your Password
 						</h1>
 						<p className="text-gray-600">
@@ -55,7 +59,7 @@ const ForgotPasswordPage = () => {
 					</div>
 
 					{/* Form */}
-					<div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+					<div className="bg-white rounded-2xl shadow-xl shadow-brand/5 border border-gray-200 border-t-4 border-t-brand-fill p-8">
 						{/* Error Message */}
 						{error && (
 							<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -65,8 +69,8 @@ const ForgotPasswordPage = () => {
 
 						{/* Success Message */}
 						{success && (
-							<div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-								<p className="text-green-600 text-sm">{success}</p>
+							<div className="mb-6 p-4 bg-brand-soft border border-brand-line rounded-lg">
+								<p className="text-brand text-sm">{success}</p>
 							</div>
 						)}
 
@@ -76,22 +80,25 @@ const ForgotPasswordPage = () => {
 								<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
 									Email Address
 								</label>
-								<input
-									type="email"
-									id="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									required
-									className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-									placeholder="Enter your email"
-								/>
+								<div className="relative">
+									<Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+									<input
+										type="email"
+										id="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+										className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+										placeholder="Enter your email"
+									/>
+								</div>
 							</div>
 
 							{/* Submit Button */}
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 shadow-lg shadow-brand/20 hover:-translate-y-0.5 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isLoading ? (
 									<div className="flex items-center justify-center">
@@ -111,7 +118,7 @@ const ForgotPasswordPage = () => {
 						<div className="mt-6 text-center">
 							<p className="text-gray-600">
 								Remember your password?{" "}
-								<Link to="/login" className="text-green-600 hover:text-green-700 font-medium">
+								<Link to="/login" className="text-brand hover:text-brand font-medium">
 									Sign in
 								</Link>
 							</p>

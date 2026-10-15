@@ -7,6 +7,7 @@
 //     user is editing instead of jumping to the end.
 import { useCallback, useRef } from "react";
 import { getRegionConfig } from "../../../lib/region";
+import { chartXAxis, chartYAxis } from "@/components/charts/chartTheme";
 import type { KeyboardEvent, FormEvent } from "react";
 
 const FIELD_SELECTOR =
@@ -139,8 +140,9 @@ export const compactMoneyInr = (v: number | string) => formatCompact(v, true);
 /** Margin so axis labels/dots stay inside the card. */
 export const CHART_MARGIN = { top: 10, right: 24, left: 4, bottom: 16 };
 
-/** Spread on <YAxis>: always starts at 0, fixed width so labels never clip. */
+/** Spread on <YAxis>: the site chart style (components/charts/chartTheme.ts), always starts at 0, fixed width so labels never clip. */
 export const Y_AXIS_PROPS = {
+  ...chartYAxis,
   domain: [0, "auto"] as [number, "auto"],
   width: 64,
   tickFormatter: compactMoney,
@@ -151,6 +153,7 @@ export const Y_AXIS_PROPS_INR = { ...Y_AXIS_PROPS, tickFormatter: compactMoneyIn
 
 /** Spread on <XAxis> for numeric year axes: always starts at 0. */
 export const X_AXIS_PROPS = {
+  ...chartXAxis,
   type: "number" as const,
   domain: [0, "dataMax"] as [number, "dataMax"],
   allowDecimals: false,

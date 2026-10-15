@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const PPFCalculator = () => {
   const [yearlyInvestment, setYearlyInvestment] = useState("100000");
@@ -75,17 +76,17 @@ const PPFCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             PPF Calculator
           </h1>
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is a Public Provident Fund (PPF)?
             </button>
@@ -97,7 +98,7 @@ const PPFCalculator = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="ppf-yearly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Yearly Investment
@@ -144,16 +145,16 @@ const PPFCalculator = () => {
               )}
               <button
                 onClick={calculatePPF}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition mt-4"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition mt-4"
               >
                 Calculate PPF Maturity
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                   <p className="text-lg font-medium text-gray-800">
                     Maturity Value:{" "}
-                    <span className="text-green-700 font-bold">
+                    <span className="text-brand font-bold">
                       ₹{new Intl.NumberFormat('en-IN').format(futureValue)}
                     </span>
                   </p>
@@ -176,21 +177,21 @@ const PPFCalculator = () => {
               )}
             </div>
             <div className="bg-white shadow-md rounded-xl p-6">
-              <h2 className="text-2xl font-semibold mb-6">Growth Over Time</h2>
+              <h2 className="xt-section mb-6">Growth Over Time</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
                   <LineChart data={chartData} margin={CHART_MARGIN}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis
                       dataKey="year" {...X_AXIS_PROPS}
                       label={{ value: "Years", position: "insideBottom", dy: 10 }}
                     />
                     <YAxis {...Y_AXIS_PROPS} />
-                    <Tooltip />
+                    <Tooltip {...chartTooltip} />
                     <Line
                       type="monotone"
                       dataKey="value"
-                      stroke="#16a34a"
+                      stroke={chartColors.positive}
                       strokeWidth={3}
                       dot
                     />

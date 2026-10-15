@@ -21,6 +21,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const SIPCalculator = () => {
   const { symbol: sym } = useRegion();
@@ -92,7 +93,7 @@ const SIPCalculator = () => {
   const formProps = useCalcForm(calculateSIP);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <SEO
         title="SIP Calculator - Calculate Systematic Investment Plan Returns"
         description="Free SIP calculator to estimate returns on your monthly mutual fund investments. Calculate future value, total invested amount, and wealth gained with different SIP amounts and durations."
@@ -106,12 +107,12 @@ const SIPCalculator = () => {
       {/* Main Content */}
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
-            <div className="flex items-center justify-center space-x-4">
+          <h1 className="xt-title text-center mb-8">
+            <div className="flex items-center justify-center space-x-4 font-sans tracking-normal">
               <Link
                 to="/tools/sip"
                 replace
-                className="px-6 py-2 text-lg font-semibold text-white bg-green-700 rounded-full shadow-md"
+                className="px-6 py-2 text-lg font-semibold text-white bg-brand-fill rounded-full shadow-md"
               >
                 SIP
               </Link>
@@ -129,7 +130,7 @@ const SIPCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is SIP?
             </button>
@@ -144,7 +145,7 @@ const SIPCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="sip-monthly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Monthly Investment
@@ -184,7 +185,7 @@ const SIPCalculator = () => {
                     const rate = parseFloat(annualRate);
                     if (rate < 8) {
                       return (
-                        <div className="w-1/2 mx-auto bg-green-100 text-green-700 p-2 text-center rounded-full" role="alert">
+                        <div className="w-1/2 mx-auto bg-brand-soft text-brand p-2 text-center rounded-full" role="alert">
                           <p className="font-bold">Conservative</p>
                         </div>
                       );
@@ -223,15 +224,15 @@ const SIPCalculator = () => {
               )}
               <button
                 onClick={calculateSIP}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate SIP
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                   <p className="text-lg font-medium">
-                     Future Value: <span className="text-green-700">{sym}{futureValue}</span>
+                     Future Value: <span className="text-brand">{sym}{futureValue}</span>
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
@@ -258,13 +259,13 @@ const SIPCalculator = () => {
             {/* Graph Section */}
             <div className="bg-white shadow-md rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">Growth Over Time</h2>
+                <h2 className="xt-section">Growth Over Time</h2>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setChartType("line")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "line"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -274,7 +275,7 @@ const SIPCalculator = () => {
                     onClick={() => setChartType("pie")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "pie"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -286,7 +287,7 @@ const SIPCalculator = () => {
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
                     <LineChart data={chartData} margin={CHART_MARGIN}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="year"
                         {...X_AXIS_PROPS}
@@ -297,11 +298,11 @@ const SIPCalculator = () => {
                         }}
                       />
                       <YAxis {...Y_AXIS_PROPS} />
-                      <Tooltip formatter={moneyTooltip} labelFormatter={(y) => `Year ${y}`} />
+                      <Tooltip {...chartTooltip} formatter={moneyTooltip} labelFormatter={(y) => `Year ${y}`} />
                       <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#16a34a"
+                        stroke={chartColors.positive}
                         strokeWidth={3}
                         dot
                       />
@@ -325,15 +326,15 @@ const SIPCalculator = () => {
                         cy="50%"
                         labelLine={false}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill={chartColors.series[2]}
                         dataKey="value"
                         nameKey="name"
                       >
-                        <Cell key="cell-0" fill="#16a34a" />
-                        <Cell key="cell-1" fill="#f97316" />
+                        <Cell key="cell-0" fill={chartColors.positive} />
+                        <Cell key="cell-1" fill={chartColors.series[4]} />
                       </Pie>
                       <Legend content={pieLegend} />
-                      <Tooltip formatter={moneyTooltip} />
+                      <Tooltip {...chartTooltip} formatter={moneyTooltip} />
                     </PieChart>
                   )}
                 </ResponsiveContainer>

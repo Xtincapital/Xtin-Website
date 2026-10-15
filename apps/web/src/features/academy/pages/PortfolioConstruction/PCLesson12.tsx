@@ -60,32 +60,32 @@ const Icons = {
       {/* Metric cards */}
       <g>
         {/* Total Return */}
-        <rect x="20" y="40" width="110" height="70" fill="#10b981" opacity="0.2" stroke="#10b981" strokeWidth="2" rx="8"/>
+        <rect x="20" y="40" width="110" height="70" fill="#16A34A" opacity="0.2" stroke="#16A34A" strokeWidth="2" rx="8"/>
         <text x="75" y="60" fill="currentColor" fontSize="11" fontWeight="bold" textAnchor="middle">Total Return</text>
-        <text x="75" y="85" fill="#10b981" fontSize="24" fontWeight="bold" textAnchor="middle">+12.5%</text>
+        <text x="75" y="85" fill="#16A34A" fontSize="24" fontWeight="bold" textAnchor="middle">+12.5%</text>
         <text x="75" y="103" fill="currentColor" fontSize="10" opacity="0.6" textAnchor="middle">YTD</text>
         {/* Sharpe Ratio */}
-        <rect x="145" y="40" width="110" height="70" fill="#3b82f6" opacity="0.2" stroke="#3b82f6" strokeWidth="2" rx="8"/>
+        <rect x="145" y="40" width="110" height="70" fill="#5A77AA" opacity="0.2" stroke="#5A77AA" strokeWidth="2" rx="8"/>
         <text x="200" y="60" fill="currentColor" fontSize="11" fontWeight="bold" textAnchor="middle">Sharpe Ratio</text>
-        <text x="200" y="85" fill="#3b82f6" fontSize="24" fontWeight="bold" textAnchor="middle">1.45</text>
+        <text x="200" y="85" fill="#5A77AA" fontSize="24" fontWeight="bold" textAnchor="middle">1.45</text>
         <text x="200" y="103" fill="currentColor" fontSize="10" opacity="0.6" textAnchor="middle">Risk-Adj.</text>
         {/* Max Drawdown */}
-        <rect x="270" y="40" width="110" height="70" fill="#ef4444" opacity="0.2" stroke="#ef4444" strokeWidth="2" rx="8"/>
+        <rect x="270" y="40" width="110" height="70" fill="#E04848" opacity="0.2" stroke="#E04848" strokeWidth="2" rx="8"/>
         <text x="325" y="60" fill="currentColor" fontSize="11" fontWeight="bold" textAnchor="middle">Max Drawdown</text>
-        <text x="325" y="85" fill="#ef4444" fontSize="24" fontWeight="bold" textAnchor="middle">-15.2%</text>
+        <text x="325" y="85" fill="#E04848" fontSize="24" fontWeight="bold" textAnchor="middle">-15.2%</text>
         <text x="325" y="103" fill="currentColor" fontSize="10" opacity="0.6" textAnchor="middle">Worst Loss</text>
       </g>
       {/* Performance vs Benchmark chart */}
       <g transform="translate(0, 130)">
-        <rect x="20" y="0" width="360" height="140" fill="#1e293b" opacity="0.3" stroke="currentColor" strokeWidth="1" rx="8"/>
+        <rect x="20" y="0" width="360" height="140" fill="#2A2A2C" opacity="0.3" stroke="currentColor" strokeWidth="1" rx="8"/>
         <text x="200" y="20" fill="currentColor" fontSize="12" fontWeight="bold" textAnchor="middle">Portfolio vs Benchmark</text>
         {/* Simple line chart */}
-        <path d="M 40 120 L 80 100 L 120 85 L 160 95 L 200 70 L 240 65 L 280 55 L 320 50 L 360 45" stroke="#10b981" strokeWidth="3" fill="none" strokeLinecap="round"/>
-        <path d="M 40 120 L 80 105 L 120 95 L 160 100 L 200 85 L 240 80 L 280 75 L 320 72 L 360 70" stroke="#94a3b8" strokeWidth="2" fill="none" strokeDasharray="4,4"/>
-        <circle cx="360" cy="45" r="4" fill="#10b981" stroke="white" strokeWidth="2"/>
-        <circle cx="360" cy="70" r="4" fill="#94a3b8" stroke="white" strokeWidth="2"/>
-        <text x="340" y="40" fill="#10b981" fontSize="10" fontWeight="bold" textAnchor="end">Portfolio</text>
-        <text x="340" y="68" fill="#94a3b8" fontSize="10" textAnchor="end">Benchmark</text>
+        <path d="M 40 120 L 80 100 L 120 85 L 160 95 L 200 70 L 240 65 L 280 55 L 320 50 L 360 45" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <path d="M 40 120 L 80 105 L 120 95 L 160 100 L 200 85 L 240 80 L 280 75 L 320 72 L 360 70" stroke="#A0A3AA" strokeWidth="2" fill="none" strokeDasharray="4,4"/>
+        <circle cx="360" cy="45" r="4" fill="#16A34A" stroke="white" strokeWidth="2"/>
+        <circle cx="360" cy="70" r="4" fill="#A0A3AA" stroke="white" strokeWidth="2"/>
+        <text x="340" y="40" fill="#16A34A" fontSize="10" fontWeight="bold" textAnchor="end">Portfolio</text>
+        <text x="340" y="68" fill="#A0A3AA" fontSize="10" textAnchor="end">Benchmark</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Performance Monitoring Dashboard</text>
     </svg>
@@ -172,13 +172,13 @@ const PCLesson12 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 12 OF 12</span>
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 12 OF 12</span>
               <span className="px-3 py-1.5 bg-indigo-100  text-indigo-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
-              <span className="px-3 py-1.5 bg-emerald-100  text-emerald-700  rounded-full text-xs font-bold">FINAL LESSON</span>
+              <span className="px-3 py-1.5 bg-brand-soft  text-brand  rounded-full text-xs font-bold">FINAL LESSON</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900    bg-clip-text text-transparent mb-5 leading-tight">Portfolio Monitoring</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Portfolio Monitoring</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Complete your portfolio management journey by learning how to track performance, benchmark effectively, and conduct meaningful reviews. Build the discipline of long-term stewardship.</p>
           </header>
 
@@ -187,26 +187,26 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20 bg-brand-fill">
                       <Icons.Eye className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">The Discipline of Monitoring</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Discipline of Monitoring</h2>
                       <p className="text-sm text-gray-500 ">Watchful stewardship, not obsessive checking</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Portfolio monitoring is the ongoing process of tracking performance, comparing against benchmarks, and reviewing your strategy. Done right, it keeps you informed and disciplined. Done wrong, it leads to overtrading and emotional decisions.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">The Monitoring Balance</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
                         <div className="text-red-400 text-sm mb-2">Too Little</div>
                         <div className="text-gray-300 text-xs">Miss important changes, drift unchecked, strategy neglected</div>
                       </div>
-                      <div className="text-center p-4 bg-emerald-500/20 rounded-lg border border-emerald-500/30">
-                        <div className="text-emerald-400 text-sm mb-2">Just Right</div>
+                      <div className="text-center p-4 bg-brand-soft rounded-lg border border-brand-line">
+                        <div className="text-brand text-sm mb-2">Just Right</div>
                         <div className="text-gray-300 text-xs">Regular reviews, informed decisions, disciplined approach</div>
                       </div>
                       <div className="text-center p-4 bg-white/5 rounded-lg">
@@ -226,11 +226,11 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                       <Icons.TrendingUp className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Performance Tracking</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Performance Tracking</h2>
                       <p className="text-sm text-gray-500 ">Measuring what matters</p>
                     </div>
                   </div>
@@ -282,11 +282,11 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                       <Icons.Award className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Effective Benchmarking</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Effective Benchmarking</h2>
                       <p className="text-sm text-gray-500 ">Comparing apples to apples</p>
                     </div>
                   </div>
@@ -350,22 +350,22 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.FileText className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Reporting and Documentation</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Reporting and Documentation</h2>
                       <p className="text-sm text-gray-500 ">Keeping records that matter</p>
                     </div>
                   </div>
 
                   <p className="text-gray-700  leading-relaxed mb-6">Good record-keeping helps you make informed decisions, track progress, and stay accountable to your strategy. Document not just numbers, but also your reasoning and any changes you make.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">Portfolio Report Template</h4>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="p-4 bg-white/5 rounded-lg">
-                        <h5 className="text-emerald-400 font-medium mb-2">Performance Summary</h5>
+                        <h5 className="text-brand font-medium mb-2">Performance Summary</h5>
                         <ul className="text-gray-400 text-xs space-y-1">
                           <li>Period return vs benchmark</li>
                           <li>Year-to-date return</li>
@@ -374,7 +374,7 @@ const PCLesson12 = () => {
                         </ul>
                       </div>
                       <div className="p-4 bg-white/5 rounded-lg">
-                        <h5 className="text-emerald-400 font-medium mb-2">Allocation Review</h5>
+                        <h5 className="text-brand font-medium mb-2">Allocation Review</h5>
                         <ul className="text-gray-400 text-xs space-y-1">
                           <li>Current vs target weights</li>
                           <li>Drift from targets</li>
@@ -383,7 +383,7 @@ const PCLesson12 = () => {
                         </ul>
                       </div>
                       <div className="p-4 bg-white/5 rounded-lg">
-                        <h5 className="text-emerald-400 font-medium mb-2">Holdings Review</h5>
+                        <h5 className="text-brand font-medium mb-2">Holdings Review</h5>
                         <ul className="text-gray-400 text-xs space-y-1">
                           <li>Individual position performance</li>
                           <li>Tax lots and cost basis</li>
@@ -392,7 +392,7 @@ const PCLesson12 = () => {
                         </ul>
                       </div>
                       <div className="p-4 bg-white/5 rounded-lg">
-                        <h5 className="text-emerald-400 font-medium mb-2">Forward Looking</h5>
+                        <h5 className="text-brand font-medium mb-2">Forward Looking</h5>
                         <ul className="text-gray-400 text-xs space-y-1">
                           <li>Actions needed</li>
                           <li>Strategy considerations</li>
@@ -404,8 +404,8 @@ const PCLesson12 = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-2">Keep an Investment Journal</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">Keep an Investment Journal</h4>
                       <p className="text-sm text-gray-700 ">Document why you make changes, not just what you change. This helps you learn from past decisions and avoid repeating mistakes. "Sold bond fund because I panicked" is valuable self-knowledge.</p>
                     </div>
 
@@ -420,13 +420,13 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Annual Review Process</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Annual Review Process</h2>
                       <p className="text-sm text-gray-500 ">Your yearly strategy checkup</p>
                     </div>
                   </div>
@@ -464,8 +464,8 @@ const PCLesson12 = () => {
                       </ul>
                     </div>
 
-                    <div className="bg-lime-50  rounded-xl p-5 border border-lime-200 ">
-                      <h4 className="font-bold text-lime-800  mb-3">4. Strategy Adjustments</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">4. Strategy Adjustments</h4>
                       <ul className="text-sm text-gray-700  space-y-1">
                         <li>Should target allocation change (glide path)?</li>
                         <li>Any holdings to replace (better options available)?</li>
@@ -498,11 +498,11 @@ const PCLesson12 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20 bg-brand-fill">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Final Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Final Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Complete your Portfolio Construction journey</p>
                     </div>
                   </div>
@@ -521,7 +521,7 @@ const PCLesson12 = () => {
                             return (
                               <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                                 className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                  ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                   ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                   ${isSelected && !showResults ? 'border-indigo-500 bg-indigo-50 ' : ''}
                                   ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -530,7 +530,7 @@ const PCLesson12 = () => {
                                   {String.fromCharCode(65 + oIdx)}
                                 </span>
                                 <span className="flex-1 text-gray-700 ">{option}</span>
-                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                                 {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                               </button>
                             );
@@ -547,11 +547,11 @@ const PCLesson12 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                       Complete Module
                     </button>
                   ) : (
-                    <div className="mt-8 p-8 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl text-center">
+                    <div className="mt-8 p-8 rounded-xl text-center bg-brand-fill">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                       <p className="text-indigo-100 mb-4">{calculateScore() === quizQuestions.length ? "Outstanding! You've completed the Portfolio Construction module." : "Review the explanations to solidify your monitoring knowledge."}</p>
                       <div className="pt-4 border-t border-indigo-400/30">
@@ -568,7 +568,7 @@ const PCLesson12 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-11')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 bg-brand-fill">
               <span>Back to Module Overview</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

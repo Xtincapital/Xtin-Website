@@ -34,27 +34,27 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
     <div className="bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-100 min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="flex-1 flex items-center justify-center px-6 py-24 mt-16 bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30">
+      <main className="flex-1 flex items-center justify-center px-6 py-24 mt-16">
         <div className="max-w-xl w-full">
           <button
             onClick={() => navigate('/learn')}
-            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-green-600 font-medium mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-brand font-medium mb-6 transition-colors"
           >
             <FaArrowLeft className="text-xs" /> Back to Academy
           </button>
 
           <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-black/40 border border-gray-100 dark:border-slate-700 p-8 text-center">
             {/* Endowed progress — celebrate first */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 dark:bg-emerald-900/30 text-green-700 dark:text-emerald-300 rounded-full text-xs font-bold mb-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand rounded-full text-xs font-bold mb-5">
               <FaCheckCircle />
               You finished the free preview of {title}
             </div>
 
-            <div className="w-16 h-16 mx-auto mb-5 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30">
+            <div className="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/30 bg-brand-fill">
               <FaCrown className="text-white text-2xl" />
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-3">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-3 tracking-[-0.025em]">
               {remaining} more lesson{remaining === 1 ? '' : 's'} are waiting in this course
             </h1>
             <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
@@ -72,13 +72,13 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
                     <span
                       key={n}
                       title={`Lesson ${n}${free ? ' — free' : ' — Pro'}`}
-                      className={`w-7 h-7 rounded-lg text-[10px] font-bold flex items-center justify-center ${
+                      className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center ${
                         free
-                          ? 'bg-green-100 dark:bg-emerald-900/40 text-green-700 dark:text-emerald-300'
+                          ? 'bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand'
                           : 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-slate-500'
                       }`}
                     >
-                      {free ? <FaCheckCircle /> : <FaLock className="text-[9px]" />}
+                      {free ? <FaCheckCircle /> : <FaLock className="text-xs" />}
                     </span>
                   );
                 })}
@@ -87,7 +87,7 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
 
             <button
               onClick={() => setShowUpgrade(true)}
-              className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/35 transition-all duration-300 flex items-center justify-center gap-2 mb-3"
+              className="w-full px-6 py-4 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/35 transition-all duration-300 flex items-center justify-center gap-2 mb-3 bg-brand-fill"
             >
               <FaPlayCircle />
               Continue this course — from {formatLearnPrice(pricing.yearly, pricing)}/year
@@ -100,7 +100,7 @@ const LearnLockScreen = ({ moduleConfig, lessonNumber }) => {
             <div className="pt-5 border-t border-gray-100 dark:border-slate-700">
               <p className="text-sm text-gray-500 dark:text-slate-400">
                 Not today? No problem —{' '}
-                <Link to="/learn" className="text-green-600 font-semibold hover:underline">
+                <Link to="/learn" className="text-brand font-semibold hover:underline">
                   8 full Beginner courses stay free forever
                 </Link>
                 .

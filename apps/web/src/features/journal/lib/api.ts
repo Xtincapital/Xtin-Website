@@ -175,7 +175,13 @@ export interface TradeListParams {
   only_duplicates?: boolean;
   /** Add `is_duplicate` to each returned trade. */
   flag_duplicates?: boolean;
+  /** Header sort: column and direction ("desc" = largest first). */
+  sort?: TradeSortColumn;
+  dir?: 'asc' | 'desc';
 }
+
+/** Columns the server can sort the trade list by (services/api trades.validator.ts). */
+export type TradeSortColumn = 'date' | 'asset' | 'buy_sell' | 'quantity' | 'entry_price' | 'exit_price' | 'pnl' | 'strategy';
 
 const realTrades = {
   createTrade: async (data: TradeCreateInput): Promise<Trade> => {
@@ -197,6 +203,10 @@ const realTrades = {
     if (params?.to) query.set('to', params.to);
     if (params?.only_duplicates) query.set('only_duplicates', 'true');
     if (params?.flag_duplicates) query.set('flag_duplicates', 'true');
+    if (params?.sort) {
+      query.set('sort', params.sort);
+      query.set('dir', params.dir ?? 'desc');
+    }
     const qs = query.toString();
     return await request(`/trades${qs ? `?${qs}` : ''}`);
   },

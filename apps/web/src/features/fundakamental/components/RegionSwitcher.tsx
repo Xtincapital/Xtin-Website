@@ -56,7 +56,7 @@ export default function RegionSwitcher({ compact = false }: { compact?: boolean 
 
       {open && (
         <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl border border-border shadow-lg z-[10100] py-1">
-          <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+          <div className="px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-muted-foreground">
             Region &amp; currency
           </div>
           {ORDER.map((code) => {
@@ -70,7 +70,7 @@ export default function RegionSwitcher({ compact = false }: { compact?: boolean 
                 <span className="text-base">{r.flag}</span>
                 <span className="flex-1 text-foreground">{r.name}</span>
                 <span className="text-xs text-muted-foreground">{r.symbol.trim()} {r.currency}</span>
-                {region === code && <Check className="w-4 h-4 text-primary" />}
+                {region === code && <Check className="w-4 h-4 text-brand" />}
               </button>
             );
           })}

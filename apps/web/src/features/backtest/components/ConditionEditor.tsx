@@ -3,7 +3,7 @@ import type { Condition, ConditionGroup, Operand } from "../lib/types";
 import { INDICATORS, FIELDS, OPERATORS, emptyCondition } from "../lib/types";
 
 const control =
-  "rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-100";
+  "rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-4 focus:ring-brand-line dark:border-white/10 dark:bg-slate-950/60 dark:text-slate-100";
 
 const OP_LABEL: Record<string, string> = { ">": ">", "<": "<", ">=": "≥", "<=": "≤", "==": "=", crosses_above: "crosses above", crosses_below: "crosses below" };
 
@@ -95,11 +95,11 @@ export default function ConditionGroupEditor({ group, onChange, emptyText }: { g
       <div className="space-y-2">
         {group.conditions.map((c, i) => (
           <div key={i}>
-            {i > 0 && <div className="my-1 pl-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">{group.match === "any" ? "or" : "and"}</div>}
+            {i > 0 && <div className="my-1 pl-3 text-xs font-semibold uppercase tracking-wider text-slate-400">{group.match === "any" ? "or" : "and"}</div>}
             <div className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/70 p-2.5 dark:border-white/10 dark:bg-white/[0.02]">
               <OperandEditor operand={c.left} onChange={(left) => onChange({ ...group, conditions: group.conditions.map((x, j) => (j === i ? { ...c, left } : x)) })} />
               <select
-                className={`${control} font-semibold text-emerald-700 dark:text-emerald-300`}
+                className={`${control} font-semibold text-brand dark:text-brand`}
                 value={c.op}
                 aria-label="Comparison"
                 onChange={(e) => onChange({ ...group, conditions: group.conditions.map((x, j) => (j === i ? { ...c, op: e.target.value as Condition["op"] } : x)) })}
@@ -127,7 +127,7 @@ export default function ConditionGroupEditor({ group, onChange, emptyText }: { g
       <button
         type="button"
         onClick={() => onChange({ ...group, conditions: [...group.conditions, emptyCondition()] })}
-        className="mt-3 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-500/10"
+        className="mt-3 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-brand transition hover:bg-brand-soft dark:text-brand dark:hover:bg-brand-hover"
       >
         <Plus className="h-4 w-4" /> Add condition
       </button>

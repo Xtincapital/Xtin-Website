@@ -50,24 +50,14 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Bar,
-  BarChart,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Cell,
-} from "recharts";
 import { Gauge, Percent, Trophy, Activity, Target, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JLineChart } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
 import { strategies as strategiesApi } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
@@ -76,14 +66,6 @@ import { getAllTradesInInr } from "../lib/tradesInInr";
 // datalist (app.js's `defaultStrategies`).
 const DEFAULT_STRATEGIES = ["Breakout", "Breakdown", "M Pattern", "W Pattern", "Head & shoulder", "Iron Condor", "Hammer Candle", "Shooting Star"];
 const TRADING_TYPES = ["Scalping", "Intraday", "Swing Trading", "Positional Trading", "Investing", "Long-Term Investing"];
-
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
 
 /** app.js's `normalizeStrategyName`/`toStrategyKey`/`strategyMatches`. */
 const strategyKey = (name: string | null | undefined) => (typeof name === "string" ? name.trim().toLowerCase() : "");
@@ -215,10 +197,12 @@ const Analytics = () => {
     const strategyPerformance = names.map((name) => ({
       name,
       pnl: stats[name]?.totalPnL ?? 0,
+      trades: stats[name]?.trades ?? 0,
     }));
     const strategyWinRates = names.map((name) => ({
       name,
       winRate: stats[name]?.winRate ?? 0,
+      trades: stats[name]?.trades ?? 0,
     }));
 
     // Monthly P&L Trend — rolling last-12-months (see header comment for why
@@ -318,7 +302,7 @@ const Analytics = () => {
     <JournalLayout proFeature="Analytics">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Analytics
             <InfoTip title="Strategy analytics" widthClass="w-80">
               <p>Compares your trading strategies against each other so you can do more of what works and drop what doesn't.</p>
@@ -355,8 +339,8 @@ const Analytics = () => {
                   <p
                     className={
                       card.positive === undefined
-                        ? "text-lg font-bold text-foreground truncate"
-                        : `text-lg font-bold truncate ${card.positive ? "text-success" : "text-destructive"}`
+                        ? "stat-value font-semibold text-foreground truncate"
+                        : `stat-value font-semibold truncate ${card.positive ? "text-brand" : "text-destructive"}`
                     }
                   >
                     {card.value}
@@ -377,7 +361,7 @@ const Analytics = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Performance
                 <InfoTip title="Strategy Performance">
                   <p>Total profit or loss for each strategy. Green made money, red lost money. Click a bar to list the trades.</p>
@@ -385,27 +369,19 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={strategyPerformance} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="pnl" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()}>
-                      {strategyPerformance.map((entry) => (
-                        <Cell key={entry.name} fill={entry.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--chart-negative))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={strategyPerformance.map((d) => ({ label: d.name, value: d.pnl, sub: `${d.trades.toLocaleString("en-IN")} trade${d.trades === 1 ? "" : "s"}` }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Strategy performance"
+                onBarClick={(i) => showStrategy(strategyPerformance[i].name)()}
+              />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Win Rate by Strategy
                 <InfoTip title="Win Rate by Strategy">
                   <p>How often each strategy wins. A high win rate isn't everything: check it against the average win and loss. Click a bar to list the trades.</p>
@@ -413,23 +389,22 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={strategyWinRates} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-25} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={40} tickFormatter={(v) => `${v}%`} />
-                    <Tooltip formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="winRate" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => showStrategy((d as unknown as { payload: { name: string } }).payload.name)()} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                mode="mono"
+                data={strategyWinRates.map((d) => ({ label: d.name, value: d.winRate, sub: `${d.trades.toLocaleString("en-IN")} trade${d.trades === 1 ? "" : "s"}` }))}
+                max={100}
+                reference={{ value: 50, label: "50%" }}
+                formatAxis={(v) => `${Math.round(v)}%`}
+                formatValue={(v) => `${v.toFixed(1)}% win rate`}
+                ariaLabel="Win rate by strategy"
+                onBarClick={(i) => showStrategy(strategyWinRates[i].name)()}
+              />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Monthly P&L Trend
                 <InfoTip title="Monthly P&L Trend">
                   <p>Your total P&L for each of the last 12 months, to see whether you are improving over time.</p>
@@ -437,23 +412,18 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={monthlyTrend} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="label" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={56} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
-                    <Tooltip formatter={(value: number) => [formatCurrency(value), "P&L"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Line type="monotone" dataKey="pnl" stroke="hsl(var(--chart-positive))" strokeWidth={2.5} dot={false} activeDot={{ r: 4 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={monthlyTrend.map((b) => ({ label: b.label, value: b.pnl }))}
+                formatAxis={(v) => formatCurrency(v, { compact: true })}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Monthly P&L trend"
+              />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Trade Count by Type
                 <InfoTip title="Trade Count by Type">
                   <p>How many trades you placed in each trading style. Click a bar to list the trades.</p>
@@ -461,21 +431,21 @@ const Analytics = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={tradeCountByType} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="type" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={{ stroke: "hsl(var(--border))" }} tickLine={false} interval={0} angle={-20} textAnchor="end" height={50} />
-                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} allowDecimals={false} />
-                    <Tooltip formatter={(value: number) => [value, "Trades"]} contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
-                    <Bar dataKey="count" radius={[4, 4, 0, 0]} cursor="pointer" onClick={(d) => { const type = (d as unknown as { payload: { type: string } }).payload.type; setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) }); }}>
-                      {tradeCountByType.map((entry, index) => (
-                        <Cell key={entry.type} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                mode="mono"
+                data={tradeCountByType.map((d) => ({
+                  label: d.type,
+                  value: d.count,
+                  sub: allTrades.length ? `${Math.round((d.count / allTrades.length) * 100)}% of all trades` : undefined,
+                }))}
+                formatAxis={(v) => String(Math.round(v))}
+                formatValue={(v) => `${v.toLocaleString("en-IN")} trade${v === 1 ? "" : "s"}`}
+                ariaLabel="Trade count by type"
+                onBarClick={(i) => {
+                  const type = tradeCountByType[i].type;
+                  setDrill({ title: `${type} trades`, subtitle: "Trading type", trades: allTrades.filter((t) => t.type === type) });
+                }}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -484,7 +454,7 @@ const Analytics = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Strategy Breakdown
                 <InfoTip title="Strategy Breakdown">
                   <p>Every strategy side by side: trades, win rate, total and average P&L, profit factor (money won ÷ money lost) and consistency (0 to 100, higher = steadier). Click a row to list its trades.</p>
@@ -520,11 +490,11 @@ const Analytics = () => {
                             <TableCell className="font-medium">{name}</TableCell>
                             <TableCell className="text-right">{s.trades}</TableCell>
                             <TableCell className="text-right">{s.winRate.toFixed(1)}%</TableCell>
-                            <TableCell className={`text-right font-medium ${s.totalPnL >= 0 ? "text-success" : "text-destructive"}`}>
-                              {formatCurrency(s.totalPnL)}
+                            <TableCell className={`text-right font-medium ${s.totalPnL >= 0 ? "text-brand" : "text-destructive"}`}>
+                              {signedMoney(formatCurrency, s.totalPnL)}
                             </TableCell>
-                            <TableCell className={`text-right ${s.avgPnL >= 0 ? "text-success" : "text-destructive"}`}>
-                              {formatCurrency(s.avgPnL)}
+                            <TableCell className={`text-right ${s.avgPnL >= 0 ? "text-brand" : "text-destructive"}`}>
+                              {signedMoney(formatCurrency, s.avgPnL)}
                             </TableCell>
                             <TableCell className="text-right">{s.profitFactor === Infinity ? "∞" : s.profitFactor.toFixed(2)}</TableCell>
                             <TableCell className="text-right">{s.consistencyScore.toFixed(0)}</TableCell>

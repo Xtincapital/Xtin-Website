@@ -63,6 +63,9 @@ export const validateTradeUpdate = (input: unknown) => {
     return { data: result.data, message: "Validation successful" };
 };
 
+export const TRADE_SORT_COLUMNS = ["date", "asset", "buy_sell", "quantity", "entry_price", "exit_price", "pnl", "strategy"] as const;
+export type TradeSortColumn = (typeof TRADE_SORT_COLUMNS)[number];
+
 const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Dates must be YYYY-MM-DD");
 
 const tradeListQuerySchema = z
@@ -79,6 +82,10 @@ const tradeListQuerySchema = z
         only_duplicates: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
         // Add `is_duplicate` to each row (the Trades page asks for it; charts don't need it).
         flag_duplicates: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
+        // Column sort from the Trades table header (max = desc, min = asc). Without it,
+        // trades come newest first. Only these columns can be sorted.
+        sort: z.enum(TRADE_SORT_COLUMNS).optional(),
+        dir: z.enum(["asc", "desc"]).optional(),
     })
     .refine((q) => !q.from || !q.to || q.from <= q.to, { message: "'from' date must be on or before 'to' date" });
 

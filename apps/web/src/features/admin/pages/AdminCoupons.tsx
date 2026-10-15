@@ -16,7 +16,7 @@ const AUDIENCES = [
 ] as const;
 
 const inputCls =
-  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-slate-700 dark:bg-slate-950";
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand-line dark:border-slate-700 dark:bg-slate-950";
 const labelCls = "mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300";
 
 function Segmented<T extends string>({ value, options, onChange, name }: { value: T; options: ReadonlyArray<{ id: T; label: string }>; onChange: (v: T) => void; name: string }) {
@@ -47,7 +47,7 @@ function Switch({ checked, onChange, label, disabled }: { checked: boolean; onCh
       aria-label={label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition disabled:opacity-50 ${checked ? "bg-emerald-600" : "bg-slate-300 dark:bg-slate-700"}`}
+      className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition disabled:opacity-50 ${checked ? "bg-brand-fill" : "bg-slate-300 dark:bg-slate-700"}`}
     >
       <span className={`inline-block size-5 rounded-full bg-white shadow transition ${checked ? "translate-x-5" : "translate-x-0.5"}`} />
     </button>
@@ -105,7 +105,7 @@ const statusOf = (c: AdminCoupon) => {
   if (c.expires_at && new Date(c.expires_at).getTime() <= now) return { label: "Expired", cls: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300" };
   if (c.starts_at && new Date(c.starts_at).getTime() > now) return { label: "Scheduled", cls: "bg-sky-50 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300" };
   if (c.max_redemptions && c.redemptions >= c.max_redemptions) return { label: "Used up", cls: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300" };
-  return { label: "Live", cls: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300" };
+  return { label: "Live", cls: "bg-brand-soft text-brand dark:bg-brand-fill/50 dark:text-brand" };
 };
 
 /** <input type="datetime-local"> wants local "YYYY-MM-DDTHH:mm". */
@@ -238,7 +238,7 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
           <div>
             <span className={labelCls}>Works on</span>
             <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={d.allProducts} onChange={(e) => set("allProducts", e.target.checked)} className="size-4 accent-emerald-600" />
+              <input type="checkbox" checked={d.allProducts} onChange={(e) => set("allProducts", e.target.checked)} className="size-4 accent-brand" />
               Every product
             </label>
             {!d.allProducts && (
@@ -249,7 +249,7 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
                       type="checkbox"
                       checked={d.products.includes(p.key)}
                       onChange={(e) => set("products", e.target.checked ? [...d.products, p.key] : d.products.filter((k) => k !== p.key))}
-                      className="size-4 accent-emerald-600"
+                      className="size-4 accent-brand"
                     />
                     {p.label}
                   </label>
@@ -310,7 +310,7 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
         <button type="button" onClick={onCancel} className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
           Cancel
         </button>
-        <button type="submit" disabled={busy} className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-60">
+        <button type="submit" disabled={busy} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-fill px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-60">
           {busy && <Loader2 size={14} className="animate-spin" />} Create coupon
         </button>
       </div>
@@ -380,7 +380,7 @@ function CouponRow({ coupon, catalog, onChanged, onDeleted }: { coupon: AdminCou
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-mono text-base font-bold tracking-wide">{coupon.code}</span>
             <button type="button" onClick={copy} aria-label={`Copy ${coupon.code}`} className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800">
-              {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+              {copied ? <Check size={14} className="text-brand" /> : <Copy size={14} />}
             </button>
             <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.cls}`}>{status.label}</span>
           </div>
@@ -419,7 +419,7 @@ function CouponRow({ coupon, catalog, onChanged, onDeleted }: { coupon: AdminCou
               <label className={labelCls} htmlFor={`end-${coupon.id}`}>Ends</label>
               <input id={`end-${coupon.id}`} type="datetime-local" value={edit.expiresAt} onChange={(e) => setEdit({ ...edit, expiresAt: e.target.value })} className={inputCls} />
             </div>
-            <button type="button" onClick={save} disabled={busy} className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60 dark:bg-slate-100 dark:text-slate-900">
+            <button type="button" onClick={save} disabled={busy} className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60 dark:bg-slate-100 dark:text-slate-900 brand-on-dark">
               Save
             </button>
             {coupon.redemptions === 0 && (
@@ -430,7 +430,7 @@ function CouponRow({ coupon, catalog, onChanged, onDeleted }: { coupon: AdminCou
           </div>
 
           <div>
-            <h3 className="mb-2 text-sm font-semibold">Who used it</h3>
+            <h3 className="mb-2 text-base font-semibold">Who used it</h3>
             {usage === null ? (
               <p className="text-sm text-slate-500">Loading…</p>
             ) : usage.length === 0 ? (
@@ -502,17 +502,17 @@ export default function AdminCoupons() {
   const replace = (c: AdminCoupon) => setCoupons((list) => (list || []).map((x) => (x.id === c.id ? { ...c, redemptions: x.redemptions } : x)));
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-background text-slate-900 dark:text-slate-100">
       <SEO title="Admin — Coupons — Xtin Capital" noIndex />
       <AdminHeader />
       <main className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Coupons</h1>
+            <h1 className="xt-title">Coupons</h1>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Discount codes apply at checkout. Free-access codes unlock a plan with no payment.</p>
           </div>
           {!creating && (
-            <button type="button" onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">
+            <button type="button" onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-fill px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover">
               <Plus size={16} /> New coupon
             </button>
           )}

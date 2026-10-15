@@ -1,4 +1,6 @@
 import React from 'react';
+import { LegalHeader } from '../components/PageArt';
+import { ShieldCheck } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
@@ -24,11 +26,9 @@ function Privacy() {
 
       <main className="mt-20 px-6 md:px-12 lg:px-24 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">Privacy Policy</h1>
-          <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
-          <p className="text-gray-600 mb-8">Last updated on Nov 2, 2025</p>
+          <LegalHeader Icon={ShieldCheck} title="Privacy Policy" entity="XTIN SERVICES LLP (LLP ID: ACR-9371)" updated="Nov 2, 2025" />
 
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             <Section title="1. Overview">
               <p>
                 This Privacy Policy explains how XTIN SERVICES LLP, operating as Xtin Capital ("we", "us", "our"), collects, uses, and protects your information when you use our website, products, and services (the "Platform").
@@ -99,7 +99,7 @@ function Privacy() {
 
             <Section title="11. Contact Us">
               <p>
-                Questions about privacy, or to request access, correction or deletion of your data? Email <a href={`mailto:${COMPANY.supportEmail}`} className="text-green-600 hover:text-green-700 font-medium">{COMPANY.supportEmail}</a> (subject “Privacy”) or call <a className="text-green-600 hover:text-green-700 font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>. Our grievance contact is reachable at the same address; we acknowledge requests within 48 hours.
+                Questions about privacy, or to request access, correction or deletion of your data? Email <a href={`mailto:${COMPANY.supportEmail}`} className="text-brand hover:text-brand font-medium">{COMPANY.supportEmail}</a> (subject “Privacy”) or call <a className="text-brand hover:text-brand font-medium" href={COMPANY.phoneHref}>{COMPANY.phone}</a>. Our grievance contact is reachable at the same address; we acknowledge requests within 48 hours.
               </p>
             </Section>
           </div>

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUp, TrendingDown, Activity, AlertCircle } from "lucide-react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { chartGrid, chartXAxis, chartYAxis, chartTooltip, chartColors, chartActiveDot } from "@/components/charts/chartTheme";
 import { api } from "../lib/api";
 
 interface TechnicalIndicatorsProps {
@@ -111,8 +112,8 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
   }
 
   const signalColor = (signal: string) => {
-    if (signal.includes("STRONG BUY")) return "bg-green-600";
-    if (signal.includes("BUY")) return "bg-green-500";
+    if (signal.includes("STRONG BUY")) return "bg-brand-fill";
+    if (signal.includes("BUY")) return "bg-brand-fill";
     if (signal.includes("STRONG SELL")) return "bg-red-600";
     if (signal.includes("SELL")) return "bg-red-500";
     return "bg-gray-500";
@@ -121,7 +122,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
   const price = indicators.current_price;
   const vsAverage = (avg: number | null) =>
     isNum(avg) ? (
-      <div className={`text-xs ${price > avg ? "text-green-600" : "text-red-600"}`}>
+      <div className={`text-xs ${price > avg ? "text-brand" : "text-red-600"}`}>
         Price is {price > avg ? "above" : "below"} ({(((price - avg) / avg) * 100).toFixed(1)}%)
       </div>
     ) : null;
@@ -164,7 +165,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
             </span>
             <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className={`h-full ${signals.signal_strength > 60 ? "bg-green-500" : signals.signal_strength < 40 ? "bg-red-500" : "bg-gray-400"}`}
+                className={`h-full ${signals.signal_strength > 60 ? "bg-brand-fill" : signals.signal_strength < 40 ? "bg-red-500" : "bg-gray-400"}`}
                 style={{ width: `${Math.max(0, Math.min(100, signals.signal_strength))}%` }}
               />
             </div>
@@ -174,7 +175,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <h4 className="text-sm font-medium text-green-600 mb-2 flex items-center gap-1">
+            <h4 className="text-base font-bold text-brand mb-2 flex items-center gap-1">
               <TrendingUp className="h-4 w-4" /> Bullish readings ({signals.buy_signals.length})
             </h4>
             <ul className="space-y-1">
@@ -185,7 +186,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-medium text-red-600 mb-2 flex items-center gap-1">
+            <h4 className="text-base font-bold text-red-600 mb-2 flex items-center gap-1">
               <TrendingDown className="h-4 w-4" /> Bearish readings ({signals.sell_signals.length})
             </h4>
             <ul className="space-y-1">
@@ -205,14 +206,14 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="date" tick={{ fontSize: 11 }} minTickGap={40} tickFormatter={(d) => String(d).slice(0, 7)} />
-                <YAxis tick={{ fontSize: 11 }} domain={["auto", "auto"]} width={60} tickFormatter={(v) => `${cur}${Math.round(v)}`} />
-                <Tooltip formatter={(v: number) => fmt(v)} labelFormatter={(d) => String(d).slice(0, 10)} />
-                <Legend />
-                <Line type="monotone" dataKey="Price" stroke="#16a34a" dot={false} strokeWidth={2} />
-                <Line type="monotone" dataKey="20-day avg" stroke="#2563eb" dot={false} strokeWidth={1.5} />
-                <Line type="monotone" dataKey="50-day avg" stroke="#f59e0b" dot={false} strokeWidth={1.5} />
+                <CartesianGrid {...chartGrid} />
+                <XAxis dataKey="date" {...chartXAxis} minTickGap={40} tickFormatter={(d) => String(d).slice(0, 7)} />
+                <YAxis {...chartYAxis} domain={["auto", "auto"]} width={60} tickFormatter={(v) => `${cur}${Math.round(v)}`} />
+                <Tooltip {...chartTooltip} formatter={(v: number) => fmt(v)} labelFormatter={(d) => String(d).slice(0, 10)} />
+                <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} iconType="plainline" />
+                <Line type="monotone" dataKey="Price" stroke={chartColors.positive} dot={false} strokeWidth={2.25} activeDot={chartActiveDot} />
+                <Line type="monotone" dataKey="20-day avg" stroke={chartColors.series[2]} dot={false} strokeWidth={1.5} />
+                <Line type="monotone" dataKey="50-day avg" stroke={chartColors.series[1]} dot={false} strokeWidth={1.5} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -229,7 +230,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.rsi) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">RSI (14)</div>
-              <div className={`text-2xl font-bold ${indicators.rsi < 30 ? "text-green-600" : indicators.rsi > 70 ? "text-red-600" : "text-foreground"}`}>
+              <div className={`text-2xl font-bold ${indicators.rsi < 30 ? "text-brand" : indicators.rsi > 70 ? "text-red-600" : "text-foreground"}`}>
                 {indicators.rsi.toFixed(1)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">
@@ -241,7 +242,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.macd) && isNum(indicators.macd_signal) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">MACD</div>
-              <div className={`text-2xl font-bold ${indicators.macd > indicators.macd_signal ? "text-green-600" : "text-red-600"}`}>
+              <div className={`text-2xl font-bold ${indicators.macd > indicators.macd_signal ? "text-brand" : "text-red-600"}`}>
                 {indicators.macd.toFixed(2)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">
@@ -253,7 +254,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.sma_20) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">20-day average</div>
-              <div className="text-2xl font-bold">{fmt(indicators.sma_20)}</div>
+              <div className="xt-metric">{fmt(indicators.sma_20)}</div>
               {vsAverage(indicators.sma_20)}
             </div>
           )}
@@ -261,14 +262,14 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.sma_50) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">50-day average</div>
-              <div className="text-2xl font-bold">{fmt(indicators.sma_50)}</div>
+              <div className="xt-metric">{fmt(indicators.sma_50)}</div>
               {vsAverage(indicators.sma_50)}
             </div>
           )}
 
           <div className="border rounded-lg p-3">
             <div className="text-sm text-muted-foreground mb-1">200-day average</div>
-            <div className="text-2xl font-bold">{fmt(indicators.sma_200)}</div>
+            <div className="xt-metric">{fmt(indicators.sma_200)}</div>
             {isNum(indicators.sma_200) ? vsAverage(indicators.sma_200) : <div className="text-xs text-muted-foreground">Needs 1 year or more of history</div>}
           </div>
 
@@ -289,7 +290,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.stoch_k) && isNum(indicators.stoch_d) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">Stochastic (%K / %D)</div>
-              <div className="text-2xl font-bold">
+              <div className="xt-metric">
                 {indicators.stoch_k.toFixed(0)} / {indicators.stoch_d.toFixed(0)}
               </div>
               <div className="text-xs text-muted-foreground mt-1">
@@ -301,7 +302,7 @@ export function TechnicalIndicators({ ticker }: TechnicalIndicatorsProps) {
           {isNum(indicators.atr) && (
             <div className="border rounded-lg p-3">
               <div className="text-sm text-muted-foreground mb-1">Average true range (14)</div>
-              <div className="text-2xl font-bold">{fmt(indicators.atr)}</div>
+              <div className="xt-metric">{fmt(indicators.atr)}</div>
               <div className="text-xs text-muted-foreground mt-1">Typical daily move ({((indicators.atr / price) * 100).toFixed(1)}% of price)</div>
             </div>
           )}

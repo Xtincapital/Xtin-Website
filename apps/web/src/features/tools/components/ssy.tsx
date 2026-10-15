@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const SSYCalculator = () => {
   const [yearlyInvestment, setYearlyInvestment] = useState("100000");
@@ -76,14 +77,14 @@ const SSYCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             Sukanya Samriddhi Yojana (SSY) Calculator
           </h1>
 
@@ -91,7 +92,7 @@ const SSYCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is SSY?
             </button>
@@ -106,7 +107,7 @@ const SSYCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="ssy-yearly-investment" className="block text-sm font-medium text-gray-700 mb-1">
                   Yearly Investment
@@ -165,18 +166,18 @@ const SSYCalculator = () => {
               )}
               <button
                 onClick={calculateSSY}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate SSY
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg text-center">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg text-center">
                   <p className="text-lg font-medium text-gray-800">
-                    Investments of <span className="font-bold text-green-700">₹{formatNumber(snap.yearlyInvestment)}</span> each year should be made for 15 years.
+                    Investments of <span className="font-bold text-brand">₹{formatNumber(snap.yearlyInvestment)}</span> each year should be made for 15 years.
                   </p>
                   <p className="mt-4 text-xl font-bold text-gray-800">
-                    The maturity amount received at the end of year <span className="text-green-700">{parseInt(String(snap.startYear)) + 21}</span> will be <span className="text-green-700">₹{formatNumber(futureValue)}</span>.
+                    The maturity amount received at the end of year <span className="text-brand">{parseInt(String(snap.startYear)) + 21}</span> will be <span className="text-brand">₹{formatNumber(futureValue)}</span>.
                   </p>
                 </div>
               )}
@@ -184,21 +185,21 @@ const SSYCalculator = () => {
 
             {/* Graph Section */}
             <div className="bg-white shadow-md rounded-xl p-6">
-              <h2 className="text-2xl font-semibold mb-6">Growth Over Time</h2>
+              <h2 className="xt-section mb-6">Growth Over Time</h2>
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={320}>
                   <LineChart data={chartData} margin={CHART_MARGIN}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid {...chartGrid} />
                     <XAxis
                       dataKey="year"
                       label={{ value: "Year", position: "insideBottom", dy: 10 }}
                     />
                     <YAxis {...Y_AXIS_PROPS} />
-                    <Tooltip />
+                    <Tooltip {...chartTooltip} />
                     <Line
                       type="monotone"
                       dataKey="value"
-                      stroke="#16a34a"
+                      stroke={chartColors.positive}
                       strokeWidth={3}
                       dot
                     />

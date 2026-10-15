@@ -42,9 +42,9 @@ const lessonIcons = [
 
 const calloutStyles = {
   principle: {
-    box: "bg-emerald-50 border-emerald-200",
-    title: "text-emerald-800",
-    text: "text-emerald-700",
+    box: "bg-brand-soft border-brand-line",
+    title: "text-brand",
+    text: "text-brand",
     icon: KeyIcon
   },
   warning: {
@@ -75,14 +75,14 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
   const nextPath = lesson.num === emergencyFundLessons.length ? "/learn/emergency-fund" : `/learn/emergency-fund-lesson-${lesson.num + 1}`;
 
   return (
-    <div className="bg-gradient-to-b from-white to-emerald-50/30 text-gray-900 min-h-screen flex flex-col font-sans">
+    <div className="text-gray-900 min-h-screen flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-3xl mx-auto">
           <button
             onClick={() => navigate("/learn/emergency-fund")}
-            className="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors mb-8 group"
+            className="flex items-center gap-2 text-gray-500 hover:text-brand transition-colors mb-8 group"
           >
             <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform" />
             <span>Back to Module</span>
@@ -91,7 +91,7 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               {lesson.num === 1 && <ModuleBadge moduleId="emergency-fund" />}
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-sm font-semibold shadow-sm">
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-semibold shadow-sm bg-brand-fill">
                 Lesson {lesson.num} of {emergencyFundLessons.length}
               </span>
               <span className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm">
@@ -101,24 +101,24 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
                 Beginner Safety
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-200 rounded-xl shadow-sm">
-                <LessonIcon className="w-7 h-7 text-emerald-600" />
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl shadow-sm bg-brand-soft">
+                <LessonIcon className="w-7 h-7 text-brand" />
               </span>
               <span>{lesson.title}</span>
             </h1>
             <p className="text-lg text-gray-500">{lesson.subtitle}</p>
           </div>
 
-          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 mb-10 border border-emerald-200 shadow-sm">
-            <h2 className="font-bold text-emerald-900 mb-4 flex items-center gap-3">
-              <TargetIcon className="w-5 h-5 text-emerald-600" />
+          <div className="rounded-2xl p-6 mb-10 border border-brand-line shadow-sm bg-brand-soft">
+            <h2 className="font-semibold text-brand mb-4 flex items-center gap-3">
+              <TargetIcon className="w-5 h-5 text-brand" />
               <span>After this lesson, you will know:</span>
             </h2>
             <ul className="space-y-3">
               {lesson.objectives.map((objective) => (
-                <li key={objective} className="flex items-start gap-3 text-emerald-800">
-                  <CheckCircleIcon className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                <li key={objective} className="flex items-start gap-3 text-brand">
+                  <CheckCircleIcon className="w-5 h-5 text-brand mt-0.5 flex-shrink-0" />
                   <span>{objective}</span>
                 </li>
               ))}
@@ -128,15 +128,15 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
           <div className="space-y-10">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{section.heading}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.025em]">{section.heading}</h2>
                 {section.body.map((paragraph) => (
                   <p key={paragraph} className="text-gray-600 leading-relaxed mb-4">{paragraph}</p>
                 ))}
                 {section.bullets && (
                   <div className="grid gap-3 my-6">
                     {section.bullets.map((bullet) => (
-                      <div key={bullet} className="flex items-start gap-3 bg-white rounded-xl p-4 border border-emerald-100 shadow-sm">
-                        <CheckCircleIcon className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <div key={bullet} className="flex items-start gap-3 bg-white rounded-xl p-4 border border-brand-line shadow-sm">
+                        <CheckCircleIcon className="w-5 h-5 text-brand mt-0.5 flex-shrink-0" />
                         <span className="text-gray-700">{bullet}</span>
                       </div>
                     ))}
@@ -159,9 +159,9 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
             ))}
           </div>
 
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200 shadow-sm mt-12">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <BrainIcon className="w-6 h-6 text-emerald-600" />
+          <div className="rounded-2xl p-6 border border-brand-line shadow-sm mt-12 bg-brand-soft">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <BrainIcon className="w-6 h-6 text-brand" />
               <span>Quick Check</span>
             </h2>
             <p className="font-semibold text-gray-900 mb-4">{lesson.quiz.question}</p>
@@ -169,8 +169,8 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
               {lesson.quiz.options.map((option, index) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrectOption = lesson.quiz.correct === index;
-                let stateClass = "bg-white border-gray-200 hover:bg-emerald-50 hover:border-emerald-300";
-                if (answered && isCorrectOption) stateClass = "bg-emerald-50 border-emerald-400";
+                let stateClass = "bg-white border-gray-200 hover:bg-brand-soft hover:border-brand-line";
+                if (answered && isCorrectOption) stateClass = "bg-brand-soft border-brand";
                 if (answered && isSelected && !isCorrectOption) stateClass = "bg-red-50 border-red-400";
                 return (
                   <button
@@ -182,15 +182,15 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
                     <span className="flex items-center gap-3">
                       <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold ${
                         answered && isCorrectOption
-                          ? "bg-emerald-500 text-white"
+                          ? "bg-brand-fill text-white"
                           : answered && isSelected
                             ? "bg-red-500 text-white"
-                            : "bg-emerald-100 text-emerald-700"
+                            : "bg-brand-soft text-brand"
                       }`}>
                         {String.fromCharCode(65 + index)}
                       </span>
                       <span className="text-gray-700 flex-1">{option}</span>
-                      {answered && isCorrectOption && <FaCheckCircle className="text-emerald-500 text-lg" />}
+                      {answered && isCorrectOption && <FaCheckCircle className="text-brand text-lg" />}
                       {answered && isSelected && !isCorrectOption && <FaTimesCircle className="text-red-500 text-lg" />}
                     </span>
                   </button>
@@ -198,32 +198,32 @@ const EmergencyFundLessonPage = ({ lessonNumber }) => {
               })}
             </div>
             {answered && (
-              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
+              <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand border border-brand-line" : "bg-amber-100 text-amber-800 border border-amber-200"}`}>
                 <p className="font-semibold">{isCorrect ? "Correct" : "Not quite"}</p>
                 <p className="text-sm mt-1 opacity-90">{lesson.quiz.explanation}</p>
               </div>
             )}
           </div>
 
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-6 mt-10 text-white">
-            <h2 className="font-bold text-xl mb-3 flex items-center gap-2">
+          <div className="rounded-2xl p-6 mt-10 text-white bg-brand-fill">
+            <h2 className="font-semibold text-xl mb-3 flex items-center gap-2">
               <BookOpenIcon className="w-6 h-6" />
               Key Takeaway
             </h2>
-            <p className="text-emerald-50 leading-relaxed">{lesson.takeaway}</p>
+            <p className="text-white/85 leading-relaxed">{lesson.takeaway}</p>
           </div>
 
           <div className="mt-12 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-8 border-t border-gray-200">
             <button
               onClick={() => navigate(previousPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 text-gray-600 hover:text-emerald-600 transition-colors group"
+              className="flex items-center justify-center gap-2 px-6 py-3 text-gray-600 hover:text-brand transition-colors group"
             >
               <FaArrowLeft />
               <span>{lesson.num === 1 ? "Module Overview" : `Lesson ${lesson.num - 1}`}</span>
             </button>
             <button
               onClick={() => navigate(nextPath)}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+              className="flex items-center justify-center gap-2 px-6 py-3 text-white rounded-xl font-semibold hover:shadow-lg transition-all bg-brand-fill"
             >
               <span>{lesson.num === emergencyFundLessons.length ? "Finish Module" : `Next: Lesson ${lesson.num + 1}`}</span>
               <FaArrowRight />

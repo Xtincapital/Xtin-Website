@@ -384,7 +384,7 @@ const withPnl = <T extends Partial<Trade>>(input: T): T => {
 
 export const sampleTrades = {
   createTrade: async (data: Partial<Trade>) => tradeRows.create(withPnl(data)),
-  getTrades: async (params?: { limit?: number; offset?: number; search?: string; from?: string; to?: string; only_duplicates?: boolean; flag_duplicates?: boolean }) => {
+  getTrades: async (params?: { limit?: number; offset?: number; search?: string; from?: string; to?: string; only_duplicates?: boolean; flag_duplicates?: boolean; sort?: string; dir?: "asc" | "desc" }) => {
     const term = (params?.search || "").trim().toLowerCase();
     const rows = await tradeRows.list();
     // Same rule as the server (tradeDuplicates.ts): date, asset, side, qty, prices, entry time.
@@ -401,6 +401,24 @@ export const sampleTrades = {
         (!params?.from || t.date >= params.from) &&
         (!params?.to || t.date <= params.to)
     );
+    // Same ordering as the server: the header sort first (empty values last),
+    // then newest first.
+    const sortKey = params?.sort as keyof Trade | undefined;
+    const newestFirst = (a: Trade, b: Trade) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+    all.sort((a, b) => {
+      if (sortKey) {
+        const va = a[sortKey] as unknown;
+        const vb = b[sortKey] as unknown;
+        const emptyA = va == null || va === "";
+        const emptyB = vb == null || vb === "";
+        if (emptyA !== emptyB) return emptyA ? 1 : -1;
+        if (!emptyA) {
+          const c = typeof va === "number" && typeof vb === "number" ? va - vb : String(va).localeCompare(String(vb));
+          if (c !== 0) return params?.dir === "asc" ? c : -c;
+        }
+      }
+      return newestFirst(a, b);
+    });
     const offset = params?.offset ?? 0;
     const limit = params?.limit ?? 50;
     return { data: all.slice(offset, offset + limit), pagination: { total: all.length, limit, offset } };

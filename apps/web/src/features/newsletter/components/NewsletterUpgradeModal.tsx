@@ -133,14 +133,14 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center p-4 overflow-y-auto brand-on-dark"
       onClick={onClose}
     >
       <div
         className="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full shadow-2xl relative border border-transparent dark:border-slate-700 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-green-100/60 dark:from-emerald-900/30 to-transparent rounded-t-3xl pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-32 rounded-t-3xl pointer-events-none bg-brand-soft" />
 
         {/* Pinned to the top of the visible card so it stays reachable while scrolling a tall modal on small screens */}
         <div className="sticky top-0 z-20 h-0">
@@ -159,11 +159,11 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/40 dark:to-yellow-900/30 text-amber-700 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
               <FaCrown /> Market Brief Pro
             </div>
-            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-slate-100 mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">
               Every market, twice a day
             </h2>
             <p className="text-sm text-gray-500 dark:text-slate-400">
-              The evening India wrap stays <span className="font-semibold text-green-600">free forever</span>.
+              The evening India wrap stays <span className="font-semibold text-brand">free forever</span>.
               Pro adds the morning brief and every market: India, US and Global.
             </p>
           </div>
@@ -180,12 +180,12 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             <div className="p-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50/60 dark:bg-slate-800/40 text-center">
               <FaSun className="mx-auto text-amber-500 mb-1.5" />
               <p className="text-sm font-bold text-gray-900 dark:text-slate-100">Pre-Market Brief</p>
-              <p className="text-[11px] text-gray-500 dark:text-slate-400">8 AM · know before the bell</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400">8 AM · know before the bell</p>
             </div>
             <div className="p-3 rounded-xl border border-gray-200 dark:border-slate-700 bg-gray-50/60 dark:bg-slate-800/40 text-center">
               <FaMoon className="mx-auto text-indigo-500 mb-1.5" />
               <p className="text-sm font-bold text-gray-900 dark:text-slate-100">Post-Market Wrap</p>
-              <p className="text-[11px] text-gray-500 dark:text-slate-400">5 PM · what moved & why</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400">5 PM · what moved & why</p>
             </div>
           </div>
 
@@ -197,11 +197,11 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             {MARKETS.map((m) => (
               <div
                 key={m.id}
-                className="p-3 rounded-xl border text-center border-green-500 bg-green-50 dark:bg-emerald-900/30 ring-1 ring-green-500"
+                className="p-3 rounded-xl border text-center border-brand bg-brand-soft dark:bg-brand-soft ring-1 ring-brand"
               >
                 <div className="text-xl mb-0.5">{m.flag}</div>
                 <div className="text-xs font-bold text-gray-900 dark:text-slate-100">{m.label}</div>
-                <FaCheck className="mx-auto text-green-600 text-[10px] mt-1" />
+                <FaCheck className="mx-auto text-brand text-xs mt-1" />
               </div>
             ))}
           </div>
@@ -226,7 +226,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
                   }`}
               >
                 Yearly
-                <span className="px-1.5 py-0.5 bg-green-600 text-white text-[10px] font-extrabold rounded">
+                <span className="px-1.5 py-0.5 bg-brand-fill text-white text-xs font-extrabold rounded">
                   SAVE {savePct}%
                 </span>
               </button>
@@ -247,7 +247,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               One flat price covers all {MARKETS.length} markets
             </p>
             {billing === 'yearly' ? (
-              <p className="text-sm text-green-600 font-semibold mt-1.5">
+              <p className="text-sm text-brand font-semibold mt-1.5">
                 {formatNewsletterPrice(effMonthly, pricing)}/month about {pricing.perDay} a day
               </p>
             ) : (
@@ -266,8 +266,8 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
               'Written to answer "why it matters" never filler',
             ].map((line) => (
               <li key={line} className="flex items-start gap-2.5 text-sm text-gray-700 dark:text-slate-300">
-                <span className="w-5 h-5 rounded-full bg-green-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0 mt-[1px]">
-                  <FaCheck className="text-green-600 text-[10px]" />
+                <span className="w-5 h-5 rounded-full bg-brand-soft dark:bg-brand-fill/40 flex items-center justify-center flex-shrink-0 mt-[1px]">
+                  <FaCheck className="text-brand text-xs" />
                 </span>
                 {line}
               </li>
@@ -302,7 +302,7 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/35 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60"
+            className="w-full px-6 py-4 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/35 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 bg-brand-fill"
           >
             {busy ? (
               <>
@@ -317,9 +317,9 @@ const NewsletterUpgradeModal = ({ open, onClose, onActivated, reason = null }) =
             )}
           </button>
 
-          <div className="flex items-center justify-center gap-4 mt-4 text-[11px] text-gray-400 dark:text-slate-500">
+          <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400 dark:text-slate-500">
             <span className="flex items-center gap-1">
-              <FaShieldAlt className="text-green-500" /> Secure via Razorpay
+              <FaShieldAlt className="text-brand" /> Secure via Razorpay
             </span>
             <span>·</span>
             <span>{pricing.upi ? 'UPI, cards & netbanking' : 'Cards & international payments'}</span>

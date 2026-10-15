@@ -109,7 +109,7 @@ journalSampleMode.subscribe(() => queryClient.clear());
 const ComingSoon = () => (
   <JournalLayout>
     <div className="flex flex-col items-center justify-center py-32 px-6 text-center">
-      <h1 className="text-xl font-bold text-foreground mb-2">Coming soon</h1>
+      <h1 className="xt-title mb-2">Coming soon</h1>
       <p className="text-muted-foreground text-sm max-w-sm">
         This part of the Journal is still being built. Check back soon.
       </p>

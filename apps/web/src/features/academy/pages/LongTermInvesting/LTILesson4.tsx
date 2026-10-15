@@ -8,19 +8,19 @@ import Footer from "../../../../components/Footer";
 const VolatilityVisualizationSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">What Volatility Actually Looks Like</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Markets rarely move in straight lines — they zigzag constantly</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">What Volatility Actually Looks Like</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Markets rarely move in straight lines — they zigzag constantly</text>
     
     {/* Chart area */}
     <g transform="translate(60, 75)">
       {/* Grid lines */}
-      <line x1="0" y1="0" x2="580" y2="0" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="60" x2="580" y2="60" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="120" x2="580" y2="120" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4"/>
-      <line x1="0" y1="160" x2="580" y2="160" stroke="#e2e8f0" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="580" y2="0" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="60" x2="580" y2="60" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="120" x2="580" y2="120" stroke="#E4E4EA" strokeWidth="1" strokeDasharray="4"/>
+      <line x1="0" y1="160" x2="580" y2="160" stroke="#E4E4EA" strokeWidth="1"/>
       
       {/* Volatile price path */}
       <path d="M0 140 
@@ -30,34 +30,34 @@ const VolatilityVisualizationSVG = () => (
                L320 90 L340 65 L360 85 L380 55 L400 75 
                L420 50 L440 70 L460 45 L480 60 L500 35 
                L520 55 L540 30 L560 50 L580 25" 
-            fill="none" stroke="#0d9488" strokeWidth="2.5"/>
+            fill="none" stroke="#2A8C9A" strokeWidth="2.5"/>
       
       {/* Annotation arrows showing up/down movements */}
       <g transform="translate(100, 100)">
-        <path d="M0 0 L0 -20" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrowDown)"/>
-        <text x="15" y="-8" fontSize="8" fill="#ef4444">down</text>
+        <path d="M0 0 L0 -20" stroke="#E04848" strokeWidth="2" markerEnd="url(#arrowDown)"/>
+        <text x="15" y="-8" fontSize="8" fill="#E04848">down</text>
       </g>
       <g transform="translate(180, 80)">
-        <path d="M0 0 L0 20" stroke="#22c55e" strokeWidth="2"/>
-        <text x="15" y="12" fontSize="8" fill="#22c55e">up</text>
+        <path d="M0 0 L0 20" stroke="#16A34A" strokeWidth="2"/>
+        <text x="15" y="12" fontSize="8" fill="#16A34A">up</text>
       </g>
       <g transform="translate(280, 75)">
-        <path d="M0 0 L0 -15" stroke="#ef4444" strokeWidth="2"/>
-        <text x="15" y="-5" fontSize="8" fill="#ef4444">down</text>
+        <path d="M0 0 L0 -15" stroke="#E04848" strokeWidth="2"/>
+        <text x="15" y="-5" fontSize="8" fill="#E04848">down</text>
       </g>
       <g transform="translate(380, 50)">
-        <path d="M0 0 L0 18" stroke="#22c55e" strokeWidth="2"/>
-        <text x="15" y="10" fontSize="8" fill="#22c55e">up</text>
+        <path d="M0 0 L0 18" stroke="#16A34A" strokeWidth="2"/>
+        <text x="15" y="10" fontSize="8" fill="#16A34A">up</text>
       </g>
       
       {/* Time labels */}
-      <text x="0" y="180" fontSize="8" fill="#64748b">Start</text>
-      <text x="290" y="180" textAnchor="middle" fontSize="8" fill="#64748b">Time passes</text>
-      <text x="580" y="180" textAnchor="end" fontSize="8" fill="#64748b">Now</text>
+      <text x="0" y="180" fontSize="8" fill="#717680">Start</text>
+      <text x="290" y="180" textAnchor="middle" fontSize="8" fill="#717680">Time passes</text>
+      <text x="580" y="180" textAnchor="end" fontSize="8" fill="#717680">Now</text>
     </g>
     
     {/* Key insight */}
-    <rect x="100" y="245" width="500" height="25" fill="#0d9488" rx="6"/>
+    <rect x="100" y="245" width="500" height="25" fill="#2A8C9A" rx="6"/>
     <text x="350" y="262" textAnchor="middle" fontSize="9" fill="white">This is normal. Every day, week, and month brings movement — up and down.</text>
   </svg>
 );
@@ -66,63 +66,63 @@ const VolatilityVisualizationSVG = () => (
 const NoiseVsTrendSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Short-Term Noise vs Long-Term Direction</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Zoom out to see what really matters</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Short-Term Noise vs Long-Term Direction</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Zoom out to see what really matters</text>
     
     {/* Left: Short-term view (zoomed in) */}
     <g transform="translate(40, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">🔍 Zoomed In (Short-Term)</text>
+      <rect x="0" y="0" width="280" height="200" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="1"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">🔍 Zoomed In (Short-Term)</text>
       
       {/* Volatile short section */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="120" x2="240" y2="120" stroke="#e2e8f0" strokeWidth="1"/>
+        <line x1="0" y1="120" x2="240" y2="120" stroke="#E4E4EA" strokeWidth="1"/>
         
         <path d="M0 80 L30 60 L60 90 L90 50 L120 85 L150 40 L180 75 L210 55 L240 70" 
-              fill="none" stroke="#ef4444" strokeWidth="2"/>
+              fill="none" stroke="#E04848" strokeWidth="2"/>
         
-        <text x="120" y="145" textAnchor="middle" fontSize="9" fill="#991b1b">Feels chaotic and scary</text>
+        <text x="120" y="145" textAnchor="middle" fontSize="9" fill="#842428">Feels chaotic and scary</text>
       </g>
       
       <g transform="translate(30, 175)">
-        <text x="0" y="0" fontSize="8" fill="#dc2626">• Big swings visible</text>
-        <text x="120" y="0" fontSize="8" fill="#dc2626">• Direction unclear</text>
+        <text x="0" y="0" fontSize="8" fill="#C7363B">• Big swings visible</text>
+        <text x="120" y="0" fontSize="8" fill="#C7363B">• Direction unclear</text>
       </g>
     </g>
     
     {/* Right: Long-term view (zoomed out) */}
     <g transform="translate(380, 75)">
-      <rect x="0" y="0" width="280" height="200" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="1"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">🌍 Zoomed Out (Long-Term)</text>
+      <rect x="0" y="0" width="280" height="200" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="1"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">🌍 Zoomed Out (Long-Term)</text>
       
       {/* Smooth upward trend */}
       <g transform="translate(20, 50)">
-        <line x1="0" y1="120" x2="240" y2="120" stroke="#e2e8f0" strokeWidth="1"/>
+        <line x1="0" y1="120" x2="240" y2="120" stroke="#E4E4EA" strokeWidth="1"/>
         
         {/* Underlying trend line */}
-        <path d="M0 100 Q120 60 240 20" fill="none" stroke="#22c55e" strokeWidth="3"/>
+        <path d="M0 100 Q120 60 240 20" fill="none" stroke="#16A34A" strokeWidth="3"/>
         
         {/* Small noise around trend */}
         <path d="M0 102 L20 98 L40 105 L60 90 L80 95 L100 82 L120 88 L140 70 L160 75 L180 58 L200 62 L220 45 L240 22" 
-              fill="none" stroke="#22c55e" strokeWidth="1.5" strokeDasharray="3"/>
+              fill="none" stroke="#16A34A" strokeWidth="1.5" strokeDasharray="3"/>
         
-        <text x="120" y="145" textAnchor="middle" fontSize="9" fill="#166534">Clear upward direction</text>
+        <text x="120" y="145" textAnchor="middle" fontSize="9" fill="#16A34A">Clear upward direction</text>
       </g>
       
       <g transform="translate(30, 175)">
-        <text x="0" y="0" fontSize="8" fill="#166534">• Trend visible</text>
-        <text x="120" y="0" fontSize="8" fill="#166534">• Noise fades away</text>
+        <text x="0" y="0" fontSize="8" fill="#16A34A">• Trend visible</text>
+        <text x="120" y="0" fontSize="8" fill="#16A34A">• Noise fades away</text>
       </g>
     </g>
     
     {/* Arrow between views */}
-    <text x="350" y="175" textAnchor="middle" fontSize="24" fill="#64748b">→</text>
+    <text x="350" y="175" textAnchor="middle" fontSize="24" fill="#717680">→</text>
     
     {/* Bottom insight */}
-    <rect x="100" y="285" width="500" height="25" fill="#166534" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#16A34A" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">The daily ups and downs that feel huge are just tiny ripples in the bigger picture.</text>
   </svg>
 );
@@ -131,42 +131,42 @@ const NoiseVsTrendSVG = () => (
 const CostOfGrowthSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Volatility Is the "Price of Admission"</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">To access long-term growth, you must accept short-term movement</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Volatility Is the "Price of Admission"</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">To access long-term growth, you must accept short-term movement</text>
     
     {/* Visual metaphor: Ticket */}
     <g transform="translate(100, 70)">
       {/* Ticket shape */}
-      <rect x="0" y="0" width="500" height="140" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
+      <rect x="0" y="0" width="500" height="140" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
       
       {/* Perforated line */}
-      <line x1="380" y1="0" x2="380" y2="140" stroke="#fcd34d" strokeWidth="2" strokeDasharray="8 4"/>
+      <line x1="380" y1="0" x2="380" y2="140" stroke="#E2C273" strokeWidth="2" strokeDasharray="8 4"/>
       
       {/* Left side - What you pay */}
       <g transform="translate(30, 25)">
-        <text x="0" y="0" fontSize="11" fontWeight="600" fill="#92400e">🎫 ADMISSION TICKET</text>
-        <text x="0" y="25" fontSize="10" fill="#78350f">What You Accept:</text>
-        <text x="0" y="45" fontSize="9" fill="#78350f">• Days when value drops</text>
-        <text x="0" y="62" fontSize="9" fill="#78350f">• Weeks of uncertainty</text>
-        <text x="0" y="79" fontSize="9" fill="#78350f">• Occasional scary headlines</text>
-        <text x="0" y="96" fontSize="9" fill="#78350f">• Emotional discomfort</text>
+        <text x="0" y="0" fontSize="11" fontWeight="600" fill="#654B26">🎫 ADMISSION TICKET</text>
+        <text x="0" y="25" fontSize="10" fill="#533E22">What You Accept:</text>
+        <text x="0" y="45" fontSize="9" fill="#533E22">• Days when value drops</text>
+        <text x="0" y="62" fontSize="9" fill="#533E22">• Weeks of uncertainty</text>
+        <text x="0" y="79" fontSize="9" fill="#533E22">• Occasional scary headlines</text>
+        <text x="0" y="96" fontSize="9" fill="#533E22">• Emotional discomfort</text>
       </g>
       
       {/* Right side - What you get */}
       <g transform="translate(400, 25)">
-        <text x="0" y="0" fontSize="10" fontWeight="600" fill="#166534">What You Access:</text>
-        <text x="0" y="25" fontSize="9" fill="#14532d">Long-term</text>
-        <text x="0" y="42" fontSize="9" fill="#14532d">wealth</text>
-        <text x="0" y="59" fontSize="9" fill="#14532d">building</text>
-        <text x="0" y="85" fontSize="12" fill="#22c55e">📈 Growth</text>
+        <text x="0" y="0" fontSize="10" fontWeight="600" fill="#16A34A">What You Access:</text>
+        <text x="0" y="25" fontSize="9" fill="#16A34A">Long-term</text>
+        <text x="0" y="42" fontSize="9" fill="#16A34A">wealth</text>
+        <text x="0" y="59" fontSize="9" fill="#16A34A">building</text>
+        <text x="0" y="85" fontSize="12" fill="#16A34A">📈 Growth</text>
       </g>
     </g>
     
     {/* Bottom message */}
-    <text x="350" y="235" textAnchor="middle" fontSize="10" fill="#64748b">You can't have the reward without accepting the cost. That's how investing works.</text>
+    <text x="350" y="235" textAnchor="middle" fontSize="10" fill="#717680">You can't have the reward without accepting the cost. That's how investing works.</text>
   </svg>
 );
 
@@ -174,47 +174,47 @@ const CostOfGrowthSVG = () => (
 const WhyMarketsMoveSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Why Do Markets Move So Much?</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Markets reflect millions of opinions changing constantly</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Do Markets Move So Much?</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Markets reflect millions of opinions changing constantly</text>
     
     {/* Central market */}
     <g transform="translate(280, 90)">
-      <circle cx="70" cy="70" r="50" fill="#0d9488" opacity="0.2"/>
-      <circle cx="70" cy="70" r="35" fill="#0d9488" opacity="0.4"/>
-      <circle cx="70" cy="70" r="20" fill="#0d9488"/>
+      <circle cx="70" cy="70" r="50" fill="#2A8C9A" opacity="0.2"/>
+      <circle cx="70" cy="70" r="35" fill="#2A8C9A" opacity="0.4"/>
+      <circle cx="70" cy="70" r="20" fill="#2A8C9A"/>
       <text x="70" y="75" textAnchor="middle" fontSize="9" fill="white" fontWeight="600">MARKET</text>
     </g>
     
     {/* Incoming forces - left side */}
     <g transform="translate(60, 100)">
-      <rect x="0" y="0" width="150" height="80" fill="#fef2f2" rx="8"/>
-      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#dc2626">Forces Pushing Down</text>
-      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#991b1b">• Fear and worry</text>
-      <text x="75" y="52" textAnchor="middle" fontSize="8" fill="#991b1b">• Bad news</text>
-      <text x="75" y="66" textAnchor="middle" fontSize="8" fill="#991b1b">• Sellers wanting out</text>
+      <rect x="0" y="0" width="150" height="80" fill="#FDF1F1" rx="8"/>
+      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#C7363B">Forces Pushing Down</text>
+      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#842428">• Fear and worry</text>
+      <text x="75" y="52" textAnchor="middle" fontSize="8" fill="#842428">• Bad news</text>
+      <text x="75" y="66" textAnchor="middle" fontSize="8" fill="#842428">• Sellers wanting out</text>
       
-      <path d="M150 40 L220 70" stroke="#ef4444" strokeWidth="2" markerEnd="url(#arrowRed)"/>
+      <path d="M150 40 L220 70" stroke="#E04848" strokeWidth="2" markerEnd="url(#arrowRed)"/>
     </g>
     
     {/* Incoming forces - right side */}
     <g transform="translate(490, 100)">
-      <rect x="0" y="0" width="150" height="80" fill="#dcfce7" rx="8"/>
-      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#166534">Forces Pushing Up</text>
-      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#14532d">• Hope and optimism</text>
-      <text x="75" y="52" textAnchor="middle" fontSize="8" fill="#14532d">• Good news</text>
-      <text x="75" y="66" textAnchor="middle" fontSize="8" fill="#14532d">• Buyers wanting in</text>
+      <rect x="0" y="0" width="150" height="80" fill="#F0FDF4" rx="8"/>
+      <text x="75" y="20" textAnchor="middle" fontSize="9" fontWeight="500" fill="#16A34A">Forces Pushing Up</text>
+      <text x="75" y="38" textAnchor="middle" fontSize="8" fill="#16A34A">• Hope and optimism</text>
+      <text x="75" y="52" textAnchor="middle" fontSize="8" fill="#16A34A">• Good news</text>
+      <text x="75" y="66" textAnchor="middle" fontSize="8" fill="#16A34A">• Buyers wanting in</text>
       
-      <path d="M0 40 L-70 70" stroke="#22c55e" strokeWidth="2" markerEnd="url(#arrowGreen)"/>
+      <path d="M0 40 L-70 70" stroke="#16A34A" strokeWidth="2" markerEnd="url(#arrowGreen)"/>
     </g>
     
     {/* Result */}
     <g transform="translate(200, 210)">
-      <rect x="0" y="0" width="300" height="50" fill="#f1f5f9" rx="10" stroke="#94a3b8" strokeWidth="1"/>
-      <text x="150" y="22" textAnchor="middle" fontSize="10" fontWeight="500" fill="#334155">The Result: Constant Push and Pull</text>
-      <text x="150" y="40" textAnchor="middle" fontSize="9" fill="#64748b">This creates the daily movement we call "volatility"</text>
+      <rect x="0" y="0" width="300" height="50" fill="#EEEEF1" rx="10" stroke="#A0A3AA" strokeWidth="1"/>
+      <text x="150" y="22" textAnchor="middle" fontSize="10" fontWeight="500" fill="#373A41">The Result: Constant Push and Pull</text>
+      <text x="150" y="40" textAnchor="middle" fontSize="9" fill="#717680">This creates the daily movement we call "volatility"</text>
     </g>
   </svg>
 );
@@ -223,56 +223,56 @@ const WhyMarketsMoveSVG = () => (
 const TwoInvestorsSVG = () => (
   <svg viewBox="0 0 700 360" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="360" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="360" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Two Investors Face the Same Volatility</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Same market conditions, different responses, different outcomes</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Two Investors Face the Same Volatility</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same market conditions, different responses, different outcomes</text>
     
     {/* Market line showing volatility */}
     <g transform="translate(100, 70)">
-      <text x="250" y="0" textAnchor="middle" fontSize="9" fill="#64748b">Market Movement Over Time</text>
-      <rect x="0" y="10" width="500" height="60" fill="#f1f5f9" rx="6"/>
+      <text x="250" y="0" textAnchor="middle" fontSize="9" fill="#717680">Market Movement Over Time</text>
+      <rect x="0" y="10" width="500" height="60" fill="#EEEEF1" rx="6"/>
       <path d="M10 45 L50 35 L90 50 L130 30 L170 55 L210 25 L250 45 L290 20 L330 40 L370 15 L410 35 L450 18 L490 30" 
-            fill="none" stroke="#64748b" strokeWidth="2"/>
+            fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Drop annotation */}
-      <rect x="160" y="45" width="60" height="20" fill="#fef2f2" rx="4"/>
-      <text x="190" y="59" textAnchor="middle" fontSize="7" fill="#dc2626">Drop happens</text>
+      <rect x="160" y="45" width="60" height="20" fill="#FDF1F1" rx="4"/>
+      <text x="190" y="59" textAnchor="middle" fontSize="7" fill="#C7363B">Drop happens</text>
     </g>
     
     {/* Investor A: Stays */}
     <g transform="translate(50, 155)">
-      <rect x="0" y="0" width="280" height="170" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">🧘 Priya: Stays Invested</text>
+      <rect x="0" y="0" width="280" height="170" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">🧘 Priya: Stays Invested</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#14532d" fontWeight="500">When the drop happens:</text>
-        <text x="0" y="18" fontSize="9" fill="#14532d">• Acknowledges the discomfort</text>
-        <text x="0" y="34" fontSize="9" fill="#14532d">• Remembers volatility is normal</text>
-        <text x="0" y="50" fontSize="9" fill="#14532d">• Takes no action</text>
-        <text x="0" y="66" fontSize="9" fill="#14532d">• Continues with life</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A" fontWeight="500">When the drop happens:</text>
+        <text x="0" y="18" fontSize="9" fill="#16A34A">• Acknowledges the discomfort</text>
+        <text x="0" y="34" fontSize="9" fill="#16A34A">• Remembers volatility is normal</text>
+        <text x="0" y="50" fontSize="9" fill="#16A34A">• Takes no action</text>
+        <text x="0" y="66" fontSize="9" fill="#16A34A">• Continues with life</text>
       </g>
       
-      <rect x="20" y="125" width="240" height="32" fill="#166534" rx="6"/>
+      <rect x="20" y="125" width="240" height="32" fill="#16A34A" rx="6"/>
       <text x="140" y="140" textAnchor="middle" fontSize="9" fill="white">Result: Still invested when recovery</text>
       <text x="140" y="152" textAnchor="middle" fontSize="9" fill="white">comes. Captures the rebound.</text>
     </g>
     
     {/* Investor B: Exits */}
     <g transform="translate(370, 155)">
-      <rect x="0" y="0" width="280" height="170" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">😰 Arjun: Exits During Drop</text>
+      <rect x="0" y="0" width="280" height="170" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">😰 Arjun: Exits During Drop</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#991b1b" fontWeight="500">When the drop happens:</text>
-        <text x="0" y="18" fontSize="9" fill="#991b1b">• Panics at the decline</text>
-        <text x="0" y="34" fontSize="9" fill="#991b1b">• Sells to "stop the bleeding"</text>
-        <text x="0" y="50" fontSize="9" fill="#991b1b">• Waits for "things to calm down"</text>
-        <text x="0" y="66" fontSize="9" fill="#991b1b">• Re-enters much later (or never)</text>
+        <text x="0" y="0" fontSize="9" fill="#842428" fontWeight="500">When the drop happens:</text>
+        <text x="0" y="18" fontSize="9" fill="#842428">• Panics at the decline</text>
+        <text x="0" y="34" fontSize="9" fill="#842428">• Sells to "stop the bleeding"</text>
+        <text x="0" y="50" fontSize="9" fill="#842428">• Waits for "things to calm down"</text>
+        <text x="0" y="66" fontSize="9" fill="#842428">• Re-enters much later (or never)</text>
       </g>
       
-      <rect x="20" y="125" width="240" height="32" fill="#dc2626" rx="6"/>
+      <rect x="20" y="125" width="240" height="32" fill="#C7363B" rx="6"/>
       <text x="140" y="140" textAnchor="middle" fontSize="9" fill="white">Result: Locked in losses. Missed</text>
       <text x="140" y="152" textAnchor="middle" fontSize="9" fill="white">recovery. Must start over.</text>
     </g>
@@ -283,59 +283,59 @@ const TwoInvestorsSVG = () => (
 const EmotionalVsDisciplinedSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Emotional Reactions vs Disciplined Response</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Emotional Reactions vs Disciplined Response</text>
     
     {/* Market line */}
     <g transform="translate(60, 60)">
       <path d="M0 100 L80 85 L160 110 L240 70 L320 95 L400 55 L480 80 L560 45" 
-            fill="none" stroke="#64748b" strokeWidth="2"/>
+            fill="none" stroke="#717680" strokeWidth="2"/>
       
       {/* Emotional investor reactions */}
       <g transform="translate(80, 75)">
-        <circle cx="0" cy="0" r="15" fill="#fef2f2" stroke="#ef4444" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="15" fill="#FDF1F1" stroke="#E04848" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="10">😟</text>
-        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#dc2626">"It's falling!"</text>
+        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#C7363B">"It's falling!"</text>
       </g>
       
       <g transform="translate(160, 100)">
-        <circle cx="0" cy="0" r="15" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="10">😊</text>
-        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#22c55e">"Going up!"</text>
+        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#16A34A">"Going up!"</text>
       </g>
       
       <g transform="translate(240, 60)">
-        <circle cx="0" cy="0" r="15" fill="#fef2f2" stroke="#ef4444" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="15" fill="#FDF1F1" stroke="#E04848" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="10">😰</text>
-        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#dc2626">"I should sell!"</text>
+        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#C7363B">"I should sell!"</text>
       </g>
       
       <g transform="translate(320, 85)">
-        <circle cx="0" cy="0" r="15" fill="#fef9c3" stroke="#f59e0b" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="15" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="10">😕</text>
-        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#92400e">"Uncertain..."</text>
+        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#654B26">"Uncertain..."</text>
       </g>
       
       <g transform="translate(400, 45)">
-        <circle cx="0" cy="0" r="15" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
+        <circle cx="0" cy="0" r="15" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
         <text x="0" y="4" textAnchor="middle" fontSize="10">😃</text>
-        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#22c55e">"All-time high!"</text>
+        <text x="0" y="35" textAnchor="middle" fontSize="7" fill="#16A34A">"All-time high!"</text>
       </g>
     </g>
     
     {/* Disciplined investor */}
     <g transform="translate(60, 200)">
-      <rect x="0" y="0" width="580" height="70" fill="#f0fdf4" rx="12" stroke="#86efac" strokeWidth="2"/>
+      <rect x="0" y="0" width="580" height="70" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
       <g transform="translate(30, 20)">
-        <circle cx="0" cy="15" r="20" fill="#166534"/>
+        <circle cx="0" cy="15" r="20" fill="#16A34A"/>
         <text x="0" y="20" textAnchor="middle" fontSize="14" fill="white">😌</text>
       </g>
       <g transform="translate(80, 15)">
-        <text x="0" y="0" fontSize="11" fontWeight="600" fill="#166534">The Disciplined Long-Term Investor</text>
-        <text x="0" y="20" fontSize="9" fill="#14532d">"Markets move. That's what they do. I'm in this for the long term."</text>
-        <text x="0" y="40" fontSize="9" fill="#14532d">Same response at every point — calm, patient, consistent.</text>
+        <text x="0" y="0" fontSize="11" fontWeight="600" fill="#16A34A">The Disciplined Long-Term Investor</text>
+        <text x="0" y="20" fontSize="9" fill="#16A34A">"Markets move. That's what they do. I'm in this for the long term."</text>
+        <text x="0" y="40" fontSize="9" fill="#16A34A">Same response at every point — calm, patient, consistent.</text>
       </g>
     </g>
   </svg>
@@ -345,61 +345,61 @@ const EmotionalVsDisciplinedSVG = () => (
 const TimeFramesSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">How Time Changes Your View of Volatility</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">How Time Changes Your View of Volatility</text>
     
     {/* Daily View */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="180" height="120" fill="#fef2f2" rx="10" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">📅 Daily View</text>
+      <rect x="0" y="0" width="180" height="120" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="1"/>
+      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">📅 Daily View</text>
       
       <g transform="translate(20, 40)">
         <path d="M0 40 L20 25 L40 50 L60 20 L80 55 L100 15 L120 45 L140 30" 
-              fill="none" stroke="#ef4444" strokeWidth="2"/>
+              fill="none" stroke="#E04848" strokeWidth="2"/>
       </g>
       
-      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#991b1b">Scary! Feels like chaos.</text>
+      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#842428">Scary! Feels like chaos.</text>
     </g>
     
     {/* Monthly View */}
     <g transform="translate(260, 55)">
-      <rect x="0" y="0" width="180" height="120" fill="#fef9c3" rx="10" stroke="#fcd34d" strokeWidth="1"/>
-      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">📆 Monthly View</text>
+      <rect x="0" y="0" width="180" height="120" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="1"/>
+      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">📆 Monthly View</text>
       
       <g transform="translate(20, 40)">
         <path d="M0 50 L35 45 L70 40 L105 32 L140 28" 
-              fill="none" stroke="#f59e0b" strokeWidth="2"/>
+              fill="none" stroke="#B8923F" strokeWidth="2"/>
       </g>
       
-      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#78350f">Some ups and downs, but clearer.</text>
+      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#533E22">Some ups and downs, but clearer.</text>
     </g>
     
     {/* Yearly View */}
     <g transform="translate(470, 55)">
-      <rect x="0" y="0" width="180" height="120" fill="#dcfce7" rx="10" stroke="#86efac" strokeWidth="1"/>
-      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">📈 Years View</text>
+      <rect x="0" y="0" width="180" height="120" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="90" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">📈 Years View</text>
       
       <g transform="translate(20, 40)">
-        <path d="M0 55 Q70 35 140 15" fill="none" stroke="#22c55e" strokeWidth="3"/>
+        <path d="M0 55 Q70 35 140 15" fill="none" stroke="#16A34A" strokeWidth="3"/>
       </g>
       
-      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#14532d">Clear trend. Noise disappears.</text>
+      <text x="90" y="105" textAnchor="middle" fontSize="8" fill="#16A34A">Clear trend. Noise disappears.</text>
     </g>
     
     {/* Key insight */}
     <g transform="translate(50, 195)">
-      <rect x="0" y="0" width="600" height="60" fill="#f0fdf4" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="300" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">The Key Insight</text>
-      <text x="300" y="45" textAnchor="middle" fontSize="10" fill="#14532d">Volatility looks terrifying up close but almost invisible from far away.</text>
+      <rect x="0" y="0" width="600" height="60" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="300" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">The Key Insight</text>
+      <text x="300" y="45" textAnchor="middle" fontSize="10" fill="#16A34A">Volatility looks terrifying up close but almost invisible from far away.</text>
     </g>
     
     {/* Practical takeaway */}
     <g transform="translate(50, 275)">
-      <rect x="0" y="0" width="600" height="50" fill="#0d9488" rx="10"/>
+      <rect x="0" y="0" width="600" height="50" fill="#2A8C9A" rx="10"/>
       <text x="300" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="white">Your Practical Takeaway</text>
-      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#a7f3d0">Train yourself to see with "years view" eyes. That's where your money lives.</text>
+      <text x="300" y="40" textAnchor="middle" fontSize="9" fill="#BBF7D0">Train yourself to see with "years view" eyes. That's where your money lives.</text>
     </g>
   </svg>
 );
@@ -408,54 +408,54 @@ const TimeFramesSVG = () => (
 const ReassuranceSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">When Volatility Feels Scary: A Grounding Framework</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">When Volatility Feels Scary: A Grounding Framework</text>
     
     {/* Four reassurances */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="140" height="160" fill="#dbeafe" rx="10" stroke="#93c5fd" strokeWidth="1"/>
+      <rect x="0" y="0" width="140" height="160" fill="#E0E7F1" rx="10" stroke="#9FB3D3" strokeWidth="1"/>
       <text x="70" y="25" textAnchor="middle" fontSize="24">🌊</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1e40af">This Is Normal</text>
-      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#1e3a8a">Markets have always</text>
-      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#1e3a8a">moved this way.</text>
-      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#1e3a8a">It's not a sign</text>
-      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#1e3a8a">something is broken.</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#2C3F5E">This Is Normal</text>
+      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#26354F">Markets have always</text>
+      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#26354F">moved this way.</text>
+      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#26354F">It's not a sign</text>
+      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#26354F">something is broken.</text>
     </g>
     
     <g transform="translate(205, 55)">
-      <rect x="0" y="0" width="140" height="160" fill="#dcfce7" rx="10" stroke="#86efac" strokeWidth="1"/>
+      <rect x="0" y="0" width="140" height="160" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
       <text x="70" y="25" textAnchor="middle" fontSize="24">⏰</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">This Will Pass</text>
-      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#14532d">Every drop in history</text>
-      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#14532d">has been followed</text>
-      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#14532d">by recovery.</text>
-      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#14532d">Time heals volatility.</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">This Will Pass</text>
+      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#16A34A">Every drop in history</text>
+      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#16A34A">has been followed</text>
+      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#16A34A">by recovery.</text>
+      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#16A34A">Time heals volatility.</text>
     </g>
     
     <g transform="translate(360, 55)">
-      <rect x="0" y="0" width="140" height="160" fill="#fef9c3" rx="10" stroke="#fcd34d" strokeWidth="1"/>
+      <rect x="0" y="0" width="140" height="160" fill="#F6ECCE" rx="10" stroke="#E2C273" strokeWidth="1"/>
       <text x="70" y="25" textAnchor="middle" fontSize="24">🎯</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#92400e">Stay Focused</text>
-      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#78350f">Your goal is years</text>
-      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#78350f">away. Today's move</text>
-      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#78350f">doesn't change</text>
-      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#78350f">your destination.</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B26">Stay Focused</text>
+      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#533E22">Your goal is years</text>
+      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#533E22">away. Today's move</text>
+      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#533E22">doesn't change</text>
+      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#533E22">your destination.</text>
     </g>
     
     <g transform="translate(515, 55)">
-      <rect x="0" y="0" width="140" height="160" fill="#f3e8ff" rx="10" stroke="#d8b4fe" strokeWidth="1"/>
+      <rect x="0" y="0" width="140" height="160" fill="#ECE4F6" rx="10" stroke="#C0A9E2" strokeWidth="1"/>
       <text x="70" y="25" textAnchor="middle" fontSize="24">🧘</text>
-      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#7e22ce">Do Nothing</text>
-      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#6b21a8">The best response</text>
-      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#6b21a8">to volatility is</text>
-      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#6b21a8">usually no response.</text>
-      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#6b21a8">Patience wins.</text>
+      <text x="70" y="50" textAnchor="middle" fontSize="10" fontWeight="600" fill="#654B8A">Do Nothing</text>
+      <text x="70" y="70" textAnchor="middle" fontSize="8" fill="#533F70">The best response</text>
+      <text x="70" y="82" textAnchor="middle" fontSize="8" fill="#533F70">to volatility is</text>
+      <text x="70" y="94" textAnchor="middle" fontSize="8" fill="#533F70">usually no response.</text>
+      <text x="70" y="106" textAnchor="middle" fontSize="8" fill="#533F70">Patience wins.</text>
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="225" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="225" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="242" textAnchor="middle" fontSize="9" fill="white">Save this framework. Return to it whenever markets feel unsettling.</text>
   </svg>
 );
@@ -468,15 +468,15 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#059669"/>
-        <stop offset="100%" stopColor="#0d9488"/>
+        <stop offset="0%" stopColor="#16A34A"/>
+        <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
     
     <text x="350" y="40" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🌱 Key Takeaway</text>
     <text x="350" y="70" textAnchor="middle" fontSize="12" fill="white">Volatility is not a sign that something is wrong — it's how markets work.</text>
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="white">It's the cost of growth. Accept it, and stay invested through it.</text>
-    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#a7f3d0">The calm investor who does nothing usually wins.</text>
+    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#BBF7D0">The calm investor who does nothing usually wins.</text>
   </svg>
 );
 
@@ -520,7 +520,7 @@ const LTILesson4 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -540,7 +540,7 @@ const LTILesson4 = () => {
                 Lesson 4 of 7
               </span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Volatility & Staying Invested</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Volatility & Staying Invested</h1>
             <p className="text-gray-600 text-lg">
               Understanding market fluctuations and why staying invested matters.
             </p>
@@ -549,7 +549,7 @@ const LTILesson4 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Markets Fluctuate</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why Markets Fluctuate</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -572,7 +572,7 @@ const LTILesson4 = () => {
 
         {/* What Volatility Looks Like */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What Volatility Actually Looks Like</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">What Volatility Actually Looks Like</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -591,7 +591,7 @@ const LTILesson4 = () => {
 
         {/* Why Markets Move */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Do Markets Move So Much?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Do Markets Move So Much?</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -611,7 +611,7 @@ const LTILesson4 = () => {
 
         {/* Noise vs Trend */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Difference Between Noise and Trend</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Difference Between Noise and Trend</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -634,7 +634,7 @@ const LTILesson4 = () => {
 
         {/* Volatility as Cost of Growth */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Volatility Is the Cost of Growth</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Volatility Is the Cost of Growth</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -657,7 +657,7 @@ const LTILesson4 = () => {
 
         {/* Time Frames */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">How Time Changes Your Perspective</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">How Time Changes Your Perspective</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -677,7 +677,7 @@ const LTILesson4 = () => {
 
         {/* Two Investors */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Reacting Often Harms Outcomes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Reacting Often Harms Outcomes</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -700,7 +700,7 @@ const LTILesson4 = () => {
 
         {/* Emotional vs Disciplined */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Emotional Reactions vs Disciplined Response</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Emotional Reactions vs Disciplined Response</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -720,7 +720,7 @@ const LTILesson4 = () => {
 
         {/* Reassurance Framework */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">A Framework for Scary Moments</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">A Framework for Scary Moments</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -764,7 +764,7 @@ const LTILesson4 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of volatility and staying invested.</p>
           
           <div className="space-y-8">
@@ -780,7 +780,7 @@ const LTILesson4 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -788,11 +788,11 @@ const LTILesson4 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -803,9 +803,9 @@ const LTILesson4 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -817,10 +817,10 @@ const LTILesson4 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-teal-200" />
-            <h3 className="text-xl font-bold">Reflection Activity</h3>
+            <h3 className="text-xl font-semibold">Reflection Activity</h3>
           </div>
           <p className="text-teal-100 mb-4">
             Think honestly about how you usually respond to market movement:
@@ -843,7 +843,7 @@ const LTILesson4 = () => {
 
         {/* Lesson Summary */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Lesson Summary</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Lesson Summary</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-teal-50 rounded-xl p-4 border border-teal-200">
               <h4 className="font-semibold text-teal-800 mb-2">What We Learned</h4>
@@ -854,9 +854,9 @@ const LTILesson4 = () => {
                 <li>✓ Volatility is the cost of growth</li>
               </ul>
             </div>
-            <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-              <h4 className="font-semibold text-emerald-800 mb-2">Key Behaviors</h4>
-              <ul className="text-emerald-700 text-sm space-y-1">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Key Behaviors</h4>
+              <ul className="text-brand text-sm space-y-1">
                 <li>✓ View markets through "years view" lens</li>
                 <li>✓ Don't react to short-term movement</li>
                 <li>✓ Stay invested through ups and downs</li>
@@ -877,7 +877,7 @@ const LTILesson4 = () => {
           </Link>
           <button
             onClick={() => navigate('/learn/lti-lesson-5')}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: The Role of Patience & Discipline</span>
             <FaArrowRight />

@@ -4,7 +4,7 @@ import SampleDataBar from "@/components/SampleDataBar";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { buildJournalSample, JOURNAL_SAMPLE_OPTIONS, journalSampleMode, previewJournalSample } from "../lib/sampleData";
 
-const JournalSampleBar = ({ placement }: { placement?: "bar" | "button" | "banner" }) => {
+const JournalSampleBar = ({ placement, iconOnly, buttonClassName }: { placement?: "bar" | "button" | "banner"; iconOnly?: boolean; buttonClassName?: string }) => {
   const { active, datasetId } = journalSampleMode.useState();
   // The previews are in rupees; show them in the selected currency.
   const { formatInr } = useCurrency();
@@ -25,7 +25,9 @@ const JournalSampleBar = ({ placement }: { placement?: "bar" | "button" | "banne
     <SampleDataBar
       feature="Journal"
       placement={placement}
-      label="Load sample"
+      label="Load sample data"
+      iconOnly={iconOnly}
+      buttonClassName={buttonClassName}
       active={active}
       activeName={JOURNAL_SAMPLE_OPTIONS.find((o) => o.id === datasetId)?.name}
       options={options}

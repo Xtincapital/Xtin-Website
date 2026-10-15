@@ -53,7 +53,7 @@ const Icons = {
   TaxAccountViz: ({ className = "w-full h-56" }) => (
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
-        {['#10b981', '#3b82f6', '#f59e0b'].map((color, i) => (
+        {['#16A34A', '#5A77AA', '#B8923F'].map((color, i) => (
           <linearGradient key={`tGrad-${i}`} id={`taxGrad${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={color} stopOpacity="0.7"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.4"/>
@@ -73,9 +73,9 @@ const Icons = {
       {/* Asset placement arrows */}
       <g transform="translate(50, 180)">
         <text x="0" y="0" fill="currentColor" fontSize="12" fontWeight="bold">Best Assets by Account:</text>
-        <text x="0" y="20" fill="#10b981" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
-        <text x="0" y="38" fill="#3b82f6" fontSize="11">• Tax-Free: High-growth stocks</text>
-        <text x="0" y="56" fill="#f59e0b" fontSize="11">• Taxable: Index funds, muni bonds</text>
+        <text x="0" y="20" fill="#16A34A" fontSize="11">• Tax-Deferred: Bonds, REITs</text>
+        <text x="0" y="38" fill="#5A77AA" fontSize="11">• Tax-Free: High-growth stocks</text>
+        <text x="0" y="56" fill="#B8923F" fontSize="11">• Taxable: Index funds, muni bonds</text>
       </g>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Tax-Efficient Account Structure</text>
     </svg>
@@ -149,25 +149,25 @@ const PCLesson10 = () => {
   const calculateScore = () => quizQuestions.filter(q => quizAnswers[q.id] === q.correct).length;
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 via-white to-green-50/30    text-gray-900  min-h-screen flex flex-col font-sans">
+    <div className="text-gray-900 min-h-screen flex flex-col font-sans">
       <Navbar />
       
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           
-          <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 text-gray-500 hover:text-green-600  transition-colors mb-8 group">
+          <button onClick={() => navigate('/learn/portfolio-construction')} className="flex items-center gap-2 text-gray-500 hover:text-brand  transition-colors mb-8 group">
             <Icons.ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform"/>
             <span className="text-sm font-medium">Back to Portfolio Construction</span>
           </button>
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 10 OF 12</span>
-              <span className="px-3 py-1.5 bg-green-100  text-green-700  rounded-full text-xs font-medium flex items-center gap-1.5">
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 10 OF 12</span>
+              <span className="px-3 py-1.5 bg-brand-soft  text-brand  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>45 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-green-900 to-emerald-900    bg-clip-text text-transparent mb-5 leading-tight">Tax-Efficient Investing</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mb-5 leading-tight tracking-[-0.025em] text-brand">Tax-Efficient Investing</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Master the strategies that keep more money in your pocket. Learn tax-loss harvesting, asset location, and other techniques to minimize your tax burden while maximizing after-tax returns.</p>
           </header>
 
@@ -176,22 +176,22 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.DollarSign className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Why Tax Efficiency Matters</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Why Tax Efficiency Matters</h2>
                       <p className="text-sm text-gray-500 ">The return you keep is what counts</p>
                     </div>
                   </div>
                   
                   <p className="text-gray-700  leading-relaxed mb-6">Taxes are often the largest expense for investors. While you can't control market returns, you have significant control over tax efficiency. The goal isn't to avoid all taxes - it's to maximize after-tax wealth by deferring taxes, using preferential rates, and harvesting losses strategically.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-green-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">Tax Drag: The Hidden Wealth Destroyer</h4>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <div className="text-green-400 text-sm mb-2">Pre-Tax Return</div>
+                        <div className="text-brand text-sm mb-2">Pre-Tax Return</div>
                         <div className="text-white text-2xl font-bold mb-1">8%</div>
                         <div className="text-gray-400 text-xs">Annual return</div>
                       </div>
@@ -201,23 +201,23 @@ const PCLesson10 = () => {
                         <div className="text-gray-400 text-xs">After 30% tax drag</div>
                       </div>
                       <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <div className="text-emerald-400 text-sm mb-2">Tax-Efficient</div>
+                        <div className="text-brand text-sm mb-2">Tax-Efficient</div>
                         <div className="text-white text-2xl font-bold mb-1">7.2%</div>
                         <div className="text-gray-400 text-xs">After 10% tax drag</div>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-green-800 text-center">
+                    <div className="mt-4 pt-4 border-t border-brand text-center">
                       <span className="text-gray-400 text-xs">Over 30 years, a 1.6% annual difference can mean 50%+ more wealth</span>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                      <h4 className="font-bold text-green-800  mb-2">Short-Term Gains</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">Short-Term Gains</h4>
                       <p className="text-sm text-gray-700 ">Held less than 1 year. Taxed as ordinary income at your marginal rate (up to 37%).</p>
                     </div>
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-2">Long-Term Gains</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">Long-Term Gains</h4>
                       <p className="text-sm text-gray-700 ">Held more than 1 year. Taxed at preferential rates: 0%, 15%, or 20% depending on income.</p>
                     </div>
                   </div>
@@ -227,47 +227,47 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.Shield className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Tax-Loss Harvesting</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Tax-Loss Harvesting</h2>
                       <p className="text-sm text-gray-500 ">Turn losses into tax savings</p>
                     </div>
                   </div>
 
                   <p className="text-gray-700  leading-relaxed mb-6">Tax-loss harvesting involves selling investments at a loss to offset capital gains. The losses reduce your tax bill, while you maintain your investment exposure by buying a similar (but not identical) security.</p>
 
-                  <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                  <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                     <h4 className="text-white font-semibold mb-4 text-center">How Tax-Loss Harvesting Works</h4>
                     <div className="space-y-3">
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
-                        <span className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</span>
+                        <span className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center text-white font-bold text-sm">1</span>
                         <div className="text-gray-300 text-sm flex-1">Identify investments with unrealized losses</div>
                       </div>
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
-                        <span className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</span>
+                        <span className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center text-white font-bold text-sm">2</span>
                         <div className="text-gray-300 text-sm flex-1">Sell those investments to realize the loss</div>
                       </div>
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
-                        <span className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</span>
+                        <span className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center text-white font-bold text-sm">3</span>
                         <div className="text-gray-300 text-sm flex-1">Immediately buy a similar but not identical replacement</div>
                       </div>
                       <div className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
-                        <span className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</span>
+                        <span className="w-8 h-8 bg-brand-fill rounded-full flex items-center justify-center text-white font-bold text-sm">4</span>
                         <div className="text-gray-300 text-sm flex-1">Use losses to offset gains; excess offsets $3,000 income</div>
                       </div>
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                      <h4 className="font-bold text-emerald-800  mb-3">Benefits</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">Benefits</h4>
                       <ul className="text-sm text-gray-700  space-y-2">
-                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Offset capital gains dollar-for-dollar</li>
-                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Offset up to $3,000 ordinary income annually</li>
-                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Unused losses carry forward indefinitely</li>
-                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"/>Maintain market exposure throughout</li>
+                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Offset capital gains dollar-for-dollar</li>
+                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Offset up to $3,000 ordinary income annually</li>
+                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Unused losses carry forward indefinitely</li>
+                        <li className="flex items-start gap-2"><Icons.CheckCircle className="w-4 h-4 text-brand mt-0.5 flex-shrink-0"/>Maintain market exposure throughout</li>
                       </ul>
                     </div>
 
@@ -286,7 +286,7 @@ const PCLesson10 = () => {
                     <h4 className="font-bold text-gray-900  mb-3">Example: TLH in Action</h4>
                     <div className="text-sm text-gray-700  space-y-2">
                       <p>You own Total Stock Market ETF (VTI) with a $10,000 loss. You also have $10,000 in capital gains from other sales.</p>
-                      <p className="font-semibold text-emerald-600 ">Action: Sell VTI (realize $10,000 loss). Immediately buy S&P 500 ETF (SPY) to maintain stock exposure.</p>
+                      <p className="font-semibold text-brand ">Action: Sell VTI (realize $10,000 loss). Immediately buy S&P 500 ETF (SPY) to maintain stock exposure.</p>
                       <p>Result: The $10,000 loss offsets your $10,000 gain. You owe $0 capital gains tax instead of ~$1,500-$2,000.</p>
                     </div>
                   </div>
@@ -296,11 +296,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                       <Icons.MapPin className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Asset Location Strategy</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Asset Location Strategy</h2>
                       <p className="text-sm text-gray-500 ">The right asset in the right account</p>
                     </div>
                   </div>
@@ -337,8 +337,8 @@ const PCLesson10 = () => {
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                      <h4 className="font-bold text-green-800  mb-2">Taxable Account</h4>
+                    <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-2">Taxable Account</h4>
                       <p className="text-xs text-gray-600  mb-2">Best for tax-efficient assets</p>
                       <ul className="text-xs text-gray-700  space-y-1">
                         <li>Stock index funds/ETFs</li>
@@ -378,17 +378,17 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                       <Icons.Shield className="w-7 h-7 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Tax-Advantaged Accounts</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Tax-Advantaged Accounts</h2>
                       <p className="text-sm text-gray-500 ">Optimizing account structure</p>
                     </div>
                   </div>
                   
                   {/* Visual: Tax Account Structure */}
-                  <div className="bg-gradient-to-br from-gray-900 to-amber-950 rounded-2xl p-8 mb-6 shadow-lg">
+                  <div className="bg-gradient-to-br from-gray-900 to-amber-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                     <h4 className="text-white font-bold mb-4 text-center">Visual: Tax-Efficient Account Layering</h4>
                     <Icons.TaxAccountViz className="w-full h-56"/>
                     <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
@@ -441,20 +441,20 @@ const PCLesson10 = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-green-50  rounded-xl p-6 border border-green-200 ">
-                      <h4 className="font-bold text-green-800  mb-3">Section 80C Optimization</h4>
+                    <div className="bg-brand-soft  rounded-xl p-6 border border-brand-line ">
+                      <h4 className="font-bold text-brand  mb-3">Section 80C Optimization</h4>
                       <p className="text-sm text-gray-600  mb-2">Max ₹1.5L deduction (30% tax bracket = ₹46,500 saved):</p>
                       <ul className="space-y-1 text-xs text-gray-700 ">
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1 flex-shrink-0"/>
                           ELSS (equity exposure + 3yr lock-in)
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1 flex-shrink-0"/>
                           PPF (EEE status, 15yr maturity)
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1 flex-shrink-0"/>
+                          <span className="w-1.5 h-1.5 bg-brand-fill rounded-full mt-1 flex-shrink-0"/>
                           NPS Tier-I (additional ₹50k under 80CCD(1B))
                         </li>
                       </ul>
@@ -472,13 +472,13 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-6">
-                    <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                       <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                       </svg>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Advanced Tax Strategies</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Advanced Tax Strategies</h2>
                       <p className="text-sm text-gray-500 ">Beyond the basics</p>
                     </div>
                   </div>
@@ -519,7 +519,7 @@ const PCLesson10 = () => {
                       <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Common Tax Mistakes</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Common Tax Mistakes</h2>
                       <p className="text-sm text-gray-500 ">Pitfalls to avoid</p>
                     </div>
                   </div>
@@ -551,7 +551,7 @@ const PCLesson10 = () => {
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50   rounded-xl p-6 border-l-4 border-green-500">
+                  <div className="rounded-xl p-6 border-l-4 border-brand bg-brand-soft">
                     <h4 className="font-bold text-gray-900  mb-2">The Bottom Line</h4>
                     <p className="text-gray-700  text-sm">Tax efficiency is about keeping more of what you earn. Implement these strategies systematically: use tax-advantaged accounts fully, practice asset location, harvest losses regularly, and hold long-term. Small annual savings compound into major wealth differences.</p>
                   </div>
@@ -561,11 +561,11 @@ const PCLesson10 = () => {
             <section>
                 <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                   <div className="flex items-start gap-4 mb-8">
-                    <span className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-500/20">
+                    <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                       <Icons.CheckCircle className="w-6 h-6 text-white"/>
                     </span>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                      <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                       <p className="text-sm text-gray-500 ">Test your understanding of tax-efficient investing</p>
                     </div>
                   </div>
@@ -584,24 +584,24 @@ const PCLesson10 = () => {
                             return (
                               <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                                 className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                  ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                  ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                   ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
-                                  ${isSelected && !showResults ? 'border-green-500 bg-green-50 ' : ''}
+                                  ${isSelected && !showResults ? 'border-brand bg-brand-soft ' : ''}
                                   ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
                                   ${showResults ? 'cursor-default' : 'cursor-pointer'}`}>
-                                <span className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? 'border-green-500 bg-green-500 text-white' : 'border-gray-300  text-gray-500'}`}>
+                                <span className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${isSelected ? 'border-brand bg-brand-fill text-white' : 'border-gray-300  text-gray-500'}`}>
                                   {String.fromCharCode(65 + oIdx)}
                                 </span>
                                 <span className="flex-1 text-gray-700 ">{option}</span>
-                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                                {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                                 {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                               </button>
                             );
                           })}
                         </div>
                         {showResults && (
-                          <div className="mt-4 p-4 bg-green-50  rounded-lg border border-green-200 ">
-                            <p className="text-sm text-green-800 "><strong>Explanation:</strong> {q.explanation}</p>
+                          <div className="mt-4 p-4 bg-brand-soft  rounded-lg border border-brand-line ">
+                            <p className="text-sm text-brand "><strong>Explanation:</strong> {q.explanation}</p>
                           </div>
                         )}
                       </div>
@@ -610,13 +610,13 @@ const PCLesson10 = () => {
 
                   {!showResults ? (
                     <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                      className="mt-8 w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                      className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-brand/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                       Check Answers
                     </button>
                   ) : (
-                    <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl text-center">
+                    <div className="mt-8 p-6 rounded-xl text-center bg-brand-fill">
                       <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
-                      <p className="text-green-100">{calculateScore() === quizQuestions.length ? "Excellent! You understand tax-efficient investing strategies." : "Review the explanations to master tax-efficient investing."}</p>
+                      <p className="text-white/85">{calculateScore() === quizQuestions.length ? "Excellent! You understand tax-efficient investing strategies." : "Review the explanations to master tax-efficient investing."}</p>
                     </div>
                   )}
                 </div>
@@ -627,7 +627,7 @@ const PCLesson10 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-9')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous Lesson</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-11')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-green-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-11')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-brand/25 transition-all duration-200 bg-brand-fill">
               <span>Next: Stress Testing</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

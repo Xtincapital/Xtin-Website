@@ -13,6 +13,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const RetirementCalculator = () => {
   const { symbol: sym } = useRegion();
@@ -126,17 +127,17 @@ const RetirementCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             Retirement Calculator
           </h1>
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
               What is Retirement Planning?
             </button>
@@ -151,7 +152,7 @@ const RetirementCalculator = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="retirement-current-age" className="block text-sm font-medium text-gray-700 mb-1">
                   Current Age
@@ -249,7 +250,7 @@ const RetirementCalculator = () => {
               )}
               <button
                 onClick={calculateRetirement}
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition mt-4"
+                className="w-full bg-brand-fill text-white py-3 rounded-lg font-semibold hover:bg-brand-hover transition mt-4"
               >
                 Calculate
               </button>
@@ -257,13 +258,13 @@ const RetirementCalculator = () => {
             <div className="bg-white shadow-md rounded-xl p-6">
               {results ? (
                 <div>
-                  <h2 className="text-2xl font-semibold mb-6 text-center">
+                  <h2 className="text-2xl font-bold mb-6 text-center">
                     Projected Growth
                   </h2>
                   {chartData.length > 0 ? (
                     <ResponsiveContainer width="100%" height={320}>
                       <LineChart data={chartData} margin={CHART_MARGIN}>
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid {...chartGrid} />
                         <XAxis
                           dataKey="year"
                           label={{
@@ -273,13 +274,13 @@ const RetirementCalculator = () => {
                           }}
                         />
                         <YAxis {...Y_AXIS_PROPS} />
-                        <Tooltip
+                        <Tooltip {...chartTooltip}
                           formatter={(value) => `${sym}${formatNumber(value)}`}
                         />
                         <Line
                           type="monotone"
                           dataKey="value"
-                          stroke="#16a34a"
+                          stroke={chartColors.positive}
                           strokeWidth={3}
                           dot={false}
                         />
@@ -295,7 +296,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Inflation-adjusted monthly expenses at retirement
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.inflationAdjustedMonthlyExpenses)}
                       </span>
                     </div>
@@ -303,7 +304,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Required retirement corpus
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.requiredCorpus)}
                       </span>
                     </div>
@@ -311,7 +312,7 @@ const RetirementCalculator = () => {
                       <span className="text-gray-600">
                         Future value of current savings
                       </span>
-                      <span className="font-semibold text-green-700">
+                      <span className="font-semibold text-brand">
                         {sym}{formatNumber(results.futureValueOfCurrentSavings)}
                       </span>
                     </div>
@@ -319,13 +320,13 @@ const RetirementCalculator = () => {
                       <span className="text-lg font-bold">
                         Required monthly investment
                       </span>
-                      <span className="text-lg font-bold text-green-700">
+                      <span className="text-lg font-bold text-brand">
                         {sym}{formatNumber(results.requiredMonthlyInvestment)}
                       </span>
                     </div>
                   </div>
-                  <div className="mt-6 text-center text-gray-700 bg-green-100 p-4 rounded-lg border border-green-200">
-                    <p className="text-green-800">
+                  <div className="mt-6 text-center text-gray-700 bg-brand-soft p-4 rounded-lg border border-brand-line">
+                    <p className="text-brand">
                       To maintain your lifestyle after retirement, you need a
                       corpus of{" "}
                       <span className="font-bold">

@@ -69,34 +69,34 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 300" fill="none">
       <defs>
         <linearGradient id="cycleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.3"/>
-          <stop offset="25%" stopColor="#3b82f6" stopOpacity="0.3"/>
-          <stop offset="50%" stopColor="#ef4444" stopOpacity="0.3"/>
-          <stop offset="75%" stopColor="#f59e0b" stopOpacity="0.3"/>
-          <stop offset="100%" stopColor="#10b981" stopOpacity="0.3"/>
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.3"/>
+          <stop offset="25%" stopColor="#5A77AA" stopOpacity="0.3"/>
+          <stop offset="50%" stopColor="#E04848" stopOpacity="0.3"/>
+          <stop offset="75%" stopColor="#B8923F" stopOpacity="0.3"/>
+          <stop offset="100%" stopColor="#16A34A" stopOpacity="0.3"/>
         </linearGradient>
       </defs>
       {/* Sine wave representing market cycle */}
-      <path d="M 40 150 Q 90 80 140 150 T 240 150 T 340 150" stroke="#3b82f6" strokeWidth="4" fill="none" strokeLinecap="round"/>
+      <path d="M 40 150 Q 90 80 140 150 T 240 150 T 340 150" stroke="#5A77AA" strokeWidth="4" fill="none" strokeLinecap="round"/>
       <path d="M 40 150 Q 90 80 140 150 T 240 150 T 340 150 L 340 280 L 40 280 Z" fill="url(#cycleGrad)"/>
       {/* Center equilibrium line */}
       <line x1="40" y1="150" x2="360" y2="150" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5,5" opacity="0.3"/>
       {/* Phase markers */}
       <g transform="translate(70, 70)">
-        <circle r="25" fill="#10b981" opacity="0.2" stroke="#10b981" strokeWidth="2"/>
-        <text y="5" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">Recovery</text>
+        <circle r="25" fill="#16A34A" opacity="0.2" stroke="#16A34A" strokeWidth="2"/>
+        <text y="5" fill="#16A34A" fontSize="11" fontWeight="bold" textAnchor="middle">Recovery</text>
       </g>
       <g transform="translate(170, 190)">
-        <circle r="25" fill="#ef4444" opacity="0.2" stroke="#ef4444" strokeWidth="2"/>
-        <text y="5" fill="#ef4444" fontSize="11" fontWeight="bold" textAnchor="middle">Downturn</text>
+        <circle r="25" fill="#E04848" opacity="0.2" stroke="#E04848" strokeWidth="2"/>
+        <text y="5" fill="#E04848" fontSize="11" fontWeight="bold" textAnchor="middle">Downturn</text>
       </g>
       <g transform="translate(270, 70)">
-        <circle r="25" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" strokeWidth="2"/>
-        <text y="5" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">Peak</text>
+        <circle r="25" fill="#B8923F" opacity="0.2" stroke="#B8923F" strokeWidth="2"/>
+        <text y="5" fill="#B8923F" fontSize="11" fontWeight="bold" textAnchor="middle">Peak</text>
       </g>
       {/* Strategy arrows */}
-      <text x="70" y="45" fill="#10b981" fontSize="10" fontWeight="bold" textAnchor="middle">↑ Add Risk</text>
-      <text x="270" y="45" fill="#ef4444" fontSize="10" fontWeight="bold" textAnchor="middle">↓ Reduce Risk</text>
+      <text x="70" y="45" fill="#16A34A" fontSize="10" fontWeight="bold" textAnchor="middle">↑ Add Risk</text>
+      <text x="270" y="45" fill="#E04848" fontSize="10" fontWeight="bold" textAnchor="middle">↓ Reduce Risk</text>
       {/* Labels */}
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Economic/Market Cycle</text>
       <text x="200" y="295" fill="currentColor" opacity="0.6" fontSize="12" textAnchor="middle">Time →</text>
@@ -182,12 +182,12 @@ const PCLesson5 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 5 OF 12</span>
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 5 OF 12</span>
               <span className="px-3 py-1.5 bg-orange-100  text-orange-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>35 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900    bg-clip-text text-transparent mb-5 leading-tight">Tactical Asset Allocation</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-orange-900 to-amber-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Tactical Asset Allocation</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Explore the art and science of short-term portfolio adjustments. Learn when tactical moves make sense, the dangers of market timing, and disciplined approaches to dynamic allocation.</p>
           </header>
 
@@ -196,18 +196,18 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20 bg-brand-fill">
                     <Icons.Zap className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Strategic vs. Tactical Allocation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">Strategic vs. Tactical Allocation</h2>
                     <p className="text-sm text-gray-500 ">Policy meets opportunity</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700  leading-relaxed mb-6">While Strategic Asset Allocation (SAA) sets your long-term targets, Tactical Asset Allocation (TAA) involves <strong className="text-gray-900 ">temporary, deliberate deviations</strong> from those targets to exploit perceived market opportunities or manage emerging risks.</p>
                 
-                <div className="bg-gradient-to-br from-slate-900 to-orange-950 rounded-xl p-8 mb-6">
+                <div className="rounded-xl p-8 mb-6 bg-brand-fill">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-white/5 rounded-lg p-5">
                       <div className="text-orange-400 font-bold text-lg mb-3">Strategic (SAA)</div>
@@ -249,7 +249,7 @@ const PCLesson5 = () => {
                     <Icons.AlertTriangle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">The Market Timing Trap</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">The Market Timing Trap</h2>
                     <p className="text-sm text-gray-500 ">Why most investors fail at timing</p>
                   </div>
                 </div>
@@ -290,7 +290,7 @@ const PCLesson5 = () => {
                     <h4 className="font-bold text-gray-900  mb-3">Missing the Best Days</h4>
                     <p className="text-sm text-gray-600  mb-2">$10,000 invested in S&P 500 (1993-2022):</p>
                     <ul className="text-sm space-y-1">
-                      <li className="flex justify-between"><span>Stayed invested:</span><span className="font-bold text-emerald-600 ">$199,000</span></li>
+                      <li className="flex justify-between"><span>Stayed invested:</span><span className="font-bold text-brand ">$199,000</span></li>
                       <li className="flex justify-between"><span>Missed 10 best days:</span><span className="font-bold text-amber-600 ">$91,000</span></li>
                       <li className="flex justify-between"><span>Missed 30 best days:</span><span className="font-bold text-red-600 ">$30,000</span></li>
                     </ul>
@@ -302,22 +302,22 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                     <Icons.TrendingUp className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Market Cycle Analysis</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Market Cycle Analysis</h2>
                     <p className="text-sm text-gray-500 ">Understanding economic phases</p>
                   </div>
                 </div>
                 
                 {/* Visual: Market Cycle */}
-                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg">
+                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                   <h4 className="text-white font-bold mb-4 text-center">Visual: Economic & Market Cycles</h4>
                   <Icons.MarketCycle className="w-full h-64"/>
                   <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-brand-fill"></div>
                       <span className="text-gray-300">Recovery Phase - Increase Risk</span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -351,21 +351,21 @@ const PCLesson5 = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="bg-green-50  rounded-xl p-6 border border-green-200 ">
-                    <h4 className="font-bold text-green-800  mb-3">Sector Rotation Strategy</h4>
+                  <div className="bg-brand-soft  rounded-xl p-6 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-3">Sector Rotation Strategy</h4>
                     <p className="text-sm text-gray-600  mb-3">Indian markets show strong sector rotation patterns. Example tactical tilts:</p>
                     <div className="space-y-2 text-xs">
-                      <div className="bg-green-100  rounded-lg p-2">
-                        <span className="font-medium text-green-900 ">Rate cut cycle:</span>
-                        <span className="text-green-700  ml-1">Overweight banks, real estate</span>
+                      <div className="bg-brand-soft  rounded-lg p-2">
+                        <span className="font-medium text-brand ">Rate cut cycle:</span>
+                        <span className="text-brand  ml-1">Overweight banks, real estate</span>
                       </div>
-                      <div className="bg-green-100  rounded-lg p-2">
-                        <span className="font-medium text-green-900 ">Rupee weakness:</span>
-                        <span className="text-green-700  ml-1">Favor IT, pharma exporters</span>
+                      <div className="bg-brand-soft  rounded-lg p-2">
+                        <span className="font-medium text-brand ">Rupee weakness:</span>
+                        <span className="text-brand  ml-1">Favor IT, pharma exporters</span>
                       </div>
-                      <div className="bg-green-100  rounded-lg p-2">
-                        <span className="font-medium text-green-900 ">Pre-election:</span>
-                        <span className="text-green-700  ml-1">Infrastructure, PSU stocks gain</span>
+                      <div className="bg-brand-soft  rounded-lg p-2">
+                        <span className="font-medium text-brand ">Pre-election:</span>
+                        <span className="text-brand  ml-1">Infrastructure, PSU stocks gain</span>
                       </div>
                     </div>
                   </div>
@@ -381,11 +381,11 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                     <Icons.Eye className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">TAA Signals and Indicators</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">TAA Signals and Indicators</h2>
                     <p className="text-sm text-gray-500 ">What professionals monitor</p>
                   </div>
                 </div>
@@ -393,10 +393,10 @@ const PCLesson5 = () => {
                 <p className="text-gray-700  leading-relaxed mb-6">While timing is difficult, certain indicators have shown some predictive power over longer horizons. These signals inform—but shouldn't dictate—tactical decisions.</p>
 
                 <div className="space-y-4 mb-6">
-                  <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                    <h4 className="font-bold text-emerald-800  mb-2">Valuation Metrics</h4>
+                  <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-2">Valuation Metrics</h4>
                     <p className="text-sm text-gray-600  mb-2">CAPE ratio, Price-to-Book, Earnings Yield vs. Bond Yield</p>
-                    <div className="text-xs text-emerald-600 ">Useful over 7-10 year horizons, poor for short-term timing</div>
+                    <div className="text-xs text-brand ">Useful over 7-10 year horizons, poor for short-term timing</div>
                   </div>
                   <div className="bg-blue-50  rounded-xl p-5 border border-blue-200 ">
                     <h4 className="font-bold text-blue-800  mb-2">Economic Indicators</h4>
@@ -430,18 +430,18 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                     <Icons.BarChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Disciplined TAA Framework</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Disciplined TAA Framework</h2>
                     <p className="text-sm text-gray-500 ">Rules-based tactical adjustments</p>
                   </div>
                 </div>
 
                 <p className="text-gray-700  leading-relaxed mb-6">If you pursue TAA, do so with discipline. Set rules in advance, define position limits, and stick to your process regardless of emotions.</p>
 
-                <div className="bg-gradient-to-br from-slate-900 to-cyan-950 rounded-xl p-6 mb-6">
+                <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                   <h4 className="text-white font-semibold mb-4 text-center">TAA Guardrails</h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     <div className="bg-white/5 rounded-lg p-4 text-center">
@@ -485,18 +485,18 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                     <Icons.TrendingUp className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">When TAA Might Make Sense</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">When TAA Might Make Sense</h2>
                     <p className="text-sm text-gray-500 ">Appropriate applications</p>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                    <h4 className="font-bold text-emerald-800  mb-3 flex items-center gap-2">
+                  <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-3 flex items-center gap-2">
                       <Icons.CheckCircle className="w-5 h-5"/>Good TAA Candidates
                     </h4>
                     <ul className="text-sm space-y-2 text-gray-700 ">
@@ -529,11 +529,11 @@ const PCLesson5 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20 bg-brand-fill">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of tactical allocation</p>
                   </div>
                 </div>
@@ -552,7 +552,7 @@ const PCLesson5 = () => {
                           return (
                             <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                               className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                 ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                 ${isSelected && !showResults ? 'border-orange-500 bg-orange-50 ' : ''}
                                 ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -561,7 +561,7 @@ const PCLesson5 = () => {
                                 {String.fromCharCode(65 + oIdx)}
                               </span>
                               <span className="flex-1 text-gray-700 ">{option}</span>
-                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                               {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                             </button>
                           );
@@ -578,11 +578,11 @@ const PCLesson5 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 rounded-xl text-center bg-brand-fill">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-orange-100">{calculateScore() === quizQuestions.length ? "Great work! You understand tactical allocation and its pitfalls." : "Review the explanations to strengthen your understanding."}</p>
                   </div>
@@ -595,7 +595,7 @@ const PCLesson5 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-4')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous: Strategic Asset Allocation</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-6')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-6')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-200 bg-brand-fill">
               <span>Next: Factor Investing</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

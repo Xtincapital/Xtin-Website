@@ -68,15 +68,15 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
           let bg = "bg-gray-50  hover:bg-rose-50 ", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-rose-100  text-rose-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-rose-100  text-rose-600'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -84,7 +84,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -116,7 +116,7 @@ const AlgoTradingLesson5 = () => {
               <span className="px-4 py-1.5 bg-gradient-to-r from-rose-600 to-pink-600 text-white rounded-full text-sm font-bold">Lesson 5 of 9</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">18 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl shadow-lg">
                 <Icons.Shield className="w-8 h-8 text-white"/>
               </span>
@@ -129,7 +129,7 @@ const AlgoTradingLesson5 = () => {
 
           {/* Learning Objectives */}
           <div className="bg-gradient-to-r from-rose-50 to-pink-50   rounded-2xl p-6 mb-10 border border-rose-200 ">
-            <h2 className="font-bold text-rose-800  mb-4 flex items-center gap-3">
+            <h2 className="font-semibold text-rose-800  mb-4 flex items-center gap-3">
               <span className="w-8 h-8 bg-rose-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
@@ -148,7 +148,7 @@ const AlgoTradingLesson5 = () => {
             
             {/* Intro */}
             <div className="bg-gradient-to-r from-amber-50 to-orange-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-amber-900  mb-3 text-lg flex items-center gap-2">
                 <Icons.Lightbulb className="w-5 h-5"/> The Most Important Lesson
               </h3>
               <p className="text-amber-800 ">
@@ -158,67 +158,67 @@ const AlgoTradingLesson5 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">Why Risk Management Matters More Than Strategy</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">Why Risk Management Matters More Than Strategy</h2>
             <p className="text-gray-700  mb-6">
               A mediocre strategy with excellent risk management will outperform an excellent strategy with poor risk management. 
               Here's why: <strong>markets are unpredictable</strong>. No matter how good your backtest looks, unexpected events happen.
             </p>
 
             {/* Risk Hierarchy SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-rose-950 rounded-2xl p-6 mb-10 border border-rose-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-rose-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 320" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">THE RISK MANAGEMENT HIERARCHY</text>
-                <text x="350" y="45" textAnchor="middle" fill="#94a3b8" fontSize="10">From most critical to least critical</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">THE RISK MANAGEMENT HIERARCHY</text>
+                <text x="350" y="45" textAnchor="middle" fill="#A0A3AA" fontSize="10">From most critical to least critical</text>
 
                 {/* Pyramid */}
                 <g transform="translate(150, 70)">
                   {/* Level 1 - Survival */}
-                  <path d="M200 0 L350 230 L50 230 Z" fill="#dc2626" opacity="0.9"/>
+                  <path d="M200 0 L350 230 L50 230 Z" fill="#C7363B" opacity="0.9"/>
                   <text x="200" y="200" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">SURVIVAL</text>
-                  <text x="200" y="215" textAnchor="middle" fill="#fecaca" fontSize="9">Never risk ruin</text>
+                  <text x="200" y="215" textAnchor="middle" fill="#F6C3C3" fontSize="9">Never risk ruin</text>
                   
                   {/* Level 2 - Drawdown Control */}
-                  <path d="M200 40 L320 180 L80 180 Z" fill="#f59e0b" opacity="0.9"/>
+                  <path d="M200 40 L320 180 L80 180 Z" fill="#B8923F" opacity="0.9"/>
                   <text x="200" y="155" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">DRAWDOWN CONTROL</text>
-                  <text x="200" y="168" textAnchor="middle" fill="#fef3c7" fontSize="8">Limit peak-to-trough losses</text>
+                  <text x="200" y="168" textAnchor="middle" fill="#F6ECCE" fontSize="8">Limit peak-to-trough losses</text>
                   
                   {/* Level 3 - Position Sizing */}
-                  <path d="M200 80 L290 135 L110 135 Z" fill="#22c55e" opacity="0.9"/>
+                  <path d="M200 80 L290 135 L110 135 Z" fill="#16A34A" opacity="0.9"/>
                   <text x="200" y="115" textAnchor="middle" fill="white" fontSize="10" fontWeight="600">POSITION SIZING</text>
-                  <text x="200" y="128" textAnchor="middle" fill="#dcfce7" fontSize="8">Right size per trade</text>
+                  <text x="200" y="128" textAnchor="middle" fill="#F0FDF4" fontSize="8">Right size per trade</text>
                   
                   {/* Level 4 - Entry/Exit */}
-                  <path d="M200 105 L250 90 L150 90 L200 105" fill="#3b82f6" opacity="0.9"/>
+                  <path d="M200 105 L250 90 L150 90 L200 105" fill="#5A77AA" opacity="0.9"/>
                 </g>
 
                 {/* Labels */}
                 <g transform="translate(520, 120)">
-                  <rect x="0" y="0" width="150" height="160" rx="8" fill="#0f172a" stroke="#334155"/>
-                  <text x="75" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="10" fontWeight="600">Priority Order:</text>
+                  <rect x="0" y="0" width="150" height="160" rx="8" fill="#1F1F1F" stroke="#373A41"/>
+                  <text x="75" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="10" fontWeight="600">Priority Order:</text>
                   
-                  <circle cx="20" cy="50" r="8" fill="#dc2626"/>
+                  <circle cx="20" cy="50" r="8" fill="#C7363B"/>
                   <text x="20" y="54" textAnchor="middle" fill="white" fontSize="8">1</text>
-                  <text x="40" y="54" fill="#fca5a5" fontSize="9">Survival First</text>
+                  <text x="40" y="54" fill="#F09B9B" fontSize="9">Survival First</text>
                   
-                  <circle cx="20" cy="80" r="8" fill="#f59e0b"/>
+                  <circle cx="20" cy="80" r="8" fill="#B8923F"/>
                   <text x="20" y="84" textAnchor="middle" fill="white" fontSize="8">2</text>
-                  <text x="40" y="84" fill="#fcd34d" fontSize="9">Control Drawdowns</text>
+                  <text x="40" y="84" fill="#E2C273" fontSize="9">Control Drawdowns</text>
                   
-                  <circle cx="20" cy="110" r="8" fill="#22c55e"/>
+                  <circle cx="20" cy="110" r="8" fill="#16A34A"/>
                   <text x="20" y="114" textAnchor="middle" fill="white" fontSize="8">3</text>
-                  <text x="40" y="114" fill="#86efac" fontSize="9">Size Positions</text>
+                  <text x="40" y="114" fill="#16A34A" fontSize="9">Size Positions</text>
                   
-                  <circle cx="20" cy="140" r="8" fill="#3b82f6"/>
+                  <circle cx="20" cy="140" r="8" fill="#5A77AA"/>
                   <text x="20" y="144" textAnchor="middle" fill="white" fontSize="8">4</text>
-                  <text x="40" y="144" fill="#93c5fd" fontSize="9">Entry/Exit Rules</text>
+                  <text x="40" y="144" fill="#9FB3D3" fontSize="9">Entry/Exit Rules</text>
                 </g>
               </svg>
             </div>
 
             {/* Position Sizing */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-              <span className="w-10 h-10 bg-emerald-100  rounded-xl flex items-center justify-center">
-                <Icons.Scale className="w-5 h-5 text-emerald-600 "/>
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
+              <span className="w-10 h-10 bg-brand-soft  rounded-xl flex items-center justify-center">
+                <Icons.Scale className="w-5 h-5 text-brand "/>
               </span>
               Position Sizing: The Most Important Decision
             </h2>
@@ -238,7 +238,7 @@ const AlgoTradingLesson5 = () => {
                   </span>
                   <div>
                     <span className="text-xs font-bold text-blue-600 ">METHOD 1</span>
-                    <h3 className="text-xl font-bold text-gray-900 ">Fixed Percentage Risk</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 ">Fixed Percentage Risk</h3>
                   </div>
                 </div>
                 
@@ -259,9 +259,9 @@ const AlgoTradingLesson5 = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-emerald-50  rounded-lg p-3">
-                    <p className="text-sm font-semibold text-emerald-700 ">✓ Pros</p>
-                    <ul className="text-xs text-emerald-600  mt-1 space-y-1">
+                  <div className="bg-brand-soft  rounded-lg p-3">
+                    <p className="text-sm font-semibold text-brand ">✓ Pros</p>
+                    <ul className="text-xs text-brand  mt-1 space-y-1">
                       <li>• Simple to calculate</li>
                       <li>• Automatic position adjustment</li>
                       <li>• Limits catastrophic losses</li>
@@ -286,7 +286,7 @@ const AlgoTradingLesson5 = () => {
                   </span>
                   <div>
                     <span className="text-xs font-bold text-violet-600 ">METHOD 2</span>
-                    <h3 className="text-xl font-bold text-gray-900 ">Kelly Criterion</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 ">Kelly Criterion</h3>
                   </div>
                 </div>
                 
@@ -319,7 +319,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Drawdown Management */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-red-100  rounded-xl flex items-center justify-center">
                 <Icons.TrendDown className="w-5 h-5 text-red-600 "/>
               </span>
@@ -333,7 +333,7 @@ const AlgoTradingLesson5 = () => {
 
             {/* Drawdown Recovery Table */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4">The Math of Recovery</h3>
+              <h3 className="font-semibold text-red-800  mb-4">The Math of Recovery</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -358,7 +358,7 @@ const AlgoTradingLesson5 = () => {
                         <td className="p-3 text-gray-700 ">{row[1]}</td>
                         <td className="p-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                            i < 2 ? 'bg-emerald-100 text-emerald-700  ' :
+                            i < 2 ? 'bg-brand-soft text-brand  ' :
                             i < 4 ? 'bg-amber-100 text-amber-700  ' :
                             'bg-red-100 text-red-700  '
                           }`}>{row[2]}</span>
@@ -374,7 +374,7 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Portfolio Level Controls */}
-            <h2 className="text-2xl font-bold mb-4">Portfolio-Level Risk Controls</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Portfolio-Level Risk Controls</h2>
             <p className="text-gray-700  mb-6">
               Beyond individual trade risk, you need system-wide safeguards:
             </p>
@@ -399,52 +399,52 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Stop Loss Types */}
-            <h2 className="text-2xl font-bold mb-4">Stop Loss Strategies</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Stop Loss Strategies</h2>
             
-            <div className="bg-gradient-to-br from-slate-900 to-rose-950 rounded-2xl p-6 mb-10 border border-rose-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-rose-800/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">STOP LOSS TYPES</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">STOP LOSS TYPES</text>
 
                 {/* Fixed Stop */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
-                  <text x="100" y="30" textAnchor="middle" fill="#93c5fd" fontSize="11" fontWeight="600">FIXED STOP</text>
-                  <text x="100" y="55" textAnchor="middle" fill="#64748b" fontSize="9">Exit at specific price</text>
-                  <text x="100" y="75" textAnchor="middle" fill="#94a3b8" fontSize="8">e.g., "Sell if price drops 2%"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#22c55e" fontSize="8">✓ Simple, predictable</text>
+                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#2A2A2C" stroke="#5A77AA" strokeWidth="2"/>
+                  <text x="100" y="30" textAnchor="middle" fill="#9FB3D3" fontSize="11" fontWeight="600">FIXED STOP</text>
+                  <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Exit at specific price</text>
+                  <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Sell if price drops 2%"</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Simple, predictable</text>
                 </g>
 
                 {/* Trailing Stop */}
                 <g transform="translate(250, 60)">
-                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
-                  <text x="100" y="30" textAnchor="middle" fill="#c4b5fd" fontSize="11" fontWeight="600">TRAILING STOP</text>
-                  <text x="100" y="55" textAnchor="middle" fill="#64748b" fontSize="9">Moves with price</text>
-                  <text x="100" y="75" textAnchor="middle" fill="#94a3b8" fontSize="8">e.g., "Always 5% below high"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#22c55e" fontSize="8">✓ Locks in profits</text>
+                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#2A2A2C" stroke="#8F6FC4" strokeWidth="2"/>
+                  <text x="100" y="30" textAnchor="middle" fill="#C0A9E2" fontSize="11" fontWeight="600">TRAILING STOP</text>
+                  <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Moves with price</text>
+                  <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Always 5% below high"</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Locks in profits</text>
                 </g>
 
                 {/* Volatility Stop */}
                 <g transform="translate(470, 60)">
-                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#1e293b" stroke="#f59e0b" strokeWidth="2"/>
-                  <text x="100" y="30" textAnchor="middle" fill="#fcd34d" fontSize="11" fontWeight="600">VOLATILITY STOP (ATR)</text>
-                  <text x="100" y="55" textAnchor="middle" fill="#64748b" fontSize="9">Based on market volatility</text>
-                  <text x="100" y="75" textAnchor="middle" fill="#94a3b8" fontSize="8">e.g., "Exit at 2× ATR below"</text>
-                  <text x="100" y="90" textAnchor="middle" fill="#22c55e" fontSize="8">✓ Adapts to conditions</text>
+                  <rect x="0" y="0" width="200" height="100" rx="10" fill="#2A2A2C" stroke="#B8923F" strokeWidth="2"/>
+                  <text x="100" y="30" textAnchor="middle" fill="#E2C273" fontSize="11" fontWeight="600">VOLATILITY STOP (ATR)</text>
+                  <text x="100" y="55" textAnchor="middle" fill="#717680" fontSize="9">Based on market volatility</text>
+                  <text x="100" y="75" textAnchor="middle" fill="#A0A3AA" fontSize="8">e.g., "Exit at 2× ATR below"</text>
+                  <text x="100" y="90" textAnchor="middle" fill="#16A34A" fontSize="8">✓ Adapts to conditions</text>
                 </g>
 
                 {/* Best Practice */}
                 <g transform="translate(100, 180)">
-                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#1e293b" stroke="#22c55e" strokeWidth="2"/>
-                  <text x="250" y="25" textAnchor="middle" fill="#86efac" fontSize="11" fontWeight="600">💡 BEST PRACTICE</text>
-                  <text x="250" y="45" textAnchor="middle" fill="#94a3b8" fontSize="9">Use ATR-based stops for algo trading — they adapt to market conditions</text>
-                  <text x="250" y="60" textAnchor="middle" fill="#64748b" fontSize="8">Typical range: 1.5× to 3× ATR based on strategy timeframe</text>
+                  <rect x="0" y="0" width="500" height="70" rx="10" fill="#2A2A2C" stroke="#16A34A" strokeWidth="2"/>
+                  <text x="250" y="25" textAnchor="middle" fill="#16A34A" fontSize="11" fontWeight="600">💡 BEST PRACTICE</text>
+                  <text x="250" y="45" textAnchor="middle" fill="#A0A3AA" fontSize="9">Use ATR-based stops for algo trading — they adapt to market conditions</text>
+                  <text x="250" y="60" textAnchor="middle" fill="#717680" fontSize="8">Typical range: 1.5× to 3× ATR based on strategy timeframe</text>
                 </g>
               </svg>
             </div>
 
             {/* Common Risk Mistakes */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-red-800  mb-4 flex items-center gap-3">
                 <span className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center"><Icons.Warning className="w-5 h-5 text-white"/></span>
                 Common Risk Management Mistakes
               </h3>
@@ -468,9 +468,9 @@ const AlgoTradingLesson5 = () => {
             </div>
 
             {/* Key Takeaways */}
-            <div className="bg-gradient-to-r from-emerald-50 to-teal-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
+            <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
               <ul className="space-y-2">
@@ -481,15 +481,15 @@ const AlgoTradingLesson5 = () => {
                   "Implement portfolio-level controls (daily limits, correlation limits)",
                   "Kelly Criterion provides mathematically optimal sizing — use half or quarter Kelly",
                   "Plan for black swan events — they happen more often than you think"].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                    <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                  <li key={i} className="flex items-start gap-3 text-brand ">
+                    <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="If your account drops by 50%, how much gain do you need to recover?"
               options={["50%", "75%", "100%", "150%"]}

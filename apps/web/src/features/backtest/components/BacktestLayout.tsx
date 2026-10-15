@@ -30,13 +30,13 @@ function PlanBadge() {
   const used = Math.min(limit, data.backtests_used ?? 0);
   const pct = limit ? (used / limit) * 100 : 0;
   return (
-    <NavLink to="/backtest/app/upgrade" className="group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 transition hover:border-emerald-400/40">
+    <NavLink to="/backtest/app/upgrade" className="group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 transition hover:border-brand-line">
       <span className="font-semibold text-white tabular-nums">
         {limit - used}/{limit}
       </span>
       <span className="hidden sm:inline">free backtests left {data.limit_window === "day" ? "today" : "this month"}</span>
       <span className="h-1.5 w-16 overflow-hidden rounded-full bg-white/10">
-        <span className="block h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-300" style={{ width: `${100 - pct}%` }} />
+        <span className="block h-full rounded-full bg-brand-fill" style={{ width: `${100 - pct}%` }} />
       </span>
     </NavLink>
   );
@@ -45,26 +45,26 @@ function PlanBadge() {
 const BacktestLayout = ({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) => (
   <>
     <Navbar />
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#060a13] dark:text-slate-100">
+    <div className="min-h-screen bg-background text-slate-900 dark:bg-[#131417] dark:text-slate-100">
       {/* pt-20 clears the site Navbar, which is fixed and 80px tall */}
-      <header className="relative overflow-hidden bg-[#0a1120] pt-20 text-white">
+      <header className="relative overflow-hidden bg-[#131417] pt-20 text-white brand-on-dark">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "36px 36px" }}
         />
-        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/4 h-64 w-96 rounded-full bg-emerald-500/25 blur-[90px]" />
+        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/4 h-64 w-96 rounded-full bg-brand-soft blur-[90px]" />
         <div aria-hidden className="pointer-events-none absolute -bottom-24 right-10 h-56 w-72 rounded-full bg-teal-400/15 blur-[80px]" />
 
         <div className="relative mx-auto max-w-7xl px-4 pt-6 sm:px-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <NavLink to="/backtest" className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 shadow-lg shadow-emerald-500/30">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl shadow-lg shadow-brand/30 bg-brand-fill">
                 <ChartCandlestick className="h-5 w-5 text-white" />
               </span>
               <span>
                 <span className="block text-lg font-bold leading-tight tracking-tight">
-                  Xtin <span className="bg-gradient-to-r from-emerald-300 to-teal-200 bg-clip-text text-transparent">Backtest</span>
+                  Xtin <span className="text-brand">Backtest</span>
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-slate-400">
                   <FlaskConical className="h-3 w-3" /> Quant lab · test ideas on real market history
@@ -82,7 +82,7 @@ const BacktestLayout = ({ children, wide = false }: { children: React.ReactNode;
                 end={end}
                 className={({ isActive }) =>
                   `relative flex items-center gap-2 whitespace-nowrap rounded-t-xl px-4 py-2.5 text-sm font-medium transition ${
-                    isActive ? "bg-slate-50 text-slate-900 dark:bg-[#060a13] dark:text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    isActive ? "bg-slate-50 text-slate-900 dark:bg-[#131417] dark:text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
                   }`
                 }
               >

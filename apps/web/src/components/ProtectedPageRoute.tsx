@@ -18,7 +18,7 @@ const ProtectedPageRoute = ({ children }) => {
     // If not loading and no user, show the sign-in modal
     if (!loading && !user) {
       // Store the intended URL for redirect after login
-      sessionStorage.setItem('returnUrl', location.pathname);
+      sessionStorage.setItem('returnUrl', location.pathname + location.search);
       setShowSignInModal(true);
     }
   }, [loading, user, location.pathname]);
@@ -44,9 +44,9 @@ const ProtectedPageRoute = ({ children }) => {
   // Show loading spinner while checking auth
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>

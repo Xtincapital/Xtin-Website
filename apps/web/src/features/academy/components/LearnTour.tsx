@@ -112,7 +112,7 @@ const LearnTour = ({ onFinishNavigate }) => {
       onClick={() => setStepIndex(0)}
       title="Take the 60-second tour"
       aria-label="Take the Academy tour"
-      className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 shadow-lg flex items-center justify-center text-green-600 hover:bg-green-600 hover:text-white transition-colors"
+      className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 shadow-lg flex items-center justify-center text-brand hover:bg-brand-hover hover:text-white transition-colors"
     >
       <FaQuestion />
     </button>
@@ -152,11 +152,11 @@ const LearnTour = ({ onFinishNavigate }) => {
             className="absolute rounded-2xl transition-all duration-300 pointer-events-none"
             style={{
               ...spotlight,
-              boxShadow: '0 0 0 9999px rgba(2, 6, 23, 0.72), 0 0 0 3px rgba(34, 197, 94, 0.9), 0 0 32px 6px rgba(34, 197, 94, 0.45)',
+              boxShadow: '0 0 0 9999px rgba(19, 20, 23, 0.72), 0 0 0 3px rgba(22, 163, 74, 0.9), 0 0 32px 6px rgba(22, 163, 74, 0.45)',
             }}
           />
         ) : (
-          <div className="absolute inset-0 bg-slate-950/75" />
+          <div className="absolute inset-0 bg-slate-950/75 brand-on-dark" />
         )}
 
         {/* Step card */}
@@ -174,13 +174,13 @@ const LearnTour = ({ onFinishNavigate }) => {
           </button>
 
           {step.center && (
-            <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center shadow-lg shadow-brand/30 bg-brand-fill">
               <FaGraduationCap className="text-white text-xl" />
             </div>
           )}
 
-          <p className="text-[11px] font-bold uppercase tracking-wider text-green-600 mb-1.5">{step.eyebrow}</p>
-          <h3 className="text-lg font-extrabold text-gray-900 dark:text-slate-100 mb-2">{step.title}</h3>
+          <p className="text-xs font-bold uppercase tracking-wider text-brand mb-1.5">{step.eyebrow}</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">{step.title}</h3>
           <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mb-5">{step.body}</p>
 
           <div className={`flex items-center gap-3 ${step.center ? 'justify-center' : 'justify-between'}`}>
@@ -190,12 +190,12 @@ const LearnTour = ({ onFinishNavigate }) => {
               </button>
             ) : <span />}
             <div className="flex items-center gap-3">
-              <span className="text-[11px] text-gray-400 dark:text-slate-500 font-medium">
+              <span className="text-xs text-gray-400 dark:text-slate-500 font-medium">
                 {stepIndex + 1} / {STEPS.length}
               </span>
               <button
                 onClick={next}
-                className="px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl text-sm font-bold shadow-md shadow-green-500/25 hover:shadow-lg transition-all"
+                className="px-5 py-2.5 text-white rounded-xl text-sm font-bold shadow-md shadow-brand/25 hover:shadow-lg transition-all bg-brand-fill"
               >
                 {step.next || (stepIndex === STEPS.length - 1 ? 'Finish' : 'Next')}
               </button>

@@ -219,7 +219,7 @@ const ModuleVideoPage = () => {
   const unlockLabel = `Unlock all ${total} lessons with Pro — ${formatLearnPrice(pricing.yearly, pricing)}/yr`;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+    <div className="min-h-screen bg-background">
       <SEO
         title={`${course.name} — Free Video Course`}
         description={course.description}
@@ -240,16 +240,16 @@ const ModuleVideoPage = () => {
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <Link to="/learn" className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-green-600 mb-4">
+        <Link to="/learn" className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-brand mb-4">
           <FaArrowLeft className="text-xs" /> All courses
         </Link>
 
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
-            <span className="inline-block mb-2 px-2.5 py-1 bg-green-100 dark:bg-emerald-900/40 text-green-700 dark:text-emerald-300 text-[11px] font-bold rounded-full uppercase tracking-wider">
+            <span className="inline-block mb-2 px-2.5 py-1 bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-bold rounded-full uppercase tracking-wider">
               Module {course.number} · Lesson 1 free
             </span>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">{course.name}</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">{course.name}</h1>
             <p className="text-gray-500 dark:text-slate-400 mt-2 max-w-2xl">{course.description}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -259,7 +259,7 @@ const ModuleVideoPage = () => {
             <a
               href={`https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
               target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp"
-              className="p-2.5 rounded-lg border border-gray-200 dark:border-slate-700 text-green-600 hover:bg-white dark:hover:bg-slate-800"
+              className="p-2.5 rounded-lg border border-gray-200 dark:border-slate-700 text-brand hover:bg-white dark:hover:bg-slate-800"
             ><FaWhatsapp /></a>
             <button onClick={copyLink} aria-label="Copy link" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-700 text-sm text-gray-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800">
               <FaLink className="text-xs" /> {copied ? 'Copied!' : 'Copy link'}
@@ -270,7 +270,7 @@ const ModuleVideoPage = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Player + details */}
           <div className="lg:col-span-2">
-            <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-xl flex items-center justify-center">
+            <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-xl flex items-center justify-center brand-on-dark">
               {videoId && !locked && !soon ? (
                 <YouTubePlayer videoId={videoId} autoplay={autoplay} onEnded={onEnded} />
               ) : (
@@ -281,7 +281,7 @@ const ModuleVideoPage = () => {
                     {locked ? `Unlock all ${total} lessons in this module with Pro.` : soon ? 'This lesson is being recorded.' : ''}
                   </p>
                   {locked && (
-                    <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-lg font-semibold text-sm">
+                    <button onClick={unlock} className="mt-4 inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg font-semibold text-sm bg-brand-fill">
                       <FaCrown className="text-xs" /> Unlock with Pro
                     </button>
                   )}
@@ -292,22 +292,22 @@ const ModuleVideoPage = () => {
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs text-gray-400 dark:text-slate-500">Lesson {lesson} of {total}{lesson === 1 ? ' · Free' : ''}</p>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-slate-100">{course.lessons[lesson - 1]}</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{course.lessons[lesson - 1]}</h2>
               </div>
               <button
                 onClick={() => toggleDone(lesson)}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800"
               >
-                {done.includes(lesson) ? <FaCheckCircle className="text-green-600" /> : <FaRegCircle className="text-gray-400" />}
+                {done.includes(lesson) ? <FaCheckCircle className="text-brand" /> : <FaRegCircle className="text-gray-400" />}
                 {done.includes(lesson) ? 'Watched' : 'Mark as watched'}
               </button>
             </div>
 
             {!pro && (
-              <div className="mt-6 rounded-2xl border border-green-200 dark:border-emerald-900/50 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-emerald-950/40 dark:to-slate-900 p-5">
+              <div className="mt-6 rounded-2xl border border-brand-line dark:border-brand/50 p-5 bg-brand-soft">
                 <p className="font-bold text-gray-900 dark:text-slate-100">Lesson 1 free, {total - 1} more with Pro.</p>
                 <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">Every lesson in this module, plus all 20 text modules and certificates.</p>
-                <button onClick={unlock} className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-lg font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all">
+                <button onClick={unlock} className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 text-white rounded-lg font-semibold text-sm shadow-lg shadow-brand/25 hover:shadow-xl transition-all bg-brand-fill">
                   <FaCrown className="text-xs" /> {unlockLabel}
                 </button>
               </div>
@@ -322,9 +322,9 @@ const ModuleVideoPage = () => {
                     type="email" required placeholder="you@email.com"
                     value={leadEmail || user?.email || ''}
                     onChange={(e) => setLeadEmail(e.target.value)}
-                    className="flex-1 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-green-500/50"
+                    className="flex-1 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand/50"
                   />
-                  <button type="submit" disabled={leadState === 'busy'} className="px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-slate-700 text-white font-medium text-sm disabled:opacity-60">
+                  <button type="submit" disabled={leadState === 'busy'} className="px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-slate-700 text-white font-medium text-sm disabled:opacity-60 brand-on-dark">
                     {leadState === 'busy' ? 'Saving…' : 'Notify me'}
                   </button>
                 </div>
@@ -332,7 +332,7 @@ const ModuleVideoPage = () => {
               </form>
             )}
             {!pro && leadState === 'done' && (
-              <p className="mt-4 text-sm text-green-700 dark:text-emerald-300 flex items-center gap-2">
+              <p className="mt-4 text-sm text-brand dark:text-brand flex items-center gap-2">
                 <FaCheckCircle /> You're on the list — we'll email you when new lessons go live.
               </p>
             )}
@@ -346,7 +346,7 @@ const ModuleVideoPage = () => {
                 <span className="text-xs text-gray-500 dark:text-slate-400">{doneCount}/{total} watched</span>
               </div>
               <div className="h-1 bg-gray-100 dark:bg-slate-800">
-                <div className="h-full bg-green-500 transition-all" style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} />
+                <div className="h-full bg-brand-fill transition-all" style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} />
               </div>
               <ul className="divide-y divide-gray-100 dark:divide-slate-800 max-h-[32rem] overflow-y-auto">
                 {course.lessons.map((title, i) => {
@@ -356,18 +356,18 @@ const ModuleVideoPage = () => {
                     <li key={n}>
                       <button
                         onClick={() => selectLesson(n)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm transition-colors ${n === lesson ? 'bg-green-50 dark:bg-emerald-900/20' : 'hover:bg-gray-50 dark:hover:bg-slate-800'}`}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm transition-colors ${n === lesson ? 'bg-brand-soft dark:bg-brand-soft' : 'hover:bg-gray-50 dark:hover:bg-slate-800'}`}
                       >
                         <span className="w-5 text-xs font-bold text-gray-400 dark:text-slate-500">{n}</span>
                         <span className="flex-1 text-gray-800 dark:text-slate-200 line-clamp-2">{title}</span>
                         {done.includes(n) ? (
-                          <FaCheckCircle className="text-green-600 shrink-0" />
+                          <FaCheckCircle className="text-brand shrink-0" />
                         ) : n === 1 ? (
-                          <span className="text-[10px] font-bold text-green-600 dark:text-emerald-300">FREE</span>
+                          <span className="text-xs font-bold text-brand dark:text-brand">FREE</span>
                         ) : !hasVideo(n) ? (
-                          <span className="text-[10px] font-semibold text-gray-400 dark:text-slate-500">SOON</span>
+                          <span className="text-xs font-semibold text-gray-400 dark:text-slate-500">SOON</span>
                         ) : isPlayable ? (
-                          <FaPlayCircle className="text-green-600 shrink-0" />
+                          <FaPlayCircle className="text-brand shrink-0" />
                         ) : (
                           <FaLock className="text-xs text-gray-400 dark:text-slate-500 shrink-0" />
                         )}
@@ -377,7 +377,7 @@ const ModuleVideoPage = () => {
                 })}
               </ul>
             </div>
-            <p className="text-[11px] text-gray-400 dark:text-slate-500 mt-2">Watch progress is saved on this device.</p>
+            <p className="text-xs text-gray-400 dark:text-slate-500 mt-2">Watch progress is saved on this device.</p>
           </aside>
         </div>
       </main>

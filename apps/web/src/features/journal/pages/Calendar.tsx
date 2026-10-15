@@ -36,7 +36,7 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { ChevronLeft, ChevronRight, CalendarDays, TrendingUp, TrendingDown, Trophy } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import InfoTip from "@/components/ui/info-tip";
@@ -45,6 +45,10 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
+import StatCard from "../components/StatCard";
+import { signedMoney } from "../lib/format";
+import { heatCellStyle } from "../lib/journalPatternHelpers";
+import { HeatLegend } from "../components/HeatCell";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -116,6 +120,8 @@ const Calendar = () => {
     cells.push({ day, trades: dayTrades, pnl: dayTrades.reduce((sum, t) => sum + (t.pnl ?? 0), 0) });
   }
 
+  const maxAbsDay = Math.max(1, ...cells.map((c) => Math.abs(c.pnl)));
+
   const changeMonth = (direction: 1 | -1) => {
     let m = month + direction;
     let y = year;
@@ -137,11 +143,11 @@ const Calendar = () => {
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Calendar
             <InfoTip title="How to read the calendar" widthClass="w-80">
               <p>Each box is a day. It shows how many trades you took and your total P&L for that day.</p>
-              <p><strong className="text-success">Green</strong> days made money, <strong className="text-destructive">red</strong> days lost money, <strong className="text-amber-500">amber</strong> days broke even, and grey days had no trades.</p>
+              <p><strong className="text-brand">Green</strong> days made money, <strong className="text-destructive">red</strong> days lost money, <strong className="text-amber-500">amber</strong> days broke even, and grey days had no trades.</p>
               <p><strong className="text-foreground">Click a day</strong> with trades to see every trade from it, and click a trade to see its full details. Use the arrows to move between months.</p>
             </InfoTip>
           </h1>
@@ -157,62 +163,46 @@ const Calendar = () => {
           transition={{ duration: 0.4, delay: 0.05 }}
           className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4 mb-6"
         >
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Trading Days
-                <InfoTip title="Trading Days">
-                  <p>Days this month on which you placed at least one trade.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-bold text-foreground">{tradingDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Profitable Days
-                <InfoTip title="Profitable Days">
-                  <p>Days whose combined P&L across all trades was above zero.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-bold text-success">{profitableDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Loss Days
-                <InfoTip title="Loss Days">
-                  <p>Days whose combined P&L across all trades was below zero.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-bold text-destructive">{lossDays}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
-                Best Day
-                <InfoTip title="Best Day">
-                  <p>Your single most profitable day this month: the date and its total P&L.</p>
-                </InfoTip>
-              </p>
-              <p className="stat-value font-bold text-foreground">
-                {bestDay.day != null ? `${bestDay.day} (${formatCurrency(bestDay.pnl)})` : "-"}
-              </p>
-            </CardContent>
-          </Card>
+          <StatCard
+            label={<>Trading Days<InfoTip title="Trading Days"><p>Days this month on which you placed at least one trade.</p></InfoTip></>}
+            value={String(tradingDays)}
+            icon={CalendarDays}
+            sub={`${MONTH_NAMES[month]} ${year}`}
+          />
+          <StatCard
+            label={<>Profitable Days<InfoTip title="Profitable Days"><p>Days whose combined P&L across all trades was above zero.</p></InfoTip></>}
+            value={String(profitableDays)}
+            icon={TrendingUp}
+            tone="pos"
+            sub={tradingDays ? `${Math.round((profitableDays / tradingDays) * 100)}% of days` : "No trading days"}
+            subTone={tradingDays ? "pos" : undefined}
+          />
+          <StatCard
+            label={<>Loss Days<InfoTip title="Loss Days"><p>Days whose combined P&L across all trades was below zero.</p></InfoTip></>}
+            value={String(lossDays)}
+            icon={TrendingDown}
+            tone="neg"
+            sub={tradingDays ? `${Math.round((lossDays / tradingDays) * 100)}% of days` : "No trading days"}
+            subTone={tradingDays ? "neg" : undefined}
+          />
+          <StatCard
+            label={<>Best Day<InfoTip title="Best Day"><p>Your single most profitable day this month: the date and its total P&L.</p></InfoTip></>}
+            value={bestDay.day != null ? new Date(year, month, bestDay.day).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "—"}
+            icon={Trophy}
+            word
+            sub={bestDay.day != null ? signedMoney(formatCurrency, bestDay.pnl) : "No trades yet"}
+          />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="text-lg flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-primary" />
+                <CalendarDays className="w-4 h-4 text-brand" />
                 {MONTH_NAMES[month]} {year}
               </CardTitle>
               <div className="flex items-center gap-2">
+                <HeatLegend className="mr-2 max-md:hidden" />
                 <Button variant="outline" size="icon" onClick={() => changeMonth(-1)} aria-label="Previous month">
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
@@ -224,7 +214,7 @@ const Calendar = () => {
             <CardContent>
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((d) => (
-                  <div key={d} className="text-center text-xs font-bold text-muted-foreground/70 py-2">
+                  <div key={d} className="text-center text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground/70 py-2">
                     {d}
                   </div>
                 ))}
@@ -233,36 +223,33 @@ const Calendar = () => {
                 ))}
                 {cells.map((cell) => {
                   const hasTrades = cell.trades.length > 0;
-                  const positive = cell.pnl > 0;
-                  const negative = cell.pnl < 0;
+                  const isToday = cell.day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
                   return (
                     <button
                       key={cell.day}
                       type="button"
                       disabled={!hasTrades}
                       onClick={() => setSelectedDay(cell.day)}
-                      className={`rounded-lg p-3 text-center border-2 transition-transform hover:scale-[1.03] ${
-                        !hasTrades
-                          ? "border-transparent bg-muted/30 cursor-default"
-                          : positive
-                            ? "border-success bg-success/10 cursor-pointer"
-                            : negative
-                              ? "border-destructive bg-destructive/10 cursor-pointer"
-                              : "border-amber-400 bg-amber-400/10 cursor-pointer"
-                      }`}
+                      style={hasTrades ? heatCellStyle(cell.pnl, maxAbsDay) : undefined}
+                      className={`relative flex min-h-[5.5rem] flex-col items-center justify-center gap-0.5 rounded-xl p-2 text-center transition-[transform,box-shadow] duration-300 ${
+                        hasTrades
+                          ? "cursor-pointer shadow-[inset_0_0_0_1px_var(--heat-line)] hover:-translate-y-1 hover:shadow-lg"
+                          : "border border-dashed cursor-default text-muted-foreground"
+                      } ${isToday ? "ring-[1.5px] ring-inset ring-amber-400" : ""}`}
                     >
-                      <div className="text-sm font-bold text-foreground">{cell.day}</div>
-                      {hasTrades ? (
+                      {isToday && (
+                        <span className="absolute right-2 top-1 text-xs font-semibold uppercase tracking-[0.08em] text-amber-600 dark:text-amber-400 max-sm:hidden">
+                          Today
+                        </span>
+                      )}
+                      <div className="text-sm font-bold tabular-nums">{cell.day}</div>
+                      {hasTrades && (
                         <>
-                          <div className="text-[11px] text-muted-foreground mt-1">
+                          <div className="text-xs opacity-75 max-sm:hidden">
                             {cell.trades.length} trade{cell.trades.length > 1 ? "s" : ""}
                           </div>
-                          <div className={`text-[11px] font-bold mt-0.5 ${positive ? "text-success" : negative ? "text-destructive" : "text-amber-500"}`}>
-                            {formatCurrency(cell.pnl, { compact: true })}
-                          </div>
+                          <div className="text-xs font-bold tabular-nums">{signedMoney(formatCurrency, cell.pnl, { compact: true })}</div>
                         </>
-                      ) : (
-                        <div className="h-8" />
                       )}
                     </button>
                   );

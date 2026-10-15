@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt } from '../../marketing/components/IntroKit';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -48,7 +49,7 @@ const Icons = {
     </svg>
   ),
   check: (
-    <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+    <svg className="w-5 h-5 text-brand" fill="currentColor" viewBox="0 0 20 20">
       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/>
     </svg>
   ),
@@ -65,7 +66,7 @@ const DotGridBg = () => (
     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="journalDotGrid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.8" className="fill-gray-200 dark:fill-slate-800" />
+          <circle cx="1" cy="1" r="0.8" className="fill-brand/30" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#journalDotGrid)" />
@@ -79,19 +80,19 @@ export default function JournalIntro() {
       icon: Icons.journal,
       title: 'Trade Logging',
       desc: 'Record every trade with detailed entry/exit points and rationale',
-      color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
     {
       icon: Icons.chart,
       title: 'Performance Tracking',
       desc: 'Analyze your win rate, profit/loss ratio, and trading patterns',
-      color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
     {
       icon: Icons.trending,
       title: 'Trade Analytics',
       desc: 'Identify what strategies work best with visual analytics',
-      color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600'
+      color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand'
     },
   ];
 
@@ -102,9 +103,11 @@ export default function JournalIntro() {
       {/* Hero Section */}
       <AnimatedSection className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <DotGridBg />
+        <IntroBackdrop dots={false} />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+            <IntroHeroArt id="Journal" />
+            <h1 className="xt-title mb-2">
               Trade Journal
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
@@ -114,7 +117,7 @@ export default function JournalIntro() {
           <motion.div custom={1} initial="hidden" animate="visible" variants={fadeUp}>
             <Link
               to="/journal"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3 text-white rounded-lg font-semibold hover:shadow-lg transition-all bg-brand-fill"
             >
               Explore Trade Journal
               {Icons.arrowRight}
@@ -126,7 +129,7 @@ export default function JournalIntro() {
       {/* Features Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-bold mb-16 text-center text-gray-900 dark:text-white">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold mb-16 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Key Features
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -137,9 +140,9 @@ export default function JournalIntro() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="p-8 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-all"
+                className="p-8 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all"
               >
-                <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-soft to-transparent ring-1 ring-brand-line/70 shadow-sm ${feature.color} flex items-center justify-center mb-5`}>
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{feature.title}</h3>
@@ -153,7 +156,7 @@ export default function JournalIntro() {
       {/* Benefits Section */}
       <AnimatedSection className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">
+          <motion.h2 custom={0} initial="hidden" animate="visible" variants={fadeUp} className="text-3xl md:text-4xl font-display font-bold mb-12 text-center text-gray-900 dark:text-white tracking-[-0.025em]">
             Why Keep a Trade Journal?
           </motion.h2>
           <div className="space-y-4">
@@ -170,7 +173,7 @@ export default function JournalIntro() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                className="flex items-start gap-4 p-4 bg-brand-soft dark:bg-brand-soft rounded-lg border border-brand-line dark:border-brand"
               >
                 {Icons.check}
                 <span className="text-gray-800 dark:text-gray-200">{benefit}</span>

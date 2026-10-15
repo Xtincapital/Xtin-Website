@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { CtaTexture } from '../../marketing/components/IntroKit';
 
 /* ─── Animation Helpers ─────────────────────────────────── */
 const fadeUp: Variants = {
@@ -66,7 +67,7 @@ const Icons = {
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
   ),
   check: (
-    <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
+    <svg className="w-5 h-5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
   ),
   arrowRight: (
     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -108,7 +109,7 @@ const DotGridBg = () => (
     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="toolsDotGrid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-          <circle cx="1" cy="1" r="0.8" className="fill-gray-200 dark:fill-slate-800" />
+          <circle cx="1" cy="1" r="0.8" className="fill-brand/30" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#toolsDotGrid)" />
@@ -119,16 +120,16 @@ const DotGridBg = () => (
 /* ─── Data ──────────────────────────────────────────────── */
 
 const howItWorks = [
-  { icon: Icons.calculator, title: 'Choose a Calculator', desc: 'Browse 20+ tools by category — investment, tax, retirement & more', color: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600' },
-  { icon: Icons.cursor, title: 'Enter Your Numbers', desc: 'Simple inputs with clear labels — no financial jargon', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600' },
-  { icon: Icons.chartBar, title: 'Get Instant Results', desc: 'Precise calculations with visual charts & breakdowns', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600' },
-  { icon: Icons.save, title: 'Compare & Save', desc: 'Run multiple scenarios, save results & export as PDF', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' },
+  { icon: Icons.calculator, title: 'Choose a Calculator', desc: 'Browse 20+ tools by category — investment, tax, retirement & more', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: Icons.cursor, title: 'Enter Your Numbers', desc: 'Simple inputs with clear labels — no financial jargon', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: Icons.chartBar, title: 'Get Instant Results', desc: 'Precise calculations with visual charts & breakdowns', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
+  { icon: Icons.save, title: 'Compare & Save', desc: 'Run multiple scenarios, save results & export as PDF', color: 'bg-primary/10 ring-1 ring-primary/15 text-brand dark:text-brand' },
 ];
 
 const calculatorCategories = [
   {
     level: 'Investment Calculators',
-    borderColor: 'border-l-green-500',
+    borderColor: 'border-l-brand',
     tools: [
       { name: 'SIP Calculator', desc: 'Monthly SIP → projected corpus over time' },
       { name: 'Lumpsum Calculator', desc: 'One-time investment → future value' },
@@ -182,7 +183,7 @@ const benefits = [
 ];
 
 const personas = [
-  { icon: Icons.seedling, label: 'First-time Investor', desc: 'Curious about SIP, FD, or mutual funds — needs quick answers', border: 'border-l-green-500' },
+  { icon: Icons.seedling, label: 'First-time Investor', desc: 'Curious about SIP, FD, or mutual funds — needs quick answers', border: 'border-l-brand' },
   { icon: Icons.briefcase, label: 'Salaried Professional', desc: 'Planning tax savings, HRA calculations & retirement corpus', border: 'border-l-blue-500' },
   { icon: Icons.academic, label: 'Student', desc: 'Learning personal finance with practical tools', border: 'border-l-purple-500' },
   { icon: Icons.trendUp, label: 'Experienced Investor', desc: 'Comparing scenarios, optimizing returns & running projections', border: 'border-l-amber-500' },
@@ -202,30 +203,30 @@ const ToolsIntro = () => {
       {/* ─────────── 1. HERO ─────────── */}
       <section className="relative pt-32 pb-24 px-6 md:px-12 lg:px-24 overflow-hidden">
         {/* Soft gradient blobs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-emerald-100 dark:bg-emerald-900/15 opacity-50 blur-[120px] pointer-events-none" />
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-green-50 dark:bg-green-900/10 opacity-50 blur-[80px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] rounded-full bg-emerald-50 dark:bg-emerald-900/10 opacity-40 blur-[80px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-50 blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-50 blur-[80px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] rounded-full bg-brand-soft dark:bg-brand-soft opacity-40 blur-[80px] pointer-events-none" />
 
         {/* Decorative SVG line */}
         <svg className="absolute bottom-0 left-0 w-full h-32 pointer-events-none opacity-[0.04] dark:opacity-[0.06]" viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none">
-          <path d="M0 120 Q360 20 720 60 T1440 10" stroke="currentColor" strokeWidth="2" className="text-emerald-600"/>
-          <path d="M0 120 Q400 50 800 80 T1440 30" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400"/>
+          <path d="M0 120 Q360 20 720 60 T1440 10" stroke="currentColor" strokeWidth="2" className="text-brand"/>
+          <path d="M0 120 Q400 50 800 80 T1440 30" stroke="currentColor" strokeWidth="1.5" className="text-brand"/>
         </svg>
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
 
             {/* Eyebrow */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100/80 dark:bg-emerald-900/20 border border-green-200/60 dark:border-emerald-700/30 text-green-700 dark:text-emerald-300 text-sm font-medium mb-8">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-brand dark:text-brand text-sm font-medium mb-8">
               {Icons.calculator}
               20+ Free Calculators
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.05] tracking-[-0.025em] mb-5">
               Plan your finances,
               <br />
-              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">with precision</span>
+              <span className="text-brand">with precision</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -237,14 +238,14 @@ const ToolsIntro = () => {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/tools"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:shadow-green-600/30 hover:-translate-y-0.5 text-base"
+                className="inline-flex items-center justify-center gap-2 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-brand/20 hover:shadow-brand/30 hover:-translate-y-0.5 text-base bg-brand-fill"
               >
                 Open Calculators
                 {Icons.arrowRight}
               </Link>
               <button
                 onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-green-300 dark:hover:border-emerald-600 hover:text-green-600 dark:hover:text-emerald-300 transition-all duration-200 text-base"
+                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-brand-line dark:hover:border-brand hover:text-brand dark:hover:text-brand transition-all duration-200 text-base"
               >
                 Browse Categories
               </button>
@@ -261,7 +262,7 @@ const ToolsIntro = () => {
                   {i > 0 && <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />}
                   <div className="text-center">
                     <div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-slate-100">{s.value}</div>
-                    <div className="text-[11px] text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
+                    <div className="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
                   </div>
                 </React.Fragment>
               ))}
@@ -271,7 +272,7 @@ const ToolsIntro = () => {
       </section>
 
       {/* ─────────── 2. VALUE STRIP ─────────── */}
-      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-gray-50/50 dark:bg-slate-900/40">
+      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-background">
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="grid sm:grid-cols-4 gap-6">
             {[
@@ -281,7 +282,7 @@ const ToolsIntro = () => {
               { icon: Icons.download, text: 'Save & export PDF' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 text-sm text-gray-600 dark:text-slate-400">
-                <span className="text-green-500 dark:text-emerald-400">{item.icon}</span>
+                <span className="text-brand dark:text-brand">{item.icon}</span>
                 {item.text}
               </div>
             ))}
@@ -293,8 +294,8 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Simple process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">How it works</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple process</span>
+            <h2 className="xt-title mt-3">How it works</h2>
           </motion.div>
 
           <div className="relative">
@@ -319,8 +320,8 @@ const ToolsIntro = () => {
       <AnimatedSection id="categories" className="py-20 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Calculator suite</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Every tool you need</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Calculator suite</span>
+            <h2 className="xt-title mt-3">Every tool you need</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">20+ calculators organized by purpose — from your first SIP to retirement planning.</p>
           </motion.div>
 
@@ -329,7 +330,7 @@ const ToolsIntro = () => {
               <motion.div key={cat.level} variants={fadeUp} custom={ci}>
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-lg font-bold">{cat.level}</h3>
+                  <h3 className="text-lg font-semibold">{cat.level}</h3>
                 </div>
 
                 {/* Tool cards */}
@@ -337,14 +338,14 @@ const ToolsIntro = () => {
                   {cat.tools.map((tool) => (
                     <div
                       key={tool.name}
-                      className={`bg-white dark:bg-slate-800 rounded-xl p-5 border-l-4 ${cat.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
+                      className={`bg-white dark:bg-slate-800 rounded-2xl p-5 border-l-4 ${cat.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="font-semibold text-sm group-hover:text-green-600 dark:group-hover:text-emerald-400 transition-colors">{tool.name}</h4>
+                          <h4 className="font-semibold text-base group-hover:text-brand dark:group-hover:text-brand transition-colors">{tool.name}</h4>
                           <p className="text-xs text-gray-400 dark:text-slate-500 mt-1.5">{tool.desc}</p>
                         </div>
-                        <span className="text-gray-300 dark:text-slate-600 group-hover:text-green-500 dark:group-hover:text-emerald-400 transition-colors ml-3">
+                        <span className="text-gray-300 dark:text-slate-600 group-hover:text-brand dark:group-hover:text-brand transition-colors ml-3">
                           {Icons.arrowRight}
                         </span>
                       </div>
@@ -357,7 +358,7 @@ const ToolsIntro = () => {
 
           {/* Featured: Xtin Gini */}
           <motion.div variants={fadeUp} className="mt-10">
-            <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="rounded-2xl p-8 text-white relative overflow-hidden bg-brand-fill">
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/3" />
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -366,12 +367,12 @@ const ToolsIntro = () => {
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     Featured Tool
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Xtin Gini — AI Financial Planner</h3>
-                  <p className="text-green-100 text-sm max-w-md">Get personalized financial advice from our AI-powered expert. Tax planning, investment strategy & goal-based recommendations.</p>
+                  <h3 className="text-xl font-semibold mb-2">Xtin Gini — AI Financial Planner</h3>
+                  <p className="text-white/85 text-sm max-w-md">Get personalized financial advice from our AI-powered expert. Tax planning, investment strategy & goal-based recommendations.</p>
                 </div>
                 <Link
                   to="/gini"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-green-700 font-bold px-8 py-3.5 rounded-xl hover:bg-green-50 transition-all duration-200 shadow-lg hover:-translate-y-0.5 flex-shrink-0"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-brand font-bold px-8 py-3.5 rounded-xl hover:bg-brand-soft transition-all duration-200 shadow-lg hover:-translate-y-0.5 flex-shrink-0"
                 >
                   Try Xtin Gini
                   {Icons.arrowRight}
@@ -386,8 +387,8 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">The advantage</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Why use these</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The advantage</span>
+            <h2 className="xt-title mt-3">Why use these</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -398,7 +399,7 @@ const ToolsIntro = () => {
                 custom={i}
                 className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-11 h-11 rounded-xl bg-green-100 dark:bg-emerald-900/30 text-green-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <div className="w-11 h-11 rounded-xl bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand flex items-center justify-center mb-4">
                   {b.icon}
                 </div>
                 <h3 className="text-base font-bold mb-1.5">{b.title}</h3>
@@ -413,7 +414,7 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Who it's for</h2>
+            <h2 className="xt-section">Who it's for</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -424,7 +425,7 @@ const ToolsIntro = () => {
                 custom={i}
                 className={`bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 ${p.border} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
               >
-                <div className="text-green-600 dark:text-emerald-400 mb-4">{p.icon}</div>
+                <div className="text-brand dark:text-brand mb-4">{p.icon}</div>
                 <h3 className="font-bold mb-2">{p.label}</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">{p.desc}</p>
               </motion.div>
@@ -437,11 +438,11 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">100% Free. Always.</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Pricing</span>
+            <h2 className="xt-title mt-3">100% Free. Always.</h2>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-green-600/20">
+          <motion.div variants={fadeUp} className="rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-brand/20 bg-brand-fill">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/3" />
 
@@ -450,8 +451,8 @@ const ToolsIntro = () => {
                 {Icons.lockOpen}
                 <span>No Hidden Charges</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6">&#8377;0 Forever</h3>
-              <p className="text-green-50 text-lg md:text-xl leading-relaxed mb-10">
+              <h3 className="text-4xl md:text-5xl font-extrabold mb-6 font-bold">&#8377;0 Forever</h3>
+              <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-10">
                 Every calculator is completely free. Create an account to save your calculations and download PDF reports.
               </p>
 
@@ -464,8 +465,8 @@ const ToolsIntro = () => {
                   'Save & export results',
                   'Ad-free experience',
                 ].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm text-green-100">
-                    <span className="text-green-300 flex-shrink-0">{Icons.check}</span>
+                  <div key={f} className="flex items-center gap-2 text-sm text-white/85">
+                    <span className="text-brand flex-shrink-0">{Icons.check}</span>
                     {f}
                   </div>
                 ))}
@@ -479,22 +480,23 @@ const ToolsIntro = () => {
       <AnimatedSection className="py-24 md:py-32 px-6">
         <motion.div
           variants={fadeUp}
-          className="max-w-4xl mx-auto text-center bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
+          <CtaTexture />
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl text-white mb-4 font-bold">
               Start calculating today
             </h2>
-            <p className="text-green-100 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">
               20+ free calculators. No signup needed. Instant results with Indian tax rules & conventions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/tools"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-700 font-bold px-10 py-4 rounded-xl hover:bg-green-50 transition-all duration-200 shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-white text-brand font-bold px-10 py-4 rounded-xl hover:bg-brand-soft transition-all duration-200 shadow-lg hover:-translate-y-0.5"
               >
                 Open Calculators
                 {Icons.arrowRight}
@@ -506,7 +508,7 @@ const ToolsIntro = () => {
                 Create Free Account
               </Link>
             </div>
-            <p className="text-green-200 text-sm mt-6">Free forever. No credit card required.</p>
+            <p className="text-white/85 text-sm mt-6">Free forever. No credit card required.</p>
           </div>
         </motion.div>
       </AnimatedSection>

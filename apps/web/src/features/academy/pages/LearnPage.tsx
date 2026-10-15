@@ -54,7 +54,7 @@ const DIFFICULTY_LABELS = {
   [DIFFICULTY_LEVELS.ADVANCED]: 'Advanced',
 };
 const DIFFICULTY_BAR = {
-  [DIFFICULTY_LEVELS.BEGINNER]: { text: 'text-green-600', bar: 'from-green-500 to-emerald-400' },
+  [DIFFICULTY_LEVELS.BEGINNER]: { text: 'text-brand', bar: 'bg-brand-fill' },
   [DIFFICULTY_LEVELS.INTERMEDIATE]: { text: 'text-blue-600', bar: 'from-blue-500 to-indigo-400' },
   [DIFFICULTY_LEVELS.ADVANCED]: { text: 'text-purple-600', bar: 'from-purple-500 to-pink-400' },
 };
@@ -63,19 +63,19 @@ const DIFFICULTY_BAR = {
 const FinanceGraphSVG = () => (
   <svg className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 opacity-10" viewBox="0 0 400 400" fill="none">
     {/* Growth line */}
-    <path d="M50 320 L100 280 L150 290 L200 220 L250 200 L300 140 L350 80" stroke="currentColor" strokeWidth="3" className="text-green-600" strokeLinecap="round" strokeLinejoin="round" />
-    <circle cx="350" cy="80" r="8" className="fill-green-600" />
+    <path d="M50 320 L100 280 L150 290 L200 220 L250 200 L300 140 L350 80" stroke="currentColor" strokeWidth="3" className="text-brand" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="350" cy="80" r="8" className="fill-brand" />
     {/* Pie chart */}
-    <circle cx="320" cy="280" r="50" className="fill-green-500/10 stroke-green-600" strokeWidth="2" />
-    <path d="M320 280 L320 230 A50 50 0 0 1 360 260 Z" className="fill-green-500/30" />
+    <circle cx="320" cy="280" r="50" className="fill-brand/10 stroke-brand" strokeWidth="2" />
+    <path d="M320 280 L320 230 A50 50 0 0 1 360 260 Z" className="fill-brand/30" />
     <path d="M320 280 L360 260 A50 50 0 0 1 340 325 Z" className="fill-blue-500/30" />
     {/* Bar chart */}
-    <rect x="60" y="280" width="20" height="60" rx="4" className="fill-green-500/30" />
+    <rect x="60" y="280" width="20" height="60" rx="4" className="fill-brand/30" />
     <rect x="90" y="250" width="20" height="90" rx="4" className="fill-blue-500/30" />
-    <rect x="120" y="220" width="20" height="120" rx="4" className="fill-green-500/40" />
-    <rect x="150" y="260" width="20" height="80" rx="4" className="fill-emerald-500/30" />
+    <rect x="120" y="220" width="20" height="120" rx="4" className="fill-brand/40" />
+    <rect x="150" y="260" width="20" height="80" rx="4" className="fill-brand/30" />
     {/* Currency symbols */}
-    <text x="200" y="320" className="fill-green-600/20" fontSize="40" fontWeight="bold">₹</text>
+    <text x="200" y="320" className="fill-brand/20" fontSize="40" fontWeight="bold">₹</text>
     <text x="260" y="350" className="fill-blue-600/15" fontSize="30" fontWeight="bold">$</text>
   </svg>
 );
@@ -83,9 +83,9 @@ const FinanceGraphSVG = () => (
 const FloatingShapesSVG = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
     {/* Floating circles */}
-    <div className="absolute top-20 left-10 w-32 h-32 bg-green-500/5 rounded-full blur-2xl animate-pulse"></div>
-    <div className="absolute top-40 right-20 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-    <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-green-400/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <div className="absolute top-20 left-10 w-32 h-32 bg-brand-soft rounded-full blur-2xl animate-pulse"></div>
+    <div className="absolute top-40 right-20 w-48 h-48 bg-brand-soft rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-brand-soft rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
     {/* Grid pattern */}
     <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
@@ -104,13 +104,13 @@ const HeroDecorSVG = () => (
     {/* Gradient definitions */}
     <defs>
       <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0.1" />
-        <stop offset="100%" stopColor="#10b981" stopOpacity="0.05" />
+        <stop offset="0%" stopColor="#16A34A" stopOpacity="0.1" />
+        <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
       </linearGradient>
       <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0" />
-        <stop offset="50%" stopColor="#22c55e" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
+        <stop offset="0%" stopColor="#16A34A" stopOpacity="0" />
+        <stop offset="50%" stopColor="#16A34A" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="#16A34A" stopOpacity="0" />
       </linearGradient>
     </defs>
 
@@ -126,10 +126,10 @@ const HeroDecorSVG = () => (
 
 const WalletSVG = ({ className }) => (
   <svg className={className} viewBox="0 0 64 64" fill="none">
-    <rect x="8" y="16" width="48" height="36" rx="6" className="fill-green-500/20 stroke-green-600" strokeWidth="2" />
-    <path d="M8 28H56" className="stroke-green-600" strokeWidth="2" />
-    <circle cx="44" cy="38" r="4" className="fill-green-600" />
-    <rect x="12" y="8" width="32" height="8" rx="2" className="fill-green-500/10 stroke-green-600" strokeWidth="2" />
+    <rect x="8" y="16" width="48" height="36" rx="6" className="fill-brand/20 stroke-brand" strokeWidth="2" />
+    <path d="M8 28H56" className="stroke-brand" strokeWidth="2" />
+    <circle cx="44" cy="38" r="4" className="fill-brand" />
+    <rect x="12" y="8" width="32" height="8" rx="2" className="fill-brand/10 stroke-brand" strokeWidth="2" />
   </svg>
 );
 
@@ -406,13 +406,13 @@ const LearnPage = () => {
   const getColorClasses = (color) => {
     const colors = {
       green: {
-        gradient: 'from-green-500 to-emerald-500',
-        bg: 'from-green-50 to-emerald-100',
-        border: 'border-emerald-200 hover:border-emerald-300',
-        text: 'text-green-600',
-        hoverText: 'group-hover:text-green-600',
-        badge: 'bg-green-100 text-green-700',
-        tagBg: 'bg-green-50 text-green-600'
+        gradient: 'bg-brand-fill',
+        bg: 'bg-brand-soft',
+        border: 'border-brand-line hover:border-brand-line',
+        text: 'text-brand',
+        hoverText: 'group-hover:text-brand',
+        badge: 'bg-brand-soft text-brand',
+        tagBg: 'bg-brand-soft text-brand'
       },
       blue: {
         gradient: 'from-blue-500 to-cyan-500',
@@ -442,17 +442,17 @@ const LearnPage = () => {
         tagBg: 'bg-amber-50 text-amber-600'
       },
       emerald: {
-        gradient: 'from-emerald-500 to-teal-500',
-        bg: 'from-emerald-50 to-teal-100',
-        border: 'border-emerald-200 hover:border-emerald-300',
-        text: 'text-emerald-600',
-        hoverText: 'group-hover:text-emerald-600',
-        badge: 'bg-emerald-100 text-emerald-700',
-        tagBg: 'bg-emerald-50 text-emerald-600'
+        gradient: 'bg-brand-fill',
+        bg: 'bg-brand-soft',
+        border: 'border-brand-line hover:border-brand-line',
+        text: 'text-brand',
+        hoverText: 'group-hover:text-brand',
+        badge: 'bg-brand-soft text-brand',
+        tagBg: 'bg-brand-soft text-brand'
       },
       teal: {
-        gradient: 'from-teal-500 to-emerald-500',
-        bg: 'from-teal-50 to-emerald-100',
+        gradient: 'bg-brand-fill',
+        bg: 'bg-brand-soft',
         border: 'border-teal-200 hover:border-teal-300',
         text: 'text-teal-600',
         hoverText: 'group-hover:text-teal-600',
@@ -511,10 +511,10 @@ const LearnPage = () => {
 
   // Honest numbers, computed from the actual catalogue.
   const stats = [
-    { icon: FaGraduationCap, value: `${catalogue.totalModules}`, label: "Complete Courses", color: "text-green-600", bg: "bg-green-50" },
-    { icon: FaBookOpen, value: `${catalogue.totalLessons}+`, label: "Bite-size Lessons", color: "text-blue-600", bg: "bg-blue-50" },
-    { icon: FaUsers, value: "2,500+", label: "Learners Enrolled", color: "text-purple-600", bg: "bg-purple-50" },
-    { icon: FaCertificate, value: `${catalogue.freeModules}`, label: "Courses Free Forever", color: "text-amber-600", bg: "bg-amber-50" },
+    { icon: FaGraduationCap, value: `${catalogue.totalModules}`, label: "Complete Courses", color: "text-brand dark:text-brand", bg: "bg-primary/10" },
+    { icon: FaBookOpen, value: `${catalogue.totalLessons}+`, label: "Bite-size Lessons", color: "text-brand dark:text-brand", bg: "bg-primary/10" },
+    { icon: FaUsers, value: "2,500+", label: "Learners Enrolled", color: "text-brand dark:text-brand", bg: "bg-primary/10" },
+    { icon: FaCertificate, value: `${catalogue.freeModules}`, label: "Courses Free Forever", color: "text-brand dark:text-brand", bg: "bg-primary/10" },
   ];
 
   return (
@@ -522,7 +522,7 @@ const LearnPage = () => {
       <Navbar />
 
       {/* Premium Hero Section */}
-      <section className="relative py-24 px-6 md:px-12 lg:px-24 mt-16 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/30">
+      <section className="relative py-24 px-6 md:px-12 lg:px-24 mt-16 overflow-hidden">
         <HeroDecorSVG />
         <FloatingShapesSVG />
         <FinanceGraphSVG />
@@ -531,17 +531,17 @@ const LearnPage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-emerald-900/30 text-green-700 dark:text-emerald-300 rounded-full text-sm font-semibold mb-6 border border-transparent dark:border-emerald-700/40">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand rounded-full text-sm font-semibold mb-6 border border-transparent dark:border-brand-line">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-fill opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-fill"></span>
                 </span>
                 XTIN ACADEMY
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+              <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-6 tracking-[-0.025em]">
                 Build Your
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">
+                <span className="block text-brand">
                   Financial Future
                 </span>
               </h1>
@@ -553,7 +553,7 @@ const LearnPage = () => {
               <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-semibold shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-300 flex items-center gap-2"
+                  className="group px-8 py-4 text-white rounded-xl font-semibold shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/30 transition-all duration-300 flex items-center gap-2 bg-brand-fill"
                 >
                   {totalDone > 0 ? 'Continue Learning' : 'Start Learning Free'}
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -565,7 +565,7 @@ const LearnPage = () => {
                 ) : (
                   <button
                     onClick={() => setShowUpgrade(true)}
-                    className="px-5 py-4 text-sm font-semibold text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-emerald-300 transition-colors flex items-center gap-2"
+                    className="px-5 py-4 text-sm font-semibold text-gray-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand transition-colors flex items-center gap-2"
                   >
                     <FaCrown className="text-amber-500" />
                     Go Pro  {formatLearnPrice(pricing.yearly, pricing)}/yr
@@ -579,14 +579,14 @@ const LearnPage = () => {
               <div className="relative">
                 {/* Main card — REAL progress, not decoration */}
                 <div data-learn-tour="hero-journey" className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/40 p-8 border border-gray-100 dark:border-slate-700">
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl opacity-20 blur-xl"></div>
+                  <div className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl opacity-20 blur-xl bg-brand-fill"></div>
 
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-brand-fill">
                       <FaGraduationCap className="text-white text-2xl" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 dark:text-slate-100">Your Finance Journey</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-slate-100">Your Finance Journey</h3>
                       <p className="text-sm text-gray-500 dark:text-slate-400">
                         {totalDone > 0
                           ? `${totalDone} lesson${totalDone === 1 ? '' : 's'} completed — keep going!`
@@ -619,12 +619,12 @@ const LearnPage = () => {
                   {continueTarget && !continueTarget.finished && (
                     <button
                       onClick={() => navigate(continueTarget.path)}
-                      className="mt-6 w-full flex items-center justify-between px-4 py-3 bg-green-50 dark:bg-emerald-900/30 hover:bg-green-100 dark:hover:bg-emerald-900/50 rounded-xl transition-colors group/cont"
+                      className="mt-6 w-full flex items-center justify-between px-4 py-3 bg-brand-soft dark:bg-brand-soft hover:bg-brand-soft dark:hover:bg-brand-hover rounded-xl transition-colors group/cont"
                     >
-                      <span className="text-sm font-semibold text-green-700 dark:text-emerald-300 text-left">
+                      <span className="text-sm font-semibold text-brand dark:text-brand text-left">
                         Continue: {continueTarget.module.title} — Lesson {continueTarget.nextLesson}
                       </span>
-                      <FaPlayCircle className="text-green-600 group-hover/cont:scale-110 transition-transform" />
+                      <FaPlayCircle className="text-brand group-hover/cont:scale-110 transition-transform" />
                     </button>
                   )}
                 </div>
@@ -665,13 +665,13 @@ const LearnPage = () => {
       </section>
 
       {/* Learning Modules - Compact Grid */}
-      <section id="modules" className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950/20 relative overflow-hidden">
+      <section id="modules" className="py-20 px-6 md:px-12 lg:px-24 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 pointer-events-none opacity-30">
           <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="moduleGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1" fill="#22c55e" opacity="0.3" />
+                <circle cx="10" cy="10" r="1" fill="#16A34A" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#moduleGrid)" />
@@ -681,13 +681,13 @@ const LearnPage = () => {
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
           <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-blue-100 dark:from-emerald-900/30 dark:to-blue-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold mb-4 border border-transparent dark:border-emerald-700/40">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-brand-soft text-brand dark:text-brand rounded-full text-sm font-semibold mb-4 border border-transparent dark:border-brand-line">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
               THE LIBRARY · {catalogue.freeModules} COURSES FREE FOREVER
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 mb-4 tracking-[-0.025em]">
               Your Learning Journey
             </h2>
             <p className="text-lg text-gray-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
@@ -701,8 +701,8 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.BEGINNER)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-md shadow-green-500/30'
-                  : 'text-gray-600 dark:text-slate-300 hover:text-green-600 dark:hover:text-emerald-300 hover:bg-green-50 dark:hover:bg-emerald-900/30'
+                  ? 'text-white shadow-md shadow-brand/30 bg-brand-fill'
+                  : 'text-gray-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand hover:bg-brand-soft dark:hover:bg-brand-hover'
                   }`}
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -714,7 +714,7 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.INTERMEDIATE)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.INTERMEDIATE
-                  ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md shadow-blue-500/30'
+                  ? 'text-white shadow-md shadow-blue-500/30 bg-brand-fill'
                   : 'text-gray-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30'
                   }`}
               >
@@ -726,7 +726,7 @@ const LearnPage = () => {
               <button
                 onClick={() => setSelectedDifficulty(DIFFICULTY_LEVELS.ADVANCED)}
                 className={`px-2.5 sm:px-6 py-2.5 sm:py-3 whitespace-nowrap rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${selectedDifficulty === DIFFICULTY_LEVELS.ADVANCED
-                  ? 'bg-gradient-to-r from-purple-500 to-violet-500 text-white shadow-md shadow-purple-500/30'
+                  ? 'text-white shadow-md shadow-purple-500/30 bg-brand-fill'
                   : 'text-gray-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30'
                   }`}
               >
@@ -741,7 +741,7 @@ const LearnPage = () => {
           {/* Difficulty Level Description */}
           <div className="text-center mb-10">
             {selectedDifficulty === DIFFICULTY_LEVELS.BEGINNER && (
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-emerald-900/30 text-green-700 dark:text-emerald-300 rounded-full text-sm border border-transparent dark:border-emerald-700/40">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-soft dark:bg-brand-soft text-brand dark:text-brand rounded-full text-sm border border-transparent dark:border-brand-line">
                 <FaGraduationCap />
                 <span>Perfect for those starting their financial journey. Learn the fundamentals.</span>
               </div>
@@ -787,7 +787,7 @@ const LearnPage = () => {
                       {IconComponent && <IconComponent className={`w-7 h-7 ${colors.text}`} />}
                     </div>
                     {finished && (
-                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-emerald-900/40 text-green-700 dark:text-emerald-300 text-[10px] font-bold rounded-full">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-brand-soft dark:bg-brand-fill/40 text-brand dark:text-brand text-xs font-bold rounded-full">
                         <FaCheckCircle /> DONE
                       </span>
                     )}
@@ -815,9 +815,9 @@ const LearnPage = () => {
                   {/* Per-course progress (endowed progress — only once started) */}
                   {done > 0 && module.lessons > 0 && (
                     <div className="mb-4">
-                      <div className="flex justify-between text-[11px] text-gray-400 dark:text-slate-500 mb-1">
+                      <div className="flex justify-between text-xs text-gray-400 dark:text-slate-500 mb-1">
                         <span>{done}/{module.lessons} lessons</span>
-                        <span className="font-semibold text-green-600">{pct}%</span>
+                        <span className="font-semibold text-brand">{pct}%</span>
                       </div>
                       <div className="h-1.5 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
                         <div className={`h-full bg-gradient-to-r ${colors.gradient} rounded-full`} style={{ width: `${pct}%` }}></div>
@@ -833,10 +833,10 @@ const LearnPage = () => {
                       </span>
                       {showsProPill && (
                         <span
-                          className="inline-flex items-center gap-1 px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-300 text-[10px] font-bold rounded"
+                          className="inline-flex items-center gap-1 px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-300 text-xs font-bold rounded"
                           title={`First ${FREE_PREVIEW_LESSONS} lessons free — the rest is Academy Pro`}
                         >
-                          <FaCrown className="text-[9px]" /> {FREE_PREVIEW_LESSONS} FREE
+                          <FaCrown className="text-xs" /> {FREE_PREVIEW_LESSONS} FREE
                         </span>
                       )}
                     </div>
@@ -862,7 +862,7 @@ const LearnPage = () => {
             <p className="text-gray-500 dark:text-slate-400 text-sm mb-3">Modules by Difficulty</p>
             <div className="flex items-center justify-center gap-4">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-brand-fill rounded-full"></div>
                 <span className="text-xs text-gray-500 dark:text-slate-400">Beginner ({MODULES_CONFIG.filter(m => m.difficulty === DIFFICULTY_LEVELS.BEGINNER).length})</span>
               </div>
               <div className="flex items-center gap-2">
@@ -881,8 +881,8 @@ const LearnPage = () => {
       <section id="courses" data-learn-tour="premium-section" className="py-16 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-100/40 dark:bg-emerald-900/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-100/30 dark:bg-teal-900/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-soft dark:bg-brand-soft rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-soft dark:bg-teal-900/20 rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
@@ -890,7 +890,7 @@ const LearnPage = () => {
           <div className="text-center mb-10">
             {/* Single Line Headline with Badge */}
             <div className="flex items-center justify-center gap-3 mb-3">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-slate-100 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">
                 Premium Courses
               </h2>
             </div>
@@ -907,19 +907,19 @@ const LearnPage = () => {
           {/* Compact Value Props Row */}
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8 text-xs text-gray-500 dark:text-slate-400">
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
               Finance professionals
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
               Real-world frameworks
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
               Xtin Capital integrated
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+              <svg className="w-3.5 h-3.5 text-brand" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
               Early-access perks
             </span>
           </div>
@@ -933,7 +933,7 @@ const LearnPage = () => {
             ) : (
               <button
                 onClick={() => setShowUpgrade(true)}
-                className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-full font-semibold text-sm shadow-lg shadow-green-500/25 hover:shadow-xl transition-all duration-300"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 text-white rounded-full font-semibold text-sm shadow-lg shadow-brand/25 hover:shadow-xl transition-all duration-300 bg-brand-fill"
               >
                 <FaCrown className="text-xs" />
                 Lock these in with Pro — {formatLearnPrice(pricing.yearly, pricing)}/yr
@@ -941,7 +941,7 @@ const LearnPage = () => {
             )}
             <button
               onClick={() => setShowNotifyModal(true)}
-              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all duration-300 shadow-lg shadow-gray-900/20 hover:shadow-xl hover:shadow-gray-900/30"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all duration-300 shadow-lg shadow-gray-900/20 hover:shadow-xl hover:shadow-gray-900/30 brand-on-dark"
             >
               <FaBell className="text-xs" />
               Join Early Access
@@ -957,16 +957,16 @@ const LearnPage = () => {
             {/* Course 1: Personal Finance Mastery - GREEN */}
             <div className="group relative">
 
-              <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-green-200/40 dark:hover:shadow-emerald-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
+              <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-brand/40 dark:hover:shadow-brand/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
                 {/* Gradient Header with Glassmorphism Icon Container */}
-                <div className="relative h-52 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 flex items-center justify-center overflow-hidden bg-brand-fill">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[0].freeVideoId}/hqdefault.jpg`}
                     alt=""
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors brand-on-dark"></div>
                   {/* Subtle noise/glow overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
@@ -978,7 +978,7 @@ const LearnPage = () => {
                     aria-label="Watch module"
                     className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
                   >
-                    <FaPlayCircle className="text-green-600 text-3xl" />
+                    <FaPlayCircle className="text-brand text-3xl" />
                   </button>
 
                   {/* Course Number */}
@@ -989,22 +989,22 @@ const LearnPage = () => {
 
                 {/* Card Content */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-green-700 dark:group-hover:text-emerald-300 transition-colors">Personal Finance Mastery</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-brand dark:group-hover:text-brand transition-colors">Personal Finance Mastery</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Complete guide to budgeting, saving, emergency funds, and building a strong financial foundation for life.
                   </p>
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-slate-700">
                     <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-slate-400">
-                      <FaBookOpen className="text-green-500" />
+                      <FaBookOpen className="text-brand" />
                       <span className="font-medium">12 Chapters</span>
                     </div>
                     <button
                       onClick={() => navigate(watchPath('personal-finance'))}
-                      className="group/btn relative text-green-600 font-semibold text-sm hover:text-green-700 transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
+                      className="group/btn relative text-brand font-semibold text-sm hover:text-brand transition-colors flex items-center gap-1" title="Watch this module — Lesson 1 is free"
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-fill group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1019,14 +1019,14 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-blue-200/40 dark:hover:shadow-blue-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 flex items-center justify-center overflow-hidden bg-brand-fill">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[1].freeVideoId}/hqdefault.jpg`}
                     alt=""
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors brand-on-dark"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
@@ -1035,7 +1035,7 @@ const LearnPage = () => {
                     aria-label="Watch module"
                     className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
                   >
-                    <FaPlayCircle className="text-green-600 text-3xl" />
+                    <FaPlayCircle className="text-brand text-3xl" />
                   </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
@@ -1044,7 +1044,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">Stock Market Investing</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">Stock Market Investing</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Learn to analyze stocks, read financial statements, and build a winning long-term investment portfolio.
                   </p>
@@ -1059,7 +1059,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-fill group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1074,14 +1074,14 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-purple-200/40 dark:hover:shadow-purple-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 flex items-center justify-center overflow-hidden bg-brand-fill">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[2].freeVideoId}/hqdefault.jpg`}
                     alt=""
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors brand-on-dark"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
@@ -1090,7 +1090,7 @@ const LearnPage = () => {
                     aria-label="Watch module"
                     className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
                   >
-                    <FaPlayCircle className="text-green-600 text-3xl" />
+                    <FaPlayCircle className="text-brand text-3xl" />
                   </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
@@ -1099,7 +1099,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">Mutual Funds Deep Dive</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors">Mutual Funds Deep Dive</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Master SIPs, index funds, debt funds, and learn to build a diversified mutual fund portfolio.
                   </p>
@@ -1114,7 +1114,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-fill group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1136,16 +1136,16 @@ const LearnPage = () => {
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors brand-on-dark"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-green-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-brand-soft rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
                   <button
                     onClick={() => navigate(watchPath('options-derivatives'))}
                     aria-label="Watch module"
                     className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
                   >
-                    <FaPlayCircle className="text-green-600 text-3xl" />
+                    <FaPlayCircle className="text-brand text-3xl" />
                   </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
@@ -1154,12 +1154,12 @@ const LearnPage = () => {
 
                   {/* Advanced Badge */}
                   <div className="absolute bottom-4 left-4">
-                    <span className="px-2 py-1 bg-red-500/80 text-white text-[10px] font-bold rounded uppercase tracking-wider">Advanced</span>
+                    <span className="px-2 py-1 bg-red-500/80 text-white text-xs font-bold rounded uppercase tracking-wider">Advanced</span>
                   </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Options & Derivatives</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Options & Derivatives</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Advanced course on options strategies, futures trading, and derivatives for risk management.
                   </p>
@@ -1189,14 +1189,14 @@ const LearnPage = () => {
             <div className="group relative">
 
               <div className="relative flex flex-col bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg shadow-gray-200/50 dark:shadow-black/30 hover:shadow-2xl hover:shadow-teal-200/40 dark:hover:shadow-teal-900/30 hover:-translate-y-1 transition-all duration-500 border border-gray-100/80 dark:border-slate-700">
-                <div className="relative h-52 bg-gradient-to-br from-teal-500 via-cyan-500 to-blue-600 flex items-center justify-center overflow-hidden">
+                <div className="relative h-52 flex items-center justify-center overflow-hidden bg-brand-fill">
                   <img
                     src={`https://img.youtube.com/vi/${PREMIUM_COURSES[4].freeVideoId}/hqdefault.jpg`}
                     alt=""
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors brand-on-dark"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
@@ -1205,7 +1205,7 @@ const LearnPage = () => {
                     aria-label="Watch module"
                     className="relative w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
                   >
-                    <FaPlayCircle className="text-green-600 text-3xl" />
+                    <FaPlayCircle className="text-brand text-3xl" />
                   </button>
 
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
@@ -1214,7 +1214,7 @@ const LearnPage = () => {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">Tax Planning & Filing</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-slate-100 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">Tax Planning & Filing</h3>
                   <p className="text-gray-500 dark:text-slate-400 text-sm mb-6 flex-1 leading-relaxed line-clamp-3">
                     Complete tax guide for investors - deductions, capital gains, ITR filing, and tax-saving strategies.
                   </p>
@@ -1229,7 +1229,7 @@ const LearnPage = () => {
                     >
                       <span className="relative">
                         Watch Module
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 group-hover/btn:w-full transition-all duration-300"></span>
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-fill group-hover/btn:w-full transition-all duration-300"></span>
                       </span>
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1259,24 +1259,24 @@ const LearnPage = () => {
 
       {/* Premium Notify Me Modal */}
       {showNotifyModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 brand-on-dark">
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden border border-transparent dark:border-slate-700">
             {/* Background decoration */}
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-emerald-900/30 dark:to-slate-900 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-60"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-60 bg-brand-soft"></div>
 
             <div className="relative z-10">
               {notifySaved ? (
                 <div className="text-center py-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand/30 bg-brand-fill">
                     <FaCheckCircle className="text-white text-2xl" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">You're on the list!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">You're on the list!</h3>
                   <p className="text-gray-500 dark:text-slate-400 mb-6">
                     We'll email you the moment premium courses launch — with your early-bird perks attached.
                   </p>
                   <button
                     onClick={() => { setShowNotifyModal(false); setNotifySaved(false); }}
-                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all"
+                    className="px-8 py-3 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-brand/30 transition-all bg-brand-fill"
                   >
                     Back to learning
                   </button>
@@ -1284,10 +1284,10 @@ const LearnPage = () => {
               ) : (
                 <>
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand/30 bg-brand-fill">
                       <FaBell className="text-white text-2xl" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">Get Early Access</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">Get Early Access</h3>
                     <p className="text-gray-500 dark:text-slate-400">Be the first to know when our premium courses launch. Get exclusive early-bird benefits.</p>
                   </div>
 
@@ -1308,11 +1308,11 @@ const LearnPage = () => {
                       placeholder="Enter your email"
                       required
                       defaultValue={user?.email || ''}
-                      className="w-full px-4 py-3.5 border border-gray-200 dark:border-slate-600 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all bg-gray-50/50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder:text-gray-500 dark:placeholder:text-slate-400"
+                      className="w-full px-4 py-3.5 border border-gray-200 dark:border-slate-600 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all bg-gray-50/50 dark:bg-slate-800 text-gray-900 dark:text-slate-100 placeholder:text-gray-500 dark:placeholder:text-slate-400"
                     />
                     <button
                       type="submit"
-                      className="w-full px-6 py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full px-6 py-3.5 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-brand/30 transition-all duration-300 flex items-center justify-center gap-2 bg-brand-fill"
                     >
                       <FaBell className="text-sm" />
                       Notify Me on Launch

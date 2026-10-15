@@ -97,8 +97,8 @@ const VerifyCertificate = () => {
           {/* Loading State */}
           {state.loading && (
             <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-lg dark:border-slate-700 dark:bg-slate-800">
-              <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-600" />
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-brand-line border-t-brand" />
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Verifying Certificate
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -112,9 +112,9 @@ const VerifyCertificate = () => {
             <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-lg dark:border-slate-700 dark:bg-slate-800">
               {/* Verified Badge */}
               <div className="mb-6 flex flex-col items-center">
-                <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
+                <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-brand-soft dark:bg-brand-soft">
                   <svg
-                    className="h-10 w-10 text-emerald-600 dark:text-emerald-400"
+                    className="h-10 w-10 text-brand dark:text-brand"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -127,9 +127,9 @@ const VerifyCertificate = () => {
                     />
                   </svg>
                 </div>
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-4 py-1.5 dark:bg-emerald-900/30">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-4 py-1.5 dark:bg-brand-soft">
                   <svg
-                    className="h-4 w-4 text-emerald-600 dark:text-emerald-400"
+                    className="h-4 w-4 text-brand dark:text-brand"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -139,7 +139,7 @@ const VerifyCertificate = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">
+                  <span className="text-sm font-bold text-brand dark:text-brand">
                     VERIFIED
                   </span>
                 </div>
@@ -147,7 +147,7 @@ const VerifyCertificate = () => {
 
               {/* Certificate Header */}
               <div className="mb-6 border-b border-gray-100 pb-4 text-center dark:border-slate-700">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
+                <h1 className="xt-title">
                   Internship Certificate
                 </h1>
                 <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">
@@ -238,7 +238,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 This Certificate Has Been Revoked
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -261,7 +261,7 @@ const VerifyCertificate = () => {
                   If you have questions about this revocation, please contact{' '}
                   <a
                     href="mailto:support@xtincapital.com"
-                    className="font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-400"
+                    className="font-medium text-brand hover:text-brand dark:text-brand"
                   >
                     support@xtincapital.com
                   </a>
@@ -308,7 +308,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Certificate Not Found
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -331,7 +331,7 @@ const VerifyCertificate = () => {
                   If you believe this is an error, please contact{' '}
                   <a
                     href="mailto:support@xtincapital.com"
-                    className="font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-400"
+                    className="font-medium text-brand hover:text-brand dark:text-brand"
                   >
                     support@xtincapital.com
                   </a>
@@ -367,7 +367,7 @@ const VerifyCertificate = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">
                 Verification Unavailable
               </h2>
               <p className="mt-2 text-gray-500 dark:text-slate-400">
@@ -379,7 +379,7 @@ const VerifyCertificate = () => {
                   Please try again or contact{' '}
                   <a
                     href="mailto:support@xtincapital.com"
-                    className="font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-400"
+                    className="font-medium text-brand hover:text-brand dark:text-brand"
                   >
                     support@xtincapital.com
                   </a>

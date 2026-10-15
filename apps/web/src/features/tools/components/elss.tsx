@@ -17,6 +17,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import { chartGrid, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 
 const ELSSCalculator = () => {
   const [investmentType, setInvestmentType] = useState("sip"); // 'sip' or 'lumpsum'
@@ -133,14 +134,14 @@ const ELSSCalculator = () => {
 
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
       <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+          <h1 className="xt-title text-center mb-8">
             ELSS Calculator
           </h1>
 
@@ -148,7 +149,7 @@ const ELSSCalculator = () => {
           <div className="text-center mb-12">
             <button
               onClick={() => setShowInfo(!showInfo)}
-              className="px-4 py-2 bg-green-100 text-green-800 rounded-full shadow hover:bg-green-200 transition"
+              className="px-4 py-2 bg-brand-soft text-brand rounded-full shadow hover:bg-brand-soft transition"
             >
                What is ELSS?
             </button>
@@ -163,7 +164,7 @@ const ELSSCalculator = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             {/* Calculator Section */}
             <div className="bg-white shadow-md rounded-xl p-6" {...formProps}>
-              <h2 className="text-2xl font-semibold mb-6">Enter Details</h2>
+              <h2 className="xt-section mb-6">Enter Details</h2>
               <div className="mb-4">
                 <label htmlFor="elss-investment-amount" className="block text-sm font-medium text-gray-700 mb-1">
                   {investmentType === "sip"
@@ -303,15 +304,15 @@ const ELSSCalculator = () => {
               )}
               <button
                 onClick={calculateELSS}
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition"
+                className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate ELSS
               </button>
 
               {futureValue && (
-                <div className="mt-8 bg-green-50 p-6 rounded-lg">
+                <div className="mt-8 bg-brand-soft p-6 rounded-lg">
                   <p className="text-lg font-medium">
-                     Future Value: <span className="text-green-700">₹{futureValue}</span>
+                     Future Value: <span className="text-brand">₹{futureValue}</span>
                   </p>
                   <p className="mt-3 text-sm text-gray-600">
                     Total Investment:{" "}
@@ -362,13 +363,13 @@ const ELSSCalculator = () => {
             {/* Graph Section */}
             <div className="bg-white shadow-md rounded-xl p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">Growth Over Time</h2>
+                <h2 className="xt-section">Growth Over Time</h2>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setChartType("line")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "line"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -378,7 +379,7 @@ const ELSSCalculator = () => {
                     onClick={() => setChartType("pie")}
                     className={`px-4 py-2 text-sm font-medium rounded-lg ${
                       chartType === "pie"
-                        ? "bg-green-600 text-white"
+                        ? "bg-brand-fill text-white"
                         : "bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -390,7 +391,7 @@ const ELSSCalculator = () => {
                 <ResponsiveContainer width="100%" height={320}>
                   {chartType === "line" ? (
                     <LineChart data={chartData} margin={CHART_MARGIN}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="year" {...X_AXIS_PROPS}
                         label={{
@@ -400,11 +401,11 @@ const ELSSCalculator = () => {
                         }}
                       />
                       <YAxis {...Y_AXIS_PROPS} />
-                      <Tooltip />
+                      <Tooltip {...chartTooltip} />
                       <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#16a34a"
+                        stroke={chartColors.positive}
                         strokeWidth={3}
                         dot
                       />
@@ -439,15 +440,15 @@ const ELSSCalculator = () => {
                         cy="50%"
                         labelLine={false}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill={chartColors.series[2]}
                         dataKey="value"
                         nameKey="name"
                       >
-                        <Cell key="cell-0" fill="#16a34a" />
-                        <Cell key="cell-1" fill="#f97316" />
+                        <Cell key="cell-0" fill={chartColors.positive} />
+                        <Cell key="cell-1" fill={chartColors.series[4]} />
                       </Pie>
                       <Legend content={pieLegend} />
-                      <Tooltip formatter={moneyTooltip} />
+                      <Tooltip {...chartTooltip} formatter={moneyTooltip} />
                     </PieChart>
                   )}
                 </ResponsiveContainer>

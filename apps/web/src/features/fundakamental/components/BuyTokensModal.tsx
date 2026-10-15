@@ -40,7 +40,7 @@ export default function BuyTokensModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[10060] flex justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[10060] flex justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto brand-on-dark"
       onClick={closeBuyTokens}
     >
       <div
@@ -58,7 +58,7 @@ export default function BuyTokensModal() {
         </button>
 
         <div className="text-center mb-5">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-brand text-xs font-semibold uppercase tracking-wider mb-3">
             <Coins className="w-3.5 h-3.5" /> AI tokens
           </span>
           <h2 className="text-2xl font-bold text-foreground">Top up your tokens</h2>
@@ -88,13 +88,13 @@ export default function BuyTokensModal() {
               }`}
             >
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Coins className="w-5 h-5 text-primary" />
+                <Coins className="w-5 h-5 text-brand" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-foreground">{formatTokens(pack.tokens)} tokens</span>
                   {i === 1 && (
-                    <span className="text-[10px] font-extrabold text-white bg-primary rounded-full px-2 py-0.5">
+                    <span className="text-xs font-extrabold text-white bg-primary rounded-full px-2 py-0.5">
                       POPULAR
                     </span>
                   )}
@@ -119,8 +119,8 @@ export default function BuyTokensModal() {
           }}
         />
 
-        <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground mt-5">
-          <Check className="w-3.5 h-3.5 text-primary" />
+        <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mt-5">
+          <Check className="w-3.5 h-3.5 text-brand" />
           One-time purchase · tokens never expire · secure via Razorpay
         </p>
       </div>

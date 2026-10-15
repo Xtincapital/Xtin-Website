@@ -179,7 +179,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -187,11 +187,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -201,7 +201,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -219,7 +219,7 @@ const EmotionCard = ({ icon: Icon, title, description, triggers, consequences, r
           <Icon className={`w-6 h-6 ${color.replace('border-', 'text-')}`} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
           <p className="text-sm text-gray-600 mt-1">{description}</p>
         </div>
       </div>
@@ -235,7 +235,7 @@ const EmotionCard = ({ icon: Icon, title, description, triggers, consequences, r
         </div>
         <div className="bg-white rounded-lg p-3">
           <p className="text-xs font-semibold text-gray-500 mb-1">REMEDY</p>
-          <p className="text-sm text-green-700">{remedy}</p>
+          <p className="text-sm text-brand">{remedy}</p>
         </div>
       </div>
     </div>
@@ -270,14 +270,14 @@ const TradingBasicsLesson5 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-purple-500 to-violet-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 5 of 7
               </span>
               <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
                 Critical
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-200 rounded-xl shadow-sm">
                 <Icons.Brain className="w-7 h-7 text-purple-600" />
               </span>
@@ -295,7 +295,7 @@ const TradingBasicsLesson5 = () => {
                 <Icons.Brain className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-bold text-purple-900 mb-2">Why Smart People Make Dumb Trading Decisions</h3>
+                <h3 className="font-semibold text-purple-900 mb-2">Why Smart People Make Dumb Trading Decisions</h3>
                 <p className="text-purple-800">
                   Doctors, engineers, MBAs — they all lose money trading. Intelligence isn't the problem. 
                   The human brain is simply NOT wired for trading. Our survival instincts (fear, greed, herd mentality) 
@@ -307,76 +307,76 @@ const TradingBasicsLesson5 = () => {
 
           {/* Visual: The Emotion Cycle */}
           <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">The Emotional Cycle of Trading</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">The Emotional Cycle of Trading</h2>
             
             <svg className="w-full max-w-2xl mx-auto mb-4" viewBox="0 0 600 350" fill="none">
               {/* Cycle Circle Background */}
-              <circle cx="300" cy="180" r="140" fill="none" stroke="#e5e7eb" strokeWidth="30" strokeDasharray="5,5"/>
+              <circle cx="300" cy="180" r="140" fill="none" stroke="#E4E4EA" strokeWidth="30" strokeDasharray="5,5"/>
               
               {/* Emotions around the cycle */}
               {/* Optimism - Top */}
               <g transform="translate(300, 30)">
-                <circle cx="0" cy="0" r="35" fill="#dcfce7" stroke="#22c55e" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#166534" fontSize="10" fontWeight="600">Optimism</text>
-                <text x="0" y="8" textAnchor="middle" fill="#166534" fontSize="8">"I got this!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Optimism</text>
+                <text x="0" y="8" textAnchor="middle" fill="#16A34A" fontSize="8">"I got this!"</text>
               </g>
               
               {/* Excitement - Top Right */}
               <g transform="translate(430, 80)">
-                <circle cx="0" cy="0" r="35" fill="#d1fae5" stroke="#10b981" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#065f46" fontSize="10" fontWeight="600">Excitement</text>
-                <text x="0" y="8" textAnchor="middle" fill="#065f46" fontSize="8">"Making money!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">Excitement</text>
+                <text x="0" y="8" textAnchor="middle" fill="#16A34A" fontSize="8">"Making money!"</text>
               </g>
               
               {/* Thrill - Right */}
               <g transform="translate(480, 180)">
-                <circle cx="0" cy="0" r="35" fill="#fef9c3" stroke="#eab308" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#854d0e" fontSize="10" fontWeight="600">Thrill</text>
-                <text x="0" y="8" textAnchor="middle" fill="#854d0e" fontSize="8">"I'm a genius!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#654B26" fontSize="10" fontWeight="600">Thrill</text>
+                <text x="0" y="8" textAnchor="middle" fill="#654B26" fontSize="8">"I'm a genius!"</text>
               </g>
               
               {/* Euphoria - Bottom Right */}
               <g transform="translate(430, 280)">
-                <circle cx="0" cy="0" r="35" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#92400e" fontSize="9" fontWeight="600">Euphoria</text>
-                <text x="0" y="8" textAnchor="middle" fill="#92400e" fontSize="7">"Can't lose!"</text>
-                <text x="0" y="25" textAnchor="middle" fill="#dc2626" fontSize="7" fontWeight="700">⚠️ DANGER</text>
+                <circle cx="0" cy="0" r="35" fill="#F6ECCE" stroke="#B8923F" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#654B26" fontSize="9" fontWeight="600">Euphoria</text>
+                <text x="0" y="8" textAnchor="middle" fill="#654B26" fontSize="7">"Can't lose!"</text>
+                <text x="0" y="25" textAnchor="middle" fill="#C7363B" fontSize="7" fontWeight="700">⚠️ DANGER</text>
               </g>
               
               {/* Anxiety - Bottom */}
               <g transform="translate(300, 330)">
-                <circle cx="0" cy="0" r="35" fill="#fce7f3" stroke="#ec4899" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#9d174d" fontSize="10" fontWeight="600">Anxiety</text>
-                <text x="0" y="8" textAnchor="middle" fill="#9d174d" fontSize="8">"Wait, what?"</text>
+                <circle cx="0" cy="0" r="35" fill="#ECE4F6" stroke="#8F6FC4" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#533F70" fontSize="10" fontWeight="600">Anxiety</text>
+                <text x="0" y="8" textAnchor="middle" fill="#533F70" fontSize="8">"Wait, what?"</text>
               </g>
               
               {/* Denial - Bottom Left */}
               <g transform="translate(170, 280)">
-                <circle cx="0" cy="0" r="35" fill="#fee2e2" stroke="#ef4444" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#991b1b" fontSize="10" fontWeight="600">Denial</text>
-                <text x="0" y="8" textAnchor="middle" fill="#991b1b" fontSize="8">"It'll recover"</text>
+                <circle cx="0" cy="0" r="35" fill="#FBE1E1" stroke="#E04848" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#842428" fontSize="10" fontWeight="600">Denial</text>
+                <text x="0" y="8" textAnchor="middle" fill="#842428" fontSize="8">"It'll recover"</text>
               </g>
               
               {/* Panic - Left */}
               <g transform="translate(120, 180)">
-                <circle cx="0" cy="0" r="35" fill="#fecaca" stroke="#dc2626" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#7f1d1d" fontSize="10" fontWeight="600">Panic</text>
-                <text x="0" y="8" textAnchor="middle" fill="#7f1d1d" fontSize="8">"Get me out!"</text>
+                <circle cx="0" cy="0" r="35" fill="#F6C3C3" stroke="#C7363B" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#6B2023" fontSize="10" fontWeight="600">Panic</text>
+                <text x="0" y="8" textAnchor="middle" fill="#6B2023" fontSize="8">"Get me out!"</text>
               </g>
               
               {/* Capitulation - Top Left */}
               <g transform="translate(170, 80)">
-                <circle cx="0" cy="0" r="35" fill="#f3e8ff" stroke="#a855f7" strokeWidth="2"/>
-                <text x="0" y="-5" textAnchor="middle" fill="#6b21a8" fontSize="9" fontWeight="600">Capitulation</text>
-                <text x="0" y="8" textAnchor="middle" fill="#6b21a8" fontSize="7">"Never again"</text>
+                <circle cx="0" cy="0" r="35" fill="#ECE4F6" stroke="#8F6FC4" strokeWidth="2"/>
+                <text x="0" y="-5" textAnchor="middle" fill="#533F70" fontSize="9" fontWeight="600">Capitulation</text>
+                <text x="0" y="8" textAnchor="middle" fill="#533F70" fontSize="7">"Never again"</text>
               </g>
               
               {/* Arrow showing cycle direction */}
-              <path d="M340 40 L360 40 L350 25" fill="#6b7280"/>
+              <path d="M340 40 L360 40 L350 25" fill="#717680"/>
               
               {/* Center Text */}
-              <text x="300" y="175" textAnchor="middle" fill="#374151" fontSize="11" fontWeight="600">Every trader</text>
-              <text x="300" y="190" textAnchor="middle" fill="#374151" fontSize="11" fontWeight="600">goes through this</text>
+              <text x="300" y="175" textAnchor="middle" fill="#373A41" fontSize="11" fontWeight="600">Every trader</text>
+              <text x="300" y="190" textAnchor="middle" fill="#373A41" fontSize="11" fontWeight="600">goes through this</text>
             </svg>
 
             <div className="bg-purple-100 rounded-lg p-4 text-center">
@@ -389,7 +389,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* The Six Deadly Emotions */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2 tracking-[-0.015em]">
               <Icons.Warning className="w-6 h-6 text-purple-600" />
               <span>The Six Deadly Trading Emotions</span>
             </h2>
@@ -412,8 +412,8 @@ const TradingBasicsLesson5 = () => {
               triggers="Winning streaks, easy money, seeing others profit"
               consequences="Overleveraging, ignoring stop losses, doubling down"
               remedy="Set profit targets BEFORE entering, take profits"
-              color="border-green-400"
-              bgColor="bg-green-50"
+              color="border-brand"
+              bgColor="bg-brand-soft"
             />
 
             <EmotionCard
@@ -463,7 +463,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* The Amateur vs Pro Mindset */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Amateur vs Professional Mindset</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Amateur vs Professional Mindset</h2>
             
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -471,34 +471,34 @@ const TradingBasicsLesson5 = () => {
                   <tr className="bg-gray-50">
                     <th className="text-left p-3 rounded-tl-lg font-semibold">Situation</th>
                     <th className="text-left p-3 font-semibold text-red-700">Amateur Thinks</th>
-                    <th className="text-left p-3 rounded-tr-lg font-semibold text-green-700">Pro Thinks</th>
+                    <th className="text-left p-3 rounded-tr-lg font-semibold text-brand">Pro Thinks</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium">After a loss</td>
                     <td className="p-3 text-red-700">"I need to make it back NOW"</td>
-                    <td className="p-3 text-green-700">"Losses are business expenses"</td>
+                    <td className="p-3 text-brand">"Losses are business expenses"</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50">
                     <td className="p-3 font-medium">After a win</td>
                     <td className="p-3 text-red-700">"I'm so good at this!"</td>
-                    <td className="p-3 text-green-700">"Did I follow my rules?"</td>
+                    <td className="p-3 text-brand">"Did I follow my rules?"</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium">Missing a move</td>
                     <td className="p-3 text-red-700">"Let me jump in before it's too late"</td>
-                    <td className="p-3 text-green-700">"There will always be another opportunity"</td>
+                    <td className="p-3 text-brand">"There will always be another opportunity"</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50">
                     <td className="p-3 font-medium">Price hitting stop loss</td>
                     <td className="p-3 text-red-700">"Let me move the SL, it'll recover"</td>
-                    <td className="p-3 text-green-700">"Stop loss worked as intended"</td>
+                    <td className="p-3 text-brand">"Stop loss worked as intended"</td>
                   </tr>
                   <tr className="border-t border-gray-100">
                     <td className="p-3 font-medium">Getting a tip</td>
                     <td className="p-3 text-red-700">"Quick, let me buy before it runs!"</td>
-                    <td className="p-3 text-green-700">"Let me do my own analysis first"</td>
+                    <td className="p-3 text-brand">"Let me do my own analysis first"</td>
                   </tr>
                 </tbody>
               </table>
@@ -506,19 +506,19 @@ const TradingBasicsLesson5 = () => {
           </div>
 
           {/* How to Manage Trading Psychology */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-8 border-2 border-green-300">
-            <h2 className="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
-              <Icons.Calm className="w-6 h-6 text-green-600" />
+          <div className="rounded-2xl p-6 mb-8 border-2 border-brand-line bg-brand-soft">
+            <h2 className="text-xl font-semibold text-brand mb-4 flex items-center gap-2">
+              <Icons.Calm className="w-6 h-6 text-brand" />
               <span>Practical Ways to Manage Your Psychology</span>
             </h2>
             
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-white rounded-xl p-4 border border-green-200">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icons.Journal className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">1. Keep a Trading Journal</h4>
+                  <Icons.Journal className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">1. Keep a Trading Journal</h4>
                 </div>
-                <p className="text-sm text-green-700 mb-2">
+                <p className="text-sm text-brand mb-2">
                   Record every trade: entry, exit, reason, emotion felt. Review weekly.
                 </p>
                 <p className="text-xs text-gray-500">
@@ -526,12 +526,12 @@ const TradingBasicsLesson5 = () => {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icons.Checklist className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">2. Pre-Trade Checklist</h4>
+                  <Icons.Checklist className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">2. Pre-Trade Checklist</h4>
                 </div>
-                <p className="text-sm text-green-700 mb-2">
+                <p className="text-sm text-brand mb-2">
                   Have a checklist before every trade. If all boxes aren't checked, don't trade.
                 </p>
                 <p className="text-xs text-gray-500">
@@ -539,12 +539,12 @@ const TradingBasicsLesson5 = () => {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icons.HeartRate className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">3. Set Daily Loss Limits</h4>
+                  <Icons.HeartRate className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">3. Set Daily Loss Limits</h4>
                 </div>
-                <p className="text-sm text-green-700 mb-2">
+                <p className="text-sm text-brand mb-2">
                   Max 2-3% loss per day. Hit the limit? Stop trading. Go outside.
                 </p>
                 <p className="text-xs text-gray-500">
@@ -552,12 +552,12 @@ const TradingBasicsLesson5 = () => {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icons.Brain className="w-5 h-5 text-green-600" />
-                  <h4 className="font-bold text-green-800">4. Trade Smaller Than Comfortable</h4>
+                  <Icons.Brain className="w-5 h-5 text-brand" />
+                  <h4 className="font-bold text-brand">4. Trade Smaller Than Comfortable</h4>
                 </div>
-                <p className="text-sm text-green-700 mb-2">
+                <p className="text-sm text-brand mb-2">
                   If a position causes anxiety, it's too big. Reduce size until you can sleep.
                 </p>
                 <p className="text-xs text-gray-500">
@@ -566,8 +566,8 @@ const TradingBasicsLesson5 = () => {
               </div>
             </div>
 
-            <div className="mt-4 bg-green-100 rounded-lg p-3">
-              <p className="text-green-800 text-sm">
+            <div className="mt-4 bg-brand-soft rounded-lg p-3">
+              <p className="text-brand text-sm">
                 <strong>The Goal:</strong> Trading should feel boring, not exciting. Excitement means you're 
                 gambling. Boredom means you're following a system.
               </p>
@@ -576,7 +576,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: Our Cultural Challenges</span>
             </h2>
@@ -628,7 +628,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-2xl p-6 mb-10 border border-purple-200">
-            <h2 className="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-purple-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-purple-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -670,7 +670,7 @@ const TradingBasicsLesson5 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-purple-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -728,7 +728,7 @@ const TradingBasicsLesson5 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-6')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: Why Most Traders Lose</span>
               <FaArrowRight className="text-sm" />

@@ -280,7 +280,7 @@ const NewAnalysis = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="xt-title mb-2">
             New Analysis
           </h1>
           <p className="text-muted-foreground">
@@ -296,13 +296,13 @@ const NewAnalysis = () => {
           className="rounded-2xl bg-white border border-border p-6 mb-6"
         >
           <h2 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
+            <Sparkles className="w-5 h-5 text-brand" />
             Tailor this analysis to you
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
             Fundakamental writes every report through your lens — the same filing, read the way <em>you</em> invest.
           </p>
-          <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">How do you invest?</Label>
+          <Label className="xt-label">How do you invest?</Label>
           <div className="flex flex-wrap gap-2 mt-2 mb-4">
             {[
               { id: "beginner", label: "New to investing" },
@@ -325,7 +325,7 @@ const NewAnalysis = () => {
               </button>
             ))}
           </div>
-          <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Your horizon</Label>
+          <Label className="xt-label">Your horizon</Label>
           <div className="flex flex-wrap gap-2 mt-2">
             {[
               { id: "long_term", label: "Long term (years)" },
@@ -355,7 +355,7 @@ const NewAnalysis = () => {
           className="rounded-2xl bg-white border border-border p-6 mb-6"
         >
           <h2 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
-            <Search className="w-5 h-5 text-primary" />
+            <Search className="w-5 h-5 text-brand" />
             Search Public Company
           </h2>
           <p className="text-sm text-muted-foreground mb-4">
@@ -431,7 +431,7 @@ const NewAnalysis = () => {
           className="rounded-2xl bg-white border border-border p-6"
         >
           <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Upload className="w-5 h-5 text-primary" />
+            <Upload className="w-5 h-5 text-brand" />
             Upload Financial Statements
           </h2>
 
@@ -478,7 +478,7 @@ const NewAnalysis = () => {
             <div className="p-6 rounded-xl bg-secondary/50 border border-border">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-primary" />
+                  <FileText className="w-6 h-6 text-brand" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
@@ -503,7 +503,7 @@ const NewAnalysis = () => {
                       <>
                         Report will be for <span className="font-semibold text-foreground">{selectedCompany.name}</span>
                         {selectedCompany.ticker ? ` (${selectedCompany.ticker})` : ""}.{" "}
-                        <button onClick={() => setSelectedCompany(null)} className="text-primary font-medium hover:underline">
+                        <button onClick={() => setSelectedCompany(null)} className="text-brand font-medium hover:underline">
                           Wrong company?
                         </button>
                       </>
@@ -525,7 +525,7 @@ const NewAnalysis = () => {
           )}
 
           <div className="mt-6 p-4 rounded-lg bg-secondary/30 border border-border">
-            <h3 className="text-sm font-medium text-foreground mb-2">
+            <h3 className="text-base font-bold text-foreground mb-2">
               Supported Documents
             </h3>
             <ul className="text-sm text-muted-foreground space-y-1">

@@ -29,7 +29,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -48,14 +47,15 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import TradeDetailsDialog from "../components/TradeDetailsDialog";
 import InfoTip from "@/components/ui/info-tip";
 import { api } from "../lib/api";
-import type { Trade, Strategy } from "../lib/api";
+import type { Trade, Strategy, TradeSortColumn } from "../lib/api";
 import JournalLayout from "../components/JournalLayout";
+import SlideToConfirm from "@/components/motion/SlideToConfirm";
 import { useAuth } from "@/contexts/AuthContext";
 import { buildReportMeta, registerReport, verifyQr } from "@/lib/reportMeta";
 
@@ -78,10 +78,65 @@ function formatDate(value: string | null | undefined) {
   return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
+// ── Column sort: each header cycles Default → Max → Min → Default ─────────
+type SortKey = TradeSortColumn | "result";
+interface SortState {
+  key: SortKey;
+  dir: "asc" | "desc";
+}
+/** What "max" / "min" mean for each kind of column, for the tooltip. */
+const SORT_WORDS: Record<SortKey, [max: string, min: string]> = {
+  date: ["Newest first", "Oldest first"],
+  asset: ["Z to A", "A to Z"],
+  buy_sell: ["Sell first", "Buy first"],
+  quantity: ["Largest first", "Smallest first"],
+  entry_price: ["Highest first", "Lowest first"],
+  exit_price: ["Highest first", "Lowest first"],
+  pnl: ["Biggest profit first", "Biggest loss first"],
+  result: ["Wins first", "Losses first"],
+  strategy: ["Z to A", "A to Z"],
+};
+const nextSort = (current: SortState | null, key: SortKey): SortState | null => {
+  if (!current || current.key !== key) return { key, dir: "desc" }; // 1st click: max
+  if (current.dir === "desc") return { key, dir: "asc" }; // 2nd click: min
+  return null; // 3rd click: back to default (newest first)
+};
+
+function SortHead({ label, sortKey, sort, onSort, right }: { label: React.ReactNode; sortKey: SortKey; sort: SortState | null; onSort: (k: SortKey) => void; right?: boolean }) {
+  const active = sort?.key === sortKey ? sort.dir : null;
+  const [maxWord, minWord] = SORT_WORDS[sortKey];
+  const state = active === "desc" ? `Max: ${maxWord}` : active === "asc" ? `Min: ${minWord}` : "Default order";
+  const nextHint = active === "desc" ? `Click for min (${minWord})` : active === "asc" ? "Click for the default order" : `Click for max (${maxWord})`;
+  const Icon = active === "desc" ? ArrowDown : active === "asc" ? ArrowUp : ChevronsUpDown;
+  return (
+    <TableHead className={right ? "text-right" : undefined} aria-sort={active === "desc" ? "descending" : active === "asc" ? "ascending" : "none"}>
+      <button
+        type="button"
+        onClick={() => onSort(sortKey)}
+        title={`${state}. ${nextHint}.`}
+        className={cn(
+          "group inline-flex items-center gap-1 rounded-md -mx-1 px-1 py-0.5 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          right && "flex-row-reverse",
+          active ? "text-foreground" : "text-muted-foreground",
+        )}
+      >
+        {label}
+        <Icon className={cn("h-3.5 w-3.5 shrink-0", active ? "text-brand" : "opacity-40 group-hover:opacity-80")} aria-hidden="true" />
+        {active && <span className="sr-only">{state}</span>}
+      </button>
+    </TableHead>
+  );
+}
+
+/** P&L as the site formats money ("₹1,267.58" / "-₹344.89"); colour shows the direction. */
+function signedTradeMoney(pnl: number | null, currency: string): string {
+  return formatMoney(pnl, currency);
+}
+
 function tradeStatus(pnl: number | null | undefined): { label: string; className: string } {
   if (pnl == null) return { label: "-", className: "text-muted-foreground" };
-  if (pnl > 0) return { label: "Win", className: "text-emerald-600 dark:text-emerald-400" };
-  if (pnl < 0) return { label: "Loss", className: "text-red-600 dark:text-red-400" };
+  if (pnl > 0) return { label: "Win", className: "text-brand dark:text-brand" };
+  if (pnl < 0) return { label: "Loss", className: "text-destructive" };
   return { label: "Breakeven", className: "text-muted-foreground" };
 }
 
@@ -162,6 +217,7 @@ export default function Trades() {
   const [toDate, setToDate] = useState("");
   const [jumpTo, setJumpTo] = useState("");
   const [onlyDuplicates, setOnlyDuplicates] = useState(false);
+  const [sort, setSort] = useState<SortState | null>(null);
   const latestRequest = useRef(0);
   const datesInvalid = !!fromDate && !!toDate && fromDate > toDate;
   const filtering = !!(appliedSearch || fromDate || toDate || onlyDuplicates);
@@ -216,6 +272,9 @@ export default function Trades() {
           to: toDate || undefined,
           flag_duplicates: true,
           only_duplicates: onlyDuplicates || undefined,
+          // Sorted on the server, so max/min cover every trade, not just this page.
+          sort: sort ? (sort.key === "result" ? "pnl" : sort.key) : undefined,
+          dir: sort?.dir,
         });
         if (requestId !== latestRequest.current) return;
         setTrades(res.data || []);
@@ -228,8 +287,13 @@ export default function Trades() {
         if (requestId === latestRequest.current) setLoading(false);
       }
     },
-    [appliedSearch, fromDate, toDate, datesInvalid, onlyDuplicates]
+    [appliedSearch, fromDate, toDate, datesInvalid, onlyDuplicates, sort]
   );
+
+  const changeSort = (key: SortKey) => {
+    setSort((current) => nextSort(current, key));
+    setOffset(0);
+  };
 
   const loadStrategies = useCallback(async () => {
     try {
@@ -286,8 +350,8 @@ export default function Trades() {
     }
   }
 
-  async function confirmDelete() {
-    if (!deleteTarget) return;
+  async function confirmDelete(): Promise<boolean> {
+    if (!deleteTarget) return false;
     setDeleting(true);
     try {
       await api.trades.deleteTrade(deleteTarget.id);
@@ -297,9 +361,11 @@ export default function Trades() {
       const nextOffset = trades.length === 1 && offset > 0 ? offset - PAGE_SIZE : offset;
       setOffset(nextOffset);
       await loadTrades(nextOffset);
+      return true;
     } catch (err: any) {
       console.error(err);
       toast.error(err?.message || "Failed to delete trade");
+      return false;
     } finally {
       setDeleting(false);
     }
@@ -310,7 +376,7 @@ export default function Trades() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Trades</h1>
+            <h1 className="xt-title mb-2">Trades</h1>
             <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
               {filtering ? `${total} matching trade${total === 1 ? "" : "s"}` : `${total} trade${total === 1 ? "" : "s"} logged`}
               <InfoTip title="Click a trade for the full picture">
@@ -415,14 +481,15 @@ export default function Trades() {
           <Table className="compact-rows">
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Asset</TableHead>
-                <TableHead className="text-right">Qty</TableHead>
-                <TableHead className="text-right">Entry</TableHead>
-                <TableHead className="text-right">Exit</TableHead>
-                <TableHead className="text-right">P&amp;L</TableHead>
-                <TableHead>Result</TableHead>
-                <TableHead>Strategy</TableHead>
+                <SortHead label="Date" sortKey="date" sort={sort} onSort={changeSort} />
+                <SortHead label="Asset" sortKey="asset" sort={sort} onSort={changeSort} />
+                <SortHead label="Side" sortKey="buy_sell" sort={sort} onSort={changeSort} />
+                <SortHead label="Qty" sortKey="quantity" sort={sort} onSort={changeSort} right />
+                <SortHead label="Entry" sortKey="entry_price" sort={sort} onSort={changeSort} right />
+                <SortHead label="Exit" sortKey="exit_price" sort={sort} onSort={changeSort} right />
+                <SortHead label="P&L" sortKey="pnl" sort={sort} onSort={changeSort} right />
+                <SortHead label="Result" sortKey="result" sort={sort} onSort={changeSort} />
+                <SortHead label="Strategy" sortKey="strategy" sort={sort} onSort={changeSort} />
                 {/* Pinned to the right edge so edit/delete stay visible if the table scrolls on a narrow screen. */}
                 <TableHead className="sticky right-0 z-10 bg-background text-right">Actions</TableHead>
               </TableRow>
@@ -430,13 +497,13 @@ export default function Trades() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={10} className="h-24 text-center text-muted-foreground">
                     Loading trades...
                   </TableCell>
                 </TableRow>
               ) : visibleTrades.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={10} className="h-24 text-center text-muted-foreground">
                     {filtering ? "No trades match these filters." : "No trades found."}
                   </TableCell>
                 </TableRow>
@@ -462,12 +529,9 @@ export default function Trades() {
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2 whitespace-nowrap">
                           {trade.asset}
-                          <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-1.5 py-0 text-[10px] uppercase">
-                            {trade.buy_sell || "buy"}
-                          </Badge>
                           {trade.is_duplicate && (
                             <span
-                              className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                              className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
                               title="Same date, asset, side, quantity, prices and entry time as another trade in your journal"
                             >
                               <Copy className="h-3 w-3" />
@@ -476,11 +540,21 @@ export default function Trades() {
                           )}
                         </div>
                       </TableCell>
+                      <TableCell>
+                        <Badge variant={trade.buy_sell === "sell" ? "destructive" : "default"} className="px-2 py-0.5 text-xs uppercase tracking-wide">
+                          {trade.buy_sell || "buy"}
+                        </Badge>
+                      </TableCell>
                       <TableCell className="text-right tabular-nums">{trade.quantity != null ? trade.quantity.toLocaleString() : "-"}</TableCell>
                       <TableCell className="text-right tabular-nums">{formatMoney(trade.entry_price, trade.currency)}</TableCell>
                       <TableCell className="text-right tabular-nums">{formatMoney(trade.exit_price, trade.currency)}</TableCell>
-                      <TableCell className={cn("text-right font-medium tabular-nums", status.className)}>{formatMoney(trade.pnl, trade.currency)}</TableCell>
-                      <TableCell className={status.className}>{status.label}</TableCell>
+                      <TableCell className={cn("text-right font-medium tabular-nums", status.className)}>{signedTradeMoney(trade.pnl, trade.currency)}</TableCell>
+                      <TableCell className={status.className}>
+                        <span className="inline-flex items-center gap-1.5 font-medium">
+                          {trade.pnl != null && <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />}
+                          {status.label}
+                        </span>
+                      </TableCell>
                       <TableCell>{trade.strategy || "-"}</TableCell>
                       <TableCell
                         className="sticky right-0 z-10 bg-background text-right shadow-[-6px_0_6px_-6px_hsl(var(--border))]"
@@ -599,7 +673,7 @@ export default function Trades() {
                 <p>This permanently deletes all trades in your journal. Your goals and strategies stay. This can't be undone.</p>
                 <p>
                   Want a copy first?{" "}
-                  <button type="button" className="font-medium text-primary hover:underline" onClick={exportCsv} disabled={exporting}>
+                  <button type="button" className="font-medium text-brand hover:underline" onClick={exportCsv} disabled={exporting}>
                     Export CSV
                   </button>
                 </p>
@@ -635,11 +709,9 @@ export default function Trades() {
               This will permanently delete the {deleteTarget?.asset} trade from {formatDate(deleteTarget?.date)}. This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          <SlideToConfirm label="Slide to delete" busyLabel="Deleting..." onConfirm={confirmDelete} />
           <AlertDialogFooter>
             <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} disabled={deleting}>
-              {deleting ? "Deleting..." : "Delete"}
-            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

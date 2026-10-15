@@ -142,10 +142,10 @@ export default function Alerts() {
     <DashboardLayout>
       <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Alerts</h1>
+          <h1 className="xt-title mb-2">Alerts</h1>
           <p className="text-muted-foreground mt-1">
             Get notified here when a stock reaches your price. Targets you set in your{" "}
-            <Link to="/fundakamental/watchlist" className="text-primary font-medium hover:underline">
+            <Link to="/fundakamental/watchlist" className="text-brand font-medium hover:underline">
               Watchlist
             </Link>{" "}
             become alerts automatically. Prices are checked about every 15 minutes.
@@ -156,7 +156,7 @@ export default function Alerts() {
         <section className="rounded-2xl bg-white border border-border">
           <div className="p-4 border-b border-border flex items-center justify-between gap-3">
             <h2 className="font-semibold text-foreground flex items-center gap-2">
-              <Bell className="w-4 h-4 text-primary" /> Notifications
+              <Bell className="w-4 h-4 text-brand" /> Notifications
               {unreadCount > 0 && (
                 <span className="px-2 py-0.5 rounded-full bg-red-500 text-white text-xs font-bold">{unreadCount} new</span>
               )}
@@ -177,7 +177,7 @@ export default function Alerts() {
                 const up = n.data?.condition === "above";
                 return (
                   <li key={n.id} className={`flex items-start gap-3 p-4 ${n.is_read ? "" : "bg-primary/5"}`}>
-                    <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${up ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+                    <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${up ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-700"}`}>
                       {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -203,7 +203,7 @@ export default function Alerts() {
         {/* New alert */}
         <section className="rounded-2xl bg-white border border-border p-5">
           <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-            <Plus className="w-4 h-4 text-primary" /> New price alert
+            <Plus className="w-4 h-4 text-brand" /> New price alert
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_10rem_10rem_auto] gap-3 items-end">
             <div>
@@ -262,9 +262,9 @@ export default function Alerts() {
                       </td>
                       <td className="py-3 px-4">
                         {a.is_active ? (
-                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">Watching</span>
+                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-brand">Watching</span>
                         ) : a.triggered_at ? (
-                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-brand-soft text-brand">
                             Hit {money(a.ticker, a.triggered_price)} · {when(a.triggered_at)}
                           </span>
                         ) : (

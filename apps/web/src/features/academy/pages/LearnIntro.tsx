@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import { IntroBackdrop, IntroHeroArt, CtaTexture } from '../../marketing/components/IntroKit';
 
 /* --- Animation --- */
 const fadeUp: Variants = {
@@ -50,7 +51,7 @@ const ArrowRight = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
 );
 const CheckIcon = () => (
-  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
+  <svg className="w-5 h-5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd"/></svg>
 );
 const LockOpen = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
@@ -73,9 +74,9 @@ const courseLevels = [
   {
     level: 'Beginner',
     tag: 'Free',
-    tagColor: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-    color: 'from-green-500 to-emerald-600',
-    borderColor: 'border-l-green-500',
+    tagColor: 'bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand',
+    color: 'bg-brand-fill',
+    borderColor: 'border-l-brand',
     courses: [
       { name: 'Personal Finance Fundamentals', lessons: 8 },
       { name: 'Introduction to Stock Markets', lessons: 10 },
@@ -129,23 +130,25 @@ const LearnIntro = () => {
       {/* ======== HERO ======== */}
       <section className="relative overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-50/50 via-white to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-green-100/40 to-emerald-100/20 dark:from-emerald-900/10 dark:to-transparent blur-[120px] pointer-events-none" />
+        <IntroBackdrop />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none bg-brand-soft" />
 
         <div className="relative max-w-4xl mx-auto px-6 pt-36 pb-20 md:pt-44 md:pb-28 text-center">
           <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
 
+            <motion.div variants={fadeUp}><IntroHeroArt id="Learn" /></motion.div>
+
             {/* Eyebrow */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100/80 dark:bg-emerald-900/20 border border-green-200/60 dark:border-emerald-700/30 text-green-700 dark:text-emerald-300 text-sm font-medium mb-8">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft dark:bg-brand-soft border border-brand-line dark:border-brand-line text-brand dark:text-brand text-sm font-medium mb-8">
               <BookIcon />
               100% Free Forever
             </motion.div>
 
             {/* Headline */}
-            <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-display font-bold leading-[1.08] tracking-[-0.025em] mb-5">
               Learn investing,
               <br />
-              <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 bg-clip-text text-transparent">the right way</span>
+              <span className="text-brand">the right way</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -157,14 +160,14 @@ const LearnIntro = () => {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
                 to="/learn"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-green-600/20 hover:shadow-green-600/30 hover:-translate-y-0.5 text-base"
+                className="inline-flex items-center justify-center gap-2 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-200 shadow-lg shadow-brand/20 hover:shadow-brand/30 hover:-translate-y-0.5 text-base bg-brand-fill"
               >
                 Start Learning Free
                 <ArrowRight />
               </Link>
               <button
                 onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-green-300 dark:hover:border-emerald-600 hover:text-green-600 dark:hover:text-emerald-300 transition-all duration-200 text-base"
+                className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-slate-200 font-semibold px-10 py-4 rounded-xl hover:border-brand-line dark:hover:border-brand hover:text-brand dark:hover:text-brand transition-all duration-200 text-base"
               >
                 Browse Courses
               </button>
@@ -181,7 +184,7 @@ const LearnIntro = () => {
                   {i > 0 && <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />}
                   <div className="text-center">
                     <div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-slate-100">{s.value}</div>
-                    <div className="text-[11px] text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
+                    <div className="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
                   </div>
                 </React.Fragment>
               ))}
@@ -191,7 +194,7 @@ const LearnIntro = () => {
       </section>
 
       {/* ======== VALUE STRIP ======== */}
-      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-gray-50/50 dark:bg-slate-900/40">
+      <section className="border-y border-gray-100 dark:border-slate-800/60 bg-background">
         <div className="max-w-5xl mx-auto px-6 py-8">
           <div className="grid sm:grid-cols-4 gap-6">
             {[
@@ -201,7 +204,7 @@ const LearnIntro = () => {
               { icon: <CertIcon />, text: 'Earn certificates' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 text-sm text-gray-600 dark:text-slate-400">
-                <span className="text-green-500 dark:text-emerald-400">{item.icon}</span>
+                <span className="text-brand dark:text-brand">{item.icon}</span>
                 {item.text}
               </div>
             ))}
@@ -213,20 +216,20 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Simple process</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">How it works</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Simple process</span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">How it works</h2>
           </motion.div>
 
           <div className="relative">
-            <div className="hidden md:block absolute top-10 left-[12%] right-[12%] h-px bg-gradient-to-r from-green-200 via-emerald-200 to-teal-200 dark:from-green-800/40 dark:via-emerald-800/40 dark:to-teal-800/40" />
+            <div className="hidden md:block absolute top-10 left-[12%] right-[12%] h-px bg-brand-soft" />
             <div className="grid md:grid-cols-4 gap-8 md:gap-4">
               {steps.map((s, i) => (
                 <motion.div key={s.num} variants={fadeUp} custom={i} className="relative text-center">
-                  <div className="w-20 h-20 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 flex items-center justify-center mx-auto mb-4 shadow-sm text-green-600 dark:text-emerald-400">
+                  <div className="w-20 h-20 rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 flex items-center justify-center mx-auto mb-4 shadow-sm text-brand dark:text-brand">
                     {s.icon}
                   </div>
-                  <span className="text-xs font-bold text-green-600 dark:text-emerald-400">{s.num}</span>
-                  <h3 className="font-bold mt-1 mb-1">{s.title}</h3>
+                  <span className="text-xs font-bold text-brand dark:text-brand">{s.num}</span>
+                  <h3 className="font-semibold mt-1 mb-1">{s.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-slate-400">{s.desc}</p>
                 </motion.div>
               ))}
@@ -239,8 +242,8 @@ const LearnIntro = () => {
       <AnimatedSection id="courses" className="py-20 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Course catalog</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Pick your learning path</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Course catalog</span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">Pick your learning path</h2>
             <p className="text-gray-500 dark:text-slate-400 mt-3 max-w-lg mx-auto">Structured from beginner to advanced. Start anywhere.</p>
           </motion.div>
 
@@ -249,7 +252,7 @@ const LearnIntro = () => {
               <motion.div key={level.level} variants={fadeUp} custom={li}>
                 {/* Level header */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-lg font-bold">{level.level}</h3>
+                  <h3 className="text-lg font-semibold">{level.level}</h3>
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${level.tagColor}`}>{level.tag}</span>
                 </div>
 
@@ -258,14 +261,14 @@ const LearnIntro = () => {
                   {level.courses.map((c) => (
                     <div
                       key={c.name}
-                      className={`bg-white dark:bg-slate-800 rounded-xl p-5 border-l-4 ${level.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
+                      className={`bg-white dark:bg-slate-800 rounded-2xl p-5 border-l-4 ${level.borderColor} border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="font-semibold text-sm group-hover:text-green-600 dark:group-hover:text-emerald-400 transition-colors">{c.name}</h4>
+                          <h4 className="font-semibold text-base group-hover:text-brand dark:group-hover:text-brand transition-colors">{c.name}</h4>
                           <p className="text-xs text-gray-400 dark:text-slate-500 mt-1.5">{c.lessons} lessons</p>
                         </div>
-                        <span className="text-gray-300 dark:text-slate-600 group-hover:text-green-500 dark:group-hover:text-emerald-400 transition-colors ml-3">
+                        <span className="text-gray-300 dark:text-slate-600 group-hover:text-brand dark:group-hover:text-brand transition-colors ml-3">
                           <ArrowRight />
                         </span>
                       </div>
@@ -282,8 +285,8 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">The advantage</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">Why learn here</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">The advantage</span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">Why learn here</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -295,7 +298,7 @@ const LearnIntro = () => {
               { icon: <CheckIcon />, text: 'Learn and apply within the same platform' },
               { icon: <CheckIcon />, text: 'Downloadable certificates for LinkedIn & resume' },
             ].map((b, i) => (
-              <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-xl p-4 border border-gray-100/80 dark:border-slate-700/50">
+              <motion.div key={i} variants={fadeUp} custom={i} className="flex items-start gap-3 bg-white dark:bg-slate-800/60 rounded-2xl p-4 border border-gray-100/80 dark:border-slate-700/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand/10 hover:border-brand-line transition-all duration-300">
                 {b.icon}
                 <span className="text-sm text-gray-700 dark:text-slate-300 leading-snug">{b.text}</span>
               </motion.div>
@@ -308,12 +311,12 @@ const LearnIntro = () => {
       <AnimatedSection className="py-16 px-6 bg-gray-50/70 dark:bg-slate-900/40 border-y border-gray-100/80 dark:border-slate-800/40">
         <div className="max-w-5xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Who it's for</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Who it's for</h2>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: <SeedlingIcon />, label: 'Complete Beginner', desc: 'Starting from scratch with zero knowledge', border: 'border-l-green-500' },
+              { icon: <SeedlingIcon />, label: 'Complete Beginner', desc: 'Starting from scratch with zero knowledge', border: 'border-l-brand' },
               { icon: <BriefcaseIcon />, label: 'Working Professional', desc: 'Deepening investment knowledge', border: 'border-l-blue-500' },
               { icon: <RocketIcon />, label: 'Aspiring Trader', desc: 'Learning algo trading fundamentals', border: 'border-l-purple-500' },
               { icon: <AcademicIcon />, label: 'Student', desc: 'Building a strong financial foundation', border: 'border-l-amber-500' },
@@ -324,8 +327,8 @@ const LearnIntro = () => {
                 custom={i}
                 className={`bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 ${p.border} border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
               >
-                <div className="text-green-600 dark:text-emerald-400 mb-4">{p.icon}</div>
-                <h3 className="font-bold mb-2">{p.label}</h3>
+                <div className="text-brand dark:text-brand mb-4">{p.icon}</div>
+                <h3 className="font-semibold mb-2">{p.label}</h3>
                 <p className="text-sm text-gray-500 dark:text-slate-400">{p.desc}</p>
               </motion.div>
             ))}
@@ -337,11 +340,11 @@ const LearnIntro = () => {
       <AnimatedSection className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div variants={fadeUp} className="text-center mb-12">
-            <span className="text-green-600 dark:text-emerald-400 font-medium text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-3">100% Free. Always.</h2>
+            <span className="text-brand dark:text-brand font-medium text-sm uppercase tracking-wider inline-flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-50 after:block after:h-px after:w-8 after:bg-current after:opacity-50">Pricing</span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mt-3 tracking-[-0.025em]">100% Free. Always.</h2>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-green-600/20">
+          <motion.div variants={fadeUp} className="rounded-2xl p-10 md:p-14 text-white relative overflow-hidden text-center shadow-xl shadow-brand/20 bg-brand-fill">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/3 -translate-x-1/3" />
             
@@ -350,8 +353,8 @@ const LearnIntro = () => {
                 <LockOpen />
                 <span>Our Mission</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold mb-6">&#8377;0 Forever</h3>
-              <p className="text-green-50 text-lg md:text-xl leading-relaxed mb-10">
+              <h3 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-[-0.025em]">&#8377;0 Forever</h3>
+              <p className="text-white/85 text-lg md:text-xl leading-relaxed mb-10">
                 We believe in making India wealthy, not just rich. Education should never be a luxury. This is our contribution to India's second freedom movement &mdash; a financial movement for everyone.
               </p>
               
@@ -364,8 +367,8 @@ const LearnIntro = () => {
                   'Interactive quizzes',
                   'Ad-free experience'
                 ].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm text-green-100">
-                    <span className="text-green-300 flex-shrink-0"><CheckIcon /></span>
+                  <div key={f} className="flex items-center gap-2 text-sm text-white/85">
+                    <span className="text-brand flex-shrink-0"><CheckIcon /></span>
                     {f}
                   </div>
                 ))}
@@ -379,22 +382,23 @@ const LearnIntro = () => {
       <AnimatedSection className="py-24 md:py-32 px-6">
         <motion.div
           variants={fadeUp}
-          className="max-w-4xl mx-auto text-center bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-12 md:p-16 relative overflow-hidden"
+          className="max-w-4xl mx-auto text-center rounded-3xl p-12 md:p-16 relative overflow-hidden bg-brand-fill"
         >
+          <CtaTexture />
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 tracking-[-0.025em]">
               Start learning today
             </h2>
-            <p className="text-green-100 text-lg mb-8 max-w-xl mx-auto">
+            <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">
               All courses are 100% free. No prior knowledge needed. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/learn"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-700 font-bold px-10 py-4 rounded-xl hover:bg-green-50 transition-all duration-200 shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-white text-brand font-bold px-10 py-4 rounded-xl hover:bg-brand-soft transition-all duration-200 shadow-lg hover:-translate-y-0.5"
               >
                 Go to Courses
                 <ArrowRight />

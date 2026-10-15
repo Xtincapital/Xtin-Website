@@ -37,6 +37,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Link } from "react-router-dom";
 import { ArrowRight, PieChart as PieChartIcon, ShieldQuestion, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,13 +53,7 @@ import { api } from "../lib/api";
 
 // Matches gini.css's `--chart-1`..`--chart-5` tokens (same palette as
 // Dashboard.tsx/NetWorth.tsx).
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+const CHART_COLORS = chartColors.series;
 
 type RiskTolerance = "Conservative" | "Moderate" | "Aggressive";
 
@@ -141,7 +136,7 @@ export default function Portfolio() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Portfolio Analyzer</h1>
+          <h1 className="xt-title mb-2">Portfolio Analyzer</h1>
           <p className="text-muted-foreground">Analyze your investment portfolio</p>
         </motion.div>
 
@@ -149,35 +144,35 @@ export default function Portfolio() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
           <Card className="mb-6">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <PieChartIcon className="h-4 w-4 text-primary" />
+              <CardTitle className="text-lg flex items-center gap-2">
+                <PieChartIcon className="h-4 w-4 text-brand" />
                 Current Portfolio Analysis
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Weighted Avg Return</p>
+                  <p className="xt-label">Weighted Avg Return</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-20 mt-1" />
                   ) : (
-                    <p className="mt-1 text-xl font-bold text-foreground">{weightedReturn.toFixed(2)}%</p>
+                    <p className="mt-1 xt-metric text-foreground">{weightedReturn.toFixed(2)}%</p>
                   )}
                 </div>
                 <div className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Total Portfolio Value</p>
+                  <p className="xt-label">Total Portfolio Value</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-28 mt-1" />
                   ) : (
-                    <p className="mt-1 text-xl font-bold text-foreground">{formatCurrency(totalValue)}</p>
+                    <p className="mt-1 xt-metric text-foreground">{formatCurrency(totalValue)}</p>
                   )}
                 </div>
                 <div className="rounded-lg border p-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Asset Classes</p>
+                  <p className="xt-label">Asset Classes</p>
                   {isLoading ? (
                     <Skeleton className="h-7 w-10 mt-1" />
                   ) : (
-                    <p className="mt-1 text-xl font-bold text-foreground">{assetClasses}</p>
+                    <p className="mt-1 xt-metric text-foreground">{assetClasses}</p>
                   )}
                 </div>
               </div>
@@ -215,12 +210,7 @@ export default function Portfolio() {
                         </Pie>
                         <Tooltip
                           formatter={(value: number) => formatCurrency(value)}
-                          contentStyle={{
-                            background: "hsl(var(--popover))",
-                            border: "1px solid hsl(var(--border))",
-                            borderRadius: 8,
-                            fontSize: 12,
-                          }}
+                          {...chartTooltip}
                         />
                         <Legend
                           verticalAlign="bottom"
@@ -249,7 +239,7 @@ export default function Portfolio() {
                             <TableCell className="text-right">{formatCurrency(row.value)}</TableCell>
                             <TableCell className="text-right">{row.allocation.toFixed(1)}%</TableCell>
                             <TableCell className="text-right">{row.avgReturn.toFixed(1)}%</TableCell>
-                            <TableCell className="text-right font-semibold text-success">
+                            <TableCell className="text-right font-semibold text-brand">
                               {row.contribution.toFixed(2)}%
                             </TableCell>
                           </TableRow>
@@ -267,8 +257,8 @@ export default function Portfolio() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <ShieldQuestion className="h-4 w-4 text-primary" />
+              <CardTitle className="text-lg flex items-center gap-2">
+                <ShieldQuestion className="h-4 w-4 text-brand" />
                 Risk Assessment
               </CardTitle>
             </CardHeader>
@@ -305,19 +295,19 @@ export default function Portfolio() {
 
               {riskResult && (
                 <div className="rounded-lg bg-secondary p-4">
-                  <h4 className="text-sm font-semibold text-foreground mb-3">Recommended Allocation</h4>
+                  <h4 className="text-base font-semibold text-foreground mb-3">Recommended Allocation</h4>
                   <div className="grid grid-cols-3 gap-4">
                     <div className="text-center">
                       <p className="text-xs text-muted-foreground">Equity</p>
-                      <p className="text-lg font-bold text-foreground">{riskResult.equity}%</p>
+                      <p className="xt-metric text-foreground">{riskResult.equity}%</p>
                     </div>
                     <div className="text-center">
                       <p className="text-xs text-muted-foreground">Debt</p>
-                      <p className="text-lg font-bold text-foreground">{riskResult.debt}%</p>
+                      <p className="xt-metric text-foreground">{riskResult.debt}%</p>
                     </div>
                     <div className="text-center">
                       <p className="text-xs text-muted-foreground">Others</p>
-                      <p className="text-lg font-bold text-foreground">{riskResult.others}%</p>
+                      <p className="xt-metric text-foreground">{riskResult.others}%</p>
                     </div>
                   </div>
                 </div>

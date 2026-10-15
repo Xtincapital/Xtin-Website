@@ -11,14 +11,14 @@ interface Props {
 }
 
 const Check = () => (
-  <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+  <svg className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
   </svg>
 );
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="mb-6">
-    <h3 className="text-sm font-bold uppercase tracking-wide text-green-700 mb-3">{title}</h3>
+    <h3 className="xt-eyebrow mb-3">{title}</h3>
     {children}
   </section>
 );
@@ -38,17 +38,17 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 brand-on-dark"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={`${detail.name} details`}
     >
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-gradient-to-br from-green-600 to-emerald-700 p-6 text-white flex items-start justify-between gap-4">
+        <div className="p-6 text-white flex items-start justify-between gap-4 bg-brand-fill">
           <div>
             <h2 className="text-2xl font-bold">{detail.name}</h2>
-            <p className="text-green-100 text-sm mt-1">{detail.tagline}</p>
+            <p className="text-white/85 text-sm mt-1">{detail.tagline}</p>
             <div className="flex flex-wrap gap-2 mt-3">
               <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-medium">{detail.style}</span>
               <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-medium">{detail.timeframes}</span>
@@ -140,7 +140,7 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
                   {bt.yearly.map((y) => (
                     <tr key={y.label}>
                       <td className="px-4 py-2 text-gray-700">{y.label}</td>
-                      <td className={`px-4 py-2 text-right font-semibold ${y.value.startsWith('-') ? 'text-red-600' : 'text-green-600'}`}>{y.value}</td>
+                      <td className={`px-4 py-2 text-right font-semibold ${y.value.startsWith('-') ? 'text-red-600' : 'text-brand'}`}>{y.value}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -168,7 +168,7 @@ const AlgoDetailsModal = ({ algoName, onClose, onSubscribe }: Props) => {
           </button>
           <button
             onClick={() => onSubscribe(detail.name)}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold transition-all"
+            className="px-6 py-3 rounded-xl text-white font-semibold transition-all bg-brand-fill"
           >
             Subscribe — ₹4,999/month
           </button>

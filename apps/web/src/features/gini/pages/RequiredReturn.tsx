@@ -181,7 +181,7 @@ function assessFeasibility(requiredReturnRate: number): { feasibility: Feasibili
 }
 
 const FEASIBILITY_STYLES: Record<Feasibility, { icon: typeof CheckCircle2; className: string }> = {
-  achievable: { icon: CheckCircle2, className: "text-success" },
+  achievable: { icon: CheckCircle2, className: "text-brand" },
   challenging: { icon: AlertTriangle, className: "text-warning" },
   difficult: { icon: XCircle, className: "text-destructive" },
 };
@@ -256,7 +256,7 @@ export default function RequiredReturn() {
     <GiniLayout>
       <div className="space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Required Return Calculator</h1>
+          <h1 className="xt-title mb-2">Required Return Calculator</h1>
           <p className="text-sm text-muted-foreground">Determine the return needed to achieve all your goals</p>
         </div>
 
@@ -264,7 +264,7 @@ export default function RequiredReturn() {
           <div className="space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-2 space-y-0">
-                <Percent className="h-5 w-5 text-primary" />
+                <Percent className="h-5 w-5 text-brand" />
                 <CardTitle>Current Situation</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -333,26 +333,26 @@ export default function RequiredReturn() {
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Total Future Corpus Needed
                       </p>
-                      <p className="mt-1 text-xl font-bold">{formatCurrency(results.totalNeeded)}</p>
+                      <p className="mt-1 xt-metric">{formatCurrency(results.totalNeeded)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Projected Corpus (at expected return)
                       </p>
-                      <p className="mt-1 text-xl font-bold">{formatCurrency(results.projectedCorpus)}</p>
+                      <p className="mt-1 xt-metric">{formatCurrency(results.projectedCorpus)}</p>
                     </div>
                     <div className="rounded-lg border-2 border-primary/30 bg-accent p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="xt-label">
                         Required Annual Return
                       </p>
-                      <p className="mt-1 text-xl font-bold text-primary">{formatPercent(results.requiredReturnRate)}</p>
+                      <p className="mt-1 xt-metric text-brand">{formatPercent(results.requiredReturnRate)}</p>
                     </div>
                     <div className="rounded-lg border p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Gap</p>
-                      <p className={cn("mt-1 text-xl font-bold", results.gap > 0 ? "text-destructive" : "text-success")}>
+                      <p className="xt-label">Gap</p>
+                      <p className={cn("mt-1 text-xl font-bold", results.gap > 0 ? "text-destructive" : "text-brand")}>
                         {results.gap > 0 ? "+" : ""}
                         {formatPercent(results.gap)}
                       </p>
@@ -372,7 +372,7 @@ export default function RequiredReturn() {
                   </div>
 
                   <div>
-                    <h4 className="mb-2 text-sm font-semibold text-muted-foreground">Recommendations</h4>
+                    <h4 className="mb-2 text-base font-semibold text-muted-foreground">Recommendations</h4>
                     <ul className="list-disc space-y-1 pl-5 text-sm text-foreground">
                       {results.recommendations.map((r, i) => (
                         <li key={i}>{r}</li>

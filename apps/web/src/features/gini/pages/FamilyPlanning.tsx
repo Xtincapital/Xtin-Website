@@ -63,6 +63,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { chartGrid, chartColors } from "@/components/charts/chartTheme";
 import { ArrowRight, Baby, GraduationCap, HeartHandshake, PiggyBank, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,23 +105,17 @@ function num(value: string, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-// Matches gini.css's `--chart-1`..`--chart-5` tokens, same as Family.tsx.
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+// The site's shared categorical series (components/charts/chartTheme.ts), same as Family.tsx.
+const CHART_COLORS = chartColors.series;
 
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: typeof Baby; title: string; subtitle: string }) {
   return (
     <CardHeader className="flex flex-row items-start gap-3 space-y-0">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent text-brand">
         <Icon className="h-4.5 w-4.5" />
       </span>
       <div>
-        <CardTitle className="text-base">{title}</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
         <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </CardHeader>
@@ -132,7 +127,7 @@ function ResultGrid({ items }: { items: { label: string; value: string; hint?: s
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
         <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{item.label}</p>
+          <p className="xt-label">{item.label}</p>
           <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
           {item.hint && <p className="mt-0.5 text-xs text-muted-foreground">{item.hint}</p>}
         </div>
@@ -330,8 +325,8 @@ export default function FamilyPlanning() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">Family milestones</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Family Planning Mode</h1>
+          <span className="xt-eyebrow">Family milestones</span>
+          <h1 className="xt-title mb-2">Family Planning Mode</h1>
           <p className="text-muted-foreground">
             Plan for life's major family costs. Figures update as you type; every monthly saving assumes a {PLAN_RETURN}% yearly return.
           </p>
@@ -441,7 +436,7 @@ export default function FamilyPlanning() {
                                 disabled={finished(stage)}
                                 onChange={(e) => setEduCost(child.id, stage.costKey, e.target.value)}
                               />
-                              {finished(stage) && <p className="text-[11px] text-muted-foreground">Already done</p>}
+                              {finished(stage) && <p className="text-xs text-muted-foreground">Already done</p>}
                             </div>
                           ))}
                         </div>
@@ -478,7 +473,7 @@ export default function FamilyPlanning() {
                 {eduChartData.length > 0 && (
                   <ChartContainer config={eduChartConfig} className="h-72 w-full">
                     <BarChart data={eduChartData}>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
                       <YAxis tickLine={false} axisLine={false} fontSize={12} width={70} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                       <ChartTooltip
@@ -661,13 +656,13 @@ export default function FamilyPlanning() {
                 </p>
 
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">Money set aside for these plans</h4>
+                  <h4 className="text-base font-bold text-foreground">Money set aside for these plans</h4>
                   <p className="mb-2 text-xs text-muted-foreground">
                     Saving the amounts above each month at {PLAN_RETURN}% a year. The line drops each time fees, a wedding or another cost is paid out (red dots). Hover or tap any dot for the full detail.
                   </p>
                   <ChartContainer config={ROADMAP_CHART_CONFIG} className="h-80 w-full">
                     <LineChart data={roadmap.points}>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="t"
                         type="number"
@@ -757,12 +752,12 @@ export default function FamilyPlanning() {
                 </div>
 
                 <div>
-                  <h4 className="mb-2 text-sm font-bold text-foreground">Key milestones</h4>
+                  <h4 className="mb-2 text-base font-bold text-foreground">Key milestones</h4>
                   <div className="space-y-2">
                     {milestones.map((m) => (
                       <div key={`${m.year}-${m.label}`} className="flex items-center justify-between gap-3 rounded-lg border-l-4 border-primary bg-accent/30 p-3">
                         <div>
-                          <span className="text-sm font-bold text-primary">{m.year}</span>
+                          <span className="text-sm font-bold text-brand">{m.year}</span>
                           <p className="text-sm text-foreground">{m.label}</p>
                         </div>
                         <div className="text-sm font-semibold text-foreground">{money(m.amount)}</div>

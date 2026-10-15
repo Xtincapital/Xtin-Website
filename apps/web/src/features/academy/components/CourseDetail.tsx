@@ -44,11 +44,11 @@ const CourseDetail = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gray-50 py-16 px-6 lg:px-24 mt-16 border-b border-gray-200">
+      <section className="bg-background py-16 px-6 lg:px-24 mt-16 border-b border-gray-200">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="text-green-600 font-semibold tracking-wide uppercase text-sm">Course</span>
-            <h1 className="text-4xl md:text-5xl font-extrabold mt-2 mb-4 leading-tight text-gray-900">
+            <span className="text-brand font-semibold tracking-wide uppercase text-sm">Course</span>
+            <h1 className="text-5xl md:text-6xl font-display font-bold mt-2 mb-4 leading-tight text-gray-900 tracking-[-0.025em]">
               {course.title}
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -57,11 +57,11 @@ const CourseDetail = () => {
             
             <div className="flex flex-wrap items-center gap-6 mb-8 text-sm text-gray-500">
                <div className="flex items-center gap-2">
-                 <FaClock className="text-green-500" />
+                 <FaClock className="text-brand" />
                  <span>{course.totalDuration}</span>
                </div>
                <div className="flex items-center gap-2">
-                 <FaPlayCircle className="text-green-500" />
+                 <FaPlayCircle className="text-brand" />
                  <span>{course.chapters.reduce((acc, ch) => acc + ch.videos.length, 0)} Lessons</span>
                </div>
             </div>
@@ -70,8 +70,8 @@ const CourseDetail = () => {
               onClick={isPurchased ? () => navigate(`/learn/course/${course.id}/watch`) : handlePurchase}
               className={`px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 border border-transparent ${
                 isPurchased 
-                  ? "bg-green-600 text-white hover:bg-green-700"
-                  : "bg-gray-900 text-white hover:bg-gray-800"
+                  ? "bg-brand-fill text-white hover:bg-brand-hover"
+                  : "bg-gray-900 text-white hover:bg-gray-800 brand-on-dark"
               }`}
             >
               {isPurchased ? "Continue Learning" : "Enroll Now - Start Learning"}
@@ -82,7 +82,7 @@ const CourseDetail = () => {
           </div>
 
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 bg-brand-fill"></div>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-gray-100">
               <img 
                 src={course.thumbnail} 
@@ -98,7 +98,7 @@ const CourseDetail = () => {
       {/* Curriculum Section */}
       <section className="py-16 px-6 lg:px-24 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-gray-900">Course Curriculum</h2>
+          <h2 className="text-2xl font-bold mb-8 text-gray-900 tracking-[-0.015em]">Course Curriculum</h2>
           
           <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             {course.chapters.map((chapter, index) => (
@@ -113,7 +113,7 @@ const CourseDetail = () => {
                   {chapter.videos.map((video, _vIndex) => (
                     <div key={video.id} className="p-4 flex items-center gap-4 hover:bg-gray-50 transition-colors border-b last:border-0 border-gray-100">
                       {isPurchased ? (
-                         <div className="text-green-500"><FaPlayCircle /></div>
+                         <div className="text-brand"><FaPlayCircle /></div>
                       ) : (
                          <div className="text-gray-400"><FaLock /></div>
                       )}

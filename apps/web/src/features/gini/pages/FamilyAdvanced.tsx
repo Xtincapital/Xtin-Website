@@ -46,6 +46,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { chartGrid, chartBarRadius, chartMaxBarSize, chartColors } from "@/components/charts/chartTheme";
 import {
   Landmark,
   HeartHandshake,
@@ -93,13 +94,7 @@ import type {
   TaxOptimizationInput,
 } from "../lib/api";
 
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+const CHART_COLORS = chartColors.series;
 
 const SIP_TIMING: "due" | "ordinary" = "due";
 
@@ -141,7 +136,7 @@ function ResultGrid({ items }: { items: { label: string; value: string }[] }) {
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
         <div key={item.label} className="rounded-lg border bg-accent/40 p-3">
-          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{item.label}</p>
+          <p className="xt-label">{item.label}</p>
           <p className="mt-1 text-base font-bold text-foreground">{item.value}</p>
         </div>
       ))}
@@ -196,7 +191,7 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Dual Retirement Planning</CardTitle>
+        <CardTitle className="text-lg">Dual Retirement Planning</CardTitle>
         <p className="text-sm text-muted-foreground">Visualize phased retirement for multiple earners in the family</p>
       </CardHeader>
       <CardContent>
@@ -209,10 +204,10 @@ function DualRetirementTab({ members, isLoading }: { members: FamilyMember[]; is
           </div>
         ) : (
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-foreground">Household Income Timeline</h4>
+            <h4 className="text-base font-semibold text-foreground">Household Income Timeline</h4>
             <ChartContainer config={chartConfig} className="h-96 w-full">
               <LineChart data={chartData}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianGrid {...chartGrid} />
                 <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
                 <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
@@ -345,7 +340,7 @@ function ElderCareTab({ members }: { members: FamilyMember[] }) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <div>
-          <CardTitle className="text-base">Elder Care Planning</CardTitle>
+          <CardTitle className="text-lg">Elder Care Planning</CardTitle>
           <p className="text-sm text-muted-foreground">
             Plan for parents or elderly dependents — medical reserves, monthly support, longevity planning
           </p>
@@ -643,7 +638,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <div>
-          <CardTitle className="text-base">Children's Education Timeline</CardTitle>
+          <CardTitle className="text-lg">Children's Education Timeline</CardTitle>
           <p className="text-sm text-muted-foreground">Track education milestones, costs, and funding for each child</p>
         </div>
         <Button onClick={openAdd} disabled={children.length === 0}>
@@ -719,10 +714,10 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
 
         {chartData.length > 0 && (
           <div>
-            <h4 className="mb-2 text-sm font-semibold text-foreground">Education Funding Timeline</h4>
+            <h4 className="mb-2 text-base font-semibold text-foreground">Education Funding Timeline</h4>
             <ChartContainer config={chartConfig} className="h-72 w-full">
               <BarChart data={chartData}>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianGrid {...chartGrid} />
                 <XAxis dataKey="name" tickLine={false} axisLine={false} fontSize={11} />
                 <YAxis tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatCurrency(v, { compact: true })} />
                 <ChartTooltip
@@ -731,7 +726,7 @@ function EducationTimelineTab({ members }: { members: FamilyMember[] }) {
                   )}
                 />
                 <Bar dataKey="saved" stackId="a" fill="var(--color-saved)" radius={[0, 0, 0, 0]} />
-                <Bar dataKey="required" stackId="a" fill="var(--color-required)" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="required" stackId="a" fill="var(--color-required)" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
               </BarChart>
             </ChartContainer>
           </div>
@@ -952,7 +947,7 @@ function TaxOptimizationTab() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Family Tax Optimization</CardTitle>
+        <CardTitle className="text-lg">Family Tax Optimization</CardTitle>
         <p className="text-sm text-muted-foreground">Track deductions across Sections 80C, 80D, and 80E, plus HUF benefits</p>
       </CardHeader>
       <CardContent>
@@ -962,7 +957,7 @@ function TaxOptimizationTab() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <h4 className="text-sm font-semibold text-foreground">Section 80C</h4>
+                <h4 className="text-base font-semibold text-foreground">Section 80C</h4>
                 <span className={`text-xs ${total80C > SECTION_80C_CAP ? "text-destructive" : "text-muted-foreground"}`}>
                   {formatCurrency(total80C)} of {formatCurrency(SECTION_80C_CAP)} cap
                 </span>
@@ -1004,7 +999,7 @@ function TaxOptimizationTab() {
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-foreground">Section 80D — Health Insurance</h4>
+              <h4 className="mb-2 text-base font-semibold text-foreground">Section 80D — Health Insurance</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-self-health">Self &amp; Family Health Insurance</Label>
@@ -1030,7 +1025,7 @@ function TaxOptimizationTab() {
             </div>
 
             <div>
-              <h4 className="mb-2 text-sm font-semibold text-foreground">Section 80E — Education Loan</h4>
+              <h4 className="mb-2 text-base font-semibold text-foreground">Section 80E — Education Loan</h4>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="tax-edu-loan">Education Loan Interest</Label>
@@ -1159,7 +1154,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Cost to Support a Dependent</CardTitle>
+          <CardTitle className="text-lg">Cost to Support a Dependent</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -1224,7 +1219,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Family Health Insurance Requirement</CardTitle>
+          <CardTitle className="text-lg">Family Health Insurance Requirement</CardTitle>
           <p className="text-sm text-muted-foreground">Based on your family size and composition</p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -1255,7 +1250,7 @@ function FamilyCalculatorsTab({ members }: { members: FamilyMember[] }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Family Emergency Fund Recommendation</CardTitle>
+          <CardTitle className="text-lg">Family Emergency Fund Recommendation</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="max-w-xs space-y-1.5">
@@ -1307,8 +1302,8 @@ export default function FamilyAdvanced() {
     <GiniLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">Advanced tools</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Advanced Family Planning</h1>
+          <span className="xt-eyebrow">Advanced tools</span>
+          <h1 className="xt-title mb-2">Advanced Family Planning</h1>
           <p className="text-muted-foreground">Dual retirement, elder care, children's education, and tax optimization</p>
         </div>
 

@@ -8,60 +8,60 @@ import Footer from "../../../../components/Footer";
 const TwoPathsSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Two Different Approaches to Investing</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Two Different Approaches to Investing</text>
     
     {/* Left: Time IN the Market */}
     <g transform="translate(50, 60)">
-      <rect x="0" y="0" width="270" height="210" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#166534">📅 Time IN the Market</text>
+      <rect x="0" y="0" width="270" height="210" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#16A34A">📅 Time IN the Market</text>
       
       {/* Continuous path visualization */}
       <g transform="translate(25, 50)">
-        <rect x="0" y="40" width="220" height="8" fill="#22c55e" rx="4"/>
-        <circle cx="0" cy="44" r="10" fill="#16a34a"/>
+        <rect x="0" y="40" width="220" height="8" fill="#16A34A" rx="4"/>
+        <circle cx="0" cy="44" r="10" fill="#16A34A"/>
         <text x="0" y="48" textAnchor="middle" fontSize="8" fill="white">Start</text>
-        <circle cx="220" cy="44" r="10" fill="#16a34a"/>
+        <circle cx="220" cy="44" r="10" fill="#16A34A"/>
         <text x="220" y="48" textAnchor="middle" fontSize="8" fill="white">Now</text>
         
-        <text x="110" y="75" textAnchor="middle" fontSize="9" fill="#166534">Continuously invested</text>
+        <text x="110" y="75" textAnchor="middle" fontSize="9" fill="#16A34A">Continuously invested</text>
       </g>
       
       <g transform="translate(20, 130)">
-        <text x="0" y="0" fontSize="9" fill="#14532d">✓ Stay invested through ups and downs</text>
-        <text x="0" y="18" fontSize="9" fill="#14532d">✓ No prediction required</text>
-        <text x="0" y="36" fontSize="9" fill="#14532d">✓ Captures long-term growth</text>
-        <text x="0" y="54" fontSize="9" fill="#14532d">✓ Less stress, fewer decisions</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A">✓ Stay invested through ups and downs</text>
+        <text x="0" y="18" fontSize="9" fill="#16A34A">✓ No prediction required</text>
+        <text x="0" y="36" fontSize="9" fill="#16A34A">✓ Captures long-term growth</text>
+        <text x="0" y="54" fontSize="9" fill="#16A34A">✓ Less stress, fewer decisions</text>
       </g>
     </g>
     
     {/* Right: Timing the Market */}
     <g transform="translate(380, 60)">
-      <rect x="0" y="0" width="270" height="210" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="135" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#92400e">⏱️ Timing the Market</text>
+      <rect x="0" y="0" width="270" height="210" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="135" y="28" textAnchor="middle" fontSize="12" fontWeight="600" fill="#654B26">⏱️ Timing the Market</text>
       
       {/* Interrupted path visualization */}
       <g transform="translate(25, 50)">
-        <rect x="0" y="40" width="50" height="8" fill="#f59e0b" rx="4"/>
-        <rect x="70" y="40" width="40" height="8" fill="#f59e0b" rx="4"/>
-        <rect x="130" y="40" width="30" height="8" fill="#f59e0b" rx="4"/>
-        <rect x="180" y="40" width="40" height="8" fill="#f59e0b" rx="4"/>
+        <rect x="0" y="40" width="50" height="8" fill="#B8923F" rx="4"/>
+        <rect x="70" y="40" width="40" height="8" fill="#B8923F" rx="4"/>
+        <rect x="130" y="40" width="30" height="8" fill="#B8923F" rx="4"/>
+        <rect x="180" y="40" width="40" height="8" fill="#B8923F" rx="4"/>
         
         {/* Gap indicators */}
-        <text x="60" y="44" textAnchor="middle" fontSize="8" fill="#dc2626">out</text>
-        <text x="120" y="44" textAnchor="middle" fontSize="8" fill="#dc2626">out</text>
-        <text x="170" y="44" textAnchor="middle" fontSize="8" fill="#dc2626">out</text>
+        <text x="60" y="44" textAnchor="middle" fontSize="8" fill="#C7363B">out</text>
+        <text x="120" y="44" textAnchor="middle" fontSize="8" fill="#C7363B">out</text>
+        <text x="170" y="44" textAnchor="middle" fontSize="8" fill="#C7363B">out</text>
         
-        <text x="110" y="75" textAnchor="middle" fontSize="9" fill="#92400e">In and out repeatedly</text>
+        <text x="110" y="75" textAnchor="middle" fontSize="9" fill="#654B26">In and out repeatedly</text>
       </g>
       
       <g transform="translate(20, 130)">
-        <text x="0" y="0" fontSize="9" fill="#78350f">⚠ Try to predict highs and lows</text>
-        <text x="0" y="18" fontSize="9" fill="#78350f">⚠ Must be right twice (exit + re-enter)</text>
-        <text x="0" y="36" fontSize="9" fill="#78350f">⚠ Risk missing key growth periods</text>
-        <text x="0" y="54" fontSize="9" fill="#78350f">⚠ High stress, constant decisions</text>
+        <text x="0" y="0" fontSize="9" fill="#533E22">⚠ Try to predict highs and lows</text>
+        <text x="0" y="18" fontSize="9" fill="#533E22">⚠ Must be right twice (exit + re-enter)</text>
+        <text x="0" y="36" fontSize="9" fill="#533E22">⚠ Risk missing key growth periods</text>
+        <text x="0" y="54" fontSize="9" fill="#533E22">⚠ High stress, constant decisions</text>
       </g>
     </g>
   </svg>
@@ -71,37 +71,37 @@ const TwoPathsSVG = () => (
 const TimingAttractiveSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Why Market Timing Feels So Attractive</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">The logical appeal vs the practical reality</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Why Market Timing Feels So Attractive</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">The logical appeal vs the practical reality</text>
     
     {/* The Appeal */}
     <g transform="translate(50, 70)">
-      <rect x="0" y="0" width="280" height="160" fill="#dbeafe" rx="12" stroke="#93c5fd" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1e40af">💭 The Appeal</text>
+      <rect x="0" y="0" width="280" height="160" fill="#E0E7F1" rx="12" stroke="#9FB3D3" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#2C3F5E">💭 The Appeal</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#1e3a8a">"Buy low, sell high" sounds logical</text>
-        <text x="0" y="22" fontSize="9" fill="#1e3a8a">"Avoid the drops, catch the rises"</text>
-        <text x="0" y="44" fontSize="9" fill="#1e3a8a">"Smart people can predict markets"</text>
-        <text x="0" y="66" fontSize="9" fill="#1e3a8a">"I'll get back in when things calm down"</text>
-        <text x="0" y="88" fontSize="9" fill="#1e3a8a">"This time feels different"</text>
+        <text x="0" y="0" fontSize="9" fill="#26354F">"Buy low, sell high" sounds logical</text>
+        <text x="0" y="22" fontSize="9" fill="#26354F">"Avoid the drops, catch the rises"</text>
+        <text x="0" y="44" fontSize="9" fill="#26354F">"Smart people can predict markets"</text>
+        <text x="0" y="66" fontSize="9" fill="#26354F">"I'll get back in when things calm down"</text>
+        <text x="0" y="88" fontSize="9" fill="#26354F">"This time feels different"</text>
       </g>
     </g>
     
     {/* The Reality */}
     <g transform="translate(370, 70)">
-      <rect x="0" y="0" width="280" height="160" fill="#fef2f2" rx="12" stroke="#fca5a5" strokeWidth="2"/>
-      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#dc2626">🔍 The Reality</text>
+      <rect x="0" y="0" width="280" height="160" fill="#FDF1F1" rx="12" stroke="#F09B9B" strokeWidth="2"/>
+      <text x="140" y="25" textAnchor="middle" fontSize="11" fontWeight="600" fill="#C7363B">🔍 The Reality</text>
       
       <g transform="translate(20, 45)">
-        <text x="0" y="0" fontSize="9" fill="#991b1b">No one consistently predicts bottoms</text>
-        <text x="0" y="22" fontSize="9" fill="#991b1b">Best days often follow worst days</text>
-        <text x="0" y="44" fontSize="9" fill="#991b1b">Even professionals struggle to time</text>
-        <text x="0" y="66" fontSize="9" fill="#991b1b">"Calm" often means you've missed the rise</text>
-        <text x="0" y="88" fontSize="9" fill="#991b1b">Markets always feel uncertain</text>
+        <text x="0" y="0" fontSize="9" fill="#842428">No one consistently predicts bottoms</text>
+        <text x="0" y="22" fontSize="9" fill="#842428">Best days often follow worst days</text>
+        <text x="0" y="44" fontSize="9" fill="#842428">Even professionals struggle to time</text>
+        <text x="0" y="66" fontSize="9" fill="#842428">"Calm" often means you've missed the rise</text>
+        <text x="0" y="88" fontSize="9" fill="#842428">Markets always feel uncertain</text>
       </g>
     </g>
   </svg>
@@ -111,62 +111,62 @@ const TimingAttractiveSVG = () => (
 const MissedPeriodsSVG = () => (
   <svg viewBox="0 0 700 320" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="320" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="320" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The Hidden Cost of Missing Key Periods</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Markets don't rise gradually — growth often comes in sudden bursts</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Hidden Cost of Missing Key Periods</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Markets don't rise gradually — growth often comes in sudden bursts</text>
     
     {/* Timeline visualization */}
     <g transform="translate(60, 80)">
       {/* Base timeline */}
-      <line x1="0" y1="100" x2="580" y2="100" stroke="#e2e8f0" strokeWidth="2"/>
+      <line x1="0" y1="100" x2="580" y2="100" stroke="#E4E4EA" strokeWidth="2"/>
       
       {/* Regular periods - flat */}
-      <rect x="0" y="85" width="80" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
-      <rect x="100" y="85" width="60" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
-      <rect x="180" y="85" width="80" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
-      <rect x="280" y="85" width="60" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
-      <rect x="360" y="85" width="80" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
-      <rect x="460" y="85" width="60" height="30" fill="#f1f5f9" rx="4" stroke="#cbd5e1" strokeWidth="1"/>
+      <rect x="0" y="85" width="80" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
+      <rect x="100" y="85" width="60" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
+      <rect x="180" y="85" width="80" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
+      <rect x="280" y="85" width="60" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
+      <rect x="360" y="85" width="80" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
+      <rect x="460" y="85" width="60" height="30" fill="#EEEEF1" rx="4" stroke="#CFD0D3" strokeWidth="1"/>
       
       {/* Key growth periods - highlighted */}
-      <rect x="80" y="60" width="20" height="55" fill="#22c55e" rx="4"/>
-      <text x="90" y="52" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Surge</text>
+      <rect x="80" y="60" width="20" height="55" fill="#16A34A" rx="4"/>
+      <text x="90" y="52" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="600">Surge</text>
       
-      <rect x="160" y="65" width="20" height="50" fill="#22c55e" rx="4"/>
-      <text x="170" y="57" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Surge</text>
+      <rect x="160" y="65" width="20" height="50" fill="#16A34A" rx="4"/>
+      <text x="170" y="57" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="600">Surge</text>
       
-      <rect x="260" y="70" width="20" height="45" fill="#22c55e" rx="4"/>
-      <text x="270" y="62" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Surge</text>
+      <rect x="260" y="70" width="20" height="45" fill="#16A34A" rx="4"/>
+      <text x="270" y="62" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="600">Surge</text>
       
-      <rect x="440" y="55" width="20" height="60" fill="#22c55e" rx="4"/>
-      <text x="450" y="47" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Surge</text>
+      <rect x="440" y="55" width="20" height="60" fill="#16A34A" rx="4"/>
+      <text x="450" y="47" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="600">Surge</text>
       
-      <rect x="520" y="68" width="20" height="47" fill="#22c55e" rx="4"/>
-      <text x="530" y="60" textAnchor="middle" fontSize="8" fill="#166534" fontWeight="600">Surge</text>
+      <rect x="520" y="68" width="20" height="47" fill="#16A34A" rx="4"/>
+      <text x="530" y="60" textAnchor="middle" fontSize="8" fill="#16A34A" fontWeight="600">Surge</text>
       
       {/* Labels */}
-      <text x="290" y="145" textAnchor="middle" fontSize="9" fill="#64748b">Years of investing</text>
+      <text x="290" y="145" textAnchor="middle" fontSize="9" fill="#717680">Years of investing</text>
     </g>
     
     {/* Key insight boxes */}
     <g transform="translate(60, 195)">
-      <rect x="0" y="0" width="270" height="70" fill="#dcfce7" rx="10" stroke="#86efac" strokeWidth="1"/>
-      <text x="135" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">If You Stay Invested</text>
-      <text x="135" y="42" textAnchor="middle" fontSize="9" fill="#14532d">You capture ALL the surge periods</text>
-      <text x="135" y="58" textAnchor="middle" fontSize="9" fill="#14532d">Growth accumulates over time</text>
+      <rect x="0" y="0" width="270" height="70" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="135" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">If You Stay Invested</text>
+      <text x="135" y="42" textAnchor="middle" fontSize="9" fill="#16A34A">You capture ALL the surge periods</text>
+      <text x="135" y="58" textAnchor="middle" fontSize="9" fill="#16A34A">Growth accumulates over time</text>
     </g>
     
     <g transform="translate(370, 195)">
-      <rect x="0" y="0" width="270" height="70" fill="#fef2f2" rx="10" stroke="#fca5a5" strokeWidth="1"/>
-      <text x="135" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#dc2626">If You're Out During Surges</text>
-      <text x="135" y="42" textAnchor="middle" fontSize="9" fill="#991b1b">You miss the periods that matter most</text>
-      <text x="135" y="58" textAnchor="middle" fontSize="9" fill="#991b1b">No way to know when surges will happen</text>
+      <rect x="0" y="0" width="270" height="70" fill="#FDF1F1" rx="10" stroke="#F09B9B" strokeWidth="1"/>
+      <text x="135" y="22" textAnchor="middle" fontSize="10" fontWeight="600" fill="#C7363B">If You're Out During Surges</text>
+      <text x="135" y="42" textAnchor="middle" fontSize="9" fill="#842428">You miss the periods that matter most</text>
+      <text x="135" y="58" textAnchor="middle" fontSize="9" fill="#842428">No way to know when surges will happen</text>
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="285" width="500" height="25" fill="#1e293b" rx="6"/>
+    <rect x="100" y="285" width="500" height="25" fill="#2A2A2C" rx="6"/>
     <text x="350" y="302" textAnchor="middle" fontSize="9" fill="white">The best days are unpredictable. Being invested is the only way to guarantee you don't miss them.</text>
   </svg>
 );
@@ -175,62 +175,62 @@ const MissedPeriodsSVG = () => (
 const GrowthPathsSVG = () => (
   <svg viewBox="0 0 700 300" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="300" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="300" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Continuous Investment vs Interrupted Investment</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">Same starting point, same time period, different journeys</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Continuous Investment vs Interrupted Investment</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">Same starting point, same time period, different journeys</text>
     
     {/* Chart area */}
     <g transform="translate(80, 75)">
       {/* Grid */}
-      <line x1="0" y1="180" x2="540" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
-      <line x1="0" y1="0" x2="0" y2="180" stroke="#e2e8f0" strokeWidth="1"/>
+      <line x1="0" y1="180" x2="540" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#E4E4EA" strokeWidth="1"/>
       
       {/* Continuous investor path - smooth upward */}
       <path d="M0 160 Q90 155 180 140 Q270 120 360 90 Q450 55 540 30" 
-            fill="none" stroke="#22c55e" strokeWidth="3"/>
-      <circle cx="540" cy="30" r="6" fill="#22c55e"/>
+            fill="none" stroke="#16A34A" strokeWidth="3"/>
+      <circle cx="540" cy="30" r="6" fill="#16A34A"/>
       
       {/* Timer investor path - interrupted with gaps */}
-      <path d="M0 160 L60 155" fill="none" stroke="#f59e0b" strokeWidth="2.5"/>
-      <path d="M100 155 L160 145" fill="none" stroke="#f59e0b" strokeWidth="2.5"/>
-      <path d="M200 155 L280 140" fill="none" stroke="#f59e0b" strokeWidth="2.5"/>
-      <path d="M320 150 L400 130" fill="none" stroke="#f59e0b" strokeWidth="2.5"/>
-      <path d="M440 140 L540 110" fill="none" stroke="#f59e0b" strokeWidth="2.5"/>
-      <circle cx="540" cy="110" r="6" fill="#f59e0b"/>
+      <path d="M0 160 L60 155" fill="none" stroke="#B8923F" strokeWidth="2.5"/>
+      <path d="M100 155 L160 145" fill="none" stroke="#B8923F" strokeWidth="2.5"/>
+      <path d="M200 155 L280 140" fill="none" stroke="#B8923F" strokeWidth="2.5"/>
+      <path d="M320 150 L400 130" fill="none" stroke="#B8923F" strokeWidth="2.5"/>
+      <path d="M440 140 L540 110" fill="none" stroke="#B8923F" strokeWidth="2.5"/>
+      <circle cx="540" cy="110" r="6" fill="#B8923F"/>
       
       {/* Gap annotations */}
-      <rect x="60" y="145" width="40" height="20" fill="#fee2e2" rx="4"/>
-      <text x="80" y="158" textAnchor="middle" fontSize="7" fill="#dc2626">Out</text>
+      <rect x="60" y="145" width="40" height="20" fill="#FBE1E1" rx="4"/>
+      <text x="80" y="158" textAnchor="middle" fontSize="7" fill="#C7363B">Out</text>
       
-      <rect x="160" y="140" width="40" height="20" fill="#fee2e2" rx="4"/>
-      <text x="180" y="153" textAnchor="middle" fontSize="7" fill="#dc2626">Out</text>
+      <rect x="160" y="140" width="40" height="20" fill="#FBE1E1" rx="4"/>
+      <text x="180" y="153" textAnchor="middle" fontSize="7" fill="#C7363B">Out</text>
       
-      <rect x="280" y="135" width="40" height="20" fill="#fee2e2" rx="4"/>
-      <text x="300" y="148" textAnchor="middle" fontSize="7" fill="#dc2626">Out</text>
+      <rect x="280" y="135" width="40" height="20" fill="#FBE1E1" rx="4"/>
+      <text x="300" y="148" textAnchor="middle" fontSize="7" fill="#C7363B">Out</text>
       
-      <rect x="400" y="125" width="40" height="20" fill="#fee2e2" rx="4"/>
-      <text x="420" y="138" textAnchor="middle" fontSize="7" fill="#dc2626">Out</text>
+      <rect x="400" y="125" width="40" height="20" fill="#FBE1E1" rx="4"/>
+      <text x="420" y="138" textAnchor="middle" fontSize="7" fill="#C7363B">Out</text>
       
       {/* The gap between outcomes */}
-      <line x1="555" y1="30" x2="555" y2="110" stroke="#64748b" strokeWidth="1" strokeDasharray="4"/>
-      <text x="575" y="70" fontSize="8" fill="#64748b">Gap</text>
+      <line x1="555" y1="30" x2="555" y2="110" stroke="#717680" strokeWidth="1" strokeDasharray="4"/>
+      <text x="575" y="70" fontSize="8" fill="#717680">Gap</text>
       
       {/* Legend */}
       <g transform="translate(350, -25)">
-        <line x1="0" y1="0" x2="25" y2="0" stroke="#22c55e" strokeWidth="3"/>
-        <text x="32" y="4" fontSize="9" fill="#166534">Stayed invested</text>
+        <line x1="0" y1="0" x2="25" y2="0" stroke="#16A34A" strokeWidth="3"/>
+        <text x="32" y="4" fontSize="9" fill="#16A34A">Stayed invested</text>
       </g>
       <g transform="translate(350, -8)">
-        <line x1="0" y1="0" x2="25" y2="0" stroke="#f59e0b" strokeWidth="2.5"/>
-        <text x="32" y="4" fontSize="9" fill="#92400e">Tried to time</text>
+        <line x1="0" y1="0" x2="25" y2="0" stroke="#B8923F" strokeWidth="2.5"/>
+        <text x="32" y="4" fontSize="9" fill="#654B26">Tried to time</text>
       </g>
       
       {/* Time labels */}
-      <text x="0" y="200" fontSize="8" fill="#64748b">Start</text>
-      <text x="270" y="200" textAnchor="middle" fontSize="8" fill="#64748b">Years pass</text>
-      <text x="540" y="200" textAnchor="end" fontSize="8" fill="#64748b">End</text>
+      <text x="0" y="200" fontSize="8" fill="#717680">Start</text>
+      <text x="270" y="200" textAnchor="middle" fontSize="8" fill="#717680">Years pass</text>
+      <text x="540" y="200" textAnchor="end" fontSize="8" fill="#717680">End</text>
     </g>
   </svg>
 );
@@ -239,48 +239,48 @@ const GrowthPathsSVG = () => (
 const PredictionProblemSVG = () => (
   <svg viewBox="0 0 700 280" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="280" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="280" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The Prediction Problem</text>
-    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#64748b">To time the market successfully, you need to be right twice</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Prediction Problem</text>
+    <text x="350" y="48" textAnchor="middle" fontSize="10" fill="#717680">To time the market successfully, you need to be right twice</text>
     
     {/* Two decision points */}
     <g transform="translate(100, 80)">
       {/* Decision 1: When to exit */}
       <g transform="translate(0, 0)">
-        <rect x="0" y="0" width="200" height="150" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="100" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Decision 1: When to Exit</text>
+        <rect x="0" y="0" width="200" height="150" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+        <text x="100" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Decision 1: When to Exit</text>
         
         <g transform="translate(20, 50)">
-          <text x="0" y="0" fontSize="9" fill="#78350f">You must predict:</text>
-          <text x="0" y="20" fontSize="9" fill="#78350f">• Is this the peak?</text>
-          <text x="0" y="38" fontSize="9" fill="#78350f">• Will it fall from here?</text>
-          <text x="0" y="56" fontSize="9" fill="#78350f">• How much will it fall?</text>
-          <text x="0" y="74" fontSize="9" fill="#78350f">• When should I sell?</text>
+          <text x="0" y="0" fontSize="9" fill="#533E22">You must predict:</text>
+          <text x="0" y="20" fontSize="9" fill="#533E22">• Is this the peak?</text>
+          <text x="0" y="38" fontSize="9" fill="#533E22">• Will it fall from here?</text>
+          <text x="0" y="56" fontSize="9" fill="#533E22">• How much will it fall?</text>
+          <text x="0" y="74" fontSize="9" fill="#533E22">• When should I sell?</text>
         </g>
       </g>
       
       {/* Plus sign */}
-      <text x="230" y="85" fontSize="32" fill="#94a3b8">+</text>
+      <text x="230" y="85" fontSize="32" fill="#A0A3AA">+</text>
       
       {/* Decision 2: When to re-enter */}
       <g transform="translate(280, 0)">
-        <rect x="0" y="0" width="200" height="150" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-        <text x="100" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">Decision 2: When to Re-enter</text>
+        <rect x="0" y="0" width="200" height="150" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+        <text x="100" y="30" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">Decision 2: When to Re-enter</text>
         
         <g transform="translate(20, 50)">
-          <text x="0" y="0" fontSize="9" fill="#78350f">You must predict:</text>
-          <text x="0" y="20" fontSize="9" fill="#78350f">• Is this the bottom?</text>
-          <text x="0" y="38" fontSize="9" fill="#78350f">• Will it rise from here?</text>
-          <text x="0" y="56" fontSize="9" fill="#78350f">• Is the danger over?</text>
-          <text x="0" y="74" fontSize="9" fill="#78350f">• When should I buy?</text>
+          <text x="0" y="0" fontSize="9" fill="#533E22">You must predict:</text>
+          <text x="0" y="20" fontSize="9" fill="#533E22">• Is this the bottom?</text>
+          <text x="0" y="38" fontSize="9" fill="#533E22">• Will it rise from here?</text>
+          <text x="0" y="56" fontSize="9" fill="#533E22">• Is the danger over?</text>
+          <text x="0" y="74" fontSize="9" fill="#533E22">• When should I buy?</text>
         </g>
       </g>
     </g>
     
     {/* Bottom message */}
-    <rect x="100" y="245" width="500" height="25" fill="#dc2626" rx="6"/>
+    <rect x="100" y="245" width="500" height="25" fill="#C7363B" rx="6"/>
     <text x="350" y="262" textAnchor="middle" fontSize="9" fill="white">Getting ONE decision wrong can undo the benefit of the other. Getting both right consistently is nearly impossible.</text>
   </svg>
 );
@@ -289,62 +289,62 @@ const PredictionProblemSVG = () => (
 const TwoInvestorsSVG = () => (
   <svg viewBox="0 0 700 340" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="340" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="340" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">Two Investors, Same Market, Different Experiences</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">Two Investors, Same Market, Different Experiences</text>
     
     {/* Investor A: The Steady Investor */}
     <g transform="translate(50, 55)">
-      <rect x="0" y="0" width="280" height="255" fill="#dcfce7" rx="12" stroke="#86efac" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#166534">🧘 Maya: The Steady Investor</text>
+      <rect x="0" y="0" width="280" height="255" fill="#F0FDF4" rx="12" stroke="#16A34A" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#16A34A">🧘 Maya: The Steady Investor</text>
       
       {/* Timeline */}
       <g transform="translate(20, 50)">
-        <rect x="0" y="0" width="240" height="60" fill="#f0fdf4" rx="8"/>
-        <line x1="20" y1="30" x2="220" y2="30" stroke="#22c55e" strokeWidth="3"/>
-        <circle cx="20" cy="30" r="6" fill="#16a34a"/>
-        <circle cx="220" cy="30" r="6" fill="#16a34a"/>
-        <text x="120" y="55" textAnchor="middle" fontSize="8" fill="#166534">Invested continuously for years</text>
+        <rect x="0" y="0" width="240" height="60" fill="#F0FDF4" rx="8"/>
+        <line x1="20" y1="30" x2="220" y2="30" stroke="#16A34A" strokeWidth="3"/>
+        <circle cx="20" cy="30" r="6" fill="#16A34A"/>
+        <circle cx="220" cy="30" r="6" fill="#16A34A"/>
+        <text x="120" y="55" textAnchor="middle" fontSize="8" fill="#16A34A">Invested continuously for years</text>
       </g>
       
       <g transform="translate(20, 125)">
-        <text x="0" y="0" fontSize="9" fill="#14532d" fontWeight="500">Maya's approach:</text>
-        <text x="0" y="18" fontSize="9" fill="#14532d">• Invested regularly, rain or shine</text>
-        <text x="0" y="36" fontSize="9" fill="#14532d">• Ignored scary headlines</text>
-        <text x="0" y="54" fontSize="9" fill="#14532d">• Didn't try to predict anything</text>
-        <text x="0" y="72" fontSize="9" fill="#14532d">• Spent time on life, not markets</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A" fontWeight="500">Maya's approach:</text>
+        <text x="0" y="18" fontSize="9" fill="#16A34A">• Invested regularly, rain or shine</text>
+        <text x="0" y="36" fontSize="9" fill="#16A34A">• Ignored scary headlines</text>
+        <text x="0" y="54" fontSize="9" fill="#16A34A">• Didn't try to predict anything</text>
+        <text x="0" y="72" fontSize="9" fill="#16A34A">• Spent time on life, not markets</text>
       </g>
       
-      <rect x="20" y="210" width="240" height="30" fill="#166534" rx="6"/>
+      <rect x="20" y="210" width="240" height="30" fill="#16A34A" rx="6"/>
       <text x="140" y="230" textAnchor="middle" fontSize="10" fill="white" fontWeight="500">Result: Peaceful journey, steady progress</text>
     </g>
     
     {/* Investor B: The Timer */}
     <g transform="translate(370, 55)">
-      <rect x="0" y="0" width="280" height="255" fill="#fef9c3" rx="12" stroke="#fcd34d" strokeWidth="2"/>
-      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#92400e">😰 Raj: The Market Timer</text>
+      <rect x="0" y="0" width="280" height="255" fill="#F6ECCE" rx="12" stroke="#E2C273" strokeWidth="2"/>
+      <text x="140" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#654B26">😰 Raj: The Market Timer</text>
       
       {/* Timeline - fragmented */}
       <g transform="translate(20, 50)">
-        <rect x="0" y="0" width="240" height="60" fill="#fefce8" rx="8"/>
-        <line x1="20" y1="30" x2="60" y2="30" stroke="#f59e0b" strokeWidth="3"/>
-        <line x1="90" y1="30" x2="130" y2="30" stroke="#f59e0b" strokeWidth="3"/>
-        <line x1="160" y1="30" x2="220" y2="30" stroke="#f59e0b" strokeWidth="3"/>
-        <text x="75" y="25" fontSize="7" fill="#dc2626">out</text>
-        <text x="145" y="25" fontSize="7" fill="#dc2626">out</text>
-        <text x="120" y="55" textAnchor="middle" fontSize="8" fill="#92400e">In and out based on predictions</text>
+        <rect x="0" y="0" width="240" height="60" fill="#FBF7EC" rx="8"/>
+        <line x1="20" y1="30" x2="60" y2="30" stroke="#B8923F" strokeWidth="3"/>
+        <line x1="90" y1="30" x2="130" y2="30" stroke="#B8923F" strokeWidth="3"/>
+        <line x1="160" y1="30" x2="220" y2="30" stroke="#B8923F" strokeWidth="3"/>
+        <text x="75" y="25" fontSize="7" fill="#C7363B">out</text>
+        <text x="145" y="25" fontSize="7" fill="#C7363B">out</text>
+        <text x="120" y="55" textAnchor="middle" fontSize="8" fill="#654B26">In and out based on predictions</text>
       </g>
       
       <g transform="translate(20, 125)">
-        <text x="0" y="0" fontSize="9" fill="#78350f" fontWeight="500">Raj's approach:</text>
-        <text x="0" y="18" fontSize="9" fill="#78350f">• Exited when markets felt scary</text>
-        <text x="0" y="36" fontSize="9" fill="#78350f">• Waited for "the right time" to return</text>
-        <text x="0" y="54" fontSize="9" fill="#78350f">• Watched markets constantly</text>
-        <text x="0" y="72" fontSize="9" fill="#78350f">• Stressed about every decision</text>
+        <text x="0" y="0" fontSize="9" fill="#533E22" fontWeight="500">Raj's approach:</text>
+        <text x="0" y="18" fontSize="9" fill="#533E22">• Exited when markets felt scary</text>
+        <text x="0" y="36" fontSize="9" fill="#533E22">• Waited for "the right time" to return</text>
+        <text x="0" y="54" fontSize="9" fill="#533E22">• Watched markets constantly</text>
+        <text x="0" y="72" fontSize="9" fill="#533E22">• Stressed about every decision</text>
       </g>
       
-      <rect x="20" y="210" width="240" height="30" fill="#92400e" rx="6"/>
+      <rect x="20" y="210" width="240" height="30" fill="#654B26" rx="6"/>
       <text x="140" y="230" textAnchor="middle" fontSize="10" fill="white" fontWeight="500">Result: Stressful journey, uncertain progress</text>
     </g>
   </svg>
@@ -354,47 +354,47 @@ const TwoInvestorsSVG = () => (
 const CalmAdvantageSVG = () => (
   <svg viewBox="0 0 700 260" className="w-full max-w-3xl mx-auto">
     {/* Background */}
-    <rect x="0" y="0" width="700" height="260" fill="#f8fafc" rx="16"/>
+    <rect x="0" y="0" width="700" height="260" fill="#F5F5F7" rx="16"/>
     
     {/* Title */}
-    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#334155">The Calm Advantage of Staying Invested</text>
+    <text x="350" y="28" textAnchor="middle" fontSize="14" fontWeight="600" fill="#373A41">The Calm Advantage of Staying Invested</text>
     
     {/* Stress comparison */}
     <g transform="translate(60, 60)">
       {/* Timer stress line */}
       <g transform="translate(0, 0)">
-        <text x="0" y="0" fontSize="10" fill="#dc2626" fontWeight="500">Market Timer's Mental State: 😰</text>
-        <rect x="150" y="-12" width="420" height="30" fill="#fef2f2" rx="6"/>
+        <text x="0" y="0" fontSize="10" fill="#C7363B" fontWeight="500">Market Timer's Mental State: 😰</text>
+        <rect x="150" y="-12" width="420" height="30" fill="#FDF1F1" rx="6"/>
         
         {/* Anxiety spikes */}
         <path d="M160 3 L180 -8 L200 8 L220 -10 L240 10 L260 -8 L280 8 L300 -10 L320 5 L340 -8 L360 10 L380 -10 L400 8 L420 -8 L440 10 L460 -5 L480 8 L500 -10 L520 5 L540 -8 L560 3" 
-              fill="none" stroke="#ef4444" strokeWidth="2"/>
+              fill="none" stroke="#E04848" strokeWidth="2"/>
         
-        <text x="360" y="28" textAnchor="middle" fontSize="8" fill="#991b1b">"Should I be in? Should I be out? Did I miss it?"</text>
+        <text x="360" y="28" textAnchor="middle" fontSize="8" fill="#842428">"Should I be in? Should I be out? Did I miss it?"</text>
       </g>
       
       {/* Long-term investor calm line */}
       <g transform="translate(0, 80)">
-        <text x="0" y="0" fontSize="10" fill="#16a34a" fontWeight="500">Long-Term Investor's Mental State: 😌</text>
-        <rect x="150" y="-12" width="420" height="30" fill="#dcfce7" rx="6"/>
+        <text x="0" y="0" fontSize="10" fill="#16A34A" fontWeight="500">Long-Term Investor's Mental State: 😌</text>
+        <rect x="150" y="-12" width="420" height="30" fill="#F0FDF4" rx="6"/>
         
         {/* Calm steady line */}
         <path d="M160 3 Q280 1 400 3 Q520 5 560 3" 
-              fill="none" stroke="#22c55e" strokeWidth="2"/>
+              fill="none" stroke="#16A34A" strokeWidth="2"/>
         
-        <text x="360" y="28" textAnchor="middle" fontSize="8" fill="#166534">"Markets do what markets do. I'm invested for the long term."</text>
+        <text x="360" y="28" textAnchor="middle" fontSize="8" fill="#16A34A">"Markets do what markets do. I'm invested for the long term."</text>
       </g>
     </g>
     
     {/* Benefits */}
     <g transform="translate(80, 180)">
-      <rect x="0" y="0" width="540" height="55" fill="#f0fdf4" rx="10" stroke="#86efac" strokeWidth="1"/>
-      <text x="270" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#166534">Benefits of the Calm Approach</text>
+      <rect x="0" y="0" width="540" height="55" fill="#F0FDF4" rx="10" stroke="#16A34A" strokeWidth="1"/>
+      <text x="270" y="20" textAnchor="middle" fontSize="10" fontWeight="600" fill="#16A34A">Benefits of the Calm Approach</text>
       <g transform="translate(30, 35)">
-        <text x="0" y="0" fontSize="9" fill="#14532d">✓ Better sleep</text>
-        <text x="120" y="0" fontSize="9" fill="#14532d">✓ Less anxiety</text>
-        <text x="240" y="0" fontSize="9" fill="#14532d">✓ More free time</text>
-        <text x="380" y="0" fontSize="9" fill="#14532d">✓ Clearer thinking</text>
+        <text x="0" y="0" fontSize="9" fill="#16A34A">✓ Better sleep</text>
+        <text x="120" y="0" fontSize="9" fill="#16A34A">✓ Less anxiety</text>
+        <text x="240" y="0" fontSize="9" fill="#16A34A">✓ More free time</text>
+        <text x="380" y="0" fontSize="9" fill="#16A34A">✓ Clearer thinking</text>
       </g>
     </g>
   </svg>
@@ -408,8 +408,8 @@ const ParticipationSVG = () => (
     
     <defs>
       <linearGradient id="participationGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#059669"/>
-        <stop offset="100%" stopColor="#0d9488"/>
+        <stop offset="0%" stopColor="#16A34A"/>
+        <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
     
@@ -430,7 +430,7 @@ const ParticipationSVG = () => (
       <text x="100" y="40" textAnchor="middle" fontSize="10" fill="white" fontWeight="600">consistently over time</text>
     </g>
     
-    <text x="350" y="155" textAnchor="middle" fontSize="12" fill="#a7f3d0">Participation beats prediction. Consistency beats cleverness.</text>
+    <text x="350" y="155" textAnchor="middle" fontSize="12" fill="#BBF7D0">Participation beats prediction. Consistency beats cleverness.</text>
     <text x="350" y="180" textAnchor="middle" fontSize="11" fill="white" fontWeight="600">You don't need to be right. You need to be invested.</text>
   </svg>
 );
@@ -443,15 +443,15 @@ const KeyTakeawaySVG = () => (
     
     <defs>
       <linearGradient id="takeawayGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#059669"/>
-        <stop offset="100%" stopColor="#0d9488"/>
+        <stop offset="0%" stopColor="#16A34A"/>
+        <stop offset="100%" stopColor="#2A8C9A"/>
       </linearGradient>
     </defs>
     
     <text x="350" y="40" textAnchor="middle" fontSize="13" fontWeight="600" fill="white">🌱 Key Takeaway</text>
     <text x="350" y="70" textAnchor="middle" fontSize="12" fill="white">Time IN the market beats trying to time the market.</text>
     <text x="350" y="95" textAnchor="middle" fontSize="12" fill="white">The key to capturing long-term growth is simply staying invested.</text>
-    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#a7f3d0">Your presence matters more than your predictions.</text>
+    <text x="350" y="125" textAnchor="middle" fontSize="11" fill="#BBF7D0">Your presence matters more than your predictions.</text>
   </svg>
 );
 
@@ -495,7 +495,7 @@ const LTILesson3 = () => {
   return (
     <>
       <Navbar />
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-50 pt-24 pb-8 px-4">
+    <div className="min-h-screen pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -515,7 +515,7 @@ const LTILesson3 = () => {
                 Lesson 3 of 7
               </span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Time in the Market vs Timing the Market</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2 tracking-[-0.025em]">Time in the Market vs Timing the Market</h1>
             <p className="text-gray-600 text-lg">
               Why staying invested beats trying to predict the perfect moment.
             </p>
@@ -524,7 +524,7 @@ const LTILesson3 = () => {
 
         {/* Introduction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why People Try to Time Markets</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.025em]">Why People Try to Time Markets</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -546,7 +546,7 @@ const LTILesson3 = () => {
 
         {/* Why Timing Feels Attractive */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Timing Feels So Attractive</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Timing Feels So Attractive</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -567,7 +567,7 @@ const LTILesson3 = () => {
 
         {/* The Two Paths */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Two Different Approaches</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Two Different Approaches</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -590,7 +590,7 @@ const LTILesson3 = () => {
 
         {/* The Prediction Problem */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Problem with Prediction</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Problem with Prediction</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -615,7 +615,7 @@ const LTILesson3 = () => {
 
         {/* Why Missing Key Periods Hurts */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Missing Key Periods Hurts</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Missing Key Periods Hurts</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -640,7 +640,7 @@ const LTILesson3 = () => {
 
         {/* Continuous vs Interrupted Growth */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">The Impact of Staying vs Leaving</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">The Impact of Staying vs Leaving</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -668,7 +668,7 @@ const LTILesson3 = () => {
 
         {/* Two Investors Story */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Two Investors, Different Journeys</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Two Investors, Different Journeys</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -691,7 +691,7 @@ const LTILesson3 = () => {
 
         {/* The Calm Advantage */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Why Staying Invested Reduces Stress</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Why Staying Invested Reduces Stress</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -715,7 +715,7 @@ const LTILesson3 = () => {
 
         {/* Participation Over Prediction */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Participation Over Prediction</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">Participation Over Prediction</h2>
           
           <div className="prose max-w-none text-gray-700 mb-6">
             <p className="text-lg leading-relaxed mb-4">
@@ -759,7 +759,7 @@ const LTILesson3 = () => {
 
         {/* Knowledge Check */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">📝 Knowledge Check</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-[-0.015em]">📝 Knowledge Check</h2>
           <p className="text-gray-600 mb-6">Test your understanding of time in the market vs timing the market.</p>
           
           <div className="space-y-8">
@@ -775,7 +775,7 @@ const LTILesson3 = () => {
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         showResults[q.id]
                           ? index === q.correct
-                            ? 'border-green-500 bg-green-50'
+                            ? 'border-brand bg-brand-soft'
                             : quizAnswers[q.id] === index
                             ? 'border-red-500 bg-red-50'
                             : 'border-gray-200 bg-white'
@@ -783,11 +783,11 @@ const LTILesson3 = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={showResults[q.id] && index === q.correct ? 'text-green-700 font-medium' : ''}>
+                        <span className={showResults[q.id] && index === q.correct ? 'text-brand font-medium' : ''}>
                           {option}
                         </span>
                         {showResults[q.id] && index === q.correct && (
-                          <FaCheckCircle className="text-green-500" />
+                          <FaCheckCircle className="text-brand" />
                         )}
                         {showResults[q.id] && quizAnswers[q.id] === index && index !== q.correct && (
                           <FaTimesCircle className="text-red-500" />
@@ -798,9 +798,9 @@ const LTILesson3 = () => {
                 </div>
                 {showResults[q.id] && (
                   <div className={`mt-4 p-4 rounded-lg ${
-                    quizAnswers[q.id] === q.correct ? 'bg-green-100' : 'bg-amber-100'
+                    quizAnswers[q.id] === q.correct ? 'bg-brand-soft' : 'bg-amber-100'
                   }`}>
-                    <p className={quizAnswers[q.id] === q.correct ? 'text-green-800' : 'text-amber-800'}>
+                    <p className={quizAnswers[q.id] === q.correct ? 'text-brand' : 'text-amber-800'}>
                       {quizAnswers[q.id] === q.correct ? '✓ Correct! ' : '✗ Not quite. '}
                       {q.explanation}
                     </p>
@@ -812,10 +812,10 @@ const LTILesson3 = () => {
         </div>
 
         {/* Reflection Activity */}
-        <div className="bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl p-8 shadow-lg mb-8 text-white">
+        <div className="rounded-2xl p-8 shadow-lg mb-8 text-white bg-brand-fill">
           <div className="flex items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl text-teal-200" />
-            <h3 className="text-xl font-bold">Reflection Activity</h3>
+            <h3 className="text-xl font-semibold">Reflection Activity</h3>
           </div>
           <p className="text-teal-100 mb-4">
             Consider which approach feels more realistic and sustainable for your life:
@@ -837,7 +837,7 @@ const LTILesson3 = () => {
 
         {/* Lesson Summary */}
         <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">📚 Lesson Summary</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Lesson Summary</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-teal-50 rounded-xl p-4 border border-teal-200">
               <h4 className="font-semibold text-teal-800 mb-2">What We Learned</h4>
@@ -848,9 +848,9 @@ const LTILesson3 = () => {
                 <li>✓ Missing them can significantly impact outcomes</li>
               </ul>
             </div>
-            <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-              <h4 className="font-semibold text-emerald-800 mb-2">Key Mindset Shift</h4>
-              <ul className="text-emerald-700 text-sm space-y-1">
+            <div className="bg-brand-soft rounded-xl p-4 border border-brand-line">
+              <h4 className="font-semibold text-brand mb-2">Key Mindset Shift</h4>
+              <ul className="text-brand text-sm space-y-1">
                 <li>✓ From prediction to participation</li>
                 <li>✓ From cleverness to consistency</li>
                 <li>✓ From anxiety to acceptance</li>
@@ -871,7 +871,7 @@ const LTILesson3 = () => {
           </Link>
           <button
             onClick={() => navigate('/learn/lti-lesson-4')}
-            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+            className="flex items-center gap-2 bg-brand-fill hover:bg-brand-hover text-white px-6 py-3 rounded-xl font-semibold transition-colors"
           >
             <span>Next: Why Simplicity Wins</span>
             <FaArrowRight />

@@ -11,6 +11,9 @@ export interface TradeListFilters {
     to?: string;
     /** Only these trade ids (e.g. the duplicates). */
     ids?: string[];
+    /** Column to sort by (whitelisted in trades.validator.ts) and direction. */
+    sort?: string;
+    dir?: "asc" | "desc";
 }
 
 // Characters that would change the meaning of a PostgREST `or=(...)` filter.
@@ -23,6 +26,8 @@ const getTradesByUser = (userId: string, limit: number, offset: number, filters:
     if (filters.from) query = query.gte("date", filters.from);
     if (filters.to) query = query.lte("date", filters.to);
     if (filters.ids) query = query.in("id", filters.ids);
+    // A header sort comes first (empty values last either way), then newest first.
+    if (filters.sort) query = query.order(filters.sort, { ascending: filters.dir === "asc", nullsFirst: false });
     return query
         .order("date", { ascending: false })
         .order("created_at", { ascending: false })

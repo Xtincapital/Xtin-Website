@@ -126,9 +126,9 @@ interface PortfolioSummary {
 }
 
 const ASSET_META: Record<AssetType, { label: string; emoji: string; badge: string }> = {
-  stock: { label: "Stock", emoji: "📈", badge: "bg-primary/10 text-primary" },
+  stock: { label: "Stock", emoji: "📈", badge: "bg-primary/10 text-brand" },
   gold: { label: "Gold", emoji: "🪙", badge: "bg-amber-100 text-amber-700" },
-  cash: { label: "Cash", emoji: "💵", badge: "bg-emerald-50 text-emerald-700" },
+  cash: { label: "Cash", emoji: "💵", badge: "bg-brand-soft text-brand" },
   other: { label: "Other", emoji: "📦", badge: "bg-slate-100 text-slate-600" },
 };
 
@@ -504,7 +504,7 @@ const Portfolio = () => {
       <DashboardLayout>
         <div className="flex flex-col items-center justify-center h-[80vh] gap-4 text-center px-6">
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <Briefcase className="w-8 h-8 text-primary" />
+            <Briefcase className="w-8 h-8 text-brand" />
           </div>
           <h2 className="text-2xl font-bold text-foreground">Your whole net worth, one page</h2>
           <p className="text-muted-foreground max-w-md">
@@ -531,7 +531,7 @@ const Portfolio = () => {
         {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="xt-title mb-2">
               {selectedPortfolio.name}
             </h1>
             <p className="text-muted-foreground mt-1">
@@ -744,9 +744,9 @@ const Portfolio = () => {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-muted-foreground">Total Value</span>
-                  <DollarSign className="w-4 h-4 text-primary" />
+                  <DollarSign className="w-4 h-4 text-brand" />
                 </div>
-                <div className="text-2xl font-bold text-foreground">
+                <div className="xt-metric text-foreground">
                   {fmt(computed.value)}
                   <ApproxAmount amount={computed.value} from={displayCurrency} className="text-xs" />
                 </div>
@@ -761,15 +761,15 @@ const Portfolio = () => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-muted-foreground">Total Return</span>
                   {computed.gain >= 0 ? (
-                    <TrendingUp className="w-4 h-4 text-success" />
+                    <TrendingUp className="w-4 h-4 text-brand" />
                   ) : (
                     <TrendingDown className="w-4 h-4 text-destructive" />
                   )}
                 </div>
-                <div className={`text-2xl font-bold ${computed.gain >= 0 ? "text-success" : "text-destructive"}`}>
+                <div className={`text-2xl font-bold ${computed.gain >= 0 ? "text-brand" : "text-destructive"}`}>
                   {fmt(computed.gain)}
                 </div>
-                <p className={`text-xs mt-1 ${computed.pct >= 0 ? "text-success" : "text-destructive"}`}>
+                <p className={`text-xs mt-1 ${computed.pct >= 0 ? "text-brand" : "text-destructive"}`}>
                   {formatPercent(computed.pct)} overall
                 </p>
               </Card>
@@ -779,11 +779,11 @@ const Portfolio = () => {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-muted-foreground">CAGR</span>
-                  <Activity className="w-4 h-4 text-primary" />
+                  <Activity className="w-4 h-4 text-brand" />
                 </div>
                 {cagr !== null ? (
                   <>
-                    <div className={`text-2xl font-bold ${cagr >= 0 ? "text-success" : "text-destructive"}`}>
+                    <div className={`text-2xl font-bold ${cagr >= 0 ? "text-brand" : "text-destructive"}`}>
                       {formatPercent(cagr)}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -792,7 +792,7 @@ const Portfolio = () => {
                   </>
                 ) : (
                   <>
-                    <div className="text-2xl font-bold text-muted-foreground">—</div>
+                    <div className="xt-metric text-muted-foreground">—</div>
                     <p className="text-xs text-muted-foreground mt-1">
                       Add buy dates to unlock CAGR
                     </p>
@@ -805,7 +805,7 @@ const Portfolio = () => {
               <Card className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-muted-foreground">Allocation</span>
-                  <PieChart className="w-4 h-4 text-primary" />
+                  <PieChart className="w-4 h-4 text-brand" />
                 </div>
                 {computed.allocation.length > 0 ? (
                   <div className="space-y-1.5">
@@ -856,16 +856,16 @@ const Portfolio = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm tabular-nums">
                 <thead>
                   <tr className="border-b border-border bg-secondary/30">
-                    <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Asset</th>
-                    <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Type</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Quantity</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Avg Cost</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Current Price</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Value</th>
-                    <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider py-3 px-4">Gain/Loss</th>
+                    <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">Asset</th>
+                    <th className="text-left text-xs font-medium text-muted-foreground py-3 px-4">Type</th>
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Quantity</th>
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Avg Cost</th>
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Current Price</th>
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Value</th>
+                    <th className="text-right text-xs font-medium text-muted-foreground py-3 px-4">Gain/Loss</th>
                     <th className="py-3 px-2"></th>
                   </tr>
                 </thead>
@@ -904,11 +904,11 @@ const Portfolio = () => {
                         <td className="py-4 px-4 text-right">
                           {atype !== "cash" && holding.gain_loss !== undefined && holding.gain_loss !== null ? (
                             <div>
-                              <div className={`font-medium ${holding.gain_loss >= 0 ? "text-success" : "text-destructive"}`}>
+                              <div className={`font-medium ${holding.gain_loss >= 0 ? "text-brand" : "text-destructive"}`}>
                                 {fmtIn(holding.gain_loss, hc)}
                               </div>
                               {holding.gain_loss_pct !== undefined && (
-                                <div className={`text-xs ${(holding.gain_loss_pct || 0) >= 0 ? "text-success" : "text-destructive"}`}>
+                                <div className={`text-xs ${(holding.gain_loss_pct || 0) >= 0 ? "text-brand" : "text-destructive"}`}>
                                   {formatPercent(holding.gain_loss_pct || 0)}
                                 </div>
                               )}

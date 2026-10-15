@@ -137,7 +137,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex justify-center p-4 overflow-y-auto brand-on-dark"
       onClick={onClose}
     >
       <div
@@ -145,7 +145,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Decorative top glow */}
-        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-green-100/60 dark:from-emerald-900/30 to-transparent rounded-t-3xl pointer-events-none" />
+        <div className="absolute top-0 inset-x-0 h-32 rounded-t-3xl pointer-events-none bg-brand-soft" />
 
         {/* Pinned to the top of the visible card so it stays reachable while scrolling a tall modal on small screens */}
         <div className="sticky top-0 z-20 h-0">
@@ -164,11 +164,11 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-100 to-yellow-100 dark:from-amber-900/40 dark:to-yellow-900/30 text-amber-700 dark:text-amber-300 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
               <FaCrown /> Xtin Academy Pro
             </div>
-            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-slate-100 mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
               Unlock the complete library
             </h2>
             <p className="text-sm text-gray-500 dark:text-slate-400">
-              You already have <span className="font-semibold text-green-600">{stats.freeModules} full courses free, forever</span>.
+              You already have <span className="font-semibold text-brand">{stats.freeModules} full courses free, forever</span>.
               Pro completes your library — all {stats.totalModules} courses, every lesson, every certificate.
             </p>
           </div>
@@ -201,7 +201,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
                   }`}
               >
                 Yearly
-                <span className="px-1.5 py-0.5 bg-green-600 text-white text-[10px] font-extrabold rounded">
+                <span className="px-1.5 py-0.5 bg-brand-fill text-white text-xs font-extrabold rounded">
                   SAVE {Math.round((1 - pricing.yearly / (pricing.monthly * 12)) * 100)}%
                 </span>
               </button>
@@ -219,7 +219,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
               </span>
             </div>
             {billing === 'yearly' ? (
-              <p className="text-sm text-green-600 font-semibold mt-1.5">
+              <p className="text-sm text-brand font-semibold mt-1.5">
                 That's {formatLearnPrice(effMonthly, pricing)}/month — about {pricing.perDay} a day
               </p>
             ) : (
@@ -240,8 +240,8 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
               'One price. No add-ons, no upsells inside lessons.',
             ].map((line) => (
               <li key={line} className="flex items-start gap-2.5 text-sm text-gray-700 dark:text-slate-300">
-                <span className="w-5 h-5 rounded-full bg-green-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0 mt-[1px]">
-                  <FaCheck className="text-green-600 text-[10px]" />
+                <span className="w-5 h-5 rounded-full bg-brand-soft dark:bg-brand-fill/40 flex items-center justify-center flex-shrink-0 mt-[1px]">
+                  <FaCheck className="text-brand text-xs" />
                 </span>
                 {line}
               </li>
@@ -277,7 +277,7 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/35 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60"
+            className="w-full px-6 py-4 text-white rounded-xl font-bold text-lg shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/35 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 bg-brand-fill"
           >
             {busy ? (
               <>
@@ -293,9 +293,9 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
           </button>
 
           {/* Trust row */}
-          <div className="flex items-center justify-center gap-4 mt-4 text-[11px] text-gray-400 dark:text-slate-500">
+          <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400 dark:text-slate-500">
             <span className="flex items-center gap-1">
-              <FaShieldAlt className="text-green-500" /> Secure via Razorpay
+              <FaShieldAlt className="text-brand" /> Secure via Razorpay
             </span>
             <span>·</span>
             <span>{pricing.upi ? 'UPI, cards & netbanking' : 'Cards & international payments'}</span>

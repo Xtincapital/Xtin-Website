@@ -109,7 +109,7 @@ export const debounce = <T extends (...args: any[]) => any>(
  * Utility function to calculate score color
  */
 export const getScoreColor = (score: number): string => {
-  if (score >= 8) return 'text-success';
+  if (score >= 8) return 'text-brand';
   if (score >= 6) return 'text-warning';
   return 'text-destructive';
 };

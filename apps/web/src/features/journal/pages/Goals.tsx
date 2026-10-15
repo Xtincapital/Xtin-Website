@@ -48,6 +48,7 @@ import { useJournalPlanStore } from "../store/useJournalPlanStore";
 import { api } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import type { Goal, Trade } from "../lib/api";
+import AnimatedProgressBar from "@/components/smoothui/animated-progress-bar";
 import JournalLayout from "../components/JournalLayout";
 
 // The real `Goal` type (from lib/api.ts) keeps `metric`/`timeframe` as plain
@@ -146,7 +147,7 @@ function computeGoalProgress(goal: Goal, metricsByTimeframe: Record<GoalTimefram
   let statusClass = "text-amber-600 dark:text-amber-400";
   if (percentComplete >= 100) {
     statusText = "Goal Completed";
-    statusClass = "text-emerald-600 dark:text-emerald-400";
+    statusClass = "text-brand dark:text-brand";
   } else if (percentComplete >= 60) {
     statusText = "On Track";
     statusClass = "text-blue-600 dark:text-blue-400";
@@ -295,7 +296,7 @@ export default function Goals() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Goals</h1>
+            <h1 className="xt-title mb-2">Goals</h1>
             <p className="text-sm text-muted-foreground">Track targets against your logged trades</p>
           </div>
           <Button onClick={openAddDialog}>
@@ -322,7 +323,7 @@ export default function Goals() {
                 <Card key={goal.id}>
                   <CardHeader className="flex flex-row items-start justify-between space-y-0">
                     <div>
-                      <CardTitle className="text-base">{goal.title}</CardTitle>
+                      <CardTitle className="text-lg">{goal.title}</CardTitle>
                       <p className="text-xs text-muted-foreground">
                         {config.label} • {TIMEFRAME_LABELS[goal.timeframe as GoalTimeframe] || goal.timeframe}
                       </p>
@@ -337,12 +338,7 @@ export default function Goals() {
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-                      <div
-                        className={cn("h-full rounded-full", percentComplete >= 100 ? "bg-emerald-500" : "bg-primary")}
-                        style={{ width: `${Math.min(100, percentComplete)}%` }}
-                      />
-                    </div>
+                    <AnimatedProgressBar value={percentComplete} />
                     <div className="flex items-center justify-between text-sm">
                       <span>{config.format(currentValue)}</span>
                       <span className="text-muted-foreground">Target: {config.format(goal.target_value)}</span>

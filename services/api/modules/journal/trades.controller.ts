@@ -54,13 +54,13 @@ export const createTrade = async (req, res) => {
     }
 };
 
-/* GET /journal/trades?limit=&offset= */
+/* GET /journal/trades?limit=&offset=&search=&from=&to=&sort=&dir= */
 export const listTrades = async (req, res) => {
     const validation = validateTradeListQuery(req.query);
     if (validation.errors) {
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
     }
-    const { limit, offset, search, from, to, only_duplicates, flag_duplicates } = validation.data;
+    const { limit, offset, search, from, to, only_duplicates, flag_duplicates, sort, dir } = validation.data;
     const userId = req.user.authId;
 
     try {
@@ -69,7 +69,7 @@ export const listTrades = async (req, res) => {
             ids = Array.from(await findDuplicateTradeIds(userId));
             if (!ids.length) return res.status(HTTP_STATUS.OK).json({ data: [], pagination: { total: 0, limit, offset } });
         }
-        const { data, error, count } = await getTradesByUser(userId, limit, offset, { search, from, to, ids });
+        const { data, error, count } = await getTradesByUser(userId, limit, offset, { search, from, to, ids, sort, dir: sort ? (dir ?? "desc") : undefined });
         if (error) throw error;
         const rows = data || [];
         const out = flag_duplicates || only_duplicates ? await flagDuplicates(userId, rows) : rows;

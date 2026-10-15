@@ -91,13 +91,13 @@ export default function Watchlist() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newWatchlistName, setNewWatchlistName] = useState('');
   const [newWatchlistDescription, setNewWatchlistDescription] = useState('');
-  const [newWatchlistColor, setNewWatchlistColor] = useState('#3b82f6');
+  const [newWatchlistColor, setNewWatchlistColor] = useState('#5A77AA');
 
   // Edit / delete the selected watchlist
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editName, setEditName] = useState('');
   const [editDescription, setEditDescription] = useState('');
-  const [editColor, setEditColor] = useState('#3b82f6');
+  const [editColor, setEditColor] = useState('#5A77AA');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   // Add item dialog
@@ -191,7 +191,7 @@ export default function Watchlist() {
       setCreateDialogOpen(false);
       setNewWatchlistName('');
       setNewWatchlistDescription('');
-      setNewWatchlistColor('#3b82f6');
+      setNewWatchlistColor('#5A77AA');
 
       await loadWatchlists();
     } catch (error) {
@@ -205,7 +205,7 @@ export default function Watchlist() {
     if (!current) return;
     setEditName(current.name);
     setEditDescription(current.description || '');
-    setEditColor(current.color || '#3b82f6');
+    setEditColor(current.color || '#5A77AA');
     setEditDialogOpen(true);
   };
 
@@ -342,7 +342,7 @@ export default function Watchlist() {
   const formatChange = (change: number | null | undefined, changePct: number | null | undefined) => {
     if (change == null || changePct == null) return 'N/A';
 
-    const color = change >= 0 ? 'text-primary' : 'text-destructive';
+    const color = change >= 0 ? 'text-brand' : 'text-destructive';
     const icon = change >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />;
 
     return (
@@ -422,7 +422,7 @@ export default function Watchlist() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Watchlist Manager</h1>
+          <h1 className="xt-title mb-2">Watchlist Manager</h1>
           <p className="text-muted-foreground">Track stocks and set price targets</p>
         </div>
 
@@ -708,8 +708,8 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <Eye className="w-5 h-5 text-primary" />
-                <p className="text-2xl font-bold">{summary.total_items}</p>
+                <Eye className="w-5 h-5 text-brand" />
+                <p className="xt-metric">{summary.total_items}</p>
               </div>
             </CardContent>
           </Card>
@@ -721,15 +721,15 @@ export default function Watchlist() {
             <CardContent>
               {/* Needs at least one stock with a recorded add price; 0.00% there was misleading. */}
               {!summary.best_performer ? (
-                <p className="text-2xl font-bold text-muted-foreground" title="No add price was recorded for these stocks">—</p>
+                <p className="xt-metric text-muted-foreground" title="No add price was recorded for these stocks">—</p>
               ) : (
               <div className="flex items-center gap-2">
                 {summary.avg_change_pct >= 0 ? (
-                  <TrendingUp className="w-5 h-5 text-primary" />
+                  <TrendingUp className="w-5 h-5 text-brand" />
                 ) : (
                   <TrendingDown className="w-5 h-5 text-destructive" />
                 )}
-                <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-primary' : 'text-destructive'}`}>
+                <p className={`text-2xl font-bold ${summary.avg_change_pct >= 0 ? 'text-brand' : 'text-destructive'}`}>
                   {(summary.avg_change_pct ?? 0) >= 0 ? '+' : ''}{(summary.avg_change_pct ?? 0).toFixed(2)}%
                 </p>
               </div>
@@ -743,8 +743,8 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <Target className="w-5 h-5 text-primary" />
-                <p className="text-2xl font-bold">{summary.targets_hit}</p>
+                <Target className="w-5 h-5 text-brand" />
+                <p className="xt-metric">{summary.targets_hit}</p>
                 {summary.targets_near > 0 && (
                   <Badge variant="secondary">{summary.targets_near} near</Badge>
                 )}
@@ -758,8 +758,8 @@ export default function Watchlist() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-primary" />
-                <p className="text-2xl font-bold">
+                <BarChart3 className="w-5 h-5 text-brand" />
+                <p className="xt-metric">
                   {trackedValueSymbol}{(summary.tracked_value ?? 0).toLocaleString(trackedValueSymbol === '₹' ? 'en-IN' : 'en-US', { maximumFractionDigits: 0 })}
                   {trackedValueSymbol && <ApproxAmount inline amount={summary.tracked_value} from={trackedValueSymbol === '₹' ? 'INR' : 'USD'} className="text-sm" />}
                 </p>
@@ -845,7 +845,7 @@ export default function Watchlist() {
                     <TableCell>
                       {item.target_distance != null && item.target_distance_pct != null ? (
                         <div>
-                          <div className={item.target_distance >= 0 ? 'text-primary' : 'text-destructive'}>
+                          <div className={item.target_distance >= 0 ? 'text-brand' : 'text-destructive'}>
                             {item.target_distance >= 0 ? '+' : ''}{item.target_distance.toFixed(2)}
                           </div>
                           <div className="text-xs text-muted-foreground">

@@ -4,17 +4,19 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SEO from '../../../components/SEO';
 import { COMPANY } from '../../../constants/company';
+import { LegalHeader } from '../../marketing/components/PageArt';
+import { Scale } from 'lucide-react';
 
 const Section = ({ title, children }) => (
   <section className="space-y-4">
-    <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
     <div className="text-gray-700 leading-7 space-y-3">{children}</div>
   </section>
 );
 
 function AlgoTerms() {
   return (
-    <div className="bg-gray-50 text-gray-900 min-h-screen">
+    <div className="bg-background text-gray-900 min-h-screen">
       <SEO
         title="Algorithm Trading Terms & Conditions"
         description="Read Xtin Capital's Algorithm Trading Terms and Conditions. Understand risks, disclaimers, and your responsibilities when using our trading algorithms."
@@ -27,15 +29,13 @@ function AlgoTerms() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <Link to="/algos" className="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium mb-4">
+            <Link to="/algos" className="inline-flex items-center text-brand hover:text-brand text-sm font-medium mb-4">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Algorithms
             </Link>
-            <h1 className="text-3xl md:text-4xl font-extrabold mb-2">Algorithm Trading Terms & Conditions</h1>
-            <p className="text-sm text-gray-500 mb-1">XTIN SERVICES LLP (LLP ID: ACR-9371)</p>
-            <p className="text-gray-600">Last updated: January 13, 2026</p>
+            <LegalHeader Icon={Scale} title="Algorithm Trading Terms &amp; Conditions" entity="XTIN SERVICES LLP (LLP ID: ACR-9371)" updated="January 13, 2026" />
           </div>
 
           {/* Important Notice Banner */}
@@ -47,7 +47,7 @@ function AlgoTerms() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl font-bold mb-2">IMPORTANT RISK DISCLOSURE</h2>
+                <h2 className="text-xl font-semibold mb-2">IMPORTANT RISK DISCLOSURE</h2>
                 <p className="text-red-100 text-sm leading-relaxed">
                   Trading in securities market involves substantial risk of loss and is not suitable for every investor. 
                   The valuation of securities may fluctuate and as a result, investors may lose more than their original investment. 
@@ -58,7 +58,7 @@ function AlgoTerms() {
           </div>
 
           {/* Main Content */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
+          <div className="bg-white border border-gray-200 border-t-4 border-t-brand-fill rounded-2xl p-6 md:p-8 shadow-xl shadow-brand/5 space-y-8">
             
             <Section title="1. Nature of Service">
               <p>
@@ -214,9 +214,9 @@ function AlgoTerms() {
             </Section>
 
             <Section title="14. Contact Information">
-              <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                <p className="font-semibold text-green-800 mb-3">For questions or concerns:</p>
-                <div className="text-green-700 space-y-2 text-sm">
+              <div className="bg-brand-soft border border-brand-line rounded-xl p-4">
+                <p className="font-semibold text-brand mb-3">For questions or concerns:</p>
+                <div className="text-brand space-y-2 text-sm">
                   <p>
                     <strong>Email:</strong>{' '}
                     <a href={`mailto:${COMPANY.supportEmail}`} className="underline">{COMPANY.supportEmail}</a>
@@ -225,7 +225,7 @@ function AlgoTerms() {
                     <strong>Phone:</strong>{' '}
                     <a href={COMPANY.phoneHref} className="underline">{COMPANY.phone}</a>
                   </p>
-                  <p className="text-xs text-green-600 mt-2">
+                  <p className="text-xs text-brand mt-2">
                     Response time: Within 24-48 business hours
                   </p>
                 </div>
@@ -233,7 +233,7 @@ function AlgoTerms() {
             </Section>
 
             {/* Final Acknowledgment */}
-            <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 mt-8">
+            <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 mt-8 brand-on-dark">
               <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
                 <svg className="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
@@ -253,7 +253,7 @@ function AlgoTerms() {
           <div className="mt-8 text-center">
             <Link 
               to="/algos" 
-              className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl transition-colors"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

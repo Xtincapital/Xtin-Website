@@ -23,20 +23,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Line,
-  LineChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { Clock, Activity, Timer, Target as PeakIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -44,17 +30,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JBarChart, JDonut, JLineChart } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
-import {
-  GLOBAL_SESSIONS,
-  formatHourDisplay,
-  formatHourRange,
-  getEntryHour,
-  getSessionLabelForTrade,
-  normalizeStrategyName,
-} from "../lib/journalPatternHelpers";
+import { GLOBAL_SESSIONS, formatHourDisplay, formatHourRange, getEntryHour, getSessionLabelForTrade, normalizeStrategyName } from "../lib/journalPatternHelpers";
 
 interface HourBucket {
   hour: number;
@@ -64,7 +45,6 @@ interface HourBucket {
   losses: number;
 }
 
-const SESSION_COLORS = ["rgba(251, 191, 36, 0.8)", "rgba(34, 197, 94, 0.8)", "rgba(59, 130, 246, 0.8)", "rgba(168, 85, 247, 0.8)"];
 
 const Hourly = () => {
   const { formatInr: formatCurrency } = useCurrency();
@@ -216,8 +196,8 @@ const Hourly = () => {
     <JournalLayout proFeature="Hourly analysis">
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
-            <Clock className="w-6 h-6 text-primary" />
+          <h1 className="xt-title mb-2 flex items-center gap-3">
+            <Clock className="w-6 h-6 text-brand" />
             Hourly Analysis
             <InfoTip title="Hourly analysis" widthClass="w-80">
               <p>Shows how you do at different times of the day, using the entry time of each trade. Many traders find they make most of their money in one or two hours and give it back at other times.</p>
@@ -252,10 +232,10 @@ const Hourly = () => {
                 </div>
                 {card.onClick ? (
                   <button type="button" onClick={card.onClick} className="text-left cursor-pointer hover:underline">
-                    <p className="text-lg font-bold text-foreground">{card.value}</p>
+                    <p className="stat-value font-semibold text-foreground">{card.value}</p>
                   </button>
                 ) : (
-                  <p className="text-lg font-bold text-foreground">{card.value}</p>
+                  <p className="stat-value font-semibold text-foreground">{card.value}</p>
                 )}
               </CardContent>
             </Card>
@@ -271,7 +251,7 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Hourly P&L
                 <InfoTip title="Hourly P&L">
                   <p>Total profit or loss for trades entered in each hour. Green bars are profitable hours, red bars are losing hours. Click a bar to list its trades.</p>
@@ -279,47 +259,19 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={false}
-                      tickLine={false}
-                      width={56}
-                      tickFormatter={(v) => shortCurrency(v)}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [formatCurrency(value), "P&L"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
-                    />
-                    <Bar dataKey="pnl" radius={[3, 3, 0, 0]} cursor="pointer" onClick={(d) => showHour((d as unknown as { payload: { hour: number } }).payload.hour)}>
-                      {hourChartData.map((d) => (
-                        <Cell key={d.hour} fill={d.pnl >= 0 ? "hsl(var(--chart-positive))" : "hsl(var(--destructive))"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <JBarChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.pnl, sub: `${d.tradeCount} trade${d.tradeCount === 1 ? "" : "s"}` }))}
+                formatAxis={(v) => shortCurrency(v)}
+                formatValue={(v) => signedMoney(formatCurrency, v)}
+                ariaLabel="Hourly P&L"
+                onBarClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Trade Count by Hour
                 <InfoTip title="Trade Count by Hour">
                   <p>How many trades you entered in each hour. Compare it with Hourly P&L: do you trade the most when you earn the least?</p>
@@ -327,44 +279,14 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={false}
-                      tickLine={false}
-                      width={32}
-                      allowDecimals={false}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [value, "Trades"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="tradeCount"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth={2.5}
-                      dot={false}
-                      activeDot={{ r: 4 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.tradeCount }))}
+                signed={false}
+                formatAxis={(v) => String(Math.round(v))}
+                formatValue={(v) => `${Math.round(v)} trade${Math.round(v) === 1 ? "" : "s"}`}
+                ariaLabel="Trade count by hour"
+                onPointClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -378,7 +300,7 @@ const Hourly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Session Performance
                 <InfoTip title="Session Performance">
                   <p>Total P&L per market session (Asia, Europe, Americas, Overnight). Click a session name on the right to list its trades.</p>
@@ -386,52 +308,22 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64 flex items-center gap-4">
-                <div className="w-1/2 h-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={sessionChartData}
-                        dataKey={(d) => Math.abs(d.pnl)}
-                        nameKey="label"
-                        innerRadius="55%"
-                        outerRadius="90%"
-                        stroke="none"
-                      >
-                        {sessionChartData.map((entry, index) => (
-                          <Cell key={entry.label} fill={SESSION_COLORS[index % SESSION_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(_value: number, _name: string, ctx: any) => [formatCurrency(ctx?.payload?.pnl ?? 0), ctx?.payload?.label]}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="w-1/2 space-y-2">
-                  {sessionChartData.map((s, i) => (
-                    <button type="button" key={s.label} onClick={() => showSession(s.label)} className="flex w-full items-center gap-2 text-xs text-left cursor-pointer hover:underline" title="Click to see these trades">
-                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: SESSION_COLORS[i % SESSION_COLORS.length] }} />
-                      <span className="text-muted-foreground truncate">{s.label}</span>
-                      <span className={`ml-auto font-semibold ${s.pnl >= 0 ? "text-success" : "text-destructive"}`}>
-                        {shortCurrency(s.pnl)}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <JDonut
+                data={sessionChartData.map((d) => ({ label: d.label, value: Math.abs(d.pnl) }))}
+                centerValue={signedMoney(formatCurrency, sessionChartData.reduce((sum, d) => sum + d.pnl, 0), { compact: true })}
+                centerLabel="net P&L"
+                legendValue={(_d, i) => (
+                  <span className={sessionChartData[i].pnl >= 0 ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, sessionChartData[i].pnl, { compact: true })}</span>
+                )}
+                ariaLabel="Session performance"
+                onSelect={(i) => showSession(sessionChartData[i].label)}
+              />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Win Rate by Hour
                 <InfoTip title="Win Rate by Hour">
                   <p>The share of winning trades among trades that ended in a win or a loss, for each hour. Above 50% means more winners than losers.</p>
@@ -439,45 +331,15 @@ const Hourly = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={hourChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={{ stroke: "hsl(var(--border))" }}
-                      tickLine={false}
-                      interval={2}
-                    />
-                    <YAxis
-                      domain={[0, 100]}
-                      tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
-                      axisLine={false}
-                      tickLine={false}
-                      width={40}
-                      tickFormatter={(v) => `${v}%`}
-                    />
-                    <Tooltip
-                      formatter={(value: number) => [`${value.toFixed(1)}%`, "Win Rate"]}
-                      contentStyle={{
-                        background: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="winRate"
-                      stroke="hsl(var(--chart-positive))"
-                      strokeWidth={2.5}
-                      dot={false}
-                      activeDot={{ r: 4 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <JLineChart
+                data={hourChartData.map((d) => ({ label: d.label, value: d.winRate }))}
+                signed={false}
+                max={100}
+                formatAxis={(v) => `${Math.round(v)}%`}
+                formatValue={(v) => `${v.toFixed(1)}%`}
+                ariaLabel="Win rate by hour"
+                onPointClick={(i) => showHour(hourChartData[i].hour)}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -486,7 +348,7 @@ const Hourly = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Hourly Breakdown
                 <InfoTip title="Hourly Breakdown">
                   <p>A table of every hour of the day: number of trades, total and average P&L, win rate and your most-used strategy. Click a row to list its trades.</p>
@@ -533,8 +395,8 @@ const Hourly = () => {
                       >
                         <TableCell className="font-medium">{formatHourDisplay(bucket.hour)}</TableCell>
                         <TableCell>{bucket.trades.length}</TableCell>
-                        <TableCell className={positive ? "text-success" : "text-destructive"}>{formatCurrency(bucket.totalPnL)}</TableCell>
-                        <TableCell className={positive ? "text-success" : "text-destructive"}>{formatCurrency(avgPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, bucket.totalPnL)}</TableCell>
+                        <TableCell className={positive ? "text-brand" : "text-destructive"}>{signedMoney(formatCurrency, avgPnL)}</TableCell>
                         <TableCell>{winRate.toFixed(1)}%</TableCell>
                         <TableCell className="max-w-[140px] truncate">{bestStrategy}</TableCell>
                         <TableCell>

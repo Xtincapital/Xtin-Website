@@ -66,16 +66,16 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         {options.map((opt, i) => {
           const letter = String.fromCharCode(65+i);
           const isThis = selected === letter, isRight = correctAnswer === letter;
-          let bg = "bg-gray-50  hover:bg-emerald-50 ", border = "border-gray-200 ";
-          if (showResult) { if (isRight) { bg="bg-emerald-50 "; border="border-emerald-400"; } 
+          let bg = "bg-gray-50  hover:bg-brand-soft ", border = "border-gray-200 ";
+          if (showResult) { if (isRight) { bg="bg-brand-soft "; border="border-brand"; } 
             else if (isThis) { bg="bg-red-50 "; border="border-red-400"; }}
           return (
             <button key={i} onClick={()=>handleClick(i)} disabled={showResult}
               className={`w-full text-left p-4 rounded-xl border-2 ${border} ${bg} transition-all`}>
               <span className="flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-emerald-500 text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-emerald-100  text-emerald-600'}`}>{letter}</span>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${showResult && isRight ? 'bg-brand-fill text-white' : showResult && isThis ? 'bg-red-500 text-white' : 'bg-brand-soft  text-brand'}`}>{letter}</span>
                 <span className="text-gray-700 ">{opt}</span>
-                {showResult && isRight && <FaCheckCircle className="ml-auto text-emerald-500"/>}
+                {showResult && isRight && <FaCheckCircle className="ml-auto text-brand"/>}
                 {showResult && isThis && !isRight && <FaTimesCircle className="ml-auto text-red-500"/>}
               </span>
             </button>
@@ -83,7 +83,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         })}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-emerald-100  text-emerald-800 ' : 'bg-amber-100  text-amber-800 '}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-brand-soft  text-brand ' : 'bg-amber-100  text-amber-800 '}`}>
           <p className="font-medium flex items-center gap-2">
             {isCorrect ? <><FaCheckCircle/> Correct!</> : <><FaTimesCircle/> Not quite.</>}
           </p>
@@ -98,25 +98,25 @@ const AlgoTradingLesson9 = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-white to-emerald-50/30   text-gray-900  min-h-screen flex flex-col">
+    <div className="text-gray-900 min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 pt-24 pb-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl mx-auto">
           
           {/* Breadcrumb */}
           <button onClick={() => navigate('/learn/algorithmic-trading')}
-            className="flex items-center gap-2 text-gray-500 hover:text-emerald-600 transition-colors mb-8 group">
+            className="flex items-center gap-2 text-gray-500 hover:text-brand transition-colors mb-8 group">
             <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/><span>Back to Algorithmic Trading</span>
           </button>
 
           {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-full text-sm font-bold">Lesson 9 of 9 • Final</span>
+              <span className="px-4 py-1.5 text-white rounded-full text-sm font-bold bg-brand-fill">Lesson 9 of 9 • Final</span>
               <span className="px-3 py-1.5 bg-gray-100  text-gray-600  rounded-full text-sm">20 min read</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
-              <span className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 flex items-center gap-4 tracking-[-0.025em]">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl shadow-lg bg-brand-fill">
                 <Icons.Api className="w-8 h-8 text-white"/>
               </span>
               Broker APIs & Integration
@@ -127,16 +127,16 @@ const AlgoTradingLesson9 = () => {
           </div>
 
           {/* Learning Objectives */}
-          <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-            <h2 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
-              <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
+          <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+            <h2 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+              <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Target className="w-5 h-5 text-white"/></span>
               What You'll Learn
             </h2>
             <ul className="space-y-2">
               {["Understand how broker APIs work (REST, WebSocket)", "Compare popular Indian broker APIs (Zerodha, Upstox, Fyers)", 
                 "Learn the authentication flow (OAuth, TOTP)", "Understand order placement and management basics"].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                  <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                <li key={i} className="flex items-start gap-3 text-brand ">
+                  <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -147,7 +147,7 @@ const AlgoTradingLesson9 = () => {
             
             {/* Warning Banner */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-900  mb-3 text-lg flex items-center gap-2">
+              <h3 className="font-semibold text-red-900  mb-3 text-lg flex items-center gap-2">
                 <Icons.Warning className="w-5 h-5"/> Important Disclaimer
               </h3>
               <p className="text-red-800 ">
@@ -157,74 +157,74 @@ const AlgoTradingLesson9 = () => {
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold mb-4">How Broker APIs Work</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.025em]">How Broker APIs Work</h2>
             <p className="text-gray-700  mb-6">
               Broker APIs let your code communicate with the exchange through the broker's servers. Here's the flow:
             </p>
 
             {/* API Flow SVG */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-2xl p-6 mb-10 border border-emerald-800/50 shadow-xl">
+            <div className="rounded-2xl p-6 mb-10 border border-brand/50 shadow-xl bg-brand-fill">
               <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
-                <text x="350" y="25" textAnchor="middle" fill="#e0e7ff" fontSize="14" fontWeight="700">BROKER API FLOW</text>
+                <text x="350" y="25" textAnchor="middle" fill="#ECE4F6" fontSize="14" fontWeight="700">BROKER API FLOW</text>
 
                 {/* Your Algorithm */}
                 <g transform="translate(30, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#3b82f6" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#5A77AA" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">YOUR</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">ALGORITHM</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#bfdbfe" fontSize="8">Python/Node.js</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#C3D0E4" fontSize="8">Python/Node.js</text>
                 </g>
 
                 {/* Arrow 1 */}
                 <g transform="translate(170, 90)">
-                  <path d="M0 10 L60 10" stroke="#6ee7b7" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#6ee7b7"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#6ee7b7" fontSize="8">REST/WebSocket</text>
+                  <path d="M0 10 L60 10" stroke="#16A34A" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#16A34A"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#16A34A" fontSize="8">REST/WebSocket</text>
                 </g>
 
                 {/* Broker API */}
                 <g transform="translate(240, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#8b5cf6" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#8F6FC4" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">BROKER</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">API SERVER</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#c4b5fd" fontSize="8">Zerodha/Upstox</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#C0A9E2" fontSize="8">Zerodha/Upstox</text>
                 </g>
 
                 {/* Arrow 2 */}
                 <g transform="translate(380, 90)">
-                  <path d="M0 10 L60 10" stroke="#6ee7b7" strokeWidth="2"/>
-                  <polygon points="60,10 50,5 50,15" fill="#6ee7b7"/>
-                  <text x="30" y="0" textAnchor="middle" fill="#6ee7b7" fontSize="8">FIX Protocol</text>
+                  <path d="M0 10 L60 10" stroke="#16A34A" strokeWidth="2"/>
+                  <polygon points="60,10 50,5 50,15" fill="#16A34A"/>
+                  <text x="30" y="0" textAnchor="middle" fill="#16A34A" fontSize="8">FIX Protocol</text>
                 </g>
 
                 {/* Exchange */}
                 <g transform="translate(450, 60)">
-                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#22c55e" opacity="0.9"/>
+                  <rect x="0" y="0" width="130" height="80" rx="10" fill="#16A34A" opacity="0.9"/>
                   <text x="65" y="35" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">EXCHANGE</text>
                   <text x="65" y="52" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">(NSE/BSE)</text>
-                  <text x="65" y="70" textAnchor="middle" fill="#bbf7d0" fontSize="8">Order matching</text>
+                  <text x="65" y="70" textAnchor="middle" fill="#BBF7D0" fontSize="8">Order matching</text>
                 </g>
 
                 {/* Return flow */}
-                <path d="M515 150 L515 180 L95 180 L95 150" stroke="#fcd34d" strokeWidth="2" strokeDasharray="5,5" fill="none"/>
-                <text x="305" y="200" textAnchor="middle" fill="#fcd34d" fontSize="9">Order confirmations, market data, fills</text>
+                <path d="M515 150 L515 180 L95 180 L95 150" stroke="#E2C273" strokeWidth="2" strokeDasharray="5,5" fill="none"/>
+                <text x="305" y="200" textAnchor="middle" fill="#E2C273" fontSize="9">Order confirmations, market data, fills</text>
 
                 {/* Two API Types */}
                 <g transform="translate(50, 220)">
-                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#1e293b"/>
-                  <text x="140" y="18" textAnchor="middle" fill="#93c5fd" fontSize="10" fontWeight="600">REST API</text>
-                  <text x="140" y="35" textAnchor="middle" fill="#64748b" fontSize="8">Request-response • Orders, account info</text>
+                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#2A2A2C"/>
+                  <text x="140" y="18" textAnchor="middle" fill="#9FB3D3" fontSize="10" fontWeight="600">REST API</text>
+                  <text x="140" y="35" textAnchor="middle" fill="#717680" fontSize="8">Request-response • Orders, account info</text>
                 </g>
                 <g transform="translate(370, 220)">
-                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#1e293b"/>
-                  <text x="140" y="18" textAnchor="middle" fill="#86efac" fontSize="10" fontWeight="600">WebSocket</text>
-                  <text x="140" y="35" textAnchor="middle" fill="#64748b" fontSize="8">Real-time stream • Price ticks, order updates</text>
+                  <rect x="0" y="0" width="280" height="45" rx="8" fill="#2A2A2C"/>
+                  <text x="140" y="18" textAnchor="middle" fill="#16A34A" fontSize="10" fontWeight="600">WebSocket</text>
+                  <text x="140" y="35" textAnchor="middle" fill="#717680" fontSize="8">Real-time stream • Price ticks, order updates</text>
                 </g>
               </svg>
             </div>
 
             {/* Indian Broker APIs */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="w-10 h-10 bg-blue-100  rounded-xl flex items-center justify-center">
                 <Icons.Link className="w-5 h-5 text-blue-600 "/>
               </span>
@@ -254,7 +254,7 @@ const AlgoTradingLesson9 = () => {
                     { broker: "Angel One", cost: "Free (SmartAPI)", data: "Limited historical", best: "Easy to start", color: "amber" },
                     { broker: "5Paisa", cost: "Free tier available", data: "Basic access", best: "Budget traders", color: "gray" },
                   ].map((row, i) => {
-                    const colors = { emerald: "bg-emerald-100 text-emerald-700  ",
+                    const colors = { emerald: "bg-brand-soft text-brand  ",
                       blue: "bg-blue-100 text-blue-700  ",
                       violet: "bg-violet-100 text-violet-700  ",
                       amber: "bg-amber-100 text-amber-700  ",
@@ -273,7 +273,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Authentication */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-amber-100  rounded-xl flex items-center justify-center">
                 <Icons.Lock className="w-5 h-5 text-amber-600 "/>
               </span>
@@ -286,7 +286,7 @@ const AlgoTradingLesson9 = () => {
 
             {/* Auth Flow */}
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50   rounded-2xl p-6 mb-10 border border-amber-200 ">
-              <h3 className="font-bold text-amber-800  mb-4">Typical Login Flow</h3>
+              <h3 className="font-semibold text-amber-800  mb-4">Typical Login Flow</h3>
               <div className="space-y-3">
                 {[
                   { step: "1", title: "Redirect to Broker Login", desc: "User logs in via broker's website" },
@@ -310,7 +310,7 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* API Capabilities */}
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 tracking-[-0.015em]">
               <span className="w-10 h-10 bg-violet-100  rounded-xl flex items-center justify-center">
                 <Icons.Code className="w-5 h-5 text-violet-600 "/>
               </span>
@@ -325,11 +325,11 @@ const AlgoTradingLesson9 = () => {
                 { category: "Historical", items: ["Daily candles", "Intraday candles", "Tick data (some)"] },
               ].map((cat, i) => {
                 const colors = ["emerald", "blue", "violet", "amber"];
-                const bgColors = { emerald: "bg-emerald-50  border-emerald-200 ",
+                const bgColors = { emerald: "bg-brand-soft  border-brand-line ",
                   blue: "bg-blue-50  border-blue-200 ",
                   violet: "bg-violet-50  border-violet-200 ",
                   amber: "bg-amber-50  border-amber-200 " };
-                const textColors = { emerald: "text-emerald-700 ", blue: "text-blue-700 ",
+                const textColors = { emerald: "text-brand ", blue: "text-blue-700 ",
                   violet: "text-violet-700 ", amber: "text-amber-700 " };
                 return (
                   <div key={i} className={`rounded-xl p-4 border ${bgColors[colors[i]]}`}>
@@ -347,13 +347,13 @@ const AlgoTradingLesson9 = () => {
             </div>
 
             {/* Code Example */}
-            <h2 className="text-2xl font-bold mb-4">Conceptual Code Structure</h2>
+            <h2 className="text-2xl font-bold mb-4 tracking-[-0.015em]">Conceptual Code Structure</h2>
             <p className="text-gray-700  mb-4">
               Here's what a typical trading script structure looks like (pseudocode):
             </p>
 
-            <div className="bg-slate-900 rounded-2xl p-6 mb-10 font-mono text-sm overflow-x-auto border border-slate-700">
-              <pre className="text-emerald-400 leading-relaxed">
+            <div className="bg-slate-900 rounded-2xl p-6 mb-10 font-mono text-sm overflow-x-auto border border-slate-700 brand-on-dark">
+              <pre className="text-brand leading-relaxed">
                 <code>
 {`# 1. Initialize and Authenticate
 kite = KiteConnect(api_key="your_api_key")
@@ -394,7 +394,7 @@ kite_ticker.connect()`}
 
             {/* Rate Limits */}
             <div className="bg-gradient-to-r from-red-50 to-rose-50   rounded-2xl p-6 mb-10 border border-red-200 ">
-              <h3 className="font-bold text-red-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-red-800  mb-4 flex items-center gap-3">
                 <Icons.Warning className="w-5 h-5"/> Rate Limits & Best Practices
               </h3>
               <div className="space-y-3">
@@ -418,7 +418,7 @@ kite_ticker.connect()`}
 
             {/* Getting Started */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50   rounded-2xl p-6 mb-10 border border-blue-200 ">
-              <h3 className="font-bold text-blue-800  mb-4 flex items-center gap-3">
+              <h3 className="font-semibold text-blue-800  mb-4 flex items-center gap-3">
                 <Icons.Zap className="w-5 h-5"/> Getting Started Checklist
               </h3>
               <ol className="space-y-2">
@@ -441,9 +441,9 @@ kite_ticker.connect()`}
             </div>
 
             {/* Key Takeaways */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50   rounded-2xl p-6 mb-10 border border-emerald-200 ">
-              <h3 className="font-bold text-emerald-800  mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
+            <div className="rounded-2xl p-6 mb-10 border border-brand-line bg-brand-soft">
+              <h3 className="font-semibold text-brand  mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 bg-brand-fill rounded-lg flex items-center justify-center"><Icons.Key className="w-5 h-5 text-white"/></span>
                 Key Takeaways
               </h3>
               <ul className="space-y-2">
@@ -454,15 +454,15 @@ kite_ticker.connect()`}
                   "Always respect rate limits to avoid being blocked",
                   "Test extensively on paper trading before going live",
                   "Log all orders and errors — debugging is crucial"].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-emerald-700 ">
-                    <Icons.CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"/><span>{item}</span>
+                  <li key={i} className="flex items-start gap-3 text-brand ">
+                    <Icons.CheckCircle className="w-5 h-5 text-brand mt-0.5 flex-shrink-0"/><span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Quiz */}
-            <h2 className="text-2xl font-bold mb-6">Test Your Understanding</h2>
+            <h2 className="text-2xl font-bold mb-6 tracking-[-0.015em]">Test Your Understanding</h2>
             <QuizQuestion
               question="What is the main difference between REST API and WebSocket?"
               options={["REST is free, WebSocket is paid", "REST is request-response, WebSocket is real-time streaming", "REST is for orders, WebSocket is for data only", "There is no difference"]}
@@ -485,7 +485,7 @@ kite_ticker.connect()`}
             {/* Completion Banner */}
             <div className="bg-gradient-to-r from-amber-100 to-yellow-100   rounded-2xl p-8 mb-10 border-2 border-amber-400  text-center">
               <FaTrophy className="w-16 h-16 text-amber-500 mx-auto mb-4"/>
-              <h2 className="text-2xl font-bold text-amber-900  mb-2">🎉 Congratulations!</h2>
+              <h2 className="text-2xl font-bold text-amber-900  mb-2 tracking-[-0.015em]">🎉 Congratulations!</h2>
               <p className="text-amber-800  mb-4">
                 You've completed the entire <strong>Algorithmic Trading Module</strong>! 
                 You now understand the full journey from strategy concept to live deployment.
@@ -512,11 +512,11 @@ kite_ticker.connect()`}
           {/* Navigation */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 pt-8 border-t border-gray-200 ">
             <button onClick={() => navigate('/learn/algo-trading-lesson-8')}
-              className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors group">
+              className="flex items-center gap-2 text-gray-600 hover:text-brand transition-colors group">
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform"/>Back: Data Management
             </button>
             <button onClick={() => navigate('/learn/algorithmic-trading')}
-              className="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all">
+              className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all bg-brand-fill">
               <FaTrophy className="mr-1"/> Back to Module Overview
             </button>
           </div>

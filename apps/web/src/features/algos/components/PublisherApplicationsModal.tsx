@@ -15,7 +15,7 @@ import {
 const STATUS: Record<ApplicationStatus, { label: string; cls: string; hint: string }> = {
   pending: { label: 'Submitted', cls: 'bg-gray-100 text-gray-700', hint: 'Received — waiting for our team to pick it up. You can still edit it.' },
   under_review: { label: 'Under review', cls: 'bg-amber-100 text-amber-800', hint: 'Our team is reviewing your algorithm and backtest. Details are locked while we review.' },
-  approved: { label: 'Approved', cls: 'bg-green-100 text-green-800', hint: 'Approved — we will contact you about next steps.' },
+  approved: { label: 'Approved', cls: 'bg-brand-soft text-brand', hint: 'Approved — we will contact you about next steps.' },
   rejected: { label: 'Rejected', cls: 'bg-red-100 text-red-800', hint: 'Not approved this time.' },
 };
 
@@ -64,7 +64,7 @@ const PublisherApplicationsModal = ({ open, onClose, onEdit, refreshKey = 0 }: P
       <div className="min-h-full flex justify-center p-4">
         <div className="bg-white rounded-2xl max-w-xl w-full my-auto shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
           <div className="sticky top-0 z-10 bg-white p-5 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-gray-900">My publisher applications</h2>
+            <h2 className="text-xl font-semibold text-gray-900">My publisher applications</h2>
             <button onClick={onClose} aria-label="Close" className="p-2 hover:bg-gray-100 rounded-lg">
               <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -102,7 +102,7 @@ const PublisherApplicationsModal = ({ open, onClose, onEdit, refreshKey = 0 }: P
                   <div className="mt-3 flex flex-wrap gap-3">
                     <button
                       type="button"
-                      className="text-sm font-semibold text-green-700 hover:underline"
+                      className="text-sm font-semibold text-brand hover:underline"
                       onClick={() => setExpanded((e) => ({ ...e, [a.id]: !open }))}
                       aria-expanded={open}
                     >

@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
-import { Sparkles } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 
 /**
  * Premium spotlight onboarding tour for first-time users.
@@ -238,12 +238,12 @@ export default function OnboardingTour() {
             width: rect.width,
             height: rect.height,
             boxShadow: "0 0 0 9999px rgba(8,16,28,0.78)",
-            outline: "2px solid rgba(74,222,128,0.85)",
+            outline: "2px solid rgba(22, 163, 74,0.85)",
             outlineOffset: 2,
           }}
         />
       ) : (
-        <div className="absolute inset-0 bg-gray-950/85" />
+        <div className="absolute inset-0 bg-gray-950/85 brand-on-dark" />
       )}
 
       {/* Tooltip card */}
@@ -252,27 +252,36 @@ export default function OnboardingTour() {
         className="absolute w-[min(380px,calc(100vw-32px))] rounded-2xl p-6 text-white shadow-2xl transition-all duration-300"
         style={
           cardPos.centered
-            ? { top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "linear-gradient(150deg,#1f2937,#111827)", border: "1px solid rgba(74,222,128,0.25)" }
-            : { top: cardPos.top, left: cardPos.left, background: "linear-gradient(150deg,#1f2937,#111827)", border: "1px solid rgba(74,222,128,0.25)" }
+            ? { top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(22, 163, 74,0.25)" }
+            : { top: cardPos.top, left: cardPos.left, background: "linear-gradient(150deg,#2A2A2C,#1F1F1F)", border: "1px solid rgba(22, 163, 74,0.25)" }
         }
       >
+        <button
+          type="button"
+          onClick={() => finish(true)}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 text-white/60 hover:bg-white/20 hover:text-white flex items-center justify-center transition-colors"
+          aria-label="Close tour"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
         {step.badge && (
           <div className="w-11 h-11 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-xl mb-3">
             {step.badge}
           </div>
         )}
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary mb-2">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand mb-2 pr-10">
           <Sparkles className="w-3 h-3" /> {step.eyebrow}
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-1.5">{step.title}</h3>
+        <h3 className="text-lg font-bold leading-snug mb-1.5 pr-8">{step.title}</h3>
         <p className="text-sm text-white/70 leading-relaxed mb-4">{step.desc}</p>
 
         {/* Progress */}
         <div className="flex items-center gap-2.5 mb-4">
           <div className="flex-1 h-1 rounded-full bg-white/15 overflow-hidden">
-            <div className="h-full rounded-full bg-gradient-to-r from-primary to-emerald-400 transition-all" style={{ width: `${pct}%` }} />
+            <div className="h-full rounded-full transition-all bg-brand-fill" style={{ width: `${pct}%` }} />
           </div>
-          <span className="text-[11px] font-semibold text-white/50">{index + 1} of {total}</span>
+          <span className="text-xs font-semibold text-white/50">{index + 1} of {total}</span>
         </div>
 
         {/* Actions */}
@@ -290,7 +299,7 @@ export default function OnboardingTour() {
           )}
           <button
             onClick={() => (isLast ? finish(false) : setIndex((i) => Math.min(i + 1, total - 1)))}
-            className="px-4 py-2 rounded-lg text-sm font-bold bg-gradient-to-br from-primary to-emerald-600 text-white shadow-lg shadow-primary/30 hover:brightness-110 transition-all"
+            className="px-4 py-2 rounded-lg text-sm font-bold text-white shadow-lg shadow-primary/30 hover:brightness-110 transition-all bg-brand-fill"
           >
             {step.next || (isLast ? "Finish" : "Next")}
           </button>

@@ -52,7 +52,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { chartGrid, chartTick, chartBarRadius, chartMaxBarSize, chartTooltip, chartColors } from "@/components/charts/chartTheme";
 import { Wallet, Target, HeartPulse, CreditCard, Users, PiggyBank, ArrowRight, Sparkles } from "lucide-react";
+import RollingNumber from "@/components/motion/RollingNumber";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -61,14 +63,8 @@ import ProductBrand from "@/components/ProductBrand";
 import GiniLayout from "../components/GiniLayout";
 import { api } from "../lib/api";
 
-// Matches gini.css's `--chart-1`..`--chart-5` tokens.
-const CHART_COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-  "hsl(var(--chart-5))",
-];
+// The site's shared categorical series (components/charts/chartTheme.ts).
+const CHART_COLORS = chartColors.series;
 
 /** Simple compound-inflation future value — mirrors the original's
  *  `utils.calculateFutureValue(currentCost, inflationPct, years)`. */
@@ -189,7 +185,7 @@ export default function Dashboard() {
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
           <ProductBrand to="/gini" name="Gini" className="mb-3" />
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">Dashboard</h1>
+          <h1 className="xt-title mb-2">Dashboard</h1>
           <p className="text-muted-foreground">
             {isLoading ? "Loading your household's financial picture..." : "Your household's financial picture at a glance"}
           </p>
@@ -244,7 +240,7 @@ export default function Dashboard() {
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
         >
           {kpiCards.map((card) => (
-            <Card key={card.label}>
+            <Card key={card.label} className="transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:shadow-lg">
               <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-xs font-medium text-muted-foreground">{card.label}</p>
@@ -256,11 +252,11 @@ export default function Dashboard() {
                   <p
                     className={
                       card.positive === undefined
-                        ? "text-xl font-bold text-foreground"
-                        : `text-xl font-bold ${card.positive ? "text-success" : "text-destructive"}`
+                        ? "xt-metric text-foreground"
+                        : `xt-metric ${card.positive ? "text-brand" : "text-destructive"}`
                     }
                   >
-                    {card.value}
+                    <RollingNumber value={String(card.value)} />
                   </p>
                 )}
               </CardContent>
@@ -283,7 +279,7 @@ export default function Dashboard() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Asset Allocation</CardTitle>
+              <CardTitle className="text-lg">Asset Allocation</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -318,12 +314,7 @@ export default function Dashboard() {
                       </Pie>
                       <Tooltip
                         formatter={(value: number) => formatCurrency(value)}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
+                        {...chartTooltip}
                       />
                       <Legend
                         verticalAlign="bottom"
@@ -339,7 +330,7 @@ export default function Dashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Goals Progress</CardTitle>
+              <CardTitle className="text-lg">Goals Progress</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -358,15 +349,15 @@ export default function Dashboard() {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={goalsChartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+                      <CartesianGrid {...chartGrid} />
                       <XAxis
                         dataKey="name"
-                        tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
-                        axisLine={{ stroke: "hsl(var(--border))" }}
+                        tick={chartTick}
+                        axisLine={false}
                         tickLine={false}
                       />
                       <YAxis
-                        tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+                        tick={chartTick}
                         axisLine={false}
                         tickLine={false}
                         width={56}
@@ -374,16 +365,11 @@ export default function Dashboard() {
                       />
                       <Tooltip
                         formatter={(value: number) => formatCurrency(value)}
-                        contentStyle={{
-                          background: "hsl(var(--popover))",
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: 8,
-                          fontSize: 12,
-                        }}
+                        {...chartTooltip}
                       />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
-                      <Bar dataKey="saved" name="Saved" fill="hsl(var(--chart-positive))" radius={[4, 4, 0, 0]} />
-                      <Bar dataKey="target" name="Target" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="saved" name="Saved" fill="hsl(var(--chart-positive))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
+                      <Bar dataKey="target" name="Target" fill="hsl(var(--muted-foreground))" radius={chartBarRadius} maxBarSize={chartMaxBarSize} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

@@ -18,7 +18,7 @@ import AdminHeader from '@/features/admin/components/AdminHeader';
 const STATUSES: { id: ApplicationStatus; label: string; badge: string }[] = [
   { id: 'pending', label: 'Pending', badge: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300' },
   { id: 'under_review', label: 'Under review', badge: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300' },
-  { id: 'approved', label: 'Approved', badge: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300' },
+  { id: 'approved', label: 'Approved', badge: 'bg-brand-soft text-brand dark:bg-brand-fill/40 dark:text-brand' },
   { id: 'rejected', label: 'Rejected', badge: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300' },
 ];
 const badgeOf = (s: ApplicationStatus) => STATUSES.find((x) => x.id === s)!;
@@ -79,7 +79,7 @@ function ApplicationCard({ app, onSaved }: { app: PublisherApplication; onSaved:
             <div>
               <dt className="text-xs uppercase tracking-wide text-gray-500 dark:text-slate-400">Email</dt>
               <dd className="mt-0.5 text-sm">
-                <a href={`mailto:${app.applicant_email}`} className="inline-flex items-center gap-1 text-emerald-700 hover:underline dark:text-emerald-400">
+                <a href={`mailto:${app.applicant_email}`} className="inline-flex items-center gap-1 text-brand hover:underline dark:text-brand">
                   <Mail className="h-3.5 w-3.5" aria-hidden="true" />
                   {app.applicant_email}
                 </a>
@@ -115,7 +115,7 @@ function ApplicationCard({ app, onSaved }: { app: PublisherApplication; onSaved:
                 {busy === 'under_review' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}Start review
               </button>
             )}
-            <button type="button" disabled={!!busy} onClick={() => setStatus('approved')} className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-50">
+            <button type="button" disabled={!!busy} onClick={() => setStatus('approved')} className="inline-flex items-center gap-2 rounded-lg bg-brand-fill px-4 py-2 text-sm font-semibold text-white hover:bg-brand-hover disabled:opacity-50">
               {busy === 'approved' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <CheckCircle2 className="h-4 w-4" aria-hidden="true" />}Approve
             </button>
             <button type="button" disabled={!!busy} onClick={() => setStatus('rejected')} className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:opacity-50">
@@ -167,7 +167,7 @@ const AdminAlgoApplications = () => {
 
   if (!user || !isAdminEmail(user.email)) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <p className="text-gray-600 dark:text-slate-300">{user ? 'Admin access only.' : 'Please log in to access the admin panel.'}</p>
       </div>
     );
@@ -177,11 +177,11 @@ const AdminAlgoApplications = () => {
     <>
       <SEO title="Algo Applications – Admin" description="Review algo publisher applications." />
       <AdminHeader />
-      <div className="min-h-screen bg-gray-50 px-4 py-10 dark:bg-slate-900">
+      <div className="min-h-screen bg-background px-4 py-10">
         <div className="mx-auto max-w-4xl">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Algo publisher applications</h1>
+              <h1 className="xt-title">Algo publisher applications</h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-slate-400">Check each submission, then approve or reject it. Your note is shown to the applicant.</p>
             </div>
             <button type="button" onClick={load} disabled={loading} className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800">
@@ -197,7 +197,7 @@ const AdminAlgoApplications = () => {
                 role="tab"
                 aria-selected={filter === t.id}
                 onClick={() => setFilter(t.id)}
-                className={`rounded-full px-3.5 py-1.5 text-sm font-medium ${filter === t.id ? 'bg-gray-900 text-white dark:bg-slate-100 dark:text-slate-900' : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700'}`}
+                className={`rounded-full px-3.5 py-1.5 text-sm font-medium ${filter === t.id ? 'bg-gray-900 text-white dark:bg-slate-100 dark:text-slate-900' : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700'} brand-on-dark`}
               >
                 {t.label} <span className="opacity-70">{counts[t.id] || 0}</span>
               </button>

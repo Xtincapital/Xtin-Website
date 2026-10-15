@@ -158,7 +158,7 @@ function projectGoal(goal: Goal): GoalProjection {
 }
 
 function goalStatus(progressPercent: number): { label: string; className: string } {
-  if (progressPercent >= 100) return { label: "Goal Completed", className: "text-success" };
+  if (progressPercent >= 100) return { label: "Goal Completed", className: "text-brand" };
   if (progressPercent >= 60) return { label: "On Track", className: "text-blue-600 dark:text-blue-400" };
   if (progressPercent >= 30) return { label: "Needs Attention", className: "text-warning" };
   return { label: "Critical", className: "text-destructive" };
@@ -409,7 +409,7 @@ export default function Goals() {
       <div className="space-y-6 p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Financial Goals</h1>
+            <h1 className="xt-title mb-2">Financial Goals</h1>
             <p className="text-sm text-muted-foreground">Plan and track your financial objectives</p>
           </div>
           <Button onClick={openAddDialog}>
@@ -443,7 +443,7 @@ export default function Goals() {
                   <CardHeader className="flex flex-row items-start justify-between space-y-0">
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-1.5">
-                        <CardTitle className="text-base">{goal.name}</CardTitle>
+                        <CardTitle className="text-lg">{goal.name}</CardTitle>
                         {assignedMember && <Badge variant="secondary">For: {assignedMember.name}</Badge>}
                       </div>
                       <p className="text-xs text-muted-foreground">
@@ -540,7 +540,7 @@ export default function Goals() {
               {hasQuestions(form.category) && (
                 <button
                   type="button"
-                  className="text-sm font-medium text-primary hover:underline"
+                  className="text-sm font-medium text-brand hover:underline"
                   onClick={() => setMode(guided ? "manual" : "guided")}
                 >
                   {guided ? "I already know the amount" : "Help me work out the amount"}

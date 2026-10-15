@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
+import { Lock, Mail, Phone, User } from "lucide-react";
+import { PageBackdrop, AuthHero } from "../../marketing/components/PageArt";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const SignupPage = () => {
@@ -139,11 +141,12 @@ const SignupPage = () => {
 			<Navbar />
 
 			{/* Main Content */}
-			<section className="relative bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
+			<section className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white py-20 px-6 md:px-12 lg:px-24 mt-16">
 				<div className="max-w-lg mx-auto">
 					{/* Header */}
 					<div className="text-center mb-8">
-						<h1 className="text-3xl font-bold text-gray-900 mb-2">
+						<AuthHero variant="signup" />
+						<h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-2 tracking-[-0.025em]">
 							Create Your Account
 						</h1>
 						<p className="text-gray-600">
@@ -152,7 +155,7 @@ const SignupPage = () => {
 					</div>
 
 					{/* Signup Form */}
-					<div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+					<div className="bg-white rounded-2xl shadow-xl shadow-brand/5 border border-gray-200 border-t-4 border-t-brand-fill p-8">
 						{/* Error Message */}
 						{error && (
 							<div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -162,8 +165,8 @@ const SignupPage = () => {
 
 						{/* Success Message */}
 						{success && (
-							<div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-								<p className="text-green-600 text-sm">{success}</p>
+							<div className="mb-6 p-4 bg-brand-soft border border-brand-line rounded-lg">
+								<p className="text-brand text-sm">{success}</p>
 							</div>
 						)}
 
@@ -174,31 +177,37 @@ const SignupPage = () => {
 									<label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
 										First Name
 									</label>
-									<input
-										type="text"
-										id="firstName"
-										name="firstName"
-										value={formData.firstName}
-										onChange={handleChange}
-										required
-										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-										placeholder="First name"
-									/>
+									<div className="relative">
+										<User className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+										<input
+											type="text"
+											id="firstName"
+											name="firstName"
+											value={formData.firstName}
+											onChange={handleChange}
+											required
+											className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+											placeholder="First name"
+										/>
+									</div>
 								</div>
 								<div>
 									<label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
 										Last Name
 									</label>
-									<input
-										type="text"
-										id="lastName"
-										name="lastName"
-										value={formData.lastName}
-										onChange={handleChange}
-										required
-										className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-										placeholder="Last name"
-									/>
+									<div className="relative">
+										<User className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+										<input
+											type="text"
+											id="lastName"
+											name="lastName"
+											value={formData.lastName}
+											onChange={handleChange}
+											required
+											className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+											placeholder="Last name"
+										/>
+									</div>
 								</div>
 							</div>
 
@@ -207,16 +216,19 @@ const SignupPage = () => {
 								<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
 									Email Address
 								</label>
-								<input
-									type="email"
-									id="email"
-									name="email"
-									value={formData.email}
-									onChange={handleChange}
-									required
-									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-									placeholder="Enter your email"
-								/>
+								<div className="relative">
+									<Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+									<input
+										type="email"
+										id="email"
+										name="email"
+										value={formData.email}
+										onChange={handleChange}
+										required
+										className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+										placeholder="Enter your email"
+									/>
+								</div>
 							</div>
 
 							{/* Phone Field */}
@@ -224,15 +236,18 @@ const SignupPage = () => {
 								<label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
 									Phone Number (Optional)
 								</label>
-								<input
-									type="tel"
-									id="phone"
-									name="phone"
-									value={formData.phone}
-									onChange={handleChange}
-									className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-									placeholder="Enter your phone number"
-								/>
+								<div className="relative">
+									<Phone className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+									<input
+										type="tel"
+										id="phone"
+										name="phone"
+										value={formData.phone}
+										onChange={handleChange}
+										className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+										placeholder="Enter your phone number"
+									/>
+								</div>
 								<p className="text-xs text-gray-500 mt-1">
 									Enter 10-digit phone number (cannot start with 0)
 								</p>
@@ -246,33 +261,36 @@ const SignupPage = () => {
 											Password
 										</label>
 										<div className="relative">
-											<input
-												type={showPassword ? "text" : "password"}
-												id="password"
-												name="password"
-												value={formData.password}
-												onChange={handleChange}
-												required
-												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-												placeholder="Create a password"
-											/>
-											<button
-												type="button"
-												onClick={() => setShowPassword(!showPassword)}
-												aria-label={showPassword ? "Hide password" : "Show password"}
-												className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-											>
-												{showPassword ? (
-													<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-													</svg>
-												) : (
-													<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
-													</svg>
-												)}
-											</button>
+											<div className="relative">
+												<Lock className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+												<input
+													type={showPassword ? "text" : "password"}
+													id="password"
+													name="password"
+													value={formData.password}
+													onChange={handleChange}
+													required
+													className="w-full pl-11 pr-10 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+													placeholder="Password"
+												/>
+												<button
+													type="button"
+													onClick={() => setShowPassword(!showPassword)}
+													aria-label={showPassword ? "Hide password" : "Show password"}
+													className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+												>
+													{showPassword ? (
+														<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+														</svg>
+													) : (
+														<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+														</svg>
+													)}
+												</button>
+											</div>
 										</div>
 									</div>
 									<div>
@@ -280,33 +298,36 @@ const SignupPage = () => {
 											Confirm Password
 										</label>
 										<div className="relative">
-											<input
-												type={showConfirmPassword ? "text" : "password"}
-												id="confirmPassword"
-												name="confirmPassword"
-												value={formData.confirmPassword}
-												onChange={handleChange}
-												required
-												className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
-												placeholder="Re-enter password"
-											/>
-											<button
-												type="button"
-												onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-												aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-												className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-											>
-												{showConfirmPassword ? (
-													<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-													</svg>
-												) : (
-													<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
-													</svg>
-												)}
-											</button>
+											<div className="relative">
+												<Lock className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400" />
+												<input
+													type={showConfirmPassword ? "text" : "password"}
+													id="confirmPassword"
+													name="confirmPassword"
+													value={formData.confirmPassword}
+													onChange={handleChange}
+													required
+													className="w-full pl-11 pr-10 py-3 bg-gray-50 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:outline-none focus:ring-4 focus:ring-brand/15 focus:border-brand-fill transition duration-200"
+													placeholder="Confirm"
+												/>
+												<button
+													type="button"
+													onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+													aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+													className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+												>
+													{showConfirmPassword ? (
+														<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+														</svg>
+													) : (
+														<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+														</svg>
+													)}
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -324,15 +345,15 @@ const SignupPage = () => {
 										checked={formData.agreeToTerms}
 										onChange={handleChange}
 										required
-										className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+										className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
 									/>
 									<span className="ml-2 text-sm text-gray-600">
 										I agree to the{" "}
-										<Link to="/terms" className="text-green-600 hover:text-green-700 font-medium">
+										<Link to="/terms" className="text-brand hover:text-brand font-medium">
 											Terms of Service
 										</Link>{" "}
 										and{" "}
-										<Link to="/privacy" className="text-green-600 hover:text-green-700 font-medium">
+										<Link to="/privacy" className="text-brand hover:text-brand font-medium">
 											Privacy Policy
 										</Link>
 									</span>
@@ -343,7 +364,7 @@ const SignupPage = () => {
 										name="newsletter"
 										checked={formData.newsletter}
 										onChange={handleChange}
-										className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+										className="h-4 w-4 text-brand focus:ring-brand border-gray-300 rounded mt-1"
 									/>
 									<span className="ml-2 text-sm text-gray-600">
 										I want to receive updates about new features and investment opportunities
@@ -355,7 +376,7 @@ const SignupPage = () => {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 shadow-lg shadow-brand/20 hover:-translate-y-0.5 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isLoading ? (
 									<div className="flex items-center justify-center">
@@ -384,7 +405,7 @@ const SignupPage = () => {
 								type="button"
 								onClick={handleGoogleSignIn}
 								disabled={isGoogleLoading}
-								className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-medium shadow-sm hover:bg-gray-50 hover:border-gray-400 hover:shadow transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{isGoogleLoading ? (
 									<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -407,7 +428,7 @@ const SignupPage = () => {
 						<div className="mt-6 text-center">
 							<p className="text-gray-600">
 								Already have an account?{" "}
-								<Link to="/login" className="text-green-600 hover:text-green-700 font-medium">
+								<Link to="/login" className="text-brand hover:text-brand font-medium">
 									Sign in
 								</Link>
 							</p>
@@ -420,9 +441,9 @@ const SignupPage = () => {
 
 			{/* Email Verification Modal */}
 			{showVerifyModal && (
-				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 brand-on-dark">
 					<div className="bg-white rounded-lg p-8 max-w-md mx-4">
-						<h2 className="text-xl font-bold text-gray-900 mb-4">Verify Your Email</h2>
+						<h2 className="text-xl font-semibold text-gray-900 mb-4">Verify Your Email</h2>
 						<p className="text-gray-600 mb-6">
 							Please check your email inbox and verify your account by clicking the link we sent you.
 						</p>
@@ -431,7 +452,7 @@ const SignupPage = () => {
 								setShowVerifyModal(false);
 								navigate('/login');
 							}}
-							className="w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition duration-200"
+							className="w-full bg-brand-fill text-white py-2 px-4 rounded-lg font-semibold hover:bg-brand-hover transition duration-200"
 						>
 							OK
 						</button>

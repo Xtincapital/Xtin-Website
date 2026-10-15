@@ -30,26 +30,26 @@ function WinRing({ rate }: { rate: number }) {
         <circle cx="40" cy="40" r={r} fill="none" strokeWidth="8" strokeLinecap="round" stroke="url(#bt-ring)" strokeDasharray={`${(Math.min(100, rate) / 100) * c} ${c}`} />
         <defs>
           <linearGradient id="bt-ring" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#34d399" />
-            <stop offset="100%" stopColor="#0d9488" />
+            <stop offset="0%" stopColor="#16A34A" />
+            <stop offset="100%" stopColor="#2A8C9A" />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xl font-bold tabular-nums">{rate.toFixed(0)}%</span>
-        <span className={`text-[10px] uppercase tracking-wider ${muted}`}>win rate</span>
+        <span className="xt-metric">{rate.toFixed(0)}%</span>
+        <span className={`text-xs uppercase tracking-wider ${muted}`}>win rate</span>
       </div>
     </div>
   );
 }
 
 function Kpi({ label, value, sub, tone, help }: { label: string; value: string; sub?: string; tone?: "pos" | "neg"; help: string }) {
-  const color = tone === "pos" ? "text-emerald-600 dark:text-emerald-400" : tone === "neg" ? "text-rose-600 dark:text-rose-400" : "";
+  const color = tone === "pos" ? "text-brand dark:text-brand" : tone === "neg" ? "text-rose-600 dark:text-rose-400" : "";
   return (
     <div className="rounded-xl bg-slate-50 px-3.5 py-3 dark:bg-white/[0.04]" title={help}>
-      <div className={`text-[11px] font-semibold uppercase tracking-wider ${muted}`}>{label}</div>
+      <div className={`text-xs font-semibold uppercase tracking-wider ${muted}`}>{label}</div>
       <div className={`mt-0.5 text-lg font-bold tabular-nums ${color}`}>{value}</div>
-      {sub && <div className={`text-[11px] ${muted}`}>{sub}</div>}
+      {sub && <div className={`text-xs ${muted}`}>{sub}</div>}
     </div>
   );
 }
@@ -58,12 +58,12 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
   const up = m.total_pnl >= 0;
   return (
     <div className={`${card} relative overflow-hidden`}>
-      <div aria-hidden className={`absolute inset-x-0 top-0 h-1 ${up ? "bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-600" : "bg-gradient-to-r from-rose-400 via-orange-400 to-rose-600"}`} />
+      <div aria-hidden className={`absolute inset-x-0 top-0 h-1 ${up ? "bg-brand-fill" : "bg-gradient-to-r from-rose-400 via-orange-400 to-rose-600"}`} />
       <div className="p-5 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${muted}`}>Backtest report</div>
-            <h3 className="mt-1 truncate text-xl font-bold tracking-tight">{title}</h3>
+            <div className={`text-xs font-semibold uppercase tracking-[0.18em] ${muted}`}>Backtest report</div>
+            <h3 className="mt-1 truncate text-xl font-semibold tracking-tight">{title}</h3>
             <div className="mt-1.5 flex flex-wrap items-center gap-2">
               <span className={chip}>{subtitle}</span>
             </div>
@@ -75,11 +75,11 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
         <div className="mt-5 grid gap-5 2xl:grid-cols-[auto_1fr] 2xl:items-center">
           <div className="flex items-center gap-5">
             <div>
-              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${up ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
+              <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${up ? "bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
                 {up ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
                 {up ? "Profitable" : "Lost money"}
               </span>
-              <div className={`mt-1 text-5xl font-extrabold tracking-tight tabular-nums ${up ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>{signed(m.total_return_pct)}%</div>
+              <div className={`mt-1 text-5xl font-extrabold tracking-tight tabular-nums ${up ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>{signed(m.total_return_pct)}%</div>
               <div className={`mt-1 text-sm tabular-nums ${muted}`}>
                 {compactInr(m.starting_capital)} → <span className="font-semibold text-slate-800 dark:text-slate-100">{compactInr(m.final_equity)}</span>{" "}
                 <span className="whitespace-nowrap">· {up ? "+" : ""}{inr(m.total_pnl)}</span>
@@ -106,7 +106,7 @@ function PlainWords({ m }: { m: Metrics }) {
       <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" />
       <p>
         <span className="font-semibold text-slate-900 dark:text-white">In plain words: </span>
-        this strategy would have {made ? "made" : "lost"} <span className={`font-semibold ${made ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>{inr(Math.abs(m.total_pnl))}</span> (
+        this strategy would have {made ? "made" : "lost"} <span className={`font-semibold ${made ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>{inr(Math.abs(m.total_pnl))}</span> (
         {signed(m.total_return_pct, 1)}%). It traded {m.num_trades} times and won {m.win_rate.toFixed(0)}% of them. The worst dip from a high point was {Math.abs(m.max_drawdown_pct).toFixed(1)}% — ask yourself
         honestly if you'd have held on through that. Past results never guarantee the future.
       </p>
@@ -173,14 +173,14 @@ function TradeLog({ result }: { result: BacktestResult }) {
   return (
     <div className={card}>
       <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5 dark:border-white/5">
-        <h4 className="flex items-center gap-2 text-sm font-semibold">
-          <ListOrdered className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Trade log
+        <h4 className="flex items-center gap-2 text-base font-semibold">
+          <ListOrdered className="h-4 w-4 text-brand dark:text-brand" /> Trade log
         </h4>
         <span className={`text-xs ${muted}`}>{result.trades.length > MAX_ROWS ? `First ${MAX_ROWS} of ${result.trades.length}` : `${result.trades.length} trades`}</span>
       </div>
       <div className="max-h-80 overflow-auto">
         <table className="w-full text-left text-sm">
-          <thead className={`sticky top-0 z-10 bg-white/95 text-[11px] uppercase tracking-wider backdrop-blur dark:bg-slate-900/95 ${muted}`}>
+          <thead className={`sticky top-0 z-10 bg-white/95 text-xs uppercase tracking-wider backdrop-blur dark:bg-slate-900/95 ${muted}`}>
             <tr>
               <th className="px-5 py-2.5 font-semibold">#</th>
               <th className="px-3 py-2.5 font-semibold">Side</th>
@@ -195,20 +195,20 @@ function TradeLog({ result }: { result: BacktestResult }) {
               <tr key={i} className="border-t border-slate-100 hover:bg-slate-50/70 dark:border-white/5 dark:hover:bg-white/[0.03]">
                 <td className={`px-5 py-2.5 ${muted}`}>{i + 1}</td>
                 <td className="px-3 py-2.5">
-                  <span className={`rounded-md px-1.5 py-0.5 text-[11px] font-bold ${t.side === "BUY" ? "bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300" : "bg-violet-50 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300"}`}>{t.side}</span>
+                  <span className={`rounded-md px-1.5 py-0.5 text-xs font-bold ${t.side === "BUY" ? "bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300" : "bg-violet-50 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300"}`}>{t.side}</span>
                 </td>
                 <td className="px-3 py-2.5">
                   <div className="font-medium">{t.entry_price.toFixed(2)}</div>
-                  <div className={`text-[11px] ${muted}`}>{shortTime(t.entry_time, dateOnly)}</div>
+                  <div className={`text-xs ${muted}`}>{shortTime(t.entry_time, dateOnly)}</div>
                 </td>
                 <td className="px-3 py-2.5">
                   <div className="font-medium">{t.exit_price.toFixed(2)}</div>
-                  <div className={`text-[11px] ${muted}`}>{shortTime(t.exit_time, dateOnly)}</div>
+                  <div className={`text-xs ${muted}`}>{shortTime(t.exit_time, dateOnly)}</div>
                 </td>
                 <td className={`px-3 py-2.5 text-xs ${muted}`}>{REASON_LABEL[t.reason] ?? t.reason}</td>
-                <td className={`px-5 py-2.5 text-right font-semibold ${t.pnl >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
+                <td className={`px-5 py-2.5 text-right font-semibold ${t.pnl >= 0 ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>
                   {signed(t.pnl)}
-                  <div className="text-[11px] font-normal opacity-80">{signed(t.pnl_pct)}%</div>
+                  <div className="text-xs font-normal opacity-80">{signed(t.pnl_pct)}%</div>
                 </td>
               </tr>
             ))}
@@ -254,7 +254,7 @@ export default function Report({
       {definition !== undefined && (
         <details className={`${card} group`}>
           <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-semibold">
-            <Braces className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /> Strategy definition (JSON)
+            <Braces className="h-4 w-4 text-brand dark:text-brand" /> Strategy definition (JSON)
           </summary>
           <pre className="max-h-72 overflow-auto border-t border-slate-100 px-5 py-4 text-xs leading-relaxed text-slate-600 dark:border-white/5 dark:text-slate-300">{JSON.stringify(definition, null, 2)}</pre>
         </details>

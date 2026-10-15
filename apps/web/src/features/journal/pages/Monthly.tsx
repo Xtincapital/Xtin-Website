@@ -38,21 +38,14 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, CalendarRange } from "lucide-react";
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-} from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import InfoTip from "@/components/ui/info-tip";
 import TradeDrilldown, { type DrilldownRequest } from "../components/TradeDrilldown";
+import { signedMoney } from "../lib/format";
+import { JDonut } from "../components/JournalCharts";
 import JournalLayout from "../components/JournalLayout";
-import { CATEGORY_COLORS } from "../lib/chartColors";
 import { type Trade } from "../lib/api";
 import { getAllTradesInInr } from "../lib/tradesInInr";
 import { marketLabel } from "../lib/journalPatternHelpers";
@@ -62,7 +55,6 @@ const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const PIE_COLORS = CATEGORY_COLORS;
 
 // Trimmed calculateMetrics() subset — matches Dashboard.tsx's own local
 // copy (see that file's header comment for why only this subset is kept).
@@ -147,12 +139,12 @@ const Monthly = () => {
     {
       label: "Monthly P&L",
       info: "Your total profit or loss for the month, after fees.",
-      value: formatCurrency(metrics.totalPnL),
-      className: metrics.totalPnL >= 0 ? "text-success" : "text-destructive",
+      value: signedMoney(formatCurrency, metrics.totalPnL),
+      className: metrics.totalPnL >= 0 ? "text-brand" : "text-destructive",
       onClick: showMonth("All trades", monthlyTrades),
     },
     { label: "Wins / Losses", info: "How many trades made money, and how many lost money, this month. Click to see the winners.", value: `${metrics.wins} / ${metrics.losses}`, onClick: showMonth("Winning trades", closedWins) },
-    { label: "Win Rate", info: "The percentage of this month's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-success", onClick: showMonth("Winning trades", closedWins) },
+    { label: "Win Rate", info: "The percentage of this month's closed trades that made money.", value: `${metrics.winRate.toFixed(2)}%`, className: "text-brand", onClick: showMonth("Winning trades", closedWins) },
   ];
   void closedLosses;
 
@@ -160,50 +152,26 @@ const Monthly = () => {
     data.length === 0 ? (
       <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">{emptyLabel}</div>
     ) : (
-      <div className="h-64">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              dataKey="value"
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              outerRadius="80%"
-              stroke="none"
-              cursor="pointer"
-              onClick={(d) =>
-                setDrill({
-                  title: `${d.name} trades`,
-                  subtitle: monthLabel,
-                  trades: monthlyTrades.filter((t) => (field === "market" ? t.market && marketLabel(t.market) === d.name : t.type === d.name)),
-                })
-              }
-            >
-              {data.map((entry, index) => (
-                <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip
-              formatter={(value: number, name: string) => [`${value} trade${value === 1 ? "" : "s"}`, name]}
-              contentStyle={{
-                background: "hsl(var(--popover))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: 8,
-                fontSize: 12,
-              }}
-            />
-            <Legend wrapperStyle={{ fontSize: 12 }} />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
+      <JDonut
+        data={data.map((d) => ({ label: d.name, value: d.value }))}
+        centerLabel="trades"
+        ariaLabel={field === "market" ? "Trades by market" : "Trades by type"}
+        onSelect={(i) => {
+          const name = data[i].name;
+          setDrill({
+            title: `${name} trades`,
+            subtitle: monthLabel,
+            trades: monthlyTrades.filter((t) => (field === "market" ? t.market && marketLabel(t.market) === name : t.type === name)),
+          });
+        }}
+      />
     );
 
   return (
     <JournalLayout>
       <div className="p-6 md:p-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1 flex items-center gap-2">
+          <h1 className="xt-title mb-2 flex items-center gap-3">
             Monthly View
             <InfoTip title="Monthly view" widthClass="w-80">
               <p>A report card for one month. Use the arrows to move between months.</p>
@@ -222,7 +190,7 @@ const Monthly = () => {
           className="flex items-center justify-between mb-6"
         >
           <div className="flex items-center gap-2 text-lg font-bold text-foreground">
-            <CalendarRange className="w-4 h-4 text-primary" />
+            <CalendarRange className="w-4 h-4 text-brand" />
             {MONTH_NAMES[month]} {year}
           </div>
           <div className="flex items-center gap-2">
@@ -251,7 +219,7 @@ const Monthly = () => {
                   </InfoTip>
                 </p>
                 <button type="button" onClick={card.onClick} disabled={!metrics.totalTrades} className="text-left enabled:cursor-pointer enabled:hover:underline">
-                  <p className={`stat-value font-bold ${card.className ?? "text-foreground"}`}>{card.value}</p>
+                  <p className={`stat-value font-semibold ${card.className ?? "text-foreground"}`}>{card.value}</p>
                 </button>
               </CardContent>
             </Card>
@@ -266,7 +234,7 @@ const Monthly = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Type Distribution
                 <InfoTip title="Type Distribution">
                   <p>How this month's trades split between trading styles. Click a slice to list those trades.</p>
@@ -277,7 +245,7 @@ const Monthly = () => {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-1.5">
+              <CardTitle className="text-lg flex items-center gap-1.5">
                 Market Distribution
                 <InfoTip title="Market Distribution">
                   <p>How this month's trades split between markets. Click a slice to list those trades.</p>

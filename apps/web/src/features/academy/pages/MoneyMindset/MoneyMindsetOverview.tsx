@@ -26,10 +26,10 @@ const colors = [
   "from-rose-500 to-pink-500",
   "from-blue-500 to-cyan-500",
   "from-amber-500 to-orange-500",
-  "from-emerald-500 to-teal-500",
+  "bg-brand-fill",
   "from-indigo-500 to-blue-500",
   "from-violet-500 to-indigo-500",
-  "from-green-500 to-emerald-500",
+  "bg-brand-fill",
   "from-cyan-500 to-blue-500"
 ];
 
@@ -69,7 +69,7 @@ const MoneyMindsetOverview = () => {
 
             <div className="mb-3"><ModuleBadge moduleId="money-mindset" /></div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-200 rounded-xl shadow-sm">
                 <BrainIcon className="w-7 h-7 text-rose-600" />
               </span>
@@ -84,7 +84,7 @@ const MoneyMindsetOverview = () => {
           <div className="bg-gradient-to-br from-white to-rose-50 rounded-3xl p-8 mb-10 border border-rose-100 shadow-lg">
             <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Money progress starts with behavior.</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 tracking-[-0.015em]">Money progress starts with behavior.</h2>
                 <p className="text-gray-600 leading-relaxed mb-5">
                   This module helps beginners build a healthier relationship with money before moving
                   deeper into saving, debt, investing, and planning.
@@ -95,7 +95,7 @@ const MoneyMindsetOverview = () => {
                     <p className="text-sm font-semibold text-gray-900">Impulse control</p>
                   </div>
                   <div className="bg-white rounded-xl p-4 border border-rose-100 shadow-sm">
-                    <PiggyBankIcon className="w-6 h-6 text-emerald-600 mb-2" />
+                    <PiggyBankIcon className="w-6 h-6 text-brand mb-2" />
                     <p className="text-sm font-semibold text-gray-900">Saving habit</p>
                   </div>
                   <div className="bg-white rounded-xl p-4 border border-rose-100 shadow-sm">
@@ -119,7 +119,7 @@ const MoneyMindsetOverview = () => {
           </div>
 
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 mb-10 border border-amber-200">
-            <h2 className="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-amber-900 mb-4 flex items-center gap-2">
               <TargetIcon className="w-6 h-6 text-amber-600" />
               <span>After This Module, You Will:</span>
             </h2>
@@ -141,7 +141,7 @@ const MoneyMindsetOverview = () => {
           </div>
 
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <BookOpenIcon className="w-7 h-7 text-rose-600" />
               <span>Your Learning Path</span>
             </h2>
@@ -168,7 +168,7 @@ const MoneyMindsetOverview = () => {
                             {lesson.duration}
                           </span>
                         </div>
-                        <h3 className="font-bold text-gray-900 text-lg">{lesson.title}</h3>
+                        <h3 className="font-semibold text-gray-900 text-lg">{lesson.title}</h3>
                         <p className="text-sm text-gray-500">{lesson.subtitle}</p>
                       </div>
                       <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center group-hover:bg-rose-500 transition-colors">
@@ -184,23 +184,23 @@ const MoneyMindsetOverview = () => {
           <div className="grid md:grid-cols-3 gap-4 mb-10">
             <div className="bg-rose-50 rounded-2xl p-5 border border-rose-200">
               <HeartIcon className="w-7 h-7 text-rose-600 mb-3" />
-              <h3 className="font-bold text-rose-900 mb-1">Shame-free</h3>
+              <h3 className="font-semibold text-rose-900 mb-1">Shame-free</h3>
               <p className="text-sm text-rose-700">Improve money behavior without attacking yourself.</p>
             </div>
-            <div className="bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
-              <PiggyBankIcon className="w-7 h-7 text-emerald-600 mb-3" />
-              <h3 className="font-bold text-emerald-900 mb-1">Action-based</h3>
-              <p className="text-sm text-emerald-700">Turn intentions into simple repeatable habits.</p>
+            <div className="bg-brand-soft rounded-2xl p-5 border border-brand-line">
+              <PiggyBankIcon className="w-7 h-7 text-brand mb-3" />
+              <h3 className="font-semibold text-brand mb-1">Action-based</h3>
+              <p className="text-sm text-brand">Turn intentions into simple repeatable habits.</p>
             </div>
             <div className="bg-blue-50 rounded-2xl p-5 border border-blue-200">
               <ShieldIcon className="w-7 h-7 text-blue-600 mb-3" />
-              <h3 className="font-bold text-blue-900 mb-1">Pressure-aware</h3>
+              <h3 className="font-semibold text-blue-900 mb-1">Pressure-aware</h3>
               <p className="text-sm text-blue-700">Make choices that fit your life, not someone else's display.</p>
             </div>
           </div>
 
           <div className="bg-gradient-to-r from-rose-500 to-pink-500 rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-bold mb-2">Ready to Build Better Money Habits?</h3>
+            <h3 className="text-2xl font-bold mb-2 tracking-[-0.015em]">Ready to Build Better Money Habits?</h3>
             <p className="text-rose-100 mb-6">Start with why small choices shape your financial direction.</p>
             <button
               onClick={() => navigate("/learn/money-mindset-lesson-1")}

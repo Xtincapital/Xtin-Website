@@ -43,11 +43,11 @@ const IncomeTaxCalculator = () => {
 
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-background">
             <Navbar />
             <main className="flex-grow mt-16 py-20 px-6 md:px-12 lg:px-24">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 text-green-700">
+                    <h1 className="xt-title text-center mb-8">
                         Income Tax Calculator
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -67,7 +67,7 @@ const IncomeTaxCalculator = () => {
 
                             {/* Income Section */}
                             <div className="mb-6">
-                                <h3 className="text-xl font-semibold mb-4 text-green-700">Income</h3>
+                                <h3 className="xt-section mb-4">Income</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label htmlFor="incometax-gross-salary" className="block text-sm font-medium text-gray-700">Gross salary (Basic + DA)</label>
@@ -88,7 +88,7 @@ const IncomeTaxCalculator = () => {
 
                             {/* Exemptions Section */}
                             <div className="mb-6">
-                                <h3 className="text-xl font-semibold mb-4 text-green-700">Exemptions</h3>
+                                <h3 className="xt-section mb-4">Exemptions</h3>
                                 <div>
                                     <label htmlFor="incometax-annual-interest-paid-on-home-loan" className="block text-sm font-medium text-gray-700">Annual interest paid on home loan</label>
                                     <div className="relative">
@@ -100,7 +100,7 @@ const IncomeTaxCalculator = () => {
 
                             {/* Deductions Section */}
                             <div>
-                                <h3 className="text-xl font-semibold mb-4 text-green-700">Deductions</h3>
+                                <h3 className="xt-section mb-4">Deductions</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label htmlFor="incometax-basic-deductions" className="block text-sm font-medium text-gray-700">Basic Deductions (80C)</label>
@@ -139,18 +139,18 @@ const IncomeTaxCalculator = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={calculateTax} className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition">
+                            <button onClick={calculateTax} className="w-full mt-6 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition">
                                 Calculate
                             </button>
                         </div>
                         <div className="bg-white shadow-md rounded-xl p-6 flex flex-col justify-center items-center">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">Total tax (Old Regime)</h3>
-                                <p className="text-4xl font-bold text-green-700">₹ {formatNumber(oldRegimeTax)}</p>
+                                <p className="text-4xl font-bold text-brand">₹ {formatNumber(oldRegimeTax)}</p>
                             </div>
                             <div className="text-center mt-8">
                                 <h3 className="text-xl font-semibold mb-2">Total tax (New Regime)</h3>
-                                <p className="text-4xl font-bold text-green-700">₹ {formatNumber(newRegimeTax)}</p>
+                                <p className="text-4xl font-bold text-brand">₹ {formatNumber(newRegimeTax)}</p>
                             </div>
                         </div>
                     </div>

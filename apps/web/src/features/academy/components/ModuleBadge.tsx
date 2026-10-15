@@ -8,7 +8,7 @@ const ModuleBadge = ({ moduleId }: { moduleId: string }) => {
   if (!info) return null;
   return (
     <span
-      className="px-3 py-1 mr-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-sm font-semibold whitespace-nowrap"
+      className="px-3 py-1 mr-2 bg-brand-soft text-brand border border-brand-line rounded-full text-sm font-semibold whitespace-nowrap"
       title={info.title}
     >
       {info.level} · Module {info.number}

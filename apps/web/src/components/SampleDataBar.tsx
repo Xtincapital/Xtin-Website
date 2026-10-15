@@ -32,9 +32,13 @@ interface SampleDataBarProps {
   placement?: 'bar' | 'button' | 'banner';
   /** Text on the load button (default "Load sample data"). */
   label?: string;
+  /** `button` placement only: show just an icon (the label becomes its tooltip
+   *  and accessible name) and style it with this class. */
+  iconOnly?: boolean;
+  buttonClassName?: string;
 }
 
-const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data' }: SampleDataBarProps) => {
+const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data', iconOnly = false, buttonClassName }: SampleDataBarProps) => {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -62,8 +66,10 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
     return (
       <div
         role="status"
-        className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 bg-amber-50 border-b border-amber-200 text-amber-900 text-sm"
+        className="px-4 py-2.5 bg-amber-50 border-b border-amber-200 text-amber-900 text-sm"
       >
+        {/* Background spans the page; contents sit in the site's centred column. */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 max-w-7xl mx-auto w-full">
         <FlaskConical className="w-4 h-4 shrink-0" aria-hidden="true" />
         <span className="flex-1 min-w-0">
           <strong className="font-semibold">Sample data{activeName ? `: ${activeName}` : ''}.</strong>{' '}
@@ -77,6 +83,7 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
           <X className="w-3.5 h-3.5" aria-hidden="true" />
           Exit sample mode
         </button>
+        </div>
       </div>
     );
   }
@@ -94,10 +101,15 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
           onClick={() => (options.length === 1 ? handlePick(options[0].id) : setOpen((v) => !v))}
           aria-expanded={options.length > 1 ? open : undefined}
           aria-haspopup={options.length > 1 ? 'true' : undefined}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
+          aria-label={iconOnly ? label : undefined}
+          title={iconOnly ? label : undefined}
+          className={
+            buttonClassName ??
+            "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 whitespace-nowrap hover:bg-gray-50 transition-colors"
+          }
         >
-          <Database className="w-4 h-4" aria-hidden="true" />
-          {label}
+          {iconOnly ? <FlaskConical className="w-4 h-4" aria-hidden="true" /> : <Database className="w-4 h-4" aria-hidden="true" />}
+          {!iconOnly && label}
         </button>
 
         {open && (
@@ -110,7 +122,7 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
                 key={option.id}
                 type="button"
                 onClick={() => handlePick(option.id)}
-                className="w-full text-left rounded-lg px-3 py-2.5 hover:bg-emerald-50 transition-colors"
+                className="w-full text-left rounded-lg px-3 py-2.5 hover:bg-brand-soft transition-colors"
               >
                 <div className="text-sm font-semibold text-gray-900">{option.name}</div>
                 <div className="text-xs text-gray-600 mt-0.5">{option.description}</div>

@@ -5,7 +5,7 @@ import { FaCrown } from 'react-icons/fa';
  * Full-screen celebration the moment Market Brief Pro activates.
  * Peak-end rule: make the purchase feel like an achievement. Pure CSS confetti.
  */
-const CONFETTI_COLORS = ['#16A34A', '#10B981', '#F59E0B', '#3B82F6', '#8B5CF6', '#EC4899'];
+const CONFETTI_COLORS = ['#16A34A', '#16A34A', '#B8923F', '#5A77AA', '#8F6FC4', '#8F6FC4'];
 
 const NewsletterProCelebration = ({ open, onDone }) => {
   const pieces = useMemo(
@@ -31,7 +31,7 @@ const NewsletterProCelebration = ({ open, onDone }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm overflow-hidden">
+    <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm overflow-hidden brand-on-dark">
       {pieces.map((p) => (
         <span
           key={p.id}
@@ -48,10 +48,10 @@ const NewsletterProCelebration = ({ open, onDone }) => {
       ))}
 
       <div className="relative bg-white dark:bg-slate-900 rounded-3xl p-10 max-w-sm w-full mx-4 text-center shadow-2xl border border-transparent dark:border-slate-700 animate-[nlPop_0.4s_ease-out]">
-        <div className="w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/40">
+        <div className="w-20 h-20 mx-auto mb-5 rounded-2xl flex items-center justify-center shadow-lg shadow-amber-500/40 bg-brand-fill">
           <FaCrown className="text-white text-3xl" />
         </div>
-        <h3 className="text-2xl font-extrabold text-gray-900 dark:text-slate-100 mb-2">
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-slate-100 mb-2">
           You're now a Pro reader
         </h3>
         <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">

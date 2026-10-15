@@ -74,12 +74,12 @@ const Icons = {
     <svg className={className} viewBox="0 0 400 250" fill="none">
       <defs>
         <linearGradient id="stockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6"/>
-          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2"/>
+          <stop offset="0%" stopColor="#5A77AA" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="#5A77AA" stopOpacity="0.2"/>
         </linearGradient>
         <linearGradient id="bondGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.6"/>
-          <stop offset="100%" stopColor="#10b981" stopOpacity="0.2"/>
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="#16A34A" stopOpacity="0.2"/>
         </linearGradient>
       </defs>
       {/* Axes */}
@@ -88,10 +88,10 @@ const Icons = {
       <text x="210" y="230" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle">Age →</text>
       <text x="20" y="120" fill="currentColor" opacity="0.6" fontSize="13" textAnchor="middle" transform="rotate(-90 20 120)">Allocation %</text>
       {/* Stock allocation (decreasing) */}
-      <path d="M 50 50 L 130 70 L 210 100 L 290 140 L 370 180" stroke="#3b82f6" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M 50 50 L 130 70 L 210 100 L 290 140 L 370 180" stroke="#5A77AA" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 50 L 130 70 L 210 100 L 290 140 L 370 180 L 370 200 L 50 200 Z" fill="url(#stockGrad)"/>
       {/* Bond allocation (increasing) */}
-      <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100" stroke="#10b981" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100" stroke="#16A34A" strokeWidth="3" fill="none" strokeLinecap="round"/>
       <path d="M 50 200 L 130 190 L 210 170 L 290 140 L 370 100 L 370 200 Z" fill="url(#bondGrad)"/>
       {/* Age markers */}
       {[{x:50,a:'25'},{x:130,a:'35'},{x:210,a:'45'},{x:290,a:'55'},{x:370,a:'65'}].map((m, i) => (
@@ -101,8 +101,8 @@ const Icons = {
         </g>
       ))}
       {/* Labels */}
-      <text x="80" y="70" fill="#3b82f6" fontSize="13" fontWeight="bold">Stocks</text>
-      <text x="340" y="115" fill="#10b981" fontSize="13" fontWeight="bold">Bonds</text>
+      <text x="80" y="70" fill="#5A77AA" fontSize="13" fontWeight="bold">Stocks</text>
+      <text x="340" y="115" fill="#16A34A" fontSize="13" fontWeight="bold">Bonds</text>
       <text x="200" y="25" fill="currentColor" opacity="0.7" fontSize="14" fontWeight="bold" textAnchor="middle">Target-Date Glide Path</text>
     </svg>
   )
@@ -186,12 +186,12 @@ const PCLesson4 = () => {
 
           <header className="mb-12">
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-bold rounded-full shadow-sm">LESSON 4 OF 12</span>
+              <span className="px-3 py-1.5 text-white text-xs font-bold rounded-full shadow-sm bg-brand-fill">LESSON 4 OF 12</span>
               <span className="px-3 py-1.5 bg-indigo-100  text-indigo-700  rounded-full text-xs font-medium flex items-center gap-1.5">
                 <Icons.Clock className="w-3.5 h-3.5"/>40 min read
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900    bg-clip-text text-transparent mb-5 leading-tight">Strategic Asset Allocation</h1>
+            <h1 className="text-5xl md:text-6xl font-display font-bold bg-gradient-to-r from-gray-900 via-indigo-900 to-violet-900 bg-clip-text text-transparent mb-5 leading-tight tracking-[-0.025em] brand-on-dark">Strategic Asset Allocation</h1>
             <p className="text-xl text-gray-600  leading-relaxed max-w-3xl">Learn how to set long-term portfolio targets based on your goals, time horizon, and risk tolerance. Master the framework that drives 90%+ of portfolio return variation.</p>
           </header>
 
@@ -200,18 +200,18 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-500/20 bg-brand-fill">
                     <Icons.PieChart className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">What is Strategic Asset Allocation?</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.025em]">What is Strategic Asset Allocation?</h2>
                     <p className="text-sm text-gray-500 ">The foundation of your investment policy</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700  leading-relaxed mb-6">Strategic Asset Allocation (SAA) establishes your long-term target mix of asset classes based on your goals, time horizon, and risk tolerance. Research shows that <strong className="text-gray-900 ">SAA explains over 90% of the variation in portfolio returns over time</strong>.</p>
                 
-                <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-xl p-8 mb-6">
+                <div className="rounded-xl p-8 mb-6 bg-brand-fill">
                   <h4 className="text-white font-semibold mb-4 text-center">SAA vs. Security Selection</h4>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-white/5 rounded-lg p-5 text-center">
@@ -242,11 +242,11 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20 bg-brand-fill">
                     <Icons.User className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Determining Your Risk Tolerance</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Determining Your Risk Tolerance</h2>
                     <p className="text-sm text-gray-500 ">Know yourself before building your portfolio</p>
                   </div>
                 </div>
@@ -280,16 +280,16 @@ const PCLesson4 = () => {
                   <h4 className="font-bold text-gray-900  mb-4">Risk Tolerance Spectrum</h4>
                   <div className="space-y-3">
                     <div className="flex items-center gap-4">
-                      <span className="w-24 text-sm font-medium text-emerald-600 ">Conservative</span>
+                      <span className="w-24 text-sm font-medium text-brand ">Conservative</span>
                       <div className="flex-1 h-3 bg-gray-200  rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full" style={{width: '30%'}}/>
+                        <div className="h-full rounded-full bg-brand-fill" style={{width: '30%'}}/>
                       </div>
                       <span className="text-sm text-gray-600 ">20-40% Stocks</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="w-24 text-sm font-medium text-blue-600 ">Moderate</span>
                       <div className="flex-1 h-3 bg-gray-200  rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style={{width: '60%'}}/>
+                        <div className="h-full rounded-full bg-brand-fill" style={{width: '60%'}}/>
                       </div>
                       <span className="text-sm text-gray-600 ">50-70% Stocks</span>
                     </div>
@@ -308,17 +308,17 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 bg-brand-fill">
                     <Icons.Target className="w-7 h-7 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Lifecycle Asset Allocation</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Asset Allocation</h2>
                     <p className="text-sm text-gray-500 ">Age-based portfolio strategies</p>
                   </div>
                 </div>
                 
                 {/* Visual: Lifecycle Glide Path */}
-                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg">
+                <div className="bg-gradient-to-br from-gray-900 to-purple-950 rounded-2xl p-8 mb-6 shadow-lg brand-on-dark">
                   <h4 className="text-white font-bold mb-4 text-center">Visual: Target-Date Asset Allocation</h4>
                   <Icons.GlidePath className="w-full h-56"/>
                   <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
@@ -327,7 +327,7 @@ const PCLesson4 = () => {
                       <span className="text-gray-300">Stocks (Higher Risk/Return)</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-brand-fill"></div>
                       <span className="text-gray-300">Bonds (Lower Risk/Return)</span>
                     </div>
                   </div>
@@ -358,8 +358,8 @@ const PCLesson4 = () => {
                     </div>
                     <p className="text-xs text-orange-600  mt-3">Aggressive growth phase</p>
                   </div>
-                  <div className="bg-green-50  rounded-xl p-5 border border-green-200 ">
-                    <h4 className="font-bold text-green-800  mb-3">Age 40-50</h4>
+                  <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-3">Age 40-50</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600 ">Indian Equity</span>
@@ -378,7 +378,7 @@ const PCLesson4 = () => {
                         <span className="font-medium text-gray-900 ">15%</span>
                       </div>
                     </div>
-                    <p className="text-xs text-green-600  mt-3">Balanced accumulation</p>
+                    <p className="text-xs text-brand  mt-3">Balanced accumulation</p>
                   </div>
                   <div className="bg-blue-50  rounded-xl p-5 border border-blue-200 ">
                     <h4 className="font-bold text-blue-800  mb-3">Age 55+</h4>
@@ -415,18 +415,18 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-emerald-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand/20 bg-brand-fill">
                     <Icons.Calendar className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Lifecycle Investing</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Lifecycle Investing</h2>
                     <p className="text-sm text-gray-500 ">Age-appropriate asset allocation</p>
                   </div>
                 </div>
 
                 <p className="text-gray-700  leading-relaxed mb-6">Your optimal allocation changes over time. Young investors with decades ahead can afford more risk; those near retirement need capital preservation. This concept drives the "glide path" of target-date funds.</p>
 
-                <div className="bg-gradient-to-br from-slate-900 to-emerald-950 rounded-xl p-6 mb-6">
+                <div className="rounded-xl p-6 mb-6 bg-brand-fill">
                   <h4 className="text-white font-semibold mb-4 text-center">Typical Glide Path</h4>
                   <div className="space-y-4">
                     {[
@@ -439,22 +439,22 @@ const PCLesson4 = () => {
                       <div key={i} className="flex items-center gap-4">
                         <span className="w-16 text-gray-400 text-sm">{item.age}</span>
                         <div className="flex-1 h-6 bg-gray-700 rounded-full overflow-hidden flex">
-                          <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500" style={{width: `${item.stocks}%`}}/>
-                          <div className="h-full bg-gradient-to-r from-blue-400 to-blue-500 flex-1"/>
+                          <div className="h-full bg-brand-fill" style={{width: `${item.stocks}%`}}/>
+                          <div className="h-full flex-1 bg-brand-fill"/>
                         </div>
                         <span className="w-24 text-right text-gray-300 text-sm">{item.stocks}% Stocks</span>
                       </div>
                     ))}
                   </div>
                   <div className="flex justify-center gap-6 mt-4 text-sm">
-                    <span className="flex items-center gap-2"><span className="w-3 h-3 bg-emerald-400 rounded"/>Stocks</span>
+                    <span className="flex items-center gap-2"><span className="w-3 h-3 bg-brand-fill rounded"/>Stocks</span>
                     <span className="flex items-center gap-2"><span className="w-3 h-3 bg-blue-400 rounded"/>Bonds</span>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-emerald-50  rounded-xl p-5 border border-emerald-200 ">
-                    <h4 className="font-bold text-emerald-800  mb-2">Human Capital</h4>
+                  <div className="bg-brand-soft  rounded-xl p-5 border border-brand-line ">
+                    <h4 className="font-bold text-brand  mb-2">Human Capital</h4>
                     <p className="text-sm text-gray-600 ">Young people's future earnings act like a bond—stable and predictable. This allows financial portfolio to be more aggressive.</p>
                   </div>
                   <div className="bg-blue-50  rounded-xl p-5 border border-blue-200 ">
@@ -468,11 +468,11 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/20 bg-brand-fill">
                     <Icons.Target className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Sample Strategic Allocations</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Sample Strategic Allocations</h2>
                     <p className="text-sm text-gray-500 ">Model portfolios by risk level</p>
                   </div>
                 </div>
@@ -481,11 +481,11 @@ const PCLesson4 = () => {
                   <div className="bg-gray-50  rounded-xl p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="font-bold text-gray-900 ">Conservative Portfolio</h4>
-                      <span className="px-3 py-1 bg-emerald-100  text-emerald-700  rounded-full text-sm">Low Risk</span>
+                      <span className="px-3 py-1 bg-brand-soft  text-brand  rounded-full text-sm">Low Risk</span>
                     </div>
                     <div className="grid grid-cols-4 gap-3 text-center text-sm">
                       <div className="bg-blue-100  rounded-lg p-3"><div className="font-bold text-blue-700 ">50%</div><div className="text-gray-600 ">Bonds</div></div>
-                      <div className="bg-emerald-100  rounded-lg p-3"><div className="font-bold text-emerald-700 ">25%</div><div className="text-gray-600 ">US Stocks</div></div>
+                      <div className="bg-brand-soft  rounded-lg p-3"><div className="font-bold text-brand ">25%</div><div className="text-gray-600 ">US Stocks</div></div>
                       <div className="bg-purple-100  rounded-lg p-3"><div className="font-bold text-purple-700 ">15%</div><div className="text-gray-600 ">Int'l Stocks</div></div>
                       <div className="bg-amber-100  rounded-lg p-3"><div className="font-bold text-amber-700 ">10%</div><div className="text-gray-600 ">Real Assets</div></div>
                     </div>
@@ -497,7 +497,7 @@ const PCLesson4 = () => {
                       <span className="px-3 py-1 bg-blue-100  text-blue-700  rounded-full text-sm">Moderate Risk</span>
                     </div>
                     <div className="grid grid-cols-4 gap-3 text-center text-sm">
-                      <div className="bg-emerald-100  rounded-lg p-3"><div className="font-bold text-emerald-700 ">40%</div><div className="text-gray-600 ">US Stocks</div></div>
+                      <div className="bg-brand-soft  rounded-lg p-3"><div className="font-bold text-brand ">40%</div><div className="text-gray-600 ">US Stocks</div></div>
                       <div className="bg-blue-100  rounded-lg p-3"><div className="font-bold text-blue-700 ">30%</div><div className="text-gray-600 ">Bonds</div></div>
                       <div className="bg-purple-100  rounded-lg p-3"><div className="font-bold text-purple-700 ">20%</div><div className="text-gray-600 ">Int'l Stocks</div></div>
                       <div className="bg-amber-100  rounded-lg p-3"><div className="font-bold text-amber-700 ">10%</div><div className="text-gray-600 ">Alternatives</div></div>
@@ -510,7 +510,7 @@ const PCLesson4 = () => {
                       <span className="px-3 py-1 bg-rose-100  text-rose-700  rounded-full text-sm">High Risk</span>
                     </div>
                     <div className="grid grid-cols-4 gap-3 text-center text-sm">
-                      <div className="bg-emerald-100  rounded-lg p-3"><div className="font-bold text-emerald-700 ">55%</div><div className="text-gray-600 ">US Stocks</div></div>
+                      <div className="bg-brand-soft  rounded-lg p-3"><div className="font-bold text-brand ">55%</div><div className="text-gray-600 ">US Stocks</div></div>
                       <div className="bg-purple-100  rounded-lg p-3"><div className="font-bold text-purple-700 ">25%</div><div className="text-gray-600 ">Int'l Stocks</div></div>
                       <div className="bg-amber-100  rounded-lg p-3"><div className="font-bold text-amber-700 ">10%</div><div className="text-gray-600 ">EM Stocks</div></div>
                       <div className="bg-blue-100  rounded-lg p-3"><div className="font-bold text-blue-700 ">10%</div><div className="text-gray-600 ">Bonds</div></div>
@@ -523,11 +523,11 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/20 bg-brand-fill">
                     <Icons.RefreshCw className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Rebalancing Strategies</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Rebalancing Strategies</h2>
                     <p className="text-sm text-gray-500 ">Maintaining your target allocation</p>
                   </div>
                 </div>
@@ -567,11 +567,11 @@ const PCLesson4 = () => {
             <section>
               <div className="bg-white  rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 ">
                 <div className="flex items-start gap-4 mb-8">
-                  <span className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20">
+                  <span className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-500/20 bg-brand-fill">
                     <Icons.CheckCircle className="w-6 h-6 text-white"/>
                   </span>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900  mb-1">Knowledge Check</h2>
+                    <h2 className="text-2xl font-bold text-gray-900  mb-1 tracking-[-0.015em]">Knowledge Check</h2>
                     <p className="text-sm text-gray-500 ">Test your understanding of strategic allocation</p>
                   </div>
                 </div>
@@ -590,7 +590,7 @@ const PCLesson4 = () => {
                           return (
                             <button key={oIdx} onClick={() => handleQuizAnswer(q.id, oIdx)} disabled={showResults}
                               className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4
-                                ${showCorrect ? 'border-emerald-500 bg-emerald-50 ' : ''}
+                                ${showCorrect ? 'border-brand bg-brand-soft ' : ''}
                                 ${showWrong ? 'border-red-500 bg-red-50 ' : ''}
                                 ${isSelected && !showResults ? 'border-indigo-500 bg-indigo-50 ' : ''}
                                 ${!isSelected && !showResults ? 'border-gray-200  hover:border-gray-300 ' : ''}
@@ -599,7 +599,7 @@ const PCLesson4 = () => {
                                 {String.fromCharCode(65 + oIdx)}
                               </span>
                               <span className="flex-1 text-gray-700 ">{option}</span>
-                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-emerald-500"/>}
+                              {showResults && isCorrect && <Icons.CheckCircle className="w-6 h-6 text-brand"/>}
                               {showResults && isSelected && !isCorrect && <Icons.XCircle className="w-6 h-6 text-red-500"/>}
                             </button>
                           );
@@ -616,11 +616,11 @@ const PCLesson4 = () => {
 
                 {!showResults ? (
                   <button onClick={() => setShowResults(true)} disabled={Object.keys(quizAnswers).length !== quizQuestions.length}
-                    className="mt-8 w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="mt-8 w-full py-4 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed bg-brand-fill">
                     Check Answers
                   </button>
                 ) : (
-                  <div className="mt-8 p-6 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl text-center">
+                  <div className="mt-8 p-6 rounded-xl text-center bg-brand-fill">
                     <p className="text-3xl font-bold text-white mb-2">{calculateScore()} / {quizQuestions.length}</p>
                     <p className="text-indigo-100">{calculateScore() === quizQuestions.length ? "Excellent! You've mastered strategic asset allocation." : "Review the explanations to strengthen your understanding."}</p>
                   </div>
@@ -633,7 +633,7 @@ const PCLesson4 = () => {
             <button onClick={() => navigate('/learn/pc-lesson-3')} className="flex items-center gap-2 px-6 py-3 bg-gray-100  text-gray-700  rounded-xl font-medium hover:bg-gray-200  transition-colors">
               <Icons.ArrowLeft className="w-4 h-4"/><span>Previous: Asset Class Mastery</span>
             </button>
-            <button onClick={() => navigate('/learn/pc-lesson-5')} className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200">
+            <button onClick={() => navigate('/learn/pc-lesson-5')} className="flex items-center gap-2 px-6 py-3 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200 bg-brand-fill">
               <span>Next: Tactical Asset Allocation</span><Icons.ArrowRight className="w-4 h-4"/>
             </button>
           </div>

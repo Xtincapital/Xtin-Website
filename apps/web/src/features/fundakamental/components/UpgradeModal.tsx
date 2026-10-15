@@ -106,7 +106,7 @@ export default function UpgradeModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[10060] flex justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[10060] flex justify-center p-4 bg-gray-900/60 backdrop-blur-sm overflow-y-auto brand-on-dark"
       onClick={closeUpgrade}
     >
       <div
@@ -125,7 +125,7 @@ export default function UpgradeModal() {
 
         {/* Header */}
         <div className="text-center mb-5">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-brand text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" /> FundaKaMental Pro
           </span>
           <h2 className="text-2xl font-bold text-foreground">{copy.title}</h2>
@@ -157,7 +157,7 @@ export default function UpgradeModal() {
               }`}
             >
               Yearly
-              <span className="text-[10px] font-bold text-white bg-primary rounded-full px-1.5 py-0.5">
+              <span className="text-xs font-bold text-white bg-primary rounded-full px-1.5 py-0.5">
                 SAVE 33%
               </span>
             </button>
@@ -181,15 +181,15 @@ export default function UpgradeModal() {
 
         {/* Token allowance — the concrete "what you're paying for" */}
         <div className="flex items-center gap-3 mb-5 p-3 rounded-xl bg-primary/5 border border-primary/20">
-          <Coins className="w-5 h-5 text-primary flex-shrink-0" />
+          <Coins className="w-5 h-5 text-brand flex-shrink-0" />
           <div className="flex-1 text-sm">
             <span className="text-muted-foreground">Monthly AI tokens: </span>
             <span className="font-semibold text-foreground">{formatTokens(MONTHLY_GRANTS.free)}</span>
             <span className="text-muted-foreground"> on Free → </span>
-            <span className="font-bold text-primary">{formatTokens(MONTHLY_GRANTS.premium)}</span>
+            <span className="font-bold text-brand">{formatTokens(MONTHLY_GRANTS.premium)}</span>
             <span className="text-muted-foreground"> on Pro</span>
           </div>
-          <span className="text-xs font-extrabold text-primary bg-primary/10 rounded-full px-2 py-1 whitespace-nowrap">
+          <span className="text-xs font-extrabold text-brand bg-primary/10 rounded-full px-2 py-1 whitespace-nowrap">
             {Math.round(MONTHLY_GRANTS.premium / MONTHLY_GRANTS.free)}× more
           </span>
         </div>
@@ -198,7 +198,7 @@ export default function UpgradeModal() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
           {PRO_FEATURES.map((f) => (
             <li key={f} className="flex items-start gap-2 text-sm text-foreground">
-              <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+              <Check className="w-4 h-4 text-brand flex-shrink-0 mt-0.5" />
               {f}
             </li>
           ))}
@@ -230,8 +230,8 @@ export default function UpgradeModal() {
         <p className="text-center text-xs text-muted-foreground mt-4 leading-relaxed">
           {bp.advisor}. Pro is a fraction of that — and it works for you around the clock.
         </p>
-        <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground mt-3">
-          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+        <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground mt-3">
+          <ShieldCheck className="w-3.5 h-3.5 text-brand" />
           Secure payments via Razorpay · Cancel anytime · Your data stays yours
         </p>
       </div>

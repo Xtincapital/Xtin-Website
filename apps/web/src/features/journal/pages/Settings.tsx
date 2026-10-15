@@ -157,7 +157,7 @@ export default function Settings() {
     <JournalLayout>
       <div className="mx-auto max-w-3xl space-y-6 p-6">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+          <h1 className="xt-title mb-2">Settings</h1>
           <p className="text-sm text-muted-foreground">Manage your account, preferences and plan</p>
         </div>
 
@@ -292,7 +292,7 @@ export default function Settings() {
                 <div className="rounded-lg border p-4">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground">
-                      <Coins className="h-4 w-4 text-primary" /> AI tokens
+                      <Coins className="h-4 w-4 text-brand" /> AI tokens
                     </span>
                     <span className="text-sm font-bold">{wallet ? formatTokens(wallet.token_balance) : "-"}</span>
                   </div>

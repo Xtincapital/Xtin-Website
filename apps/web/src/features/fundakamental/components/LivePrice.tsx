@@ -96,7 +96,7 @@ export function WatchlistLivePrices({ tickers }: WatchlistLivePricesProps) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold">Live Prices</h3>
         <div className="flex items-center gap-2">
-          <div className={`h-2 w-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-gray-400'}`} />
+          <div className={`h-2 w-2 rounded-full ${isConnected ? 'bg-brand-fill' : 'bg-gray-400'}`} />
           <span className="text-xs text-muted-foreground">
             {isConnected ? 'Live' : 'Disconnected'}
           </span>
@@ -124,7 +124,7 @@ export function WatchlistLivePrices({ tickers }: WatchlistLivePricesProps) {
                     <div className="text-lg font-semibold">
                       ${priceData.price.toFixed(2)}
                     </div>
-                    <div className={`text-sm ${priceData.change_percent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <div className={`text-sm ${priceData.change_percent >= 0 ? 'text-brand' : 'text-red-600'}`}>
                       {priceData.change_percent >= 0 ? '+' : ''}{priceData.change.toFixed(2)} ({priceData.change_percent >= 0 ? '+' : ''}{priceData.change_percent.toFixed(2)}%)
                     </div>
                   </>

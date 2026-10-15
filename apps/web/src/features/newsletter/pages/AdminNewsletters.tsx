@@ -124,7 +124,7 @@ const AdminNewsletters = () => {
 
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <p className="text-lg text-gray-600 dark:text-slate-300">Please log in to access the admin panel.</p>
       </div>
     );
@@ -132,9 +132,9 @@ const AdminNewsletters = () => {
 
   if (!isAdminEmail(user.email)) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-900 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="max-w-md rounded-2xl border border-red-200 bg-white p-8 text-center shadow-lg dark:border-red-900/50 dark:bg-slate-800">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Access Denied</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Access Denied</h2>
           <p className="mt-2 text-gray-500 dark:text-slate-400">You are not authorized to send newsletters.</p>
           <p className="mt-4 text-xs text-gray-400 dark:text-slate-500">Logged in as: {user.email}</p>
         </div>
@@ -146,11 +146,11 @@ const AdminNewsletters = () => {
     <>
       <SEO title="Admin — Newsletters — Xtin Capital" />
       <AdminHeader />
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      <div className="min-h-screen bg-background">
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-100">Newsletters</h1>
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-slate-100 tracking-[-0.025em]">Newsletters</h1>
               <p className="mt-2 text-gray-600 dark:text-slate-400">
                 Send each edition yourself. Each run writes India, US and Global versions and emails the subscribers who get them.
               </p>
@@ -171,7 +171,7 @@ const AdminNewsletters = () => {
             </div>
           )}
           {notice && (
-            <div role="status" className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-900/50 dark:bg-emerald-900/20 dark:text-emerald-300">
+            <div role="status" className="mb-6 rounded-xl border border-brand-line bg-brand-soft px-4 py-3 text-sm text-brand dark:border-brand/50 dark:bg-brand-soft dark:text-brand">
               {notice}
             </div>
           )}
@@ -192,7 +192,7 @@ const AdminNewsletters = () => {
               return (
                 <div key={id} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                   <div className="mb-3 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <div>
@@ -201,7 +201,7 @@ const AdminNewsletters = () => {
                     </div>
                   </div>
                   <p className="mb-4 flex-1 text-sm text-gray-600 dark:text-slate-400">{blurb}</p>
-                  <p className={`mb-4 text-sm font-medium ${done ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-500 dark:text-slate-400'}`}>
+                  <p className={`mb-4 text-sm font-medium ${done ? 'text-brand dark:text-brand' : 'text-gray-500 dark:text-slate-400'}`}>
                     {done ? `Sent today at ${istTime(done.timestamp)}${done.result?.totalSent != null ? ` · ${done.result.totalSent} emails` : ''}` : 'Not sent yet today'}
                   </p>
                   <button
@@ -209,7 +209,7 @@ const AdminNewsletters = () => {
                     onClick={() => send(id)}
                     disabled={!!running || !!starting}
                     className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
-                      isConfirming ? 'bg-amber-600 hover:bg-amber-700' : 'bg-emerald-600 hover:bg-emerald-700'
+                      isConfirming ? 'bg-amber-600 hover:bg-amber-700' : 'bg-brand-fill hover:bg-brand-hover'
                     }`}
                   >
                     {starting === id ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Send className="h-4 w-4" aria-hidden="true" />}
@@ -256,7 +256,7 @@ const AdminNewsletters = () => {
                             <span
                               className={`mr-2 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
                                 run.status === 'success'
-                                  ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
+                                  ? 'bg-brand-soft text-brand dark:bg-brand-fill/40 dark:text-brand'
                                   : run.status === 'running'
                                     ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
                                     : 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300'

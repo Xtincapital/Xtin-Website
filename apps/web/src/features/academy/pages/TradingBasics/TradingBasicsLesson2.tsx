@@ -196,7 +196,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
               showResult
                 ? index === correctAnswer
-                  ? "border-green-500 bg-green-50"
+                  ? "border-brand bg-brand-soft"
                   : index === selected
                   ? "border-red-500 bg-red-50"
                   : "border-gray-200 bg-gray-50"
@@ -204,11 +204,11 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className={showResult && index === correctAnswer ? "text-green-700 font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
+              <span className={showResult && index === correctAnswer ? "text-brand font-medium" : showResult && index === selected ? "text-red-700" : "text-gray-700"}>
                 {option}
               </span>
               {showResult && index === correctAnswer && (
-                <FaCheckCircle className="text-green-500" />
+                <FaCheckCircle className="text-brand" />
               )}
               {showResult && index === selected && index !== correctAnswer && (
                 <FaTimesCircle className="text-red-500" />
@@ -218,7 +218,7 @@ const QuizQuestion = ({ question, options, correctAnswer, explanation }) => {
         ))}
       </div>
       {showResult && (
-        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"}`}>
+        <div className={`mt-4 p-4 rounded-xl ${isCorrect ? "bg-brand-soft text-brand" : "bg-amber-100 text-amber-800"}`}>
           <p className="font-medium">{isCorrect ? "Correct!" : "Not quite!"}</p>
           <p className="text-sm mt-1">{explanation}</p>
         </div>
@@ -236,7 +236,7 @@ const TradingTypeCard = ({ icon: Icon, title, timeframe, description, risk, capi
           <Icon className="w-7 h-7 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+          <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
           <p className="text-gray-500 text-sm">{timeframe}</p>
         </div>
       </div>
@@ -289,14 +289,14 @@ const TradingBasicsLesson2 = () => {
           {/* Lesson Header */}
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-3 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full text-sm font-semibold">
+              <span className="px-3 py-1 text-white rounded-full text-sm font-semibold bg-brand-fill">
                 Lesson 2 of 7
               </span>
               <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
                 Beginner
               </span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 flex items-center gap-3 tracking-[-0.025em]">
               <span className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-red-200 rounded-xl shadow-sm">
                 <Icons.Types className="w-7 h-7 text-orange-600" />
               </span>
@@ -314,7 +314,7 @@ const TradingBasicsLesson2 = () => {
                 <Icons.Types className="w-6 h-6 text-orange-600" />
               </div>
               <div>
-                <h3 className="font-bold text-orange-900 mb-2">Not All Trading is the Same</h3>
+                <h3 className="font-semibold text-orange-900 mb-2">Not All Trading is the Same</h3>
                 <p className="text-orange-800">
                   "I want to try trading" — but which type? Scalping requires split-second decisions. 
                   Swing trading lets you sleep at night. Positional trading is almost like investing. 
@@ -326,81 +326,81 @@ const TradingBasicsLesson2 = () => {
 
           {/* Visual: Trading Types Overview */}
           <div className="bg-gradient-to-br from-gray-50 to-orange-50 rounded-2xl p-6 mb-8 border border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">The Four Types of Trading (By Timeframe)</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">The Four Types of Trading (By Timeframe)</h2>
             
             <svg className="w-full max-w-3xl mx-auto" viewBox="0 0 700 280" fill="none">
               {/* Timeline */}
               <defs>
                 <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ef4444"/>
-                  <stop offset="33%" stopColor="#f97316"/>
-                  <stop offset="66%" stopColor="#eab308"/>
-                  <stop offset="100%" stopColor="#22c55e"/>
+                  <stop offset="0%" stopColor="#E04848"/>
+                  <stop offset="33%" stopColor="#D2754C"/>
+                  <stop offset="66%" stopColor="#B8923F"/>
+                  <stop offset="100%" stopColor="#16A34A"/>
                 </linearGradient>
               </defs>
               
               <rect x="50" y="220" width="600" height="12" rx="6" fill="url(#timelineGrad)"/>
               
               {/* Time labels */}
-              <text x="80" y="250" textAnchor="middle" fill="#64748b" fontSize="10">Seconds</text>
-              <text x="200" y="250" textAnchor="middle" fill="#64748b" fontSize="10">Minutes-Hours</text>
-              <text x="400" y="250" textAnchor="middle" fill="#64748b" fontSize="10">Days-Weeks</text>
-              <text x="600" y="250" textAnchor="middle" fill="#64748b" fontSize="10">Weeks-Months</text>
+              <text x="80" y="250" textAnchor="middle" fill="#717680" fontSize="10">Seconds</text>
+              <text x="200" y="250" textAnchor="middle" fill="#717680" fontSize="10">Minutes-Hours</text>
+              <text x="400" y="250" textAnchor="middle" fill="#717680" fontSize="10">Days-Weeks</text>
+              <text x="600" y="250" textAnchor="middle" fill="#717680" fontSize="10">Weeks-Months</text>
               
               {/* Scalping Box */}
               <g transform="translate(30, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#fef2f2" stroke="#ef4444" strokeWidth="2"/>
-                <text x="70" y="30" textAnchor="middle" fill="#dc2626" fontSize="12" fontWeight="700">SCALPING</text>
-                <circle cx="70" cy="60" r="20" fill="#fee2e2"/>
-                <text x="70" y="55" textAnchor="middle" fill="#dc2626" fontSize="8">⚡</text>
-                <text x="70" y="68" textAnchor="middle" fill="#dc2626" fontSize="7">FAST</text>
-                <text x="70" y="100" textAnchor="middle" fill="#7f1d1d" fontSize="9">Seconds to</text>
-                <text x="70" y="112" textAnchor="middle" fill="#7f1d1d" fontSize="9">minutes</text>
-                <text x="70" y="140" textAnchor="middle" fill="#dc2626" fontSize="9" fontWeight="600">Risk: EXTREME</text>
-                <text x="70" y="160" textAnchor="middle" fill="#991b1b" fontSize="8">50-100+ trades/day</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#FDF1F1" stroke="#E04848" strokeWidth="2"/>
+                <text x="70" y="30" textAnchor="middle" fill="#C7363B" fontSize="12" fontWeight="700">SCALPING</text>
+                <circle cx="70" cy="60" r="20" fill="#FBE1E1"/>
+                <text x="70" y="55" textAnchor="middle" fill="#C7363B" fontSize="8">⚡</text>
+                <text x="70" y="68" textAnchor="middle" fill="#C7363B" fontSize="7">FAST</text>
+                <text x="70" y="100" textAnchor="middle" fill="#6B2023" fontSize="9">Seconds to</text>
+                <text x="70" y="112" textAnchor="middle" fill="#6B2023" fontSize="9">minutes</text>
+                <text x="70" y="140" textAnchor="middle" fill="#C7363B" fontSize="9" fontWeight="600">Risk: EXTREME</text>
+                <text x="70" y="160" textAnchor="middle" fill="#842428" fontSize="8">50-100+ trades/day</text>
               </g>
               
               {/* Intraday Box */}
               <g transform="translate(185, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#fff7ed" stroke="#f97316" strokeWidth="2"/>
-                <text x="70" y="30" textAnchor="middle" fill="#ea580c" fontSize="12" fontWeight="700">INTRADAY</text>
-                <circle cx="70" cy="60" r="20" fill="#ffedd5"/>
-                <text x="70" y="55" textAnchor="middle" fill="#ea580c" fontSize="8">☀️</text>
-                <text x="70" y="68" textAnchor="middle" fill="#ea580c" fontSize="7">1 DAY</text>
-                <text x="70" y="100" textAnchor="middle" fill="#9a3412" fontSize="9">Buy & sell</text>
-                <text x="70" y="112" textAnchor="middle" fill="#9a3412" fontSize="9">same day</text>
-                <text x="70" y="140" textAnchor="middle" fill="#ea580c" fontSize="9" fontWeight="600">Risk: VERY HIGH</text>
-                <text x="70" y="160" textAnchor="middle" fill="#9a3412" fontSize="8">5-20 trades/day</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#FCF3EE" stroke="#D2754C" strokeWidth="2"/>
+                <text x="70" y="30" textAnchor="middle" fill="#C0623B" fontSize="12" fontWeight="700">INTRADAY</text>
+                <circle cx="70" cy="60" r="20" fill="#F8E2D6"/>
+                <text x="70" y="55" textAnchor="middle" fill="#C0623B" fontSize="8">☀️</text>
+                <text x="70" y="68" textAnchor="middle" fill="#C0623B" fontSize="7">1 DAY</text>
+                <text x="70" y="100" textAnchor="middle" fill="#7D3F28" fontSize="9">Buy & sell</text>
+                <text x="70" y="112" textAnchor="middle" fill="#7D3F28" fontSize="9">same day</text>
+                <text x="70" y="140" textAnchor="middle" fill="#C0623B" fontSize="9" fontWeight="600">Risk: VERY HIGH</text>
+                <text x="70" y="160" textAnchor="middle" fill="#7D3F28" fontSize="8">5-20 trades/day</text>
               </g>
               
               {/* Swing Box */}
               <g transform="translate(340, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#fefce8" stroke="#eab308" strokeWidth="2"/>
-                <text x="70" y="30" textAnchor="middle" fill="#ca8a04" fontSize="12" fontWeight="700">SWING</text>
-                <circle cx="70" cy="60" r="20" fill="#fef9c3"/>
-                <text x="70" y="55" textAnchor="middle" fill="#ca8a04" fontSize="8">〰️</text>
-                <text x="70" y="68" textAnchor="middle" fill="#ca8a04" fontSize="7">WAVE</text>
-                <text x="70" y="100" textAnchor="middle" fill="#854d0e" fontSize="9">Days to</text>
-                <text x="70" y="112" textAnchor="middle" fill="#854d0e" fontSize="9">weeks</text>
-                <text x="70" y="140" textAnchor="middle" fill="#ca8a04" fontSize="9" fontWeight="600">Risk: HIGH</text>
-                <text x="70" y="160" textAnchor="middle" fill="#854d0e" fontSize="8">2-10 trades/week</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#FBF7EC" stroke="#B8923F" strokeWidth="2"/>
+                <text x="70" y="30" textAnchor="middle" fill="#9A7634" fontSize="12" fontWeight="700">SWING</text>
+                <circle cx="70" cy="60" r="20" fill="#F6ECCE"/>
+                <text x="70" y="55" textAnchor="middle" fill="#9A7634" fontSize="8">〰️</text>
+                <text x="70" y="68" textAnchor="middle" fill="#9A7634" fontSize="7">WAVE</text>
+                <text x="70" y="100" textAnchor="middle" fill="#654B26" fontSize="9">Days to</text>
+                <text x="70" y="112" textAnchor="middle" fill="#654B26" fontSize="9">weeks</text>
+                <text x="70" y="140" textAnchor="middle" fill="#9A7634" fontSize="9" fontWeight="600">Risk: HIGH</text>
+                <text x="70" y="160" textAnchor="middle" fill="#654B26" fontSize="8">2-10 trades/week</text>
               </g>
               
               {/* Positional Box */}
               <g transform="translate(495, 20)">
-                <rect x="0" y="0" width="140" height="180" rx="12" fill="#f0fdf4" stroke="#22c55e" strokeWidth="2"/>
-                <text x="70" y="30" textAnchor="middle" fill="#16a34a" fontSize="12" fontWeight="700">POSITIONAL</text>
-                <circle cx="70" cy="60" r="20" fill="#dcfce7"/>
-                <text x="70" y="55" textAnchor="middle" fill="#16a34a" fontSize="8">📅</text>
-                <text x="70" y="68" textAnchor="middle" fill="#16a34a" fontSize="7">LONG</text>
-                <text x="70" y="100" textAnchor="middle" fill="#166534" fontSize="9">Weeks to</text>
-                <text x="70" y="112" textAnchor="middle" fill="#166534" fontSize="9">months</text>
-                <text x="70" y="140" textAnchor="middle" fill="#16a34a" fontSize="9" fontWeight="600">Risk: MODERATE</text>
-                <text x="70" y="160" textAnchor="middle" fill="#166534" fontSize="8">2-5 trades/month</text>
+                <rect x="0" y="0" width="140" height="180" rx="12" fill="#F0FDF4" stroke="#16A34A" strokeWidth="2"/>
+                <text x="70" y="30" textAnchor="middle" fill="#16A34A" fontSize="12" fontWeight="700">POSITIONAL</text>
+                <circle cx="70" cy="60" r="20" fill="#F0FDF4"/>
+                <text x="70" y="55" textAnchor="middle" fill="#16A34A" fontSize="8">📅</text>
+                <text x="70" y="68" textAnchor="middle" fill="#16A34A" fontSize="7">LONG</text>
+                <text x="70" y="100" textAnchor="middle" fill="#16A34A" fontSize="9">Weeks to</text>
+                <text x="70" y="112" textAnchor="middle" fill="#16A34A" fontSize="9">months</text>
+                <text x="70" y="140" textAnchor="middle" fill="#16A34A" fontSize="9" fontWeight="600">Risk: MODERATE</text>
+                <text x="70" y="160" textAnchor="middle" fill="#16A34A" fontSize="8">2-5 trades/month</text>
               </g>
               
               {/* Arrow showing increasing time */}
-              <text x="350" y="270" textAnchor="middle" fill="#64748b" fontSize="11" fontStyle="italic">
+              <text x="350" y="270" textAnchor="middle" fill="#717680" fontSize="11" fontStyle="italic">
                 ← Shorter holding period | Longer holding period →
               </text>
             </svg>
@@ -408,7 +408,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* Detailed Cards for Each Type */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Understanding Each Type</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 tracking-[-0.015em]">Understanding Each Type</h2>
 
             {/* Scalping */}
             <TradingTypeCard
@@ -433,7 +433,7 @@ const TradingBasicsLesson2 = () => {
               risk="Very High"
               capital="Medium (Rs. 1-5L)"
               suited="4-6 hours/day"
-              color="bg-gradient-to-br from-orange-500 to-amber-600"
+              color="bg-brand-fill"
               bgColor="bg-gradient-to-br from-orange-50 to-amber-50"
               borderColor="border-orange-200"
             />
@@ -447,7 +447,7 @@ const TradingBasicsLesson2 = () => {
               risk="High"
               capital="Medium (Rs. 1-3L)"
               suited="1-2 hours/day"
-              color="bg-gradient-to-br from-yellow-500 to-amber-500"
+              color="bg-brand-fill"
               bgColor="bg-gradient-to-br from-yellow-50 to-amber-50"
               borderColor="border-yellow-200"
             />
@@ -461,15 +461,15 @@ const TradingBasicsLesson2 = () => {
               risk="Moderate-High"
               capital="Lower (Rs. 50K+)"
               suited="Few hours/week"
-              color="bg-gradient-to-br from-green-500 to-emerald-600"
-              bgColor="bg-gradient-to-br from-green-50 to-emerald-50"
-              borderColor="border-green-200"
+              color="bg-brand-fill"
+              bgColor="bg-brand-soft"
+              borderColor="border-brand-line"
             />
           </div>
 
           {/* Comparison Table */}
           <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.Chart className="w-6 h-6 text-orange-600" />
               <span>Quick Comparison</span>
             </h2>
@@ -508,7 +508,7 @@ const TradingBasicsLesson2 = () => {
                     <td className="p-3">Part-time possible</td>
                   </tr>
                   <tr className="border-t border-gray-100 bg-gray-50/50">
-                    <td className="p-3 font-medium text-green-600">Positional</td>
+                    <td className="p-3 font-medium text-brand">Positional</td>
                     <td className="p-3">Weeks-Months</td>
                     <td className="p-3">2-5/month</td>
                     <td className="p-3">Few hours/week</td>
@@ -521,7 +521,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* What Most Beginners Choose */}
           <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-6 mb-8 border-2 border-red-200">
-            <h2 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-red-900 mb-4 flex items-center gap-2">
               <Icons.Warning className="w-6 h-6 text-red-600" />
               <span>The Beginner Trap</span>
             </h2>
@@ -540,12 +540,12 @@ const TradingBasicsLesson2 = () => {
                 </ul>
               </div>
 
-              <div className="bg-white rounded-xl p-4 border border-green-200">
-                <h4 className="font-bold text-green-800 mb-2">What Experts Recommend:</h4>
-                <p className="text-green-700 text-sm mb-2">
+              <div className="bg-white rounded-xl p-4 border border-brand-line">
+                <h4 className="font-bold text-brand mb-2">What Experts Recommend:</h4>
+                <p className="text-brand text-sm mb-2">
                   If you must trade, start with <strong>Swing or Positional</strong>:
                 </p>
-                <ul className="text-green-600 text-sm space-y-1">
+                <ul className="text-brand text-sm space-y-1">
                   <li>• More time to analyze and think</li>
                   <li>• Less stressful, fewer decisions</li>
                   <li>• Compatible with a job</li>
@@ -564,7 +564,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* India Focus Section */}
           <div className="bg-gradient-to-r from-orange-50 via-white to-green-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Icons.IndiaFlag className="w-6 h-6 text-orange-600" />
               <span>India Focus: What Indians Trade</span>
             </h2>
@@ -617,7 +617,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* Key Takeaways */}
           <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 mb-10 border border-orange-200">
-            <h2 className="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-orange-900 mb-4 flex items-center gap-2">
               <Icons.Lightbulb className="w-6 h-6 text-orange-600" />
               <span>Key Takeaways</span>
             </h2>
@@ -659,7 +659,7 @@ const TradingBasicsLesson2 = () => {
 
           {/* Quiz Section */}
           <div className="mb-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3 tracking-[-0.015em]">
               <span className="inline-flex items-center justify-center w-10 h-10 bg-orange-100 rounded-xl">
                 <span className="text-xl">✍️</span>
               </span>
@@ -717,7 +717,7 @@ const TradingBasicsLesson2 = () => {
             
             <button
               onClick={() => navigate('/learn/trading-basics-lesson-3')}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 text-white rounded-xl transition-colors shadow-md hover:shadow-lg w-full sm:w-auto justify-center bg-brand-fill hover:bg-brand-hover"
             >
               <span>Next: How Profit & Loss Works</span>
               <FaArrowRight className="text-sm" />
