@@ -82,6 +82,30 @@ class AnalysisHttpError extends Error {
     }
 }
 
+/** Embeds in small batches (caps memory on the small host) and stores the chunks.
+ * Never throws — a failure only means document chat is unavailable for this file. */
+const EMBED_BATCH_SIZE = 16;
+async function embedAndStoreChunks(chunks: ReturnType<typeof chunkText>, documentId: string, userId: string) {
+    try {
+        for (let i = 0; i < chunks.length; i += EMBED_BATCH_SIZE) {
+            const batch = chunks.slice(i, i + EMBED_BATCH_SIZE);
+            const embeddings = await embedTexts(batch.map((chunk) => chunk.text));
+            const { error } = await insertDocumentChunks(
+                batch.map((chunk, j) => ({
+                    source_document_id: documentId,
+                    user_id: userId,
+                    chunk_index: chunk.chunk_id,
+                    content: chunk.text,
+                    embedding: toPgVector(embeddings[j]),
+                })),
+            );
+            if (error) throw error;
+        }
+    } catch (err) {
+        console.error("[Fundakamental] chunk/embed/store failed (document chat won't be available for this file):", err);
+    }
+}
+
 /* POST /api/fundakamental/analysis/upload  (multipart/form-data, field "file") */
 export const uploadFile = async (req, res) => {
     const file = req.file;
@@ -119,35 +143,12 @@ export const uploadFile = async (req, res) => {
             storagePath: uploadResult.storage_path as string,
         });
 
-        // Chunk + embed + store for document chat (RAG) — best-effort: a
-        // failure here logs and continues rather than failing the whole
-        // upload, matching this codebase's established pattern for
-        // non-critical side effects (e.g. entitlement.repository.ts's
-        // upsertEntitlement). Analysis can still proceed without chat
-        // working, and chat gracefully reports "no information" if no
-        // chunks ever landed for a document (see ragChat.ts).
-        let chunksCreated = 0;
-        let chunksEmbedded = 0;
-        try {
-            const chunks = chunkText(processingResult.extracted_text);
-            chunksCreated = chunks.length;
-            if (chunks.length > 0) {
-                const embeddings = await embedTexts(chunks.map((chunk) => chunk.text));
-                const { error: chunksError } = await insertDocumentChunks(
-                    chunks.map((chunk, i) => ({
-                        source_document_id: document.id,
-                        user_id: userId,
-                        chunk_index: chunk.chunk_id,
-                        content: chunk.text,
-                        embedding: toPgVector(embeddings[i]),
-                    })),
-                );
-                if (chunksError) throw chunksError;
-                chunksEmbedded = chunks.length;
-            }
-        } catch (chunkErr) {
-            console.error("[Fundakamental] chunk/embed/store failed (document chat won't be available for this file):", chunkErr);
-        }
+        // Chunk + embed + store for document chat (RAG) — best-effort and run
+        // AFTER the response: embedding a 10-Q (~150 chunks) takes 30s+ locally
+        // and far longer on the small production instance, which dropped the
+        // upload request ("Failed to fetch"). The report doesn't need chunks.
+        const chunks = chunkText(processingResult.extracted_text);
+        void embedAndStoreChunks(chunks, document.id, userId);
 
         return res.status(HTTP_STATUS.CREATED).json({
             file_id: document.id,
@@ -156,8 +157,7 @@ export const uploadFile = async (req, res) => {
             uploaded_at: new Date().toISOString(),
             metadata: {
                 extracted_text_length: processingResult.extracted_text.length,
-                chunks_created: chunksCreated,
-                chunks_embedded: chunksEmbedded,
+                chunks_created: chunks.length,
                 ...processingResult.metadata,
             },
         });

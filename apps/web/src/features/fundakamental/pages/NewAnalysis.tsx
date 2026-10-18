@@ -157,7 +157,9 @@ const NewAnalysis = () => {
     const deadline = Date.now() + 8 * 60 * 1000;
     while (Date.now() < deadline) {
       await new Promise((r) => setTimeout(r, 4000));
-      const status = await api.analysis.getAnalysisStatus(reportId);
+      // A dropped poll (network blip / server restart) shouldn't abort a report
+      // that is still being written — just try again on the next tick.
+      const status = await api.analysis.getAnalysisStatus(reportId).catch(() => null);
       if (status?.status === "completed") return;
       if (status?.status === "failed") {
         throw new Error(status.error || "Analysis failed. Please try again.");
