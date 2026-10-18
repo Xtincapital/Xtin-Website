@@ -73,6 +73,9 @@ export async function generateAITextWithMeta({ messages, maxTokens = 400, temper
         ...(systemPrompt ? { system: systemPrompt } : {}),
         messages: claudeMessages,
       }),
+      // A hung connection would otherwise leave callers (e.g. a background
+      // report) waiting forever; a timeout lets their retry/failure path run.
+      signal: AbortSignal.timeout(240_000),
     });
 
     const data: any = await response.json();

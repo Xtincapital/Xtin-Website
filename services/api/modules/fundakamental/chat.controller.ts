@@ -18,6 +18,7 @@
 //     chat.repository.ts), so the join the Python source did is redundant.
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { ragChat } from "./ragChat.js";
+import { ensureDocumentChunks } from "./documentChunks.js";
 import { getReportForChat, getRecentChatHistory, getAllChatMessages, insertChatMessage } from "./chat.repository.js";
 import { hasTokens, deduct } from "./tokenWallet.js";
 import { getUserTier } from "./tokens.repository.js";
@@ -81,6 +82,7 @@ export const sendChatMessage = async (req, res) => {
             });
         }
 
+        await ensureDocumentChunks(sourceDocumentId, userId);
         const ragResult = await ragChat(message, sourceDocumentId, conversationHistory, 5);
         const responseContent = ragResult.answer;
 
