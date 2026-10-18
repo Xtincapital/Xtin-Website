@@ -29,7 +29,7 @@
 //    Dashboard's "analyze this stock" actions), since neither existed as an
 //    entry point in the original standalone app. Purely additive — it does
 //    not change the original upload/analyze flow itself.
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePlanStore } from "../store/usePlanStore";
@@ -60,6 +60,28 @@ interface ProcessingStep {
   status: StepStatus;
   progress: number;
 }
+
+// An analysis keeps running on the server when the user leaves this page, so the
+// in-flight report id is remembered here and the progress view resumes on return.
+const PENDING_KEY = "fk_pending_analysis";
+const PENDING_MAX_AGE_MS = 15 * 60 * 1000;
+interface PendingAnalysis { reportId: string; name: string; size: number; startedAt: number }
+const readPending = (): PendingAnalysis | null => {
+  try {
+    const p = JSON.parse(sessionStorage.getItem(PENDING_KEY) || "null") as PendingAnalysis | null;
+    return p && Date.now() - p.startedAt < PENDING_MAX_AGE_MS ? p : null;
+  } catch {
+    return null;
+  }
+};
+const writePending = (p: PendingAnalysis | null) => {
+  try {
+    if (p) sessionStorage.setItem(PENDING_KEY, JSON.stringify(p));
+    else sessionStorage.removeItem(PENDING_KEY);
+  } catch {
+    /* storage unavailable — resume just won't work */
+  }
+};
 
 const INITIAL_STEPS: ProcessingStep[] = [
   { name: "Uploading file", status: "pending", progress: 0 },
@@ -101,6 +123,14 @@ const NewAnalysis = () => {
   const [progress, setProgress] = useState(0);
   const [dragActive, setDragActive] = useState(false);
   const [processingSteps, setProcessingSteps] = useState<ProcessingStep[]>(INITIAL_STEPS);
+  const [resumed, setResumed] = useState<{ name: string; size: number } | null>(null);
+  const unmounted = useRef(false);
+  useEffect(() => {
+    unmounted.current = false;
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -157,6 +187,7 @@ const NewAnalysis = () => {
     const deadline = Date.now() + 8 * 60 * 1000;
     while (Date.now() < deadline) {
       await new Promise((r) => setTimeout(r, 4000));
+      if (unmounted.current) throw new Error("__left_page__");
       // A dropped poll (network blip / server restart) shouldn't abort a report
       // that is still being written — just try again on the next tick.
       const status = await api.analysis.getAnalysisStatus(reportId).catch(() => null);
@@ -228,12 +259,15 @@ const NewAnalysis = () => {
         throw new Error("Analysis did not return a report id.");
       }
 
+      writePending({ reportId: result.reportId, name: selectedFile.name, size: selectedFile.size, startedAt: Date.now() });
+
       // The server writes the report in the background (it takes a minute or
       // two) — wait for it to finish before opening it.
       if (result.status !== "completed") {
         await waitForReport(result.reportId);
       }
       clearInterval(creep);
+      writePending(null);
       markStep(3, "completed");
       markStep(4, "completed");
       setProgress(100);
@@ -243,6 +277,9 @@ const NewAnalysis = () => {
       setTimeout(() => navigate(`/fundakamental/report/${result.reportId}`), 400);
     } catch (error) {
       clearInterval(creep);
+      // User left the page: the report keeps generating and is resumed on return.
+      if (error instanceof Error && error.message === "__left_page__") return;
+      writePending(null);
       const message =
         error instanceof Error ? error.message : "Analysis failed. Please try again.";
       // Out of AI tokens → route to the right purchase surface instead of a
@@ -269,6 +306,41 @@ const NewAnalysis = () => {
       handleAnalyze();
     }
     // Only ever fire once off the initial navigation state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Coming back while a report is still being written: show progress again and
+  // open the report when it finishes.
+  useEffect(() => {
+    const pending = readPending();
+    if (!pending || selectedFile) return;
+    setResumed({ name: pending.name, size: pending.size });
+    setIsProcessing(true);
+    setProgress(60);
+    setProcessingSteps((prev) =>
+      prev.map((step, i) => (i < 3 ? { ...step, status: "completed", progress: 100 } : { ...step, status: "processing", progress: 50 })),
+    );
+    const creep = setInterval(() => setProgress((p) => (p < 95 ? p + (95 - p) * 0.04 : p)), 2000);
+    (async () => {
+      try {
+        const status = await api.analysis.getAnalysisStatus(pending.reportId).catch(() => null);
+        if (status?.status !== "completed") await waitForReport(pending.reportId);
+        writePending(null);
+        usePlanStore.getState().fetchWallet();
+        if (!unmounted.current) navigate(`/fundakamental/report/${pending.reportId}`);
+      } catch (error) {
+        if (error instanceof Error && error.message === "__left_page__") return;
+        writePending(null);
+        toast({ title: "Analysis failed", description: error instanceof Error ? error.message : "Analysis failed. Please try again.", variant: "destructive" });
+        setIsProcessing(false);
+        setResumed(null);
+        setProgress(0);
+        setProcessingSteps(INITIAL_STEPS);
+      } finally {
+        clearInterval(creep);
+      }
+    })();
+    return () => clearInterval(creep);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -437,7 +509,7 @@ const NewAnalysis = () => {
             Upload Financial Statements
           </h2>
 
-          {!selectedFile ? (
+          {!selectedFile && !resumed ? (
             <label
               htmlFor="file-upload"
               className={`block border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-colors ${
@@ -470,8 +542,8 @@ const NewAnalysis = () => {
             </label>
           ) : isProcessing ? (
             <FileProcessingStatus
-              fileName={selectedFile.name}
-              fileSize={selectedFile.size}
+              fileName={(selectedFile ?? resumed)!.name}
+              fileSize={(selectedFile ?? resumed)!.size}
               isProcessing={isProcessing}
               overallProgress={progress}
               steps={processingSteps}

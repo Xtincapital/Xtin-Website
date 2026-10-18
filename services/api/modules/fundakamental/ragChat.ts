@@ -22,8 +22,7 @@
 // `RAGChatService.generate_summary` (an optional helper never called from
 // `chat.py`) is intentionally NOT ported — out of scope for this slice.
 import { generateAIText } from "../ai/providers.js";
-import { embedText, toPgVector } from "./embeddings.js";
-import supabase from "../../supabase/index.js";
+import { retrieveChunks } from "./documentChunks.js";
 
 export interface RetrievedChunk {
     id: string;
@@ -49,28 +48,6 @@ export interface RagChatResult {
     sources: ChatSource[];
     confidence: "low" | "medium" | "high";
     chunks_used: number;
-}
-
-/** Port of `VectorStoreService.search`'s call shape (query text -> top-N chunks
- * for a given document), retargeted at the `funda_match_document_chunks`
- * pgvector RPC instead of ChromaDB. Returns [] (rather than throwing) on an RPC
- * error, matching the Python source's `search()` swallowing search errors and
- * returning an empty list. */
-async function retrieveRelevantChunks(question: string, sourceDocumentId: string, nContextChunks: number): Promise<RetrievedChunk[]> {
-    const queryEmbedding = await embedText(question);
-
-    const { data, error } = await supabase.rpc("funda_match_document_chunks", {
-        p_source_document_id: sourceDocumentId,
-        p_query_embedding: toPgVector(queryEmbedding),
-        p_match_count: nContextChunks,
-    });
-
-    if (error) {
-        console.error("[Fundakamental] chunk retrieval RPC failed:", error.message);
-        return [];
-    }
-
-    return (data || []) as RetrievedChunk[];
 }
 
 /** Port of `_build_context`. */
@@ -130,10 +107,11 @@ function formatSources(chunks: RetrievedChunk[]): ChatSource[] {
 export async function ragChat(
     question: string,
     sourceDocumentId: string,
+    userId: string,
     conversationHistory: ConversationTurn[],
     nContextChunks = 5,
 ): Promise<RagChatResult> {
-    const relevantChunks = await retrieveRelevantChunks(question, sourceDocumentId, nContextChunks);
+    const relevantChunks = await retrieveChunks(question, sourceDocumentId, userId, nContextChunks);
 
     if (relevantChunks.length === 0) {
         return {
