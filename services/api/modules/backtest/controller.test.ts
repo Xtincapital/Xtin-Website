@@ -13,6 +13,7 @@ const repo = vi.hoisted(() => ({
     getRun: vi.fn(),
     listStrategies: vi.fn(),
     insertStrategy: vi.fn(),
+    recordMeter: vi.fn(async (_row: Record<string, unknown>) => undefined),
     BacktestTablesMissingError: class extends Error {},
 }));
 vi.mock("./repository.js", () => ({
@@ -24,9 +25,10 @@ vi.mock("./repository.js", () => ({
 }));
 vi.mock("./llmParse.js", () => ({ llmParse: vi.fn(async () => null) }));
 
-import { chatBacktest, clientIp, createRun, createStrategy, getMyRun, getPlan } from "./controller.js";
+import { applyDataLag, chatBacktest, clientIp, createRun, createStrategy, getMyRun, getPlan, getSpecSchema } from "./controller.js";
 import { _resetAnon, invalidateEntitlementCache } from "./plans.js";
 import { llmParse } from "./llmParse.js";
+import { generateSampleCandles } from "./synthetic.js";
 
 const mockRes = () => {
     const res: any = { statusCode: 200, body: undefined };
@@ -72,7 +74,7 @@ describe("POST /backtest/chat", () => {
 
     it("runs an equity idea end to end on the offline SAMPLE series", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when RSI drops below 30 and sell above 70, 2% stop", start_date: "2023-01-01", end_date: "2024-12-31" }), res);
+        await chatBacktest(mockReq({ message: "buy when RSI drops below 30 and sell above 70, 2% stop, on SAMPLE", start_date: "2023-01-01", end_date: "2024-12-31" }), res);
         expect(res.statusCode).toBe(200);
         const b = res.body;
         expect(b.ok).toBe(true);
@@ -87,21 +89,20 @@ describe("POST /backtest/chat", () => {
         expect(llmParse).not.toHaveBeenCalled(); // the AI parser is Pro-only
     });
 
-    it("sizes the position from capital and risk profile when no quantity is named", async () => {
+    it("stores a sizing rule from the risk profile and sizes each trade at its fill price", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", starting_capital: 200000, profile: { risk: "conservative" }, start_date: "2024-01-01", end_date: "2024-12-31" }), res);
-        const qty = res.body.definition.entry_action.qty;
-        const firstClose = res.body.result.candles[0].close;
-        expect(qty).toBe(Math.floor((200000 * 0.25) / firstClose));
-        expect(res.body.result.trades.every((t: { qty: number }) => t.qty === qty)).toBe(true);
-        expect(res.body.interpretation).toMatch(/Position size:.*about 25% of your capital/);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", starting_capital: 200000, profile: { risk: "conservative" }, start_date: "2024-01-01", end_date: "2024-12-31" }), res);
+        expect(res.body.definition.sizing).toEqual({ mode: "pct_equity", value: 25 });
+        expect(res.body.interpretation).toMatch(/Position size:\*\* 25% of equity per trade/);
+        const first = res.body.result.trades[0];
+        expect(first.qty).toBeLessThanOrEqual(Math.floor((200000 * 0.25) / first.entry_price));
     });
 
     it("keeps a quantity the user named", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy 7 shares when rsi below 30", start_date: "2024-01-01", end_date: "2024-12-31" }), res);
-        expect(res.body.definition.entry_action.qty).toBe(7);
-        expect(res.body.interpretation).not.toMatch(/Position size/);
+        await chatBacktest(mockReq({ message: "buy 7 shares when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-12-31" }), res);
+        expect(res.body.definition.sizing).toEqual({ mode: "fixed_qty", value: 7 });
+        expect(res.body.result.trades.every((t: { qty: number }) => t.qty === 7)).toBe(true);
     });
 
     it("answers an options idea through the options engine", async () => {
@@ -134,7 +135,7 @@ describe("POST /backtest/chat", () => {
 
     it("applies a tweak to the previous strategy without calling the LLM", async () => {
         const first = mockRes();
-        await chatBacktest(mockReq({ message: "buy when RSI drops below 30 and sell above 70, 2% stop", start_date: "2024-01-01", end_date: "2024-12-31" }), first);
+        await chatBacktest(mockReq({ message: "buy when RSI drops below 30 and sell above 70, 2% stop, on SAMPLE", start_date: "2024-01-01", end_date: "2024-12-31" }), first);
         vi.mocked(llmParse).mockClear();
 
         const res = mockRes();
@@ -146,13 +147,13 @@ describe("POST /backtest/chat", () => {
 
     it("reports a bad date window instead of throwing", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-06-01", end_date: "2024-01-01" }), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-06-01", end_date: "2024-01-01" }), res);
         expect(res.body).toMatchObject({ ok: false, error: "end_date is before start_date" });
     });
 
     it("explains a data failure and keeps the strategy", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-01-01" }), res); // single weekday-less window → too few candles
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-01-01" }), res); // single weekday-less window → too few candles
         expect(res.body.ok).toBe(false);
         expect(res.body.error).toMatch(/Not enough candle data/);
         expect(res.body.definition.instrument.symbol).toBe("SAMPLE");
@@ -160,7 +161,7 @@ describe("POST /backtest/chat", () => {
     });
 
     it("stops anonymous visitors at the daily limit with a paywall — before any parsing", async () => {
-        const body = { message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" };
+        const body = { message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" };
         for (let i = 0; i < 5; i++) await chatBacktest(mockReq(body), mockRes());
         vi.mocked(llmParse).mockClear();
 
@@ -173,7 +174,7 @@ describe("POST /backtest/chat", () => {
 
     it("counts signed-in free users against the persistent monthly counter", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, { user: { authId: "u1" } }), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" }, { user: { authId: "u1" } }), res);
         expect(res.body.usage.tier).toBe("free");
         expect(repo.consumeUsage).toHaveBeenCalledWith("user:u1", expect.any(String), "chat_backtest");
     });
@@ -181,7 +182,7 @@ describe("POST /backtest/chat", () => {
     it("blocks a signed-in free user who has used the month's allowance", async () => {
         repo.getUsage.mockResolvedValue(25);
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30" }, { user: { authId: "u1" } }), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE" }, { user: { authId: "u1" } }), res);
         expect(res.body).toMatchObject({ paywall: true, error: "quota_exceeded" });
         expect(repo.consumeUsage).not.toHaveBeenCalled();
     });
@@ -190,7 +191,7 @@ describe("POST /backtest/chat", () => {
         repo.getProPlan.mockResolvedValue({ user_id: "u1", pass_id: "weekly", valid_until: new Date(Date.now() + 86_400_000).toISOString() });
         repo.getUsage.mockResolvedValue(999);
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, { user: { authId: "u1" } }), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" }, { user: { authId: "u1" } }), res);
         expect(res.body).toMatchObject({ ok: true, usage: { tier: "pro" } });
         expect(repo.consumeUsage).not.toHaveBeenCalled();
     });
@@ -198,9 +199,116 @@ describe("POST /backtest/chat", () => {
     it("surfaces a missing migration as a calm 503, not a stack trace", async () => {
         repo.getProPlan.mockRejectedValue(new repo.BacktestTablesMissingError("missing"));
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30" }, { user: { authId: "u1" } }), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE" }, { user: { authId: "u1" } }), res);
         expect(res.statusCode).toBe(503);
         expect(res.body.code).toBe("not_migrated");
+    });
+});
+
+// The four runs from the 15 Oct 2026 audit (Xtin Backtest — Architecture &
+// Build Plan). Each one produced a wrong number in the old engine.
+describe("audit regressions", () => {
+    // RELIANCE / NIFTY history stands in through the candle cache (no network).
+    const scaled = (k: number) => generateSampleCandles("1d", "2023-01-01", "2024-12-31").map((c) => ({ ...c, open: c.open * k, high: c.high * k, low: c.low * k, close: c.close * k }));
+    const window = { start_date: "2023-01-01", end_date: "2024-12-31" };
+    const rsiRule = "buy when RSI drops below 30 and sell above 70, 2% stop";
+    beforeEach(() => {
+        repo.getCachedCandles.mockImplementation(async (key: string) => (key.includes(":NIFTY:") ? scaled(240) : scaled(12)));
+    });
+
+    const maxExposure = (trades: { qty: number; entry_price: number }[]) => Math.max(...trades.map((t) => t.qty * t.entry_price));
+
+    it("run 1: no symbol → asks which stock, runs nothing and spends nothing", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: rsiRule, ...window }), res);
+        expect(res.body).toMatchObject({ ok: false, error: "symbol_required", result: null });
+        expect(res.body.reply).toMatch(/Which stock/);
+        expect(res.body.definition.instrument.symbol).toBe("");
+        expect(res.body.interpretation).toMatch(/\*\*Instrument:\*\* not chosen yet · 1d/);
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+        expect(repo.getCachedCandles).not.toHaveBeenCalled();
+    });
+
+    it("run 1, answered: a bare 'on SAMPLE' reply runs the same rules on synthetic data", async () => {
+        const ask = mockRes();
+        await chatBacktest(mockReq({ message: rsiRule, ...window }), ask);
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "on SAMPLE", prev_definition: ask.body.definition, ...window }), res);
+        expect(res.body.ok).toBe(true);
+        expect(res.body.definition.entry).toEqual(ask.body.definition.entry);
+        expect(res.body.result.assumptions.synthetic).toBe(true);
+    });
+
+    it("runs 2 and 3: re-targeting to RELIANCE gives the same result as typing the rule for RELIANCE", async () => {
+        const ask = mockRes();
+        await chatBacktest(mockReq({ message: rsiRule, ...window }), ask);
+        const retarget = mockRes();
+        await chatBacktest(mockReq({ message: "Run it on RELIANCE", prev_definition: ask.body.definition, ...window }), retarget);
+        const fresh = mockRes();
+        await chatBacktest(mockReq({ message: "buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop", ...window }), fresh);
+
+        expect(retarget.body.ok).toBe(true);
+        expect(fresh.body.ok).toBe(true);
+        expect(retarget.body.result.trades.length).toBeGreaterThan(0);
+        expect(retarget.body.result.trades).toEqual(fresh.body.result.trades);
+        expect(retarget.body.result.metrics).toEqual(fresh.body.result.metrics);
+        expect(maxExposure(retarget.body.result.trades)).toBeLessThanOrEqual(100_000);
+    });
+
+    it("run 2 again: a SAMPLE run re-targeted to RELIANCE is re-sized, not carried over", async () => {
+        const sampleRun = mockRes();
+        await chatBacktest(mockReq({ message: `${rsiRule} on SAMPLE`, ...window }), sampleRun);
+        const retarget = mockRes();
+        await chatBacktest(mockReq({ message: "Run it on RELIANCE", prev_definition: sampleRun.body.definition, ...window }), retarget);
+        expect(retarget.body.definition.instrument.symbol).toBe("RELIANCE");
+        expect(maxExposure(retarget.body.result.trades)).toBeLessThanOrEqual(100_000);
+        expect(retarget.body.result.metrics.max_drawdown_pct).toBeLessThan(100);
+    });
+
+    it("run 4: an EMA crossover after an RSI run is a new strategy, not a symbol tweak", async () => {
+        const rsi = mockRes();
+        await chatBacktest(mockReq({ message: "buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop", ...window }), rsi);
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "Buy NIFTY when 50 EMA crosses above 200 EMA, exit when it crosses below, daily", prev_definition: rsi.body.definition, ...window }), res);
+
+        expect(res.body.ok).toBe(true);
+        const d = res.body.definition;
+        expect(d.instrument.symbol).toBe("NIFTY");
+        expect(d.entry.conditions[0]).toMatchObject({ left: { indicator: "EMA", period: 50 }, op: "crosses_above", right: { indicator: "EMA", period: 200 } });
+        expect(JSON.stringify(d)).not.toContain("RSI");
+        expect(res.body.result.assumptions.theoretical_index).toBe(true);
+        expect(res.body.warnings.join(" ")).toMatch(/NIFTY is an index.*NIFTYBEES/);
+        expect(Math.min(...res.body.result.equity_curve.map((p: { equity: number }) => p.equity))).toBeGreaterThan(0);
+        expect(res.body.result.metrics.max_drawdown_pct).toBeLessThan(100);
+    });
+
+    it("asks one question instead of guessing on 'Try EMA instead'", async () => {
+        const rsi = mockRes();
+        await chatBacktest(mockReq({ message: "buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop", ...window }), rsi);
+        vi.mocked(repo.consumeUsage).mockClear();
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "Try EMA instead", prev_definition: rsi.body.definition, ...window }), res);
+        expect(res.body).toMatchObject({ ok: false, error: "clarify", result: null });
+        expect(repo.consumeUsage).not.toHaveBeenCalled();
+    });
+
+    it("charges costs, states its assumptions and carries the disclaimer", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop", ...window }), res);
+        const r = res.body.result;
+        expect(r.metrics.total_costs).toBeGreaterThan(0);
+        expect(r.trades.every((t: { costs: number }) => t.costs > 0)).toBe(true);
+        expect(r.assumptions).toMatchObject({ fill: "next_bar_open", product: "CNC", cost_profile: "zerodha", slippage_bps: 5, data_source: "yahoo", synthetic: false });
+        expect(res.body.reply).toMatch(/return after charges/);
+        expect(res.body.reply).toMatch(/Not investment advice/);
+    });
+
+    it("labels SAMPLE results as synthetic in the headline", async () => {
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: `${rsiRule} on SAMPLE`, ...window }), res);
+        expect(res.body.reply).toMatch(/^\*\*SYNTHETIC DATA/);
+        expect(res.body.result.assumptions).toMatchObject({ synthetic: true, data_source: "synthetic" });
+        expect(res.body.warnings[0]).toMatch(/SYNTHETIC DATA/);
     });
 });
 
@@ -270,6 +378,83 @@ describe("POST /backtest/runs", () => {
     });
 });
 
+describe("Phase 1: reproducible, metered runs", () => {
+    const strategy = {
+        id: "11111111-1111-4111-8111-111111111111",
+        name: "My RSI",
+        definition: { instrument: { symbol: "SAMPLE", exchange: "NSE", timeframe: "1d" }, entry: { conditions: [{ left: { kind: "indicator", indicator: "RSI", period: 14 }, op: "<", right: { kind: "value", value: 30 } }] }, entry_action: { side: "BUY", qty: 1 }, exit: { conditions: [] }, risk: { stop_loss_pct: 2 } },
+    };
+    const body = { strategy_id: strategy.id, start_date: "2023-01-01", end_date: "2024-12-31" };
+    afterEach(() => delete process.env.BACKTEST_DATA_LAG_DAYS);
+
+    it("stores the spec, its hash and the engine and data versions with a saved run", async () => {
+        repo.getStrategy.mockResolvedValue(strategy);
+        repo.insertRun.mockImplementation(async (row) => ({ ...row, id: "r1", created_at: "2025-01-01T00:00:00Z" }));
+        const res = mockRes();
+        await createRun(mockReq(body, { user: { authId: "u1" } }), res);
+        const row = repo.insertRun.mock.calls[0][0];
+        expect(row.spec).toMatchObject({ spec_version: "1.0", name: "My RSI", instrument: { id: "NSE:SAMPLE", segment: "SYNTHETIC" }, exit: { stop_loss: { type: "pct", value: 2 } } });
+        expect(row.spec_hash).toMatch(/^[0-9a-f]{64}$/);
+        expect(row.spec_hash).toBe(res.body.result.assumptions.spec_hash);
+        expect(row.engine_version).toBe(res.body.result.assumptions.engine_version);
+        expect(row.data_version).toMatch(/^synthetic:[0-9a-f]{16}$/);
+    });
+
+    it("gives the same spec hash and data version on a re-run — and the same numbers", async () => {
+        repo.getStrategy.mockResolvedValue(strategy);
+        repo.insertRun.mockImplementation(async (row) => ({ ...row, id: "r1", created_at: "2025-01-01T00:00:00Z" }));
+        const a = mockRes();
+        const b = mockRes();
+        await createRun(mockReq(body, { user: { authId: "u1" } }), a);
+        await createRun(mockReq(body, { user: { authId: "u1" } }), b);
+        expect(b.body.result.assumptions).toEqual(a.body.result.assumptions);
+        expect(b.body.result.metrics).toEqual(a.body.result.metrics);
+    });
+
+    it("meters every run — saved runs and chat runs, successes and failures", async () => {
+        repo.getStrategy.mockResolvedValue(strategy);
+        repo.insertRun.mockImplementation(async (row) => ({ ...row, id: "r1", created_at: "2025-01-01T00:00:00Z" }));
+        await createRun(mockReq(body, { user: { authId: "u1" } }), mockRes());
+        expect(repo.recordMeter).toHaveBeenLastCalledWith(
+            expect.objectContaining({ user_id: "u1", channel: "web_run", tier: "free", ok: true, data_lane: "synthetic", timeframe: "1d", credits: 1, spec_hash: expect.stringMatching(/^[0-9a-f]{64}$/) })
+        );
+        const meterRow = repo.recordMeter.mock.calls.at(-1)![0] as { bars: number; compute_ms: number };
+        expect(meterRow.bars).toBeGreaterThan(400);
+        expect(meterRow.compute_ms).toBeGreaterThanOrEqual(0);
+
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-01-01" }), mockRes());
+        expect(repo.recordMeter).toHaveBeenLastCalledWith(expect.objectContaining({ user_id: null, channel: "web_chat", tier: "anon", ok: false }));
+    });
+
+    it("keeps working when metering fails", async () => {
+        repo.recordMeter.mockRejectedValueOnce(new Error("db down"));
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" }), res);
+        expect(res.body.ok).toBe(true);
+    });
+
+    it("applies the data-lag policy to the window and says so", async () => {
+        process.env.BACKTEST_DATA_LAG_DAYS = "30";
+        expect(applyDataLag("2026-10-20", new Date("2026-10-21T12:00:00Z"))).toEqual({ end: "2026-09-21", note: "Prices end on 2026-09-21: backtests use data at least 30 days old." });
+        expect(applyDataLag("2026-01-01", new Date("2026-10-21T12:00:00Z")).note).toBeNull();
+        const res = mockRes();
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE" }), res);
+        expect(res.body.ok).toBe(true);
+        expect(res.body.warnings.join(" ")).toMatch(/at least 30 days old/);
+        expect(res.body.result.assumptions.data_lag_days).toBe(30);
+    });
+
+    it("publishes the Strategy Spec v1 contract", () => {
+        const res: any = mockRes();
+        res.set = () => res;
+        getSpecSchema({}, res);
+        expect(res.body).toMatchObject({ spec_version: "1.0", engine_version: expect.any(String) });
+        expect(res.body.operators).toContain("between");
+        expect(res.body.indicators.map((i: { ind: string }) => i.ind)).toContain("DONCHIAN");
+        expect(res.body.json_schema.type).toBe("object");
+    });
+});
+
 describe("clientIp", () => {
     const withHeaders = (h: Record<string, string>) => ({ ip: "10.0.0.1", get: (k: string) => h[k.toLowerCase()] }) as any;
     it("prefers Cloudflare's header, then the first forwarded hop, then the socket address", () => {
@@ -297,7 +482,7 @@ describe("free vs Pro", () => {
 
     it("runs an intraday idea on daily candles for free users and says why", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
+        await chatBacktest(mockReq({ message: "buy SAMPLE when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
         expect(res.body.ok).toBe(true);
         expect(res.body.definition.instrument.timeframe).toBe("1d");
         expect(res.body.definition.risk.square_off_time).toBeNull();
@@ -308,7 +493,7 @@ describe("free vs Pro", () => {
 
     it("never suggests a Pro-only follow-up to free users", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" }, free), res);
         expect(res.body.suggestions).toContain("Set the target to 5%");
         expect(res.body.suggestions.join(" ")).not.toMatch(/15m/);
 
@@ -332,12 +517,12 @@ describe("free vs Pro", () => {
 
     it("charges the allowance only for backtests that actually ran", async () => {
         const bad = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-06", end_date: "2024-01-07" }, free), bad);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-06", end_date: "2024-01-07" }, free), bad);
         expect(bad.body.ok).toBe(false);
         expect(repo.consumeUsage).not.toHaveBeenCalled();
 
         const good = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2024-01-01", end_date: "2024-06-30" }, free), good);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2024-01-01", end_date: "2024-06-30" }, free), good);
         expect(good.body.ok).toBe(true);
         expect(repo.consumeUsage).toHaveBeenCalledOnce();
     });
@@ -353,14 +538,14 @@ describe("free vs Pro", () => {
 
     it("rejects a malformed symbol with a readable message", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", symbol: "https://evil.example" }, free), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", symbol: "https://evil.example" }, free), res);
         expect(res.statusCode).toBe(400);
         expect(res.body.details.join(" ")).toMatch(/Symbol can only contain letters/);
     });
 
     it("keeps intraday for Pro", async () => {
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-01-31" }, asPro()), res);
+        await chatBacktest(mockReq({ message: "buy SAMPLE when rsi below 30 on 15 min candles", start_date: "2024-01-01", end_date: "2024-01-31" }, asPro()), res);
         expect(res.body.definition.instrument.timeframe).toBe("15m");
         expect(res.body.locked).toEqual([]);
     });
@@ -371,7 +556,7 @@ describe("free vs Pro", () => {
         vi.setSystemTime(new Date("2025-06-30T12:00:00Z"));
         repo.getAccountCreatedAt.mockResolvedValue("2020-01-01T00:00:00Z"); // well past the new-account trial
         const res = mockRes();
-        await chatBacktest(mockReq({ message: "buy when rsi below 30", start_date: "2020-01-01", end_date: "2025-06-30" }, free), res);
+        await chatBacktest(mockReq({ message: "buy when rsi below 30 on SAMPLE", start_date: "2020-01-01", end_date: "2025-06-30" }, free), res);
         expect(res.body.start_date).toBe("2023-07-01");
         expect(res.body.locked).toEqual(["full_history"]);
         expect(res.body.warnings.join(" ")).toMatch(/last 2 years/);

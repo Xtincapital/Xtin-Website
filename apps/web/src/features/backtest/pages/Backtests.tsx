@@ -5,7 +5,8 @@ import { ChevronRight, History as HistoryIcon, Layers, Trash2, TrendingUp, Troph
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import EmptyState from "../components/EmptyState";
-import { backtestApi } from "../lib/api";
+import { v1 } from "../lib/v1";
+import type { BacktestSummary } from "../lib/types";
 import { btnGhost, btnPrimary, card, muted } from "../lib/styles";
 
 function Stat({ icon: Icon, label, value, tone }: { icon: typeof Trophy; label: string; value: string; tone?: string }) {
@@ -24,10 +25,25 @@ function Stat({ icon: Icon, label, value, tone }: { icon: typeof Trophy; label: 
 
 export default function Backtests() {
   const qc = useQueryClient();
-  const { data, isLoading, isError } = useQuery({ queryKey: ["bt-runs"], queryFn: backtestApi.listRuns });
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["bt-runs"],
+    queryFn: async (): Promise<BacktestSummary[]> =>
+      (await v1.listBacktests()).data.map((r) => ({
+        id: r.run_id,
+        strategy_id: r.strategy_id,
+        strategy_name: r.name,
+        start_date: r.period.from,
+        end_date: r.period.to,
+        starting_capital: r.capital,
+        status: r.status,
+        error: r.error,
+        metrics: r.metrics,
+        created_at: r.created_at,
+      })),
+  });
 
   const del = useMutation({
-    mutationFn: (id: string) => backtestApi.deleteRun(id),
+    mutationFn: (id: string) => v1.deleteBacktest(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["bt-runs"] }),
     onError: (err) => toast.error(err instanceof Error ? err.message : "Couldn't delete the backtest"),
   });

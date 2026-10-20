@@ -1,0 +1,12 @@
+{
+  "name": "xtin",
+  "owner": { "name": "XTIN SERVICES LLP", "email": "support@xtincapital.com" },
+  "metadata": { "description": "Claude plugins from Xtin Capital." },
+  "plugins": [
+    {
+      "name": "xtin-backtest",
+      "source": "./xtin-backtest",
+      "description": "Backtest NSE trading ideas from a conversation on Xtin's engine, with Indian costs."
+    }
+  ]
+}

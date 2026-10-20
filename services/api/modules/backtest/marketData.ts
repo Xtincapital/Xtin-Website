@@ -25,6 +25,12 @@ const INTERVAL: Record<string, string> = { "1m": "1m", "5m": "5m", "15m": "15m",
 // suffix — a plain "NIFTY.NS" 404s.
 const INDEX_SYMBOLS: Record<string, string> = { NIFTY: "^NSEI", NIFTY50: "^NSEI", BANKNIFTY: "^NSEBANK", SENSEX: "^BSESN" };
 
+/** An index can't be bought — a backtest on one is theoretical. */
+export const isIndexSymbol = (symbol: string) => Boolean(INDEX_SYMBOLS[symbol.trim().toUpperCase()]);
+
+/** The ETF that tracks an index, for a tradable version of an index backtest. */
+export const INDEX_ETF: Record<string, string> = { NIFTY: "NIFTYBEES", NIFTY50: "NIFTYBEES", BANKNIFTY: "BANKBEES" };
+
 // Candle times are naive local-clock strings, so intraday square-off times
 // ("15:15") mean the exchange's clock.
 const EXCHANGE_TZ: Record<string, string> = { NSE: "Asia/Kolkata", BSE: "Asia/Kolkata", NFO: "Asia/Kolkata", MCX: "Asia/Kolkata", NASDAQ: "America/New_York", NYSE: "America/New_York" };

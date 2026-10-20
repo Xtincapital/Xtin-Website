@@ -26,6 +26,7 @@ import BacktestLayout from "../components/BacktestLayout";
 import Report from "../components/Report";
 import ProBadge from "../components/ProBadge";
 import { ApiError, backtestApi } from "../lib/api";
+import { v1 } from "../lib/v1";
 import MoneyInput from "@/components/MoneyInput";
 import { usePlan } from "../lib/usePlan";
 import { showProRequired, useProDialog } from "../lib/proDialog";
@@ -45,7 +46,7 @@ interface Message {
 type Risk = "conservative" | "balanced" | "aggressive";
 
 const EXAMPLES = [
-  { icon: Activity, tag: "Mean reversion", text: "Buy when RSI drops below 30 and sell above 70, 2% stop-loss" },
+  { icon: Activity, tag: "Mean reversion", text: "Buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop-loss" },
   { icon: TrendingUp, tag: "Trend", text: "Golden cross: buy when 50 EMA crosses above 200 EMA on NIFTY, daily" },
   { icon: Shield, tag: "Options income", text: "Short a NIFTY straddle with a 20% stop-loss", pro: true },
   { icon: Layers, tag: "Defined risk", text: "Backtest an iron condor on BANKNIFTY, daily", pro: true },
@@ -182,6 +183,8 @@ export default function Playground() {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [report, setReport] = useState<{ result: BacktestResult; name: string; window: string; definition: unknown } | null>(null);
+  // Rules waiting on an answer ("which stock?") — the reply re-targets these, not the last report's.
+  const [draft, setDraft] = useState<Record<string, unknown> | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const didInit = useRef(false);
 
@@ -223,7 +226,7 @@ export default function Playground() {
         starting_capital: capital > 0 ? capital : 100000,
         symbol: symbol.trim() || undefined,
         history,
-        prev_definition: (report?.definition as Record<string, unknown> | undefined) ?? undefined,
+        prev_definition: draft ?? (report?.definition as Record<string, unknown> | undefined) ?? undefined,
         profile: { risk, capital: capital > 0 ? capital : 100000 },
       });
       setMessages((m) => [
@@ -241,6 +244,8 @@ export default function Playground() {
       if (data.ok && data.result) {
         setReport({ result: data.result, name: data.strategy_name, window: `${data.start_date} → ${data.end_date}`, definition: data.definition });
       }
+      if (data.error === "symbol_required") setDraft(data.definition as Record<string, unknown>);
+      else if (data.ok) setDraft(null);
       void qc.invalidateQueries({ queryKey: ["bt-plan"] });
     } catch (err) {
       const text =
@@ -263,7 +268,7 @@ export default function Playground() {
     if (!report || isOptions) return;
     setSaving(true);
     try {
-      await backtestApi.createStrategy({ name: report.name, definition: report.definition });
+      await v1.createStrategy({ name: report.name, definition: report.definition });
       void qc.invalidateQueries({ queryKey: ["bt-strategies"] });
       toast.success("Saved to your strategies", { action: { label: "View", onClick: () => (window.location.href = "/backtest/app/strategies") } });
     } catch (err) {

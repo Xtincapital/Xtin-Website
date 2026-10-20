@@ -7,25 +7,29 @@
 //
 // Every user-scoped query is filtered by `req.user.authId`; request bodies never
 // carry a user id.
+import { createHash } from "node:crypto";
 import { HTTP_STATUS } from "../../constants/constants.js";
 import {
     allocationFor,
     applyModification,
     applyOptionsModification,
+    awaitingSymbol,
+    classifyMessage,
     defaultWindow,
     looksLikeTrading,
     namesQuantity,
     parseOptions,
     parseStrategy,
     personalize,
-    positionSize,
+    sizingFor,
     STRATEGY_EXAMPLES,
     type AnyDefinition,
 } from "./parser.js";
 import { llmParse } from "./llmParse.js";
-import { BacktestInputError, runBacktest } from "./engine.js";
+import { BacktestInputError, describeSizing, ENGINE_VERSION, runBacktest, runDefinition, runSpec } from "./engine.js";
+import { normaliseSpec, OPERATORS, SPEC_INDICATOR_LIST, SPEC_VERSION, specJsonSchema } from "./spec.js";
 import { lotsForCapital, runOptionsBacktest } from "./options.js";
-import { getCandles, MarketDataError } from "./marketData.js";
+import { getCandles, INDEX_ETF, isIndexSymbol, MarketDataError } from "./marketData.js";
 import {
     consumeAllowance,
     earliestFreeStart,
@@ -50,11 +54,13 @@ import {
     insertStrategy,
     listRuns,
     listStrategies,
+    recordMeter,
     updateStrategy as updateStrategyRepo,
+    type MeterRow,
     type RunRow,
 } from "./repository.js";
 import { validateChat, validateRun, validateStrategyCreate, validateStrategyUpdate } from "./validator.js";
-import type { BacktestResult, EngineResult, StrategyDefinition } from "./types.js";
+import type { BacktestResult, Candle, EngineResult, StrategyDefinition } from "./types.js";
 
 const MAX_CANDLES = 100_000; // the engine runs on the event loop; keep one request bounded
 const MAX_WINDOW_DAYS = 365 * 25;
@@ -93,21 +99,111 @@ const windowError = (start: string, end: string): string | null => {
     return null;
 };
 
-type Executed = { result: BacktestResult };
+export const DISCLAIMER = "Hypothetical backtest on historical data. Not investment advice. Past results do not predict future results.";
+
+/**
+ * Stamp where the candles came from on the result, and say so up front when
+ * they aren't a tradable market series (synthetic SAMPLE data, or an index).
+ * Returns the result's warnings, these notes first.
+ */
+export function labelResult(engine: EngineResult, symbol: string, candles?: Candle[], lagNote?: string | null): string[] {
+    const sym = symbol.trim().toUpperCase();
+    const synthetic = sym === "SAMPLE";
+    const theoretical = isIndexSymbol(sym);
+    const source = synthetic ? "synthetic" : "yahoo";
+    engine.assumptions = {
+        ...engine.assumptions,
+        data_source: source,
+        ...(candles ? { data_version: dataVersion(source, candles) } : {}),
+        data_lag_days: Math.max(engine.assumptions.data_lag_days ?? 0, dataLagDays()),
+        synthetic,
+        theoretical_index: theoretical,
+    };
+    const notes: string[] = [];
+    if (lagNote) notes.push(lagNote);
+    if (synthetic) notes.push("SYNTHETIC DATA: SAMPLE is a generated demo series, not market prices — these are not market results.");
+    if (theoretical) {
+        const etf = INDEX_ETF[sym];
+        notes.push(`${sym} is an index and can't be bought directly, so this is a theoretical index backtest.${etf ? ` For a tradable version, run it on ${etf}, the ETF that tracks it.` : ""}`);
+    }
+    engine.warnings = [...notes, ...engine.warnings];
+    return engine.warnings;
+}
+
+/** Content hash of the candles a run used: the same data version always means the same candles. */
+export const dataVersion = (source: string, candles: Candle[]) => `${source}:${createHash("sha256").update(JSON.stringify(candles)).digest("hex").slice(0, 16)}`;
+
+/**
+ * Server-side data-lag policy (BACKTEST_DATA_LAG_DAYS, default 0): runs never
+ * use prices newer than this many days. Kept ready for the legal opinion on
+ * SEBI's 30-day rule for price data used in education.
+ */
+export const dataLagDays = () => {
+    const v = Number(process.env.BACKTEST_DATA_LAG_DAYS);
+    return Number.isFinite(v) && v > 0 ? Math.trunc(v) : 0;
+};
+
+/** Clamp a window's end to the lag policy; returns the end to use and a note when it moved. */
+export function applyDataLag(end: string, today: Date = new Date()): { end: string; note: string | null } {
+    const lag = dataLagDays();
+    if (!lag) return { end, note: null };
+    const latest = new Date(today.getTime() - lag * 86_400_000).toISOString().slice(0, 10);
+    return end > latest ? { end: latest, note: `Prices end on ${latest}: backtests use data at least ${lag} days old.` } : { end, note: null };
+}
+
+type Meter = Pick<MeterRow, "spec_hash" | "engine_version" | "data_lane" | "data_version" | "timeframe" | "bars" | "trades" | "compute_ms" | "fetch_ms">;
+type Executed = { result: BacktestResult; spec: Record<string, unknown>; meter: Meter };
+
+const timer = () => {
+    const t0 = performance.now();
+    return () => Math.round(performance.now() - t0);
+};
+
+const EMPTY_METER: Meter = { spec_hash: null, engine_version: ENGINE_VERSION, data_lane: null, data_version: null, timeframe: null, bars: null, trades: null, compute_ms: null, fetch_ms: null };
+
+/** Log a run's cost drivers. Fire-and-forget: metering never delays or fails a backtest. */
+function meter(row: Omit<MeterRow, "credits"> & { credits?: number }) {
+    void recordMeter({ credits: 1, ...row }).catch(() => undefined);
+}
+
+/** Strategies saved through /api/v1 store a Strategy Spec, not a legacy definition. */
+const isSpec = (d: unknown): d is Record<string, unknown> => Boolean(d && typeof d === "object" && "spec_version" in (d as object));
+
+function runSavedSpec(saved: Record<string, unknown>, candles: Candle[], capital: number, name: string, start: string) {
+    const n = normaliseSpec({ ...saved, name, capital: { initial: capital, currency: "INR" }, period: { from: start, to: candles[candles.length - 1].time.slice(0, 10) } });
+    if ("errors" in n) throw new BacktestInputError(n.errors.join("; "));
+    return { result: runSpec(n.spec, candles), spec: n.spec };
+}
 
 /** Fetch candles and run the equity engine; throws MarketDataError / Error with a user-facing message. */
-async function execute(definition: StrategyDefinition, start: string, end: string, capital: number): Promise<Executed> {
-    const inst = definition.instrument ?? {};
-    const candles = await getCandles({
-        symbol: inst.symbol ?? "SAMPLE",
-        exchange: inst.exchange ?? "NSE",
-        timeframe: inst.timeframe ?? "1d",
-        start,
-        end,
-    });
+async function execute(definition: StrategyDefinition, start: string, end: string, capital: number, name: string): Promise<Executed> {
+    const specInst = isSpec(definition) ? String((definition.instrument as { id?: string })?.id ?? "NSE:SAMPLE").split(":") : null;
+    const inst = specInst ? { symbol: specInst[1], exchange: specInst[0], timeframe: (definition.instrument as { timeframe?: string }).timeframe ?? "1d" } : (definition.instrument ?? {});
+    const symbol = inst.symbol || "SAMPLE";
+    const lag = applyDataLag(end);
+    const fetchTime = timer();
+    const candles = await getCandles({ symbol, exchange: inst.exchange ?? "NSE", timeframe: inst.timeframe ?? "1d", start, end: lag.end });
+    const fetch_ms = fetchTime();
     if (candles.length > MAX_CANDLES) throw new BacktestInputError("That window has too many bars — shorten the date range or use a coarser timeframe.");
-    const engine = runBacktest(definition, candles, capital);
-    return { result: { ...engine, candles } };
+    const computeTime = timer();
+    const { result: engine, spec } = isSpec(definition) ? runSavedSpec(definition, candles, capital, name, start) : runDefinition(definition, candles, capital, name);
+    const compute_ms = computeTime();
+    labelResult(engine, symbol, candles, lag.note);
+    return {
+        result: { ...engine, candles },
+        spec: spec as unknown as Record<string, unknown>,
+        meter: {
+            spec_hash: engine.assumptions.spec_hash ?? null,
+            engine_version: ENGINE_VERSION,
+            data_lane: engine.assumptions.data_source ?? null,
+            data_version: engine.assumptions.data_version ?? null,
+            timeframe: inst.timeframe ?? "1d",
+            bars: candles.length,
+            trades: engine.trades.length,
+            compute_ms,
+            fetch_ms,
+        },
+    };
 }
 
 // ── chat to backtest ────────────────────────────────────────────────────────
@@ -125,16 +221,21 @@ const suggestions = (definition: AnyDefinition, pro: boolean): string[] => {
     return out.slice(0, 3);
 };
 
-const reportReply = (name: string, r: EngineResult): string => {
+export const reportReply = (name: string, r: EngineResult): string => {
     const m = r.metrics;
-    const verdict = m.total_pnl > 0 ? "profitable ✅" : "a net loser ❌";
+    const verdict = m.wiped_out ? "**wiped out** — equity hit zero and the run stopped there" : m.total_pnl > 0 ? "profitable" : "a net loser";
     const sign = m.total_return_pct >= 0 ? "+" : "";
+    // The amount is in the report, in the visitor's currency; the reply only says whether charges are in.
+    const costs = r.assumptions.cost_profile ? "after charges" : "**before costs**";
+    const lead = r.assumptions.synthetic ? "**SYNTHETIC DATA — not market results.** " : "";
     return (
-        `Done — I backtested your **${name}** idea. Over this window it was ${verdict}: **${sign}${m.total_return_pct.toFixed(2)}%** return across ` +
+        `${lead}Done — I backtested your **${name}** idea. Over this window it was ${verdict}: **${sign}${m.total_return_pct.toFixed(2)}%** return ${costs} across ` +
         `**${m.num_trades} trades** with a **${m.win_rate.toFixed(0)}% win rate**, Sharpe **${m.sharpe.toFixed(2)}** and max drawdown **${m.max_drawdown_pct.toFixed(1)}%**. ` +
-        `Full report and equity curve are on the right. Want me to tweak the stop, target, or timeframe and re-run?`
+        `Full report and equity curve are on the right. Want me to tweak the stop, target, or timeframe and re-run?\n${DISCLAIMER}`
     );
 };
+
+const SYMBOL_CHIPS = ["Run it on RELIANCE", "Run it on TCS", "Run it on NIFTYBEES"];
 
 // Abuse protection (applies to every plan, Pro included): normal use never
 // gets near these, a script or a stuck button does.
@@ -177,7 +278,8 @@ export const chatBacktest = async (req, res) => {
 
         // Not a trading rule at all → say so (and spend nothing) instead of
         // silently backtesting a default strategy.
-        if (!looksLikeTrading(payload.message)) {
+        const prevDefinition = (payload.prev_definition ?? null) as AnyDefinition | null;
+        if (!looksLikeTrading(payload.message) && !(awaitingSymbol(prevDefinition) && applyModification(prevDefinition, payload.message))) {
             const quoted = payload.message.length > 60 ? `${payload.message.slice(0, 57)}…` : payload.message;
             return res.status(HTTP_STATUS.OK).json({
                 reply: `I couldn't find a trading rule in "${quoted}". Tell me **when to buy or sell** — an indicator, a price level or a crossover — plus any stop-loss or target. For example: "${STRATEGY_EXAMPLES[0]}".`,
@@ -214,7 +316,7 @@ export const chatBacktest = async (req, res) => {
         let timeframe: string;
         let run: (candles: Awaited<ReturnType<typeof getCandles>>) => EngineResult;
 
-        const prev = (payload.prev_definition ?? null) as AnyDefinition | null;
+        const prev = prevDefinition;
         const options = applyOptionsModification(prev, payload.message, override) ?? parseOptions(payload.message, override);
         if (options && !pro) {
             // Pro-only — answered before any quota is spent or data fetched.
@@ -258,18 +360,46 @@ export const chatBacktest = async (req, res) => {
                 return runOptionsBacktest(spec, candles, payload.starting_capital);
             };
         } else {
+            // A message with its own entry rule is a new strategy; "try EMA
+            // instead" names an indicator but no rule, so ask instead of guessing.
+            const kind = classifyMessage(prev, payload.message);
+            if (kind === "ambiguous") {
+                return res.status(HTTP_STATUS.OK).json({
+                    reply: `Do you want to replace the entry and exit rules? Tell me the full rule — for example "${STRATEGY_EXAMPLES[1]}" — or say what to change ("tighten the stop to 1%", "run it on INFY").`,
+                    interpretation: "",
+                    warnings: [],
+                    strategy_name: "",
+                    definition: prev,
+                    start_date: today,
+                    end_date: today,
+                    result: null,
+                    ok: false,
+                    error: "clarify",
+                    usage,
+                    suggestions: [STRATEGY_EXAMPLES[1], "Tighten the stop to 1%"],
+                    paywall: false,
+                    locked: [],
+                });
+            }
             // 1. deterministic tweak of the previous strategy (no API cost, works with no key)
             // 2. Claude for long-tail phrasings, when configured   3. offline rules parser
-            const tweak = prev ? applyModification(prev, payload.message) : null;
+            const tweak = kind === "modify" ? applyModification(prev, payload.message) : null;
             // Claude (paid tokens) is a Pro feature; free accounts use the offline rules parser.
-            const ai = tweak || !pro ? null : await llmParse({ message: payload.message, history, prevDefinition: prev, profile });
+            // A new strategy never sees the previous one, so it can't be read as a tweak of it.
+            const ai = tweak || !pro ? null : await llmParse({ message: payload.message, history, prevDefinition: kind === "new" ? null : prev, profile });
             const parsed = tweak ?? ai ?? parseStrategy(payload.message, override);
             definition = parsed.definition;
+            // Store a sizing RULE, never a share count: the engine sizes each trade
+            // at its own fill price, so re-targeting a symbol can't carry a stale size.
+            if (namesQuantity(payload.message)) definition.sizing = sizingFor(payload.message);
+            else if (tweak) definition.sizing = prev?.sizing ?? sizingFor(payload.message, profile?.risk);
+            else if (!(ai && definition.sizing)) definition.sizing = sizingFor(payload.message, profile?.risk);
             parsed.warnings.push(...personalize(definition, profile));
             if (override && definition.instrument) definition.instrument.symbol = override;
             ({ name, interpretation, warnings } = parsed);
+            interpretation += `\n**Position size:** ${describeSizing(definition.sizing!)}`;
             const inst = definition.instrument ?? {};
-            symbol = inst.symbol ?? "SAMPLE";
+            symbol = inst.symbol || "SAMPLE";
             exchange = inst.exchange ?? "NSE";
             timeframe = inst.timeframe ?? "1d";
             if (!pro && !FREE_TIMEFRAMES.includes(timeframe)) {
@@ -281,22 +411,35 @@ export const chatBacktest = async (req, res) => {
                 timeframe = "1d";
                 locked.push("intraday");
             }
-            // Claude sizes positions itself and a tweak keeps the previous size;
-            // the rules parser always says 1, so size that from capital.
-            const autoSize = !tweak && !ai && !namesQuantity(payload.message);
-            run = (candles) => {
-                if (autoSize && candles.length) {
-                    const { qty, allocation } = positionSize(payload.starting_capital, candles[0].close, profile?.risk);
-                    definition.entry_action = { ...(definition.entry_action ?? {}), qty };
-                    interpretation += `\n**Position size:** ${qty.toLocaleString("en-IN")} × ${symbol} (about ${Math.round(allocation * 100)}% of your capital at the first price)`;
-                }
-                return runBacktest(definition, candles, payload.starting_capital);
-            };
+            // No symbol named → ask, never fall back to synthetic data silently.
+            // SAMPLE runs only when asked for (or kept from a SAMPLE run being tweaked).
+            const explicitSample = /\bsample\b/i.test(payload.message) || override === "SAMPLE" || Boolean(tweak && prev?.instrument?.symbol === "SAMPLE");
+            if (!inst.symbol || (symbol === "SAMPLE" && !explicitSample)) {
+                return res.status(HTTP_STATUS.OK).json({
+                    reply: `Which stock should I test this on? Name an NSE symbol — for example RELIANCE, TCS or HDFCBANK. (Say "on SAMPLE" for the offline demo series; its results are synthetic.)`,
+                    interpretation: interpretation.replace(/(\*\*Instrument:\*\*) [^·\n]*/, "$1 not chosen yet "),
+                    warnings,
+                    strategy_name: name,
+                    // Blank symbol, so a reply like "RELIANCE" re-targets these rules.
+                    definition: { ...definition, instrument: { ...inst, symbol: "" } },
+                    start_date: today,
+                    end_date: today,
+                    result: null,
+                    ok: false,
+                    error: "symbol_required",
+                    usage,
+                    suggestions: SYMBOL_CHIPS,
+                    paywall: false,
+                    locked,
+                });
+            }
+            run = (candles) => runBacktest(definition, candles, payload.starting_capital);
         }
 
         const [defStart, defEnd] = defaultWindow(timeframe);
         let start = payload.start_date || defStart;
-        const end = payload.end_date || defEnd;
+        const lag = applyDataLag(payload.end_date || defEnd);
+        const end = lag.end;
         if (!pro && start < earliestFreeStart()) {
             // Default windows are clamped quietly; an explicit older start gets told why.
             if (payload.start_date) {
@@ -329,20 +472,43 @@ export const chatBacktest = async (req, res) => {
         }
 
         try {
+            const fetchTime = timer();
             const candles = await getCandles({ symbol, exchange, timeframe, start, end });
+            const fetch_ms = fetchTime();
             if (candles.length > MAX_CANDLES) throw new BacktestInputError("That window has too many bars — shorten the date range or use a coarser timeframe.");
+            const computeTime = timer();
             const engine = run(candles);
+            const compute_ms = computeTime();
+            const notes = labelResult(engine, symbol, candles, lag.note);
+            meter({
+                user_id: userId,
+                channel: "web_chat",
+                tier: usage.tier,
+                ok: true,
+                spec_hash: engine.assumptions.spec_hash ?? null,
+                engine_version: ENGINE_VERSION,
+                data_lane: engine.assumptions.data_source ?? null,
+                data_version: engine.assumptions.data_version ?? null,
+                timeframe,
+                bars: candles.length,
+                trades: engine.trades.length,
+                compute_ms,
+                fetch_ms,
+            });
             // Only a backtest that actually ran counts against the allowance —
             // a typo'd symbol or an empty window costs the user nothing.
             usage = await consumeAllowance(userId, ip, usage);
-            return res.status(HTTP_STATUS.OK).json({ ...base, usage, interpretation, ok: true, result: { ...engine, candles }, reply: reportReply(name, engine) });
+            return res
+                .status(HTTP_STATUS.OK)
+                .json({ ...base, warnings: [...notes, ...warnings], usage, interpretation, ok: true, result: { ...engine, candles }, reply: reportReply(name, engine) });
         } catch (err) {
+            meter({ ...EMPTY_METER, user_id: userId, channel: "web_chat", tier: usage.tier, ok: false, timeframe });
             if (err instanceof MarketDataError || err instanceof BacktestInputError) {
                 const msg = (err as Error).message;
                 return res.status(HTTP_STATUS.OK).json({
                     ...base,
                     error: msg,
-                    reply: `I set up the strategy, but couldn't pull data to test it: ${msg}. Try the offline **SAMPLE** symbol or a liquid name like RELIANCE / NIFTY.`,
+                    reply: `I set up the strategy, but couldn't pull data to test it: ${msg}. Try a liquid name like RELIANCE or NIFTYBEES.`,
                 });
             }
             console.error("[Backtest] chat run failed:", err);
@@ -351,6 +517,18 @@ export const chatBacktest = async (req, res) => {
     } catch (err) {
         return serverError(res, "Chat backtest failed", err);
     }
+};
+
+/* GET /backtest/spec — the Strategy Spec v1 contract: JSON Schema, indicators and operators (public). */
+export const getSpecSchema = (_req, res) => {
+    res.set("Cache-Control", "public, max-age=3600");
+    return res.status(HTTP_STATUS.OK).json({
+        spec_version: SPEC_VERSION,
+        engine_version: ENGINE_VERSION,
+        json_schema: specJsonSchema(),
+        indicators: SPEC_INDICATOR_LIST,
+        operators: OPERATORS,
+    });
 };
 
 /* GET /backtest/plan — tier + usage summary (optional auth). */
@@ -463,13 +641,25 @@ export const createRun = async (req, res) => {
 
         const meta = { user_id: userId, strategy_id: strategy.id, strategy_name: strategy.name, definition: strategy.definition, start_date, end_date, starting_capital };
         try {
-            const { result } = await execute(definition, start_date, end_date, starting_capital);
+            const { result, spec, meter: m } = await execute(definition, start_date, end_date, starting_capital, strategy.name);
+            meter({ user_id: userId, channel: "web_run", tier: usage.tier, ok: true, ...m });
             // Counted only once the run succeeded (failed runs are free).
             if (usage.tier !== "pro") await consumeAllowance(userId, clientIp(req), usage);
-            const row = await insertRun({ ...meta, status: "completed", error: null, result });
+            const row = await insertRun({
+                ...meta,
+                end_date: applyDataLag(end_date).end,
+                status: "completed",
+                error: null,
+                result,
+                spec,
+                spec_hash: m.spec_hash,
+                engine_version: m.engine_version,
+                data_version: m.data_version,
+            });
             return res.status(HTTP_STATUS.CREATED).json({ ...summary({ ...row, metrics: result.metrics }), definition: strategy.definition, result });
         } catch (err) {
             if (err instanceof BacktestTablesMissingError) throw err;
+            meter({ ...EMPTY_METER, user_id: userId, channel: "web_run", tier: usage.tier, ok: false, timeframe: definition.instrument?.timeframe ?? "1d" });
             const message = err instanceof MarketDataError || err instanceof BacktestInputError ? err.message : `Unexpected error: ${(err as Error)?.message || err}`;
             await insertRun({ ...meta, status: "failed", error: message.slice(0, 500), result: null }).catch(() => undefined);
             return res.status(422).json({ error: message });

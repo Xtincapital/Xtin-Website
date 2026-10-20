@@ -5,7 +5,7 @@
 // StrategyDefinition the engine already understands. The parser is deliberately
 // rule-based and offline so it is deterministic and needs no API key; llmParse.ts
 // can layer Claude on top for free-form phrasing.
-import type { Condition, Operand, StrategyDefinition } from "./types.js";
+import type { Condition, Operand, Sizing, StrategyDefinition } from "./types.js";
 import type { OptionsSpec, OptionsStructure } from "./options.js";
 
 // Known symbols we let through to the live data source. Anything else (or
@@ -24,6 +24,8 @@ export const KNOWN_SYMBOLS: Record<string, [string, string]> = {
     SBIN: ["SBIN", "NSE"],
     SBI: ["SBIN", "NSE"],
     TATAMOTORS: ["TATAMOTORS", "NSE"],
+    NIFTYBEES: ["NIFTYBEES", "NSE"],
+    BANKBEES: ["BANKBEES", "NSE"],
     AAPL: ["AAPL", "NASDAQ"],
     TSLA: ["TSLA", "NASDAQ"],
 };
@@ -96,9 +98,6 @@ export function parseStrategy(message: string, symbolOverride?: string | null): 
         exchange = "NSE";
     }
     const timeframe = detectTimeframe(low);
-    if (symbol === "SAMPLE") {
-        warnings.push("No specific symbol recognised — running on Xtin Backtest's offline SAMPLE series so you get instant, reproducible results.");
-    }
 
     // direction
     const short = /\b(short|sell to open|bearish|put)\b/.test(low) && !/\bbuy\b/.test(low);
@@ -196,6 +195,7 @@ export function parseStrategy(message: string, symbolOverride?: string | null): 
         entry_action: { side, qty: explicitQty(text) ?? 1, order_type: "MARKET" },
         exit: { match: "any", conditions: exit },
         risk: { stop_loss_pct: sl, target_pct: tp, trailing_sl_pct: trail, square_off_time: timeframe !== "1d" ? "15:15" : null },
+        sizing: sizingFor(text),
     };
 
     return {
@@ -346,11 +346,11 @@ const TRADING_WORDS =
 export function looksLikeTrading(message: string): boolean {
     const text = message.trim();
     if (text.replace(/[^a-z0-9]/gi, "").length < 3) return false;
-    return TRADING_WORDS.test(text) || detectSymbol(text)[0] !== "SAMPLE";
+    return TRADING_WORDS.test(text) || /\bsample\b/i.test(text) || detectSymbol(text)[0] !== "SAMPLE";
 }
 
 export const STRATEGY_EXAMPLES = [
-    "Buy when RSI drops below 30 and sell above 70, 2% stop",
+    "Buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop",
     "Buy RELIANCE when 20 EMA crosses above 50 EMA",
     "Buy NIFTY when price breaks above its upper Bollinger band",
 ];
@@ -375,12 +375,42 @@ function baseName(d: AnyDefinition): string {
     return c.op.startsWith("crosses") ? "Price Breakout" : "Price Rule";
 }
 
+// ── new strategy, tweak, or ambiguous? ──────────────────────────────────────
+//
+// A message with its own entry rule is a NEW strategy even when a previous one
+// exists: "Buy NIFTY when 50 EMA crosses above 200 EMA, exit when it crosses
+// below, daily" used to be read as a tweak ("daily" + "NIFTY") and silently
+// re-ran the old RSI rule on NIFTY.
+
+const ENTRY_RULE = /\b(buy|sell|long|short|enter|entry)\b.*\b(when|if|once|whenever|after|above|below|cross(?:es)?|breaks?|closes?)\b/i;
+const STRATEGY_NAMES = /\b(golden cross|death cross|crossover|mean[- ]reversion|breakout|trend[- ]following)\b/i;
+
+export const describesNewStrategy = (message: string) => EQUITY_WORDS.test(message) && (ENTRY_RULE.test(message) || STRATEGY_NAMES.test(message));
+
+export type MessageKind = "new" | "modify" | "ambiguous";
+
+/** "Try EMA instead" names an indicator but no rule — ask one question rather than guess. */
+export function classifyMessage(prev: AnyDefinition | null | undefined, message: string): MessageKind {
+    if (!prev || prev.kind === "options") return "new";
+    if (describesNewStrategy(message)) return "new";
+    if (EQUITY_WORDS.test(message)) return "ambiguous";
+    return "modify";
+}
+
 const MOD_HINTS =
     /\b(stop|target|trailing|timeframe|15m|5m|1m|1h|hourly|daily|minute|short|long|qty|quantity|re-?run|rerun|instead|tighten|widen|change|switch|make it|run it|try it|same but)\b/i;
 
+const BARE_TICKER = /^\s*(?:(?:run it |try it |test it )?on\s+|use\s+)?([A-Za-z][A-Za-z0-9&-]{1,19})\s*[.!]?\s*$/i;
+
+/** The previous strategy is waiting on an answer to "which stock?". */
+export const awaitingSymbol = (prev: AnyDefinition | null | undefined) => Boolean(prev && prev.kind !== "options" && prev.instrument && !prev.instrument.symbol);
+
 export function applyModification(prev: AnyDefinition | null | undefined, message: string): ParsedStrategy | null {
     if (!prev || prev.kind === "options" || !prev.instrument) return null;
-    if (!MOD_HINTS.test(message)) return null;
+    // A bare symbol ("RELIANCE", "on SAMPLE") answers "which stock?" — re-target the previous rules.
+    const wantsSample = /\bsample\b/i.test(message);
+    const answersSymbol = awaitingSymbol(prev) && BARE_TICKER.test(message);
+    if (!MOD_HINTS.test(message) && !wantsSample && !answersSymbol && detectSymbol(message)[0] === "SAMPLE") return null;
 
     const d: AnyDefinition = JSON.parse(JSON.stringify(prev));
     const changes: string[] = [];
@@ -413,11 +443,18 @@ export function applyModification(prev: AnyDefinition | null | undefined, messag
         }
     }
 
-    const [sym, exch] = detectSymbol(message);
+    let [sym, exch] = detectSymbol(message);
+    // Answering "which stock?" with a ticker we don't list ("ZOMATO", "on IRCTC") still names it.
+    const bare = !inst.symbol ? BARE_TICKER.exec(message) : null;
+    if (sym === "SAMPLE" && bare && !/^sample$/i.test(bare[1])) [sym, exch] = [bare[1].toUpperCase(), "NSE"];
     if (sym !== "SAMPLE" && sym !== inst.symbol) {
         inst.symbol = sym;
         inst.exchange = exch;
         changes.push(`symbol → ${sym}`);
+    } else if (sym === "SAMPLE" && wantsSample && inst.symbol !== "SAMPLE") {
+        inst.symbol = "SAMPLE";
+        inst.exchange = "NSE";
+        changes.push("symbol → SAMPLE (synthetic demo data)");
     }
 
     if (/\bmake it (a )?short\b|\bgo short\b|\bshort instead\b/i.test(message)) {
@@ -428,16 +465,17 @@ export function applyModification(prev: AnyDefinition | null | undefined, messag
         changes.push("direction → LONG");
     }
 
-    m = /\b(?:qty|quantity)\D{0,6}(\d+)\b/i.exec(message);
-    if (m) {
-        action.qty = Math.max(1, parseInt(m[1], 10));
-        changes.push(`qty → ${m[1]}`);
+    const qty = explicitQty(message);
+    if (qty !== null) {
+        action.qty = qty;
+        d.sizing = { mode: "fixed_qty", value: qty };
+        changes.push(`qty → ${qty}`);
     }
 
     if (!changes.length) return null; // hint words but nothing parseable — treat as a new idea
 
     return {
-        name: `${baseName(d)} (tweaked) · ${inst.symbol ?? "SAMPLE"} ${inst.timeframe ?? "1d"}`,
+        name: `${baseName(d)} (tweaked) · ${inst.symbol || "SAMPLE"} ${inst.timeframe ?? "1d"}`,
         definition: d,
         interpretation: "Updated your previous strategy: " + changes.join(", ") + ".",
         warnings: [],
@@ -448,7 +486,7 @@ export function applyModification(prev: AnyDefinition | null | undefined, messag
 //
 // The rules parser can't know how big a position the user means, and a fixed
 // 1 share made a ₹1L account report "−₹7 (−0.01%)". When the message names no
-// quantity, size one position as a share of capital by risk profile instead.
+// quantity, each trade is sized as a share of equity by risk profile instead.
 
 const QTY_PATTERNS = [/\b(\d+)\s*(?:shares?|units?|qty)\b/i, /\b(?:qty|quantity)\D{0,6}(\d+)/i];
 /** A quantity the user named ("50 shares", "qty 10"), if any. */
@@ -465,10 +503,15 @@ const ALLOCATION: Record<string, number> = { conservative: 0.25, balanced: 0.5, 
 
 export const allocationFor = (risk?: string | null) => ALLOCATION[risk ?? ""] ?? ALLOCATION.balanced;
 
-export function positionSize(capital: number, price: number, risk?: string | null): { qty: number; allocation: number } {
-    const allocation = allocationFor(risk);
-    const qty = price > 0 ? Math.max(1, Math.floor((capital * allocation) / price)) : 1;
-    return { qty, allocation };
+/**
+ * The sizing RULE for a chat strategy — never a frozen share count, which was
+ * carried across symbols (503 SAMPLE units became ₹5.9L of RELIANCE on ₹1L).
+ * A quantity the user typed stays fixed; otherwise a share of equity by risk
+ * profile, recomputed by the engine at every fill price.
+ */
+export function sizingFor(message: string, risk?: string | null): Sizing {
+    const qty = explicitQty(message);
+    return qty !== null ? { mode: "fixed_qty", value: qty } : { mode: "pct_equity", value: Math.round(allocationFor(risk) * 100) };
 }
 
 const RISK_DEFAULTS: Record<string, { stop_loss_pct: number; target_pct: number }> = {

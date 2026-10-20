@@ -7,7 +7,7 @@
 //   * settlement value is driven by the realised move |close − open|,
 //   * a per-cycle stop caps the loss on short structures.
 // It returns the same {metrics, trades, equity_curve} shape as the equity engine.
-import { BacktestInputError, computeMetrics, round2 } from "./engine.js";
+import { BacktestInputError, computeMetrics, ENGINE_VERSION, round2 } from "./engine.js";
 import type { Candle, EngineResult, Trade } from "./types.js";
 
 export type OptionsStructure = "straddle" | "strangle" | "iron_condor";
@@ -95,10 +95,27 @@ export function runOptionsBacktest(spec: OptionsSpec, candles: Candle[], startin
             pnl,
             pnl_pct: credit ? round2((raw / credit) * 100) : 0,
             reason,
+            gross_pnl: pnl,
+            costs: 0,
         });
         equityCurve.push({ time: c.time, equity: round2(capital) });
     }
 
     if (!Number.isFinite(capital)) throw new Error("Backtest produced a non-finite result");
-    return { trades, equity_curve: equityCurve, metrics: computeMetrics(trades, equityCurve, effectiveCapital, spec.timeframe) };
+    return {
+        trades,
+        equity_curve: equityCurve,
+        metrics: computeMetrics(trades, equityCurve, effectiveCapital, spec.timeframe),
+        // A premium model, not fills: no cost model yet, so these results are before costs.
+        assumptions: {
+            engine_version: ENGINE_VERSION,
+            fill: "bar_close",
+            product: "MIS",
+            sizing: `${lots} lot${lots === 1 ? "" : "s"} per cycle`,
+            cost_profile: null,
+            slippage_bps: 0,
+            reentry_cooldown_bars: 0,
+        },
+        warnings: ["Options results are before costs."],
+    };
 }

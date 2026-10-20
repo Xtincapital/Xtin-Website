@@ -6,17 +6,16 @@ import { Layers, Pencil, Play, Plus, Sparkles, Trash2 } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
 import EmptyState from "../components/EmptyState";
-import { backtestApi } from "../lib/api";
+import { v1 } from "../lib/v1";
 import { usePlan } from "../lib/usePlan";
 import ProBadge from "../components/ProBadge";
 import { useProDialog } from "../lib/proDialog";
-import { conditionText } from "../lib/analytics";
+import { groupTexts, levelText, matchOf, parseInstrumentId, sizingShort, type SpecGroup } from "../lib/spec";
 import { btnGhost, btnPrimary, btnSecondary, card, chip, muted } from "../lib/styles";
-import type { Strategy } from "../lib/types";
 
-function RuleLine({ label, tone, strategy, group }: { label: string; tone: string; strategy: Strategy; group: "entry" | "exit" }) {
-  const g = strategy.definition[group];
-  const conds = g?.conditions ?? [];
+function RuleLine({ label, tone, group, empty }: { label: string; tone: string; group: SpecGroup | null; empty: string }) {
+  const conds = groupTexts(group);
+  const joiner = group && matchOf(group) === "any" ? "or" : "and";
   return (
     <div className="flex items-start gap-2 text-xs">
       <span className={`mt-0.5 w-10 shrink-0 font-bold uppercase tracking-wider ${tone}`}>{label}</span>
@@ -24,12 +23,12 @@ function RuleLine({ label, tone, strategy, group }: { label: string; tone: strin
         {conds.length ? (
           conds.map((c, i) => (
             <span key={i} className="inline-flex items-center gap-1">
-              {i > 0 && <span className={`text-xs font-semibold uppercase ${muted}`}>{g.match === "any" ? "or" : "and"}</span>}
-              <code className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700 dark:bg-white/5 dark:text-slate-200">{conditionText(c)}</code>
+              {i > 0 && <span className={`text-xs font-semibold uppercase ${muted}`}>{joiner}</span>}
+              <code className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-700 dark:bg-white/5 dark:text-slate-200">{c}</code>
             </span>
           ))
         ) : (
-          <span className={muted}>{group === "exit" ? "stops / targets only" : "—"}</span>
+          <span className={muted}>{empty}</span>
         )}
       </span>
     </div>
@@ -38,12 +37,12 @@ function RuleLine({ label, tone, strategy, group }: { label: string; tone: strin
 
 export default function StrategyList() {
   const qc = useQueryClient();
-  const { data, isLoading, isError } = useQuery({ queryKey: ["bt-strategies"], queryFn: backtestApi.listStrategies });
+  const { data, isLoading, isError } = useQuery({ queryKey: ["bt-strategies"], queryFn: async () => (await v1.listStrategies()).data });
   const { strategyLimit, isPro } = usePlan();
   const atLimit = !isPro && strategyLimit !== null && (data?.length ?? 0) >= strategyLimit;
 
   const del = useMutation({
-    mutationFn: (id: string) => backtestApi.deleteStrategy(id),
+    mutationFn: (id: string) => v1.deleteStrategy(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["bt-strategies"] });
       toast.success("Strategy deleted");
@@ -122,19 +121,27 @@ export default function StrategyList() {
       {data && data.length > 0 && (
         <div className="grid gap-4 md:grid-cols-2">
           {data.map((s, idx) => {
-            const inst = s.definition.instrument;
-            const risk = s.definition.risk;
-            const short = s.definition.entry_action?.side === "SELL";
+            const spec = s.spec;
+            const inst = spec ? parseInstrumentId(spec.instrument.id) : null;
+            const short = spec?.entry.side === "short";
+            const risk = spec
+              ? [levelText(spec.exit.stop_loss, "stop"), levelText(spec.exit.target, "target"), levelText(spec.exit.trailing_stop, "trail"), spec.exit.time_exit && `out after ${spec.exit.time_exit.bars} bars`].filter(Boolean)
+              : [];
             return (
               <motion.article key={s.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(idx, 8) * 0.04 }} className={`${card} group flex flex-col p-5 transition hover:border-brand-line hover:shadow-lg hover:shadow-brand/5 dark:hover:border-brand-line`}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="truncate font-semibold">{s.name}</h2>
                     <div className="mt-2 flex flex-wrap gap-1.5">
-                      <span className={`${chip} font-bold text-slate-800 dark:text-white`}>{inst?.symbol}</span>
-                      <span className={chip}>{inst?.timeframe}</span>
-                      <span className={`${chip} ${short ? "!text-violet-700 dark:!text-violet-300" : "!text-sky-700 dark:!text-sky-300"}`}>
-                        {short ? "Short" : "Long"} × {s.definition.entry_action?.qty}
+                      <span className={`${chip} font-bold text-slate-800 dark:text-white`}>{inst?.symbol ?? "—"}</span>
+                      {spec && <span className={chip}>{spec.instrument.timeframe}</span>}
+                      {spec && (
+                        <span className={`${chip} ${short ? "!text-violet-700 dark:!text-violet-300" : "!text-sky-700 dark:!text-sky-300"}`}>
+                          {short ? "Short" : "Long"} · {sizingShort(spec.sizing)}
+                        </span>
+                      )}
+                      <span className={chip} title="Every save keeps the earlier versions">
+                        v{s.version}
                       </span>
                     </div>
                   </div>
@@ -142,15 +149,19 @@ export default function StrategyList() {
                 </div>
 
                 <div className="mt-4 space-y-2 rounded-xl border border-slate-100 bg-slate-50/60 p-3 dark:border-white/5 dark:bg-white/[0.02]">
-                  <RuleLine label="Entry" tone="text-brand dark:text-brand" strategy={s} group="entry" />
-                  <RuleLine label="Exit" tone="text-amber-600 dark:text-amber-400" strategy={s} group="exit" />
-                  {(risk?.stop_loss_pct || risk?.target_pct || risk?.trailing_sl_pct) && (
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="w-10 shrink-0 font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Risk</span>
-                      <span className={muted}>
-                        {[risk.stop_loss_pct && `${risk.stop_loss_pct}% stop`, risk.target_pct && `${risk.target_pct}% target`, risk.trailing_sl_pct && `${risk.trailing_sl_pct}% trail`].filter(Boolean).join(" · ")}
-                      </span>
-                    </div>
+                  {spec ? (
+                    <>
+                      <RuleLine label="Entry" tone="text-brand dark:text-brand" group={spec.entry.when} empty="—" />
+                      <RuleLine label="Exit" tone="text-amber-600 dark:text-amber-400" group={spec.exit.when} empty="stops / targets only" />
+                      {risk.length > 0 && (
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="w-10 shrink-0 font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Risk</span>
+                          <span className={muted}>{risk.join(" · ")}</span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-xs text-rose-600 dark:text-rose-400">This strategy can't be read: {s.errors?.join("; ")}. Edit it in the builder to fix it.</p>
                   )}
                 </div>
 

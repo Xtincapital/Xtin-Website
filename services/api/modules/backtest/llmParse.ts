@@ -20,7 +20,8 @@ Schema:
   "entry": {"match": "all"|"any", "conditions": Condition[]},
   "entry_action": {"side": "BUY"|"SELL", "qty": integer>=1, "order_type": "MARKET"},
   "exit": {"match": "all"|"any", "conditions": Condition[]},
-  "risk": {"stop_loss_pct": number|null, "target_pct": number|null, "trailing_sl_pct": number|null, "square_off_time": "HH:MM"|null}
+  "risk": {"stop_loss_pct": number|null, "target_pct": number|null, "trailing_sl_pct": number|null, "square_off_time": "HH:MM"|null},
+  "sizing": {"mode": "fixed_qty"|"fixed_amount", "value": number}  (OPTIONAL — see SIZING)
 }
 
 A Condition is {"left": Operand, "op": Operator, "right": Operand}.
@@ -33,7 +34,7 @@ Indicator NAME must be one of: ${INDICATOR_NAMES.map((n) => `"${n}"`).join(", ")
 (MACD ignores period — compare it to value 0 for zero-line crosses. VWAP ignores period. SUPERTREND: price crossing above it = uptrend entry, below = exit/short.)
 
 Rules:
-- If no symbol is named, use "SAMPLE" (a deterministic offline series) so the backtest always runs.
+- If no symbol is named, use "SAMPLE" — the server then asks the user which stock to test.
 - Default timeframe is "1d" unless the user implies intraday.
 - For intraday timeframes set square_off_time to "15:15"; for "1d" set it to null.
 - Prefer a crossover strategy for moving-average ideas; RSI<30/>70 for mean reversion; price crossing a level or BB band for breakouts; SUPERTREND or EMA for trend-following; STOCH_K for overbought/oversold timing; VWAP for intraday value reference.
@@ -47,7 +48,11 @@ PERSONALISATION — when a PROFILE is provided:
 - conservative → tighter stop (~1–1.5%), modest target (~2–3%), smaller qty.
 - balanced → stop ~2%, target ~4%.
 - aggressive → wider stop (~3–4%), bigger target (~6–8%), may hold without square-off on daily.
-- If capital is given, size qty so one position uses roughly 20% of capital at a typical price for the symbol (round to a sane integer, min 1).
+
+SIZING — never compute a share count yourself:
+- If the user names a number of shares, set "sizing": {"mode": "fixed_qty", "value": N} and entry_action.qty to N.
+- If the user names a rupee amount per trade, set "sizing": {"mode": "fixed_amount", "value": RUPEES}.
+- Otherwise omit "sizing" and leave entry_action.qty at 1: the server sizes every trade from the user's capital at its own fill price.
 
 Also include a top-level "_interpretation" key: ONE plain-English line a beginner understands, describing what you built (and, on iteration, what changed).`;
 
@@ -104,9 +109,6 @@ export async function llmParse(input: LlmParseInput): Promise<ParsedStrategy | n
     const definition = parsed.data as unknown as StrategyDefinition & { instrument: { symbol: string; timeframe: string } };
     const { symbol, timeframe } = definition.instrument;
     const warnings: string[] = [];
-    if (symbol.toUpperCase() === "SAMPLE") {
-        warnings.push("No specific symbol recognised — running on the offline SAMPLE series so you get instant, reproducible results.");
-    }
     return {
         name: `AI · ${symbol} ${timeframe}`,
         definition,

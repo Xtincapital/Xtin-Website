@@ -8,6 +8,7 @@ const AlgosPage = lazy(() => import('./features/algos/pages/AlgosPage'));
 const ToolsPage = lazy(() => import('./features/tools/pages/tools'));
 const LearnPage = lazy(() => import('./features/academy/pages/LearnPage'));
 const LoginPage = lazy(() => import('./features/auth/pages/LoginPage'));
+const OAuthConsent = lazy(() => import('./features/auth/pages/OAuthConsent'));
 const SignupPage = lazy(() => import('./features/auth/pages/SignupPage'));
 const ForgotPasswordPage = lazy(() => import('./features/auth/pages/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('./features/auth/pages/ResetPasswordPage'));
@@ -605,6 +606,8 @@ function App() {
         <Route path="/courses/:courseId" element={<ProtectedPageRoute><CourseDetail /></ProtectedPageRoute>} />
         <Route path="/courses/:courseId/purchase" element={<ProtectedPageRoute><PurchasePage /></ProtectedPageRoute>} />
         <Route path="/login" element={<LoginPage />} />
+        {/* OAuth consent for "Sign in with Xtin" apps (Claude connector) — Supabase OAuth server authorization path */}
+        <Route path="/oauth/consent" element={<ProtectedRoute><OAuthConsent /></ProtectedRoute>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />

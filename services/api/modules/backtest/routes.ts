@@ -14,6 +14,7 @@ import {
     getMyRun,
     getMyStrategy,
     getPlan,
+    getSpecSchema,
     listMyRuns,
     listMyStrategies,
     updateMyStrategy,
@@ -29,6 +30,7 @@ const optionalAuthenticate = (req, res, next) => (req.headers.authorization ? au
 router.post("/backtest/chat", optionalAuthenticate, limitChat, chatBacktest);
 router.get("/backtest/plan", optionalAuthenticate, getPlan);
 router.get("/backtest/passes", listPasses);
+router.get("/backtest/spec", getSpecSchema);
 
 // Authenticated: saved strategies, run history, pass purchase.
 router.get("/backtest/strategies", authenticate, listMyStrategies);

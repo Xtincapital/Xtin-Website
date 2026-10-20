@@ -2,7 +2,7 @@
 // PRO_REQUIRED / paywall answer) opens it with what the user tried and why it
 // is blocked; <ProRequiredDialog/> in BacktestApp renders it.
 import { create } from "zustand";
-import { ApiError } from "./api";
+import { isProRequired } from "./api";
 
 export type ProReason = "quota" | "options" | "intraday" | "full_history" | "unlimited_strategies" | "advanced_analytics" | "ai";
 
@@ -26,7 +26,7 @@ const REASONS = new Set<ProReason>(["quota", "options", "intraday", "full_histor
 
 /** Opens the popup for a server `PRO_REQUIRED` error. Returns true when it did. */
 export function showProRequired(err: unknown): boolean {
-  if (!(err instanceof ApiError) || err.code !== "PRO_REQUIRED") return false;
+  if (!isProRequired(err)) return false;
   const reason = REASONS.has(err.feature as ProReason) ? (err.feature as ProReason) : "quota";
   useProDialog.getState().show(reason, err.message);
   return true;

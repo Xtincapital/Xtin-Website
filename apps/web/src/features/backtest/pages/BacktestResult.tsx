@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import Report from "../components/Report";
-import { backtestApi } from "../lib/api";
+import { v1 } from "../lib/v1";
 import { btnSecondary, card, muted } from "../lib/styles";
 
 export default function BacktestResult() {
   const { id } = useParams();
-  const { data, isLoading, isError } = useQuery({ queryKey: ["bt-run", id], queryFn: () => backtestApi.getRun(id as string) });
+  const { data, isLoading, isError } = useQuery({ queryKey: ["bt-run", id], queryFn: () => v1.getBacktest(id as string) });
 
   return (
     <BacktestLayout>
@@ -25,9 +25,10 @@ export default function BacktestResult() {
       {data?.result && (
         <Report
           result={data.result}
-          title={data.strategy_name}
-          subtitle={`${data.start_date} → ${data.end_date}`}
-          definition={data.definition ?? undefined}
+          title={data.name}
+          subtitle={`${data.period.from} → ${data.period.to}`}
+          definition={data.spec ?? data.legacy_definition ?? undefined}
+          sentence={data.summary ?? undefined}
           actions={
             data.strategy_id && (
               <Link to={`/backtest/app/strategies/${data.strategy_id}/run`} className={btnSecondary}>

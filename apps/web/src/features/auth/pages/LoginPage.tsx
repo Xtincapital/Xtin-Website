@@ -12,7 +12,8 @@ const LoginPage = () => {
 	const { login, signInWithGoogle } = useAuth();
 	
 	// Get the return URL from location state (set by ProtectedRoute) or default to dashboard
-	const from = location.state?.from?.pathname || '/dashboard';
+	// Keep the query string: the OAuth consent page needs its ?authorization_id back.
+	const from = location.state?.from ? `${location.state.from.pathname}${location.state.from.search ?? ''}` : '/dashboard';
 	
 	const [formData, setFormData] = useState({
 		email: "",

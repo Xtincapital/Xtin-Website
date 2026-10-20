@@ -4,11 +4,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, CalendarRange, Database, Play, Wallet } from "lucide-react";
 import BacktestLayout from "../components/BacktestLayout";
 import PageHeader from "../components/PageHeader";
-import { ApiError, backtestApi, isProRequired } from "../lib/api";
+import { toast } from "sonner";
+import { ApiError, isProRequired } from "../lib/api";
+import { v1 } from "../lib/v1";
+import { parseInstrumentId } from "../lib/spec";
 import { showProRequired, useProDialog } from "../lib/proDialog";
 import { earliestStart, usePlan } from "../lib/usePlan";
 import ProBadge from "../components/ProBadge";
-import { strategySentence } from "../lib/analytics";
 import { btnPrimary, card, chip, input, label, muted } from "../lib/styles";
 import { inr } from "../lib/types";
 import MoneyInput from "@/components/MoneyInput";
@@ -41,13 +43,15 @@ export default function RunBacktest() {
   const { locked, historyDays } = usePlan();
   const minStart = locked("full_history") ? earliestStart(historyDays) : null;
 
-  const strategy = useQuery({ queryKey: ["bt-strategy", id], queryFn: () => backtestApi.getStrategy(id as string) });
+  const strategy = useQuery({ queryKey: ["bt-strategy", id], queryFn: () => v1.getStrategy(id as string) });
 
   const run = useMutation({
-    mutationFn: () => backtestApi.run({ strategy_id: id as string, start_date: startDate, end_date: endDate, starting_capital: capital }),
+    mutationFn: () => v1.run({ strategy_id: id as string, period: { from: startDate, to: endDate }, capital }),
     onSuccess: (bt) => {
       qc.invalidateQueries({ queryKey: ["bt-runs"] });
-      navigate(`/backtest/app/history/${bt.id}`);
+      qc.invalidateQueries({ queryKey: ["bt-plan"] });
+      if (bt.cached) toast.info("Same rules, same data — showing the stored result. No backtest used.");
+      navigate(`/backtest/app/history/${bt.run_id}`);
     },
     onError: (err) => {
       qc.invalidateQueries({ queryKey: ["bt-runs"] });
@@ -56,7 +60,8 @@ export default function RunBacktest() {
     },
   });
 
-  const inst = strategy.data?.definition.instrument;
+  const spec = strategy.data?.spec;
+  const inst = spec ? { ...parseInstrumentId(spec.instrument.id), timeframe: spec.instrument.timeframe } : undefined;
   const intraday = inst && inst.timeframe !== "1d";
   const intradayLocked = Boolean(intraday && locked("intraday"));
   const tooEarly = (date: string) => minStart !== null && date < minStart;
@@ -67,7 +72,7 @@ export default function RunBacktest() {
       <Link to="/backtest/app/strategies" className={`mb-4 inline-flex items-center gap-1.5 text-sm ${muted} hover:text-slate-900 dark:hover:text-white`}>
         <ArrowLeft className="h-4 w-4" /> Strategies
       </Link>
-      <PageHeader eyebrow="Run a backtest" title={strategy.data?.name ?? "Loading…"} description={strategy.data ? strategySentence(strategy.data.definition) : undefined} />
+      <PageHeader eyebrow="Run a backtest" title={strategy.data?.name ?? "Loading…"} description={strategy.data?.summary ?? undefined} />
       {strategy.isError && <p className="text-rose-600">Couldn't load this strategy.</p>}
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -143,7 +148,7 @@ export default function RunBacktest() {
             )}
             <p className={`mt-3 text-xs leading-relaxed ${muted}`}>
               {inst?.symbol === "SAMPLE"
-                ? "SAMPLE is a deterministic offline series — instant and reproducible, great for trying rules."
+                ? "SAMPLE is generated demo data — results are synthetic, not market results."
                 : intraday
                   ? "Live intraday history from the market data provider. It only reaches back ~60 days (1-minute: ~7 days), so keep the window short."
                   : "Live daily history from the market data provider."}
@@ -182,7 +187,7 @@ export default function RunBacktest() {
               setError(null);
               run.mutate();
             }}
-            disabled={run.isPending || !strategy.data || !(capital > 0) || !startDate || !endDate || intradayLocked || tooEarly(startDate)}
+            disabled={run.isPending || !spec || !(capital > 0) || !startDate || !endDate || intradayLocked || tooEarly(startDate)}
             className={`${btnPrimary} w-full !py-3.5 text-base`}
           >
             <Play className="h-5 w-5" />

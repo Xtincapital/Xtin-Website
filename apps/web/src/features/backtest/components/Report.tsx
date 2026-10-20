@@ -2,7 +2,7 @@
 // analytics and the trade log. Shared by the Playground and saved runs.
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, Braces, Lightbulb, ListOrdered } from "lucide-react";
+import { AlertTriangle, ArrowDownRight, ArrowUpRight, Braces, Info, Lightbulb, ListOrdered } from "lucide-react";
 import TimeSeriesChart from "./TimeSeriesChart";
 import CandleChart from "./CandleChart";
 import { ExitMix, MonthlyHeatmap, PnlDistribution } from "./AnalyticsCards";
@@ -12,7 +12,7 @@ import { usePlan } from "../lib/usePlan";
 import { drawdownSeries, REASON_LABEL, strategySentence } from "../lib/analytics";
 import { card, chip, muted } from "../lib/styles";
 import { shortTime } from "../lib/time";
-import { inr, type BacktestResult, type Metrics } from "../lib/types";
+import { inr, type Assumptions, type BacktestResult, type Metrics } from "../lib/types";
 import { formatFromInr } from "@/lib/region";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
@@ -77,7 +77,7 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
             <div>
               <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${up ? "bg-brand-soft text-brand dark:bg-brand-soft dark:text-brand" : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"}`}>
                 {up ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
-                {up ? "Profitable" : "Lost money"}
+                {m.wiped_out ? "Account wiped out" : up ? "Profitable" : "Lost money"}
               </span>
               <div className={`mt-1 text-5xl font-extrabold tracking-tight tabular-nums ${up ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>{signed(m.total_return_pct)}%</div>
               <div className={`mt-1 text-sm tabular-nums ${muted}`}>
@@ -99,6 +99,94 @@ function Hero({ m, title, subtitle, sentence, actions }: { m: Metrics; title: st
   );
 }
 
+const DISCLAIMER = "Hypothetical backtest on historical data. Not investment advice. Past results do not predict future results.";
+
+/** Synthetic or index data is called out before any number is read. */
+function DataBanner({ a }: { a?: Assumptions }) {
+  if (!a?.synthetic && !a?.theoretical_index) return null;
+  return (
+    <div role="note" className="flex gap-3 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm leading-relaxed text-rose-900 dark:border-rose-400/30 dark:bg-rose-500/10 dark:text-rose-200">
+      <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
+      <p>
+        {a.synthetic ? (
+          <>
+            <span className="font-semibold">Synthetic data — not market results.</span> SAMPLE is a generated demo series, not real prices. Pick a real symbol to see how the rule did on actual history.
+          </>
+        ) : (
+          <>
+            <span className="font-semibold">Theoretical index backtest.</span> An index can't be bought directly. For a tradable version, run the rule on the index's ETF (e.g. NIFTYBEES for NIFTY).
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
+/** Every assumption behind the numbers, beside them — or a clear note for runs made before engine 2.0. */
+function AssumptionsStrip({ a }: { a?: Assumptions }) {
+  const parts = a
+    ? [
+        a.fill === "next_bar_open" ? "Signals on a bar's close fill at the next bar's open" : "Fills on the signal bar's close",
+        a.product === "CNC" ? "delivery (cash only)" : "intraday (MIS)",
+        a.sizing,
+        a.cost_profile ? `Zerodha charges + ${a.slippage_bps} bps slippage per side` : "before costs",
+        a.data_source === "synthetic" ? "synthetic data" : a.data_source === "yahoo" ? "data: Yahoo Finance" : "",
+        a.data_lag_days ? `prices at least ${a.data_lag_days} days old` : "",
+        a.risk_free_pct ? `risk-free rate ${a.risk_free_pct}%` : "",
+        `engine ${a.engine_version}`,
+        a.spec_hash ? `fingerprint ${a.spec_hash.slice(0, 8)}` : "",
+        a.data_version ? `data version ${a.data_version.split(":").pop()?.slice(0, 8)}` : "",
+      ].filter(Boolean)
+    : ["Older run (engine 1.x): filled on the signal bar's close with no charges — re-run it for current assumptions"];
+  return (
+    <div className={`flex gap-2.5 rounded-xl bg-slate-50 px-4 py-3 text-xs leading-relaxed dark:bg-white/[0.04] ${muted}`}>
+      <Info className="mt-0.5 h-4 w-4 shrink-0" />
+      <p>
+        <span className="font-semibold text-slate-700 dark:text-slate-200">Assumptions: </span>
+        {parts.join(" · ")}.<br />
+        {DISCLAIMER}
+      </p>
+    </div>
+  );
+}
+
+const pctOrDash = (v: number | null | undefined, digits = 1) => (v === null || v === undefined ? "—" : `${signed(v, digits)}%`);
+const numOrDash = (v: number | null | undefined) => (v === null || v === undefined ? "—" : v.toFixed(2));
+
+/** The rest of the standard statistics (engine 2.1+ results). A dash means the figure can't be stated honestly. */
+function StatsGrid({ m }: { m: Metrics }) {
+  if (m.cagr_pct === undefined) return null;
+  const b = m.benchmark;
+  const beat = b ? m.total_return_pct - b.total_return_pct : null;
+  const stats: { label: string; value: string; sub?: string; tone?: "pos" | "neg"; help: string }[] = [
+    { label: "CAGR", value: pctOrDash(m.cagr_pct), sub: m.cagr_pct === null ? "window under 30 days" : "per year, compounded", help: "Compound annual growth rate of the account. Not shown for windows under 30 days." },
+    { label: "Sortino", value: numOrDash(m.sortino), sub: "return per unit of downside", help: "Like Sharpe, but only counts the bars that lost money as risk." },
+    { label: "Calmar", value: numOrDash(m.calmar), sub: "CAGR ÷ max drawdown", help: "Yearly growth earned per point of the worst drawdown." },
+    { label: "Expectancy", value: m.expectancy === undefined ? "—" : inr(m.expectancy), sub: "average net P&L per trade", tone: (m.expectancy ?? 0) >= 0 ? "pos" : "neg", help: "Total net profit divided by the number of trades, after charges." },
+    { label: "Time in market", value: m.exposure_pct === null || m.exposure_pct === undefined ? "—" : `${m.exposure_pct.toFixed(0)}%`, sub: "bars holding a position", help: "Share of bars that ended with a position open." },
+    {
+      label: "Longest drawdown",
+      value: m.max_drawdown_duration_days !== null && m.max_drawdown_duration_days !== undefined ? `${m.max_drawdown_duration_days} days` : `${m.max_drawdown_duration_bars ?? 0} bars`,
+      sub: "from a peak until it was regained",
+      help: "The longest stretch the account spent below a previous high.",
+    },
+    { label: "Charges paid", value: inr(m.total_costs ?? 0), sub: "brokerage, taxes and fees", help: "Every charge across all fills: brokerage, STT, exchange fee, SEBI fee, stamp duty, GST and DP charges." },
+    b
+      ? { label: "vs buy & hold", value: `${signed(beat ?? 0, 1)} pts`, sub: `holding returned ${signed(b.total_return_pct, 1)}%`, tone: (beat ?? 0) >= 0 ? "pos" : "neg", help: "This strategy's return minus simply buying at the first open and holding to the last close (before costs)." }
+      : { label: "vs buy & hold", value: "—", help: "Benchmark comparison is off for this run." },
+  ];
+  return (
+    <div className={`${card} p-4 sm:p-5`}>
+      <h4 className="mb-3 text-base font-semibold">More statistics</h4>
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+        {stats.map((s) => (
+          <Kpi key={s.label} {...s} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function PlainWords({ m }: { m: Metrics }) {
   const made = m.total_pnl >= 0;
   return (
@@ -107,7 +195,7 @@ function PlainWords({ m }: { m: Metrics }) {
       <p>
         <span className="font-semibold text-slate-900 dark:text-white">In plain words: </span>
         this strategy would have {made ? "made" : "lost"} <span className={`font-semibold ${made ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>{inr(Math.abs(m.total_pnl))}</span> (
-        {signed(m.total_return_pct, 1)}%). It traded {m.num_trades} times and won {m.win_rate.toFixed(0)}% of them. The worst dip from a high point was {Math.abs(m.max_drawdown_pct).toFixed(1)}% — ask yourself
+        {signed(m.total_return_pct, 1)}%){m.total_costs ? <>, after {inr(m.total_costs)} in charges</> : null}. It traded {m.num_trades} times and won {m.win_rate.toFixed(0)}% of them. The worst dip from a high point was {Math.abs(m.max_drawdown_pct).toFixed(1)}% — ask yourself
         honestly if you'd have held on through that. Past results never guarantee the future.
       </p>
     </div>
@@ -208,7 +296,9 @@ function TradeLog({ result }: { result: BacktestResult }) {
                 <td className={`px-3 py-2.5 text-xs ${muted}`}>{REASON_LABEL[t.reason] ?? t.reason}</td>
                 <td className={`px-5 py-2.5 text-right font-semibold ${t.pnl >= 0 ? "text-brand dark:text-brand" : "text-rose-600 dark:text-rose-400"}`}>
                   {signed(t.pnl)}
-                  <div className="text-xs font-normal opacity-80">{signed(t.pnl_pct)}%</div>
+                  <div className="text-xs font-normal opacity-80">
+                    {signed(t.pnl_pct)}%{t.costs ? ` · ${inr(t.costs)} charges` : ""}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -225,21 +315,28 @@ export default function Report({
   title,
   subtitle,
   definition,
+  sentence,
   actions,
 }: {
   result: BacktestResult;
   title: string;
   subtitle: string;
   definition?: unknown;
+  /** The server's plain-English summary of a Strategy Spec; preferred over describing a legacy definition here. */
+  sentence?: string;
   actions?: React.ReactNode;
 }) {
   useCurrency(); // re-render when the visitor switches currency (amounts are kept in rupees)
   const isOptions = (definition as { kind?: string } | undefined)?.kind === "options";
+  const isSpec = Boolean(definition && typeof definition === "object" && "spec_version" in definition);
   const analyticsLocked = usePlan().locked("advanced_analytics");
   return (
     <motion.div key={title + subtitle + result.metrics.final_equity} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="space-y-4">
-      <Hero m={result.metrics} title={title} subtitle={subtitle} sentence={definition ? strategySentence(definition) : undefined} actions={actions} />
+      <DataBanner a={result.assumptions} />
+      <Hero m={result.metrics} title={title} subtitle={subtitle} sentence={sentence ?? (definition && !isSpec ? strategySentence(definition) : undefined)} actions={actions} />
+      <AssumptionsStrip a={result.assumptions} />
       <PlainWords m={result.metrics} />
+      <StatsGrid m={result.metrics} />
       <ChartPanel result={result} showTrades={!isOptions} analyticsLocked={analyticsLocked} />
       <ProLock locked={analyticsLocked} title="Advanced analytics" text="Monthly returns heatmap, trade-outcome spread, exit breakdown and streaks — all in Pro.">
         <div className="space-y-4">
@@ -254,7 +351,7 @@ export default function Report({
       {definition !== undefined && (
         <details className={`${card} group`}>
           <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-3.5 text-sm font-semibold">
-            <Braces className="h-4 w-4 text-brand dark:text-brand" /> Strategy definition (JSON)
+            <Braces className="h-4 w-4 text-brand dark:text-brand" /> {isSpec ? "Strategy spec (JSON)" : "Strategy definition (JSON)"}
           </summary>
           <pre className="max-h-72 overflow-auto border-t border-slate-100 px-5 py-4 text-xs leading-relaxed text-slate-600 dark:border-white/5 dark:text-slate-300">{JSON.stringify(definition, null, 2)}</pre>
         </details>

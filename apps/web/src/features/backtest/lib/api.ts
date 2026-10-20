@@ -11,15 +11,19 @@ export class ApiError extends Error {
   code?: string;
   /** For `PRO_REQUIRED`: which Pro feature was needed. */
   feature?: string;
-  constructor(status: number, message: string, code?: string, feature?: string) {
+  /** /api/v1 validation problems: every issue with the spec. */
+  errors?: string[];
+  constructor(status: number, message: string, code?: string, feature?: string, errors?: string[]) {
     super(message);
     this.status = status;
     this.code = code;
     this.feature = feature;
+    this.errors = errors;
   }
 }
 
-export const isProRequired = (err: unknown): err is ApiError => err instanceof ApiError && err.code === "PRO_REQUIRED";
+/** A plan limit — legacy routes answer `PRO_REQUIRED`, /api/v1 `pro_required` / `quota_exceeded`. */
+export const isProRequired = (err: unknown): err is ApiError => err instanceof ApiError && ["PRO_REQUIRED", "pro_required", "quota_exceeded"].includes(err.code ?? "");
 
 export async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);

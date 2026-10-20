@@ -53,6 +53,8 @@ import paymentsRoutes from "./modules/payments/payments.routes.js";
 import receiptsRoutes from "./modules/payments/receipts.js";
 import couponsRoutes from "./modules/coupons/coupons.routes.js";
 import backtestRoutes from "./modules/backtest/routes.js";
+import backtestV1Routes, { v1ErrorHandler } from "./modules/backtest/v1/routes.js";
+import { mcpRouter } from "./modules/mcp/routes.js";
 import fxRoutes from "./modules/fx/fx.routes.js";
 import { warmFxRates } from "./modules/fx/fx.service.js";
 
@@ -111,7 +113,9 @@ app.use(cors({
 	// PATCH is how every edit/update route is exposed (journal, gini, fundakamental);
 	// leaving it out makes browsers block those calls with "Failed to fetch".
 	methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
-	allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+	// Idempotency-Key / X-Request-Id / X-Xtin-Channel: the Backtest /api/v1 conventions.
+	allowedHeaders: ["Content-Type", "Authorization", "Accept", "Idempotency-Key", "X-Request-Id", "X-Xtin-Channel"],
+	exposedHeaders: ["X-Request-Id", "Idempotent-Replayed"],
 	maxAge: 3600 // Cache preflight requests for 1 hour
 }));
 
@@ -189,6 +193,10 @@ app.use("/api", issuedReportsRoutes);
 app.use("/api", paymentsRoutes);
 app.use("/api", receiptsRoutes);
 app.use("/api", couponsRoutes);
+// Claude connector: POST /mcp + /.well-known/oauth-protected-resource
+app.use(mcpRouter());
+app.use("/api/v1", backtestV1Routes);
+app.use("/api/v1", v1ErrorHandler);
 app.use("/api", backtestRoutes);
 app.use("/api", fxRoutes);
 if (process.env.NODE_ENV !== 'test') warmFxRates();

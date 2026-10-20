@@ -1,0 +1,10 @@
+{
+  "name": "xtin-backtest",
+  "displayName": "Xtin Backtest",
+  "version": "1.0.0",
+  "description": "Backtest NSE trading ideas from a conversation on Xtin's engine, with Indian costs.",
+  "author": { "name": "XTIN SERVICES LLP", "url": "https://www.xtincapital.com" },
+  "homepage": "https://www.xtincapital.com/backtest",
+  "license": "MIT",
+  "keywords": ["backtest", "trading", "nse", "india", "strategy"]
+}

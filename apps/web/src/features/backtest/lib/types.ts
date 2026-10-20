@@ -29,6 +29,17 @@ export interface StrategyDefinition {
     trailing_sl_pct: number | null;
     square_off_time: string | null;
   };
+  /** How big each trade is, recomputed at every fill. Absent on strategies saved before engine 2.0 → `entry_action.qty`, fixed. */
+  sizing?: Sizing;
+  execution?: { fill?: "next_bar_open" | "bar_close"; product?: "CNC" | "MIS"; reentry_cooldown_bars?: number };
+  costs?: { profile?: string | null; slippage_bps?: number };
+}
+
+export type SizingMode = "fixed_qty" | "fixed_amount" | "pct_equity";
+export interface Sizing {
+  mode: SizingMode;
+  /** Shares (fixed_qty), rupees (fixed_amount) or percent of equity (pct_equity). */
+  value: number;
 }
 
 export interface Strategy {
@@ -54,6 +65,21 @@ export interface Metrics {
   profit_factor: number;
   max_drawdown_pct: number;
   sharpe: number;
+  /** Engine 2.0+: charges paid across all trades. */
+  total_costs?: number;
+  /** Engine 2.0+: equity hit zero and the run stopped there. */
+  wiped_out?: boolean;
+  /** Engine 2.1+. Null where a figure can't be stated honestly (e.g. CAGR over under 30 days). */
+  cagr_pct?: number | null;
+  sortino?: number | null;
+  calmar?: number | null;
+  /** Average net P&L per trade, in rupees. */
+  expectancy?: number;
+  max_drawdown_duration_bars?: number;
+  max_drawdown_duration_days?: number | null;
+  exposure_pct?: number | null;
+  risk_free_pct?: number;
+  benchmark?: { kind: "buy_hold"; total_return_pct: number; cagr_pct: number | null; max_drawdown_pct: number } | null;
 }
 
 export interface BacktestTrade {
@@ -66,6 +92,9 @@ export interface BacktestTrade {
   pnl: number;
   pnl_pct: number;
   reason: string;
+  /** Engine 2.0+: P&L before charges (`pnl` is net) and the charges on both fills. */
+  gross_pnl?: number;
+  costs?: number;
 }
 
 export interface EquityPoint {
@@ -82,11 +111,35 @@ export interface Candle {
   volume: number;
 }
 
+/** What the numbers assume — engine 2.0+ results only. */
+export interface Assumptions {
+  engine_version: string;
+  spec_version?: string;
+  /** SHA-256 of the normalised strategy spec — its fingerprint. */
+  spec_hash?: string;
+  risk_free_pct?: number;
+  data_adjust?: string;
+  data_lag_days?: number;
+  /** Content hash of the candles used: same data version → same candles. */
+  data_version?: string;
+  fill: "next_bar_open" | "bar_close";
+  product: "CNC" | "MIS";
+  sizing: string;
+  cost_profile: string | null;
+  slippage_bps: number;
+  reentry_cooldown_bars: number;
+  data_source?: "synthetic" | "yahoo";
+  synthetic?: boolean;
+  theoretical_index?: boolean;
+}
+
 export interface BacktestResult {
   metrics: Metrics;
   trades: BacktestTrade[];
   equity_curve: EquityPoint[];
   candles: Candle[];
+  assumptions?: Assumptions;
+  warnings?: string[];
 }
 
 export interface BacktestSummary {
@@ -181,6 +234,7 @@ export function emptyDefinition(): StrategyDefinition {
     entry_action: { side: "BUY", qty: 1, order_type: "MARKET" },
     exit: { match: "any", conditions: [{ left: { kind: "indicator", indicator: "RSI", period: 14 }, op: ">", right: { kind: "value", value: 70 } }] },
     risk: { stop_loss_pct: 2, target_pct: 4, trailing_sl_pct: null, square_off_time: null },
+    sizing: { mode: "pct_equity", value: 50 },
   };
 }
 

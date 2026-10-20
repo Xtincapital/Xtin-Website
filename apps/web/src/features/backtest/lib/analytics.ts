@@ -79,6 +79,7 @@ export const REASON_LABEL: Record<string, string> = {
   square_off: "Square-off",
   end_of_data: "End of data",
   expiry: "Expiry",
+  liquidated: "Liquidated",
 };
 
 const OP_WORD: Record<string, string> = {
@@ -120,7 +121,14 @@ export function strategySentence(raw: unknown): string {
     d.risk?.target_pct ? `${d.risk.target_pct}% target` : "",
     d.risk?.trailing_sl_pct ? `${d.risk.trailing_sl_pct}% trailing stop` : "",
   ].filter(Boolean);
-  let s = `${side} ${d.entry_action?.qty ?? 1} ${inst?.symbol ?? "SAMPLE"} (${inst?.timeframe ?? "1d"})`;
+  const size = !d.sizing
+    ? `${d.entry_action?.qty ?? 1}`
+    : d.sizing.mode === "fixed_qty"
+      ? `${d.sizing.value}`
+      : d.sizing.mode === "fixed_amount"
+        ? `₹${Math.round(d.sizing.value).toLocaleString("en-IN")} of`
+        : `${d.sizing.value}% of equity in`;
+  let s = `${side} ${size} ${inst?.symbol || "SAMPLE"} (${inst?.timeframe ?? "1d"})`;
   s += entry ? ` when ${entry}` : " (no entry rule yet)";
   if (exit) s += `; exit when ${exit}`;
   if (risk.length) s += ` · ${risk.join(", ")}`;

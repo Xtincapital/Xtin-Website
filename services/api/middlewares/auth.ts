@@ -51,6 +51,23 @@ async function profileFor(authId: string): Promise<ProfileRow> {
     return data;
 }
 
+/**
+ * Validate a Supabase access token without touching the request — including
+ * tokens Supabase's OAuth server issues to clients such as Claude (they carry
+ * a `client_id` claim). Used by the MCP endpoint, which must answer 401 with a
+ * WWW-Authenticate header rather than authenticate()'s JSON.
+ */
+export async function verifyAccessToken(token: string): Promise<{ sub: string; clientId: string | null } | { error: string; expired: boolean }> {
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) return { error: "Authentication service configuration error", expired: false };
+    const { data, error } = await tokenVerifier().auth.getClaims(token);
+    const claims = data?.claims as Record<string, any> | undefined;
+    if (error || !claims?.sub) {
+        const message = error?.message || "No user in token";
+        return { error: message, expired: /expired/i.test(message) };
+    }
+    return { sub: String(claims.sub), clientId: typeof claims.client_id === "string" ? claims.client_id : null };
+}
+
 export const authenticate = async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
 

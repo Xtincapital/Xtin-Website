@@ -1,5 +1,6 @@
 import * as z from "zod/v4";
 import { INDICATOR_NAMES } from "./indicators.js";
+import { COST_PROFILES } from "./costs.js";
 import { trimStrings } from "../../utils/helper_functions.js";
 
 // Exchange tickers only — rejects pasted URLs, sentences and injection attempts with a readable message.
@@ -41,6 +42,25 @@ export const strategyDefinitionSchema = z.object({
             square_off_time: z.string().regex(/^\d{1,2}:\d{2}$/).nullable().optional(),
         })
         .default({ square_off_time: "15:15" }),
+    // Optional so definitions saved before engine 2.0 still validate (no sizing → entry_action.qty, fixed).
+    sizing: z
+        .object({ mode: z.enum(["fixed_qty", "fixed_amount", "pct_equity"]), value: z.number().gt(0).max(1e10) })
+        .refine((s) => s.mode !== "pct_equity" || s.value <= 500, "pct_equity can't exceed 500% (5× intraday leverage)")
+        .refine((s) => s.mode !== "fixed_qty" || Number.isInteger(s.value), "fixed_qty must be a whole number of shares")
+        .optional(),
+    execution: z
+        .object({
+            fill: z.enum(["next_bar_open", "bar_close"]).optional(),
+            product: z.enum(["CNC", "MIS"]).optional(),
+            reentry_cooldown_bars: z.number().int().min(0).max(100).optional(),
+        })
+        .optional(),
+    costs: z
+        .object({
+            profile: z.enum(Object.keys(COST_PROFILES) as [string, ...string[]]).nullable().optional(),
+            slippage_bps: z.number().min(0).max(500).optional(),
+        })
+        .optional(),
 });
 
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Dates must be YYYY-MM-DD").refine((s) => !Number.isNaN(Date.parse(`${s}T00:00:00Z`)), "Invalid date");

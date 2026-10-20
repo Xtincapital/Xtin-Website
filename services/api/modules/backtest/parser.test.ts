@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { applyModification, applyOptionsModification, defaultWindow, looksLikeTrading, parseOptions, parseStrategy, personalize } from "./parser.js";
+import { applyModification, applyOptionsModification, classifyMessage, defaultWindow, looksLikeTrading, parseOptions, parseStrategy, personalize, sizingFor } from "./parser.js";
 
 describe("parseStrategy", () => {
     it("detects RSI with thresholds and stop", () => {
@@ -17,10 +17,14 @@ describe("parseStrategy", () => {
         expect(p.definition.risk!.trailing_sl_pct).toBe(1.5);
     });
 
-    it("falls back to SAMPLE with a warning when no symbol is recognised", () => {
+    it("marks a missing symbol as SAMPLE for the controller to ask about", () => {
         const p = parseStrategy("some random idea about the market");
         expect(p.definition.instrument!.symbol).toBe("SAMPLE");
-        expect(p.warnings.some((w) => w.includes("SAMPLE"))).toBe(true);
+    });
+
+    it("stores a sizing rule, and a fixed quantity only when one was typed", () => {
+        expect(parseStrategy("buy RELIANCE when rsi below 30").definition.sizing).toEqual({ mode: "pct_equity", value: 50 });
+        expect(parseStrategy("buy 7 shares of RELIANCE when rsi below 30").definition.sizing).toEqual({ mode: "fixed_qty", value: 7 });
     });
 
     it("detects a known symbol and timeframe", () => {
@@ -134,10 +138,67 @@ describe("applyModification", () => {
         expect(prev.risk!.stop_loss_pct).toBe(2);
     });
 
+    it("re-targets on a bare symbol and keeps the sizing rule", () => {
+        const p = applyModification(base(), "RELIANCE")!;
+        expect(p.definition.instrument!.symbol).toBe("RELIANCE");
+        expect(p.definition.sizing).toEqual(base().sizing);
+    });
+
+    it("re-targets to SAMPLE only when it is asked for", () => {
+        const asked = { ...base(), instrument: { ...base().instrument, symbol: "" } };
+        expect(applyModification(asked, "on SAMPLE")!.definition.instrument!.symbol).toBe("SAMPLE");
+    });
+
+    it("takes any ticker as the answer to 'which stock?', but only then", () => {
+        const asked = { ...base(), instrument: { ...base().instrument, symbol: "" } };
+        expect(applyModification(asked, "ZOMATO")!.definition.instrument).toMatchObject({ symbol: "ZOMATO", exchange: "NSE" });
+        expect(applyModification(asked, "on irctc")!.definition.instrument!.symbol).toBe("IRCTC");
+        expect(applyModification(base(), "ZOMATO")).toBeNull(); // no question pending
+    });
+
+    it("turns a typed quantity into a fixed-quantity rule", () => {
+        expect(applyModification(base(), "make it 25 shares")!.definition.sizing).toEqual({ mode: "fixed_qty", value: 25 });
+    });
+
     it("returns null for hint words with nothing parseable, and for options / no previous strategy", () => {
         expect(applyModification(base(), "change everything")).toBeNull();
         expect(applyModification(null, "tighten the stop to 1%")).toBeNull();
         expect(applyModification({ ...base(), kind: "options" }, "tighten the stop to 1%")).toBeNull();
+    });
+});
+
+describe("classifyMessage", () => {
+    const prev = parseStrategy("buy RELIANCE when RSI drops below 30 and sell above 70, 2% stop").definition;
+
+    it("treats a message with its own entry rule as a new strategy (audit run 4)", () => {
+        expect(classifyMessage(prev, "Buy NIFTY when 50 EMA crosses above 200 EMA, exit when it crosses below, daily")).toBe("new");
+        expect(classifyMessage(prev, "Golden cross on BANKNIFTY, daily")).toBe("new");
+        expect(classifyMessage(prev, "short when MACD crosses below zero")).toBe("new");
+    });
+
+    it("treats edits and re-targets as tweaks", () => {
+        for (const m of ["Tighten the stop to 1%", "Run it on INFY", "try it on 15m", "Make it a short instead", "RELIANCE", "Set the target to 5%"]) {
+            expect(classifyMessage(prev, m)).toBe("modify");
+        }
+    });
+
+    it("asks when an indicator is named without a rule", () => {
+        expect(classifyMessage(prev, "Try EMA instead")).toBe("ambiguous");
+        expect(classifyMessage(prev, "use bollinger")).toBe("ambiguous");
+    });
+
+    it("anything is new without a previous equity strategy", () => {
+        expect(classifyMessage(null, "Try EMA instead")).toBe("new");
+        expect(classifyMessage({ kind: "options", instrument: { symbol: "NIFTY" } }, "tighten the stop")).toBe("new");
+    });
+});
+
+describe("sizingFor", () => {
+    it("sizes by risk profile unless a quantity is typed", () => {
+        expect(sizingFor("buy when rsi below 30", "conservative")).toEqual({ mode: "pct_equity", value: 25 });
+        expect(sizingFor("buy when rsi below 30", "aggressive")).toEqual({ mode: "pct_equity", value: 90 });
+        expect(sizingFor("buy when rsi below 30")).toEqual({ mode: "pct_equity", value: 50 });
+        expect(sizingFor("buy 10 shares when rsi below 30", "aggressive")).toEqual({ mode: "fixed_qty", value: 10 });
     });
 });
 
