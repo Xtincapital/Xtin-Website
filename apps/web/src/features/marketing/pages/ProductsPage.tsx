@@ -16,6 +16,7 @@ import {
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ProductArt from '../components/ProductArt';
+import { MAINTENANCE_CONFIG } from '../../../config/maintenance';
 
 
 const ProductsPage = () => {
@@ -31,6 +32,7 @@ const ProductsPage = () => {
       description: 'Backtest any strategy by chatting with AI — no code, real data.',
       path: '/backtest',
       Icon: FlaskConical,
+      comingSoon: MAINTENANCE_CONFIG.backtest,
     },
     {
       title: 'Tools',
@@ -49,6 +51,7 @@ const ProductsPage = () => {
       description: 'Company research, AI reports, watchlists, and stock analysis.',
       path: '/fundakamental',
       Icon: FileSearch,
+      comingSoon: MAINTENANCE_CONFIG.fundakamental,
     },
     {
       title: 'Gini AI',
@@ -104,7 +107,14 @@ const ProductsPage = () => {
                   </div>
 
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">{item.title}</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 inline-flex items-center justify-center gap-2">
+                      <span>{item.title}</span>
+                      {item.comingSoon && (
+                        <span className="rounded bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                          Soon
+                        </span>
+                      )}
+                    </h2>
                     <p className="mt-3 min-h-[6.25rem] lg:min-h-[6.25rem] text-sm leading-6 text-gray-600">{item.description}</p>
                   </div>
                 </div>

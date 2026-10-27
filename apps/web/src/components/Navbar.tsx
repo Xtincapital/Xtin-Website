@@ -3,6 +3,7 @@ import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
 import RegionSwitcher from './RegionSwitcher';
+import { MAINTENANCE_CONFIG } from '../config/maintenance';
 
 const navLinkClass = ({ isActive }) =>
   `hover:text-brand transition pb-1 whitespace-nowrap ${isActive ? 'border-b-2 border-brand text-brand' : ''}`;
@@ -56,9 +57,27 @@ const Navbar = () => {
       <li><NavLink to="/" end title="Go to Platform home" className={navLinkClass}>Platform</NavLink></li>
       <li><NavLink to="/learn" title="Access financial education content" className={navLinkClass}>Learn</NavLink></li>
       <li><NavLink to="/tools" title="View financial calculators and tools" className={navLinkClass}>Tools</NavLink></li>
-      <li><NavLink to="/fundakamental" title="Open fundamental analysis dashboard" className={navLinkClass}>Fundakamental</NavLink></li>
+      <li>
+        <NavLink to="/fundakamental" title="Open fundamental analysis dashboard" className={navLinkClass}>
+          Fundakamental
+          {MAINTENANCE_CONFIG.fundakamental && (
+            <span className="ml-1 rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              Soon
+            </span>
+          )}
+        </NavLink>
+      </li>
       <li><NavLink to="/algos" title="View trading algorithms" className={navLinkClass}>Algorithms</NavLink></li>
-      <li><NavLink to="/backtest" title="Backtest strategies with AI" className={navLinkClass}>Backtest</NavLink></li>
+      <li>
+        <NavLink to="/backtest" title="Backtest strategies with AI" className={navLinkClass}>
+          Backtest
+          {MAINTENANCE_CONFIG.backtest && (
+            <span className="ml-1 rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              Soon
+            </span>
+          )}
+        </NavLink>
+      </li>
       <li><NavLink to="/journal" title="Access trading journal" className={navLinkClass}>Journal</NavLink></li>
       <li><NavLink to="/gini" title="Open Gini AI advisor" className={navLinkClass}>GiniAI</NavLink></li>
       <li><NavLink to="/newsletter" title="Subscribe to our financial newsletter" className={navLinkClass}>Newsletter</NavLink></li>
@@ -79,11 +98,29 @@ const Navbar = () => {
       <li role="menuitem"><NavLink to="/" end className={mobileNavLinkClass}>Platform</NavLink></li>
       <li role="menuitem"><NavLink to="/tools" className={mobileNavLinkClass}>Tools</NavLink></li>
       <li role="menuitem"><NavLink to="/learn" className={mobileNavLinkClass}>Learn</NavLink></li>
-      <li role="menuitem"><NavLink to="/fundakamental" className={mobileNavLinkClass}>Fundakamental</NavLink></li>
+      <li role="menuitem">
+        <NavLink to="/fundakamental" className={mobileNavLinkClass}>
+          Fundakamental
+          {MAINTENANCE_CONFIG.fundakamental && (
+            <span className="ml-1.5 rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              Soon
+            </span>
+          )}
+        </NavLink>
+      </li>
       <li role="menuitem"><NavLink to="/newsletter" className={mobileNavLinkClass}>Newsletter</NavLink></li>
       <li role="menuitem"><NavLink to="/journal" className={mobileNavLinkClass}>Journal</NavLink></li>
       <li role="menuitem"><NavLink to="/algos" className={mobileNavLinkClass}>Algorithms</NavLink></li>
-      <li role="menuitem"><NavLink to="/backtest" className={mobileNavLinkClass}>Backtest</NavLink></li>
+      <li role="menuitem">
+        <NavLink to="/backtest" className={mobileNavLinkClass}>
+          Backtest
+          {MAINTENANCE_CONFIG.backtest && (
+            <span className="ml-1.5 rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 border border-amber-500/20">
+              Soon
+            </span>
+          )}
+        </NavLink>
+      </li>
       <li role="menuitem"><NavLink to="/gini" className={mobileNavLinkClass}>Gini AI</NavLink></li>
     </>
   );

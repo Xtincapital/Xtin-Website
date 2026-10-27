@@ -101,6 +101,7 @@ const PurchasePage = lazy(() => import('./features/academy/components/PurchasePa
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedModuleRoute from './components/ProtectedModuleRoute';
 import ProtectedPageRoute from './components/ProtectedPageRoute';
+import ComingSoonGate from './components/ComingSoonGate';
 import LessonProgressTracker from './features/academy/components/LessonProgressTracker';
 import CertificateManager from './features/certificates/components/CertificateManager';
 const BacktestLanding = lazy(() => import('./features/algos/pages/BacktestLanding'));
@@ -635,14 +636,74 @@ function App() {
         <Route path="/intro/journal" element={<JournalIntro />} />
         <Route path="/gini/*" element={<ProtectedPageRoute><GiniApp /></ProtectedPageRoute>} />
         <Route path="/intro/gini" element={<GiniIntro />} />
-        <Route path="/fundakamental/*" element={<ProtectedPageRoute><FundakamentalApp /></ProtectedPageRoute>} />
-        <Route path="/intro/fundakamental" element={<FundakamentalIntro />} />
+        <Route
+          path="/fundakamental/*"
+          element={
+            <ComingSoonGate
+              feature="fundakamental"
+              title="Fundakamental"
+              description="We're currently making changes and upgrading our fundamental equity research workspace. It will be back online in a few days!"
+              estimatedTime="A few days"
+              highlights={[
+                "Enhanced AI Financial Statement Analysis",
+                "Advanced Screening & Ratio Models",
+                "Portfolio Health & Quality Checks",
+                "Automated PDF Research Reports"
+              ]}
+            >
+              <ProtectedPageRoute><FundakamentalApp /></ProtectedPageRoute>
+            </ComingSoonGate>
+          }
+        />
+        <Route
+          path="/intro/fundakamental"
+          element={
+            <ComingSoonGate
+              feature="fundakamental"
+              title="Fundakamental"
+              description="We're currently making changes and upgrading our fundamental equity research workspace. It will be back online in a few days!"
+              estimatedTime="A few days"
+            >
+              <FundakamentalIntro />
+            </ComingSoonGate>
+          }
+        />
 
         <Route path="/newsletter" element={<ProtectedPageRoute><Newsletter /></ProtectedPageRoute>} />
         <Route path="/newsletter/article/:slug" element={<ProtectedPageRoute><SubstackArticle /></ProtectedPageRoute>} />
         <Route path="/newsletter/:id" element={<ProtectedPageRoute><NewsletterDisplay /></ProtectedPageRoute>} />
-        <Route path="/backtest" element={<ProtectedPageRoute><BacktestLanding /></ProtectedPageRoute>} />
-        <Route path="/backtest/app/*" element={<ProtectedPageRoute><BacktestApp /></ProtectedPageRoute>} />
+        <Route
+          path="/backtest"
+          element={
+            <ComingSoonGate
+              feature="backtest"
+              title="AI Backtesting"
+              description="We're currently making changes and updating our strategy backtesting algorithms and historical datasets. It will be back online in a few days!"
+              estimatedTime="A few days"
+              highlights={[
+                "High-Precision Historical Price & Tick Data",
+                "Natural Language AI Strategy Generator",
+                "Risk, Drawdown & Sharpe Ratio Analytics",
+                "Custom Stop-Loss & Position Sizing Rules"
+              ]}
+            >
+              <ProtectedPageRoute><BacktestLanding /></ProtectedPageRoute>
+            </ComingSoonGate>
+          }
+        />
+        <Route
+          path="/backtest/app/*"
+          element={
+            <ComingSoonGate
+              feature="backtest"
+              title="AI Backtesting"
+              description="We're currently making changes and updating our strategy backtesting algorithms and historical datasets. It will be back online in a few days!"
+              estimatedTime="A few days"
+            >
+              <ProtectedPageRoute><BacktestApp /></ProtectedPageRoute>
+            </ComingSoonGate>
+          }
+        />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/intro/algorithms" element={<AlgorithmsIntro />} />
