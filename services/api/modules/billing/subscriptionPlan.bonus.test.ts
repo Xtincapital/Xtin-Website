@@ -63,3 +63,37 @@ describe("bundle AI-token bonus", () => {
         expect(grantGiniProTokens).not.toHaveBeenCalled();
     });
 });
+
+describe("3-month Ultimate (free-access coupon only)", () => {
+    const quarterly = { plan_id: "ultimate-pass", plan_name: "Xtin Ultimate All-Access Pass", billing_cycle: "quarterly" };
+    const grant = (order: { id: string; amount: number }, notes: Record<string, string>) =>
+        fulfillBundle({
+            order: { ...order, currency: "INR", notes },
+            payment: { id: order.id },
+            notes,
+            user: { userId: "user-1", authId: "auth-1", email: "a@b.c" },
+            extras: {},
+        } as any);
+
+    beforeEach(() => vi.clearAllMocks());
+
+    it("grants everything for 3 months on a free coupon order", async () => {
+        const before = Date.now();
+        const sub: any = await grant({ id: "coupon_abc", amount: 0 }, { ...quarterly, coupon_code: "ALL3M" });
+        expect(sub).toMatchObject({ plan_id: "ultimate-pass", billing_cycle: "quarterly", amount: 0 });
+        const months = (new Date(sub.valid_until).getTime() - before) / (30 * 24 * 60 * 60 * 1000);
+        expect(months).toBeGreaterThan(2.9);
+        expect(months).toBeLessThan(3.1);
+        expect(grantGiniProTokens).toHaveBeenCalledWith("auth-1", "coupon_abc", "coupon_abc");
+        expect(grantJournalProTokens).toHaveBeenCalledWith("auth-1", "coupon_abc", "coupon_abc");
+    });
+
+    it("can't be bought: a Razorpay order for it is rejected", async () => {
+        await expect(grant({ id: "order_1", amount: 100 }, { ...quarterly, coupon_code: "ALL3M" })).rejects.toMatchObject({ code: "invalid_order" });
+        await expect(grant({ id: "order_1", amount: 0 }, quarterly)).rejects.toMatchObject({ code: "invalid_order" });
+    });
+
+    it("needs a coupon on the free order", async () => {
+        await expect(grant({ id: "coupon_abc", amount: 0 }, quarterly)).rejects.toMatchObject({ code: "invalid_order" });
+    });
+});

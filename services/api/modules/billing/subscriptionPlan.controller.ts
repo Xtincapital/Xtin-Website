@@ -5,8 +5,8 @@ import { getLearnPlanByUserId, getLearnPlansForUser, upsertLearnPlan } from "../
 import { getNewsletterPlanByUserId, getNewsletterPlansForUser, upsertNewsletterPlan } from "../newsletter/newsletterPlan.repository.js";
 import { upsertEntitlement } from "../auth/entitlement.repository.js";
 import { razorpayConfigured, requireValidRazorpaySignature, RazorpaySignatureError } from "../../utils/razorpay.js";
-import { BUNDLE_PRODUCT, buyerNotes, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
-import { normalizeProducts, priceBundle, type PricedPlan } from "./bundleCatalog.js";
+import { BUNDLE_PRODUCT, buyerNotes, FREE_ORDER_PREFIX, fulfillRazorpayOrder, FulfillmentError, registerFulfiller, requireCatalogAmount, sendFulfillmentError, type Fulfiller } from "../payments/fulfillment.js";
+import { couponOnlyBundle, normalizeProducts, priceBundle, type PricedPlan } from "./bundleCatalog.js";
 import { addCycle, stackValidUntil } from "../../utils/planExpiry.js";
 import { getProPlanByUser as getGiniProPlan, upsertProPlan as upsertGiniProPlan } from "../gini/proPlan.repository.js";
 import { invalidateGiniPlanTierCache } from "../gini/planTier.js";
@@ -170,7 +170,11 @@ async function grantBundle({ priced, user, paymentId, orderId, phoneNumber, stri
 
 /* Called by modules/payments/fulfillment.ts from the verify endpoint and the webhook. */
 export const fulfillBundle: Fulfiller = async ({ order, payment, notes, user, extras }) => {
-    const priced = priceBundle(notes.plan_id, notes.billing_cycle, (notes.products || "").split(",").filter(Boolean));
+    // The 3-month coupon-only length counts only on a ₹0 order this server made for a free-access code.
+    const freeCouponOrder = String(order.id).startsWith(FREE_ORDER_PREFIX) && Number(order.amount) === 0 && Boolean(notes.coupon_code);
+    const priced =
+        priceBundle(notes.plan_id, notes.billing_cycle, (notes.products || "").split(",").filter(Boolean)) ||
+        (freeCouponOrder ? couponOnlyBundle(notes.plan_id, notes.billing_cycle) : null);
     if (!priced) throw new FulfillmentError(`Order ${order.id} is not a known plan (${notes.plan_id})`, "invalid_order");
     if (order.currency !== "INR") throw new FulfillmentError("Bundles are INR-only", "amount_mismatch");
     // Also rejects orders created before prices were server-side, if their amount was tampered with.

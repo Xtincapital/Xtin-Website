@@ -7,6 +7,8 @@
 // `amount` the browser sent, so any plan could be bought for ₹1.
 
 export type BillingCycle = "monthly" | "annual";
+/** Adds "quarterly": a length only a free-access coupon grants (couponOnlyBundle), never sold. */
+export type GrantCycle = BillingCycle | "quarterly";
 
 /** Single products, by the id the Dashboard uses. Prices in whole rupees. */
 export const BUNDLE_PRODUCTS: Record<string, { name: string; monthly: number; annual: number }> = {
@@ -60,7 +62,7 @@ export const customBundleDiscount = (count: number) => {
 export type PricedPlan = {
     planId: string;
     planName: string;
-    billingCycle: BillingCycle;
+    billingCycle: GrantCycle;
     /** Whole rupees. */
     amount: number;
     products: string[];
@@ -99,6 +101,18 @@ export function priceBundle(planId: string, billingCycle: string, customProductI
     }
 
     return null;
+}
+
+/**
+ * A preset bundle for 3 months at ₹0 — what a free-access coupon grants (see
+ * FREE_ACCESS_PLANS in coupons/coupons.catalog.ts). It is kept out of
+ * priceBundle, which every paid checkout goes through, so it can't be sold;
+ * fulfillBundle accepts it only on a free coupon order.
+ */
+export function couponOnlyBundle(planId: string, billingCycle: string): PricedPlan | null {
+    const preset = PRESET_BUNDLES[planId];
+    if (!preset || billingCycle !== "quarterly") return null;
+    return { planId, planName: preset.name, billingCycle: "quarterly", amount: 0, products: preset.products, customProductIds: [] };
 }
 
 /**

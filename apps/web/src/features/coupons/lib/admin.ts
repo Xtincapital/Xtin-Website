@@ -24,7 +24,8 @@ export type AdminCoupon = {
 
 export type CouponCatalog = {
   products: Array<{ key: string; label: string }>;
-  free_plans: Array<{ product: string; plan: string; label: string }>;
+  /** needs_limits: the API refuses a code for this plan without Total uses and an end date. */
+  free_plans: Array<{ product: string; plan: string; label: string; needs_limits?: boolean }>;
 };
 
 export type Redemption = { order_id: string; buyer_email: string | null; product: string; list_amount: number | null; paid_amount: number | null; currency: string | null; created_at: string };

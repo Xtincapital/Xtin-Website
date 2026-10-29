@@ -705,23 +705,7 @@ const AlgosPage = () => {
                   </svg>
                   AlgoMarket
                 </button>
-              </div>
-              
-              {/* Stats Row */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-8 pt-8 border-t border-white/10">
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-semibold tabular-nums tracking-[-0.02em] text-brand">₹60Cr+</div>
-                  <div className="text-sm text-gray-400">AUM Managed</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-semibold tabular-nums tracking-[-0.02em] text-brand">5+</div>
-                  <div className="text-sm text-gray-400">Exclusive Algos</div>
-                </div>
-                <div className="text-center lg:text-left">
-                  <div className="text-3xl font-semibold tabular-nums tracking-[-0.02em] text-brand">99.9%</div>
-                  <div className="text-sm text-gray-400">Uptime</div>
-                </div>
-              </div>
+              </div>  
             </div>
 
             {/* Right Side - Algorithm Visualization */}

@@ -47,6 +47,12 @@ export const findCouponByCode = async (code: string): Promise<CouponRow | null> 
     return (data as CouponRow) || null;
 };
 
+export const findCouponById = async (id: string): Promise<CouponRow | null> => {
+    const { data, error } = await supabase.from("coupons").select("*").eq("id", id).maybeSingle();
+    if (error) throw error;
+    return (data as CouponRow) || null;
+};
+
 export const countRedemptions = async (couponId: string): Promise<number> => {
     const { count, error } = await supabase.from("coupon_redemptions").select("id", { count: "exact", head: true }).eq("coupon_id", couponId);
     if (error) throw error;
