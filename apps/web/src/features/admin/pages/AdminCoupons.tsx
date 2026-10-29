@@ -173,6 +173,8 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
     return groups;
   }, [catalog]);
 
+  const needsLimits = d.kind === "free_access" && Boolean(catalog?.free_plans.find((p) => `${p.product}|${p.plan}` === d.freePlan)?.needs_limits);
+
   return (
     <form onSubmit={submit} className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-start justify-between gap-3">
@@ -272,6 +274,7 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
             ))}
           </select>
           <p className="mt-1 text-xs text-slate-500">Members enter it under “Redeem a code” on their Billing page (or at that product’s checkout). Time is added on top of any plan they already have.</p>
+          {needsLimits && <p className="mt-1 text-xs font-medium text-amber-700 dark:text-amber-300">This gives away every product, so it needs a Total uses limit and an end date.</p>}
         </div>
       )}
 
@@ -282,7 +285,7 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
         </div>
         <div>
           <label htmlFor="c-max" className={labelCls}>Total uses</label>
-          <input id="c-max" type="number" min={1} value={d.maxUses} onChange={(e) => set("maxUses", e.target.value)} placeholder="Unlimited" className={inputCls} />
+          <input id="c-max" type="number" min={1} required={needsLimits} value={d.maxUses} onChange={(e) => set("maxUses", e.target.value)} placeholder={needsLimits ? "Required" : "Unlimited"} className={inputCls} />
         </div>
         <div>
           <label htmlFor="c-per" className={labelCls}>Uses per person</label>
@@ -294,8 +297,8 @@ function CreateCouponForm({ catalog, onCreated, onCancel }: { catalog: CouponCat
           <input id="c-start" type="datetime-local" value={d.startsAt} onChange={(e) => set("startsAt", e.target.value)} className={inputCls} />
         </div>
         <div>
-          <label htmlFor="c-end" className={labelCls}>Ends <span className="font-normal text-slate-400">(optional)</span></label>
-          <input id="c-end" type="datetime-local" value={d.expiresAt} onChange={(e) => set("expiresAt", e.target.value)} className={inputCls} />
+          <label htmlFor="c-end" className={labelCls}>Ends {!needsLimits && <span className="font-normal text-slate-400">(optional)</span>}</label>
+          <input id="c-end" type="datetime-local" required={needsLimits} value={d.expiresAt} onChange={(e) => set("expiresAt", e.target.value)} className={inputCls} />
         </div>
       </div>
 

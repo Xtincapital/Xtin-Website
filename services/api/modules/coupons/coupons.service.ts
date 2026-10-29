@@ -111,14 +111,36 @@ export async function applyCheckoutCoupon(opts: {
     const notes = { ...opts.notes, coupon_code: coupon.code, coupon_id: coupon.id, coupon_list_amount: String(opts.amount) };
 
     if (amount === 0) {
-        const granted = await grantWithoutPayment({ product: opts.product, notes, user: opts.user, currency: opts.currency });
-        return { free: true, orderId: granted.orderId, result: granted.result, code: coupon.code };
+        // Limits are re-checked in the code's queue, so two checkouts sent at once can't both get it free.
+        return oneAtATime<CheckoutPricing>(coupon.code, async () => {
+            await loadUsableCoupon(coupon.code, opts.user);
+            const granted = await grantWithoutPayment({ product: opts.product, notes, user: opts.user, currency: opts.currency });
+            return { free: true, orderId: granted.orderId, result: granted.result, code: coupon.code };
+        });
     }
     return { free: false, amount, notes, discount: opts.amount - amount, code: coupon.code };
 }
 
-// One redemption per user per code at a time, so a double-click can't slip
-// past the per-user limit (the API runs as a single instance).
+// Free grants of one code run one at a time, each checking the limits after
+// the one before it was recorded — so people redeeming at the same moment
+// can't take more than the code's total uses (the API runs as a single instance).
+const codeQueues = new Map<string, Promise<void>>();
+
+function oneAtATime<T>(code: string, fn: () => Promise<T>): Promise<T> {
+    const run = (codeQueues.get(code) || Promise.resolve()).then(fn);
+    const settled = run.then(
+        () => {},
+        () => {}
+    );
+    codeQueues.set(code, settled);
+    void settled.then(() => {
+        if (codeQueues.get(code) === settled) codeQueues.delete(code);
+    });
+    return run;
+}
+
+// One redemption per user per code at a time, so a double-click gets a quick
+// "one moment" instead of waiting in the code's queue.
 const redeeming = new Set<string>();
 
 /** Grants a free_access coupon's plan to the signed-in user. */
@@ -127,7 +149,7 @@ export async function redeemFreeAccess(rawCode: unknown, user: CouponUser) {
     if (redeeming.has(key)) throw new CouponError("Already redeeming this code — one moment", "in_progress", 409);
     redeeming.add(key);
     try {
-        return await redeemFreeAccessUnlocked(rawCode, user);
+        return await oneAtATime(normalizeCode(rawCode), () => redeemFreeAccessUnlocked(rawCode, user));
     } finally {
         redeeming.delete(key);
     }

@@ -23,4 +23,8 @@ describe("stackValidUntil", () => {
         const r = stackValidUntil({ existingValidUntil: "2026-10-11T00:00:00Z", paymentId: "p2", extend: addCycle("annual"), now });
         expect(r.toISOString()).toBe("2027-10-11T00:00:00.000Z");
     });
+    it("adds 3 calendar months for the quarterly (coupon-only) cycle", () => {
+        const r = stackValidUntil({ existingValidUntil: "2026-10-11T00:00:00Z", paymentId: "p2", extend: addCycle("quarterly"), now });
+        expect(r.toISOString()).toBe("2027-01-11T00:00:00.000Z");
+    });
 });

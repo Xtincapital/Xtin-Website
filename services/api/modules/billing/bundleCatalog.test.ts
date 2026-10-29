@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { priceBundle, normalizeProducts, PRESET_BUNDLES, BUNDLE_PRODUCTS } from "./bundleCatalog.js";
+import { priceBundle, couponOnlyBundle, normalizeProducts, PRESET_BUNDLES, BUNDLE_PRODUCTS } from "./bundleCatalog.js";
 
 describe("priceBundle", () => {
     it("prices presets and single products from the server catalogue", () => {
@@ -25,6 +25,26 @@ describe("priceBundle", () => {
         expect(priceBundle("free-everything", "monthly")).toBeNull();
         expect(priceBundle("algos", "weekly")).toBeNull();
         expect(priceBundle("", "monthly")).toBeNull();
+    });
+
+    it("never sells the coupon-only 3-month length", () => {
+        expect(priceBundle("ultimate-pass", "quarterly")).toBeNull();
+    });
+});
+
+describe("couponOnlyBundle", () => {
+    it("gives a preset bundle for 3 months at ₹0", () => {
+        expect(couponOnlyBundle("ultimate-pass", "quarterly")).toMatchObject({
+            planId: "ultimate-pass",
+            billingCycle: "quarterly",
+            amount: 0,
+            products: PRESET_BUNDLES["ultimate-pass"].products,
+        });
+    });
+    it("knows nothing else", () => {
+        expect(couponOnlyBundle("ultimate-pass", "monthly")).toBeNull();
+        expect(couponOnlyBundle("algos", "quarterly")).toBeNull();
+        expect(couponOnlyBundle("custom-bundle", "quarterly")).toBeNull();
     });
 });
 

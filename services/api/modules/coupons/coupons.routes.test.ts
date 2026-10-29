@@ -6,6 +6,7 @@ vi.mock("./coupons.service.js", () => ({ normalizeCode: (v: unknown) => String(v
 vi.mock("../payments/fulfillment.js", () => ({ FulfillmentError: class extends Error {} }));
 
 import { parseCouponPatch, parseNewCoupon } from "./coupons.routes.js";
+import { missingLimits } from "./coupons.catalog.js";
 
 describe("parseNewCoupon", () => {
     it("builds a % discount limited to chosen products", () => {
@@ -38,6 +39,28 @@ describe("parseNewCoupon", () => {
             [{ code: "OK10", kind: "discount", percent_off: 10, max_redemptions: "0" }, /1 or more/],
         ];
         for (const [body, message] of bad) expect(() => parseNewCoupon(body, "a")).toThrow(message);
+    });
+});
+
+describe("codes that must keep limits", () => {
+    const ultimate = { kind: "free_access", free_product: "xtin_bundle", free_plan: "ultimate_pass_quarterly" };
+
+    it("refuses a 3-month Ultimate code without Total uses and an end date", () => {
+        expect(() => parseNewCoupon({ code: "ALL3M", ...ultimate }, "a")).toThrow(/Total uses limit and an end date/);
+        expect(() => parseNewCoupon({ code: "ALL3M", ...ultimate, max_redemptions: "10" }, "a")).toThrow(/Total uses limit and an end date/);
+        expect(parseNewCoupon({ code: "ALL3M", ...ultimate, max_redemptions: "10", expires_at: "2026-12-31" }, "a")).toMatchObject({ max_redemptions: 10 });
+    });
+
+    it("refuses an edit that would clear either one", () => {
+        const saved = { ...ultimate, max_redemptions: 10, expires_at: "2026-12-31T00:00:00.000Z" };
+        expect(missingLimits({ ...saved, ...parseCouponPatch({ max_redemptions: "" }) })).toMatch(/Total uses limit and an end date/);
+        expect(missingLimits({ ...saved, ...parseCouponPatch({ expires_at: "" }) })).toMatch(/Total uses limit and an end date/);
+        expect(missingLimits({ ...saved, ...parseCouponPatch({ active: false, max_redemptions: "20" }) })).toBeNull();
+    });
+
+    it("leaves every other code's limits optional", () => {
+        expect(missingLimits({ kind: "free_access", free_product: "gini_pro_plan", free_plan: "pro_monthly", max_redemptions: null, expires_at: null })).toBeNull();
+        expect(missingLimits({ kind: "discount", max_redemptions: null, expires_at: null })).toBeNull();
     });
 });
 

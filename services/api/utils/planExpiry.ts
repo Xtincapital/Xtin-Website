@@ -9,10 +9,11 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const addDays = (days: number) => (from: Date) => new Date(from.getTime() + days * DAY_MS);
 
-/** Calendar month / year, as the dashboard bundles have always been granted. */
-export const addCycle = (cycle: "monthly" | "annual" | string) => (from: Date) => {
+/** Calendar month / year, as the dashboard bundles have always been granted. "quarterly" (coupon-only) is 3 months. */
+export const addCycle = (cycle: "monthly" | "annual" | "quarterly" | string) => (from: Date) => {
     const d = new Date(from);
     if (cycle === "annual") d.setFullYear(d.getFullYear() + 1);
+    else if (cycle === "quarterly") d.setMonth(d.getMonth() + 3);
     else d.setMonth(d.getMonth() + 1);
     return d;
 };

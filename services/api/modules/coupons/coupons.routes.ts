@@ -12,8 +12,8 @@
 import { Router } from "express";
 import { authenticate, requireAdmin } from "../../middlewares/auth.js";
 import { FulfillmentError } from "../payments/fulfillment.js";
-import { COUPON_PRODUCTS, COUPON_PRODUCT_KEYS, FREE_ACCESS_PLANS, findFreeAccessPlan } from "./coupons.catalog.js";
-import { deleteCoupon, insertCoupon, listCoupons, listRedemptions, updateCoupon, type CouponRow } from "./coupons.repository.js";
+import { COUPON_PRODUCTS, COUPON_PRODUCT_KEYS, FREE_ACCESS_PLANS, findFreeAccessPlan, missingLimits } from "./coupons.catalog.js";
+import { deleteCoupon, findCouponById, insertCoupon, listCoupons, listRedemptions, updateCoupon, type CouponRow } from "./coupons.repository.js";
 import { normalizeCode, previewCoupon, redeemFreeAccess, sendCouponError } from "./coupons.service.js";
 
 const CODE = /^[A-Z0-9_-]{3,32}$/;
@@ -80,6 +80,8 @@ export function parseNewCoupon(body: Record<string, unknown>, adminEmail: string
         row.free_product = plan.product;
         row.free_plan = plan.plan;
     }
+    const limits = missingLimits(row);
+    if (limits) throw new Error(limits);
     return row;
 }
 
@@ -126,7 +128,7 @@ router.post("/coupons/redeem", authenticate, async (req: any, res) => {
 });
 
 router.get("/admin/coupons/catalog", authenticate, requireAdmin, (_req: any, res) => {
-    res.json({ products: COUPON_PRODUCTS, free_plans: FREE_ACCESS_PLANS.map(({ product, plan, label }) => ({ product, plan, label })) });
+    res.json({ products: COUPON_PRODUCTS, free_plans: FREE_ACCESS_PLANS.map(({ product, plan, label, needsLimits }) => ({ product, plan, label, needs_limits: Boolean(needsLimits) })) });
 });
 
 router.get("/admin/coupons", authenticate, requireAdmin, async (_req: any, res) => {
@@ -163,6 +165,11 @@ router.patch("/admin/coupons/:id", authenticate, requireAdmin, async (req: any, 
         return fail(res, 400, (err as Error).message);
     }
     try {
+        const existing = await findCouponById(req.params.id);
+        if (!existing) return fail(res, 404, "Coupon not found");
+        // Clearing the limit or end date of a code that must keep them.
+        const limits = missingLimits({ ...existing, ...patch });
+        if (limits) return fail(res, 400, limits);
         const coupon = await updateCoupon(req.params.id, patch);
         return coupon ? res.json({ coupon }) : fail(res, 404, "Coupon not found");
     } catch (err) {
