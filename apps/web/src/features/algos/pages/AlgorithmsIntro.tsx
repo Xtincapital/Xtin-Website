@@ -226,23 +226,6 @@ const AlgorithmsIntro = () => {
                 See How It Works
               </button>
             </motion.div>
-
-            {/* Trust stats — centered, warm dividers */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-6 sm:gap-10 bg-white/60 dark:bg-slate-800/40 backdrop-blur-sm px-8 py-4 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm">
-              {[
-                { value: '₹60Cr+', label: 'AUM Managed' },
-                { value: '5+', label: 'Exclusive Algos' },
-                { value: '99.9%', label: 'Uptime' },
-              ].map((s, i) => (
-                <React.Fragment key={s.label}>
-                  {i > 0 && <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />}
-                  <div className="text-center">
-                    <div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-slate-100">{s.value}</div>
-                    <div className="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wider">{s.label}</div>
-                  </div>
-                </React.Fragment>
-              ))}
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -352,7 +335,7 @@ const AlgorithmsIntro = () => {
                 {I.bolt}
               </div>
               <h3 className="text-xl font-semibold mb-2">XTIN Exclusive Algos</h3>
-              <p className="text-sm text-gray-500 dark:text-slate-400 mb-5">Premium strategies built by our quant team with ₹60Cr+ AUM managed</p>
+              <p className="text-sm text-gray-500 dark:text-slate-400 mb-5">Premium strategies built by our quant team.</p>
               <ul className="space-y-3 mb-6">
                 {['AurumV — Systematic Gold Strategy', 'Bird Eye — Multi-Engine Portfolio', 'Gamma — 15-Minute Gold Strategy', 'Z1 — Systematic Investment Strategy'].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300">
