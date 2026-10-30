@@ -22,6 +22,7 @@ import { isAdminEmail } from "@/config/admin";
 import CouponField from "@/features/coupons/components/CouponField";
 import ApproxPrice from "@/components/ApproxPrice";
 import { isFreeOrder } from "@/features/coupons/lib/api";
+import MoneySection from "../components/money/MoneySection";
 
 /* ═══════════════════════════════════════════════════════════
    1. Preset Combination Bundles
@@ -619,6 +620,8 @@ const Dashboard = () => {
   ];
 
   const displayName = `${user?.first_name || user?.user_metadata?.first_name || ""} ${user?.last_name || user?.user_metadata?.last_name || ""}`.trim() || user?.email || "Investor";
+  const now = new Date();
+  const greeting = `${now.getHours() < 12 ? "Good morning" : now.getHours() < 17 ? "Good afternoon" : "Good evening"} · ${now.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long" })}`;
 
   // Only what the user has actually bought is shown as "theirs".
   const ownedServices = subscriptionServices.filter((s) => userSubscriptions[s.key]);
@@ -630,7 +633,7 @@ const Dashboard = () => {
       <Navbar />
 
       <main className="flex-grow px-4 md:px-8 py-10 mt-20">
-        <div className="max-w-5xl mx-auto space-y-10">
+        <div className="max-w-7xl mx-auto space-y-10">
 
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -639,6 +642,7 @@ const Dashboard = () => {
                 {getInitials()}
               </div>
               <div className="min-w-0">
+                <p className="xt-eyebrow">{greeting}</p>
                 <h1 className="xt-title truncate">{displayName}</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
               </div>
@@ -660,6 +664,13 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
+
+          {/* Money Pulse + Life Road, from the user's own Gini, Journal and Learn data */}
+          <MoneySection
+            userKey={user?.id || user?.email || "me"}
+            plans={activePlans}
+            onSeePlans={() => handleOpenBundleModal('single')}
+          />
 
           {/* Your products — only what you own */}
           <section>
