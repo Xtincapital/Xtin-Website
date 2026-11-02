@@ -1,5 +1,6 @@
 // Publisher applications (services/api/modules/algos/publisherApplications.*).
 import authService from '../../../services/authService';
+import { blockGuest } from '../../../lib/guestGate';
 import { BACKEND_URL } from '../../../config/env';
 
 export type ApplicationStatus = 'pending' | 'under_review' | 'approved' | 'rejected';
@@ -36,6 +37,7 @@ export const EXPERIENCE_LABELS: Record<string, string> = {
 };
 
 async function call<T>(path: string, options: RequestInit = {}): Promise<T> {
+  blockGuest('save'); // applications belong to an account
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algos/publisher-applications${path}`, options);
   const body = await res.json().catch(() => null);
   if (!res.ok) {

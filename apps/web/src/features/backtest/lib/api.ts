@@ -1,6 +1,9 @@
-// Backtest API client. Every call is authenticated with the site's shared
-// session (`authService.makeAuthenticatedRequest`), like the other products.
+// Backtest API client. Calls are authenticated with the site's shared session
+// (`authService.makeAuthenticatedRequest`), like the other products — except
+// the playground chat, plan summary and pass list, which the server also
+// serves to signed-out visitors (see PUBLIC_PATHS).
 import authService from "../../../services/authService";
+import { blockGuest } from "../../../lib/guestGate";
 import { BACKEND_URL } from "../../../config/env";
 import type { Backtest, BacktestSummary, ChatResponse, PassInfo, PlanStatus, Strategy, StrategyDefinition } from "./types";
 
@@ -21,8 +24,15 @@ export class ApiError extends Error {
 
 export const isProRequired = (err: unknown): err is ApiError => err instanceof ApiError && err.code === "PRO_REQUIRED";
 
+/** Endpoints the server answers without a login (routes.ts: optionalAuthenticate). A guest gets the anonymous allowance. */
+const PUBLIC_PATHS = new Set(["/chat", "/plan", "/passes"]);
+
 export async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T> {
-  const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, options);
+  const url = `${BACKEND_URL}${API_PREFIX}${path}`;
+  const isPublic = PUBLIC_PATHS.has(path);
+  // Everything else belongs to an account (strategies, runs, pass purchase).
+  if (!isPublic) blockGuest(path.startsWith("/razorpay") ? "upgrade" : "save");
+  const res = isPublic ? await authService.makeOptionalAuthRequest(url, options) : await authService.makeAuthenticatedRequest(url, options);
   if (res.status === 204) return undefined as T;
   const body = await res.json().catch(() => null);
   if (!res.ok) {

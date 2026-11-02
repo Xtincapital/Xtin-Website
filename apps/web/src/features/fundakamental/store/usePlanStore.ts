@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { api } from "../lib/api";
 import { getRegion } from "@/lib/region";
 import supabase from "../../../supabase";
+import { isGuest, requestSignIn } from "../../../lib/guestGate";
 import type { Currency, RegionCode } from "../lib/currency";
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
@@ -206,7 +207,11 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   planValidUntil: null,
 
   setBilling: (b) => set({ billing: b }),
-  openUpgrade: (reason = "general") => set({ upgradeOpen: true, upgradeReason: reason }),
+  // Plans and tokens belong to an account: a signed-out visitor signs in first.
+  openUpgrade: (reason = "general") => {
+    if (isGuest()) return requestSignIn("upgrade");
+    set({ upgradeOpen: true, upgradeReason: reason });
+  },
   closeUpgrade: () => set({ upgradeOpen: false }),
 
   isPro: () => {
@@ -242,7 +247,10 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     }
   },
 
-  openBuyTokens: () => set({ buyTokensOpen: true }),
+  openBuyTokens: () => {
+    if (isGuest()) return requestSignIn("upgrade");
+    set({ buyTokensOpen: true });
+  },
   closeBuyTokens: () => set({ buyTokensOpen: false }),
 
   buyTokenPack: async (packId) => {
@@ -250,7 +258,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const currency = billingFor(region).currency;
     const authUser = await getCurrentAuthUser();
     if (!authUser) {
-      window.location.href = "/login";
+      requestSignIn('upgrade');
       return;
     }
     set({ checkoutBusy: true });
@@ -314,7 +322,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     // A purchase must be tied to an account so it survives across devices.
     if (!authUser) {
       set({ upgradeOpen: false });
-      window.location.href = "/login";
+      requestSignIn('upgrade');
       return;
     }
 

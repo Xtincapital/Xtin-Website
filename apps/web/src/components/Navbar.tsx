@@ -17,6 +17,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
+  // The sign-in form is already on screen there, so the bar's own "Sign in" button would just repeat it.
+  const onAuthPage = location.pathname === '/login' || location.pathname === '/signup';
   // The signed-in link row (9 links + controls) only fits on wide screens;
   // below xl it collapses into the menu. The signed-out row is short enough for md.
   const desktopRow = user ? 'hidden xl:flex' : 'hidden md:flex';
@@ -180,13 +182,24 @@ const Navbar = () => {
                   </button>
                 </>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => navigate('/login')}
-                  className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition"
-                >
-                  Get Started
-                </button>
+                <>
+                  {!onAuthPage && (
+                    <button
+                      type="button"
+                      onClick={() => navigate('/login')}
+                      className="text-gray-700 hover:text-brand transition font-medium px-4 py-2 rounded-lg hover:bg-gray-100"
+                    >
+                      Sign in
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => navigate('/tools')}
+                    className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition"
+                  >
+                    Get Started
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -221,13 +234,24 @@ const Navbar = () => {
                   Hello, {displayName}!
                 </button>
               ) : (
-                <button
-                  type="button"
-                  onClick={() => navigate('/login')}
-                  className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition text-sm"
-                >
-                  Get Started
-                </button>
+                <>
+                  {!onAuthPage && (
+                    <button
+                      type="button"
+                      onClick={() => navigate('/login')}
+                      className="text-gray-700 hover:text-brand transition font-medium px-3 py-2 rounded-lg hover:bg-gray-100 text-sm"
+                    >
+                      Sign in
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => navigate('/tools')}
+                    className="bg-brand-fill text-white font-semibold px-4 py-2 rounded-lg hover:bg-brand-hover transition text-sm"
+                  >
+                    Get Started
+                  </button>
+                </>
               )}
             </div>
           </nav>

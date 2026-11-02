@@ -101,6 +101,7 @@ const PurchasePage = lazy(() => import('./features/academy/components/PurchasePa
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedModuleRoute from './components/ProtectedModuleRoute';
 import ProtectedPageRoute from './components/ProtectedPageRoute';
+import GuestSignInPrompt from './components/GuestSignInPrompt';
 import ComingSoonGate from './components/ComingSoonGate';
 import LessonProgressTracker from './features/academy/components/LessonProgressTracker';
 import CertificateManager from './features/certificates/components/CertificateManager';
@@ -354,34 +355,35 @@ function App() {
           <ScrollToTop />
           <LessonProgressTracker />
           <CertificateManager />
+          <GuestSignInPrompt />
           <Suspense fallback={<RouteLoadingFallback />}>
             <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/tools" element={<ProtectedPageRoute><ToolsPage /></ProtectedPageRoute>} />
+        <Route path="/tools" element={<ProtectedPageRoute allowGuest><ToolsPage /></ProtectedPageRoute>} />
         <Route path="/tools/index" element={<Navigate to="/tools" replace />} />
-        <Route path="/tools/cagr" element={<ProtectedPageRoute><CAGRCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/compound-interest" element={<ProtectedPageRoute><CompoundInterestCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/elss" element={<ProtectedPageRoute><ELSSCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/epf" element={<ProtectedPageRoute><EPFCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/fd" element={<ProtectedPageRoute><FDCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/gratuity" element={<ProtectedPageRoute><GratuityCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/hra" element={<ProtectedPageRoute><HRACalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/income-tax" element={<ProtectedPageRoute><IncomeTaxCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/inflation" element={<ProtectedPageRoute><InflationCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/lumpsum" element={<ProtectedPageRoute><LumpsumCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/nps" element={<ProtectedPageRoute><NPSCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/ppf" element={<ProtectedPageRoute><PPFCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/rd" element={<ProtectedPageRoute><RDCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/retirement" element={<ProtectedPageRoute><RetirementCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/simple-interest" element={<ProtectedPageRoute><SimpleInterestCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/sip" element={<ProtectedPageRoute><SIPCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/cagr" element={<ProtectedPageRoute allowGuest><CAGRCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/compound-interest" element={<ProtectedPageRoute allowGuest><CompoundInterestCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/elss" element={<ProtectedPageRoute allowGuest><ELSSCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/epf" element={<ProtectedPageRoute allowGuest><EPFCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/fd" element={<ProtectedPageRoute allowGuest><FDCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/gratuity" element={<ProtectedPageRoute allowGuest><GratuityCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/hra" element={<ProtectedPageRoute allowGuest><HRACalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/income-tax" element={<ProtectedPageRoute allowGuest><IncomeTaxCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/inflation" element={<ProtectedPageRoute allowGuest><InflationCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/lumpsum" element={<ProtectedPageRoute allowGuest><LumpsumCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/nps" element={<ProtectedPageRoute allowGuest><NPSCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/ppf" element={<ProtectedPageRoute allowGuest><PPFCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/rd" element={<ProtectedPageRoute allowGuest><RDCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/retirement" element={<ProtectedPageRoute allowGuest><RetirementCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/simple-interest" element={<ProtectedPageRoute allowGuest><SimpleInterestCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/sip" element={<ProtectedPageRoute allowGuest><SIPCalculator /></ProtectedPageRoute>} />
         <Route path="/tools/ssy" element={<Navigate to="/tools/ssy-calculator" replace />} />
-        <Route path="/tools/ssy-calculator" element={<ProtectedPageRoute><SSYCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/step-up-sip" element={<ProtectedPageRoute><StepUpSIPCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/swp" element={<ProtectedPageRoute><SWPCalculator /></ProtectedPageRoute>} />
-        <Route path="/tools/real-estate-investment" element={<ProtectedPageRoute><RealEstateCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/ssy-calculator" element={<ProtectedPageRoute allowGuest><SSYCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/step-up-sip" element={<ProtectedPageRoute allowGuest><StepUpSIPCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/swp" element={<ProtectedPageRoute allowGuest><SWPCalculator /></ProtectedPageRoute>} />
+        <Route path="/tools/real-estate-investment" element={<ProtectedPageRoute allowGuest><RealEstateCalculator /></ProtectedPageRoute>} />
         <Route path="/learn/watch/:slug" element={<ProtectedPageRoute><ModuleVideoPage /></ProtectedPageRoute>} />
-        <Route path="/learn" element={<ProtectedPageRoute><LearnPage /></ProtectedPageRoute>} />
+        <Route path="/learn" element={<ProtectedPageRoute allowGuest><LearnPage /></ProtectedPageRoute>} />
         <Route path="/learn/personal-finance-basics" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
         <Route path="/learn/personal-finance-lesson-1" element={<ProtectedModuleRoute><PersonalFinanceLesson1 /></ProtectedModuleRoute>} />
         <Route path="/learn/personal-finance-lesson-2" element={<ProtectedModuleRoute><PersonalFinanceLesson2 /></ProtectedModuleRoute>} />
@@ -619,7 +621,7 @@ function App() {
             <Billing />
           </ProtectedRoute>
         } />
-        <Route path="/algos" element={<ProtectedPageRoute><AlgosPage /></ProtectedPageRoute>} />
+        <Route path="/algos" element={<ProtectedPageRoute allowGuest><AlgosPage /></ProtectedPageRoute>} />
         {/* Retired feature routes -> redirect home */}
         <Route path="/advisory" element={<Navigate to="/" replace />} />
         <Route path="/advisory/submissions" element={<Navigate to="/" replace />} />
@@ -632,9 +634,9 @@ function App() {
         <Route path="/intro/mutalfunds" element={<Navigate to="/" replace />} />
 
         {/* Product routes & Intros */}
-        <Route path="/journal/*" element={<ProtectedPageRoute><JournalApp /></ProtectedPageRoute>} />
+        <Route path="/journal/*" element={<ProtectedPageRoute allowGuest><JournalApp /></ProtectedPageRoute>} />
         <Route path="/intro/journal" element={<JournalIntro />} />
-        <Route path="/gini/*" element={<ProtectedPageRoute><GiniApp /></ProtectedPageRoute>} />
+        <Route path="/gini/*" element={<ProtectedPageRoute allowGuest><GiniApp /></ProtectedPageRoute>} />
         <Route path="/intro/gini" element={<GiniIntro />} />
         <Route
           path="/fundakamental/*"
@@ -651,7 +653,7 @@ function App() {
                 "Automated PDF Research Reports"
               ]}
             >
-              <ProtectedPageRoute><FundakamentalApp /></ProtectedPageRoute>
+              <ProtectedPageRoute allowGuest><FundakamentalApp /></ProtectedPageRoute>
             </ComingSoonGate>
           }
         />
@@ -669,9 +671,9 @@ function App() {
           }
         />
 
-        <Route path="/newsletter" element={<ProtectedPageRoute><Newsletter /></ProtectedPageRoute>} />
-        <Route path="/newsletter/article/:slug" element={<ProtectedPageRoute><SubstackArticle /></ProtectedPageRoute>} />
-        <Route path="/newsletter/:id" element={<ProtectedPageRoute><NewsletterDisplay /></ProtectedPageRoute>} />
+        <Route path="/newsletter" element={<ProtectedPageRoute allowGuest><Newsletter /></ProtectedPageRoute>} />
+        <Route path="/newsletter/article/:slug" element={<ProtectedPageRoute allowGuest><SubstackArticle /></ProtectedPageRoute>} />
+        <Route path="/newsletter/:id" element={<ProtectedPageRoute allowGuest><NewsletterDisplay /></ProtectedPageRoute>} />
         <Route
           path="/backtest"
           element={
@@ -687,7 +689,7 @@ function App() {
                 "Custom Stop-Loss & Position Sizing Rules"
               ]}
             >
-              <ProtectedPageRoute><BacktestLanding /></ProtectedPageRoute>
+              <ProtectedPageRoute allowGuest><BacktestLanding /></ProtectedPageRoute>
             </ComingSoonGate>
           }
         />
@@ -700,7 +702,7 @@ function App() {
               description="We're currently making changes and updating our strategy backtesting algorithms and historical datasets. It will be back online in a few days!"
               estimatedTime="A few days"
             >
-              <ProtectedPageRoute><BacktestApp /></ProtectedPageRoute>
+              <ProtectedPageRoute allowGuest><BacktestApp /></ProtectedPageRoute>
             </ComingSoonGate>
           }
         />

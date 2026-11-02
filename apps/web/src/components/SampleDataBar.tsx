@@ -5,7 +5,7 @@
 // Uses plain Tailwind colours (not the feature design tokens) so it renders
 // the same inside Journal's `journal-scope` and Gini's `gini-scope`.
 import { useEffect, useRef, useState } from 'react';
-import { Database, FlaskConical, X } from 'lucide-react';
+import { Database, FlaskConical, LogIn, X } from 'lucide-react';
 
 export interface SampleDataOption {
   id: string;
@@ -36,9 +36,11 @@ interface SampleDataBarProps {
    *  and accessible name) and style it with this class. */
   iconOnly?: boolean;
   buttonClassName?: string;
+  /** Signed-out visitor: the demo data can't be exited, so the banner offers sign-in instead (`onExit` should open it). */
+  guest?: boolean;
 }
 
-const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data', iconOnly = false, buttonClassName }: SampleDataBarProps) => {
+const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, placement = 'bar', label = 'Load sample data', iconOnly = false, buttonClassName, guest = false }: SampleDataBarProps) => {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -73,15 +75,17 @@ const SampleDataBar = ({ feature, active, activeName, options, onLoad, onExit, p
         <FlaskConical className="w-4 h-4 shrink-0" aria-hidden="true" />
         <span className="flex-1 min-w-0">
           <strong className="font-semibold">Sample data{activeName ? `: ${activeName}` : ''}.</strong>{' '}
-          You're previewing {feature} with demo data. Nothing you add or change here is saved.
+          {guest
+            ? `You're previewing ${feature} with demo data. Sign in to add and save your own.`
+            : `You're previewing ${feature} with demo data. Nothing you add or change here is saved.`}
         </span>
         <button
           type="button"
           onClick={onExit}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-amber-300 font-medium hover:bg-amber-100 transition-colors"
         >
-          <X className="w-3.5 h-3.5" aria-hidden="true" />
-          Exit sample mode
+          {guest ? <LogIn className="w-3.5 h-3.5" aria-hidden="true" /> : <X className="w-3.5 h-3.5" aria-hidden="true" />}
+          {guest ? 'Sign in' : 'Exit sample mode'}
         </button>
         </div>
       </div>

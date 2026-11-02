@@ -1,6 +1,8 @@
 // Gini's "Load sample data" switch — see ../lib/sampleData.ts — plus the
 // "Download my data" / "Upload data" pair (./GiniDataControls.tsx).
 import SampleDataBar from "@/components/SampleDataBar";
+import { useAuth } from "@/contexts/AuthContext";
+import { requestSignIn } from "@/lib/guestGate";
 import { buildGiniSample, giniSampleMode } from "../lib/sampleData";
 import GiniDataControls from "./GiniDataControls";
 
@@ -14,6 +16,8 @@ const OPTIONS = [
 
 const GiniSampleBar = () => {
   const { active } = giniSampleMode.useState();
+  const { user } = useAuth();
+  const guest = !user;
 
   const bar = (placement: "button" | "banner") => (
     <SampleDataBar
@@ -22,8 +26,9 @@ const GiniSampleBar = () => {
       activeName={active ? OPTIONS[0].name : null}
       options={OPTIONS}
       onLoad={(id) => giniSampleMode.enter(id, buildGiniSample())}
-      onExit={giniSampleMode.exit}
+      onExit={guest ? () => requestSignIn("save") : giniSampleMode.exit}
       placement={placement}
+      guest={guest}
     />
   );
 

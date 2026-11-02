@@ -22,6 +22,7 @@
 // (Coach.tsx) can show a "top up" prompt instead of a generic failure toast.
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
+import { blockGuest } from '../../../lib/guestGate';
 import type { Trade } from './api';
 
 const API_PREFIX = '/api/journal';
@@ -41,6 +42,7 @@ async function readBody(res: Response): Promise<any> {
 }
 
 async function postCoach<T = any>(path: string, body: unknown): Promise<T> {
+  blockGuest('ai'); // the AI works on an account
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -57,6 +59,7 @@ async function postCoach<T = any>(path: string, body: unknown): Promise<T> {
 }
 
 async function getCoach<T = any>(path: string): Promise<T> {
+  blockGuest('ai', { prompt: false }); // loaded by the page itself, so no modal
   const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}${API_PREFIX}${path}`, { method: 'GET' });
   const data = await readBody(res);
   if (!res.ok) {

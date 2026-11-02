@@ -384,7 +384,7 @@ const GuestHomeHero = () => {
                 Join Telegram Community
               </a>
               <Link
-                to="/login"
+                to="/tools"
                 className="inline-flex items-center justify-center border border-gray-300 dark:border-slate-700 hover:border-brand dark:hover:border-brand bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-100 hover:text-brand dark:hover:text-brand font-semibold px-6 py-3 rounded-lg transition hover:-translate-y-0.5 hover:shadow-md gap-2 group"
               >
                 Get Started

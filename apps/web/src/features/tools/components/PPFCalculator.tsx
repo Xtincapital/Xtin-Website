@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS_INR as Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -72,8 +73,10 @@ const PPFCalculator = () => {
     }
   };
 
-  const formProps = useCalcForm(calculatePPF);
-
+  // Guests get a few free calculations (lib/guestGate.ts).
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculatePPF);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -144,7 +147,7 @@ const PPFCalculator = () => {
                 </p>
               )}
               <button
-                onClick={calculatePPF}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition mt-4"
               >
                 Calculate PPF Maturity

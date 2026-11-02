@@ -27,6 +27,7 @@
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { withSampleMode } from '../../../lib/sampleMode';
+import { blockGuest } from '../../../lib/guestGate';
 import { uploadForParse } from '../../../lib/uploadFile';
 import type { GoalDetails } from './goalCategories';
 import {
@@ -388,6 +389,7 @@ export interface ChatResponse {
 
 export const chat = {
   send: async (message: string, history: ChatHistoryEntry[] = [], conversationId: string | null = null): Promise<ChatResponse> => {
+    blockGuest('ai'); // the AI works on an account
     return await request('/chat', { method: 'POST', body: JSON.stringify({ message, history, conversation_id: conversationId || undefined }) });
   },
 };
@@ -408,8 +410,10 @@ export const chat = {
 // `liabilities.createLiability`.
 // ─────────────────────────────────────────────────────────────────────────
 export const importHoldings = {
-  parse: (file: File, fileType: 'csv' | 'excel' | 'pdf', kind: 'assets' | 'liabilities') =>
-    uploadForParse<{ rows: any[]; count: number; skipped?: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind }),
+  parse: async (file: File, fileType: 'csv' | 'excel' | 'pdf', kind: 'assets' | 'liabilities') => {
+    blockGuest('save'); // importing writes to the plan, so it needs an account
+    return uploadForParse<{ rows: any[]; count: number; skipped?: number; kind: string }>(`${API_PREFIX}/import-holdings`, file, { file_type: fileType, kind });
+  },
 };
 
 // Export all implemented APIs

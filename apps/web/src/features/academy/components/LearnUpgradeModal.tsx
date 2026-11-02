@@ -8,6 +8,7 @@ import {
 } from '../../../lib/learnPlan';
 import learnPlanService from '../services/learnPlanService';
 import { useAuth } from '../../../contexts/AuthContext';
+import { requestSignIn } from '../../../lib/guestGate';
 import { showPurchaseReceipt } from '@/features/billing/lib/purchaseReceipt';
 import CouponField from '@/features/coupons/components/CouponField';
 import { isFreeOrder } from '@/features/coupons/lib/api';
@@ -25,7 +26,8 @@ import { isFreeOrder } from '@/features/coupons/lib/api';
  */
 const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
   const { region } = useRegion();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const isGuest = !loading && !user;
   const pricing = learnPricing();
   const stats = learnCatalogueStats();
 
@@ -39,7 +41,16 @@ const LearnUpgradeModal = ({ open, onClose, onActivated, reason = null }) => {
     if (open) setError(null);
   }, [open]);
 
-  if (!open) return null;
+  // A plan is tied to an account: ask a signed-out visitor to sign in rather
+  // than open a checkout that cannot work.
+  useEffect(() => {
+    if (open && isGuest) {
+      onClose();
+      requestSignIn('upgrade');
+    }
+  }, [open, isGuest, onClose]);
+
+  if (!open || isGuest) return null;
 
   const price = billing === 'yearly' ? pricing.yearly : pricing.monthly;
   const effMonthly = pricing.yearly / 12;

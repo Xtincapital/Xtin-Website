@@ -39,7 +39,7 @@ import {
     usageFor,
     type Usage,
 } from "./plans.js";
-import { rateLimit } from "./rateLimit.js";
+import { clientIp, rateLimit } from "./rateLimit.js";
 import {
     BacktestTablesMissingError,
     deleteRun,
@@ -62,14 +62,9 @@ const MAX_WINDOW_DAYS = 365 * 25;
 const bad = (res, validation: { message: string; errors?: string[] }) =>
     res.status(HTTP_STATUS.BAD_REQUEST).json({ error: validation.message, details: validation.errors });
 
-/** Best-effort client address. Behind Render/Cloudflare `req.ip` is the proxy, not the visitor. */
-export const clientIp = (req): string => {
-    const cf = req.get?.("cf-connecting-ip");
-    if (cf) return String(cf).trim();
-    const xff = req.get?.("x-forwarded-for");
-    if (xff) return String(xff).split(",")[0].trim();
-    return req.ip || req.socket?.remoteAddress || "unknown";
-};
+// Lives in ./rateLimit.ts so other modules (the public AI routes) can use it
+// without importing this whole controller.
+export { clientIp };
 
 // Ids are Postgres UUIDs; anything else would surface as a 500 from the database.
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

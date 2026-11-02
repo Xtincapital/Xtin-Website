@@ -14,6 +14,7 @@
 // react-query cache + remounts its routes whenever the mode flips, so every
 // page refetches from the right source.
 import { useSyncExternalStore } from 'react';
+import { GuestBlockedError, isGuest, requestSignIn } from './guestGate';
 
 export interface SampleModeState<T> {
   active: boolean;
@@ -106,13 +107,24 @@ export function createSampleModeStore<T>(storageKey: string): SampleModeStore<T>
 
 type AsyncMethods = Record<string, (...args: any[]) => Promise<any>>;
 
+/** Methods that change data. Every API module here names them create…/update…/delete…/clear…. */
+const WRITE_METHOD = /^(create|update|delete|clear)/;
+
 /** Route every method of an API module to its sample implementation while
- *  sample mode is on, and to the real API otherwise. */
+ *  sample mode is on, and to the real API otherwise.
+ *
+ *  A signed-out visitor is exploring demo data, so the first attempt to change
+ *  it opens the sign-in modal instead (lib/guestGate.ts). */
 export function withSampleMode<M extends AsyncMethods>(store: SampleModeStore<unknown>, real: M, sample: M): M {
   const wrapped = {} as M;
   (Object.keys(real) as (keyof M)[]).forEach((key) => {
-    wrapped[key] = ((...args: any[]) =>
-      store.isActive() ? sample[key](...args) : real[key](...args)) as M[keyof M];
+    wrapped[key] = ((...args: any[]) => {
+      if (WRITE_METHOD.test(String(key)) && isGuest()) {
+        requestSignIn('save');
+        return Promise.reject(new GuestBlockedError('save'));
+      }
+      return store.isActive() ? sample[key](...args) : real[key](...args);
+    }) as M[keyof M];
   });
   return wrapped;
 }

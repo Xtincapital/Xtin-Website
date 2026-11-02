@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS_INR as Y_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -96,7 +97,10 @@ const NPSCalculator = () => {
     }
   };
 
-  const formProps = useCalcForm(calculateNPS);
+  // Guests get a few free calculations (lib/guestGate.ts).
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateNPS);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="bg-background min-h-screen">
@@ -160,7 +164,7 @@ const NPSCalculator = () => {
                   {error}
                 </p>
               )}
-              <button onClick={calculateNPS} className="mt-8 w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-brand-hover transition-colors">
+              <button onClick={onCalculate} className="mt-8 w-full bg-brand-fill text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-brand-hover transition-colors">
                 Calculate
               </button>
             </div>

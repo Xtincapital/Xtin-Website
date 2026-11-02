@@ -7,21 +7,25 @@ import SignInModal from './SignInModal';
  * ProtectedPageRoute - Protects main pages like tools, algos, advisory, newsletter
  * Shows a sign-in modal when accessing these pages while not logged in
  * After successful login, user is redirected to the intended page
+ *
+ * `allowGuest` opens the page to signed-out visitors instead. The page then
+ * asks for sign-in itself, at the moment it needs one (lib/guestGate.ts).
  */
-const ProtectedPageRoute = ({ children }) => {
+const ProtectedPageRoute = ({ children, allowGuest = false }: { children: React.ReactNode; allowGuest?: boolean }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [showSignInModal, setShowSignInModal] = useState(false);
 
   useEffect(() => {
+    if (allowGuest) return;
     // If not loading and no user, show the sign-in modal
     if (!loading && !user) {
       // Store the intended URL for redirect after login
       sessionStorage.setItem('returnUrl', location.pathname + location.search);
       setShowSignInModal(true);
     }
-  }, [loading, user, location.pathname]);
+  }, [allowGuest, loading, user, location.pathname]);
 
   // Handle successful sign-in
   const handleSignInSuccess = () => {
@@ -40,6 +44,9 @@ const ProtectedPageRoute = ({ children }) => {
     sessionStorage.removeItem('returnUrl');
     navigate('/', { replace: true });
   };
+
+  // Open to everyone: no spinner, no modal — the page renders straight away.
+  if (allowGuest) return <>{children}</>;
 
   // Show loading spinner while checking auth
   if (loading) {

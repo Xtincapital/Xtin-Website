@@ -1,5 +1,6 @@
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
+import { blockGuest } from '../../../lib/guestGate';
 
 /**
  * Algorithm subscription service — talks to the Express backend, which is the
@@ -24,6 +25,7 @@ class AlgorithmService {
   /** Create a Razorpay order for an algorithm subscription */
   /** Resolves to the order — or to { free: true, order_id, record } when a coupon made it free (already activated). */
   async createOrder(algoName, tradingviewUsername, phoneNumber, couponCode = null) {
+    blockGuest('upgrade'); // buying needs an account
     const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algorithm/order`, {
       method: 'POST',
       body: JSON.stringify({
@@ -46,6 +48,7 @@ class AlgorithmService {
 
   /** Verify payment and activate subscription */
   async verifyPayment(payload) {
+    blockGuest('upgrade');
     const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algorithm/verify`, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -59,6 +62,7 @@ class AlgorithmService {
 
   /** Local development only — activates via the backend's dev endpoint */
   async devActivate(algoName) {
+    blockGuest('upgrade');
     const res = await authService.makeAuthenticatedRequest(`${BACKEND_URL}/api/algorithm/dev-activate`, {
       method: 'POST',
       body: JSON.stringify({

@@ -1,11 +1,15 @@
 // Journal's "Load sample data" switch — see ../lib/sampleData.ts.
 import { useMemo } from "react";
 import SampleDataBar from "@/components/SampleDataBar";
+import { useAuth } from "@/contexts/AuthContext";
+import { requestSignIn } from "@/lib/guestGate";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { buildJournalSample, JOURNAL_SAMPLE_OPTIONS, journalSampleMode, previewJournalSample } from "../lib/sampleData";
 
 const JournalSampleBar = ({ placement, iconOnly, buttonClassName }: { placement?: "bar" | "button" | "banner"; iconOnly?: boolean; buttonClassName?: string }) => {
   const { active, datasetId } = journalSampleMode.useState();
+  const { user } = useAuth();
+  const guest = !user;
   // The previews are in rupees; show them in the selected currency.
   const { formatInr } = useCurrency();
 
@@ -32,7 +36,8 @@ const JournalSampleBar = ({ placement, iconOnly, buttonClassName }: { placement?
       activeName={JOURNAL_SAMPLE_OPTIONS.find((o) => o.id === datasetId)?.name}
       options={options}
       onLoad={(id) => journalSampleMode.enter(id, buildJournalSample(id))}
-      onExit={journalSampleMode.exit}
+      onExit={guest ? () => requestSignIn("save") : journalSampleMode.exit}
+      guest={guest}
     />
   );
 };

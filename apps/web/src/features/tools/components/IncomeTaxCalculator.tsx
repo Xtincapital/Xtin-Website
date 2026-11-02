@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useCalcForm } from '../lib/calcForm';
+import { useGuestGate } from '../../../lib/guestGate';
 import { oldRegimeTax as computeOldRegimeTax, newRegimeTax as computeNewRegimeTax, type AgeGroup } from '../lib/incomeTax';
 
 const IncomeTaxCalculator = () => {
@@ -39,8 +40,10 @@ const IncomeTaxCalculator = () => {
         setNewRegimeTax(computeNewRegimeTax(grossSalary, otherIncome, financialYear));
     };
 
-    const formProps = useCalcForm(calculateTax);
-
+    // Guests get a few free calculations (lib/guestGate.ts).
+    const { gate } = useGuestGate();
+    const onCalculate = gate(calculateTax);
+    const formProps = useCalcForm(onCalculate);
 
     return (
         <div className="flex flex-col min-h-screen bg-background">
@@ -139,7 +142,7 @@ const IncomeTaxCalculator = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={calculateTax} className="w-full mt-6 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition">
+                            <button onClick={onCalculate} className="w-full mt-6 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition">
                                 Calculate
                             </button>
                         </div>

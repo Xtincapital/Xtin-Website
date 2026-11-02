@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS_INR as Y_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -79,8 +80,10 @@ const EPFCalculator = () => {
     }).format(value);
   };
 
-  const formProps = useCalcForm(calculateEPF);
-
+  // Guests get a few free calculations (lib/guestGate.ts).
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateEPF);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -168,7 +171,7 @@ const EPFCalculator = () => {
                 />
               </div>
               <button
-                onClick={calculateEPF}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill hover:bg-brand-hover text-white font-bold py-3 rounded-lg transition"
               >
                 Calculate

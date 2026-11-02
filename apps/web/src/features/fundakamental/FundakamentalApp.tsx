@@ -21,9 +21,12 @@
 //     exactly once, app-wide. Doing it again here would double the IP
 //     lookup + FX fetch every time this subtree mounts.
 import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import PageSpinner from "@/components/PageSpinner";
+import RequireAccount from "@/components/RequireAccount";
+import { useAuth } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
@@ -58,6 +61,17 @@ const queryClient = new QueryClient({
 });
 
 const FundakamentalApp = () => {
+  const { user, loading } = useAuth();
+  const guest = !loading && !user;
+  // A signed-out visitor gets the stock scanner (its sample results need no
+  // account) and the pricing page; everything else is account data, so it asks
+  // them to sign in instead of calling an API that would refuse them.
+  const account = (feature: string, page: React.ReactNode) => (
+    <RequireAccount feature={feature} description={`Sign in or create a free account to use ${feature.toLowerCase()}. The scanner and pricing stay open to everyone.`}>
+      {page}
+    </RequireAccount>
+  );
+
   // Dialogs/selects portal into <body>, outside DashboardLayout's
   // `fundakamental-scope` wrapper — this class gives them FundaKaMental's
   // design tokens too (see index.css).
@@ -65,6 +79,8 @@ const FundakamentalApp = () => {
     document.body.classList.add("fundakamental-portals");
     return () => document.body.classList.remove("fundakamental-portals");
   }, []);
+
+  if (loading) return <PageSpinner />;
 
   return (
   <ErrorBoundary>
@@ -76,17 +92,17 @@ const FundakamentalApp = () => {
             The toasters and the app-wide modals get their own. */}
         <Suspense fallback={null}>
           <Routes>
-            <Route index element={<Dashboard />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="analyze" element={<NewAnalysis />} />
-            <Route path="report/:id" element={<AnalysisReport />} />
+            <Route index element={guest ? <Navigate to="scanner" replace /> : <Dashboard />} />
+            <Route path="settings" element={account("Settings", <Settings />)} />
+            <Route path="analyze" element={account("AI analysis", <NewAnalysis />)} />
+            <Route path="report/:id" element={account("Analysis reports", <AnalysisReport />)} />
             <Route path="scanner" element={<StockScanner />} />
-            <Route path="portfolio" element={<Portfolio />} />
-            <Route path="watchlist" element={<Watchlist />} />
-            <Route path="history" element={<History />} />
+            <Route path="portfolio" element={account("Portfolios", <Portfolio />)} />
+            <Route path="watchlist" element={account("Watchlists", <Watchlist />)} />
+            <Route path="history" element={account("Analysis history", <History />)} />
             <Route path="pricing" element={<Pricing />} />
-            <Route path="technicals" element={<Technicals />} />
-            <Route path="alerts" element={<Alerts />} />
+            <Route path="technicals" element={account("Technical analysis", <Technicals />)} />
+            <Route path="alerts" element={account("Price alerts", <Alerts />)} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

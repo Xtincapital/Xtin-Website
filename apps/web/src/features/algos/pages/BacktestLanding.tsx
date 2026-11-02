@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { useAuth } from '../../../contexts/AuthContext';
-import SignInModal from '../../../components/SignInModal';
 import useRegion from '../../../hooks/useRegion';
 
 // Region-natural showcase figures (not FX-converted — each region gets clean,
@@ -54,7 +53,6 @@ const BacktestLanding = () => {
   const { region } = useRegion();
   const show = BACKTEST_SHOWCASE[region] || BACKTEST_SHOWCASE.GLOBAL;
   const [isVisible, setIsVisible] = useState(false);
-  const [showSignInModal, setShowSignInModal] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -66,14 +64,6 @@ const BacktestLanding = () => {
     { value: '100%', label: 'No-Code' },
     { value: 'Free', label: 'To Start' },
   ];
-
-  // Gate the external launch behind sign-in, matching the other sub-apps.
-  const handleLaunch = (e) => {
-    if (!user) {
-      e.preventDefault();
-      setShowSignInModal(true);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 transition-colors duration-300">
@@ -122,11 +112,10 @@ const BacktestLanding = () => {
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <Link
                   to="/backtest/app"
-                  onClick={handleLaunch}
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-brand-fill hover:bg-brand-hover text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand/25 hover:shadow-brand/40 hover:scale-105"
                 >
                   <span className="relative z-10 flex items-center">
-                    {user ? 'Launch Backtest' : 'Sign in to launch'}
+                    {user ? 'Launch Backtest' : 'Try it free'}
                     <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -221,14 +210,13 @@ const BacktestLanding = () => {
         <div className="max-w-4xl mx-auto rounded-3xl px-8 py-14 text-center text-white bg-brand-fill">
           <h2 className="text-3xl md:text-4xl font-display font-bold tracking-[-0.025em]">Know before you trade.</h2>
           <p className="mx-auto mt-3 max-w-xl text-white/85">
-            Sign in with your free Xtin account and backtest your first idea in under a minute — no code.
+            Backtest your first idea in under a minute — no code, and no sign-up to start.
           </p>
           <Link
             to="/backtest/app"
-            onClick={handleLaunch}
             className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-7 py-3.5 font-semibold text-brand hover:bg-brand-soft transition"
           >
-            {user ? 'Open the playground' : 'Sign in to start backtesting'}
+            {user ? 'Open the playground' : 'Try it free'}
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
@@ -237,16 +225,6 @@ const BacktestLanding = () => {
       </section>
 
       <Footer />
-
-      {showSignInModal && (
-        <SignInModal
-          isOpen={showSignInModal}
-          onClose={() => setShowSignInModal(false)}
-          onSuccess={() => setShowSignInModal(false)}
-          headline="Sign in to launch Backtest"
-          description="Sign in (or create a free account) to start backtesting strategies with AI."
-        />
-      )}
     </div>
   );
 };

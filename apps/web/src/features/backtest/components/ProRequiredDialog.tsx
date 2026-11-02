@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, Crown } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useProDialog, type ProReason } from "../lib/proDialog";
 import { usePlan } from "../lib/usePlan";
+import { useAuth } from "@/contexts/AuthContext";
+import { requestSignIn } from "@/lib/guestGate";
 
 const COPY: Record<ProReason, { title: string; tried: string; fallback: string }> = {
   quota: { title: "You've reached this month's free backtests", tried: "You tried to run another backtest.", fallback: "The free plan includes a monthly number of backtests." },
@@ -18,6 +21,19 @@ export default function ProRequiredDialog() {
   const { open, reason, message, close } = useProDialog();
   const navigate = useNavigate();
   const { plan } = usePlan();
+  const { user, loading } = useAuth();
+  const isGuest = !loading && !user;
+
+  // A signed-out visitor hits the anonymous allowance (or a Pro feature) —
+  // either way the next step is an account, not a Pro pass, so ask them to
+  // sign in instead.
+  useEffect(() => {
+    if (open && isGuest) {
+      close();
+      requestSignIn("backtest");
+    }
+  }, [open, isGuest, close]);
+
   const c = COPY[reason];
   const historyYears = plan?.history_days ? Math.round(plan.history_days / 365) : 2;
   const included = [
@@ -27,6 +43,8 @@ export default function ProRequiredDialog() {
     `${plan?.saved_strategies_limit ?? 3} saved strategies`,
     "Core report: return, Sharpe, drawdown %, equity curve, trade log",
   ];
+
+  if (isGuest) return null;
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && close()}>

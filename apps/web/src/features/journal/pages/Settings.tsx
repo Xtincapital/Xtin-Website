@@ -42,6 +42,7 @@ import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import authService from "../../../services/authService";
+import { blockGuest } from "@/lib/guestGate";
 import { BACKEND_URL } from "../../../config/env";
 import JournalLayout from "../components/JournalLayout";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
@@ -116,6 +117,7 @@ export default function Settings() {
     if (!nameChanged || !nameValid) return;
     setSavingProfile(true);
     try {
+      blockGuest('save');
       const parts = name.trim().split(/\s+/);
       const first_name = parts[0];
       const last_name = parts.slice(1).join(" ") || parts[0];

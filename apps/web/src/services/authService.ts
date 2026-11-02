@@ -32,20 +32,19 @@ class AuthService {
     }
   }
 
-  // Make authenticated API requests
-  async makeAuthenticatedRequest(url, options: RequestInit = {}) {
-    let token = null;
-
+  // The signed-in user's access token, if there is one.
+  private async getToken() {
     // 1) Try Supabase session first (OAuth login)
     const { data: { session } } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      token = session.access_token;
-    }
+    if (session?.access_token) return session.access_token;
 
     // 2) Fallback to localStorage auth_token (email/password login)
-    if (!token) {
-      token = localStorage.getItem('auth_token');
-    }
+    return localStorage.getItem('auth_token');
+  }
+
+  // Make authenticated API requests
+  async makeAuthenticatedRequest(url, options: RequestInit = {}) {
+    const token = await this.getToken();
 
     if (!token) {
       throw new Error('No authentication session found');
@@ -75,6 +74,31 @@ class AuthService {
       throw new Error('Session expired. Please login again.');
     }
 
+    return response;
+  }
+
+  // For endpoints the server also serves to signed-out visitors (it attaches
+  // the user when a token is sent and treats the call as anonymous when not).
+  // Sends the token if there is one and a plain request if not. If the server
+  // refuses a stale token, the call is retried anonymously rather than ending
+  // the session — this is only ever used where anonymous is acceptable.
+  async makeOptionalAuthRequest(url, options: RequestInit = {}) {
+    const token = await this.getToken();
+    const customHeaders = options.headers || {};
+    const { headers: _headers, ...restOptions } = options;
+
+    const send = (withToken: boolean) =>
+      fetch(url, {
+        ...restOptions,
+        headers: {
+          'Content-Type': 'application/json',
+          ...(withToken && token ? { Authorization: `Bearer ${token}` } : {}),
+          ...customHeaders,
+        },
+      });
+
+    const response = await send(true);
+    if (response.status === 401 && token) return send(false);
     return response;
   }
 }

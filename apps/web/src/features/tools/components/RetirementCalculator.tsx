@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { useCalcForm, CHART_MARGIN, Y_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -123,8 +124,11 @@ const RetirementCalculator = () => {
 
   useCalcSession("retirement", calculateRetirement, !!results);
 
-  const formProps = useCalcForm(calculateRetirement);
-
+  // Guests get a few free calculations (lib/guestGate.ts). useCalcSession keeps the
+  // ungated function: its automatic re-runs must not use up a try.
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateRetirement);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -249,7 +253,7 @@ const RetirementCalculator = () => {
                 </p>
               )}
               <button
-                onClick={calculateRetirement}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill text-white py-3 rounded-lg font-semibold hover:bg-brand-hover transition mt-4"
               >
                 Calculate

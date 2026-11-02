@@ -26,6 +26,7 @@
 import authService from '../../../services/authService';
 import { BACKEND_URL } from '../../../config/env';
 import { withSampleMode } from '../../../lib/sampleMode';
+import { blockGuest } from '../../../lib/guestGate';
 import { uploadForParse } from '../../../lib/uploadFile';
 import { journalSampleMode, sampleGoals, sampleStrategies, sampleTrades } from './sampleData';
 
@@ -351,11 +352,13 @@ export const strategies = withSampleMode(journalSampleMode, realStrategies, samp
 export type ImportedTrade = TradeCreateInput & { duplicate?: 'journal' | 'file' };
 
 export const bulkImport = {
-  parse: (
+  parse: async (
     file: File,
     fileType: 'csv' | 'excel' | 'pdf',
-  ): Promise<{ trades: ImportedTrade[]; count: number; skipped?: number; duplicates?: { journal: number; file: number }; file_type: string }> =>
-    uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType }),
+  ): Promise<{ trades: ImportedTrade[]; count: number; skipped?: number; duplicates?: { journal: number; file: number }; file_type: string }> => {
+    blockGuest('save'); // importing writes to the journal, so it needs an account
+    return uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType });
+  },
 };
 
 // Export all implemented APIs

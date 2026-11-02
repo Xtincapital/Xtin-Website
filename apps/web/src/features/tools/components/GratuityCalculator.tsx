@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS_INR as Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -53,8 +54,10 @@ const GratuityCalculator = () => {
     }
   };
 
-  const formProps = useCalcForm(calculateGratuity);
-
+  // Guests get a few free calculations (lib/guestGate.ts).
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateGratuity);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -123,7 +126,7 @@ const GratuityCalculator = () => {
                 </p>
               )}
               <button
-                onClick={calculateGratuity}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate Gratuity

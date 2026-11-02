@@ -40,6 +40,7 @@ import authService from "../../../services/authService";
 import { BACKEND_URL } from "../../../config/env";
 import { getRegion } from "@/lib/region";
 import supabase from "../../../supabase";
+import { requestSignIn } from "../../../lib/guestGate";
 import { showPurchaseReceipt } from "@/features/billing/lib/purchaseReceipt";
 
 const API_PREFIX = "/api/gini";
@@ -299,7 +300,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
   startProCheckout: async (planId, currency) => {
     const authUser = await getCurrentAuthUser();
     if (!authUser) {
-      window.location.href = "/login";
+      requestSignIn('upgrade');
       return;
     }
 
@@ -370,7 +371,7 @@ export const useGiniPlanStore = create<GiniPlanState>((set, get) => ({
   startAiPackCheckout: async (packageId) => {
     const authUser = await getCurrentAuthUser();
     if (!authUser) {
-      window.location.href = "/login";
+      requestSignIn('upgrade');
       return;
     }
 

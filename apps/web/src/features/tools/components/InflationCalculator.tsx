@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import {
   LineChart,
   Line,
@@ -66,8 +67,11 @@ const InflationCalculator = () => {
 
   useCalcSession("inflation", calculateInflation, !!futureValue);
 
-  const formProps = useCalcForm(calculateInflation);
-
+  // Guests get a few free calculations (lib/guestGate.ts). useCalcSession keeps the
+  // ungated function: its automatic re-runs must not use up a try.
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateInflation);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -144,7 +148,7 @@ const InflationCalculator = () => {
                 </p>
               )}
               <button
-                onClick={calculateInflation}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate Future Value

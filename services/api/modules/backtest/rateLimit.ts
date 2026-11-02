@@ -5,6 +5,15 @@
 // Render instance; swap for Redis if the API ever runs multi-process.
 type Window = { limit: number; seconds: number };
 
+/** Best-effort client address. Behind Render/Cloudflare `req.ip` is the proxy, not the visitor. */
+export const clientIp = (req): string => {
+    const cf = req.get?.("cf-connecting-ip");
+    if (cf) return String(cf).trim();
+    const xff = req.get?.("x-forwarded-for");
+    if (xff) return String(xff).split(",")[0].trim();
+    return req.ip || req.socket?.remoteAddress || "unknown";
+};
+
 const hits = new Map<string, Map<string, number[]>>(); // bucket → key → timestamps (ms)
 
 const fmtWait = (s: number) => (s < 90 ? `${s} second${s === 1 ? "" : "s"}` : `${Math.ceil(s / 60)} minutes`);

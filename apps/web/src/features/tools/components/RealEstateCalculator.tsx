@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useMoneyState, useCalcSession } from "../lib/calcState";
 import { useCalcForm } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import {
   analyse,
@@ -189,7 +190,11 @@ const RealEstateCalculator = () => {
 
   useCalcSession("realestate", calculateAll, !!results);
 
-  const formProps = useCalcForm(calculateAll);
+  // Guests get a few free calculations (lib/guestGate.ts). useCalcSession keeps the
+  // ungated function: its automatic re-runs must not use up a try.
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateAll);
+  const formProps = useCalcForm(onCalculate);
 
   const filterCards = results ? (() => {
     const a = results.analysis;
@@ -482,7 +487,7 @@ const RealEstateCalculator = () => {
                 </div>
 
                 <button
-                  onClick={calculateAll}
+                  onClick={onCalculate}
                   className="w-full mt-2 py-3 bg-brand-fill hover:bg-brand-hover text-white rounded-xl font-semibold transition-colors"
                 >
                   Calculate Analysis

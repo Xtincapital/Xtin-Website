@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useCalcForm } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 
 const HRACalculator = () => {
   const [basicSalary, setBasicSalary] = useState("4,80,000");
@@ -66,8 +67,10 @@ const HRACalculator = () => {
     }
   };
 
-  const formProps = useCalcForm(calculateHRA);
-
+  // Guests get a few free calculations (lib/guestGate.ts).
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateHRA);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -215,7 +218,7 @@ const HRACalculator = () => {
                 </div>
               </div>
               <button
-                onClick={() => calculateHRA()}
+                onClick={() => onCalculate()}
                 className="w-full mt-8 bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate

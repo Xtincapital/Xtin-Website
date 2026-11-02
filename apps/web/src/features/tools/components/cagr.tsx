@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import { useMoneyState, usePersistedState, useCalcSession } from "../lib/calcState";
 import { limitProblem, useCalcForm, CHART_MARGIN, Y_AXIS_PROPS, X_AXIS_PROPS } from "../lib/calcForm";
+import { useGuestGate } from "../../../lib/guestGate";
 import { moneyTooltip } from "../lib/format";
 import { piePercentLabel, pieLegend } from "../lib/pieParts";
 import {
@@ -68,8 +69,11 @@ const CAGRCalculator = () => {
 
   useCalcSession("cagr", calculateCAGR, cagr !== null);
 
-  const formProps = useCalcForm(calculateCAGR);
-
+  // Guests get a few free calculations (lib/guestGate.ts). useCalcSession keeps the
+  // ungated function: its automatic re-runs must not use up a try.
+  const { gate } = useGuestGate();
+  const onCalculate = gate(calculateCAGR);
+  const formProps = useCalcForm(onCalculate);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -165,7 +169,7 @@ const CAGRCalculator = () => {
                 </p>
               )}
               <button
-                onClick={calculateCAGR}
+                onClick={onCalculate}
                 className="w-full bg-brand-fill hover:bg-brand-hover text-white py-3 rounded-lg transition"
               >
                 Calculate CAGR

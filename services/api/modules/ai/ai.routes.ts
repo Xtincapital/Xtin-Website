@@ -3,16 +3,20 @@ import { getAIProviderInfo, generateAIText } from './providers.js';
 import { analyzeQueryIntent, buildXtinAISystemPrompt } from './promptBuilder.js';
 import { analyzeTrades, identifyIssues } from './tradeAnalysis.js';
 import { enforceCompliance } from './compliance.js';
+import { aiLimits } from './aiLimits.js';
 
 const router = express.Router();
 
+// These endpoints are public (the landing-page chat widget has no login), so
+// each one is rate-limited — see ./aiLimits.ts.
+
 // Unified AI Chat endpoint for all bots
-router.post('/ai/chat', async (req, res) => {
+router.post('/ai/chat', ...aiLimits.chat, async (req, res) => {
   try {
-    // Support both formats: {text, context, systemPrompt} and ChatWidget format {message, user_metadata, etc.}
+    // Support both formats: {text} and ChatWidget format {message, user_metadata, etc.}.
+    // The system prompt is never taken from the request: this endpoint is public,
+    // and a caller-supplied one would replace the XtinAI persona and its guardrails.
     const text = req.body.text || req.body.message;
-    const context = req.body.context || '';
-    const customSystemPrompt = req.body.systemPrompt || '';
     const conversationHistory = req.body.user_metadata?.conversation_history || [];
 
     if (!text) {
@@ -31,8 +35,8 @@ router.post('/ai/chat', async (req, res) => {
         '\n\n---\n';
     }
 
-    // Use XtinAI identity-based system prompt (unless custom override provided)
-    const systemPrompt = customSystemPrompt || buildXtinAISystemPrompt(queryIntent);
+    // XtinAI identity-based system prompt
+    const systemPrompt = buildXtinAISystemPrompt(queryIntent);
 
     // Determine max tokens based on query depth
     const maxTokens = {
@@ -81,7 +85,7 @@ router.post('/ai/chat', async (req, res) => {
 });
 
 // Legacy endpoint for Gini bot compatibility - Enhanced for v2 AI Engine
-router.post('/ai/gemini', async (req, res) => {
+router.post('/ai/gemini', ...aiLimits.other, async (req, res) => {
   try {
     const { text, messages } = req.body;
 
@@ -131,7 +135,7 @@ Provide a clear, actionable response:`
 });
 
 // Advanced analysis endpoint for AI Coach
-router.post('/ai/analyze', async (req, res) => {
+router.post('/ai/analyze', ...aiLimits.other, async (req, res) => {
   try {
     const { trades } = req.body;
 

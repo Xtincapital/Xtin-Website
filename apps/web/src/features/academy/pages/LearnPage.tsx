@@ -4,7 +4,6 @@ import Footer from "../../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { FaBookOpen, FaCheckCircle, FaPlayCircle, FaArrowRight, FaGraduationCap, FaChartLine, FaCertificate, FaUsers, FaCrown, FaBell, FaLock } from "react-icons/fa";
 import { useAuth } from "../../../contexts/AuthContext";
-import SignInModal from "../../../components/SignInModal";
 import { DIFFICULTY_LEVELS, MODULES_CONFIG } from "../../../constants/learningModules";
 import progressService from "../../../services/progressService";
 import learnPlanService from "../services/learnPlanService";
@@ -319,8 +318,6 @@ const LearnPage = () => {
   const { user } = useAuth();
   const [showNotifyModal, setShowNotifyModal] = useState(false);
   const [notifySaved, setNotifySaved] = useState(false);
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [pendingModulePath, setPendingModulePath] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(
     () => localStorage.getItem('xtin_learn_difficulty') || DIFFICULTY_LEVELS.BEGINNER
   );
@@ -481,32 +478,11 @@ const LearnPage = () => {
     return colors[color] || colors.green;
   };
 
-  // Handle module click — sign-in first, then straight into the module.
+  // Handle module click. Signed-out visitors go straight in too: the module's
+  // route lets them read the module page and open a lesson before it asks them
+  // to sign in (see components/ProtectedModuleRoute.tsx).
   const handleModuleAccess = (modulePath) => {
-    if (!user) {
-      setPendingModulePath(modulePath);
-      sessionStorage.setItem('returnUrl', modulePath);
-      setShowSignInModal(true);
-    } else {
-      navigate(modulePath);
-    }
-  };
-
-  // Handle successful sign-in from modal
-  const handleSignInSuccess = () => {
-    setShowSignInModal(false);
-    if (pendingModulePath) {
-      navigate(pendingModulePath);
-      setPendingModulePath(null);
-      sessionStorage.removeItem('returnUrl');
-    }
-  };
-
-  // Handle modal close
-  const handleModalClose = () => {
-    setShowSignInModal(false);
-    setPendingModulePath(null);
-    sessionStorage.removeItem('returnUrl');
+    navigate(modulePath);
   };
 
   // Honest numbers, computed from the actual catalogue.
@@ -1335,14 +1311,6 @@ const LearnPage = () => {
           </div>
         </div>
       )}
-
-      {/* Sign In Modal for Module Access */}
-      <SignInModal
-        isOpen={showSignInModal}
-        onClose={handleModalClose}
-        onSuccess={handleSignInSuccess}
-        targetToolPath={pendingModulePath}
-      />
 
       {/* Guided tour — auto-starts on first visit, relaunchable via "?" */}
       <LearnTour

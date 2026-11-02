@@ -62,7 +62,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
-import { giniSampleMode } from "./lib/sampleData";
+import { buildGiniSample, giniSampleMode } from "./lib/sampleData";
+import { useGiniPlanStore } from "./store/useGiniPlanStore";
+import PageSpinner from "@/components/PageSpinner";
+import { useGuestSample } from "@/lib/useGuestSample";
 import GiniLayout from "./components/GiniLayout";
 import "./gini.css";
 
@@ -117,12 +120,23 @@ const GiniApp = () => {
   // Remount every page when sample mode flips so each one refetches.
   const { version } = giniSampleMode.useState();
 
+  // Signed-out visitors start in sample mode (demo data); signing in puts it away.
+  const { waiting } = useGuestSample(
+    giniSampleMode,
+    "xtin.gini.guestSample",
+    () => ({ datasetId: "kumar-family", data: buildGiniSample() }),
+    // The plan lookup failed closed (Free) while signed out — look it up again.
+    () => useGiniPlanStore.setState({ fetched: false })
+  );
+
   // Dialogs/selects portal into <body>, outside GiniLayout's `gini-scope`
   // wrapper — this class gives them Gini's design tokens too (see index.css).
   useEffect(() => {
     document.body.classList.add("gini-portals");
     return () => document.body.classList.remove("gini-portals");
   }, []);
+
+  if (waiting) return <PageSpinner />;
 
   return (
   <ErrorBoundary>

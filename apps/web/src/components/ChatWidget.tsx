@@ -194,9 +194,19 @@ function ChatWidget() {
       console.log('[XtinAI] Response status:', res.status);
       
       if (!res.ok) {
+        // Rate-limited (429) or message too long (400): the server's message is
+        // written for the visitor, so show it instead of a "Network error".
+        if (res.status === 429 || res.status === 400) {
+          const body = await res.json().catch(() => null);
+          const fallback = res.status === 429
+            ? "You're sending messages too quickly. Please wait a moment and try again."
+            : "That message couldn't be sent. Please shorten it and try again.";
+          setMessages((m) => [...m, { role: 'assistant', content: body?.error || fallback }]);
+          return;
+        }
         throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
-      
+
       const data = await res.json();
       console.log('[XtinAI] Response data:', data);
       

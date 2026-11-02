@@ -8,9 +8,11 @@ interface SignInModalProps {
   targetToolPath?: string;
   headline?: string;
   description?: string;
+  /** Replaces "You'll be redirected after signing in", shown under the description when `targetToolPath` is set. */
+  redirectNote?: string;
 }
 
-const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, description }: SignInModalProps) => {
+const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, description, redirectNote }: SignInModalProps) => {
   const { login, signInWithGoogle } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
@@ -110,7 +112,7 @@ const SignInModal = ({ isOpen, onClose, onSuccess, targetToolPath, headline, des
             </p>
             {targetToolPath && (
               <p className="text-sm text-brand mt-1">
-                You'll be redirected after signing in
+                {redirectNote ?? "You'll be redirected after signing in"}
               </p>
             )}
           </div>

@@ -52,7 +52,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
-import { journalSampleMode } from "./lib/sampleData";
+import { buildJournalSample, JOURNAL_SAMPLE_OPTIONS, journalSampleMode } from "./lib/sampleData";
+import { useJournalPlanStore } from "./store/useJournalPlanStore";
+import PageSpinner from "@/components/PageSpinner";
+import { GuestBlockedError } from "@/lib/guestGate";
+import { useGuestSample } from "@/lib/useGuestSample";
 import JournalLayout from "./components/JournalLayout";
 import "./journal.css";
 
@@ -81,6 +85,8 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const queryClient: QueryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
+      // A signed-out visitor is looking at demo data; AI and saving are what need an account.
+      if (error instanceof GuestBlockedError) return;
       toast.error("Couldn't load your journal data", {
         id: "journal-load-error",
         duration: Infinity, // stays until dismissed or retried
@@ -121,6 +127,15 @@ const JournalApp = () => {
   // Remount every page when sample mode flips so each one refetches.
   const { version } = journalSampleMode.useState();
 
+  // Signed-out visitors start in sample mode (demo data); signing in puts it away.
+  const { waiting } = useGuestSample(
+    journalSampleMode,
+    "xtin.journal.guestSample",
+    () => ({ datasetId: JOURNAL_SAMPLE_OPTIONS[0].id, data: buildJournalSample(JOURNAL_SAMPLE_OPTIONS[0].id) }),
+    // The plan lookup failed closed (Free) while signed out — look it up again.
+    () => useJournalPlanStore.setState({ fetched: false })
+  );
+
   // Dialogs/selects portal into <body>, outside JournalLayout's
   // `journal-scope` wrapper — this class gives them Journal's styling too
   // (see journal.css).
@@ -128,6 +143,8 @@ const JournalApp = () => {
     document.body.classList.add("journal-portals");
     return () => document.body.classList.remove("journal-portals");
   }, []);
+
+  if (waiting) return <PageSpinner />;
 
   return (
   <ErrorBoundary>

@@ -59,6 +59,7 @@ import { usePlanStore, formatTokens } from "../../store/usePlanStore";
 import OnboardingTour, { startTour } from "../OnboardingTour";
 import RegionSwitcher from "../RegionSwitcher";
 import { useAlertsStore } from "../../store/useAlertsStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -95,11 +96,14 @@ const DashboardLayout = ({ children }: SidebarProps) => {
 
   const refreshPlan = usePlanStore((s) => s.refreshPlan);
   const unreadAlerts = useAlertsStore((s) => s.unread);
+  // Plan, token balance and price alerts are account data: nothing here runs for a signed-out visitor.
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   // Price-target alerts: badge + a pop-up for new ones. Re-checked every
   // minute while the tab is visible (the server checks targets on each call).
   useEffect(() => {
+    if (!user) return;
     const refresh = () =>
       useAlertsStore.getState().refreshUnread({ announce: true, onOpen: () => navigate("/fundakamental/alerts") });
     refresh();
@@ -107,15 +111,16 @@ const DashboardLayout = ({ children }: SidebarProps) => {
       if (document.visibilityState === "visible") refresh();
     }, 60_000);
     return () => clearInterval(timer);
-  }, [navigate]);
+  }, [navigate, user]);
 
   // Refresh the plan and AI token balance when the dashboard mounts. The plan
   // used to be read only after a checkout, so every Pro/bundle customer saw
   // "Free Plan" and gated tools again after any reload.
   useEffect(() => {
+    if (!user) return;
     refreshPlan();
     fetchWallet();
-  }, [refreshPlan, fetchWallet]);
+  }, [refreshPlan, fetchWallet, user]);
 
   return (
     <>
