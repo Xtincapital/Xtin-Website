@@ -36,6 +36,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Home,
+  Building2,
   FileText,
   Filter,
   Briefcase,
@@ -67,6 +68,7 @@ interface SidebarProps {
 const navItems = [
   { name: "Home", icon: Home, href: "/fundakamental", premium: false },
   { name: "New Analysis", icon: FileText, href: "/fundakamental/analyze", premium: false },
+  { name: "Company", icon: Building2, href: "/fundakamental/company", premium: false },
   { name: "Stock Scanner", icon: Filter, href: "/fundakamental/scanner", premium: true },
   { name: "Portfolio", icon: Briefcase, href: "/fundakamental/portfolio", premium: false },
   { name: "Watchlist", icon: Eye, href: "/fundakamental/watchlist", premium: false },

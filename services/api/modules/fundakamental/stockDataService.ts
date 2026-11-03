@@ -208,6 +208,130 @@ async function fetchCompanyOverview(ticker: string): Promise<StockOverview | nul
     }
 }
 
+/* Financial statements ------------------------------------------------------ */
+
+export interface FinancialPeriod {
+    date: string; // period end, YYYY-MM-DD
+    revenue: number | null;
+    gross_profit: number | null;
+    operating_income: number | null;
+    ebitda: number | null;
+    net_income: number | null;
+    eps: number | null;
+    total_assets: number | null;
+    total_debt: number | null;
+    equity: number | null;
+    cash: number | null;
+    operating_cf: number | null;
+    capex: number | null;
+    free_cf: number | null;
+    // Derived (percent, except debt_to_equity which is a plain ratio)
+    revenue_growth: number | null;
+    net_income_growth: number | null;
+    gross_margin: number | null;
+    operating_margin: number | null;
+    net_margin: number | null;
+    roe: number | null;
+    debt_to_equity: number | null;
+}
+
+export interface CompanyFinancials {
+    ticker: string;
+    annual: FinancialPeriod[]; // oldest -> newest
+    quarterly: FinancialPeriod[];
+}
+
+const FINANCIALS_TTL_MS = 6 * 60 * 60_000;
+
+const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
+const pct = (a: number | null, b: number | null): number | null => (a === null || b === null || b === 0 ? null : (a / b) * 100);
+const growth = (cur: number | null, prev: number | null): number | null =>
+    cur === null || prev === null || prev <= 0 ? null : ((cur - prev) / prev) * 100;
+
+export function toPeriods(rows: Array<Record<string, unknown>>, annual: boolean): FinancialPeriod[] {
+    const sorted = [...rows]
+        .filter((r) => r.date)
+        .sort((a, b) => new Date(a.date as string).getTime() - new Date(b.date as string).getTime());
+    const base = sorted.map((r) => {
+        const netIncome = num(r.netIncomeCommonStockholders) ?? num(r.netIncome);
+        const revenue = num(r.totalRevenue);
+        const equity = num(r.stockholdersEquity) ?? num(r.commonStockEquity);
+        const debt = num(r.totalDebt);
+        const opIncome = num(r.operatingIncome);
+        const gross = num(r.grossProfit);
+        const opCf = num(r.operatingCashFlow);
+        const capex = num(r.capitalExpenditure);
+        return {
+            date: new Date(r.date as string).toISOString().slice(0, 10),
+            revenue,
+            gross_profit: gross,
+            operating_income: opIncome,
+            ebitda: num(r.EBITDA) ?? num(r.ebitda),
+            net_income: netIncome,
+            eps: num(r.dilutedEPS) ?? num(r.basicEPS),
+            total_assets: num(r.totalAssets),
+            total_debt: debt,
+            equity,
+            cash: num(r.cashAndCashEquivalents),
+            operating_cf: opCf,
+            capex,
+            free_cf: num(r.freeCashFlow) ?? (opCf !== null && capex !== null ? opCf + capex : null),
+            gross_margin: pct(gross, revenue),
+            operating_margin: pct(opIncome, revenue),
+            net_margin: pct(netIncome, revenue),
+            // Annual only is meaningful; quarterly ROE would be a quarter's return.
+            roe: annual ? pct(netIncome, equity) : null,
+            debt_to_equity: debt !== null && equity ? debt / equity : null,
+        };
+    });
+    // Prior year = the row ~12 months earlier (by date: Yahoo leaves some quarters sparse).
+    const yearAgo = (date: string) => {
+        const t = new Date(date).getTime();
+        return base.find((r) => Math.abs(t - new Date(r.date).getTime() - 365 * 86400_000) < 25 * 86400_000) ?? null;
+    };
+    return base.map((row) => {
+        const prev = yearAgo(row.date);
+        return {
+            ...row,
+            revenue_growth: growth(row.revenue, prev?.revenue ?? null),
+            net_income_growth: growth(row.net_income, prev?.net_income ?? null),
+        };
+    });
+}
+
+async function fetchFinancialSeries(ticker: string, type: "annual" | "quarterly"): Promise<Array<Record<string, unknown>>> {
+    const rows = await yahooFinance.fundamentalsTimeSeries(
+        ticker,
+        { period1: new Date(Date.now() - 6 * 365 * 24 * 3600_000), type, module: "all" },
+        { validateResult: false },
+    );
+    return rows as unknown as Array<Record<string, unknown>>;
+}
+
+/** Annual (≈5 yrs) and quarterly statements for a ticker, with growth/margin/ROE derived. */
+export function getCompanyFinancials(ticker: string): Promise<CompanyFinancials | null> {
+    return cached(`financials:${ticker}`, FINANCIALS_TTL_MS, async () => {
+        if (isRateLimited()) return null;
+        try {
+            const [annual, quarterly] = await Promise.all([fetchFinancialSeries(ticker, "annual"), fetchFinancialSeries(ticker, "quarterly")]);
+            noteSuccess();
+            if (annual.length === 0 && quarterly.length === 0) return null;
+            return {
+                ticker,
+                annual: toPeriods(annual, true).filter((a) => a.revenue !== null || a.net_income !== null),
+                // Quarters with no income figures (balance-sheet-only rows) aren't useful here.
+                quarterly: toPeriods(quarterly, false)
+                    .filter((q) => q.revenue !== null || q.net_income !== null)
+                    .slice(-8),
+            };
+        } catch (err) {
+            noteRateLimit(err);
+            if (!isRateLimitError(err)) console.error(`[Fundakamental] error fetching financials for ${ticker}:`, (err as Error)?.message || err);
+            return null;
+        }
+    });
+}
+
 /**
  * Get a real-time-ish quote for a ticker (price/change/volume).
  *

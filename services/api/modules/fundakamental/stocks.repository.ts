@@ -129,7 +129,17 @@ const getScreeningCache = (filterHash: string) =>
 
 const upsertScreeningCache = (record: Record<string, unknown>) => supabase.from("funda_screening_cache").upsert(record, { onConflict: "filter_hash" });
 
+/* funda_company_financials ------------------------------------------------ */
+
+const getSavedFinancials = (ticker: string) =>
+    supabase.from("funda_company_financials").select("ticker, annual, quarterly, fetched_at").eq("ticker", ticker).maybeSingle();
+
+const saveFinancials = (ticker: string, annual: unknown[], quarterly: unknown[]) =>
+    supabase.from("funda_company_financials").upsert({ ticker, annual, quarterly, fetched_at: new Date().toISOString() }, { onConflict: "ticker" });
+
 export {
+    getSavedFinancials,
+    saveFinancials,
     getStockByTicker,
     upsertStock,
     listActiveStocks,

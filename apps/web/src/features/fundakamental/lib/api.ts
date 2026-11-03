@@ -184,6 +184,16 @@ export const stockApi = {
     return await request(`/stocks/details/${ticker}`);
   },
 
+  /** The Company page's numbers as an .xlsx file. */
+  downloadFinancialsExcel: async (ticker: string) => {
+    return await requestBlob(`/stocks/financials/${encodeURIComponent(ticker)}/excel`);
+  },
+
+  /** Snapshot + annual/quarterly statements for the Company page. */
+  getFinancials: async (ticker: string) => {
+    return await request(`/stocks/financials/${encodeURIComponent(ticker)}`);
+  },
+
   screenStocks: async (filters: any) => {
     const data = await request('/stocks/screener', {
       method: 'POST',

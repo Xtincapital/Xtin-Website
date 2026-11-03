@@ -272,13 +272,13 @@ const Dashboard = () => {
 
   const [analyzingTicker, setAnalyzingTicker] = useState<string | null>(null);
 
-  const handleAnalyzeStock = async (ticker: string, name: string) => {
+  const handleAnalyzeStock = async (ticker: string, _name?: string) => {
     if (analyzingTicker) return;
     setAnalyzingTicker(ticker);
     try {
-      // Analysis runs on uploaded financial documents, so route to the upload
-      // flow with the chosen company/ticker prefilled.
-      navigate(`/fundakamental/analyze?ticker=${ticker}&name=${encodeURIComponent(name)}`);
+      // Show the company's numbers right away; the page offers "Analyze a
+      // filing" for the upload flow.
+      navigate(`/fundakamental/company?ticker=${encodeURIComponent(ticker)}`);
     } finally {
       setAnalyzingTicker(null);
     }

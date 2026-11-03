@@ -6,8 +6,9 @@
 // and will build on top of this module's exports.
 import { HTTP_STATUS } from "../../constants/constants.js";
 import { validateScreenerRequest, validateSaveScreen } from "./stocks.validator.js";
-import { searchCompanies as searchCompaniesApi, getCompanyOverview } from "./stockDataService.js";
-import { getStockByTicker, upsertStock, searchStocksInDb, getSavedScreens as getSavedScreensRepo, insertSavedScreen } from "./stocks.repository.js";
+import { searchCompanies as searchCompaniesApi, getCompanyOverview, getCompanyFinancials, type FinancialPeriod } from "./stockDataService.js";
+import { buildCompanyWorkbook, type ExcelCompany } from "./companyExcel.js";
+import { getStockByTicker, getSavedFinancials, saveFinancials, upsertStock, searchStocksInDb, getSavedScreens as getSavedScreensRepo, insertSavedScreen } from "./stocks.repository.js";
 import { screenStocks, getScreeningPresets as getPresets } from "./stockScreener.js";
 import { searchDirectory } from "./companyDirectory.js";
 import { refresh as refreshStockPipeline, type Market } from "./stockPipeline.js";
@@ -125,6 +126,110 @@ export const searchCompanies = async (req, res) => {
         } catch {
             return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Search failed: ${(err as Error)?.message || err}` });
         }
+    }
+};
+
+const TICKER_PATTERN = /^[A-Z0-9.&^-]{1,20}$/;
+const FINANCIALS_FRESH_MS = 24 * 60 * 60 * 1000;
+
+export interface LoadedFinancials {
+    company: Record<string, any> | null;
+    annual: FinancialPeriod[];
+    quarterly: FinancialPeriod[];
+    /** Statements came from the last saved copy because Yahoo was unavailable. */
+    stale: boolean;
+}
+
+/**
+ * Snapshot + statements for a ticker. Order: a saved copy under a day old →
+ * Yahoo (then saved) → an older saved copy if Yahoo is down. Every DB call is
+ * best-effort: the app works (just without memory) before migration 0021 runs.
+ */
+export async function loadCompanyFinancials(ticker: string): Promise<LoadedFinancials> {
+    let saved: { annual: FinancialPeriod[]; quarterly: FinancialPeriod[]; fetched_at: string } | null = null;
+    try {
+        const { data } = await getSavedFinancials(ticker);
+        if (data) saved = data as typeof saved;
+    } catch {
+        saved = null;
+    }
+    const savedFresh = saved && Date.now() - new Date(saved.fetched_at).getTime() < FINANCIALS_FRESH_MS;
+
+    let annual: FinancialPeriod[] = [];
+    let quarterly: FinancialPeriod[] = [];
+    let stale = false;
+    if (savedFresh && saved) {
+        annual = saved.annual;
+        quarterly = saved.quarterly;
+    } else {
+        const live = await getCompanyFinancials(ticker);
+        if (live && (live.annual.length || live.quarterly.length)) {
+            annual = live.annual;
+            quarterly = live.quarterly;
+            void Promise.resolve(saveFinancials(ticker, annual, quarterly)).catch(() => undefined);
+        } else if (saved) {
+            annual = saved.annual;
+            quarterly = saved.quarterly;
+            stale = true;
+        }
+    }
+
+    // Snapshot ratios: live (cached 15 min) → saved funda_stocks row.
+    let company: Record<string, any> | null = (await getCompanyOverview(ticker)) as Record<string, any> | null;
+    if (!company) {
+        try {
+            const { data: stock } = await getStockByTicker(ticker);
+            company = stock || null;
+        } catch {
+            company = null;
+        }
+    }
+    return { company, annual, quarterly, stale };
+}
+
+/* GET /api/fundakamental/stocks/financials/:ticker — snapshot + annual/quarterly statements */
+export const getStockFinancials = async (req, res) => {
+    const ticker = String(req.params.ticker || "").toUpperCase();
+    if (!TICKER_PATTERN.test(ticker)) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid ticker" });
+    }
+    try {
+        const { company, annual, quarterly, stale } = await loadCompanyFinancials(ticker);
+        if (!company && annual.length === 0 && quarterly.length === 0) {
+            return res.status(HTTP_STATUS.NOT_FOUND).json({ error: `No data found for ${ticker}` });
+        }
+        return res.status(HTTP_STATUS.OK).json({
+            ticker,
+            company,
+            annual,
+            quarterly,
+            statements_available: annual.length > 0 || quarterly.length > 0,
+            stale,
+        });
+    } catch (err) {
+        console.error(`[Fundakamental] failed to fetch financials for ${ticker}:`, err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to fetch financials: ${(err as Error)?.message || err}` });
+    }
+};
+
+/* GET /api/fundakamental/stocks/financials/:ticker/excel — the same numbers as an .xlsx */
+export const downloadStockFinancialsExcel = async (req, res) => {
+    const ticker = String(req.params.ticker || "").toUpperCase();
+    if (!TICKER_PATTERN.test(ticker)) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "Invalid ticker" });
+    }
+    try {
+        const { company, annual, quarterly } = await loadCompanyFinancials(ticker);
+        if (annual.length === 0 && quarterly.length === 0) {
+            return res.status(HTTP_STATUS.NOT_FOUND).json({ error: `No statements available for ${ticker}` });
+        }
+        const buffer = buildCompanyWorkbook({ ticker, ...(company || {}) } as ExcelCompany, annual, quarterly);
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.setHeader("Content-Disposition", `attachment; filename="${ticker.replace(/[^A-Z0-9.-]/g, "_")}-financials.xlsx"`);
+        return res.status(HTTP_STATUS.OK).send(buffer);
+    } catch (err) {
+        console.error(`[Fundakamental] failed to build Excel for ${ticker}:`, err);
+        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: `Failed to build Excel: ${(err as Error)?.message || err}` });
     }
 };
 

@@ -5,6 +5,8 @@ import {
     searchCompanies,
     runStockScreener,
     getStockDetails,
+    getStockFinancials,
+    downloadStockFinancialsExcel,
     refreshStockData,
     getScreeningPresets,
     saveCustomScreen,
@@ -19,6 +21,8 @@ const router = Router();
 // source's screener endpoint had a `# TODO: Re-enable authentication`
 // comment left in — this port applies it consistently instead).
 router.get("/fundakamental/stocks/search", authenticate, searchCompanies);
+router.get("/fundakamental/stocks/financials/:ticker", authenticate, getStockFinancials);
+router.get("/fundakamental/stocks/financials/:ticker/excel", authenticate, downloadStockFinancialsExcel);
 router.post("/fundakamental/stocks/screener", authenticate, requireFundaPro, runStockScreener);
 router.get("/fundakamental/stocks/screener/presets", authenticate, getScreeningPresets);
 router.post("/fundakamental/stocks/screener/save", authenticate, requireFundaPro, saveCustomScreen);
