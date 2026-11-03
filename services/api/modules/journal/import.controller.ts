@@ -12,7 +12,7 @@
 // (Phase 9a), so the shape returned here already matches that endpoint's
 // expected body 1:1 (see importParsers.ts's header comment).
 import { HTTP_STATUS } from "../../constants/constants.js";
-import { parseCsvImport, parseExcelImport, parsePdfImport } from "./importParsers.js";
+import { parseCsvImport, parseExcelImport, parsePdfImport, type ImportStats } from "./importParsers.js";
 import { existingTradeKeys, markDuplicates } from "./tradeDuplicates.js";
 
 /* POST /journal/import-trades (multipart/form-data, field "file", field "file_type") */
@@ -30,7 +30,7 @@ export const importTrades = async (req, res) => {
 
     try {
         let trades;
-        const stats = { skipped: 0 };
+        const stats: ImportStats = { skipped: 0 };
         if (rawType === "csv") {
             trades = parseCsvImport(file.buffer, stats);
         } else if (rawType === "excel" || rawType === "xls" || rawType === "xlsx") {
@@ -50,7 +50,8 @@ export const importTrades = async (req, res) => {
             file: marked.filter((t) => t.duplicate === "file").length,
         };
 
-        return res.status(HTTP_STATUS.OK).json({ trades: marked, count: marked.length, skipped: stats.skipped, duplicates, file_type: normalizedType });
+        // `fills` is set when the file was a tradebook: what was made of its executions, including what was left out.
+        return res.status(HTTP_STATUS.OK).json({ trades: marked, count: marked.length, skipped: stats.skipped, duplicates, fills: stats.fills ?? null, file_type: normalizedType });
     } catch (err) {
         console.error("[Journal] import trades failed:", err);
         return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Could not parse file: ${(err as Error)?.message || err}` });

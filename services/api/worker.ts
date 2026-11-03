@@ -1,5 +1,7 @@
 // ============================================================
-// STANDALONE NEWSLETTER WORKER — no Express server, no HTTP listener.
+// STANDALONE WORKER — no Express server, no HTTP listener. Runs the newsletter
+// schedule and the broker sync's timetable (modules/journal/broker), the two
+// jobs worth keeping off the web process. The notes below are about the newsletter.
 //
 // For a dedicated Render Background Worker service, separate from the web
 // process (Phase 3's "move cron out of the web process" item). Runs only
@@ -19,10 +21,15 @@
 // ============================================================
 
 import { startNewsletterScheduler } from "./modules/newsletter/scheduler.js";
+import { startBrokerSyncScheduler } from "./modules/journal/broker/broker.scheduler.js";
 
-console.log("[Worker] Newsletter worker starting (no HTTP server)...");
+console.log("[Worker] Worker starting (no HTTP server)...");
 startNewsletterScheduler();
-console.log("[Worker] Scheduler registered. Process will stay alive on the cron timers.");
+// The broker sync's timetable (and its catch-up after a restart). Safe next to the web service's own
+// scheduler and the outside trigger: only one sync runs at a time, whichever asks first. To run it
+// from here only, set DISABLE_BROKER_SYNC_CRON=true on the web service.
+startBrokerSyncScheduler();
+console.log("[Worker] Schedulers registered. Process will stay alive on the cron timers.");
 
 // Keep the process alive — node-cron's timers alone don't do this on their
 // own once nothing else is scheduled to run, so hold the event loop open

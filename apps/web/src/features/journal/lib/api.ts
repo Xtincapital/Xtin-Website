@@ -103,6 +103,9 @@ export interface Trade {
   implied_volatility: number | null;
   days_to_expiry: number | null;
   greeks: Record<string, unknown> | null;
+  /** Where the trade came from: absent or "manual" for hand-entered, "xts" when synced from the broker. */
+  source?: string | null;
+  external_id?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -350,12 +353,83 @@ export const strategies = withSampleMode(journalSampleMode, realStrategies, samp
 /** An uploaded row, flagged when it's already in the journal or repeats an earlier row of the file. */
 export type ImportedTrade = TradeCreateInput & { duplicate?: 'journal' | 'file' };
 
+/** What was made of a tradebook (one row per execution): the executions read, the trades they formed, and what was left out. */
+export interface FillsSummary {
+  fills: number;
+  trades: number;
+  /** Positions still open at the end of the file (bought but not sold yet, or the reverse). */
+  open: number;
+  /** Sales with no purchase in the file, such as shares bought before it began. */
+  unmatched: number;
+}
+
 export const bulkImport = {
   parse: (
     file: File,
     fileType: 'csv' | 'excel' | 'pdf',
-  ): Promise<{ trades: ImportedTrade[]; count: number; skipped?: number; duplicates?: { journal: number; file: number }; file_type: string }> =>
+  ): Promise<{ trades: ImportedTrade[]; count: number; skipped?: number; duplicates?: { journal: number; file: number }; fills?: FillsSummary | null; file_type: string }> =>
     uploadForParse(`${API_PREFIX}/import-trades`, file, { file_type: fileType }),
+};
+
+// ─────────────────────────────────────────────────────────────────────────
+// Broker sync (broker/broker.routes.ts) — link a broker client code and pull
+// executed trades into the journal. Not wrapped in sample mode: the connection
+// is the user's real account state, not part of a sample dataset.
+// ─────────────────────────────────────────────────────────────────────────
+export interface BrokerLinkInfo {
+  id: string;
+  client_code: string;
+  /** "pending" until ownership of the client code is confirmed; only "active" links are read. */
+  status: 'pending' | 'active' | 'revoked';
+  consent_at: string;
+  verified_at: string | null;
+  last_synced_at: string | null;
+  last_sync_status: 'success' | 'failed' | null;
+  /** The consent wording changed since they agreed: nothing is read until they confirm the new one. */
+  consent_outdated: boolean;
+}
+
+export interface BrokerStatus {
+  /** Sync is switched on server-side. */
+  enabled: boolean;
+  /** Sync is switched on and has a broker adapter to run with. */
+  available: boolean;
+  /** Sync is live, but only for a small trial group that doesn't include this account yet. */
+  pilot_only?: boolean;
+  /** The consent wording to show, and its version to send back when linking. */
+  consent: { version: string; text: string };
+  link: BrokerLinkInfo | null;
+  /** Set when there is no current link and the last request was turned down; `note` is the reason given. */
+  rejection: { client_code: string; note: string | null; at: string | null } | null;
+  /** Trades in the journal that came from the broker. */
+  synced_trades: number;
+}
+
+export interface BrokerSyncSummary {
+  fetched: number;
+  newFills: number;
+  closedTrades: number;
+  insertedTrades: number;
+  alreadyInJournal: number;
+  openPositions: number;
+  unmatched: number;
+}
+
+export const broker = {
+  getStatus: (): Promise<BrokerStatus> => request('/broker/status'),
+
+  link: (data: { client_code: string; consent_version: string }): Promise<BrokerLinkInfo> =>
+    request('/broker/link', { method: 'POST', body: JSON.stringify({ ...data, consent: true }) }),
+
+  /** Stops reading the broker; with `deleteData`, also removes the trades and fills synced from it. */
+  unlink: (deleteData: boolean): Promise<{ success: boolean; deleted_data: boolean }> =>
+    request(`/broker/link?delete_data=${deleteData}`, { method: 'DELETE' }),
+
+  syncNow: (): Promise<BrokerSyncSummary> => request('/broker/sync', { method: 'POST' }),
+
+  /** Confirms the current consent wording, after it changed since they linked. */
+  reconsent: (consentVersion: string): Promise<BrokerLinkInfo> =>
+    request('/broker/consent', { method: 'POST', body: JSON.stringify({ consent: true, consent_version: consentVersion }) }),
 };
 
 // Export all implemented APIs
@@ -365,4 +439,5 @@ export const api = {
   goals,
   strategies,
   bulkImport,
+  broker,
 };

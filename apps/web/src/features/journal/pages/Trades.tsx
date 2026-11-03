@@ -47,7 +47,7 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Upload, Download, FileText, X, Copy, ArrowDown, ArrowUp, ChevronsUpDown, Link2 } from "lucide-react";
 import { csvCell, downloadTextFile } from "@/lib/uploadFile";
 import ImportTradesDialog from "../components/ImportTradesDialog";
 import TradeDetailsDialog from "../components/TradeDetailsDialog";
@@ -536,6 +536,15 @@ export default function Trades() {
                             >
                               <Copy className="h-3 w-3" />
                               Duplicate
+                            </span>
+                          )}
+                          {trade.source === "xts" && (
+                            <span
+                              className="inline-flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs font-medium text-muted-foreground"
+                              title="Added automatically from your broker. Brokerage and taxes aren't included yet."
+                            >
+                              <Link2 className="h-3 w-3" />
+                              Synced
                             </span>
                           )}
                         </div>

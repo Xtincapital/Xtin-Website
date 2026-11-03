@@ -27,7 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { User, SlidersHorizontal, CreditCard, Sparkles, Coins, Loader2, Trash2 } from "lucide-react";
+import { User, SlidersHorizontal, CreditCard, Sparkles, Coins, Loader2, Trash2, Link2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -44,6 +44,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import authService from "../../../services/authService";
 import { BACKEND_URL } from "../../../config/env";
 import JournalLayout from "../components/JournalLayout";
+import BrokerConnect from "../components/BrokerConnect";
 import { useJournalPlanStore, formatTokens } from "../store/useJournalPlanStore";
 import { strategies as strategiesApi, type Strategy } from "../lib/api";
 
@@ -169,6 +170,9 @@ export default function Settings() {
             <TabsTrigger value="preferences" className="gap-2">
               <SlidersHorizontal className="h-4 w-4" /> Preferences
             </TabsTrigger>
+            <TabsTrigger value="broker" className="gap-2">
+              <Link2 className="h-4 w-4" /> Broker
+            </TabsTrigger>
             <TabsTrigger value="plan" className="gap-2">
               <CreditCard className="h-4 w-4" /> Plan
             </TabsTrigger>
@@ -255,6 +259,11 @@ export default function Settings() {
               </CardContent>
             </Card>
             <StrategiesCard />
+          </TabsContent>
+
+          {/* Broker */}
+          <TabsContent value="broker">
+            <BrokerConnect isPro={isPro} />
           </TabsContent>
 
           {/* Plan */}

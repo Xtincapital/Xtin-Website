@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { downloadTextFile, importFileType } from "@/lib/uploadFile";
 import { api } from "../lib/api";
-import type { ImportedTrade } from "../lib/api";
+import type { FillsSummary, ImportedTrade } from "../lib/api";
 import { journalSampleMode } from "../lib/sampleData";
 
 const TEMPLATE_CSV = [
@@ -23,6 +23,16 @@ const TEMPLATE_CSV = [
   "2025-01-15,RELIANCE,Buy,50,2450.5,2478.25,40,Breakout,Equity,INR,Sample row - replace me",
   "2025-01-16,NIFTY 22500 CE,Sell,75,120,95,60,Iron Condor,Options,INR,",
 ].join("\n");
+
+// One row per execution, as most brokers export their tradebook; buys and sells are paired into trades.
+// Keep in step with the headers fillsImport.ts reads (services/api/modules/journal).
+const TRADEBOOK_TEMPLATE_CSV = [
+  "Date,Time,Symbol,Buy/Sell,Quantity,Price,Product,Brokerage",
+  "2025-01-15,09:20:00,RELIANCE,Buy,50,2450.5,MIS,20",
+  "2025-01-15,10:05:00,RELIANCE,Sell,50,2478.25,MIS,20",
+].join("\n");
+
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
 interface Props {
   open: boolean;
@@ -36,6 +46,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
   const [rows, setRows] = useState<ImportedTrade[]>([]);
   const [includeDuplicates, setIncludeDuplicates] = useState(false);
   const [skipped, setSkipped] = useState(0);
+  const [fills, setFills] = useState<FillsSummary | null>(null);
   const [parsing, setParsing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -44,6 +55,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     setFileName("");
     setRows([]);
     setSkipped(0);
+    setFills(null);
     setProgress(0);
     setIncludeDuplicates(false);
     if (inputRef.current) inputRef.current.value = "";
@@ -58,6 +70,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
     }
     setParsing(true);
     setRows([]);
+    setFills(null);
     setFileName(file.name);
     try {
       const res = await api.bulkImport.parse(file, type);
@@ -67,8 +80,13 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
       setRows(parsed);
       setIncludeDuplicates(false);
       setSkipped(res.skipped ?? 0);
+      setFills(res.fills ?? null);
       if (!res.trades?.length) {
-        toast.error("No trades found. Make sure the file has Date, Asset, Quantity and Entry/Exit price columns.");
+        toast.error(
+          res.fills
+            ? `We read ${plural(res.fills.fills, "execution", "executions")}, but none of them make a finished trade yet.`
+            : "No trades found. Make sure the file has Date, Asset, Quantity and Entry/Exit price columns.",
+        );
       }
     } catch (err: any) {
       toast.error(err?.message || "Could not read that file");
@@ -126,7 +144,7 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
         <DialogHeader>
           <DialogTitle>Import trades</DialogTitle>
           <DialogDescription>
-            Upload a CSV, Excel or PDF statement. We read the trades out of it and show a preview before anything is saved.
+            Upload a CSV, Excel or PDF statement, or your broker's tradebook (one row per buy or sell, which we pair into trades). We show a preview before anything is saved.
           </DialogDescription>
         </DialogHeader>
 
@@ -147,6 +165,10 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
               <Download className="mr-2 h-4 w-4" />
               Download CSV template
             </Button>
+            <Button type="button" variant="ghost" onClick={() => downloadTextFile("journal-tradebook-template.csv", TRADEBOOK_TEMPLATE_CSV)}>
+              <Download className="mr-2 h-4 w-4" />
+              Tradebook template
+            </Button>
             {fileName && (
               <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 <FileSpreadsheet className="h-4 w-4" />
@@ -154,6 +176,24 @@ export default function ImportTradesDialog({ open, onOpenChange, onImported }: P
               </span>
             )}
           </div>
+
+          {fills && (
+            <div className="rounded-md border p-3 text-sm" role="status">
+              <p>
+                Read <strong>{plural(fills.fills, "execution", "executions")}</strong> from your tradebook and paired them into <strong>{plural(fills.trades, "trade", "trades")}</strong>.
+              </p>
+              {fills.open > 0 && (
+                <p className="mt-1 text-muted-foreground">
+                  {plural(fills.open, "position is", "positions are")} still open (bought but not sold in this file, or the reverse), so {fills.open === 1 ? "it isn't" : "they aren't"} included.
+                </p>
+              )}
+              {fills.unmatched > 0 && (
+                <p className="mt-1 text-muted-foreground">
+                  {plural(fills.unmatched, "sale has", "sales have")} no purchase in this file, for example shares bought before it begins, so {fills.unmatched === 1 ? "it's" : "they're"} left out.
+                </p>
+              )}
+            </div>
+          )}
 
           {rows.length > 0 && (
             <>

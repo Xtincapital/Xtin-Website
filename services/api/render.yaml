@@ -49,6 +49,15 @@ services:
   # database/migrations/0002_newsletter_runs.sql and
   # modules/newsletter/newsletterRunner.ts). Needs the exact same env vars
   # as the web service above (Supabase + AI + email keys).
+  #
+  # The same worker also runs the BROKER SYNC timetable (3:45 PM, 5:30 PM and
+  # 11:45 PM IST on weekdays, plus a catch-up after a restart), which is the
+  # better home for it: a sweep of a few hundred customers takes 10-20 minutes
+  # and a free web service can go idle part-way. If you use the worker for this,
+  # also give it the XTS_* variables (see sample.env and
+  # modules/journal/broker/README.md) and set DISABLE_BROKER_SYNC_CRON=true on
+  # the web service. Only one sync ever runs at a time, so leaving both on is
+  # safe too.
   # ------------------------------------------------------------------------
   # - type: worker
   #   name: xtincapital-newsletter-worker

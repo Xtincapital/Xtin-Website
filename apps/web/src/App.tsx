@@ -74,6 +74,7 @@ if (typeof window !== 'undefined') {
 }
 const AdminHome = lazy(() => import('./features/admin/pages/AdminHome'));
 const AdminCoupons = lazy(() => import('./features/admin/pages/AdminCoupons'));
+const AdminBrokerLinks = lazy(() => import('./features/admin/pages/AdminBrokerLinks'));
 const StepUpSIPCalculator = lazy(() => import('./features/tools/components/step-up-sip'));
 const ELSSCalculator = lazy(() => import('./features/tools/components/elss'));
 const LumpsumCalculator = lazy(() => import('./features/tools/components/lumpsum'));
@@ -727,6 +728,7 @@ function App() {
         {/* Admin hub: links every admin page */}
         <Route path="/admin" element={<ProtectedRoute adminOnly><AdminHome /></ProtectedRoute>} />
         <Route path="/admin/coupons" element={<ProtectedRoute adminOnly><AdminCoupons /></ProtectedRoute>} />
+        <Route path="/admin/broker-links" element={<ProtectedRoute adminOnly><AdminBrokerLinks /></ProtectedRoute>} />
         {/* Admin Certificate Management */}
         <Route
           path="/admin/certificates"

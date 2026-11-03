@@ -23,6 +23,7 @@
 // faithful line-for-line port.
 import * as XLSX from "xlsx";
 import { pdfLineCells, pdfTextLines } from "../../utils/pdfText.js";
+import { fillRowsToTrades, type FillsSummary } from "./fillsImport.js";
 
 /** P&L of a closed trade, net of brokerage; null until quantity, entry and exit are all known.
  * Used for CSV import and for trades saved without a P&L, so both give the same number. */
@@ -41,6 +42,8 @@ export function computeTradePnl(t: {
 /** Filled in by the parsers: how many non-blank rows could not be turned into a trade. */
 export interface ImportStats {
     skipped: number;
+    /** Set when the file was a tradebook (one row per execution) and its executions were paired into trades. */
+    fills?: FillsSummary;
 }
 
 /** Trimmed text, or null when the cell is missing or blank. */
@@ -83,6 +86,8 @@ export interface ParsedImportTrade {
     underlying_price: number | null;
     implied_volatility: number | null;
     days_to_expiry: number | null;
+    /** The full contract symbol for options and futures; only set when read from a tradebook. */
+    contract?: string | null;
 }
 
 /** Port of `normalize_import_header`: strips currency symbols/punctuation from a
@@ -318,6 +323,9 @@ export function mapImportRowToTrade(row: Record<string, unknown>): ParsedImportT
  * headers) into trade dicts, skipping blank rows. */
 export function rowsToImportTrades(rows: unknown[][], stats?: ImportStats): ParsedImportTrade[] {
     if (rows.length < 2) return [];
+    // A tradebook has a row per execution rather than per finished trade; those are paired first.
+    const fromFills = fillRowsToTrades(rows, stats, { normalizeImportHeader, importHeaderAliases, parseImportNumber, parseImportDate });
+    if (fromFills) return fromFills;
     const headers = (rows[0] || []).map((cell) => normalizeImportHeader(cell));
     const trades: ParsedImportTrade[] = [];
     for (const row of rows.slice(1)) {
@@ -338,12 +346,16 @@ export function rowsToImportTrades(rows: unknown[][], stats?: ImportStats): Pars
  * CSV text (SheetJS treats a plain string `read()` input as CSV) rather than hand-rolling
  * a quoted-field CSV tokenizer. */
 export function parseCsvImport(content: Buffer, stats?: ImportStats): ParsedImportTrade[] {
+    return rowsToImportTrades(csvRows(content), stats);
+}
+
+/** The rows of a CSV file (first row = headers), before any reading of them as trades. */
+export function csvRows(content: Buffer): unknown[][] {
     let text = content.toString("utf8");
     if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
     const workbook = XLSX.read(text, { type: "string", raw: true });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
-    return rowsToImportTrades(rows, stats);
+    return XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
 }
 
 /** Port of `parse_excel_import`. The Python original branches on `.xls` (xlrd) vs
@@ -352,10 +364,14 @@ export function parseCsvImport(content: Buffer, stats?: ImportStats): ParsedImpo
  * `Date` objects, mirroring the Python source's `xlrd.xldate_as_tuple`/openpyxl
  * `datetime` cells (parseImportDate's `instanceof Date` branch handles them). */
 export function parseExcelImport(content: Buffer, stats?: ImportStats): ParsedImportTrade[] {
+    return rowsToImportTrades(excelRows(content), stats);
+}
+
+/** The rows of an Excel file's first sheet (first row = headers). */
+export function excelRows(content: Buffer): unknown[][] {
     const workbook = XLSX.read(content, { type: "buffer", cellDates: true });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
-    return rowsToImportTrades(rows, stats);
+    return XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1, raw: true, defval: "" });
 }
 
 const PDF_DATE_REGEX = /\b(\d{4}[-/.]\d{2}[-/.]\d{2}|\d{1,2}[-/.]\d{1,2}[-/.]\d{4}|\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})\b/;
@@ -448,7 +464,10 @@ export function pdfTableTrades(lines: string[], stats?: ImportStats): ParsedImpo
         const body = lines.slice(i + 1).map(pdfLineCells).filter((cells) => cells.length >= 3);
         const trades = rowsToImportTrades([header, ...body], local);
         if (trades.length) {
-            if (stats) stats.skipped += local.skipped;
+            if (stats) {
+                stats.skipped += local.skipped;
+                if (local.fills) stats.fills = local.fills;
+            }
             return trades;
         }
     }
